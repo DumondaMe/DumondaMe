@@ -2,11 +2,12 @@
 
 let cdn = require('../../../cdn');
 let tmp = require('tmp');
+let _ = require('lodash');
 let fs = require('fs');
 let path = require('path');
 
 let preProcessing = function (templateData, attachments) {
-    let result = {attachments: attachments}, imageData, userImage = tmp.fileSync({postfix: '.jpg'});
+    let result = {attachments: _ .cloneDeep(attachments)}, imageData, userImage = tmp.fileSync({postfix: '.jpg'});
     result.subject = `Einladung von ${templateData.name}`;
     imageData = cdn.getObject(`profileImage/${templateData.userId}/profile.jpg`);
     fs.writeFileSync(userImage.name, imageData.Body);

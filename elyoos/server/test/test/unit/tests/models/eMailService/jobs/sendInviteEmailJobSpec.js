@@ -6,6 +6,8 @@ let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let sinon = require('sinon');
 let expect = require('chai').expect;
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
 
 describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
@@ -26,26 +28,55 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
         sandbox.restore();
     });
 
-    it('Send invite emails to all email addresses in the list', function () {
+    it('Send invite emails to all email addresses in the list', function (done) {
 
-        let finished = sinon.spy(), sendEMail = sandbox.stub(email, 'sendEMail');
-        sendEMail.returns(true);
-        return testee.processDefinition({
-            userId: '1',
-            name: 'user Meier'
-        }, finished).then(function () {
+        let finished, sendEMail = sandbox.stub(email, 'sendEMail');
+        sendEMail.returns(Promise.resolve());
+
+        finished = function () {
             expect(sendEMail.callCount).to.equals(3);
 
             expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user8@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user9@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user10@irgendwo.ch').calledOnce).to.equal(true);
-            expect(finished.calledOnce).to.be.true;
 
-            return db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
+            db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
                 .where("user.invitationSent = true").return("user")
-                .end().send();
-        }).then(function (resp) {
-            expect(resp.length).to.equal(3);
-        });
+                .end().send().then(function (resp) {
+                expect(resp.length).to.equal(3);
+                done();
+            });
+        };
+        testee.processDefinition({
+            userId: '1',
+            name: 'user Meier'
+        }, finished);
+    });
+
+    it('Send invite emails to all email addresses in the list. Second failed to send', function (done) {
+
+        let finished, sendEMail = sandbox.stub(email, 'sendEMail');
+        sendEMail.onCall(0).returns(Promise.resolve());
+        sendEMail.onCall(1).returns(Promise.reject());
+        sendEMail.returns(Promise.resolve());
+
+        finished = function () {
+            expect(sendEMail.callCount).to.equals(3);
+
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user8@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user9@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user10@irgendwo.ch').calledOnce).to.equal(true);
+
+            db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
+                .where("user.invitationSent = true").return("user")
+                .end().send().then(function (resp) {
+                expect(resp.length).to.equal(2);
+                done();
+            });
+        };
+        testee.processDefinition({
+            userId: '1',
+            name: 'user Meier'
+        }, finished);
     });
 });

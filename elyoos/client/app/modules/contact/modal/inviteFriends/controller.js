@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
-    function (ElyModal, ImportGmxContacts, ImportWebDeContacts) {
+module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
+    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
@@ -79,8 +79,20 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
+        var getEmails = function (selectedAddresses) {
+            var addresses = [];
+            selectedAddresses.forEach(function (selectedAddress) {
+                addresses.push(selectedAddress.email);
+            });
+            return addresses;
+        };
 
-        ctrl.accept = function (mode) {
-
+        ctrl.upload = function () {
+            ctrl.uploadStarted = true;
+            SendInviteEmail.save({emails: getEmails(ctrl.selectedAddresses)}, function () {
+                ctrl.uploadStarted = false;
+            }, function () {
+                ctrl.uploadStarted = false;
+            });
         };
     }];

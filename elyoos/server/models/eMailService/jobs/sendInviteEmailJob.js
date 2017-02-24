@@ -18,27 +18,32 @@ let getInvitationToSend = function (userId) {
         });
 };
 
-let setInvitationSentFlag = function (userId, sentEmails) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
-        .where("invitedUser.email IN {sentEmails}")
-        .set("invitedUser", {invitationSent: true})
-        .end({userId: userId, sentEmails: sentEmails}).send();
+let setInvitationSentFlag = function (userId, sentEmails, numberOfRequestedEmails, numberOfTotalRequests, done) {
+    if (numberOfRequestedEmails === numberOfTotalRequests) {
+        db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
+            .where("invitedUser.email IN {sentEmails}")
+            .set("invitedUser", {invitationSent: true})
+            .end({userId: userId, sentEmails: sentEmails}).send().then(function () {
+            done();
+        });
+    }
 };
 
 let processDefinition = function (data, done) {
 
     return getInvitationToSend(data.userId).then(function (invitedUsers) {
-        let sentEmails = [];
+        let sentEmails = [], requestEmails = [];
         invitedUsers.forEach(function (invitedUser) {
-            if (email.sendEMail("invitePerson", {name: data.name, userId: data.userId}, invitedUser)) {
+            email.sendEMail("invitePerson", {name: data.name, userId: data.userId}, invitedUser).then(function () {
                 sentEmails.push(invitedUser);
-            }
+                requestEmails.push(invitedUser);
+                setInvitationSentFlag(data.userId, sentEmails, requestEmails.length, invitedUsers.length, done);
+            }).catch(function () {
+                requestEmails.push(invitedUser);
+                setInvitationSentFlag(data.userId, sentEmails, requestEmails.length, invitedUsers.length, done);
+            });
         });
         return sentEmails;
-    }).then(function (sentEmails) {
-        return setInvitationSentFlag(data.userId, sentEmails);
-    }).then(function () {
-        done();
     });
 };
 

@@ -1,7 +1,7 @@
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
     <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth && !ctrl.showAddEmails">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
-        <div id="contact-import-source-container" ng-hide="ctrl.importStarted">
+        <div id="contact-import-source-container" ng-hide="ctrl.importStarted || ctrl.uploadStarted">
             <div class="title" hide show-gt-xs>Importieren von:</div>
             <div layout="row" layout-wrap>
                 <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
@@ -23,7 +23,7 @@
         <div ng-show="ctrl.importStarted" class="load-screen-container">
             <ely-load-screen></ely-load-screen>
         </div>
-        <md-dialog-content class="md-dialog-content ely-dialog-content" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
+        <md-dialog-content class="md-dialog-content ely-dialog-content" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted && !ctrl.uploadStarted>
             <div id="contact-list-container">
                 <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1">
                     <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
@@ -44,18 +44,17 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0">
+            <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0 && !ctrl.uploadStarted">
                 <span id="select-number">{{ctrl.selectedAddresses.length}}</span>
                 <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length === 1">E-Mail-Addresse </span>
                 <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length > 1">E-Mail-Addressen </span> ausgewählt
             </div>
             <span flex></span>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-raised md-primary" ng-click="" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.upload()" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
         </md-dialog-actions>
     </form>
     <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails"></ely-import-add-email-address>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
                            finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
-    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>
