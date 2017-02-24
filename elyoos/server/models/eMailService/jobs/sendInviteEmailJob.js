@@ -1,7 +1,10 @@
 "use strict";
 
 let db = requireDb();
+let tmp = require('tmp');
 let email = require('elyoos-server-lib').eMail;
+let cdn = require('elyoos-server-lib').cdn;
+let fs = require('fs');
 
 let getInvitationToSend = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
@@ -18,8 +21,16 @@ let getInvitationToSend = function (userId) {
         });
 };
 
-let setInvitationSentFlag = function (userId, sentEmails, numberOfRequestedEmails, numberOfTotalRequests, done) {
+let getUserImage = function (userId) {
+    let imageData, userImage = tmp.fileSync({postfix: '.jpg'});
+    imageData = cdn.getObject(`profileImage/${userId}/profile.jpg`);
+    fs.writeFileSync(userImage.name, imageData.Body);
+    return userImage;
+};
+
+let setInvitationSentFlag = function (userId, sentEmails, userImage, numberOfRequestedEmails, numberOfTotalRequests, done) {
     if (numberOfRequestedEmails === numberOfTotalRequests) {
+        userImage.removeCallback();
         db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
             .where("invitedUser.email IN {sentEmails}")
             .set("invitedUser", {invitationSent: true})
@@ -32,15 +43,15 @@ let setInvitationSentFlag = function (userId, sentEmails, numberOfRequestedEmail
 let processDefinition = function (data, done) {
 
     return getInvitationToSend(data.userId).then(function (invitedUsers) {
-        let sentEmails = [], requestEmails = [];
+        let sentEmails = [], requestEmails = [], userImage = getUserImage(data.userId);
         invitedUsers.forEach(function (invitedUser) {
-            email.sendEMail("invitePerson", {name: data.name, userId: data.userId}, invitedUser).then(function () {
+            email.sendEMail("invitePerson", {name: data.name, userId: data.userId, userImage: userImage}, invitedUser).then(function () {
                 sentEmails.push(invitedUser);
                 requestEmails.push(invitedUser);
-                setInvitationSentFlag(data.userId, sentEmails, requestEmails.length, invitedUsers.length, done);
+                setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
             }).catch(function () {
                 requestEmails.push(invitedUser);
-                setInvitationSentFlag(data.userId, sentEmails, requestEmails.length, invitedUsers.length, done);
+                setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
             });
         });
         return sentEmails;

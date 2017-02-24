@@ -8,6 +8,8 @@ let sinon = require('sinon');
 let expect = require('chai').expect;
 let bluebird = require('bluebird');
 let Promise = bluebird.Promise;
+let cdn = require('elyoos-server-lib').cdn;
+let fs = require('fs');
 
 describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
@@ -30,15 +32,21 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
     it('Send invite emails to all email addresses in the list', function (done) {
 
-        let finished, sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
+            cdnGetObject = sandbox.stub(cdn, 'getObject'), writeFileSync = sandbox.stub(fs, 'writeFileSync');
         sendEMail.returns(Promise.resolve());
+        cdnGetObject.returns(cdnObjectData);
 
         finished = function () {
             expect(sendEMail.callCount).to.equals(3);
+            expect(writeFileSync.calledOnce).to.equals(true);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user10@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user8@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user9@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user10@irgendwo.ch').calledOnce).to.equal(true);
 
             db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
                 .where("user.invitationSent = true").return("user")
@@ -55,17 +63,22 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
     it('Send invite emails to all email addresses in the list. Second failed to send', function (done) {
 
-        let finished, sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
+            cdnGetObject = sandbox.stub(cdn, 'getObject'), writeFileSync = sandbox.stub(fs, 'writeFileSync');
         sendEMail.onCall(0).returns(Promise.resolve());
         sendEMail.onCall(1).returns(Promise.reject());
         sendEMail.returns(Promise.resolve());
+        cdnGetObject.returns(cdnObjectData);
 
         finished = function () {
             expect(sendEMail.callCount).to.equals(3);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1'}, 'user10@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user8@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user9@irgendwo.ch').calledOnce).to.equal(true);
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+                'user10@irgendwo.ch').calledOnce).to.equal(true);
 
             db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
                 .where("user.invitationSent = true").return("user")
