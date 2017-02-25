@@ -24,21 +24,30 @@
   #add-contact .ely-dialog-title {
     margin-bottom: 32px; }
 
-@media screen and (min-width: 600px) {
-  #invite-friends-dialog #add-email-container {
-    min-width: 400px; } }
-#invite-friends-dialog #add-email-container #overview-valid-email-container .valid-email {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.54);
-  margin-bottom: 6px; }
-  #invite-friends-dialog #add-email-container #overview-valid-email-container .valid-email .email-suggestion {
-    font-size: 14px; }
-    #invite-friends-dialog #add-email-container #overview-valid-email-container .valid-email .email-suggestion .link {
-      text-decoration: underline;
-      font-style: italic;
-      cursor: pointer;
-      color: #3F51B5; }
+#invite-friends-dialog #add-email-container {
+  max-height: 100%; }
+  @media screen and (min-width: 600px) {
+    #invite-friends-dialog #add-email-container {
+      min-width: 400px; } }
+  #invite-friends-dialog #add-email-container #ely-contact-input {
+    padding: 0 24px; }
+  #invite-friends-dialog #add-email-container .ely-dialog-content {
+    padding: 0; }
+    #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container {
+      overflow-y: auto;
+      padding: 0 24px; }
+      #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54);
+        margin-bottom: 6px; }
+        #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion {
+          font-size: 14px; }
+          #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion .link {
+            text-decoration: underline;
+            font-style: italic;
+            cursor: pointer;
+            color: #3F51B5; }
 
 @media screen and (min-width: 600px) {
   #invite-friends-dialog .ely-import-basic-auth {
