@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
-    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail) {
+module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper',
+    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
@@ -43,11 +43,11 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
         };
 
         ctrl.emailExists = function (item, selectedList) {
-            return selectedList.indexOf(item) > -1;
+            return ArrayHelper.getIndex(selectedList, item, 'email') > -1;
         };
 
         ctrl.toggleEmail = function (item, selectedList) {
-            var idx = selectedList.indexOf(item);
+            var idx = ArrayHelper.getIndex(selectedList, item, 'email');
             if (idx > -1) {
                 selectedList.splice(idx, 1);
             }
@@ -66,8 +66,8 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
         };
 
         ctrl.addEmails = function (emails) {
-            ctrl.selectedAddresses = ctrl.selectedAddresses.concat(emails);
-            ctrl.contacts.addresses = ctrl.contacts.addresses.concat(emails);
+            ctrl.selectedAddresses = ArrayHelper.uniqueArray(ctrl.selectedAddresses.concat(emails), 'email');
+            ctrl.contacts.addresses = ArrayHelper.uniqueArray(ctrl.contacts.addresses.concat(emails), 'email');
             ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
         };

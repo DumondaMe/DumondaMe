@@ -16,8 +16,8 @@ let schemaInviteFriends = {
             type: 'array',
             items: {type: 'string', format: 'notEmptyString', maxLength: 255},
             minItems: 1,
-            maxItems: 1000/*,
-            uniqueItems: true*/
+            maxItems: 1000,
+            uniqueItems: true
         }
     }
 };

@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['SourceImportModification', function (SourceImportModification) {
+module.exports = ['SourceImportModification', 'ArrayHelper', function (SourceImportModification, ArrayHelper) {
     var ctrl = this;
 
     ctrl.loadAddressBook = function () {
         delete ctrl.errorMessage;
         ctrl.basicAuthContacts = ctrl.service.get({password: ctrl.password, username: ctrl.username}, function () {
             SourceImportModification.addSourceDescription(ctrl.basicAuthContacts.addresses, ctrl.serviceName);
-            ctrl.contacts.addresses = ctrl.contacts.addresses.concat(ctrl.basicAuthContacts.addresses);
+            ctrl.contacts.addresses = ArrayHelper.uniqueArray(ctrl.contacts.addresses.concat(ctrl.basicAuthContacts.addresses), 'email');
             ctrl.finish(ctrl.serviceName);
         }, function (resp) {
             if (resp.status === 401) {
