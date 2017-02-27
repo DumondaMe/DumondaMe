@@ -1,60 +1,67 @@
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
-    <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth && !ctrl.showAddEmails">
+    <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth && !ctrl.showAddEmails && !ctrl.showSendEmailAddresses">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
-        <div id="contact-import-source-container" ng-hide="ctrl.importStarted || ctrl.uploadStarted">
-            <div class="title" hide show-gt-xs>Importieren von:</div>
-            <div layout="row" layout-wrap>
-                <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                  contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('gmail')"></ely-import-gmail>
-                <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                    contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('outlook')"></ely-import-outlook>
-                <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                  contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('yahoo')"></ely-import-yahoo>
-                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"
-                                ng-hide="ctrl.successfullyImportedServices.includes('GMX')"></ely-import-gmx>
-                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
-                                   ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
-                <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
-                    <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen" show-label-always="true"
-                                     ng-click="ctrl.showAddEmails = true"></ely-icon-button>
-                </div>
-            </div>
-        </div>
         <div ng-show="ctrl.importStarted" class="load-screen-container">
             <ely-load-screen></ely-load-screen>
         </div>
-        <md-dialog-content class="md-dialog-content ely-dialog-content" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted && !ctrl.uploadStarted>
-            <div id="contact-list-container">
-                <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1">
-                    <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
-                        Alle E-Mail-Addressen auswählen
-                    </md-checkbox>
+        <md-dialog-content id="invite-friends-dialog-content" ng-show="!ctrl.importStarted" layout="column">
+            <div class="md-dialog-content ely-dialog-content" layout="column">
+                <div id="contact-import-source-container" flex="none">
+                    <div class="title" hide show-gt-xs>Importieren von:</div>
+                    <div layout="row" layout-wrap>
+                        <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                          contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('gmail')"></ely-import-gmail>
+                        <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                            contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('outlook')"></ely-import-outlook>
+                        <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                          contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('yahoo')"></ely-import-yahoo>
+                        <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"
+                                        ng-hide="ctrl.successfullyImportedServices.includes('GMX')"></ely-import-gmx>
+                        <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
+                                           ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
+                        <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
+                            <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen" show-label-always="true"
+                                             ng-click="ctrl.showAddEmails = true"></ely-icon-button>
+                        </div>
+                    </div>
                 </div>
-                <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
-                    <div>
-                        <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
-                                     aria-label="Select Email {{contact.email}}">
-                            {{contact.email}} <br/>
-                            <span class="name">{{contact.name}}
+                <div id="contact-list-container" flex="auto" ng-show="ctrl.contacts.addresses.length > 0">
+                    <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1">
+                        <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
+                            Alle E-Mail-Addressen auswählen
+                        </md-checkbox>
+                    </div>
+                    <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
+                        <div>
+                            <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
+                                         aria-label="Select Email {{contact.email}}">
+                                {{contact.email}} <br/>
+                                <span class="name">{{contact.name}}
                                 <span ng-if="contact.sourceImportDescription">(Importiert von {{contact.sourceImportDescription}})</span>
                             </span>
-                        </md-checkbox>
+                            </md-checkbox>
+                        </div>
                     </div>
                 </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0 && !ctrl.uploadStarted">
+            <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0">
                 <span id="select-number">{{ctrl.selectedAddresses.length}}</span>
                 <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length === 1">E-Mail-Addresse </span>
                 <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length > 1">E-Mail-Addressen </span> ausgewählt
             </div>
             <span flex></span>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-raised md-primary" ng-click="ctrl.upload()" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.openSendInvitation()"
+                       ng-disabled="ctrl.selectedAddresses.length === 0">Weiter
+            </md-button>
         </md-dialog-actions>
     </form>
-    <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails"></ely-import-add-email-address>
+    <ely-send-email-invitation ng-if="ctrl.showSendEmailAddresses" addresses="ctrl.selectedEmails" cancel="ctrl.closeSendInvitation">
+    </ely-send-email-invitation>
+    <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails">
+    </ely-import-add-email-address>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
                            finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
 </md-dialog>

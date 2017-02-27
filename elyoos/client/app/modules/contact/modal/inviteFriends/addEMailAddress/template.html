@@ -1,9 +1,9 @@
 <form name="ctrl.addEmailAddressForm" id="add-email-container">
     <div class="md-title ely-dialog-title">E-Mail-Addressen hinzufügen</div>
-    <md-dialog-content layout="column">
-        <div class="md-dialog-content ely-dialog-content" layout="column" flex>
-            <div id="ely-contact-input">
-                <md-input-container class="input-element md-block" flex="none">
+    <md-dialog-content id="add-email-container-container" layout="column">
+        <div class="md-dialog-content ely-dialog-content" layout="column">
+            <div id="ely-contact-input" flex="auto">
+                <md-input-container class="input-element md-block">
                     <label>E-Mail-Addressen</label>
                     <textarea name="emailAddresses" id="emailAddresses" aria-label="Email" ng-change="ctrl.emailChanged()"
                               ng-model="ctrl.newEmailAddresses" max-rows="4"></textarea>
@@ -13,7 +13,7 @@
                     </div>
                 </md-input-container>
             </div>
-            <div id="overview-valid-email-container" flex>
+            <div id="overview-valid-email-container" flex="auto">
                 <div ng-repeat="email in ctrl.overviewValidEmails" class="valid-email">
                     {{email.email}}
                     <span class="email-suggestion" ng-if="email.suggestion">

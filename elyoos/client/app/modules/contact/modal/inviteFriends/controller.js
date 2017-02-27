@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper',
-    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper) {
+module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails',
+    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
@@ -79,20 +79,13 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
-        var getEmails = function (selectedAddresses) {
-            var addresses = [];
-            selectedAddresses.forEach(function (selectedAddress) {
-                addresses.push(selectedAddress.email);
-            });
-            return addresses;
+
+        ctrl.openSendInvitation = function () {
+            ctrl.selectedEmails = InviteFriendsSelectedEMails.getEmails(ctrl.selectedAddresses);
+            ctrl.showSendEmailAddresses = true;
         };
 
-        ctrl.upload = function () {
-            ctrl.uploadStarted = true;
-            SendInviteEmail.save({emails: getEmails(ctrl.selectedAddresses)}, function () {
-                ctrl.uploadStarted = false;
-            }, function () {
-                ctrl.uploadStarted = false;
-            });
+        ctrl.closeSendInvitation = function () {
+            ctrl.showSendEmailAddresses = false;
         };
     }];

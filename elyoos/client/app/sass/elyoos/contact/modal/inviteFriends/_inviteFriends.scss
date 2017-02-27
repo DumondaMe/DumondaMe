@@ -1,48 +1,54 @@
 #invite-friends-dialog {
-  @media screen and (max-width: $gt-xs) {
-    max-height: 95%;
-  }
-  @media screen and (min-width: $gt-xs) {
-    min-width: 550px;
-  }
-  @media screen and (min-width: $gt-sm) {
-    min-width: 800px;
-  }
+  max-height: 100%;
   .ely-dialog-title {
     padding: 16px 24px;
     margin-bottom: 0;
     border-bottom: 1px solid $divider;
   }
-  #contact-import-source-container {
-    padding: 12px 24px 0 24px;
-    .title {
-      font-size: 14px;
-      font-weight: 700;
-      color: $secondary-text;
-      margin-bottom: 12px;
-    }
-    #open-custom-emails {
-      margin-left: 0;
-      .md-fab {
-        margin-left: 0;
-      }
-    }
-  }
-  .ely-dialog-content {
-    padding-top: 0;
-    #contact-list-container {
-      padding-top: 18px;
-      overflow-y: auto;
-      .contact-list-element {
-        margin-bottom: 8px;
-        .name {
-          font-size: 12px;
+  #invite-friends-dialog-content {
+    height: 100%;
+    .ely-dialog-content {
+      padding-top: 0;
+      height: 100%;
+      #contact-import-source-container {
+        margin-top: 12px;
+        margin-bottom: 18px;
+        @media screen and (max-width: $gt-xs) {
+          max-height: 95%;
+        }
+        @media screen and (min-width: $gt-xs) {
+          min-width: 430px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          min-width: 700px;
+        }
+        .title {
+          font-size: 14px;
+          font-weight: 700;
           color: $secondary-text;
+          margin-bottom: 12px;
+        }
+        #open-custom-emails {
+          margin-left: 0;
+          .md-fab {
+            margin-left: 0;
+          }
         }
       }
-      .contact-list-element.select-all-element {
-        border-bottom: 1px solid $divider;
-        margin-bottom: 22px
+      #contact-list-container {
+        overflow-y: auto;
+        height: 100%;
+        .contact-list-element {
+          margin-bottom: 8px;
+          .name {
+            font-size: 12px;
+            color: $secondary-text;
+          }
+        }
+        .contact-list-element.select-all-element {
+          border-bottom: 1px solid $divider;
+          margin-bottom: 22px
+        }
       }
     }
   }

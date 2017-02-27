@@ -1,0 +1,43 @@
+<form name="ctrl.uploadEMailForm" id="send-email-invitation-container" layout="column">
+    <div class="md-title ely-dialog-title">Freunde einladen</div>
+    <div layout="column">
+        <md-dialog-content layout="column">
+            <div class="md-dialog-content ely-dialog-content" flex="auto" ng-hide="ctrl.uploadStarted || ctrl.successfullySent">
+                <div class="send-email-invitation-description">
+                    Möchtest du an diese <span class="number">{{ctrl.addresses.length}}</span> E-Mail-Addressen eine Einladung versenden?
+                </div>
+                <div id="overview-email-container">
+                    <div ng-repeat="email in ctrl.addresses" class="email-address">
+                        {{email}}
+                    </div>
+                </div>
+            </div>
+            <div class="md-dialog-content ely-dialog-content" ng-if="ctrl.uploadStarted">
+                <div class="send-email-invitation-description">
+                    Die Einladungen werden versendet.
+                </div>
+            </div>
+            <div class="md-dialog-content ely-dialog-content" ng-if="ctrl.successfullySent">
+                <div class="send-email-invitation-title-success">
+                    Einladungen erfolgreich versendet.
+                </div>
+                <div class="send-email-invitation-description-success">
+                    Vielen Dank das du mithilfst, den Bekanntheitsgrad von Elyoos zu steigern.
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.close()" ng-show="ctrl.successfullySent">
+                Ok
+            </md-button>
+            <md-button ng-click="ctrl.cancel()" ng-disabled="ctrl.uploadStarted" ng-hide="ctrl.successfullySent">
+                Zurück
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.upload()" ng-hide="ctrl.successfullySent"
+                       ng-disabled="ctrl.uploadStarted">Einladung senden
+            </md-button>
+        </md-dialog-actions>
+    </div>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</form>
