@@ -93,4 +93,22 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
             name: 'user Meier'
         }, finished);
     });
+
+    it('No invite email is sent because no request is pending', function (done) {
+
+        let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
+            cdnGetObject = sandbox.stub(cdn, 'getObject'), writeFileSync = sandbox.stub(fs, 'writeFileSync');
+        sendEMail.returns(Promise.resolve());
+        cdnGetObject.returns(cdnObjectData);
+
+        finished = function () {
+            expect(sendEMail.callCount).to.equals(0);
+            expect(writeFileSync.calledOnce).to.equals(false);
+            done();
+        };
+        testee.processDefinition({
+            userId: '3',
+            name: 'user Meier'
+        }, finished);
+    });
 });
