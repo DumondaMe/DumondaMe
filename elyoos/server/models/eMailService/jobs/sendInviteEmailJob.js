@@ -43,18 +43,22 @@ let setInvitationSentFlag = function (userId, sentEmails, userImage, numberOfReq
 let processDefinition = function (data, done) {
 
     return getInvitationToSend(data.userId).then(function (invitedUsers) {
-        let sentEmails = [], requestEmails = [], userImage = getUserImage(data.userId);
-        invitedUsers.forEach(function (invitedUser) {
-            email.sendEMail("invitePerson", {name: data.name, userId: data.userId, userImage: userImage}, invitedUser).then(function () {
-                sentEmails.push(invitedUser);
-                requestEmails.push(invitedUser);
-                setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
-            }).catch(function () {
-                requestEmails.push(invitedUser);
-                setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
+        if (invitedUsers.length > 0) {
+            let sentEmails = [], requestEmails = [], userImage = getUserImage(data.userId);
+            invitedUsers.forEach(function (invitedUser) {
+                email.sendEMail("invitePerson", {name: data.name, userId: data.userId, userImage: userImage}, invitedUser).then(function () {
+                    sentEmails.push(invitedUser);
+                    requestEmails.push(invitedUser);
+                    setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
+                }).catch(function () {
+                    requestEmails.push(invitedUser);
+                    setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
+                });
             });
-        });
-        return sentEmails;
+            return sentEmails;
+        } else {
+            done();
+        }
     });
 };
 
