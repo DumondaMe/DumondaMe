@@ -22,6 +22,7 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
             dbDsl.invitationSent('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'}]);
+            dbDsl.invitationSent('2', [{email: 'user20@irgendwo.ch'}, {email: 'user21@irgendwo.ch'}, {email: 'user220@irgendwo.ch'}]);
             return dbDsl.sendToDb();
         });
     });
