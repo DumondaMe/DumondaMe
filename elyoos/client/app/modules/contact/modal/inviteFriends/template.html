@@ -25,13 +25,20 @@
                         </div>
                     </div>
                 </div>
+                <div id="filter-contact" flex="none" ng-show="ctrl.contacts.addresses.length > 5" hide-xs>
+                    <md-input-container class="md-block">
+                        <label>E-Mail-Addressen Filtern</label>
+                        <input name="emailAddresses" id="emailAddresses" aria-label="Email" ng-model="ctrl.filterEmailAddresses.email"/>
+                    </md-input-container>
+                </div>
                 <div id="contact-list-container" flex="auto" ng-show="ctrl.contacts.addresses.length > 0">
-                    <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1">
+                    <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1 && !ctrl.showOnlySelected">
                         <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
                             Alle E-Mail-Addressen auswählen
                         </md-checkbox>
                     </div>
-                    <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
+                    <div ng-repeat="contact in ctrl.contactsToShow | orderBy:'email' | filter:ctrl.filterEmailAddresses"
+                         class="contact-list-element">
                         <div>
                             <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
                                          aria-label="Select Email {{contact.email}}">
@@ -48,8 +55,15 @@
         <md-dialog-actions>
             <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0">
                 <span id="select-number">{{ctrl.selectedAddresses.length}}</span>
-                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length === 1">E-Mail-Addresse </span>
-                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length > 1">E-Mail-Addressen </span> ausgewählt
+                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length === 1">E-Mail </span>
+                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length > 1">E-Mails </span> ausgewählt
+            </div>
+            <div id="only-selected" ng-show="(ctrl.selectedAddresses.length > 2 &&
+                    ctrl.selectedAddresses.length !== ctrl.contacts.addresses.length) || ctrl.showOnlySelected" hide-xs hide-sm>
+                <md-checkbox id="only-selected-checkbox" aria-label="Show only selected Email" ng-model="ctrl.showOnlySelected"
+                             ng-true-value="true" ng-false-value="false" ng-change="ctrl.onlySelectedChanged()">
+                    Nur ausgewählte E-Mails anzeigen
+                </md-checkbox>
             </div>
             <span flex></span>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>

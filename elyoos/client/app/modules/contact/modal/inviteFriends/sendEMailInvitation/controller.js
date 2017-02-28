@@ -8,12 +8,13 @@ module.exports = ['SendInviteEmail', 'ElyModal', function (SendInviteEmail, ElyM
     };
 
     ctrl.upload = function () {
-        ctrl.uploadStarted = true;
+        /*ctrl.uploadStarted = true;
         SendInviteEmail.save({emails: ctrl.addresses}, function () {
             ctrl.successfullySent = true;
             ctrl.uploadStarted = false;
         }, function () {
             ctrl.uploadStarted = false;
-        });
+        });*/
+        ctrl.successfullySent = true;
     };
 }];

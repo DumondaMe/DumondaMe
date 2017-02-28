@@ -19,6 +19,8 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             } else {
                 ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
+                ctrl.showOnlySelected = false;
+                ctrl.contactsToShow = ctrl.contacts.addresses;
             }
         };
 
@@ -39,6 +41,8 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             if (angular.isString(importSource)) {
                 ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
+                ctrl.showOnlySelected = false;
+                ctrl.contactsToShow = ctrl.contacts.addresses;
             }
         };
 
@@ -54,6 +58,12 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             else {
                 selectedList.push(item);
             }
+            ctrl.isSelectedAll = selectedList.length === ctrl.contacts.addresses.length;
+
+            if (selectedList.length === 0) {
+                ctrl.showOnlySelected = false;
+                ctrl.contactsToShow = ctrl.contacts.addresses;
+            }
         };
 
         ctrl.toggleAllEmailSelections = function () {
@@ -65,11 +75,21 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             }
         };
 
+        ctrl.onlySelectedChanged = function () {
+            if (ctrl.showOnlySelected) {
+                ctrl.contactsToShow = ctrl.selectedAddresses;
+            } else {
+                ctrl.contactsToShow = ctrl.contacts.addresses;
+            }
+        };
+
         ctrl.addEmails = function (emails) {
             ctrl.selectedAddresses = ArrayHelper.uniqueArray(ctrl.selectedAddresses.concat(emails), 'email');
             ctrl.contacts.addresses = ArrayHelper.uniqueArray(ctrl.contacts.addresses.concat(emails), 'email');
             ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
+            ctrl.showOnlySelected = false;
+            ctrl.contactsToShow = ctrl.contacts.addresses;
         };
 
         ctrl.closeAddCustomEmails = function () {

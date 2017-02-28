@@ -83,11 +83,11 @@
       padding-top: 0;
       height: 100%; }
       #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-        margin-top: 12px;
-        margin-bottom: 18px; }
+        margin-top: 12px; }
         @media screen and (max-width: 600px) {
           #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-            max-height: 95%; } }
+            max-height: 95%;
+            margin-bottom: 12px; } }
         @media screen and (min-width: 600px) {
           #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
             min-width: 430px; } }
@@ -103,6 +103,9 @@
           margin-left: 0; }
           #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container #open-custom-emails .md-fab {
             margin-left: 0; }
+      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #filter-contact {
+        height: 50px;
+        margin-bottom: 24px; }
       #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container {
         overflow-y: auto;
         height: 100%; }
@@ -126,6 +129,10 @@
     #invite-friends-dialog #select-info #select-number {
       font-weight: 500;
       color: #3F51B5; }
+  #invite-friends-dialog #only-selected #only-selected-checkbox {
+    margin-bottom: 1px;
+    margin-left: 24px;
+    font-size: 14px; }
 
 #invite-friends-dialog .ely-import-container {
   margin-bottom: 6px; }
