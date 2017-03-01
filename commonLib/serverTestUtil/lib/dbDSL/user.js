@@ -26,6 +26,13 @@ let createUser = function (userId, forename, surname, email) {
         .end({name: name, surname: surname, forename: forename, userId: userId, email: email}).getCommand());
 };
 
+let createUserRegisterRequest = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().create(`(:UserRegisterRequest {name: {name}, surname: {surname},
+    forename: {forename}, email: {email}, linkId: {linkId}, password: {password}, registerDate: {registerDate}})`)
+        .end({name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email,
+            linkId: data.linkId, password: data.password, registerDate: data.registerDate}).getCommand());
+};
+
 let blockUser = function (userId, blockedUserId) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (blockedUser:User {userId: {blockedUserId}})')
         .create(`(user)-[:IS_BLOCKED]->(blockedUser)`)
@@ -95,6 +102,7 @@ module.exports = {
     setUserLastLoginTime: setUserLastLoginTime,
     setUserIsElyoosAdmin: setUserIsElyoosAdmin,
     createUser: createUser,
+    createUserRegisterRequest: createUserRegisterRequest,
     blockUser: blockUser,
     invitationSent: invitationSent,
     createPrivacy: createPrivacy,

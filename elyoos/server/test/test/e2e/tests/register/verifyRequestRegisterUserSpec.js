@@ -1,16 +1,18 @@
 'use strict';
 
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let should = require('chai').should();
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 let randomstring = require("randomstring");
 let _ = require('lodash');
+let libUser = require('elyoos-server-lib').user();
 
 describe('Integration Tests for verify registering a new user', function () {
 
     let registerRequestUserValid = {
-        email: 'climberwoodi@gmx.ch',
+        email: 'info@elyoos.org',
         password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
         name: 'user Waldvogel',
         forename: 'user',
@@ -18,19 +20,16 @@ describe('Integration Tests for verify registering a new user', function () {
         linkId: randomstring.generate(64)
     }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000);
     beforeEach(function () {
-
-        return db.clearDatabase().then(function () {
-            let commands = [];
-
+        libUser.removeFromCache('info@elyoos.org');
+        return dbDsl.init(2).then(function () {
             registerRequestUserExpired = _.cloneDeep(registerRequestUserValid);
             registerRequestUserValid.registerDate = startTime;
             registerRequestUserExpired.registerDate = startTime - (60 * 60 * 12) - 1;
             registerRequestUserExpired.linkId = randomstring.generate(64);
-            commands.push(db.cypher().create(`(:UserRegisterRequest {data})`).end({data: registerRequestUserValid}).getCommand());
-            commands.push(db.cypher().create(`(:UserRegisterRequest {data})`).end({data: registerRequestUserExpired}).getCommand());
-
-            // User 2
-            return db.cypher().create("(:User {email: 'user2@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user2 Meier2', userId: '2'})").end().send(commands);
+            registerRequestUserExpired.email = 'info2@elyoos.org';
+            dbDsl.createUserRegisterRequest(registerRequestUserValid);
+            dbDsl.createUserRegisterRequest(registerRequestUserExpired);
+            return dbDsl.sendToDb();
         });
     });
 
@@ -44,7 +43,7 @@ describe('Integration Tests for verify registering a new user', function () {
             res.status.should.equal(200);
             res.body.email.should.equals(registerRequestUserValid.email);
 
-            return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'climberwoodi@gmx.ch'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
+            return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'info@elyoos.org'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
                 .return('user, friendPrivacy, noContactPrivacy').end().send();
         }).then(function (user) {
             user.length.should.equals(1);
@@ -69,7 +68,7 @@ describe('Integration Tests for verify registering a new user', function () {
         }).then(function (user) {
             user.length.should.equals(0);
             return requestHandler.login({
-                'username': 'climberwoodi@gmx.ch',
+                'username': 'info@elyoos.org',
                 'password': '1'
             });
         }).then(function (agent) {
