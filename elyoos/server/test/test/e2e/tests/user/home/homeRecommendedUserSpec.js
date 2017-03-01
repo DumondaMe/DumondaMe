@@ -120,6 +120,40 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
+    it('Contact recommendation for user with no contacts show only invitations (no contacting, with invitations)', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.createContactConnection('2', '3', 'Freund');
+        dbDsl.createContactConnection('4', '3', 'Freund');
+        dbDsl.createContactConnection('5', '3', 'Freund');
+        dbDsl.createContactConnection('6', '3', 'Freund');
+
+        dbDsl.inviteUser('3', '1');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser[0].userId.should.equals('3');
+            res.body.recommendedUser[0].name.should.equals('user Meier3');
+            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        });
+    });
+
     it('Contact Recommendation for user with contacts (no contacting)', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -222,6 +256,39 @@ describe('Integration Tests for getting contact recommendation on the home scree
             res.body.recommendedUser[4].userId.should.equals('3');
             res.body.recommendedUser[4].name.should.equals('user Meier3');
             res.body.recommendedUser[4].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+        });
+    });
+
+    it('Contact Recommendation for user with contacts show only invitations(no contacting, with invitations)', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.createContactConnection('1', '5', 'Freund');
+        dbDsl.createContactConnection('1', '10', 'Freund');
+        dbDsl.createContactConnection('5', '2', 'Freund');
+        dbDsl.createContactConnection('10', '2', 'Freund');
+
+        dbDsl.inviteUser('2', '1');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser[0].userId.should.equals('2');
+            res.body.recommendedUser[0].name.should.equals('user Meier2');
+            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
         });
     });
 
