@@ -21,7 +21,7 @@ let init = function (numberOfUser, isElyoosAdmin) {
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
-            userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
+            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
         }
     });
 };

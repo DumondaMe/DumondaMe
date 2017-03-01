@@ -18,17 +18,26 @@ describe('Integration Tests for verify registering a new user', function () {
         forename: 'user',
         surname: 'Waldvogel',
         linkId: randomstring.generate(64)
-    }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000);
+    }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),registerRequestUserValidWithInvitation;
     beforeEach(function () {
         libUser.removeFromCache('info@elyoos.org');
-        return dbDsl.init(2).then(function () {
+        return dbDsl.init(4).then(function () {
             registerRequestUserExpired = _.cloneDeep(registerRequestUserValid);
+            registerRequestUserValidWithInvitation = _.cloneDeep(registerRequestUserValid);
             registerRequestUserValid.registerDate = startTime;
             registerRequestUserExpired.registerDate = startTime - (60 * 60 * 12) - 1;
             registerRequestUserExpired.linkId = randomstring.generate(64);
             registerRequestUserExpired.email = 'info2@elyoos.org';
+            registerRequestUserValidWithInvitation.email = 'info3@elyoos.org';
+            registerRequestUserValidWithInvitation.registerDate = startTime;
+            registerRequestUserValidWithInvitation.linkId = randomstring.generate(64);
             dbDsl.createUserRegisterRequest(registerRequestUserValid);
             dbDsl.createUserRegisterRequest(registerRequestUserExpired);
+            dbDsl.createUserRegisterRequest(registerRequestUserValidWithInvitation);
+
+            dbDsl.invitationSent('2', [{email: 'info3@elyoos.org'}]);
+            dbDsl.invitationSent('3', [{email: 'info3@elyoos.org'}]);
+            dbDsl.invitationSent('4', [{email: 'info3@elyoos.org'}]);
             return dbDsl.sendToDb();
         });
     });
@@ -37,7 +46,7 @@ describe('Integration Tests for verify registering a new user', function () {
         return requestHandler.logout();
     });
 
-    it('Verify email address with valid linkId - Return 200', function () {
+    it('Verify email address with valid linkId and create account- Return 200', function () {
 
         return requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId}).then(function (res) {
             res.status.should.equal(200);
@@ -69,6 +78,59 @@ describe('Integration Tests for verify registering a new user', function () {
             user.length.should.equals(0);
             return requestHandler.login({
                 'username': 'info@elyoos.org',
+                'password': '1'
+            });
+        }).then(function (agent) {
+            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.name.should.equal('user Waldvogel');
+        });
+    });
+
+    it('Verify email address with valid linkId and create account with invitations- Return 200', function () {
+
+        return requestHandler.post('/api/register/verify', {linkId: registerRequestUserValidWithInvitation.linkId}).then(function (res) {
+            res.status.should.equal(200);
+            res.body.email.should.equals(registerRequestUserValidWithInvitation.email);
+
+            return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'info3@elyoos.org'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
+                .return('user, friendPrivacy, noContactPrivacy').end().send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            should.exist(user[0].user.userId);
+            user[0].user.name.should.equals('user Waldvogel');
+            should.not.exist(user[0].user.linkId);
+            user[0].user.forename.should.equals(registerRequestUserValidWithInvitation.forename);
+            user[0].user.surname.should.equals(registerRequestUserValidWithInvitation.surname);
+            user[0].user.registerDate.should.equals(startTime);
+            user[0].friendPrivacy.profile.should.be.true;
+            user[0].friendPrivacy.image.should.be.true;
+            user[0].friendPrivacy.contacts.should.be.true;
+            user[0].friendPrivacy.profileData.should.be.true;
+            user[0].friendPrivacy.pinwall.should.be.true;
+            user[0].noContactPrivacy.profile.should.be.true;
+            user[0].noContactPrivacy.image.should.be.true;
+            user[0].noContactPrivacy.contacts.should.be.true;
+            user[0].noContactPrivacy.profileData.should.be.true;
+            user[0].noContactPrivacy.pinwall.should.be.true;
+            return db.cypher().match("(:User {email: 'info3@elyoos.org'})<-[:HAS_INVITED]-(user:User)")
+                .return('user').orderBy("user.userId").end().send();
+        }).then(function (user) {
+            user.length.should.equals(3);
+            user[0].user.userId.should.equals('2');
+            user[1].user.userId.should.equals('3');
+            user[2].user.userId.should.equals('4');
+            return db.cypher().match("(user:InvitedUser)")
+                .return('user').end().send();
+        }).then(function (invitedUser) {
+            invitedUser.length.should.equals(0);
+            return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
+                .return('user').end({linkId: registerRequestUserValidWithInvitation.linkId}).send();
+        }).then(function (user) {
+            user.length.should.equals(0);
+            return requestHandler.login({
+                'username': 'info3@elyoos.org',
                 'password': '1'
             });
         }).then(function (agent) {

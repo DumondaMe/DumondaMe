@@ -50,6 +50,13 @@ let verify = function (linkId, req) {
         commands.push(db.cypher().match(`(user:UserRegisterRequest {linkId: {linkId}})`).return("user").end({linkId: linkId}).getCommand());
         commands.push(db.cypher().create(`(:Privacy {privacy})<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {userData})
                                           -[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {privacy})`).end({userData: user, privacy: privacy}).getCommand());
+        commands.push(db.cypher().match(`(user:User {userId: {userId}}), (invitedUser:InvitedUser)<-[:HAS_INVITED]-(inviteUser:User)`)
+            .where(`invitedUser.email = {email}`)
+            .createUnique(`(user)<-[:HAS_INVITED]-(inviteUser)`)
+            .end({userId: userId, email: user.email}).getCommand());
+        commands.push(db.cypher().match(`(invitedUser:InvitedUser)<-[rel:HAS_INVITED]-(:User)`)
+            .where(`invitedUser.email = {email}`).delete(`invitedUser, rel`)
+            .end({email: user.email}).getCommand());
         return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").delete("user").end({linkId: linkId}).send(commands);
     }).then(function (resp) {
         email = resp[0][0].user.email;

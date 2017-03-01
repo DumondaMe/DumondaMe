@@ -45,7 +45,7 @@ let invitationSent = function (userId, data) {
     data.forEach(function (invitationData) {
         invitationData.invitationSent = invitationData.invitationSent || null;
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
-            .create(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, invitationSent: {invitationSent}})`)
+            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, invitationSent: {invitationSent}})`)
             .end({
                 userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent
             }).getCommand());
