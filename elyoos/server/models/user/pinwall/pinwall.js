@@ -218,9 +218,9 @@ let getRecommendations = function (userId, request) {
 let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, request) {
     let pinwall;
     if (showUserRecommendation && order === 'popular') {
-        pinwall = pinwallSelector.sortPinwall(null, resp[4], skipRecommendation, skipBlog, maxItems);
+        pinwall = pinwallSelector.sortPinwall(null, resp[5], skipRecommendation, skipBlog, maxItems);
     } else if (showUserRecommendation) {
-        pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], skipRecommendation, skipBlog, maxItems);
+        pinwall = pinwallSelector.sortPinwall(resp[5], resp[5], skipRecommendation, skipBlog, maxItems);
     } else if (!showUserRecommendation && order === 'popular') {
         pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
     } else if (!showUserRecommendation) {
@@ -239,6 +239,7 @@ let getPinwall = function (userId, request) {
         commands.push(contacting.getContacting(userId).getCommand());
         commands.push(contacting.getNumberOfContacting(userId).getCommand());
         if (showUserRecommendation) {
+            commands.push(recommendedUser.getInvitedUsers(userId, 10).getCommand());
             commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10).getCommand());
             commands.push(recommendedUser.getRecommendedUsers(userId, 10).getCommand());
         }
@@ -254,7 +255,8 @@ let getPinwall = function (userId, request) {
                 if (showUserRecommendation) {
                     userInfo.addImageForThumbnail(resp[2]);
                     userInfo.addImageForThumbnail(resp[3]);
-                    recommendedUserResult = resp[2].concat(resp[3]);
+                    userInfo.addImageForThumbnail(resp[4]);
+                    recommendedUserResult = resp[2].concat(resp[3], resp[4]);
                 }
                 pinwall = sortPinwall(resp, request.skipRecommendation, request.skipBlog, request.maxItems, request.order, showUserRecommendation);
 

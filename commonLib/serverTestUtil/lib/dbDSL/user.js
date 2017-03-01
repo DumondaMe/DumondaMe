@@ -41,7 +41,7 @@ let blockUser = function (userId, blockedUserId) {
         }).getCommand());
 };
 
-let invitationSent = function (userId, data) {
+let invitationSentBeforeRegistration = function (userId, data) {
     data.forEach(function (invitationData) {
         invitationData.invitationSent = invitationData.invitationSent || null;
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
@@ -50,6 +50,14 @@ let invitationSent = function (userId, data) {
                 userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent
             }).getCommand());
     });
+};
+
+let inviteUser = function (userId, invitedUserId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (invitedUser:User {userId: {invitedUserId}})')
+        .create(`(user)-[:HAS_INVITED]->(invitedUser)`)
+        .end({
+            userId: userId, invitedUserId: invitedUserId
+        }).getCommand());
 };
 
 let createPrivacy = function (userIds, type, privacy) {
@@ -104,7 +112,8 @@ module.exports = {
     createUser: createUser,
     createUserRegisterRequest: createUserRegisterRequest,
     blockUser: blockUser,
-    invitationSent: invitationSent,
+    invitationSentBeforeRegistration: invitationSentBeforeRegistration,
+    inviteUser: inviteUser,
     createPrivacy: createPrivacy,
     createPrivacyNoContact: createPrivacyNoContact,
     setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen
