@@ -2,6 +2,7 @@
 
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 
@@ -11,36 +12,17 @@ describe('Integration Tests for handling contacts', function () {
 
     beforeEach(function () {
 
-        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '1234', name: 'user3 Meier3', forename: 'user3', surname: 'Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', password: '1234', name: 'user4 Meier4', forename: 'user4', surname: 'Meier4', userId: '4'})").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '4'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo5.ch', password: '1234', name: 'user5 Meier5', forename: 'user5', surname: 'Meier5', userId: '5'})").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '5'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
-            return db.cypher().match("(u:User), (u2:User)")
-                .where("u.userId = '1' AND u2.userId = '5'")
-                .create("(u2)-[:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(u)")
-                .end({contactAdded: startTime}).send(commands);
+
+        return dbDsl.init(6).then(function () {
+            dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['1', '5'], 'Familie', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+            dbDsl.createContactConnection('5', '1', 'Familie', startTime);
+            dbDsl.inviteUser('6', '1');
+            return dbDsl.sendToDb();
         });
     });
 
@@ -68,6 +50,32 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[2].count.should.equals(0);
             res.body.numberOfContacts.should.equals(1);
             return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
+                .return('r.type as type, r.contactAdded as contactAdded')
+                .end().send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            user[0].type.should.equals('Freund');
+            user[0].contactAdded.should.least(startTime);
+        });
+    });
+
+    it('Adding a contact and remove invitations- Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['6'],
+                mode: 'addContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(u:User {userId: '1'})<-[:HAS_INVITED]->(:User {userId: '6'})")
+                .return('u')
+                .end().send();
+        }).then(function (user) {
+            user.length.should.equals(0);
+            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '6'})")
                 .return('r.type as type, r.contactAdded as contactAdded')
                 .end().send();
         }).then(function (user) {
@@ -158,11 +166,11 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts.length.should.equal(4);
             res.body.contacts[0].userId.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
-            res.body.contacts[0].name.should.equal("user2 Meier2");
+            res.body.contacts[0].name.should.equal("user Meier2");
             res.body.contacts[0].contactAdded.should.least(now);
             res.body.contacts[3].userId.should.equal("5");
             res.body.contacts[3].type.should.equal("Freund");
-            res.body.contacts[3].name.should.equal("user5 Meier5");
+            res.body.contacts[3].name.should.equal("user Meier5");
             res.body.contacts[3].contactAdded.should.least(now);
             res.body.contacts[3].userAdded.should.least(now);
 
@@ -252,7 +260,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts.length.should.equal(2);
             res.body.contacts[0].userId.should.equal("4");
             res.body.contacts[0].type.should.equal("Freund");
-            res.body.contacts[0].name.should.equal("user4 Meier4");
+            res.body.contacts[0].name.should.equal("user Meier4");
 
             //statistic
             res.body.statistic.length.should.equal(3);
@@ -391,6 +399,24 @@ describe('Integration Tests for handling contacts', function () {
                 .send();
         }).then(function (rel) {
             rel.length.should.equals(1);
+        });
+    });
+
+    it('Blocking of user removes invitation - Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['6'],
+                mode: 'blockContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(user:User {userId: '1'})<-[:HAS_INVITED]-(:User {userId: '6'})")
+                .return('user').end().send();
+        }).then(function (user) {
+            user.length.should.equals(0);
         });
     });
 

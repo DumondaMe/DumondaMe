@@ -8,16 +8,6 @@ let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let moment = require('moment');
 let userInfo = require('./../user/userInfo');
 
-let returnStatistics = function (result, errorDescription, req) {
-    if (result.length === 3) {
-        return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
-    }
-    let invalidOperationException = new exceptions.InvalidOperation('Length of ' + errorDescription +
-        ' result not as expected [' + result.length + ']');
-    logger.warn(invalidOperationException.message, req, {error: ''});
-    return Promise.reject(invalidOperationException);
-};
-
 let validAddContactCommand = function (userId, type, req) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->()')
         .return("r")
@@ -26,6 +16,14 @@ let validAddContactCommand = function (userId, type, req) {
                 return exceptions.getInvalidOperation('Type [' + type + '] does not exist for userId [' + userId + ']', logger, req);
             }
         });
+};
+
+let removeInvitation = function (userId, contactIds) {
+    return db.cypher().match('(u:User {userId: {userId}})<-[invitedRel:HAS_INVITED]-(u2:User)')
+        .where('u2.userId IN {contactIds}')
+        .delete('invitedRel')
+        .end({userId: userId, contactIds: contactIds})
+        .getCommand();
 };
 
 let addContact = function (userId, contactIds, type, req) {
@@ -46,17 +44,18 @@ let addContact = function (userId, contactIds, type, req) {
             })
             .getCommand());
 
+        commands.push(removeInvitation(userId, contactIds));
         commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
         return contactStatistic.getTotalNumberOfContacts(userId)
             .send(commands)
             .then(function (result) {
-                return returnStatistics(result, 'adding', req);
+                return {statistic: result[2], numberOfContacts: result[3][0].numberOfContacts};
             });
     });
 };
 
-let deleteContact = function (userId, contactIds, req) {
+let deleteContact = function (userId, contactIds) {
 
     let commands = [];
 
@@ -74,11 +73,11 @@ let deleteContact = function (userId, contactIds, req) {
     return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'delete', req);
+            return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
         });
 };
 
-let blockContact = function (userId, blockedUserIds, req) {
+let blockContact = function (userId, blockedUserIds) {
 
     let commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
@@ -93,16 +92,17 @@ let blockContact = function (userId, blockedUserIds, req) {
         })
         .getCommand());
 
+    commands.push(removeInvitation(userId, blockedUserIds));
     commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
     return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'block', req);
+            return {statistic: result[2], numberOfContacts: result[3][0].numberOfContacts};
         });
 };
 
-let unblockContact = function (userId, blockedUserIds, req) {
+let unblockContact = function (userId, blockedUserIds) {
 
     let commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
@@ -119,7 +119,7 @@ let unblockContact = function (userId, blockedUserIds, req) {
     return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'unblock', req);
+            return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
         });
 };
 
@@ -152,7 +152,7 @@ let getContact = function (params, where) {
     return db.cypher().match("(user:User)-[r:IS_CONTACT]->(contact:User)")
         .where(where)
         .with("contact, user, r")
-        .orderBy("contact.forename")
+        .orderBy("contact.name")
         .skip("{skip}")
         .limit("{itemsPerPage}")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
