@@ -220,7 +220,7 @@ let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order,
     if (showUserRecommendation && order === 'popular') {
         pinwall = pinwallSelector.sortPinwall(null, resp[5], skipRecommendation, skipBlog, maxItems);
     } else if (showUserRecommendation) {
-        pinwall = pinwallSelector.sortPinwall(resp[5], resp[5], skipRecommendation, skipBlog, maxItems);
+        pinwall = pinwallSelector.sortPinwall(resp[5], resp[6], skipRecommendation, skipBlog, maxItems);
     } else if (!showUserRecommendation && order === 'popular') {
         pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
     } else if (!showUserRecommendation) {
