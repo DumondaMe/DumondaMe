@@ -367,7 +367,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
         commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 400}]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
@@ -380,9 +380,9 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {pinwall: false, profile: true, image: true})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 400}]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 400}]->(a)").end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")

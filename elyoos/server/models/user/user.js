@@ -6,13 +6,10 @@
 let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
-let time = require('elyoos-server-lib').time;
 let underscore = require('underscore');
 let unreadMessages = require('./../messages/util/unreadMessages');
 let contacting = require('./../contact/contacting');
 let contactStatistic = require('./../contact/contactStatistic');
-
-const ONE_DAY = 86400;
 
 let getUser = function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
@@ -60,29 +57,17 @@ let updateUserProfile = function (userId, userData) {
         }).end({id: userId}).send();
 };
 
-let updateLastLoginCommand = function (userId) {
-
-    let now = time.getNowUtcTimestamp();
-    return db.cypher().match('(u:User {userId: {userId}})')
-        .where("u.lastLogin < {minTimeShown}")
-        .addCommand("SET u.previousLastLogin = u.lastLogin")
-        .set('u', {
-            lastLogin: now
-        }).end({userId: userId, minTimeShown: now - ONE_DAY}).getCommand();
-};
-
 let getUserInfo = function (id, req) {
 
     let commands = [];
     commands.push(unreadMessages.getTotalNumberOfUnreadMessages(id).getCommand());
     commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
-    commands.push(updateLastLoginCommand(id));
 
     return db.cypher().match('(u:User {userId: {id}})')
         .return('u.name AS name, u.userId AS userId, u.email AS email')
         .end({id: id}).send(commands)
         .then(function (resp) {
-            let user = getUser(resp[3], id, [
+            let user = getUser(resp[2], id, [
                 {
                     property: 'profileImage',
                     image: '/thumbnail.jpg'

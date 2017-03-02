@@ -3,7 +3,6 @@
 let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let moment = require('moment');
 
@@ -38,14 +37,10 @@ describe('Integration Tests user info', function () {
     });
 
     it('Get user info - Return a 200', function () {
-        let requestAgent;
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            requestAgent = agent;
-            return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 5000}).end().send();
-        }).then(function () {
-            return requestHandler.get('/api/user/userInfo', requestAgent);
+            return requestHandler.get('/api/user/userInfo', agent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.userId.should.equal('1');
@@ -59,31 +54,6 @@ describe('Integration Tests user info', function () {
             res.body.contactStatistic[1].type.should.equal('Bekannter');
             res.body.contactStatistic[1].count.should.equal(0);
             res.body.totalUnreadMessages.should.equal(2);
-
-            return db.cypher().match("(user:User {userId: '1'})")
-                .return('user').end().send();
-        }).then(function (user) {
-            user[0].user.lastLogin.should.equals(startTime - 5000);
-        });
-    });
-
-    it('Getting user info resets the last login value - Return a 200', function () {
-        let requestAgent;
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 86500}).end().send();
-        }).then(function () {
-            return requestHandler.get('/api/user/userInfo', requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-
-            return db.cypher().match("(user:User {userId: '1'})")
-                .return('user').end().send();
-        }).then(function (user) {
-            user[0].user.lastLogin.should.be.at.least(startTime);
-            user[0].user.previousLastLogin.should.equals(startTime - 86500);
         });
     });
 });
