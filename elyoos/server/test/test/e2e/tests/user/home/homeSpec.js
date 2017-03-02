@@ -88,6 +88,45 @@ describe('Integration Tests for getting home screen information for a user', fun
         });
     });
 
+    it('Getting the contacts who have added user since at least last 24 hours', function () {
+
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        dbDsl.createPrivacyNoContact('1', {profile: false, image: false, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacyNoContact('2', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.createPrivacy(['2'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.setUserLastLoginTime(startTime);
+        dbDsl.createContactConnection('2', '1', 'Freund', startTime - 86000);
+        dbDsl.createContactConnection('1', '2', 'Freund', startTime - 1000);
+
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.contacting.users.length.should.equals(1);
+            res.body.contacting.users[0].userId.should.equals('2');
+            res.body.contacting.users[0].name.should.equals('user Meier2');
+            res.body.contacting.users[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.contacting.users[0].contactAdded.should.equals(startTime - 86000);
+            res.body.contacting.users[0].contactOfUser.should.equals(true);
+
+            res.body.contacting.numberOfContacting.should.equals(1);
+        });
+    });
+
 
     it('Showing recommendations for contact with pinwall visible for contact type', function () {
 

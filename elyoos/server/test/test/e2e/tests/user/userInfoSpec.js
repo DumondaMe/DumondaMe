@@ -4,79 +4,32 @@ let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let moment = require('moment');
 
-describe('Integration Tests User Name', function () {
+describe('Integration Tests user info', function () {
+
+    let startTime;
 
     beforeEach(function () {
 
         libUser.removeFromCache('user@irgendwo.ch');
 
-        return db.clearDatabase().then(function () {
+        return dbDsl.init(3).then(function () {
+            startTime = Math.floor(moment.utc().valueOf() / 1000);
+            dbDsl.createPrivacyNoContact(null, {profile: false, image: false, profileData: false, contacts: false, pinwall: false});
+            dbDsl.createPrivacy(['1', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createContactConnection('1', '2', 'Freund', startTime - 1000);
 
-            let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId:'1'})").end().getCommand());
+            dbDsl.createThread('1', [{userId: '1', lastTimeVisited: startTime - 500}, {userId: '2', lastTimeVisited: startTime - 400}]);
+            dbDsl.createMessages('1', [{userId: '1', messageAdded: startTime - 299, text: 'message1'},
+                {userId: '2', messageAdded: startTime - 400, text: 'message2'},
+                {userId: '2', messageAdded: startTime - 600, text: 'message3'},
+                {userId: '1', messageAdded: startTime - 700, text: 'message4'}]);
 
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
-
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})").end().getCommand());
-
-            // User 2
-            commands.push(db.cypher().create("(:User {name: 'user2 Meier2', userId: '2'})").end().getCommand());
-            //Create Thread with messages between user 1 + 2
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
-                .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '1'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-                .end({
-                    lastTimeVisited: startTime - 500,
-                    lastTimeVisited2: startTime - 400
-                }).getCommand());
-            commands.push(db.cypher().match("(thread:Thread {threadId: '1'}), (u:User {userId: '1'}), (u2:User {userId: '2'})")
-                .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-                    "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-                    "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
-                    "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                    "(message)-[:WRITTEN]->(u)," +
-                    "(message2)-[:WRITTEN]->(u2)," +
-                    "(message3)-[:WRITTEN]->(u2)," +
-                    "(message4)-[:WRITTEN]->(u)")
-                .end({
-                    messageAdded: startTime - 299,
-                    messageAdded2: startTime - 400,
-                    messageAdded3: startTime - 600,
-                    messageAdded4: startTime - 700
-                }).getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false})")
-                .end({}).getCommand());
-
-            // User 3
-            commands.push(db.cypher().create("(:User {name: 'user3 Meier3', userId: '3'})").end().getCommand());
-            //Create Thread with messages between user 1 + 3
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
-                .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '2'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-                .end({
-                    lastTimeVisited: startTime - 300,
-                    lastTimeVisited2: startTime - 400
-                }).getCommand());
-            commands.push(db.cypher().match("(thread:Thread {threadId: '2'}), (u:User {userId: '1'}), (u2:User {userId: '3'})")
-                .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})," +
-                    "(message)-[:WRITTEN]->(u2)")
-                .end({
-                    messageAdded: startTime - 299
-                }).getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false}), " +
-                    "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
-                .end({}).getCommand());
-
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
-                .create("(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
-                .end({}).getCommand());
-
-            return db.cypher().create("(:User)")
-                .end().send(commands);
+            dbDsl.createThread('2', [{userId: '1', lastTimeVisited: startTime - 300}, {userId: '3', lastTimeVisited: startTime - 400}]);
+            dbDsl.createMessages('2', [{userId: '3', messageAdded: startTime - 299, text: 'message1'}]);
         });
     });
 
@@ -84,9 +37,15 @@ describe('Integration Tests User Name', function () {
         return requestHandler.logout();
     });
 
-    it('Get User Infos when logged in - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
+    it('Get user info - Return a 200', function () {
+        let requestAgent;
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 5000}).end().send();
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.userId.should.equal('1');
@@ -100,6 +59,31 @@ describe('Integration Tests User Name', function () {
             res.body.contactStatistic[1].type.should.equal('Bekannter');
             res.body.contactStatistic[1].count.should.equal(0);
             res.body.totalUnreadMessages.should.equal(2);
+
+            return db.cypher().match("(user:User {userId: '1'})")
+                .return('user').end().send();
+        }).then(function (user) {
+            user[0].user.lastLogin.should.equals(startTime - 5000);
+        });
+    });
+
+    it('Getting user info resets the last login value - Return a 200', function () {
+        let requestAgent;
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 86500}).end().send();
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo', requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            return db.cypher().match("(user:User {userId: '1'})")
+                .return('user').end().send();
+        }).then(function (user) {
+            user[0].user.lastLogin.should.be.at.least(startTime);
+            user[0].user.previousLastLogin.should.equals(startTime - 86500);
         });
     });
 });
