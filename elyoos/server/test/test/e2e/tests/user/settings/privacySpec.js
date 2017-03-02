@@ -4,6 +4,7 @@ let libUser = require('elyoos-server-lib').user();
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let moment = require('moment');
 let should = require('chai').should();
 
@@ -12,47 +13,21 @@ describe('Integration Tests for the privacy settings', function () {
     beforeEach(function () {
 
         libUser.removeFromCache('user@irgendwo.ch');
-        return db.clearDatabase().then(function () {
-            let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier4', userId: '4'})").end().getCommand());
+        return dbDsl.init(4).then(function () {
+            let startTime = Math.floor(moment.utc().valueOf() / 1000);
+            dbDsl.createPrivacyNoContact(['1'], {profile: false, image: false, profileData: false, contacts: false, pinwall: false});
+            dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: false, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Familie', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, profileData: false, contacts: false, pinwall: false});
 
-            //Add Contacts
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
-                .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-                .end({contactAdded: startTime - 86401}).getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
-                .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-                .end({contactAdded: startTime - 86401}).getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '4'})")
-                .create("(u)-[:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(u2)")
-                .end({contactAdded: startTime - 86401}).getCommand());
+            dbDsl.createBlog('1', {blogWriterUserId: '1', language: ['de'], topic: ['health'], visible: ['Freund', 'Familie'], created: 450});
+            dbDsl.createBlog('2', {blogWriterUserId: '1', language: ['de'], topic: ['health'], visible: ['Familie'], created: 450});
+            dbDsl.createBlog('3', {blogWriterUserId: '1', language: ['de'], topic: ['health'], created: 450});
 
-            //Add Blogs for privacy test
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '1', visible: {visibility}})")
-                .end({visibility: ['Freund', 'Familie']}).getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '2', visible: {visibility}})")
-                .end({visibility: ['Familie']}).getCommand());
-            //Visible to the public
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '3'})").end().getCommand());
-
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true, pinwall: true})")
-                .end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: true})")
-                .end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, profileData: false, contacts: false, image: true, pinwall: false})")
-                .end().getCommand());
-            return db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: false, contacts: false, image: false, pinwall: false})")
-                .end().send(commands);
+            dbDsl.createContactConnection('1', '2', 'Freund', startTime - 86401);
+            dbDsl.createContactConnection('1', '3', 'Freund', startTime - 86401);
+            dbDsl.createContactConnection('1', '4', 'Familie', startTime - 86401);
+            return dbDsl.sendToDb();
         });
     });
 
