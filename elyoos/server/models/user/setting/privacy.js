@@ -33,7 +33,7 @@ let privacySettingsIsNotExisting = function (id, privacySettingType, req) {
     });
 };
 
-let getPrivacySettings = function (id) {
+let getPrivacySettings = function (userId) {
     let commands = [], returnCommand;
 
     returnCommand = "privacy.profile AS profileVisible, privacy.profileData AS profileDataVisible, " +
@@ -41,23 +41,17 @@ let getPrivacySettings = function (id) {
 
     commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(privacy:Privacy)")
         .return(returnCommand)
-        .orderBy("type")
-        .end({
-            userId: id
-        }).getCommand());
+        .orderBy("type").end({userId: userId}).getCommand());
     return db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .return(returnCommand)
-        .orderBy("type")
-        .end({
-            userId: id
-        }).send(commands)
+        .orderBy("type").end({userId: userId}).send(commands)
         .then(function (result) {
             return {normal: result[0], noContact: result[1][0]};
         });
 };
 
-let changePrivacySettings = function (id, privacySettingType, privacySettings, req) {
-    return privacySettingsIsExisting(id, privacySettingType, req)
+let changePrivacySettings = function (userId, privacySettingType, privacySettings, req) {
+    return privacySettingsIsExisting(userId, privacySettingType, req)
         .then(function () {
             return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY {type: {type}}]->(privacy:Privacy)")
                 .set('privacy', {
@@ -68,12 +62,12 @@ let changePrivacySettings = function (id, privacySettingType, privacySettings, r
                     pinwall: privacySettings.pinwallVisible
                 })
                 .end({
-                    userId: id,
+                    userId: userId,
                     type: privacySettingType
                 }).send();
         });
 };
-let changePrivacySettingsNoContact = function (id, privacySettings) {
+let changePrivacySettingsNoContact = function (userId, privacySettings) {
 
     return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .set('privacy', {
@@ -84,7 +78,7 @@ let changePrivacySettingsNoContact = function (id, privacySettings) {
             pinwall: privacySettings.pinwallVisible
         })
         .end({
-            userId: id
+            userId: userId
         }).send();
 };
 
@@ -100,24 +94,24 @@ let renamePrivacyOnBlog = function (userId, typeOld, typeNew) {
         .end({userId: userId}).getCommand();
 };
 
-let renamePrivacySetting = function (id, privacySettingType, newPrivacySettingType, req) {
+let renamePrivacySetting = function (userId, privacySettingType, newPrivacySettingType, req) {
 
-    return privacySettingsIsNotExisting(id, newPrivacySettingType, req)
+    return privacySettingsIsNotExisting(userId, newPrivacySettingType, req)
         .then(function () {
             let commands = [];
-            commands.push(renamePrivacyOnContact(id, privacySettingType, newPrivacySettingType));
-            commands.push(renamePrivacyOnBlog(id, privacySettingType, newPrivacySettingType));
+            commands.push(renamePrivacyOnContact(userId, privacySettingType, newPrivacySettingType));
+            commands.push(renamePrivacyOnBlog(userId, privacySettingType, newPrivacySettingType));
             return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(:Privacy)")
                 .set('r', {type: newPrivacySettingType})
-                .end({userId: id, typeOld: privacySettingType}).send(commands);
+                .end({userId: userId, typeOld: privacySettingType}).send(commands);
         });
 };
 
-let addNewPrivacySetting = function (id, privacySettingType, privacySettings) {
+let addNewPrivacySetting = function (userId, privacySettingType, privacySettings) {
 
-    return privacySettingsIsNotExisting(id, privacySettingType)
+    return privacySettingsIsNotExisting(userId, privacySettingType)
         .then(function () {
-            privacySettings.userId = id;
+            privacySettings.userId = userId;
             privacySettings.type = privacySettingType;
             return db.cypher().match('(u:User {userId: {userId}})')
                 .create("(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profileVisible}, " +
@@ -126,9 +120,9 @@ let addNewPrivacySetting = function (id, privacySettingType, privacySettings) {
         });
 };
 
-let deletePrivacySetting = function (id, privacySettingType, newPrivacySettingType) {
+let deletePrivacySetting = function (userId, privacySettingType, newPrivacySettingType) {
 
-    return privacySettingsIsExisting(id, newPrivacySettingType)
+    return privacySettingsIsExisting(userId, newPrivacySettingType)
         .then(function () {
             let commands = [];
             commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:IS_CONTACT {type: {typeOld}}]->(:User)")
@@ -136,13 +130,13 @@ let deletePrivacySetting = function (id, privacySettingType, newPrivacySettingTy
                     type: newPrivacySettingType
                 })
                 .end({
-                    userId: id,
+                    userId: userId,
                     typeOld: privacySettingType
                 }).getCommand());
             return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(privacy:Privacy)")
                 .delete("privacy, r")
                 .end({
-                    userId: id,
+                    userId: userId,
                     typeOld: privacySettingType
                 }).send(commands);
         });

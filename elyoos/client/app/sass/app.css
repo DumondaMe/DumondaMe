@@ -4163,26 +4163,32 @@
 #modify-group-setting-dialog {
   max-width: 500px; }
 
-#overview-group-setting {
+#overview-group-setting-dialog {
   max-width: 700px; }
-  #overview-group-setting .ely-dialog-content {
-    padding-bottom: 0; }
-    #overview-group-setting .ely-dialog-content .privacy-description {
-      font-size: 14px;
-      margin-bottom: 16px; }
-    #overview-group-setting .ely-dialog-content .privacy-container .title-container .title {
+  #overview-group-setting-dialog .ely-dialog-title {
+    padding: 16px 24px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+
+#overview-group-setting-content .ely-dialog-content {
+  padding-bottom: 0; }
+  #overview-group-setting-content .ely-dialog-content .privacy-description {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
+  #overview-group-setting-content .ely-dialog-content #profile-visible {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #overview-group-setting-content .ely-dialog-content .privacy-container .description {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 6px; }
+  #overview-group-setting-content .ely-dialog-content .privacy-container .ely-select-group {
+    margin: 12px 0 0 0; }
+    #overview-group-setting-content .ely-dialog-content .privacy-container .ely-select-group .md-text {
       font-size: 16px;
-      line-height: 16px;
-      vertical-align: middle;
-      margin-bottom: 0px;
+      font-weight: 700;
       color: #3F51B5; }
-      @media screen and (min-width: 1280px) {
-        #overview-group-setting .ely-dialog-content .privacy-container .title-container .title {
-          line-height: 40px; } }
-    #overview-group-setting .ely-dialog-content .privacy-container .title-container .change-button {
-      width: 40px; }
-    #overview-group-setting .ely-dialog-content .privacy-container .description {
-      font-size: 14px; }
 
 #rename-group-name {
   max-width: 500px; }

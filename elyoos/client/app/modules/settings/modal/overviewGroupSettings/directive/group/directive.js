@@ -5,14 +5,15 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {group: '='},
+            scope: {settings: '='},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                title: '@',
-                openEdit: '='
+                description: '@',
+                propertyName: '@',
+                groupNames: '='
             },
-            templateUrl: 'app/modules/settings/modal/overviewGroupSettings/group/template.html'
+            templateUrl: 'app/modules/settings/modal/overviewGroupSettings/directive/group/template.html'
         };
     }],
     name: 'elySettingsPrivacyGroup'
