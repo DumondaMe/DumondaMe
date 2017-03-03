@@ -11,7 +11,8 @@ module.exports = {
             bindToController: {
                 description: '@',
                 propertyName: '@',
-                groupNames: '='
+                groupNames: '=',
+                profileVisibleChanged: '='
             },
             templateUrl: 'app/modules/settings/modal/overviewGroupSettings/directive/group/template.html'
         };

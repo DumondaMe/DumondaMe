@@ -46,7 +46,7 @@ let getPrivacySettings = function (userId) {
         .return(returnCommand)
         .orderBy("type").end({userId: userId}).send(commands)
         .then(function (result) {
-            return {normal: result[0], noContact: result[1][0]};
+            return {group: result[0], noContact: result[1][0]};
         });
 };
 

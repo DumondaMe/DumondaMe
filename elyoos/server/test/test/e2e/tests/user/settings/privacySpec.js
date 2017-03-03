@@ -40,25 +40,25 @@ describe('Integration Tests for the privacy settings', function () {
             return requestHandler.get('/api/user/settings/privacy', agent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.normal.length.should.equal(3);
-            res.body.normal[0].type.should.equal('Bekannter');
-            res.body.normal[0].profileVisible.should.be.true;
-            res.body.normal[0].profileDataVisible.should.be.false;
-            res.body.normal[0].imageVisible.should.be.true;
-            res.body.normal[0].contactsVisible.should.be.false;
-            res.body.normal[0].pinwallVisible.should.be.false;
-            res.body.normal[1].type.should.equal('Familie');
-            res.body.normal[1].profileVisible.should.be.true;
-            res.body.normal[1].profileDataVisible.should.be.true;
-            res.body.normal[1].imageVisible.should.be.true;
-            res.body.normal[1].contactsVisible.should.be.true;
-            res.body.normal[1].pinwallVisible.should.be.true;
-            res.body.normal[2].type.should.equal('Freund');
-            res.body.normal[2].profileVisible.should.be.true;
-            res.body.normal[2].profileDataVisible.should.be.true;
-            res.body.normal[2].imageVisible.should.be.true;
-            res.body.normal[2].contactsVisible.should.be.false;
-            res.body.normal[2].pinwallVisible.should.be.true;
+            res.body.group.length.should.equal(3);
+            res.body.group[0].type.should.equal('Bekannter');
+            res.body.group[0].profileVisible.should.be.true;
+            res.body.group[0].profileDataVisible.should.be.false;
+            res.body.group[0].imageVisible.should.be.true;
+            res.body.group[0].contactsVisible.should.be.false;
+            res.body.group[0].pinwallVisible.should.be.false;
+            res.body.group[1].type.should.equal('Familie');
+            res.body.group[1].profileVisible.should.be.true;
+            res.body.group[1].profileDataVisible.should.be.true;
+            res.body.group[1].imageVisible.should.be.true;
+            res.body.group[1].contactsVisible.should.be.true;
+            res.body.group[1].pinwallVisible.should.be.true;
+            res.body.group[2].type.should.equal('Freund');
+            res.body.group[2].profileVisible.should.be.true;
+            res.body.group[2].profileDataVisible.should.be.true;
+            res.body.group[2].imageVisible.should.be.true;
+            res.body.group[2].contactsVisible.should.be.false;
+            res.body.group[2].pinwallVisible.should.be.true;
 
 
             res.body.noContact.profileVisible.should.be.false;

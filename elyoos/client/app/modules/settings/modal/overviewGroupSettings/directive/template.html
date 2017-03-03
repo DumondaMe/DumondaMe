@@ -3,8 +3,8 @@
     <md-dialog-content id="overview-group-setting-content" ng-cloak>
         <div class="md-dialog-content ely-dialog-content">
             <div class="privacy-description">Hier kannst du festlegen, wer was von deinem Profil sehen darf.</div>
-            <ely-settings-privacy-group id="profile-visible" description="Sehen dein Profil."
-                                        property-name="profileVisible" group-names="ctrl.groupNames" settings="ctrl.settings"></ely-settings-privacy-group>
+            <ely-settings-privacy-group id="profile-visible" description="Sehen dein Profil." profile-visible-changed="ctrl.profileVisibleChanged"
+                                        property-name="profileVisible" group-names="ctrl.groupNamesProfileVisible" settings="ctrl.settings"></ely-settings-privacy-group>
             <ely-settings-privacy-group description="Sehen dein Profilbild." property-name="imageVisible" group-names="ctrl.groupNames"
                                         settings="ctrl.settings"></ely-settings-privacy-group>
             <ely-settings-privacy-group description="Sehen wer dich als Kontakt hat und deine eigenen Kontakte."
