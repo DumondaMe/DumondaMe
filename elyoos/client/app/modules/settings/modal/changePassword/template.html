@@ -1,34 +1,36 @@
 <md-dialog id="change-password" aria-label="Change Password">
     <form name="ctrl.changePasswordForm" ng-cloak>
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div class="md-title ely-dialog-title">Passwort ändern</div>
-            <md-input-container class="ely-input-container">
-                <label>Altes Passwort</label>
-                <input name="oldPassword" class="blog-input" ng-model="ctrl.oldPassword" required type="password"
-                       ng-disabled="ctrl.running"/>
-                <div ng-messages="ctrl.changePasswordForm.oldPassword.$error" ng-show="ctrl.changePasswordForm.oldPassword.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="ely-input-container">
-                <label>Neues Passwort</label>
-                <input name="newPassword" class="blog-input" ng-model="ctrl.newPassword" required type="password"
-                       ng-disabled="ctrl.running" ng-change="ctrl.newPasswordChanged()"/>
-                <div ng-messages="ctrl.changePasswordForm.newPassword.$error" ng-show="ctrl.changePasswordForm.newPassword.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="ely-min-length">Das Passwort muss mindestens 8 Zeichen lang sein</div>
-                    <div ng-message="ely-char-missing">Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="ely-input-container">
-                <label>Neues Passwort bestätigen</label>
-                <input name="confirmNewPassword" class="blog-input" ng-model="ctrl.confirmNewPassword" required type="password"
-                       ng-disabled="ctrl.running" ng-change="ctrl.confirmNewPasswordChanged()"/>
-                <div ng-messages="ctrl.changePasswordForm.confirmNewPassword.$error" ng-show="ctrl.changePasswordForm.confirmNewPassword.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="ely-compare">Die Passwörter stimmen nicht überein</div>
-                </div>
-            </md-input-container>
+        <div class="md-title ely-dialog-title">Passwort ändern</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="ely-input-container">
+                    <label>Altes Passwort</label>
+                    <input name="oldPassword" class="blog-input" ng-model="ctrl.oldPassword" required type="password"
+                           ng-disabled="ctrl.running"/>
+                    <div ng-messages="ctrl.changePasswordForm.oldPassword.$error" ng-show="ctrl.changePasswordForm.oldPassword.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="ely-input-container">
+                    <label>Neues Passwort</label>
+                    <input name="newPassword" class="blog-input" ng-model="ctrl.newPassword" required type="password"
+                           ng-disabled="ctrl.running" ng-change="ctrl.newPasswordChanged()"/>
+                    <div ng-messages="ctrl.changePasswordForm.newPassword.$error" ng-show="ctrl.changePasswordForm.newPassword.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="ely-min-length">Das Passwort muss mindestens 8 Zeichen lang sein</div>
+                        <div ng-message="ely-char-missing">Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="ely-input-container">
+                    <label>Neues Passwort bestätigen</label>
+                    <input name="confirmNewPassword" class="blog-input" ng-model="ctrl.confirmNewPassword" required type="password"
+                           ng-disabled="ctrl.running" ng-change="ctrl.confirmNewPasswordChanged()"/>
+                    <div ng-messages="ctrl.changePasswordForm.confirmNewPassword.$error" ng-show="ctrl.changePasswordForm.confirmNewPassword.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="ely-compare">Die Passwörter stimmen nicht überein</div>
+                    </div>
+                </md-input-container>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>

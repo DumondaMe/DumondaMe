@@ -610,8 +610,9 @@
   vertical-align: middle; }
 
 .ely-dialog-title {
-  font-size: 18px;
-  margin-bottom: 16px; }
+  padding: 16px 24px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .ely-dialog-title .highlighted {
     color: #3F51B5; }
 

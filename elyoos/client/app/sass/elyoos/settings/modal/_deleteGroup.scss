@@ -1,14 +1,10 @@
 #delete-group {
   .ely-dialog-content {
     padding-bottom: 0;
-    .title {
-      .name {
-        color: $primary-color;
-      }
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
     .description {
+      font-size: 14px;
+      font-weight: 500;
+      color: $secondary-text;
       margin-bottom: 16px;
     }
   }

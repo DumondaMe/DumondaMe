@@ -21,8 +21,9 @@
 }
 
 .ely-dialog-title {
-  font-size: 18px;
-  margin-bottom: 16px;
+  padding: 16px 24px;
+  margin-bottom: 0;
+  border-bottom: 1px solid $divider;
   .highlighted {
     color: $primary-color;
   }
