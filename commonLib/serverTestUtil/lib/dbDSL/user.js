@@ -67,14 +67,13 @@ let createPrivacy = function (userIds, type, privacy) {
     }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
         .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, profileData: {profileData}, contacts: {contacts}, 
+        .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
                   pinwall: {pinwall}})`)
         .end({
             userIds: userIds,
             type: type,
             profile: privacy.profile,
             image: privacy.image,
-            profileData: privacy.profileData,
             contacts: privacy.contacts,
             pinwall: privacy.pinwall
         }).getCommand());
@@ -87,13 +86,12 @@ let createPrivacyNoContact = function (userIds, privacy) {
     }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
         .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: {profile}, image: {image}, profileData: {profileData}, contacts: {contacts}, 
+        .create(`(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
                   pinwall: {pinwall}})`)
         .end({
             userIds: userIds,
             profile: privacy.profile,
             image: privacy.image,
-            profileData: privacy.profileData,
             contacts: privacy.contacts,
             pinwall: privacy.pinwall
         }).getCommand());
