@@ -23,7 +23,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
 
         ctrl.upload = function () {
             ctrl.uploadStarted = true;
-            let newSettings = {
+            var newSettings = {
                 changePrivacySetting: {
                     group: $scope.settings.group,
                     noContact: $scope.settings.noContact
