@@ -12,13 +12,13 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
         $scope.settings = Privacy.get({}, function () {
             ctrl.uploadStarted = false;
             originalSettings = angular.copy($scope.settings);
-            ctrl.groupNames = PrivacySettingService.getGroupNames($scope.settings.group);
-            ctrl.groupNamesProfileVisible = angular.copy(ctrl.groupNames);
+            ctrl.groupNames = PrivacySettingService.getGroupNames($scope.settings.group, $scope.settings.noContact.profileVisible);
+            ctrl.groupNamesProfileVisible = ['Alle', 'Nur Kontakte'];
         });
 
         ctrl.profileVisibleChanged = function (selected) {
             $scope.settings = PrivacySettingService.setPrivacySettingProfileVisible($scope.settings, selected);
-            PrivacySettingService.setDisabled($scope.settings, ctrl.groupNames);
+            ctrl.groupNames = PrivacySettingService.getGroupNames($scope.settings.group, $scope.settings.noContact.profileVisible);
         };
 
         ctrl.upload = function () {

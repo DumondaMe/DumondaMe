@@ -24,16 +24,17 @@ let privacySettingsIsNotExisting = function (id, privacySettingType, req) {
 };
 
 let getPrivacySettings = function (userId) {
-    let commands = [], returnCommand;
+    let commands = [], returnCommand, returnCommandNoContact;
 
-    returnCommand = `privacy.profile AS profileVisible, privacy.image AS imageVisible, privacy.contacts AS contactsVisible, 
+    returnCommand = `privacy.image AS imageVisible, privacy.contacts AS contactsVisible, 
                      privacy.pinwall AS pinwallVisible, r.type AS type`;
+    returnCommandNoContact = `${returnCommand}, privacy.profile AS profileVisible`;
 
     commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(privacy:Privacy)")
         .return(returnCommand)
         .orderBy("type").end({userId: userId}).getCommand());
     return db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .return(returnCommand)
+        .return(returnCommandNoContact)
         .orderBy("type").end({userId: userId}).send(commands)
         .then(function (result) {
             return {group: result[0], noContact: result[1][0]};
@@ -61,7 +62,6 @@ let changePrivacySettings = function (userId, privacySettings, req) {
         privacySettings.group.forEach(function (group) {
             commands.push(db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY {type: {type}}]->(privacy:Privacy)")
                 .set('privacy', {
-                    profile: group.profileVisible,
                     image: group.imageVisible,
                     contacts: group.contactsVisible,
                     pinwall: group.pinwallVisible
@@ -102,14 +102,14 @@ let renamePrivacySetting = function (userId, privacySettingType, newPrivacySetti
         });
 };
 
-let addNewPrivacySetting = function (userId, privacySettingType, privacySettings) {
+let addNewPrivacySetting = function (userId, privacySettings) {
 
-    return privacySettingsIsNotExisting(userId, privacySettingType)
+    return privacySettingsIsNotExisting(userId, privacySettings.type)
         .then(function () {
             privacySettings.userId = userId;
-            privacySettings.type = privacySettingType;
+            privacySettings.type = privacySettings.type;
             return db.cypher().match('(u:User {userId: {userId}})')
-                .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profileVisible}, contacts: {contactsVisible}, 
+                .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {contacts: {contactsVisible}, 
                 image: {imageVisible}, pinwall: {pinwallVisible}})`)
                 .end(privacySettings).send();
         });

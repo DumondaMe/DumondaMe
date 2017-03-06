@@ -19,20 +19,9 @@ let schemaPostPrivacyCommands = {
                 group: {
                     type: 'array',
                     minItems: 1,
-                    items: {
-                        type: 'object',
-                        additionalProperties: false,
-                        required: ['type', 'profileVisible', 'imageVisible', 'contactsVisible', 'pinwallVisible'],
-                        properties: {
-                            type: {'$ref': '#/definitions/privacyDescription'},
-                            profileVisible: {type: 'boolean'},
-                            imageVisible: {type: 'boolean'},
-                            contactsVisible: {type: 'boolean'},
-                            pinwallVisible: {type: 'boolean'}
-                        }
-                    }
+                    items: {'$ref': '#/definitions/privacySettings'}
                 },
-                noContact: {'$ref': '#/definitions/privacySettings'}
+                noContact: {'$ref': '#/definitions/privacySettingsNoContact'}
             }
         },
         renamePrivacy: {
@@ -47,20 +36,30 @@ let schemaPostPrivacyCommands = {
         addNewPrivacy: {
             type: 'object',
             additionalProperties: false,
-            required: ['privacySettings', 'privacyDescription'],
+            required: ['privacySettings'],
             properties: {
-                privacySettings: {'$ref': '#/definitions/privacySettings'},
-                privacyDescription: {'$ref': '#/definitions/privacyDescription'}
+                privacySettings: {'$ref': '#/definitions/privacySettings'}
             }
         }
     },
     definitions: {
-        privacySettings: {
+        privacySettingsNoContact: {
             type: 'object',
             additionalProperties: false,
             required: ['profileVisible', 'imageVisible', 'contactsVisible', 'pinwallVisible'],
             properties: {
                 profileVisible: {type: 'boolean'},
+                imageVisible: {type: 'boolean'},
+                contactsVisible: {type: 'boolean'},
+                pinwallVisible: {type: 'boolean'}
+            }
+        },
+        privacySettings: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'imageVisible', 'contactsVisible', 'pinwallVisible'],
+            properties: {
+                type: {'$ref': '#/definitions/privacyDescription'},
                 imageVisible: {type: 'boolean'},
                 contactsVisible: {type: 'boolean'},
                 pinwallVisible: {type: 'boolean'}
@@ -109,9 +108,8 @@ module.exports = function (router) {
                         request.renamePrivacy.newPrivacyDescription, req);
                 }
                 if (request.addNewPrivacy) {
-                    logger.info(`User add new privacy setting ${request.addNewPrivacy.privacyDescription}`, req);
-                    return privacy.addNewPrivacySetting(req.user.id, request.addNewPrivacy.privacyDescription,
-                        request.addNewPrivacy.privacySettings);
+                    logger.info(`User add new privacy setting ${request.addNewPrivacy.privacySettings.type}`, req);
+                    return privacy.addNewPrivacySetting(req.user.id, request.addNewPrivacy.privacySettings);
                 }
             }).then(function () {
                 res.status(200).end();

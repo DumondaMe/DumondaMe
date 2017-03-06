@@ -1,11 +1,13 @@
 'use strict';
 
 module.exports = [function () {
-    this.getGroupNames = function (settings) {
+    this.getGroupNames = function (settings, profileVisible) {
         var groupNames = [];
-        groupNames.push({type: "Alle"});
+        if (profileVisible) {
+            groupNames.push("Alle");
+        }
         settings.forEach(function (setting) {
-            groupNames.push({type: setting.type});
+            groupNames.push(setting.type);
         });
         return groupNames;
     };
@@ -23,41 +25,27 @@ module.exports = [function () {
         return selectedGroups;
     };
 
+    this.handlingProfileVisibleSelection = function (selectedGroups, previousSelectedGroups) {
+        if (angular.isArray(selectedGroups) && selectedGroups.length > 0) {
+            if (selectedGroups.indexOf("Alle") !== -1 && previousSelectedGroups.indexOf("Alle") === -1) {
+                return ["Alle"];
+            } else {
+                return ['Nur Kontakte'];
+            }
+        }
+        return [];
+    };
+
     this.setPrivacySettingProfileVisible = function (settings, selectedProfileSetting) {
         settings = angular.copy(settings);
-        if (angular.isArray(settings.group) && angular.isObject(settings.noContact)) {
+        if (angular.isObject(settings.noContact)) {
             if (selectedProfileSetting.indexOf("Alle") !== -1) {
                 settings.noContact.profileVisible = true;
-                settings.group.forEach(function (group) {
-                    group.profileVisible = true;
-                });
-                ['contactsVisible', 'imageVisible', 'pinwallVisible'].forEach(function (property) {
-                    var isVisibleForAll = true;
-                    settings.group.forEach(function (group) {
-                        if (!group[property]) {
-                            isVisibleForAll = false;
-                        }
-                    });
-                    settings.noContact[property] = isVisibleForAll;
-                });
             } else {
                 settings.noContact.profileVisible = false;
                 settings.noContact.contactsVisible = false;
                 settings.noContact.imageVisible = false;
                 settings.noContact.pinwallVisible = false;
-                settings.group.forEach(function (group) {
-                    if (selectedProfileSetting.indexOf(group.type) < 0) {
-                        group.profileVisible = false;
-                        group.contactsVisible = false;
-                        group.imageVisible = false;
-                        group.pinwallVisible = false;
-                    } else {
-                        group.profileVisible = true;
-                        group.contactsVisible = true;
-                        group.imageVisible = true;
-                        group.pinwallVisible = true;
-                    }
-                });
             }
         }
         return settings;
@@ -79,22 +67,6 @@ module.exports = [function () {
         return settings;
     };
 
-    this.setDisabled = function (settings, groupNames) {
-        if (angular.isArray(settings.group) && angular.isObject(settings.noContact) && angular.isArray(groupNames)) {
-            groupNames.forEach(function (groupName) {
-                if (groupName.type === 'Alle') {
-                    groupName.disabled = !settings.noContact.profileVisible;
-                } else {
-                    settings.group.forEach(function (group) {
-                        if (group.type === groupName.type) {
-                            groupName.disabled = !group.profileVisible;
-                        }
-                    });
-                }
-            });
-        }
-    };
-
     this.getSelectedGroups = function (settings, property) {
         var selectedGroups = [];
         if (angular.isArray(settings.group) && angular.isObject(settings.noContact)) {
@@ -106,6 +78,18 @@ module.exports = [function () {
                         selectedGroups.push(group.type);
                     }
                 });
+            }
+        }
+        return selectedGroups;
+    };
+
+    this.getSelectedProfileVisible = function (settings) {
+        var selectedGroups = [];
+        if (angular.isObject(settings.noContact)) {
+            if (settings.noContact.profileVisible) {
+                selectedGroups.push("Alle");
+            } else {
+                selectedGroups.push("Nur Kontakte");
             }
         }
         return selectedGroups;
