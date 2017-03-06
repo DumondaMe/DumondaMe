@@ -19,7 +19,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             data: {title: 'Dein Profil'}
         })
         .state('settings.profile', {
-            url: '/profile',
+            url: '/profile/{overview}',
             views: {
                 'content@': {
                     template: '<ely-settings-profile></ely-settings-profile>'

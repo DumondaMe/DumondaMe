@@ -1,13 +1,23 @@
 'use strict';
 
 module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequestResponseHandler', '$mdMedia', '$mdSidenav',
-    function (ElyModal, UserPinwall, ScrollRequest, PinwallScrollRequestResponseHandler, $mdMedia, $mdSidenav) {
+    '$stateParams', '$state',
+    function (ElyModal, UserPinwall, ScrollRequest, PinwallScrollRequestResponseHandler, $mdMedia, $mdSidenav,
+              $stateParams, $state) {
         var ctrl = this;
 
         ctrl.pinwall = {pinwall: []};
         ctrl.filterType = 'adminNewest';
         ctrl.previousFilterType = 'adminNewest';
         ctrl.$mdMedia = $mdMedia;
+
+        if ($stateParams.overview === 'contacts') {
+            ctrl.showPagesView = false;
+            ctrl.showContactsView = true;
+        } else {
+            ctrl.showPagesView = true;
+            ctrl.showContactsView = false;
+        }
 
         ctrl.openNav = function () {
             $mdSidenav("right").toggle();
@@ -16,11 +26,13 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         ctrl.showPages = function () {
             ctrl.showPagesView = true;
             ctrl.showContactsView = false;
+            $state.go('settings.profile', {overview: null}, {notify: false});
         };
 
         ctrl.showContacts = function () {
             ctrl.showPagesView = false;
             ctrl.showContactsView = true;
+            $state.go('settings.profile', {overview: 'contacts'}, {notify: false});
         };
 
         ctrl.openCreatePage = function () {
@@ -51,5 +63,7 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
                 }
             });
         };
-        ctrl.nextPinwallInfo();
+        if ($stateParams.overview !== 'contacts') {
+            ctrl.nextPinwallInfo();
+        }
     }];

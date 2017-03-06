@@ -1,12 +1,19 @@
 'use strict';
 
-module.exports = ['ElyModal', 'UploadProfileImageState', '$mdSidenav',
-    function (ElyModal, UploadProfileImageState, $mdSidenav) {
+module.exports = ['ElyModal', 'UploadProfileImageState', '$mdSidenav', '$stateParams',
+    function (ElyModal, UploadProfileImageState, $mdSidenav, $stateParams) {
         var ctrl = this;
 
         ctrl.showPagesSelected = true;
         ctrl.showContactsSelected = false;
-        ctrl.showPages();
+
+        if ($stateParams.overview === 'contacts') {
+            ctrl.showPagesSelected = false;
+            ctrl.showContactsSelected = true;
+            ctrl.showContacts();
+        } else {
+            ctrl.showPages();
+        }
 
         ctrl.uploadProfileImage = function () {
             ElyModal.show('UtilFileUploadCropImageCtrl', 'app/modules/util/file/uploadCropImage/template.html',
