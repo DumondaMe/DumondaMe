@@ -59,9 +59,9 @@ let getRecommendationOfOtherUser = function (userId, request) {
         .with(`user, pinwall, pinwallData, otherUser, isContact, privacy, privacyNoContact`)
         .where(`((NOT EXISTS(pinwallData.visible) AND ANY(l IN LABELS(pinwallData) WHERE l = 'Blog'))
                  OR (ANY(v IN pinwallData.visible WHERE v = isContact.type) AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))
-                 OR (NONE(l IN LABELS(pinwallData) WHERE l = 'Blog') AND
+                 OR (NONE(l IN LABELS(pinwallData) WHERE l = 'Blog'))) AND
                 (privacy.pinwall = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND
-                (privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true))))
+                (privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true))
                  AND NOT (otherUser)-[:IS_BLOCKED]->(user)`)
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
         .optionalMatch("(writer)-[:WRITTEN]->(pinwallData)")
@@ -94,9 +94,9 @@ let getPagesOfOtherUser = function (userId, request) {
         .with(`user, page, otherUser, isContact, privacy, privacyNoContact`)
         .where(`((NOT EXISTS(page.visible) AND ANY(l IN LABELS(page) WHERE l = 'Blog'))
                  OR (ANY(v IN page.visible WHERE v = isContact.type) AND ANY(l IN LABELS(page) WHERE l = 'Blog'))
-                 OR ((NONE(l IN LABELS(page) WHERE l = 'Blog') AND
+                 OR ((NONE(l IN LABELS(page) WHERE l = 'Blog')))) AND
                 (privacy.pinwall = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND
-                (privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)))))
+                (privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true))
                  AND NOT (otherUser)-[:IS_BLOCKED]->(user)`)
         .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(page)")
         .return(`user, page, otherUser AS contact, LABELS(page) AS pinwallType, privacy, privacyNoContact, true AS isAdminType,

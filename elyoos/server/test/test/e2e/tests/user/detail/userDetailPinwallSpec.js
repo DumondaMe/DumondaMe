@@ -292,7 +292,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
         });
     });
 
-    it('Show only public blog (is contact, profile:true, pinwall:false, adminPopular) - Return a 200', function () {
+    it('Show no blog (is contact, profile:true, pinwall:false, adminPopular) - Return a 200', function () {
 
         dbDsl.createPrivacy(['2'], 'Freund2', {profile: true, image: true, profileData: true, contacts: true, pinwall: false});
         dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -304,33 +304,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('2');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
 
-    it('Show only public blog (is contact, profile:false, pinwall:true, adminPopular) - Return a 200', function () {
-
-        dbDsl.createPrivacy(['2'], 'Freund2', {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
-        dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
-        dbDsl.createContactConnection('2', '1', 'Freund2', 500);
-
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('2');
-            });
-        });
-    });
-
-    it('Show only public blog (is contact, profile:true, pinwall:false, recommendation) - Return a 200', function () {
+    it('Show no blog (is contact, profile:true, pinwall:false, recommendation) - Return a 200', function () {
 
         dbDsl.crateRecommendationsForBlog('3', [{userId: '2', created: 550}]);
         dbDsl.createPrivacy(['2'], 'Freund2', {profile: true, image: true, profileData: true, contacts: true, pinwall: false});
@@ -343,34 +322,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('4');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
 
-    it('Show only public blog (is contact, profile:false, pinwall:true, recommendation) - Return a 200', function () {
-
-        dbDsl.crateRecommendationsForBlog('3', [{userId: '2', created: 550}]);
-        dbDsl.createPrivacy(['2'], 'Freund2', {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
-        dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
-        dbDsl.createContactConnection('2', '1', 'Freund2', 500);
-
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('4');
-            });
-        });
-    });
-
-    it('Show only public blog (is not contact, profile:true, pinwall:false, adminPopular) - Return a 200', function () {
+    it('Show no blog (is not contact, profile:true, pinwall:false, adminPopular) - Return a 200', function () {
 
         dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, profileData: true, contacts: true, pinwall: false});
 
@@ -380,14 +337,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('2');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
 
-    it('Show only public blog (is not contact, profile:false, pinwall:true, adminPopular) - Return a 200', function () {
+    it('Show no blog (is not contact, profile:false, pinwall:true, adminPopular) - Return a 200', function () {
 
         dbDsl.createPrivacyNoContact(['2'], {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
 
@@ -397,14 +352,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('2');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
 
-    it('Show only public blog (is not contact, profile:true, pinwall:false, recommendation) - Return a 200', function () {
+    it('Show no blog (is not contact, profile:true, pinwall:false, recommendation) - Return a 200', function () {
 
         dbDsl.crateRecommendationsForBlog('3', [{userId: '2', created: 550}]);
         dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, profileData: true, contacts: true, pinwall: false});
@@ -415,14 +368,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('4');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
 
-    it('Show only public blog (is contact, profile:false, pinwall:true, recommendation) - Return a 200', function () {
+    it('Show only public blog (is not contact, profile:false, pinwall:true, recommendation) - Return a 200', function () {
 
         dbDsl.crateRecommendationsForBlog('3', [{userId: '2', created: 550}]);
         dbDsl.createPrivacyNoContact(['2'], {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
@@ -433,9 +384,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equal(1);
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('4');
+                res.body.pinwall.length.should.equal(0);
             });
         });
     });
