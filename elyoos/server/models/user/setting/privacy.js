@@ -109,7 +109,7 @@ let addNewPrivacySetting = function (userId, privacySettings) {
             privacySettings.userId = userId;
             privacySettings.type = privacySettings.type;
             return db.cypher().match('(u:User {userId: {userId}})')
-                .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {contacts: {contactsVisible}, 
+                .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: true, contacts: {contactsVisible}, 
                 image: {imageVisible}, pinwall: {pinwallVisible}})`)
                 .end(privacySettings).send();
         });

@@ -5,8 +5,14 @@
     .ely-input-container {
       width: 100%;
     }
-    .select-privacy {
+    .privacy-element-description {
+      font-size: 14px;
+      font-weight: 500;
+      color: $secondary-text;
       margin-bottom: 24px;
+    }
+    .select-privacy {
+      margin-bottom: 12px;
     }
   }
 }

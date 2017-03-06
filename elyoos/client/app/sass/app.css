@@ -4102,8 +4102,13 @@
     padding-bottom: 0; }
     #add-group .ely-dialog-content .ely-input-container {
       width: 100%; }
-    #add-group .ely-dialog-content .select-privacy {
+    #add-group .ely-dialog-content .privacy-element-description {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54);
       margin-bottom: 24px; }
+    #add-group .ely-dialog-content .select-privacy {
+      margin-bottom: 12px; }
 
 #change-password {
   max-width: 300px; }
@@ -4134,25 +4139,6 @@
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54);
     margin-bottom: 16px; }
-
-#modify-group-setting {
-  max-width: 700px;
-  padding: 0 24px; }
-  #modify-group-setting .ely-dialog-content {
-    padding-bottom: 0; }
-    #modify-group-setting .ely-dialog-content .ely-dialog-title .group {
-      color: #3F51B5; }
-    #modify-group-setting .ely-dialog-content .privacy-divider {
-      margin-bottom: 32px; }
-    #modify-group-setting .ely-dialog-content .privacy-element-description {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 24px; }
-    #modify-group-setting .ely-dialog-content .select-privacy {
-      margin-bottom: 12px; }
-
-#modify-group-setting-dialog {
-  max-width: 500px; }
 
 #overview-group-setting-dialog {
   max-width: 700px; }

@@ -4,7 +4,7 @@
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
                 <md-input-container class="ely-input-container">
-                    <label>Neuer Name</label>
+                    <label>Neuer Bezeichnung</label>
                     <input name="newGroupName" ng-model="ctrl.newGroupName" required md-no-asterisk
                            ng-disabled="ctrl.running" ng-change="ctrl.nameChanged()"/>
                     <div ng-messages="ctrl.renameGroupNameForm.newGroupName.$error" ng-show="ctrl.renameGroupNameForm.newGroupName.$dirty">

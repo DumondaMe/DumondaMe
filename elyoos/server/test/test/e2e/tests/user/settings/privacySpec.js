@@ -274,6 +274,7 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[2].count.should.equals(1);
             contactType[3].type.should.equals('Irgendwas');
             contactType[3].count.should.equals(1);
+            contactType[3].profile.should.be.true;
             contactType[3].image.should.be.true;
             contactType[3].contacts.should.be.true;
             contactType[3].pinwall.should.be.true;
@@ -308,6 +309,7 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[1].count.should.equals(1);
             contactType[2].type.should.equals('Freund');
             contactType[2].count.should.equals(1);
+            contactType[2].profile.should.be.true;
             contactType[2].image.should.be.true;
             contactType[2].contacts.should.be.false;
             contactType[2].pinwall.should.be.true;
