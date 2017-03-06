@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+        <ely-load-screen ng-if="ctrl.showPagesView && ctrl.loadPinwallStarted"></ely-load-screen>
         <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView">
             <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall && ctrl.$mdMedia('gt-xs')">
                 <md-card-content>

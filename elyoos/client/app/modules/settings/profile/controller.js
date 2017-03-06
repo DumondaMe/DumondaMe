@@ -6,7 +6,6 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
               $stateParams, $state) {
         var ctrl = this;
 
-        ctrl.pinwall = {pinwall: []};
         ctrl.filterType = 'adminNewest';
         ctrl.previousFilterType = 'adminNewest';
         ctrl.$mdMedia = $mdMedia;
@@ -26,6 +25,10 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         ctrl.showPages = function () {
             ctrl.showPagesView = true;
             ctrl.showContactsView = false;
+            ctrl.pinwall = {pinwall: []};
+            ctrl.loadPinwallStarted = true;
+            ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
+            ctrl.nextPinwallInfo();
             $state.go('settings.profile', {overview: null}, {notify: false});
         };
 
@@ -48,22 +51,21 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
                 ctrl.previousFilterType = angular.copy(ctrl.filterType);
                 ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
                 ctrl.pinwall = {pinwall: []};
+                ctrl.loadPinwallStarted = true;
                 ctrl.nextPinwallInfo();
             }
         };
-
-        ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
 
         ctrl.nextPinwallInfo = function () {
             ScrollRequest.nextRequest('UserPinwall', ctrl.pinwall.pinwall, {type: ctrl.filterType}).then(function (pinwall) {
                 ctrl.pinwall = pinwall;
                 ctrl.noPinwall = false;
+                ctrl.loadPinwallStarted = false;
                 if (pinwall.pinwall.length === 0) {
                     ctrl.noPinwall = true;
                 }
+            }, function () {
+                ctrl.loadPinwallStarted = false;
             });
         };
-        if ($stateParams.overview !== 'contacts') {
-            ctrl.nextPinwallInfo();
-        }
     }];
