@@ -133,8 +133,10 @@ let getBlogs = function (userId, request) {
                EXISTS((user)-[:WRITTEN]->(pinwall)) AS isAdmin`)
         .where(`((user)-[:WRITTEN]->(pinwall) OR (contact IS NOT null AND NOT EXISTS(pinwall.visible)) OR 
                 (contact IS NOT null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND
-                (privacy.pinwall = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND
-                (privacy.profile = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)) AND
+                ((user)-[:WRITTEN]->(pinwall) OR privacy.pinwall = true OR 
+                (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND
+                ((user)-[:WRITTEN]->(pinwall) OR privacy.profile = true OR 
+                (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)) AND
                 NOT (contact)-[:IS_BLOCKED]->(user)`)
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwall)")
         .return(`user, totalNumberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
