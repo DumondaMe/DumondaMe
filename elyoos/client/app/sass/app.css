@@ -3677,6 +3677,9 @@
 #check-login {
   height: 100%; }
 
+.register-user-show-agb {
+  height: 100%; }
+
 #register-user {
   max-width: 600px;
   width: 100%; }
@@ -3698,8 +3701,6 @@
       @media screen and (max-width: 960px) {
         #register-user .register-form-container .left-register-input-container {
           margin-left: 0; } }
-    #register-user .register-form-container .select-gender {
-      margin: 24px 0; }
     #register-user .register-form-container .ely-recaptcha {
       margin-top: 16px; }
       @media screen and (max-width: 960px) {
@@ -3786,9 +3787,11 @@
       #start-screen .ely-logo {
         width: 120px; } }
 
-@media screen and (max-width: 960px) {
-  .terms-dialog {
-    max-width: 100%; } }
+.terms-dialog {
+  height: 100%; }
+  @media screen and (max-width: 960px) {
+    .terms-dialog {
+      max-width: 100%; } }
 
 .terms-container {
   height: 100%; }
@@ -3796,7 +3799,8 @@
     .terms-container {
       margin-left: 0; } }
   .terms-container .terms-content-container {
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    height: 100%; }
     .terms-container .terms-content-container #ely-terms {
       padding: 16px;
       color: rgba(0, 0, 0, 0.87); }
