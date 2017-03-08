@@ -685,35 +685,19 @@
     word-wrap: break-word; }
 
 #ely-add-feedback {
-  width: 100%;
-  height: 100%; }
-  #ely-add-feedback .title {
-    font-size: 18px;
-    padding: 16px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  #ely-add-feedback .description-container {
-    padding: 16px 24px; }
-    #ely-add-feedback .description-container .input-container {
-      width: 100%;
-      margin: 16px 0 0 0; }
+  width: 100%; }
+  #ely-add-feedback .input-container {
+    width: 100%;
+    margin: 16px 0 0 0; }
 
 #ely-add-feedback-dialog {
   width: 90%;
   min-width: 300px;
   max-width: 600px; }
 
-.ely-add-feedback-comment {
+.ely-add-feedback-comment .input-container {
   width: 100%;
-  height: 100%; }
-  .ely-add-feedback-comment .title {
-    font-size: 18px;
-    padding: 16px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  .ely-add-feedback-comment .description-container {
-    padding: 16px 24px; }
-    .ely-add-feedback-comment .description-container .input-container {
-      width: 100%;
-      margin: 16px 0 0 0; }
+  margin: 16px 0 0 0; }
 
 #ely-add-feedback-comment-dialog {
   width: 90%;

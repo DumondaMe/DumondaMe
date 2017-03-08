@@ -1,7 +1,8 @@
-<md-dialog id="ely-add-feedback-comment-dialog">
-        <form name="ctrl.feedbackCommentForm" class="ely-add-feedback-comment">
-            <div class="title">Kommentar erstellen</div>
-            <div class="description-container">
+<md-dialog id="ely-add-feedback-comment-dialog" layout="column">
+    <form name="ctrl.feedbackCommentForm" class="ely-add-feedback-comment" flex="auto">
+        <div class="md-title ely-dialog-title">Kommentar erstellen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
                 <md-input-container class="input-container">
                     <label>Kommentar</label>
                     <textarea name="text" ng-model="ctrl.text" md-maxlength="3000"
@@ -12,14 +13,15 @@
                     </div>
                 </md-input-container>
             </div>
-            <div layout="row" layout-align="start center" class="action-commands">
-                <span flex></span>
-                <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
-                <md-button class="md-primary md-raised"
-                           ng-disabled="ctrl.uploadRunning || ctrl.feedbackCommentForm.$invalid"
-                           ng-click="ctrl.uploadFeedbackComment()">Erstellen
-                </md-button>
-            </div>
-        </form>
-        <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
+            <md-button class="md-primary md-raised"
+                       ng-disabled="ctrl.uploadRunning || ctrl.feedbackCommentForm.$invalid"
+                       ng-click="ctrl.uploadFeedbackComment()">Erstellen
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>
