@@ -1,6 +1,6 @@
-<md-content id="ely-contact">
+<div id="ely-contact" layout="column">
     <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery"
-             md-selected="ctrl.selectedTab">
+             md-selected="ctrl.selectedTab" flex="auto">
         <md-tab class="contact-tab">
             <md-tab-label>
                 <span class="tab-me">Du</span>
@@ -42,4 +42,4 @@
     <ely-load-screen ng-if="ctrl.requestRunning"></ely-load-screen>
     <ely-contact-search-user-overview ng-if="!ctrl.requestRunning && ctrl.showUserQuery"
                                       users="ctrl.userQueryResult"></ely-contact-search-user-overview>
-</md-content>
+</div>

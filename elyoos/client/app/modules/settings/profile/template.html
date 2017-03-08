@@ -31,8 +31,8 @@
             </div>
             <ely-pinwall-compact pinwall="ctrl.pinwall.pinwall"></ely-pinwall-compact>
         </div>
-        <div ng-if="ctrl.showContactsView" flex>
-            <ely-contact></ely-contact>
+        <div ng-if="ctrl.showContactsView" flex="grow" layout="column">
+            <ely-contact flex="auto"></ely-contact>
         </div>
     </div>
     <md-button class="md-fab open-nav-fab" aria-label="Open Setting Navigation" ng-click="ctrl.openNav()" ng-if="!ctrl.$mdMedia('gt-xs')">
