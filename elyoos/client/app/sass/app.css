@@ -487,6 +487,8 @@
       max-width: 700px;
       cursor: pointer;
       margin: 0 auto; }
+    #ely-contact-overview .contact-overview-container .preview-container {
+      height: 72px; }
 
 .ely-contact-preview {
   width: 100%;
@@ -2643,7 +2645,13 @@
 
 #blog-manage .preview-image {
   max-width: 150px;
+  min-width: 100px;
   max-height: 300px; }
+  #blog-manage .preview-image img {
+    width: 100%;
+    max-height: 100%; }
+#blog-manage .preview-image-button-container {
+  min-width: 150px; }
 #blog-manage #select-privacy {
   margin-bottom: 16px; }
   #blog-manage #select-privacy .privacy-button {
@@ -2716,8 +2724,8 @@
 
 #manage-generic-page .ely-dialog-content #title-image-container {
   width: 150px; }
-  #manage-generic-page .ely-dialog-content #title-image-container .preview-image {
-    width: 150px; }
+  #manage-generic-page .ely-dialog-content #title-image-container img {
+    width: 100%; }
 #manage-generic-page .ely-dialog-content .search-place-button-container {
   height: 66px; }
 #manage-generic-page .ely-dialog-content #place-list {
@@ -2756,8 +2764,14 @@
   #manage-generic-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
     margin-right: 3px; }
 
+.create-generic-page-preview-image {
+  max-width: 600px;
+  height: 90%; }
+
 #manage-book-page .ely-dialog-content .preview-image {
-  width: 200px; }
+  width: 150px; }
+  #manage-book-page .ely-dialog-content .preview-image img {
+    width: 100%; }
 
 .create-book-page-preview-image {
   max-width: 600px;
@@ -2785,10 +2799,14 @@
       color: rgba(0, 0, 0, 0.54);
       font-size: 14px; }
 
-#manage-link-page .form-container {
-  height: 100%; }
-  #manage-link-page .form-container .ely-dialog-content .preview-image {
-    width: 230px; }
+#manage-link-page .ely-dialog-content .preview-image {
+  width: 150px; }
+  #manage-link-page .ely-dialog-content .preview-image img {
+    width: 100%; }
+
+.create-link-page-preview-image {
+  max-width: 600px;
+  height: 90%; }
 
 #manage-youtube-page .youtube-preview {
   padding-top: 24px;
@@ -3187,8 +3205,11 @@
       cursor: pointer;
       height: 40px !important;
       width: 40px;
-      margin-right: 12px;
-      border-radius: 50%; }
+      margin-right: 12px; }
+      .card-recommendation-desktop .header .user-image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; }
     .card-recommendation-desktop .header .recommendation-title {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.54);
@@ -3422,7 +3443,6 @@
   height: 100%;
   width: 100%; }
   #start-screen #carousel #right-column {
-    min-height: 100%;
     height: 100%;
     width: 100%;
     background-color: #fafafa; }
@@ -3509,10 +3529,14 @@
       #start-screen #carousel #carousel-commands {
         right: 128px; } }
 
-#start-screen #carousel #carousel-login {
+#start-screen {
   height: 100%; }
-  #start-screen #carousel #carousel-login #login-container {
+  #start-screen #carousel {
     height: 100%; }
+    #start-screen #carousel #carousel-login {
+      height: 100%; }
+      #start-screen #carousel #carousel-login #login-container {
+        height: 100%; }
 
 #carousel-vision {
   background-color: #fafafa;

@@ -2,7 +2,15 @@
 
   .preview-image {
     max-width: 150px;
+    min-width: 100px;
     max-height: 300px;
+    img {
+      width: 100%;
+      max-height: 100%;
+    }
+  }
+  .preview-image-button-container {
+    min-width: 150px;
   }
   #select-privacy {
     margin-bottom: 16px;

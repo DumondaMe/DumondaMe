@@ -1,7 +1,10 @@
 #manage-book-page {
   .ely-dialog-content {
     .preview-image {
-      width: 200px;
+      width: 150px;
+      img {
+        width: 100%;
+      }
     }
   }
 }

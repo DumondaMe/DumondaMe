@@ -1,7 +1,7 @@
 <md-card class="card-recommendation-desktop">
     <div class="header" layout="row" ng-if="ctrl.element.order !== 'popular'">
-        <div ng-click="ctrl.openUserDetail()">
-            <img class="user-image" ng-src="{{ctrl.element.profileUrl}}"/>
+        <div ng-click="ctrl.openUserDetail()" flex="none" class="user-image">
+            <img ng-src="{{ctrl.element.profileUrl}}"/>
         </div>
         <div>
             <div class="md-title recommendation-title">

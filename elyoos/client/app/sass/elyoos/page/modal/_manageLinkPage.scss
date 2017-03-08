@@ -1,10 +1,15 @@
 #manage-link-page {
-  .form-container {
-    height: 100%;
-    .ely-dialog-content {
-      .preview-image {
-        width: 230px;
+  .ely-dialog-content {
+    .preview-image {
+      width: 150px;
+      img {
+        width: 100%;
       }
     }
   }
+}
+
+.create-link-page-preview-image {
+  max-width: 600px;
+  height: 90%;
 }
