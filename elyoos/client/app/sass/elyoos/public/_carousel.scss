@@ -55,7 +55,7 @@
       position: fixed;
       bottom: 64px;
       left: 32px;
-      z-index: 100;
+      z-index: 1000;
       @media screen and (max-height: 560px) {
         bottom: 52px;
       }
