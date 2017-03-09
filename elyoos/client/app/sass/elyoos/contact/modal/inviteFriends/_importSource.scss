@@ -7,6 +7,10 @@
     .source-container {
       margin-bottom: 6px;
       cursor: pointer;
+      height: 24px;
+      @media screen and (min-width: $gt-xs) {
+        height: 48px;
+      }
       .image-container {
         margin-right: 12px;
         height: 24px;

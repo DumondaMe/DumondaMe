@@ -1,24 +1,23 @@
 #invite-friends-dialog {
   #add-email-container {
-    max-height: 100%;
     @media screen and (min-width: $gt-xs) {
       min-width: 400px;
     }
     #ely-contact-input {
       padding: 0 24px;
-    }
-    #add-email-container-container {
-      height: 100%;
+      .input-element {
+        margin-bottom: 0;
+      }
     }
     .ely-dialog-content {
       padding: 0;
-      height: 100%;
 
       #overview-valid-email-container {
         overflow-y: auto;
         padding: 0 24px;
-        height: 100%;
         .valid-email {
+          height: 18px;
+          line-height: 18px;
           font-size: 16px;
           font-weight: 500;
           color: $secondary-text;

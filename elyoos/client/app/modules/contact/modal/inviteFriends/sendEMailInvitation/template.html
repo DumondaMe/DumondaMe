@@ -2,7 +2,7 @@
     <div class="md-title ely-dialog-title">Freunde einladen</div>
     <div layout="column">
         <md-dialog-content layout="column">
-            <div class="md-dialog-content ely-dialog-content" flex="auto" ng-hide="ctrl.uploadStarted || ctrl.successfullySent">
+            <div class="md-dialog-content ely-dialog-content" ely-handling-flex ng-hide="ctrl.uploadStarted || ctrl.successfullySent">
                 <div class="send-email-invitation-description">
                     Möchtest du an diese <span class="number">{{ctrl.addresses.length}}</span> E-Mail-Addressen eine Einladung versenden?
                 </div>
@@ -27,7 +27,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.close()" ng-show="ctrl.successfullySent">
+            <md-button class="md-raised md-primary" ng-click="ctrl.close()" ng-show="ctrl.successfullySent">
                 Ok
             </md-button>
             <md-button ng-click="ctrl.cancel()" ng-disabled="ctrl.uploadStarted" ng-hide="ctrl.successfullySent">

@@ -24,34 +24,32 @@
   #add-contact .ely-dialog-title {
     margin-bottom: 32px; }
 
-#invite-friends-dialog #add-email-container {
-  max-height: 100%; }
-  @media screen and (min-width: 600px) {
-    #invite-friends-dialog #add-email-container {
-      min-width: 400px; } }
-  #invite-friends-dialog #add-email-container #ely-contact-input {
+@media screen and (min-width: 600px) {
+  #invite-friends-dialog #add-email-container {
+    min-width: 400px; } }
+#invite-friends-dialog #add-email-container #ely-contact-input {
+  padding: 0 24px; }
+  #invite-friends-dialog #add-email-container #ely-contact-input .input-element {
+    margin-bottom: 0; }
+#invite-friends-dialog #add-email-container .ely-dialog-content {
+  padding: 0; }
+  #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container {
+    overflow-y: auto;
     padding: 0 24px; }
-  #invite-friends-dialog #add-email-container #add-email-container-container {
-    height: 100%; }
-  #invite-friends-dialog #add-email-container .ely-dialog-content {
-    padding: 0;
-    height: 100%; }
-    #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container {
-      overflow-y: auto;
-      padding: 0 24px;
-      height: 100%; }
-      #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email {
-        font-size: 16px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.54);
-        margin-bottom: 6px; }
-        #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion {
-          font-size: 14px; }
-          #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion .link {
-            text-decoration: underline;
-            font-style: italic;
-            cursor: pointer;
-            color: #3F51B5; }
+    #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email {
+      height: 18px;
+      line-height: 18px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54);
+      margin-bottom: 6px; }
+      #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion {
+        font-size: 14px; }
+        #invite-friends-dialog #add-email-container .ely-dialog-content #overview-valid-email-container .valid-email .email-suggestion .link {
+          text-decoration: underline;
+          font-style: italic;
+          cursor: pointer;
+          color: #3F51B5; }
 
 @media screen and (min-width: 600px) {
   #invite-friends-dialog .ely-import-basic-auth {
@@ -71,68 +69,64 @@
   font-weight: 500;
   color: #ff5722; }
 
-#invite-friends-dialog {
-  max-height: 100%; }
-  #invite-friends-dialog .ely-dialog-title {
-    padding: 16px 24px;
-    margin-bottom: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  #invite-friends-dialog #invite-friends-dialog-content {
-    height: 100%; }
-    #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content {
-      padding-top: 0;
-      height: 100%; }
+#invite-friends-dialog .ely-dialog-title {
+  padding: 16px 24px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+#invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content {
+  padding-top: 0;
+  height: 100%; }
+  #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
+    margin-top: 12px; }
+    @media screen and (max-width: 600px) {
       #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-        margin-top: 12px; }
-        @media screen and (max-width: 600px) {
-          #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-            max-height: 95%;
-            margin-bottom: 12px; } }
-        @media screen and (min-width: 600px) {
-          #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-            min-width: 430px; } }
-        @media screen and (min-width: 960px) {
-          #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
-            min-width: 700px; } }
-        #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container .title {
-          font-size: 14px;
-          font-weight: 700;
-          color: rgba(0, 0, 0, 0.54);
-          margin-bottom: 12px; }
-        #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container #open-custom-emails {
-          margin-left: 0; }
-          #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container #open-custom-emails .md-fab {
-            margin-left: 0; }
-      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #filter-contact {
-        height: 50px;
-        margin-bottom: 24px; }
-      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container {
-        overflow-y: auto;
-        height: 100%; }
-        #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element {
-          margin-bottom: 8px; }
-          #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element .name {
-            font-size: 12px;
-            color: rgba(0, 0, 0, 0.54); }
-        #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element.select-all-element {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-          margin-bottom: 22px; }
-  #invite-friends-dialog .load-screen-container {
-    height: 200px; }
-    #invite-friends-dialog .load-screen-container .ely-loading-screen {
-      height: 200px; }
-  #invite-friends-dialog #select-info {
-    font-size: 12px; }
+        max-height: 95%;
+        margin-bottom: 12px; } }
     @media screen and (min-width: 600px) {
-      #invite-friends-dialog #select-info {
-        font-size: 14px; } }
-    #invite-friends-dialog #select-info #select-number {
-      font-weight: 500;
-      color: #3F51B5; }
-  #invite-friends-dialog #only-selected #only-selected-checkbox {
-    margin-bottom: 1px;
-    margin-left: 24px;
-    font-size: 14px; }
+      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
+        min-width: 430px; } }
+    @media screen and (min-width: 960px) {
+      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container {
+        min-width: 700px; } }
+    #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.54);
+      margin-bottom: 12px; }
+    #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container #open-custom-emails {
+      margin-left: 0; }
+      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-import-source-container #open-custom-emails .md-fab {
+        margin-left: 0; }
+  #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #filter-contact {
+    height: 50px;
+    margin-bottom: 24px; }
+  #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container {
+    overflow-y: auto;
+    height: 100%; }
+    #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element {
+      margin-bottom: 8px; }
+      #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element .name {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54); }
+    #invite-friends-dialog #invite-friends-dialog-content .ely-dialog-content #contact-list-container .contact-list-element.select-all-element {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: 22px; }
+#invite-friends-dialog .load-screen-container {
+  height: 200px; }
+  #invite-friends-dialog .load-screen-container .ely-loading-screen {
+    height: 200px; }
+#invite-friends-dialog #select-info {
+  font-size: 12px; }
+  @media screen and (min-width: 600px) {
+    #invite-friends-dialog #select-info {
+      font-size: 14px; } }
+  #invite-friends-dialog #select-info #select-number {
+    font-weight: 500;
+    color: #3F51B5; }
+#invite-friends-dialog #only-selected #only-selected-checkbox {
+  margin-bottom: 1px;
+  margin-left: 24px;
+  font-size: 14px; }
 
 #invite-friends-dialog .ely-import-container {
   margin-bottom: 6px; }
@@ -141,7 +135,11 @@
       margin-bottom: 12px; } }
   #invite-friends-dialog .ely-import-container .source-container {
     margin-bottom: 6px;
-    cursor: pointer; }
+    cursor: pointer;
+    height: 24px; }
+    @media screen and (min-width: 600px) {
+      #invite-friends-dialog .ely-import-container .source-container {
+        height: 48px; } }
     #invite-friends-dialog .ely-import-container .source-container .image-container {
       margin-right: 12px;
       height: 24px;
@@ -166,34 +164,31 @@
   #invite-friends-dialog .ely-import-container .source-container:hover {
     text-decoration: underline; }
 
-#invite-friends-dialog #send-email-invitation-container {
-  height: 100%; }
-  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content {
-    height: 100%;
-    padding-top: 24px; }
-    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.87);
-      margin-bottom: 24px;
-      max-width: 300px; }
-      #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description .number {
-        color: #3F51B5; }
-    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-title-success {
-      font-size: 16px;
-      font-weight: 500;
-      color: #43a047; }
-    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description-success {
-      font-size: 16px;
-      font-weight: 500;
-      margin-top: 16px;
-      max-width: 300px;
-      color: rgba(0, 0, 0, 0.54); }
-    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content #overview-email-container .email-address {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 6px; }
+#invite-friends-dialog #send-email-invitation-container .ely-dialog-content {
+  padding-top: 24px; }
+  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 24px;
+    max-width: 300px; }
+    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description .number {
+      color: #3F51B5; }
+  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-title-success {
+    font-size: 16px;
+    font-weight: 500;
+    color: #43a047; }
+  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description-success {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 16px;
+    max-width: 300px;
+    color: rgba(0, 0, 0, 0.54); }
+  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content #overview-email-container .email-address {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 6px; }
 
 #move-contact .ely-dialog-title {
   margin-bottom: 32px; }

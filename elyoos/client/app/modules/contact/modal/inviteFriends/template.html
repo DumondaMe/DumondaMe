@@ -5,7 +5,7 @@
             <ely-load-screen></ely-load-screen>
         </div>
         <md-dialog-content id="invite-friends-dialog-content" ng-show="!ctrl.importStarted" layout="column">
-            <div class="md-dialog-content ely-dialog-content" layout="column">
+            <div class="md-dialog-content ely-dialog-content" ely-handling-column-flex>
                 <div id="contact-import-source-container" flex="none">
                     <div class="title" hide show-gt-xs>Importieren von:</div>
                     <div layout="row" layout-wrap>
@@ -31,7 +31,7 @@
                         <input name="emailAddresses" id="emailAddresses" aria-label="Email" ng-model="ctrl.filterEmailAddresses.email"/>
                     </md-input-container>
                 </div>
-                <div id="contact-list-container" flex="auto" ng-show="ctrl.contacts.addresses.length > 0">
+                <div id="contact-list-container" ely-handling-flex ng-show="ctrl.contacts.addresses.length > 0">
                     <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1 && !ctrl.showOnlySelected">
                         <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
                             Alle E-Mail-Addressen auswählen
