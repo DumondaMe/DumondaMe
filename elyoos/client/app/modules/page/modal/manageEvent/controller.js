@@ -28,6 +28,8 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             }
             ctrl.data.selectedAddress = ctrl.addresses[index];
             ctrl.dataOnServer = angular.copy(ctrl.data);
+            ctrl.data.startDate = moment.unix(ctrl.data.startDate);
+            ctrl.data.endDate = moment.unix(ctrl.data.endDate);
         } else {
             ctrl.data = {};
             ctrl.startTime = "12:00";
@@ -50,7 +52,11 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
         };
 
         ctrl.changeData = function () {
-            var tempData = angular.copy(ctrl.data);
+            var tempData;
+            if (angular.isString(ctrl.data.linkDescription) && ctrl.data.linkDescription.trim() === '') {
+                delete ctrl.data.linkDescription;
+            }
+            tempData = angular.copy(ctrl.data);
             if (moment.isMoment(tempData.startDate) && moment.isMoment(tempData.endDate)) {
                 tempData.startDate = Math.floor(tempData.startDate.valueOf() / 1000);
                 tempData.endDate = Math.floor(tempData.endDate.valueOf() / 1000);
