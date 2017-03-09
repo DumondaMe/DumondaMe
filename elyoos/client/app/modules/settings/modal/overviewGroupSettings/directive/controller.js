@@ -33,6 +33,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
                 ctrl.uploadStarted = false;
                 originalSettings = angular.copy($scope.settings);
                 ctrl.uploadDisabled = true;
+                ElyModal.hide();
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetreten!');
                 ctrl.uploadStarted = false;
