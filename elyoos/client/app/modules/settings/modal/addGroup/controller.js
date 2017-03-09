@@ -3,11 +3,9 @@
 module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
     function (Privacy, ElyModal, CheckGroupNameService, errorToast) {
         var ctrl = this;
-        ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
         ctrl.imageVisible = true;
         ctrl.pinwallVisible = true;
-        ctrl.profileDataVisible = true;
         ctrl.uploadAllowed = false;
 
         ctrl.nameChanged = function () {
@@ -24,12 +22,11 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
             Privacy.save({
                 addNewPrivacy: {
                     privacySettings: {
-                        profileVisible: ctrl.profileVisible,
+                        type: ctrl.groupName,
                         contactsVisible: ctrl.contactsVisible,
                         imageVisible: ctrl.imageVisible,
-                        profileDataVisible: ctrl.profileDataVisible,
                         pinwallVisible: ctrl.pinwallVisible
-                    }, privacyDescription: ctrl.groupName
+                    }
                 }
             }, function () {
                 ElyModal.hide(ctrl.groupName);

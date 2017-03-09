@@ -6,11 +6,11 @@
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
                 <div>
                     <div layout="row" layout-align="center center">
-                        <div flex="nogrow">
-                            <img class="preview-image" ng-src="{{ctrl.data.imageForUploadPreview}}" ng-show="ctrl.data.imageForUploadPreview">
+                        <div flex="nogrow" class="preview-image">
+                            <img ng-src="{{ctrl.data.imageForUploadPreview}}" ng-show="ctrl.data.imageForUploadPreview">
                         </div>
                     </div>
-                    <div layout="row" layout-align="center center">
+                    <div layout="row" layout-align="center center" class="preview-image-button-container">
                         <div flex="nogrow">
                             <ely-load-image-button ng-disabled="ctrl.uploadStarted" label="Bild hinzufügen"
                                                    icon="system:image" ng-hide="ctrl.data.imageForUploadPreview" hide

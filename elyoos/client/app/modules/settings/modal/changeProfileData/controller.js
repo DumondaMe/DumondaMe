@@ -19,7 +19,6 @@ module.exports = ['Profile', 'ElyModal', 'errorToast', 'CountryCodeConverter', '
 
         ctrl.change = function () {
             ctrl.uploadValid = !angular.equals(ctrl.userDataOnServer, ctrl.userDataToChange);
-            ctrl.changeProfileForm.birthday.$setValidity('birthday-format', DateFormatCheckService.isDateValid(ctrl.userDataToChange.birthday));
         };
 
         ctrl.upload = function () {

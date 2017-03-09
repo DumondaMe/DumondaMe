@@ -13,10 +13,10 @@ module.exports = ['elyHelper', function (elyHelper) {
     };
 
     service.setCenter = function (center, zoom, markerCenter, map) {
-        if (elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude) && elyHelper.isDefined(center.zoom)) {
+        if (elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude)) {
             map.panTo([center.latitude, center.longitude]);
             map.setZoom(zoom);
-            service.setCenterMarker(markerCenter, center, elyHelper, map);
+            service.setCenterMarker(markerCenter, center, map);
         }
     };
 }];

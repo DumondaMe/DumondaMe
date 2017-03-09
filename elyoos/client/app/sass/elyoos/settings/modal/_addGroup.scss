@@ -2,15 +2,17 @@
   max-width: 500px;
   .ely-dialog-content {
     padding-bottom: 0;
-    .title {
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
     .ely-input-container {
       width: 100%;
     }
-    .select-privacy {
+    .privacy-element-description {
+      font-size: 14px;
+      font-weight: 500;
+      color: $secondary-text;
       margin-bottom: 24px;
+    }
+    .select-privacy {
+      margin-bottom: 12px;
     }
   }
 }

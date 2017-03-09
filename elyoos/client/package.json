@@ -41,6 +41,8 @@
     "moment": "./app/lib/moment/moment.js",
     "duScroll": "./app/lib/scroll/index.js",
     "vcRecaptcha": "./app/lib/recaptcha/index.js",
+    "mailcheck": "./app/lib/mailcheck/mailcheck.min.js",
+    "bowser": "./app/lib/bowser/bowser.min.js",
     "templates": "./app/dist/templates.js"
   }
 }

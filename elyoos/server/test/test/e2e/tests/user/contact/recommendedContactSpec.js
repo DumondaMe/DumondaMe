@@ -11,7 +11,7 @@ describe('Integration Tests getting contact recommendations', function () {
     let requestAgent;
 
     beforeEach(function () {
-        return dbDsl.init(10);
+        return dbDsl.init(11);
     });
 
     afterEach(function () {
@@ -35,6 +35,8 @@ describe('Integration Tests getting contact recommendations', function () {
         dbDsl.createContactConnection('1', '4', 'Freund');
         dbDsl.createContactConnection('4', '9', 'Freund');
 
+        dbDsl.inviteUser('11', '1');
+
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
@@ -43,18 +45,23 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(3);
-            res.body.recommendedUser[0].userId.should.equals('2');
-            res.body.recommendedUser[0].name.should.equals('user Meier2');
-            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.recommendedUser.length.should.equals(4);
 
-            res.body.recommendedUser[1].userId.should.equals('9');
-            res.body.recommendedUser[1].name.should.equals('user Meier9');
-            res.body.recommendedUser[1].profileUrl.should.equals('profileImage/9/thumbnail.jpg');
+            res.body.recommendedUser[0].userId.should.equals('11');
+            res.body.recommendedUser[0].name.should.equals('user Meier11');
+            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/11/thumbnail.jpg');
 
-            res.body.recommendedUser[2].userId.should.equals('3');
-            res.body.recommendedUser[2].name.should.equals('user Meier3');
-            res.body.recommendedUser[2].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+            res.body.recommendedUser[1].userId.should.equals('2');
+            res.body.recommendedUser[1].name.should.equals('user Meier2');
+            res.body.recommendedUser[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+            res.body.recommendedUser[2].userId.should.equals('9');
+            res.body.recommendedUser[2].name.should.equals('user Meier9');
+            res.body.recommendedUser[2].profileUrl.should.equals('profileImage/9/thumbnail.jpg');
+
+            res.body.recommendedUser[3].userId.should.equals('3');
+            res.body.recommendedUser[3].name.should.equals('user Meier3');
+            res.body.recommendedUser[3].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
 
             res.body.showUserRecommendation.should.equals(true);
         });

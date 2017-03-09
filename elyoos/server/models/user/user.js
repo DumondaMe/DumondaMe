@@ -54,24 +54,18 @@ let updateUserProfile = function (userId, userData) {
             name: name,
             forename: userData.forename,
             surname: userData.surname
-        })
-        .end({
-            id: userId
-        })
-        .send();
+        }).end({id: userId}).send();
 };
 
 let getUserInfo = function (id, req) {
 
     let commands = [];
-
     commands.push(unreadMessages.getTotalNumberOfUnreadMessages(id).getCommand());
     commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
 
     return db.cypher().match('(u:User {userId: {id}})')
         .return('u.name AS name, u.userId AS userId, u.email AS email')
-        .end({id: id})
-        .send(commands)
+        .end({id: id}).send(commands)
         .then(function (resp) {
             let user = getUser(resp[2], id, [
                 {

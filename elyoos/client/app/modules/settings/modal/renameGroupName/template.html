@@ -1,21 +1,22 @@
 <md-dialog id="rename-group-name" aria-label="Rename Group Name">
     <form name="ctrl.renameGroupNameForm" ng-cloak>
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div class="md-title title">Gruppe <span class="name">{{ctrl.groupName}}</span> umbenennen</div>
-
-            <md-input-container class="ely-input-container">
-                <label>Neuer Name</label>
-                <input name="newGroupName" ng-model="ctrl.newGroupName" required md-no-asterisk
-                       ng-disabled="ctrl.running" ng-change="ctrl.nameChanged()"/>
-                <div ng-messages="ctrl.renameGroupNameForm.newGroupName.$error" ng-show="ctrl.renameGroupNameForm.newGroupName.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
-                </div>
-            </md-input-container>
+        <div class="md-title ely-dialog-title">Gruppe <span class="highlighted">{{ctrl.groupName}}</span> umbenennen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="ely-input-container">
+                    <label>Neuer Bezeichnung</label>
+                    <input name="newGroupName" ng-model="ctrl.newGroupName" required md-no-asterisk
+                           ng-disabled="ctrl.running" ng-change="ctrl.nameChanged()"/>
+                    <div ng-messages="ctrl.renameGroupNameForm.newGroupName.$error" ng-show="ctrl.renameGroupNameForm.newGroupName.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
+                    </div>
+                </md-input-container>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-click="ctrl.accept()"
+            <md-button class="md-primary md-raised" ng-click="ctrl.accept()"
                        ng-disabled="ctrl.uploadStarted || ctrl.renameGroupNameForm.$invalid">
                 Umbenennen
             </md-button>

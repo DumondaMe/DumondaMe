@@ -1,0 +1,27 @@
+#invite-friends-dialog {
+  .ely-import-basic-auth {
+    @media screen and (min-width: $gt-xs) {
+      min-width: 500px;
+    }
+    .ely-dialog-title {
+      .service-name {
+        font-weight: 700;
+        color: $primary-color;
+      }
+    }
+    #dialog-container {
+      max-width: 250px;
+      margin: 0 auto;
+      #ely-import-info {
+        font-size: 14px;
+        font-weight: 500;
+        color: $secondary-text;
+      }
+    }
+    #error-message {
+      font-size: 12px;
+      font-weight: 500;
+      color: $error-text;
+    }
+  }
+}

@@ -1,13 +1,15 @@
 <md-dialog id="delete-group" aria-label="Delete Group">
     <form name="ctrl.deleteGroupForm" ng-cloak>
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div class="md-title title">Gruppe <span class="name">{{ctrl.groupName}}</span> löschen</div>
-            <div class="md-body-1 description">Kontakte werden in folgende Gruppe verschoben:</div>
-            <md-radio-group ng-model="ctrl.selectedGroup">
-                <md-radio-button ng-repeat="group in ctrl.groups" value="{{group}}" aria-label="{{group}}" ng-disable="ctrl.uploadStarted">
-                    {{group}}
-                </md-radio-button>
-            </md-radio-group>
+        <div class="md-title ely-dialog-title">Gruppe <span class="highlighted">{{ctrl.groupName}}</span> löschen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <div class="description">Kontakte werden in folgende Gruppe verschoben:</div>
+                <md-radio-group ng-model="ctrl.selectedGroup">
+                    <md-radio-button ng-repeat="group in ctrl.groups" value="{{group}}" aria-label="{{group}}" ng-disable="ctrl.uploadStarted">
+                        {{group}}
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>

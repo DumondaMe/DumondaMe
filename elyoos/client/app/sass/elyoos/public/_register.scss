@@ -1,3 +1,7 @@
+.register-user-show-agb {
+  height: 100%;
+}
+
 #register-user {
   max-width: 600px;
   width: 100%;
@@ -21,9 +25,6 @@
       @media screen and (max-width: $gt-sm) {
         margin-left: 0;
       }
-    }
-    .select-gender {
-      margin: 24px 0;
     }
     .ely-recaptcha {
       margin-top: 16px;

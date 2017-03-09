@@ -28,11 +28,6 @@ module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
             }
         };
 
-        this.modifyGroupSetting = function (groupName) {
-            return ElyModal.show('ModifyGroupSettingController', 'app/modules/settings/modal/modifyGroupSettings/template.html',
-                {groupName: groupName});
-        };
-
         this.renameGroupName = function (groupName) {
             ElyModal.show('RenameGroupNameController', 'app/modules/settings/modal/renameGroupName/template.html', {
                     groupName: groupName

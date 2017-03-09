@@ -1,40 +1,60 @@
 <md-dialog id="add-group" aria-label="Add Group">
     <form name="ctrl.createGroupForm" ng-cloak>
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div class="md-title title">Neue Gruppe erstellen</div>
-            <md-input-container class="ely-input-container">
-                <label>Name</label>
-                <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="30" md-no-asterisk
-                       ng-disabled="ctrl.uploadStarted" ng-change="ctrl.nameChanged()"/>
-                <div ng-messages="ctrl.createGroupForm.groupName.$error" ng-show="ctrl.createGroupForm.groupName.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="md-maxlength">Text ist zu lang</div>
-                    <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
+        <div class="md-title ely-dialog-title">Neue Gruppe erstellen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="ely-input-container">
+                    <label>Gruppen Bezeichnung</label>
+                    <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="30" md-no-asterisk
+                           ng-disabled="ctrl.uploadStarted" ng-change="ctrl.nameChanged()"/>
+                    <div ng-messages="ctrl.createGroupForm.groupName.$error" ng-show="ctrl.createGroupForm.groupName.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                        <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
+                    </div>
+                </md-input-container>
+                <div>
+                    <md-checkbox ng-model="ctrl.contactsVisible" ng-disabled="ctrl.uploadStarted"
+                                 aria-label="Contacts visible" class="select-privacy">
+                        <span ng-show="ctrl.contactsVisible">Kontakte sind sichtbar</span>
+                        <span ng-show="!ctrl.contactsVisible">Kontakte sind verborgen</span>
+                    </md-checkbox>
+                    <div class="privacy-element-description" ng-show="ctrl.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt ist
+                        sichtbar.
+                    </div>
+                    <div class="privacy-element-description" ng-show="!ctrl.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt wird
+                        nicht angezeigt.
+                    </div>
                 </div>
-            </md-input-container>
-            <md-checkbox ng-model="ctrl.profileVisible" aria-label="Profile visible" class="select-privacy" ng-disabled="ctrl.uploadStarted">
-                Mein Profil ist sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.contactsVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Contacts visible"
-                         class="select-privacy">
-                Meine Kontakte sind sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Image visible"
-                         class="select-privacy">
-                Mein Profilbild ist sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.profileDataVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Profile Data visible"
-                         class="select-privacy">
-                Meine Profildaten sind sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.pinwallVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Pinwall visible"
-                         class="select-privacy">
-                Meine Bewertungen sind sichtbar
-            </md-checkbox>
+                <div>
+                    <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="ctrl.uploadStarted"
+                                 aria-label="Image visible" class="select-privacy">
+                        <span ng-show="ctrl.imageVisible">Profilbild ist sichtbar</span>
+                        <span ng-show="!ctrl.imageVisible">Profilbild ist verborgen</span>
+                    </md-checkbox>
+                    <div class="privacy-element-description" ng-show="ctrl.imageVisible">Deine Profilbild ist sichtbar.
+                    </div>
+                    <div class="privacy-element-description" ng-show="!ctrl.imageVisible">Es wird nur ein Standartbild angezeigt.
+                    </div>
+                </div>
+                <div>
+                    <md-checkbox ng-model="ctrl.pinwallVisible" ng-disabled="ctrl.uploadStarted"
+                                 aria-label="Recommendation visible" class="select-privacy">
+                        <span ng-show="ctrl.pinwallVisible">Deine Empfehlungen werden angezeigt</span>
+                        <span ng-show="!ctrl.pinwallVisible">Deine Empfehlungen sind verborgen</span>
+                    </md-checkbox>
+                    <div class="privacy-element-description" ng-show="ctrl.pinwallVisible">Deine Empfehlungen von Blogs, Videos, Büchern usw. werden
+                        angezeigt.
+                    </div>
+                    <div class="privacy-element-description" ng-show="!ctrl.pinwallVisible">Deine Empfehlungen von Blogs, Videos, Büchern usw.
+                        werden nicht angezeigt.
+                    </div>
+                </div>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-click="ctrl.accept()"
+            <md-button class="md-primary md-raised" ng-click="ctrl.accept()"
                        ng-disabled="!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted">
                 Hinzufügen
             </md-button>

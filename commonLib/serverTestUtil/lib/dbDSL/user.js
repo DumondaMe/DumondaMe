@@ -26,11 +26,37 @@ let createUser = function (userId, forename, surname, email) {
         .end({name: name, surname: surname, forename: forename, userId: userId, email: email}).getCommand());
 };
 
+let createUserRegisterRequest = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().create(`(:UserRegisterRequest {name: {name}, surname: {surname},
+    forename: {forename}, email: {email}, linkId: {linkId}, password: {password}, registerDate: {registerDate}})`)
+        .end({name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email,
+            linkId: data.linkId, password: data.password, registerDate: data.registerDate}).getCommand());
+};
+
 let blockUser = function (userId, blockedUserId) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (blockedUser:User {userId: {blockedUserId}})')
         .create(`(user)-[:IS_BLOCKED]->(blockedUser)`)
         .end({
             userId: userId, blockedUserId: blockedUserId
+        }).getCommand());
+};
+
+let invitationSentBeforeRegistration = function (userId, data) {
+    data.forEach(function (invitationData) {
+        invitationData.invitationSent = invitationData.invitationSent || null;
+        dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
+            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, invitationSent: {invitationSent}})`)
+            .end({
+                userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent
+            }).getCommand());
+    });
+};
+
+let inviteUser = function (userId, invitedUserId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (invitedUser:User {userId: {invitedUserId}})')
+        .create(`(user)-[:HAS_INVITED]->(invitedUser)`)
+        .end({
+            userId: userId, invitedUserId: invitedUserId
         }).getCommand());
 };
 
@@ -41,14 +67,13 @@ let createPrivacy = function (userIds, type, privacy) {
     }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
         .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, profileData: {profileData}, contacts: {contacts}, 
+        .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
                   pinwall: {pinwall}})`)
         .end({
             userIds: userIds,
             type: type,
             profile: privacy.profile,
             image: privacy.image,
-            profileData: privacy.profileData,
             contacts: privacy.contacts,
             pinwall: privacy.pinwall
         }).getCommand());
@@ -61,13 +86,12 @@ let createPrivacyNoContact = function (userIds, privacy) {
     }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
         .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: {profile}, image: {image}, profileData: {profileData}, contacts: {contacts}, 
+        .create(`(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
                   pinwall: {pinwall}})`)
         .end({
             userIds: userIds,
             profile: privacy.profile,
             image: privacy.image,
-            profileData: privacy.profileData,
             contacts: privacy.contacts,
             pinwall: privacy.pinwall
         }).getCommand());
@@ -84,7 +108,10 @@ module.exports = {
     setUserLastLoginTime: setUserLastLoginTime,
     setUserIsElyoosAdmin: setUserIsElyoosAdmin,
     createUser: createUser,
+    createUserRegisterRequest: createUserRegisterRequest,
     blockUser: blockUser,
+    invitationSentBeforeRegistration: invitationSentBeforeRegistration,
+    inviteUser: inviteUser,
     createPrivacy: createPrivacy,
     createPrivacyNoContact: createPrivacyNoContact,
     setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen

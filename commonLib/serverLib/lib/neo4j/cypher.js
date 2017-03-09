@@ -56,6 +56,10 @@ let Cypher = function (connectionUrl) {
         return this.chainingQuery(condition, ' CREATE UNIQUE ');
     };
 
+    this.foreach = function (condition) {
+        return this.chainingQuery(condition, ' FOREACH ');
+    };
+
     this.merge = function (condition) {
         return this.chainingQuery(condition, ' MERGE ');
     };

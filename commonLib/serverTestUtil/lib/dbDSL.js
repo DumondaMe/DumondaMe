@@ -6,6 +6,7 @@ let page = require('./dbDSL/page');
 let blog = require('./dbDSL/blog');
 let user = require('./dbDSL/user');
 let feedback = require('./dbDSL/feedback');
+let messages = require('./dbDSL/messages');
 let events = require('./dbDSL/events');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
@@ -21,7 +22,7 @@ let init = function (numberOfUser, isElyoosAdmin) {
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
-            userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
+            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
         }
     });
 };
@@ -42,7 +43,10 @@ module.exports = {
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
     createUser: user.createUser,
+    createUserRegisterRequest: user.createUserRegisterRequest,
     blockUser: user.blockUser,
+    invitationSentBeforeRegistration: user.invitationSentBeforeRegistration,
+    inviteUser: user.inviteUser,
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact,
@@ -55,5 +59,7 @@ module.exports = {
     closeFeedback: feedback.closeFeedback,
     reopenFeedback: feedback.reopenFeedback,
     createPageEventNewAddress: events.createPageEventNewAddress,
-    createPageEventExistingAddress: events.createPageEventExistingAddress
+    createPageEventExistingAddress: events.createPageEventExistingAddress,
+    createThread: messages.createThread,
+    createMessages: messages.createMessages
 };

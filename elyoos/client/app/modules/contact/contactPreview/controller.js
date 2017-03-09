@@ -47,10 +47,6 @@ module.exports = {
                     GroupSettingsService.deleteGroup(ctrl.statistic.type, ctrl.statistic.count);
                 };
 
-                ctrl.openGroupSetting = function () {
-                    GroupSettingsService.modifyGroupSetting(ctrl.statistic.type);
-                };
-
                 ctrl.blockContact = function (contactId) {
                     UserStateService.blockContact(contactId).then(function () {
                         UserStateService.removeContact(ctrl.overview.contacts, contactId);

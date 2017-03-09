@@ -1,13 +1,15 @@
-<md-dialog id="ely-add-feedback-dialog">
-    <div id="ely-add-feedback">
-        <form name="ctrl.feedbackForm">
-            <div class="title" ng-show="ctrl.data.group ==='Bug' && !ctrl.data.isEditMode">Fehler melden</div>
-            <div class="title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && !ctrl.data.isEditMode">Idee erstellen
-            </div>
-            <div class="title" ng-show="ctrl.data.group ==='Bug' && ctrl.data.isEditMode">Fehler bearbeiten</div>
-            <div class="title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && ctrl.data.isEditMode">Idee bearbeiten
-            </div>
-            <div class="description-container">
+<md-dialog id="ely-add-feedback-dialog" layout="column">
+    <form name="ctrl.feedbackForm" id="ely-add-feedback" flex="auto">
+        <div class="md-title ely-dialog-title" ng-show="ctrl.data.group ==='Bug' && !ctrl.data.isEditMode">Fehler melden</div>
+        <div class="md-title ely-dialog-title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && !ctrl.data.isEditMode">
+            Idee erstellen
+        </div>
+        <div class="md-title ely-dialog-title" ng-show="ctrl.data.group ==='Bug' && ctrl.data.isEditMode">Fehler bearbeiten</div>
+        <div class="md-title ely-dialog-title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && ctrl.data.isEditMode">
+            Idee bearbeiten
+        </div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
                 <md-input-container class="input-container">
                     <label>Titel</label>
                     <input name="title" ng-model="ctrl.data.title" md-maxlength="160" ng-disabled="ctrl.uploadRunning"
@@ -54,17 +56,17 @@
                     </div>
                 </md-input-container>
             </div>
-            <div layout="row" layout-align="start center" class="action-commands">
-                <span flex></span>
-                <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
-                <md-button class="md-primary md-raised"
-                           ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid || ctrl.disableUpload"
-                           ng-click="ctrl.uploadFeedback()">
-                    <span ng-show="!ctrl.data.isEditMode">Erstellen</span>
-                    <span ng-show="ctrl.data.isEditMode">Ändern</span>
-                </md-button>
-            </div>
-        </form>
-        <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
-    </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
+            <md-button class="md-primary md-raised"
+                       ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid || ctrl.disableUpload"
+                       ng-click="ctrl.uploadFeedback()">
+                <span ng-show="!ctrl.data.isEditMode">Erstellen</span>
+                <span ng-show="ctrl.data.isEditMode">Ändern</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

@@ -1,29 +1,37 @@
-#overview-group-setting {
+#overview-group-setting-dialog {
   max-width: 700px;
+  .ely-dialog-title {
+    padding: 16px 24px;
+    margin-bottom: 0;
+    border-bottom: 1px solid $divider;
+  }
+}
+
+#overview-group-setting-content {
   .ely-dialog-content {
     padding-bottom: 0;
     .privacy-description {
       font-size: 14px;
-      margin-bottom: 16px;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+    #profile-visible {
+      border-bottom: 1px solid $divider;
     }
     .privacy-container {
-      .title-container {
-        .title {
-          font-size: 16px;
-          line-height: 16px;
-          vertical-align: middle;
-          margin-bottom: 0px;
-          color: $primary-color;
-          @media screen and (min-width: $gt-md) {
-            line-height: 40px;
-          }
-        }
-        .change-button {
-          width: 40px;
-        }
-      }
       .description {
         font-size: 14px;
+        font-weight: 500;
+        color: $secondary-text;
+        margin-bottom: 6px;
+      }
+      .ely-select-group {
+        margin: 12px 0 0 0;
+        .md-text {
+          font-size: 16px;
+          font-weight: 700;
+          color: $primary-color;
+        }
       }
     }
   }

@@ -11,6 +11,8 @@ let getErrorHandling = function (description, req, res, logger, controllerCode) 
         } else {
             res.status(400).end();
         }
+    }).catch({name: 'invalidAuthentication'}, function () {
+        res.status(401).end();
     }).catch(function (err) {
         logger.error(description, req, {error: err});
         res.status(500).end();

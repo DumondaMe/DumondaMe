@@ -2,9 +2,28 @@
 
 let db = requireDb();
 
+let getInvitedUsers = function (userId, limit) {
+    return db.cypher().match(`(inviteUser:User)-[:HAS_INVITED]->(user:User {userId: {userId}})`)
+        .where(`NOT (user)-[:IS_CONTACT]->(inviteUser) AND NOT (user)-[:IS_BLOCKED]-(inviteUser)`)
+        .optionalMatch("(user)<-[relInviteUser:IS_CONTACT]-(inviteUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("privacyRel.type = relInviteUser.type")
+        .optionalMatch("(inviteUser)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
+        .where("NOT EXISTS((user)<-[:IS_CONTACT]-(inviteUser))")
+        .with("user, inviteUser, relInviteUser, privacyNoContact, privacy")
+        .where(`(NOT EXISTS((user)<-[:IS_CONTACT]-(inviteUser)) AND privacyNoContact.profile = true) OR 
+                (relInviteUser.contactAdded < user.previousLastLogin AND privacy.profile = true)`)
+        .return(`inviteUser.userId AS userId, inviteUser.name AS name, 
+                 privacy.profile AS profileVisible, privacy.image AS imageVisible, privacyNoContact.profile AS profileVisibleNoContact, 
+                 privacyNoContact.image AS imageVisibleNoContact`)
+        .orderBy("name")
+        .limit("{limit}")
+        .end({userId: userId, limit: limit});
+};
+
 let getRecommendedByContactUsers = function (userId, limit) {
     return db.cypher().match(`(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:IS_CONTACT]->(contactedUser:User)`)
-        .where("contactedUser.userId <> user.userId AND NOT (user)-[:IS_CONTACT]->(contactedUser) AND NOT (user)-[:IS_BLOCKED]-(contactedUser)")
+        .where(`contactedUser.userId <> user.userId AND NOT (user)-[:IS_CONTACT]->(contactedUser) 
+                AND NOT (contactedUser)-[:HAS_INVITED]->(user) AND NOT (user)-[:IS_BLOCKED]-(contactedUser)`)
         .optionalMatch("(user)<-[relContactedUser:IS_CONTACT]-(contactedUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
         .where("privacyRel.type = relContactedUser.type")
         .optionalMatch("(contactedUser:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
@@ -23,7 +42,8 @@ let getRecommendedByContactUsers = function (userId, limit) {
 let getRecommendedUsers = function (userId, limit) {
     return db.cypher().match(`(contactingUser:User)-[:IS_CONTACT]->(contactedUser:User), (user:User {userId: {userId}})`)
         .where(`NOT (user)-[:IS_CONTACT]->()-[:IS_CONTACT]->(contactedUser) AND NOT (user)-[:IS_CONTACT]->(contactedUser) AND 
-                contactingUser.userId <> user.userId AND contactedUser.userId <> user.userId AND NOT (user)-[:IS_BLOCKED]-(contactedUser)`)
+                contactingUser.userId <> user.userId AND contactedUser.userId <> user.userId AND NOT (contactedUser)-[:HAS_INVITED]->(user)
+                AND NOT (user)-[:IS_BLOCKED]-(contactedUser)`)
         .optionalMatch("(user)<-[relContactedUser:IS_CONTACT]-(contactedUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
         .where("privacyRel.type = relContactedUser.type")
         .optionalMatch("(contactedUser:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
@@ -40,6 +60,7 @@ let getRecommendedUsers = function (userId, limit) {
 };
 
 module.exports = {
+    getInvitedUsers: getInvitedUsers,
     getRecommendedByContactUsers: getRecommendedByContactUsers,
     getRecommendedUsers: getRecommendedUsers
 };

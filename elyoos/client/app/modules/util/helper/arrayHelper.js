@@ -72,4 +72,38 @@ module.exports = [function () {
         return stringArray;
     };
 
+    this.getIndex = function (array, elementToSearch, propertyToCompare) {
+        var index = -1;
+        if (angular.isArray(array)) {
+            array.forEach(function (element, indexOfElement) {
+                if (element[propertyToCompare] === elementToSearch[propertyToCompare]) {
+                    index = indexOfElement;
+                }
+            });
+        }
+        return index;
+    };
+
+    this.uniqueArray = function (array, propertyToCompare) {
+        var uniqueArray = angular.copy(array);
+
+        if (angular.isArray(uniqueArray)) {
+            for (var i = 0; i < uniqueArray.length; ++i) {
+                for (var j = i + 1; j < uniqueArray.length; ++j) {
+                    if (propertyToCompare) {
+                        if (uniqueArray[i][propertyToCompare] === uniqueArray[j][propertyToCompare]) {
+                            uniqueArray.splice(j--, 1);
+                        }
+                    } else {
+                        if (uniqueArray[i] === uniqueArray[j]) {
+                            uniqueArray.splice(j--, 1);
+                        }
+                    }
+
+                }
+            }
+        }
+        return uniqueArray;
+    };
+
 }];

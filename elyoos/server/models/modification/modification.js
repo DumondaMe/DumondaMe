@@ -3,6 +3,7 @@
 let underscore = require('underscore');
 let userInfo = require('./../user/userInfo');
 let unread = require('../messages/util/unreadMessages');
+let _ = require('lodash');
 
 let checkNewUnreadMessages = function (unreadMessages, session) {
 
@@ -42,9 +43,11 @@ let resetModificationForThread = function (threadId, session) {
 
 let initModificationOnSession = function (userId, session, callback) {
     session.userData = {unreadMessages: []};
-    unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
+    return unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
         session.userData.unreadMessages = unreadMessages;
-        callback();
+        if (_.isFunction(callback)) {
+            callback();
+        }
     });
 };
 

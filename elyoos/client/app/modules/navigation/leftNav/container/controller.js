@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Auth', '$state', '$mdSidenav', 'userInfo', 'UnreadMessagesService',
-            function (Auth, $state, $mdSidenav, userInfo, UnreadMessagesService) {
+        return ['Auth', '$state', '$mdSidenav', 'userInfo', 'UnreadMessagesService', 'ElyModal',
+            function (Auth, $state, $mdSidenav, userInfo, UnreadMessagesService, ElyModal) {
                 var ctrl = this;
 
                 ctrl.userInfo = userInfo.getUserInfo();
@@ -30,6 +30,10 @@ module.exports = {
                     if (ctrl.userInfo) {
                         ctrl.userInfo.totalUnreadMessages = count;
                     }
+                };
+
+                ctrl.openInviteFriendsDialog = function () {
+                    ElyModal.show('InviteFriendsCtrl', 'app/modules/contact/modal/inviteFriends/template.html');
                 };
             }];
     }

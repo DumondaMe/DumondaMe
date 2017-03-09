@@ -21,6 +21,10 @@ let Promise = require('bluebird');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 Promise.promisifyAll(require('gm').prototype);
 
+let chai = require('chai');
+let chaiSubset = require('chai-subset');
+chai.use(chaiSubset);
+
 describe('Initialize Server Unit Test', function () {
 
     before(function () {

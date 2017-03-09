@@ -4,88 +4,77 @@ let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let exceptions = require('elyoos-server-lib').exceptions;
 
-let privacySettingCheck = function (id, privacySettingType, req, failCondition) {
-    return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->(:Privacy)")
-        .return('r.type AS type')
-        .end({
-            userId: id,
-            type: privacySettingType
-        }).send()
+let privacySettingCheck = function (id, privacySettingTypes, req, failCondition) {
+    return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY]->(:Privacy)")
+        .where("r.type IN {types}")
+        .return("r.type AS type")
+        .end({userId: id, types: privacySettingTypes}).send()
         .then(function (result) {
             if (failCondition(result.length)) {
-                let invalidJsonException = new exceptions.InvalidOperation('For user ' + id + 'is privacy setting ' +
-                    privacySettingType + ' operation failed');
-                logger.warn(invalidJsonException.message, req, {});
-                return Promise.reject(invalidJsonException);
+                return exceptions.getInvalidOperation(`For user ${id} is privacy setting ${privacySettingTypes} 
+                                                       operation failed`, logger, req);
             }
         });
 };
 
-let privacySettingsIsExisting = function (id, privacySettingType, req) {
-    return privacySettingCheck(id, privacySettingType, req, function (check) {
-        return check === 0;
-    });
-};
-
 let privacySettingsIsNotExisting = function (id, privacySettingType, req) {
-    return privacySettingCheck(id, privacySettingType, req, function (check) {
+    return privacySettingCheck(id, [privacySettingType], req, function (check) {
         return check > 0;
     });
 };
 
-let getPrivacySettings = function (id) {
-    let commands = [], returnCommand;
+let getPrivacySettings = function (userId) {
+    let commands = [], returnCommand, returnCommandNoContact;
 
-    returnCommand = "privacy.profile AS profileVisible, privacy.profileData AS profileDataVisible, " +
-        "privacy.image AS imageVisible, privacy.contacts AS contactsVisible, privacy.pinwall AS pinwallVisible, r.type AS type";
+    returnCommand = `privacy.image AS imageVisible, privacy.contacts AS contactsVisible, 
+                     privacy.pinwall AS pinwallVisible, r.type AS type`;
+    returnCommandNoContact = `${returnCommand}, privacy.profile AS profileVisible`;
 
     commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(privacy:Privacy)")
         .return(returnCommand)
-        .orderBy("type")
-        .end({
-            userId: id
-        }).getCommand());
+        .orderBy("type").end({userId: userId}).getCommand());
     return db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .return(returnCommand)
-        .orderBy("type")
-        .end({
-            userId: id
-        }).send(commands)
+        .return(returnCommandNoContact)
+        .orderBy("type").end({userId: userId}).send(commands)
         .then(function (result) {
-            return {normal: result[0], noContact: result[1][0]};
+            return {group: result[0], noContact: result[1][0]};
         });
 };
 
-let changePrivacySettings = function (id, privacySettingType, privacySettings, req) {
-    return privacySettingsIsExisting(id, privacySettingType, req)
-        .then(function () {
-            return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY {type: {type}}]->(privacy:Privacy)")
+let getGroupTypes = function (groups) {
+    let result = [];
+    groups.forEach(function (group) {
+        result.push(group.type);
+    });
+    return result;
+};
+
+let allPrivacySettingExists = function (id, groups, req) {
+    let groupTypes = getGroupTypes(groups);
+    return privacySettingCheck(id, groupTypes, req, function (check) {
+        return check !== groupTypes.length;
+    });
+};
+
+let changePrivacySettings = function (userId, privacySettings, req) {
+    return allPrivacySettingExists(userId, privacySettings.group, req).then(function () {
+        let commands = [];
+        privacySettings.group.forEach(function (group) {
+            commands.push(db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY {type: {type}}]->(privacy:Privacy)")
                 .set('privacy', {
-                    profile: privacySettings.profileVisible,
-                    profileData: privacySettings.profileDataVisible,
-                    image: privacySettings.imageVisible,
-                    contacts: privacySettings.contactsVisible,
-                    pinwall: privacySettings.pinwallVisible
-                })
-                .end({
-                    userId: id,
-                    type: privacySettingType
-                }).send();
+                    image: group.imageVisible,
+                    contacts: group.contactsVisible,
+                    pinwall: group.pinwallVisible
+                }).end({userId: userId, type: group.type}).getCommand());
         });
-};
-let changePrivacySettingsNoContact = function (id, privacySettings) {
-
-    return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .set('privacy', {
-            profile: privacySettings.profileVisible,
-            profileData: privacySettings.profileDataVisible,
-            image: privacySettings.imageVisible,
-            contacts: privacySettings.contactsVisible,
-            pinwall: privacySettings.pinwallVisible
-        })
-        .end({
-            userId: id
-        }).send();
+        return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+            .set('privacy', {
+                profile: privacySettings.noContact.profileVisible,
+                image: privacySettings.noContact.imageVisible,
+                contacts: privacySettings.noContact.contactsVisible,
+                pinwall: privacySettings.noContact.pinwallVisible
+            }).end({userId: userId}).send(commands);
+    });
 };
 
 let renamePrivacyOnContact = function (userId, typeOld, typeNew) {
@@ -100,35 +89,41 @@ let renamePrivacyOnBlog = function (userId, typeOld, typeNew) {
         .end({userId: userId}).getCommand();
 };
 
-let renamePrivacySetting = function (id, privacySettingType, newPrivacySettingType, req) {
+let renamePrivacySetting = function (userId, privacySettingType, newPrivacySettingType, req) {
 
-    return privacySettingsIsNotExisting(id, newPrivacySettingType, req)
+    return privacySettingsIsNotExisting(userId, newPrivacySettingType, req)
         .then(function () {
             let commands = [];
-            commands.push(renamePrivacyOnContact(id, privacySettingType, newPrivacySettingType));
-            commands.push(renamePrivacyOnBlog(id, privacySettingType, newPrivacySettingType));
+            commands.push(renamePrivacyOnContact(userId, privacySettingType, newPrivacySettingType));
+            commands.push(renamePrivacyOnBlog(userId, privacySettingType, newPrivacySettingType));
             return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(:Privacy)")
                 .set('r', {type: newPrivacySettingType})
-                .end({userId: id, typeOld: privacySettingType}).send(commands);
+                .end({userId: userId, typeOld: privacySettingType}).send(commands);
         });
 };
 
-let addNewPrivacySetting = function (id, privacySettingType, privacySettings) {
+let addNewPrivacySetting = function (userId, privacySettings) {
 
-    return privacySettingsIsNotExisting(id, privacySettingType)
+    return privacySettingsIsNotExisting(userId, privacySettings.type)
         .then(function () {
-            privacySettings.userId = id;
-            privacySettings.type = privacySettingType;
+            privacySettings.userId = userId;
+            privacySettings.type = privacySettings.type;
             return db.cypher().match('(u:User {userId: {userId}})')
-                .create("(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profileVisible}, " +
-                    "profileData: {profileDataVisible}, contacts: {contactsVisible}, image: {imageVisible}, pinwall: {pinwallVisible}})")
+                .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: true, contacts: {contactsVisible}, 
+                image: {imageVisible}, pinwall: {pinwallVisible}})`)
                 .end(privacySettings).send();
         });
 };
 
-let deletePrivacySetting = function (id, privacySettingType, newPrivacySettingType) {
+let privacySettingExists = function (id, privacySettingType, req) {
+    return privacySettingCheck(id, [privacySettingType], req, function (check) {
+        return check === 0;
+    });
+};
 
-    return privacySettingsIsExisting(id, newPrivacySettingType)
+let deletePrivacySetting = function (userId, privacySettingType, newPrivacySettingType) {
+
+    return privacySettingExists(userId, newPrivacySettingType)
         .then(function () {
             let commands = [];
             commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:IS_CONTACT {type: {typeOld}}]->(:User)")
@@ -136,13 +131,13 @@ let deletePrivacySetting = function (id, privacySettingType, newPrivacySettingTy
                     type: newPrivacySettingType
                 })
                 .end({
-                    userId: id,
+                    userId: userId,
                     typeOld: privacySettingType
                 }).getCommand());
             return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(privacy:Privacy)")
                 .delete("privacy, r")
                 .end({
-                    userId: id,
+                    userId: userId,
                     typeOld: privacySettingType
                 }).send(commands);
         });
@@ -151,7 +146,6 @@ let deletePrivacySetting = function (id, privacySettingType, newPrivacySettingTy
 module.exports = {
     getPrivacySettings: getPrivacySettings,
     changePrivacySettings: changePrivacySettings,
-    changePrivacySettingsNoContact: changePrivacySettingsNoContact,
     renamePrivacySetting: renamePrivacySetting,
     addNewPrivacySetting: addNewPrivacySetting,
     deletePrivacySetting: deletePrivacySetting

@@ -1,4 +1,5 @@
 .terms-dialog {
+  height: 100%;
   @media screen and (max-width: $gt-sm) {
     max-width: 100%;
   }
@@ -11,6 +12,7 @@
   }
   .terms-content-container {
     overflow-y: scroll;
+    height: 100%;
     #ely-terms {
       padding: 16px;
       color: $primary-text;

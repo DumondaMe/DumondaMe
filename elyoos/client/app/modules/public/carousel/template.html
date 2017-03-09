@@ -18,20 +18,6 @@
          ng-show="ctrl.actualScreen < 1 && ctrl.$mdMedia('(min-height: 350px)')" ng-click="ctrl.onSwipeUp()">
         <div class="button-description" ng-show="ctrl.actualScreen === 0">Um was geht es?</div>
     </div>
-    <div id="left-column" layout="column" layout-align="center center" ng-if="ctrl.$mdMedia('gt-xs')">
-        <div id="carousel-nav-container">
-            <div class="carousel-nav" ng-click="ctrl.actualScreen = 0" ng-class="{active: ctrl.actualScreen === 0}">
-                <md-tooltip md-direction="right">
-                    Login
-                </md-tooltip>
-            </div>
-            <div class="carousel-nav" ng-click="ctrl.actualScreen = 1" ng-class="{active: ctrl.actualScreen === 1}">
-                <md-tooltip md-direction="right">
-                    Um was geht es?
-                </md-tooltip>
-            </div>
-        </div>
-    </div>
     <div id="right-column">
         <ely-carousel-login ng-show="ctrl.actualScreen === 0"></ely-carousel-login>
         <ely-carousel-vision ng-show="ctrl.actualScreen === 1" show-preview-image="true"></ely-carousel-vision>

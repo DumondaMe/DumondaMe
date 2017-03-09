@@ -1,0 +1,9 @@
+<div class="privacy-container">
+    <div layout="row">
+        <md-select ng-model="ctrl.selectedGroups" multiple="true" class="ely-select-group md-no-underline"
+                   ng-change="ctrl.changeData()" md-on-close="ctrl.menuClosed()" flex="none" aria-label="{{ctrl.description}}">
+            <md-option ng-value="groupName" ng-repeat="groupName in ctrl.groupNames">{{ groupName }}</md-option>
+        </md-select>
+    </div>
+    <div class="description">{{ctrl.description}}</div>
+</div>

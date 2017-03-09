@@ -1,16 +1,3 @@
-<md-dialog id="overview-group-setting" aria-label="Overview Group Setting">
-    <md-dialog-content class="md-dialog-content ely-dialog-content" ng-if="!ctrl.editMode" ng-cloak>
-        <div class="md-title ely-dialog-title">Privatsphären Übersicht</div>
-        <div class="privacy-description">Hier kannst Du bestimmen, wer was von Deinem Profil sehen kann.</div>
-        <ely-settings-privacy-group title="Personen die Du nicht zu Deinen Kontakten hinzugefügt hast" group="ctrl.settings.noContact"
-                                    open-edit="ctrl.openEdit"></ely-settings-privacy-group>
-        <ely-settings-privacy-group title="Kontakte die der Gruppe {{group.type}} angehören" group="group" open-edit="ctrl.openEdit"
-                                    ng-repeat="group in ctrl.settings.normal"></ely-settings-privacy-group>
-    </md-dialog-content>
-    <md-dialog-actions ng-if="!ctrl.editMode">
-        <md-button ng-click="ctrl.cancel()">Schliessen</md-button>
-    </md-dialog-actions>
-
-    <ely-modify-privacy-group ng-if="ctrl.editMode" setting="ctrl.editGroup" abort="ctrl.closeEdit"
-                              finish="ctrl.closeEdit"></ely-modify-privacy-group>
+<md-dialog id="overview-group-setting-dialog" aria-label="Overview Group Setting">
+    <ely-overview-group-settings></ely-overview-group-settings>
 </md-dialog>

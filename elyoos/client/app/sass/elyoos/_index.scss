@@ -1,4 +1,9 @@
 @import 'contact/modal/_addContact';
+@import 'contact/modal/inviteFriends/_addEmailAddress';
+@import 'contact/modal/inviteFriends/_importBasicAuth';
+@import 'contact/modal/inviteFriends/_inviteFriends';
+@import 'contact/modal/inviteFriends/_importSource';
+@import 'contact/modal/inviteFriends/_sendEMailInvitation';
 @import 'contact/modal/_moveContact';
 @import 'contact/detail/modal/_infoContact';
 @import 'contact/detail/_contactDetailOverview';
@@ -152,7 +157,6 @@
 @import 'settings/modal/_changePassword';
 @import 'settings/modal/_changeProfileData';
 @import 'settings/modal/_deleteGroup';
-@import 'settings/modal/_modifyGroupSetting';
 @import 'settings/modal/_overviewGroupSetting';
 @import 'settings/modal/_renameGroupName';
 @import 'settings/_profile';
