@@ -22,7 +22,7 @@
 #add-contact {
   max-width: 500px; }
   #add-contact .ely-dialog-title {
-    margin-bottom: 32px; }
+    margin-bottom: 0; }
 
 @media screen and (min-width: 600px) {
   #invite-friends-dialog #add-email-container {
@@ -191,7 +191,7 @@
     margin-bottom: 6px; }
 
 #move-contact .ely-dialog-title {
-  margin-bottom: 32px; }
+  margin-bottom: 0; }
 
 .user-detail-info {
   max-width: 500px;
@@ -1684,8 +1684,7 @@
         right: 340px; } }
 
 .ely-conversation-message-create {
-  max-width: 500px;
-  width: 100%; }
+  max-width: 500px; }
   .ely-conversation-message-create .message-input-container {
     width: 100%; }
 

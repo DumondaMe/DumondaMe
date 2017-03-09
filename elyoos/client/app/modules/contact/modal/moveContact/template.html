@@ -1,17 +1,20 @@
-<md-dialog id="move-contact" aria-label="Move Contact">
+<md-dialog id="move-contact" aria-label="Move Contact" layout="column">
     <form name="ctrl.moveContactForm" ng-cloak>
-        <md-dialog-content class="md-dialog-content">
-            <div class="md-title ely-dialog-title"><span class="highlighted">{{ctrl.name}}</span> in neue Gruppe verschieben</div>
-            <md-radio-group ng-model="ctrl.selectedType">
-                <md-radio-button ng-repeat="typeValue in ctrl.types" value="{{typeValue}}" aria-label="{{typeValue}}" ng-disable="ctrl.uploadStarted">
-                    {{typeValue}}
-                </md-radio-button>
-            </md-radio-group>
+        <div class="md-title ely-dialog-title"><span class="highlighted">{{ctrl.name}}</span> in neue Gruppe verschieben</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-radio-group ng-model="ctrl.selectedType">
+                    <md-radio-button ng-repeat="typeValue in ctrl.types" value="{{typeValue}}" aria-label="{{typeValue}}" ng-disable="ctrl.uploadStarted">
+                        {{typeValue}}
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-raised md-primary" ng-click="ctrl.accept('changeState')" ng-disable="ctrl.uploadStarted">Verschieben</md-button>
         </md-dialog-actions>
     </form>
+    <span flex></span>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>
