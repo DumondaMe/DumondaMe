@@ -1,4 +1,4 @@
-<md-card class="question-overview-element" ng-click="ctrl.openDetail(ctrl.element.questionId)">
+<div class="question-overview-element">
     <div layout="row" class="container">
         <div class="activity-rating" flex="none" layout="column" layout-align="center center">
             <div class="number">{{ctrl.element.activityRating}}</div>
@@ -6,7 +6,7 @@
         </div>
         <div flex="grow">
             <div layout="row">
-                <div class="description">{{ctrl.element.description}}</div>
+                <div class="description" ng-click="ctrl.openDetail(ctrl.element.questionId)">{{ctrl.element.description}}</div>
                 <span flex></span>
                 <md-menu md-position-mode="target-right target" class="menu-settings-container" ng-if="ctrl.element.isAdmin"
                          ng-disabled="ctrl.requestRunning">
@@ -20,8 +20,8 @@
                     </md-menu-content>
                 </md-menu>
             </div>
-            <ely-topics topics="ctrl.element.topic"></ely-topics>
+            <ely-topics-color is-text-expanded="true" topics="ctrl.element.topic"></ely-topics-color>
         </div>
     </div>
     <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
-</md-card>
+</div>

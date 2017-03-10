@@ -3,16 +3,17 @@
   .question-overview-element {
     margin: 0 auto 8px auto;
     min-width: 280px;
-    max-width: 600px;
-    cursor: pointer;
+    max-width: 750px;
+    border-top: 1px solid $divider;
     .container {
       padding: 10px;
       .activity-rating {
         width: 48px;
-        margin-right: 8px;
+        margin-right: 12px;
+        font-weight: 500;
+        color: $secondary-text;
         .number {
           font-size: 17px;
-          font-weight: 300;
         }
         .rating-description {
           margin-top: 4px;
@@ -23,6 +24,10 @@
         font-size: 17px;
         font-weight: 400;
         color: $primary-color;
+        cursor: pointer;
+      }
+      .description:hover {
+        text-decoration: underline;
       }
       .category-description {
         margin-top: 4px;

@@ -1177,11 +1177,17 @@
     padding: 0; }
 
 #ely-question {
-  height: 100%; }
-  #ely-question #ely-question-overview {
-    height: 100%;
+  height: 100%;
+  background-color: white; }
+  #ely-question #ely-question-commands {
+    height: 70px;
+    max-width: 750px;
     width: 100%;
-    background-color: #e9ebee; }
+    margin: 0 auto 12px auto; }
+    #ely-question #ely-question-commands #ely-question-commands-inner-container {
+      height: 70px; }
+  #ely-question #ely-question-overview {
+    width: 100%; }
     #ely-question #ely-question-overview .question-overview-container {
       width: 100%;
       height: 100%;
@@ -1198,23 +1204,27 @@
 #ely-question .question-overview-element {
   margin: 0 auto 8px auto;
   min-width: 280px;
-  max-width: 600px;
-  cursor: pointer; }
+  max-width: 750px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12); }
   #ely-question .question-overview-element .container {
     padding: 10px; }
     #ely-question .question-overview-element .container .activity-rating {
       width: 48px;
-      margin-right: 8px; }
+      margin-right: 12px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54); }
       #ely-question .question-overview-element .container .activity-rating .number {
-        font-size: 17px;
-        font-weight: 300; }
+        font-size: 17px; }
       #ely-question .question-overview-element .container .activity-rating .rating-description {
         margin-top: 4px;
         font-size: 12px; }
     #ely-question .question-overview-element .container .description {
       font-size: 17px;
       font-weight: 400;
-      color: #3F51B5; }
+      color: #3F51B5;
+      cursor: pointer; }
+    #ely-question .question-overview-element .container .description:hover {
+      text-decoration: underline; }
     #ely-question .question-overview-element .container .category-description {
       margin-top: 4px;
       padding: 0; }

@@ -1,20 +1,26 @@
-<md-dialog id="create-question" aria-label="Create Question" ng-cloak>
-    <form name="createQuestionForm">
-        <div class="md-title ely-dialog-title">Erstelle neue Frage</div>
+<md-dialog id="create-question" aria-label="Create Question">
+    <form name="createQuestionForm" ng-cloak>
+        <div class="md-title ely-dialog-title">Erstelle eine neue Fragestellung</div>
         <md-dialog-content>
-            <div class="md-dialog-content">
-                <md-select ng-model="ctrl.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                           ng-change="ctrl.changed()">
-                    <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                </md-select>
-                <md-select ng-model="ctrl.selectedLanguage" multiple="false" placeholder="Sprache" required class="ely-select-topic"
-                           ng-change="ctrl.changed()">
-                    <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                </md-select>
+            <div class="md-dialog-content ely-dialog-content">
+                <div layout="row">
+                    <div flex="50">
+                        <md-select ng-model="ctrl.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
+                                   ng-change="ctrl.changed()">
+                            <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                        </md-select>
+                    </div>
+                    <div flex="50" flex-offset="5">
+                        <md-select ng-model="ctrl.selectedLanguage" multiple="false" placeholder="Sprache" required class="ely-select-topic"
+                                   ng-change="ctrl.changed()">
+                            <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                        </md-select>
+                    </div>
+                </div>
                 <md-input-container class="ely-input-container">
                     <label>Frage</label>
-                <textarea name="questionText" class="question-input" ng-model="ctrl.questionText" required md-maxlength="160"
-                          ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changed()"></textarea>
+                    <textarea name="questionText" class="question-input" ng-model="ctrl.questionText" required md-maxlength="160"
+                              ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changed()"></textarea>
                     <div ng-messages="createQuestionForm.questionText.$error" ng-show="createQuestionForm.questionText.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
