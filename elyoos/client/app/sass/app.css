@@ -1135,35 +1135,22 @@
 
 #ely-question-detail {
   height: 100%;
-  background-color: #e9ebee; }
-  #ely-question-detail .container {
-    margin: 0 auto;
-    max-width: 400px; }
-  #ely-question-detail .container-desktop {
-    height: 100%; }
-    #ely-question-detail .container-desktop .answer-container {
-      margin: 0 auto;
-      max-width: 900px; }
-      #ely-question-detail .container-desktop .answer-container .answer-row {
-        padding: 0 8px; }
-        #ely-question-detail .container-desktop .answer-container .answer-row .ely-main-title {
-          margin: 16px auto;
-          max-width: 400px; }
-    #ely-question-detail .container-desktop .ely-sidenav-right {
-      height: 100%;
-      width: 260px; }
-  #ely-question-detail .create-question-element-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0; }
-    @media screen and (min-width: 1280px) {
-      #ely-question-detail .create-question-element-fab {
-        bottom: 15px;
-        right: 20px; } }
-    @media screen and (min-width: 1280px) {
-      #ely-question-detail .create-question-element-fab {
-        bottom: 10px;
-        right: 270px; } }
+  background-color: white; }
+  #ely-question-detail #ely-question-detail-overview {
+    max-width: 750px;
+    min-width: 300px;
+    width: 100%;
+    padding-bottom: 12px;
+    margin: 24px auto 12px auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    #ely-question-detail #ely-question-detail-overview .description {
+      font-size: 18px;
+      color: #3F51B5; }
+    #ely-question-detail #ely-question-detail-overview .topic {
+      margin-top: 4px; }
+    #ely-question-detail #ely-question-detail-overview .question-commands {
+      margin-top: 8px;
+      margin-left: -8px; }
 
 #ely-question-detail-right-sidenav {
   height: 100%;

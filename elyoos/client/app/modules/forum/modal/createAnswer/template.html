@@ -1,7 +1,6 @@
 <md-dialog class="add-question-answer" aria-label="Add Question Answer" ng-cloak>
     <form name="ctrl.addQuestionAnswerForm" ng-if="!ctrl.selectPage">
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isExplanation">Erklärung hinzufügen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isSolution">Lösungsvorschalg hinzufügen</div>
+        <div class="md-title ely-dialog-title">Antwort hinzufügen</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
                 <ely-existing-page-overview ng-if="ctrl.pageToReference" pages="[ctrl.pageToReference]"></ely-existing-page-overview>
@@ -9,8 +8,8 @@
                     <div flex="nogrow">
                         <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectPage = true"
                                    aria-label="Add Page">
-                            <span ng-if="!ctrl.pageToReference.pageId">Seite hinzufügen</span>
-                            <span ng-if="ctrl.pageToReference.pageId">Seite ändern</span>
+                            <span ng-if="!ctrl.pageToReference.pageId">Beitrag hinzufügen</span>
+                            <span ng-if="ctrl.pageToReference.pageId">Beitrag ändern</span>
                         </md-button>
                     </div>
                 </div>
@@ -37,7 +36,7 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createAnswer()"
-                       ng-disabled="ctrl.uploadStarted || ctrl.addQuestionAnswerForm.$invalid">Erstellen
+                       ng-disabled="ctrl.uploadStarted || ctrl.addQuestionAnswerForm.$invalid">Hinzufügen
             </md-button>
         </md-dialog-actions>
     </form>

@@ -12,7 +12,7 @@ module.exports = {
                 cancel: '=',
                 finish: '='
             },
-            templateUrl: 'app/modules/forum/modal/addAnswer/addPage/template.html'
+            templateUrl: 'app/modules/forum/modal/createAnswer/addPage/template.html'
         };
     }],
     name: 'elyForumAddPage'

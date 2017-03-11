@@ -34,7 +34,7 @@ let schemaAddQuestionAnswer = {
         }
     },
     definitions: {
-        type: {enum: ['explanation', 'solution']}
+        type: {enum: ['proArgument', 'counterArgument', 'solution']}
     }
 };
 
