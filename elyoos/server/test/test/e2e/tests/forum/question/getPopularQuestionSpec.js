@@ -1,76 +1,40 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 
 describe('Integration Tests for getting the most popular questions in the forum', function () {
 
-    let requestAgent, startTime;
-
-    let createQuestion = function (question, solutions, explanations, isAdmin) {
-        let commands = [], i, user;
-        if(isAdmin) {
-            user = "(u:User {userId: '1'})";
-        } else {
-            user = "(u:User {userId: '2'})";
-        }
-
-        commands.push(db.cypher().match(user)
-            .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: {questionId}, description: {description}, topic: {topic}, language: 'de'})")
-            .end({topic: question.topic, questionId: question.questionId, description: question.description}).getCommand());
-
-        for (i = 0; i < solutions.numberOf; i++) {
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: {answerId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:IS_ANSWER]-(forumQuestion)")
-                .end({questionId: question.questionId, answerId: question.questionId + i, created: 500 + i}).getCommand());
-            if (solutions.ratings.length > i) {
-                commands.push(db.cypher().match("(u:User), (forumSolution:ForumSolution {answerId: {answerId}})")
-                    .where("u.userId IN {userIds}")
-                    .create("(u)-[:RATE_POSITIVE]->(forumSolution)")
-                    .end({answerId: question.questionId + i, userIds: solutions.ratings[i]}).getCommand());
-            }
-        }
-
-        for (i = 0; i < explanations.numberOf; i++) {
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: {answerId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:IS_ANSWER]-(forumQuestion)")
-                .end({questionId: question.questionId, answerId: question.questionId + i, created: 500 + i}).getCommand());
-            if (explanations.ratings.length > i) {
-                commands.push(db.cypher().match("(u:User), (forumExplanation:ForumExplanation {answerId: {answerId}})")
-                    .where("u.userId IN {userIds}")
-                    .create("(u)-[:RATE_POSITIVE]->(forumExplanation)")
-                    .end({answerId: question.questionId + i, userIds: explanations.ratings[i]}).getCommand());
-            }
-        }
-
-        return commands;
-    };
-
     beforeEach(function () {
 
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            let commands = [];
+        return dbDsl.init(6).then(function () {
+            dbDsl.createForumQuestion('0', {adminId: '1', language: 'de', topic: ['spiritual'], created: 500});
+            dbDsl.createForumQuestion('1', {adminId: '2', language: 'en', topic: ['environment'], created: 501});
+            dbDsl.createForumQuestion('2', {adminId: '3', language: 'de', topic: ['health'], created: 502});
 
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', forename: 'user', surname: 'Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', forename: 'user', surname: 'Meier2', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', forename: 'user', surname: 'Meier2', userId: '4'})").end().getCommand());
+            dbDsl.createForumSolution('0', {adminId: '1', questionId: '0', created: 500});
+            dbDsl.createForumSolution('1', {adminId: '1', questionId: '1', created: 500});
+            dbDsl.createForumProArgument('2', {adminId: '3', questionId: '2', created: 503});
+            dbDsl.createForumProArgument('3', {adminId: '3', questionId: '1', created: 503});
+            dbDsl.createForumCounterArgument('4', {adminId: '4', questionId: '2', created: 505});
+            dbDsl.createForumCounterArgument('5', {adminId: '2', questionId: '0', created: 505});
 
-            commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
+            dbDsl.forumRatePositiveAnswer('1', '0');
+            dbDsl.forumRatePositiveAnswer('2', '0');
+            dbDsl.forumRatePositiveAnswer('3', '0');
+            dbDsl.forumRatePositiveAnswer('4', '0');
+            dbDsl.forumRatePositiveAnswer('4', '5');
+            dbDsl.forumRatePositiveAnswer('3', '5');
 
-            commands = commands.concat(createQuestion({topic: ['spiritual'], questionId: '0', description: 'question1'},
-                {numberOf: 3, ratings: [['1', '2'], ['2', '4']]}, {numberOf: 2, ratings: [['1', '2']]}, true));
-            commands = commands.concat(createQuestion({topic: ['environment'], questionId: '1', description: 'question2'},
-                {numberOf: 2, ratings: [['1', '3'], ['4']]}, {numberOf: 0, ratings: []}, true));
-            commands = commands.concat(createQuestion({topic: ['health'], questionId: '2', description: 'question3'},
-                {numberOf: 0, ratings: []}, {numberOf: 1, ratings: [['2', '3']]}, false));
+            dbDsl.forumRatePositiveAnswer('1', '1');
+            dbDsl.forumRatePositiveAnswer('2', '3');
+            dbDsl.forumRatePositiveAnswer('3', '3');
 
-            return db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().send(commands);
+            dbDsl.forumRatePositiveAnswer('1', '2');
+            dbDsl.forumRatePositiveAnswer('2', '4');
+
+            return dbDsl.sendToDb();
         });
     });
 
@@ -81,11 +45,10 @@ describe('Integration Tests for getting the most popular questions in the forum'
     it('Getting the most popular questions over all - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/question/popular', {
                 maxItems: 10,
                 skip: 0
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -93,21 +56,21 @@ describe('Integration Tests for getting the most popular questions in the forum'
 
             res.body.question[0].questionId.should.equals('0');
             res.body.question[0].activityRating.should.equals(6);
-            res.body.question[0].description.should.equals('question1');
+            res.body.question[0].description.should.equals('question0Description');
             res.body.question[0].topic.length.should.equals(1);
             res.body.question[0].topic[0].should.equals('spiritual');
             res.body.question[0].isAdmin.should.equals(true);
 
             res.body.question[1].questionId.should.equals('1');
             res.body.question[1].activityRating.should.equals(3);
-            res.body.question[1].description.should.equals('question2');
+            res.body.question[1].description.should.equals('question1Description');
             res.body.question[1].topic.length.should.equals(1);
             res.body.question[1].topic[0].should.equals('environment');
-            res.body.question[1].isAdmin.should.equals(true);
+            res.body.question[1].isAdmin.should.equals(false);
 
             res.body.question[2].questionId.should.equals('2');
             res.body.question[2].activityRating.should.equals(2);
-            res.body.question[2].description.should.equals('question3');
+            res.body.question[2].description.should.equals('question2Description');
             res.body.question[2].topic.length.should.equals(1);
             res.body.question[2].topic[0].should.equals('health');
             res.body.question[2].isAdmin.should.equals(false);

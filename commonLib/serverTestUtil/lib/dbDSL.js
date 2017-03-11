@@ -8,6 +8,7 @@ let user = require('./dbDSL/user');
 let feedback = require('./dbDSL/feedback');
 let messages = require('./dbDSL/messages');
 let events = require('./dbDSL/events');
+let forum = require('./dbDSL/forum');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
 
@@ -61,5 +62,10 @@ module.exports = {
     createPageEventNewAddress: events.createPageEventNewAddress,
     createPageEventExistingAddress: events.createPageEventExistingAddress,
     createThread: messages.createThread,
-    createMessages: messages.createMessages
+    createMessages: messages.createMessages,
+    createForumQuestion: forum.createQuestion,
+    createForumSolution: forum.createSolution,
+    createForumProArgument: forum.createProArgument,
+    createForumCounterArgument: forum.createCounterArgument,
+    forumRatePositiveAnswer: forum.ratePositiveAnswer
 };

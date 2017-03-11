@@ -2,9 +2,9 @@
 
 let db = requireDb();
 
-let getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
+let getAnswerCommand = function (userId, questionId, skip, maxItems, type) {
 
-    return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:IS_ANSWER]->(answer:ForumAnswer" + label + ")")
+    return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:IS_ANSWER]->(answer:ForumAnswer {type: {type}})")
         .optionalMatch("(answer)<-[rating:RATE_POSITIVE]-(:User)")
         .with("COUNT(rating) AS positiveRating, answer")
         .match("(user:User {userId: {userId}})")
@@ -16,21 +16,23 @@ let getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
         .skip("{skip}")
         .limit("{maxItems}")
         .end({
-            questionId: questionId,
-            skip: skip,
-            maxItems: maxItems,
-            userId: userId
+            questionId: questionId, skip: skip, maxItems: maxItems,
+            userId: userId, type: type
         });
 };
 
-let getExplanationAnswerCommand = function (userId, questionId, skip, maxItems) {
-    return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumExplanation');
+let getProArgumentAnswerCommand = function (userId, questionId, skip, maxItems) {
+    return getAnswerCommand(userId, questionId, skip, maxItems, 'proArgument');
+};
+let getCounterArgumentAnswerCommand = function (userId, questionId, skip, maxItems) {
+    return getAnswerCommand(userId, questionId, skip, maxItems, 'counterArgument');
 };
 let getSolutionAnswerCommand = function (userId, questionId, skip, maxItems) {
-    return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumSolution');
+    return getAnswerCommand(userId, questionId, skip, maxItems, 'solution');
 };
 
 module.exports = {
-    getExplanationAnswerCommand: getExplanationAnswerCommand,
+    getProArgumentAnswerCommand: getProArgumentAnswerCommand,
+    getCounterArgumentAnswerCommand: getCounterArgumentAnswerCommand,
     getSolutionAnswerCommand: getSolutionAnswerCommand
 };

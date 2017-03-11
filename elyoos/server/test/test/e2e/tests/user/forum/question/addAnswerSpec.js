@@ -2,27 +2,17 @@
 
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
 
 describe('Integration Tests for adding answers to a forum question', function () {
 
-    let requestAgent, startTime;
-
     beforeEach(function () {
-        
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            let commands = [];
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-                .end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
-
-            return db.cypher().match("(u:User)")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
-                .end({topic: ['environmental']}).send(commands);
-
+        return dbDsl.init(2).then(function () {
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'Hans Muster', publishDate: 1000});
+            dbDsl.createForumQuestion('0', {adminId: '2', language: 'de', topic: ['environmental'], created: 501});
+            return dbDsl.sendToDb();
         });
     });
 
@@ -35,7 +25,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
         let answerId,
             description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '0',
@@ -43,7 +32,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'explanation'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -63,7 +52,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
         let answerId,
             description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '0',
@@ -71,7 +59,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'solution'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -91,7 +79,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
         let answerId,
             description = 'Deshalb';
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 page: {
                     questionId: '0',
@@ -99,7 +86,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'explanation'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -118,7 +105,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
         let answerId,
             description = 'Deshalb';
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 page: {
                     questionId: '0',
@@ -126,7 +112,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'solution'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -143,7 +129,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
     it('Creating a new explanation answer fails because of non existing questionId - Return 400', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '1',
@@ -151,7 +136,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: 'Deshalb',
                     type: 'explanation'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer)")
@@ -164,7 +149,6 @@ describe('Integration Tests for adding answers to a forum question', function ()
     it('Creating a new solution answer fails because of non existing questionId - Return 400', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '1',
@@ -172,7 +156,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: 'Deshalb',
                     type: 'solution'
                 }
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer)")

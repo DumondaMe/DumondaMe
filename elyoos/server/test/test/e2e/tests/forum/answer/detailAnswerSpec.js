@@ -1,78 +1,42 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
 let should = require('chai').should();
 
 describe('Integration Tests for getting the details of a forum answer', function () {
 
-    let requestAgent, startTime;
-
     beforeEach(function () {
-        
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            let commands = [];
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', forename: 'user', surname: 'Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', forename: 'user', surname: 'Meier2', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', forename: 'user', surname: 'Meier2', userId: '4'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', link: 'https://www.youtube.com/embed/Test', hostname: 'www.youtube.com', description: 'page3', modified: 5092, pageId: '2'})").end().getCommand());
+        return dbDsl.init(6).then(function () {
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'Hans Muster', publishDate: 1000});
+            dbDsl.createYoutubePage('1', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
 
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
-                .end({topic: ['environmental']}).getCommand());
+            dbDsl.createForumQuestion('0', {adminId: '1', language: 'de', topic: ['environmental'], created: 501});
 
-            //Adding solutions to question
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '0', description: 'forumSolution', created: 500})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(solution:ForumSolution {answerId: '0'}), (page:Page {pageId: '1'})")
-                .createUnique("(solution)-[:REFERENCE]->(page)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '1', title: 'titleForumSolution1', description: 'forumSolution1', created: 501})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
+            dbDsl.createForumSolution('0', {adminId: '1', questionId: '0', created: 500, referencePageId: '1'});
+            dbDsl.createForumSolution('1', {adminId: '2', questionId: '0', created: 501});
+            dbDsl.createForumProArgument('2', {adminId: '3', questionId: '0', created: 502});
+            dbDsl.createForumProArgument('3', {adminId: '3', questionId: '0', created: 503, referencePageId: '0'});
+            dbDsl.createForumCounterArgument('4', {adminId: '2', questionId: '0', created: 504});
+            dbDsl.createForumCounterArgument('5', {adminId: '1', questionId: '0', created: 505, referencePageId: '2'});
 
-            //Rate solutions
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '1'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '4'}), (forumSolution:ForumSolution {answerId: '1'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
+            dbDsl.forumRatePositiveAnswer('1', '0');
+            dbDsl.forumRatePositiveAnswer('2', '0');
+            dbDsl.forumRatePositiveAnswer('3', '0');
+            dbDsl.forumRatePositiveAnswer('2', '1');
+            dbDsl.forumRatePositiveAnswer('3', '1');
+            dbDsl.forumRatePositiveAnswer('4', '2');
+            dbDsl.forumRatePositiveAnswer('5', '2');
+            dbDsl.forumRatePositiveAnswer('5', '3');
+            dbDsl.forumRatePositiveAnswer('4', '5');
 
-            //Adding explanation to question
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '2', description: 'forumExplanation', created: 502})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '2'}), (page:Page {pageId: '0'})")
-                .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', title: 'titleForumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '4', description: 'forumExplanation2', created: 504})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '4'}), (page:Page {pageId: '2'})")
-                .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
-
-            //Rate explanation
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumExplanation:ForumExplanation {answerId: '2'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumExplanation:ForumExplanation {answerId: '2'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            return db.cypher().match("(u:User {userId: '4'}), (forumExplanation:ForumExplanation {answerId: '3'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().send(commands);
+            return dbDsl.sendToDb();
         });
     });
 
@@ -83,21 +47,20 @@ describe('Integration Tests for getting the details of a forum answer', function
     it('Getting the detail of a forum solution answer without referencing a page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/answer/detail', {
                 answerId: '1'
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.description.should.equals('question0Description');
             res.body.answer.question.questionId.should.equals('0');
             res.body.answer.question.topic.length.should.equals(1);
             res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('1');
             res.body.answer.type.should.equals('solution');
-            res.body.answer.title.should.equals('titleForumSolution1');
-            res.body.answer.description.should.equals('forumSolution1');
+            res.body.answer.title.should.equals('solution1Title');
+            res.body.answer.description.should.equals('solution1Description');
             res.body.answer.created.should.equals(501);
             res.body.answer.positiveRating.should.equals(2);
             res.body.answer.ratedByUser.should.equals(false);
@@ -106,26 +69,25 @@ describe('Integration Tests for getting the details of a forum answer', function
         });
     });
 
-    it('Getting the detail of a forum explanation answer without referencing a page - Return 200', function () {
+    it('Getting the detail of a forum pro argument answer without referencing a page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/answer/detail', {
-                answerId: '3'
-            }, requestAgent);
+                answerId: '2'
+            }, agent);
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.description.should.equals('question0Description');
             res.body.answer.question.questionId.should.equals('0');
             res.body.answer.question.topic.length.should.equals(1);
             res.body.answer.question.topic[0].should.equals('environmental');
-            res.body.answer.answerId.should.equals('3');
-            res.body.answer.type.should.equals('explanation');
-            res.body.answer.title.should.equals('titleForumExplanation1');
-            res.body.answer.description.should.equals('forumExplanation1');
-            res.body.answer.created.should.equals(503);
-            res.body.answer.positiveRating.should.equals(1);
+            res.body.answer.answerId.should.equals('2');
+            res.body.answer.type.should.equals('proArgument');
+            res.body.answer.title.should.equals('proArgument2Title');
+            res.body.answer.description.should.equals('proArgument2Description');
+            res.body.answer.created.should.equals(502);
+            res.body.answer.positiveRating.should.equals(2);
             res.body.answer.ratedByUser.should.equals(false);
             res.body.answer.isAdmin.should.equals(false);
             should.not.exist(res.body.answer.page);
@@ -135,56 +97,54 @@ describe('Integration Tests for getting the details of a forum answer', function
     it('Getting the detail of a forum solution answer with referencing a youtube page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/answer/detail', {
                 answerId: '0'
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.description.should.equals('question0Description');
             res.body.answer.question.questionId.should.equals('0');
             res.body.answer.question.topic.length.should.equals(1);
             res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('0');
             res.body.answer.type.should.equals('solution');
-            res.body.answer.description.should.equals('forumSolution');
+            res.body.answer.description.should.equals('solution0Description');
             res.body.answer.created.should.equals(500);
             res.body.answer.positiveRating.should.equals(3);
             res.body.answer.ratedByUser.should.equals(true);
             res.body.answer.isAdmin.should.equals(true);
 
             res.body.answer.page.pageId.should.equals('1');
-            res.body.answer.page.title.should.equals('page2Title');
+            res.body.answer.page.title.should.equals('page1Title');
             res.body.answer.page.label.should.equals('Youtube');
-            res.body.answer.page.link.should.equals('https://www.youtube.com/embed/Test');
+            res.body.answer.page.link.should.equals('https://www.youtube.com/watch?v=hTarMdJub0M');
         });
     });
 
     it('Getting the detail of a forum explanation answer with referencing a book page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/answer/detail', {
-                answerId: '2'
-            }, requestAgent);
+                answerId: '3'
+            }, agent);
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.description.should.equals('question0Description');
             res.body.answer.question.questionId.should.equals('0');
             res.body.answer.question.topic.length.should.equals(1);
             res.body.answer.question.topic[0].should.equals('environmental');
-            res.body.answer.answerId.should.equals('2');
-            res.body.answer.type.should.equals('explanation');
-            res.body.answer.description.should.equals('forumExplanation');
-            res.body.answer.created.should.equals(502);
-            res.body.answer.positiveRating.should.equals(2);
-            res.body.answer.ratedByUser.should.equals(true);
-            res.body.answer.isAdmin.should.equals(true);
+            res.body.answer.answerId.should.equals('3');
+            res.body.answer.type.should.equals('proArgument');
+            res.body.answer.description.should.equals('proArgument3Description');
+            res.body.answer.created.should.equals(503);
+            res.body.answer.positiveRating.should.equals(1);
+            res.body.answer.ratedByUser.should.equals(false);
+            res.body.answer.isAdmin.should.equals(false);
 
             res.body.answer.page.pageId.should.equals('0');
-            res.body.answer.page.title.should.equals('page1Title');
+            res.body.answer.page.title.should.equals('page0Title');
             res.body.answer.page.label.should.equals('Book');
             res.body.answer.page.titleUrl.should.equals('pages/0/pageTitlePicture.jpg');
         });
@@ -193,31 +153,30 @@ describe('Integration Tests for getting the details of a forum answer', function
     it('Getting the detail of a forum explanation answer with referencing a link page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.getWithData('/api/forum/answer/detail', {
-                answerId: '4'
-            }, requestAgent);
+                answerId: '5'
+            }, agent);
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.description.should.equals('question0Description');
             res.body.answer.question.questionId.should.equals('0');
             res.body.answer.question.topic.length.should.equals(1);
             res.body.answer.question.topic[0].should.equals('environmental');
-            res.body.answer.answerId.should.equals('4');
-            res.body.answer.type.should.equals('explanation');
-            res.body.answer.description.should.equals('forumExplanation2');
-            res.body.answer.created.should.equals(504);
-            res.body.answer.positiveRating.should.equals(0);
+            res.body.answer.answerId.should.equals('5');
+            res.body.answer.type.should.equals('counterArgument');
+            res.body.answer.description.should.equals('counterArgument5Description');
+            res.body.answer.created.should.equals(505);
+            res.body.answer.positiveRating.should.equals(1);
             res.body.answer.ratedByUser.should.equals(false);
             res.body.answer.isAdmin.should.equals(true);
 
             res.body.answer.page.pageId.should.equals('2');
-            res.body.answer.page.title.should.equals('page3Title');
+            res.body.answer.page.title.should.equals('page2Title');
             res.body.answer.page.label.should.equals('Link');
             res.body.answer.page.imageUrl.should.equals('pages/2/normal.jpg');
-            res.body.answer.page.link.should.equals('https://www.youtube.com/embed/Test');
-            res.body.answer.page.hostname.should.equals('www.youtube.com');
+            res.body.answer.page.link.should.equals('www.host.com/test');
+            res.body.answer.page.hostname.should.equals('www.host.com');
         });
     });
 

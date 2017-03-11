@@ -1,72 +1,44 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
 let should = require('chai').should();
 
 describe('Integration Tests for getting the details of a forum question', function () {
 
-    let requestAgent, startTime;
+    let requestAgent;
 
     beforeEach(function () {
-        
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            let commands = [];
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-                .end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', forename: 'user', surname: 'Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', forename: 'user', surname: 'Meier2', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', forename: 'user', surname: 'Meier2', userId: '4'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
+        return dbDsl.init(6).then(function () {
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'Hans Muster', publishDate: 1000});
+            dbDsl.createYoutubePage('1', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
 
-            commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
-                .end({topic: ['environmental']}).getCommand());
+            dbDsl.createForumQuestion('0', {adminId: '1', language: 'de', topic: ['environmental'], created: 501});
 
-            //Adding solutions to question
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '0', description: 'forumSolution', created: 500})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(solution:ForumSolution {answerId: '0'}), (page:Page {pageId: '1'})")
-                .createUnique("(solution)-[:REFERENCE]->(page)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '1', title: 'titleForumSolution1', description: 'forumSolution1', created: 501})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
+            dbDsl.createForumSolution('0', {adminId: '1', questionId: '0', created: 500, referencePageId: '1'});
+            dbDsl.createForumSolution('1', {adminId: '2', questionId: '0', created: 501});
+            dbDsl.createForumProArgument('2', {adminId: '3', questionId: '0', created: 502, referencePageId: '0'});
+            dbDsl.createForumProArgument('3', {adminId: '3', questionId: '0', created: 503});
+            dbDsl.createForumCounterArgument('4', {adminId: '2', questionId: '0', created: 504, referencePageId: '2'});
+            dbDsl.createForumCounterArgument('5', {adminId: '1', questionId: '0', created: 505});
 
-            //Rate solutions
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '0'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '1'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '4'}), (forumSolution:ForumSolution {answerId: '1'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
+            dbDsl.forumRatePositiveAnswer('1', '0');
+            dbDsl.forumRatePositiveAnswer('2', '0');
+            dbDsl.forumRatePositiveAnswer('3', '0');
+            dbDsl.forumRatePositiveAnswer('2', '1');
+            dbDsl.forumRatePositiveAnswer('3', '1');
+            dbDsl.forumRatePositiveAnswer('4', '2');
+            dbDsl.forumRatePositiveAnswer('5', '2');
+            dbDsl.forumRatePositiveAnswer('5', '3');
+            dbDsl.forumRatePositiveAnswer('4', '4');
 
-            //Adding explanation to question
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '2', description: 'forumExplanation', created: 502})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-            commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '2'}), (page:Page {pageId: '0'})")
-                .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', title: 'titleForumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
-                .end().getCommand());
-
-            //Rate explanation
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumExplanation:ForumExplanation {answerId: '2'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumExplanation:ForumExplanation {answerId: '2'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            return db.cypher().match("(u:User {userId: '4'}), (forumExplanation:ForumExplanation {answerId: '3'})")
-                .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().send(commands);
+            return dbDsl.sendToDb();
         });
     });
 
@@ -74,7 +46,7 @@ describe('Integration Tests for getting the details of a forum question', functi
         return requestHandler.logout();
     });
 
-    it('Getting the detail of a forum question - Return 200', function () {
+    it('Getting the detail of a forum question', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -84,7 +56,7 @@ describe('Integration Tests for getting the details of a forum question', functi
         }).then(function (res) {
             res.status.should.equal(200);
             
-            res.body.question.description.should.equals('forumQuestion');
+            res.body.question.description.should.equals('question0Description');
             res.body.question.isAdmin.should.equals(true);
             res.body.question.questionId.should.equals('0');
             res.body.question.language.should.equals('de');
@@ -98,36 +70,54 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.solution[0].ratedByUser.should.equals(true);
             res.body.solution[0].isAdmin.should.equals(true);
             res.body.solution[0].page.pageId.should.equals('1');
-            res.body.solution[0].page.title.should.equals('page2Title');
+            res.body.solution[0].page.title.should.equals('page1Title');
             res.body.solution[0].page.label.should.equals('Youtube');
-            res.body.solution[0].page.link.should.equals('https://www.youtube.com/embed/Test');
-            res.body.solution[0].page.description.should.equals('page2');
+            res.body.solution[0].page.link.should.equals('https://www.youtube.com/watch?v=hTarMdJub0M');
+            res.body.solution[0].page.description.should.equals('page1Description');
 
             res.body.solution[1].answerId.should.equals('1');
-            res.body.solution[1].title.should.equals('titleForumSolution1');
+            res.body.solution[1].title.should.equals('solution1Title');
             res.body.solution[1].created.should.equals(501);
             res.body.solution[1].positiveRating.should.equals(2);
             res.body.solution[1].ratedByUser.should.equals(false);
             res.body.solution[1].isAdmin.should.equals(false);
             should.not.exist(res.body.solution[1].page);
 
-            res.body.explanation.length.should.equals(2);
-            res.body.explanation[0].answerId.should.equals('2');
-            res.body.explanation[0].created.should.equals(502);
-            res.body.explanation[0].positiveRating.should.equals(2);
-            res.body.explanation[0].ratedByUser.should.equals(true);
-            res.body.explanation[0].isAdmin.should.equals(true);
-            res.body.explanation[0].page.pageId.should.equals('0');
-            res.body.explanation[0].page.title.should.equals('page1Title');
-            res.body.explanation[0].page.label.should.equals('Book');
-            res.body.explanation[0].page.description.should.equals('page1');
+            res.body.proArgument.length.should.equals(2);
+            res.body.proArgument[0].answerId.should.equals('2');
+            res.body.proArgument[0].created.should.equals(502);
+            res.body.proArgument[0].positiveRating.should.equals(2);
+            res.body.proArgument[0].ratedByUser.should.equals(false);
+            res.body.proArgument[0].isAdmin.should.equals(false);
+            res.body.proArgument[0].page.pageId.should.equals('0');
+            res.body.proArgument[0].page.title.should.equals('page0Title');
+            res.body.proArgument[0].page.label.should.equals('Book');
+            res.body.proArgument[0].page.description.should.equals('page0Description');
 
-            res.body.explanation[1].answerId.should.equals('3');
-            res.body.explanation[1].title.should.equals('titleForumExplanation1');
-            res.body.explanation[1].created.should.equals(503);
-            res.body.explanation[1].positiveRating.should.equals(1);
-            res.body.explanation[1].ratedByUser.should.equals(false);
-            res.body.explanation[1].isAdmin.should.equals(false);
+            res.body.proArgument[1].answerId.should.equals('3');
+            res.body.proArgument[1].title.should.equals('proArgument3Title');
+            res.body.proArgument[1].created.should.equals(503);
+            res.body.proArgument[1].positiveRating.should.equals(1);
+            res.body.proArgument[1].ratedByUser.should.equals(false);
+            res.body.proArgument[1].isAdmin.should.equals(false);
+
+            res.body.counterArgument.length.should.equals(2);
+            res.body.counterArgument[0].answerId.should.equals('4');
+            res.body.counterArgument[0].created.should.equals(504);
+            res.body.counterArgument[0].positiveRating.should.equals(1);
+            res.body.counterArgument[0].ratedByUser.should.equals(false);
+            res.body.counterArgument[0].isAdmin.should.equals(false);
+            res.body.counterArgument[0].page.pageId.should.equals('2');
+            res.body.counterArgument[0].page.title.should.equals('page2Title');
+            res.body.counterArgument[0].page.label.should.equals('Link');
+            res.body.counterArgument[0].page.description.should.equals('page2Description');
+
+            res.body.counterArgument[1].answerId.should.equals('5');
+            res.body.counterArgument[1].title.should.equals('counterArgument5Title');
+            res.body.counterArgument[1].created.should.equals(505);
+            res.body.counterArgument[1].positiveRating.should.equals(0);
+            res.body.counterArgument[1].ratedByUser.should.equals(false);
+            res.body.counterArgument[1].isAdmin.should.equals(true);
         });
     });
 

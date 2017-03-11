@@ -8,7 +8,8 @@ let pageResponse = require('./pageResponse');
 let getDetail = function (userId, questionId) {
 
     let commands = [];
-    commands.push(statistic.getExplanationAnswerCommand(userId, questionId, 0, 10).getCommand());
+    commands.push(statistic.getProArgumentAnswerCommand(userId, questionId, 0, 10).getCommand());
+    commands.push(statistic.getCounterArgumentAnswerCommand(userId, questionId, 0, 10).getCommand());
     commands.push(statistic.getSolutionAnswerCommand(userId, questionId, 0, 10).getCommand());
 
     return db.cypher().match("(question:ForumQuestion {questionId: {questionId}}), (user:User {userId: {userId}})")
@@ -18,7 +19,8 @@ let getDetail = function (userId, questionId) {
         .send(commands).then(function (resp) {
             pageResponse.preparePageResponse(resp[0]);
             pageResponse.preparePageResponse(resp[1]);
-            return {question: resp[2][0], explanation: resp[0], solution: resp[1]};
+            pageResponse.preparePageResponse(resp[2]);
+            return {question: resp[3][0], proArgument: resp[0], counterArgument: resp[1], solution: resp[2]};
         });
 };
 

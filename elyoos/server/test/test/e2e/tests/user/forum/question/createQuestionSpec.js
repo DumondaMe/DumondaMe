@@ -2,20 +2,15 @@
 
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
 
 describe('Integration Tests for creating question in forum', function () {
 
-    let requestAgent, startTime;
-
     beforeEach(function () {
-        
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-                .end().send();
 
+        return dbDsl.init(1).then(function () {
+            return dbDsl.sendToDb();
         });
     });
 
@@ -28,12 +23,11 @@ describe('Integration Tests for creating question in forum', function () {
         let questionId,
             description = 'Warum ist Fleisch essen problematisch?', language = 'de', topic = ['environmental'];
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
             return requestHandler.post('/api/user/forum/question', {
                 description: description,
                 language: language,
                 topic: topic
-            }, requestAgent);
+            }, agent);
         }).then(function (res) {
             questionId = res.body.questionId;
             res.status.should.equal(200);
