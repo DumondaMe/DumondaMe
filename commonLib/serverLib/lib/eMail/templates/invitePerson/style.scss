@@ -14,10 +14,11 @@
     .description {
       position: relative;
       height: 130px;
-      font-size: 16px;
+      font-size: 18px;
       margin-left: 148px;
       .name {
         font-weight: bold;
+        color: $primary-color;
       }
       .navigate {
         position: absolute;
@@ -31,13 +32,16 @@
   .elyoos-description-container {
     margin-top: 18px;
     .header-description {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
       margin-bottom: 22px;
+      color: $primary-text;
     }
     .description {
       margin-top: 18px;
-      font-size: 16px;
+      font-size: 18px;
+      line-height: 24px;
+      color: $secondary-text;
     }
     .developer-container {
       margin-top: 24px;
@@ -50,13 +54,13 @@
       .info {
         margin-top: 12px;
         .name {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: bold;
-          color: rgba(0, 0, 0, 0.87);
+          color: $primary-color;
         }
         .info-description {
-          font-size: 16px;
-          color: rgba(0, 0, 0, 0.54);
+          font-size: 14px;
+          color: $secondary-text;
         }
       }
     }

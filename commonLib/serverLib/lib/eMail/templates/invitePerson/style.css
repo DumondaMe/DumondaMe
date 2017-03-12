@@ -8,7 +8,7 @@
 
 body {
   background-color: #e9ebee;
-  font-family: Helvetica, Arial, sans-serif; }
+  font-family: Roboto, Georgia, Verdana, sans-serif; }
 
 .body {
   max-width: 650px;
@@ -36,10 +36,11 @@ body {
     .body .invite-container .description {
       position: relative;
       height: 130px;
-      font-size: 16px;
+      font-size: 18px;
       margin-left: 148px; }
       .body .invite-container .description .name {
-        font-weight: bold; }
+        font-weight: bold;
+        color: #3F51B5; }
       .body .invite-container .description .navigate {
         position: absolute;
         bottom: 0; }
@@ -48,12 +49,15 @@ body {
   .body .elyoos-description-container {
     margin-top: 18px; }
     .body .elyoos-description-container .header-description {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      margin-bottom: 22px; }
+      margin-bottom: 22px;
+      color: rgba(0, 0, 0, 0.87); }
     .body .elyoos-description-container .description {
       margin-top: 18px;
-      font-size: 16px; }
+      font-size: 18px;
+      line-height: 24px;
+      color: rgba(0, 0, 0, 0.54); }
     .body .elyoos-description-container .developer-container {
       margin-top: 24px; }
       .body .elyoos-description-container .developer-container img {
@@ -64,11 +68,11 @@ body {
       .body .elyoos-description-container .developer-container .info {
         margin-top: 12px; }
         .body .elyoos-description-container .developer-container .info .name {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: bold;
-          color: rgba(0, 0, 0, 0.87); }
+          color: #3F51B5; }
         .body .elyoos-description-container .developer-container .info .info-description {
-          font-size: 16px;
+          font-size: 14px;
           color: rgba(0, 0, 0, 0.54); }
     .body .elyoos-description-container .navigate {
       margin-top: 24px; }

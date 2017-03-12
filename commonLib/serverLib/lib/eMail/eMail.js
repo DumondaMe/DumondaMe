@@ -58,7 +58,7 @@ let sendEMail = function (template, templateData, sendTo) {
             logger.error("Message could not be sent. Template does not exist: " + template);
             reject();
         }
-    })
+    });
 };
 
 module.exports = {
