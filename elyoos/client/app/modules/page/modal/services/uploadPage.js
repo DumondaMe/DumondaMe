@@ -13,7 +13,7 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
                 if (resp.data && resp.data.errorCode === 2) {
                     errorToast.showError('Das Bild ist zu klein! Seite wurde nicht erstellt.');
                 } else {
-                    errorToast.showError('Seite konnte nicht hochgeladen werden!');
+                    errorToast.showError('Beitrag konnte nicht erstellt!');
                 }
             });
     };
@@ -33,7 +33,7 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
                 if (resp.data && resp.data.errorCode === 2) {
                     errorToast.showError('Das Bild ist zu klein! Seite wurde nicht verändert.');
                 } else {
-                    errorToast.showError('Seite konnte nicht verändert werden!');
+                    errorToast.showError('Beitrag konnte nicht verändert werden!');
                 }
             });
     };

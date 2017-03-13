@@ -10,7 +10,8 @@ let deletePage = function (userId, params, req) {
         return db.cypher().match("(user:User {userId: {userId}})-[isAdmin:IS_ADMIN]->(page:Page {pageId: {pageId}})")
             .optionalMatch("(user)-[recRel:RECOMMENDS]->(rec:Recommendation)-[recRel2:RECOMMENDS|PINWALL_DATA]->(page)")
             .optionalMatch("(page)-[addressRel:HAS]->(address:Address)")
-            .delete("isAdmin, page, recRel, rec, recRel2, addressRel, address")
+            .optionalMatch("(page)-[eventRel:EVENT]->(event:Event)-[address2Rel:HAS]->(address2:Address)")
+            .delete("isAdmin, page, recRel, rec, recRel2, addressRel, address2Rel, address, address2, eventRel, event")
             .end({userId: userId, pageId: params.pageId})
             .send().then(function () {
                 return cdn.deleteFolder(`pages/${params.pageId}/`);

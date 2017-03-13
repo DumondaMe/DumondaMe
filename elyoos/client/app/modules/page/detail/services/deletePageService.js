@@ -5,9 +5,9 @@ module.exports = ['$mdDialog', 'UserPage', '$state', 'errorToast',
 
         this.deletePage = function (pageId) {
             var confirm = $mdDialog.confirm()
-                .title("Buch Seite löschen")
-                .textContent("Willst Du diese Seite wirklich löschen?")
-                .ariaLabel("Delete Book Page")
+                .title("Beitrag löschen")
+                .textContent("Willst Du diesen Beitrag wirklich löschen?")
+                .ariaLabel("Delete Page")
                 .ok("Löschen")
                 .cancel("Abbrechen");
             $mdDialog.show(confirm).then(function () {
@@ -16,7 +16,7 @@ module.exports = ['$mdDialog', 'UserPage', '$state', 'errorToast',
                 }, function () {
                     $state.go('home');
                 }, function () {
-                    errorToast.showError("Fehler beim Löschen der Bewertung");
+                    errorToast.showError("Fehler beim Löschen des Beitrages");
                 });
             });
         };
