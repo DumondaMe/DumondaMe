@@ -59,9 +59,25 @@
     font-size: 20px;
     font-weight: 500;
     background-color: #D81B60;
-    bottom: 20px;
+    bottom: 45px;
     left: 50%;
     margin-left: -125px;
+  }
+  .login-link {
+    position: absolute;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    left: 50%;
+    width: 300px;
+    bottom: 20px;
+    margin-left: -150px;
+    font-weight: 500;
+    color: white;
+    font-size: 14px;
+  }
+  .login-link:hover {
+    text-decoration: underline;
   }
 }
 
