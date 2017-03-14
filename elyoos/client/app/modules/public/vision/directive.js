@@ -6,13 +6,11 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/public/carousel/template.html',
+            templateUrl: 'app/modules/public/vision/template.html',
             controllerAs: 'ctrl',
             controller: require('./controller.js'),
-            bindToController: {
-            }
-            
+            bindToController: {showPreviewImage: '='}
         };
     }],
-    name: 'elyStartScreenCarousel'
+    name: 'elyVision'
 };

@@ -6,12 +6,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/public/carousel/login/template.html',
+            templateUrl: 'app/modules/public/vision/view/template.html',
             controllerAs: 'ctrl',
-            controller: function () {
-            },
-            bindToController: {}
+            controller: function () {}
         };
     }],
-    name: 'elyCarouselLogin'
+    name: 'elyPublicVision'
 };

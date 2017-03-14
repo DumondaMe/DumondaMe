@@ -3412,172 +3412,6 @@
     color: rgba(0, 0, 0, 0.87);
     background-color: white; }
 
-#start-screen #carousel {
-  height: 100%;
-  width: 100%; }
-  #start-screen #carousel #right-column {
-    height: 100%;
-    width: 100%;
-    background-color: #fafafa; }
-    @media screen and (min-width: 960px) {
-      #start-screen #carousel #right-column {
-        background-color: #FFFFFF; } }
-  #start-screen #carousel #left-column {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    float: left;
-    z-index: 10; }
-    #start-screen #carousel #left-column #carousel-nav-container .navigation-button.md-fab.md-mini {
-      height: 32px;
-      width: 32px;
-      line-height: 32px;
-      min-height: 0;
-      padding: 0;
-      margin-bottom: 16px; }
-      #start-screen #carousel #left-column #carousel-nav-container .navigation-button.md-fab.md-mini .navigation-icon {
-        height: 32px;
-        width: 32px; }
-    #start-screen #carousel #left-column #carousel-nav-container .carousel-nav {
-      cursor: pointer;
-      height: 16px;
-      width: 16px;
-      margin: 0 16px 10px 16px;
-      border-radius: 500%;
-      box-shadow: inset 0 0 0 3px #7986CB;
-      box-sizing: border-box; }
-    #start-screen #carousel #left-column #carousel-nav-container .carousel-nav:hover {
-      box-shadow: inset 0 0 0 3px #3F51B5; }
-    #start-screen #carousel #left-column #carousel-nav-container .active {
-      background: #7986CB;
-      box-shadow: none;
-      opacity: 1; }
-  #start-screen #carousel #carousel-nav-miscellaneous {
-    position: fixed;
-    bottom: 64px;
-    left: 32px;
-    z-index: 1000; }
-    @media screen and (max-height: 560px) {
-      #start-screen #carousel #carousel-nav-miscellaneous {
-        bottom: 52px; } }
-    @media screen and (max-width: 960px) {
-      #start-screen #carousel #carousel-nav-miscellaneous {
-        z-index: 0; } }
-    #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element {
-      margin-right: 12px;
-      display: inline-block;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.54);
-      cursor: pointer; }
-      @media screen and (max-height: 560px) {
-        #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element {
-          font-size: 13px; } }
-    #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element:hover {
-      text-decoration: underline; }
-  #start-screen #carousel #carouse-nav-bottom-button {
-    position: fixed;
-    cursor: pointer;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 45px;
-    background: #7986CB;
-    box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.1);
-    transition: bottom ease-out .5s; }
-    @media screen and (max-width: 960px) {
-      #start-screen #carousel #carouse-nav-bottom-button {
-        z-index: 0; } }
-    #start-screen #carousel #carouse-nav-bottom-button .button-description {
-      color: white;
-      font-size: 16px;
-      font-weight: 700; }
-  #start-screen #carousel #carouse-nav-bottom-button.ng-hide {
-    bottom: -45px; }
-  #start-screen #carousel #carousel-commands {
-    position: fixed;
-    top: 8px;
-    right: 16px; }
-    @media screen and (min-width: 1440px) {
-      #start-screen #carousel #carousel-commands {
-        right: 128px; } }
-
-#start-screen {
-  height: 100%; }
-  #start-screen #carousel {
-    height: 100%; }
-    #start-screen #carousel #carousel-login {
-      height: 100%; }
-      #start-screen #carousel #carousel-login #login-container {
-        height: 100%; }
-
-#carousel-vision {
-  background-color: #fafafa;
-  overflow-y: scroll;
-  height: 100%; }
-  @media screen and (min-width: 960px) {
-    #carousel-vision {
-      background-color: #FFFFFF; } }
-  #carousel-vision #carousel-vision-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 32px 16px 0 16px; }
-    @media screen and (min-width: 960px) {
-      #carousel-vision #carousel-vision-container {
-        max-width: 600px; } }
-    @media screen and (min-width: 1440px) {
-      #carousel-vision #carousel-vision-container {
-        max-width: 700px; } }
-    @media screen and (max-width: 960px) {
-      #carousel-vision #carousel-vision-container {
-        padding-top: 54px; } }
-    #carousel-vision #carousel-vision-container .vision-text-bold {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 26px; }
-    #carousel-vision #carousel-vision-container .vision-text {
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 26px; }
-    #carousel-vision #carousel-vision-container .vision-list {
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 26px; }
-      #carousel-vision #carousel-vision-container .vision-list li:before {
-        color: rgba(0, 0, 0, 0.54); }
-    #carousel-vision #carousel-vision-container .vision-preview-image {
-      cursor: pointer;
-      margin: 0 auto;
-      max-width: 400px; }
-      @media screen and (min-width: 960px) {
-        #carousel-vision #carousel-vision-container .vision-preview-image {
-          max-width: 500px; } }
-      @media screen and (min-width: 1440px) {
-        #carousel-vision #carousel-vision-container .vision-preview-image {
-          max-width: 600px; } }
-      #carousel-vision #carousel-vision-container .vision-preview-image img {
-        width: 100%; }
-    #carousel-vision #carousel-vision-container .text-divider {
-      height: 4px; }
-    #carousel-vision #carousel-vision-container .developer-container {
-      padding: 16px 0 64px 0; }
-      #carousel-vision #carousel-vision-container .developer-container img {
-        height: 64px;
-        width: 64px;
-        border-radius: 50%;
-        margin-right: 16px; }
-      #carousel-vision #carousel-vision-container .developer-container .info .name {
-        font-size: 16px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.87); }
-      #carousel-vision #carousel-vision-container .developer-container .info .info-description {
-        margin-top: 2px;
-        margin-bottom: 4px;
-        font-size: 16px;
-        color: rgba(0, 0, 0, 0.54); }
-      #carousel-vision #carousel-vision-container .developer-container .info .info-contact {
-        margin-top: 6px; }
-
 #reset-password-request .reset-password-description {
   font-size: 14px;
   font-weight: 500;
@@ -3866,7 +3700,8 @@
 
 #start-screen {
   background-color: #fafafa;
-  overflow-y: auto; }
+  overflow-y: auto;
+  height: 100%; }
   #start-screen #start-container #public-overview-description {
     padding: 60px 0; }
     #start-screen #start-container #public-overview-description .overview-container {
@@ -3954,42 +3789,52 @@
     max-width: 500px;
     padding: 16px; }
 
-#public-vision {
-  padding-top: 32px;
-  min-height: 100%;
+#ely-vision {
   background-color: #fafafa; }
-  @media screen and (min-width: 1280px) {
-    #public-vision {
-      padding-top: 64px; } }
-  #public-vision .ely-logo {
-    cursor: pointer; }
-  #public-vision .description {
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.87);
-    white-space: pre-wrap;
+  @media screen and (min-width: 960px) {
+    #ely-vision {
+      background-color: #FFFFFF; } }
+  #ely-vision #ely-vision-container {
     max-width: 500px;
-    padding: 16px; }
-  #public-vision .founder {
-    max-width: 500px;
-    width: 100%;
-    padding: 0 16px 16px 16px; }
-    #public-vision .founder .user-img {
-      border-radius: 50px;
-      height: 48px;
-      width: 48px;
-      margin-right: 8px; }
-      @media screen and (min-width: 1280px) {
-        #public-vision .founder .user-img {
-          height: 64px;
-          width: 64px; } }
-    #public-vision .founder .container .name {
-      color: rgba(0, 0, 0, 0.87);
-      font-size: 16px;
-      font-weight: 500; }
-    #public-vision .founder .container .founder-description {
-      margin-top: 4px;
-      color: rgba(0, 0, 0, 0.54);
-      font-size: 14px; }
+    margin: 0 auto;
+    padding: 32px 16px 0 16px; }
+    @media screen and (min-width: 960px) {
+      #ely-vision #ely-vision-container {
+        max-width: 600px; } }
+    @media screen and (min-width: 1440px) {
+      #ely-vision #ely-vision-container {
+        max-width: 700px; } }
+    @media screen and (max-width: 960px) {
+      #ely-vision #ely-vision-container {
+        padding-top: 54px; } }
+    #ely-vision #ely-vision-container .vision-text-bold {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px; }
+    #ely-vision #ely-vision-container .vision-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px; }
+    #ely-vision #ely-vision-container .vision-list {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px; }
+      #ely-vision #ely-vision-container .vision-list li:before {
+        color: rgba(0, 0, 0, 0.54); }
+    #ely-vision #ely-vision-container .vision-preview-image {
+      cursor: pointer;
+      margin: 0 auto;
+      max-width: 400px; }
+      @media screen and (min-width: 960px) {
+        #ely-vision #ely-vision-container .vision-preview-image {
+          max-width: 500px; } }
+      @media screen and (min-width: 1440px) {
+        #ely-vision #ely-vision-container .vision-preview-image {
+          max-width: 600px; } }
+      #ely-vision #ely-vision-container .vision-preview-image img {
+        width: 100%; }
+    #ely-vision #ely-vision-container .text-divider {
+      height: 4px; }
 
 #ely-add-recommendation {
   width: 100%;

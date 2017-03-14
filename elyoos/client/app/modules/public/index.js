@@ -58,5 +58,14 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             isPublic: true
+        })
+        .state('public.vision', {
+            url: '/vision',
+            views: {
+                'content@': {
+                    template: '<ely-public-vision></ely-public-vision>'
+                }
+            },
+            isPublic: true
         });
 }]);

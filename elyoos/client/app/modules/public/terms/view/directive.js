@@ -8,7 +8,7 @@ module.exports = {
             scope: {},
             templateUrl: 'app/modules/public/terms/view/template.html',
             controllerAs: 'ctrl',
-            controller: require('./controller.js')
+            controller: function () {}
         };
     }],
     name: 'elyPublicTerms'
