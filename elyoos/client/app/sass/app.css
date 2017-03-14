@@ -3578,28 +3578,14 @@
       #carousel-vision #carousel-vision-container .developer-container .info .info-contact {
         margin-top: 6px; }
 
-#change-password-request #container {
-  width: 300px; }
-  #change-password-request #container .form-container {
-    padding: 32px 16px 0 16px; }
-    #change-password-request #container .form-container .change-password-description {
-      font-size: 12px;
-      margin-bottom: 18px; }
-    #change-password-request #container .form-container .input-element {
-      margin-top: 4px;
-      margin-bottom: 4px; }
-      #change-password-request #container .form-container .input-element input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
-        text-shadow: none; }
-#change-password-request .action-container {
-  padding: 0 16px; }
-  #change-password-request .action-container .password-reset {
-    margin-right: 32px;
-    cursor: pointer;
-    font-size: 12px;
+#reset-password-request .reset-password-description {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 550px;
+  margin: 0 auto; }
+  #reset-password-request .reset-password-description .email {
     color: #3F51B5; }
-  #change-password-request .action-container .password-reset:hover {
-    text-decoration: underline; }
 
 @media screen and (max-width: 960px) {
   .contact-dialog {
@@ -3618,61 +3604,155 @@
   #contact-container .contact-commands {
     height: 52px; }
 
-#foot-navigation {
-  position: fixed;
-  height: 48px;
-  bottom: 0;
-  left: 0;
-  right: 0; }
-  #foot-navigation .nav-element {
-    color: #3F51B5;
-    font-weight: 500;
-    font-size: 14px;
-    cursor: pointer; }
+#public-footer {
+  background-color: #212121;
+  height: 70px; }
+  #public-footer #public-footer-container {
+    max-width: 1000px;
+    padding-top: 18px;
+    margin: 0 auto; }
+    #public-footer #public-footer-container .footer-nav-container .footer-nav {
+      max-width: 150px;
+      margin: 0 auto;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      border-radius: 4px; }
+    #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
+      background-color: #D81B60; }
 
-#loginform .error-message {
-  margin: 0 16px;
-  padding: 4px;
-  background: #a94442;
-  color: white;
-  border-radius: 2px; }
-#loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
-  transition: all linear 0.8s; }
-#loginform .error-message.ng-hide {
-  line-height: 0;
-  opacity: 0; }
-#loginform #login-container {
-  width: 300px; }
-  #loginform #login-container .login-form-container {
-    padding: 36px 16px 0 16px; }
-    @media screen and (max-height: 560px) {
-      #loginform #login-container .login-form-container {
-        padding-top: 24px; } }
-    #loginform #login-container .login-form-container .input-element {
-      margin-top: 4px;
-      margin-bottom: 4px; }
-      #loginform #login-container .login-form-container .input-element input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
-        text-shadow: none; }
-  #loginform #login-container .show-verify-success {
+#public-register-footer {
+  background-color: #7986CB; }
+  #public-register-footer .invite-message {
+    text-align: center;
+    padding-top: 25px;
+    margin: 0 auto;
+    font-size: 20px;
+    color: white;
+    font-weight: 500; }
+  #public-register-footer .register-button {
+    cursor: pointer;
+    overflow: hidden;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    width: 250px;
+    color: white;
+    outline: none;
+    border: 2px solid #D81B60;
+    border-radius: 21px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #D81B60;
+    margin: 15px auto 0 auto; }
+  #public-register-footer .already-login {
+    cursor: pointer;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 60px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: white;
+    font-weight: 500; }
+  #public-register-footer .already-login:hover {
+    text-decoration: underline; }
+
+#public-header {
+  position: relative;
+  background: url("../img/start/background.jpg");
+  background-repeat: no-repeat !important;
+  background-position: 50% !important; }
+  #public-header #public-header-container {
+    padding-top: 15px;
+    padding-bottom: 50px;
+    background-color: #7986CB;
+    opacity: 0.9; }
+    #public-header #public-header-container #public-header-inner-container {
+      padding: 0 24px;
+      max-width: 1000px;
+      margin: 0 auto; }
+      #public-header #public-header-container #public-header-inner-container .top-line .elyoos {
+        font-size: 42px;
+        font-weight: 700;
+        color: white; }
+      #public-header #public-header-container #public-header-inner-container .top-line .login-button {
+        cursor: pointer;
+        height: 42px;
+        line-height: 42px;
+        text-align: center;
+        width: 100px;
+        color: white;
+        border: 2px solid white;
+        border-radius: 21px;
+        font-size: 16px;
+        font-weight: 500; }
+      #public-header #public-header-container #public-header-inner-container .top-line .login-button:hover {
+        background-color: #3F51B5; }
+      #public-header #public-header-container #public-header-inner-container .headline {
+        text-align: center;
+        color: white;
+        margin-top: 150px;
+        margin-bottom: 60px;
+        font-size: 30px;
+        font-weight: 500; }
+  #public-header .register-button {
+    position: absolute;
+    cursor: pointer;
+    overflow: hidden;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    width: 250px;
+    color: white;
+    outline: none;
+    border: 2px solid #D81B60;
+    border-radius: 21px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #D81B60;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -125px; }
+
+#login-user {
+  min-width: 320px; }
+  @media screen and (min-width: 600px) {
+    #login-user {
+      min-width: 450px; } }
+  @media screen and (min-width: 960px) {
+    #login-user {
+      min-width: 550px; } }
+  #login-user .login-user-content {
+    min-width: 320px;
+    margin: 0 auto; }
+    #login-user .login-user-content .password-reset-link {
+      cursor: pointer;
+      font-size: 12px;
+      color: #3F51B5;
+      font-weight: 500; }
+    #login-user .login-user-content .password-reset-link:hover {
+      text-decoration: underline; }
+  #login-user .error-message {
+    margin: 0 16px;
+    padding: 4px;
+    background: #a94442;
+    color: white;
+    border-radius: 2px; }
+  #login-user .error-message.ng-hide-add, #login-user .error-message.ng-hide-remove {
+    transition: all linear 0.8s; }
+  #login-user .error-message.ng-hide {
+    line-height: 0;
+    opacity: 0; }
+  #login-user .show-verify-success {
     width: 260px;
     font-size: 14px;
     color: #43a047;
     margin: 0 auto; }
-    #loginform #login-container .show-verify-success .success-icon {
+    #login-user .show-verify-success .success-icon {
       width: 48px; }
-#loginform .action-container {
-  padding: 0 16px; }
-  #loginform .action-container .password-reset {
-    margin-right: 38px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #3F51B5; }
-  #loginform .action-container .password-reset:hover {
-    text-decoration: underline; }
-
-#check-login {
-  height: 100%; }
 
 .register-user-show-agb {
   height: 100%; }
@@ -3744,62 +3824,8 @@
 #start-screen {
   background-color: #fafafa;
   overflow-y: auto; }
-  #start-screen #start-container #public-header {
-    position: relative;
-    background: url("../img/start/background.jpg");
-    background-repeat: no-repeat !important;
-    background-position: 50% !important; }
-    #start-screen #start-container #public-header #public-header-container {
-      padding-top: 15px;
-      padding-bottom: 50px;
-      background-color: #7986CB;
-      opacity: 0.9; }
-      #start-screen #start-container #public-header #public-header-container #public-header-inner-container {
-        padding: 0 24px;
-        max-width: 1000px;
-        margin: 0 auto; }
-        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .top-line .elyoos {
-          font-size: 42px;
-          font-weight: 700;
-          color: white; }
-        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .top-line .login-button {
-          cursor: pointer;
-          height: 42px;
-          line-height: 42px;
-          text-align: center;
-          width: 100px;
-          color: white;
-          border: 2px solid white;
-          border-radius: 21px;
-          font-size: 16px;
-          font-weight: 500; }
-        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .headline {
-          text-align: center;
-          color: white;
-          margin-top: 150px;
-          margin-bottom: 40px;
-          font-size: 30px;
-          font-weight: 500; }
-    #start-screen #start-container #public-header .register-button {
-      position: absolute;
-      cursor: pointer;
-      overflow: hidden;
-      height: 42px;
-      line-height: 42px;
-      text-align: center;
-      width: 250px;
-      color: white;
-      outline: none;
-      border: 2px solid #D81B60;
-      border-radius: 21px;
-      font-size: 20px;
-      font-weight: 500;
-      background-color: #D81B60;
-      bottom: 20px;
-      left: 50%;
-      margin-left: -125px; }
   #start-screen #start-container #public-overview-description {
-    padding: 100px 0 70px 0; }
+    padding: 60px 0; }
     #start-screen #start-container #public-overview-description .overview-container {
       max-width: 1000px;
       margin: 0 auto; }
@@ -3816,99 +3842,14 @@
         font-size: 14px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.54); }
-  #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container {
-    margin: 0 auto;
-    max-width: 900px; }
-    #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
-      width: 100%; }
-  #start-screen #start-container #public-register-footer {
-    background-color: #7986CB;
-    margin-top: 30px; }
-    #start-screen #start-container #public-register-footer .invite-message {
-      text-align: center;
-      padding-top: 25px;
+  #start-screen #start-container #public-preview-screen-container {
+    background-color: white;
+    padding-bottom: 30px; }
+    #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container {
       margin: 0 auto;
-      font-size: 20px;
-      color: white;
-      font-weight: 500; }
-    #start-screen #start-container #public-register-footer .register-button {
-      cursor: pointer;
-      overflow: hidden;
-      height: 42px;
-      line-height: 42px;
-      text-align: center;
-      width: 250px;
-      color: white;
-      outline: none;
-      border: 2px solid #D81B60;
-      border-radius: 21px;
-      font-size: 20px;
-      font-weight: 500;
-      background-color: #D81B60;
-      margin: 15px auto 0 auto; }
-    #start-screen #start-container #public-register-footer .already-login {
-      cursor: pointer;
-      text-align: center;
-      padding-top: 8px;
-      padding-bottom: 60px;
-      margin: 0 auto;
-      font-size: 14px;
-      color: white;
-      font-weight: 500; }
-    #start-screen #start-container #public-register-footer .already-login:hover {
-      text-decoration: underline; }
-  #start-screen #start-container #public-footer {
-    background-color: #212121;
-    height: 70px; }
-    #start-screen #start-container #public-footer #public-footer-container {
-      max-width: 1000px;
-      padding-top: 18px;
-      margin: 0 auto; }
-      #start-screen #start-container #public-footer #public-footer-container .footer-nav-container .footer-nav {
-        max-width: 150px;
-        margin: 0 auto;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 500;
-        color: white;
-        padding: 8px;
-        text-align: center;
-        border-radius: 4px; }
-      #start-screen #start-container #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
-        background-color: #D81B60; }
-  #start-screen .text-phase-description {
-    cursor: pointer;
-    color: #EF6C00;
-    font-size: 14px;
-    text-align: center;
-    margin-top: 16px; }
-    @media screen and (min-width: 1280px) {
-      #start-screen .text-phase-description {
-        margin-bottom: 32px; } }
-  #start-screen .text-phase-description:hover {
-    text-decoration: underline; }
-  #start-screen .description {
-    width: 180px;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 16px; }
-    @media screen and (max-height: 560px) {
-      #start-screen .description {
-        font-size: 14px;
-        margin-bottom: 8px; } }
-  #start-screen .ely-logo {
-    width: 150px; }
-    @media screen and (min-width: 600px) {
-      #start-screen .ely-logo {
-        width: 176px; } }
-    @media screen and (min-width: 1920px) {
-      #start-screen .ely-logo {
-        width: 220px; } }
-    @media screen and (max-height: 560px) {
-      #start-screen .ely-logo {
-        width: 120px; } }
+      max-width: 900px; }
+      #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
+        width: 100%; }
 
 .terms-dialog {
   height: 100%; }

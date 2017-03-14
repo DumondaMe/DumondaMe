@@ -2,8 +2,8 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAuth', 'VerifyRegisterUserRequest', '$timeout',
-    function ($scope, $state, $stateParams, Auth, UrlCache, IsAuth, VerifyRegisterUserRequest, $timeout) {
+module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAuth', 'VerifyRegisterUserRequest', '$timeout', 'ElyModal',
+    function ($scope, $state, $stateParams, Auth, UrlCache, IsAuth, VerifyRegisterUserRequest, $timeout, ElyModal) {
         var ctrl = this;
         ctrl.loginuser = {};
 
@@ -28,6 +28,10 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
             }
         };
 
+        ctrl.cancel = function () {
+            ElyModal.cancel();
+        };
+
         ctrl.login = function () {
             delete ctrl.error;
             ctrl.loginRunning = true;
@@ -37,8 +41,8 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
                     username: ctrl.loginuser.email,
                     password: ctrl.loginuser.password
                 }).then(function () {
-                    ctrl.loginRunning = false;
                     UrlCache.reset();
+                    ElyModal.hide();
                     $state.go('home');
                 }, function () {
                     ctrl.loginRunning = false;

@@ -6,11 +6,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/public/footNavigation/template.html',
+            templateUrl: 'app/modules/public/footer/template.html',
             controllerAs: 'ctrl',
-            controller: function () {
-            }
+            controller: require('./controller.js')
         };
     }],
-    name: 'elyPublicFootNav'
+    name: 'elyPublicFooter'
 };

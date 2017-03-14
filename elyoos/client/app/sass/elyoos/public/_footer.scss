@@ -1,0 +1,25 @@
+#public-footer {
+  background-color: #212121;
+  height: 70px;
+  #public-footer-container {
+    max-width: 1000px;
+    padding-top: 18px;
+    margin: 0 auto;
+    .footer-nav-container {
+      .footer-nav {
+        max-width: 150px;
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        border-radius: 4px;
+      }
+      .footer-nav:hover {
+        background-color: #D81B60;
+      }
+    }
+  }
+}

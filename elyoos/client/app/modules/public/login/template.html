@@ -1,41 +1,38 @@
-<div id="loginform" layout="column" layout-align="center center">
-    <div id="login-container" ely-handling-flex>
-        <div class="show-verify-success" ng-if="ctrl.showSuccessfulVerify">
-            Du hast dein Konto erfolgreich aktiviert. Melde dich nun mit deiner E-Mail Adresse und deinem Passwort an.
-        </div>
-        <form name="loginForm" class="login-form-container">
-            <md-input-container class="input-element md-block">
-                <label>Email</label>
-                <input required type="email" name="username" id="id_username" aria-label="Email"
-                       ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
-
-                <div ng-messages="loginForm.username.$error">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="email">Keine gültige E-Mail Adresse!</div>
+<md-dialog id="login-user" aria-label="Login User" layout="column">
+    <form name="loginForm" ng-cloak ng-if="!ctrl.showPasswordReset">
+        <div class="md-title ely-dialog-title">Login</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column">
+                <div class="login-user-content">
+                    <md-input-container class="input-element md-block">
+                        <label>Email</label>
+                        <input required type="email" name="username" id="id_username" aria-label="Email"
+                               ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
+                        <div ng-messages="loginForm.username.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="email">Keine gültige E-Mail Adresse!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
+                        <label>Passwort</label>
+                        <input type="password" required name="password" id="id_password" aria-label="Passwort" md-autofocus
+                               ng-model="ctrl.loginuser.password" ng-disabled="ctrl.verifyUser" md-no-asterisk>
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <div class="password-reset-link" ng-click="ctrl.showPasswordReset = true">Hast du dein Passwort vergessen?</div>
                 </div>
-            </md-input-container>
-            <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
-                <label>Passwort</label>
-                <input type="password" required name="password" id="id_password" aria-label="Passwort" md-autofocus
-                       ng-model="ctrl.loginuser.password" ng-disabled="ctrl.verifyUser" md-no-asterisk>
-
-                <div ng-messages="loginForm.password.$error">
-                    <div ng-message="required">Wird benötigt!</div>
-                </div>
-            </md-input-container>
-        </form>
-        <div class="error-message alert alert-danger" role="alert" ng-show="ctrl.error">
-            {{ctrl.error}}
-        </div>
-        <div layout="row" layout-align="end center" class="action-container">
-            <div class="password-reset" ng-click="ctrl.passwordReset = true">Passwort vergessen?</div>
-            <md-button id="login" class="md-primary md-raised" type="submit" ng-click="ctrl.login()"
-                       ng-disabled="loginForm.$invalid || ctrl.loginRunning || ctrl.verifyUser">
-                Anmelden
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.login()"
+                       ng-disabled="loginForm.$invalid || ctrl.loginRunning || ctrl.verifyUser">Login
             </md-button>
-        </div>
-        <div layout="row" layout-align="center center">
-            <md-progress-circular ng-if="ctrl.loginRunning || ctrl.verifyUser" md-mode="indeterminate"></md-progress-circular>
-        </div>
-    </div>
-</div>
+        </md-dialog-actions>
+    </form>
+    <ely-password-reset-request back="ctrl.showPasswordReset" ng-if="ctrl.showPasswordReset"></ely-password-reset-request>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

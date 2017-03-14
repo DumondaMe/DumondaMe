@@ -6,14 +6,14 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/public/login/template.html',
+            templateUrl: 'app/modules/public/login/passwordResetRequest/template.html',
             controllerAs: 'ctrl',
             controller: require('./controller.js'),
             bindToController: {
-                passwordReset: '='
+                back: '='
             }
             
         };
     }],
-    name: 'elyLogin'
+    name: 'elyPasswordResetRequest'
 };
