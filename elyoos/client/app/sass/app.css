@@ -3587,22 +3587,11 @@
   #reset-password-request .reset-password-description .email {
     color: #3F51B5; }
 
-@media screen and (max-width: 960px) {
-  .contact-dialog {
-    max-width: 100%; } }
-
-#contact-container {
-  max-width: 400px; }
-  #contact-container .contact-content-container {
-    overflow-y: scroll; }
-    #contact-container .contact-content-container .ely-public-contact {
-      padding: 16px;
-      color: rgba(0, 0, 0, 0.87); }
-      #contact-container .contact-content-container .ely-public-contact .contact-text {
-        margin-top: 12px;
-        font-size: 14px; }
-  #contact-container .contact-commands {
-    height: 52px; }
+#contact-elyoos .contact-description {
+  max-width: 400px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54); }
 
 #public-footer {
   background-color: #212121;
@@ -3620,7 +3609,8 @@
       color: white;
       padding: 8px;
       text-align: center;
-      border-radius: 4px; }
+      border-radius: 4px;
+      text-decoration: none; }
     #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
       background-color: #D81B60; }
 

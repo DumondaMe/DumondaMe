@@ -1,24 +1,9 @@
-.contact-dialog {
-  @media screen and (max-width: $gt-sm) {
-    max-width: 100%;
-  }
-}
-
-#contact-container {
-  max-width: 400px;
-  .contact-content-container {
-    overflow-y: scroll;
-    .ely-public-contact {
-      padding: 16px;
-      color: $primary-text;
-      .contact-text {
-        margin-top: 12px;
-        font-size: 14px;
-      }
-    }
-  }
-  .contact-commands {
-    height: 52px;
+#contact-elyoos {
+  .contact-description {
+    max-width: 400px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
   }
 }
 

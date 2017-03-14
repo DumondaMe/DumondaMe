@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = ['$mdMedia', function ($mdMedia) {
+module.exports = ['ElyModal', function (ElyModal) {
     var ctrl = this;
 
-    ctrl.$mdMedia = $mdMedia;
+    ctrl.openContact = function () {
+        ElyModal.show('ContactCtrl', 'app/modules/public/contact/template.html', {});
+    };
 }];
