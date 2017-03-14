@@ -3742,14 +3742,140 @@
     background-color: #a94442; }
 
 #start-screen {
-  position: relative;
-  height: 100%;
-  background-color: #fafafa; }
-  @media screen and (min-width: 960px) {
-    #start-screen {
-      background-color: #FFFFFF; } }
-  #start-screen #start-container {
-    height: 100%; }
+  background-color: #fafafa;
+  overflow-y: auto; }
+  #start-screen #start-container #public-header {
+    position: relative;
+    background: url("../img/start/background.jpg");
+    background-repeat: no-repeat !important;
+    background-position: 50% !important; }
+    #start-screen #start-container #public-header #public-header-container {
+      padding-top: 15px;
+      padding-bottom: 50px;
+      background-color: #7986CB;
+      opacity: 0.9; }
+      #start-screen #start-container #public-header #public-header-container #public-header-inner-container {
+        padding: 0 24px;
+        max-width: 1000px;
+        margin: 0 auto; }
+        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .top-line .elyoos {
+          font-size: 42px;
+          font-weight: 700;
+          color: white; }
+        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .top-line .login-button {
+          cursor: pointer;
+          height: 42px;
+          line-height: 42px;
+          text-align: center;
+          width: 100px;
+          color: white;
+          border: 2px solid white;
+          border-radius: 21px;
+          font-size: 16px;
+          font-weight: 500; }
+        #start-screen #start-container #public-header #public-header-container #public-header-inner-container .headline {
+          text-align: center;
+          color: white;
+          margin-top: 150px;
+          margin-bottom: 40px;
+          font-size: 30px;
+          font-weight: 500; }
+    #start-screen #start-container #public-header .register-button {
+      position: absolute;
+      cursor: pointer;
+      overflow: hidden;
+      height: 42px;
+      line-height: 42px;
+      text-align: center;
+      width: 250px;
+      color: white;
+      outline: none;
+      border: 2px solid #D81B60;
+      border-radius: 21px;
+      font-size: 20px;
+      font-weight: 500;
+      background-color: #D81B60;
+      bottom: 20px;
+      left: 50%;
+      margin-left: -125px; }
+  #start-screen #start-container #public-overview-description {
+    padding: 100px 0 70px 0; }
+    #start-screen #start-container #public-overview-description .overview-container {
+      max-width: 1000px;
+      margin: 0 auto; }
+      #start-screen #start-container #public-overview-description .overview-container .description-container .title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        color: #3F51B5;
+        margin-bottom: 16px; }
+      #start-screen #start-container #public-overview-description .overview-container .description-container .description {
+        width: 270px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54); }
+  #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container {
+    margin: 0 auto;
+    max-width: 900px; }
+    #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
+      width: 100%; }
+  #start-screen #start-container #public-register-footer {
+    background-color: #7986CB;
+    margin-top: 30px; }
+    #start-screen #start-container #public-register-footer .invite-message {
+      text-align: center;
+      padding-top: 25px;
+      margin: 0 auto;
+      font-size: 20px;
+      color: white;
+      font-weight: 500; }
+    #start-screen #start-container #public-register-footer .register-button {
+      cursor: pointer;
+      overflow: hidden;
+      height: 42px;
+      line-height: 42px;
+      text-align: center;
+      width: 250px;
+      color: white;
+      outline: none;
+      border: 2px solid #D81B60;
+      border-radius: 21px;
+      font-size: 20px;
+      font-weight: 500;
+      background-color: #D81B60;
+      margin: 15px auto 0 auto; }
+    #start-screen #start-container #public-register-footer .already-login {
+      cursor: pointer;
+      text-align: center;
+      padding-top: 8px;
+      padding-bottom: 60px;
+      margin: 0 auto;
+      font-size: 14px;
+      color: white;
+      font-weight: 500; }
+    #start-screen #start-container #public-register-footer .already-login:hover {
+      text-decoration: underline; }
+  #start-screen #start-container #public-footer {
+    background-color: #212121;
+    height: 70px; }
+    #start-screen #start-container #public-footer #public-footer-container {
+      max-width: 1000px;
+      padding-top: 18px;
+      margin: 0 auto; }
+      #start-screen #start-container #public-footer #public-footer-container .footer-nav-container .footer-nav {
+        max-width: 150px;
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        border-radius: 4px; }
+      #start-screen #start-container #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
+        background-color: #D81B60; }
   #start-screen .text-phase-description {
     cursor: pointer;
     color: #EF6C00;
