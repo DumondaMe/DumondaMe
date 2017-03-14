@@ -1,0 +1,45 @@
+#public-header-compact {
+  position: relative;
+  height: 60px;
+  background-color: $primary-color-light;
+  #public-header-compact-container {
+    margin: 0 auto;
+    max-width: 1000px;
+    .top-line {
+      padding-top: 15px;
+      .elyoos {
+        font-size: 30px;
+        line-height: 30px;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+      }
+      .elyoos-description {
+        padding-top: 10px;
+        margin-left: 24px;
+        font-size: 14px;
+        font-weight: 400;
+        color: white;
+      }
+      .login-button {
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 80px;
+        color: white;
+        border: 2px solid white;
+        border-radius: 21px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .login-button:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+}
+
+
+
+

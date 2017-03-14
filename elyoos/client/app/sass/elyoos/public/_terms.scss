@@ -1,7 +1,43 @@
-.terms-dialog {
-  height: 100%;
-  @media screen and (max-width: $gt-sm) {
-    max-width: 100%;
+#ely-terms {
+  padding: 16px;
+  color: $primary-text;
+  .terms-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .terms-date {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 300;
+    color: $secondary-text;
+  }
+  .terms-text {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  .terms-h1-title {
+    margin: 24px 0 12px 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .terms-h2-title {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .terms-bullet-list {
+    font-size: 14px;
+  }
+}
+
+.terms-view-container {
+  padding: 12px 24px;
+  .terms-view-inner-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    #ely-terms {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 
@@ -13,36 +49,6 @@
   .terms-content-container {
     overflow-y: scroll;
     height: 100%;
-    #ely-terms {
-      padding: 16px;
-      color: $primary-text;
-      .terms-title {
-        font-size: 20px;
-        font-weight: 500;
-      }
-      .terms-date {
-        margin-top: 4px;
-        font-size: 14px;
-        font-weight: 300;
-        color: $secondary-text;
-      }
-      .terms-text {
-        margin-top: 12px;
-        font-size: 14px;
-      }
-      .terms-h1-title {
-        margin: 24px 0 12px 0;
-        font-size: 18px;
-        font-weight: 500;
-      }
-      .terms-h2-title {
-        margin-bottom: 12px;
-        font-size: 14px;
-      }
-      .terms-bullet-list {
-        font-size: 14px;
-      }
-    }
   }
   .terms-commands {
     height: 52px;

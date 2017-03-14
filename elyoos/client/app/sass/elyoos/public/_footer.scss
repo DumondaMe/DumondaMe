@@ -22,5 +22,13 @@
         background-color: #D81B60;
       }
     }
+    .footer-nav-container.highlighted {
+      .footer-nav {
+        color: #D81B60;
+      }
+      .footer-nav:hover {
+        background-color: #212121;
+      }
+    }
   }
 }

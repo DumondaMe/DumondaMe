@@ -49,5 +49,14 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             isPublic: true
+        })
+        .state('public.terms', {
+            url: '/terms',
+            views: {
+                'content@': {
+                    template: '<ely-public-terms></ely-public-terms>'
+                }
+            },
+            isPublic: true
         });
 }]);

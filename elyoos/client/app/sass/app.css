@@ -3613,6 +3613,10 @@
       text-decoration: none; }
     #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
       background-color: #D81B60; }
+    #public-footer #public-footer-container .footer-nav-container.highlighted .footer-nav {
+      color: #D81B60; }
+    #public-footer #public-footer-container .footer-nav-container.highlighted .footer-nav:hover {
+      background-color: #212121; }
 
 #public-register-footer {
   background-color: #7986CB; }
@@ -3720,6 +3724,41 @@
     font-size: 14px; }
   #public-header .login-link:hover {
     text-decoration: underline; }
+
+#public-header-compact {
+  position: relative;
+  height: 60px;
+  background-color: #7986CB; }
+  #public-header-compact #public-header-compact-container {
+    margin: 0 auto;
+    max-width: 1000px; }
+    #public-header-compact #public-header-compact-container .top-line {
+      padding-top: 15px; }
+      #public-header-compact #public-header-compact-container .top-line .elyoos {
+        font-size: 30px;
+        line-height: 30px;
+        font-weight: 700;
+        color: white;
+        cursor: pointer; }
+      #public-header-compact #public-header-compact-container .top-line .elyoos-description {
+        padding-top: 10px;
+        margin-left: 24px;
+        font-size: 14px;
+        font-weight: 400;
+        color: white; }
+      #public-header-compact #public-header-compact-container .top-line .login-button {
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 80px;
+        color: white;
+        border: 2px solid white;
+        border-radius: 21px;
+        font-size: 16px;
+        font-weight: 500; }
+      #public-header-compact #public-header-compact-container .top-line .login-button:hover {
+        background-color: #3F51B5; }
 
 #login-user {
   min-width: 320px; }
@@ -3855,11 +3894,38 @@
       #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
         width: 100%; }
 
-.terms-dialog {
-  height: 100%; }
-  @media screen and (max-width: 960px) {
-    .terms-dialog {
-      max-width: 100%; } }
+#ely-terms {
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87); }
+  #ely-terms .terms-title {
+    font-size: 20px;
+    font-weight: 500; }
+  #ely-terms .terms-date {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.54); }
+  #ely-terms .terms-text {
+    margin-top: 12px;
+    font-size: 14px; }
+  #ely-terms .terms-h1-title {
+    margin: 24px 0 12px 0;
+    font-size: 18px;
+    font-weight: 500; }
+  #ely-terms .terms-h2-title {
+    margin-bottom: 12px;
+    font-size: 14px; }
+  #ely-terms .terms-bullet-list {
+    font-size: 14px; }
+
+.terms-view-container {
+  padding: 12px 24px; }
+  .terms-view-container .terms-view-inner-container {
+    max-width: 1000px;
+    margin: 0 auto; }
+    .terms-view-container .terms-view-inner-container #ely-terms {
+      padding-left: 0;
+      padding-right: 0; }
 
 .terms-container {
   height: 100%; }
@@ -3869,29 +3935,6 @@
   .terms-container .terms-content-container {
     overflow-y: scroll;
     height: 100%; }
-    .terms-container .terms-content-container #ely-terms {
-      padding: 16px;
-      color: rgba(0, 0, 0, 0.87); }
-      .terms-container .terms-content-container #ely-terms .terms-title {
-        font-size: 20px;
-        font-weight: 500; }
-      .terms-container .terms-content-container #ely-terms .terms-date {
-        margin-top: 4px;
-        font-size: 14px;
-        font-weight: 300;
-        color: rgba(0, 0, 0, 0.54); }
-      .terms-container .terms-content-container #ely-terms .terms-text {
-        margin-top: 12px;
-        font-size: 14px; }
-      .terms-container .terms-content-container #ely-terms .terms-h1-title {
-        margin: 24px 0 12px 0;
-        font-size: 18px;
-        font-weight: 500; }
-      .terms-container .terms-content-container #ely-terms .terms-h2-title {
-        margin-bottom: 12px;
-        font-size: 14px; }
-      .terms-container .terms-content-container #ely-terms .terms-bullet-list {
-        font-size: 14px; }
   .terms-container .terms-commands {
     height: 52px; }
 
