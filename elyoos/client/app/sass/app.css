@@ -3679,31 +3679,45 @@
     #successful-register-request .ely-dialog-content .description .e-mail-address {
       font-weight: 500; }
 
-.reset-password #container {
-  width: 300px; }
-  .reset-password #container .form-container {
-    padding: 32px 16px 0 16px; }
-    .reset-password #container .form-container .ely-input-container {
-      width: 100%; }
-  .reset-password #container .success-message {
-    margin: 0 16px;
-    padding: 8px;
-    border-radius: 2px;
+#reset-password-container {
+  height: 100%; }
+  #reset-password-container .reset-password-open {
+    cursor: pointer;
+    margin: 24px auto 0 auto;
+    overflow: hidden;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    width: 250px;
     color: white;
-    background-color: #43a047; }
-  .reset-password #container .error-message {
-    margin: 0 16px;
-    padding: 8px;
-    border-radius: 2px;
-    color: white;
-    background-color: #a94442; }
+    outline: none;
+    border: 2px solid #D81B60;
+    border-radius: 21px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #D81B60; }
+
+#password-reset-dialog .success-message {
+  max-width: 200px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  color: #43a047; }
+#password-reset-dialog .error-message {
+  max-width: 200px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  color: #a94442; }
 
 #start-screen {
   background-color: #fafafa;
   overflow-y: auto;
   height: 100%; }
   #start-screen #start-container #public-overview-description {
-    padding: 60px 0; }
+    padding: 60px 0 40px 0; }
     #start-screen #start-container #public-overview-description .overview-container {
       max-width: 1000px;
       margin: 0 auto; }
