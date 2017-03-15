@@ -9,7 +9,7 @@
   }
 
   .login-user-content {
-    min-width: 320px;
+    width: 320px;
     margin: 0 auto;
     .password-reset-link {
       cursor: pointer;
@@ -38,13 +38,18 @@
   }
 
   .show-verify-success {
-    width: 260px;
+    max-width: 320px;
     font-size: 14px;
+    font-weight: 500;
     color: $success;
-    margin: 0 auto;
-    .success-icon {
-      width: 48px;
-    }
+    margin-bottom: 12px;
+  }
+  .show-error {
+    max-width: 320px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $tooltip-error;
+    margin-bottom: 12px;
   }
 }
 

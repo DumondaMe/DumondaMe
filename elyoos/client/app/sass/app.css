@@ -3603,7 +3603,7 @@
     #login-user {
       min-width: 550px; } }
   #login-user .login-user-content {
-    min-width: 320px;
+    width: 320px;
     margin: 0 auto; }
     #login-user .login-user-content .password-reset-link {
       cursor: pointer;
@@ -3624,12 +3624,17 @@
     line-height: 0;
     opacity: 0; }
   #login-user .show-verify-success {
-    width: 260px;
+    max-width: 320px;
     font-size: 14px;
+    font-weight: 500;
     color: #43a047;
-    margin: 0 auto; }
-    #login-user .show-verify-success .success-icon {
-      width: 48px; }
+    margin-bottom: 12px; }
+  #login-user .show-error {
+    max-width: 320px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #a94442;
+    margin-bottom: 12px; }
 
 .register-user-show-agb {
   height: 100%; }

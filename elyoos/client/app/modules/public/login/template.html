@@ -21,7 +21,18 @@
                             <div ng-message="required">Wird benötigt!</div>
                         </div>
                     </md-input-container>
-                    <div class="password-reset-link" ng-click="ctrl.showPasswordReset = true">Hast du dein Passwort vergessen?</div>
+                    <div class="show-verify-success" ng-if="ctrl.showSuccessfulVerify && !ctrl.error">
+                        Du hast dein Konto erfolgreich aktiviert. Melde dich nun mit deiner E-Mail Adresse und deinem Passwort an.
+                    </div>
+                    <div class="show-error" ng-if="ctrl.showErrorVerify">
+                        Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@elyoos.org.
+                    </div>
+                    <div class="show-error" ng-if="ctrl.error">
+                        {{ctrl.error}}
+                    </div>
+                    <div class="password-reset-link" ng-click="ctrl.showPasswordReset = true" ng-if="!ctrl.verifyUser">
+                        Hast du dein Passwort vergessen?
+                    </div>
                 </div>
             </div>
         </md-dialog-content>
@@ -34,5 +45,5 @@
     </form>
     <ely-password-reset-request back="ctrl.showPasswordReset" ng-if="ctrl.showPasswordReset"></ely-password-reset-request>
     <span flex></span>
-    <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-if="ctrl.loginRunning || ctrl.verifyUser" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

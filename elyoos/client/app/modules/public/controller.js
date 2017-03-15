@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = ['$mdMedia', function ($mdMedia) {
-    var ctrl = this;
+module.exports = ['$state', '$stateParams', 'ElyModal',
+    function ($state, $stateParams, ElyModal) {
 
-    ctrl.$mdMedia = $mdMedia;
-}];
+        if ($state.is('public.register.verify') && angular.isString($stateParams.linkId)) {
+            ElyModal.show('LoginCtrl', 'app/modules/public/login/template.html', {});
+        }
+    }];

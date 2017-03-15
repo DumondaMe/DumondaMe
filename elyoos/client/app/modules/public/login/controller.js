@@ -9,6 +9,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
 
         ctrl.loginRunning = false;
         if ($state.is('public.register.verify')) {
+            delete ctrl.error;
             ctrl.verifyUser = true;
             VerifyRegisterUserRequest.save({linkId: $stateParams.linkId}, function (resp) {
                 ctrl.verifyUser = false;
@@ -19,6 +20,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
                 }, 20);
             }, function () {
                 ctrl.verifyUser = false;
+                ctrl.showErrorVerify = true;
             });
         }
 
