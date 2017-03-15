@@ -1,10 +1,16 @@
 #public-footer {
   background-color: #212121;
   height: 70px;
+  @media screen and (max-width: $gt-xs) {
+    height: 80px;
+  }
   #public-footer-container {
     max-width: 1000px;
     padding-top: 18px;
     margin: 0 auto;
+    @media screen and (max-width: $gt-xs) {
+      padding-top: 6px;
+    }
     .footer-nav-container {
       .footer-nav {
         max-width: 150px;
@@ -17,6 +23,9 @@
         text-align: center;
         border-radius: 4px;
         text-decoration: none;
+        @media screen and (max-width: $gt-xs) {
+          font-size: 14px;
+        }
       }
       .footer-nav:hover {
         background-color: #D81B60;

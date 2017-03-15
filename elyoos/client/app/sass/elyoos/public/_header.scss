@@ -3,6 +3,9 @@
   background: url("../img/start/background.jpg");
   background-repeat: no-repeat !important;
   background-position: 50% !important;
+  @media screen and (max-width: 600px) {
+    background: url("../img/start/backgroundMobile.jpg");
+  }
   #public-header-container {
     padding-top: 15px;
     padding-bottom: 50px;
@@ -17,6 +20,9 @@
           font-size: 42px;
           font-weight: 700;
           color: white;
+          @media screen and (max-width: 600px) {
+            font-size: 32px;
+          }
         }
         .login-button {
           cursor: pointer;
@@ -29,6 +35,10 @@
           border-radius: 21px;
           font-size: 16px;
           font-weight: 500;
+          @media screen and (max-width: 600px) {
+            height: 32px;
+            line-height: 32px;
+          }
         }
         .login-button:hover {
           background-color: $primary-color;
@@ -41,6 +51,10 @@
         margin-bottom: 60px;
         font-size: 30px;
         font-weight: 500;
+        @media screen and (max-width: 600px) {
+          margin-top: 40px;
+          font-size: 20px;
+        }
       }
     }
   }

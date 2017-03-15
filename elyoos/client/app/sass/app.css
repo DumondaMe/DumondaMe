@@ -3430,10 +3430,16 @@
 #public-footer {
   background-color: #212121;
   height: 70px; }
+  @media screen and (max-width: 600px) {
+    #public-footer {
+      height: 80px; } }
   #public-footer #public-footer-container {
     max-width: 1000px;
     padding-top: 18px;
     margin: 0 auto; }
+    @media screen and (max-width: 600px) {
+      #public-footer #public-footer-container {
+        padding-top: 6px; } }
     #public-footer #public-footer-container .footer-nav-container .footer-nav {
       max-width: 150px;
       margin: 0 auto;
@@ -3445,6 +3451,9 @@
       text-align: center;
       border-radius: 4px;
       text-decoration: none; }
+      @media screen and (max-width: 600px) {
+        #public-footer #public-footer-container .footer-nav-container .footer-nav {
+          font-size: 14px; } }
     #public-footer #public-footer-container .footer-nav-container .footer-nav:hover {
       background-color: #D81B60; }
     #public-footer #public-footer-container .footer-nav-container.highlighted .footer-nav {
@@ -3485,6 +3494,9 @@
     font-size: 14px;
     color: white;
     font-weight: 500; }
+    @media screen and (max-width: 960px) {
+      #public-register-footer .already-login {
+        padding-bottom: 30px; } }
   #public-register-footer .already-login:hover {
     text-decoration: underline; }
 
@@ -3493,6 +3505,9 @@
   background: url("../img/start/background.jpg");
   background-repeat: no-repeat !important;
   background-position: 50% !important; }
+  @media screen and (max-width: 600px) {
+    #public-header {
+      background: url("../img/start/backgroundMobile.jpg"); } }
   #public-header #public-header-container {
     padding-top: 15px;
     padding-bottom: 50px;
@@ -3506,6 +3521,9 @@
         font-size: 42px;
         font-weight: 700;
         color: white; }
+        @media screen and (max-width: 600px) {
+          #public-header #public-header-container #public-header-inner-container .top-line .elyoos {
+            font-size: 32px; } }
       #public-header #public-header-container #public-header-inner-container .top-line .login-button {
         cursor: pointer;
         height: 42px;
@@ -3517,6 +3535,10 @@
         border-radius: 21px;
         font-size: 16px;
         font-weight: 500; }
+        @media screen and (max-width: 600px) {
+          #public-header #public-header-container #public-header-inner-container .top-line .login-button {
+            height: 32px;
+            line-height: 32px; } }
       #public-header #public-header-container #public-header-inner-container .top-line .login-button:hover {
         background-color: #3F51B5; }
       #public-header #public-header-container #public-header-inner-container .headline {
@@ -3526,6 +3548,10 @@
         margin-bottom: 60px;
         font-size: 30px;
         font-weight: 500; }
+        @media screen and (max-width: 600px) {
+          #public-header #public-header-container #public-header-inner-container .headline {
+            margin-top: 40px;
+            font-size: 20px; } }
   #public-header .register-button {
     position: absolute;
     cursor: pointer;
@@ -3565,7 +3591,8 @@
   background-color: #7986CB; }
   #public-header-compact #public-header-compact-container {
     margin: 0 auto;
-    max-width: 1000px; }
+    max-width: 1000px;
+    padding: 0 18px; }
     #public-header-compact #public-header-compact-container .top-line {
       padding-top: 15px; }
       #public-header-compact #public-header-compact-container .top-line .elyoos {
@@ -3574,23 +3601,39 @@
         font-weight: 700;
         color: white;
         cursor: pointer; }
+        @media screen and (max-width: 600px) {
+          #public-header-compact #public-header-compact-container .top-line .elyoos {
+            padding-top: 6px;
+            font-size: 22px;
+            line-height: 22px; } }
       #public-header-compact #public-header-compact-container .top-line .elyoos-description {
         padding-top: 10px;
-        margin-left: 24px;
         font-size: 14px;
         font-weight: 400;
         color: white; }
+        @media screen and (max-width: 600px) {
+          #public-header-compact #public-header-compact-container .top-line .elyoos-description {
+            padding-top: 0;
+            margin-left: 12px;
+            font-size: 12px;
+            max-width: 150px; } }
+        @media screen and (min-width: 400px) {
+          #public-header-compact #public-header-compact-container .top-line .elyoos-description {
+            margin-left: 24px; } }
       #public-header-compact #public-header-compact-container .top-line .login-button {
         cursor: pointer;
-        height: 30px;
-        line-height: 30px;
+        height: 28px;
+        line-height: 28px;
         text-align: center;
-        width: 80px;
+        width: 70px;
         color: white;
         border: 2px solid white;
-        border-radius: 21px;
+        border-radius: 20px;
         font-size: 16px;
         font-weight: 500; }
+        @media screen and (max-width: 600px) {
+          #public-header-compact #public-header-compact-container .top-line .login-button {
+            font-size: 14px; } }
       #public-header-compact #public-header-compact-container .top-line .login-button:hover {
         background-color: #3F51B5; }
 
@@ -3723,9 +3766,16 @@
   height: 100%; }
   #start-screen #start-container #public-overview-description {
     padding: 60px 0 40px 0; }
+    @media screen and (max-width: 960px) {
+      #start-screen #start-container #public-overview-description {
+        padding-top: 30px;
+        padding-bottom: 20px; } }
     #start-screen #start-container #public-overview-description .overview-container {
       max-width: 1000px;
       margin: 0 auto; }
+      @media screen and (max-width: 960px) {
+        #start-screen #start-container #public-overview-description .overview-container .description-container {
+          margin-bottom: 25px; } }
       #start-screen #start-container #public-overview-description .overview-container .description-container .title {
         text-align: center;
         font-size: 18px;
@@ -3750,7 +3800,15 @@
 
 #ely-terms {
   padding: 16px;
-  color: rgba(0, 0, 0, 0.87); }
+  color: rgba(0, 0, 0, 0.87);
+  max-width: 500px;
+  margin: 0 auto; }
+  @media screen and (min-width: 960px) {
+    #ely-terms {
+      max-width: 600px; } }
+  @media screen and (min-width: 1440px) {
+    #ely-terms {
+      max-width: 700px; } }
   #ely-terms .terms-title {
     font-size: 20px;
     font-weight: 500; }
@@ -3825,7 +3883,7 @@
         max-width: 700px; } }
     @media screen and (max-width: 960px) {
       #ely-vision #ely-vision-container {
-        padding-top: 54px; } }
+        padding-top: 18px; } }
     #ely-vision #ely-vision-container .vision-text-bold {
       font-size: 18px;
       font-weight: 500;

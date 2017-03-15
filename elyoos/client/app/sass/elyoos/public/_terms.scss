@@ -1,6 +1,14 @@
 #ely-terms {
   padding: 16px;
   color: $primary-text;
+  max-width: 500px;
+  margin: 0 auto;
+  @media screen and (min-width: $gt-sm) {
+    max-width: 600px;
+  }
+  @media screen and (min-width: $gt-xmd) {
+    max-width: 700px;
+  }
   .terms-title {
     font-size: 20px;
     font-weight: 500;

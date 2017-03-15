@@ -33,6 +33,9 @@
     font-size: 14px;
     color: white;
     font-weight: 500;
+    @media screen and (max-width: 960px) {
+      padding-bottom: 30px;
+    }
   }
   .already-login:hover {
     text-decoration: underline;
