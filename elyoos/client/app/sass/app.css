@@ -3412,6 +3412,50 @@
     color: rgba(0, 0, 0, 0.87);
     background-color: white; }
 
+#ely-about {
+  background-color: #fafafa; }
+  @media screen and (min-width: 960px) {
+    #ely-about {
+      background-color: #FFFFFF; } }
+  #ely-about #ely-about-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 32px 16px 0 16px; }
+    @media screen and (min-width: 960px) {
+      #ely-about #ely-about-container {
+        max-width: 600px; } }
+    @media screen and (min-width: 1440px) {
+      #ely-about #ely-about-container {
+        max-width: 700px; } }
+    @media screen and (max-width: 960px) {
+      #ely-about #ely-about-container {
+        padding-top: 18px; } }
+    #ely-about #ely-about-container .about-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+      margin-bottom: 40px; }
+    #ely-about #ely-about-container .profile-image {
+      float: left;
+      height: 100px;
+      width: 100px;
+      margin-right: 18px;
+      border-radius: 4px; }
+    #ely-about #ely-about-container .name {
+      font-size: 20px;
+      font-weight: 500;
+      color: #3F51B5;
+      margin-bottom: 6px; }
+    #ely-about #ely-about-container .ely-function {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87);
+      margin-bottom: 3px; }
+    #ely-about #ely-about-container .contact {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54); }
+
 #reset-password-request .reset-password-description {
   font-size: 14px;
   font-weight: 500;

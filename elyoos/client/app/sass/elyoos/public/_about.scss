@@ -1,0 +1,50 @@
+#ely-about {
+  background-color: #fafafa;
+  @media screen and (min-width: $gt-sm) {
+    background-color: #FFFFFF;
+  }
+  #ely-about-container {
+    max-width: 500px;
+    @media screen and (min-width: $gt-sm) {
+      max-width: 600px;
+    }
+    @media screen and (min-width: $gt-xmd) {
+      max-width: 700px;
+    }
+    margin: 0 auto;
+    padding: 32px 16px 0 16px;
+    @media screen and (max-width: $gt-sm) {
+      padding-top: 18px;
+    }
+    .about-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+      margin-bottom: 40px;
+    }
+    .profile-image {
+      float: left;
+      height: 100px;
+      width: 100px;
+      margin-right: 18px;
+      border-radius: 4px;
+    }
+    .name {
+      font-size: 20px;
+      font-weight: 500;
+      color: $primary-color;
+      margin-bottom: 6px;
+    }
+    .ely-function {
+      font-size: 14px;
+      font-weight: 500;
+      color: $primary-text;
+      margin-bottom: 3px;
+    }
+    .contact {
+      font-size: 14px;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+  }
+}
