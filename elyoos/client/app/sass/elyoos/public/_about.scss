@@ -1,9 +1,8 @@
 #ely-about {
-  background-color: #fafafa;
-  @media screen and (min-width: $gt-sm) {
-    background-color: #FFFFFF;
-  }
+  min-height: 100%;
+  background-color: #FFFFFF;
   #ely-about-container {
+    min-height: 100%;
     max-width: 500px;
     @media screen and (min-width: $gt-sm) {
       max-width: 600px;

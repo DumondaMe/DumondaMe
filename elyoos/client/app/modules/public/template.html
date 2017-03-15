@@ -1,6 +1,6 @@
 <div id="start-screen">
-    <div id="start-container">
-        <ely-public-header></ely-public-header>
+    <div id="start-container" layout="column">
+        <ely-public-header flex="none"></ely-public-header>
         <div id="public-overview-description">
             <div class="overview-container" layout="row" layout-wrap>
                 <div class="description-container" flex="33" flex-sm="100" flex-xs="100">
@@ -28,7 +28,8 @@
                 <img ng-src="{{ctrl.screenPreviewImage}}" alt="Soziales Netzwerk">
             </div>
         </div>
-        <ely-public-footer-register></ely-public-footer-register>
-        <ely-public-footer></ely-public-footer>
+        <span flex></span>
+        <ely-public-footer-register flex="none"></ely-public-footer-register>
+        <ely-public-footer flex="none"></ely-public-footer>
     </div>
 </div>

@@ -3413,11 +3413,10 @@
     background-color: white; }
 
 #ely-about {
-  background-color: #fafafa; }
-  @media screen and (min-width: 960px) {
-    #ely-about {
-      background-color: #FFFFFF; } }
+  min-height: 100%;
+  background-color: #FFFFFF; }
   #ely-about #ely-about-container {
+    min-height: 100%;
     max-width: 500px;
     margin: 0 auto;
     padding: 32px 16px 0 16px; }
@@ -3805,42 +3804,45 @@
   color: #a94442; }
 
 #start-screen {
-  background-color: #fafafa;
+  background-color: #FFFFFF;
   overflow-y: auto;
   height: 100%; }
-  #start-screen #start-container #public-overview-description {
-    padding: 60px 0 40px 0; }
-    @media screen and (max-width: 960px) {
-      #start-screen #start-container #public-overview-description {
-        padding-top: 30px;
-        padding-bottom: 20px; } }
-    #start-screen #start-container #public-overview-description .overview-container {
-      max-width: 1000px;
-      margin: 0 auto; }
+  #start-screen #start-container {
+    min-height: 100%; }
+    #start-screen #start-container #public-overview-description {
+      padding: 60px 0 40px 0;
+      background-color: #fafafa; }
       @media screen and (max-width: 960px) {
-        #start-screen #start-container #public-overview-description .overview-container .description-container {
-          margin-bottom: 25px; } }
-      #start-screen #start-container #public-overview-description .overview-container .description-container .title {
-        text-align: center;
-        font-size: 18px;
-        font-weight: 500;
-        color: #3F51B5;
-        margin-bottom: 16px; }
-      #start-screen #start-container #public-overview-description .overview-container .description-container .description {
-        width: 270px;
+        #start-screen #start-container #public-overview-description {
+          padding-top: 30px;
+          padding-bottom: 20px; } }
+      #start-screen #start-container #public-overview-description .overview-container {
+        max-width: 1000px;
+        margin: 0 auto; }
+        @media screen and (max-width: 960px) {
+          #start-screen #start-container #public-overview-description .overview-container .description-container {
+            margin-bottom: 25px; } }
+        #start-screen #start-container #public-overview-description .overview-container .description-container .title {
+          text-align: center;
+          font-size: 18px;
+          font-weight: 500;
+          color: #3F51B5;
+          margin-bottom: 16px; }
+        #start-screen #start-container #public-overview-description .overview-container .description-container .description {
+          width: 270px;
+          margin: 0 auto;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.54); }
+    #start-screen #start-container #public-preview-screen-container {
+      background-color: white;
+      padding-bottom: 30px; }
+      #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container {
         margin: 0 auto;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.54); }
-  #start-screen #start-container #public-preview-screen-container {
-    background-color: white;
-    padding-bottom: 30px; }
-    #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container {
-      margin: 0 auto;
-      max-width: 900px; }
-      #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
-        width: 100%; }
+        max-width: 900px; }
+        #start-screen #start-container #public-preview-screen-container #public-preview-screen-inner-container img {
+          width: 100%; }
 
 #ely-terms {
   padding: 16px;
@@ -3911,10 +3913,7 @@
     padding: 16px; }
 
 #ely-vision {
-  background-color: #fafafa; }
-  @media screen and (min-width: 960px) {
-    #ely-vision {
-      background-color: #FFFFFF; } }
+  background-color: #FFFFFF; }
   #ely-vision #ely-vision-container {
     max-width: 500px;
     margin: 0 auto;
