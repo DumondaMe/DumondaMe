@@ -1,0 +1,71 @@
+// These are the styles to make some of the templates look extra nice.
+// Feel free to remove these styles for production!
+
+// Body Styles 
+body,
+html, 
+.body {
+  width: 100%;
+  background: #f3f3f3 !important;
+}
+
+.body {
+  width: 100%;
+  .body-tr {
+    width: 100%;
+    .center {
+      width: 100%;
+      .inner-body {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.header-elyoos {
+  background: #7986CB;
+  height: 60px;
+  .logo-description {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 60px;
+    padding-left: 12px;
+    .logo-description-small {
+      font-size: 12px;
+      font-weight: 400;
+      margin-left: 6px;
+    }
+  }
+}
+
+.body-drip {
+  border-top: 8px solid #663399;
+}
+
+// Full Width Headers
+.header {
+  background: #8a8a8a;
+}
+
+.header .columns {
+  padding-bottom: 0;
+}
+
+.header p {
+  color: #fff;
+  padding-top: 15px;
+}
+
+.header .wrapper-inner {
+  padding: 20px;
+}
+
+.header .container {
+  background: transparent;
+}
+
+.wrapper.secondary {
+  background: #f3f3f3;
+}

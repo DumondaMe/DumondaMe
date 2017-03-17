@@ -1,0 +1,39 @@
+.profile-image {
+  width: 140px;
+  height: 140px;
+  @media only screen and (max-width: #{$global-breakpoint}) {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+.title-description {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3F51B5;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: normal;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.footer-invite {
+  background-color: $primary-color;
+  height: 100px;
+  .title-description {
+    margin-top: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: white;
+    @media only screen and (max-width: #{$global-breakpoint}) {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+
+}
