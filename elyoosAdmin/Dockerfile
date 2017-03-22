@@ -1,4 +1,4 @@
-FROM node:6.9.3
+FROM node:6.10.1
 
 ENV NODE_ENV 'production'
 ENV NODE_LOGGING 'production-admin'
