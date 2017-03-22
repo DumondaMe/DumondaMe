@@ -38,7 +38,7 @@
     "nodemailer": "2.7.0",
     "nodemailer-ses-transport": "1.5.0",
     "email-templates": "2.5.4",
-    "ejs": "2.5.5",
+    "nunjucks": "3.0.0",
     "node-sass": "4.3.0",
     "url-parse": "1.1.1",
     "randomstring": "1.1.5",

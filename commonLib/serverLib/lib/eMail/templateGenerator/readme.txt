@@ -1,0 +1,1 @@
+Start generator with -> npm run build
