@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails',
-    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails) {
+var maxSelectedLength = 1000;
+
+module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails', 'errorToast',
+    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails, errorToast) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
@@ -15,7 +17,7 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
         ctrl.sourceImportFinish = function (err, importSource) {
             ctrl.importStarted = false;
             if (err) {
-
+                errorToast.showError(importSource + " konnte nicht importiert werden");
             } else {
                 ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
@@ -56,9 +58,14 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
                 selectedList.splice(idx, 1);
             }
             else {
-                selectedList.push(item);
+                if (selectedList.length < maxSelectedLength) {
+                    selectedList.push(item);
+                } else {
+                    ctrl.maxSelected = true;
+                    errorToast.showWarning('Es können nicht mehr als 1000 Adressen ausgewählt werden.');
+                }
             }
-            ctrl.isSelectedAll = selectedList.length === ctrl.contacts.addresses.length;
+            ctrl.isSelectedAll = selectedList.length === ctrl.contacts.addresses.length || selectedList.length === maxSelectedLength;
 
             if (selectedList.length === 0) {
                 ctrl.showOnlySelected = false;
@@ -70,8 +77,15 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             ctrl.selectedAddresses = [];
             if (ctrl.isSelectedAll) {
                 ctrl.contacts.addresses.forEach(function (address) {
-                    ctrl.selectedAddresses.push(address);
+                    if (ctrl.selectedAddresses.length < maxSelectedLength) {
+                        ctrl.selectedAddresses.push(address);
+                    }
                 });
+                if (ctrl.contacts.addresses.length > ctrl.selectedAddresses.length) {
+                    ctrl.maxSelected = true;
+                }
+            } else {
+                ctrl.maxSelected = false;
             }
         };
 

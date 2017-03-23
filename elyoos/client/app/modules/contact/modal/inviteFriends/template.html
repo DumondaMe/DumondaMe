@@ -34,7 +34,8 @@
                 <div id="contact-list-container" ely-handling-flex ng-show="ctrl.contacts.addresses.length > 0">
                     <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1 && !ctrl.showOnlySelected">
                         <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
-                            Alle E-Mail-Addressen auswählen
+                            <span ng-if="!ctrl.maxSelected">Alle E-Mail-Addressen auswählen</span>
+                            <span ng-if="ctrl.maxSelected">Es dürfen maximal 1000 E-Mail Adressen ausgwählt werden.</span>
                         </md-checkbox>
                     </div>
                     <div ng-repeat="contact in ctrl.contactsToShow | orderBy:'email' | filter:ctrl.filterEmailAddresses"
