@@ -1,0 +1,53 @@
+#stepper-dialog {
+  .stepper-header {
+    height: 104px;
+    padding: 24px;
+    .step-description {
+      padding: 0 24px;
+      position: relative;
+      .step-number {
+        height: 24px;
+        width: 24px;
+        font-size: 14px;
+        line-height: 24px;
+        vertical-align: middle;
+        text-align: center;
+        margin-bottom: 16px;
+        margin-right: auto;
+        margin-left: auto;
+        color: white;
+        background-color: $primary-color-light;
+        border-radius: 50%;
+      }
+      .step-number.inactive-step {
+        background-color: rgba(0, 0, 0, 0.38);
+      }
+      .step-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: $primary-text;
+      }
+      .step-label.inactive-step {
+        color: $secondary-text;
+      }
+      .step-bar-right {
+        position: absolute;
+        right: 0;
+        top: 12px;
+        left: 50%;
+        height: 1px;
+        margin-left: 20px;
+        border-top: 1px solid $divider;
+      }
+      .step-bar-left {
+        position: absolute;
+        left: 0;
+        right: 50%;
+        top: 12px;
+        height: 1px;
+        margin-right: 20px;
+        border-top: 1px solid $divider;
+      }
+    }
+  }
+}

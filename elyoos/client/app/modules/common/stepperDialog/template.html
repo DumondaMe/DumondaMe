@@ -1,0 +1,28 @@
+<form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak>
+    <div class="stepper-header" layout="row">
+        <div class="step-description" ng-repeat="step in ctrl.steps">
+            <div class="step-number" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{$index + 1}}</div>
+            <div class="step-label" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{step.label}}</div>
+            <div class="step-bar-right" ng-hide="$last"></div>
+            <div class="step-bar-left" ng-hide="$first"></div>
+        </div>
+    </div>
+    <md-dialog-content>
+        <div class="md-dialog-content ely-dialog-content" ng-transclude>
+
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+        <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress">Zurück</md-button>
+        <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress"
+                   ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">
+            Weiter
+        </md-button>
+        <md-button class="md-primary md-raised" ng-click="ctrl.finish()" ng-disabled="ctrl.showProgress"
+                   ng-show="ctrl.selectedStep === ctrl.steps.length - 1">
+            Fertig
+        </md-button>
+    </md-dialog-actions>
+    <md-progress-linear ng-if="ctrl.showProgress" md-mode="indeterminate"></md-progress-linear>
+</form>
