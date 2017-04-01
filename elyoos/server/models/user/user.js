@@ -64,7 +64,7 @@ let getUserInfo = function (id, req) {
     commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
 
     return db.cypher().match('(u:User {userId: {id}})')
-        .return('u.name AS name, u.userId AS userId, u.email AS email')
+        .return('u.name AS name, u.userId AS userId, u.email AS email, u.lastSetupAccount AS lastSetupAccount')
         .end({id: id}).send(commands)
         .then(function (resp) {
             let user = getUser(resp[2], id, [
