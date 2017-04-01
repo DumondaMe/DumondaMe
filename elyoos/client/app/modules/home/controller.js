@@ -18,10 +18,6 @@ module.exports =
 
             HomeScrollRequest.reset();
 
-            //Temp
-            ElyModal.show('InitialTutorialController', 'app/modules/settings/modal/initialTutorial/template.html', {});
-            //-----------------------------------------------------------------------------
-
             ctrl.openCreatePage = function () {
                 ElyModal.show('CreatePageNavCtrl', 'app/modules/navigation/createPage/template.html', {});
             };

@@ -7,10 +7,6 @@ module.exports = ['ElyModal', function (ElyModal) {
     ctrl.selectedStep = 0;
     ctrl.steps = [];
 
-    ctrl.cancel = function () {
-        ElyModal.cancel();
-    };
-
     ctrl.back = function () {
         if (ctrl.selectedStep > 0) {
             ctrl.selectStep(ctrl.selectedStep - 1);

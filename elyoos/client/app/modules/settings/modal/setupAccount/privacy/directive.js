@@ -12,8 +12,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
             },
-            templateUrl: 'app/modules/settings/modal/initialTutorial/welcome/template.html'
+            templateUrl: 'app/modules/settings/modal/setupAccount/privacy/template.html'
         };
     }],
-    name: 'elyTutorialWelcomeStep'
+    name: 'elyTutorialPrivacyStep'
 };

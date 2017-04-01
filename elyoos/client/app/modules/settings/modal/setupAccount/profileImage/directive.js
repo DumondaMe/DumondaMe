@@ -12,7 +12,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
             },
-            templateUrl: 'app/modules/settings/modal/initialTutorial/profileImage/template.html'
+            templateUrl: 'app/modules/settings/modal/setupAccount/profileImage/template.html'
         };
     }],
     name: 'elyTutorialProfileImageStep'
