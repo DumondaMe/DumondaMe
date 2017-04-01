@@ -19,11 +19,12 @@ let init = function (numberOfUser, isElyoosAdmin) {
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
-        name: 'user Meier', surname: 'Meier', forename:'user', userId: '1', elyoosAdmin: {elyoosAdmin}})`).end({elyoosAdmin: isElyoosAdmin}).getCommand());
+        name: 'user Meier', surname: 'Meier', forename:'user', userId: '1', lastSetupAccount: 500, elyoosAdmin: {elyoosAdmin}})`)
+            .end({elyoosAdmin: isElyoosAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
-            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
+            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
         }
     });
 };
