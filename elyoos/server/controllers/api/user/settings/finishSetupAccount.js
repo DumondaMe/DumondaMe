@@ -11,8 +11,7 @@ let schemaPostFinishSetupAccount = {
     type: 'object',
     additionalProperties: false,
     required: [],
-    properties: {
-    }
+    properties: {}
 };
 
 module.exports = function (router) {
