@@ -490,7 +490,8 @@
     #stepper-dialog .stepper-header .step-description .step-number {
       height: 24px;
       width: 24px;
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: 500;
       line-height: 24px;
       vertical-align: middle;
       text-align: center;
@@ -524,6 +525,8 @@
       height: 1px;
       margin-right: 20px;
       border-top: 1px solid rgba(0, 0, 0, 0.12); }
+#stepper-dialog .ely-dialog-content {
+  padding-top: 0; }
 
 .topic-description .topic-type {
   display: inline-block;

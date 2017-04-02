@@ -1,5 +1,5 @@
 <form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak>
-    <div class="stepper-header" layout="row">
+    <div class="stepper-header" layout="row" layout-align="center center">
         <div class="step-description" ng-repeat="step in ctrl.steps">
             <div class="step-number" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{$index + 1}}</div>
             <div class="step-label" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{step.label}}</div>
