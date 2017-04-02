@@ -4176,14 +4176,31 @@
   font-size: 14px;
   padding-left: 16px; }
 
+#setup-privacy-step .privacy-content-step {
+  max-width: 500px;
+  margin: 0 auto; }
+  #setup-privacy-step .privacy-content-step .privacy-description {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54); }
+
+#tutorial-profile-image-step .image-container {
+  width: 100px;
+  margin: 0 auto; }
+  #tutorial-profile-image-step .image-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px; }
+
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.87);
   text-align: center;
   margin-bottom: 16px;
-  margin-top: 12px; }
+  margin-top: 12px;
+  color: #3F51B5; }
 #tutorial-welcome-step .description {
+  text-align: center;
   font-size: 16px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.54);
@@ -4243,23 +4260,26 @@
 
 #overview-group-setting-content .ely-dialog-content {
   padding-bottom: 0; }
-  #overview-group-setting-content .ely-dialog-content .privacy-description {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54); }
-  #overview-group-setting-content .ely-dialog-content #profile-visible {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  #overview-group-setting-content .ely-dialog-content .privacy-container .description {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54);
-    margin-bottom: 6px; }
-  #overview-group-setting-content .ely-dialog-content .privacy-container .ely-select-group {
-    margin: 12px 0 0 0; }
-    #overview-group-setting-content .ely-dialog-content .privacy-container .ely-select-group .md-text {
-      font-size: 16px;
-      font-weight: 700;
-      color: #3F51B5; }
+#overview-group-setting-content .privacy-description {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54); }
+#overview-group-setting-content #profile-visible {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+#overview-group-setting-content .privacy-container .description {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 6px; }
+#overview-group-setting-content .privacy-container .ely-select-group {
+  margin: 12px 0 0 0; }
+  #overview-group-setting-content .privacy-container .ely-select-group .md-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #3F51B5; }
+#overview-group-setting-content .upload-privacy-button {
+  margin-left: 0;
+  margin-top: 16px; }
 
 #rename-group-name {
   max-width: 500px; }

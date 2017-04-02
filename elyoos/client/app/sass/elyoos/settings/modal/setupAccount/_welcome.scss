@@ -2,12 +2,13 @@
   .title-welcome {
     font-size: 28px;
     font-weight: 500;
-    color: $primary-text;
     text-align: center;
     margin-bottom: 16px;
     margin-top: 12px;
+    color: $primary-color;
   }
   .description {
+    text-align: center;
     font-size: 16px;
     font-weight: 500;
     color: $secondary-text;

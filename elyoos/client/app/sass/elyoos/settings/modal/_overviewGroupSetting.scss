@@ -10,29 +10,33 @@
 #overview-group-setting-content {
   .ely-dialog-content {
     padding-bottom: 0;
-    .privacy-description {
+  }
+  .privacy-description {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
+  }
+  #profile-visible {
+    border-bottom: 1px solid $divider;
+  }
+  .privacy-container {
+    .description {
       font-size: 14px;
       font-weight: 500;
       color: $secondary-text;
+      margin-bottom: 6px;
     }
-    #profile-visible {
-      border-bottom: 1px solid $divider;
-    }
-    .privacy-container {
-      .description {
-        font-size: 14px;
-        font-weight: 500;
-        color: $secondary-text;
-        margin-bottom: 6px;
-      }
-      .ely-select-group {
-        margin: 12px 0 0 0;
-        .md-text {
-          font-size: 16px;
-          font-weight: 700;
-          color: $primary-color;
-        }
+    .ely-select-group {
+      margin: 12px 0 0 0;
+      .md-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: $primary-color;
       }
     }
+  }
+  .upload-privacy-button {
+    margin-left: 0;
+    margin-top: 16px;
   }
 }

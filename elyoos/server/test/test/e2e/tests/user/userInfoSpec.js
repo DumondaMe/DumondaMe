@@ -45,6 +45,7 @@ describe('Integration Tests user info', function () {
             res.status.should.equal(200);
             res.body.userId.should.equal('1');
             res.body.name.should.equal('user Meier');
+            res.body.forename.should.equal('user');
             res.body.profileImage.should.equal('profileImage/1/thumbnail.jpg');
             res.body.profileImagePreview.should.equal('profileImage/1/profilePreview.jpg');
             res.body.email.should.equal('user@irgendwo.ch');

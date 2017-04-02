@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = [function () {
+module.exports = ['userInfo', function (userInfo) {
     var ctrl = this;
 
-
+    ctrl.forename = userInfo.getUserInfo().forename;
 }];
