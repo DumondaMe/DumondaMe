@@ -40,18 +40,23 @@ module.exports = {
 
             if (elyHelper.isDefined(scope.commands)) {
                 scope.commands.addMarker = function (latitude, longitude, events) {
+                    map.invalidateSize();
                     return mapMarker.addMarker(map, latitude, longitude, events);
                 };
                 scope.commands.addMarkerGroupAndCenter = function (markers, fitBoundOptions) {
+                    map.invalidateSize();
                     return mapMarker.addMarkerGroupAndCenter(map, markers, fitBoundOptions);
                 };
                 scope.commands.setSelectedMarker = function (marker) {
+                    map.invalidateSize();
                     return mapMarker.setSelectedMarker(marker);
                 };
                 scope.commands.setDefaultMarker = function (marker) {
+                    map.invalidateSize();
                     return mapMarker.setDefaultMarker(marker);
                 };
                 scope.commands.clearAllMarkers = function () {
+                    map.invalidateSize();
                     mapMarker.deleteAllMarker(map);
                 };
             }
@@ -63,7 +68,7 @@ module.exports = {
                     if (angular.isFunction(scope.mapInit)) {
                         scope.mapInit(MapDistanceCalculator.getRadius(map), map.getCenter(), map.getZoom());
                     }
-                }, 0);
+                }, 50);
             });
 
             scope.$watchCollection('center', function (newCenter) {
