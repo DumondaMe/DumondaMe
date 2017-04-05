@@ -20,7 +20,11 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
         ctrl.startImageUpload = function (blob) {
             if (blob instanceof Blob) {
                 fileUpload.uploadFileToUrl(blob, ctrl.uploadUrl).success(function () {
-                    ElyModal.hide();
+                    if (angular.isFunction(ctrl.finish)) {
+                        ctrl.finish();
+                    } else {
+                        ElyModal.hide();
+                    }
                 }).error(function () {
                     ctrl.commands.enable();
                     ctrl.running = false;

@@ -1,5 +1,25 @@
 <div id="tutorial-profile-image-step" ng-if="step.selected">
-    <div class="image-container">
-        <img ng-src="{{ctrl.profileImage}}">
+    <div class="image-preview-container" ng-if="!ctrl.selectedImage">
+        <div class="image-preview-inner-container" layout="row">
+            <div class="image-handling-container" flex="none">
+                <div class="image-container">
+                    <img ng-src="{{ctrl.profileImage}}">
+                </div>
+                <div class="select-image-button-container" layout="row" layout-align="center center">
+                    <div>
+                        <md-button class="md-raised upload-image-button" ng-click="ctrl.selectedImage = true">
+                            Profilbild ändern
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="image-description-container" flex-offset-gt-sm="5">
+                Damit andere Benutzer von Elyoos wissen wer du bist, ist es empfehlenswert ein Profilbild zu verwenden auf dem du gut zu erkennen bist. Falls du nicht möchtest das
+                jeder dein Bild sehen kann, kannst du dies bei der Einstellung für deine Privatspähre nur für deine Kontakte oder eine Untergruppe davon freigeben.
+            </div>
+        </div>
+    </div>
+    <div class="image-crop-container" ng-if="ctrl.selectedImage">
+        <ely-upload-crop-image ratio="1" finish="ctrl.finish" upload-url="/api/user/settings/uploadProfileImage"></ely-upload-crop-image>
     </div>
 </div>

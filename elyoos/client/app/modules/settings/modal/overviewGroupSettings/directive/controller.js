@@ -33,7 +33,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
                 ctrl.uploadStarted = false;
                 originalSettings = angular.copy($scope.settings);
                 ctrl.uploadDisabled = true;
-                if(!ctrl.notHideFinish) {
+                if (!ctrl.notHideFinish) {
                     ElyModal.hide();
                 }
             }, function () {
@@ -45,6 +45,9 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
         $scope.$watchCollection('settings', function (newSettings) {
             if (newSettings && angular.isArray(newSettings.group)) {
                 ctrl.uploadDisabled = angular.equals(newSettings, originalSettings);
+                if (!ctrl.uploadDisabled && ctrl.instantUpdate) {
+                    ctrl.upload();
+                }
             }
         });
     }];

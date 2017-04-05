@@ -4184,13 +4184,25 @@
     font-size: 16px;
     color: rgba(0, 0, 0, 0.54); }
 
-#tutorial-profile-image-step .image-container {
-  width: 100px;
-  margin: 0 auto; }
-  #tutorial-profile-image-step .image-container img {
+#tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container {
+  width: 150px; }
+  #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container .image-container {
     width: 100px;
-    height: 100px;
-    border-radius: 4px; }
+    margin: 0 auto; }
+    #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container .image-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 4px; }
+  #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container .select-image-button-container .upload-image-button {
+    margin-left: auto;
+    margin-right: auto; }
+#tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-description-container {
+  max-width: 350px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54); }
+#tutorial-profile-image-step .image-crop-container {
+  height: 400px; }
 
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;

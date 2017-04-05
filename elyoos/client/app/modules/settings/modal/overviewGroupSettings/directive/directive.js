@@ -22,7 +22,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                notHideFinish: '='
+                notHideFinish: '=',
+                instantUpdate: '='
             },
             templateUrl: 'app/modules/settings/modal/overviewGroupSettings/directive/templateContent.html'
         };

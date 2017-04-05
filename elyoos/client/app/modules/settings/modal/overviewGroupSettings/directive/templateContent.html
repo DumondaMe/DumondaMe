@@ -9,7 +9,7 @@
                                 settings="settings"></ely-settings-privacy-group>
     <ely-settings-privacy-group description="Sehen deine Empfehlungen und Beiträge." property-name="pinwallVisible" group-names="ctrl.groupNames"
                                 settings="settings"></ely-settings-privacy-group>
-    <md-button class="md-raised upload-privacy-button" ng-click="ctrl.upload()"
+    <md-button class="md-raised upload-privacy-button" ng-click="ctrl.upload()" ng-if="!ctrl.instantUpdate"
                ng-disabled="ctrl.uploadDisabled || ctrl.uploadStarted">Einstellung ändern
     </md-button>
 </div>
