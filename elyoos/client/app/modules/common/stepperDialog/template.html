@@ -14,8 +14,12 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst">{{ctrl.optionalFirstLabel}}</md-button>
-            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress">Zurück</md-button>
+            <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst"
+                       ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">{{ctrl.optionalFirstLabel}}
+            </md-button>
+            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress">
+                Zurück
+            </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress"
                        ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">
                 Weiter
