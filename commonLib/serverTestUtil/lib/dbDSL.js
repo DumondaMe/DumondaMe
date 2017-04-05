@@ -19,7 +19,8 @@ let init = function (numberOfUser, isElyoosAdmin) {
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
-        name: 'user Meier', surname: 'Meier', forename:'user', userId: '1', lastSetupAccount: 500, elyoosAdmin: {elyoosAdmin}})`)
+        name: 'user Meier', surname: 'Meier', forename:'user', userId: '1', lastSetupAccount: 500, elyoosAdmin: {elyoosAdmin},
+        userLocationDescription: 'irgendwo', latitude: 1.1, longitude: 2.2})`)
             .end({elyoosAdmin: isElyoosAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;

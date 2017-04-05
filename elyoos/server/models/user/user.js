@@ -65,7 +65,8 @@ let getUserInfo = function (id, req) {
 
     return db.cypher().match('(u:User {userId: {id}})')
         .return(`u.name AS name, u.forename AS forename, u.userId AS userId, u.email AS email, 
-                 u.lastSetupAccount AS lastSetupAccount`)
+                 u.lastSetupAccount AS lastSetupAccount, u.userLocationDescription AS userLocationDescription,
+                 u.latitude AS latitude, u.longitude AS longitude`)
         .end({id: id}).send(commands)
         .then(function (resp) {
             let user = getUser(resp[2], id, [

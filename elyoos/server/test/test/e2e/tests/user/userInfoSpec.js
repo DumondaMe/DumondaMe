@@ -50,6 +50,9 @@ describe('Integration Tests user info', function () {
             res.body.profileImagePreview.should.equal('profileImage/1/profilePreview.jpg');
             res.body.email.should.equal('user@irgendwo.ch');
             res.body.lastSetupAccount.should.equal(500);
+            res.body.userLocationDescription.should.equal('irgendwo');
+            res.body.latitude.should.equal(1.1);
+            res.body.longitude.should.equal(2.2);
             res.body.contactStatistic.length.should.equal(2);
             res.body.contactStatistic[0].type.should.equal('Freund');
             res.body.contactStatistic[0].count.should.equal(1);
