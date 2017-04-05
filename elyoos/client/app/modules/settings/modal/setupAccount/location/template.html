@@ -1,9 +1,11 @@
 <div id="setup-location-step" ng-if="step.selected">
     <div class="location-container">
         <div class="location-description">
-            Mit dieser Einstellung kannst du angeben, in welcher Region du Zuhause bist. Du musst nicht deine genaue Adresse angeben.Es geht hier vor allem darum, dass du dir zum
-            Beispiel nur Veranstaltungen anzeigen lassen kannst, welche in deiner näheren Umgebung stattfinden.
+            Hier kannst du angeben, in welcher Region du Zuhause bist. Du musst nicht deine genaue Adresse verwenden. Es geht vor allem darum, dass du dir mit Hilfe dieser Angabe
+            zum Beispiel nur Veranstaltungen anzeigen lassen kannst, welche in deiner näheren Umgebung stattfinden.
         </div>
-        <ely-setup-account-select-location request-started="ctrl.uploadRunning"></ely-setup-account-select-location>
+        <ely-setup-account-select-location request-started="ctrl.uploadRunning" user-location="ctrl.userLocation"
+                                           user-location-changed="ctrl.userLocationChanged">
+        </ely-setup-account-select-location>
     </div>
 </div>

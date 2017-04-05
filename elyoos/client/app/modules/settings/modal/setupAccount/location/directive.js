@@ -7,7 +7,8 @@ module.exports = {
             require: '^elyStepperDialog',
             transclude: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {

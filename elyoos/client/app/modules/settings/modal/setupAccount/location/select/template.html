@@ -14,10 +14,15 @@
     </div>
     <div layout="column" layout-gt-xs="row">
         <div flex="100" flex-gt-xs="50" flex-order="1">
-            <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary">
+            <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary" ng-change="ctrl.addressChanged()">
                 <div layout="row">
                     <md-radio-button ng-value="null" aria-label="Keine Adresse">
                         Keine Adresse
+                    </md-radio-button>
+                </div>
+                <div layout="row" ng-if="ctrl.userLocation">
+                    <md-radio-button ng-value="ctrl.userLocation" aria-label="User Addresse">
+                        {{ctrl.userLocation.address}}
                     </md-radio-button>
                 </div>
                 <div layout="row" ng-repeat="address in ctrl.addresses">

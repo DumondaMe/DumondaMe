@@ -2,10 +2,20 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['AddressSuggestion', function (AddressSuggestion) {
-    var ctrl = this;
+module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (AddressSuggestion, UserLocation, userInfo) {
+    var ctrl = this, previousSelectedAddress = null, userInfoData = userInfo.getUserInfo();
 
     ctrl.selectedAddress = null;
+
+    if (angular.isString(userInfoData.userLocationDescription) && angular.isNumber(userInfoData.latitude) &&
+        angular.isNumber(userInfoData.longitude)) {
+        ctrl.userLocation = {
+            address: userInfoData.userLocationDescription,
+            latitude: userInfoData.latitude,
+            longitude: userInfoData.longitude
+        };
+        ctrl.selectedAddress = ctrl.userLocation;
+    }
 
     ctrl.addressSearchChanged = function () {
         ctrl.addressSearchIsValid = false;
@@ -19,13 +29,6 @@ module.exports = ['AddressSuggestion', function (AddressSuggestion) {
             ctrl.requestStarted = true;
             ctrl.addresses = AddressSuggestion.query({address: ctrl.addressSearch}, function () {
                 ctrl.requestStarted = false;
-                if (ctrl.addresses.length > 0) {
-                    ctrl.lastRequestString = ctrl.addressSearch;
-                    if (!ctrl.isEditMode) {
-                        ctrl.selectedAddress = ctrl.addresses[0];
-                        ctrl.isAllowedToSend = true;
-                    }
-                }
             }, function () {
                 ctrl.requestStarted = false;
             });
@@ -35,6 +38,48 @@ module.exports = ['AddressSuggestion', function (AddressSuggestion) {
     ctrl.keyPressed = function ($event) {
         if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
             ctrl.searchAddress();
+        }
+    };
+
+    ctrl.addressChanged = function () {
+        if (ctrl.selectedAddress && angular.isString(ctrl.selectedAddress.address) &&
+            previousSelectedAddress !== ctrl.selectedAddress) {
+            previousSelectedAddress = ctrl.selectedAddress;
+            ctrl.requestStarted = true;
+            UserLocation.save({
+                description: ctrl.selectedAddress.address,
+                latitude: ctrl.selectedAddress.latitude,
+                longitude: ctrl.selectedAddress.longitude
+            }, function () {
+                ctrl.userLocationChanged({
+                    address: ctrl.selectedAddress.address,
+                    latitude: ctrl.selectedAddress.latitude,
+                    longitude: ctrl.selectedAddress.longitude
+                });
+                ctrl.requestStarted = false;
+            }, function () {
+                ctrl.requestStarted = false;
+            });
+        } else if (ctrl.selectedAddress === null) {
+            ctrl.requestStarted = true;
+            UserLocation.delete({}, function () {
+                ctrl.requestStarted = false;
+                ctrl.userLocationChanged(null);
+            }, function () {
+                ctrl.requestStarted = false;
+            });
+        }
+    };
+
+    ctrl.userLocationChanged = function (newUserLocation) {
+        if (newUserLocation) {
+            userInfoData.userLocationDescription = newUserLocation.address;
+            userInfoData.latitude = newUserLocation.latitude;
+            userInfoData.longitude = newUserLocation.longitude;
+        } else {
+            delete userInfoData.userLocationDescription;
+            delete userInfoData.latitude;
+            delete userInfoData.longitude;
         }
     };
 }];
