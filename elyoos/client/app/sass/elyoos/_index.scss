@@ -154,8 +154,11 @@
 @import 'recommendation/_recommendationPreview';
 @import 'recommendation/_recommendationPreviewMobile';
 
+@import 'settings/modal/setupAccount/_contact';
+@import 'settings/modal/setupAccount/_location';
 @import 'settings/modal/setupAccount/_privacy';
 @import 'settings/modal/setupAccount/_profileImage';
+@import 'settings/modal/setupAccount/_selectLocation';
 @import 'settings/modal/setupAccount/_welcome';
 @import 'settings/modal/_addGroup';
 @import 'settings/modal/_changePassword';

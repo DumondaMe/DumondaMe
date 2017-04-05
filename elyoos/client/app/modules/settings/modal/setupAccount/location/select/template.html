@@ -1,0 +1,34 @@
+<form name="ctrl.addAddressForm" class="ely-select-location" aria-label="Select location" ng-cloak>
+    <div layout="row">
+        <md-input-container class="input-container" flex="grow">
+            <label>Ort</label>
+            <input name="addressSearch" ng-model="ctrl.addressSearch" ng-change="ctrl.addressSearchChanged()"
+                   ng-disabled="ctrl.requestStarted" ng-keypress="ctrl.keyPressed($event)"/>
+        </md-input-container>
+        <div class="search-image-icon" flex="none">
+            <md-button class="md-fab md-mini" aria-label="Search place" ng-click="ctrl.searchAddress()"
+                       ng-disabled="ctrl.requestStarted || !ctrl.addressSearchIsValid || ctrl.lastRequestString === ctrl.addressSearch">
+                <md-icon md-svg-icon="system:search" class="icon"></md-icon>
+            </md-button>
+        </div>
+    </div>
+    <div layout="column" layout-gt-xs="row">
+        <div flex="100" flex-gt-xs="50" flex-order="1">
+            <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary">
+                <div layout="row">
+                    <md-radio-button ng-value="null" aria-label="Keine Adresse">
+                        Keine Adresse
+                    </md-radio-button>
+                </div>
+                <div layout="row" ng-repeat="address in ctrl.addresses">
+                    <md-radio-button ng-value="address" aria-label="address.address">
+                        {{address.address}}
+                    </md-radio-button>
+                </div>
+            </md-radio-group>
+        </div>
+        <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2" ng-if="ctrl.selectedAddress">
+            <ely-map center="ctrl.selectedAddress" has-marker-center="true" zoom="15" class="map-container"></ely-map>
+        </div>
+    </div>
+</form>

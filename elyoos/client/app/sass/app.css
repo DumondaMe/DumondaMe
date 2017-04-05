@@ -4176,6 +4176,15 @@
   font-size: 14px;
   padding-left: 16px; }
 
+#setup-location-step .location-container {
+  max-width: 650px;
+  margin: 0 auto; }
+  #setup-location-step .location-container .location-description {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 12px; }
+
 #setup-privacy-step .privacy-content-step {
   max-width: 500px;
   margin: 0 auto; }
@@ -4203,6 +4212,22 @@
   color: rgba(0, 0, 0, 0.54); }
 #tutorial-profile-image-step .image-crop-container {
   height: 400px; }
+
+.ely-select-location .search-image-icon {
+  padding-left: 12px; }
+.ely-select-location .map-container {
+  height: 400px; }
+  @media screen and (max-width: 600px) {
+    .ely-select-location .map-container {
+      margin-bottom: 12px; } }
+  @media screen and (min-width: 600px) {
+    .ely-select-location .map-container {
+      margin-left: 12px; } }
+  .ely-select-location .map-container .ely-map .ely-map-container {
+    height: 400px; }
+    @media screen and (max-width: 600px) {
+      .ely-select-location .map-container .ely-map .ely-map-container {
+        height: 300px; } }
 
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;

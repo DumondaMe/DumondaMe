@@ -1,5 +1,5 @@
-<div layout="column">
-    <form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak>
+<form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak>
+    <div layout="column">
         <div class="stepper-header" layout="row" layout-align="center center">
             <div class="step-description" ng-repeat="step in ctrl.steps">
                 <div class="step-number" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{$index + 1}}</div>
@@ -8,12 +8,12 @@
                 <div class="step-bar-left" ng-hide="$first"></div>
             </div>
         </div>
-        <md-dialog-content>
-            <div class="md-dialog-content ely-dialog-content" ng-transclude>
+        <md-dialog-content layout="column">
+            <div class="md-dialog-content ely-dialog-content" ng-transclude ely-handling-flex>
 
             </div>
         </md-dialog-content>
-        <md-dialog-actions flex="auto">
+        <md-dialog-actions>
             <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst">{{ctrl.optionalFirstLabel}}</md-button>
             <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress">Zurück</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress"
@@ -25,7 +25,7 @@
                 Fertig
             </md-button>
         </md-dialog-actions>
-    </form>
+    </div>
     <span flex></span>
     <md-progress-linear ng-if="ctrl.showProgress" md-mode="indeterminate"></md-progress-linear>
-</div>
+</form>

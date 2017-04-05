@@ -1,0 +1,22 @@
+.ely-select-location {
+  .search-image-icon {
+    padding-left: 12px;
+  }
+  .map-container {
+    height: 400px;
+    @media screen and (max-width: $gt-xs) {
+      margin-bottom: 12px;
+    }
+    @media screen and (min-width: $gt-xs) {
+      margin-left: 12px;
+    }
+    .ely-map {
+      .ely-map-container {
+        height: 400px;
+        @media screen and (max-width: $gt-xs) {
+          height: 300px;
+        }
+      }
+    }
+  }
+}
