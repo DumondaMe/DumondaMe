@@ -9,6 +9,7 @@ module.exports = {
             templateUrl: 'app/modules/common/stepperDialog/template.html',
             scope: {},
             bindToController: {
+                showProgress: '=',
                 optionalFirst: '=',
                 optionalFirstLabel: '@',
                 finish: '=',

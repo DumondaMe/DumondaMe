@@ -11,7 +11,8 @@ module.exports = {
             bindToController: {
                 ratio: '@',
                 finish: '=',
-                uploadUrl: '@'
+                uploadUrl: '@',
+                running: '='
             },
             controller: require('./../controller.js')
         };

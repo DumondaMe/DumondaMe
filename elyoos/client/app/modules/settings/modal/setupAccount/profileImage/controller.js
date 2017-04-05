@@ -6,6 +6,7 @@ module.exports = ['$scope', 'userInfo', 'UploadProfileImageState',
 
         ctrl.finish = function () {
             ctrl.selectedImage = false;
+            ctrl.uploadRunning = false;
             UploadProfileImageState.profileImageChanged();
         };
 
@@ -16,6 +17,7 @@ module.exports = ['$scope', 'userInfo', 'UploadProfileImageState',
         $scope.$watch('step.selected', function (selected) {
             if (selected) {
                 ctrl.selectedImage = false;
+                ctrl.uploadRunning = false;
                 userInfo.register(userInfoName, ctrl);
             } else {
                 userInfo.remove(userInfoName);

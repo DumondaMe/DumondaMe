@@ -23,7 +23,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 notHideFinish: '=',
-                instantUpdate: '='
+                instantUpdate: '=',
+                uploadStarted: '='
             },
             templateUrl: 'app/modules/settings/modal/overviewGroupSettings/directive/templateContent.html'
         };

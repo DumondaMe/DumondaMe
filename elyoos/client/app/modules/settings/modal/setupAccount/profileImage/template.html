@@ -20,6 +20,6 @@
         </div>
     </div>
     <div class="image-crop-container" ng-if="ctrl.selectedImage">
-        <ely-upload-crop-image ratio="1" finish="ctrl.finish" upload-url="/api/user/settings/uploadProfileImage"></ely-upload-crop-image>
+        <ely-upload-crop-image running="ctrl.uploadRunning" ratio="1" finish="ctrl.finish" upload-url="/api/user/settings/uploadProfileImage"></ely-upload-crop-image>
     </div>
 </div>
