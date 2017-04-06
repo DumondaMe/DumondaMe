@@ -4216,7 +4216,7 @@
 .ely-select-location .search-image-icon {
   padding-left: 12px; }
 .ely-select-location .map-container {
-  height: 400px; }
+  height: 300px; }
   @media screen and (max-width: 600px) {
     .ely-select-location .map-container {
       margin-bottom: 12px; } }
@@ -4224,10 +4224,10 @@
     .ely-select-location .map-container {
       margin-left: 12px; } }
   .ely-select-location .map-container .ely-map .ely-map-container {
-    height: 400px; }
+    height: 300px; }
     @media screen and (max-width: 600px) {
       .ely-select-location .map-container .ely-map .ely-map-container {
-        height: 300px; } }
+        height: 200px; } }
 
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;

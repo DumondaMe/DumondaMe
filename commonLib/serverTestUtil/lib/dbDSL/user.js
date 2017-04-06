@@ -18,6 +18,12 @@ let setUserIsElyoosAdmin = function (userId) {
         .end({userId: userId}).getCommand());
 };
 
+let setUserLocation = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .set("u", {userLocationDescription: data.description, latitude: data.latitude, longitude: data.longitude})
+        .end({userId: userId}).getCommand());
+};
+
 let createUser = function (userId, forename, surname, email) {
     let name = `${forename} ${surname}`;
     email = email || null;
@@ -28,9 +34,13 @@ let createUser = function (userId, forename, surname, email) {
 
 let createUserRegisterRequest = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:UserRegisterRequest {name: {name}, surname: {surname},
-    forename: {forename}, email: {email}, linkId: {linkId}, password: {password}, registerDate: {registerDate}})`)
-        .end({name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email,
-            linkId: data.linkId, password: data.password, registerDate: data.registerDate}).getCommand());
+    forename: {forename}, email: {email}, linkId: {linkId}, password: {password}, registerDate: {registerDate},
+    latitude: {latitude}, longitude: {longitude}})`)
+        .end({
+            name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email,
+            linkId: data.linkId, password: data.password, registerDate: data.registerDate, latitude: data.latitude,
+            longitude: data.longitude
+        }).getCommand());
 };
 
 let blockUser = function (userId, blockedUserId) {
@@ -107,6 +117,7 @@ module.exports = {
     setUserRegisteredDate: setUserRegisteredDate,
     setUserLastLoginTime: setUserLastLoginTime,
     setUserIsElyoosAdmin: setUserIsElyoosAdmin,
+    setUserLocation: setUserLocation,
     createUser: createUser,
     createUserRegisterRequest: createUserRegisterRequest,
     blockUser: blockUser,

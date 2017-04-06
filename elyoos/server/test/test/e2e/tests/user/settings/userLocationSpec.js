@@ -45,8 +45,8 @@ describe('Integration Tests setting user location', function () {
                 .return('user').end().send();
         }).then(function (user) {
             should.not.exist(user[0].user.userLocationDescription);
-            should.not.exist(user[0].user.latitude);
-            should.not.exist(user[0].user.longitude);
+            user[0].user.latitude.should.equal(0);
+            user[0].user.longitude.should.equal(0);
         });
     });
 });

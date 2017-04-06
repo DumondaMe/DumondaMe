@@ -1,0 +1,1 @@
+MATCH (u:User) set u.latitude = 0, u.longitude = 0 remove u.userLocationDescription;

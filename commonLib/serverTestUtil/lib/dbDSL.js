@@ -25,7 +25,8 @@ let init = function (numberOfUser, isElyoosAdmin) {
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
-            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
+            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch', 
+            latitude: 0, longitude: 0})`).end().getCommand());
         }
     });
 };
@@ -45,6 +46,7 @@ module.exports = {
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
+    setUserLocation: user.setUserLocation,
     createUser: user.createUser,
     createUserRegisterRequest: user.createUserRegisterRequest,
     blockUser: user.blockUser,

@@ -48,7 +48,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(3);
+            res.body.recommendedUser.length.should.equals(10);
             res.body.recommendedUser[0].userId.should.equals('3');
             res.body.recommendedUser[0].name.should.equals('user Meier3');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -97,7 +97,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(5);
+            res.body.recommendedUser.length.should.equals(11);
             res.body.recommendedUser[0].userId.should.equals('10');
             res.body.recommendedUser[0].name.should.equals('user Meier10');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/10/thumbnail.jpg');
@@ -146,7 +146,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser.length.should.equals(11);
             res.body.recommendedUser[0].userId.should.equals('3');
             res.body.recommendedUser[0].name.should.equals('user Meier3');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -186,7 +186,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(3);
+            res.body.recommendedUser.length.should.equals(8);
             res.body.recommendedUser[0].userId.should.equals('2');
             res.body.recommendedUser[0].name.should.equals('user Meier2');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -236,7 +236,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(5);
+            res.body.recommendedUser.length.should.equals(8);
             res.body.recommendedUser[0].userId.should.equals('11');
             res.body.recommendedUser[0].name.should.equals('user Meier11');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/11/thumbnail.jpg');
@@ -285,7 +285,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser.length.should.equals(9);
             res.body.recommendedUser[0].userId.should.equals('2');
             res.body.recommendedUser[0].name.should.equals('user Meier2');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -365,7 +365,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser.length.should.equals(7);
             res.body.recommendedUser[0].userId.should.equals('2');
             res.body.recommendedUser[0].name.should.equals('user Meier2');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -400,7 +400,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
+            res.body.recommendedUser.length.should.equals(9);
             res.body.recommendedUser[0].userId.should.equals('3');
             res.body.recommendedUser[0].name.should.equals('user Meier3');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -446,7 +446,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
+            res.body.recommendedUser.length.should.equals(7);
             res.body.recommendedUser[0].userId.should.equals('5');
             res.body.recommendedUser[0].name.should.equals('user Meier5');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/5/thumbnail.jpg');
@@ -488,7 +488,15 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(0);
+            res.body.recommendedUser.length.should.equals(8);
+            res.body.recommendedUser[0].userId.should.equals('10');
+            res.body.recommendedUser[1].userId.should.equals('11');
+            res.body.recommendedUser[2].userId.should.equals('12');
+            res.body.recommendedUser[3].userId.should.equals('2');
+            res.body.recommendedUser[4].userId.should.equals('4');
+            res.body.recommendedUser[5].userId.should.equals('5');
+            res.body.recommendedUser[6].userId.should.equals('8');
+            res.body.recommendedUser[7].userId.should.equals('9');
         });
     });
 
@@ -520,7 +528,15 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(0);
+            res.body.recommendedUser.length.should.equals(8);
+            res.body.recommendedUser[0].userId.should.equals('10');
+            res.body.recommendedUser[1].userId.should.equals('11');
+            res.body.recommendedUser[2].userId.should.equals('12');
+            res.body.recommendedUser[3].userId.should.equals('2');
+            res.body.recommendedUser[4].userId.should.equals('4');
+            res.body.recommendedUser[5].userId.should.equals('5');
+            res.body.recommendedUser[6].userId.should.equals('8');
+            res.body.recommendedUser[7].userId.should.equals('9');
         });
     });
 
@@ -601,7 +617,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
+            res.body.recommendedUser.length.should.equals(10);
             res.body.recommendedUser[0].userId.should.equals('5');
             res.body.recommendedUser[0].name.should.equals('user Meier5');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
@@ -633,7 +649,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(1);
+            res.body.recommendedUser.length.should.equals(11);
             res.body.recommendedUser[0].userId.should.equals('3');
             res.body.recommendedUser[0].name.should.equals('user Meier3');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
@@ -668,7 +684,15 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(0);
+            res.body.recommendedUser.length.should.equals(8);
+            res.body.recommendedUser[0].userId.should.equals('10');
+            res.body.recommendedUser[1].userId.should.equals('11');
+            res.body.recommendedUser[2].userId.should.equals('12');
+            res.body.recommendedUser[3].userId.should.equals('2');
+            res.body.recommendedUser[4].userId.should.equals('6');
+            res.body.recommendedUser[5].userId.should.equals('7');
+            res.body.recommendedUser[6].userId.should.equals('8');
+            res.body.recommendedUser[7].userId.should.equals('9');
         });
     });
 
@@ -700,7 +724,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
+            res.body.recommendedUser.length.should.equals(10);
             res.body.recommendedUser[0].userId.should.equals('5');
             res.body.recommendedUser[0].name.should.equals('user Meier5');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');

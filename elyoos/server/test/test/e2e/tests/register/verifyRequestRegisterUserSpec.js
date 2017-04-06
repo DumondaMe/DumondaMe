@@ -17,6 +17,8 @@ describe('Integration Tests for verify registering a new user', function () {
         name: 'user Waldvogel',
         forename: 'user',
         surname: 'Waldvogel',
+        latitude: 0,
+        longitude: 0,
         linkId: randomstring.generate(64)
     }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),registerRequestUserValidWithInvitation;
     beforeEach(function () {
@@ -61,6 +63,8 @@ describe('Integration Tests for verify registering a new user', function () {
             should.not.exist(user[0].user.linkId);
             user[0].user.forename.should.equals(registerRequestUserValid.forename);
             user[0].user.surname.should.equals(registerRequestUserValid.surname);
+            user[0].user.latitude.should.equals(registerRequestUserValid.latitude);
+            user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
             user[0].user.registerDate.should.equals(startTime);
             user[0].friendPrivacy.profile.should.be.true;
             user[0].friendPrivacy.image.should.be.true;
@@ -103,6 +107,8 @@ describe('Integration Tests for verify registering a new user', function () {
             should.not.exist(user[0].user.linkId);
             user[0].user.forename.should.equals(registerRequestUserValidWithInvitation.forename);
             user[0].user.surname.should.equals(registerRequestUserValidWithInvitation.surname);
+            user[0].user.latitude.should.equals(registerRequestUserValid.latitude);
+            user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
             user[0].user.registerDate.should.equals(startTime);
             user[0].friendPrivacy.profile.should.be.true;
             user[0].friendPrivacy.image.should.be.true;

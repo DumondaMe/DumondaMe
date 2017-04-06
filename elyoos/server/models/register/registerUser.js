@@ -37,7 +37,9 @@ let registerUser = function (params, req) {
                 surname: params.surname,
                 name: params.forename + ' ' + params.surname,
                 password: hash,
-                registerDate: time.getNowUtcTimestamp()
+                registerDate: time.getNowUtcTimestamp(),
+                latitude: 0,
+                longitude: 0
             }
         };
         linkId = randomstring.generate(64);

@@ -10,7 +10,8 @@ let setUserLocation = function (userId, location) {
 
 let deleteUserLocation = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})')
-        .remove('u.userLocationDescription, u.latitude, u.longitude')
+        .remove('u.userLocationDescription')
+        .set('u', {latitude: 0, longitude: 0})
         .end({userId: userId}).send();
 };
 
