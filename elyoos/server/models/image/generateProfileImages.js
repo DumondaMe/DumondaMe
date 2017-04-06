@@ -12,12 +12,12 @@ module.exports = {
         let preview = tmp.fileSync({postfix: '.jpg'}),
             thumbnail = tmp.fileSync({postfix: '.jpg'}),
             profile = tmp.fileSync({postfix: '.jpg'});
-        return gm.gm(originalFilePath).thumbAsync(100, 100, preview.name, 93)
+        return gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(100, 100, preview.name, 93)
             .then(function () {
-                return gm.gm(originalFilePath).thumbAsync(48, 48, thumbnail.name, 97);
+                return gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(48, 48, thumbnail.name, 97);
             })
             .then(function () {
-                return gm.gm(originalFilePath).thumbAsync(350, 350, profile.name, 92);
+                return gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(350, 350, profile.name, 92);
             })
             .then(function () {
                 return cdn.uploadFile(preview.name, 'profileImage/' + userId + '/profilePreview.jpg');
