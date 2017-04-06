@@ -3,7 +3,7 @@
     padding-left: 12px;
   }
   .map-container {
-    height: 400px;
+    height: 300px;
     @media screen and (max-width: $gt-xs) {
       margin-bottom: 12px;
     }
@@ -12,9 +12,9 @@
     }
     .ely-map {
       .ely-map-container {
-        height: 400px;
+        height: 300px;
         @media screen and (max-width: $gt-xs) {
-          height: 300px;
+          height: 200px;
         }
       }
     }
