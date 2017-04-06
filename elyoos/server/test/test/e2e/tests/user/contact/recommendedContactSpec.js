@@ -42,6 +42,7 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+                maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 3
@@ -88,6 +89,7 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+                maxItemsPerType: 10,
                 skipInvitedUser: 1,
                 skipRecommendedByContact: 0,
                 skipRecommended: 10
@@ -145,6 +147,7 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+                maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 10
@@ -197,6 +200,7 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+                maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 0
@@ -235,6 +239,7 @@ describe('Integration Tests getting contact recommendations', function () {
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+                maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 0,

@@ -617,7 +617,7 @@
             padding: 0 8px;
             height: 24px;
             min-height: 24px; }
-      #ely-contact-recommendation-overview .overview-container .overview-container-inner .contact-element {
+      #ely-contact-recommendation-overview .overview-container .overview-container-inner .contact-element-container .contact-element {
         margin-right: 4px;
         margin-left: 4px;
         display: inline-block; }

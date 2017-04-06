@@ -15,6 +15,7 @@ app.factory('Contacting', require('./services/contacting'));
 app.factory('ContactRecommendation', require('./services/contactRecommendation'));
 
 app.service('UserStateService', require('./services/userStateService'));
+app.service('RecommendedContactScrollRequest', require('./services/scrollRequest'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

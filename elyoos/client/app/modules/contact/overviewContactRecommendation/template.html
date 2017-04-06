@@ -1,5 +1,5 @@
 <div id="ely-contact-recommendation-overview">
-    <div class="overview-container">
+    <div class="overview-container" ely-infinite-scroll="ctrl.nextContactRecommendations">
         <div class="overview-container-inner">
             <div layout="row" class="recommendation-info">
                 <div class="recommendation-info-text">Kontaktvorschläge</div>
@@ -22,8 +22,10 @@
                     </md-menu-content>
                 </md-menu>
             </div>
-            <div class="contact-element" ng-repeat="user in ctrl.users.recommendedUser | limitTo: 20">
-                <ely-contact-preview-square user="user" added-contact-event="ctrl.contactAdded"></ely-contact-preview-square>
+            <div class="contact-element-container">
+                <div class="contact-element" ng-repeat="user in ctrl.users.recommendedUser">
+                    <ely-contact-preview-square user="user" added-contact-event="ctrl.contactAdded"></ely-contact-preview-square>
+                </div>
             </div>
         </div>
     </div>

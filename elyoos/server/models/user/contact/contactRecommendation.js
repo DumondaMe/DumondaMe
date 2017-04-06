@@ -9,9 +9,9 @@ let getContactRecommendation = function (userId, data) {
     let commands = [];
 
     return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
-        commands.push(recommendedUser.getInvitedUsers(userId, 20, data.skipInvitedUser).getCommand());
-        commands.push(recommendedUser.getRecommendedByContactUsers(userId, 20, data.skipRecommendedByContact).getCommand());
-        return recommendedUser.getRecommendedUsers(userId, 20, data.skipRecommended)
+        commands.push(recommendedUser.getInvitedUsers(userId, 10, data.skipInvitedUser).getCommand());
+        commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10, data.skipRecommendedByContact).getCommand());
+        return recommendedUser.getRecommendedUsers(userId, 10, data.skipRecommended)
             .send(commands).then(function (resp) {
                 userInfo.addImageForThumbnail(resp[0]);
                 userInfo.addImageForThumbnail(resp[1]);

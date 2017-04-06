@@ -10,8 +10,9 @@ let schemaGetContactRecommendation = {
     name: 'getContactRecommendation',
     type: 'object',
     additionalProperties: false,
-    required: ['skipInvitedUser', 'skipRecommendedByContact', 'skipRecommended'],
+    required: ['skipInvitedUser', 'skipRecommendedByContact', 'skipRecommended', 'maxItemsPerType'],
     properties: {
+        maxItemsPerType: {type: 'integer', minimum: 1, maximum: 50},
         skipInvitedUser: {type: 'integer', minimum: 0},
         skipRecommendedByContact: {type: 'integer', minimum: 0},
         skipRecommended: {type: 'integer', minimum: 0}

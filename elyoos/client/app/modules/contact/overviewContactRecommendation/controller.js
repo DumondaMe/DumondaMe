@@ -1,9 +1,11 @@
 'use strict';
 
-module.exports = ['ContactRecommendation', 'RecommendedUserOnHomeSetting', 'ArrayHelper',
-    function (ContactRecommendation, RecommendedUserOnHomeSetting, ArrayHelper) {
+module.exports = ['RecommendedContactScrollRequest', 'RecommendedUserOnHomeSetting', 'ArrayHelper',
+    function (RecommendedContactScrollRequest, RecommendedUserOnHomeSetting, ArrayHelper) {
         var ctrl = this;
-        ctrl.users = ContactRecommendation.get();
+
+        ctrl.users = {recommendedUser: []};
+        RecommendedContactScrollRequest.reset();
 
         ctrl.contactSuggestionOnHome = function (showOnHomeScreen) {
             RecommendedUserOnHomeSetting.save({showOnHomeScreen: showOnHomeScreen}, function () {
@@ -14,5 +16,12 @@ module.exports = ['ContactRecommendation', 'RecommendedUserOnHomeSetting', 'Arra
         ctrl.contactAdded = function (userId) {
             ArrayHelper.removeElement(ctrl.users.recommendedUser, 'userId', userId);
         };
+
+        ctrl.nextContactRecommendations = function () {
+            RecommendedContactScrollRequest.nextRequest(ctrl.users.recommendedUser).then(function (recommendedUsers) {
+                ctrl.users = recommendedUsers;
+            });
+        };
+        ctrl.nextContactRecommendations();
     }];
 
