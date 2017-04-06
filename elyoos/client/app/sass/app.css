@@ -4176,6 +4176,59 @@
   font-size: 14px;
   padding-left: 16px; }
 
+#setup-contact-step .contact-description {
+  max-width: 600px;
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 24px; }
+#setup-contact-step .contact-container {
+  max-width: 600px; }
+  #setup-contact-step .contact-container .contact-recommendation-container .contact-recommendation {
+    margin-bottom: 12px; }
+    #setup-contact-step .contact-container .contact-recommendation-container .contact-recommendation .profile-image-container {
+      width: 48px;
+      height: 48px; }
+      #setup-contact-step .contact-container .contact-recommendation-container .contact-recommendation .profile-image-container img {
+        border-radius: 50%;
+        height: 100%;
+        width: 100%; }
+    #setup-contact-step .contact-container .contact-recommendation-container .contact-recommendation .profile-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #3F51B5;
+      height: 48px;
+      line-height: 48px;
+      padding-left: 12px;
+      overflow-y: hidden; }
+    #setup-contact-step .contact-container .contact-recommendation-container .contact-recommendation .add-contact-button {
+      margin-top: 4px; }
+  #setup-contact-step .contact-container .contact-group {
+    width: 250px; }
+    #setup-contact-step .contact-container .contact-group .contact-group-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #3F51B5;
+      margin-bottom: 3px; }
+    #setup-contact-step .contact-container .contact-group .contact-group-container .group-number {
+      font-size: 14px;
+      line-height: 24px;
+      text-align: center;
+      margin: 8px 12px 8px 0;
+      color: white;
+      width: 24px;
+      background-color: #7986CB;
+      border-radius: 50%;
+      font-weight: 500; }
+    #setup-contact-step .contact-container .contact-group .contact-group-container .group-type {
+      font-size: 16px;
+      line-height: 40px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+    #setup-contact-step .contact-container .contact-group #add-group-button {
+      margin-top: 16px;
+      margin-left: 0; }
+
 #setup-location-step .location-container {
   max-width: 650px;
   margin: 0 auto; }

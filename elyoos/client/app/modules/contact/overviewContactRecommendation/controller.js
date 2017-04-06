@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['RecommendedContactScrollRequest', 'RecommendedUserOnHomeSetting', 'ArrayHelper',
-    function (RecommendedContactScrollRequest, RecommendedUserOnHomeSetting, ArrayHelper) {
+module.exports = ['RecommendedContactScrollRequest', 'RecommendedUserOnHomeSetting',
+    function (RecommendedContactScrollRequest, RecommendedUserOnHomeSetting) {
         var ctrl = this;
 
         ctrl.users = {recommendedUser: []};

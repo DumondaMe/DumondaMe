@@ -1,3 +1,44 @@
 <div id="setup-contact-step" ng-if="step.selected">
-    Test6
+    <div class="contact-description">
+        Füge Personen deiner Kontaktliste hinzu welche du kennst oder deren Beiträge und Empfehlungen du folgen möchtest. Die hinzugefügte Person muss bei diesem Vorgang keine
+        Freundschaftsanfrage bestätigen. Es wird ihr lediglich eine Meldung angezeigt, dass du sie zu deinen Kontakten hinzugefügt hast.
+    </div>
+    <div class="contact-container" layout="row">
+        <div class="contact-recommendation-container" flex>
+            <div ng-repeat="user in ctrl.users.recommendedUser" layout="row" class="contact-recommendation">
+                <div class="profile-image-container" flex="none">
+                    <img ng-src="{{user.profileUrl}}"/>
+                </div>
+                <div class="profile-name">{{user.name}}</div>
+                <span flex></span>
+                <div>
+                    <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact()">
+                        <md-icon md-svg-icon="cardActions:addContact"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+        <div class="contact-group" flex="none" flex-offset-gt-sm="10">
+            <div class="contact-group-title">Deine Kontaktgruppen</div>
+            <div class="contact-group-container" ng-repeat="statistic in ctrl.statistics.statistic" layout="row">
+                <div class="group-number" flex="none">{{statistic.count}}</div>
+                <div class="group-type">{{statistic.type}}</div>
+                <span flex></span>
+                <md-menu md-position-mode="target-right target">
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
+                        <md-icon md-svg-icon="system:moreVert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.changeGroupName()">Gruppe umbennen</md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-if="ctrl.statistics.length > 1">
+                            <md-button ng-click="ctrl.deleteGroup()">Gruppe löschen</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.newGroup()">Neue Gruppe</md-button>
+        </div>
+    </div>
 </div>
