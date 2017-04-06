@@ -9,13 +9,13 @@ module.exports = {
 
                 ScrollRequest.reset('contacting', Contacting.get, ContactingOverviewResponseHandler);
 
-                ctrl.nextOverviewGroupOpen = function () {
+                ctrl.nextContacting = function () {
                     ScrollRequest.nextRequest('contacting', ctrl.users.contactingUsers).then(function (users) {
                         ctrl.users = users;
                     });
                 };
 
-                ctrl.nextOverviewGroupOpen();
+                ctrl.nextContacting();
             }];
     }
 };
