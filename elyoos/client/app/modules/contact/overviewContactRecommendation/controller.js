@@ -13,8 +13,10 @@ module.exports = ['RecommendedContactScrollRequest', 'RecommendedUserOnHomeSetti
             });
         };
 
-        ctrl.contactAdded = function (userId) {
-            ArrayHelper.removeElement(ctrl.users.recommendedUser, 'userId', userId);
+        ctrl.contactAdded = function () {
+            ctrl.users = {recommendedUser: []};
+            RecommendedContactScrollRequest.reset();
+            ctrl.nextContactRecommendations();
         };
 
         ctrl.nextContactRecommendations = function () {

@@ -9,7 +9,7 @@ module.exports = ['$q', 'ContactRecommendation', function ($q, ContactRecommenda
             skipInvitedUser: 0,
             skipRecommendedByContact: 0,
             skipRecommended: 0,
-            itemsPerPage: 10,
+            itemsPerType: 25,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
@@ -26,13 +26,13 @@ module.exports = ['$q', 'ContactRecommendation', function ($q, ContactRecommenda
                     skipInvitedUser: scrollRequest.skipInvitedUser,
                     skipRecommendedByContact: scrollRequest.skipRecommendedByContact,
                     skipRecommended: scrollRequest.skipRecommended,
-                    maxItemsPerType: scrollRequest.itemsPerPage
+                    maxItemsPerType: scrollRequest.itemsPerType
                 }, function () {
                     newPinwall.recommendedUser = previousPinwall.concat(newPinwall.recommendedUser);
                     scrollRequest.requestPinwallElements =
-                        scrollRequest.skipInvitedUser + scrollRequest.itemsPerPage === newPinwall.skipInvitedUser ||
-                        scrollRequest.skipRecommendedByContact + scrollRequest.itemsPerPage === newPinwall.skipRecommendedByContact ||
-                        scrollRequest.skipRecommended + scrollRequest.itemsPerPage === newPinwall.skipRecommended;
+                        scrollRequest.skipInvitedUser + scrollRequest.itemsPerType === newPinwall.skipInvitedUser ||
+                        scrollRequest.skipRecommendedByContact + scrollRequest.itemsPerType === newPinwall.skipRecommendedByContact ||
+                        scrollRequest.skipRecommended + scrollRequest.itemsPerType === newPinwall.skipRecommended;
                     scrollRequest.skipInvitedUser = newPinwall.skipInvitedUser;
                     scrollRequest.skipRecommendedByContact = newPinwall.skipRecommendedByContact;
                     scrollRequest.skipRecommended = newPinwall.skipRecommended;
