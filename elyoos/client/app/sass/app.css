@@ -4236,6 +4236,8 @@
       #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type.selected-group-type {
         color: #D81B60;
         font-weight: 700; }
+      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .ely-rename-group-input {
+        margin: 0; }
       #setup-contact-step .contact-container .contact-group .contact-group-container #add-group-button {
         margin-top: 16px;
         margin-left: 0; }

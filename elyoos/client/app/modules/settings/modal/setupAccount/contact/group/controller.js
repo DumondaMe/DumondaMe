@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic',
-    function ($scope, Privacy, ContactGroupStatistic) {
+module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameService', 'errorToast',
+    function ($scope, Privacy, ContactGroupStatistic, CheckGroupNameService, errorToast) {
         var ctrl = this;
 
         //Statistic has been loaded with first userInfo request.
@@ -11,6 +11,9 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic',
 
         ctrl.deleteGroup = function (groupName) {
             if (ctrl.statistic.length > 1) {
+                if(ctrl.previousGroupName && ctrl.groupToChange) {
+                    ctrl.groupToChange.group = ctrl.previousGroupName;
+                }
                 if (groupName === ctrl.selectedGroup.group) {
                     ctrl.statistic.forEach(function (statistic) {
                         if (statistic.group !== groupName && ctrl.selectedGroup.group === groupName) {
@@ -23,8 +26,65 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic',
                     newPrivacyDescription: ctrl.selectedGroup.group
                 }).$promise.then(function () {
                     ContactGroupStatistic.removeGroup(groupName, ctrl.selectedGroup.group);
+                    ctrl.showRenameGroup = false;
                 });
             }
+        };
+
+        ctrl.groupNameChanged = function (groupName, index) {
+            var groupNameProperty = index + "groupName";
+            ctrl.isAllowedToChange = true;
+            ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-max-length', true);
+            ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-group-exist', true);
+
+            if (angular.isString(groupName) && groupName.length > 30) {
+                ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-max-length', false);
+                ctrl.isAllowedToChange = false;
+            }
+            if (angular.isString(groupName) && groupName.trim() === "") {
+                delete ctrl.groupToChange.group;
+                ctrl.isAllowedToChange = false;
+            }
+            if (!CheckGroupNameService.checkNameExists(groupName) && groupName !== ctrl.previousGroupName) {
+                ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-group-exist', false);
+                ctrl.isAllowedToChange = false;
+            }
+            if (groupName === ctrl.previousGroupName) {
+                ctrl.isAllowedToChange = false;
+            }
+        };
+
+        ctrl.abortRenameGroup = function () {
+            ctrl.showRenameGroup = false;
+            ctrl.groupToChange.group = ctrl.previousGroupName;
+            delete ctrl.groupToChange;
+        };
+
+        ctrl.changeGroupName = function (groupToChange) {
+            if(ctrl.previousGroupName && ctrl.groupToChange) {
+                ctrl.groupToChange.group = ctrl.previousGroupName;
+            }
+            ctrl.showRenameGroup = true;
+            ctrl.groupToChange = groupToChange;
+            ctrl.previousGroupName = angular.copy(groupToChange.group);
+        };
+
+        ctrl.changeGroupNameAccept = function () {
+            var previousGroup = ctrl.previousGroupName, newGroup = ctrl.groupToChange.group;
+            ctrl.uploadStarted = true;
+            Privacy.save({
+                renamePrivacy: {
+                    privacyDescription: previousGroup,
+                    newPrivacyDescription: newGroup
+                }
+            }, function () {
+                ctrl.uploadStarted = false;
+                ctrl.showRenameGroup = false;
+                ContactGroupStatistic.renameGroup(previousGroup, newGroup);
+            }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
+                ctrl.uploadStarted = false;
+            });
         };
 
         ctrl.groupStatisticChanged = function () {

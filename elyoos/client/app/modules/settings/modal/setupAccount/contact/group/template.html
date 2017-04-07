@@ -1,28 +1,56 @@
 <div class="contact-group-container">
     <div class="contact-group-title">Deine Kontaktgruppen</div>
-    <div class="contact-group-element" ng-repeat="statistic in ctrl.statistic" layout="row">
-        <div class="group-number" flex="none" ng-class="{'selected-group-number': statistic.group === ctrl.selectedGroup.group}"
-             ng-click="ctrl.setSelectedGroup(statistic)">
-            {{statistic.count}}
+    <form name="ctrl.renameGroupForm">
+        <div class="contact-group-element" ng-repeat="statistic in ctrl.statistic" layout="row">
+            <div layout="row" ng-show="!ctrl.showRenameGroup || (ctrl.showRenameGroup && ctrl.groupToChange !== statistic)">
+                <div class="group-number" flex="none" ng-class="{'selected-group-number': statistic.group === ctrl.selectedGroup.group}"
+                     ng-click="ctrl.setSelectedGroup(statistic)">
+                    {{statistic.count}}
+                </div>
+                <div class="group-type" ng-class="{'selected-group-type': statistic.group === ctrl.selectedGroup.group}"
+                     ng-click="ctrl.setSelectedGroup(statistic)">
+                    {{statistic.group}}
+                </div>
+            </div>
+            <div ng-show="ctrl.showRenameGroup && ctrl.groupToChange === statistic">
+                <md-input-container class="ely-rename-group-input">
+                    <input name="{{$index + 'groupName'}}" class="blog-input" ng-model="ctrl.groupToChange.group" md-no-asterisk
+                           aria-label="group name" ng-change="ctrl.groupNameChanged(ctrl.groupToChange.group, $index)"/>
+                    <div ng-messages="ctrl.renameGroupForm[$index + 'groupName'].$error">
+                        <div ng-message="ely-max-length">Text darf nicht länger als 30 Zeichen sein</div>
+                        <div ng-message="ely-group-exist">Diese Gruppe existiert bereits</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <span flex></span>
+            <md-menu md-position-mode="target-right target">
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
+                    <md-icon md-svg-icon="system:moreVert"></md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item ng-if="!ctrl.showRenameGroup || (ctrl.showRenameGroup && ctrl.groupToChange !== statistic)">
+                        <md-button ng-click="ctrl.changeGroupName(statistic)">
+                            Gruppe umbennen
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-if="ctrl.statistic.length > 1">
+                        <md-button ng-click="ctrl.deleteGroup(statistic.group)">Gruppe löschen</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </div>
-        <div class="group-type" ng-class="{'selected-group-type': statistic.group === ctrl.selectedGroup.group}"
-             ng-click="ctrl.setSelectedGroup(statistic)">
-            {{statistic.group}}
+    </form>
+    <div layout="row">
+        <div ng-show="!ctrl.showRenameGroup">
+            <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.showAddGroup = true">Neue Gruppe</md-button>
         </div>
-        <span flex></span>
-        <md-menu md-position-mode="target-right target">
-            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
-                <md-icon md-svg-icon="system:moreVert"></md-icon>
+        <div ng-show="ctrl.showRenameGroup">
+            <md-button md-no-ink id="cancel-rename-group-button" ng-click="ctrl.abortRenameGroup()">Abbrechen</md-button>
+        </div>
+        <div ng-show="ctrl.showRenameGroup">
+            <md-button md-no-ink class="md-raised" ng-click="ctrl.changeGroupNameAccept()"
+                       ng-disabled="!ctrl.isAllowedToChange">Ändern
             </md-button>
-            <md-menu-content>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.changeGroupName()">Gruppe umbennen</md-button>
-                </md-menu-item>
-                <md-menu-item ng-if="ctrl.statistic.length > 1">
-                    <md-button ng-click="ctrl.deleteGroup(statistic.group)">Gruppe löschen</md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
+        </div>
     </div>
-    <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.showAddGroup = true">Neue Gruppe</md-button>
 </div>
