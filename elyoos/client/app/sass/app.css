@@ -4205,29 +4205,33 @@
       margin-top: 4px; }
   #setup-contact-step .contact-container .contact-group {
     width: 250px; }
-    #setup-contact-step .contact-container .contact-group .contact-group-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: #3F51B5;
-      margin-bottom: 3px; }
-    #setup-contact-step .contact-container .contact-group .contact-group-container .group-number {
-      font-size: 14px;
-      line-height: 24px;
-      text-align: center;
-      margin: 8px 12px 8px 0;
-      color: white;
-      width: 24px;
-      background-color: #7986CB;
-      border-radius: 50%;
-      font-weight: 500; }
-    #setup-contact-step .contact-container .contact-group .contact-group-container .group-type {
-      font-size: 16px;
-      line-height: 40px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.87); }
-    #setup-contact-step .contact-container .contact-group #add-group-button {
-      margin-top: 16px;
-      margin-left: 0; }
+    #setup-contact-step .contact-container .contact-group .contact-group-container {
+      padding: 8px 0 8px 8px;
+      border: 3px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px; }
+      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: #3F51B5;
+        margin-bottom: 3px; }
+      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-number {
+        font-size: 14px;
+        line-height: 24px;
+        text-align: center;
+        margin: 8px 12px 8px 0;
+        color: white;
+        width: 24px;
+        background-color: #7986CB;
+        border-radius: 50%;
+        font-weight: 500; }
+      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type {
+        font-size: 16px;
+        line-height: 40px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
+      #setup-contact-step .contact-container .contact-group .contact-group-container #add-group-button {
+        margin-top: 16px;
+        margin-left: 0; }
 
 #setup-location-step .location-container {
   max-width: 650px;
@@ -4301,15 +4305,20 @@
   max-width: 500px; }
   #add-group .ely-dialog-content {
     padding-bottom: 0; }
-    #add-group .ely-dialog-content .ely-input-container {
-      width: 100%; }
-    #add-group .ely-dialog-content .privacy-element-description {
-      font-size: 14px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 24px; }
-    #add-group .ely-dialog-content .select-privacy {
-      margin-bottom: 12px; }
+
+.button-add-contact-cancel {
+  margin-left: 0;
+  padding-left: 0; }
+
+#add-contact-input-content .ely-input-container {
+  width: 100%; }
+#add-contact-input-content .privacy-element-description {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 24px; }
+#add-contact-input-content .select-privacy {
+  margin-bottom: 12px; }
 
 #change-password {
   max-width: 300px; }

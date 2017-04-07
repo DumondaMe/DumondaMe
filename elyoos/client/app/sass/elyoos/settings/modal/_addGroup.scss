@@ -2,17 +2,25 @@
   max-width: 500px;
   .ely-dialog-content {
     padding-bottom: 0;
-    .ely-input-container {
-      width: 100%;
-    }
-    .privacy-element-description {
-      font-size: 14px;
-      font-weight: 500;
-      color: $secondary-text;
-      margin-bottom: 24px;
-    }
-    .select-privacy {
-      margin-bottom: 12px;
-    }
+  }
+}
+
+.button-add-contact-cancel {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#add-contact-input-content {
+  .ely-input-container {
+    width: 100%;
+  }
+  .privacy-element-description {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
+    margin-bottom: 24px;
+  }
+  .select-privacy {
+    margin-bottom: 12px;
   }
 }

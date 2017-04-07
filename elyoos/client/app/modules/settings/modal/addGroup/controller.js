@@ -8,13 +8,18 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         ctrl.pinwallVisible = true;
         ctrl.uploadAllowed = false;
 
-        ctrl.nameChanged = function () {
+        ctrl.nameChanged = function (newName) {
+            ctrl.groupName = newName;
             ctrl.validGroupName = CheckGroupNameService.checkNameExists(ctrl.groupName);
             ctrl.createGroupForm.groupName.$setValidity('ely-types-exist', ctrl.validGroupName);
         };
 
         ctrl.cancel = function () {
-            ElyModal.cancel();
+            if (angular.isFunction(ctrl.cancelEvent)) {
+                ctrl.cancelEvent();
+            } else {
+                ElyModal.cancel();
+            }
         };
 
         ctrl.accept = function () {
@@ -29,7 +34,11 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
                     }
                 }
             }, function () {
-                ElyModal.hide(ctrl.groupName);
+                if (angular.isFunction(ctrl.finishEvent)) {
+                    ctrl.finishEvent(ctrl.groupName);
+                } else {
+                    ElyModal.hide(ctrl.groupName);
+                }
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');
                 ctrl.uploadStarted = false;

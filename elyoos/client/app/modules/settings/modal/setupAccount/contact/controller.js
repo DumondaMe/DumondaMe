@@ -11,10 +11,14 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
             ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
         });
 
-        ctrl.newGroup = function () {
-            GroupSettingsService.addGroup().then(function (groupName) {
-                ctrl.statistics.statistic.push({type: groupName, count: 0});
-            });
+        ctrl.cancelNewGroup = function () {
+            ctrl.showAddGroup = false;
+        };
+
+        ctrl.addNewGroupFinish = function (groupName) {
+            ctrl.showAddGroup = false;
+            ctrl.statistics.statistic.push({type: groupName, count: 0});
+            ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
         };
 
         ctrl.nextContactRecommendations = function () {

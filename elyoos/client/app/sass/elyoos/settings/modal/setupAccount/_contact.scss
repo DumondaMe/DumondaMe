@@ -36,34 +36,39 @@
     }
     .contact-group {
       width: 250px;
-      .contact-group-title {
-        font-size: 16px;
-        font-weight: 500;
-        color: $primary-color;
-        margin-bottom: 3px;
-      }
       .contact-group-container {
-        .group-number {
-          font-size: 14px;
-          line-height: 24px;
-          text-align: center;
-          margin: 8px 12px 8px 0;
-          color: white;
-          width: 24px;
-          background-color: $primary-color-light;
-          border-radius: 50%;
-          font-weight: 500;
-        }
-        .group-type {
+        padding: 8px 0 8px 8px;
+        border: 3px solid $divider;
+        border-radius: 8px;
+        .contact-group-title {
           font-size: 16px;
-          line-height: 40px;
           font-weight: 500;
-          color: $primary-text;
+          color: $primary-color;
+          margin-bottom: 3px;
         }
-      }
-      #add-group-button {
-        margin-top: 16px;
-        margin-left: 0;
+        .contact-group-element {
+          .group-number {
+            font-size: 14px;
+            line-height: 24px;
+            text-align: center;
+            margin: 8px 12px 8px 0;
+            color: white;
+            width: 24px;
+            background-color: $primary-color-light;
+            border-radius: 50%;
+            font-weight: 500;
+          }
+          .group-type {
+            font-size: 16px;
+            line-height: 40px;
+            font-weight: 500;
+            color: $primary-text;
+          }
+        }
+        #add-group-button {
+          margin-top: 16px;
+          margin-left: 0;
+        }
       }
     }
   }

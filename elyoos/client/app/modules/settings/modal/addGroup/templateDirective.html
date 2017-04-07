@@ -1,0 +1,15 @@
+<form name="ctrl.createGroupForm" ng-cloak>
+    <div>
+        <ely-setting-add-group-input name-changed="ctrl.nameChanged" contacts-visible="ctrl.contactsVisible"
+                                     image-visible="ctrl.imageVisible" pinwall-visible="ctrl.pinwallVisible">
+
+        </ely-setting-add-group-input>
+    </div>
+    <div layout="row">
+        <md-button ng-click="ctrl.cancel()" class="button-add-contact-cancel">Abbrechen</md-button>
+        <md-button class="md-raised" ng-click="ctrl.accept()"
+                   ng-disabled="!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted">
+            Hinzufügen
+        </md-button>
+    </div>
+</form>

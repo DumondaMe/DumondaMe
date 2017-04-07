@@ -15,6 +15,7 @@ module.exports = {
                 ctrl.newGroup = function () {
                     GroupSettingsService.addGroup().then(function (groupName) {
                         ctrl.statistics.statistic.push({type: groupName, count: 0});
+                        ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
                     });
                 };
 
