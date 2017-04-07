@@ -34,6 +34,7 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
                     }
                 }
             }, function () {
+                ctrl.uploadStarted = false;
                 if (angular.isFunction(ctrl.finishEvent)) {
                     ctrl.finishEvent(ctrl.groupName);
                 } else {

@@ -8,16 +8,19 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
         RecommendedContactScrollRequest.reset();
 
         ctrl.cancelNewGroup = function () {
+            ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
         };
 
         ctrl.addNewGroupFinish = function (groupName) {
+            ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
             ContactGroupStatistic.addGroup(groupName);
         };
 
         ctrl.addContact = function (userId) {
             var groupName = ctrl.selectedGroup.group;
+            ctrl.uploadRunning = true;
             if (angular.isObject(ctrl.selectedGroup) && groupName) {
                 Contact.save({
                     contactIds: [userId],
@@ -25,10 +28,12 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
                     description: groupName
                 }, function () {
                     ctrl.users = {recommendedUser: []};
+                    ctrl.uploadRunning = false;
                     RecommendedContactScrollRequest.reset();
                     ctrl.nextContactRecommendations();
                     ContactGroupStatistic.addContactToGroup(groupName);
                 }, function () {
+                    ctrl.uploadRunning = false;
                     errorToast.showError('Es ist ein Fehler aufgetretten!');
                 });
             }

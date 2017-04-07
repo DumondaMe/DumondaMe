@@ -11,6 +11,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
 
         ctrl.deleteGroup = function (groupName) {
             if (ctrl.statistic.length > 1) {
+                ctrl.uploadRunning = true;
                 if(ctrl.previousGroupName && ctrl.groupToChange) {
                     ctrl.groupToChange.group = ctrl.previousGroupName;
                 }
@@ -27,6 +28,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
                 }).$promise.then(function () {
                     ContactGroupStatistic.removeGroup(groupName, ctrl.selectedGroup.group);
                     ctrl.showRenameGroup = false;
+                    ctrl.uploadRunning = false;
                 });
             }
         };
@@ -71,19 +73,19 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
 
         ctrl.changeGroupNameAccept = function () {
             var previousGroup = ctrl.previousGroupName, newGroup = ctrl.groupToChange.group;
-            ctrl.uploadStarted = true;
+            ctrl.uploadRunning = true;
             Privacy.save({
                 renamePrivacy: {
                     privacyDescription: previousGroup,
                     newPrivacyDescription: newGroup
                 }
             }, function () {
-                ctrl.uploadStarted = false;
+                ctrl.uploadRunning = false;
                 ctrl.showRenameGroup = false;
                 ContactGroupStatistic.renameGroup(previousGroup, newGroup);
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');
-                ctrl.uploadStarted = false;
+                ctrl.uploadRunning = false;
             });
         };
 
@@ -96,6 +98,6 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
         };
 
         $scope.$on("$destroy", function () {
-            ContactGroupStatistic.deregister(ctrl);
+            ContactGroupStatistic.deregister('setupAccountContactGroup');
         });
     }];

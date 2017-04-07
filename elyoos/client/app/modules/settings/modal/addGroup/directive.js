@@ -10,7 +10,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 finishEvent: '=',
-                cancelEvent: '='
+                cancelEvent: '=',
+                uploadStarted: '='
             },
             templateUrl: 'app/modules/settings/modal/addGroup/templateDirective.html'
         };

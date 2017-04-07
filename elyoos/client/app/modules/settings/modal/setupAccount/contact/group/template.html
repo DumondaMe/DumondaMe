@@ -45,11 +45,13 @@
             <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.showAddGroup = true">Neue Gruppe</md-button>
         </div>
         <div ng-show="ctrl.showRenameGroup">
-            <md-button md-no-ink id="cancel-rename-group-button" ng-click="ctrl.abortRenameGroup()">Abbrechen</md-button>
+            <md-button md-no-ink id="cancel-rename-group-button" ng-click="ctrl.abortRenameGroup()"
+                       ng-disabled="ctrl.uploadRunning">Abbrechen
+            </md-button>
         </div>
         <div ng-show="ctrl.showRenameGroup">
             <md-button md-no-ink class="md-raised" ng-click="ctrl.changeGroupNameAccept()"
-                       ng-disabled="!ctrl.isAllowedToChange">Ändern
+                       ng-disabled="!ctrl.isAllowedToChange || ctrl.uploadRunning">Ändern
             </md-button>
         </div>
     </div>

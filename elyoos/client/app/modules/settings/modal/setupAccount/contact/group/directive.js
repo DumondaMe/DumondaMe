@@ -12,7 +12,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 showAddGroup: '=',
-                selectedGroup: '='
+                selectedGroup: '=',
+                uploadRunning: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/contact/group/template.html'
         };
