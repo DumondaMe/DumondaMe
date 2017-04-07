@@ -1,12 +1,12 @@
 'use strict';
 
-module.exports = ['ContactStatisticTypes', 'ElyModal', 'Contact', 'errorToast',
-    function (ContactStatisticTypes, ElyModal, Contact, errorToast) {
+module.exports = ['ContactGroupStatistic', 'ElyModal', 'Contact', 'errorToast',
+    function (ContactGroupStatistic, ElyModal, Contact, errorToast) {
         var ctrl = this;
 
-        ctrl.types = ContactStatisticTypes.getTypes(ctrl.previousType);
-        if (ctrl.types.length > 0) {
-            ctrl.selectedType = ctrl.types[0];
+        ctrl.groups = ContactGroupStatistic.getGroups(ctrl.previousType);
+        if (ctrl.groups.length > 0) {
+            ctrl.selectedType = ctrl.groups[0];
         }
 
         ctrl.cancel = function () {

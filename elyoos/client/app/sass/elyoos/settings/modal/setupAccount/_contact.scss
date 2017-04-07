@@ -48,6 +48,7 @@
         }
         .contact-group-element {
           .group-number {
+            cursor: pointer;
             font-size: 14px;
             line-height: 24px;
             text-align: center;
@@ -58,11 +59,19 @@
             border-radius: 50%;
             font-weight: 500;
           }
+          .group-number.selected-group-number {
+            background-color: $secondary-color;
+          }
           .group-type {
+            cursor: pointer;
             font-size: 16px;
             line-height: 40px;
             font-weight: 500;
             color: $primary-text;
+          }
+          .group-type.selected-group-type {
+            color: $secondary-color;
+            font-weight: 700;
           }
         }
         #add-group-button {

@@ -1,12 +1,12 @@
 'use strict';
 
-module.exports = ['Contact', 'ContactStatisticTypes', '$q', '$mdDialog', 'errorToast',
-    function (Contact, ContactStatisticTypes, $q, $mdDialog, errorToast) {
+module.exports = ['Contact', 'ContactGroupStatistic', '$q', '$mdDialog', 'errorToast',
+    function (Contact, ContactGroupStatistic, $q, $mdDialog, errorToast) {
 
         this.addContact = function (contactId, name) {
-            var types = ContactStatisticTypes.getTypes(), deferred = $q.defer();
+            var contactGroups = ContactGroupStatistic.getGroups(), deferred = $q.defer();
             if (angular.isString(contactId) && angular.isString(name)) {
-                if (types.length !== 1) {
+                if (contactGroups.length !== 1) {
                     return $mdDialog.show({
                         templateUrl: 'app/modules/contact/modal/addContact/template.html',
                         parent: angular.element(document.body),
@@ -21,9 +21,9 @@ module.exports = ['Contact', 'ContactStatisticTypes', '$q', '$mdDialog', 'errorT
                 Contact.save({
                     contactIds: [contactId],
                     mode: 'addContact',
-                    description: types[0]
+                    description: contactGroups[0]
                 }, function () {
-                    deferred.resolve(types[0]);
+                    deferred.resolve(contactGroups[0]);
                 }, function () {
                     errorToast.showError('Es ist ein Fehler aufgetretten!');
                     deferred.reject();

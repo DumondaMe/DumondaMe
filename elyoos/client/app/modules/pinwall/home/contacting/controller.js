@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
-    function ($state, UserStateService, ContactStatisticTypes) {
+module.exports = ['$state', 'UserStateService', 'ContactGroupStatistic',
+    function ($state, UserStateService, ContactGroupStatistic) {
     var ctrl = this;
 
     ctrl.goToContacting = function () {
@@ -15,7 +15,7 @@ module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
                     user.contactOfUser = true;
                 }
             });
-            ContactStatisticTypes.addContactByName(type);
+            ContactGroupStatistic.addContactToGroup(type);
             ctrl.reloadPinwall();
         });
     };

@@ -54,9 +54,9 @@ describe('Integration Tests user info', function () {
             res.body.latitude.should.equal(1.1);
             res.body.longitude.should.equal(2.2);
             res.body.contactStatistic.length.should.equal(2);
-            res.body.contactStatistic[0].type.should.equal('Freund');
+            res.body.contactStatistic[0].group.should.equal('Freund');
             res.body.contactStatistic[0].count.should.equal(1);
-            res.body.contactStatistic[1].type.should.equal('Bekannter');
+            res.body.contactStatistic[1].group.should.equal('Bekannter');
             res.body.contactStatistic[1].count.should.equal(0);
             res.body.totalUnreadMessages.should.equal(2);
         });

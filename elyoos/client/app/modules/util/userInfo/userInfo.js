@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState', 'ContactStatisticTypes',
+module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState', 'ContactGroupStatistic',
     'ElyModal',
-    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState, ContactStatisticTypes, ElyModal) {
+    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState, ContactGroupStatistic, ElyModal) {
 
         var isLoggedIn = false, userInfo, modificationInfo, observables = [], service = this;
 
@@ -21,7 +21,7 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables',
                     if (!userInfo.lastSetupAccount) {
                         ElyModal.show('InitialTutorialController', 'app/modules/settings/modal/setupAccount/template.html', {});
                     }
-                    ContactStatisticTypes.setStatistic(userInfo.contactStatistic);
+                    ContactGroupStatistic.setStatistic(userInfo.contactStatistic);
                     Observables.notifyObservables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {

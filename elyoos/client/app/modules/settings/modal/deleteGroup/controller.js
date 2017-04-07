@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = ['Privacy', 'ElyModal', 'ContactStatisticTypes', 'errorToast',
-    function (Privacy, ElyModal, ContactStatisticTypes, errorToast) {
+module.exports = ['Privacy', 'ElyModal', 'ContactGroupStatistic', 'errorToast',
+    function (Privacy, ElyModal, ContactGroupStatistic, errorToast) {
         var ctrl = this;
 
-        ctrl.groups = ContactStatisticTypes.getTypes(ctrl.groupName);
+        ctrl.groups = ContactGroupStatistic.getGroups(ctrl.groupName);
         ctrl.selectedGroup = ctrl.groups[0];
 
         ctrl.cancel = function () {

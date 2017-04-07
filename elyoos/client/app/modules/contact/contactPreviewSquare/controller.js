@@ -2,15 +2,15 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes', 'UserDetailNavigation', 'userInfo',
-            function (UserStateService, ContactStatisticTypes, UserDetailNavigation, userInfo) {
+        return ['UserStateService', 'ContactGroupStatistic', 'UserDetailNavigation', 'userInfo',
+            function (UserStateService, ContactGroupStatistic, UserDetailNavigation, userInfo) {
                 var ctrl = this;
                 ctrl.isUser = userInfo.getUserInfo().userId === ctrl.user.userId;
 
                 ctrl.addContact = function () {
                     UserStateService.addContact(ctrl.user.userId, ctrl.user.name).then(function (type) {
                         ctrl.user.type = type;
-                        ContactStatisticTypes.addContactByName(ctrl.user.type);
+                        ContactGroupStatistic.addContactToGroup(ctrl.user.type);
                         if (angular.isFunction(ctrl.addedContactEvent)) {
                             ctrl.addedContactEvent(ctrl.user.userId);
                         }
@@ -19,7 +19,7 @@ module.exports = {
 
                 ctrl.deleteContact = function () {
                     UserStateService.deleteContact(ctrl.user.userId).then(function () {
-                        ContactStatisticTypes.removeContactByName(ctrl.user.type);
+                        ContactGroupStatistic.removeContactFromGroup(ctrl.user.type);
                         delete ctrl.user.type;
                     });
                 };

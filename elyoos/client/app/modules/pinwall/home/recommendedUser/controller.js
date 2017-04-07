@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes', 'RecommendedUserOnHomeSetting', 'ArrayHelper',
-    function ($state, UserStateService, ContactStatisticTypes, RecommendedUserOnHomeSetting, ArrayHelper) {
+module.exports = ['$state', 'UserStateService', 'ContactGroupStatistic', 'RecommendedUserOnHomeSetting', 'ArrayHelper',
+    function ($state, UserStateService, ContactGroupStatistic, RecommendedUserOnHomeSetting, ArrayHelper) {
         var ctrl = this;
 
         ctrl.addContact = function (userId, name) {
             UserStateService.addContact(userId, name).then(function (type) {
                 ArrayHelper.removeElement(ctrl.recommendedUser, 'userId', userId);
-                ContactStatisticTypes.addContactByName(type);
+                ContactGroupStatistic.addContactToGroup(type);
                 ctrl.reloadPinwall();
             });
         };

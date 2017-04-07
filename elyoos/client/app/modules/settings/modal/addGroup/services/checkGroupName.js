@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['ContactStatisticTypes',
-    function (ContactStatisticTypes) {
+module.exports = ['ContactGroupStatistic',
+    function (ContactGroupStatistic) {
 
         this.checkNameExists = function (name) {
-            var names = ContactStatisticTypes.getTypes();
+            var contactGroups = ContactGroupStatistic.getGroups();
             var isValid = true;
             if (angular.isString(name)) {
-                angular.forEach(names, function (existingName) {
+                angular.forEach(contactGroups, function (existingName) {
                     if (existingName.toLowerCase() === name.toLowerCase()) {
                         isValid = false;
                     }

@@ -1,34 +1,41 @@
 'use strict';
 
-module.exports = ['$scope', 'Privacy', 'ContactStatisticTypes',
-    function ($scope, Privacy, ContactStatisticTypes) {
+module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic',
+    function ($scope, Privacy, ContactGroupStatistic) {
         var ctrl = this;
 
-        if ($scope.statistics && $scope.statistics.statistic && $scope.statistics.statistic.length > 0) {
-            ctrl.selectedGroup = $scope.statistics.statistic[0];
-        }
+        //Statistic has been loaded with first userInfo request.
+        ctrl.statistic = ContactGroupStatistic.getStatistic();
+        ctrl.selectedGroup = ctrl.statistic[0];
+        ContactGroupStatistic.register('setupAccountContactGroup', ctrl);
 
         ctrl.deleteGroup = function (groupName) {
-            if ($scope.statistics.statistic.length > 1) {
-                if (groupName === ctrl.selectedGroup.type) {
-                    $scope.statistics.statistic.forEach(function (statistic) {
-                        if (statistic.type !== groupName && ctrl.selectedGroup.type === groupName) {
+            if (ctrl.statistic.length > 1) {
+                if (groupName === ctrl.selectedGroup.group) {
+                    ctrl.statistic.forEach(function (statistic) {
+                        if (statistic.group !== groupName && ctrl.selectedGroup.group === groupName) {
                             ctrl.selectedGroup = statistic;
                         }
                     });
                 }
                 return Privacy.delete({
                     privacyDescription: groupName,
-                    newPrivacyDescription: ctrl.selectedGroup.type
+                    newPrivacyDescription: ctrl.selectedGroup.group
                 }).$promise.then(function () {
-                    ContactStatisticTypes.removeType(groupName);
+                    ContactGroupStatistic.removeGroup(groupName, ctrl.selectedGroup.group);
                 });
             }
         };
 
-        $scope.$watch('statistics', function (newStatistics) {
-            if (newStatistics && newStatistics.statistic && newStatistics.statistic.length > 0 && !ctrl.selectedGroup) {
-                ctrl.selectedGroup = newStatistics.statistic[0];
-            }
+        ctrl.groupStatisticChanged = function () {
+            ctrl.statistic = ContactGroupStatistic.getStatistic();
+        };
+
+        ctrl.setSelectedGroup = function (statistic) {
+            ctrl.selectedGroup = statistic;
+        };
+
+        $scope.$on("$destroy", function () {
+            ContactGroupStatistic.deregister(ctrl);
         });
     }];

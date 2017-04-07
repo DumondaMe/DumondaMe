@@ -1,26 +1,26 @@
 'use strict';
 
-module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
-    function (Privacy, $q, ElyModal, ContactStatisticTypes) {
+module.exports = ['Privacy', '$q', 'ElyModal', 'ContactGroupStatistic',
+    function (Privacy, $q, ElyModal, ContactGroupStatistic) {
 
         this.addGroup = function () {
             return ElyModal.show('AddGroupController', 'app/modules/settings/modal/addGroup/template.html');
         };
 
         this.deleteGroup = function (groupName, numberOfContacts) {
-            var types = ContactStatisticTypes.getTypes();
-            if (types.length > 0) {
+            var contactGroups = ContactGroupStatistic.getGroups();
+            if (contactGroups.length > 0) {
                 if (numberOfContacts === 0) {
                     return Privacy.delete({
                         privacyDescription: groupName,
-                        newPrivacyDescription: types[0]
+                        newPrivacyDescription: contactGroups[0]
                     }).$promise.then(function () {
-                        ContactStatisticTypes.removeType(groupName);
+                        ContactGroupStatistic.removeGroup(groupName);
                     });
                 } else {
                     return ElyModal.show('DeleteGroupController', 'app/modules/settings/modal/deleteGroup/template.html', {groupName: groupName})
                         .then(function (newGroupName) {
-                            ContactStatisticTypes.removeType(groupName, newGroupName);
+                            ContactGroupStatistic.removeGroup(groupName, newGroupName);
                         });
                 }
             } else {
@@ -33,7 +33,7 @@ module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
                     groupName: groupName
                 })
                 .then(function (newGroupName) {
-                    ContactStatisticTypes.renameType(groupName, newGroupName);
+                    ContactGroupStatistic.renameGroup(groupName, newGroupName);
                 });
         };
     }]

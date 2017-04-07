@@ -13,14 +13,15 @@
                     <div class="profile-name">{{user.name}}</div>
                     <span flex></span>
                     <div>
-                        <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact()">
+                        <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact(user.userId)">
                             <md-icon md-svg-icon="cardActions:addContact"></md-icon>
                         </md-button>
                     </div>
                 </div>
             </div>
             <div class="contact-group" flex="none" flex-offset-gt-sm="5">
-                <ely-tutorial-contact-group statistics="ctrl.statistics" show-add-group="ctrl.showAddGroup"></ely-tutorial-contact-group>
+                <ely-tutorial-contact-group statistics="ctrl.statistics" show-add-group="ctrl.showAddGroup"
+                                            selected-group="ctrl.selectedGroup"></ely-tutorial-contact-group>
             </div>
         </div>
     </div>

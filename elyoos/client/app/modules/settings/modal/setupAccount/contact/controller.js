@@ -1,15 +1,11 @@
 'use strict';
 
-module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'ContactStatisticTypes', 'GroupSettingsService',
-    function (RecommendedContactScrollRequest, ContactStatistic, ContactStatisticTypes, GroupSettingsService) {
+module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'ContactGroupStatistic', 'Contact', 'errorToast',
+    function (RecommendedContactScrollRequest, ContactStatistic, ContactGroupStatistic, Contact, errorToast) {
         var ctrl = this;
 
         ctrl.users = {recommendedUser: []};
         RecommendedContactScrollRequest.reset();
-
-        ctrl.statistics = ContactStatistic.get(function () {
-            ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
-        });
 
         ctrl.cancelNewGroup = function () {
             ctrl.showAddGroup = false;
@@ -17,8 +13,25 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
 
         ctrl.addNewGroupFinish = function (groupName) {
             ctrl.showAddGroup = false;
-            ctrl.statistics.statistic.push({type: groupName, count: 0});
-            ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
+            ContactGroupStatistic.addGroup(groupName);
+        };
+
+        ctrl.addContact = function (userId) {
+            var groupName = ctrl.selectedGroup.group;
+            if (angular.isObject(ctrl.selectedGroup) && groupName) {
+                Contact.save({
+                    contactIds: [userId],
+                    mode: 'addContact',
+                    description: groupName
+                }, function () {
+                    ctrl.users = {recommendedUser: []};
+                    RecommendedContactScrollRequest.reset();
+                    ctrl.nextContactRecommendations();
+                    ContactGroupStatistic.addContactToGroup(groupName);
+                }, function () {
+                    errorToast.showError('Es ist ein Fehler aufgetretten!');
+                });
+            }
         };
 
         ctrl.nextContactRecommendations = function () {

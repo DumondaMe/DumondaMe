@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$state', 'ImageViewService',
-    function (UserStateService, ContactStatisticTypes, ElyModal, $state, ImageViewService) {
+module.exports = ['UserStateService', 'ContactGroupStatistic', 'ElyModal', '$state', 'ImageViewService',
+    function (UserStateService, ContactGroupStatistic, ElyModal, $state, ImageViewService) {
         var ctrl = this;
 
         ctrl.moveContact = function () {
@@ -13,13 +13,13 @@ module.exports = ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$sta
         ctrl.addContact = function () {
             UserStateService.addContact(ctrl.detail.user.userId, ctrl.detail.user.name).then(function (type) {
                 ctrl.detail.user.type = type;
-                ContactStatisticTypes.addContactByName(ctrl.detail.user.type);
+                ContactGroupStatistic.addContactToGroup(ctrl.detail.user.type);
             });
         };
 
         ctrl.deleteContact = function () {
             UserStateService.deleteContact(ctrl.detail.user.userId).then(function () {
-                ContactStatisticTypes.removeContactByName(ctrl.detail.user.type);
+                ContactGroupStatistic.removeContactFromGroup(ctrl.detail.user.type);
                 delete ctrl.detail.user.type;
             });
         };

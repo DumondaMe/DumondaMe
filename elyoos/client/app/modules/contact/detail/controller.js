@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'UserDetailContacts', 'UserDetailContactings', 'ToolbarService',
-    function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings, ToolbarService) {
+module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactGroupStatistic', 'UserDetailContacts', 'UserDetailContactings', 'ToolbarService',
+    function (UserDetail, $stateParams, $mdMedia, ContactGroupStatistic, UserDetailContacts, UserDetailContactings, ToolbarService) {
         var ctrl = this;
 
         ctrl.activeNext = {};
@@ -12,7 +12,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
         ctrl.UserDetailContactings = UserDetailContactings;
 
         ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
-            ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
+            ContactGroupStatistic.setStatistic(ctrl.userDetail.contactTypeStatistic);
             ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
             ctrl.userName = ctrl.userDetail.user.forename;
             ToolbarService.setTitle(ctrl.userName);

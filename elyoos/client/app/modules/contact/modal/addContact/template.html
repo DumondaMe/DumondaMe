@@ -4,8 +4,8 @@
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
                 <md-radio-group ng-model="ctrl.selectedType">
-                    <md-radio-button ng-repeat="typeValue in ctrl.types" value="{{typeValue}}" aria-label="{{typeValue}}" ng-disable="ctrl.uploadStarted">
-                        {{typeValue}}
+                    <md-radio-button ng-repeat="groupValue in ctrl.groups" value="{{groupValue}}" aria-label="{{groupValue}}" ng-disable="ctrl.uploadStarted">
+                        {{groupValue}}
                     </md-radio-button>
                 </md-radio-group>
             </div>

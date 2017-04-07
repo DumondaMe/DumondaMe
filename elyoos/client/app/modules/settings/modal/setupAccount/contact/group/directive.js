@@ -11,7 +11,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                showAddGroup: '='
+                showAddGroup: '=',
+                selectedGroup: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/contact/group/template.html'
         };

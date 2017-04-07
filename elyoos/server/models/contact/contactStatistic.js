@@ -17,12 +17,12 @@ let getTotalNumberOfContactsPerType = function (userId, types) {
 
 let getContactStatisticsCommand = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
-        .return('r.type AS type, count(*) AS count')
+        .return('r.type AS group, count(*) AS count')
         .union()
         .match('(u:User {userId: {userId}})-[privacy:HAS_PRIVACY]->(:Privacy)')
         .where('NOT (u)-[:IS_CONTACT {type: privacy.type}]->(:User)')
-        .return('privacy.type AS type, 0 AS count')
-        .orderBy("count DESC, type")
+        .return('privacy.type AS group, 0 AS count')
+        .orderBy("count DESC, group")
         .end({userId: userId});
 };
 

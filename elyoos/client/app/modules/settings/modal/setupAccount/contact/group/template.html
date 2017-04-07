@@ -1,8 +1,14 @@
 <div class="contact-group-container">
     <div class="contact-group-title">Deine Kontaktgruppen</div>
-    <div class="contact-group-element" ng-repeat="statistic in statistics.statistic" layout="row">
-        <div class="group-number" flex="none">{{statistic.count}}</div>
-        <div class="group-type">{{statistic.type}}</div>
+    <div class="contact-group-element" ng-repeat="statistic in ctrl.statistic" layout="row">
+        <div class="group-number" flex="none" ng-class="{'selected-group-number': statistic.group === ctrl.selectedGroup.group}"
+             ng-click="ctrl.setSelectedGroup(statistic)">
+            {{statistic.count}}
+        </div>
+        <div class="group-type" ng-class="{'selected-group-type': statistic.group === ctrl.selectedGroup.group}"
+             ng-click="ctrl.setSelectedGroup(statistic)">
+            {{statistic.group}}
+        </div>
         <span flex></span>
         <md-menu md-position-mode="target-right target">
             <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
@@ -12,8 +18,8 @@
                 <md-menu-item>
                     <md-button ng-click="ctrl.changeGroupName()">Gruppe umbennen</md-button>
                 </md-menu-item>
-                <md-menu-item ng-if="statistics.statistic.length > 1">
-                    <md-button ng-click="ctrl.deleteGroup(statistic.type, statistic.count)">Gruppe löschen</md-button>
+                <md-menu-item ng-if="ctrl.statistic.length > 1">
+                    <md-button ng-click="ctrl.deleteGroup(statistic.group)">Gruppe löschen</md-button>
                 </md-menu-item>
             </md-menu-content>
         </md-menu>

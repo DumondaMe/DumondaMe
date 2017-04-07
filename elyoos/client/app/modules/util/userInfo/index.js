@@ -8,4 +8,4 @@ app.factory('Modification', require('./services/modification'));
 app.service('userInfo', require('./userInfo'));
 app.service('UserDetailNavigation', require('./userDetailNavigation'));
 app.service('UploadProfileImageState', require('./services/uploadProfileImageState'));
-app.service('ContactStatisticTypes', require('./services/contactStatisticTypes'));
+app.service('ContactGroupStatistic', require('./services/contactGroupStatistic'));
