@@ -50,11 +50,11 @@ describe('Integration Tests for getting the contact statistics', function () {
             res.status.should.equal(200);
 
             res.body.statistic.length.should.equals(3);
-            res.body.statistic[0].type.should.equals('Familie');
+            res.body.statistic[0].group.should.equals('Familie');
             res.body.statistic[0].count.should.equals(3);
-            res.body.statistic[1].type.should.equals('Bekannter');
+            res.body.statistic[1].group.should.equals('Bekannter');
             res.body.statistic[1].count.should.equals(1);
-            res.body.statistic[2].type.should.equals('Freund');
+            res.body.statistic[2].group.should.equals('Freund');
             res.body.statistic[2].count.should.equals(0);
             res.body.numberOfContacts.should.equals(4);
         });
