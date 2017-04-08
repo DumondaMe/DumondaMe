@@ -21,9 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="preview-container" ng-repeat="statistic in ctrl.statistics.statistic">
-            <ely-contact-preview statistic="statistic" statistics="ctrl.statistics.statistic" removed-contact="ctrl.removedContact()"
-                                 delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
+        <div class="preview-container" ng-repeat="statistic in ctrl.statistic">
+            <ely-contact-preview statistic="statistic" statistics="ctrl.statistic" delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
         </div>
         <div layout="row" class="add-new-group">
             <span flex></span>

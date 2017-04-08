@@ -10,6 +10,17 @@
         </div>
     </md-input-container>
     <div>
+        <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="ctrl.uploadStarted"
+                     aria-label="Image visible" class="select-privacy">
+            <span ng-show="ctrl.imageVisible">Profilbild ist sichtbar</span>
+            <span ng-show="!ctrl.imageVisible">Profilbild ist verborgen</span>
+        </md-checkbox>
+        <div class="privacy-element-description" ng-show="ctrl.imageVisible">Deine Profilbild ist sichtbar.
+        </div>
+        <div class="privacy-element-description" ng-show="!ctrl.imageVisible">Es wird nur ein Standartbild angezeigt.
+        </div>
+    </div>
+    <div>
         <md-checkbox ng-model="ctrl.contactsVisible" ng-disabled="ctrl.uploadStarted"
                      aria-label="Contacts visible" class="select-privacy">
             <span ng-show="ctrl.contactsVisible">Kontakte sind sichtbar</span>
@@ -20,17 +31,6 @@
         </div>
         <div class="privacy-element-description" ng-show="!ctrl.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt wird
             nicht angezeigt.
-        </div>
-    </div>
-    <div>
-        <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="ctrl.uploadStarted"
-                     aria-label="Image visible" class="select-privacy">
-            <span ng-show="ctrl.imageVisible">Profilbild ist sichtbar</span>
-            <span ng-show="!ctrl.imageVisible">Profilbild ist verborgen</span>
-        </md-checkbox>
-        <div class="privacy-element-description" ng-show="ctrl.imageVisible">Deine Profilbild ist sichtbar.
-        </div>
-        <div class="privacy-element-description" ng-show="!ctrl.imageVisible">Es wird nur ein Standartbild angezeigt.
         </div>
     </div>
     <div>

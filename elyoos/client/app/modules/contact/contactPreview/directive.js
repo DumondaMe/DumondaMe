@@ -1,19 +1,15 @@
 'use strict';
-
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 statistics: '=',
-                statistic: '=',
-                removedContact: '&'
+                statistic: '='
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };

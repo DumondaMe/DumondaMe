@@ -25,6 +25,7 @@ module.exports = ['Observables', function (Observables) {
 
     service.setStatistic = function (newStatistic) {
         statistic = angular.copy(newStatistic);
+        Observables.notifyObservables(observables, "groupStatisticChanged");
     };
 
     service.getStatistic = function () {
@@ -77,8 +78,9 @@ module.exports = ['Observables', function (Observables) {
     };
 
     service.removeContact = function (statisticObject) {
-        if (statisticObject.count > 0) {
-            statisticObject.count = statisticObject.count - 1;
+        var group = getGroup(statistic, statisticObject.group);
+        if (group.count > 0) {
+            group.count = group.count - 1;
             Observables.notifyObservables(observables, "groupStatisticChanged");
         }
     };
@@ -99,11 +101,7 @@ module.exports = ['Observables', function (Observables) {
 
     service.moveContact = function (previousStatistic, newGroupName) {
         var destinationGroup = getGroup(statistic, newGroupName);
-        service.removeContact(previousStatistic);
         destinationGroup.count = destinationGroup.count + 1;
-        if (destinationGroup.hasOwnProperty('reloadContact')) {
-            destinationGroup.reloadContact();
-        }
-        Observables.notifyObservables(observables, "groupStatisticChanged");
+        service.removeContact(previousStatistic);
     };
 }];
