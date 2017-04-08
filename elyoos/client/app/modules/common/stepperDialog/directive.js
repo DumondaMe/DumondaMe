@@ -10,6 +10,7 @@ module.exports = {
             scope: {},
             bindToController: {
                 showProgress: '=',
+                disableNavigation: '=',
                 optionalFirst: '=',
                 optionalFirstLabel: '@',
                 finish: '=',

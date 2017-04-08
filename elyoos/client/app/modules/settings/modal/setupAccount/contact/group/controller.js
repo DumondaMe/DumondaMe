@@ -12,7 +12,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
         ctrl.deleteGroup = function (groupName) {
             if (ctrl.statistic.length > 1) {
                 ctrl.uploadRunning = true;
-                if(ctrl.previousGroupName && ctrl.groupToChange) {
+                if (ctrl.previousGroupName && ctrl.groupToChange) {
                     ctrl.groupToChange.group = ctrl.previousGroupName;
                 }
                 if (groupName === ctrl.selectedGroup.group) {
@@ -63,7 +63,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
         };
 
         ctrl.changeGroupName = function (groupToChange) {
-            if(ctrl.previousGroupName && ctrl.groupToChange) {
+            if (ctrl.previousGroupName && ctrl.groupToChange) {
                 ctrl.groupToChange.group = ctrl.previousGroupName;
             }
             ctrl.showRenameGroup = true;
@@ -95,6 +95,11 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
 
         ctrl.setSelectedGroup = function (statistic) {
             ctrl.selectedGroup = statistic;
+        };
+
+        ctrl.openNewGroup = function () {
+            ctrl.disableNavigation = true;
+            ctrl.showAddGroup = true;
         };
 
         $scope.$on("$destroy", function () {

@@ -13,7 +13,8 @@ module.exports = {
             bindToController: {
                 showAddGroup: '=',
                 selectedGroup: '=',
-                uploadRunning: '='
+                uploadRunning: '=',
+                disableNavigation: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/contact/group/template.html'
         };

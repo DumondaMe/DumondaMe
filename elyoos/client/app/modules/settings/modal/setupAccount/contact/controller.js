@@ -10,11 +10,13 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
         ctrl.cancelNewGroup = function () {
             ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
+            ctrl.disableNavigation = false;
         };
 
         ctrl.addNewGroupFinish = function (groupName) {
             ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
+            ctrl.disableNavigation = false;
             ContactGroupStatistic.addGroup(groupName);
         };
 

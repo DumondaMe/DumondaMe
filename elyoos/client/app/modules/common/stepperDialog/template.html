@@ -17,14 +17,14 @@
             <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst"
                        ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">{{ctrl.optionalFirstLabel}}
             </md-button>
-            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress">
+            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress || ctrl.disableNavigation">
                 Zurück
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress"
+            <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress || ctrl.disableNavigation"
                        ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">
                 Weiter
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.finish()" ng-disabled="ctrl.showProgress"
+            <md-button class="md-primary md-raised" ng-click="ctrl.finish()" ng-disabled="ctrl.showProgress || ctrl.disableNavigation"
                        ng-show="ctrl.selectedStep === ctrl.steps.length - 1">
                 Fertig
             </md-button>

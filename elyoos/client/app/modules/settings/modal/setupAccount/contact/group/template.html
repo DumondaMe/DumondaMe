@@ -42,7 +42,7 @@
     </form>
     <div layout="row">
         <div ng-show="!ctrl.showRenameGroup">
-            <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.showAddGroup = true">Neue Gruppe</md-button>
+            <md-button md-no-ink id="add-group-button" class="md-raised" ng-click="ctrl.openNewGroup()">Neue Gruppe</md-button>
         </div>
         <div ng-show="ctrl.showRenameGroup">
             <md-button md-no-ink id="cancel-rename-group-button" ng-click="ctrl.abortRenameGroup()"

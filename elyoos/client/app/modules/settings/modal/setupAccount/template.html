@@ -1,7 +1,9 @@
-<ely-stepper-dialog optional-first="ctrl.close" optional-first-label="Später" finish="ctrl.finish" show-progress="ctrl.uploadRunning">
+<ely-stepper-dialog optional-first="ctrl.close" optional-first-label="Später" finish="ctrl.finish" show-progress="ctrl.uploadRunning"
+                    disable-navigation="ctrl.disableNavigation">
     <ely-tutorial-welcome-step></ely-tutorial-welcome-step>
     <ely-tutorial-profile-image-step upload-running="ctrl.uploadRunning"></ely-tutorial-profile-image-step>
     <ely-tutorial-location-step upload-running="ctrl.uploadRunning"></ely-tutorial-location-step>
-    <ely-tutorial-contact-step upload-running="ctrl.uploadRunning"></ely-tutorial-contact-step>
+    <ely-tutorial-contact-step upload-running="ctrl.uploadRunning"
+                               disable-navigation="ctrl.disableNavigation"></ely-tutorial-contact-step>
     <ely-tutorial-privacy-step upload-running="ctrl.uploadRunning"></ely-tutorial-privacy-step>
 </ely-stepper-dialog>

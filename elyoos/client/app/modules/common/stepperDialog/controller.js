@@ -1,7 +1,7 @@
 'use strict';
 
 
-module.exports = ['ElyModal', function (ElyModal) {
+module.exports = [function () {
     var ctrl = this;
 
     ctrl.selectedStep = 0;
