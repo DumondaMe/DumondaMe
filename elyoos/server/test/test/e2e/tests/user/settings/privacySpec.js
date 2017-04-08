@@ -20,6 +20,11 @@ describe('Integration Tests for the privacy settings', function () {
             dbDsl.createPrivacy(['1'], 'Familie', {profile: true, image: true, contacts: true, pinwall: true});
             dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, contacts: false, pinwall: false});
 
+            dbDsl.createPrivacyNoContact(['2'], {profile: true, image: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['2'], 'Freund', {profile: true, image: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['2'], 'Familie', {profile: true, image: true, contacts: true, pinwall: true});
+            dbDsl.createPrivacy(['2'], 'Bekannter', {profile: true, image: true, contacts: true, pinwall: true});
+
             dbDsl.createBlog('1', {blogWriterUserId: '1', language: ['de'], topic: ['health'], visible: ['Freund', 'Familie'], created: 450});
             dbDsl.createBlog('2', {blogWriterUserId: '1', language: ['de'], topic: ['health'], visible: ['Familie'], created: 450});
             dbDsl.createBlog('3', {blogWriterUserId: '1', language: ['de'], topic: ['health'], created: 450});
@@ -281,7 +286,113 @@ describe('Integration Tests for the privacy settings', function () {
         });
     });
 
-    it('Adding a new privacy type fails because privacy type exists already- Return a 200', function () {
+    it('Add a new privacy type with all privacy set to false', function () {
+        return requestHandler.login(users.validUser2).then(function (agent) {
+            let data = {
+                addNewPrivacy: {
+                    privacySettings: {
+                        type: 'Irgendwas',
+                        imageVisible: false,
+                        contactsVisible: false,
+                        pinwallVisible: false
+                    }
+                }
+            };
+            return requestHandler.post('/api/user/settings/privacy', data, agent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(:User {userId: '2'})-[r:HAS_PRIVACY|:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+                .return('r.type as type, count(r.type) as count, ' +
+                    'privacy.contacts as contacts, privacy.image as image, privacy.pinwall as pinwall')
+                .orderBy("r.type")
+                .end().send();
+        }).then(function (contactType) {
+            contactType.length.should.equals(5);
+            contactType[0].type.should.equals('Bekannter');
+            contactType[0].count.should.equals(1);
+            contactType[0].contacts.should.equals(true);
+            contactType[0].image.should.equals(true);
+            contactType[0].pinwall.should.equals(true);
+
+            contactType[1].type.should.equals('Familie');
+            contactType[1].count.should.equals(1);
+            contactType[1].contacts.should.equals(true);
+            contactType[1].image.should.equals(true);
+            contactType[1].pinwall.should.equals(true);
+
+            contactType[2].type.should.equals('Freund');
+            contactType[2].count.should.equals(1);
+            contactType[2].contacts.should.equals(true);
+            contactType[2].image.should.equals(true);
+            contactType[2].pinwall.should.equals(true);
+
+            contactType[3].type.should.equals('Irgendwas');
+            contactType[3].count.should.equals(1);
+            contactType[3].contacts.should.equals(false);
+            contactType[3].image.should.equals(false);
+            contactType[3].pinwall.should.equals(false);
+
+            should.not.exist(contactType[4].type);
+            contactType[4].contacts.should.equals(false);
+            contactType[4].image.should.equals(false);
+            contactType[4].pinwall.should.equals(false);
+        });
+    });
+
+    it('Add a new privacy type with only contact privacy set to false', function () {
+        return requestHandler.login(users.validUser2).then(function (agent) {
+            let data = {
+                addNewPrivacy: {
+                    privacySettings: {
+                        type: 'Irgendwas',
+                        imageVisible: true,
+                        contactsVisible: false,
+                        pinwallVisible: true
+                    }
+                }
+            };
+            return requestHandler.post('/api/user/settings/privacy', data, agent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(:User {userId: '2'})-[r:HAS_PRIVACY|:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+                .return('r.type as type, count(r.type) as count, ' +
+                    'privacy.contacts as contacts, privacy.image as image, privacy.pinwall as pinwall')
+                .orderBy("r.type")
+                .end().send();
+        }).then(function (contactType) {
+            contactType.length.should.equals(5);
+            contactType[0].type.should.equals('Bekannter');
+            contactType[0].count.should.equals(1);
+            contactType[0].contacts.should.equals(true);
+            contactType[0].image.should.equals(true);
+            contactType[0].pinwall.should.equals(true);
+
+            contactType[1].type.should.equals('Familie');
+            contactType[1].count.should.equals(1);
+            contactType[1].contacts.should.equals(true);
+            contactType[1].image.should.equals(true);
+            contactType[1].pinwall.should.equals(true);
+
+            contactType[2].type.should.equals('Freund');
+            contactType[2].count.should.equals(1);
+            contactType[2].contacts.should.equals(true);
+            contactType[2].image.should.equals(true);
+            contactType[2].pinwall.should.equals(true);
+
+            contactType[3].type.should.equals('Irgendwas');
+            contactType[3].count.should.equals(1);
+            contactType[3].contacts.should.equals(false);
+            contactType[3].image.should.equals(true);
+            contactType[3].pinwall.should.equals(true);
+
+            should.not.exist(contactType[4].type);
+            contactType[4].contacts.should.equals(false);
+            contactType[4].image.should.equals(true);
+            contactType[4].pinwall.should.equals(true);
+        });
+    });
+
+    it('Adding a new privacy type fails because privacy type exists already- Return a 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             let data = {
                 addNewPrivacy: {

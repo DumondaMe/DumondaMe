@@ -102,16 +102,49 @@ let renamePrivacySetting = function (userId, privacySettingType, newPrivacySetti
         });
 };
 
+let getPrivacyProperty = function (privacyProperty) {
+    if (privacyProperty === 'contactsVisible') {
+        return 'contacts';
+    } else if (privacyProperty === 'imageVisible') {
+        return 'image';
+    } else if (privacyProperty === 'pinwallVisible') {
+        return 'pinwall';
+    } else {
+        logger.error(`Wrong privacy property ${privacyProperty}`);
+    }
+    return null;
+};
+
+let getDisabledPrivacySettings = function (newPrivacySettings) {
+    let privacyNoContact = null;
+    for (let property in newPrivacySettings) {
+        if (newPrivacySettings.hasOwnProperty(property) && (
+            property === 'contactsVisible' || property === 'imageVisible' || property === 'pinwallVisible')) {
+            if (!newPrivacySettings[property]) {
+                if (!privacyNoContact) {
+                    privacyNoContact = {};
+                }
+                privacyNoContact[getPrivacyProperty(property)] = newPrivacySettings[property];
+            }
+        }
+    }
+    return privacyNoContact;
+};
+
 let addNewPrivacySetting = function (userId, privacySettings) {
 
     return privacySettingsIsNotExisting(userId, privacySettings.type)
         .then(function () {
+            let commands = [], disabledPrivacySettings = getDisabledPrivacySettings(privacySettings);
             privacySettings.userId = userId;
-            privacySettings.type = privacySettings.type;
+            if (disabledPrivacySettings) {
+                commands.push(db.cypher().match('(u:User {userId: {userId}})-[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)')
+                    .set('privacy', disabledPrivacySettings).end({userId: userId}).getCommand());
+            }
             return db.cypher().match('(u:User {userId: {userId}})')
                 .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: true, contacts: {contactsVisible}, 
                 image: {imageVisible}, pinwall: {pinwallVisible}})`)
-                .end(privacySettings).send();
+                .end(privacySettings).send(commands);
         });
 };
 
