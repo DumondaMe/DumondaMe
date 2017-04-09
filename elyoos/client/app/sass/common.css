@@ -481,6 +481,20 @@
 .ely-submit-button .ely-submit-button-error {
   cursor: pointer; }
 
+#stepper-dialog .stepper-mobile-header {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #stepper-dialog .stepper-mobile-header .step-description .step-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3F51B5; }
+  #stepper-dialog .stepper-mobile-header .step-description .actual-step {
+    color: #3F51B5;
+    font-weight: 700; }
 #stepper-dialog .stepper-header {
   height: 104px;
   padding: 24px; }

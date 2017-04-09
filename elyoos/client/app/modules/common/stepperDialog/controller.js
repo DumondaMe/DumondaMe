@@ -1,9 +1,10 @@
 'use strict';
 
 
-module.exports = [function () {
+module.exports = ['$mdMedia', function ($mdMedia) {
     var ctrl = this;
 
+    ctrl.$mdMedia = $mdMedia;
     ctrl.selectedStep = 0;
     ctrl.steps = [];
 

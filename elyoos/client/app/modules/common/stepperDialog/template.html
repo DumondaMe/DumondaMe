@@ -1,11 +1,18 @@
 <form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak>
     <div layout="column">
-        <div class="stepper-header" layout="row" layout-align="center center" flex="none">
+        <div class="stepper-header" layout="row" layout-align="center center" flex="none" ng-if="ctrl.$mdMedia('(min-width: 900px)')">
             <div class="step-description" ng-repeat="step in ctrl.steps">
                 <div class="step-number" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{$index + 1}}</div>
                 <div class="step-label" ng-class="{'inactive-step': $index > ctrl.selectedStep}">{{step.label}}</div>
                 <div class="step-bar-right" ng-hide="$last"></div>
                 <div class="step-bar-left" ng-hide="$first"></div>
+            </div>
+        </div>
+        <div class="stepper-mobile-header" flex="none" ng-if="!ctrl.$mdMedia('(min-width: 900px)')">
+            <div class="step-description" ng-repeat="step in ctrl.steps" ng-show="step.selected" layout="row">
+                <span class="step-label">{{step.label}}</span>
+                <span flex></span>
+                <span>Schritt <span class="actual-step">{{$index + 1}}</span> von <span>{{ctrl.steps.length}}</span></span>
             </div>
         </div>
         <md-dialog-content layout="column">
