@@ -10,7 +10,7 @@ module.exports = {
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/util/cookieCheck/template.html'
+            templateUrl: 'app/modules/viewPort/cookieCheck/template.html'
         };
     }],
     name: 'elyCookiesWarning'

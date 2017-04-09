@@ -20,15 +20,10 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
                     success(function () {
                         $scope.uploadRunning = false;
-                        $scope.$emit('elyoos.profileImage.change');
-                        $scope.$hide();
                     }).
                     error(function () {
                         $scope.uploadRunning = false;
                     });
-            } else {
-                $scope.$hide();
-                $scope.$emit('image.cropper.image.preview', data, blob);
             }
         } else {
             $scope.uploadError = 'File kann nicht hochgeladen werden';
@@ -48,16 +43,13 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
 
     $scope.startUpload = function () {
         $scope.uploadFile = true;
-        $scope.$broadcast('image.cropper.get.data');
     };
 
     $scope.getPreview = function () {
         $scope.uploadFile = false;
-        $scope.$broadcast('image.cropper.get.data');
     };
 
     $scope.setFormat = function (ratio, isLandsacpe) {
-        $scope.$broadcast('image.cropper.set.ratio', ratio);
         $scope.isLandscape = isLandsacpe;
     };
 
