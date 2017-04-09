@@ -7,7 +7,8 @@ module.exports = ['ElyModal', 'UploadProfileImageState', '$mdSidenav', '$statePa
         ctrl.showPagesSelected = true;
         ctrl.showContactsSelected = false;
 
-        if ($stateParams.overview === 'contacts') {
+        if ($stateParams.overview === 'contacts' || $stateParams.overview === 'contacting' ||
+            $stateParams.overview === 'recommendation') {
             ctrl.showPagesSelected = false;
             ctrl.showContactsSelected = true;
             ctrl.showContacts();

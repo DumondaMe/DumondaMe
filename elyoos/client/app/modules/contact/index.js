@@ -20,19 +20,6 @@ app.service('RecommendedContactScrollRequest', require('./services/scrollRequest
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
-        .state('contact', {
-            abstract: true,
-            url: '/contact'
-        })
-        .state('contact.overview', {
-            url: '/overview/{showContacting}',
-            views: {
-                'content@': {
-                    template: '<ely-contact></ely-contact>'
-                }
-            },
-            data: {hasSearch: true, searchServiceName: 'contact', title: 'Kontakte'}
-        })
         .state('user', {
             abstract: true,
             url: '/user'

@@ -10,7 +10,8 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         ctrl.previousFilterType = 'adminNewest';
         ctrl.$mdMedia = $mdMedia;
 
-        if ($stateParams.overview === 'contacts') {
+        if ($stateParams.overview === 'contacts' || $stateParams.overview === 'contacting' ||
+            $stateParams.overview === 'recommendation') {
             ctrl.showPagesView = false;
             ctrl.showContactsView = true;
         } else {
@@ -33,9 +34,16 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         };
 
         ctrl.showContacts = function () {
+            var overviewContact;
+            if ($stateParams.overview === 'contacts' || $stateParams.overview === 'contacting' ||
+                $stateParams.overview === 'recommendation') {
+                overviewContact = $stateParams.overview;
+            } else {
+                overviewContact = 'contacts';
+            }
             ctrl.showPagesView = false;
             ctrl.showContactsView = true;
-            $state.go('settings.profile', {overview: 'contacts'}, {notify: false});
+            $state.go('settings.profile', {overview: overviewContact}, {notify: false});
         };
 
         ctrl.openCreatePage = function () {

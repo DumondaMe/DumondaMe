@@ -5,7 +5,7 @@ module.exports = ['$state', 'UserStateService', 'ContactGroupStatistic',
     var ctrl = this;
 
     ctrl.goToContacting = function () {
-        $state.go('contact.overview', {showContacting: true});
+        $state.go('settings.profile', {overview: 'contacting'});
     };
 
     ctrl.addContact = function (userId, name) {

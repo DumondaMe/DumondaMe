@@ -3382,6 +3382,10 @@
       font-size: 16px;
       font-weight: 500;
       cursor: pointer; }
+  #ely-pinwall-recommended-user .recommended-user.last-user {
+    margin-bottom: 8px; }
+  #ely-pinwall-recommended-user #button-more-contact-recommendations {
+    min-width: 30px; }
 
 .pinwall-no-element {
   max-width: 340px;

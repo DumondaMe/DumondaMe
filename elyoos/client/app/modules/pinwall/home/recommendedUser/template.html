@@ -16,7 +16,8 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <div class="recommended-user" ng-repeat="user in ctrl.recommendedUser | limitTo: 5" layout="row">
+        <div class="recommended-user" ng-repeat="user in ctrl.recommendedUser | limitTo: 5" layout="row"
+             ng-class="{'last-user': $last}">
             <img ng-src="{{user.profileUrl}}" class="profile-image" ui-sref="user.detail({userId: user.userId})">
             <div class="user-name" ui-sref="user.detail({userId: user.userId})">{{user.name}}</div>
             <span flex></span>
@@ -25,6 +26,14 @@
                 <md-icon md-svg-icon="cardActions:addContact"></md-icon>
                 <md-tooltip md-direction="left">Zu Deinen Kontakten hinzufügen</md-tooltip>
             </md-button>
+        </div>
+        <div ng-if="ctrl.recommendedUser.length > 5" layout="row" layout-align="center center">
+            <div>
+                <md-button class="md-primary" id="button-more-contact-recommendations" aria-label="More contact"
+                           ui-sref="settings.profile({overview: 'recommendation'})">
+                    Mehr Kontaktvorschläge
+                </md-button>
+            </div>
         </div>
     </md-card-content>
 </md-card>
