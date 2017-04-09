@@ -14,6 +14,14 @@ module.exports = ['$scope', 'FileReader', 'FileReaderLoadImage',
             }
         };
 
+        ctrl.rotateLeft = function () {
+            ctrl.commands.rotate90DegreeLeft();
+        };
+
+        ctrl.rotateRight = function () {
+            ctrl.commands.rotate90DegreeRight();
+        };
+
         ctrl.imagePreviewFinish = function (blob, dataUri) {
             ctrl.finish(blob, dataUri);
         };

@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller');
-
 module.exports = {
     directive: [function () {
         return {
@@ -19,7 +17,7 @@ module.exports = {
                 minHeight: '@',
                 minWidth: '@'
             },
-            controller: controller.directiveCtrl(),
+            controller: require('./controller'),
             controllerAs: 'ctrl'
         };
     }],

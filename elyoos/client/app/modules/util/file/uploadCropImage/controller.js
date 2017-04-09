@@ -38,6 +38,14 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
             }
         };
 
+        ctrl.rotateLeft = function () {
+            ctrl.commands.rotate90DegreeLeft();
+        };
+
+        ctrl.rotateRight = function () {
+            ctrl.commands.rotate90DegreeRight();
+        };
+
         $scope.$watch('imageForUpload', function (newImage) {
             FileReaderLoadImage.loadImage(ctrl, $scope, newImage);
         });
