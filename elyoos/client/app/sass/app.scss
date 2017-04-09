@@ -74,6 +74,9 @@ md-dialog {
   @media screen and (max-width: $gt-xs) {
     max-width: 100%;
   }
+  @media screen and (max-width: $gt-md) {
+    max-width: 95%;
+  }
 }
 
 #no-javascript {

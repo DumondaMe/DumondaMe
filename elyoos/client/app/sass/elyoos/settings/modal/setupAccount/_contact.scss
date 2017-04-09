@@ -36,6 +36,10 @@
     }
     .contact-group {
       width: 250px;
+      @media screen and (max-width: $gt-xs) {
+        width: 100%;
+        margin-bottom: 24px;
+      }
       .contact-group-container {
         padding: 8px 0 8px 8px;
         border: 3px solid $divider;

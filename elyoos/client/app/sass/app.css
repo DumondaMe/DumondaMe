@@ -4205,6 +4205,10 @@
       margin-top: 4px; }
   #setup-contact-step .contact-container .contact-group {
     width: 250px; }
+    @media screen and (max-width: 600px) {
+      #setup-contact-step .contact-container .contact-group {
+        width: 100%;
+        margin-bottom: 24px; } }
     #setup-contact-step .contact-container .contact-group .contact-group-container {
       padding: 8px 0 8px 8px;
       border: 3px solid rgba(0, 0, 0, 0.12);
@@ -4261,6 +4265,10 @@
 
 #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container {
   width: 150px; }
+  @media screen and (max-width: 600px) {
+    #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container {
+      width: 100%;
+      margin-bottom: 12px; } }
   #tutorial-profile-image-step .image-preview-container .image-preview-inner-container .image-handling-container .image-container {
     width: 100px;
     margin: 0 auto; }
@@ -4498,6 +4506,9 @@ md-dialog {
   @media screen and (max-width: 600px) {
     md-dialog {
       max-width: 100%; } }
+  @media screen and (max-width: 1280px) {
+    md-dialog {
+      max-width: 95%; } }
 
 #no-javascript {
   position: fixed;

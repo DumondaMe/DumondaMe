@@ -3,6 +3,10 @@
     .image-preview-inner-container {
       .image-handling-container {
         width: 150px;
+        @media screen and (max-width: $gt-xs) {
+          width: 100%;
+          margin-bottom: 12px;
+        }
         .image-container {
           width: 100px;
           margin: 0 auto;

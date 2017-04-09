@@ -4,8 +4,8 @@
             Füge Personen deiner Kontaktliste hinzu welche du kennst oder deren Beiträge und Empfehlungen du folgen möchtest. Die hinzugefügte Person muss bei diesem Vorgang keine
             Freundschaftsanfrage bestätigen.
         </div>
-        <div class="contact-container" layout="row">
-            <div class="contact-recommendation-container" flex>
+        <div class="contact-container" layout="row" layout-xs="column">
+            <div class="contact-recommendation-container" flex flex-order-xs="2">
                 <div ng-repeat="user in ctrl.users.recommendedUser" layout="row" class="contact-recommendation">
                     <div class="profile-image-container" flex="none">
                         <img ng-src="{{user.profileUrl}}"/>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contact-group" flex="none" flex-offset-gt-sm="5">
+            <div class="contact-group" flex="none" flex-offset-gt-xs="5" flex-order-xs="1">
                 <ely-tutorial-contact-group statistics="ctrl.statistics" show-add-group="ctrl.showAddGroup" upload-running="ctrl.uploadRunning"
                                             selected-group="ctrl.selectedGroup" disable-navigation="ctrl.disableNavigation"></ely-tutorial-contact-group>
             </div>
