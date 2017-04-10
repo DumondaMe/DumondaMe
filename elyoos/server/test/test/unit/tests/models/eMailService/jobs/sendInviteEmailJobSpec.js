@@ -21,7 +21,8 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
-            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'}]);
+            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'},
+                {email: 'user11@irgendwo.ch', unsubscribeInvitation: true}]);
             dbDsl.invitationSentBeforeRegistration('2', [{email: 'user20@irgendwo.ch'}, {email: 'user21@irgendwo.ch'}, {email: 'user220@irgendwo.ch'}]);
             return dbDsl.sendToDb();
         });
@@ -31,7 +32,7 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
         sandbox.restore();
     });
 
-    it('Send invite emails to all email addresses in the list', function (done) {
+    it('Send invite emails to all email addresses in the list, except to unsubscribed', function (done) {
 
         let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
             cdnGetObject = sandbox.stub(cdn, 'getObject'), writeFileSync = sandbox.stub(fs, 'writeFileSync');
@@ -65,7 +66,8 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
     it('Send invite emails to all email addresses in the list. Second failed to send', function (done) {
 
         let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
-            cdnGetObject = sandbox.stub(cdn, 'getObject'), writeFileSync = sandbox.stub(fs, 'writeFileSync');
+            cdnGetObject = sandbox.stub(cdn, 'getObject');
+        sandbox.stub(fs, 'writeFileSync')
         sendEMail.onCall(0).returns(Promise.resolve());
         sendEMail.onCall(1).returns(Promise.reject());
         sendEMail.returns(Promise.resolve());

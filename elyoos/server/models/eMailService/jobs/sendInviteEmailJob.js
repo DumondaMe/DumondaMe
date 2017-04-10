@@ -8,16 +8,11 @@ let fs = require('fs');
 
 let getInvitationToSend = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
-        .where("NOT exists(invitedUser.invitationSent) OR invitedUser.invitationSent = false")
-        .return("invitedUser.email AS email, invitedUser.invitationSent AS invitationSent")
+        .where(`(NOT exists(invitedUser.invitationSent) OR invitedUser.invitationSent = false) AND 
+        (NOT exists(invitedUser.unsubscribeInvitation) OR invitedUser.unsubscribeInvitation = false)`)
+        .return(`collect(invitedUser.email) AS emails`)
         .end({userId: userId}).send().then(function (resp) {
-            let invitedUserCollection = [];
-            resp.forEach(function (invitedUser) {
-                if (!invitedUser.invitationSent) {
-                    invitedUserCollection.push(invitedUser.email);
-                }
-            });
-            return invitedUserCollection;
+            return resp[0].emails;
         });
 };
 

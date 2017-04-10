@@ -13,6 +13,12 @@ describe('Integration Tests for inviting other users to elyoos', function () {
 
         return dbDsl.init(6).then(function () {
             stubEmailQueue.createImmediatelyJob.reset();
+            dbDsl.invitationSentBeforeRegistration('4', [{
+                email: 'user10@irgendwo.ch', invitationSent: 500, unsubscribeInvitation: true
+            }]);
+            dbDsl.invitationSentBeforeRegistration('3', [{
+                email: 'user10@irgendwo.ch', invitationSent: 500
+            }]);
             return dbDsl.sendToDb();
         });
     });
@@ -21,7 +27,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         return requestHandler.logout();
     });
 
-    it('Invite only user without a profile on elyoos - Return a 200', function () {
+    it('Invite only user without a profile on elyoos', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             return requestHandler.post('/api/user/contact/invite',
                 {
@@ -49,7 +55,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         });
     });
 
-    it('Invite all users to elyoos - Return a 200', function () {
+    it('Invite all users to elyoos', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             return requestHandler.post('/api/user/contact/invite',
                 {
@@ -74,7 +80,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         });
     });
 
-    it('No invitation is send because all users on elyoos - Return a 200', function () {
+    it('No invitation is send because all users on elyoos', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             return requestHandler.post('/api/user/contact/invite',
                 {
