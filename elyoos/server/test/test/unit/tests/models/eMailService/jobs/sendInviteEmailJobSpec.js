@@ -2,6 +2,7 @@
 
 let testee = require('../../../../../../../models/eMailService/jobs/sendInviteEmailJob');
 let email = require('elyoos-server-lib').eMail;
+let domain = require('elyoos-server-lib').domain;
 let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let sinon = require('sinon');
@@ -43,11 +44,14 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
             expect(sendEMail.callCount).to.equals(3);
             expect(writeFileSync.calledOnce).to.equals(true);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user8@irgendwo.ch`},
                 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user9@irgendwo.ch`},
                 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user10@irgendwo.ch`},
                 'user10@irgendwo.ch').calledOnce).to.equal(true);
 
             db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
@@ -76,11 +80,14 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
         finished = function () {
             expect(sendEMail.callCount).to.equals(3);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user8@irgendwo.ch`},
                 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user9@irgendwo.ch`},
                 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any},
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user10@irgendwo.ch`},
                 'user10@irgendwo.ch').calledOnce).to.equal(true);
 
             db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
