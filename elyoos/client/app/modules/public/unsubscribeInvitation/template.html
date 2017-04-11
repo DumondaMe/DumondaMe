@@ -1,5 +1,5 @@
-<div id="start-screen">
-    <div id="unsubscribe-invitation-container" layout="column">
+<div id="start-screen" layout="column">
+    <div id="unsubscribe-invitation-container" ely-handling-column-flex>
         <ely-public-header-compact flex="none"></ely-public-header-compact>
         <div class="unsubscribe-text" ng-if="!ctrl.running && ctrl.showSuccess">
             Es werden keine Einladungen mehr an <span class="email">{{ctrl.email}}</span> versendet.
@@ -8,7 +8,7 @@
             Die Email-Adresse <span class="email">{{ctrl.email}}</span> konnte nicht abgemeldet werden. Versuche es später noch einmal.
         </div>
         <ely-load-screen flex ng-if="ctrl.running"></ely-load-screen>
-        <span flex ng-if="!ctrl.running"></span>
+        <span ely-handling-flex ng-if="!ctrl.running"></span>
         <ely-public-footer flex="none"></ely-public-footer>
     </div>
 </div>
