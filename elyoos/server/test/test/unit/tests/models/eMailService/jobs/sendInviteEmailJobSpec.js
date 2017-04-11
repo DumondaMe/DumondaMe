@@ -22,7 +22,7 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
-            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'},]);
+            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch', message: 'Elyoos ist super'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'},]);
             dbDsl.invitationSentBeforeRegistration('2', [{email: 'user20@irgendwo.ch'}, {email: 'user21@irgendwo.ch'}, {email: 'user220@irgendwo.ch'}]);
             return dbDsl.sendToDb();
         });
@@ -43,13 +43,13 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
             expect(sendEMail.callCount).to.equals(3);
             expect(writeFileSync.calledOnce).to.equals(true);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: 'Elyoos ist super', userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user8@irgendwo.ch`},
                 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: undefined, userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user9@irgendwo.ch`},
                 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: undefined, userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user10@irgendwo.ch`},
                 'user10@irgendwo.ch').calledOnce).to.equal(true);
 
@@ -79,13 +79,13 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
         finished = function () {
             expect(sendEMail.callCount).to.equals(3);
 
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: 'Elyoos ist super', userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user8@irgendwo.ch`},
                 'user8@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: undefined, userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user9@irgendwo.ch`},
                 'user9@irgendwo.ch').calledOnce).to.equal(true);
-            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userImage: sinon.match.any,
+            expect(sendEMail.withArgs('invitePerson', {name: 'user Meier', userId: '1', userMessage: undefined, userImage: sinon.match.any,
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/user10@irgendwo.ch`},
                 'user10@irgendwo.ch').calledOnce).to.equal(true);
 

@@ -10,10 +10,8 @@ let fs = require('fs');
 let getInvitationToSend = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})-[:HAS_INVITED]->(invitedUser:InvitedUser)")
         .where(`NOT exists(invitedUser.invitationSent) OR invitedUser.invitationSent = false`)
-        .return(`collect(invitedUser.email) AS emails`)
-        .end({userId: userId}).send().then(function (resp) {
-            return resp[0].emails;
-        });
+        .return(`invitedUser.email AS email, invitedUser.message AS message`)
+        .end({userId: userId}).send();
 };
 
 let getUserImage = function (userId) {
@@ -42,14 +40,14 @@ let processDefinition = function (data, done) {
             let sentEmails = [], requestEmails = [], userImage = getUserImage(data.userId);
             invitedUsers.forEach(function (invitedUser) {
                 email.sendEMail("invitePerson", {
-                    name: data.name, userId: data.userId, userImage: userImage,
-                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/${invitedUser}`
-                }, invitedUser).then(function () {
-                    sentEmails.push(invitedUser);
-                    requestEmails.push(invitedUser);
+                    name: data.name, userId: data.userId, userMessage: invitedUser.message, userImage: userImage,
+                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/${invitedUser.email}`
+                }, invitedUser.email).then(function () {
+                    sentEmails.push(invitedUser.email);
+                    requestEmails.push(invitedUser.email);
                     setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
                 }).catch(function () {
-                    requestEmails.push(invitedUser);
+                    requestEmails.push(invitedUser.email);
                     setInvitationSentFlag(data.userId, sentEmails, userImage, requestEmails.length, invitedUsers.length, done);
                 });
             });
