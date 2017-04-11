@@ -3916,6 +3916,17 @@
     max-width: 500px;
     padding: 16px; }
 
+#unsubscribe-invitation-container {
+  min-height: 100%; }
+  #unsubscribe-invitation-container .unsubscribe-text {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.87);
+    max-width: 450px;
+    margin: 48px auto 0 auto;
+    text-align: center; }
+    #unsubscribe-invitation-container .unsubscribe-text .email {
+      font-weight: 700; }
+
 #ely-vision {
   background-color: #FFFFFF; }
   #ely-vision #ely-vision-container {

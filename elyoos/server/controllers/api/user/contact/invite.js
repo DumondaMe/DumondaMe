@@ -18,7 +18,8 @@ let schemaInviteFriends = {
             minItems: 1,
             maxItems: 1000,
             uniqueItems: true
-        }
+        },
+        message: {type: 'string', format: 'notEmptyString', maxLength: 300}
     }
 };
 
@@ -29,7 +30,7 @@ module.exports = function (router) {
         return controllerErrors('Error when inviting friends', req, res, logger, function () {
             return validation.validateRequest(req, schemaInviteFriends, logger).then(function (request) {
                 logger.info("User invites friends", req);
-                return invite.sendInvitation(req.user.id, request.emails);
+                return invite.sendInvitation(req.user.id, request.emails, request.message);
             }).then(function () {
                 res.status(200).end();
             });

@@ -3,8 +3,7 @@
 let db = requireDb();
 
 let unsubscribe = function (email) {
-    return db.cypher().match("(user:InvitedUser {email: {email}})")
-        .set("user", {unsubscribeInvitation: true})
+    return db.cypher().merge("(user:UnsubscribeInvitation {email: {email}})")
         .end({email: email}).send();
 };
 

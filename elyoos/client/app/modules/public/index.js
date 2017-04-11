@@ -8,6 +8,7 @@ app.directive(directive.name, directive.directive);
 app.service('Auth', require('./services/auth'));
 app.service('ResetPasswordRequest', require('./services/resetPasswordRequest'));
 app.service('ResetPassword', require('./services/resetPassword'));
+app.service('UnsubscribeInvitation', require('./services/unsubscribeInvitation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -21,10 +22,23 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
+        .state('public.unsubscribe', {
+            abstract: true,
+            url: '/unsubscribe',
+            isPublic: true
+        })
+        .state('public.unsubscribe.invitation', {
+            url: '/invitation/:email',
+            views: {
+                'content@': {
+                    template: '<ely-unsubscribe-invitation></ely-unsubscribe-invitation>'
+                }
+            },
+            isPublic: true
+        })
         .state('public.password', {
             abstract: true,
             url: '/password',
-            data: {title: 'Dein Profil'},
             isPublic: true
         })
         .state('public.password.reset', {

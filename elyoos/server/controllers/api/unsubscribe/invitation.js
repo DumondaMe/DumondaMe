@@ -18,15 +18,14 @@ let schemaUnsubscribeInvitation = {
 
 let apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
-    delayAfter: 3,
+    delayAfter: 1,
     delayMs: 3 * 1000,
-    max: 10
+    max: 3
 });
 
 module.exports = function (router) {
 
     router.post('/', apiLimiter, function (req, res) {
-
         return controllerErrors('Error occurs on unsubscribe invitation', req, res, logger, function () {
             return validation.validateRequest(req, schemaUnsubscribeInvitation, logger).then(function (request) {
                 logger.info(`Unsubscribe Email ${request.email}`);

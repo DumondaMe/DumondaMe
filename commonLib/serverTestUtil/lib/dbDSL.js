@@ -9,6 +9,7 @@ let feedback = require('./dbDSL/feedback');
 let messages = require('./dbDSL/messages');
 let events = require('./dbDSL/events');
 let forum = require('./dbDSL/forum');
+let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
 
@@ -71,5 +72,6 @@ module.exports = {
     createForumSolution: forum.createSolution,
     createForumProArgument: forum.createProArgument,
     createForumCounterArgument: forum.createCounterArgument,
-    forumRatePositiveAnswer: forum.ratePositiveAnswer
+    forumRatePositiveAnswer: forum.ratePositiveAnswer,
+    unsubscribeInvitation: unsubscribe.unsubscribeInvitation
 };

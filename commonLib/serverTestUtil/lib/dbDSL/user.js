@@ -54,13 +54,10 @@ let blockUser = function (userId, blockedUserId) {
 let invitationSentBeforeRegistration = function (userId, data) {
     data.forEach(function (invitationData) {
         invitationData.invitationSent = invitationData.invitationSent || null;
-        invitationData.unsubscribeInvitation = invitationData.unsubscribeInvitation || null;
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
-            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, invitationSent: {invitationSent}, 
-                            unsubscribeInvitation: {unsubscribeInvitation}})`)
+            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, invitationSent: {invitationSent}})`)
             .end({
-                userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent,
-                unsubscribeInvitation: invitationData.unsubscribeInvitation
+                userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent
             }).getCommand());
     });
 };

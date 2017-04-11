@@ -17,12 +17,17 @@ describe('Integration Tests for unsubscribe invitation messages', function () {
 
         return requestHandler.post('/api/unsubscribe/invitation', {email: 'userIrgendwas@elyoos.org'}).then(function (res) {
             res.status.should.equal(200);
-
-            return db.cypher().match("(user:InvitedUser {email: 'userIrgendwas@elyoos.org'})")
-                .return('user').end().send();
+            return db.cypher().match("(unsubscribe:UnsubscribeInvitation {email: 'userIrgendwas@elyoos.org'})")
+                .return('unsubscribe').end().send();
         }).then(function (user) {
             user.length.should.equals(1);
-            user[0].user.unsubscribeInvitation.should.equals(true);
+            return requestHandler.post('/api/unsubscribe/invitation', {email: 'userIrgendwas@elyoos.org'});
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(unsubscribe:UnsubscribeInvitation {email: 'userIrgendwas@elyoos.org'})")
+                .return('unsubscribe').end().send();
+        }).then(function (user) {
+            user.length.should.equals(1);
         });
     });
 });

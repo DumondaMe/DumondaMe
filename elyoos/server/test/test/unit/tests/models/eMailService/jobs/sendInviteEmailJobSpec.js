@@ -22,8 +22,7 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
-            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'},
-                {email: 'user11@irgendwo.ch', unsubscribeInvitation: true}]);
+            dbDsl.invitationSentBeforeRegistration('1', [{email: 'user8@irgendwo.ch'}, {email: 'user9@irgendwo.ch'}, {email: 'user10@irgendwo.ch'},]);
             dbDsl.invitationSentBeforeRegistration('2', [{email: 'user20@irgendwo.ch'}, {email: 'user21@irgendwo.ch'}, {email: 'user220@irgendwo.ch'}]);
             return dbDsl.sendToDb();
         });
@@ -71,7 +70,7 @@ describe('Unit Test eMailService/jobs/sendInviteEmailJob', function () {
 
         let finished, sendEMail = sandbox.stub(email, 'sendEMail'), cdnObjectData = 'test',
             cdnGetObject = sandbox.stub(cdn, 'getObject');
-        sandbox.stub(fs, 'writeFileSync')
+        sandbox.stub(fs, 'writeFileSync');
         sendEMail.onCall(0).returns(Promise.resolve());
         sendEMail.onCall(1).returns(Promise.reject());
         sendEMail.returns(Promise.resolve());
