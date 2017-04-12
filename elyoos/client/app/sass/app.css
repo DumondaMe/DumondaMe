@@ -279,7 +279,8 @@
       margin-bottom: 22px; }
 
 #send-email-invitation-container {
-  padding: 0 24px; }
+  padding: 0 24px;
+  margin-bottom: 16px; }
   #send-email-invitation-container .send-email-invitation-description {
     font-size: 16px;
     font-weight: 500;
@@ -296,7 +297,6 @@
     font-size: 16px;
     font-weight: 500;
     margin-top: 16px;
-    margin-bottom: 16px;
     max-width: 550px;
     color: rgba(0, 0, 0, 0.54); }
   #send-email-invitation-container #overview-email-container .email-address {

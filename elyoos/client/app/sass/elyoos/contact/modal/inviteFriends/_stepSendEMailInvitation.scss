@@ -1,5 +1,6 @@
 #send-email-invitation-container {
   padding: 0 24px;
+  margin-bottom: 16px;
   .send-email-invitation-description {
     font-size: 16px;
     font-weight: 500;
@@ -19,7 +20,6 @@
     font-size: 16px;
     font-weight: 500;
     margin-top: 16px;
-    margin-bottom: 16px;
     max-width: 550px;
     color: $secondary-text;
   }
