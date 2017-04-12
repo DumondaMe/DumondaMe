@@ -10,10 +10,15 @@ module.exports = {
             scope: {},
             bindToController: {
                 showProgress: '=',
+                disableDialogContent: '=',
                 disableNavigation: '=',
                 optionalFirst: '=',
                 optionalFirstLabel: '@',
                 finish: '=',
+                command: '=',
+                commandIsDisabled: '=',
+                commandLabel: '=',
+                abortCommand: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'

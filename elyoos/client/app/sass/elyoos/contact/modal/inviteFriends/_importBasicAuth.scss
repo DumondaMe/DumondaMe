@@ -1,4 +1,4 @@
-#invite-friends-dialog {
+#select-user-step {
   .ely-import-basic-auth {
     @media screen and (min-width: $gt-xs) {
       min-width: 500px;
@@ -19,9 +19,10 @@
       }
     }
     #error-message {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
       color: $error-text;
+      margin-bottom: 12px;
     }
   }
 }

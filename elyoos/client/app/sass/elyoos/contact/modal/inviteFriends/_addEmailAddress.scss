@@ -1,35 +1,38 @@
-#invite-friends-dialog {
+#select-user-step {
   #add-email-container {
+    padding: 0 24px;
     @media screen and (min-width: $gt-xs) {
       min-width: 400px;
     }
+    .description-add-email {
+      max-width: 400px;
+      font-size: 16px;
+      font-weight: 700;
+      color: $secondary-text;
+      margin-bottom: 24px;
+    }
     #ely-contact-input {
-      padding: 0 24px;
       .input-element {
         margin-bottom: 0;
       }
     }
-    .ely-dialog-content {
-      padding: 0;
 
-      #overview-valid-email-container {
-        overflow-y: auto;
-        padding: 0 24px;
-        .valid-email {
-          height: 18px;
-          line-height: 18px;
-          font-size: 16px;
-          font-weight: 500;
-          color: $secondary-text;
-          margin-bottom: 6px;
-          .email-suggestion {
-            font-size: 14px;
-            .link {
-              text-decoration: underline;
-              font-style: italic;
-              cursor: pointer;
-              color: $primary-color;
-            }
+    #overview-valid-email-container {
+      overflow-y: auto;
+      .valid-email {
+        height: 18px;
+        line-height: 18px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $secondary-text;
+        margin-bottom: 6px;
+        .email-suggestion {
+          font-size: 14px;
+          .link {
+            text-decoration: underline;
+            font-style: italic;
+            cursor: pointer;
+            color: $primary-color;
           }
         }
       }

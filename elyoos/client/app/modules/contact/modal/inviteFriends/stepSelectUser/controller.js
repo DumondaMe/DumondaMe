@@ -1,14 +1,11 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails', 'errorToast',
-    function (ElyModal, ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails, errorToast) {
+var maxSelectedLength = 1000;
+
+module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails', 'errorToast',
+    function (ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails, errorToast) {
         var ctrl = this;
-
-        ctrl.close = function () {
-            ElyModal.cancel();
-        };
-
-        /*ctrl.selectedAddresses = [];
+        ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
         ctrl.isSelectedAll = false;
         ctrl.contacts = {addresses: []};
@@ -33,16 +30,23 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             ctrl.basicAuthName = 'GMX';
             ctrl.basicAuthService = ImportGmxContacts;
             ctrl.showBasicAuth = true;
+            ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
+            ctrl.commandStepperDialogLabel = 'Addressbuch laden';
         };
 
         ctrl.openBasicAuthWebDe = function () {
             ctrl.basicAuthName = 'WEB.DE';
             ctrl.basicAuthService = ImportWebDeContacts;
             ctrl.showBasicAuth = true;
+            ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
+            ctrl.commandStepperDialogLabel = 'Addressbuch laden';
         };
 
         ctrl.closeBasicAuth = function (importSource) {
             ctrl.showBasicAuth = false;
+            ctrl.importStarted = false;
+            delete ctrl.commandStepperDialog;
+            delete ctrl.commandAbortStepperDialog;
             if (angular.isString(importSource)) {
                 ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
@@ -106,15 +110,23 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
             ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
             ctrl.showOnlySelected = false;
+            ctrl.commandIsDisabled = false;
             ctrl.contactsToShow = ctrl.contacts.addresses;
+            delete ctrl.commandStepperDialog;
+            delete ctrl.commandAbortStepperDialog;
+        };
+
+        ctrl.openAddCustomEmails = function () {
+            ctrl.showAddEmails = true;
+            ctrl.commandAbortStepperDialog = ctrl.closeAddCustomEmails;
+            ctrl.commandStepperDialogLabel = 'Hinzufügen';
         };
 
         ctrl.closeAddCustomEmails = function () {
             ctrl.showAddEmails = false;
-        };
-
-        ctrl.cancel = function () {
-            ElyModal.cancel();
+            ctrl.commandIsDisabled = false;
+            delete ctrl.commandStepperDialog;
+            delete ctrl.commandAbortStepperDialog;
         };
 
         ctrl.openSendInvitation = function () {
@@ -124,5 +136,5 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts', 'SendI
 
         ctrl.closeSendInvitation = function () {
             ctrl.showSendEmailAddresses = false;
-        };*/
+        };
     }];

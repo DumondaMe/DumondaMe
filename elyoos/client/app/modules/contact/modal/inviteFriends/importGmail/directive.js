@@ -11,7 +11,7 @@ module.exports = {
             bindToController: {
                 importStarted: '=',
                 importFinish: '=',
-                contacts: '='
+                contacts: '=',
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/importGmail/template.html'
         };

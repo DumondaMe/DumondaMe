@@ -1,3 +1,12 @@
+<ely-stepper-dialog optional-first="ctrl.close" optional-first-label="Abbrechen" finish="ctrl.finish" show-progress="ctrl.uploadRunning"
+                    disable-navigation="ctrl.disableNavigation" command="ctrl.command" command-label="ctrl.commandLabel" ely-handling-column-flex
+                    abort-command="ctrl.abortCommand" command-is-disabled="ctrl.commandIsDisabled" disable-dialog-content="true">
+    <ely-invite-friends-select-step command-stepper-dialog="ctrl.command" command-abort-stepper-dialog="ctrl.abortCommand" import-started="ctrl.uploadRunning"
+                                    command-stepper-dialog-label="ctrl.commandLabel" command-is-disabled="ctrl.commandIsDisabled" ely-handling-column-flex>
+    </ely-invite-friends-select-step>
+</ely-stepper-dialog>
+<!--
+
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
     <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth && !ctrl.showAddEmails && !ctrl.showSendEmailAddresses">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
@@ -79,4 +88,4 @@
     </ely-import-add-email-address>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
                            finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
-</md-dialog>
+</md-dialog>-->

@@ -16,24 +16,32 @@
             </div>
         </div>
         <md-dialog-content layout="column">
-            <div class="md-dialog-content ely-dialog-content" ng-transclude ely-handling-flex>
+            <div ng-class="{'md-dialog-content': !ctrl.disableDialogContent, 'ely-dialog-content': !ctrl.disableDialogContent}"
+                 ng-transclude ely-handling-column-flex>
 
             </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst"
-                       ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">{{ctrl.optionalFirstLabel}}
+                       ng-hide="ctrl.command">{{ctrl.optionalFirstLabel}}
             </md-button>
-            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0" ng-disabled="ctrl.showProgress || ctrl.disableNavigation">
+            <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0 && !ctrl.command"
+                       ng-disabled="ctrl.showProgress || ctrl.disableNavigation">
                 Zurück
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.next()" ng-disabled="ctrl.showProgress || ctrl.disableNavigation"
-                       ng-hide="ctrl.selectedStep === ctrl.steps.length - 1">
+                       ng-hide="ctrl.selectedStep === ctrl.steps.length - 1 || ctrl.command">
                 Weiter
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.finish()" ng-disabled="ctrl.showProgress || ctrl.disableNavigation"
-                       ng-show="ctrl.selectedStep === ctrl.steps.length - 1">
+                       ng-show="ctrl.selectedStep === ctrl.steps.length - 1 && !ctrl.command">
                 Fertig
+            </md-button>
+            <md-button ng-click="ctrl.abortCommand()" ng-show="ctrl.command" ng-disabled="ctrl.showProgress">
+                Abbrechen
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.command()" ng-show="ctrl.command" ng-disabled="ctrl.showProgress || ctrl.commandIsDisabled">
+                {{ctrl.commandLabel}}
             </md-button>
         </md-dialog-actions>
     </div>

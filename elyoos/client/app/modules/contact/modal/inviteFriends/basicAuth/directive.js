@@ -12,7 +12,9 @@ module.exports = {
                 serviceName: '@',
                 service: '=',
                 contacts: '=',
-                finish: '='
+                finish: '=',
+                loadAddressBookEvent: '=',
+                importStarted: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/basicAuth/template.html'
         };

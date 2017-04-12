@@ -1,31 +1,22 @@
-<form name="ctrl.addEmailAddressForm" id="add-email-container">
-    <div class="md-title ely-dialog-title">E-Mail-Addressen hinzufügen</div>
-    <md-dialog-content layout="column">
-        <div class="md-dialog-content ely-dialog-content" ely-handling-column-flex>
-            <div id="ely-contact-input" flex="auto">
-                <md-input-container class="input-element md-block">
-                    <label>E-Mail-Addressen</label>
-                    <textarea name="emailAddresses" id="emailAddresses" aria-label="Email" ng-change="ctrl.emailChanged()"
-                              ng-model="ctrl.newEmailAddresses" max-rows="4"></textarea>
+<form name="ctrl.addEmailAddressForm" ely-handling-column-flex id="add-email-container">
+    <div class="description-add-email">Du kannst auch mehrere Adressen erfassen in dem du sie mit einem der folgenden Zeichen trennst: <br>; , Leerzeichen oder Return
+    </div>
+    <div id="ely-contact-input" flex="auto">
+        <md-input-container class="input-element md-block">
+            <label>E-Mail-Addressen</label>
+            <textarea name="emailAddresses" id="emailAddresses" aria-label="Email" ng-change="ctrl.emailChanged()"
+                      ng-model="ctrl.newEmailAddresses" max-rows="4"></textarea>
 
-                    <div ng-messages="ctrl.addEmailAddressForm.emailAddresses.$error">
-                        <div ng-message="ely-custom-message">Ungültige E-Mail-Addressen</div>
-                    </div>
-                </md-input-container>
+            <div ng-messages="ctrl.addEmailAddressForm.emailAddresses.$error">
+                <div ng-message="ely-custom-message">Ungültige E-Mail-Addressen</div>
             </div>
-            <div id="overview-valid-email-container" flex="auto">
-                <div ng-repeat="email in ctrl.overviewValidEmails" class="valid-email">
-                    {{email.email}}
-                    <span class="email-suggestion" ng-if="email.suggestion">
+        </md-input-container>
+    </div>
+    <div id="overview-valid-email-container" flex="auto">
+        <div ng-repeat="email in ctrl.overviewValidEmails" class="valid-email">
+            {{email.email}}
+            <span class="email-suggestion" ng-if="email.suggestion">
                             (Meinst Du <span class="link" ng-click="ctrl.replaceEmailAddress(email)">{{email.suggestion}}</span> ?)</span>
-                </div>
-            </div>
         </div>
-    </md-dialog-content>
-    <md-dialog-actions>
-        <md-button ng-click="ctrl.cancel()">Zurück</md-button>
-        <md-button class="md-raised md-primary" ng-click="ctrl.addEmailAddresses()"
-                   ng-disabled="!ctrl.emailAddressIsValid">Hinzufügen
-        </md-button>
-    </md-dialog-actions>
+    </div>
 </form>
