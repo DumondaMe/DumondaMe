@@ -190,32 +190,6 @@
   #select-user-step .ely-import-container .source-container:hover {
     text-decoration: underline; }
 
-#invite-friends-dialog #send-email-invitation-container .ely-dialog-content {
-  padding-top: 24px; }
-  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.87);
-    margin-bottom: 24px;
-    max-width: 300px; }
-    #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description .number {
-      color: #3F51B5; }
-  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-title-success {
-    font-size: 16px;
-    font-weight: 500;
-    color: #43a047; }
-  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content .send-email-invitation-description-success {
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 16px;
-    max-width: 300px;
-    color: rgba(0, 0, 0, 0.54); }
-  #invite-friends-dialog #send-email-invitation-container .ely-dialog-content #overview-email-container .email-address {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54);
-    margin-bottom: 6px; }
-
 #select-image-step {
   padding: 0 24px; }
   #select-image-step .image-preview-container .image-preview-inner-container .image-handling-container {
@@ -303,6 +277,41 @@
     #select-user-step #select-user-step-content #contact-list-container .contact-list-element.select-all-element {
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       margin-bottom: 22px; }
+
+#send-email-invitation-container {
+  padding: 0 24px; }
+  #send-email-invitation-container .send-email-invitation-description {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 24px;
+    max-width: 550px; }
+    #send-email-invitation-container .send-email-invitation-description .number {
+      color: #3F51B5; }
+  #send-email-invitation-container .send-email-invitation-title-success {
+    font-size: 16px;
+    font-weight: 500;
+    color: #43a047; }
+  #send-email-invitation-container .send-email-invitation-description-success {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    max-width: 550px;
+    color: rgba(0, 0, 0, 0.54); }
+  #send-email-invitation-container #overview-email-container .email-address {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 6px; }
+
+#write-custom-message-step {
+  padding: 0 24px; }
+  #write-custom-message-step .custom-message {
+    max-width: 500px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
 
 #move-contact .ely-dialog-title {
   margin-bottom: 0; }

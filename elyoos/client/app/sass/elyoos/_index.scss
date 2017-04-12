@@ -3,9 +3,10 @@
 @import 'contact/modal/inviteFriends/_importBasicAuth';
 @import 'contact/modal/inviteFriends/_inviteFriends';
 @import 'contact/modal/inviteFriends/_importSource';
-@import 'contact/modal/inviteFriends/_sendEMailInvitation';
 @import 'contact/modal/inviteFriends/_stepSelectImage';
 @import 'contact/modal/inviteFriends/_stepSelectUser';
+@import 'contact/modal/inviteFriends/_stepSendEMailInvitation';
+@import 'contact/modal/inviteFriends/_stepWriteCustomMessage';
 @import 'contact/modal/_moveContact';
 @import 'contact/detail/modal/_infoContact';
 @import 'contact/detail/_contactDetailOverview';

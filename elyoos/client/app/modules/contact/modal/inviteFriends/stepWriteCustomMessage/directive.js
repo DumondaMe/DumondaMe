@@ -7,11 +7,12 @@ module.exports = {
             require: '^elyStepperDialog',
             transclude: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
+                message: '=',
+                invalidMessage: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/stepWriteCustomMessage/template.html'
         };

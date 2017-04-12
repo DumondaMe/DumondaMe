@@ -9,6 +9,7 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
         ctrl.successfullyImportedServices = [];
         ctrl.isSelectedAll = false;
         ctrl.contacts = {addresses: []};
+        ctrl.disableNavigation = true;
 
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
@@ -78,6 +79,7 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
                 ctrl.showOnlySelected = false;
                 ctrl.contactsToShow = ctrl.contacts.addresses;
             }
+            ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.toggleAllEmailSelections = function () {
@@ -94,6 +96,7 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             } else {
                 ctrl.maxSelected = false;
             }
+            ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.onlySelectedChanged = function () {
@@ -114,6 +117,7 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             ctrl.contactsToShow = ctrl.contacts.addresses;
             delete ctrl.commandStepperDialog;
             delete ctrl.commandAbortStepperDialog;
+            ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.openAddCustomEmails = function () {
@@ -129,12 +133,10 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             delete ctrl.commandAbortStepperDialog;
         };
 
-        ctrl.openSendInvitation = function () {
-            ctrl.selectedEmails = InviteFriendsSelectedEMails.getEmails(ctrl.selectedAddresses);
-            ctrl.showSendEmailAddresses = true;
-        };
-
-        ctrl.closeSendInvitation = function () {
-            ctrl.showSendEmailAddresses = false;
+        ctrl.checkNavigationIsDisabled = function () {
+            ctrl.disableNavigation = true;
+            if (angular.isArray(ctrl.selectedAddresses) && ctrl.selectedAddresses.length > 0) {
+                ctrl.disableNavigation = false;
+            }
         };
     }];

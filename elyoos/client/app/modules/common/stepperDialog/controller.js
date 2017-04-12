@@ -1,12 +1,16 @@
 'use strict';
 
 
-module.exports = ['$mdMedia', function ($mdMedia) {
+module.exports = ['$mdMedia', 'ElyModal', function ($mdMedia, ElyModal) {
     var ctrl = this;
 
     ctrl.$mdMedia = $mdMedia;
     ctrl.selectedStep = 0;
     ctrl.steps = [];
+
+    ctrl.closeModal = function () {
+        ElyModal.hide();
+    };
 
     ctrl.back = function () {
         if (ctrl.selectedStep > 0) {

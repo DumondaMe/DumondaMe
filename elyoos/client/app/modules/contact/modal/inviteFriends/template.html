@@ -1,11 +1,14 @@
 <ely-stepper-dialog optional-first="ctrl.close" optional-first-label="Abbrechen" finish="ctrl.finish" show-progress="ctrl.uploadRunning"
                     disable-navigation="ctrl.disableNavigation" command="ctrl.command" command-label="ctrl.commandLabel" ely-handling-column-flex
-                    abort-command="ctrl.abortCommand" command-is-disabled="ctrl.commandIsDisabled" disable-dialog-content="true">
+                    abort-command="ctrl.abortCommand" command-is-disabled="ctrl.commandIsDisabled" disable-dialog-content="true"
+                    finish-label="Einladungen versenden" finish-info="ctrl.finishInfo">
     <ely-invite-friends-select-step command-stepper-dialog="ctrl.command" command-abort-stepper-dialog="ctrl.abortCommand" import-started="ctrl.uploadRunning"
-                                    command-stepper-dialog-label="ctrl.commandLabel" command-is-disabled="ctrl.commandIsDisabled" ely-handling-column-flex>
+                                    command-stepper-dialog-label="ctrl.commandLabel" command-is-disabled="ctrl.commandIsDisabled"
+                                    disable-navigation="ctrl.disableNavigation" selected-addresses="ctrl.data.selectedAddresses" ely-handling-column-flex>
     </ely-invite-friends-select-step>
     <ely-invite-friends-profile-image-step command-stepper-dialog="ctrl.command" command-abort-stepper-dialog="ctrl.abortCommand" upload-running="ctrl.uploadRunning"
                                            command-stepper-dialog-label="ctrl.commandLabel"></ely-invite-friends-profile-image-step>
-    <ely-invite-friends-custom-message-step></ely-invite-friends-custom-message-step>
-    <ely-invite-friends-send-email-invitation></ely-invite-friends-send-email-invitation>
+    <ely-invite-friends-custom-message-step invalid-message="ctrl.disableNavigation" message="ctrl.data.message"></ely-invite-friends-custom-message-step>
+    <ely-invite-friends-send-email-invitation data="ctrl.data" finish="ctrl.finish"
+                                              finish-info="ctrl.finishInfo"></ely-invite-friends-send-email-invitation>
 </ely-stepper-dialog>

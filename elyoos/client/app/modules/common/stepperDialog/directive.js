@@ -15,10 +15,12 @@ module.exports = {
                 optionalFirst: '=',
                 optionalFirstLabel: '@',
                 finish: '=',
+                finishLabel: '@',
+                finishInfo: '=',
                 command: '=',
                 commandIsDisabled: '=',
                 commandLabel: '=',
-                abortCommand: '='
+                abortCommand: '=',
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'

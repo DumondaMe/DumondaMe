@@ -15,7 +15,9 @@ module.exports = {
                 commandAbortStepperDialog: '=',
                 commandStepperDialogLabel: '=',
                 commandIsDisabled: '=',
-                importStarted: '='
+                disableNavigation: '=',
+                importStarted: '=',
+                selectedAddresses: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/stepSelectUser/template.html'
         };

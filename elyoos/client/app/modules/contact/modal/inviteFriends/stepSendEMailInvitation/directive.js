@@ -11,7 +11,9 @@ module.exports = {
             link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                addresses: '='
+                data: '=',
+                finish: '=',
+                finishInfo: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/stepSendEMailInvitation/template.html'
         };
