@@ -12,7 +12,8 @@ module.exports = {
                 ratio: '@',
                 finish: '=',
                 uploadUrl: '@',
-                running: '='
+                running: '=',
+                startUploadImage: '='
             },
             controller: require('./../controller.js')
         };

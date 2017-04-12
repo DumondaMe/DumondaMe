@@ -11,6 +11,10 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
             ElyModal.cancel();
         };
 
+        ctrl.startUploadImage = function () {
+            ctrl.uploadImage();
+        };
+
         ctrl.uploadImage = function () {
             ctrl.running = true;
             ctrl.commands.disable();

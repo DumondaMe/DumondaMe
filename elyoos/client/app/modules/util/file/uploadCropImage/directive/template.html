@@ -26,6 +26,8 @@
             </div>
         </div>
         <span flex></span>
-        <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.uploadImage()">Hochladen</md-button>
+        <md-button class="md-primary" ng-hide="ctrl.startUploadImage"
+                   ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.uploadImage()">Hochladen
+        </md-button>
     </div>
 </div>

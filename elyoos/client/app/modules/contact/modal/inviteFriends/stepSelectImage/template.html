@@ -1,0 +1,26 @@
+<div id="select-image-step" ng-if="step.selected" ely-handling-column-flex>
+    <div class="image-preview-container" ng-if="!ctrl.selectedImage">
+        <div class="image-preview-inner-container" layout="row" layout-xs="column">
+            <div class="image-handling-container" flex="none">
+                <div class="image-container">
+                    <img ng-src="{{ctrl.profileImage}}">
+                </div>
+                <div class="select-image-button-container" layout="row" layout-align="center center">
+                    <div>
+                        <md-button class="md-raised upload-image-button" ng-click="ctrl.showImageCrop()">
+                            Profilbild ändern
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="image-description-container" flex-offset-gt-sm="5">
+                Dein Profilbild wird im E-Mail verwendet damit deine Freunde wissen, von wem die Einladung stammte.
+            </div>
+        </div>
+    </div>
+    <div class="image-crop-container" ng-if="ctrl.selectedImage">
+        <ely-upload-crop-image running="ctrl.uploadRunning" ratio="1" finish="ctrl.finish"
+                               start-upload-image="ctrl.commandStepperDialog" upload-url="/api/user/settings/uploadProfileImage">
+        </ely-upload-crop-image>
+    </div>
+</div>
