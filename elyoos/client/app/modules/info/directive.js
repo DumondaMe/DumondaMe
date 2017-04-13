@@ -1,16 +1,16 @@
 'use strict';
 
 module.exports = {
-    directive: [ function () {
+    directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function() {},
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/home/vision/template.html'
+            templateUrl: 'app/modules/info/template.html'
         };
     }],
-    name: 'elyHomeVision'
+    name: 'elyInfo'
 };

@@ -72,15 +72,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 },
                 data: {hasBackNav: false, hasSearch: true, searchServiceName: 'home', title: 'Home'}
             })
-            .state('info', {
-                url: '/info/',
-                views: {
-                    content: {
-                        template: '<ely-home-vision></ely-home-vision>'
-                    }
-                },
-                data: {hasBackNav: true, hasSearch: false, title: 'Um was geht es?'}
-            })
             .state('checkLoginState', {
                 url: '/',
                 views: {

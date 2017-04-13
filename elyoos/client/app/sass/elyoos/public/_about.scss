@@ -41,9 +41,12 @@
       margin-bottom: 3px;
     }
     .contact {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       color: $secondary-text;
+      @media screen and (min-width: $gt-xs) {
+        font-size: 14px;
+      }
     }
   }
 }

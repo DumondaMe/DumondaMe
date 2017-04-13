@@ -1,0 +1,16 @@
+#ely-info {
+  height: 100%;
+  overflow-y: auto;
+  .contact-description {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 26px;
+    max-width: 400px;
+    margin: 24px auto 0 auto;
+    text-align: center;
+
+    @media screen and (min-width: $gt-xs) {
+      margin-top: 48px;
+    }
+  }
+}

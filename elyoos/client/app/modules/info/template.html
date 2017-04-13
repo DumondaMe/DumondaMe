@@ -1,0 +1,31 @@
+<md-content id="ely-info" layout="column">
+    <md-tabs md-border-bottom md-center-tabs class="info-tabs"
+             md-selected="ctrl.selectedTab" flex="auto">
+        <md-tab class="info-tab">
+            <md-tab-label>Vision</md-tab-label>
+            <md-tab-body class="info-tab-content">
+                <ely-vision ng-if="ctrl.selectedTab === 0"></ely-vision>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="info-tab">
+            <md-tab-label>Über mich</md-tab-label>
+            <md-tab-body class="info-tab-content">
+                <ely-about ng-if="ctrl.selectedTab === 1"></ely-about>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="info-tab">
+            <md-tab-label>AGB</md-tab-label>
+            <md-tab-body class="info-tab-content">
+                <ely-terms ng-if="ctrl.selectedTab === 2"></ely-terms>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="info-tab">
+            <md-tab-label>Kontakt</md-tab-label>
+            <md-tab-body class="info-tab-content">
+                <div class="contact-description">
+                    Hast du Fragen oder Anmerkungen? Schreib einfach an <a href="mailto:info@elyoos.org">info@elyoos.org</a>
+                </div>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+</md-content>

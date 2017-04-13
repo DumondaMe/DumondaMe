@@ -1561,10 +1561,6 @@
   line-height: 32px;
   margin: 16px auto; }
 
-#ely-home-vision {
-  height: 100%;
-  overflow-y: auto; }
-
 .ely-search-result-blog-page {
   width: 280px;
   height: 180px;
@@ -1667,6 +1663,20 @@
     margin: 0 8px 4px 8px; }
   .ely-search-result-youtube-page .youtube-page-container .youtube-preview-image {
     width: 100% !important; }
+
+#ely-info {
+  height: 100%;
+  overflow-y: auto; }
+  #ely-info .contact-description {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 26px;
+    max-width: 400px;
+    margin: 24px auto 0 auto;
+    text-align: center; }
+    @media screen and (min-width: 600px) {
+      #ely-info .contact-description {
+        margin-top: 48px; } }
 
 #ely-map-view {
   height: 100%;
@@ -3578,9 +3588,12 @@
       color: rgba(0, 0, 0, 0.87);
       margin-bottom: 3px; }
     #ely-about #ely-about-container .contact {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.54); }
+      @media screen and (min-width: 600px) {
+        #ely-about #ely-about-container .contact {
+          font-size: 14px; } }
 
 #reset-password-request .reset-password-description {
   font-size: 14px;
