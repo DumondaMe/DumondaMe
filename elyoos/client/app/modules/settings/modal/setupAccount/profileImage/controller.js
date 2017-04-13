@@ -5,9 +5,16 @@ module.exports = ['$scope', 'userInfo', 'UploadProfileImageState',
         var ctrl = this, userInfoName = 'accountSetupProfileImage';
 
         ctrl.finish = function () {
+            delete ctrl.commandStepperDialog;
             ctrl.selectedImage = false;
             ctrl.uploadRunning = false;
             UploadProfileImageState.profileImageChanged();
+        };
+
+        ctrl.showCropImage = function () {
+            ctrl.selectedImage = true;
+            ctrl.commandAbortStepperDialog = ctrl.finish;
+            ctrl.commandStepperDialogLabel = 'Hochladen';
         };
 
         ctrl.userInfoChanged = function () {
@@ -18,6 +25,7 @@ module.exports = ['$scope', 'userInfo', 'UploadProfileImageState',
             if (selected) {
                 ctrl.selectedImage = false;
                 ctrl.uploadRunning = false;
+                delete ctrl.commandStepperDialog;
                 userInfo.register(userInfoName, ctrl);
             } else {
                 userInfo.remove(userInfoName);

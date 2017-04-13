@@ -11,6 +11,9 @@ module.exports = {
             link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
+                commandStepperDialog: '=',
+                commandAbortStepperDialog: '=',
+                commandStepperDialogLabel: '=',
                 uploadRunning: '=',
                 disableNavigation: '='
             },

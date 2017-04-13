@@ -8,16 +8,23 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'Contac
         RecommendedContactScrollRequest.reset();
 
         ctrl.cancelNewGroup = function () {
+            delete ctrl.commandStepperDialog;
             ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
             ctrl.disableNavigation = false;
         };
 
         ctrl.addNewGroupFinish = function (groupName) {
+            delete ctrl.commandStepperDialog;
             ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
             ctrl.disableNavigation = false;
             ContactGroupStatistic.addGroup(groupName);
+        };
+
+        ctrl.newGroupOpened = function () {
+            ctrl.commandAbortStepperDialog = ctrl.cancelNewGroup;
+            ctrl.commandStepperDialogLabel = 'Hinzufügen';
         };
 
         ctrl.addContact = function (userId) {

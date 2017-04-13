@@ -12,6 +12,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 showAddGroup: '=',
+                newGroupOpened: '=',
                 selectedGroup: '=',
                 uploadRunning: '=',
                 disableNavigation: '='

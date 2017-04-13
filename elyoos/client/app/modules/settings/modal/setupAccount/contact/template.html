@@ -1,5 +1,5 @@
 <div id="setup-contact-step" ng-if="step.selected">
-    <div ng-hide="ctrl.showAddGroup">
+    <div ng-if="!ctrl.showAddGroup">
         <div class="contact-description">
             Füge Personen deiner Kontaktliste hinzu welche du kennst oder deren Beiträge und Empfehlungen du folgen möchtest. Die hinzugefügte Person muss bei diesem Vorgang keine
             Freundschaftsanfrage bestätigen.
@@ -21,10 +21,11 @@
             </div>
             <div class="contact-group" flex="none" flex-offset-gt-xs="5" flex-order-xs="1">
                 <ely-tutorial-contact-group statistics="ctrl.statistics" show-add-group="ctrl.showAddGroup" upload-running="ctrl.uploadRunning"
-                                            selected-group="ctrl.selectedGroup" disable-navigation="ctrl.disableNavigation"></ely-tutorial-contact-group>
+                                            selected-group="ctrl.selectedGroup" disable-navigation="ctrl.disableNavigation"
+                                            new-group-opened="ctrl.newGroupOpened"></ely-tutorial-contact-group>
             </div>
         </div>
     </div>
-    <ely-setting-add-group ng-if="ctrl.showAddGroup" finish-event="ctrl.addNewGroupFinish" cancel-event="ctrl.cancelNewGroup"
-                           upload-started="ctrl.uploadRunning"></ely-setting-add-group>
+    <ely-setting-add-group ng-if="ctrl.showAddGroup" finish-event="ctrl.addNewGroupFinish" disabled-upload="ctrl.disableNavigation"
+                           upload-started="ctrl.uploadRunning" add-group="ctrl.commandStepperDialog"></ely-setting-add-group>
 </div>

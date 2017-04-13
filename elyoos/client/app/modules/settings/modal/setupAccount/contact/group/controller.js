@@ -100,6 +100,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
         ctrl.openNewGroup = function () {
             ctrl.disableNavigation = true;
             ctrl.showAddGroup = true;
+            ctrl.newGroupOpened();
         };
 
         $scope.$on("$destroy", function () {

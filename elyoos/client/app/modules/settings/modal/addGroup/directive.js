@@ -9,8 +9,9 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
+                addGroup: '=',
+                disabledUpload: '=',
                 finishEvent: '=',
-                cancelEvent: '=',
                 uploadStarted: '='
             },
             templateUrl: 'app/modules/settings/modal/addGroup/templateDirective.html'
