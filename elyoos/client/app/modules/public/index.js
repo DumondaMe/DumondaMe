@@ -82,6 +82,15 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
+        .state('public.function', {
+            url: '/function',
+            views: {
+                'content@': {
+                    template: '<ely-public-function></ely-public-function>'
+                }
+            },
+            isPublic: true
+        })
         .state('public.about', {
             url: '/about',
             views: {

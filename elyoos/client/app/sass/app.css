@@ -3683,6 +3683,47 @@
   #public-register-footer .already-login:hover {
     text-decoration: underline; }
 
+#ely-function {
+  min-height: 100%;
+  background-color: #FFFFFF; }
+  #ely-function #ely-function-container {
+    min-height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 16px 0 16px; }
+    @media screen and (min-width: 1440px) {
+      #ely-function #ely-function-container {
+        max-width: 1000px; } }
+    @media screen and (max-width: 960px) {
+      #ely-function #ely-function-container {
+        padding-top: 18px; } }
+    #ely-function #ely-function-container .ely-function-element {
+      margin-bottom: 42px; }
+      #ely-function #ely-function-container .ely-function-element .function-image {
+        height: 180px;
+        width: 180px;
+        margin-right: 52px; }
+        @media screen and (max-width: 600px) {
+          #ely-function #ely-function-container .ely-function-element .function-image {
+            margin: 0 auto 24px auto; } }
+        #ely-function #ely-function-container .ely-function-element .function-image img {
+          height: 100%;
+          width: 100%; }
+      #ely-function #ely-function-container .ely-function-element .description-container .description-title {
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-weight: 500; }
+        @media screen and (max-width: 600px) {
+          #ely-function #ely-function-container .ely-function-element .description-container .description-title {
+            text-align: center; } }
+      #ely-function #ely-function-container .ely-function-element .description-container .description {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 26px; }
+        @media screen and (max-width: 600px) {
+          #ely-function #ely-function-container .ely-function-element .description-container .description {
+            text-align: center; } }
+
 #public-header {
   position: relative;
   background: url("../img/start/background.jpg");
