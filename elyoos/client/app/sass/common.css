@@ -421,10 +421,11 @@
     .ely-help .ely-help-container .help-title {
       margin-top: 12px;
       margin-bottom: 8px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500; }
     .ely-help .ely-help-container .help-text {
-      font-size: 14px; }
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.54); }
 
 .ely-iframe iframe {
   border: none; }

@@ -3522,6 +3522,9 @@
         #ely-about #ely-about-container .contact {
           font-size: 14px; } }
 
+#check-login {
+  height: 100%; }
+
 #reset-password-request .reset-password-description {
   font-size: 14px;
   font-weight: 500;
