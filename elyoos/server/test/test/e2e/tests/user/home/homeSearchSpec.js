@@ -38,6 +38,12 @@ describe('Integration Tests for searching people or pages', function () {
                     pictureHeight: 200,
                     title: "zuser?"
                 });
+                dbDsl.createGenericPage('10', {title: 'zz Generic user? test', adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
+                    address: 'Zuerich',
+                    lat: 47.376887,
+                    lng: 8.541694,
+                    addressId: '1'
+                }]);
             });
         });
     });
@@ -60,12 +66,12 @@ describe('Integration Tests for searching people or pages', function () {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home/search', {
                     search: 'user?',
-                    maxItems: 10,
+                    maxItems: 20,
                     isSuggestion: true
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(9);
+                res.body.length.should.equal(10);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -119,6 +125,12 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[8].profileUrl.should.equal('profileImage/2/thumbnail.jpg');
                 res.body[8].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[8].label.should.equal("Blog");
+
+                res.body[9].title.should.equal("zz Generic user? test");
+                res.body[9].pageId.should.equal("10");
+                res.body[9].url.should.equal("pages/10/thumbnail.jpg");
+                res.body[9].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[9].label.should.equal("Generic");
             });
         });
     });
@@ -136,12 +148,12 @@ describe('Integration Tests for searching people or pages', function () {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home/search', {
                     search: 'user?',
-                    maxItems: 10,
+                    maxItems: 20,
                     isSuggestion: false
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(9);
+                res.body.length.should.equal(10);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -208,6 +220,12 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[8].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
                 res.body[8].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[8].label.should.equal("Blog");
+
+                res.body[9].title.should.equal("zz Generic user? test");
+                res.body[9].pageId.should.equal("10");
+                res.body[9].url.should.equal("pages/10/preview.jpg");
+                res.body[9].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[9].label.should.equal("Generic");
             });
         });
     });

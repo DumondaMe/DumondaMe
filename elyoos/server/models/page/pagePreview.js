@@ -6,15 +6,17 @@ let cdn = require('elyoos-server-lib').cdn;
 let userInfo = require('../user/userInfo');
 let addPageUrl = function (previews, thumbnail) {
     let bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',
-        linkImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
+        otherImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
     underscore.forEach(previews, function (preview) {
         if (preview.label === 'Book') {
             preview.url = cdn.getUrl('pages/' + preview.pageId + bookImage);
             delete preview.link;
-        } else if(preview.label === 'Link' && preview.heightPreviewImage) {
-            preview.url = cdn.getUrl('pages/' + preview.pageId + linkImage);
-        } else if(preview.label === 'Blog' && preview.heightPreviewImage) {
-            preview.url = cdn.getUrl('blog/' + preview.pageId + linkImage);
+        } else if (preview.label === 'Link' && preview.heightPreviewImage) {
+            preview.url = cdn.getUrl('pages/' + preview.pageId + otherImage);
+        } else if (preview.label === 'Blog' && preview.heightPreviewImage) {
+            preview.url = cdn.getUrl('blog/' + preview.pageId + otherImage);
+        } else if (preview.label === 'Generic') {
+            preview.url = cdn.getUrl('pages/' + preview.pageId + otherImage);
         }
     });
 };
