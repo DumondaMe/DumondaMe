@@ -12,7 +12,9 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         ctrl.nameChanged = function (newName) {
             ctrl.groupName = newName;
             ctrl.validGroupName = CheckGroupNameService.checkNameExists(ctrl.groupName);
-            ctrl.disabledUpload = !ctrl.validGroupName || ctrl.createGroupForm.$error.hasOwnProperty('required');
+            ctrl.disabledUpload = !ctrl.validGroupName || ctrl.createGroupForm.$error.hasOwnProperty('required') ||
+                ctrl.createGroupForm.$error.hasOwnProperty('md-maxlength') ||
+                (angular.isString(ctrl.groupName) && ctrl.groupName.trim() === "");
             ctrl.createGroupForm.groupName.$setValidity('ely-types-exist', ctrl.validGroupName);
         };
 
@@ -25,11 +27,12 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         };
 
         ctrl.accept = function () {
+            var groupName = ctrl.groupName.trim();
             ctrl.uploadStarted = true;
             Privacy.save({
                 addNewPrivacy: {
                     privacySettings: {
-                        type: ctrl.groupName,
+                        type: groupName,
                         contactsVisible: ctrl.contactsVisible,
                         imageVisible: ctrl.imageVisible,
                         pinwallVisible: ctrl.pinwallVisible
@@ -38,9 +41,9 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
             }, function () {
                 ctrl.uploadStarted = false;
                 if (angular.isFunction(ctrl.finishEvent)) {
-                    ctrl.finishEvent(ctrl.groupName);
+                    ctrl.finishEvent(groupName);
                 } else {
-                    ElyModal.hide(ctrl.groupName);
+                    ElyModal.hide(groupName);
                 }
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');

@@ -29,6 +29,8 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
                     ContactGroupStatistic.removeGroup(groupName, ctrl.selectedGroup.group);
                     ctrl.showRenameGroup = false;
                     ctrl.uploadRunning = false;
+                }).catch(function(){
+                    ctrl.uploadRunning = false;
                 });
             }
         };
@@ -39,7 +41,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
             ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-max-length', true);
             ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-group-exist', true);
 
-            if (angular.isString(groupName) && groupName.length > 30) {
+            if (angular.isString(groupName) && groupName.length > 60) {
                 ctrl.renameGroupForm[groupNameProperty].$setValidity('ely-max-length', false);
                 ctrl.isAllowedToChange = false;
             }

@@ -4410,30 +4410,35 @@
         font-weight: 500;
         color: #3F51B5;
         margin-bottom: 3px; }
-      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-number {
-        cursor: pointer;
-        font-size: 14px;
-        line-height: 24px;
-        text-align: center;
-        margin: 8px 12px 8px 0;
-        color: white;
-        width: 24px;
-        background-color: #7986CB;
-        border-radius: 50%;
-        font-weight: 500; }
-      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-number.selected-group-number {
-        background-color: #D81B60; }
-      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type {
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 40px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.87); }
-      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type.selected-group-type {
-        color: #D81B60;
-        font-weight: 700; }
-      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .ely-rename-group-input {
-        margin: 0; }
+      #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element {
+        width: 100%; }
+        #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-number {
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 24px;
+          text-align: center;
+          margin: 8px 12px 8px 0;
+          color: white;
+          width: 24px;
+          background-color: #7986CB;
+          border-radius: 50%;
+          font-weight: 500; }
+        #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-number.selected-group-number {
+          background-color: #D81B60; }
+        #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type {
+          cursor: pointer;
+          font-size: 16px;
+          line-height: 40px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+        #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .group-type.selected-group-type {
+          color: #D81B60;
+          font-weight: 700; }
+        #setup-contact-step .contact-container .contact-group .contact-group-container .contact-group-element .ely-rename-group-input {
+          margin: 0; }
       #setup-contact-step .contact-container .contact-group .contact-group-container #add-group-button {
         margin-top: 16px;
         margin-left: 0; }

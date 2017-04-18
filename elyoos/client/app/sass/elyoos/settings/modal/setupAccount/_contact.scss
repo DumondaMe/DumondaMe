@@ -51,6 +51,7 @@
           margin-bottom: 3px;
         }
         .contact-group-element {
+          width: 100%;
           .group-number {
             cursor: pointer;
             font-size: 14px;
@@ -72,6 +73,9 @@
             line-height: 40px;
             font-weight: 500;
             color: $primary-text;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           .group-type.selected-group-type {
             color: $secondary-color;

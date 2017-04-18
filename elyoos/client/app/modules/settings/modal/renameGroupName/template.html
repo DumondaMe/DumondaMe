@@ -5,11 +5,12 @@
             <div class="md-dialog-content ely-dialog-content">
                 <md-input-container class="ely-input-container">
                     <label>Neue Bezeichnung</label>
-                    <input name="newGroupName" ng-model="ctrl.newGroupName" required md-no-asterisk
+                    <input name="newGroupName" ng-model="ctrl.newGroupName" required md-no-asterisk md-maxlength="60"
                            ng-disabled="ctrl.running" ng-change="ctrl.nameChanged()"/>
                     <div ng-messages="ctrl.renameGroupNameForm.newGroupName.$error" ng-show="ctrl.renameGroupNameForm.newGroupName.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>
                 </md-input-container>
             </div>
@@ -17,7 +18,7 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.accept()"
-                       ng-disabled="ctrl.uploadStarted || !ctrl.uploadAllowed">
+                       ng-disabled="ctrl.uploadStarted || !ctrl.uploadAllowed || ctrl.renameGroupNameForm.newGroupName.$invalid">
                 Umbenennen
             </md-button>
         </md-dialog-actions>

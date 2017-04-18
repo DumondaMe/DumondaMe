@@ -1,7 +1,7 @@
 <div id="add-contact-input-content">
     <md-input-container class="ely-input-container">
         <label>Gruppen Bezeichnung</label>
-        <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="30" md-no-asterisk
+        <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="60" md-no-asterisk
                ng-disabled="ctrl.uploadStarted" ng-change="ctrl.nameChanged(ctrl.groupName)"/>
         <div ng-messages="ctrl.createGroupForm.groupName.$error" ng-show="ctrl.createGroupForm.groupName.$dirty">
             <div ng-message="required">Wird benötigt!</div>

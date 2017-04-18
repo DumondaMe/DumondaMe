@@ -65,7 +65,7 @@ let schemaPostPrivacyCommands = {
                 pinwallVisible: {type: 'boolean'}
             }
         },
-        privacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30}
+        privacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 60}
     }
 };
 
@@ -75,8 +75,8 @@ let schemaDeletePrivacySetting = {
     additionalProperties: false,
     required: ['privacyDescription', 'newPrivacyDescription'],
     properties: {
-        privacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        newPrivacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30}
+        privacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 60},
+        newPrivacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 60}
     }
 };
 
