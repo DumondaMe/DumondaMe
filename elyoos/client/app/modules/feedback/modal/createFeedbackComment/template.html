@@ -15,7 +15,8 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
+            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error"
+                       target="_blank" md-autofocus>Abbrechen</md-button>
             <md-button class="md-primary md-raised"
                        ng-disabled="ctrl.uploadRunning || ctrl.feedbackCommentForm.$invalid"
                        ng-click="ctrl.uploadFeedbackComment()">Erstellen

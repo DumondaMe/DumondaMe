@@ -61,7 +61,7 @@
         </div>
     </md-dialog-content>
     <md-dialog-actions>
-        <md-button ng-click="ctrl.onBack()">Abbrechen</md-button>
+        <md-button ng-click="ctrl.onBack()" target="_blank" md-autofocus>Abbrechen</md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()"
                    ng-disabled="!ctrl.selectedAddress || !ctrl.isAllowedToSend || !ctrl.isAllowedDescriptionToSend"
                    ng-show="!ctrl.isEditMode">Hinzufügen

@@ -69,7 +69,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createEvent()" ng-if="!ctrl.isEditMode"
                        ng-disabled="ctrl.uploadStarted || ctrl.manageEventForm.$invalid || !ctrl.data.selectedAddress">Erstellen
             </md-button>

@@ -22,7 +22,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst && !ctrl.finishInfo"
+            <md-button ng-click="ctrl.optionalFirst()" ng-if="ctrl.optionalFirst && !ctrl.finishInfo" target="_blank" md-autofocus
                        ng-hide="ctrl.command">{{ctrl.optionalFirstLabel}}
             </md-button>
             <md-button class="md-primary" ng-click="ctrl.back()" ng-show="ctrl.selectedStep > 0 && !ctrl.command && !ctrl.finishInfo"

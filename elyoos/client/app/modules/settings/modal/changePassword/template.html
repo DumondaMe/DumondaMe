@@ -33,7 +33,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.changePassword()"
                        ng-disabled="ctrl.running || !ctrl.uploadValid || ctrl.changePasswordForm.$invalid">
                 Ändern

@@ -13,7 +13,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.cancel()">Schliessen</md-button>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Schliessen</md-button>
             <md-button ng-click="ctrl.openLink(ctrl.event.linkDescription)" ng-if="ctrl.event.linkDescription">Link zur Veranstaltung</md-button>
         </md-dialog-actions>
     </form>

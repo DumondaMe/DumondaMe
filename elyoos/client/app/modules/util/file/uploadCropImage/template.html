@@ -27,7 +27,7 @@
                 </div>
             </div>
             <span flex></span>
-            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
             <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.uploadImage()">Hochladen</md-button>
         </div>
         <md-progress-linear class="progress-bar" ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
