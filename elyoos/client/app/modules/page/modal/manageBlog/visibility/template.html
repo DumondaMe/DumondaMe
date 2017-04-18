@@ -13,7 +13,7 @@
     </div>
     <md-divider></md-divider>
     <div class="section-types">
-        <div class="type" ng-repeat="privacyTypes in ctrl.privacyTypesSelected" ng-class="{'section-types-public': ctrl.isPublic}">
+        <div class="type" ng-repeat="privacyTypes in ctrl.privacyTypes" ng-class="{'section-types-public': ctrl.isPublic}">
             <md-checkbox ng-model="privacyTypes.selected" aria-label="Visible to {{privacyTypes.type}}"
                          ng-change="ctrl.privacyTypesSelectedChanged(privacyTypes)">
                 {{privacyTypes.type}}

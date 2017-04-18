@@ -1,17 +1,17 @@
 'use strict';
 
 
-module.exports = ['userInfo',
-    function (userInfo) {
+module.exports = ['ContactGroupStatistic',
+    function (ContactGroupStatistic) {
 
         var isPublic = true;
-        var privacyTypesSelected = [];
+        var privacyTypes = [];
 
         this.reset = function () {
             isPublic = true;
-            privacyTypesSelected = [];
-            angular.forEach(userInfo.getUserInfo().contactStatistic, function (privacyType) {
-                privacyTypesSelected.push({type: privacyType.type, selected: false});
+            privacyTypes = [];
+            angular.forEach(ContactGroupStatistic.getStatistic(), function (privacyType) {
+                privacyTypes.push({type: privacyType.group, selected: false});
             });
         };
 
@@ -24,20 +24,30 @@ module.exports = ['userInfo',
         };
 
         this.setPrivacyTypesSelected = function (newPrivacyType) {
-            angular.forEach(privacyTypesSelected, function (privacyType) {
+            angular.forEach(privacyTypes, function (privacyType) {
                 if (privacyType.type === newPrivacyType.type) {
                     privacyType.selected = newPrivacyType.selected;
                 }
             });
         };
 
+        this.getPrivacyTypes = function () {
+            return privacyTypes;
+        };
+
         this.getPrivacyTypesSelected = function () {
-            return privacyTypesSelected;
+            var selected = [];
+            angular.forEach(privacyTypes, function (privacyType) {
+                if (privacyType.selected) {
+                    selected.push(privacyType.type);
+                }
+            });
+            return selected;
         };
 
         this.getVisibilityDescription = function () {
             var visibility = [];
-            angular.forEach(privacyTypesSelected, function (privacyType) {
+            angular.forEach(privacyTypes, function (privacyType) {
                 if (privacyType.selected) {
                     visibility.push(privacyType.type);
                 }
@@ -50,7 +60,7 @@ module.exports = ['userInfo',
             if (isPublic) {
                 isValid = true;
             }
-            angular.forEach(privacyTypesSelected, function (privacyType) {
+            angular.forEach(privacyTypes, function (privacyType) {
                 if (privacyType.selected) {
                     isValid = true;
                 }

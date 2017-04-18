@@ -1,12 +1,9 @@
 'use strict';
 
 var getParams = function (CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage) {
-    var params = {addBlog: {text: blogText, title: blogTitle, topic: selectedTopics, language: selectedLanguage.code}}, visibility = [];
+    var params = {addBlog: {text: blogText, title: blogTitle, topic: selectedTopics, language: selectedLanguage.code}};
     if (!CreateBlogVisibility.isPublic()) {
-        angular.forEach(CreateBlogVisibility.getPrivacyTypesSelected(), function (type) {
-            visibility.push(type.type);
-        });
-        params.addBlog.visibility = visibility;
+        params.addBlog.visibility = CreateBlogVisibility.getPrivacyTypesSelected();
     }
     return params;
 };
