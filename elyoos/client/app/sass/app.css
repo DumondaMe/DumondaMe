@@ -25,6 +25,7 @@
     margin-bottom: 0; }
 
 #select-user-step #add-email-container {
+  max-height: 100%;
   padding: 0 24px; }
   @media screen and (min-width: 600px) {
     #select-user-step #add-email-container {
@@ -34,7 +35,8 @@
     font-size: 16px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.54);
-    margin-bottom: 24px; }
+    margin-bottom: 24px;
+    height: 60px; }
   #select-user-step #add-email-container #ely-contact-input .input-element {
     margin-bottom: 0; }
   #select-user-step #add-email-container #overview-valid-email-container {
@@ -73,87 +75,11 @@
   color: #ff5722;
   margin-bottom: 12px; }
 
-/*
-#invite-friends-dialog {
-  .ely-dialog-title {
-    padding: 16px 24px;
-    margin-bottom: 0;
-    border-bottom: 1px solid $divider;
-  }
-  #invite-friends-dialog-content {
-    .ely-dialog-content {
-      padding-top: 0;
-      height: 100%;
-      #contact-import-source-container {
-        margin-top: 12px;
-        @media screen and (max-width: $gt-xs) {
-          max-height: 95%;
-          margin-bottom: 12px;
-        }
-        @media screen and (min-width: $gt-xs) {
-          min-width: 430px;
-        }
-        @media screen and (min-width: $gt-sm) {
-          min-width: 700px;
-        }
-        .title {
-          font-size: 14px;
-          font-weight: 700;
-          color: $secondary-text;
-          margin-bottom: 12px;
-        }
-        #open-custom-emails {
-          margin-left: 0;
-          .md-fab {
-            margin-left: 0;
-          }
-        }
-      }
-      #filter-contact {
-        height: 50px;
-        margin-bottom: 24px;
-      }
-      #contact-list-container {
-        overflow-y: auto;
-        height: 100%;
-        .contact-list-element {
-          margin-bottom: 8px;
-          .name {
-            font-size: 12px;
-            color: $secondary-text;
-          }
-        }
-        .contact-list-element.select-all-element {
-          border-bottom: 1px solid $divider;
-          margin-bottom: 22px
-        }
-      }
-    }
-  }
-  .load-screen-container {
-    height: 200px;
-    .ely-loading-screen {
-      height: 200px;
-    }
-  }
-  #select-info {
-    font-size: 12px;
-    @media screen and (min-width: $gt-xs) {
-      font-size: 14px;
-    }
-    #select-number {
-      font-weight: 500;
-      color: $primary-color;
-    }
-  }
-  #only-selected {
-    #only-selected-checkbox {
-      margin-bottom: 1px;
-      margin-left: 24px;
-      font-size: 14px;
-    }
-  }
-}*/
+.invite-friends-stepper {
+  max-height: 100%; }
+  .invite-friends-stepper .invite-friends-step {
+    max-height: 100%; }
+
 #select-user-step .ely-import-container {
   margin-bottom: 6px; }
   @media screen and (min-width: 600px) {
@@ -216,67 +142,68 @@
   #select-image-step .image-crop-container {
     height: 400px; }
 
-#select-user-step #select-header {
-  padding: 0 24px;
-  margin-bottom: 12px;
-  height: 45px; }
-  @media screen and (min-width: 600px) {
-    #select-user-step #select-header {
-      height: 30px; } }
-  #select-user-step #select-header #select-info {
-    font-size: 12px;
-    margin-top: 3px;
-    margin-right: 18px; }
-    @media screen and (min-width: 600px) {
-      #select-user-step #select-header #select-info {
-        font-size: 14px; } }
-    #select-user-step #select-header #select-info #select-number {
-      font-weight: 500;
-      color: #3F51B5; }
-  #select-user-step #select-header #only-selected #only-selected-checkbox {
-    margin-bottom: 1px;
-    font-size: 14px; }
-#select-user-step #select-user-step-content {
-  padding: 0 24px;
-  overflow-y: auto; }
-  #select-user-step #select-user-step-content #contact-import-source-container {
-    margin-top: 12px; }
-    @media screen and (max-width: 600px) {
-      #select-user-step #select-user-step-content #contact-import-source-container {
-        max-height: 95%;
-        margin-bottom: 12px; } }
-    @media screen and (min-width: 600px) {
-      #select-user-step #select-user-step-content #contact-import-source-container {
-        min-width: 430px; } }
-    @media screen and (min-width: 960px) {
-      #select-user-step #select-user-step-content #contact-import-source-container {
-        min-width: 700px; } }
-    #select-user-step #select-user-step-content #contact-import-source-container .title {
-      max-width: 800px;
-      font-size: 16px;
-      font-weight: 700;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 24px; }
-    #select-user-step #select-user-step-content #contact-import-source-container #import-container {
-      margin-bottom: 12px; }
-    #select-user-step #select-user-step-content #contact-import-source-container #open-custom-emails {
-      margin-left: 0; }
-      #select-user-step #select-user-step-content #contact-import-source-container #open-custom-emails .md-fab {
-        margin-left: 0; }
-  #select-user-step #select-user-step-content #filter-contact {
-    height: 50px;
-    margin-bottom: 24px; }
-  #select-user-step #select-user-step-content #contact-list-container {
-    overflow-y: auto;
+#select-user-step {
+  height: 100%; }
+  #select-user-step #select-user-step-container {
     height: 100%; }
-    #select-user-step #select-user-step-content #contact-list-container .contact-list-element {
-      margin-bottom: 8px; }
-      #select-user-step #select-user-step-content #contact-list-container .contact-list-element .name {
+    #select-user-step #select-user-step-container #select-header {
+      padding: 0 24px;
+      margin-bottom: 12px;
+      height: 45px; }
+      @media screen and (min-width: 600px) {
+        #select-user-step #select-user-step-container #select-header {
+          height: 30px; } }
+      #select-user-step #select-user-step-container #select-header #select-info {
         font-size: 12px;
-        color: rgba(0, 0, 0, 0.54); }
-    #select-user-step #select-user-step-content #contact-list-container .contact-list-element.select-all-element {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-      margin-bottom: 22px; }
+        margin-top: 3px;
+        margin-right: 18px; }
+        @media screen and (min-width: 600px) {
+          #select-user-step #select-user-step-container #select-header #select-info {
+            font-size: 14px; } }
+        #select-user-step #select-user-step-container #select-header #select-info #select-number {
+          font-weight: 500;
+          color: #3F51B5; }
+      #select-user-step #select-user-step-container #select-header #only-selected #only-selected-checkbox {
+        margin-bottom: 1px;
+        font-size: 14px; }
+    #select-user-step #select-user-step-container #select-user-step-content {
+      padding: 0 24px;
+      overflow-y: auto; }
+      #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container {
+        margin-top: 12px; }
+        @media screen and (max-width: 600px) {
+          #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container {
+            max-height: 95%;
+            margin-bottom: 12px; } }
+        @media screen and (min-width: 600px) {
+          #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container {
+            min-width: 430px; } }
+        @media screen and (min-width: 960px) {
+          #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container {
+            min-width: 700px; } }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container .title {
+          max-width: 800px;
+          font-size: 16px;
+          font-weight: 700;
+          color: rgba(0, 0, 0, 0.54);
+          margin-bottom: 24px; }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #import-container {
+          margin-bottom: 12px; }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #open-custom-emails {
+          margin-left: 0; }
+          #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #open-custom-emails .md-fab {
+            margin-left: 0; }
+      #select-user-step #select-user-step-container #select-user-step-content #filter-contact {
+        height: 50px;
+        margin-bottom: 24px; }
+      #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element {
+        margin-bottom: 8px; }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element .name {
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.54); }
+      #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element.select-all-element {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        margin-bottom: 22px; }
 
 #send-email-invitation-container {
   padding: 0 24px;

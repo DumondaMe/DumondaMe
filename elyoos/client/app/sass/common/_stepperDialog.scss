@@ -1,79 +1,89 @@
 #stepper-dialog {
-  .stepper-mobile-header {
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: $primary-text;
-    margin-bottom: 24px;
-    border-bottom: 1px solid $divider;
-    .step-description {
-      .step-label {
-        font-size: 18px;
-        font-weight: 700;
-        color: $primary-color;
-      }
-      .actual-step {
-        color: $primary-color;
-        font-weight: 700;
-      }
-      .steps {
-        margin-top: 2px;
-      }
-    }
-  }
-  .stepper-header {
-    height: 104px;
-    padding: 24px;
-    .step-description {
-      padding: 0 24px;
-      position: relative;
-      .step-number {
-        height: 24px;
-        width: 24px;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 24px;
-        vertical-align: middle;
-        text-align: center;
-        margin-bottom: 16px;
-        margin-right: auto;
-        margin-left: auto;
-        color: white;
-        background-color: $primary-color-light;
-        border-radius: 50%;
-      }
-      .step-number.inactive-step {
-        background-color: rgba(0, 0, 0, 0.38);
-      }
-      .step-label {
-        font-size: 14px;
-        font-weight: 500;
-        color: $primary-text;
-      }
-      .step-label.inactive-step {
-        color: $secondary-text;
-      }
-      .step-bar-right {
-        position: absolute;
-        right: 0;
-        top: 12px;
-        left: 50%;
-        height: 1px;
-        margin-left: 20px;
-        border-top: 1px solid $divider;
-      }
-      .step-bar-left {
-        position: absolute;
-        left: 0;
-        right: 50%;
-        top: 12px;
-        height: 1px;
-        margin-right: 20px;
-        border-top: 1px solid $divider;
+  max-height: 100%;
+  #stepper-dialog-content {
+    height: 100%;
+    .stepper-mobile-header {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $primary-text;
+      margin-bottom: 24px;
+      border-bottom: 1px solid $divider;
+      .step-description {
+        .step-label {
+          font-size: 18px;
+          font-weight: 700;
+          color: $primary-color;
+        }
+        .actual-step {
+          color: $primary-color;
+          font-weight: 700;
+        }
+        .steps {
+          margin-top: 2px;
+        }
       }
     }
-  }
-  .ely-dialog-content {
-    padding-top: 0;
+    .stepper-header {
+      height: 104px;
+      padding: 24px;
+      .step-description {
+        padding: 0 24px;
+        position: relative;
+        .step-number {
+          height: 24px;
+          width: 24px;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 24px;
+          vertical-align: middle;
+          text-align: center;
+          margin-bottom: 16px;
+          margin-right: auto;
+          margin-left: auto;
+          color: white;
+          background-color: $primary-color-light;
+          border-radius: 50%;
+        }
+        .step-number.inactive-step {
+          background-color: rgba(0, 0, 0, 0.38);
+        }
+        .step-label {
+          font-size: 14px;
+          font-weight: 500;
+          color: $primary-text;
+        }
+        .step-label.inactive-step {
+          color: $secondary-text;
+        }
+        .step-bar-right {
+          position: absolute;
+          right: 0;
+          top: 12px;
+          left: 50%;
+          height: 1px;
+          margin-left: 20px;
+          border-top: 1px solid $divider;
+        }
+        .step-bar-left {
+          position: absolute;
+          left: 0;
+          right: 50%;
+          top: 12px;
+          height: 1px;
+          margin-right: 20px;
+          border-top: 1px solid $divider;
+        }
+      }
+    }
+    .ely-dialog-content {
+      padding-top: 0;
+    }
+    .stepper-dialog-content-container {
+      height: 100%;
+      .stepper-dialog-content-inner-container {
+        height: 100%;
+      }
+    }
   }
 }

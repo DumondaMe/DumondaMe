@@ -1,5 +1,6 @@
 #select-user-step {
   #add-email-container {
+    max-height: 100%;
     padding: 0 24px;
     @media screen and (min-width: $gt-xs) {
       min-width: 400px;
@@ -10,6 +11,7 @@
       font-weight: 700;
       color: $secondary-text;
       margin-bottom: 24px;
+      height: 60px;
     }
     #ely-contact-input {
       .input-element {

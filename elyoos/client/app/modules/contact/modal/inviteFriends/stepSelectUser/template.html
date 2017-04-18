@@ -1,5 +1,5 @@
 <div id="select-user-step" ng-if="step.selected" ely-handling-column-flex>
-    <div ng-hide="ctrl.showAddEmails || ctrl.showBasicAuth" ely-handling-column-flex>
+    <div id="select-user-step-container" ng-hide="ctrl.showAddEmails || ctrl.showBasicAuth" ely-handling-column-flex>
         <div id="select-header" layout="row" ng-if="ctrl.selectedAddresses.length > 0" layout-wrap flex="none">
             <div id="select-info">
                 <span id="select-number">{{ctrl.selectedAddresses.length}}</span>
