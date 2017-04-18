@@ -24,7 +24,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    'app/dist/app.min.js': ['app/dist/app.js']
+                    'app/dist/app.js': ['app/dist/app.js']
                 }
             }
         },
@@ -132,6 +132,6 @@ module.exports = function (grunt) {
     grunt.registerTask('coverage', ['karma', 'sonarRunner']);
     grunt.registerTask('build', ['clean', 'ngtemplates', 'ngconstant', 'browserify', 'uglify']);
     grunt.registerTask('buildDebug', ['ngtemplates', 'ngconstant:localDev', 'browserify']);
-    grunt.registerTask('buildPreview', ['clean', 'ngtemplates', 'ngconstant:preview', 'browserify']);
-    grunt.registerTask('buildProduction', ['clean', 'ngtemplates', 'ngconstant:production', 'browserify']);
+    grunt.registerTask('buildPreview', ['clean', 'ngtemplates', 'ngconstant:preview', 'browserify', 'uglify']);
+    grunt.registerTask('buildProduction', ['clean', 'ngtemplates', 'ngconstant:production', 'browserify', 'uglify']);
 };

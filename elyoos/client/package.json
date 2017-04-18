@@ -28,7 +28,7 @@
     "matchdep": "1.0.1",
     "grunt": "1.0.1",
     "grunt-browserify": "5.0.0",
-    "grunt-contrib-uglify": "2.0.0",
+    "grunt-contrib-uglify": "2.3.0",
     "grunt-karma": "2.0.0",
     "grunt-sonar-runner": "~2.4.4",
     "grunt-angular-templates": "1.1.0",
