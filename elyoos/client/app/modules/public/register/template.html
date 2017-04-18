@@ -5,7 +5,8 @@
             <div class="md-dialog-content ely-dialog-content" layout="column">
                 <md-input-container class="ely-input-container">
                     <label>Email</label>
-                    <input name="email" ng-model="ctrl.userToRegister.email" required ng-disabled="ctrl.running" md-maxlength="255"/>
+                    <input name="email" ng-model="ctrl.userToRegister.email" required ng-disabled="ctrl.running" md-maxlength="255"
+                           md-autofocus/>
                     <div ng-messages="ctrl.registerUserForm.email.$error">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="email">Keine gültige E-Mail Adresse!</div>
