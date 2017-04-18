@@ -23,7 +23,7 @@
                 </md-input-container>
             </div>
             <span flex></span>
-            <md-menu md-position-mode="target-right target" flex="none">
+            <md-menu md-position-mode="target-right target" flex="none" ng-if="ctrl.statistic.length > 1 || !ctrl.showRenameGroup">
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
                     <md-icon md-svg-icon="system:moreVert"></md-icon>
                 </md-button>
