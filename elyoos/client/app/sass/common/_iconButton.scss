@@ -12,6 +12,9 @@
       font-size: 16px;
     }
   }
+  .button-text.text-disabled {
+    color: $disabled-text;
+  }
 }
 
 .ely-icon-button:hover {

@@ -5,8 +5,10 @@ module.exports = ['$scope', '$interval',  'ImportYahooContacts', 'ImportYahooCod
         var ctrl = this, intervalCheckWindow;
 
         ctrl.openYahoo = function () {
-            intervalCheckWindow = OAuthOpenWindow.open(OAUTH_YAHOO_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
-                ImportYahooContacts, ImportYahooCodeParser, 'yahoo', 'Yahoo');
+            if(!ctrl.deactivate) {
+                intervalCheckWindow = OAuthOpenWindow.open(OAUTH_YAHOO_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
+                    ImportYahooContacts, ImportYahooCodeParser, 'yahoo', 'Yahoo');
+            }
         };
 
         $scope.$on('$destroy', function () {

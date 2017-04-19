@@ -11,7 +11,8 @@ module.exports = {
             bindToController: {
                 importStarted: '=',
                 importFinish: '=',
-                contacts: '='
+                contacts: '=',
+                deactivate: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/importYahoo/template.html'
         };

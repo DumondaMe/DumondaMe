@@ -189,6 +189,12 @@
           margin-bottom: 24px; }
         #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #import-container {
           margin-bottom: 12px; }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #import-container.import-disabled .ely-import-container .source-container .image-container img {
+          opacity: 0.4;
+          filter: alpha(opacity=40);
+          /* msie */ }
+        #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #import-container.import-disabled .ely-import-container .source-container .source-description {
+          color: rgba(0, 0, 0, 0.38); }
         #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #open-custom-emails {
           margin-left: 0; }
           #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #open-custom-emails .md-fab {

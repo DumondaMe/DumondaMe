@@ -9,7 +9,8 @@
             <div id="only-selected" ng-show="(ctrl.selectedAddresses.length > 2 &&
                     ctrl.selectedAddresses.length !== ctrl.contacts.addresses.length) || ctrl.showOnlySelected">
                 <md-checkbox id="only-selected-checkbox" aria-label="Show only selected Email" ng-model="ctrl.showOnlySelected"
-                             ng-true-value="true" ng-false-value="false" ng-change="ctrl.onlySelectedChanged()">
+                             ng-true-value="true" ng-false-value="false" ng-change="ctrl.onlySelectedChanged()"
+                             ng-disabled="ctrl.importStarted">
                     Nur ausgewählte E-Mails anzeigen
                 </md-checkbox>
             </div>
@@ -21,32 +22,37 @@
                     wird eine Einladung per E-Mail versendet. Damit du nicht mühsam jede einzelne E-Mail-Adresse eingeben musst, kannst du wenn möglich deine Adressen auch von den
                     untenstehenden Quellen importieren. Dein Passwort und Benutzerkonto wird dabei von Elyoos nicht gespeichert. Diese werden lediglich für den Import verwendet.
                 </div>
-                <div layout="row" layout-wrap id="import-container">
+                <div layout="row" layout-wrap id="import-container" ng-class="{'import-disabled': ctrl.importStarted}">
                     <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                      contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('gmail')"></ely-import-gmail>
+                                      contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('gmail')"
+                                      deactivate="ctrl.importStarted"></ely-import-gmail>
                     <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                        contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('outlook')"></ely-import-outlook>
+                                        contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('outlook')"
+                                        deactivate="ctrl.importStarted"></ely-import-outlook>
                     <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                      contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('yahoo')"></ely-import-yahoo>
+                                      contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('yahoo')"
+                                      deactivate="ctrl.importStarted"></ely-import-yahoo>
                     <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"
                                     ng-hide="ctrl.successfullyImportedServices.includes('GMX')"></ely-import-gmx>
                     <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
                                        ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
                     <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
                         <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen" show-label-always="true"
-                                         ng-click="ctrl.openAddCustomEmails()"></ely-icon-button>
+                                         ng-click="ctrl.openAddCustomEmails()" ely-disabled="ctrl.importStarted"></ely-icon-button>
                     </div>
                 </div>
             </div>
             <div id="filter-contact" ng-show="ctrl.contacts.addresses.length > 5" hide-xs>
                 <md-input-container class="md-block">
                     <label>E-Mail-Addressen Filtern</label>
-                    <input name="emailAddresses" id="emailAddresses" aria-label="Email" ng-model="ctrl.filterEmailAddresses.email"/>
+                    <input name="emailAddresses" id="emailAddresses" aria-label="Email" ng-model="ctrl.filterEmailAddresses.email"
+                           ng-disabled="ctrl.importStarted"/>
                 </md-input-container>
             </div>
             <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0">
                 <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1 && !ctrl.showOnlySelected">
-                    <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
+                    <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll"
+                                 ng-disabled="ctrl.importStarted">
                         <span ng-if="!ctrl.maxSelected">Alle E-Mail-Addressen auswählen</span>
                         <span ng-if="ctrl.maxSelected">Es dürfen maximal 1000 E-Mail Adressen ausgwählt werden.</span>
                     </md-checkbox>
@@ -55,7 +61,7 @@
                      class="contact-list-element">
                     <div>
                         <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
-                                     aria-label="Select Email {{contact.email}}">
+                                     aria-label="Select Email {{contact.email}}" ng-disabled="ctrl.importStarted">
                             {{contact.email}} <br/>
                             <span class="name">{{contact.name}}
                                 <span ng-if="contact.sourceImportDescription">(Importiert von {{contact.sourceImportDescription}})</span>

@@ -7,8 +7,10 @@ module.exports = ['$scope', '$interval', 'ImportOutlookContacts', 'ImportOutlook
         var ctrl = this, intervalCheckWindow;
 
         ctrl.openOutlook = function () {
-            intervalCheckWindow = OAuthOpenWindow.open(OAUTH_OUTLOOK_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
-                ImportOutlookContacts, ImportOutlookCodeParser, 'outlook', 'Outlook.com');
+            if(!ctrl.deactivate) {
+                intervalCheckWindow = OAuthOpenWindow.open(OAUTH_OUTLOOK_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
+                    ImportOutlookContacts, ImportOutlookCodeParser, 'outlook', 'Outlook.com');
+            }
         };
 
         $scope.$on('$destroy', function () {

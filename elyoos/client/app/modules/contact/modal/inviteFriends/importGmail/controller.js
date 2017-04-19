@@ -5,8 +5,10 @@ module.exports = ['$scope', '$interval', 'ImportGmailContacts', 'ImportGmailCode
         var ctrl = this, intervalCheckWindow;
 
         ctrl.openGmail = function () {
-            intervalCheckWindow = OAuthOpenWindow.open(OAUTH_GMAIL_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
-                ImportGmailContacts, ImportGmailCodeParser, 'gmail', 'Gmail');
+            if(!ctrl.deactivate) {
+                intervalCheckWindow = OAuthOpenWindow.open(OAUTH_GMAIL_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
+                    ImportGmailContacts, ImportGmailCodeParser, 'gmail', 'Gmail');
+            }
 
         };
 

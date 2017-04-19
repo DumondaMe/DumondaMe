@@ -12,6 +12,7 @@ module.exports = {
                 importStarted: '=',
                 importFinish: '=',
                 contacts: '=',
+                deactivate: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/importGmail/template.html'
         };

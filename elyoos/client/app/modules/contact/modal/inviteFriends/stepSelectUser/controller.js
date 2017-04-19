@@ -28,19 +28,23 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
         };
 
         ctrl.openBasicAuthGmx = function () {
-            ctrl.basicAuthName = 'GMX';
-            ctrl.basicAuthService = ImportGmxContacts;
-            ctrl.showBasicAuth = true;
-            ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
-            ctrl.commandStepperDialogLabel = 'Addressbuch laden';
+            if (!ctrl.importStarted) {
+                ctrl.basicAuthName = 'GMX';
+                ctrl.basicAuthService = ImportGmxContacts;
+                ctrl.showBasicAuth = true;
+                ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
+                ctrl.commandStepperDialogLabel = 'Addressbuch laden';
+            }
         };
 
         ctrl.openBasicAuthWebDe = function () {
-            ctrl.basicAuthName = 'WEB.DE';
-            ctrl.basicAuthService = ImportWebDeContacts;
-            ctrl.showBasicAuth = true;
-            ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
-            ctrl.commandStepperDialogLabel = 'Addressbuch laden';
+            if (!ctrl.importStarted) {
+                ctrl.basicAuthName = 'WEB.DE';
+                ctrl.basicAuthService = ImportWebDeContacts;
+                ctrl.showBasicAuth = true;
+                ctrl.commandAbortStepperDialog = ctrl.closeBasicAuth;
+                ctrl.commandStepperDialogLabel = 'Addressbuch laden';
+            }
         };
 
         ctrl.closeBasicAuth = function (importSource) {
@@ -121,9 +125,11 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
         };
 
         ctrl.openAddCustomEmails = function () {
-            ctrl.showAddEmails = true;
-            ctrl.commandAbortStepperDialog = ctrl.closeAddCustomEmails;
-            ctrl.commandStepperDialogLabel = 'Hinzufügen';
+            if (!ctrl.importStarted) {
+                ctrl.showAddEmails = true;
+                ctrl.commandAbortStepperDialog = ctrl.closeAddCustomEmails;
+                ctrl.commandStepperDialogLabel = 'Hinzufügen';
+            }
         };
 
         ctrl.closeAddCustomEmails = function () {

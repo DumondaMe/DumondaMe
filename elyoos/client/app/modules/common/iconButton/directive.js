@@ -10,7 +10,8 @@ module.exports = {
             bindToController: {
                 label: '@',
                 icon: '@',
-                showLabelAlways: '='
+                showLabelAlways: '=',
+                elyDisabled: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'

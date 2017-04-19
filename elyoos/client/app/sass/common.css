@@ -73,6 +73,8 @@
     @media screen and (min-width: 960px) {
       .ely-icon-button .button-text {
         font-size: 16px; } }
+  .ely-icon-button .button-text.text-disabled {
+    color: rgba(0, 0, 0, 0.38); }
 
 .ely-icon-button:hover .button-text {
   text-decoration: underline; }
