@@ -29,6 +29,6 @@ module.exports = ['$window', '$interval', 'SourceImportModification', 'ArrayHelp
                     });
                 }
             };
-            return intervalCheckWindow;
+            return {interval: intervalCheckWindow, window: newWindow};
         };
     }];
