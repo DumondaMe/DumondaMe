@@ -2,29 +2,44 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['GeoCoding', 'UserLocation', 'userInfo', function (GeoCoding, UserLocation, userInfo) {
+module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (AddressSuggestion, UserLocation, userInfo) {
     var ctrl = this, previousSelectedAddress = null, userInfoData = userInfo.getUserInfo();
 
     ctrl.selectedAddress = null;
+    ctrl.disableNavigation = false;
 
     if (angular.isString(userInfoData.userLocationDescription) && angular.isNumber(userInfoData.latitude) &&
         angular.isNumber(userInfoData.longitude)) {
-        ctrl.userLocation = {
-            address: userInfoData.userLocationDescription,
-            latitude: userInfoData.latitude,
-            longitude: userInfoData.longitude
-        };
-        ctrl.selectedAddress = ctrl.userLocation;
+        ctrl.addressSearch = userInfoData.userLocationDescription;
     }
 
     ctrl.addressSearchChanged = function () {
         ctrl.addressSearchIsValid = false;
-        if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim().length >= 3 && ctrl.addressSearch.trim().length <= 150) {
+        ctrl.disableNavigation = false;
+        if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim().length >= 3 &&
+            ctrl.addressSearch !== userInfoData.userLocationDescription) {
             ctrl.addressSearchIsValid = true;
+            ctrl.disableNavigation = true;
+        } else if (userInfoData.userLocationDescription && (!ctrl.addressSearch || ctrl.addressSearch.trim() === "")) {
+            ctrl.addressChanged(null);
         }
     };
 
-    /*ctrl.searchAddress = function () {
+    ctrl.autocompleteAddress = function (search) {
+        if (angular.isString(search) && search.trim() !== "" && search.length >= 3 &&
+            userInfoData.userLocationDescription !== search) {
+            ctrl.requestStarted = true;
+            return AddressSuggestion.query({address: search}).$promise.then(function (resp) {
+                return resp;
+            }).finally(function () {
+                ctrl.requestStarted = false;
+            });
+        } else {
+            return [];
+        }
+    };
+
+    ctrl.searchAddress = function () {
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim() !== "") {
             ctrl.requestStarted = true;
             ctrl.addresses = AddressSuggestion.query({address: ctrl.addressSearch}, function () {
@@ -33,9 +48,7 @@ module.exports = ['GeoCoding', 'UserLocation', 'userInfo', function (GeoCoding, 
                 ctrl.requestStarted = false;
             });
         }
-    };*/
-
-    ctrl.querySearch = GeoCoding.autoComplete;
+    };
 
     ctrl.keyPressed = function ($event) {
         if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
@@ -43,32 +56,40 @@ module.exports = ['GeoCoding', 'UserLocation', 'userInfo', function (GeoCoding, 
         }
     };
 
-    ctrl.addressChanged = function () {
-        if (ctrl.selectedAddress && angular.isString(ctrl.selectedAddress.address) &&
-            previousSelectedAddress !== ctrl.selectedAddress) {
-            previousSelectedAddress = ctrl.selectedAddress;
+    ctrl.addressChanged = function (selectedAddress) {
+        if (selectedAddress && angular.isString(selectedAddress.address) &&
+            previousSelectedAddress !== selectedAddress) {
+            previousSelectedAddress = selectedAddress;
             ctrl.requestStarted = true;
             UserLocation.save({
-                description: ctrl.selectedAddress.address,
-                latitude: ctrl.selectedAddress.latitude,
-                longitude: ctrl.selectedAddress.longitude
+                description: selectedAddress.address,
+                latitude: selectedAddress.latitude,
+                longitude: selectedAddress.longitude
             }, function () {
                 ctrl.userLocationChanged({
-                    address: ctrl.selectedAddress.address,
-                    latitude: ctrl.selectedAddress.latitude,
-                    longitude: ctrl.selectedAddress.longitude
+                    address: selectedAddress.address,
+                    latitude: selectedAddress.latitude,
+                    longitude: selectedAddress.longitude
                 });
                 ctrl.requestStarted = false;
+                ctrl.disableNavigation = false;
+                ctrl.addressSearchIsValid = false;
+                ctrl.addressSearch = userInfoData.userLocationDescription;
             }, function () {
                 ctrl.requestStarted = false;
+                ctrl.disableNavigation = false;
+                ctrl.addressSearchIsValid = false;
             });
-        } else if (ctrl.selectedAddress === null) {
+        } else if (selectedAddress === null) {
             ctrl.requestStarted = true;
             UserLocation.delete({}, function () {
                 ctrl.requestStarted = false;
+                ctrl.addressSearchIsValid = false;
+                ctrl.selectedAddress = null;
                 ctrl.userLocationChanged(null);
             }, function () {
                 ctrl.requestStarted = false;
+                ctrl.addressSearchIsValid = false;
             });
         }
     };

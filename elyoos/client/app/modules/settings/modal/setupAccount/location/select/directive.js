@@ -10,7 +10,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                requestStarted: '='
+                requestStarted: '=',
+                disableNavigation: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/location/select/template.html'
         };

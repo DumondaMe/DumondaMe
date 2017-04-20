@@ -4436,21 +4436,17 @@
 #tutorial-profile-image-step .image-crop-container {
   height: 400px; }
 
-.ely-select-location .search-image-icon {
-  padding-left: 12px; }
-.ely-select-location .map-container {
-  height: 300px; }
-  @media screen and (max-width: 600px) {
-    .ely-select-location .map-container {
-      margin-bottom: 12px; } }
-  @media screen and (min-width: 600px) {
-    .ely-select-location .map-container {
-      margin-left: 12px; } }
-  .ely-select-location .map-container .ely-map .ely-map-container {
-    height: 300px; }
-    @media screen and (max-width: 600px) {
-      .ely-select-location .map-container .ely-map .ely-map-container {
-        height: 200px; } }
+.ely-select-location .select-container {
+  margin-bottom: 12px; }
+  .ely-select-location .select-container .search-autocomplete {
+    margin-top: 6px; }
+  .ely-select-location .select-container .search-image-icon {
+    padding-left: 12px; }
+.ely-select-location .no-address-button {
+  margin-left: 0;
+  margin-top: 0;
+  padding-left: 0;
+  margin-bottom: 24px; }
 
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;

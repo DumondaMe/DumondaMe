@@ -4,8 +4,6 @@ var app = angular.module('elyoosApp');
 
 app.service('Mailcheck', require('./mailcheck'));
 app.service('Bowser', require('./bowser'));
-app.service('GeoCoding', require('./geocoding'));
-app.service('GeoCodingParser', require('./geocodingParser'));
 app.service('moment', require('./moment'));
 app.service('Observables', require('./observables'));
 app.service('SearchService', require('./searchService'));

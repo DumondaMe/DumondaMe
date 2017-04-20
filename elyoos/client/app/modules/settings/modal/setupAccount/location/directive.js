@@ -12,7 +12,8 @@ module.exports = {
             link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                uploadRunning: '='
+                uploadRunning: '=',
+                disableNavigation: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/location/template.html'
         };
