@@ -1599,7 +1599,8 @@
 
 #ely-info {
   height: 100%;
-  overflow-y: auto; }
+  overflow-y: auto;
+  background-color: #ffffff; }
   #ely-info .contact-description {
     font-size: 18px;
     font-weight: 300;
