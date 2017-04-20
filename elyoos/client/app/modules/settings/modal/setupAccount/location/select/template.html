@@ -1,10 +1,28 @@
 <form name="ctrl.addAddressForm" class="ely-select-location" aria-label="Select location" ng-cloak>
     <div layout="row">
-        <md-input-container class="input-container" flex="grow">
+        <!--<md-input-container class="input-container" flex="grow">
             <label>Ort</label>
             <input name="addressSearch" ng-model="ctrl.addressSearch" ng-change="ctrl.addressSearchChanged()"
                    ng-disabled="ctrl.requestStarted" ng-keypress="ctrl.keyPressed($event)"/>
-        </md-input-container>
+        </md-input-container>-->
+        <md-autocomplete ng-disabled="false"
+                         md-autofocus="true"
+                         md-no-cache="true"
+                         md-delay="500"
+                         md-min-length="2"
+                         md-search-text="ctrl.searchText"
+                         md-selected-item-change="ctrl.searchAddress()"
+                         md-items="item in ctrl.querySearch(ctrl.searchText)"
+                         md-item-text="item.name"
+                         md-input-id="toolbar-search-input"
+                         md-menu-class="toolbar-search-preview"
+                         placeholder="Suche Person"
+                         ng-keypress="ctrl.keyPressed($event)"
+                         flex="grow">
+            <md-item-template>
+                <div ng-bind-html="item.address"></div>
+            </md-item-template>
+        </md-autocomplete>
         <div class="search-image-icon" flex="none">
             <md-button class="md-fab md-mini" aria-label="Search place" ng-click="ctrl.searchAddress()"
                        ng-disabled="ctrl.requestStarted || !ctrl.addressSearchIsValid || ctrl.lastRequestString === ctrl.addressSearch">

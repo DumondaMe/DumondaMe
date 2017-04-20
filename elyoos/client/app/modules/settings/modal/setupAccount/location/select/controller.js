@@ -2,7 +2,7 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (AddressSuggestion, UserLocation, userInfo) {
+module.exports = ['GeoCoding', 'UserLocation', 'userInfo', function (GeoCoding, UserLocation, userInfo) {
     var ctrl = this, previousSelectedAddress = null, userInfoData = userInfo.getUserInfo();
 
     ctrl.selectedAddress = null;
@@ -24,7 +24,7 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
         }
     };
 
-    ctrl.searchAddress = function () {
+    /*ctrl.searchAddress = function () {
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim() !== "") {
             ctrl.requestStarted = true;
             ctrl.addresses = AddressSuggestion.query({address: ctrl.addressSearch}, function () {
@@ -33,7 +33,9 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
                 ctrl.requestStarted = false;
             });
         }
-    };
+    };*/
+
+    ctrl.querySearch = GeoCoding.autoComplete;
 
     ctrl.keyPressed = function ($event) {
         if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
