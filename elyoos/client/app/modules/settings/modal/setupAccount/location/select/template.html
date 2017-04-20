@@ -18,6 +18,9 @@
             <md-item-template>
                 <div ng-bind-html="item.address"></div>
             </md-item-template>
+            <md-not-found>
+                Keine Adressen gefunden.
+            </md-not-found>
         </md-autocomplete>
         <div class="search-image-icon" flex="none">
             <md-button class="md-fab md-mini" aria-label="Search place" ng-click="ctrl.searchAddress()"
@@ -27,6 +30,9 @@
         </div>
     </div>
     <div>
+        <div class="not-found-message" ng-if="ctrl.noMessagesFound">
+            Keine Adressen gefunden.
+        </div>
         <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary" ng-change="ctrl.addressChanged(ctrl.selectedAddress)">
 
             <div layout="row" ng-repeat="address in ctrl.addresses">

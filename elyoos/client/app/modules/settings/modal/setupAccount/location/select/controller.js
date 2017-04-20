@@ -16,6 +16,7 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
     ctrl.addressSearchChanged = function () {
         ctrl.addressSearchIsValid = false;
         ctrl.disableNavigation = false;
+        ctrl.noMessagesFound = false;
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim().length >= 3 &&
             ctrl.addressSearch !== userInfoData.userLocationDescription) {
             ctrl.addressSearchIsValid = true;
@@ -43,6 +44,10 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim() !== "") {
             ctrl.requestStarted = true;
             ctrl.addresses = AddressSuggestion.query({address: ctrl.addressSearch}, function () {
+                if (ctrl.addresses.length === 0) {
+                    ctrl.noMessagesFound = true;
+                }
+                ctrl.addressSearchIsValid = false;
                 ctrl.requestStarted = false;
             }, function () {
                 ctrl.requestStarted = false;
