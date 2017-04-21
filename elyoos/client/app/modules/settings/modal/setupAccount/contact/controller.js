@@ -1,10 +1,16 @@
 'use strict';
 
 module.exports = ['$scope', 'RecommendedContactScrollRequest', 'ContactGroupStatistic',
-    'ContactGroupStatisticUpdate',
+    'ContactGroupStatisticUpdate', 'StepperDialogSteps', 'StepperDialogCommandHandler',
     function ($scope, RecommendedContactScrollRequest, ContactGroupStatistic,
-              ContactGroupStatisticUpdate) {
+              ContactGroupStatisticUpdate, StepperDialogSteps, StepperDialogCommandHandler) {
         var ctrl = this;
+
+        ctrl.step = {
+            label: 'Kontakte',
+            selected: false
+        };
+        StepperDialogSteps.addStep(ctrl.step);
 
         ctrl.users = {recommendedUser: []};
         ctrl.contact = {};
@@ -23,22 +29,42 @@ module.exports = ['$scope', 'RecommendedContactScrollRequest', 'ContactGroupStat
         });
 
         ctrl.cancelNewGroup = function () {
-            delete ctrl.commandStepperDialog;
-            ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
-            ctrl.disableNavigation = false;
+            StepperDialogCommandHandler.hideProgressBar();
+            StepperDialogCommandHandler.enableNavigation();
+            StepperDialogCommandHandler.hideButtonCommand();
         };
 
         ctrl.addNewGroupFinish = function (groupName) {
-            delete ctrl.commandStepperDialog;
-            ctrl.uploadRunning = false;
             ctrl.showAddGroup = false;
-            ctrl.disableNavigation = false;
+            StepperDialogCommandHandler.hideProgressBar();
+            StepperDialogCommandHandler.enableNavigation();
+            StepperDialogCommandHandler.hideButtonCommand();
             ContactGroupStatistic.addGroup(groupName);
         };
 
         ctrl.newGroupOpened = function () {
-            ctrl.commandAbortStepperDialog = ctrl.cancelNewGroup;
-            ctrl.commandStepperDialogLabel = 'Hinzufügen';
+            ctrl.showAddGroup = true;
+            StepperDialogCommandHandler.showButtonCommand(ctrl.cancelNewGroup, ctrl.commandAddNewGroup, 'Hinzufügen');
+        };
+
+        ctrl.commandAddNewGroup = function () {
+            ctrl.commandAddNewGroupEvent();
+        };
+
+        ctrl.uploadRunning = function (isRunning) {
+            if(isRunning) {
+                StepperDialogCommandHandler.showProgressBar();
+            } else {
+                StepperDialogCommandHandler.hideProgressBar();
+            }
+        };
+
+        ctrl.validGroupName = function (disabled) {
+            if (!disabled) {
+                StepperDialogCommandHandler.enableButtonCommand();
+            } else {
+                StepperDialogCommandHandler.disableButtonCommand();
+            }
         };
     }];

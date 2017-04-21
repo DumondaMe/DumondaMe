@@ -7,13 +7,9 @@ module.exports = {
             require: '^elyStepperDialog',
             transclude: true,
             scope: {},
-            controller: function () {
-            },
-            link: require('./link.js'),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                uploadRunning: '=',
-                disableNavigation: '='
             },
             templateUrl: 'app/modules/settings/modal/setupAccount/location/template.html'
         };

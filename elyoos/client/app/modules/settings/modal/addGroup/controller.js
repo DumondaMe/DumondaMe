@@ -7,15 +7,17 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         ctrl.imageVisible = true;
         ctrl.pinwallVisible = true;
         ctrl.uploadAllowed = false;
-        ctrl.disabledUpload = true;
 
         ctrl.nameChanged = function (newName) {
             ctrl.groupName = newName;
             ctrl.validGroupName = CheckGroupNameService.checkNameExists(ctrl.groupName);
-            ctrl.disabledUpload = !ctrl.validGroupName || ctrl.createGroupForm.$error.hasOwnProperty('required') ||
-                ctrl.createGroupForm.$error.hasOwnProperty('md-maxlength') ||
-                (angular.isString(ctrl.groupName) && ctrl.groupName.trim() === "");
             ctrl.createGroupForm.groupName.$setValidity('ely-types-exist', ctrl.validGroupName);
+
+            if (angular.isFunction(ctrl.groupNameCheckEvent)) {
+                ctrl.groupNameCheckEvent(!ctrl.validGroupName || ctrl.createGroupForm.$error.hasOwnProperty('required') ||
+                    ctrl.createGroupForm.$error.hasOwnProperty('md-maxlength') ||
+                    (angular.isString(ctrl.groupName) && ctrl.groupName.trim() === ""));
+            }
         };
 
         ctrl.cancel = function () {

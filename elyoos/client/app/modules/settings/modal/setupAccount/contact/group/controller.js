@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameService', 'errorToast',
-    function ($scope, Privacy, ContactGroupStatistic, CheckGroupNameService, errorToast) {
+    'StepperDialogCommandHandler',
+    function ($scope, Privacy, ContactGroupStatistic, CheckGroupNameService, errorToast,
+              StepperDialogCommandHandler) {
         var ctrl = this;
 
         //Statistic has been loaded with first userInfo request.
@@ -11,7 +13,7 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
 
         ctrl.deleteGroup = function (groupName) {
             if (ctrl.statistic.length > 1) {
-                ctrl.uploadRunning = true;
+                StepperDialogCommandHandler.showProgressBar();
                 if (ctrl.previousGroupName && ctrl.groupToChange) {
                     ctrl.groupToChange.group = ctrl.previousGroupName;
                 }
@@ -28,9 +30,9 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
                 }).$promise.then(function () {
                     ContactGroupStatistic.removeGroup(groupName, ctrl.selectedGroup.group);
                     ctrl.showRenameGroup = false;
-                    ctrl.uploadRunning = false;
-                }).catch(function(){
-                    ctrl.uploadRunning = false;
+                    StepperDialogCommandHandler.hideProgressBar();
+                }).catch(function () {
+                    StepperDialogCommandHandler.hideProgressBar();
                 });
             }
         };
@@ -75,19 +77,19 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
 
         ctrl.changeGroupNameAccept = function () {
             var previousGroup = ctrl.previousGroupName, newGroup = ctrl.groupToChange.group;
-            ctrl.uploadRunning = true;
+            StepperDialogCommandHandler.showProgressBar();
             Privacy.save({
                 renamePrivacy: {
                     privacyDescription: previousGroup,
                     newPrivacyDescription: newGroup
                 }
             }, function () {
-                ctrl.uploadRunning = false;
+                StepperDialogCommandHandler.hideProgressBar();
                 ctrl.showRenameGroup = false;
                 ContactGroupStatistic.renameGroup(previousGroup, newGroup);
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');
-                ctrl.uploadRunning = false;
+                StepperDialogCommandHandler.hideProgressBar();
             });
         };
 
@@ -100,8 +102,6 @@ module.exports = ['$scope', 'Privacy', 'ContactGroupStatistic', 'CheckGroupNameS
         };
 
         ctrl.openNewGroup = function () {
-            ctrl.disableNavigation = true;
-            ctrl.showAddGroup = true;
             ctrl.newGroupOpened();
         };
 

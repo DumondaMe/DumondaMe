@@ -24,7 +24,7 @@ module.exports = {
             bindToController: {
                 notHideFinish: '=',
                 instantUpdate: '=',
-                uploadStarted: '='
+                uploadStartedEvent: '='
             },
             templateUrl: 'app/modules/settings/modal/overviewGroupSettings/directive/templateContent.html'
         };

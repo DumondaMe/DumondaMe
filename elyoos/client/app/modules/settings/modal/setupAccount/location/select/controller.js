@@ -6,7 +6,6 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
     var ctrl = this, previousSelectedAddress = null, userInfoData = userInfo.getUserInfo();
 
     ctrl.selectedAddress = null;
-    ctrl.disableNavigation = false;
 
     if (angular.isString(userInfoData.userLocationDescription) && angular.isNumber(userInfoData.latitude) &&
         angular.isNumber(userInfoData.longitude)) {
@@ -15,12 +14,12 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
 
     ctrl.addressSearchChanged = function () {
         ctrl.addressSearchIsValid = false;
-        ctrl.disableNavigation = false;
+        ctrl.disableNavigation(false);
         ctrl.noMessagesFound = false;
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim().length >= 3 &&
             ctrl.addressSearch !== userInfoData.userLocationDescription) {
             ctrl.addressSearchIsValid = true;
-            ctrl.disableNavigation = true;
+            ctrl.disableNavigation(true);
         } else if (userInfoData.userLocationDescription && (!ctrl.addressSearch || ctrl.addressSearch.trim() === "")) {
             ctrl.addressChanged(null);
         }
@@ -29,11 +28,11 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
     ctrl.autocompleteAddress = function (search) {
         if (angular.isString(search) && search.trim() !== "" && search.length >= 3 &&
             userInfoData.userLocationDescription !== search) {
-            ctrl.requestStarted = true;
+            ctrl.setRequestStarted(true);
             return AddressSuggestion.query({address: search}).$promise.then(function (resp) {
                 return resp;
             }).finally(function () {
-                ctrl.requestStarted = false;
+                ctrl.setRequestStarted(false);
             });
         } else if (angular.isString(search) && search.trim() !== "" && search.length >= 3 &&
             angular.isString(userInfoData.userLocationDescription) && userInfoData.userLocationDescription === search) {
@@ -50,15 +49,15 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
 
     ctrl.searchAddress = function () {
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim() !== "") {
-            ctrl.requestStarted = true;
+            ctrl.setRequestStarted(true);
             ctrl.addresses = AddressSuggestion.query({address: ctrl.addressSearch}, function () {
                 if (ctrl.addresses.length === 0) {
                     ctrl.noMessagesFound = true;
                 }
                 ctrl.addressSearchIsValid = false;
-                ctrl.requestStarted = false;
+                ctrl.setRequestStarted(false);
             }, function () {
-                ctrl.requestStarted = false;
+                ctrl.setRequestStarted(false);
             });
         }
     };
@@ -73,7 +72,7 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
         if (selectedAddress && angular.isString(selectedAddress.address) &&
             previousSelectedAddress !== selectedAddress) {
             previousSelectedAddress = selectedAddress;
-            ctrl.requestStarted = true;
+            ctrl.setRequestStarted(true);
             UserLocation.save({
                 description: selectedAddress.address,
                 latitude: selectedAddress.latitude,
@@ -84,27 +83,32 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
                     latitude: selectedAddress.latitude,
                     longitude: selectedAddress.longitude
                 });
-                ctrl.requestStarted = false;
-                ctrl.disableNavigation = false;
+                ctrl.setRequestStarted(false);
+                ctrl.disableNavigation(false);
                 ctrl.addressSearchIsValid = false;
                 ctrl.addressSearch = userInfoData.userLocationDescription;
             }, function () {
-                ctrl.requestStarted = false;
-                ctrl.disableNavigation = false;
+                ctrl.setRequestStarted(false);
+                ctrl.disableNavigation(false);
                 ctrl.addressSearchIsValid = false;
             });
         } else if (selectedAddress === null) {
-            ctrl.requestStarted = true;
+            ctrl.setRequestStarted(true);
             UserLocation.delete({}, function () {
-                ctrl.requestStarted = false;
+                ctrl.setRequestStarted(false);
                 ctrl.addressSearchIsValid = false;
                 ctrl.selectedAddress = null;
                 ctrl.userLocationChanged(null);
             }, function () {
-                ctrl.requestStarted = false;
+                ctrl.setRequestStarted(false);
                 ctrl.addressSearchIsValid = false;
             });
         }
+    };
+
+    ctrl.setRequestStarted = function (newRequestStarted) {
+        ctrl.requestStartedValue = newRequestStarted;
+        ctrl.requestStarted(newRequestStarted);
     };
 
     ctrl.userLocationChanged = function (newUserLocation) {

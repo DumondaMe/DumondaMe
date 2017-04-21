@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'StepperDialogScrollRequest',
-    'Contact', 'errorToast',
-    function (RecommendedContactScrollRequest, ContactGroupStatistic, StepperDialogScrollRequest, Contact, errorToast) {
+    'Contact', 'errorToast', 'StepperDialogCommandHandler',
+    function (RecommendedContactScrollRequest, ContactGroupStatistic, StepperDialogScrollRequest, Contact,
+              errorToast, StepperDialogCommandHandler) {
         var ctrl = this;
 
         ctrl.users = {recommendedUser: []};
@@ -11,7 +12,7 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'S
 
         ctrl.addContact = function (userId) {
             var groupName = ctrl.selectedGroup.group;
-            ctrl.uploadRunning = true;
+            StepperDialogCommandHandler.showProgressBar();
             if (angular.isObject(ctrl.selectedGroup) && groupName) {
                 Contact.save({
                     contactIds: [userId],
@@ -19,12 +20,12 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'S
                     description: groupName
                 }, function () {
                     ctrl.users = {recommendedUser: []};
-                    ctrl.uploadRunning = false;
+                    StepperDialogCommandHandler.hideProgressBar();
                     RecommendedContactScrollRequest.reset();
                     ctrl.nextContactRecommendations();
                     ContactGroupStatistic.addContactToGroup(groupName);
                 }, function () {
-                    ctrl.uploadRunning = false;
+                    StepperDialogCommandHandler.hideProgressBar();
                     errorToast.showError('Es ist ein Fehler aufgetretten!');
                 });
             }

@@ -10,9 +10,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 addGroup: '=',
-                disabledUpload: '=',
-                finishEvent: '=',
-                uploadStarted: '='
+                groupNameCheckEvent: '=',
+                finishEvent: '='
             },
             templateUrl: 'app/modules/settings/modal/addGroup/templateDirective.html'
         };

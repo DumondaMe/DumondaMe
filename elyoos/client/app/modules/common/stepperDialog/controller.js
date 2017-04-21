@@ -1,13 +1,14 @@
 'use strict';
 
 
-module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest',
-    function ($scope, $mdMedia, ElyModal, StepperDialogScrollRequest) {
+module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest', 'StepperDialogSteps',
+    'StepperDialogCommandHandler',
+    function ($scope, $mdMedia, ElyModal, StepperDialogScrollRequest, StepperDialogSteps, StepperDialogCommandHandler) {
         var ctrl = this;
 
         ctrl.$mdMedia = $mdMedia;
         ctrl.selectedStep = 0;
-        ctrl.steps = [];
+        ctrl.showNavigation = true;
 
         ctrl.closeModal = function () {
             ElyModal.hide();
@@ -15,27 +16,14 @@ module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest'
 
         ctrl.back = function () {
             if (ctrl.selectedStep > 0) {
-                ctrl.selectStep(ctrl.selectedStep - 1);
+                ctrl.selectedStep = StepperDialogSteps.selectStep(ctrl.selectedStep - 1, true);
             }
         };
 
         ctrl.next = function () {
             if (ctrl.selectedStep < ctrl.steps.length - 1) {
-                ctrl.selectStep(ctrl.selectedStep + 1);
+                ctrl.selectedStep = StepperDialogSteps.selectStep(ctrl.selectedStep + 1, true);
             }
-        };
-
-        ctrl.addStep = function (step) {
-            ctrl.steps.push(step);
-            ctrl.selectStep(0);
-        };
-
-        ctrl.selectStep = function (index) {
-            for (var i = 0; i < ctrl.steps.length; i++) {
-                ctrl.steps[i].selected = false;
-            }
-            ctrl.steps[index].selected = true;
-            ctrl.selectedStep = index;
         };
 
         ctrl.nextScrollRequest = function () {
@@ -44,5 +32,67 @@ module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest'
 
         $scope.$on('$destroy', function () {
             StepperDialogScrollRequest.closeStepperDialog();
+            StepperDialogSteps.closeStepperDialog();
+            StepperDialogCommandHandler.closeStepperDialog();
         });
+
+        //StepperDialogSteps functions
+        ctrl.notifyStepAdded = function (newSteps) {
+            ctrl.steps = newSteps;
+        };
+
+        //StepperDialogCommandHandler functions ------------
+        ctrl.showButtonOptionalFirst = function (label, command) {
+            ctrl.optionalFirstLabel = label;
+            ctrl.optionalFirstCommand = command;
+            ctrl.showOptionalFirst = true;
+        };
+
+        ctrl.showButtonCommand = function (abort, command, label) {
+            ctrl.showCommand = true;
+            ctrl.commandIsDisabled = true;
+            ctrl.showNavigation = false;
+            ctrl.abortCommand = abort;
+            ctrl.command = command;
+            ctrl.commandLabel = label;
+        };
+
+        ctrl.hideButtonCommand = function () {
+            ctrl.showCommand = false;
+            ctrl.showNavigation = true;
+        };
+
+        ctrl.disableButtonCommand = function () {
+            ctrl.commandIsDisabled = true;
+        };
+
+        ctrl.enableButtonCommand = function () {
+            ctrl.commandIsDisabled = false;
+        };
+
+        ctrl.showProgressBar = function () {
+            ctrl.showProgress = true;
+        };
+
+        ctrl.hideProgressBar = function () {
+            ctrl.showProgress = false;
+        };
+
+        ctrl.enableNavigation = function () {
+            ctrl.commandIsDisabled = true;
+            ctrl.navigationDisabled = false;
+        };
+
+        ctrl.disableNavigation = function () {
+            ctrl.navigationDisabled = true;
+        };
+
+        ctrl.setFinishButtonAction = function (finishAction) {
+            ctrl.finish = finishAction;
+        };
+
+        //--------------------------------------------------------------------
+
+        StepperDialogSteps.setStepperDialog(ctrl);
+        StepperDialogCommandHandler.setStepperDialog(ctrl);
     }];

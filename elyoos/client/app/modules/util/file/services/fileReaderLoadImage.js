@@ -2,26 +2,26 @@
 
 module.exports = ['FileReader', 'CheckFileFormat', function (FileReader, CheckFileFormat) {
 
-    this.loadImage = function (ctrl, $scope, newImage) {
+    this.loadImage = function ($scope, newImage, setUnsupportedFile, setHasImage, setRunning, setImage) {
         if (newImage) {
             FileReader.onloadend = function () {
                 $scope.$apply(function () {
-                    ctrl.hasImage = true;
-                    ctrl.running = false;
-                    ctrl.commands.setImage(FileReader.result);
+                    setHasImage(true);
+                    setRunning(false);
+                    setImage(FileReader.result);
                 });
             };
             FileReader.onloadstart = function () {
                 $scope.$apply(function () {
-                    ctrl.running = true;
+                    setRunning(true);
                 });
             };
-            ctrl.hasImage = false;
-            ctrl.unsupportedFile = false;
+            setHasImage(false);
+            setUnsupportedFile(false);
             if (CheckFileFormat.isValidFileFormat(newImage.name, '.png .jpg .jpeg')) {
                 FileReader.readAsDataURL(newImage);
             } else {
-                ctrl.unsupportedFile = true;
+                setUnsupportedFile(true);
             }
         }
     };

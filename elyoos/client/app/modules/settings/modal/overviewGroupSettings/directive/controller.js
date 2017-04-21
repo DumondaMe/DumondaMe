@@ -3,14 +3,21 @@
 module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'errorToast',
     function ($scope, ElyModal, Privacy, PrivacySettingService, errorToast) {
         var ctrl = this, originalSettings;
-        ctrl.uploadStarted = true;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
 
+        ctrl.setUploadStarted = function (uploadStarted) {
+            ctrl.uploadStarted = uploadStarted;
+            if(angular.isFunction(ctrl.uploadStartedEvent)) {
+                ctrl.uploadStartedEvent(uploadStarted);
+            }
+        };
+        ctrl.setUploadStarted(true);
+
         $scope.settings = Privacy.get({}, function () {
-            ctrl.uploadStarted = false;
+            ctrl.setUploadStarted(false);
             originalSettings = angular.copy($scope.settings);
             ctrl.groupNames = PrivacySettingService.getGroupNames($scope.settings.group, $scope.settings.noContact.profileVisible);
             ctrl.groupNamesProfileVisible = ['Alle', 'Nur Kontakte'];
@@ -22,7 +29,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
         };
 
         ctrl.upload = function () {
-            ctrl.uploadStarted = true;
+            ctrl.setUploadStarted(true);
             var newSettings = {
                 changePrivacySetting: {
                     group: $scope.settings.group,
@@ -30,7 +37,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
                 }
             };
             Privacy.save(newSettings, function () {
-                ctrl.uploadStarted = false;
+                ctrl.setUploadStarted(false);
                 originalSettings = angular.copy($scope.settings);
                 ctrl.uploadDisabled = true;
                 if (!ctrl.notHideFinish) {
@@ -38,7 +45,7 @@ module.exports = ['$scope', 'ElyModal', 'Privacy', 'PrivacySettingService', 'err
                 }
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetreten!');
-                ctrl.uploadStarted = false;
+                ctrl.setUploadStarted(false);
             });
         };
 

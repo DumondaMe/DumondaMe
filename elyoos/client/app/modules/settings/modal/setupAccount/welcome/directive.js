@@ -8,7 +8,6 @@ module.exports = {
             transclude: true,
             scope: {},
             controller: require('./controller.js'),
-            link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
             },

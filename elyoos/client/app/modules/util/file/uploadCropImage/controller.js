@@ -4,7 +4,6 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
     function ($scope, $timeout, FileReader, ElyModal, fileUpload, errorToast, FileReaderLoadImage) {
         var ctrl = this;
         ctrl.commands = {};
-        ctrl.hasImage = false;
         ctrl.unsupportedFile = false;
 
         ctrl.cancel = function () {
@@ -16,7 +15,7 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
         };
 
         ctrl.uploadImage = function () {
-            ctrl.running = true;
+            ctrl.setRunning(true);
             ctrl.commands.disable();
             $timeout(ctrl.commands.getData());
         };
@@ -24,7 +23,7 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
         ctrl.startImageUpload = function (blob) {
             if (blob instanceof Blob) {
                 fileUpload.uploadFileToUrl(blob, ctrl.uploadUrl).success(function () {
-                    ctrl.running = false;
+                    ctrl.setRunning(false);
                     if (angular.isFunction(ctrl.finish)) {
                         ctrl.finish();
                     } else {
@@ -32,12 +31,12 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
                     }
                 }).error(function () {
                     ctrl.commands.enable();
-                    ctrl.running = false;
+                    ctrl.setRunning(false);
                     errorToast.showError('Beim Senden des Bildes ist ein Fehler aufgetreten!');
                 });
             } else {
                 ctrl.commands.enable();
-                ctrl.running = false;
+                ctrl.setRunning(false);
                 errorToast.showError('Diese Datei kann nicht hochgeladen werden');
             }
         };
@@ -50,8 +49,27 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
             ctrl.commands.rotate90DegreeRight();
         };
 
+        ctrl.setRunning = function(newRunning) {
+            ctrl.running = newRunning;
+            if(angular.isFunction(ctrl.eventRunning)) {
+                ctrl.eventRunning(ctrl.running);
+            }
+        };
+
+        ctrl.setHasImage = function (newHasImage) {
+            ctrl.hasImage = newHasImage;
+            if(angular.isFunction(ctrl.eventHasImage)) {
+                ctrl.eventHasImage(ctrl.hasImage);
+            }
+        };
+
+        ctrl.setUnsupportedFile = function (newUnsupportedFile) {
+            ctrl.unsupportedFile = newUnsupportedFile;
+        };
+
         $scope.$watch('imageForUpload', function (newImage) {
-            FileReaderLoadImage.loadImage(ctrl, $scope, newImage);
+            FileReaderLoadImage.loadImage($scope, newImage, ctrl.setUnsupportedFile, ctrl.setHasImage,
+                ctrl.setRunning, ctrl.commands.setImage);
         });
     }
 ];

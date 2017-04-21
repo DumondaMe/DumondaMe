@@ -1,40 +1,57 @@
 'use strict';
 
-module.exports = ['$scope', 'userInfo', 'UploadProfileImageState',
-    function ($scope, userInfo, UploadProfileImageState) {
+module.exports = ['$scope', 'userInfo', 'UploadProfileImageState', 'StepperDialogSteps',
+    'StepperDialogCommandHandler',
+    function ($scope, userInfo, UploadProfileImageState, StepperDialogSteps, StepperDialogCommandHandler) {
         var ctrl = this, userInfoName = 'accountSetupProfileImage';
 
+        userInfo.register(userInfoName, ctrl);
+
+        ctrl.commandStepperDialog = function () {
+            ctrl.startUploadImage();
+        };
+
         ctrl.finish = function () {
-            delete ctrl.commandStepperDialog;
             ctrl.selectedImage = false;
-            ctrl.uploadRunning = false;
+            StepperDialogCommandHandler.hideProgressBar();
+            StepperDialogCommandHandler.hideButtonCommand();
             UploadProfileImageState.profileImageChanged();
         };
 
         ctrl.showCropImage = function () {
             ctrl.selectedImage = true;
-            ctrl.commandAbortStepperDialog = ctrl.finish;
-            ctrl.commandStepperDialogLabel = 'Hochladen';
+            StepperDialogCommandHandler.showButtonCommand(ctrl.finish, ctrl.commandStepperDialog, 'Hochladen');
         };
 
         ctrl.userInfoChanged = function () {
             ctrl.profileImage = userInfo.getUserInfo().profileImagePreview;
         };
 
-        $scope.$watch('step.selected', function (selected) {
-            if (selected) {
-                ctrl.selectedImage = false;
-                ctrl.uploadRunning = false;
-                delete ctrl.commandStepperDialog;
-                userInfo.register(userInfoName, ctrl);
+        ctrl.hasImage = function (newHasImage) {
+            if (newHasImage) {
+                StepperDialogCommandHandler.enableButtonCommand();
             } else {
-                userInfo.remove(userInfoName);
+                StepperDialogCommandHandler.disableButtonCommand();
             }
-        });
+        };
+
+        ctrl.uploadRunning = function (newUploadRunning) {
+            if (newUploadRunning) {
+                StepperDialogCommandHandler.showProgressBar();
+            } else {
+                StepperDialogCommandHandler.hideProgressBar();
+            }
+        };
 
         $scope.$on("$destroy", function () {
             userInfo.remove(userInfoName);
         });
+
+        ctrl.step = {
+            label: 'Profilbild',
+            selected: false
+        };
+        StepperDialogSteps.addStep(ctrl.step);
 
         ctrl.profileImage = userInfo.getUserInfo().profileImagePreview;
     }];

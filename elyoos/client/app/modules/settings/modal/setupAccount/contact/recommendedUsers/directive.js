@@ -11,7 +11,6 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                uploadRunning: '=',
                 selectedGroup: '=',
                 isActive: '='
             },
