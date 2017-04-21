@@ -1,0 +1,14 @@
+<div class="contact-recommendation-container">
+    <div ng-repeat="user in ctrl.users.recommendedUser" layout="row" class="contact-recommendation">
+        <div class="profile-image-container" flex="none">
+            <img ng-src="{{user.profileUrl}}"/>
+        </div>
+        <div class="profile-name">{{user.name}}</div>
+        <span flex></span>
+        <div>
+            <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact(user.userId)">
+                <md-icon md-svg-icon="cardActions:addContact"></md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>

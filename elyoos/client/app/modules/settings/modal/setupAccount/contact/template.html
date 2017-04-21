@@ -10,20 +10,10 @@
                     <md-tab>
                         <md-tab-label>Vorschläge</md-tab-label>
                         <md-tab-body>
-                            <div class="contact-recommendation-container">
-                                <div ng-repeat="user in ctrl.users.recommendedUser" layout="row" class="contact-recommendation">
-                                    <div class="profile-image-container" flex="none">
-                                        <img ng-src="{{user.profileUrl}}"/>
-                                    </div>
-                                    <div class="profile-name">{{user.name}}</div>
-                                    <span flex></span>
-                                    <div>
-                                        <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact(user.userId)">
-                                            <md-icon md-svg-icon="cardActions:addContact"></md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
+                            <ely-tutorial-contact-recommended-users upload-running="ctrl.uploadRunning"
+                                                                    selected-group="ctrl.selectedGroup"
+                                                                    is-active="ctrl.selectedTab === 0">
+                            </ely-tutorial-contact-recommended-users>
                         </md-tab-body>
                     </md-tab>
                     <md-tab ng-repeat="statistic in ctrl.statistics">
@@ -41,7 +31,6 @@
                                                  show-only-contact="true"></ely-contact-preview>
                         </md-tab-body>
                     </md-tab>
-
                 </md-tabs>
             </div>
             <div class="contact-group" flex="none" flex-order-xs="1">
