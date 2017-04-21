@@ -1,11 +1,26 @@
 'use strict';
 
-module.exports = ['RecommendedContactScrollRequest', 'ContactStatistic', 'ContactGroupStatistic', 'Contact', 'errorToast',
-    function (RecommendedContactScrollRequest, ContactStatistic, ContactGroupStatistic, Contact, errorToast) {
+module.exports = ['$scope', 'RecommendedContactScrollRequest', 'ContactStatistic', 'ContactGroupStatistic',
+    'ContactGroupStatisticUpdate', 'Contact', 'errorToast',
+    function ($scope, RecommendedContactScrollRequest, ContactStatistic, ContactGroupStatistic,
+              ContactGroupStatisticUpdate, Contact, errorToast) {
         var ctrl = this;
 
         ctrl.users = {recommendedUser: []};
+        ctrl.contact = {};
         RecommendedContactScrollRequest.reset();
+        //Statistic has been loaded with first userInfo request.
+        ctrl.statistics = ContactGroupStatistic.getStatisticWithContacts();
+        ContactGroupStatistic.register('setupAccountContact', ctrl);
+
+        ctrl.groupStatisticChanged = function () {
+            ContactGroupStatisticUpdate.update(ctrl.statistics,
+                ContactGroupStatistic.getStatisticWithContacts());
+        };
+
+        $scope.$on("$destroy", function () {
+            ContactGroupStatistic.deregister('setupAccountContact');
+        });
 
         ctrl.cancelNewGroup = function () {
             delete ctrl.commandStepperDialog;

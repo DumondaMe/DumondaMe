@@ -32,6 +32,18 @@ module.exports = ['Observables', function (Observables) {
         return angular.copy(statistic);
     };
 
+    service.getStatisticWithContacts = function () {
+        var result = [];
+        if (angular.isArray(statistic)) {
+            statistic.forEach(function (group) {
+                if (group.count > 0) {
+                    result.push(angular.copy(group));
+                }
+            });
+        }
+        return result;
+    };
+
     service.register = function (name, observable) {
         Observables.register(observables, name, observable);
     };

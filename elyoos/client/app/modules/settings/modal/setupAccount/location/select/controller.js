@@ -35,6 +35,14 @@ module.exports = ['AddressSuggestion', 'UserLocation', 'userInfo', function (Add
             }).finally(function () {
                 ctrl.requestStarted = false;
             });
+        } else if (angular.isString(search) && search.trim() !== "" && search.length >= 3 &&
+            angular.isString(userInfoData.userLocationDescription) && userInfoData.userLocationDescription === search) {
+            previousSelectedAddress = {
+                address: userInfoData.userLocationDescription,
+                latitude: userInfoData.latitude,
+                longitude: userInfoData.longitude,
+            };
+            return [previousSelectedAddress];
         } else {
             return [];
         }

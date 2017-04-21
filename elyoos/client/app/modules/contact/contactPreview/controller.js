@@ -1,10 +1,11 @@
 'use strict';
 
-module.exports = ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService', 'ContactGroupStatistic',
-    '$state',
-    function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService, ContactGroupStatistic, $state) {
+module.exports = ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService',
+    'ContactGroupStatistic', '$state', 'errorToast',
+    function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService,
+              ContactGroupStatistic, $state, errorToast) {
         var ctrl = this;
-        var scrollRequestName = 'ContactOverview' + ctrl.statistic.group;
+        var scrollRequestName = (ctrl.scrollRequestName || 'ContactOverview') + ctrl.statistic.group;
         var requestedContacts = false;
         ctrl.overview = {contacts: []};
         ctrl.isExpanded = false;
@@ -30,6 +31,9 @@ module.exports = ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 
                 ctrl.hasNext = ScrollRequest.hasNext(scrollRequestName);
             });
         };
+        if (ctrl.showOnlyContact) {
+            ctrl.nextOverview();
+        }
 
         ctrl.statistic.reloadContact = function () {
             ctrl.overview = {contacts: []};
@@ -66,6 +70,20 @@ module.exports = ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 
                 UserStateService.removeContact(ctrl.overview.contacts, contactId);
                 ScrollRequest.removedElement(scrollRequestName);
                 ContactGroupStatistic.moveContact(ctrl.statistic, newGroup);
+            });
+        };
+
+        ctrl.moveContactToActive = function (contactId, newGroup) {
+            Contact.save({
+                contactIds: [contactId],
+                mode: 'changeState',
+                description: newGroup
+            }, function () {
+                UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                ScrollRequest.removedElement(scrollRequestName);
+                ContactGroupStatistic.moveContact(ctrl.statistic, newGroup);
+            }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
             });
         };
 

@@ -9,7 +9,11 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 statistics: '=',
-                statistic: '='
+                statistic: '=',
+                selectedStatistic: '=',
+                showOnlyContact: '=',
+                deactivateBlockContact: '=',
+                scrollRequestName: '@'
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };

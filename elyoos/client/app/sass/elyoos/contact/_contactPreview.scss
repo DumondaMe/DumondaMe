@@ -51,8 +51,8 @@
         border-radius: 50%;
       }
       .name {
-        font-size: 14px;
-        color: $primary-text;
+        font-size: 16px;
+        color: $primary-color;
         line-height: 72px;
         vertical-align: middle;
         white-space: nowrap;
@@ -67,9 +67,24 @@
         margin-top: 16px;
       }
     }
+    .contact-preview.no-divider {
+      border-bottom: none;
+      height: 48px;
+      margin-bottom: 12px;
+      .profile-img {
+        margin: 0 12px 0 0;
+      }
+      .name {
+        line-height: 48px;
+      }
+    }
 
     .next-contacts {
       height: 64px;
     }
+  }
+  .contact-previews.no-divider {
+    border-bottom: none;
+    padding-top: 18px;
   }
 }

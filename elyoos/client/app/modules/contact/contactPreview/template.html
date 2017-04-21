@@ -1,5 +1,5 @@
 <div class="ely-contact-preview">
-    <div class="type-preview" layout="row">
+    <div class="type-preview" layout="row" ng-if="!ctrl.showOnlyContact">
         <div class="type md-title" ng-click="ctrl.toggleExpand()">{{ctrl.statistic.group}}</div>
         <div class="count md-subhead" ng-click="ctrl.toggleExpand()">
             <span ng-if="ctrl.statistic.count > 0">{{ctrl.statistic.count}}</span>
@@ -21,8 +21,10 @@
             </md-menu-content>
         </md-menu>
     </div>
-    <div class="contact-previews" ng-show="ctrl.isExpanded && ctrl.overview.contacts.length > 0">
-        <div class="contact-preview" ng-repeat="contact in ctrl.overview.contacts" layout="row">
+    <div class="contact-previews" ng-show="(ctrl.isExpanded && ctrl.overview.contacts.length > 0) || ctrl.showOnlyContact"
+         ng-class="{'no-divider': ctrl.showOnlyContact}">
+        <div class="contact-preview" ng-repeat="contact in ctrl.overview.contacts" layout="row"
+             ng-class="{'no-divider': ctrl.showOnlyContact}">
             <img class="profile-img" ng-src="{{contact.profileUrl}}" ng-click="ctrl.goToDetail(contact.userId)"/>
             <div class="md-title name" ng-click="ctrl.goToDetail(contact.userId)">{{contact.name}}</div>
             <span flex class="ely-spacer" ng-click="ctrl.goToDetail(contact.userId)"></span>
@@ -31,13 +33,18 @@
                     <md-icon md-svg-icon="system:moreVert"></md-icon>
                 </md-button>
                 <md-menu-content>
-                    <md-menu-item>
+                    <md-menu-item ng-if="!ctrl.selectedStatistic">
                         <md-button ng-click="ctrl.moveContact(contact.userId, contact.name)">Gruppe wechseln</md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-if="ctrl.selectedStatistic">
+                        <md-button ng-click="ctrl.moveContactToActive(contact.userId, ctrl.selectedStatistic.group)"
+                                   ng-disabled="ctrl.selectedStatistic.group === ctrl.statistic.group">Zu aktiver Gruppe wechseln
+                        </md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-button ng-click="ctrl.deleteContact(contact.userId)">Kontakt entfernen</md-button>
                     </md-menu-item>
-                    <md-menu-item>
+                    <md-menu-item ng-if="!ctrl.deactivateBlockContact">
                         <md-button ng-click="ctrl.blockContact(contact.userId)">Kontakt blockieren</md-button>
                     </md-menu-item>
                 </md-menu-content>
