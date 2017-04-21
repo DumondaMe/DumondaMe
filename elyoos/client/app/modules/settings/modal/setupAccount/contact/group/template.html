@@ -28,6 +28,9 @@
                     <md-icon md-svg-icon="system:moreVert"></md-icon>
                 </md-button>
                 <md-menu-content>
+                    <md-menu-item ng-if="ctrl.statistic.length > 1 && statistic.group !== ctrl.selectedGroup.group">
+                        <md-button ng-click="ctrl.setSelectedGroup(statistic)">Als aktive Gruppe setzen</md-button>
+                    </md-menu-item>
                     <md-menu-item ng-if="!ctrl.showRenameGroup || (ctrl.showRenameGroup && ctrl.groupToChange !== statistic)">
                         <md-button ng-click="ctrl.changeGroupName(statistic)">
                             Gruppe umbennen
