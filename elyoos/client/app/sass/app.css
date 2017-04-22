@@ -4366,6 +4366,8 @@
         overflow-y: hidden; }
       #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container .contact-recommendation .add-contact-button {
         margin-top: 4px; }
+    #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container #ely-loading-screen {
+      margin-top: 48px; }
   #setup-contact-step .contact-container .contact-group {
     width: 250px;
     margin-left: 24px;

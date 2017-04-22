@@ -6,6 +6,7 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'S
               errorToast, StepperDialogCommandHandler) {
         var ctrl = this;
 
+        ctrl.isLoading = true;
         ctrl.users = {recommendedUser: []};
         RecommendedContactScrollRequest.reset();
         StepperDialogScrollRequest.setNextScrollRequestHandler(ctrl);
@@ -38,6 +39,7 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'S
 
         ctrl.nextContactRecommendations = function () {
             RecommendedContactScrollRequest.nextRequest(ctrl.users.recommendedUser).then(function (recommendedUsers) {
+                ctrl.isLoading = false;
                 ctrl.users = recommendedUsers;
             });
         };
