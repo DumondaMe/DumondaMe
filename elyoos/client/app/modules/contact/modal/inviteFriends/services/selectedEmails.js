@@ -24,6 +24,10 @@ module.exports = ['ArrayHelper', 'errorToast', function (ArrayHelper, errorToast
         return selectedEmails;
     };
 
+    service.setSelectedEmails = function (newSelectedEmails) {
+        selectedEmails = newSelectedEmails;
+    };
+
     service.emailExists = function (email) {
         return ArrayHelper.getIndex(selectedEmails, email, 'email') > -1;
     };

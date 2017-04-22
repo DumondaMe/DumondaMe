@@ -97,6 +97,7 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
 
         ctrl.addEmails = function (emails) {
             ctrl.selectedAddresses = ArrayHelper.uniqueArray(ctrl.selectedAddresses.concat(emails), 'email');
+            InviteFriendsSelectedEMails.setSelectedEmails(ctrl.selectedAddresses);
             ctrl.contacts.addresses = ArrayHelper.uniqueArray(ctrl.contacts.addresses.concat(emails), 'email');
             ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
