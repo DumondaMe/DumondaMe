@@ -7,14 +7,14 @@
     .source-container {
       margin-bottom: 6px;
       cursor: pointer;
-      height: 24px;
+      height: 32px;
       @media screen and (min-width: $gt-xs) {
         height: 48px;
       }
       .image-container {
         margin-right: 12px;
-        height: 24px;
-        width: 24px;
+        height: 32px;
+        width: 32px;
         @media screen and (min-width: $gt-xs) {
           height: 48px;
           width: 48px;
@@ -26,7 +26,7 @@
       }
       .source-description {
         font-size: 14px;
-        line-height: 24px;
+        line-height: 32px;
         color: $primary-text;
         font-weight: 500;
         vertical-align: middle;

@@ -88,14 +88,14 @@
   #select-user-step .ely-import-container .source-container {
     margin-bottom: 6px;
     cursor: pointer;
-    height: 24px; }
+    height: 32px; }
     @media screen and (min-width: 600px) {
       #select-user-step .ely-import-container .source-container {
         height: 48px; } }
     #select-user-step .ely-import-container .source-container .image-container {
       margin-right: 12px;
-      height: 24px;
-      width: 24px; }
+      height: 32px;
+      width: 32px; }
       @media screen and (min-width: 600px) {
         #select-user-step .ely-import-container .source-container .image-container {
           height: 48px;
@@ -105,7 +105,7 @@
         width: 100%; }
     #select-user-step .ely-import-container .source-container .source-description {
       font-size: 14px;
-      line-height: 24px;
+      line-height: 32px;
       color: rgba(0, 0, 0, 0.87);
       font-weight: 500;
       vertical-align: middle; }
@@ -148,24 +148,49 @@
     height: 100%; }
     #select-user-step #select-user-step-container #select-header {
       padding: 0 24px;
-      margin-bottom: 12px;
-      height: 45px; }
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: 6px;
+      height: 90px; }
       @media screen and (min-width: 600px) {
         #select-user-step #select-user-step-container #select-header {
-          height: 30px; } }
+          height: 100px; } }
       #select-user-step #select-user-step-container #select-header #select-info {
         font-size: 12px;
         margin-top: 3px;
-        margin-right: 18px; }
+        margin-right: 18px;
+        margin-bottom: 10px; }
         @media screen and (min-width: 600px) {
           #select-user-step #select-user-step-container #select-header #select-info {
             font-size: 14px; } }
         #select-user-step #select-user-step-container #select-header #select-info #select-number {
           font-weight: 500;
-          color: #3F51B5; }
-      #select-user-step #select-user-step-container #select-header #only-selected #only-selected-checkbox {
-        margin-bottom: 1px;
+          color: #3F51B5;
+          margin-bottom: 12px; }
+        #select-user-step #select-user-step-container #select-header #select-info .total-number {
+          font-weight: 500; }
+      #select-user-step #select-user-step-container #select-header #select-check-box-container #only-selected {
         font-size: 14px; }
+        #select-user-step #select-user-step-container #select-header #select-check-box-container #only-selected #only-selected-checkbox {
+          margin-bottom: 12px; }
+      #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element {
+        margin-left: 0;
+        font-size: 14px; }
+        @media screen and (min-width: 600px) {
+          #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element {
+            margin-left: 18px; } }
+        #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element #selected-all-checkbox {
+          margin-bottom: 12px; }
+      #select-user-step #select-user-step-container #select-header #filter-email-container {
+        margin-bottom: 12px; }
+        #select-user-step #select-user-step-container #select-header #filter-email-container #filter-email {
+          height: 32px;
+          width: 100%;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          padding: 0 12px; }
     #select-user-step #select-user-step-container #select-user-step-content {
       padding: 0 24px;
       overflow-y: auto; }
@@ -199,17 +224,11 @@
           margin-left: 0; }
           #select-user-step #select-user-step-container #select-user-step-content #contact-import-source-container #open-custom-emails .md-fab {
             margin-left: 0; }
-      #select-user-step #select-user-step-container #select-user-step-content #filter-contact {
-        height: 50px;
-        margin-bottom: 24px; }
       #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element {
         margin-bottom: 8px; }
         #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element .name {
           font-size: 12px;
           color: rgba(0, 0, 0, 0.54); }
-      #select-user-step #select-user-step-container #select-user-step-content #contact-list-container .contact-list-element.select-all-element {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        margin-bottom: 22px; }
 
 #send-email-invitation-container {
   padding: 0 24px;

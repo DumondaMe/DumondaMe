@@ -49,6 +49,10 @@ module.exports = ['ArrayHelper', 'errorToast', function (ArrayHelper, errorToast
         toggleAllSelected = service.isSelectedAll(allEmails);
     };
 
+    service.resetToggleAll = function () {
+        toggleAllSelected = false;
+    };
+
     service.toggleAllEmailSelections = function (allEmails) {
         selectedEmails = [];
         if (!toggleAllSelected) {

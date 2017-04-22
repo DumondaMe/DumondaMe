@@ -75,15 +75,25 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             ctrl.isSelectedAll = InviteFriendsSelectedEMails.isSelectedAll(ctrl.contacts.addresses);
             ctrl.maxSelected = InviteFriendsSelectedEMails.isMaxSelected();
             if (InviteFriendsSelectedEMails.getSelectedEmails().length === 0) {
-             ctrl.showOnlySelected = false;
-             ctrl.contactsToShow = ctrl.contacts.addresses;
-             }
+                ctrl.showOnlySelected = false;
+                ctrl.contactsToShow = ctrl.contacts.addresses;
+            }
             ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.toggleAllEmailSelections = function () {
-            ctrl.selectedAddresses = InviteFriendsSelectedEMails.toggleAllEmailSelections(ctrl.contacts.addresses);
-            ctrl.maxSelected = InviteFriendsSelectedEMails.isMaxSelected();
+            if(ctrl.filterEmailAddresses && angular.isString(ctrl.filterEmailAddresses.email) &&
+                ctrl.filterEmailAddresses.email.trim() !== "" &&
+                ctrl.filteredEmailResult.length < ctrl.contacts.addresses.length) {
+                ctrl.selectedAddresses = InviteFriendsSelectedEMails.toggleAllEmailSelections(ctrl.filteredEmailResult);
+            } else {
+                ctrl.selectedAddresses = InviteFriendsSelectedEMails.toggleAllEmailSelections(ctrl.contacts.addresses);
+                ctrl.maxSelected = InviteFriendsSelectedEMails.isMaxSelected();
+                if (ctrl.isSelectedAll) {
+                    ctrl.showOnlySelected = false;
+                    ctrl.contactsToShow = ctrl.contacts.addresses;
+                }
+            }
             ctrl.checkNavigationIsDisabled();
         };
 

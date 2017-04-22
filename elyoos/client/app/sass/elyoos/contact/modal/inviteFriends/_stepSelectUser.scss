@@ -4,28 +4,60 @@
     height: 100%;
     #select-header {
       padding: 0 24px;
-      margin-bottom: 12px;
-      height: 45px;
+      border-bottom: 1px solid $divider;
+      margin-bottom: 6px;
+      height: 90px;
 
       @media screen and (min-width: $gt-xs) {
-        height: 30px;
+        height: 100px;
       }
       #select-info {
         font-size: 12px;
         margin-top: 3px;
         margin-right: 18px;
+        margin-bottom: 10px;
         @media screen and (min-width: $gt-xs) {
           font-size: 14px;
         }
         #select-number {
           font-weight: 500;
           color: $primary-color;
+          margin-bottom: 12px;
+        }
+        .total-number {
+          font-weight: 500;
         }
       }
-      #only-selected {
-        #only-selected-checkbox {
-          margin-bottom: 1px;
+      #select-check-box-container {
+        #only-selected {
           font-size: 14px;
+          #only-selected-checkbox {
+            margin-bottom: 12px;
+          }
+        }
+        #select-all-element {
+          margin-left: 0;
+          font-size: 14px;
+
+          @media screen and (min-width: $gt-xs) {
+            margin-left: 18px;
+          }
+          #selected-all-checkbox {
+            margin-bottom: 12px;
+          }
+        }
+      }
+      #filter-email-container {
+        margin-bottom: 12px;
+        #filter-email {
+          height: 32px;
+          width: 100%;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          padding: 0 12px;
         }
       }
     }
@@ -77,10 +109,6 @@
           }
         }
       }
-      #filter-contact {
-        height: 50px;
-        margin-bottom: 24px;
-      }
       #contact-list-container {
         .contact-list-element {
           margin-bottom: 8px;
@@ -88,10 +116,6 @@
             font-size: 12px;
             color: $secondary-text;
           }
-        }
-        .contact-list-element.select-all-element {
-          border-bottom: 1px solid $divider;
-          margin-bottom: 22px
         }
       }
     }
