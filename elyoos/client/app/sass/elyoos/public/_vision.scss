@@ -13,60 +13,40 @@
     @media screen and (max-width: $gt-sm) {
       padding-top: 18px;
     }
+    .vision-text-bold {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+    }
     .vision-text {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px;
     }
-    .text-divider {
-      height: 4px;
+    .vision-list {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+      li:before {
+        color: $secondary-text;
+      }
     }
-    #vision-image {
-      width: 280px;
-      margin: 0 auto 24px auto;
-      @media screen and (min-width: $gt-xs) {
-        width: 450px;
+    .vision-preview-image {
+      cursor: pointer;
+      margin: 0 auto;
+      max-width: 400px;
+      @media screen and (min-width: $gt-sm) {
+        max-width: 500px;
+      }
+      @media screen and (min-width: $gt-xmd) {
+        max-width: 600px;
       }
       img {
         width: 100%;
       }
     }
-    #developer-container {
-      margin-top: 24px;
-      margin-bottom: 32px;
-      .developer-image {
-        height: 100px;
-        width: 100px;
-        margin-right: 12px;
-        border-radius: 4px;
-        img {
-          height: 100%;
-          width: 100%;
-          border-radius: 4px;
-        }
-      }
-      .info {
-        .name {
-          font-size: 20px;
-          font-weight: 500;
-          color: $primary-color;
-          margin-bottom: 6px;
-        }
-        .info-description {
-          font-size: 14px;
-          font-weight: 500;
-          color: $primary-text;
-          margin-bottom: 3px;
-        }
-        .info-contact {
-          font-size: 12px;
-          font-weight: 500;
-          color: $secondary-text;
-          @media screen and (min-width: $gt-xs) {
-            font-size: 14px;
-          }
-        }
-      }
+    .text-divider {
+      height: 4px;
     }
   }
 }

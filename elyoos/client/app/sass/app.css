@@ -4086,49 +4086,34 @@
     @media screen and (max-width: 960px) {
       #ely-vision #ely-vision-container {
         padding-top: 18px; } }
+    #ely-vision #ely-vision-container .vision-text-bold {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px; }
     #ely-vision #ely-vision-container .vision-text {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
+    #ely-vision #ely-vision-container .vision-list {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px; }
+      #ely-vision #ely-vision-container .vision-list li:before {
+        color: rgba(0, 0, 0, 0.54); }
+    #ely-vision #ely-vision-container .vision-preview-image {
+      cursor: pointer;
+      margin: 0 auto;
+      max-width: 400px; }
+      @media screen and (min-width: 960px) {
+        #ely-vision #ely-vision-container .vision-preview-image {
+          max-width: 500px; } }
+      @media screen and (min-width: 1440px) {
+        #ely-vision #ely-vision-container .vision-preview-image {
+          max-width: 600px; } }
+      #ely-vision #ely-vision-container .vision-preview-image img {
+        width: 100%; }
     #ely-vision #ely-vision-container .text-divider {
       height: 4px; }
-    #ely-vision #ely-vision-container #vision-image {
-      width: 280px;
-      margin: 0 auto 24px auto; }
-      @media screen and (min-width: 600px) {
-        #ely-vision #ely-vision-container #vision-image {
-          width: 450px; } }
-      #ely-vision #ely-vision-container #vision-image img {
-        width: 100%; }
-    #ely-vision #ely-vision-container #developer-container {
-      margin-top: 24px;
-      margin-bottom: 32px; }
-      #ely-vision #ely-vision-container #developer-container .developer-image {
-        height: 100px;
-        width: 100px;
-        margin-right: 12px;
-        border-radius: 4px; }
-        #ely-vision #ely-vision-container #developer-container .developer-image img {
-          height: 100%;
-          width: 100%;
-          border-radius: 4px; }
-      #ely-vision #ely-vision-container #developer-container .info .name {
-        font-size: 20px;
-        font-weight: 500;
-        color: #3F51B5;
-        margin-bottom: 6px; }
-      #ely-vision #ely-vision-container #developer-container .info .info-description {
-        font-size: 14px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.87);
-        margin-bottom: 3px; }
-      #ely-vision #ely-vision-container #developer-container .info .info-contact {
-        font-size: 12px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.54); }
-        @media screen and (min-width: 600px) {
-          #ely-vision #ely-vision-container #developer-container .info .info-contact {
-            font-size: 14px; } }
 
 #ely-add-recommendation {
   width: 100%;
