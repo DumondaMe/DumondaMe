@@ -57,9 +57,7 @@ module.exports = [function () {
         stepperDialog.hideProgressBar();
     };
 
-    /*service.nextScrollRequest = function () {
-     if (requestHandler && angular.isFunction(requestHandler.nextScrollRequest)) {
-     requestHandler.nextScrollRequest();
-     }
-     };*/
+    service.showButtonFinishInfo = function () {
+        stepperDialog.showButtonFinishInfo();
+    };
 }];

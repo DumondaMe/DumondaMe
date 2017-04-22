@@ -1,21 +1,20 @@
-<div class="ely-import-basic-auth">
+<form name="ctrl.basicAuthForm" class="ely-import-basic-auth">
     <div id="dialog-container">
         <md-input-container class="input-element md-block">
             <label>Deine E-Mail-Adresse von {{ctrl.serviceName}}</label>
-            <input required type="email" name="user" id="user" aria-label="Email"
-                   ng-model="ctrl.username" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
+            <input required type="text" name="username" id="username" aria-label="username or email" ng-change="ctrl.inputChanged()"
+                   ng-model="ctrl.username" ng-disabled="ctrl.importStarted" md-no-asterisk>
 
             <div ng-messages="ctrl.basicAuthForm.username.$error">
                 <div ng-message="required">Wird benötigt!</div>
-                <div ng-message="email">Keine gültige E-Mail Adresse!</div>
             </div>
         </md-input-container>
         <md-input-container class="input-element md-block">
             <label>Passwort</label>
-            <input type="password" required name="password" id="pass" aria-label="Passwort"
-                   ng-model="ctrl.password" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
+            <input type="password" required name="password" id="password" aria-label="Passwort" ng-change="ctrl.inputChanged()"
+                   ng-model="ctrl.password" ng-disabled="ctrl.importStarted" md-no-asterisk>
 
-            <div ng-messages="ctrl.basicAuthForm.pass.$error">
+            <div ng-messages="ctrl.basicAuthForm.password.$error">
                 <div ng-message="required">Wird benötigt!</div>
             </div>
         </md-input-container>
@@ -24,4 +23,4 @@
             Deine Logindaten werden von Elyoos nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden.
         </div>
     </div>
-</div>
+</form>

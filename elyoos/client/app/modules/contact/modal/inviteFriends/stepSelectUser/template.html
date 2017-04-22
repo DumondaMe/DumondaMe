@@ -1,4 +1,4 @@
-<div id="select-user-step" ng-if="step.selected" ely-handling-column-flex>
+<div id="select-user-step" ng-if="ctrl.step.selected" ely-handling-column-flex>
     <div id="select-user-step-container" ng-hide="ctrl.showAddEmails || ctrl.showBasicAuth" ely-handling-column-flex>
         <div id="select-header" layout="row" ng-if="ctrl.selectedAddresses.length > 0" layout-wrap flex="none">
             <div id="select-info">
@@ -60,7 +60,8 @@
                 <div ng-repeat="contact in ctrl.contactsToShow | orderBy:'email' | filter:ctrl.filterEmailAddresses"
                      class="contact-list-element">
                     <div>
-                        <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
+                        <md-checkbox ng-checked="ctrl.emailExists(contact)"
+                                     ng-click="ctrl.toggleEmail(contact)"
                                      aria-label="Select Email {{contact.email}}" ng-disabled="ctrl.importStarted">
                             {{contact.email}} <br/>
                             <span class="name">{{contact.name}}
@@ -72,10 +73,8 @@
             </div>
         </div>
     </div>
-    <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails"
-                                  email-address-is-invalid="ctrl.commandIsDisabled" add-email-addresses-command="ctrl.commandStepperDialog">
+    <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails">
     </ely-import-add-email-address>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
-                           load-address-book-event="ctrl.commandStepperDialog" import-started="ctrl.importStarted"
                            finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
 </div>

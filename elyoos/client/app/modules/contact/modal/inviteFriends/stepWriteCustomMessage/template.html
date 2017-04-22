@@ -1,11 +1,11 @@
-<form name="ctrl.messageForm" id="write-custom-message-step" ng-if="step.selected">
+<form name="ctrl.messageForm" id="write-custom-message-step" ng-if="ctrl.step.selected">
     <div class="custom-message">
         Schreibe eine kurze Nachricht an deine Freunde weshalb du Elyoos so toll findest ;-)
     </div>
     <md-input-container class="input-element md-block">
         <label>Deine Mitteilung</label>
-        <input type="text" name="message" id="message" aria-label="Your message" md-maxlength="300" ng-change="ctrl.messageChanged()"
-               ng-model="ctrl.message">
+        <textarea type="text" name="message" id="message" aria-label="Your message" md-maxlength="300" ng-change="ctrl.messageChanged()"
+               ng-model="ctrl.message" max-rows="4"></textarea>
 
         <div ng-messages="ctrl.messageForm.message.$error" ng-show="ctrl.messageForm.message.$dirty">
             <div ng-message="md-maxlength">Text ist zu lang</div>

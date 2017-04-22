@@ -1,22 +1,30 @@
 'use strict';
 
-var maxSelectedLength = 1000;
-
-module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper', 'InviteFriendsSelectedEMails', 'errorToast',
-    function (ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper, InviteFriendsSelectedEMails, errorToast) {
+module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail', 'ArrayHelper',
+    'InviteFriendsSelectedEMails', 'errorToast', 'StepperDialogSteps', 'StepperDialogCommandHandler',
+    function (ImportGmxContacts, ImportWebDeContacts, SendInviteEmail, ArrayHelper,
+              InviteFriendsSelectedEMails, errorToast, StepperDialogSteps, StepperDialogCommandHandler) {
         var ctrl = this;
-        ctrl.selectedAddresses = [];
+        InviteFriendsSelectedEMails.reset();
+        ctrl.selectedAddresses = InviteFriendsSelectedEMails.getSelectedEmails();
         ctrl.successfullyImportedServices = [];
         ctrl.isSelectedAll = false;
         ctrl.contacts = {addresses: []};
-        ctrl.disableNavigation = true;
+
+        ctrl.step = {
+            label: 'Kontakte auswählen',
+            selected: false
+        };
+        StepperDialogSteps.addStep(ctrl.step);
 
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
+            StepperDialogCommandHandler.showProgressBar();
         };
 
         ctrl.sourceImportFinish = function (err, importSource) {
             ctrl.importStarted = false;
+            StepperDialogCommandHandler.hideProgressBar();
             if (err) {
                 errorToast.showError(importSource + " konnte nicht importiert werden");
             } else {
@@ -50,8 +58,8 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
         ctrl.closeBasicAuth = function (importSource) {
             ctrl.showBasicAuth = false;
             ctrl.importStarted = false;
-            delete ctrl.commandStepperDialog;
-            delete ctrl.commandAbortStepperDialog;
+            StepperDialogCommandHandler.hideProgressBar();
+            StepperDialogCommandHandler.hideButtonCommand();
             if (angular.isString(importSource)) {
                 ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
@@ -60,46 +68,22 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             }
         };
 
-        ctrl.emailExists = function (item, selectedList) {
-            return ArrayHelper.getIndex(selectedList, item, 'email') > -1;
-        };
+        ctrl.emailExists = InviteFriendsSelectedEMails.emailExists;
 
-        ctrl.toggleEmail = function (item, selectedList) {
-            var idx = ArrayHelper.getIndex(selectedList, item, 'email');
-            if (idx > -1) {
-                selectedList.splice(idx, 1);
-            }
-            else {
-                if (selectedList.length < maxSelectedLength) {
-                    selectedList.push(item);
-                } else {
-                    ctrl.maxSelected = true;
-                    errorToast.showWarning('Es können nicht mehr als 1000 Adressen ausgewählt werden.');
-                }
-            }
-            ctrl.isSelectedAll = selectedList.length === ctrl.contacts.addresses.length || selectedList.length === maxSelectedLength;
-
-            if (selectedList.length === 0) {
-                ctrl.showOnlySelected = false;
-                ctrl.contactsToShow = ctrl.contacts.addresses;
-            }
+        ctrl.toggleEmail = function (email) {
+            InviteFriendsSelectedEMails.toggleEmail(email, ctrl.contacts.addresses);
+            ctrl.isSelectedAll = InviteFriendsSelectedEMails.isSelectedAll(ctrl.contacts.addresses);
+            ctrl.maxSelected = InviteFriendsSelectedEMails.isMaxSelected();
+            if (InviteFriendsSelectedEMails.getSelectedEmails().length === 0) {
+             ctrl.showOnlySelected = false;
+             ctrl.contactsToShow = ctrl.contacts.addresses;
+             }
             ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.toggleAllEmailSelections = function () {
-            ctrl.selectedAddresses = [];
-            if (ctrl.isSelectedAll) {
-                ctrl.contacts.addresses.forEach(function (address) {
-                    if (ctrl.selectedAddresses.length < maxSelectedLength) {
-                        ctrl.selectedAddresses.push(address);
-                    }
-                });
-                if (ctrl.contacts.addresses.length > ctrl.selectedAddresses.length) {
-                    ctrl.maxSelected = true;
-                }
-            } else {
-                ctrl.maxSelected = false;
-            }
+            ctrl.selectedAddresses = InviteFriendsSelectedEMails.toggleAllEmailSelections(ctrl.contacts.addresses);
+            ctrl.maxSelected = InviteFriendsSelectedEMails.isMaxSelected();
             ctrl.checkNavigationIsDisabled();
         };
 
@@ -117,32 +101,26 @@ module.exports = ['ImportGmxContacts', 'ImportWebDeContacts', 'SendInviteEmail',
             ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
             ctrl.showOnlySelected = false;
-            ctrl.commandIsDisabled = false;
             ctrl.contactsToShow = ctrl.contacts.addresses;
-            delete ctrl.commandStepperDialog;
-            delete ctrl.commandAbortStepperDialog;
+            StepperDialogCommandHandler.hideButtonCommand();
             ctrl.checkNavigationIsDisabled();
         };
 
         ctrl.openAddCustomEmails = function () {
             if (!ctrl.importStarted) {
                 ctrl.showAddEmails = true;
-                ctrl.commandAbortStepperDialog = ctrl.closeAddCustomEmails;
-                ctrl.commandStepperDialogLabel = 'Hinzufügen';
             }
         };
 
         ctrl.closeAddCustomEmails = function () {
             ctrl.showAddEmails = false;
-            ctrl.commandIsDisabled = false;
-            delete ctrl.commandStepperDialog;
-            delete ctrl.commandAbortStepperDialog;
+            StepperDialogCommandHandler.hideButtonCommand();
         };
 
         ctrl.checkNavigationIsDisabled = function () {
-            ctrl.disableNavigation = true;
+            StepperDialogCommandHandler.disableNavigation();
             if (angular.isArray(ctrl.selectedAddresses) && ctrl.selectedAddresses.length > 0) {
-                ctrl.disableNavigation = false;
+                StepperDialogCommandHandler.enableNavigation();
             }
         };
     }];

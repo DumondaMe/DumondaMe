@@ -1,4 +1,4 @@
-<div id="select-image-step" ng-if="step.selected" ely-handling-column-flex>
+<div id="select-image-step" ng-if="ctrl.step.selected" ely-handling-column-flex>
     <div class="image-preview-container" ng-if="!ctrl.selectedImage">
         <div class="image-preview-inner-container" layout="row" layout-xs="column">
             <div class="image-handling-container" flex="none">
@@ -7,7 +7,7 @@
                 </div>
                 <div class="select-image-button-container" layout="row" layout-align="center center">
                     <div>
-                        <md-button class="md-raised upload-image-button" ng-click="ctrl.showImageCrop()">
+                        <md-button class="md-raised upload-image-button" ng-click="ctrl.showCropImage()">
                             Profilbild ändern
                         </md-button>
                     </div>
@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="image-crop-container" ng-if="ctrl.selectedImage">
-        <ely-upload-crop-image running="ctrl.uploadRunning" ratio="1" finish="ctrl.finish"
-                               start-upload-image="ctrl.commandStepperDialog" upload-url="/api/user/settings/uploadProfileImage">
-        </ely-upload-crop-image>
+        <ely-upload-crop-image event-running="ctrl.uploadRunning" ratio="1" finish="ctrl.finish"
+                               upload-url="/api/user/settings/uploadProfileImage"
+                               start-upload-image="ctrl.startUploadImage" event-has-image="ctrl.hasImage"></ely-upload-crop-image>
     </div>
 </div>

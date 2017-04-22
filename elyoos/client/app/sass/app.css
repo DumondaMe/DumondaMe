@@ -64,7 +64,7 @@
   color: #3F51B5; }
 #select-user-step .ely-import-basic-auth #dialog-container {
   max-width: 250px;
-  margin: 0 auto; }
+  margin: 0 auto 24px auto; }
   #select-user-step .ely-import-basic-auth #dialog-container #ely-import-info {
     font-size: 14px;
     font-weight: 500;

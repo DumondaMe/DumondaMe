@@ -7,14 +7,9 @@ module.exports = {
             require: '^elyStepperDialog',
             transclude: true,
             scope: {},
-            controller: require('./controller.js'),
-            link: require('./link.js'),
+            controller: require('./../../../../settings/modal/setupAccount/profileImage/controller'),
             controllerAs: 'ctrl',
             bindToController: {
-                commandStepperDialog: '=',
-                commandAbortStepperDialog: '=',
-                commandStepperDialogLabel: '=',
-                uploadRunning: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/stepSelectImage/template.html'
         };

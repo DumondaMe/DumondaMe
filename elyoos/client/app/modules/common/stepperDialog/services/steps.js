@@ -25,8 +25,8 @@ module.exports = [function () {
         }
         steps[index].selected = true;
         selectedStepIndex = index;
-        if (notify) {
-
+        if (notify && angular.isFunction(steps[index].isSelectedNotification)) {
+            steps[index].isSelectedNotification();
         }
         return selectedStepIndex;
     };

@@ -1,12 +1,12 @@
-<div id="send-email-invitation-container" ng-if="step.selected">
+<div id="send-email-invitation-container" ng-if="ctrl.step.selected">
     <div class="send-email-invitation-description" ng-hide="ctrl.successfullySent">
-        <span ng-if="ctrl.data.selectedAddresses.length > 1">An diese <span class="number">{{ctrl.data.selectedAddresses.length}}</span>
+        <span ng-if="ctrl.selectedAddresses.length > 1">An diese <span class="number">{{ctrl.selectedAddresses.length}}</span>
             E-Mail-Addressen werden Einladungen versendet.</span>
-        <span ng-if="ctrl.data.selectedAddresses.length === 1">An diese
+        <span ng-if="ctrl.selectedAddresses.length === 1">An diese
             E-Mail-Addresse wird eine Einladung versendet.</span>
     </div>
     <div id="overview-email-container" ng-hide="ctrl.successfullySent">
-        <div ng-repeat="email in ctrl.data.selectedAddresses" class="email-address">
+        <div ng-repeat="email in ctrl.selectedAddresses" class="email-address">
             {{email.email}}
         </div>
     </div>

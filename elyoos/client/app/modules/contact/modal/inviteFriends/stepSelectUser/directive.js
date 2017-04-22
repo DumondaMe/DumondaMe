@@ -8,16 +8,8 @@ module.exports = {
             transclude: true,
             scope: {},
             controller: require('./controller.js'),
-            link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                commandStepperDialog: '=',
-                commandAbortStepperDialog: '=',
-                commandStepperDialogLabel: '=',
-                commandIsDisabled: '=',
-                disableNavigation: '=',
-                importStarted: '=',
-                selectedAddresses: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/stepSelectUser/template.html'
         };

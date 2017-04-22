@@ -52,6 +52,7 @@ module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest'
             ctrl.showCommand = true;
             ctrl.commandIsDisabled = true;
             ctrl.showNavigation = false;
+            ctrl.hideOptionalFirst = true;
             ctrl.abortCommand = abort;
             ctrl.command = command;
             ctrl.commandLabel = label;
@@ -60,6 +61,7 @@ module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest'
         ctrl.hideButtonCommand = function () {
             ctrl.showCommand = false;
             ctrl.showNavigation = true;
+            ctrl.hideOptionalFirst = false;
         };
 
         ctrl.disableButtonCommand = function () {
@@ -89,6 +91,10 @@ module.exports = ['$scope', '$mdMedia', 'ElyModal', 'StepperDialogScrollRequest'
 
         ctrl.setFinishButtonAction = function (finishAction) {
             ctrl.finish = finishAction;
+        };
+
+        ctrl.showButtonFinishInfo = function () {
+            ctrl.showFinishInfo = true;
         };
 
         //--------------------------------------------------------------------

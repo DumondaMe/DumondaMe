@@ -9,7 +9,8 @@ module.exports = {
             templateUrl: 'app/modules/common/stepperDialog/template.html',
             scope: {},
             bindToController: {
-                finishLabel: '@'
+                finishLabel: '@',
+                disableDialogContent: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'
