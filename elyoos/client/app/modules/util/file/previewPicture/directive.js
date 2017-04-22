@@ -12,7 +12,8 @@ module.exports = {
                 ratio: '@',
                 unsupportedFile: '@',
                 cancel: '=',
-                finish: '='
+                finish: '=',
+                eventRunning: '='
             },
             controller: require('./controller.js')
         };
