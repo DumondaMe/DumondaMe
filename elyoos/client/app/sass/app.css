@@ -3404,13 +3404,18 @@
   width: 100%;
   margin-bottom: 8px; }
   .place-recommendation .place-preview-image img {
-    width: 100%; }
+    width: 100%;
+    height: 250px; }
+    @media screen and (min-width: 1500px) {
+      .place-recommendation .place-preview-image img {
+        height: 337px; } }
 .place-recommendation .place-description {
   padding: 0 16px 8px 16px;
   cursor: pointer;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
   overflow-y: hidden;
+  -ms-scroll-limit: 0 0 0 0;
   max-height: 3.2em; }
   @media screen and (max-width: 480px) {
     .place-recommendation .place-description {

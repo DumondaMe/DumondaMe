@@ -1,7 +1,9 @@
 'use strict';
 
+var link = require('./link.js');
+
 module.exports = {
-    directive: [function () {
+    directive: ['$animate', function ($animate) {
         return {
             restrict: 'E',
             replace: true,
@@ -9,6 +11,7 @@ module.exports = {
             bindToController: {
                 element: '='
             },
+            link: link.directiveLink($animate),
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/pinwall/home/pinwallElement/template.html'
