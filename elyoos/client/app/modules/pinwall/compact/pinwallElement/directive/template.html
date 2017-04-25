@@ -1,4 +1,4 @@
-<div class="compact-pinwall-element" layout="row" ng-class="{'show-bottom-line': ctrl.showBottomLine}">
+<div class="compact-pinwall-element" layout="row" ng-class="{'show-bottom-line': ctrl.showBottomLine}" ng-cloak>
     <div class="preview-image" flex="none" ng-hide="(ctrl.element.label === 'Link' || ctrl.element.label === 'Blog') && !ctrl.element.previewUrl">
         <div class="preview-image-container" ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">
             <img ng-src="{{ctrl.element.previewUrl}}" ng-class="{'book': ctrl.element.label === 'Book'}" ng-if="ctrl.element.label !== 'Youtube'">
