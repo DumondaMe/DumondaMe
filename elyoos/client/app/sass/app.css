@@ -3390,7 +3390,7 @@
   cursor: pointer;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
-  overflow-y: hidden;
+  overflow: hidden;
   max-height: 3.2em; }
   @media screen and (max-width: 480px) {
     .link-recommendation-desktop .link-description {
@@ -3414,7 +3414,7 @@
   cursor: pointer;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
-  overflow-y: hidden;
+  overflow: hidden;
   -ms-scroll-limit: 0 0 0 0;
   max-height: 3.2em; }
   @media screen and (max-width: 480px) {
@@ -3434,7 +3434,7 @@
   margin-top: 8px;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
-  overflow-y: hidden;
+  overflow: hidden;
   max-height: 3.2em; }
   @media screen and (max-width: 480px) {
     .youtube-recommendation-desktop .youtube-description {
