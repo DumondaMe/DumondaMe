@@ -3,6 +3,7 @@
         <div id="select-header" ng-if="ctrl.contacts.addresses.length > 0" flex="none">
             <div id="filter-email-container" hide-xs>
                 <input name="emailAddresses" id="filter-email" aria-label="filter email" ng-model="ctrl.filterEmailAddresses.email"
+                       ng-change="ctrl.filterChanged()"
                        placeholder="E-Mail-Adressen filtern" ng-disabled="ctrl.importStarted || ctrl.contacts.addresses.length < 5"/>
             </div>
             <div id="select-info">
@@ -26,12 +27,20 @@
                         Nur ausgewählte E-Mails anzeigen
                     </md-checkbox>
                 </div>
-                <div id="select-all-element">
-                    <md-checkbox id="selected-all-checkbox" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll"
+                <div class="select-all-element" ng-if="!ctrl.filterInUse">
+                    <md-checkbox class="selected-all-checkbox" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll"
                                  ng-change="ctrl.toggleAllEmailSelections()"
                                  ng-disabled="ctrl.importStarted || ctrl.contacts.addresses.length <= 1">
                         <span ng-if="!ctrl.maxSelected">Alle E-Mail-Addressen auswählen</span>
-                        <span ng-if="ctrl.maxSelected">Es dürfen maximal 1000 E-Mail Adressen ausgwählt werden.</span>
+                        <span ng-if="ctrl.maxSelected">Es dürfen maximal 1000 E-Mail Adressen ausgewählt werden.</span>
+                    </md-checkbox>
+                </div>
+                <div class="select-all-element" ng-if="ctrl.filterInUse">
+                    <md-checkbox class="selected-all-checkbox" aria-label="Toggle filtered email" ng-model="ctrl.isSelectedAllFiltered"
+                                 ng-change="ctrl.toggleAllSelectedEmailSelections()"
+                                 ng-disabled="ctrl.importStarted || ctrl.filteredEmailResult.length === 0">
+                        <span ng-if="!ctrl.maxSelected">Alle angezeigten E-Mail-Addressen auswählen</span>
+                        <span ng-if="ctrl.maxSelected">Es dürfen maximal 1000 E-Mail Adressen ausgewählt werden.</span>
                     </md-checkbox>
                 </div>
             </div>

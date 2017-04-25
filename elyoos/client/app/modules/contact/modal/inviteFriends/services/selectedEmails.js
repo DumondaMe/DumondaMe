@@ -32,6 +32,31 @@ module.exports = ['ArrayHelper', 'errorToast', function (ArrayHelper, errorToast
         return ArrayHelper.getIndex(selectedEmails, email, 'email') > -1;
     };
 
+    service.emailGroupSelected = function (emailGroup) {
+        var allSelected = true;
+        if (angular.isArray(emailGroup)) {
+            emailGroup.forEach(function (email) {
+                if (ArrayHelper.getIndex(selectedEmails, email, 'email') <= -1) {
+                    allSelected = false;
+                }
+            });
+        } else {
+            allSelected = false;
+        }
+        return allSelected;
+    };
+
+    service.addEmailToSelected = function (email, showMaxSelectedMessage) {
+        if (selectedEmails.length < maxSelectedLength) {
+            selectedEmails.push(email);
+        } else {
+            maxSelected = true;
+            if (showMaxSelectedMessage) {
+                errorToast.showWarning('Es können nicht mehr als 1000 Adressen ausgewählt werden.');
+            }
+        }
+    };
+
     service.toggleEmail = function (email, allEmails) {
         var idx = ArrayHelper.getIndex(selectedEmails, email, 'email');
         maxSelected = false;
@@ -39,18 +64,21 @@ module.exports = ['ArrayHelper', 'errorToast', function (ArrayHelper, errorToast
             selectedEmails.splice(idx, 1);
         }
         else {
-            if (selectedEmails.length < maxSelectedLength) {
-                selectedEmails.push(email);
-            } else {
-                maxSelected = true;
-                errorToast.showWarning('Es können nicht mehr als 1000 Adressen ausgewählt werden.');
-            }
+            service.addEmailToSelected(email, true);
         }
         toggleAllSelected = service.isSelectedAll(allEmails);
     };
 
-    service.resetToggleAll = function () {
-        toggleAllSelected = false;
+    service.setSubsetEmail = function (allEmails, subsetEmails, isSelected) {
+        subsetEmails.forEach(function (email) {
+            var idx = ArrayHelper.getIndex(selectedEmails, email, 'email');
+            if (isSelected && idx <= -1) {
+                service.addEmailToSelected(email, false);
+            } else if (!isSelected && idx > -1) {
+                selectedEmails.splice(idx, 1);
+            }
+        });
+        return selectedEmails;
     };
 
     service.toggleAllEmailSelections = function (allEmails) {

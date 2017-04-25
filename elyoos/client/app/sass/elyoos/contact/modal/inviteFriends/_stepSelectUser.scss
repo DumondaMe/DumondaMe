@@ -35,14 +35,14 @@
             margin-bottom: 12px;
           }
         }
-        #select-all-element {
+        .select-all-element {
           margin-left: 0;
           font-size: 14px;
 
           @media screen and (min-width: $gt-xs) {
             margin-left: 18px;
           }
-          #selected-all-checkbox {
+          .selected-all-checkbox {
             margin-bottom: 12px;
           }
         }

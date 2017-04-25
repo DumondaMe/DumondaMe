@@ -172,13 +172,13 @@
         font-size: 14px; }
         #select-user-step #select-user-step-container #select-header #select-check-box-container #only-selected #only-selected-checkbox {
           margin-bottom: 12px; }
-      #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element {
+      #select-user-step #select-user-step-container #select-header #select-check-box-container .select-all-element {
         margin-left: 0;
         font-size: 14px; }
         @media screen and (min-width: 600px) {
-          #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element {
+          #select-user-step #select-user-step-container #select-header #select-check-box-container .select-all-element {
             margin-left: 18px; } }
-        #select-user-step #select-user-step-container #select-header #select-check-box-container #select-all-element #selected-all-checkbox {
+        #select-user-step #select-user-step-container #select-header #select-check-box-container .select-all-element .selected-all-checkbox {
           margin-bottom: 12px; }
       #select-user-step #select-user-step-container #select-header #filter-email-container {
         margin-bottom: 12px; }
