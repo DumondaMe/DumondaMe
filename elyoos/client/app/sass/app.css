@@ -4477,6 +4477,23 @@
   padding-left: 0;
   margin-bottom: 24px; }
 
+#stepper-dialog.fix-height-dialog {
+  height: 300px; }
+  @media screen and (min-height: 550px) {
+    #stepper-dialog.fix-height-dialog {
+      height: 500px; } }
+  @media screen and (min-height: 850px) {
+    #stepper-dialog.fix-height-dialog {
+      height: 800px; } }
+  #stepper-dialog.fix-height-dialog .stepper-dialog-form {
+    height: 300px; }
+    @media screen and (min-height: 550px) {
+      #stepper-dialog.fix-height-dialog .stepper-dialog-form {
+        height: 500px; } }
+    @media screen and (min-height: 850px) {
+      #stepper-dialog.fix-height-dialog .stepper-dialog-form {
+        height: 800px; } }
+
 #tutorial-welcome-step .title-welcome {
   font-size: 28px;
   font-weight: 500;

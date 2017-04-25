@@ -1,9 +1,11 @@
-<ely-stepper-dialog ely-handling-column-flex disable-dialog-content="true" class="invite-friends-stepper"
-                    finish-label="Einladungen versenden">
-    <ely-invite-friends-select-step class="invite-friends-step" ely-handling-column-flex>
-    </ely-invite-friends-select-step>
-    <ely-invite-friends-profile-image-step class="invite-friends-step"></ely-invite-friends-profile-image-step>
-    <ely-invite-friends-custom-message-step class="invite-friends-step" >
-    </ely-invite-friends-custom-message-step>
-    <ely-invite-friends-send-email-invitation class="invite-friends-step"></ely-invite-friends-send-email-invitation>
-</ely-stepper-dialog>
+<md-dialog id="stepper-dialog" aria-label="Invite Friends">
+    <ely-stepper-dialog ely-handling-column-flex disable-dialog-content="true" class="invite-friends-stepper"
+                        finish-label="Einladungen versenden">
+        <ely-invite-friends-select-step class="invite-friends-step" ely-handling-column-flex>
+        </ely-invite-friends-select-step>
+        <ely-invite-friends-profile-image-step class="invite-friends-step"></ely-invite-friends-profile-image-step>
+        <ely-invite-friends-custom-message-step class="invite-friends-step">
+        </ely-invite-friends-custom-message-step>
+        <ely-invite-friends-send-email-invitation class="invite-friends-step"></ely-invite-friends-send-email-invitation>
+    </ely-stepper-dialog>
+</md-dialog>

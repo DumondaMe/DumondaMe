@@ -14,6 +14,7 @@ module.exports = ['$mdDialog', '$rootScope', '$document', function ($mdDialog, $
             clickOutsideToClose: clickOutsideToClose || false,
             escapeToClose: clickOutsideToClose || false,
             bindToController: true,
+            autoWrap: false,
             controllerAs: 'ctrl',
             controller: controller,
             templateUrl: template,

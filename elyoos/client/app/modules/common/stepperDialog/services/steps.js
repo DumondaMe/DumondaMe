@@ -1,16 +1,22 @@
 'use strict';
 
-module.exports = [function () {
+module.exports = ['Observables', function (Observables) {
 
-    var service = this, stepperDialog, steps = [], selectedStepIndex;
+    var service = this, stepperDialog, steps = [], selectedStepIndex, observables = [];
 
     service.closeStepperDialog = function () {
         steps = [];
+        observables = [];
+        selectedStepIndex = 0;
     };
 
     service.setStepperDialog = function (newStepperDialog) {
         stepperDialog = newStepperDialog;
         steps = [];
+    };
+
+    service.register = function (name, observable) {
+        Observables.register(observables, name, observable);
     };
 
     service.addStep = function (step) {
@@ -27,6 +33,9 @@ module.exports = [function () {
         selectedStepIndex = index;
         if (notify && angular.isFunction(steps[index].isSelectedNotification)) {
             steps[index].isSelectedNotification();
+        }
+        if(notify) {
+            Observables.notifyObservables(observables, "selectedStepChanged", selectedStepIndex);
         }
         return selectedStepIndex;
     };

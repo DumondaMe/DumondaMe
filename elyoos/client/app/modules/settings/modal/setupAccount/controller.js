@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'FinishSetupAccount', 'errorToast', 'StepperDialogCommandHandler',
-    function (ElyModal, FinishSetupAccount, errorToast, StepperDialogCommandHandler) {
+module.exports = ['ElyModal', 'FinishSetupAccount', 'errorToast', 'StepperDialogCommandHandler', 'StepperDialogSteps',
+    function (ElyModal, FinishSetupAccount, errorToast, StepperDialogCommandHandler, StepperDialogSteps) {
         var ctrl = this;
 
         ctrl.close = function () {
@@ -19,5 +19,11 @@ module.exports = ['ElyModal', 'FinishSetupAccount', 'errorToast', 'StepperDialog
         ctrl.initStepperFinish = function () {
             StepperDialogCommandHandler.showButtonOptionalFirst('Später', ctrl.close);
             StepperDialogCommandHandler.setFinishButtonAction(ctrl.finish);
+        };
+
+        StepperDialogSteps.register('setupAccountCtrl', ctrl);
+
+        ctrl.selectedStepChanged = function (selectedStepIndex) {
+            ctrl.fixDialogHeight = selectedStepIndex === 3;
         };
     }];

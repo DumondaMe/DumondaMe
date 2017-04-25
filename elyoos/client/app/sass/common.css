@@ -486,74 +486,79 @@
 
 #stepper-dialog {
   max-height: 100%; }
-  #stepper-dialog #stepper-dialog-content {
-    height: 100%; }
-    #stepper-dialog #stepper-dialog-content .stepper-mobile-header {
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.87);
-      margin-bottom: 24px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-      #stepper-dialog #stepper-dialog-content .stepper-mobile-header .step-description .step-label {
-        font-size: 18px;
-        font-weight: 700;
-        color: #3F51B5; }
-      #stepper-dialog #stepper-dialog-content .stepper-mobile-header .step-description .actual-step {
-        color: #3F51B5;
-        font-weight: 700; }
-      #stepper-dialog #stepper-dialog-content .stepper-mobile-header .step-description .steps {
-        margin-top: 2px; }
-    #stepper-dialog #stepper-dialog-content .stepper-header {
-      height: 104px;
-      padding: 24px; }
-      #stepper-dialog #stepper-dialog-content .stepper-header .step-description {
-        padding: 0 24px;
-        position: relative; }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-number {
-          height: 24px;
-          width: 24px;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 24px;
-          vertical-align: middle;
-          text-align: center;
-          margin-bottom: 16px;
-          margin-right: auto;
-          margin-left: auto;
-          color: white;
-          background-color: #7986CB;
-          border-radius: 50%; }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-number.inactive-step {
-          background-color: rgba(0, 0, 0, 0.38); }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-label {
-          font-size: 14px;
-          font-weight: 500;
-          color: rgba(0, 0, 0, 0.87); }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-label.inactive-step {
-          color: rgba(0, 0, 0, 0.54); }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-bar-right {
-          position: absolute;
-          right: 0;
-          top: 12px;
-          left: 50%;
-          height: 1px;
-          margin-left: 20px;
-          border-top: 1px solid rgba(0, 0, 0, 0.12); }
-        #stepper-dialog #stepper-dialog-content .stepper-header .step-description .step-bar-left {
-          position: absolute;
-          left: 0;
-          right: 50%;
-          top: 12px;
-          height: 1px;
-          margin-right: 20px;
-          border-top: 1px solid rgba(0, 0, 0, 0.12); }
-    #stepper-dialog #stepper-dialog-content .ely-dialog-content {
-      padding-top: 0; }
-    #stepper-dialog #stepper-dialog-content .stepper-dialog-content-container {
+  @media screen and (min-width: 600px) {
+    #stepper-dialog {
+      max-height: 80%; } }
+  #stepper-dialog .stepper-dialog-form {
+    max-height: 100%; }
+    #stepper-dialog .stepper-dialog-form #stepper-dialog-content {
       height: 100%; }
-      #stepper-dialog #stepper-dialog-content .stepper-dialog-content-container .stepper-dialog-content-inner-container {
+      #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-mobile-header {
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+        margin-bottom: 24px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+        #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-mobile-header .step-description .step-label {
+          font-size: 18px;
+          font-weight: 700;
+          color: #3F51B5; }
+        #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-mobile-header .step-description .actual-step {
+          color: #3F51B5;
+          font-weight: 700; }
+        #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-mobile-header .step-description .steps {
+          margin-top: 2px; }
+      #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header {
+        height: 104px;
+        padding: 24px; }
+        #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description {
+          padding: 0 24px;
+          position: relative; }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-number {
+            height: 24px;
+            width: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            vertical-align: middle;
+            text-align: center;
+            margin-bottom: 16px;
+            margin-right: auto;
+            margin-left: auto;
+            color: white;
+            background-color: #7986CB;
+            border-radius: 50%; }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-number.inactive-step {
+            background-color: rgba(0, 0, 0, 0.38); }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.87); }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-label.inactive-step {
+            color: rgba(0, 0, 0, 0.54); }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-bar-right {
+            position: absolute;
+            right: 0;
+            top: 12px;
+            left: 50%;
+            height: 1px;
+            margin-left: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.12); }
+          #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-header .step-description .step-bar-left {
+            position: absolute;
+            left: 0;
+            right: 50%;
+            top: 12px;
+            height: 1px;
+            margin-right: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.12); }
+      #stepper-dialog .stepper-dialog-form #stepper-dialog-content .ely-dialog-content {
+        padding-top: 0; }
+      #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-dialog-content-container {
         height: 100%; }
+        #stepper-dialog .stepper-dialog-form #stepper-dialog-content .stepper-dialog-content-container .stepper-dialog-content-inner-container {
+          height: 100%; }
 
 .topic-description .topic-type {
   display: inline-block;

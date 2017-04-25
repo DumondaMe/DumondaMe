@@ -1,4 +1,4 @@
-<form name="ctrl.stepperDialogForm" id="stepper-dialog" ng-cloak layout="column">
+<form name="ctrl.stepperDialogForm" class="stepper-dialog-form" ng-cloak>
     <div id="stepper-dialog-content" ely-handling-column-flex>
         <div class="stepper-header" layout="row" layout-align="center center" flex="none" ng-if="ctrl.$mdMedia('(min-width: 900px)')">
             <div class="step-description" ng-repeat="step in ctrl.steps">
@@ -19,7 +19,6 @@
                            ely-infinite-scroll="ctrl.nextScrollRequest">
             <div ng-class="{'md-dialog-content': !ctrl.disableDialogContent, 'ely-dialog-content': !ctrl.disableDialogContent}"
                  ng-transclude ely-handling-column-flex class="stepper-dialog-content-inner-container">
-
             </div>
         </md-dialog-content>
         <md-dialog-actions>
