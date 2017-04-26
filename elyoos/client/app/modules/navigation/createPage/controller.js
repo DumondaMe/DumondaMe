@@ -1,14 +1,20 @@
 'use strict';
 
-module.exports = ['ElyModal', '$state',
-    function (ElyModal, $state) {
+module.exports = ['ElyModal', 'StepperDialogCommandHandler',
+    function (ElyModal, StepperDialogCommandHandler) {
         var ctrl = this;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
 
-        ctrl.createBlog = function () {
+        StepperDialogCommandHandler.setInitStep(ctrl);
+        ctrl.initStepperFinish = function () {
+            StepperDialogCommandHandler.disableNavigation();
+            StepperDialogCommandHandler.showButtonOptionalFirst('Abbrechen', ctrl.cancel);
+        };
+
+        /*ctrl.createBlog = function () {
             ElyModal.show('ManageBlogCtrl', 'app/modules/page/modal/manageBlog/template.html')
                 .then(function (resp) {
                     $state.go('page.detail', {label: 'Blog', pageId: resp.pageId});
@@ -41,6 +47,6 @@ module.exports = ['ElyModal', '$state',
                 .then(function (resp) {
                     $state.go('page.detail', {label: 'Generic', pageId: resp.pageId});
                 });
-        };
+        };*/
     }];
 

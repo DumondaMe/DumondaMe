@@ -1,0 +1,25 @@
+<form name="ctrl.createPageForm" id="create-page-select-type-step" ng-if="ctrl.step.selected">
+    <div id="ely-create-page-content" layout="row" layout-align="start center" layout-wrap>
+        <ely-nav-create-page-element icon="nav:blog" description="Blog" label="Blog" ely-on-click="ctrl.setSelectPage"
+                                     selected-label="ctrl.selectedLabel">
+        </ely-nav-create-page-element>
+        <ely-nav-create-page-element icon="nav:book" description="Buch" ely-on-click="ctrl.setSelectPage" label="Book"
+                                     selected-label="ctrl.selectedLabel">
+        </ely-nav-create-page-element>
+        <ely-nav-create-page-element icon="nav:video" description="Youtube" label="Youtube" selected-label="ctrl.selectedLabel"
+                                     ely-on-click="ctrl.setSelectPage"></ely-nav-create-page-element>
+        <ely-nav-create-page-element icon="nav:link" description="Link" ely-on-click="ctrl.setSelectPage" label="Link"
+                                     selected-label="ctrl.selectedLabel">
+        </ely-nav-create-page-element>
+        <ely-nav-create-page-element icon="nav:generic" description="Organisationen Projekte" label="Generic"
+                                     ely-on-click="ctrl.setSelectPage" selected-label="ctrl.selectedLabel">
+        </ely-nav-create-page-element>
+    </div>
+    <div id="ely-create-page-description">
+        <div class="description" ng-if="ctrl.selectedLabel === 'Generic'">
+            Projekte und Organisationen welche auf irgendeine Art einen Beitrag zur positive Entwicklung der Menschheit leisten. Darunter verstehe ich, dass zum Beispiel ein
+            Yoga-Studio, eine alternative Schule, eine Naturheilpraxis, ein Geschäft mit nachhaltig produzierten Kleidern und so weiter mit diesen Beiträgen auf Elyoos abgebildet
+            werden. Erstelle einen solchen Beitrag für dein Projekt oder deine Organisation falls du für den Social Media Auftritt zuständig bist.
+        </div>
+    </div>
+</form>

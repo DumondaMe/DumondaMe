@@ -1,7 +1,7 @@
-#ely-create-page-nav {
+.ely-create-page-nav {
   #ely-create-page-content {
     @media screen and (min-width: $gt-xs) {
-      padding: 32px;
+      padding: 0 16px;
     }
     .create-page-element-container {
       cursor: pointer;
@@ -33,6 +33,28 @@
           }
         }
       }
+    }
+    .create-page-element-container.selected-page-element {
+      .create-page-element {
+        .page-icon {
+          color: $primary-color;
+        }
+        .page-description {
+          font-weight: 500;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+  #ely-create-page-description {
+    .description {
+      max-width: 500px;
+      font-size: 16px;
+      line-height: 20px;
+      color: $secondary-text;
+      font-weight: 500;
+      padding: 0 24px;
+      margin: 0 auto;
     }
   }
 }
