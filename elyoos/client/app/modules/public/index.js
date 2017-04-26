@@ -82,6 +82,15 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
+        .state('public.donate', {
+            url: '/donate',
+            views: {
+                'content@': {
+                    template: '<ely-public-donate></ely-public-donate>'
+                }
+            },
+            isPublic: true
+        })
         .state('public.function', {
             url: '/function',
             views: {
