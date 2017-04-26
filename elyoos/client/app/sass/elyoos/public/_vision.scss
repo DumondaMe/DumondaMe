@@ -23,9 +23,9 @@
     }
     #vision-image {
       width: 280px;
-      margin: 0 auto 24px auto;
+      margin: 12px auto 24px auto;
       @media screen and (min-width: $gt-xs) {
-        width: 450px;
+        width: 350px;
       }
       img {
         width: 100%;

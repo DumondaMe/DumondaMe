@@ -4130,10 +4130,10 @@
       height: 4px; }
     #ely-vision #ely-vision-container #vision-image {
       width: 280px;
-      margin: 0 auto 24px auto; }
+      margin: 12px auto 24px auto; }
       @media screen and (min-width: 600px) {
         #ely-vision #ely-vision-container #vision-image {
-          width: 450px; } }
+          width: 350px; } }
       #ely-vision #ely-vision-container #vision-image img {
         width: 100%; }
     #ely-vision #ely-vision-container #developer-container {
