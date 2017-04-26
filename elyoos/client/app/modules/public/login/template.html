@@ -6,11 +6,10 @@
                 <div class="login-user-content">
                     <md-input-container class="input-element md-block">
                         <label>Email</label>
-                        <input required type="email" name="username" id="id_username" aria-label="Email" md-autofocus
+                        <input required name="username" id="id_username" aria-label="Email" md-autofocus
                                ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
                         <div ng-messages="loginForm.username.$error">
                             <div ng-message="required">Wird benötigt!</div>
-                            <div ng-message="email">Keine gültige E-Mail Adresse!</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
