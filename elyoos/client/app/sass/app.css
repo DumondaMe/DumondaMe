@@ -3151,8 +3151,7 @@
   width: 100%;
   padding: 16px;
   margin: 8px 0;
-  background-color: #9575CD;
-  cursor: pointer; }
+  background-color: #9575CD; }
   @media screen and (min-width: 1500px) {
     .pinwall-info-element {
       max-width: 450px; } }
@@ -3163,9 +3162,14 @@
     padding-bottom: 16px;
     background-color: #9575CD; }
   .pinwall-info-element .info-pinwall-text {
+    line-height: 1.4em;
     font-size: 14px;
     color: white;
     background-color: #9575CD; }
+    .pinwall-info-element .info-pinwall-text .link {
+      cursor: pointer;
+      font-weight: 500;
+      text-decoration: underline; }
 
 #ely-pinwall-contacting {
   max-width: 340px;
