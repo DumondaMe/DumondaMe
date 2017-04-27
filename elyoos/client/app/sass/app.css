@@ -3605,10 +3605,17 @@
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
+    #ely-donate #ely-donate-container .donate-text.list {
+      margin-top: -12px; }
+    #ely-donate #ely-donate-container .donate-account {
+      font-size: 18px;
+      font-weight: 300; }
+      #ely-donate #ely-donate-container .donate-account .code {
+        font-weight: 500; }
     #ely-donate #ely-donate-container .text-divider {
       height: 4px; }
     #ely-donate #ely-donate-container #donate-image {
-      width: 280px;
+      width: 200px;
       margin: 0 auto 24px auto; }
       #ely-donate #ely-donate-container #donate-image img {
         width: 100%; }
