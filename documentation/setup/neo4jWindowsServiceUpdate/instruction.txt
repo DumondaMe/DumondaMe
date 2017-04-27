@@ -1,0 +1,25 @@
+* Open console as administrator
+
+    sc delete neo4j
+    sc delete neo4j-test
+
+* Go to neo4j installation directory /bin
+
+    neo4j install-service
+
+* Change service installation script for installing neo4j-test
+* Get-Neo4jWindowsServiceName.ps1
+
+    $ServiceName = 'neo4j-test'
+
+* Get-Neo4jServer.ps1
+
+    if ($ConfDir -eq $null)
+    {
+      $ConfDir = (Join-Path -Path $Neo4jHome -ChildPath 'conf/test')
+      #$ConfDir = (Join-Path -Path $Neo4jHome -ChildPath 'conf')
+    }
+
+* install test service
+
+    neo4j install-service
