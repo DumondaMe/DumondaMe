@@ -6,9 +6,9 @@
                 <div class="login-user-content">
                     <md-input-container class="input-element md-block">
                         <label>Email</label>
-                        <input required type="text" name="email" id="email" aria-label="Email" md-autofocus
+                        <input required type="text" name="username" id="username" aria-label="Email" md-autofocus
                                ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
-                        <div ng-messages="login_form.email.$error">
+                        <div ng-messages="login_form.username.$error">
                             <div ng-message="required">Wird benötigt!</div>
                         </div>
                     </md-input-container>
