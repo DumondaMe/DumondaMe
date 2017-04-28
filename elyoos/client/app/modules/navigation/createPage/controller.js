@@ -12,6 +12,7 @@ module.exports = ['ElyModal', 'StepperDialogCommandHandler',
         ctrl.initStepperFinish = function () {
             StepperDialogCommandHandler.disableNavigation();
             StepperDialogCommandHandler.showButtonOptionalFirst('Abbrechen', ctrl.cancel);
+            StepperDialogCommandHandler.setFinishButtonAction(ctrl.finish);
         };
 
         /*ctrl.createBlog = function () {

@@ -15,11 +15,25 @@
                                      ely-on-click="ctrl.setSelectPage" selected-label="ctrl.selectedLabel">
         </ely-nav-create-page-element>
     </div>
-    <div id="ely-create-page-description">
-        <div class="description" ng-if="ctrl.selectedLabel === 'Generic'">
-            Projekte und Organisationen welche auf irgendeine Art einen Beitrag zur positive Entwicklung der Menschheit leisten. Darunter verstehe ich, dass zum Beispiel ein
-            Yoga-Studio, eine alternative Schule, eine Naturheilpraxis, ein Geschäft mit nachhaltig produzierten Kleidern und so weiter mit diesen Beiträgen auf Elyoos abgebildet
-            werden. Erstelle einen solchen Beitrag für dein Projekt oder deine Organisation falls du für den Social Media Auftritt zuständig bist.
+    <div id="ely-create-page-description" ng-switch="ctrl.selectedLabel">
+        <div class="description" ng-switch-default>
+            Welchen Art von Beitrag möchtest du erstellen?
+        </div>
+        <div class="description" ng-switch-when="Generic">
+            Repair Café, alternative Schule, Bioshop, Yoga-Studio, Naturheilpraxis, Food Sharing, usw. Hier hast du die Möglichkeit dein Projekt oder deine Organisation auf Elyoos
+            sichtbar zu machen.
+        </div>
+        <div class="description" ng-switch-when="Link">
+            Kennst du einen interessante Weblink der noch nicht auf Elyoos zu finden ist?
+        </div>
+        <div class="description" ng-switch-when="Youtube">
+            Kennst du einen interessantes Youtube Video welches noch nicht auf Elyoos zu finden ist?
+        </div>
+        <div class="description" ng-switch-when="Book">
+            Kennst du einen interessantes Buch welches noch nicht auf Elyoos zu finden ist?
+        </div>
+        <div class="description" ng-switch-when="Blog">
+            Möchtest du deine Gedanken zum Thema sozialer Wandel mitteilen? Hier hast du die Möglichkeit dies zu tun.
         </div>
     </div>
 </form>

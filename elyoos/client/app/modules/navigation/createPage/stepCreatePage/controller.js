@@ -5,14 +5,9 @@ module.exports = ['StepperDialogSteps', 'CreatePageSelectedPages', 'StepperDialo
         var ctrl = this;
 
         ctrl.step = {
-            label: 'Auswählen',
+            label: 'Erstellen',
             selected: false,
         };
         StepperDialogSteps.addStep(ctrl.step);
-
-        ctrl.setSelectPage = function (selectedPage) {
-            CreatePageSelectedPages.setSelectedPage(selectedPage);
-            ctrl.selectedLabel = selectedPage;
-            StepperDialogCommandHandler.enableNavigation();
-        };
+        ctrl.selectedPage = CreatePageSelectedPages.getSelectedPage();
     }];

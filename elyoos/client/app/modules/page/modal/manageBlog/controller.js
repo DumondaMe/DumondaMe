@@ -1,39 +1,22 @@
 'use strict';
 
 module.exports = ['$scope', 'ElyModal', 'FileReaderUtil', 'FileReader', 'Topics', 'Languages', 'UploadBlog', 'UploadBlogEdit', 'errorToast',
-    'CreateBlogVisibility',
-    function ($scope, ElyModal, FileReaderUtil, FileReader, Topics, Languages, UploadBlog, UploadBlogEdit, errorToast, CreateBlogVisibility) {
+    function ($scope, ElyModal, FileReaderUtil, FileReader, Topics, Languages, UploadBlog, UploadBlogEdit, errorToast) {
         var ctrl = this;
-
-        ctrl.visibility = ["Öffentlich"];
-        ctrl.topics = Topics.topics;
-        ctrl.languages = Languages.languages;
-
-        CreateBlogVisibility.reset();
-
-        if (ctrl.isEditMode) {
-            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
-            ctrl.data.selectedLanguage = Languages.getLanguages(ctrl.data.selectedLanguage)[0];
-            ctrl.dataOnServer = angular.copy(ctrl.data);
-        } else {
-            ctrl.data = {};
-        }
+        ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+        ctrl.data.selectedLanguage = Languages.getLanguages(ctrl.data.selectedLanguage)[0];
 
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
 
-        ctrl.closeVisibility = function () {
-            ctrl.showPrivacy = false;
-            if (CreateBlogVisibility.isPublic()) {
-                ctrl.visibility = ["Öffentlich"];
-            } else {
-                ctrl.visibility = CreateBlogVisibility.getVisibilityDescription();
-            }
+        ctrl.showPrivacyEvent = function () {
+            ctrl.showPrivacy = true;
         };
 
-        ctrl.dataChanged = function () {
-            ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
+        ctrl.closeVisibility = function () {
+            ctrl.showPrivacy = false;
+            ctrl.setVisibility();
         };
 
         ctrl.createBlog = function () {
@@ -64,17 +47,4 @@ module.exports = ['$scope', 'ElyModal', 'FileReaderUtil', 'FileReader', 'Topics'
                 });
             }
         };
-
-        $scope.$watch('imageForUpload', function (newImage) {
-            if (newImage) {
-                FileReader.onloadend = function () {
-                    $scope.$apply(function () {
-                        ctrl.data.imageForUploadPreview = FileReader.result;
-                        ctrl.data.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.data.imageForUploadPreview);
-                        ctrl.dataHasChanged = true;
-                    });
-                };
-                FileReader.readAsDataURL(newImage);
-            }
-        });
     }];

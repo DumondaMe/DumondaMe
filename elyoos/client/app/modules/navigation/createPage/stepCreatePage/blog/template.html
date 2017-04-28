@@ -1,0 +1,7 @@
+<div>
+    <form name="ctrl.manageBlogForm" ng-if="!ctrl.showPrivacy" ng-cloak>
+        <ely-manage-blog is-edit-mode="false" event-show-privacy="ctrl.showPrivacyEvent()"
+                         set-visibility="ctrl.setVisibility" data="ctrl.data"></ely-manage-blog>
+    </form>
+    <ely-manage-blog-visibility ng-if="ctrl.showPrivacy" class="blog-manage-container"></ely-manage-blog-visibility>
+</div>
