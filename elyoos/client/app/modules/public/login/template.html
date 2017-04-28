@@ -1,5 +1,5 @@
 <md-dialog id="login-user" aria-label="Login User" layout="column">
-    <form name="login_form" ng-cloak ng-if="!ctrl.showPasswordReset">
+    <form name="login_form" ng-cloak ng-if="!ctrl.showPasswordReset" ng-submit="ctrl.login();">
         <div class="md-title ely-dialog-title">Login</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column">
@@ -37,7 +37,7 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <input id="loginbutton" ng-click="ctrl.login()" type="submit" value="Login"
+            <input id="loginbutton" type="submit" value="Login"
                        ng-disabled="login_form.$invalid || ctrl.loginRunning || ctrl.verifyUser">
             </input>
         </md-dialog-actions>
