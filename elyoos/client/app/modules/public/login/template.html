@@ -1,5 +1,5 @@
 <md-dialog id="login-user" aria-label="Login User" layout="column">
-    <form name="login_form" ng-cloak ng-if="!ctrl.showPasswordReset" ng-submit="ctrl.login();">
+    <form name="login_form" ng-cloak ng-if="!ctrl.showPasswordReset" ng-submit="ctrl.login($event)" method="post" action="/sign_up">
         <div class="md-title ely-dialog-title">Login</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column">
