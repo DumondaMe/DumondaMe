@@ -19,18 +19,8 @@ module.exports = ['$scope', 'ElyModal', 'FileReaderUtil', 'FileReader', 'Topics'
             ctrl.setVisibility();
         };
 
-        ctrl.createBlog = function () {
-            if (!ctrl.uploadStarted) {
-                ctrl.uploadStarted = true;
-                UploadBlog.upload(ctrl.data.blogText, ctrl.data.blogTitle, Topics.getCodes(ctrl.data.selectedTopics), ctrl.data.selectedLanguage,
-                    ctrl.data.imageForUploadPreviewData)
-                    .then(function (resp) {
-                        ElyModal.hide(resp);
-                    }).catch(function () {
-                    ctrl.uploadStarted = false;
-                    errorToast.showError('Blog konnte nicht hochgeladen werden');
-                });
-            }
+        ctrl.dataChanged = function (hasChanged, isValid) {
+            ctrl.isValidToChange = hasChanged && isValid;
         };
 
         ctrl.editBlog = function () {

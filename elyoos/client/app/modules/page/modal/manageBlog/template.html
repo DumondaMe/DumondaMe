@@ -1,24 +1,20 @@
 <md-dialog id="blog-manage" aria-label="Manage Blog" class="manage-page">
-    <form name="ctrl.manageBlogForm" ng-show="!ctrl.showPrivacy" ng-cloak>
+    <div ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Blog erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Blog <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
                 <ely-manage-blog is-edit-mode="true" event-show-privacy="ctrl.showPrivacyEvent()"
-                                 set-visibility="ctrl.setVisibility" data="ctrl.data"></ely-manage-blog>
+                                 set-visibility="ctrl.setVisibility" data="ctrl.data"
+                                 event-data-changed="ctrl.dataChanged"></ely-manage-blog>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.createBlog()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid">Erstellen
-            </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.editBlog()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid || !ctrl.dataHasChanged">
+            <md-button class="md-primary md-raised" ng-click="ctrl.editBlog()"
+                       ng-disabled=" ctrl.uploadStarted || !ctrl.isValidToChange">
                 Ändern
             </md-button>
         </md-dialog-actions>
-    </form>
-    <ely-manage-blog-visibility ng-show="ctrl.showPrivacy" on-close-visibility-event="ctrl.closeVisibility()"
-                                class="blog-manage-container"></ely-manage-blog-visibility>
+    </div>
 </md-dialog>

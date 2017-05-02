@@ -7,6 +7,7 @@ module.exports = ['$scope', 'FileReaderUtil', 'CreateBlogVisibility', 'Topics', 
         ctrl.visibility = ["Öffentlich"];
         ctrl.topics = Topics.topics;
         ctrl.languages = Languages.languages;
+        ctrl.dataOnServer = angular.copy(ctrl.data);
         CreateBlogVisibility.reset();
 
         ctrl.setVisibility = function () {
