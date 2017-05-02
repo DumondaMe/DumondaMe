@@ -1,11 +1,11 @@
-<div class="visibility-container">
-    <div class="header">
+<div id="manage-blog-visibility">
+    <div class="header" ng-if="!ctrl.onChangeVisibilityEvent">
         <span class="title">Sichtbarkeit des Blog</span>
         <md-button class="md-raised md-primary done" aria-label="done" ng-click="ctrl.closeVisibility()"
                    ng-disabled="!ctrl.validVisibility">Fertig
         </md-button>
     </div>
-    <md-divider></md-divider>
+    <md-divider ng-if="!ctrl.onChangeVisibilityEvent"></md-divider>
     <div class="public">
         <md-checkbox ng-model="ctrl.isPublic" ng-change="ctrl.isPublicChanged()" aria-label="Visible to Public" class="box">
             Öffentlich

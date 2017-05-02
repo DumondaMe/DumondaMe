@@ -9,6 +9,7 @@ module.exports = ['CreateBlogVisibility', function (CreateBlogVisibility) {
     ctrl.isPublicChanged = function () {
         CreateBlogVisibility.setIsPublic(ctrl.isPublic);
         ctrl.validVisibility = CreateBlogVisibility.isValidVisibility();
+        ctrl.changeVisibilityEvent();
     };
 
     ctrl.privacyTypesSelectedChanged = function (type) {
@@ -16,6 +17,13 @@ module.exports = ['CreateBlogVisibility', function (CreateBlogVisibility) {
         CreateBlogVisibility.setIsPublic(false);
         CreateBlogVisibility.setPrivacyTypesSelected(type);
         ctrl.validVisibility = CreateBlogVisibility.isValidVisibility();
+        ctrl.changeVisibilityEvent();
+    };
+
+    ctrl.changeVisibilityEvent = function () {
+        if (angular.isFunction(ctrl.onChangeVisibilityEvent)) {
+            ctrl.onChangeVisibilityEvent(ctrl.validVisibility);
+        }
     };
 
     ctrl.closeVisibility = function () {

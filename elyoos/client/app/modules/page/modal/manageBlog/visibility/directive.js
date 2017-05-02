@@ -7,7 +7,8 @@ module.exports = {
             replace: false,
             scope: {},
             bindToController: {
-                onCloseVisibilityEvent: '&'
+                onCloseVisibilityEvent: '&',
+                onChangeVisibilityEvent: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

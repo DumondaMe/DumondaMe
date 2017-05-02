@@ -1926,6 +1926,13 @@
   font-weight: 500;
   color: #3F51B5; }
 
+#create-blog-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-blog-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
 @media screen and (min-width: 600px) {
   #create-page-select-type-step #ely-create-page-content {
     padding: 0 16px; } }
@@ -2732,60 +2739,66 @@
       .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
         height: 300px; } }
 
-#blog-manage .preview-image {
-  max-width: 150px;
-  min-width: 100px;
-  max-height: 300px; }
-  #blog-manage .preview-image img {
-    width: 100%;
-    max-height: 100%; }
-#blog-manage .preview-image-button-container {
-  min-width: 150px; }
-#blog-manage #select-privacy {
-  margin-bottom: 16px; }
-  #blog-manage #select-privacy .privacy-button {
-    margin-right: 8px;
-    max-width: 130px; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .privacy-button {
-        margin-bottom: 8px; } }
-  #blog-manage #select-privacy .divider {
-    height: 44px; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .divider {
-        height: 22px; } }
-  #blog-manage #select-privacy .privacy-item {
-    line-height: 44px;
-    height: 44px;
-    font-size: 16px;
-    color: #3F51B5;
-    font-weight: 500; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .privacy-item {
-        line-height: 22px;
-        height: 22px; } }
-    #blog-manage #select-privacy .privacy-item .privacy-item-separator {
-      margin-right: 8px; }
-#blog-manage .visibility-container .header {
+#blog-manage-input {
+  width: 100%; }
+  @media screen and (min-width: 960px) {
+    #blog-manage-input #blog-inputs {
+      padding-left: 12px; } }
+  #blog-manage-input .preview-image {
+    max-width: 150px;
+    min-width: 100px;
+    max-height: 300px; }
+    #blog-manage-input .preview-image img {
+      width: 100%;
+      max-height: 100%; }
+  #blog-manage-input .preview-image-button-container {
+    min-width: 150px; }
+  #blog-manage-input #select-privacy {
+    margin-bottom: 16px; }
+    #blog-manage-input #select-privacy .privacy-button {
+      margin-right: 8px;
+      max-width: 130px; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .privacy-button {
+          margin-bottom: 8px; } }
+    #blog-manage-input #select-privacy .divider {
+      height: 44px; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .divider {
+          height: 22px; } }
+    #blog-manage-input #select-privacy .privacy-item {
+      line-height: 44px;
+      height: 44px;
+      font-size: 16px;
+      color: #3F51B5;
+      font-weight: 500; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .privacy-item {
+          line-height: 22px;
+          height: 22px; } }
+      #blog-manage-input #select-privacy .privacy-item .privacy-item-separator {
+        margin-right: 8px; }
+
+#manage-blog-visibility .header {
   height: 40px;
   padding: 16px 16px 8px 16px; }
-  #blog-manage .visibility-container .header .title {
+  #manage-blog-visibility .header .title {
     line-height: 40px;
     font-size: 16px;
     font-weight: 500; }
-  #blog-manage .visibility-container .header .done {
+  #manage-blog-visibility .header .done {
     float: right;
     margin-top: 3px; }
-#blog-manage .visibility-container .public {
+#manage-blog-visibility .public {
   padding: 16px; }
-  #blog-manage .visibility-container .public .box {
+  #manage-blog-visibility .public .box {
     margin-top: 5px;
     margin-bottom: 5px; }
-#blog-manage .visibility-container .section-types {
+#manage-blog-visibility .section-types {
   padding: 16px; }
-  #blog-manage .visibility-container .section-types .section-types-public {
+  #manage-blog-visibility .section-types .section-types-public {
     color: rgba(0, 0, 0, 0.38); }
-  #blog-manage .visibility-container .section-types .type {
+  #manage-blog-visibility .section-types .type {
     margin: 10px 0; }
 
 .manage-page {
@@ -2794,22 +2807,22 @@
   max-width: 800px; }
   .manage-page .ely-dialog-content {
     padding-bottom: 0; }
-    .manage-page .ely-dialog-content .input-container {
-      width: 100%;
-      margin: 4px 0; }
-      .manage-page .ely-dialog-content .input-container .hint {
-        /* Copy styles from ng-messages */
-        font-size: 12px;
-        line-height: 14px;
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-        margin-bottom: 8px;
-        color: grey;
-        padding-top: 1px; }
-    .manage-page .ely-dialog-content .page-exists-warning {
-      cursor: pointer;
-      color: #EF6C00;
-      font-size: 14px;
-      margin-bottom: 12px; }
+  .manage-page .input-container {
+    width: 100%;
+    margin: 4px 0; }
+    .manage-page .input-container .hint {
+      /* Copy styles from ng-messages */
+      font-size: 12px;
+      line-height: 14px;
+      transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+      margin-bottom: 8px;
+      color: grey;
+      padding-top: 1px; }
+  .manage-page .page-exists-warning {
+    cursor: pointer;
+    color: #EF6C00;
+    font-size: 14px;
+    margin-bottom: 12px; }
 
 #manage-generic-page .ely-dialog-content #title-image-container {
   width: 150px; }

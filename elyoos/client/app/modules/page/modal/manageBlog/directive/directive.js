@@ -1,12 +1,14 @@
 'use strict';
 
+var link = require('./link.js');
+
 module.exports = {
-    directive: [function () {
+    directive: ['$animate', function ($animate) {
         return {
             restrict: 'E',
-            require: '^elyStepperDialog',
-            transclude: true,
+            replace: true,
             scope: {},
+            link: link.directiveLink($animate),
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {

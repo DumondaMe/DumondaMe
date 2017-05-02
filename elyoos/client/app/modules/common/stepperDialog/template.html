@@ -36,11 +36,13 @@
                        ng-if="ctrl.selectedStep !== ctrl.steps.length - 1 && ctrl.showNavigation && !ctrl.showFinishInfo">
                 Weiter
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.finish()" ng-disabled="ctrl.showProgress || ctrl.navigationDisabled"
+            <md-button class="md-primary md-raised" ng-click="ctrl.finish()"
+                       ng-disabled="ctrl.showProgress || ctrl.navigationDisabled || ctrl.disabledFinishButton"
                        ng-if="ctrl.selectedStep === ctrl.steps.length - 1 && ctrl.showNavigation && !ctrl.showFinishInfo">
                 {{ctrl.finishLabel}}
             </md-button>
-            <md-button ng-click="ctrl.abortCommand()" ng-if="ctrl.showCommand && !ctrl.showFinishInfo" ng-disabled="ctrl.showProgress">
+            <md-button ng-click="ctrl.abortCommand()" ng-if="ctrl.showCommand && !ctrl.showFinishInfo && !ctrl.hideAbortCommand"
+                       ng-disabled="ctrl.showProgress">
                 Abbrechen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.command()" ng-if="ctrl.showCommand && !ctrl.showFinishInfo"

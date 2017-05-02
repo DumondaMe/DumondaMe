@@ -19,7 +19,7 @@ module.exports = ['$scope', 'FileReaderUtil', 'CreateBlogVisibility', 'Topics', 
 
         ctrl.dataChanged = function () {
             if (angular.isFunction(ctrl.eventDataChanged)) {
-                ctrl.eventDataChanged(!angular.equals(ctrl.dataOnServer, ctrl.data));
+                ctrl.eventDataChanged(!angular.equals(ctrl.dataOnServer, ctrl.data), ctrl.manageBlogForm.$valid);
             }
         };
 
