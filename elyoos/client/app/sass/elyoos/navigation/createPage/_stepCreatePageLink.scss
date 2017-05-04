@@ -1,0 +1,7 @@
+#create-link-step {
+  padding: 0 12px 12px 12px;
+  @media screen and (min-width: $gt-sm) {
+    padding: 0 24px 24px 24px;
+    width: 800px;
+  }
+}

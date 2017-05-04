@@ -1,28 +1,13 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreateMessageService', 'fileUpload', 'moment',
-    'CheckPageExists', 'UploadPageService', 'Languages',
-    function (ElyModal, DateFormatCheckService, Topics, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
-              UploadPageService, Languages) {
-        var ctrl = this;
-
-        if (ctrl.isEditMode) {
-            if (angular.isNumber(ctrl.data.publishDate)) {
-                ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
-            }
-            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
-            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages)[0];
-            ctrl.dataOnServer = angular.copy(ctrl.data);
-        } else {
-            ctrl.data = {};
+module.exports = ['ElyModal', 'BookPageCreateMessageService', 'UploadPageService', 'moment', 'Topics', 'Languages',
+    function (ElyModal, BookPageCreateMessageService, UploadPageService, moment, Topics, Languages) {
+        var ctrl = this, lastIsValid = true, imageChanged = false;
+        if (angular.isNumber(ctrl.data.publishDate)) {
+            ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
         }
-
-        ctrl.languages = Languages.languages;
-
-        CheckPageExists.reset();
-
-        ctrl.getDateExample = DateFormatCheckService.getDateExample;
-        ctrl.topics = Topics.topics;
+        ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+        ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages)[0];
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -36,45 +21,17 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
             ctrl.selectImage = false;
             ctrl.data.dataUri = dataUri;
             ctrl.blob = blob;
-            ctrl.changeData();
+            imageChanged = true;
+            ctrl.dataChanged(true, lastIsValid);
         };
 
-        ctrl.titleHasChanged = function () {
-            if (ctrl.data.title && ctrl.data.title.length > 10) {
-                ctrl.checkPageExists();
-            }
+        ctrl.showImage = function () {
+            ctrl.selectImage = true;
         };
 
-        ctrl.titleLostFocus = function () {
-            ctrl.checkPageExists();
-        };
-
-        ctrl.checkPageExists = function () {
-            return CheckPageExists.checkPageExists(ctrl.data.title, 'Book').then(function (result) {
-                ctrl.searchResult = result.searchResult;
-                ctrl.pageExists = result.pageExists;
-            });
-        };
-
-        ctrl.changeData = function () {
-            ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
-        };
-
-        ctrl.publishDateChanged = function () {
-            if (ctrl.data.publishDate && ctrl.data.publishDate.trim() !== "") {
-                ctrl.manageBookPageForm.publishDate.$setValidity('ely-date', DateFormatCheckService.isDateValid(ctrl.data.publishDate));
-            } else {
-                ctrl.manageBookPageForm.publishDate.$setValidity('ely-date', true);
-            }
-        };
-
-        ctrl.closeOverviewPages = function () {
-            ctrl.showExistingPages = false;
-        };
-
-        ctrl.createBook = function () {
-            var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+        ctrl.dataChanged = function (hasChanged, isValid) {
+            ctrl.isValidToChange = hasChanged && isValid || isValid && imageChanged;
+            lastIsValid = isValid;
         };
 
         ctrl.modifyBook = function () {

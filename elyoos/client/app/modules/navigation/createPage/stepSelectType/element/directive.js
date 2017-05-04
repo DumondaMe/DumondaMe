@@ -12,9 +12,11 @@ module.exports = {
             bindToController: {
                 elyOnClick: '=',
                 icon: '@',
+                label: '@',
+                selectedLabel: '=',
                 description: '@'
             },
-            templateUrl: 'app/modules/navigation/createPage/element/template.html'
+            templateUrl: 'app/modules/navigation/createPage/stepSelectType/element/template.html'
         };
     }],
     name: 'elyNavCreatePageElement'

@@ -1893,36 +1893,90 @@
           margin-left: 8px;
           margin-right: 8px; } }
 
-@media screen and (min-width: 600px) {
-  #ely-create-page-nav #ely-create-page-content {
-    padding: 32px; } }
-#ely-create-page-nav #ely-create-page-content .create-page-element-container {
+#ely-create-page-content .create-page-element-container {
   cursor: pointer; }
-  #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element {
+  #ely-create-page-content .create-page-element-container .create-page-element {
     width: 100px;
     height: 100px; }
     @media screen and (min-width: 600px) {
-      #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element {
+      #ely-create-page-content .create-page-element-container .create-page-element {
         width: 120px;
         height: 120px;
         margin: 0 8px; } }
-    #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
+    #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
       padding: 0 31px 16px 31px;
       height: 38px;
       width: 38px; }
       @media screen and (min-width: 600px) {
-        #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
+        #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
           padding: 0 36px 16px 36px;
           height: 48px;
           width: 48px; } }
-    #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-description {
+    #ely-create-page-content .create-page-element-container .create-page-element .page-description {
       text-align: center;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.54);
       font-weight: 500; }
       @media screen and (min-width: 600px) {
-        #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-description {
+        #ely-create-page-content .create-page-element-container .create-page-element .page-description {
           font-size: 16px; } }
+#ely-create-page-content .create-page-element-container.selected-page-element .create-page-element .page-icon {
+  color: #3F51B5; }
+#ely-create-page-content .create-page-element-container.selected-page-element .create-page-element .page-description {
+  font-weight: 500;
+  color: #3F51B5; }
+
+#create-blog-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-blog-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
+#create-book-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-book-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
+#create-generic-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-generic-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
+#create-link-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-link-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
+#create-youtube-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-youtube-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
+@media screen and (min-width: 600px) {
+  #create-page-select-type-step #ely-create-page-content {
+    padding: 0 16px; } }
+#create-page-select-type-step #ely-create-page-description {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 24px;
+  padding-bottom: 24px; }
+  #create-page-select-type-step #ely-create-page-description .description {
+    max-width: 500px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+    padding: 0 24px;
+    margin: 0 auto; }
 
 .ely-sidnav {
   width: 250px;
@@ -2713,134 +2767,102 @@
       .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
         height: 300px; } }
 
-#blog-manage .preview-image {
-  max-width: 150px;
-  min-width: 100px;
-  max-height: 300px; }
-  #blog-manage .preview-image img {
-    width: 100%;
-    max-height: 100%; }
-#blog-manage .preview-image-button-container {
-  min-width: 150px; }
-#blog-manage #select-privacy {
-  margin-bottom: 16px; }
-  #blog-manage #select-privacy .privacy-button {
-    margin-right: 8px;
-    max-width: 130px; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .privacy-button {
-        margin-bottom: 8px; } }
-  #blog-manage #select-privacy .divider {
-    height: 44px; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .divider {
-        height: 22px; } }
-  #blog-manage #select-privacy .privacy-item {
-    line-height: 44px;
-    height: 44px;
-    font-size: 16px;
-    color: #3F51B5;
-    font-weight: 500; }
-    @media screen and (max-width: 960px) {
-      #blog-manage #select-privacy .privacy-item {
-        line-height: 22px;
-        height: 22px; } }
-    #blog-manage #select-privacy .privacy-item .privacy-item-separator {
-      margin-right: 8px; }
-#blog-manage .visibility-container .header {
+#blog-manage-input {
+  width: 100%; }
+  @media screen and (min-width: 960px) {
+    #blog-manage-input #blog-inputs {
+      padding-left: 24px; } }
+  #blog-manage-input .preview-image {
+    max-width: 150px;
+    min-width: 100px;
+    max-height: 300px; }
+    #blog-manage-input .preview-image img {
+      width: 100%;
+      max-height: 100%; }
+  #blog-manage-input .preview-image-button-container {
+    min-width: 150px; }
+  #blog-manage-input #select-privacy {
+    margin-bottom: 16px; }
+    #blog-manage-input #select-privacy .privacy-button {
+      margin-right: 8px;
+      max-width: 130px; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .privacy-button {
+          margin-bottom: 8px; } }
+    #blog-manage-input #select-privacy .divider {
+      height: 44px; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .divider {
+          height: 22px; } }
+    #blog-manage-input #select-privacy .privacy-item {
+      line-height: 44px;
+      height: 44px;
+      font-size: 16px;
+      color: #3F51B5;
+      font-weight: 500; }
+      @media screen and (max-width: 960px) {
+        #blog-manage-input #select-privacy .privacy-item {
+          line-height: 22px;
+          height: 22px; } }
+      #blog-manage-input #select-privacy .privacy-item .privacy-item-separator {
+        margin-right: 8px; }
+
+#manage-blog-visibility .header {
   height: 40px;
   padding: 16px 16px 8px 16px; }
-  #blog-manage .visibility-container .header .title {
+  #manage-blog-visibility .header .title {
     line-height: 40px;
     font-size: 16px;
     font-weight: 500; }
-  #blog-manage .visibility-container .header .done {
+  #manage-blog-visibility .header .done {
     float: right;
     margin-top: 3px; }
-#blog-manage .visibility-container .public {
+#manage-blog-visibility .public {
   padding: 16px; }
-  #blog-manage .visibility-container .public .box {
+  #manage-blog-visibility .public .box {
     margin-top: 5px;
     margin-bottom: 5px; }
-#blog-manage .visibility-container .section-types {
+#manage-blog-visibility .section-types {
   padding: 16px; }
-  #blog-manage .visibility-container .section-types .section-types-public {
+  #manage-blog-visibility .section-types .section-types-public {
     color: rgba(0, 0, 0, 0.38); }
-  #blog-manage .visibility-container .section-types .type {
+  #manage-blog-visibility .section-types .type {
     margin: 10px 0; }
 
 .manage-page {
-  width: 100%;
   min-width: 300px;
   max-width: 800px; }
   .manage-page .ely-dialog-content {
     padding-bottom: 0; }
-    .manage-page .ely-dialog-content .input-container {
-      width: 100%;
-      margin: 4px 0; }
-      .manage-page .ely-dialog-content .input-container .hint {
-        /* Copy styles from ng-messages */
-        font-size: 12px;
-        line-height: 14px;
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-        margin-bottom: 8px;
-        color: grey;
-        padding-top: 1px; }
-    .manage-page .ely-dialog-content .page-exists-warning {
-      cursor: pointer;
-      color: #EF6C00;
-      font-size: 14px;
-      margin-bottom: 12px; }
-
-#manage-generic-page .ely-dialog-content #title-image-container {
-  width: 150px; }
-  #manage-generic-page .ely-dialog-content #title-image-container img {
-    width: 100%; }
-#manage-generic-page .ely-dialog-content .search-place-button-container {
-  height: 66px; }
-#manage-generic-page .ely-dialog-content #place-list {
-  padding: 12px 0; }
-  #manage-generic-page .ely-dialog-content #place-list #place-title {
-    font-weight: 500;
+  .manage-page .input-container {
+    width: 100%;
+    margin: 4px 0; }
+    .manage-page .input-container .hint {
+      /* Copy styles from ng-messages */
+      font-size: 12px;
+      line-height: 14px;
+      transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+      margin-bottom: 8px;
+      color: grey;
+      padding-top: 1px; }
+  .manage-page .page-exists-warning {
+    cursor: pointer;
+    color: #EF6C00;
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.54);
-    margin-bottom: 8px; }
-  #manage-generic-page .ely-dialog-content #place-list #selected-place-container {
     margin-bottom: 12px; }
-    #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place {
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 8px; }
-      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
-        font-size: 14px;
-        font-weight: 300;
-        vertical-align: middle;
-        line-height: 24px; }
-      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
-        cursor: pointer;
-        margin-left: 6px;
-        height: 24px;
-        width: 24px; }
-#manage-generic-page .ely-dialog-content #keyword-container #keyword-title {
-  font-weight: 500;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54);
-  margin-bottom: 8px; }
-#manage-generic-page .ely-dialog-content #keyword-container #keyword-list {
-  font-weight: 400;
-  font-size: 14px;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.87);
-  margin-bottom: 6px; }
-  #manage-generic-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
-    margin-right: 3px; }
+
+#manage-generic-page-input #title-image-container {
+  width: 150px; }
+  #manage-generic-page-input #title-image-container img {
+    width: 100%; }
 
 .create-generic-page-preview-image {
   max-width: 600px;
   height: 90%; }
 
-#manage-book-page .ely-dialog-content .preview-image {
+#manage-book-page-input .preview-image {
   width: 150px; }
-  #manage-book-page .ely-dialog-content .preview-image img {
+  #manage-book-page-input .preview-image img {
     width: 100%; }
 
 .create-book-page-preview-image {
@@ -2869,23 +2891,23 @@
       color: rgba(0, 0, 0, 0.54);
       font-size: 14px; }
 
-#manage-link-page .ely-dialog-content .preview-image {
+#manage-link-page-input .preview-image {
   width: 150px; }
-  #manage-link-page .ely-dialog-content .preview-image img {
+  #manage-link-page-input .preview-image img {
     width: 100%; }
 
 .create-link-page-preview-image {
   max-width: 600px;
   height: 90%; }
 
-#manage-youtube-page .youtube-preview {
+#manage-youtube-page-input .youtube-preview {
   padding-top: 24px;
   width: 300px; }
-  #manage-youtube-page .youtube-preview .youtube-preview-text {
+  #manage-youtube-page-input .youtube-preview .youtube-preview-text {
     padding: 8px 15px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }
-#manage-youtube-page .mobile-youtube-preview {
+#manage-youtube-page-input .mobile-youtube-preview {
   margin-bottom: 16px; }
 
 #ely-page-overview .ely-dialog-content {

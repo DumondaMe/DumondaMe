@@ -2,18 +2,11 @@
 
 module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'UploadPageService', 'Languages',
     function (ElyModal, Topics, GenericPageCreateMessageService, UploadPageService, Languages) {
-        var ctrl = this;
+        var ctrl = this, lastIsValid = true, imageChanged = false;
 
-        ctrl.languages = Languages.languages;
-        ctrl.topics = Topics.topics;
-        if (ctrl.isEditMode) {
-            ctrl.actualTitle = angular.copy(ctrl.data.title);
-            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
-            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
-            ctrl.dataOnServer = angular.copy(ctrl.data);
-        } else {
-            ctrl.data = {};
-        }
+        ctrl.actualTitle = angular.copy(ctrl.data.title);
+        ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+        ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -27,20 +20,17 @@ module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'Uplo
             ctrl.selectImage = false;
             ctrl.data.dataUri = dataUri;
             ctrl.blob = blob;
-            ctrl.changeData();
+            imageChanged = true;
+            ctrl.dataChanged(true, lastIsValid);
         };
 
-        ctrl.changeData = function () {
-            ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
+        ctrl.showImage = function () {
+            ctrl.selectImage = true;
         };
 
-        ctrl.closeOverviewPages = function () {
-            ctrl.showExistingPages = false;
-        };
-
-        ctrl.createGenericPage = function () {
-            var message = GenericPageCreateMessageService.getCreateGenericPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+        ctrl.dataChanged = function (hasChanged, isValid) {
+            ctrl.isValidToChange = hasChanged && isValid || isValid && imageChanged;
+            lastIsValid = isValid;
         };
 
         ctrl.editGenericPage = function () {

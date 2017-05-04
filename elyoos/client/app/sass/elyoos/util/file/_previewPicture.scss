@@ -1,7 +1,10 @@
 #ely-preview-picture {
   height: 100%;
-  width: 100%;
+  min-width: 320px;
   position: relative;
+  @media screen and (min-width: $gt-xs) {
+    min-width: 600px;
+  }
   .crop-area-container {
     height: 100%;
     width: 100%;

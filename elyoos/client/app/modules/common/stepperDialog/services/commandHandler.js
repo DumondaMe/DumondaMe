@@ -21,6 +21,14 @@ module.exports = [function () {
         stepperDialog.setFinishButtonAction(finishAction);
     };
 
+    service.disableFinishButton = function() {
+        stepperDialog.disableFinishButton();
+    };
+
+    service.enableFinishButton = function() {
+        stepperDialog.enableFinishButton();
+    };
+
     service.enableNavigation = function () {
         stepperDialog.enableNavigation();
     };
@@ -47,6 +55,10 @@ module.exports = [function () {
 
     service.disableButtonCommand = function () {
         stepperDialog.disableButtonCommand();
+    };
+
+    service.hideButtonAbortCommand = function () {
+        stepperDialog.hideButtonAbortCommand();
     };
 
     service.showProgressBar = function () {

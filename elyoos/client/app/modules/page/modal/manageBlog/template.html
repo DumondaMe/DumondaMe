@@ -1,95 +1,21 @@
 <md-dialog id="blog-manage" aria-label="Manage Blog" class="manage-page">
-    <form name="ctrl.manageBlogForm" ng-show="!ctrl.showPrivacy" ng-cloak>
+    <div ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Blog erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Blog <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
-            <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
-                <div>
-                    <div layout="row" layout-align="center center">
-                        <div flex="nogrow" class="preview-image">
-                            <img ng-src="{{ctrl.data.imageForUploadPreview}}" ng-show="ctrl.data.imageForUploadPreview">
-                        </div>
-                    </div>
-                    <div layout="row" layout-align="center center" class="preview-image-button-container">
-                        <div flex="nogrow">
-                            <ely-load-image-button ng-disabled="ctrl.uploadStarted" label="Bild hinzufügen"
-                                                   icon="system:image" ng-hide="ctrl.data.imageForUploadPreview" hide
-                                                   show-gt-sm image-for-upload="imageForUpload"></ely-load-image-button>
-                            <ely-load-image-button ng-disabled="ctrl.uploadStarted" label="Bild hinzufügen"
-                                                   icon="system:image" ng-hide="ctrl.data.imageForUploadPreview" orientation="landscape"
-                                                   hide-gt-sm image-for-upload="imageForUpload"></ely-load-image-button>
-                            <ely-load-image-button-normal ng-disabled="ctrl.uploadStarted" label="Bild ändern"
-                                                          aria-label="Edit Picture" ng-show="ctrl.data.imageForUploadPreview"
-                                                          image-for-upload="imageForUpload"></ely-load-image-button-normal>
-                        </div>
-                    </div>
-                </div>
-                <div flex-offset-gt-sm="5" flex="grow">
-                    <div layout="row">
-                        <div flex="50">
-                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                                       ng-change="ctrl.dataChanged()">
-                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                            </md-select>
-                        </div>
-                        <div flex="50" flex-offset="5">
-                            <md-select ng-model="ctrl.data.selectedLanguage" placeholder="Sprache" required
-                                       ng-change="ctrl.dataChanged()">
-                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                            </md-select>
-                        </div>
-                    </div>
-                    <div id="select-privacy" ng-if="!ctrl.isEditMode" layout="column" layout-gt-sm="row">
-                        <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.showPrivacy = true" label="Sichtbarkeit" class="privacy-button"
-                                    orientation="landscape" icon="system:privacy"></ely-button>
-                        <div layout="row">
-                            <svg width="20px" height="20px" viewBox="0 0 48 48" fill="#757575" class="divider">
-                                <path d="M20 34l10-10 -10-10z"></path>
-                            </svg>
-                            <div layout="row" layout-wrap>
-                                <span class="privacy-item" ng-click="ctrl.openVisibility()" ng-repeat="visibility in ctrl.visibility">
-                                {{visibility}}<span ng-if="!$last" class="privacy-item-separator">,</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="!ctrl.isEditMode">
-                        <md-input-container class="input-container" flex>
-                            <label>Titel</label>
-                            <input name="title" ng-model="ctrl.data.blogTitle" required md-maxlength="160"
-                                   ng-disabled="ctrl.uploadStarted" ng-blur="ctrl.titleLostFocus()"/>
-                            <div ng-messages="ctrl.manageBlogForm.title.$error">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="md-maxlength">Text ist zu lang</div>
-                            </div>
-                        </md-input-container>
-                        <div class="page-exists-warning" ng-if="ctrl.pageExists" ng-click="ctrl.showExistingPages = true">Diese Seite existiert
-                            möglicherweise bereits. Hier klicken...
-                        </div>
-                    </div>
-                    <md-input-container class="input-container">
-                        <label>Schreibe einen Beitrag...</label>
-                        <textarea name="blogText" class="blog-input" ng-model="ctrl.data.blogText" required md-maxlength="10000" max-rows="10"
-                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.dataChanged()"></textarea>
-                        <div ng-messages="ctrl.manageBlogForm.blogText.$error">
-                            <div ng-message="required">Wird benötigt!</div>
-                            <div ng-message="md-maxlength">Text ist zu lang</div>
-                        </div>
-                    </md-input-container>
-                </div>
+            <div class="md-dialog-content ely-dialog-content">
+                <ely-manage-blog is-edit-mode="true" event-show-privacy="ctrl.showPrivacyEvent()"
+                                 set-visibility="ctrl.setVisibility" data="ctrl.data" event-image-load="ctrl.imageLoad"
+                                 event-data-changed="ctrl.dataChanged"></ely-manage-blog>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.createBlog()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid">Erstellen
-            </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.editBlog()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid || !ctrl.dataHasChanged">
+            <md-button class="md-primary md-raised" ng-click="ctrl.editBlog()"
+                       ng-disabled=" ctrl.uploadStarted || !ctrl.isValidToChange">
                 Ändern
             </md-button>
         </md-dialog-actions>
-    </form>
-    <ely-manage-blog-visibility ng-show="ctrl.showPrivacy" on-close-visibility-event="ctrl.closeVisibility()"
-                                class="blog-manage-container"></ely-manage-blog-visibility>
+        <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+    </div>
 </md-dialog>

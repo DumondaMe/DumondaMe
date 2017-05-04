@@ -5,7 +5,7 @@
             <ely-existing-page-overview pages="ctrl.pages"></ely-existing-page-overview>
         </div>
     </md-dialog-content>
-    <md-dialog-actions>
+    <md-dialog-actions ng-if="!ctrl.hideCommands">
         <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.finish()">Weiter</md-button>
     </md-dialog-actions>

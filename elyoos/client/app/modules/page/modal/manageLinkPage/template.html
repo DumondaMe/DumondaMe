@@ -1,95 +1,18 @@
 <md-dialog id="manage-link-page" aria-label="Manage Link Page" class="manage-page"
            ng-class="{'create-link-page-preview-image': ctrl.selectImage}">
-    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.showExistingPages" ng-cloak>
-        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Link Beitrag erstellen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
+    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage " ng-cloak>
+        <div class="md-title ely-dialog-title">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
-            <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
-                <div>
-                    <div layout="row" layout-align="center center">
-                        <div flex="nogrow" class="preview-image">
-                            <img ng-src="{{ctrl.data.dataUri}}" ng-show="ctrl.data.dataUri">
-                        </div>
-                    </div>
-                    <div layout="row" layout-align="center center">
-                        <div flex="nogrow">
-                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
-                                        icon="system:image" ng-hide="ctrl.data.dataUri" hide show-gt-sm></ely-button>
-                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
-                                        icon="system:image" ng-hide="ctrl.data.dataUri" orientation="landscape" hide-gt-sm></ely-button>
-                            <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
-                                       aria-label="Edit Picture" ng-show="ctrl.data.dataUri">Titelbild ändern
-                            </md-button>
-                        </div>
-                    </div>
-                </div>
-                <div flex-offset-gt-sm="5" flex="grow">
-                    <div layout="row">
-                        <div flex="50">
-                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                                       ng-change="ctrl.changeData()">
-                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                            </md-select>
-                        </div>
-                        <div flex="50" flex-offset="5">
-                            <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" required placeholder="Sprache"
-                                       class="ely-select-topic"
-                                       ng-change="ctrl.changeData()">
-                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                            </md-select>
-                        </div>
-                    </div>
-                    <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
-                        <md-input-container class="input-container">
-                            <label>Titel</label>
-                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
-                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
-                            <div ng-messages="ctrl.manageLinkPageForm.title.$error">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="md-maxlength">Text ist zu lang</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="input-container">
-                            <label>Link</label>
-                            <input type="url" name="link" ng-model="ctrl.data.link" ng-change="ctrl.linkHasChanged()"
-                                   ng-disabled="ctrl.uploadStarted"
-                                   md-maxlength="1000" required/>
-                            <div ng-messages="ctrl.manageLinkPageForm.link.$error" ng-show="ctrl.manageLinkPageForm.link.$dirty">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="url">Ungültiger Link</div>
-                                <div ng-message="youtube-link" class="error-youtube-link" ng-click="ctrl.openYoutubeManage()">Erstelle eine
-                                    Youtube
-                                    Seite
-                                </div>
-                                <div ng-message="md-maxlength">Text ist zu lang</div>
-                            </div>
-                        </md-input-container>
-                        <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageLinkPageForm.link.$valid"
-                             ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
-                        </div>
-                    </div>
-                    <md-input-container class="input-container">
-                        <label>Allgemeine Beschreibung</label>
-                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
-                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
-                        <div class="hint" ng-if="ctrl.manageLinkPageForm.description.$valid || ctrl.manageLinkPageForm.description.$pristine">
-                            Beschreibe in einer allgemeinen Form worum es auf dieser Webseite geht. Vermeide persönliche Kommentare.
-                        </div>
-                        <div ng-messages="ctrl.manageLinkPageForm.description.$error">
-                            <div ng-message="required">Wird benötigt!</div>
-                            <div ng-message="md-maxlength">Text ist zu lang</div>
-                        </div>
-                    </md-input-container>
-                </div>
+            <div class="md-dialog-content ely-dialog-content">
+                <ely-manage-link is-edit-mode="true" data="ctrl.data" event-show-image="ctrl.showImage"
+                                 ng-if="!ctrl.selectImage"
+                                 event-data-changed="ctrl.dataChanged"></ely-manage-link>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.createLink()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageLinkPageForm.$invalid">Erstellen
-            </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.modifyLink()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageLinkPageForm.$invalid || !ctrl.dataHasChanged">Ändern
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyLink()"
+                       ng-disabled="ctrl.uploadStarted || !ctrl.isValidToChange">Ändern
             </md-button>
         </md-dialog-actions>
     </form>
@@ -97,7 +20,4 @@
 
     <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
                          ng-if="ctrl.selectImage"></ely-preview-picture>
-
-    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages"
-                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
 </md-dialog>

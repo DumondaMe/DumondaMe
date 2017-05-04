@@ -1,27 +1,17 @@
 'use strict';
 
-module.exports = ['ElyModal', 'Topics', 'PageLinkUrlCheck', 'fileUpload', 'LinkPageCreateMessageService', 'UploadPageService',
-    'CheckPageExists', 'RecommendationResponseFormatter', 'Languages',
-    function (ElyModal, Topics, PageLinkUrlCheck, fileUpload, LinkPageCreateMessageService, UploadPageService, CheckPageExists,
-              RecommendationResponseFormatter, Languages) {
-        var ctrl = this;
-
-        if (ctrl.isEditMode) {
-            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
-            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
-            ctrl.dataOnServer = angular.copy(ctrl.data);
-        } else {
-            ctrl.data = {};
-        }
-
-        ctrl.languages = Languages.languages;
-
-        CheckPageExists.reset();
-
-        ctrl.topics = Topics.topics;
+module.exports = ['ElyModal', 'Topics', 'LinkPageCreateMessageService', 'UploadPageService', 'Languages',
+    function (ElyModal, Topics, LinkPageCreateMessageService, UploadPageService, Languages) {
+        var ctrl = this, lastIsValid = true, imageChanged = false;
+        ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+        ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
 
         ctrl.cancel = function () {
             ElyModal.cancel();
+        };
+
+        ctrl.showImage = function () {
+            ctrl.selectImage = true;
         };
 
         ctrl.cancelPreviewImage = function () {
@@ -32,45 +22,18 @@ module.exports = ['ElyModal', 'Topics', 'PageLinkUrlCheck', 'fileUpload', 'LinkP
             ctrl.selectImage = false;
             ctrl.data.dataUri = dataUri;
             ctrl.blob = blob;
-            ctrl.changeData();
+            imageChanged = true;
+            ctrl.dataChanged(true, lastIsValid);
         };
 
-        ctrl.linkHasChanged = function () {
-            ctrl.manageLinkPageForm.link.$setValidity('youtube-link', true);
-            if(PageLinkUrlCheck.isYoutubeLink(ctrl.data.link)) {
-                ctrl.manageLinkPageForm.link.$setValidity('youtube-link', false);
-            } else {
-                ctrl.checkPageExists(ctrl.data.link);
-            }
-        };
-
-        ctrl.checkPageExists = function (query) {
-            return CheckPageExists.checkPageExists(query, 'Link').then(function (result) {
-                ctrl.searchResult = result.searchResult;
-                ctrl.pageExists = result.pageExists;
-            });
-        };
-
-        ctrl.changeData = function () {
-            ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
-        };
-
-        ctrl.closeOverviewPages = function () {
-            ctrl.showExistingPages = false;
-        };
-
-        ctrl.createLink = function () {
-            var message = LinkPageCreateMessageService.getCreateLinkPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+        ctrl.dataChanged = function (hasChanged, isValid) {
+            ctrl.isValidToChange = hasChanged && isValid || isValid && imageChanged;
+            lastIsValid = isValid;
         };
 
         ctrl.modifyLink = function () {
             var message = LinkPageCreateMessageService.getModifyLinkPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
-        };
-
-        ctrl.recommendationAbort = function () {
-            ElyModal.cancel();
         };
     }];
 

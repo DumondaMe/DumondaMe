@@ -1,4 +1,5 @@
-<div class="create-page-element-container" ng-click="ctrl.elyOnClick()">
+<div class="create-page-element-container" ng-click="ctrl.elyOnClick(ctrl.label)"
+     ng-class="{'selected-page-element': ctrl.label === ctrl.selectedLabel}">
     <div class="create-page-element">
         <md-icon md-svg-icon="{{ctrl.icon}}" class="page-icon"></md-icon>
         <div class="page-description">{{ctrl.description}}</div>

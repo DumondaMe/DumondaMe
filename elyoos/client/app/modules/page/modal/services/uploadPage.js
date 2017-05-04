@@ -7,14 +7,15 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
 
         return fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create').then(
             function (resp) {
-                ElyModal.hide(resp.data);
+                return resp.data;
+                //ElyModal.hide(resp.data);
             }, function (resp) {
-                ctrl.uploadStarted = false;
                 if (resp.data && resp.data.errorCode === 2) {
                     errorToast.showError('Das Bild ist zu klein! Seite wurde nicht erstellt.');
                 } else {
                     errorToast.showError('Beitrag konnte nicht erstellt!');
                 }
+                return null;
             });
     };
 

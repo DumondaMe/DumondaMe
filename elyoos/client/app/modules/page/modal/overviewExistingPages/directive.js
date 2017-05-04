@@ -10,6 +10,7 @@ module.exports = {
             },
             controllerAs: 'ctrl',
             bindToController: {
+                hideCommands: '=',
                 pages: '=',
                 cancel: '=',
                 finish: '='

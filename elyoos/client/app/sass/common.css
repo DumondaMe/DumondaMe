@@ -768,8 +768,11 @@ md-toast.md-error-toast-theme {
 
 #ely-preview-picture {
   height: 100%;
-  width: 100%;
+  min-width: 320px;
   position: relative; }
+  @media screen and (min-width: 600px) {
+    #ely-preview-picture {
+      min-width: 600px; } }
   #ely-preview-picture .crop-area-container {
     height: 100%;
     width: 100%; }

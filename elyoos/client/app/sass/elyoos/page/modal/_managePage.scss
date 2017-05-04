@@ -1,27 +1,26 @@
 .manage-page {
-  width: 100%;
   min-width: 300px;
   max-width: 800px;
   .ely-dialog-content {
     padding-bottom: 0;
-    .input-container {
-      width: 100%;
-      margin: 4px 0;
-      .hint {
-        /* Copy styles from ng-messages */
-        font-size: 12px;
-        line-height: 14px;
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-        margin-bottom: 8px;
-        color: grey;
-        padding-top: 1px;
-      }
+  }
+  .input-container {
+    width: 100%;
+    margin: 4px 0;
+    .hint {
+      /* Copy styles from ng-messages */
+      font-size: 12px;
+      line-height: 14px;
+      transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+      margin-bottom: 8px;
+      color: grey;
+      padding-top: 1px;
     }
-    .page-exists-warning {
-      cursor: pointer;
-      color: $warning;
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
+  }
+  .page-exists-warning {
+    cursor: pointer;
+    color: $warning;
+    font-size: 14px;
+    margin-bottom: 12px;
   }
 }
