@@ -1940,6 +1940,13 @@
       padding: 0 24px 24px 24px;
       width: 800px; } }
 
+#create-link-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-link-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
 #create-youtube-step {
   padding: 0 12px 12px 12px; }
   @media screen and (min-width: 960px) {
@@ -2914,9 +2921,9 @@
       color: rgba(0, 0, 0, 0.54);
       font-size: 14px; }
 
-#manage-link-page .ely-dialog-content .preview-image {
+#manage-link-page-input .preview-image {
   width: 150px; }
-  #manage-link-page .ely-dialog-content .preview-image img {
+  #manage-link-page-input .preview-image img {
     width: 100%; }
 
 .create-link-page-preview-image {

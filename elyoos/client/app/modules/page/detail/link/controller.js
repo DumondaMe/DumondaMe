@@ -13,6 +13,7 @@ module.exports = ['Topics', 'ElyModal', 'DeletePageService', 'Languages',
                         description: ctrl.pageDetail.page.description,
                         selectedTopics: ctrl.pageDetail.page.topic,
                         selectedLanguages: ctrl.pageDetail.page.language,
+                        link: ctrl.pageDetail.page.link,
                         dataUri: ctrl.pageDetail.page.imageUrl
                     },
                     isEditMode: true
