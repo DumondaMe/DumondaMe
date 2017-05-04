@@ -4,7 +4,7 @@ var recommendationTypes = [{description: 'Blog', code: 'Blog'},
     {description: 'Buch', code: 'Book'},
     {description: 'Youtube', code: 'Youtube'},
     {description: 'Link', code: 'Link'},
-    {description: 'Allgemein', code: 'Generic'}];
+    {description: 'Projekt', code: 'Generic'}];
 
 module.exports = ['$log',
     function ($log) {

@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = ['StepperDialogSteps', 'CreatePageSelectedPages', 'StepperDialogCommandHandler',
-    function (StepperDialogSteps, CreatePageSelectedPages, StepperDialogCommandHandler) {
+    'RecommendationTypes',
+    function (StepperDialogSteps, CreatePageSelectedPages, StepperDialogCommandHandler,
+              RecommendationTypes) {
         var ctrl = this;
 
         ctrl.step = {
@@ -14,5 +16,7 @@ module.exports = ['StepperDialogSteps', 'CreatePageSelectedPages', 'StepperDialo
             CreatePageSelectedPages.setSelectedPage(selectedPage);
             ctrl.selectedLabel = selectedPage;
             StepperDialogCommandHandler.enableNavigation();
+            StepperDialogSteps.setStepLabel('createStep',
+                RecommendationTypes.getRecommendationType(selectedPage) + ' erstellen');
         };
     }];

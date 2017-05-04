@@ -5,6 +5,7 @@ module.exports = ['StepperDialogSteps', 'CreatePageSelectedPages',
         var ctrl = this;
 
         ctrl.step = {
+            id: 'createStep',
             label: 'Erstellen',
             selected: false,
             isSelectedNotification: function () {

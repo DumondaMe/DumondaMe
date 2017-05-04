@@ -34,9 +34,17 @@ module.exports = ['Observables', function (Observables) {
         if (notify && angular.isFunction(steps[index].isSelectedNotification)) {
             steps[index].isSelectedNotification();
         }
-        if(notify) {
+        if (notify) {
             Observables.notifyObservables(observables, "selectedStepChanged", selectedStepIndex);
         }
         return selectedStepIndex;
+    };
+
+    service.setStepLabel = function (id, newLabel) {
+        steps.forEach(function (step) {
+            if (step.id === id) {
+                step.label = newLabel;
+            }
+        });
     };
 }];
