@@ -1940,6 +1940,13 @@
       padding: 0 24px 24px 24px;
       width: 800px; } }
 
+#create-youtube-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-youtube-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
 @media screen and (min-width: 600px) {
   #create-page-select-type-step #ely-create-page-content {
     padding: 0 16px; } }
@@ -2809,7 +2816,6 @@
     margin: 10px 0; }
 
 .manage-page {
-  width: 100%;
   min-width: 300px;
   max-width: 800px; }
   .manage-page .ely-dialog-content {
@@ -2917,14 +2923,14 @@
   max-width: 600px;
   height: 90%; }
 
-#manage-youtube-page .youtube-preview {
+#manage-youtube-page-input .youtube-preview {
   padding-top: 24px;
   width: 300px; }
-  #manage-youtube-page .youtube-preview .youtube-preview-text {
+  #manage-youtube-page-input .youtube-preview .youtube-preview-text {
     padding: 8px 15px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }
-#manage-youtube-page .mobile-youtube-preview {
+#manage-youtube-page-input .mobile-youtube-preview {
   margin-bottom: 16px; }
 
 #ely-page-overview .ely-dialog-content {
