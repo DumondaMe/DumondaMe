@@ -1940,6 +1940,13 @@
       padding: 0 24px 24px 24px;
       width: 800px; } }
 
+#create-generic-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-generic-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
 #create-link-step {
   padding: 0 12px 12px 12px; }
   @media screen and (min-width: 960px) {
@@ -2844,47 +2851,10 @@
     font-size: 14px;
     margin-bottom: 12px; }
 
-#manage-generic-page .ely-dialog-content #title-image-container {
+#manage-generic-page-input #title-image-container {
   width: 150px; }
-  #manage-generic-page .ely-dialog-content #title-image-container img {
+  #manage-generic-page-input #title-image-container img {
     width: 100%; }
-#manage-generic-page .ely-dialog-content .search-place-button-container {
-  height: 66px; }
-#manage-generic-page .ely-dialog-content #place-list {
-  padding: 12px 0; }
-  #manage-generic-page .ely-dialog-content #place-list #place-title {
-    font-weight: 500;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54);
-    margin-bottom: 8px; }
-  #manage-generic-page .ely-dialog-content #place-list #selected-place-container {
-    margin-bottom: 12px; }
-    #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place {
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 8px; }
-      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
-        font-size: 14px;
-        font-weight: 300;
-        vertical-align: middle;
-        line-height: 24px; }
-      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
-        cursor: pointer;
-        margin-left: 6px;
-        height: 24px;
-        width: 24px; }
-#manage-generic-page .ely-dialog-content #keyword-container #keyword-title {
-  font-weight: 500;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54);
-  margin-bottom: 8px; }
-#manage-generic-page .ely-dialog-content #keyword-container #keyword-list {
-  font-weight: 400;
-  font-size: 14px;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.87);
-  margin-bottom: 6px; }
-  #manage-generic-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
-    margin-right: 3px; }
 
 .create-generic-page-preview-image {
   max-width: 600px;
