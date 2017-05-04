@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = ['ImageViewService', function (ImageViewService) {
+module.exports = ['ElyModal', function (ElyModal) {
     var ctrl = this;
 
-    ctrl.openImageView = function () {
-        ImageViewService.showImage('app/img/start/previewScreenFull.jpg');
+    ctrl.openBitcoinDonation = function () {
+        ElyModal.show('DonateBitcoinCtrl', 'app/modules/public/donate/modal/bitcoin/template.html');
     };
 }];

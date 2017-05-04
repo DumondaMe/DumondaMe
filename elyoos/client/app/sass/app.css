@@ -3612,7 +3612,7 @@
   background-color: #FFFFFF; }
   #ely-donate #ely-donate-container {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0 auto 32px auto;
     padding: 32px 16px 0 16px; }
     @media screen and (min-width: 960px) {
       #ely-donate #ely-donate-container {
@@ -3641,6 +3641,10 @@
       margin: 0 auto 24px auto; }
       #ely-donate #ely-donate-container #donate-image img {
         width: 100%; }
+    #ely-donate #ely-donate-container #bitcoin-button {
+      margin-top: 12px;
+      cursor: pointer;
+      height: 48px; }
 
 #public-footer {
   background-color: #212121;
