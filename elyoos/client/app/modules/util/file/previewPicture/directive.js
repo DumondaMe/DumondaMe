@@ -13,7 +13,10 @@ module.exports = {
                 unsupportedFile: '@',
                 cancel: '=',
                 finish: '=',
-                eventRunning: '='
+                finishCommand: '=',
+                hideCommandButton: '=',
+                eventRunning: '=',
+                eventHasImage: '='
             },
             controller: require('./controller.js')
         };

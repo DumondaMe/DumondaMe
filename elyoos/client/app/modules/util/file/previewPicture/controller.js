@@ -8,6 +8,12 @@ module.exports = ['$scope', 'FileReader', 'FileReaderLoadImage',
         ctrl.hasImage = false;
         ctrl.unsupportedFile = false;
 
+        if(ctrl.hideCommandButton) {
+            ctrl.finishCommand = function () {
+                ctrl.selected();
+            };
+        }
+
         ctrl.selected = function () {
             if (ctrl.hasImage) {
                 ctrl.commands.getData();
@@ -22,16 +28,16 @@ module.exports = ['$scope', 'FileReader', 'FileReaderLoadImage',
             ctrl.commands.rotate90DegreeRight();
         };
 
-        ctrl.setRunning = function(newRunning) {
+        ctrl.setRunning = function (newRunning) {
             ctrl.running = newRunning;
-            if(angular.isFunction(ctrl.eventRunning)) {
+            if (angular.isFunction(ctrl.eventRunning)) {
                 ctrl.eventRunning(ctrl.running);
             }
         };
 
         ctrl.setHasImage = function (newHasImage) {
             ctrl.hasImage = newHasImage;
-            if(angular.isFunction(ctrl.eventHasImage)) {
+            if (angular.isFunction(ctrl.eventHasImage)) {
                 ctrl.eventHasImage(ctrl.hasImage);
             }
         };

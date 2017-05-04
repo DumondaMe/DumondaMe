@@ -29,6 +29,14 @@ module.exports = ['StepperDialogCommandHandler', 'UploadBlog', 'Topics', 'errorT
             }
         };
 
+        ctrl.imageLoad = function (running) {
+            if (running) {
+                StepperDialogCommandHandler.showProgressBar();
+            } else {
+                StepperDialogCommandHandler.hideProgressBar();
+            }
+        };
+
         ctrl.dataChanged = function (changed, isValid) {
             if(isValid) {
                 StepperDialogCommandHandler.enableFinishButton();

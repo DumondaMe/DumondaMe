@@ -1,0 +1,12 @@
+<div id="create-book-step" class="manage-page" ng-cloak>
+    <ely-manage-book is-edit-mode="false" data="ctrl.data" event-show-image="ctrl.showImage"
+                     event-show-existing-books="ctrl.showExistingBooks"
+                     ng-if="!ctrl.selectImage && !ctrl.showExistingPages"
+                     event-data-changed="ctrl.dataChanged"></ely-manage-book>
+    <ely-preview-picture ratio="0.62745" finish="ctrl.setPreviewImage" finish-command="ctrl.loadImage"
+                         hide-command-button="true" event-has-image="ctrl.eventHasImage" event-running="ctrl.loadingImageIsRunning"
+                         ng-if="ctrl.selectImage"></ely-preview-picture>
+
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages" hide-commands="true"
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+</div>

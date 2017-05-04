@@ -1933,6 +1933,13 @@
       padding: 0 24px 24px 24px;
       width: 800px; } }
 
+#create-book-step {
+  padding: 0 12px 12px 12px; }
+  @media screen and (min-width: 960px) {
+    #create-book-step {
+      padding: 0 24px 24px 24px;
+      width: 800px; } }
+
 @media screen and (min-width: 600px) {
   #create-page-select-type-step #ely-create-page-content {
     padding: 0 16px; } }
@@ -2743,7 +2750,7 @@
   width: 100%; }
   @media screen and (min-width: 960px) {
     #blog-manage-input #blog-inputs {
-      padding-left: 12px; } }
+      padding-left: 24px; } }
   #blog-manage-input .preview-image {
     max-width: 150px;
     min-width: 100px;
@@ -2870,9 +2877,9 @@
   max-width: 600px;
   height: 90%; }
 
-#manage-book-page .ely-dialog-content .preview-image {
+#manage-book-page-input .preview-image {
   width: 150px; }
-  #manage-book-page .ely-dialog-content .preview-image img {
+  #manage-book-page-input .preview-image img {
     width: 100%; }
 
 .create-book-page-preview-image {

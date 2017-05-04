@@ -9,8 +9,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
             },
-            templateUrl: 'app/modules/navigation/createPage/stepCreatePage/blog/template.html'
+            templateUrl: 'app/modules/navigation/createPage/stepCreatePage/book/template.html'
         };
     }],
-    name: 'elyCreatePageStepBlog'
+    name: 'elyCreatePageStepBook'
 };

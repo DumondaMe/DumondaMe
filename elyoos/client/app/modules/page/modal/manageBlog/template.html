@@ -5,7 +5,7 @@
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
                 <ely-manage-blog is-edit-mode="true" event-show-privacy="ctrl.showPrivacyEvent()"
-                                 set-visibility="ctrl.setVisibility" data="ctrl.data"
+                                 set-visibility="ctrl.setVisibility" data="ctrl.data" event-image-load="ctrl.imageLoad"
                                  event-data-changed="ctrl.dataChanged"></ely-manage-blog>
             </div>
         </md-dialog-content>
@@ -16,5 +16,6 @@
                 Ändern
             </md-button>
         </md-dialog-actions>
+        <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
     </div>
 </md-dialog>

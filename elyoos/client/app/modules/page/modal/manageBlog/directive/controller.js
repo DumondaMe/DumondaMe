@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'FileReaderUtil', 'CreateBlogVisibility', 'Topics', 'Languages',
-    function ($scope, FileReaderUtil, CreateBlogVisibility, Topics, Languages) {
+module.exports = ['$scope', 'FileReaderUtil', 'FileReader', 'CreateBlogVisibility', 'Topics', 'Languages',
+    function ($scope, FileReaderUtil, FileReader, CreateBlogVisibility, Topics, Languages) {
         var ctrl = this;
 
         ctrl.visibility = ["Öffentlich"];
@@ -26,11 +26,14 @@ module.exports = ['$scope', 'FileReaderUtil', 'CreateBlogVisibility', 'Topics', 
 
         $scope.$watch('imageForUpload', function (newImage) {
             if (newImage) {
+                ctrl.eventImageLoad(true);
                 FileReader.onloadend = function () {
                     $scope.$apply(function () {
                         ctrl.data.imageForUploadPreview = FileReader.result;
                         ctrl.data.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.data.imageForUploadPreview);
                         ctrl.dataHasChanged = true;
+                        ctrl.dataChanged();
+                        ctrl.eventImageLoad(false);
                     });
                 };
                 FileReader.readAsDataURL(newImage);

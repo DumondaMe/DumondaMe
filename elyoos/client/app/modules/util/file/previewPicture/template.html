@@ -12,7 +12,7 @@
     <div layout="row" layout-align="start center" class="action-commands">
         <div class="action-icon-container" layout="row">
             <ely-load-image-button-icon class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto" open-dialog-init="true"
-                                   aria-label="Add Photo" label="Bild"></ely-load-image-button-icon>
+                                        aria-label="Add Photo" label="Bild"></ely-load-image-button-icon>
             <div ng-show="!ctrl.running && ctrl.hasImage">
                 <md-button class="md-icon-button" ng-click="ctrl.rotateLeft()" aria-label="rotate image left">
                     <md-icon md-svg-icon="system:rotateLeft"></md-icon>
@@ -24,9 +24,11 @@
                 </md-button>
             </div>
         </div>
-        <span flex></span>
-        <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-        <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.selected()">Auswählen</md-button>
+        <span flex ng-if="!ctrl.hideCommandButton"></span>
+        <md-button ng-click="ctrl.cancel()" ng-if="!ctrl.hideCommandButton">Abbrechen</md-button>
+        <md-button class="md-primary" ng-if="!ctrl.hideCommandButton"
+                   ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.selected()">Auswählen
+        </md-button>
     </div>
-    <md-progress-linear class="progress-bar" ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear class="progress-bar" ng-if="ctrl.running && !ctrl.hideCommandButton" md-mode="indeterminate"></md-progress-linear>
 </div>

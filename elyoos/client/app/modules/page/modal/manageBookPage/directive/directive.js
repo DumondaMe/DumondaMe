@@ -14,13 +14,12 @@ module.exports = {
             bindToController: {
                 isEditMode:'=',
                 eventDataChanged: '=',
-                eventImageLoad: '=',
-                eventShowPrivacy: '=',
-                setVisibility: '=',
+                eventShowImage: '=',
+                eventShowExistingBooks: '=',
                 data: '='
             },
-            templateUrl: 'app/modules/page/modal/manageBlog/directive/template.html'
+            templateUrl: 'app/modules/page/modal/manageBookPage/directive/template.html'
         };
     }],
-    name: 'elyManageBlog'
+    name: 'elyManageBook'
 };

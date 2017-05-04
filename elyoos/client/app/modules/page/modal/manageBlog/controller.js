@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'ElyModal', 'FileReaderUtil', 'FileReader', 'Topics', 'Languages', 'UploadBlog', 'UploadBlogEdit', 'errorToast',
-    function ($scope, ElyModal, FileReaderUtil, FileReader, Topics, Languages, UploadBlog, UploadBlogEdit, errorToast) {
+module.exports = ['ElyModal', 'Topics', 'Languages', 'UploadBlogEdit', 'errorToast',
+    function (ElyModal, Topics, Languages, UploadBlogEdit, errorToast) {
         var ctrl = this;
         ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
         ctrl.data.selectedLanguage = Languages.getLanguages(ctrl.data.selectedLanguage)[0];
@@ -21,6 +21,10 @@ module.exports = ['$scope', 'ElyModal', 'FileReaderUtil', 'FileReader', 'Topics'
 
         ctrl.dataChanged = function (hasChanged, isValid) {
             ctrl.isValidToChange = hasChanged && isValid;
+        };
+
+        ctrl.imageLoad = function (running) {
+            ctrl.uploadStarted = running;
         };
 
         ctrl.editBlog = function () {
