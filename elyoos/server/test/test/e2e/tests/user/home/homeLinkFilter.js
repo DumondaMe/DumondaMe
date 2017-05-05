@@ -29,12 +29,12 @@ describe('Integration Tests for filtering link recommendation on home screen', f
                 lng: 8.541694
             }]);
 
-            dbDsl.crateRecommendationsForPage('0', [{userId: '2', created: 503}]);
-            dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: 504}]);
-            dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 504}]);
-            dbDsl.crateRecommendationsForPage('10', [{userId: '2', created: 504}]);
-            dbDsl.crateRecommendationsForPage('11', [{userId: '2', created: 504}]);
-            dbDsl.crateRecommendationsForPage('13', [{userId: '2', created: 504}]);
+            dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 510}, {userId: '2', created: 503}]);
+            dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 510}, {userId: '2', created: 504}]);
+            dbDsl.crateRecommendationsForPage('2', [{userId: '1', created: 510}, {userId: '2', created: 504}]);
+            dbDsl.crateRecommendationsForPage('10', [{userId: '1', created: 510}, {userId: '2', created: 504}]);
+            dbDsl.crateRecommendationsForPage('11', [{userId: '1', created: 510}, {userId: '2', created: 504}]);
+            dbDsl.crateRecommendationsForPage('13', [{userId: '1', created: 510}, {userId: '2', created: 504}]);
         });
     });
 
@@ -62,6 +62,7 @@ describe('Integration Tests for filtering link recommendation on home screen', f
 
             res.body.pinwall.length.should.equals(1);
             res.body.pinwall[0].pageId.should.equals('0');
+            res.body.pinwall[0].userId.should.equals('2');
         });
     });
 
@@ -85,7 +86,9 @@ describe('Integration Tests for filtering link recommendation on home screen', f
 
             res.body.pinwall.length.should.equals(2);
             res.body.pinwall[0].pageId.should.equals('1');
+            res.body.pinwall[0].userId.should.equals('2');
             res.body.pinwall[1].pageId.should.equals('0');
+            res.body.pinwall[1].userId.should.equals('2');
         });
     });
 
