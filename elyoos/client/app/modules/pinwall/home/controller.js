@@ -17,7 +17,7 @@ module.exports = ['$scope', 'AddRemovePinwallElementService', '$mdMedia', 'Pinwa
                 AddRemovePinwallElementService.setPinwall(newPinwall);
                 AddRemovePinwallElementService.setService(ctrl.addRemovePinwallElementService);
                 PinwallHeightCalculator.setHeightPinwallElements(newPinwall);
-                ctrl.columns = PinwallColumnSelector.getColumns(newPinwall);
+                ctrl.columns = PinwallColumnSelector.getColumns(newPinwall, ctrl.recommendedUser.length);
             }
         });
     }];

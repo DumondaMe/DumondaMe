@@ -4,10 +4,10 @@
         <div class="description">Es wurden mit den aktuellen <span class="filter">Filtereinstellungen</span> keine Beiträge gefunden.</div>
     </div>
     <div class="one-column-container" ng-if="!ctrl.isBreakpoint">
-        <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"
-                                reload-pinwall="ctrl.reloadPinwall"></ely-pinwall-contacting>
         <ely-pinwall-construction-info
                 ng-show="ctrl.showInfo === 'true' && pinwall.length > 0"></ely-pinwall-construction-info>
+        <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"
+                                reload-pinwall="ctrl.reloadPinwall"></ely-pinwall-contacting>
         <ely-pinwall-recommended-user recommended-user="ctrl.recommendedUser" reload-pinwall="ctrl.reloadPinwall"
                                       ng-if="ctrl.recommendedUser.length > 0"></ely-pinwall-recommended-user>
         <ely-pinwall-element flex="grow" element="pinwallElement"

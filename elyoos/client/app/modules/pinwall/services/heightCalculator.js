@@ -21,7 +21,7 @@ var heightCalculator = {
                     recommendation.pinwallHeight = 305;
                     break;
                 case "Youtube":
-                    recommendation.pinwallHeight = 520;
+                    recommendation.pinwallHeight = 475;
                     break;
                 case "Blog":
                     recommendation.pinwallHeight = 165;
@@ -33,7 +33,7 @@ var heightCalculator = {
                     setLinkHeight(recommendation);
                     break;
                 case "Generic":
-                    recommendation.pinwallHeight = 91;
+                    recommendation.pinwallHeight = 424;
                     break;
                 default:
                     $log.error("Unknown recommendation label " + recommendation.label);
