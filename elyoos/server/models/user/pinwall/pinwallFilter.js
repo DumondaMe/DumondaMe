@@ -24,9 +24,18 @@ let getRecommendationTypeFilter = function (recommendationType, elementName) {
     return null;
 };
 
-let getFilters = function (params, elementName) {
+let getOnlyOtherUsers = function (isPopular) {
+    if(!isPopular) {
+        return "NOT user.userId = contact.userId";
+    }
+    return null;
+};
+
+let getFilters = function (params, elementName, isPopular) {
     return db.concatCommandsWithAnd([getLanguageFilter(params.language, elementName),
-         getTopicFilter(params.topic, elementName), getRecommendationTypeFilter(params.recommendationType, elementName)]);
+         getTopicFilter(params.topic, elementName),
+        getRecommendationTypeFilter(params.recommendationType, elementName),
+        getOnlyOtherUsers(isPopular)]);
 };
 
 module.exports = {

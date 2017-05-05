@@ -9,7 +9,7 @@ let recommendationType = require("../../../schema/recommendationType");
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let schemaGetAdministratedPages = {
+let schemaGetUserHomePinwallInfos = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
@@ -31,7 +31,7 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs when getting users home infos', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaGetAdministratedPages, logger).then(function (request) {
+            return validation.validateQueryRequest(req, schemaGetUserHomePinwallInfos, logger).then(function (request) {
                 logger.info('Request home of user', req);
                 return pinwall.getPinwall(req.user.id, request, req);
             }).then(function (page) {

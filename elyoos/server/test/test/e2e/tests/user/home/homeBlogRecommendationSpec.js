@@ -1,7 +1,6 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
@@ -36,7 +35,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                     skipBlog: 0,
                     skipRecommendation: 0,
                     maxItems: 10,
-                    onlyContact: true,
+                    onlyContact: false,
                     order: 'new'
                 }, requestAgent);
             }).then(function (res) {
@@ -153,7 +152,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             });
     });
 
-    it('Showing blog recommended by user', function () {
+    it('Not showing blog recommended by user', function () {
 
         dbDsl.createPrivacyNoContact(['1', '2', '3'], {profile: true, image: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, contacts: true, pinwall: true});
@@ -175,32 +174,11 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equals(1);
-                res.body.pinwall[0].pinwallType.should.equals('Recommendation');
-                res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].pageId.should.equals('1');
-                res.body.pinwall[0].writerName.should.equals('user Meier2');
-                res.body.pinwall[0].writerUserId.should.equals('2');
-                res.body.pinwall[0].name.should.equals('user Meier');
-                res.body.pinwall[0].userId.should.equals('1');
-                res.body.pinwall[0].recommendedByUser.should.equals(true);
-                res.body.pinwall[0].thisRecommendationByUser.should.equals(true);
-                res.body.pinwall[0].userRecommendationId.should.equals('0');
-                res.body.pinwall[0].created.should.equals(503);
-                res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.pinwall[0].heightPreviewImage.should.equals(200);
-                res.body.pinwall[0].previewUrl.should.equals('blog/1/preview.jpg');
-                res.body.pinwall[0].title.should.equals('blog1Title');
-                res.body.pinwall[0].text.should.equals('blog1Text');
-                res.body.pinwall[0].isAdmin.should.equals(false);
-                res.body.pinwall[0].topic.length.should.equals(2);
-                res.body.pinwall[0].topic[0].should.equals('health');
-                res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].totalNumberOfRecommendations.should.equals(1);
+                res.body.pinwall.length.should.equals(0);
             });
     });
 
-    it('Not showing blog recommendation when user is not included in visible group', function () {
+    it('Not showing blog recommendation when user is not included in privacy group', function () {
 
         dbDsl.createPrivacyNoContact(['1', '2', '3'], {profile: true, image: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, contacts: true, pinwall: true});

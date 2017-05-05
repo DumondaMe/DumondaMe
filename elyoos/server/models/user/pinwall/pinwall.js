@@ -114,13 +114,13 @@ let getPagesOfOtherUser = function (userId, request) {
 
 let getBlogOnlyContactFilter = function (onlyContact) {
     if (onlyContact) {
-        return "(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)";
+        return "(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall:Blog)";
     }
     return "(user:User {userId: {userId}}), (contact:User)-[:WRITTEN]->(pinwall:Blog)";
 };
 
 let getBlogs = function (userId, request) {
-    let filters = pinwallFilter.getFilters(request, 'pinwall');
+    let filters = pinwallFilter.getFilters(request, 'pinwall', true);
     return db.cypher().match(getBlogOnlyContactFilter(request.onlyContact))
         .where(filters)
         .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:WRITTEN]->(pinwall)")
@@ -177,7 +177,7 @@ let getBlogRecommendationPrivacyString = function () {
 
 let getRecommendationOnlyContactFilter = function (onlyContact) {
     if (onlyContact) {
-        return "(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
+        return "(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
     }
     return "(user:User {userId: {userId}}), (contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
 };
@@ -197,7 +197,7 @@ let getFilterWithCreatedCondition = function (filters) {
 };
 
 let getRecommendations = function (userId, request) {
-    let filters = pinwallFilter.getFilters(request, 'pinwallData');
+    let filters = pinwallFilter.getFilters(request, 'pinwallData', request.order === 'popular');
     return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where(filters)
         .addCommand(getRecommendationPrivacyString(''))
@@ -206,7 +206,7 @@ let getRecommendations = function (userId, request) {
         .skip("{skip}")
         .limit("{maxItems}")
         .match(getRecommendationOnlyContactFilter(request.onlyContact))
-        .where(getFilterWithCreatedCondition(filters))
+        .where(getFilterWithCreatedCondition(pinwallFilter.getFilters(request, 'pinwallData', request.order === 'popular')))
         .addCommand(getRecommendationPrivacyString(', numberOfRecommendations '))
         .addCommand(getBlogRecommendationPrivacyString())
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")

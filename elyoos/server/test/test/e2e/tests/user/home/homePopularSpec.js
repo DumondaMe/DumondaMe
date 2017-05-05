@@ -185,7 +185,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.pinwall.length.should.equals(4);
+            res.body.pinwall.length.should.equals(3);
 
             res.body.pinwall[0].pinwallType.should.equals('Recommendation');
             res.body.pinwall[0].label.should.equals('Generic');
@@ -201,7 +201,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[0].recommendedByUser.should.equals(true);
             res.body.pinwall[0].thisRecommendationByUser.should.equals(false);
             res.body.pinwall[0].totalNumberOfRecommendations.should.equals(5);
-            res.body.pinwall[0].numberOfRecommendations.should.equals(4);
+            res.body.pinwall[0].numberOfRecommendations.should.equals(3);
             res.body.pinwall[0].topic.length.should.equals(2);
             res.body.pinwall[0].topic[0].should.equals('health');
             res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
@@ -223,7 +223,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[1].recommendedByUser.should.equals(true);
             res.body.pinwall[1].thisRecommendationByUser.should.equals(false);
             res.body.pinwall[1].totalNumberOfRecommendations.should.equals(3);
-            res.body.pinwall[1].numberOfRecommendations.should.equals(3);
+            res.body.pinwall[1].numberOfRecommendations.should.equals(2);
             res.body.pinwall[1].topic.length.should.equals(2);
             res.body.pinwall[1].topic[0].should.equals('health');
             res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
@@ -243,30 +243,10 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[2].recommendedByUser.should.equals(true);
             res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
             res.body.pinwall[2].totalNumberOfRecommendations.should.equals(6);
-            res.body.pinwall[2].numberOfRecommendations.should.equals(2);
+            res.body.pinwall[2].numberOfRecommendations.should.equals(1);
             res.body.pinwall[2].topic.length.should.equals(2);
             res.body.pinwall[2].topic[0].should.equals('health');
             res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
-
-            res.body.pinwall[3].pinwallType.should.equals('Recommendation');
-            res.body.pinwall[3].label.should.equals('Book');
-            res.body.pinwall[3].pageId.should.equals('0');
-            res.body.pinwall[3].name.should.equals('user Meier');
-            res.body.pinwall[3].forename.should.equals('user');
-            res.body.pinwall[3].userId.should.equals('1');
-            res.body.pinwall[3].title.should.equals('page0Title');
-            res.body.pinwall[3].created.should.equals(520);
-            res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[3].previewUrl.should.equals('pages/0/pagePreview.jpg');
-            res.body.pinwall[3].description.should.equals('page0Description');
-            res.body.pinwall[3].recommendedByUser.should.equals(true);
-            res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
-            res.body.pinwall[3].totalNumberOfRecommendations.should.equals(1);
-            res.body.pinwall[3].numberOfRecommendations.should.equals(1);
-            res.body.pinwall[3].userRecommendationId.should.equals('10');
-            res.body.pinwall[3].topic.length.should.equals(2);
-            res.body.pinwall[3].topic[0].should.equals('health');
-            res.body.pinwall[3].topic[1].should.equals('personalDevelopment');
         });
     });
 });
