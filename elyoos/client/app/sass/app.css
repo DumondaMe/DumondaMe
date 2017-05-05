@@ -265,7 +265,11 @@
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54); }
   #write-custom-message-step #invite-message-image {
-    margin-top: 12px; }
+    margin-top: 12px;
+    width: 270px; }
+    @media screen and (min-width: 600px) {
+      #write-custom-message-step #invite-message-image {
+        width: 300px; } }
 
 #move-contact .ely-dialog-title {
   margin-bottom: 0; }

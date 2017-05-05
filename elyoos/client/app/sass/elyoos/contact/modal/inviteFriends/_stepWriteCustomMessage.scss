@@ -10,5 +10,9 @@
 
   #invite-message-image {
     margin-top: 12px;
+    width: 270px;
+    @media screen and (min-width: $gt-xs) {
+      width: 300px;
+    }
   }
 }
