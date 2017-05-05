@@ -1,14 +1,19 @@
 <form name="ctrl.messageForm" id="write-custom-message-step" ng-if="ctrl.step.selected">
     <div class="custom-message">
-        Schreibe eine kurze Nachricht an deine Freunde weshalb du Elyoos so toll findest ;-)
+        Schreibe eine kurze Nachricht an deine Freunde.
     </div>
     <md-input-container class="input-element md-block">
         <label>Deine Mitteilung</label>
         <textarea type="text" name="message" id="message" aria-label="Your message" md-maxlength="300" ng-change="ctrl.messageChanged()"
-               ng-model="ctrl.message" max-rows="4"></textarea>
+                  ng-model="ctrl.message" max-rows="4"></textarea>
 
         <div ng-messages="ctrl.messageForm.message.$error" ng-show="ctrl.messageForm.message.$dirty">
             <div ng-message="md-maxlength">Text ist zu lang</div>
         </div>
     </md-input-container>
+    <div class="custom-message">
+        Du musst jedoch keine Mitteilung schreiben. Das E-Mail, welches versendet wird, enthält alle wichtigen Informationen und sieht ähnlich aus wie in dem folgenden Bild
+        dargestellt.
+    </div>
+    <img id="invite-message-image" src="app/img/email/inviteMessage.jpg"/>
 </form>
