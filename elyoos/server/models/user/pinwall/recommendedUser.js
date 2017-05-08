@@ -12,7 +12,7 @@ let getInvitedUsers = function (userId, limit, skip = 0) {
         .with("user, inviteUser, relInviteUser, privacyNoContact, privacy")
         .where(`(NOT EXISTS((user)<-[:IS_CONTACT]-(inviteUser)) AND privacyNoContact.profile = true) OR 
                 (relInviteUser.contactAdded < user.previousLastLogin AND privacy.profile = true)`)
-        .return(`inviteUser.userId AS userId, inviteUser.name AS name, 
+        .return(`inviteUser.userId AS userId, inviteUser.name AS name, true AS invitedUser,
                  privacy.profile AS profileVisible, privacy.image AS imageVisible, privacyNoContact.profile AS profileVisibleNoContact, 
                  privacyNoContact.image AS imageVisibleNoContact`)
         .orderBy("name")
@@ -22,21 +22,22 @@ let getInvitedUsers = function (userId, limit, skip = 0) {
 };
 
 let getRecommendedByContactUsers = function (userId, limit, skip = 0) {
-    return db.cypher().match(`(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:IS_CONTACT]->(contactedUser:User)`)
+    return db.cypher().match(`(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[:IS_CONTACT]->(contactedUser:User)`)
         .where(`contactedUser.userId <> user.userId AND NOT (user)-[:IS_CONTACT]->(contactedUser) 
                 AND NOT (contactedUser)<-[:HAS_INVITED]->(user) AND NOT (user)-[:IS_BLOCKED]-(contactedUser)`)
         .optionalMatch("(user)<-[relContactedUser:IS_CONTACT]-(contactedUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
         .where("privacyRel.type = relContactedUser.type")
         .optionalMatch("(contactedUser:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("NOT EXISTS((user)<-[:IS_CONTACT]-(contactedUser))")
-        .with(`user, contactedUser, privacyNoContact, relContactedUser, privacy, count(contactedUser) AS numberOfContactingByContactUser,
+        .with(`user, contactedUser, privacyNoContact, relContactedUser, privacy, count(contact) AS numberOfSameContacts,
                toInt(distance(point(user),point(contactedUser))) AS distanceBetweenUser`)
         .where(`(NOT EXISTS((user)<-[:IS_CONTACT]-(contactedUser)) AND privacyNoContact.profile = true) OR 
                 (relContactedUser.contactAdded < user.previousLastLogin AND privacy.profile = true)`)
-        .return(`SIZE((contactedUser)<-[:IS_CONTACT]-(:User)) AS numberOfContacting, contactedUser.userId AS userId, contactedUser.name AS name, 
-                 privacy.profile AS profileVisible, privacy.image AS imageVisible, privacyNoContact.profile AS profileVisibleNoContact, 
-                 privacyNoContact.image AS imageVisibleNoContact, numberOfContactingByContactUser`)
-        .orderBy("numberOfContactingByContactUser DESC, distanceBetweenUser, numberOfContacting DESC, name")
+        .return(`SIZE((contactedUser)<-[:IS_CONTACT]-(:User)) AS numberOfContacting, contactedUser.userId AS userId, 
+                 contactedUser.name AS name, privacy.profile AS profileVisible, privacy.image AS imageVisible, 
+                 privacyNoContact.profile AS profileVisibleNoContact, privacyNoContact.image AS imageVisibleNoContact, 
+                 numberOfSameContacts`)
+        .orderBy("numberOfSameContacts DESC, distanceBetweenUser, numberOfContacting DESC, name")
         .skip("{skip}")
         .limit("{limit}")
         .end({userId: userId, limit: limit, skip: skip});

@@ -38,10 +38,19 @@
             font-size: 16px;
             font-weight: 500;
             color: $primary-color;
-            height: 48px;
-            line-height: 48px;
             padding-left: 12px;
             overflow-y: hidden;
+          }
+          .sub-title-user-name {
+            margin-left: 12px;
+            margin-top: 3px;
+            font-size: 12px;
+            font-weight: 400;
+            color: $secondary-text;
+            cursor: pointer;
+            .number {
+              font-weight: 500;
+            }
           }
           .add-contact-button {
             margin-top: 4px;

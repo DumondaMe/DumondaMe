@@ -1,14 +1,14 @@
 .ely-contact-preview-square {
   position: relative;
   width: 140px;
-  height: 160px;
+  height: 170px;
   margin: 8px auto;
 
   .user-preview-img {
     cursor: pointer;
     margin-top: 16px;
     margin-bottom: 8px;
-    height: 48px!important;
+    height: 48px !important;
     width: 48px;
     min-height: 48px;
     min-width: 48px;
@@ -18,7 +18,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    height: 26px;
+    height: 24px;
     line-height: 24px;
     vertical-align: middle;
     white-space: nowrap;
@@ -35,6 +35,14 @@
     text-overflow: ellipsis;
     color: $secondary-text;
     padding: 0 16px;
+  }
+  .number-of-same-contacts {
+    min-width: 1px;
+    font-size: 12px;
+    color: $secondary-text;
+    padding: 0 8px;
+    text-align: center;
+    cursor: pointer;
   }
   .user-blocked {
     margin-top: 5px;

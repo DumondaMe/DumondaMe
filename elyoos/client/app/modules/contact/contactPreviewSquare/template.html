@@ -1,7 +1,18 @@
 <md-card class="ely-contact-preview-square" layout="column" layout-align="none center">
     <img ng-src="{{ctrl.user.profileUrl}}" class="md-card-image user-preview-img" ng-click="ctrl.goToDetail()">
     <div class="user-name" ng-click="ctrl.goToDetail()">{{ctrl.user.name}}</div>
-    <div class="contact-type" ng-if="!ctrl.user.blocked">{{ctrl.user.type}}</div>
+    <div class="contact-type" ng-if="!ctrl.user.blocked && !ctrl.user.numberOfSameContacts > 0 && !ctrl.user.invitedUser">
+        {{ctrl.user.type}}
+    </div>
+    <div class="number-of-same-contacts" ng-if="!ctrl.user.blocked && ctrl.user.numberOfSameContacts === 1">
+        {{ctrl.user.numberOfSameContacts}} gemeinsamer Kontakt
+    </div>
+    <div class="number-of-same-contacts" ng-if="!ctrl.user.blocked && ctrl.user.numberOfSameContacts > 1">
+        {{ctrl.user.numberOfSameContacts}} gemeinsame Kontakte
+    </div>
+    <div class="number-of-same-contacts" ng-if="!ctrl.user.blocked && ctrl.user.invitedUser">
+        Einladung per E-Mail
+    </div>
     <div class="user-blocked" ng-if="ctrl.user.blocked">BLOCKIERT</div>
     <div class="user-commands">
         <md-button class="md-icon-button" aria-label="Add to contact" ng-if="!ctrl.user.type && !ctrl.user.blocked && !ctrl.isUser"

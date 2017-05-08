@@ -190,10 +190,12 @@ describe('Integration Tests for getting contact recommendation on the home scree
             res.body.recommendedUser[0].userId.should.equals('2');
             res.body.recommendedUser[0].name.should.equals('user Meier2');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.recommendedUser[0].numberOfSameContacts.should.equals(2);
 
             res.body.recommendedUser[1].userId.should.equals('9');
             res.body.recommendedUser[1].name.should.equals('user Meier9');
             res.body.recommendedUser[1].profileUrl.should.equals('profileImage/9/thumbnail.jpg');
+            res.body.recommendedUser[1].numberOfSameContacts.should.equals(1);
 
             res.body.recommendedUser[2].userId.should.equals('3');
             res.body.recommendedUser[2].name.should.equals('user Meier3');
@@ -248,10 +250,12 @@ describe('Integration Tests for getting contact recommendation on the home scree
             res.body.recommendedUser[2].userId.should.equals('2');
             res.body.recommendedUser[2].name.should.equals('user Meier2');
             res.body.recommendedUser[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.recommendedUser[2].numberOfSameContacts.should.equals(2);
 
             res.body.recommendedUser[3].userId.should.equals('9');
             res.body.recommendedUser[3].name.should.equals('user Meier9');
             res.body.recommendedUser[3].profileUrl.should.equals('profileImage/9/thumbnail.jpg');
+            res.body.recommendedUser[3].numberOfSameContacts.should.equals(1);
 
             res.body.recommendedUser[4].userId.should.equals('3');
             res.body.recommendedUser[4].name.should.equals('user Meier3');
@@ -369,6 +373,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             res.body.recommendedUser[0].userId.should.equals('2');
             res.body.recommendedUser[0].name.should.equals('user Meier2');
             res.body.recommendedUser[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.recommendedUser[0].numberOfSameContacts.should.equals(1);
         });
     });
 

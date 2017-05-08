@@ -639,7 +639,7 @@
 .ely-contact-preview-square {
   position: relative;
   width: 140px;
-  height: 160px;
+  height: 170px;
   margin: 8px auto; }
   .ely-contact-preview-square .user-preview-img {
     cursor: pointer;
@@ -654,7 +654,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    height: 26px;
+    height: 24px;
     line-height: 24px;
     vertical-align: middle;
     white-space: nowrap;
@@ -670,6 +670,13 @@
     text-overflow: ellipsis;
     color: rgba(0, 0, 0, 0.54);
     padding: 0 16px; }
+  .ely-contact-preview-square .number-of-same-contacts {
+    min-width: 1px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 0 8px;
+    text-align: center;
+    cursor: pointer; }
   .ely-contact-preview-square .user-blocked {
     margin-top: 5px;
     height: 13px;
@@ -3512,10 +3519,19 @@
       cursor: pointer; }
     #ely-pinwall-recommended-user .recommended-user .user-name {
       margin-left: 12px;
-      line-height: 40px;
       font-size: 16px;
       font-weight: 500;
+      color: rgba(0, 0, 0, 0.87);
       cursor: pointer; }
+    #ely-pinwall-recommended-user .recommended-user .sub-title-user-name {
+      margin-left: 12px;
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.54);
+      cursor: pointer; }
+      #ely-pinwall-recommended-user .recommended-user .sub-title-user-name .number {
+        font-weight: 500; }
   #ely-pinwall-recommended-user .recommended-user.last-user {
     margin-bottom: 8px; }
   #ely-pinwall-recommended-user #button-more-contact-recommendations {
@@ -4494,10 +4510,17 @@
         font-size: 16px;
         font-weight: 500;
         color: #3F51B5;
-        height: 48px;
-        line-height: 48px;
         padding-left: 12px;
         overflow-y: hidden; }
+      #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container .contact-recommendation .sub-title-user-name {
+        margin-left: 12px;
+        margin-top: 3px;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.54);
+        cursor: pointer; }
+        #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container .contact-recommendation .sub-title-user-name .number {
+          font-weight: 500; }
       #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container .contact-recommendation .add-contact-button {
         margin-top: 4px; }
     #setup-contact-step .contact-container .contact-overview-tabs .contact-recommendation-container #ely-loading-screen {

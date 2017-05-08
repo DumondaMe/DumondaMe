@@ -26,10 +26,21 @@
     }
     .user-name {
       margin-left: 12px;
-      line-height: 40px;
       font-size: 16px;
       font-weight: 500;
+      color: $primary-text;
       cursor: pointer;
+    }
+    .sub-title-user-name {
+      margin-left: 12px;
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 400;
+      color: $secondary-text;
+      cursor: pointer;
+      .number {
+        font-weight: 500;
+      }
     }
   }
   .recommended-user.last-user {

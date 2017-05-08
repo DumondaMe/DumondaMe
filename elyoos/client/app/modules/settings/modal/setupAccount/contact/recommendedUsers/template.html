@@ -3,7 +3,17 @@
         <div class="profile-image-container" flex="none">
             <img ng-src="{{user.profileUrl}}"/>
         </div>
-        <div class="profile-name">{{user.name}}</div>
+        <div layout="column" layout-align="center start">
+            <div class="profile-name">{{user.name}}</div>
+            <div class="sub-title-user-name" ng-if="user.numberOfSameContacts === 1">
+                {{user.numberOfSameContacts}} gemeinsamer Kontakt
+            </div>
+            <div class="sub-title-user-name" ng-if="user.numberOfSameContacts > 1">
+                {{user.numberOfSameContacts}} gemeinsame Kontakte
+            </div>
+            <div class="sub-title-user-name" ng-if="user.invitedUser">Einladung per E-Mail
+            </div>
+        </div>
         <span flex></span>
         <div>
             <md-button class="md-icon-button add-contact-button" aria-label="Add to contact" ng-click="ctrl.addContact(user.userId)">

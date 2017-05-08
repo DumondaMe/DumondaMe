@@ -19,7 +19,18 @@
         <div class="recommended-user" ng-repeat="user in ctrl.recommendedUser | limitTo: 5" layout="row"
              ng-class="{'last-user': $last}">
             <img ng-src="{{user.profileUrl}}" class="profile-image" ui-sref="user.detail({userId: user.userId})">
-            <div class="user-name" ui-sref="user.detail({userId: user.userId})">{{user.name}}</div>
+            <div layout="column" layout-align="center start">
+                <div class="user-name" ui-sref="user.detail({userId: user.userId})">{{user.name}}</div>
+                <div class="sub-title-user-name" ng-if="user.numberOfSameContacts === 1 && !user.invitedUser">
+                    <span class="number">1</span> gemeinsamer Kontakt
+                </div>
+                <div class="sub-title-user-name" ng-if="user.numberOfSameContacts > 1 && !user.invitedUser">
+                    <span class="number">{{user.numberOfSameContacts }}</span> gemeinsame Kontakte
+                </div>
+                <div class="sub-title-user-name" ng-if="user.invitedUser"
+                     ui-sref="user.detail({userId: user.userId})">Einladung per E-Mail
+                </div>
+            </div>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Add to contact"
                        ng-click="ctrl.addContact(user.userId, user.name)">
