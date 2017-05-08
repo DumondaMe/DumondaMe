@@ -2,12 +2,20 @@
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
 
-    this.login = function (user) {
+    this.login = function (user, canceller) {
         var deferred = $q.defer();
-        $http.post('/api/login', user).success(function (loggedinUser) {
-            loginStateHandler.loginEvent();
-            deferred.resolve(loggedinUser);
-        }).error(deferred.reject);
+        $http({method: 'POST', url: '/api/login', timeout: canceller, data: user})
+            .then(function (loggedinUser) {
+                if (loggedinUser.config && loggedinUser.config.timeout && loggedinUser.config.timeout.$$state &&
+                    loggedinUser.config.timeout.$$state.status === 0) {
+                    loginStateHandler.loginEvent();
+                    deferred.resolve(loggedinUser);
+                } else {
+                    deferred.reject();
+                }
+            }, function () {
+                deferred.reject();
+            });
         return deferred.promise;
     };
     this.logout = function () {

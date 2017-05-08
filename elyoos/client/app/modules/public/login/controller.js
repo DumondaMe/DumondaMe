@@ -2,9 +2,9 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAuth', 'VerifyRegisterUserRequest', '$timeout', 'ElyModal',
-    function ($scope, $state, $stateParams, Auth, UrlCache, IsAuth, VerifyRegisterUserRequest, $timeout, ElyModal) {
-        var ctrl = this;
+module.exports = ['$scope', '$q', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAuth', 'VerifyRegisterUserRequest', '$timeout', 'ElyModal',
+    function ($scope, $q, $state, $stateParams, Auth, UrlCache, IsAuth, VerifyRegisterUserRequest, $timeout, ElyModal) {
+        var ctrl = this, canceler;
         ctrl.loginuser = {};
 
         ctrl.loginRunning = false;
@@ -32,18 +32,23 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
 
         ctrl.cancel = function () {
             ElyModal.cancel();
+            if(canceler && canceler.hasOwnProperty('reject')) {
+                canceler.reject();
+            }
         };
 
-        ctrl.login = function (e) {
+        ctrl.login = function () {
             delete ctrl.error;
             ctrl.loginRunning = true;
             //First do a get request to get the correct csrf token
             IsAuth.get(null, function () {
+                canceler = $q.defer();
                 Auth.login({
                     username: ctrl.loginuser.email,
                     password: ctrl.loginuser.password
-                }).then(function () {
+                }, canceler.promise).then(function () {
                     UrlCache.reset();
+                    //angular.element(document.querySelector('#loginbutton'))[0].click();
                     ElyModal.hide();
                     $state.go('home');
                 }, function () {
@@ -54,6 +59,5 @@ module.exports = ['$scope', '$state', '$stateParams', 'Auth', 'UrlCache', 'IsAut
                 ctrl.loginRunning = false;
                 ctrl.error = "Unbekannter Fehler beim Anmelden. Versuche es später noch einmal.";
             });
-            e.preventDefault();
         };
     }];

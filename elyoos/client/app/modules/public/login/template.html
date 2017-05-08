@@ -1,5 +1,5 @@
 <md-dialog id="login-user" aria-label="Login User" layout="column">
-    <form name="login_form" ng-cloak ng-if="!ctrl.showPasswordReset" ng-submit="ctrl.login($event)" method="post" action="/sign_up">
+    <form name="loginForm" ng-cloak ng-if="!ctrl.showPasswordReset" onsubmit="return false;" action="/home">
         <div class="md-title ely-dialog-title">Login</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column">
@@ -8,15 +8,15 @@
                         <label>Email</label>
                         <input required type="text" name="username" id="username" aria-label="Email" md-autofocus
                                ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
-                        <div ng-messages="login_form.username.$error">
+                        <div ng-messages="loginForm.username.$error">
                             <div ng-message="required">Wird benötigt!</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
                         <label>Passwort</label>
-                        <input type="password" required name="pass" id="pass" aria-label="Passwort"
+                        <input type="password" required name="password" id="password" aria-label="Passwort"
                                ng-model="ctrl.loginuser.password" ng-disabled="ctrl.verifyUser" md-no-asterisk>
-                        <div ng-messages="login_form.password.$error">
+                        <div ng-messages="loginForm.password.$error">
                             <div ng-message="required">Wird benötigt!</div>
                         </div>
                     </md-input-container>
@@ -37,8 +37,10 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <input id="loginbutton" type="submit" value="Login"
-                       ng-disabled="login_form.$invalid || ctrl.loginRunning || ctrl.verifyUser">
+            <md-button class="md-primary md-raised" ng-click="ctrl.login()"
+                       ng-disabled="loginForm.$invalid || ctrl.loginRunning || ctrl.verifyUser">Login
+            </md-button>
+            <input id="loginbutton" type="submit" value="Login" ng-show="false">
             </input>
         </md-dialog-actions>
     </form>
