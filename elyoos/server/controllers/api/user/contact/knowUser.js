@@ -1,13 +1,17 @@
 'use strict';
+/**
+ * @file
+ * API to get the number of contacts which know the user
+ */
 
-let sameContact = requireModel('user/contact/sameContact');
+let knownUser = requireModel('user/contact/knowUser');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let schemaGetSameContact = {
-    name: 'getSameContact',
+let schemaGetKnowUser = {
+    name: 'getKnowUser',
     type: 'object',
     additionalProperties: false,
     required: ['userId', 'maxItems', 'skip'],
@@ -22,10 +26,10 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return controllerErrors('Error when getting same contact', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaGetSameContact, logger).then(function (request) {
-                logger.info(`User requests same contact for user ${request.userId}`, req);
-                return sameContact.getSameContact(req.user.id, request);
+        return controllerErrors('Error when getting known users', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaGetKnowUser, logger).then(function (request) {
+                logger.info(`User requests known users for user ${request.userId}`, req);
+                return knownUser.getKnownUser(req.user.id, request);
             }).then(function (users) {
                 res.status(200).json(users);
             });

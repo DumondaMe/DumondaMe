@@ -21,11 +21,15 @@
             <img ng-src="{{user.profileUrl}}" class="profile-image" ui-sref="user.detail({userId: user.userId})">
             <div layout="column" layout-align="center start">
                 <div class="user-name" ui-sref="user.detail({userId: user.userId})">{{user.name}}</div>
-                <div class="sub-title-user-name" ng-if="user.numberOfSameContacts === 1 && !user.invitedUser">
-                    <span class="number">1</span> gemeinsamer Kontakt
+                <div class="sub-title-user-name sub-title-user-name-{{user.userId}}"
+                     ng-if="user.numberOfSameContacts === 1 && !user.invitedUser"
+                     ng-click="ctrl.showSameContact($event, user.userId, user.name)">
+                    Ein Kontakt kennt diese Person
                 </div>
-                <div class="sub-title-user-name" ng-if="user.numberOfSameContacts > 1 && !user.invitedUser">
-                    <span class="number">{{user.numberOfSameContacts }}</span> gemeinsame Kontakte
+                <div class="sub-title-user-name sub-title-user-name-{{user.userId}}"
+                     ng-if="user.numberOfSameContacts > 1 && !user.invitedUser"
+                     ng-click="ctrl.showSameContact($event, user.userId, user.name)">
+                    <span class="number">{{user.numberOfSameContacts }}</span> Kontakte kennen diese Person
                 </div>
                 <div class="sub-title-user-name" ng-if="user.invitedUser"
                      ui-sref="user.detail({userId: user.userId})">Einladung per E-Mail

@@ -7,6 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.factory('Contact', require('./services/contact'));
 app.factory('ContactStatistic', require('./services/contactStatistic'));
+app.factory('KnowUser', require('./services/knowUser'));
 app.factory('UserDetail', require('./services/userDetail'));
 app.factory('UserDetailContacts', require('./services/userDetailContacts'));
 app.factory('UserDetailContactings', require('./services/userDetailContactings'));

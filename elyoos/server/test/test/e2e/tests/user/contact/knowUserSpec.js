@@ -4,7 +4,7 @@ let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
-describe('Integration Tests to get the same contacts', function () {
+describe('Integration Tests to get known user by the contacts', function () {
 
     let requestAgent;
 
@@ -16,39 +16,40 @@ describe('Integration Tests to get the same contacts', function () {
         return requestHandler.logout();
     });
 
-    it('Getting same contacts of a user', function () {
+    it('Getting contacts knowing the user', function () {
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
+        dbDsl.createContactConnection('1', '2', 'Freund');
         dbDsl.createContactConnection('1', '3', 'Freund');
+        dbDsl.createContactConnection('1', '4', 'Freund');
         dbDsl.createContactConnection('1', '5', 'Freund');
+        dbDsl.createContactConnection('1', '6', 'Freund');
         dbDsl.createContactConnection('1', '7', 'Freund');
-        dbDsl.createContactConnection('1', '8', 'Freund');
-        dbDsl.createContactConnection('1', '9', 'Freund');
-        dbDsl.createContactConnection('2', '3', 'Freund');
-        dbDsl.createContactConnection('2', '4', 'Freund');
-        dbDsl.createContactConnection('2', '5', 'Freund');
-        dbDsl.createContactConnection('2', '6', 'Freund');
-        dbDsl.createContactConnection('2', '7', 'Freund');
-
+        dbDsl.createContactConnection('3', '8', 'Freund');
+        dbDsl.createContactConnection('5', '8', 'Freund');
+        dbDsl.createContactConnection('6', '8', 'Freund');
+        dbDsl.createContactConnection('7', '8', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/sameContact', {
-                userId: '2',
+            return requestHandler.getWithData('/api/user/contact/knowUser', {
+                userId: '8',
                 skip: 0,
-                maxItems: 10
+                maxItems: 3
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.users.length.should.equals(3);
+            res.body.contacts.length.should.equals(3);
 
-            res.body.users[0].name.should.equals('user Meier3');
-            res.body.users[1].name.should.equals('user Meier5');
-            res.body.users[2].name.should.equals('user Meier7');
+            res.body.contacts[0].name.should.equals('user Meier3');
+            res.body.contacts[1].name.should.equals('user Meier5');
+            res.body.contacts[2].name.should.equals('user Meier6');
+
+            res.body.totalNumberOfContacts.should.equals(4);
         });
     });
 });
