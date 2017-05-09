@@ -34,9 +34,8 @@ module.exports = ['RecommendedContactScrollRequest', 'ContactGroupStatistic', 'S
 
         ctrl.showSameContact = function (event, userId, name) {
             var position = ElyPanel.newPanelPosition()
-                .relativeTo('.sub-title-user-name-' + userId)
-                .addPanelPosition(ElyPanel.xPosition.CENTER,
-                    ElyPanel.yPosition.ALIGN_BOTTOMS);
+                .relativeTo('.sub-title-user-name-dialog-' + userId)
+                .addPanelPosition(ElyPanel.xPosition.CENTER, ElyPanel.yPosition.ALIGN_BOTTOMS);
             ElyPanel.show(event, 'PanelShowContactCtrl', 'app/modules/util/panel/showContact/template.html',
                 {source: KnowUser, userId: userId, name: name}, position);
         };

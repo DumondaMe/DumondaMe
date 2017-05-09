@@ -1,15 +1,14 @@
 'use strict';
 
-module.exports = ['$mdPanel', '$document', function ($mdPanel, $document) {
+module.exports = ['$mdPanel', function ($mdPanel) {
 
 
-    this.show = function (ev, controller, template, locals, position, id, panelClass) {
+    this.show = function (ev, controller, template, locals, position, attachTo, id, panelClass) {
 
         if (!locals) {
             locals = {};
         }
         var config = {
-            parent: angular.element($document.body),
             clickOutsideToClose: true,
             escapeToClose: true,
             bindToController: true,
@@ -28,6 +27,9 @@ module.exports = ['$mdPanel', '$document', function ($mdPanel, $document) {
         }
         if (panelClass) {
             config.panelClass = panelClass;
+        }
+        if (attachTo) {
+            config.attachTo = attachTo;
         }
 
         return $mdPanel.open(config);
