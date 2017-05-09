@@ -5,11 +5,13 @@
         </div>
         <div layout="column" layout-align="center start">
             <div class="profile-name">{{user.name}}</div>
-            <div class="sub-title-user-name" ng-if="user.numberOfSameContacts === 1">
-                {{user.numberOfSameContacts}} gemeinsamer Kontakt
+            <div class="sub-title-user-name sub-title-user-name-{{user.userId}}" ng-if="user.numberOfSameContacts === 1"
+                 ng-click="ctrl.showSameContact($event, user.userId, user.name)">
+                Ein Kontakt kennt diese Person
             </div>
-            <div class="sub-title-user-name" ng-if="user.numberOfSameContacts > 1">
-                {{user.numberOfSameContacts}} gemeinsame Kontakte
+            <div class="sub-title-user-name sub-title-user-name-{{user.userId}}" ng-if="user.numberOfSameContacts > 1"
+                 ng-click="ctrl.showSameContact($event, user.userId, user.name)">
+                <span class="number">{{user.numberOfSameContacts }}</span> Kontakte kennen diese Person
             </div>
             <div class="sub-title-user-name" ng-if="user.invitedUser">Einladung per E-Mail
             </div>
