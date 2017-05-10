@@ -20,7 +20,6 @@ app.constant('VERSION', require('../../package.json').version);
 require('templates');
 require('duScroll');
 require('vcRecaptcha');
-var moment = require('moment');
 
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
