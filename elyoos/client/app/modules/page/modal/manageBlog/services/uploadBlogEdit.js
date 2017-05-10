@@ -12,11 +12,13 @@ module.exports = ['fileUpload',
                     language: selectedLanguage.code
                 }
             }, 'api/user/blog').then(function (resp) {
-                resp.isAdmin = true;
-                resp.pageId = pageId;
-                resp.text = blogText;
-                resp.selectedTopics = selectedTopics;
-                resp.selectedLanguage = selectedLanguage;
+                var response = resp.data;
+                response.isAdmin = true;
+                response.pageId = pageId;
+                response.text = blogText;
+                response.selectedTopics = selectedTopics;
+                response.selectedLanguage = selectedLanguage;
+                return response;
             });
         };
     }];

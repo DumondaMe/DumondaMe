@@ -1,6 +1,6 @@
 <md-dialog id="manage-generic-page" aria-label="Manage Generic Page" class="manage-page"
            ng-class="{'create-generic-page-preview-image': ctrl.selectImage}">
-    <div ng-if="!ctrl.selectImage" ng-cloak>
+    <form ng-if="!ctrl.selectImage" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.actualTitle}}</span>
             bearbeiten
         </div>
@@ -18,7 +18,7 @@
                 Ändern
             </md-button>
         </md-dialog-actions>
-    </div>
+    </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 
     <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"

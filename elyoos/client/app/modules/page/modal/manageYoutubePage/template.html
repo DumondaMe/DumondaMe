@@ -1,5 +1,5 @@
 <md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" class="manage-page">
-    <div ng-show="!ctrl.showExistingPages" ng-cloak>
+    <form ng-show="!ctrl.showExistingPages" ng-cloak>
         <div class="md-title ely-dialog-title">Video <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
@@ -14,7 +14,7 @@
                        ng-disabled="ctrl.uploadStarted || !ctrl.isValidToChange">Ändern
             </md-button>
         </md-dialog-actions>
-    </div>
+    </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 
     <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages"

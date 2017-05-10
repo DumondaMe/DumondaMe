@@ -2780,6 +2780,12 @@
       .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
         height: 300px; } }
 
+#manage-address-page {
+  width: 100%; }
+
+#blog-manage {
+  width: 100%; }
+
 #blog-manage-input {
   width: 100%; }
   @media screen and (min-width: 960px) {
@@ -2864,6 +2870,9 @@
     font-size: 14px;
     margin-bottom: 12px; }
 
+#manage-generic-page {
+  width: 100%; }
+
 #manage-generic-page-input #title-image-container {
   width: 150px; }
   #manage-generic-page-input #title-image-container img {
@@ -2872,6 +2881,9 @@
 .create-generic-page-preview-image {
   max-width: 600px;
   height: 90%; }
+
+#manage-book-page {
+  width: 100%; }
 
 #manage-book-page-input .preview-image {
   width: 150px; }
@@ -2882,27 +2894,32 @@
   max-width: 600px;
   height: 90%; }
 
-#manage-event .ely-dialog-content .ely-start-end-date-container {
-  padding-left: 4px; }
-  #manage-event .ely-dialog-content .ely-start-end-date-container .edit-not-allowed {
-    font-size: 14px;
-    font-weight: 500;
-    color: #EF6C00;
-    margin-bottom: 12px; }
-#manage-event .ely-dialog-content #addresses-container {
-  margin-top: 24px;
-  margin-bottom: 12px;
-  padding-left: 4px; }
-  #manage-event .ely-dialog-content #addresses-container #addresses-title {
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 16px; }
-  #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address {
-    font-size: 16px; }
-    #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address .description {
+#manage-event {
+  width: 100%; }
+  #manage-event .ely-dialog-content .ely-start-end-date-container {
+    padding-left: 4px; }
+    #manage-event .ely-dialog-content .ely-start-end-date-container .edit-not-allowed {
+      font-size: 14px;
+      font-weight: 500;
+      color: #EF6C00;
+      margin-bottom: 12px; }
+  #manage-event .ely-dialog-content #addresses-container {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    padding-left: 4px; }
+    #manage-event .ely-dialog-content #addresses-container #addresses-title {
       color: rgba(0, 0, 0, 0.54);
-      font-size: 14px; }
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 16px; }
+    #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address {
+      font-size: 16px; }
+      #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address .description {
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 14px; }
+
+#manage-link-page {
+  width: 100%; }
 
 #manage-link-page-input .preview-image {
   width: 150px; }
@@ -2912,6 +2929,9 @@
 .create-link-page-preview-image {
   max-width: 600px;
   height: 90%; }
+
+#manage-youtube-page {
+  width: 100%; }
 
 #manage-youtube-page-input .youtube-preview {
   padding-top: 24px;

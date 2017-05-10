@@ -30,8 +30,8 @@ module.exports = ['ElyModal', 'Topics', 'Languages', 'UploadBlogEdit', 'errorToa
         ctrl.editBlog = function () {
             if (!ctrl.uploadStarted) {
                 ctrl.uploadStarted = true;
-                UploadBlogEdit.upload(ctrl.data.pageId, ctrl.data.blogText, Topics.getCodes(ctrl.data.selectedTopics), ctrl.data.selectedLanguage,
-                    ctrl.data.imageForUploadPreviewData)
+                UploadBlogEdit.upload(ctrl.data.pageId, ctrl.data.blogText, Topics.getCodes(ctrl.data.selectedTopics),
+                    ctrl.data.selectedLanguage, ctrl.data.imageForUploadPreviewData)
                     .then(function (resp) {
                         resp.url = ctrl.data.imageForUploadPreview;
                         ElyModal.hide(resp);

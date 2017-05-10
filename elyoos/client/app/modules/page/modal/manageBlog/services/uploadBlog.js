@@ -19,14 +19,15 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
                 fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage),
                     'api/user/blog')
                     .then(function (resp) {
+                        var result = resp.data;
                         uploadBlogIsRunning = false;
-                        resp.isAdmin = true;
-                        resp.title = blogTitle;
-                        resp.topic = selectedTopics;
-                        resp.language = selectedLanguage;
-                        resp.pinwallType = "Blog";
-                        resp.isPublic = CreateBlogVisibility.isPublic();
-                        deferred.resolve(resp);
+                        result.isAdmin = true;
+                        result.title = blogTitle;
+                        result.topic = selectedTopics;
+                        result.language = selectedLanguage;
+                        result.pinwallType = "Blog";
+                        result.isPublic = CreateBlogVisibility.isPublic();
+                        deferred.resolve(result);
                     }, function () {
                         uploadBlogIsRunning = false;
                         deferred.reject({});

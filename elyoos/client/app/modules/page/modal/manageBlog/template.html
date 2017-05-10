@@ -1,5 +1,5 @@
 <md-dialog id="blog-manage" aria-label="Manage Blog" class="manage-page">
-    <div ng-cloak>
+    <form ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Blog erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Blog <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
@@ -17,5 +17,5 @@
             </md-button>
         </md-dialog-actions>
         <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
-    </div>
+    </form>
 </md-dialog>
