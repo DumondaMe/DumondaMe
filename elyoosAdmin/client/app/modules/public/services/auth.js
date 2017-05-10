@@ -1,21 +1,16 @@
 'use strict';
 
-module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
+module.exports = ['$http', 'loginStateHandler', function ($http, loginStateHandler) {
 
     this.login = function (user) {
-        var deferred = $q.defer();
-        $http.post('/api/login', user).success(function (loggedinUser) {
+        return $http.post('/api/login', user).then(function (loggedinUser) {
             loginStateHandler.loginEvent();
-            deferred.resolve(loggedinUser);
-        }).error(deferred.reject);
-        return deferred.promise;
+            return loggedinUser.data;
+        });
     };
     this.logout = function () {
-        var deferred = $q.defer();
-        $http.post('/api/logout').success(function () {
+        return $http.post('/api/logout').then(function () {
             loginStateHandler.logoutEvent();
-            deferred.resolve();
-        }).error(deferred.reject);
-        return deferred.promise;
+        });
     };
 }];
