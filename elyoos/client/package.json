@@ -5,6 +5,7 @@
   "dependencies": {
   },
   "devDependencies": {
+    "angular-material": "1.1.4",
     "browserify": "13.1.1",
     "phantomjs-prebuilt": "2.1.13",
     "chai": "3.5.0",
