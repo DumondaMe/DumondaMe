@@ -11,6 +11,7 @@ module.exports = function (config) {
             'app/lib/mailcheck/mailcheck.min.js',
             'app/lib/angular/angular.js',
             'app/lib/angular/angular-mocks.js',
+            'app/lib/moment/moment.js',
             'app/modules/**/*.js',
             'app/modules/**/*.html',
             'test/unit/init.js',
@@ -50,8 +51,7 @@ module.exports = function (config) {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            'app/modules/**/*.js': ['browserify', 'coverage'],
-            'app/lib/moment/*.js': ['browserify']
+            'app/modules/**/*.js': ['browserify', 'coverage']
         },
 
         ngHtml2JsPreprocessor: {

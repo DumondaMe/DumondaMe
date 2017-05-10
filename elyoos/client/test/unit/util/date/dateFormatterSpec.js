@@ -2,7 +2,7 @@
 
 var dateFormatter = require('../../../../app/modules/util/date/dateFormatter')[2];
 var helper = require('../../../../app/modules/util/helper/helper')[0];
-var moment = require('moment');
+var moment = require('../../../../app/modules/util/moment')();
 
 describe('Tests of the date formatting', function () {
 
