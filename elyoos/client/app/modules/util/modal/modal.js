@@ -21,7 +21,7 @@ module.exports = ['$mdDialog', '$rootScope', '$document', function ($mdDialog, $
             locals: locals
         };
 
-        if(angular.isFunction(onRemoving)) {
+        if (angular.isFunction(onRemoving)) {
             modalParams.onRemoving = onRemoving;
         }
 

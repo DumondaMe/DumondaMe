@@ -12,7 +12,8 @@ module.exports = {
                 element: '='
             },
             link: link.directiveLink($animate),
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/pinwall/home/pinwallElement/template.html'
         };

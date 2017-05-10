@@ -19,11 +19,8 @@ module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStat
         return deferred.promise;
     };
     this.logout = function () {
-        var deferred = $q.defer();
-        $http.post('/api/logout').success(function () {
+        return $http.post('/api/logout').then(function () {
             loginStateHandler.logoutEvent();
-            deferred.resolve();
-        }).error(deferred.reject);
-        return deferred.promise;
+        });
     };
 }];

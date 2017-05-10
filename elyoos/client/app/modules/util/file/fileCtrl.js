@@ -18,10 +18,9 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
             blob = FileReaderUtil.dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
             if ($scope.uploadFile) {
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
-                    success(function () {
+                    then(function () {
                         $scope.uploadRunning = false;
-                    }).
-                    error(function () {
+                    },function () {
                         $scope.uploadRunning = false;
                     });
             }

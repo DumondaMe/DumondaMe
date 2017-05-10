@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation',
-    function (dateFormatter, $mdDialog, Blog, errorToast, PreviewTextService, UserDetailNavigation) {
+module.exports = ['dateFormatter', 'PreviewTextService', 'UserDetailNavigation',
+    function (dateFormatter, PreviewTextService, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.requestRunning = false;

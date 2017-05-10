@@ -52,11 +52,13 @@ var setMdDateLocalProvider = function ($mdDateLocaleProvider) {
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',
-    '$mdIconProvider', 'elyoosVersion', '$mdDateLocaleProvider',
+    '$mdIconProvider', 'elyoosVersion', '$mdDateLocaleProvider', '$qProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $compileProvider, $mdThemingProvider,
-              $mdIconProvider, elyoosVersion, $mdDateLocaleProvider) {
+              $mdIconProvider, elyoosVersion, $mdDateLocaleProvider, $qProvider) {
 
         $compileProvider.debugInfoEnabled(false);
+        $compileProvider.preAssignBindingsEnabled(true);
+        $qProvider.errorOnUnhandledRejections(false);
 
         $urlRouterProvider.otherwise('/home/');
         $urlRouterProvider.when('', '/home/');

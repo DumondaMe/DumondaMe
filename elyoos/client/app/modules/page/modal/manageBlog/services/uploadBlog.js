@@ -18,7 +18,7 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
                 uploadBlogIsRunning = true;
                 fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage),
                     'api/user/blog')
-                    .success(function (resp) {
+                    .then(function (resp) {
                         uploadBlogIsRunning = false;
                         resp.isAdmin = true;
                         resp.title = blogTitle;
@@ -27,10 +27,10 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
                         resp.pinwallType = "Blog";
                         resp.isPublic = CreateBlogVisibility.isPublic();
                         deferred.resolve(resp);
-                    }).error(function () {
-                    uploadBlogIsRunning = false;
-                    deferred.reject({});
-                });
+                    }, function () {
+                        uploadBlogIsRunning = false;
+                        deferred.reject({});
+                    });
             } else {
                 return $q.reject({});
             }

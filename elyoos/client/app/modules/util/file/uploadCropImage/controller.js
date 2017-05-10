@@ -22,14 +22,14 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
 
         ctrl.startImageUpload = function (blob) {
             if (blob instanceof Blob) {
-                fileUpload.uploadFileToUrl(blob, ctrl.uploadUrl).success(function () {
+                fileUpload.uploadFileToUrl(blob, ctrl.uploadUrl).then(function () {
                     ctrl.setRunning(false);
                     if (angular.isFunction(ctrl.finish)) {
                         ctrl.finish();
                     } else {
                         ElyModal.hide();
                     }
-                }).error(function () {
+                }, function () {
                     ctrl.commands.enable();
                     ctrl.setRunning(false);
                     errorToast.showError('Beim Senden des Bildes ist ein Fehler aufgetreten!');
@@ -49,16 +49,16 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
             ctrl.commands.rotate90DegreeRight();
         };
 
-        ctrl.setRunning = function(newRunning) {
+        ctrl.setRunning = function (newRunning) {
             ctrl.running = newRunning;
-            if(angular.isFunction(ctrl.eventRunning)) {
+            if (angular.isFunction(ctrl.eventRunning)) {
                 ctrl.eventRunning(ctrl.running);
             }
         };
 
         ctrl.setHasImage = function (newHasImage) {
             ctrl.hasImage = newHasImage;
-            if(angular.isFunction(ctrl.eventHasImage)) {
+            if (angular.isFunction(ctrl.eventHasImage)) {
                 ctrl.eventHasImage(ctrl.hasImage);
             }
         };
