@@ -40,6 +40,9 @@ COPY client/app/lib/imageCrop/cropper.min.js /usr/src/app/client/app/lib/imageCr
 COPY client/app/lib/map/leaflet.js /usr/src/app/client/app/lib/map
 COPY client/app/lib/map/leaflet.css /usr/src/app/client/app/lib/map
 COPY client/app/lib/map/images /usr/src/app/client/app/lib/map/images
+COPY client/app/lib/moment/moment.js /usr/src/app/client/app/lib/moment
+COPY client/app/lib/angularMaterial/angular-material.1.1.4.min.js /usr/src/app/client/app/lib/angularMaterial
+COPY client/app/lib/angularMaterial/angular-material.1.1.4.min.css /usr/src/app/client/app/lib/angularMaterial
 COPY client/app/sass/app.css /usr/src/app/client/app/sass
 COPY client/app/sass/app.css.map /usr/src/app/client/app/sass
 COPY client/app/sass/common.css /usr/src/app/client/app/sass
