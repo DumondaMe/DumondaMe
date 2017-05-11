@@ -49,6 +49,7 @@ COPY client/app/sass/app.css /usr/src/app/client/app/sass
 COPY client/app/sass/app.css.map /usr/src/app/client/app/sass
 COPY client/app/sass/common.css /usr/src/app/client/app/sass
 COPY client/app/sass/common.css.map /usr/src/app/client/app/sass
+COPY client/app/sass/googleFont.css /usr/src/app/client/app/sass
 COPY client/app/index.html /usr/src/app/client/app
 COPY client/app/indexAuth.html /usr/src/app/client/app
 COPY client/app/indexPreview.html /usr/src/app/client/app
