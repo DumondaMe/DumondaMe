@@ -76,8 +76,6 @@
             "cookie": {
               "path": "/",
               "httpOnly": true,
-              "secure": true,
-              "sameSite": true,
               "maxAge": 43200000
             },
             "rolling": true,
