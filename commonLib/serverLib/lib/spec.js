@@ -12,11 +12,14 @@ let version = require('./version');
 
 module.exports = function (app) {
 
+
     let env = process.env.NODE_ENV || 'development';
     app.on('middleware:before:json', function () {
         if ('testing' !== env) {
             app.use(function (req, res, next) {
-
+                if (env === 'production' && req.headers.host.match(/^www/) === null) {
+                    return res.redirect('https://www.' + req.headers.host + req.url, 301);
+                }
                 if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http') {
                     return res.redirect('https://' + req.headers.host + req.url);
                 }
