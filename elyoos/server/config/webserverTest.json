@@ -75,7 +75,7 @@
             "secret": "23564153589Debd8",
             "cookie": {
               "path": "/",
-              "httpOnly": false,
+              "httpOnly": true,
               "secure": true,
               "sameSite": true,
               "maxAge": 43200000
