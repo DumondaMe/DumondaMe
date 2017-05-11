@@ -90,7 +90,7 @@
       }
     },
     "appsec": {
-      "enabled": false,
+      "enabled": true,
       "priority": 90,
       "module": {
         "name": "lusca",
