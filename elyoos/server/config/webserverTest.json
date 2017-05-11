@@ -91,10 +91,18 @@
       }
     },
     "appsec": {
-      "enabled": false,
+      "enabled": true,
       "priority": 90,
       "module": {
-        "name": "lusca"
+        "name": "lusca",
+        "arguments": [
+          {
+            "csrf": false,
+            "xframe": "SAMEORIGIN",
+            "xssProtection": true,
+            "nosniff": true
+          }
+        ]
       }
     },
     "router": {
