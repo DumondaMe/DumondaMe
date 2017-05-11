@@ -71,11 +71,13 @@
         "name": "elyoos-server-lib/lib/redisSession",
         "arguments": [
           {
-            "key": "sessionElyoos",
+            "key": "sessionElyoosProduction",
             "secret": "23564153589Debd8",
             "cookie": {
               "path": "/",
-              "httpOnly": true,
+              "httpOnly": false,
+              "secure": true,
+              "sameSite": true,
               "maxAge": 15552000000 //6 Month
             },
             "rolling": true,
