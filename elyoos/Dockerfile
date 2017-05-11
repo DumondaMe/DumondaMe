@@ -22,6 +22,8 @@ RUN mkdir -p /usr/src/app/client/app/lib/jquery
 RUN mkdir -p /usr/src/app/client/app/lib/imageCrop
 RUN mkdir -p /usr/src/app/client/app/lib/map
 RUN mkdir -p /usr/src/app/client/app/lib/map/images
+RUN mkdir -p /usr/src/app/client/app/lib/angularMaterial
+RUN mkdir -p /usr/src/app/client/app/lib/moment
 RUN mkdir -p /usr/src/app/client/app/sass
 
 #Copy server files
