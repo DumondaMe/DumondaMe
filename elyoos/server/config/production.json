@@ -75,13 +75,10 @@
             "secret": "23564153589Debd8",
             "cookie": {
               "path": "/",
-              "httpOnly": false,
-              "secure": true,
-              "sameSite": true,
+              "httpOnly": true,
               "maxAge": 15552000000 //6 Month
             },
             "rolling": true,
-            "proxy": null,
             "resave": true,
             "saveUninitialized": true
           },
