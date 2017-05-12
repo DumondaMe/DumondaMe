@@ -20,11 +20,13 @@ let setPasswordIsRequested = function (userId) {
 };
 
 let sendReset = function (email) {
+    email = email.toLowerCase();
     return db.cypher().match("(user:User {email: {email}})")
         .return("user").end({email: email}).send()
         .then(function (resp) {
             if (resp.length === 1) {
-                if (resp[0].user.hasOwnProperty('resetPasswordRequestTimeout') && resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) {
+                if (resp[0].user.hasOwnProperty('resetPasswordRequestTimeout') &&
+                    resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) {
                     return setPasswordIsRequested(resp[0].user.userId);
                 } else if (!resp[0].user.hasOwnProperty('resetPasswordRequestTimeout')) {
                     return setPasswordIsRequested(resp[0].user.userId);
