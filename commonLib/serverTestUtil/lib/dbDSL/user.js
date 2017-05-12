@@ -61,11 +61,13 @@ let invitationSentBeforeRegistration = function (userId, data) {
     data.forEach(function (invitationData) {
         invitationData.invitationSent = invitationData.invitationSent || null;
         invitationData.message = invitationData.message || null;
+        invitationData.emailNormalized = invitationData.emailNormalized || invitationData.email;
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
-            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, message: {message}, invitationSent: {invitationSent}})`)
+            .createUnique(`(user)-[:HAS_INVITED]->(:InvitedUser {email: {email}, emailNormalized: {emailNormalized},
+            message: {message}, invitationSent: {invitationSent}})`)
             .end({
-                userId: userId, email: invitationData.email, invitationSent: invitationData.invitationSent,
-                message: invitationData.message
+                userId: userId, email: invitationData.email, emailNormalized: invitationData.emailNormalized,
+                invitationSent: invitationData.invitationSent, message: invitationData.message
             }).getCommand());
     });
 };

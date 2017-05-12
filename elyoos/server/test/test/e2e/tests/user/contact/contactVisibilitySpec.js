@@ -1,10 +1,8 @@
 'use strict';
 
-let app = require('../../../../../../server');
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let should = require('chai').should();
 
 describe('Integration Tests for handling the profile privacy setting when returning the user contacts', function () {
 
@@ -12,12 +10,13 @@ describe('Integration Tests for handling the profile privacy setting when return
 
     beforeEach(function () {
 
-        let createUser = "(:User {email: {email}, password: {password}, forename: {forename}, surname: {surname}, name: {name}, userId: {userId}})";
+        let createUser = "(:User {email: {email}, emailNormalized: {emailNormalized}, password: {password}, forename: {forename}, surname: {surname}, name: {name}, userId: {userId}})";
 
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
                 .end({
                     email: 'user@irgendwo.ch',
+                    emailNormalized: 'user@irgendwo.ch',
                     password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     name: 'user Meier',
                     forename: 'user',
@@ -28,6 +27,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo2.ch',
+                            emailNormalized: 'user@irgendwo2.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier2',
                             forename: 'user2',
@@ -55,6 +55,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo3.ch',
+                            emailNormalized: 'user@irgendwo3.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user3 Meier3',
                             forename: 'user3',
@@ -82,6 +83,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo4.ch',
+                            emailNormalized: 'user@irgendwo4.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user4 Meier4',
                             forename: 'user4',
@@ -109,6 +111,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo5.ch',
+                            emailNormalized: 'user@irgendwo5.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user5 Meier5',
                             forename: 'user5',

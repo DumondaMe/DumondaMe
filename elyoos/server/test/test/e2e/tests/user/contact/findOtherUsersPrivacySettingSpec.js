@@ -9,11 +9,12 @@ let should = require('chai').should();
 describe('Integration Tests for finding other users and applying the correct privacySetting', function () {
 
     before(function () {
-        let createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
+        let createUser = "(:User {email: {email}, emailNormalized: {emailNormalized}, password: {password}, name: {name}, userId: {userId}})";
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
                 .end({
                     email: 'user@irgendwo.ch',
+                    emailNormalized: 'user@irgendwo.ch',
                     password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     name: 'user Meier',
                     userId: '1'
@@ -22,6 +23,7 @@ describe('Integration Tests for finding other users and applying the correct pri
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo2.ch',
+                            emailNormalized: 'user@irgendwo2.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier2',
                             userId: '2'
@@ -47,6 +49,7 @@ describe('Integration Tests for finding other users and applying the correct pri
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo3.ch',
+                            emailNormalized: 'user@irgendwo3.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier3',
                             userId: '3'
@@ -72,6 +75,7 @@ describe('Integration Tests for finding other users and applying the correct pri
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo4.ch',
+                            emailNormalized: 'user@irgendwo4.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user Meier4',
                             userId: '4'
@@ -86,6 +90,7 @@ describe('Integration Tests for finding other users and applying the correct pri
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo5.ch',
+                            emailNormalized: 'user@irgendwo5.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user Meier5',
                             userId: '5'

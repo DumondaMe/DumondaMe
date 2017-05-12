@@ -15,18 +15,20 @@ describe('Integration Tests User Profile Data', function () {
 
         return db.clearDatabase().then(function () {
 
-            return db.cypher().create("(:User {email: {email}, password: {password}, forename: {forename}, surname: {surname}, userId: {userId}})")
+            return db.cypher().create("(:User {email: {email}, emailNormalized: {emailNormalized}, password: {password}, forename: {forename}, surname: {surname}, userId: {userId}})")
                 .end({
                     email: 'user@irgendwo.ch',
+                    emailNormalized: 'user@irgendwo.ch',
                     password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     forename: 'user',
                     surname: 'Meier',
                     userId: '0'
                 }).send()
                 .then(function () {
-                    return db.cypher().create("(:User {email: {email}, password: {password}, userId: {userId}})")
+                    return db.cypher().create("(:User {email: {email}, emailNormalized: {emailNormalized}, password: {password}, userId: {userId}})")
                         .end({
                             email: 'userchange@irgendwo.ch',
+                            emailNormalized: 'userchange@irgendwo.ch',
                             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             userId: '1'
                         }).send();

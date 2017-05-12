@@ -13,7 +13,7 @@ describe('Integration Tests for searching recommendations of the user', function
 
         let commands = [];
         return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")

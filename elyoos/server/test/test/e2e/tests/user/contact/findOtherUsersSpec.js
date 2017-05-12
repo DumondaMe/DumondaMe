@@ -15,7 +15,7 @@ describe('Integration Tests for finding other users', function () {
         return db.clearDatabase().then(function () {
 
             let commands = [];
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user2 Meier3', forename: 'user2', surname: 'Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier4', forename: 'user', surname: 'Meier4', userId: '4'})").end().getCommand());

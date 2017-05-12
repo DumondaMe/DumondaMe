@@ -73,11 +73,11 @@ let verify = function (linkId, req) {
                                           -[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {privacy})`)
                 .end({userData: user, privacy: privacy}).getCommand());
             commands.push(db.cypher().match(`(user:User {userId: {userId}}), (invitedUser:InvitedUser)<-[:HAS_INVITED]-(inviteUser:User)`)
-                .where(`invitedUser.email = {email}`)
+                .where(`invitedUser.emailNormalized = {email}`)
                 .createUnique(`(user)<-[:HAS_INVITED]-(inviteUser)`)
                 .end({userId: userId, email: user.emailNormalized}).getCommand());
             commands.push(db.cypher().match(`(invitedUser:InvitedUser)<-[rel:HAS_INVITED]-(:User)`)
-                .where(`invitedUser.email = {email}`).delete(`invitedUser, rel`)
+                .where(`invitedUser.emailNormalized = {email}`).delete(`invitedUser, rel`)
                 .end({email: user.emailNormalized}).getCommand());
             return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").delete("user").end({linkId: linkId}).send(commands);
         });

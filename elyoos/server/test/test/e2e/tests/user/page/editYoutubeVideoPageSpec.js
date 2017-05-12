@@ -14,7 +14,7 @@ describe('Integration Tests for editing youtube pages', function () {
         let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Youtube', description: 'description', created: 501, modified: 501, pageId: '0'," +

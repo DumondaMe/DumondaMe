@@ -46,9 +46,9 @@ describe('Integration Tests for verify registering a new user', function () {
             dbDsl.createUserRegisterRequest(registerRequestUserExpired);
             dbDsl.createUserRegisterRequest(registerRequestUserValidWithInvitation);
 
-            dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@elyoos.org'}]);
-            dbDsl.invitationSentBeforeRegistration('3', [{email: 'info3@elyoos.org'}]);
-            dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@elyoos.org'}]);
+            dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@ELYOOS.org', emailNormalized: 'info3@elyoos.org'}]);
+            dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@elyoos.org', emailNormalized: 'info3@elyoos.org'}]);
+            dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@elyoos.org', emailNormalized: 'info3@elyoos.org'}]);
             return dbDsl.sendToDb();
         });
     });

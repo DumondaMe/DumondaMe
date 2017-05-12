@@ -14,7 +14,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
         let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', name: 'user Meier', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', created: 501, pageId: '0'," +
             "author: 'Hans Muster'})").end().getCommand());
