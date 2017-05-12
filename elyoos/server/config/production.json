@@ -71,7 +71,7 @@
         "name": "elyoos-server-lib/lib/redisSession",
         "arguments": [
           {
-            "key": "sessionElyoosProduction",
+            "key": "sessionElyoos",
             "secret": "23564153589Debd8",
             "cookie": {
               "path": "/",
