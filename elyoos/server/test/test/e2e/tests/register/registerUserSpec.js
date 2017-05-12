@@ -25,7 +25,7 @@ describe('Integration Tests for request to register a new user', function () {
 
     it('Start a register request for a valid new user - Return 200', function () {
         let newUser = {
-            email: 'climberwoodi@gmx.ch',
+            email: 'Climberwoodi@Gmx.ch',
             forename: 'user',
             surname: 'Waldvogel',
             password: '12345678',
@@ -57,6 +57,51 @@ describe('Integration Tests for request to register a new user', function () {
     it('Register a user for a email does already exists fails - Return 400', function () {
         let newUser = {
             email: 'user@irgendwo.ch',
+            forename: 'user',
+            surname: 'Waldvogel',
+            password: '12345678',
+            response: '12'
+        };
+
+        return requestHandler.post('/api/register', newUser).then(function (res) {
+            res.status.should.equal(400);
+            res.body.errorCode.should.equal(2);
+        });
+    });
+
+    it('Register a user for a email does already exists fails (user with capital letters)- Return 400', function () {
+        let newUser = {
+            email: 'uSer@irgendwo.ch',
+            forename: 'user',
+            surname: 'Waldvogel',
+            password: '12345678',
+            response: '12'
+        };
+
+        return requestHandler.post('/api/register', newUser).then(function (res) {
+            res.status.should.equal(400);
+            res.body.errorCode.should.equal(2);
+        });
+    });
+
+    it('Register a user for a email does already exists fails (domain with capital letters)- Return 400', function () {
+        let newUser = {
+            email: 'user@irGendwo.ch',
+            forename: 'user',
+            surname: 'Waldvogel',
+            password: '12345678',
+            response: '12'
+        };
+
+        return requestHandler.post('/api/register', newUser).then(function (res) {
+            res.status.should.equal(400);
+            res.body.errorCode.should.equal(2);
+        });
+    });
+
+    it('Register a user for a email does already exists fails (all with capital letters)- Return 400', function () {
+        let newUser = {
+            email: 'USER@IRGENDWO.CH',
             forename: 'user',
             surname: 'Waldvogel',
             password: '12345678',

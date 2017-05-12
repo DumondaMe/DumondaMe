@@ -23,8 +23,8 @@ let checkEmailExists = function (email, req) {
 };
 
 let registerUser = function (params, req) {
-
     let linkId;
+    params.email = params.email.toLowerCase();
     return checkEmailExists(params.email, req).then(function () {
         return recaptcha.verifyRecaptcha(params.response, req);
     }).then(function () {

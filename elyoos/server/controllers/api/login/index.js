@@ -5,6 +5,7 @@ let modification = requireModel('modification/modification');
 let loginUser = requireModel('user/loginUser');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let rateLimit = require('elyoos-server-lib').limiteRate;
+let _ = require('lodash');
 
 let apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
@@ -16,7 +17,9 @@ let apiLimiter = rateLimit.getRate({
 module.exports = function (router) {
 
     router.post('/', apiLimiter, function (req, res) {
-
+        if (req.body && _.isString(req.body.username)) {
+            req.body.username = req.body.username.toLowerCase();
+        }
         passport.authenticate('local', function (err, user) {
 
             if (err) {

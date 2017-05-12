@@ -28,6 +28,10 @@ describe('Integration Tests Login', function () {
         request(app).post('/api/login').send(users.validUser).expect(200).end(done);
     });
 
+    it('Login with capital letters- Return a 200', function (done) {
+        request(app).post('/api/login').send(users.validUser3).expect(200).end(done);
+    });
+
     it('Login and setting the flag last login - Return a 200', function () {
         let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
