@@ -1,0 +1,2 @@
+MATCH (u:User) SET u.emailNormalized = toLower(u.email);
+MATCH (u:UserRegisterRequest) SET u.emailNormalized = toLower(u.email);

@@ -11,8 +11,8 @@ let options = {
 let cache = LRU(options);
 
 let searchUserWithEmail = function (email) {
-    return db.cypher().match('(u:User {email: {email}})')
-        .return('u.password AS password, u.email AS email, u.userId AS id, u.elyoosAdmin AS elyoosAdmin')
+    return db.cypher().match('(u:User {emailNormalized: {email}})')
+        .return('u.password AS password, u.emailNormalized AS email, u.userId AS id, u.elyoosAdmin AS elyoosAdmin')
         .end({email: email})
         .send()
         .then(function (resp) {

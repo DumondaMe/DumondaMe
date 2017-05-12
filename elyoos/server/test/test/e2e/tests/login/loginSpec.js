@@ -11,7 +11,7 @@ describe('Integration Tests Login', function () {
 
     beforeEach(function () {
         return db.clearDatabase().then(function () {
-            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', " +
+            return db.cypher().create("(:User {email: 'uSer@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', " +
                 "lastLogin: 100, userId:'1' })")
                 .end().send();
         });

@@ -15,6 +15,7 @@ describe('Integration Tests for request to register a new user', function () {
         libUser.removeFromCache('user@irgendwo.ch');
 
         return dbDsl.init(2).then(function () {
+            dbDsl.setUserEmail('1', {email: 'USER@irgendWo.ch'});
             return dbDsl.sendToDb();
         });
     });
@@ -35,12 +36,13 @@ describe('Integration Tests for request to register a new user', function () {
         return requestHandler.post('/api/register', newUser).then(function (res) {
             res.status.should.equal(200);
             stubEmailQueue.createImmediatelyJob.calledWith("registerUserRequest", {
-                email: 'climberwoodi@gmx.ch',
+                email: 'Climberwoodi@Gmx.ch',
                 linkId: sinon.match.any
             }).should.be.true;
-            return db.cypher().match("(user:UserRegisterRequest {email: 'climberwoodi@gmx.ch'})")
+            return db.cypher().match("(user:UserRegisterRequest {email: 'Climberwoodi@Gmx.ch'})")
                 .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, 
-                user.registerDate AS registerDate, user.latitude AS latitude, user.longitude AS longitude`)
+                user.registerDate AS registerDate, user.latitude AS latitude, user.longitude AS longitude,
+                user.emailNormalized AS emailNormalized`)
                 .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
@@ -49,6 +51,7 @@ describe('Integration Tests for request to register a new user', function () {
             user[0].surname.should.equals(newUser.surname);
             user[0].latitude.should.equals(0);
             user[0].longitude.should.equals(0);
+            user[0].emailNormalized.should.equals('climberwoodi@gmx.ch');
             user[0].registerDate.should.be.at.least(startTime);
             return requestHandler.logout();
         });

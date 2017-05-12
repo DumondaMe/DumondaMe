@@ -24,6 +24,12 @@ let setUserLocation = function (userId, data) {
         .end({userId: userId}).getCommand());
 };
 
+let setUserEmail = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .set("u", {email: data.email})
+        .end({userId: userId}).getCommand());
+};
+
 let createUser = function (userId, forename, surname, email) {
     let name = `${forename} ${surname}`;
     email = email || null;
@@ -34,10 +40,10 @@ let createUser = function (userId, forename, surname, email) {
 
 let createUserRegisterRequest = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:UserRegisterRequest {name: {name}, surname: {surname},
-    forename: {forename}, email: {email}, linkId: {linkId}, password: {password}, registerDate: {registerDate},
+    forename: {forename}, email: {email}, emailNormalized: {emailNormalized}, linkId: {linkId}, password: {password}, registerDate: {registerDate},
     latitude: {latitude}, longitude: {longitude}})`)
         .end({
-            name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email,
+            name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email, emailNormalized: data.emailNormalized,
             linkId: data.linkId, password: data.password, registerDate: data.registerDate, latitude: data.latitude,
             longitude: data.longitude
         }).getCommand());
@@ -120,6 +126,7 @@ module.exports = {
     setUserLastLoginTime: setUserLastLoginTime,
     setUserIsElyoosAdmin: setUserIsElyoosAdmin,
     setUserLocation: setUserLocation,
+    setUserEmail: setUserEmail,
     createUser: createUser,
     createUserRegisterRequest: createUserRegisterRequest,
     blockUser: blockUser,

@@ -19,7 +19,7 @@ let init = function (numberOfUser, isElyoosAdmin) {
     recommendation.init();
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
-        dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
+        dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
         name: 'user Meier', surname: 'Meier', forename:'user', userId: '1', lastSetupAccount: 500, elyoosAdmin: {elyoosAdmin},
         userLocationDescription: 'irgendwo', latitude: 1.1, longitude: 2.2})`)
             .end({elyoosAdmin: isElyoosAdmin}).getCommand());
@@ -27,7 +27,7 @@ let init = function (numberOfUser, isElyoosAdmin) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch', 
-            latitude: 0, longitude: 0})`).end().getCommand());
+            emailNormalized: 'user${userId}@irgendwo.ch', latitude: 0, longitude: 0})`).end().getCommand());
         }
     });
 };
@@ -48,6 +48,7 @@ module.exports = {
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
     setUserLocation: user.setUserLocation,
+    setUserEmail: user.setUserEmail,
     createUser: user.createUser,
     createUserRegisterRequest: user.createUserRegisterRequest,
     blockUser: user.blockUser,

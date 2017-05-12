@@ -20,11 +20,13 @@ let setPasswordIsRequested = function (userId) {
 };
 
 let sendReset = function (email) {
+    let originalEmailAddress;
     email = email.toLowerCase();
-    return db.cypher().match("(user:User {email: {email}})")
+    return db.cypher().match("(user:User {emailNormalized: {email}})")
         .return("user").end({email: email}).send()
         .then(function (resp) {
             if (resp.length === 1) {
+                originalEmailAddress = resp[0].user.email;
                 if (resp[0].user.hasOwnProperty('resetPasswordRequestTimeout') &&
                     resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) {
                     return setPasswordIsRequested(resp[0].user.userId);
@@ -34,9 +36,9 @@ let sendReset = function (email) {
             }
         }).then(function (linkId) {
             if (linkId) {
-                eMailQueue.createImmediatelyJob('resetPassword', {email: email, linkId: linkId});
+                eMailQueue.createImmediatelyJob('resetPassword', {email: originalEmailAddress, linkId: linkId});
             } else {
-                logger.info(`Reset password email is not sent to ${email}`);
+                logger.info(`Reset password email is not sent to ${originalEmailAddress}`);
             }
         });
 };

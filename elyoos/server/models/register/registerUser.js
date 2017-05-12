@@ -12,7 +12,7 @@ let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let ERROR_CODE_EMAIL_EXISTS = 2;
 
 let checkEmailExists = function (email, req) {
-    return db.cypher().match("(user:User {email: {email}})")
+    return db.cypher().match("(user:User {emailNormalized: {email}})")
         .return("user.userId")
         .end({email: email})
         .send().then(function (resp) {
@@ -24,8 +24,8 @@ let checkEmailExists = function (email, req) {
 
 let registerUser = function (params, req) {
     let linkId;
-    params.email = params.email.toLowerCase();
-    return checkEmailExists(params.email, req).then(function () {
+    params.emailNormalized = params.email.toLowerCase();
+    return checkEmailExists(params.emailNormalized, req).then(function () {
         return recaptcha.verifyRecaptcha(params.response, req);
     }).then(function () {
         return passwordEncryption.generatePasswordHash(params.password);
@@ -33,6 +33,7 @@ let registerUser = function (params, req) {
         let paramsCypher = {
             userData: {
                 email: params.email,
+                emailNormalized: params.emailNormalized,
                 forename: params.forename,
                 surname: params.surname,
                 name: params.forename + ' ' + params.surname,
