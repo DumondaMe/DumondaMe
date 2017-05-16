@@ -73,7 +73,7 @@ let addInviteUser = function (userId, emails, message) {
     return db.cypher().match("(sender:User {userId: {userId}})")
         .foreach(`(invitedUser IN {emails} | 
         CREATE UNIQUE (sender)-[:HAS_INVITED]->
-        (:InvitedUser {email: invitedUser.email, emailNormalized: invitedUser.emailNormalized, message: {message}}))`)
+        (:InvitedUser {email: invitedUser.email, emailNormalized: invitedUser.emailNormalized, message: {message}}))`, true)
         .end({emails: emails, userId: userId, message: message}).send();
 };
 

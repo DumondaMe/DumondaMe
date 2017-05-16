@@ -5,9 +5,12 @@ let logger = require('../../logging').getLogger(__filename);
 let communication = require('./neo4jCommunication');
 
 let Cypher = function (driver) {
-    let chainedQuery = '', paramsToSend = {}, isReadCommand = true;
+    let chainedQuery = '', paramsToSend = {}, isWriteCommand = false;
 
-    this.chainingQuery = function (condition, command) {
+    this.chainingQuery = function (condition, command, isWrite) {
+        if (isWrite) {
+            isWriteCommand = true;
+        }
         chainedQuery = chainedQuery + command + condition;
         return this;
     };
@@ -32,19 +35,19 @@ let Cypher = function (driver) {
     };
 
     this.create = function (condition) {
-        return this.chainingQuery(condition, ' CREATE ');
+        return this.chainingQuery(condition, ' CREATE ', true);
     };
 
     this.createUnique = function (condition) {
-        return this.chainingQuery(condition, ' CREATE UNIQUE ');
+        return this.chainingQuery(condition, ' CREATE UNIQUE ', true);
     };
 
-    this.foreach = function (condition) {
-        return this.chainingQuery(condition, ' FOREACH ');
+    this.foreach = function (condition, isWrite) {
+        return this.chainingQuery(condition, ' FOREACH ', isWrite);
     };
 
     this.merge = function (condition) {
-        return this.chainingQuery(condition, ' MERGE ');
+        return this.chainingQuery(condition, ' MERGE ', true);
     };
 
     this.case = function (condition) {
@@ -60,11 +63,11 @@ let Cypher = function (driver) {
     };
 
     this.delete = function (condition) {
-        return this.chainingQuery(condition, ' DELETE ');
+        return this.chainingQuery(condition, ' DELETE ', true);
     };
 
     this.remove = function (condition) {
-        return this.chainingQuery(condition, ' REMOVE ');
+        return this.chainingQuery(condition, ' REMOVE ', true);
     };
 
     this.orderBy = function (condition) {
@@ -107,6 +110,7 @@ let Cypher = function (driver) {
             }
         }
         if (propertyAdded) {
+            isWriteCommand = true;
             setCondition = setCondition.slice(0, -1);
             chainedQuery = chainedQuery + ' SET ' + setCondition;
         } else {
@@ -127,6 +131,7 @@ let Cypher = function (driver) {
         paramsToSend[oldValueName] = oldElementValue;
         paramsToSend[newValueName] = newElementValue;
         chainedQuery = chainedQuery + whereCondition + setCondition;
+        isWriteCommand = true;
         return this;
     };
 
@@ -148,7 +153,7 @@ let Cypher = function (driver) {
     };
 
     this.getCommand = function () {
-        return {statement: chainedQuery, parameters: paramsToSend, isReadCommand: isReadCommand};
+        return {statement: chainedQuery, parameters: paramsToSend, isWriteCommand: isWriteCommand};
     };
 
     this.getCommandString = function () {

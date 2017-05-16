@@ -10,17 +10,20 @@ function chainPromise(promise, results, statementsToSent, session, chainNumber) 
         return promise;
     }
 
-    let next, statement = statementsToSent[statementsToSent.length - chainNumber];
+    let next, statement = statementsToSent[statementsToSent.length - chainNumber], sessionCommand;
 
-    if (statement.isReadCommand) {
-        next = promise.then(function () {
-            return session.writeTransaction(function (tx) {
-                return tx.run(statement.statement, statement.parameters);
-            }).then(function (result) {
-                results.push(parser.parseResult(result.records));
-            });
-        });
+    if (statement.isWriteCommand) {
+        sessionCommand = session.writeTransaction;
+    } else {
+        sessionCommand = session.readTransaction;
     }
+    next = promise.then(function () {
+        return sessionCommand.call(session, function (tx) {
+            return tx.run(statement.statement, statement.parameters);
+        }).then(function (result) {
+            results.push(parser.parseResult(result.records));
+        });
+    });
 
     return next.then(function () {
         return chainPromise(next, results, statementsToSent, session, chainNumber - 1);
