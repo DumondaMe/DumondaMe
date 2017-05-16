@@ -42,7 +42,7 @@ let Cypher = function (driver) {
         return this.chainingQuery(condition, ' CREATE UNIQUE ', true);
     };
 
-    this.foreach = function (condition, isWrite) {
+    this.foreach = function (condition, isWrite = true) {
         return this.chainingQuery(condition, ' FOREACH ', isWrite);
     };
 
