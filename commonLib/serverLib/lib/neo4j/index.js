@@ -2,7 +2,7 @@
 
 let neo4j = require('neo4j-driver').v1;
 
-let Cypher = require('./cypher.js').Cypher;
+let Cypher = require('./cypher/index.js').Cypher;
 let helper = require('./helper');
 let driver;
 
