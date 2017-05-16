@@ -4,7 +4,7 @@
   },
   "view engines": null,
   "databaseConfig": {
-    "host": "http://localhost:7476"
+    "host": "bolt://localhost:7688"
   },
   "cdnStore": {
     "bucket": "notExisting"

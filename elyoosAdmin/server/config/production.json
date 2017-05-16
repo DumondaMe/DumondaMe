@@ -4,7 +4,7 @@
   },
   "view engines": null,
   "databaseConfig": {
-    "host": "http://172.31.16.100:7474"
+    "host": "bolt://172.31.16.100:7687"
   },
   "cdnStore": {
     "bucket": "elyoos"

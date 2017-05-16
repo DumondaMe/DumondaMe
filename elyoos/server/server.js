@@ -49,6 +49,10 @@ app.on('start', function () {
     });
 });
 
+app.on('exit', function () {
+    requireDb().closeDriver();
+});
+
 module.exports = app;
 
 

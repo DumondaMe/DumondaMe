@@ -1,35 +1,26 @@
 'use strict';
 
-let request = require('request');
-let promise = require('bluebird');
+let neo4j = require('neo4j-driver').v1;
 
 let Cypher = require('./cypher.js').Cypher;
 let helper = require('./helper');
-let connectionUrl;
+let driver;
 
 module.exports = {
     cypher: function () {
-        return new Cypher(connectionUrl);
+        return new Cypher(driver);
     },
     concatCommandsWithAnd: helper.concatCommandsWithAnd,
     connect: function (host) {
-        connectionUrl = host + '/db/data/transaction/commit';
-
-        return new promise.Promise(function (resolve, reject) {
-            request({
-                method: 'GET',
-                uri: host
-            }, function (err, res) {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-                if (res.statusCode === 200) {
-                    resolve({});
-                    return;
-                }
-                reject({statusCode: res.statusCode});
-            });
+        driver = neo4j.driver(host);
+        const session = driver.session();
+        return session.run('RETURN 1').then(() => {
+            session.close();
         });
+    },
+    closeDriver: function () {
+        if (driver && driver.close) {
+            driver.close();
+        }
     }
 };

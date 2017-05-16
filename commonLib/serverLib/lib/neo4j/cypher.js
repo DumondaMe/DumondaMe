@@ -1,18 +1,47 @@
 'use strict';
 
-let request = require('request');
-let promise = require('bluebird');
+let bluebird = require('bluebird');
+let neo4j = require('neo4j-driver').v1;
+let Promise = bluebird.Promise;
 let underscore = require('underscore');
 let logger = require('../logging').getLogger(__filename);
 
-let createJson = function (result) {
-    let json = [], row, i, j;
+let handlingInteger = function (value) {
+    if (neo4j.integer.inSafeRange(value)) {
+        return value.toNumber();
+    }
+    return value.toString();
+};
 
-    for (i = 0; i < result.data.length; i = i + 1) {
-        row = {};
-        for (j = 0; j < result.data[i].row.length; j = j + 1) {
-            if (result.data[i].row[j] !== undefined && result.data[i].row[j] !== null) {
-                row[result.columns[j]] = result.data[i].row[j];
+let handlingConvert = function (value) {
+    if (neo4j.isInt(value)) {
+        return handlingInteger(value);
+    } else if ((value instanceof neo4j.types.Node || value instanceof neo4j.types.Relationship) &&
+        value.properties instanceof Object) {
+        let node = value.properties;
+        for (let nodePropertyKey in node) {
+            if (node.hasOwnProperty(nodePropertyKey)) {
+                node[nodePropertyKey] = handlingConvert(node[nodePropertyKey]);
+            }
+        }
+        return node;
+    } else if (value instanceof Array) {
+        value.forEach(function (arrayValue, index) {
+            value[index] = handlingConvert(arrayValue);
+        });
+    }
+    return value;
+};
+
+let createJson = function (results) {
+    let json = [];
+
+    for (let i = 0; i < results.length; i = i + 1) {
+        let row = {}, originalRow = results[i];
+        for (let j = 0; j < originalRow.keys.length; j = j + 1) {
+            let rowProperty = originalRow.get(j);
+            if (rowProperty !== undefined && rowProperty !== null) {
+                row[originalRow.keys[j]] = handlingConvert(rowProperty);
             }
         }
         json.push(row);
@@ -21,8 +50,8 @@ let createJson = function (result) {
     return json;
 };
 
-let Cypher = function (connectionUrl) {
-    let chainedQuery = '', paramsToSend = {};
+let Cypher = function (driver) {
+    let chainedQuery = '', paramsToSend = {}, isReadCommand = true;
 
     this.chainingQuery = function (condition, command) {
         chainedQuery = chainedQuery + command + condition;
@@ -165,53 +194,50 @@ let Cypher = function (connectionUrl) {
     };
 
     this.getCommand = function () {
-        return {statement: chainedQuery, parameters: paramsToSend};
+        return {statement: chainedQuery, parameters: paramsToSend, isReadCommand: isReadCommand};
     };
 
     this.getCommandString = function () {
         return chainedQuery;
     };
 
+    function chainPromise(promise, results, statementsToSent, session, chainNumber) {
+
+        if (chainNumber <= 0) {
+            return promise;
+        }
+
+        let next, statement = statementsToSent[statementsToSent.length - chainNumber];
+
+        if (statement.isReadCommand) {
+            next = promise.then(function () {
+                return session.writeTransaction(function (tx) {
+                    return tx.run(statement.statement, statement.parameters);
+                }).then(function (result) {
+                    results.push(createJson(result.records));
+                });
+            });
+        }
+
+        return next.then(function () {
+            return chainPromise(next, results, statementsToSent, session, chainNumber - 1);
+        });
+    }
+
     this.send = function (statementsToSend) {
-        let multiDataResponse = [];
+        let results = [];
+        const session = driver.session();
         if (!statementsToSend || !(statementsToSend instanceof Array)) {
             statementsToSend = [];
         }
         statementsToSend.push(this.getCommand());
-        return new promise.Promise(function (resolve, reject) {
-            request({
-                method: 'POST',
-                uri: connectionUrl,
-                json: {
-                    statements: statementsToSend
-                },
-                headers: {
-                    'X-Stream': true,
-                    Accept: 'application/json'
-                }
-            }, function (err, res) {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-                if (res.body.errors.length > 0) {
-                    reject(res.body.errors);
-                    return;
-                }
-                if (res.statusCode === 200 && res.body.results.length === 1) {
 
-                    resolve(createJson(res.body.results[0]));
-                    return;
-                }
-                if (res.statusCode === 200 && res.body.results.length > 1) {
-                    underscore.each(res.body.results, function (result) {
-                        multiDataResponse.push(createJson(result));
-                    });
-                    resolve(multiDataResponse);
-                    return;
-                }
-                reject({statusCode: res.statusCode});
-            });
+        return chainPromise(Promise.resolve({}), results, statementsToSend, session, statementsToSend.length).then(function () {
+            session.close();
+            if (results.length === 1) {
+                return results[0];
+            }
+            return results;
         });
     };
 };

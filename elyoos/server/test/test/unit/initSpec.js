@@ -32,7 +32,7 @@ describe('Initialize Server Unit Test', function () {
     });
 
     it('dummy Test', function (done) {
-        dbConfig.config({host: 'http://localhost:7476'}).then(function () {
+        dbConfig.config({host: 'bolt://localhost:7688'}).then(function () {
             done();
         });
     });

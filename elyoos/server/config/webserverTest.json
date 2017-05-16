@@ -4,7 +4,7 @@
   },
   "view engines": null,
   "databaseConfig": {
-    "host": "http://localhost:7474"
+    "host": "bolt://localhost:7687"
   },
   "cdnStore": {
     "bucket": "elyoos.preview"
