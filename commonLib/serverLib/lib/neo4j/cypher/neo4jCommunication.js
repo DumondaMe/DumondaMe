@@ -30,16 +30,23 @@ function chainPromise(promise, results, statementsToSent, session, chainNumber) 
     });
 }
 
+function handlingSession(session) {
+    return Promise.resolve().disposer(function () {
+        session.close();
+    });
+}
+
 let send = function (statementsToSend, driver) {
     let results = [];
     const session = driver.session();
 
-    return chainPromise(Promise.resolve({}), results, statementsToSend, session, statementsToSend.length).then(function () {
-        session.close();
-        if (results.length === 1) {
-            return results[0];
-        }
-        return results;
+    return Promise.using(handlingSession(session), function () {
+        return chainPromise(Promise.resolve(), results, statementsToSend, session, statementsToSend.length).then(function () {
+            if (results.length === 1) {
+                return results[0];
+            }
+            return results;
+        });
     });
 };
 
