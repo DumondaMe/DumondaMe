@@ -7,6 +7,7 @@ let blog = require('./dbDSL/blog');
 let user = require('./dbDSL/user');
 let feedback = require('./dbDSL/feedback');
 let messages = require('./dbDSL/messages');
+let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
 let forum = require('./dbDSL/forum');
 let unsubscribe = require('./dbDSL/unsubscribe');
@@ -57,6 +58,7 @@ module.exports = {
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact,
+    createNews: news.createNews,
     createFeedbackBug: feedback.createFeedbackBug,
     createFeedbackIdea: feedback.createFeedbackIdea,
     createFeedbackDiscussion: feedback.createFeedbackDiscussion,

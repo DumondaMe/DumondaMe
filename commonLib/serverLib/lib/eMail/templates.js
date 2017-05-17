@@ -36,6 +36,11 @@ let emailTemplates = {
         template: new EmailTemplate(path.join(templatesDir, 'feedbackStatusChanged')),
         preProcessing: preProcessingFeedbackStatusChanged.preProcessing,
         attachments: []
+    },
+    sendNews: {
+        template: new EmailTemplate(path.join(templatesDir, 'sendNews')),
+        subject: 'Elyoos News',
+        attachments: []
     }
 };
 
