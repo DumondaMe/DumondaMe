@@ -2,7 +2,7 @@
 
 let auth = require('elyoos-server-lib').auth;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let overview = requireModel('register/overview');
+let overview = requireModel('news/overview');
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 
@@ -24,7 +24,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting news overview', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetNewsOverview, logger).then(function (request) {
                 logger.info("User requests news overview", req);
-                //return overview.getOverview(request);
+                return overview.getOverview(request);
             }).then(function (data) {
                 res.status(200).json(data);
             });
