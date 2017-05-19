@@ -1,7 +1,7 @@
 'use strict';
 
 let bluebird = require('bluebird');
-let Promise = bluebird.Promise;
+let BluebirdPromise = bluebird.Promise;
 let parser = require('./parser');
 
 function chainPromise(promise, results, statementsToSent, session, chainNumber) {
@@ -31,7 +31,7 @@ function chainPromise(promise, results, statementsToSent, session, chainNumber) 
 }
 
 function handlingSession(session) {
-    return Promise.resolve().disposer(function () {
+    return BluebirdPromise.resolve().disposer(function () {
         session.close();
     });
 }
@@ -40,8 +40,8 @@ let send = function (statementsToSend, driver) {
     let results = [];
     const session = driver.session();
 
-    return Promise.using(handlingSession(session), function () {
-        return chainPromise(Promise.resolve(), results, statementsToSend, session, statementsToSend.length).then(function () {
+    return BluebirdPromise.using(handlingSession(session), function () {
+        return chainPromise(BluebirdPromise.resolve(), results, statementsToSend, session, statementsToSend.length).then(function () {
             if (results.length === 1) {
                 return results[0];
             }
