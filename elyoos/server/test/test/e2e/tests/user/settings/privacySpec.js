@@ -173,7 +173,7 @@ describe('Integration Tests for the privacy settings', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(2);
@@ -182,18 +182,19 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[1].type.should.equals('Freund2');
             contactType[1].count.should.equals(2);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(:Privacy)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(3);
-            contactType[0].type.should.equals('Familie');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
-            contactType[1].type.should.equals('Freund2');
+            contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
-            contactType[2].type.should.equals('Bekannter');
+            contactType[2].type.should.equals('Freund2');
             contactType[2].count.should.equals(1);
+
             return db.cypher().match("(blog:Blog {pageId: '1'})")
-                .return('blog.visible AS visible')
+                .return('blog.visible AS visible').orderBy('visible')
                 .end().send();
         }).then(function (blog) {
             blog.length.should.equals(1);
@@ -227,24 +228,24 @@ describe('Integration Tests for the privacy settings', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(2);
-            contactType[0].type.should.equals('Freund');
-            contactType[0].count.should.equals(2);
-            contactType[1].type.should.equals('Familie');
-            contactType[1].count.should.equals(1);
+            contactType[0].type.should.equals('Familie');
+            contactType[0].count.should.equals(1);
+            contactType[1].type.should.equals('Freund');
+            contactType[1].count.should.equals(2);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(:Privacy)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(3);
-            contactType[0].type.should.equals('Freund');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
             contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
-            contactType[2].type.should.equals('Bekannter');
+            contactType[2].type.should.equals('Freund');
             contactType[2].count.should.equals(1);
         });
     });
@@ -444,13 +445,13 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[0].type.should.equals('Familie');
             contactType[0].count.should.equals(3);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(:Privacy)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(2);
-            contactType[0].type.should.equals('Familie');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
-            contactType[1].type.should.equals('Bekannter');
+            contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
         });
     });
@@ -465,24 +466,24 @@ describe('Integration Tests for the privacy settings', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(2);
-            contactType[0].type.should.equals('Freund');
-            contactType[0].count.should.equals(2);
-            contactType[1].type.should.equals('Familie');
-            contactType[1].count.should.equals(1);
+            contactType[0].type.should.equals('Familie');
+            contactType[0].count.should.equals(1);
+            contactType[1].type.should.equals('Freund');
+            contactType[1].count.should.equals(2);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(:Privacy)")
-                .return('r.type as type, count(r.type) as count')
+                .return('r.type as type, count(r.type) as count').orderBy('type')
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(3);
-            contactType[0].type.should.equals('Freund');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
             contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
-            contactType[2].type.should.equals('Bekannter');
+            contactType[2].type.should.equals('Freund');
             contactType[2].count.should.equals(1);
         });
     });
