@@ -33,8 +33,8 @@ describe('Integration Tests for getting feedback overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overview', {skip: 0, maxItems: 10}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overview', {skip: 0, maxItems: 10});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfOpenFeedback.should.equals(2);

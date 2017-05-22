@@ -34,8 +34,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'rated'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'rated'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.discussion.title.should.equals("discussion1Title");
@@ -88,8 +88,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'newestModification'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'newestModification'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.discussion.title.should.equals("discussion1Title");
@@ -139,8 +139,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'rated'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'rated'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.discussion.title.should.equals("discussion1Title");

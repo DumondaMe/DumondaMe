@@ -32,8 +32,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'created'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'created'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(3);
 
@@ -83,8 +83,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'newestModification'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'newestModification'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(4);
 
@@ -150,8 +150,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'bug', status: 'open', order: 'newestModification'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'bug', status: 'open', order: 'newestModification'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(2);
 
@@ -196,8 +196,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'idea', status: 'open', order: 'created'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'idea', status: 'open', order: 'created'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(2);
 
@@ -241,8 +241,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'discussion', status: 'open', order: 'created'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'discussion', status: 'open', order: 'created'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(2);
 
@@ -287,8 +287,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'closed', order: 'created'}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'closed', order: 'created'});
         }).then(function (res) {
             res.body.feedback.length.should.equals(2);
 

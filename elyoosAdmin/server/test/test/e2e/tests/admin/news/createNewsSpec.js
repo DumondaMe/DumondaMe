@@ -9,7 +9,7 @@ let moment = require('moment');
 
 describe('Integration Tests creating news', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -25,9 +25,8 @@ describe('Integration Tests creating news', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/news', {create: {title: 'title', text: 'description'}}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/news', {create: {title: 'title', text: 'description'}});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);

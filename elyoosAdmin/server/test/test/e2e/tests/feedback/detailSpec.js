@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting feedback detail', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(5, true);
     });
@@ -33,9 +31,8 @@ describe('Integration Tests for getting feedback detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -71,9 +68,8 @@ describe('Integration Tests for getting feedback detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -108,9 +104,8 @@ describe('Integration Tests for getting feedback detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detail', {feedbackId: '2'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '2'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -137,9 +132,8 @@ describe('Integration Tests for getting feedback detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });

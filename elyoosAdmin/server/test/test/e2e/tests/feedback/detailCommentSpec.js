@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting feedback detail comments', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(5, true);
     });
@@ -28,9 +26,8 @@ describe('Integration Tests for getting feedback detail comments', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'new'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'new'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(5);
@@ -81,9 +78,8 @@ describe('Integration Tests for getting feedback detail comments', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(3);
@@ -114,9 +110,8 @@ describe('Integration Tests for getting feedback detail comments', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(0);

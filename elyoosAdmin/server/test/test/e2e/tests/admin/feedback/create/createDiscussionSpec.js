@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for creating a discussion', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         return dbDsl.init(5, true);
@@ -25,9 +25,8 @@ describe('Integration Tests for creating a discussion', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/create/discussion', {title: 'title', description: 'description'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/create/discussion', {title: 'title', description: 'description'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);

@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests to get an overview of the news', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -26,9 +26,8 @@ describe('Integration Tests to get an overview of the news', function () {
         dbDsl.createNews('3', {created: 501, modified: 600});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/news/overview', {skip: 0, maxItems: 10}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/news/overview', {skip: 0, maxItems: 10});
         }).then(function (res) {
             res.status.should.equal(200);
 

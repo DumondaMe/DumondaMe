@@ -27,8 +27,8 @@ describe('Integration Tests for getting registered user overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/register/overview', {skip: 0, maxItems: 10}, agent);
+        }).then(function () {
+            return requestHandler.get('/api/register/overview', {skip: 0, maxItems: 10});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfUser.should.equals(3);

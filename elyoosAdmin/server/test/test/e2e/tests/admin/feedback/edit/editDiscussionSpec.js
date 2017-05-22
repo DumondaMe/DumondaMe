@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for edit a discussion', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         return dbDsl.init(5, true);
@@ -27,13 +27,12 @@ describe('Integration Tests for edit a discussion', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/admin/feedback/edit/discussion', {
                 title: 'title',
                 description: 'description',
                 discussionId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.modified.should.be.at.least(startTime);
@@ -56,13 +55,12 @@ describe('Integration Tests for edit a discussion', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/admin/feedback/edit/discussion', {
                 title: 'title',
                 description: 'description',
                 discussionId: '3'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback:Discussion {feedbackId: '3'})")

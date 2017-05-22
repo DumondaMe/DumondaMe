@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for closing a feedback', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         return dbDsl.init(5, true);
@@ -27,9 +27,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -56,9 +55,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -86,9 +84,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -116,9 +113,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -142,9 +138,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -156,9 +151,8 @@ describe('Integration Tests for closing a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
