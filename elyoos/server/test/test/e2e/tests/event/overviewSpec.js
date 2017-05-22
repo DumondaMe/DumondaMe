@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting overview events', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -64,12 +64,11 @@ describe('Integration Tests for getting overview events', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/event/overview', {
                 skip: 0,
                 maxItems: 4
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

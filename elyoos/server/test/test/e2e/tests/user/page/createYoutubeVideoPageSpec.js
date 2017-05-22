@@ -36,8 +36,8 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
@@ -89,8 +89,8 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
@@ -142,8 +142,8 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
@@ -194,8 +194,8 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
@@ -246,8 +246,8 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {title: 'title'})").return("page").end().send();

@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for searching pages administrated by the user', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -62,14 +60,13 @@ describe('Integration Tests for searching pages administrated by the user', func
 
         return db.cypher().create("(:Page {title: 'page5Title', label:'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
                         isSuggestion: false
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(3);
@@ -115,14 +112,13 @@ describe('Integration Tests for searching pages administrated by the user', func
 
         return db.cypher().create("(:Page {title: 'page5Title', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
                         isSuggestion: true
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.length.should.equals(2);
@@ -149,14 +145,13 @@ describe('Integration Tests for searching pages administrated by the user', func
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page1Title',
                         isSuggestion: false
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);
@@ -189,14 +184,13 @@ describe('Integration Tests for searching pages administrated by the user', func
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page3Title',
                         isSuggestion: false
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);

@@ -46,10 +46,10 @@ describe('Integration Tests for getting the details of a forum answer', function
 
     it('Getting the detail of a forum solution answer without referencing a page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/answer/detail', {
                 answerId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equals(200);
 
@@ -71,10 +71,10 @@ describe('Integration Tests for getting the details of a forum answer', function
 
     it('Getting the detail of a forum pro argument answer without referencing a page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/answer/detail', {
                 answerId: '2'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equals(200);
 
@@ -96,10 +96,10 @@ describe('Integration Tests for getting the details of a forum answer', function
 
     it('Getting the detail of a forum solution answer with referencing a youtube page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/answer/detail', {
                 answerId: '0'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equals(200);
 
@@ -124,10 +124,10 @@ describe('Integration Tests for getting the details of a forum answer', function
 
     it('Getting the detail of a forum explanation answer with referencing a book page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/answer/detail', {
                 answerId: '3'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equals(200);
 
@@ -152,10 +152,10 @@ describe('Integration Tests for getting the details of a forum answer', function
 
     it('Getting the detail of a forum explanation answer with referencing a link page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/answer/detail', {
                 answerId: '5'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equals(200);
 

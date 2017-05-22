@@ -28,7 +28,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
     });
 
     it('Invite only user without a profile on elyoos or without a contact connection', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact/invite',
                 {
                     emails: ['user2@irgendwo.ch',
@@ -39,7 +39,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
                         'user11@IRGENDWO.ch',
                         'user30@irgendwo.ch'],
                     message: "Elyoos ist super!"
-                }, agent);
+                });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -71,13 +71,13 @@ describe('Integration Tests for inviting other users to elyoos', function () {
     });
 
     it('Invite only user with existing account on elyoos', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact/invite',
                 {
                     emails: ['user2@irgendwo.ch',
                         'user4@IRGENDWO.ch',
                         'User5@irgendwo.ch']
-                }, agent);
+                });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -100,13 +100,13 @@ describe('Integration Tests for inviting other users to elyoos', function () {
     });
 
     it('Invite all not existing users to elyoos', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact/invite',
                 {
                     emails: ['user8@irgendwo.ch',
                         'user9@IRGENDWO.ch',
                         'USER10@irgendwo.ch']
-                }, agent);
+                });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -130,11 +130,11 @@ describe('Integration Tests for inviting other users to elyoos', function () {
     });
 
     it('Invite no user', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact/invite',
                 {
                     emails: ['User5@irgendwo.ch']
-                }, agent);
+                });
         }).then(function (res) {
             res.status.should.equal(200);
             expect(stubEmailQueue.createImmediatelyJob.called).to.equal(false);

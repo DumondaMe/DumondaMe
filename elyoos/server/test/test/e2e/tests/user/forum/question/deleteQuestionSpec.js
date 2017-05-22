@@ -9,7 +9,6 @@ describe('Integration Tests for deleting a forum question', function () {
 
     beforeEach(function () {
 
-
         return dbDsl.init(2).then(function () {
             dbDsl.createForumQuestion('0', {adminId: '1', language: 'de', topic: ['environmental'], created: 501});
             dbDsl.createForumQuestion('1', {adminId: '2', language: 'de', topic: ['environmental'], created: 501});
@@ -34,10 +33,10 @@ describe('Integration Tests for deleting a forum question', function () {
 
     it('Delete a forum question', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question', {
                 questionId: '0'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(question:ForumQuestion {questionId: '0'})").return('question').end().send();
@@ -51,10 +50,10 @@ describe('Integration Tests for deleting a forum question', function () {
 
     it('Delete a forum question of another user is not allowed - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question', {
                 questionId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(question:ForumQuestion {questionId: '1'})").return('question').end().send();

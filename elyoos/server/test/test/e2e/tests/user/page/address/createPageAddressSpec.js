@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for creating new address for generic pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -46,9 +46,8 @@ describe('Integration Tests for creating new address for generic pages', functio
             }
         }, addressId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', createAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', createAddress);
         }).then(function (res) {
             res.status.should.equal(200);
             addressId = res.body.addressId;
@@ -76,9 +75,8 @@ describe('Integration Tests for creating new address for generic pages', functio
             }
         }, addressId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', createAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', createAddress);
         }).then(function (res) {
             res.status.should.equal(200);
             addressId = res.body.addressId;
@@ -106,9 +104,8 @@ describe('Integration Tests for creating new address for generic pages', functio
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', createAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', createAddress);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -126,9 +123,8 @@ describe('Integration Tests for creating new address for generic pages', functio
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', createAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', createAddress);
         }).then(function (res) {
             res.status.should.equal(400);
         });

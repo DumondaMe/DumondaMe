@@ -45,8 +45,8 @@ describe('Integration Tests for deleting a generic page', function () {
     it('Delete Successfully a generic page - Return 200', function () {
 
         stubCDN.deleteFolder.reset();
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.del('/api/user/page', {pageId: '0'}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page', {pageId: '0'});
         }).then(function (res) {
             res.status.should.equal(200);
             stubCDN.deleteFolder.calledWith("pages/0/").should.be.true;
@@ -63,8 +63,8 @@ describe('Integration Tests for deleting a generic page', function () {
 
     it('Delete a generic page failed because recommendation of other user exists - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.del('/api/user/page', {pageId: '1'}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page', {pageId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
@@ -80,8 +80,8 @@ describe('Integration Tests for deleting a generic page', function () {
 
     it('Delete a generic page failed because user is not admin of page - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.del('/api/user/page', {pageId: '1'}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page', {pageId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")

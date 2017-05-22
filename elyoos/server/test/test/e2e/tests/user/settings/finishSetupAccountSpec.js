@@ -25,8 +25,8 @@ describe('Integration Tests for finish account setup', function () {
     });
 
     it('Setup of account finished', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.post('/api/user/settings/finishSetupAccount', {}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/settings/finishSetupAccount', {});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(user:User {userId: '1'})`)

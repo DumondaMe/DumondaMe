@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for changing password of a user', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -28,12 +28,11 @@ describe('Integration Tests for changing password of a user', function () {
     });
 
     it('Change the password - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/password', {
                 actualPassword: '1',
                 newPassword: 'abzBzae1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.logout();
@@ -42,9 +41,8 @@ describe('Integration Tests for changing password of a user', function () {
                 'username': 'user@irgendwo.ch',
                 'password': 'abzBzae1'
             });
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Meier');
@@ -52,36 +50,33 @@ describe('Integration Tests for changing password of a user', function () {
     });
 
     it('Change the password fails because actual password is wrong - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/password', {
                 actualPassword: '2',
                 newPassword: 'abz1Bzae'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Change the password fails because capital letter is missing - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/password', {
                 actualPassword: '1',
                 newPassword: 'abz1bzae'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Change the password fails because number letter is missing - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/password', {
                 actualPassword: '1',
                 newPassword: 'abzvBzae'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

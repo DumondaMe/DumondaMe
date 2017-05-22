@@ -24,7 +24,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb', title = "title";
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '0',
@@ -32,7 +32,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'proArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -52,7 +52,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb', title = "title";
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '0',
@@ -60,7 +60,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'counterArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -80,7 +80,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb', title = "title";
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '0',
@@ -88,7 +88,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'solution'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -108,7 +108,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb';
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 page: {
                     questionId: '0',
@@ -116,7 +116,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'proArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -135,7 +135,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb';
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 page: {
                     questionId: '0',
@@ -143,7 +143,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'counterArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -162,7 +162,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
         let answerId,
             description = 'Deshalb';
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 page: {
                     questionId: '0',
@@ -170,7 +170,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: description,
                     type: 'solution'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             answerId = res.body.answerId;
             res.status.should.equal(200);
@@ -187,7 +187,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new pro argument answer fails because of non existing questionId - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '1',
@@ -195,7 +195,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: 'Deshalb',
                     type: 'proArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer)")
@@ -207,7 +207,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new counter argument answer fails because of non existing questionId - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '1',
@@ -215,7 +215,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: 'Deshalb',
                     type: 'counterArgument'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer)")
@@ -227,7 +227,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new solution answer fails because of non existing questionId - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer', {
                 normal: {
                     questionId: '1',
@@ -235,7 +235,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
                     description: 'Deshalb',
                     type: 'solution'
                 }
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer)")

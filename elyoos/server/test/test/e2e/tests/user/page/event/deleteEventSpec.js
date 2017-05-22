@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for deleting an event of a page', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -57,9 +57,8 @@ describe('Integration Tests for deleting an event of a page', function () {
 
     it('Delete successfully an event of a page (Address belongs to page)- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/event', {eventId: '10'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/event', {eventId: '10'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(event:Event {eventId: '10'})")
@@ -76,9 +75,8 @@ describe('Integration Tests for deleting an event of a page', function () {
 
     it('Delete successfully an event of a page (Address belongs to event)- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/event', {eventId: '12'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/event', {eventId: '12'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(event:Event {eventId: '12'})")
@@ -95,9 +93,8 @@ describe('Integration Tests for deleting an event of a page', function () {
 
     it('Delete successfully an event of a page (Address belongs to multiple events)- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/event', {eventId: '13'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/event', {eventId: '13'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(event:Event {eventId: '13'})")
@@ -114,9 +111,8 @@ describe('Integration Tests for deleting an event of a page', function () {
 
     it('Delete an event failed because user is not admin of event - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/event', {eventId: '11'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/event', {eventId: '11'});
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(event:Event {eventId: '11'})")

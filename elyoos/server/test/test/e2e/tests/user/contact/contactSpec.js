@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for handling contacts', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -32,13 +32,12 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding a contact - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['5'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.length.should.equals(3);
@@ -61,13 +60,12 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding a contact and remove invitations- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['6'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(u:User {userId: '1'})<-[:HAS_INVITED]->(:User {userId: '6'})")
@@ -87,12 +85,11 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Invalid Adding a contact because missing type - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['5'],
                 mode: 'addContact'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
@@ -105,13 +102,12 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Invalid Adding a contact because type does not exist - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['5'],
                 mode: 'addContact',
                 description: 'Freund1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
@@ -125,13 +121,12 @@ describe('Integration Tests for handling contacts', function () {
     it('Adding multiple contacts and get all contacts of the user - Return 200', function () {
 
         let now = Math.floor(moment.utc().valueOf() / 1000) - 1;
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2', '3', '5'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.length.should.equals(3);
@@ -146,7 +141,7 @@ describe('Integration Tests for handling contacts', function () {
                 contactIds: ['4'],
                 mode: 'addContact',
                 description: 'Familie'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.body.statistic.length.should.equals(3);
             res.body.statistic[0].group.should.equals('Freund');
@@ -160,7 +155,7 @@ describe('Integration Tests for handling contacts', function () {
             return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(4);
@@ -194,27 +189,26 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Getting only the user of a category back - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2', '3', '5'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['4'],
                 mode: 'addContact',
                 description: 'Familie'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
                 types: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(3);
@@ -223,7 +217,7 @@ describe('Integration Tests for handling contacts', function () {
                 maxItems: 5,
                 skip: 0,
                 types: 'Familie'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(1);
@@ -232,7 +226,7 @@ describe('Integration Tests for handling contacts', function () {
                 maxItems: 5,
                 skip: 0,
                 types: 'Freund,Familie'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(4);
@@ -242,19 +236,18 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding multiple contacts and get only subset of the contacts back - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2', '3', '4', '5'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.get('/api/user/contact', {
                 maxItems: 2,
                 skip: 2
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(2);
@@ -279,20 +272,19 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Add the same User two times as contact should result in one contact connection- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'addContact',
                 description: 'Bekannter'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
@@ -310,12 +302,11 @@ describe('Integration Tests for handling contacts', function () {
 
     it('If user is blocked, add contact removes blocked state - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'blockContact'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
@@ -331,7 +322,7 @@ describe('Integration Tests for handling contacts', function () {
                 contactIds: ['2'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
@@ -357,13 +348,12 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Contact is blocked after it is added to the contacts - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'addContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
@@ -378,7 +368,7 @@ describe('Integration Tests for handling contacts', function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'blockContact'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
@@ -404,13 +394,12 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Blocking of user removes invitation - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['6'],
                 mode: 'blockContact',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(user:User {userId: '1'})<-[:HAS_INVITED]-(:User {userId: '6'})")
@@ -430,12 +419,11 @@ describe('Integration Tests for handling contacts', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             })
-            .then(function (agent) {
-                requestAgent = agent;
+            .then(function () {
                 return requestHandler.post('/api/user/contact', {
                     contactIds: ['2'],
                     mode: 'blockContact'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.statistic.length.should.equals(3);
@@ -458,7 +446,7 @@ describe('Integration Tests for handling contacts', function () {
                 return requestHandler.post('/api/user/contact', {
                     contactIds: ['2'],
                     mode: 'unblockContact'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.statistic.length.should.equals(3);
@@ -483,20 +471,19 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Change State after adding contact - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'addContact',
                 description: 'Bekannter'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'changeState',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             //statistic
@@ -522,19 +509,18 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Change State after user is blocked is a invalid operation - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'blockContact'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'changeState',
                 description: 'Freund'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
@@ -568,11 +554,10 @@ describe('Integration Tests for handling contacts', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             })
-            .then(function (agent) {
-                requestAgent = agent;
+            .then(function () {
                 return requestHandler.del('/api/user/contact', {
                     contactIds: ['2', '3']
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.statistic.length.should.equals(3);

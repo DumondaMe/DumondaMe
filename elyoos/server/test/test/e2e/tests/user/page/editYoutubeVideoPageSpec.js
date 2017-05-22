@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for editing youtube pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -57,9 +57,8 @@ describe('Integration Tests for editing youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', page);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals("https://www.youtube.com/embed/hTarMdJub02");
@@ -109,9 +108,8 @@ describe('Integration Tests for editing youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', page);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
@@ -156,9 +154,8 @@ describe('Integration Tests for editing youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', page);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '2'})")
@@ -188,9 +185,8 @@ describe('Integration Tests for editing youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', page);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
@@ -233,9 +229,8 @@ describe('Integration Tests for editing youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', page);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")

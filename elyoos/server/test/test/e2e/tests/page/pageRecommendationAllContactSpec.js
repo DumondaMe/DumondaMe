@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting the overview of contact recommended pages', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -87,12 +85,11 @@ describe('Integration Tests for getting the overview of contact recommended page
 
         return db.cypher().create("(:Page {title: 'page90Title', label: 'Store', description: 'page90', modified: 5011, pageId: '18'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(8);
@@ -164,13 +161,12 @@ describe('Integration Tests for getting the overview of contact recommended page
 
         return db.cypher().create("(:Page {title: 'page90Title', description: 'page90', created: 5011, pageId: '18'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50,
                         filters: 'Book'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);
@@ -215,12 +211,11 @@ describe('Integration Tests for getting the overview of contact recommended page
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -282,12 +277,11 @@ describe('Integration Tests for getting the overview of contact recommended page
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 

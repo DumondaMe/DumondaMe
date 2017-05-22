@@ -62,13 +62,13 @@ describe('Integration Tests for getting page events', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.get('/api/page/event/overview', {
                 skip: 0,
                 maxItems: 2,
                 actual: true,
                 pageId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -110,13 +110,13 @@ describe('Integration Tests for getting page events', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.get('/api/page/event/overview', {
                 skip: 0,
                 maxItems: 2,
                 actual: false,
                 pageId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

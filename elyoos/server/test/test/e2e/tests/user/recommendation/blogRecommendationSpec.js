@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for adding and deleting user blog recommendations', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -56,11 +56,10 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
     it('Adding a new blog recommendation - Return 200', function () {
 
         let recommendationId, created;
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -85,16 +84,15 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
 
     it('Blog can only be rated once by a user - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '2'
-            }, requestAgent);
+            });
         }).then(function (resp) {
             resp.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {pageId: '2'})")
@@ -108,11 +106,10 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
 
     it('Blog can not be recommended by user who has written the blog - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {pageId: '1'})")
@@ -125,11 +122,10 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
 
     it('Not allowed to recommend other page then blog - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '10'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -138,18 +134,17 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
     it('Deleting a blog recommendation - Return 200', function () {
 
         let recommendationId;
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/blog', {
                 pageId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             recommendationId = res.body.recommendationId;
             return requestHandler.del('/api/user/recommendation/page', {
                 recommendationId: recommendationId,
                 pageId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.recommendation.contact.numberOfRecommendations.should.equals(1);
@@ -164,12 +159,11 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
 
     it('Deleting a blog recommendation of an other user- Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/recommendation/page', {
                 recommendationId: '0',
                 pageId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

@@ -8,8 +8,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests getting contact recommendations', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(11);
     });
@@ -39,14 +37,13 @@ describe('Integration Tests getting contact recommendations', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 3
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -89,14 +86,13 @@ describe('Integration Tests getting contact recommendations', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 1,
                 skipRecommendedByContact: 0,
                 skipRecommended: 10
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -147,14 +143,13 @@ describe('Integration Tests getting contact recommendations', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 10
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -204,14 +199,13 @@ describe('Integration Tests getting contact recommendations', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -243,14 +237,13 @@ describe('Integration Tests getting contact recommendations', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
                 skipRecommended: 0,
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

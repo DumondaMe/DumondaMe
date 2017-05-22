@@ -9,7 +9,7 @@ let should = require('chai').should();
 
 describe('Integration Tests for deleting an address of a page', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -58,9 +58,8 @@ describe('Integration Tests for deleting an address of a page', function () {
 
     it('Delete Successfully an address of a page - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/address', {addressId: '1'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/address', {addressId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(address:Address {addressId: '1'})")
@@ -73,9 +72,8 @@ describe('Integration Tests for deleting an address of a page', function () {
 
     it('Delete only link to address from page when an event exists- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/address', {addressId: '2'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/address', {addressId: '2'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:Event {eventId: '1'})-[:HAS]->(address:Address {addressId: '2'})")
@@ -91,9 +89,8 @@ describe('Integration Tests for deleting an address of a page', function () {
 
     it('Delete an address failed because user is not admin of page - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.del('/api/user/page/address', {addressId: '3'}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/page/address', {addressId: '3'});
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(address:Address {addressId: '3'})")

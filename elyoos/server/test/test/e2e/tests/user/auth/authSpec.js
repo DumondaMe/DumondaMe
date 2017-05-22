@@ -34,14 +34,12 @@ describe('Integration Tests for check if user is authenticated', function () {
     });
 
     it('User is authenticated and last login is less then 24 hours', function () {
-        let requestAgent;
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 5000}).end().send();
         }).then(function () {
-            return requestHandler.get('/api/user/auth', requestAgent);
+            return requestHandler.get('/api/user/auth');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.isLoggedIn.should.equals(true);
@@ -53,14 +51,12 @@ describe('Integration Tests for check if user is authenticated', function () {
     });
 
     it('User is authenticated and last login was before 24 hours', function () {
-        let requestAgent;
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return db.cypher().match("(user:User {userId: '1'})").set("user", {lastLogin: startTime - 86500}).end().send();
         }).then(function () {
-            return requestHandler.get('/api/user/auth', requestAgent);
+            return requestHandler.get('/api/user/auth');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.isLoggedIn.should.equals(true);

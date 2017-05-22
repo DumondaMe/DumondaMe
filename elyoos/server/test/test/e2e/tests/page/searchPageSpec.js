@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for searching Pages', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -63,15 +61,14 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:BookPage {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'page?1',
                         filterType: 'Book',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -102,14 +99,13 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '3'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'page1',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -149,14 +145,13 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'https://www.youtube.com/embed/c0_TPaLP2Ko',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -184,15 +179,14 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '3'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'https://www.youtube.com/embed/c0_TPaLP2K',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10,
                         filterType: 'Youtube'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -220,14 +214,13 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'www.test.com/test',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -257,14 +250,13 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'page3Title',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -294,15 +286,14 @@ describe('Integration Tests for searching Pages', function () {
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/search', {
                         search: 'www.test.com/test',
                         isSuggestion: false,
                         skip: 0,
                         maxItems: 10,
                         filterType: 'Link'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 

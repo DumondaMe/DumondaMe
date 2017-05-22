@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting generic page detail', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
             dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100, website: 'www.elyoos.org'}, [{
@@ -41,12 +39,11 @@ describe('Integration Tests for getting generic page detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/page/detail', {
                 pageId: '1',
                 label: 'Generic'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.page.pageId.should.equals('1');

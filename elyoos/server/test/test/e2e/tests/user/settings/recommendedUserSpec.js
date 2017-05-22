@@ -19,8 +19,8 @@ describe('Integration Tests for change setting of recommended user feature', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/settings/recommendedUser', {showOnHomeScreen: false}, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/settings/recommendedUser', {showOnHomeScreen: false});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(user:User {userId: '1'})").return(`user`).end().send();

@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests creating a idea for a discussion', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -31,13 +31,12 @@ describe('Integration Tests creating a idea for a discussion', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/create/discussionIdea', {
                 title: 'title',
                 description: 'description',
                 discussionId: '5'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
@@ -66,13 +65,12 @@ describe('Integration Tests creating a idea for a discussion', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/create/discussionIdea', {
                 title: 'title',
                 description: 'description',
                 discussionId: '4'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting the recommendation of an other user', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -62,13 +60,12 @@ describe('Integration Tests for getting the recommendation of an other user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Video', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(3);
@@ -107,14 +104,13 @@ describe('Integration Tests for getting the recommendation of an other user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2',
                         filters: 'Book'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(2);
@@ -162,14 +158,13 @@ describe('Integration Tests for getting the recommendation of an other user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2',
                         filters: 'Youtube'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);

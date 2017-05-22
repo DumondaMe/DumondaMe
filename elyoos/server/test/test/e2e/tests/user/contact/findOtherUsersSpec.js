@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for finding other users', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     before(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -59,13 +59,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request only with forename - Return correct sorted list (Contacts first)', function () {
 
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/contact/search', {
                     search: 'User',
                     maxItems: 10,
                     isSuggestion: false
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(5);
@@ -103,13 +102,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request only with forename in suggestion mode- Return correct sorted list (Contacts first)', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'User',
                 maxItems: 10,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(5);
@@ -123,13 +121,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request with forename and surname - Return correct sorted list', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(2);
@@ -146,13 +143,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request with forename and surname in suggestion mode- Return correct sorted list', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(2);
@@ -163,13 +159,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request with only surname - Return correct sorted list', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(3);
@@ -190,13 +185,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request with only surname in suggestion mode - Return correct sorted list', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(3);
@@ -208,13 +202,12 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request only with forename - Return correct sorted list in suggestion mode (Contacts first)', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'user',
                 maxItems: 4,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(4);
@@ -227,18 +220,17 @@ describe('Integration Tests for finding other users', function () {
 
     it('Block a user and afterwards search the user - Return blocked user', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'blockContact'
-            }, requestAgent);
+            });
         }).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'user2 Meier2',
                 maxItems: 3,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(1);

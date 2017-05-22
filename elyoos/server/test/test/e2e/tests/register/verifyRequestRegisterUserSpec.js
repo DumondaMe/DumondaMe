@@ -94,8 +94,8 @@ describe('Integration Tests for verify registering a new user', function () {
                 'username': 'info@elyoos.org',
                 'password': '1'
             });
-        }).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Waldvogel');
@@ -150,8 +150,8 @@ describe('Integration Tests for verify registering a new user', function () {
                 'username': 'infO3@elyoos.org',
                 'password': '1'
             });
-        }).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Waldvogel');
@@ -183,8 +183,8 @@ describe('Integration Tests for verify registering a new user', function () {
                 'username': 'info@elyoos.org',
                 'password': '1'
             });
-        }).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Waldvogel');

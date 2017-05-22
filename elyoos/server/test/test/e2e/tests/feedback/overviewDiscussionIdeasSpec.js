@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting discussion ideas overview', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(4);
     });
@@ -44,10 +42,9 @@ describe('Integration Tests for getting discussion ideas overview', function () 
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/feedback/overviewDiscussionIdea',
-                {maxItems: 10, skip: 0, status: 'open', discussionId: '1'}, requestAgent);
+                {maxItems: 10, skip: 0, status: 'open', discussionId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -115,10 +112,9 @@ describe('Integration Tests for getting discussion ideas overview', function () 
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/feedback/overviewDiscussionIdea',
-                {maxItems: 10, skip: 0, status: 'open', discussionId: '2'}, requestAgent);
+                {maxItems: 10, skip: 0, status: 'open', discussionId: '2'});
         }).then(function (res) {
             res.status.should.equal(400);
         });

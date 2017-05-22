@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting blog details', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(4);
     });
@@ -27,12 +25,11 @@ describe('Integration Tests for getting blog details', function () {
         dbDsl.crateRecommendationsForBlog('1', [{userId: '1', created: 508}, {userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Blog'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -73,12 +70,11 @@ describe('Integration Tests for getting blog details', function () {
         dbDsl.crateRecommendationsForBlog('1', [{userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Blog'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
 

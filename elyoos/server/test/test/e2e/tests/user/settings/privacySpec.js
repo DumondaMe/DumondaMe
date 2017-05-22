@@ -41,8 +41,8 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Get the privacy settings of the user- Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.get('/api/user/settings/privacy', agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/user/settings/privacy');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.group.length.should.equal(3);
@@ -68,7 +68,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Change the privacy settings', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 changePrivacySetting: {
                     group: [{
@@ -95,7 +95,7 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(privacyNoContact:Privacy)<-[:HAS_PRIVACY_NO_CONTACT]-
@@ -128,7 +128,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Change the privacy settings for a non existing type- Return a 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 changePrivacySetting: {
                     group: [{
@@ -155,21 +155,21 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Rename a privacy type and rename the corresponding -> (contact, blog) - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 renamePrivacy: {
                     privacyDescription: 'Freund',
                     newPrivacyDescription: 'Freund2'
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
@@ -216,14 +216,14 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Rename a privacy to a existing privacy shall fail- Return a 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 renamePrivacy: {
                     privacyDescription: 'Freund',
                     newPrivacyDescription: 'Bekannter'
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
@@ -250,7 +250,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Add a new privacy type - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 addNewPrivacy: {
                     privacySettings: {
@@ -261,7 +261,7 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(privacy:Privacy)")
@@ -287,7 +287,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Add a new privacy type with all privacy set to false', function () {
-        return requestHandler.login(users.validUser2).then(function (agent) {
+        return requestHandler.login(users.validUser2).then(function () {
             let data = {
                 addNewPrivacy: {
                     privacySettings: {
@@ -298,7 +298,7 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '2'})-[r:HAS_PRIVACY|:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
@@ -340,7 +340,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Add a new privacy type with only contact privacy set to false', function () {
-        return requestHandler.login(users.validUser2).then(function (agent) {
+        return requestHandler.login(users.validUser2).then(function () {
             let data = {
                 addNewPrivacy: {
                     privacySettings: {
@@ -351,7 +351,7 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '2'})-[r:HAS_PRIVACY|:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
@@ -393,7 +393,7 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Adding a new privacy type fails because privacy type exists already- Return a 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 addNewPrivacy: {
                     privacySettings: {
@@ -404,7 +404,7 @@ describe('Integration Tests for the privacy settings', function () {
                     }
                 }
             };
-            return requestHandler.post('/api/user/settings/privacy', data, agent);
+            return requestHandler.post('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(privacy:Privacy)")
@@ -428,12 +428,12 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Delete a privacy setting and move the contacts to the new privacy settings- Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 privacyDescription: 'Freund',
                 newPrivacyDescription: 'Familie'
             };
-            return requestHandler.del('/api/user/settings/privacy', data, agent);
+            return requestHandler.del('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")
@@ -456,12 +456,12 @@ describe('Integration Tests for the privacy settings', function () {
     });
 
     it('Delete a privacy setting fails because the privacy setting to move existing contacts does not exist- Return a 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             let data = {
                 privacyDescription: 'Freund',
                 newPrivacyDescription: 'Famili'
             };
-            return requestHandler.del('/api/user/settings/privacy', data, agent);
+            return requestHandler.del('/api/user/settings/privacy', data);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User)")

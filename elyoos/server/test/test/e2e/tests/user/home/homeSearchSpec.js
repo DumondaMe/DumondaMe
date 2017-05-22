@@ -8,8 +8,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for searching people or pages', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         return db.clearDatabase().then(function () {
@@ -62,13 +60,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.crateRecommendationsForPage('5', [{userId: '1', created: 509}]);
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'user?',
                     maxItems: 20,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(10);
@@ -144,13 +141,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.crateRecommendationsForPage('5', [{userId: '1', created: 508}]);
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'user?',
                     maxItems: 20,
                     isSuggestion: false
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(10);
@@ -236,13 +232,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'luser tMeier4',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -261,13 +256,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'luser tMeier4',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -287,13 +281,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createContactConnection('3', '1', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'tuser Meier3',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -313,13 +306,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createContactConnection('3', '1', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'tuser Meier3',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -338,13 +330,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -364,13 +355,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -391,13 +381,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createContactConnection('2', '1', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);
@@ -418,13 +407,12 @@ describe('Integration Tests for searching people or pages', function () {
         dbDsl.createContactConnection('2', '1', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+            return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.length.should.equal(1);

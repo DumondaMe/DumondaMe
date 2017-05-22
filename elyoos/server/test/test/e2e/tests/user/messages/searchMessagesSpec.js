@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for searching message threads or users', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -117,13 +117,12 @@ describe('Integration Tests for searching message threads or users', function ()
     });
 
     it('Search surname of user when suggestion mode is off- Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/search', {
                 search: 'Meier',
                 maxItems: 10,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.threads.length.should.equal(5);
@@ -168,13 +167,12 @@ describe('Integration Tests for searching message threads or users', function ()
     });
 
     it('Search surname of user when suggestion mode is on- Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/search', {
                 search: 'Meier',
                 maxItems: 10,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -212,13 +210,12 @@ describe('Integration Tests for searching message threads or users', function ()
     });
 
     it('Search forename of user when suggestion mode is off- Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/search', {
                 search: 'user',
                 maxItems: 10,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.threads.length.should.equal(3);
@@ -247,13 +244,12 @@ describe('Integration Tests for searching message threads or users', function ()
     });
 
     it('Search forename of user when suggestion mode is on- Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/search', {
                 search: 'user',
                 maxItems: 10,
                 isSuggestion: true
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

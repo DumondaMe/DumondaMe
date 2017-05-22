@@ -7,8 +7,6 @@ let moment = require('moment');
 
 describe('Integration Tests for getting blogs on home screen for a user', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         return dbDsl.init(6).then(function () {
@@ -41,15 +39,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(1);
@@ -69,15 +66,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
         dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['de'], topic: ['health'], created: 501});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(1);
@@ -96,15 +92,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
         dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['de'], topic: ['health'], created: 501});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(1);
@@ -124,15 +119,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
         dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['de'], topic: ['health'], created: 501});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(0);
@@ -150,15 +144,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
         dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['de'], topic: ['health'], created: 501});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(0);
@@ -173,15 +166,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
         dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['de'], topic: ['health'], created: 501});
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(0);
@@ -201,15 +193,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.pinwall.length.should.equals(0);
@@ -228,15 +219,14 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

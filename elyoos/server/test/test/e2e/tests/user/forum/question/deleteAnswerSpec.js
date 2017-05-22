@@ -45,10 +45,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum solution with page reference', function () {
         
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '0'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '0'})")
@@ -60,10 +60,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum solution', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '1'})")
@@ -75,10 +75,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum pro argument with page reference', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '2'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '2'})")
@@ -90,10 +90,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum pro argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '3'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '3'})")
@@ -105,10 +105,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum counter argument with page reference', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '4'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '4'})")
@@ -120,10 +120,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum counter argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '5'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '5'})")
@@ -135,10 +135,10 @@ describe('Integration Tests for deleting answers of a forum question', function 
 
     it('Delete a forum answer of another user is not allowed - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer', {
                 answerId: '6'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer {answerId: '6'})")

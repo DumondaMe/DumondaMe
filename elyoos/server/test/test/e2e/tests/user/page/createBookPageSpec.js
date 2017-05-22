@@ -40,8 +40,8 @@ describe('Integration Tests for creating new book pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/test.jpg');
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
@@ -92,8 +92,8 @@ describe('Integration Tests for creating new book pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/test.jpg');
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
@@ -145,8 +145,8 @@ describe('Integration Tests for creating new book pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent);
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
@@ -196,8 +196,8 @@ describe('Integration Tests for creating new book pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             res.body.errorCode.should.equal(2);
@@ -225,8 +225,8 @@ describe('Integration Tests for creating new book pages', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
+        }).then(function () {
+            return requestHandler.post('/api/user/page/create', createPage, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             res.body.errorCode.should.equal(2);

@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for handling the profile privacy setting when returning the user contacts', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let createUser = "(:User {email: {email}, emailNormalized: {emailNormalized}, password: {password}, forename: {forename}, surname: {surname}, name: {name}, userId: {userId}})";
@@ -144,12 +142,11 @@ describe('Integration Tests for handling the profile privacy setting when return
 
     it('Get all contacts of the user with the correct privacy- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact', {
                 maxItems: 10,
                 skip: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(4);

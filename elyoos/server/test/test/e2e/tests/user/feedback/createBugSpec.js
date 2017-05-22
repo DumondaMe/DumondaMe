@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests creating bug feedback', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -31,15 +31,14 @@ describe('Integration Tests creating bug feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/create/bug', {
                 title: 'title',
                 description: 'description',
                 screen: 'desktop',
                 browser: 'chrome',
                 operatingSystem: 'linux'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);

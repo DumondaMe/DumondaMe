@@ -39,8 +39,8 @@ describe('Integration Tests user info', function () {
     it('Get user info - Return a 200', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
+        }).then(function () {
+            return requestHandler.get('/api/user/userInfo');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.userId.should.equal('1');

@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting event detail', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -46,11 +46,10 @@ describe('Integration Tests for getting event detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/event/detail', {
                 eventId: '10'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -72,11 +71,10 @@ describe('Integration Tests for getting event detail', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/event/detail', {
                 eventId: '100'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

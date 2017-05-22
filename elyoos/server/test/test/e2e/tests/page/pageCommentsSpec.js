@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting page comments', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -103,14 +101,13 @@ describe('Integration Tests for getting page comments', function () {
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '8'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, comment: 'irgendwas7', recommendationId: '6'})-[:RECOMMENDS]->(a)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/comments', {
                         skip: '0',
                         maxItems: 10,
                         onlyContacts: true,
                         pageId: '0'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 
@@ -193,14 +190,13 @@ describe('Integration Tests for getting page comments', function () {
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '8'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, comment: 'irgendwas7', recommendationId: '7'})-[:RECOMMENDS]->(a)")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/page/comments', {
                         skip: '0',
                         maxItems: 10,
                         onlyContacts: false,
                         pageId: '0'
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
 

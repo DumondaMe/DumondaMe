@@ -9,7 +9,7 @@ let should = require('chai').should();
 
 describe('Integration Tests for edit address of generic pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -55,9 +55,8 @@ describe('Integration Tests for edit address of generic pages', function () {
             }
         }, eventId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', editAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', editAddress);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(address:Address {addressId :'1'})<-[:HAS]-(page:Page {pageId: '0'})")
@@ -84,9 +83,8 @@ describe('Integration Tests for edit address of generic pages', function () {
             }
         }, eventId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', editAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', editAddress);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(address:Address {addressId :'1'})<-[:HAS]-(page:Page {pageId: '0'})")
@@ -114,9 +112,8 @@ describe('Integration Tests for edit address of generic pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/address', editAddress, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/address', editAddress);
         }).then(function (res) {
             res.status.should.equal(400);
         });

@@ -7,8 +7,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for rating answers of a forum question', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         return dbDsl.init(2).then(function () {
@@ -30,20 +28,6 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
             return dbDsl.sendToDb();
         });
-        /*return db.clearDatabase().then(function () {
-         let commands = [];
-         commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
-         .end().getCommand());
-
-         commands.push(db.cypher().match("(u:User {userId: '1'})")
-         .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
-         .end({topic: ['environmental']}).getCommand());
-
-         return db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-         .create("(u)-[:IS_ADMIN]->(:ForumAnswer:ForumExplanation {answerId: '0', description: 'forumAnswer'})<-[:IS_ANSWER]-(forumQuestion)")
-         .end().send(commands);
-
-         });*/
     });
 
     afterEach(function () {
@@ -52,10 +36,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Positive rate a solution', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer/rate', {
                 answerId: '0'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '0'})" +
@@ -68,10 +52,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Delete positive rating of a solution', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer/rate', {
                 answerId: '3'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '3'})" +
@@ -84,10 +68,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Positive rate a pro argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer/rate', {
                 answerId: '1'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '1'})" +
@@ -100,10 +84,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Delete positive rating of a pro argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer/rate', {
                 answerId: '4'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '4'})" +
@@ -116,10 +100,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Positive rate a counter argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer/rate', {
                 answerId: '2'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '2'})" +
@@ -132,10 +116,10 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Delete positive rating of a counter argument', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/forum/question/answer/rate', {
                 answerId: '5'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(answer:ForumAnswer {answerId: '5'})" +
@@ -149,16 +133,15 @@ describe('Integration Tests for rating answers of a forum question', function ()
 
     it('Positive rate a answer twice. Second rate is dismissed- Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question/answer/rate', {
                 answerId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/forum/question/answer/rate', {
                 answerId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(answer:ForumAnswer {answerId: '0'})" +

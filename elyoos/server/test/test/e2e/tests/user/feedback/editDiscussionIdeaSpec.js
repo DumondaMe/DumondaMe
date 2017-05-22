@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests edit discussion idea feedback', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -27,13 +27,12 @@ describe('Integration Tests edit discussion idea feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.modified.should.be.at.least(startTime);
@@ -56,13 +55,12 @@ describe('Integration Tests edit discussion idea feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:DiscussionIdea {feedbackId: '2'})")
@@ -83,13 +81,12 @@ describe('Integration Tests edit discussion idea feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:DiscussionIdea {feedbackId: '2'})")
@@ -110,13 +107,12 @@ describe('Integration Tests edit discussion idea feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Discussion {feedbackId: '1'})")

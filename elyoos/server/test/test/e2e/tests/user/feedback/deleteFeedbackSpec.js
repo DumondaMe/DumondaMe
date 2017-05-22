@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for deleting a feedback', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -26,11 +26,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -46,11 +45,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -67,11 +65,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(feedback:Feedback {feedbackId: '2'})<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -87,11 +84,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})")
@@ -107,11 +103,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})")
@@ -128,11 +123,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})")
@@ -149,11 +143,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})")
@@ -170,11 +163,10 @@ describe('Integration Tests for deleting a feedback', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback', {
                 feedbackId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})")

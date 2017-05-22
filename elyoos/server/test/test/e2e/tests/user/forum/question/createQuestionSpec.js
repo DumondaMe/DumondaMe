@@ -22,12 +22,12 @@ describe('Integration Tests for creating question in forum', function () {
 
         let questionId,
             description = 'Warum ist Fleisch essen problematisch?', language = 'de', topic = ['environmental'];
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/forum/question', {
                 description: description,
                 language: language,
                 topic: topic
-            }, agent);
+            });
         }).then(function (res) {
             questionId = res.body.questionId;
             res.status.should.equal(200);

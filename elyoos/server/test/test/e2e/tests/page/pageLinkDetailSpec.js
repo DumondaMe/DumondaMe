@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting link page detail', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -77,12 +75,11 @@ describe('Integration Tests for getting link page detail', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).
-            then(function (agent) {
-                requestAgent = agent;
+            then(function () {
                 return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Link'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.page.pageId.should.equals('0');
@@ -122,12 +119,11 @@ describe('Integration Tests for getting link page detail', function () {
     it('Getting the detail of a link page without image', function () {
 
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-                requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
                 return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Link'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.page.pageId.should.equals('1');

@@ -7,8 +7,6 @@ let stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for removing a blog', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -49,11 +47,10 @@ describe('Integration Tests for removing a blog', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).
-            then(function (agent) {
-                requestAgent = agent;
+            then(function () {
                 return requestHandler.del('/api/user/blog', {
                     pageId: '1'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 stubCDN.deleteFolder.calledWith("blog/1/").should.be.true;
@@ -81,11 +78,10 @@ describe('Integration Tests for removing a blog', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).
-            then(function (agent) {
-                requestAgent = agent;
+            then(function () {
                 return requestHandler.del('/api/user/blog', {
                     pageId: '1'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 stubCDN.deleteFolder.calledWith("blog/1/").should.be.true;
@@ -113,11 +109,10 @@ describe('Integration Tests for removing a blog', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).
-            then(function (agent) {
-                requestAgent = agent;
+            then(function () {
                 return requestHandler.del('/api/user/blog', {
                     pageId: '1'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
                 stubCDN.deleteFolder.callCount.should.equals(0);

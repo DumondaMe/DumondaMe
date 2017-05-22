@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting the pages administrated by the user', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -60,12 +58,11 @@ describe('Integration Tests for getting the pages administrated by the user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'VideoPage', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(3);
@@ -98,12 +95,11 @@ describe('Integration Tests for getting the pages administrated by the user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);
@@ -136,12 +132,11 @@ describe('Integration Tests for getting the pages administrated by the user', fu
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Book', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
-                return requestHandler.login(users.validUser).then(function (agent) {
-                    requestAgent = agent;
+                return requestHandler.login(users.validUser).then(function () {
                     return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
-                    }, requestAgent);
+                    });
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);

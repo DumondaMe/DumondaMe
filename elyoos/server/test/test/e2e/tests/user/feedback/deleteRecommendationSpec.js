@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for deleting a feedback recommendation', function () {
 
-    var requestAgent, startTime;
+    var startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -27,11 +27,10 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback/recommendation', {
                 recommendationId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(feedback:Feedback {recommendationId: '2'})")
@@ -48,11 +47,10 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback/recommendation', {
                 recommendationId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {recommendationId: '2'})")
@@ -69,11 +67,10 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.del('/api/user/feedback/recommendation', {
                 recommendationId: '3'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {recommendationId: '2'})")

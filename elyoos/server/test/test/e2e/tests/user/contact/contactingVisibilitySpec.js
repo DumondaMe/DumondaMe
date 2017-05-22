@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for contacting privacy settings', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -55,12 +55,11 @@ describe('Integration Tests for contacting privacy settings', function () {
     });
 
     it('Getting the contacting information for the user with the correct visibility - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 5,
                 skip: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contactingUsers[0].userId.should.equal("3");

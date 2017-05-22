@@ -29,8 +29,8 @@ describe('Integration Tests for getting address suggestion', function () {
                 results: [{formatted: 'Zürich', geometry: {lat: 1, lng: 2}}, {formatted: 'Urdorf', geometry: {lat: 3, lng: 4}}]
             }
         }));
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.get('/api/address/suggestion', {address: 'test'}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/address/suggestion', {address: 'test'});
         }).then(function (res) {
             res.status.should.equal(200);
 

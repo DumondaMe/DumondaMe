@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting user details when blocking is involved', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -43,11 +43,10 @@ describe('Integration Tests for getting user details when blocking is involved',
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail', {
                     userId: '2'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
@@ -74,11 +73,10 @@ describe('Integration Tests for getting user details when blocking is involved',
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail', {
                     userId: '2'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');

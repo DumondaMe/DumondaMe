@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting modification info', function () {
 
-    let requestAgent, requestAgent2, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -79,25 +79,23 @@ describe('Integration Tests for getting modification info', function () {
     });
 
     it('Only when new message is sent to the user then return message has changed - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/modification', requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
             return requestHandler.login(users.validUser2);
-        }).then(function (agent) {
-            requestAgent2 = agent;
+        }).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
-            }, requestAgent2);
+            });
         }).then(function () {
             return requestHandler.logout();
         }).then(function () {
-            return requestHandler.get('/api/modification', requestAgent);
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.hasChanged.should.be.true;
@@ -116,7 +114,7 @@ describe('Integration Tests for getting modification info', function () {
             res.body.messages[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.messages[1].numberOfUnreadMessages.should.equals(1);
             res.body.totalUnreadMessages.should.equal(3);
-            return requestHandler.get('/api/modification', requestAgent);
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
@@ -124,9 +122,8 @@ describe('Integration Tests for getting modification info', function () {
     });
 
     it('When forcing is true then return for every request the value - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/modification', {forceShowModification: true}, requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/modification', {forceShowModification: true});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equals(2);
@@ -134,9 +131,8 @@ describe('Integration Tests for getting modification info', function () {
     });
 
     it('If the user sends a message then modification returns false - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/modification', requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
@@ -145,9 +141,9 @@ describe('Integration Tests for getting modification info', function () {
                     threadId: '1',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function () {
-            return requestHandler.get('/api/modification', requestAgent);
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
@@ -155,9 +151,8 @@ describe('Integration Tests for getting modification info', function () {
     });
 
     it('If the user opens a thread then modification returns false - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/modification', requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
@@ -165,10 +160,10 @@ describe('Integration Tests for getting modification info', function () {
                 maxItems: 10,
                 skip: 0,
                 threadId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.get('/api/modification', requestAgent);
+            return requestHandler.get('/api/modification');
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);

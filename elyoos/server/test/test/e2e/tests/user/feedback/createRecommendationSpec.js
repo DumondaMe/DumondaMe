@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests recommending feedback elements', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -26,9 +26,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
@@ -47,9 +46,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -61,12 +59,11 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -78,9 +75,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(:Feedback:Idea {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
@@ -99,9 +95,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -113,12 +108,11 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -131,9 +125,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '2'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
@@ -153,9 +146,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -168,12 +160,11 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'});
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -185,9 +176,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'});
         }).then(function (res) {
             res.status.should.equal(400);
         });

@@ -22,9 +22,9 @@ describe('Integration Tests setting user location', function () {
     });
 
     it('Setting user location', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/settings/userLocation',
-                {description: 'Zürich', latitude: 47.3768871, longitude: 8.5416941}, agent);
+                {description: 'Zürich', latitude: 47.3768871, longitude: 8.5416941});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(user:User {userId: '1'})`)
@@ -37,8 +37,8 @@ describe('Integration Tests setting user location', function () {
     });
 
     it('Delete user location', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.del('/api/user/settings/userLocation', {}, agent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.del('/api/user/settings/userLocation', {});
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match(`(user:User {userId: '1'})`)

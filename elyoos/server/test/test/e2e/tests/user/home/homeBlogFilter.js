@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for filtering blog on home screen', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
@@ -50,8 +48,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -60,7 +57,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 order: 'new',
                 language: ['de'],
                 recommendationType: ['Blog']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -73,8 +70,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -83,7 +79,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Blog']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -101,8 +97,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
         dbDsl.blockUser('2', '1');
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -111,7 +106,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 order: 'new',
                 topic: ['health'],
                 recommendationType: ['Blog']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

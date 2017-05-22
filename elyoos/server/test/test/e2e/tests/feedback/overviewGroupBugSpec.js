@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting bugs overview', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(4);
     });
@@ -24,9 +22,8 @@ describe('Integration Tests for getting bugs overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(0);
@@ -54,9 +51,8 @@ describe('Integration Tests for getting bugs overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
@@ -124,9 +120,8 @@ describe('Integration Tests for getting bugs overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Bug'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Bug'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.numberOfOpenFeedbacks.should.equals(3);

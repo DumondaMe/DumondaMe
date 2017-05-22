@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting all threads of a user', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -104,12 +104,11 @@ describe('Integration Tests for getting all threads of a user', function () {
     });
 
     it('Getting all threads for the user - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/thread', {
                 maxItems: 10,
                 skip: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.threads.length.should.equal(3);
@@ -142,12 +141,11 @@ describe('Integration Tests for getting all threads of a user', function () {
     });
 
     it('Getting threads for the user and limit and skip correctly - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/thread', {
                 maxItems: 2,
                 skip: 1
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.threads.length.should.equal(2);

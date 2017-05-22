@@ -1,6 +1,5 @@
 'use strict';
 
-let app = require('../../../../../../server');
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
@@ -111,15 +110,12 @@ describe('Integration Tests for finding other users and applying the correct pri
 
     it('Request only with forename - Return correct sorted list with correct privacy setting (Contacts first)', function () {
 
-        let requestAgent;
-
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/search', {
                 search: 'user',
                 maxItems: 10,
                 isSuggestion: false
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(4);

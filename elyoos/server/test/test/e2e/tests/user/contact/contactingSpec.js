@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for handling contacting information', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -56,12 +56,11 @@ describe('Integration Tests for handling contacting information', function () {
     });
 
     it('Getting the contacting information for the user - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 5,
                 skip: 0
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contactingUsers.length.should.equal(3);
@@ -85,12 +84,11 @@ describe('Integration Tests for handling contacting information', function () {
     });
 
     it('Getting the contacting information for the user and skip the first limit the last - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 1,
                 skip: 1
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contactingUsers.length.should.equal(1);

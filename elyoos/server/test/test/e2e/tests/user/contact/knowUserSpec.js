@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests to get known user by the contacts', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(11);
     });
@@ -33,13 +31,12 @@ describe('Integration Tests to get known user by the contacts', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/contact/knowUser', {
                 userId: '8',
                 skip: 0,
                 maxItems: 3
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

@@ -7,8 +7,6 @@ let should = require('chai').should();
 
 describe('Integration Tests for getting the details of a forum question', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         return dbDsl.init(6).then(function () {
@@ -48,11 +46,10 @@ describe('Integration Tests for getting the details of a forum question', functi
 
     it('Getting the detail of a forum question', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/question/detail', {
                 questionId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             

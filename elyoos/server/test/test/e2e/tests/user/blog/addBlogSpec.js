@@ -12,8 +12,6 @@ let stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for adding a blog', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -40,8 +38,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -49,7 +46,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'en'
                     }
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);
@@ -87,8 +84,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -96,7 +92,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'de'
                     }
-                }, requestAgent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+                }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);
@@ -140,8 +136,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -149,7 +144,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'fr'
                     }
-                }, requestAgent, './test/test/e2e/tests/user/blog/testPortrait.jpg');
+                }, './test/test/e2e/tests/user/blog/testPortrait.jpg');
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);
@@ -193,8 +188,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send()
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -203,7 +197,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'de'
                     }
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);
@@ -242,8 +236,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send()
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -251,7 +244,7 @@ describe('Integration Tests for adding a blog', function () {
                         visibility: ['Bekannter'],
                         topic: ['environmental', 'spiritual']
                     }
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
                 return db.cypher().match("(b:Blog)")
@@ -280,15 +273,14 @@ describe('Integration Tests for adding a blog', function () {
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
                         text: 'testBlog1',
                         topic: ['environmental', 'spiritual']
                     }
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
                 return db.cypher().match("(b:Blog {text: 'testBlog1'})")
@@ -317,8 +309,7 @@ describe('Integration Tests for adding a blog', function () {
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         title: 'testBlog1Title',
@@ -326,7 +317,7 @@ describe('Integration Tests for adding a blog', function () {
                         visibility: ['Freund'],
                         topic: ['environmental', 'spiritual']
                     }
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
                 return db.cypher().match("(b:Blog {text: 'testBlog1'})")

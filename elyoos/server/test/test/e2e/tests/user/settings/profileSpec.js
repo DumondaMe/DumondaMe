@@ -56,8 +56,8 @@ describe('Integration Tests User Profile Data', function () {
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)").end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                return requestHandler.get('/api/user/settings/profile', agent);
+            }).then(function () {
+                return requestHandler.get('/api/user/settings/profile');
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.email.should.equal('user@irgendwo.ch');
@@ -93,8 +93,8 @@ describe('Integration Tests User Profile Data', function () {
             surname: 'surname'
         };
 
-        return requestHandler.login(users.changeUserData).then(function (agent) {
-            return requestHandler.post('/api/user/settings/profile', user, agent);
+        return requestHandler.login(users.changeUserData).then(function () {
+            return requestHandler.post('/api/user/settings/profile', user);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(user:User {userId: '1'})")

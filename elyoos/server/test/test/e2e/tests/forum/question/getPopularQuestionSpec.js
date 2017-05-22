@@ -44,11 +44,11 @@ describe('Integration Tests for getting the most popular questions in the forum'
 
     it('Getting the most popular questions over all - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/forum/question/popular', {
                 maxItems: 10,
                 skip: 0
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

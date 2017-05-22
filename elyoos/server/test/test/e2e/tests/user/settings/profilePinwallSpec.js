@@ -68,9 +68,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
     });
 
     it('Getting recommendations of the user - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/settings/profile/pinwall',
-                {maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                {maxItems: 30, skip: 0, type: 'recommendation'});
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -155,9 +155,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
     });
 
     it('Getting most popular pages where user is admin - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/settings/profile/pinwall',
-                {maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                {maxItems: 30, skip: 0, type: 'adminPopular'});
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -230,9 +230,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
     });
 
     it('Getting newest pages where user is admin - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/settings/profile/pinwall',
-                {maxItems: 30, skip: 0, type: 'adminNewest'}, agent);
+                {maxItems: 30, skip: 0, type: 'adminNewest'});
         }).then(function (res) {
             res.status.should.equal(200);
 

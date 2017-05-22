@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for filtering book recommendation on home screen', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
@@ -52,8 +50,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -62,7 +59,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
                 order: 'new',
                 language: ['de'],
                 recommendationType: ['Book']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -76,8 +73,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -86,7 +82,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Book']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -103,8 +99,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
         dbDsl.blockUser('2', '1');
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -113,7 +108,7 @@ describe('Integration Tests for filtering book recommendation on home screen', f
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Book']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

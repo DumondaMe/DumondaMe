@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for filtering youtube recommendation on home screen', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
@@ -51,8 +49,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -61,7 +58,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 order: 'new',
                 language: ['de'],
                 recommendationType: ['Youtube']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -75,8 +72,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -85,7 +81,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Youtube']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -102,8 +98,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
         dbDsl.blockUser('2', '1');
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
@@ -112,7 +107,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Youtube']
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

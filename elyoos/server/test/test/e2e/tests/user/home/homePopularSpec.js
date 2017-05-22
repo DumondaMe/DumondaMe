@@ -47,14 +47,14 @@ describe('Integration Tests for getting most popular content on home screen', fu
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
                 order: 'popular'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -174,14 +174,14 @@ describe('Integration Tests for getting most popular content on home screen', fu
         
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'popular'
-            }, agent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting discussion overview', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(4);
     });
@@ -24,9 +22,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(0);
@@ -53,9 +50,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(3);
@@ -103,9 +99,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Discussion'}, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Discussion'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(1);

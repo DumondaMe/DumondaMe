@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for adding and deleting user page recommendations', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -48,11 +48,10 @@ describe('Integration Tests for adding and deleting user page recommendations', 
     it('Adding a new book page recommendation - Return 200', function () {
 
         let recommendationId, created;
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -77,17 +76,16 @@ describe('Integration Tests for adding and deleting user page recommendations', 
 
     it('Page can only be rated once by a user - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0',
                 comment: 'irgendwa'
-            }, requestAgent);
+            });
         }).then(function (resp) {
             resp.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Page {pageId: '0'})")
@@ -101,12 +99,11 @@ describe('Integration Tests for adding and deleting user page recommendations', 
 
     it('Not allowed to rate blog page over this api - Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '10',
                 comment: 'irgendwas'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -114,12 +111,11 @@ describe('Integration Tests for adding and deleting user page recommendations', 
 
     it('Deleting a page recommendation - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/recommendation/page', {
                 recommendationId: '1',
                 pageId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.recommendation.contact.numberOfRecommendations.should.equals(0);
@@ -134,12 +130,11 @@ describe('Integration Tests for adding and deleting user page recommendations', 
 
     it('Deleting a page recommendation of an other user- Return 400', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.del('/api/user/recommendation/page', {
                 recommendationId: '0',
                 pageId: '0'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

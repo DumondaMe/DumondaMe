@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting messages of a conversation for a user', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -107,13 +107,12 @@ describe('Integration Tests for getting messages of a conversation for a user', 
     });
 
     it('Getting the messages of a thread for the user - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 10,
                 skip: 0,
                 threadId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equal(4);
@@ -152,13 +151,12 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
 
     it('Getting the messages of a thread for the user with correct skip and limit- Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 2,
                 skip: 1,
                 threadId: '1'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equal(2);
@@ -181,13 +179,12 @@ describe('Integration Tests for getting messages of a conversation for a user', 
     });
 
     it('Trying to get access to a thread which user does not participate - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 10,
                 skip: 0,
                 threadId: '2'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

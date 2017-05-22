@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting feedback overview', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(4);
     });
@@ -33,9 +31,8 @@ describe('Integration Tests for getting feedback overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overview', requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overview');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.bug.numberOfBugs.should.equals(3);
@@ -53,9 +50,8 @@ describe('Integration Tests for getting feedback overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overview', requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overview');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.bug.numberOfBugs.should.equals(3);
@@ -68,9 +64,8 @@ describe('Integration Tests for getting feedback overview', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/feedback/overview', requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/feedback/overview');
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.bug.numberOfBugs.should.equals(0);

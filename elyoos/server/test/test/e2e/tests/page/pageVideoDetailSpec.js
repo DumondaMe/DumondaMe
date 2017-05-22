@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting youtube page detail', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -75,12 +73,11 @@ describe('Integration Tests for getting youtube page detail', function () {
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).
-            then(function (agent) {
-                requestAgent = agent;
+            then(function () {
                 return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Youtube'
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.page.pageId.should.equals('0');

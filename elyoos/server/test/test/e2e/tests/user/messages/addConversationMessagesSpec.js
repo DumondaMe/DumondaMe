@@ -7,7 +7,7 @@ let moment = require('moment');
 
 describe('Integration Tests for sending messages to a conversation and adding threads', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -95,14 +95,13 @@ describe('Integration Tests for sending messages to a conversation and adding th
     });
 
     it('Sending a new message to a thread - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.message.name.should.equal("user Meier");
@@ -121,42 +120,39 @@ describe('Integration Tests for sending messages to a conversation and adding th
     });
 
     it('Sending a new message to a single thread one which the user does not participate- Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageToThread: {
                     threadId: '2',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Sending a new message to a thread to contact which has blocked user- Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageToThread: {
                     threadId: '3',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Sending a new message to a user with existing thread - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageUser: {
                     userId: '2',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.message.name.should.equal("user Meier");
@@ -176,14 +172,13 @@ describe('Integration Tests for sending messages to a conversation and adding th
     });
 
     it('Sending a new message to a user with no existing thread - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageUser: {
                     userId: '6',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.message.name.should.equal("user Meier");
@@ -202,28 +197,26 @@ describe('Integration Tests for sending messages to a conversation and adding th
     });
 
     it('Sending a new message to another user which has blocked user (without Thread)- Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageUser: {
                     userId: '5',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
     it('Sending a new message to another user which has blocked user (with Thread)- Return 400', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
+        return requestHandler.login(users.validUser).then(function () {
             return requestHandler.post('/api/user/messages/conversation', {
                 addMessageUser: {
                     userId: '4',
                     text: 'messageAdded'
                 }
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(400);
         });

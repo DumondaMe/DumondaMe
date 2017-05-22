@@ -28,7 +28,7 @@ module.exports = {
             return request(app).post('/api/logout').send(user.user);
         }
     },
-    post: function (api, data, agent, pathToFile) {
+    post: function (api, data, pathToFile) {
         let req = request(app).post(api);
         if (cookies) {
             req.cookies = cookies;

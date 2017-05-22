@@ -46,7 +46,7 @@ describe('Integration Tests for edit a blog', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.post('/api/user/blog', {
                 editBlog: {
                     pageId: '0',
@@ -54,7 +54,7 @@ describe('Integration Tests for edit a blog', function () {
                     topic: ['environmental', 'spiritual'],
                     language: 'fr'
                 }
-            }, agent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+            }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             modified = res.body.modified;
@@ -80,7 +80,7 @@ describe('Integration Tests for edit a blog', function () {
     it('Editing a blog of another user not allowed (400)', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
+        }).then(function () {
             return requestHandler.post('/api/user/blog', {
                 editBlog: {
                     pageId: '1',
@@ -88,7 +88,7 @@ describe('Integration Tests for edit a blog', function () {
                     topic: ['environmental', 'spiritual'],
                     language: 'fr'
                 }
-            }, agent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+            }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             stubCDN.uploadFile.calledWith(sinon.match.any, "blog/1/preview.jpg").should.be.false;

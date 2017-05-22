@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests creating comments for feedback elements', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -31,9 +31,8 @@ describe('Integration Tests creating comments for feedback elements', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '1', text: 'text'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '1', text: 'text'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
@@ -60,9 +59,8 @@ describe('Integration Tests creating comments for feedback elements', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '3', text: 'text'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '3', text: 'text'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
@@ -90,9 +88,8 @@ describe('Integration Tests creating comments for feedback elements', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '7', text: 'text'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '7', text: 'text'});
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
@@ -117,9 +114,8 @@ describe('Integration Tests creating comments for feedback elements', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '5', text: 'text'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '5', text: 'text'});
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -136,9 +132,8 @@ describe('Integration Tests creating comments for feedback elements', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '8', text: 'text'}, requestAgent);
+        }).then(function () {
+            return requestHandler.post('/api/user/feedback/comment', {feedbackId: '8', text: 'text'});
         }).then(function (res) {
             res.status.should.equal(400);
         });

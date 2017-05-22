@@ -6,8 +6,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting the contact statistics', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
 
         let commands = [];
@@ -43,9 +41,8 @@ describe('Integration Tests for getting the contact statistics', function () {
 
     it('Getting the contact statistics - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.get('/api/user/contact/statistic', requestAgent);
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.get('/api/user/contact/statistic');
         }).then(function (res) {
             res.status.should.equal(200);
 

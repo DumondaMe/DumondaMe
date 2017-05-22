@@ -8,8 +8,6 @@ let moment = require('moment');
 
 describe('Integration Tests for getting home screen information for a user', function () {
 
-    let requestAgent;
-
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
@@ -53,15 +51,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -104,15 +101,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -143,15 +139,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -168,15 +163,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -196,15 +190,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -223,15 +216,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -250,15 +242,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -278,15 +269,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -305,15 +295,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -330,15 +319,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -376,15 +364,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: true,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -531,15 +518,14 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
+        }).then(function () {
             return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
                 order: 'new'
-            }, requestAgent);
+            });
         }).then(function (res) {
             res.status.should.equal(200);
 

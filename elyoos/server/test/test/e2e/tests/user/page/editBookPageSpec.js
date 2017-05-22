@@ -10,7 +10,7 @@ let sinon = require('sinon');
 
 describe('Integration Tests for editing book pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -53,9 +53,8 @@ describe('Integration Tests for editing book pages', function () {
         };
         stubCDN.uploadFile.reset();
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
@@ -98,9 +97,8 @@ describe('Integration Tests for editing book pages', function () {
         };
         stubCDN.uploadFile.reset();
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
@@ -141,9 +139,8 @@ describe('Integration Tests for editing book pages', function () {
         };
         stubCDN.uploadFile.reset();
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")
@@ -179,9 +176,8 @@ describe('Integration Tests for editing book pages', function () {
         };
         stubCDN.uploadFile.reset();
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")

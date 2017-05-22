@@ -8,7 +8,7 @@ let moment = require('moment');
 
 describe('Integration Tests for getting the contacts in user details', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
@@ -64,13 +64,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.users.length.should.equals(7);
@@ -132,13 +131,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 2,
                     maxItems: 2
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.users.length.should.equals(2);
@@ -172,13 +170,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
             });
@@ -199,13 +196,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
             });
@@ -224,13 +220,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
             });
@@ -249,13 +244,12 @@ describe('Integration Tests for getting the contacts in user details', function 
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).then(function (agent) {
-                requestAgent = agent;
+            }).then(function () {
                 return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
-                }, requestAgent);
+                });
             }).then(function (res) {
                 res.status.should.equal(400);
             });
