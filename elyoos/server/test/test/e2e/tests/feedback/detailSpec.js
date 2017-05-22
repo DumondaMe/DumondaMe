@@ -35,7 +35,7 @@ describe('Integration Tests for getting feedback detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -75,7 +75,7 @@ describe('Integration Tests for getting feedback detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -114,7 +114,7 @@ describe('Integration Tests for getting feedback detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detail', {feedbackId: '2'}, requestAgent);
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.numberOfComments.should.equals(3);
@@ -146,7 +146,7 @@ describe('Integration Tests for getting feedback detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
+            return requestHandler.get('/api/feedback/detail', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });

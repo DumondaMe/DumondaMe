@@ -26,7 +26,7 @@ describe('Integration Tests for getting discussion overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(0);
@@ -55,7 +55,7 @@ describe('Integration Tests for getting discussion overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Discussion'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(3);
@@ -105,7 +105,7 @@ describe('Integration Tests for getting discussion overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Discussion'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Discussion'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(1);

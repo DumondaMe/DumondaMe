@@ -30,7 +30,7 @@ describe('Integration Tests for getting feedback detail comments', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'new'}, requestAgent);
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'new'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(5);
@@ -83,7 +83,7 @@ describe('Integration Tests for getting feedback detail comments', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(3);
@@ -116,7 +116,7 @@ describe('Integration Tests for getting feedback detail comments', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
+            return requestHandler.get('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1', orderBy: 'old'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.comments.length.should.equals(0);

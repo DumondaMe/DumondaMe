@@ -66,7 +66,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -134,7 +134,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 2,
                     maxItems: 2
@@ -174,7 +174,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -201,7 +201,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -226,7 +226,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -251,7 +251,7 @@ describe('Integration Tests for getting the contacts in user details', function 
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contact', {
+                return requestHandler.get('/api/user/detail/contact', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10

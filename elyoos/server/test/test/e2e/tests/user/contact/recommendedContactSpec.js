@@ -41,7 +41,7 @@ describe('Integration Tests getting contact recommendations', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+            return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
@@ -91,7 +91,7 @@ describe('Integration Tests getting contact recommendations', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+            return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 1,
                 skipRecommendedByContact: 0,
@@ -149,7 +149,7 @@ describe('Integration Tests getting contact recommendations', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+            return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
@@ -206,7 +206,7 @@ describe('Integration Tests getting contact recommendations', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+            return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,
@@ -245,7 +245,7 @@ describe('Integration Tests getting contact recommendations', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/recommendationContact', {
+            return requestHandler.get('/api/user/contact/recommendationContact', {
                 maxItemsPerType: 10,
                 skipInvitedUser: 0,
                 skipRecommendedByContact: 0,

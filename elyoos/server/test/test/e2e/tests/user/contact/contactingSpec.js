@@ -58,7 +58,7 @@ describe('Integration Tests for handling contacting information', function () {
     it('Getting the contacting information for the user - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/contacting', {
+            return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 5,
                 skip: 0
             }, requestAgent);
@@ -87,7 +87,7 @@ describe('Integration Tests for handling contacting information', function () {
     it('Getting the contacting information for the user and skip the first limit the last - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/contacting', {
+            return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 1,
                 skip: 1
             }, requestAgent);

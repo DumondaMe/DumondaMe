@@ -64,7 +64,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationOtherUser', {
+                    return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2'
@@ -109,7 +109,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationOtherUser', {
+                    return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2',
@@ -164,7 +164,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationOtherUser', {
+                    return requestHandler.get('/api/page/recommendationOtherUser', {
                         skip: '0',
                         maxItems: 50,
                         userId: '2',

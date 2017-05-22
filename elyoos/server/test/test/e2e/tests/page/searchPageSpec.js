@@ -65,7 +65,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'page?1',
                         filterType: 'Book',
                         isSuggestion: false,
@@ -104,7 +104,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'page1',
                         isSuggestion: false,
                         skip: 0,
@@ -151,7 +151,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'https://www.youtube.com/embed/c0_TPaLP2Ko',
                         isSuggestion: false,
                         skip: 0,
@@ -186,7 +186,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'https://www.youtube.com/embed/c0_TPaLP2K',
                         isSuggestion: false,
                         skip: 0,
@@ -222,7 +222,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'www.test.com/test',
                         isSuggestion: false,
                         skip: 0,
@@ -259,7 +259,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'page3Title',
                         isSuggestion: false,
                         skip: 0,
@@ -296,7 +296,7 @@ describe('Integration Tests for searching Pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/search', {
+                    return requestHandler.get('/api/page/search', {
                         search: 'www.test.com/test',
                         isSuggestion: false,
                         skip: 0,

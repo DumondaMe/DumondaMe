@@ -126,7 +126,7 @@ describe('Integration Tests for getting modification info', function () {
     it('When forcing is true then return for every request the value - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/modification', {forceShowModification: true}, requestAgent);
+            return requestHandler.get('/api/modification', {forceShowModification: true}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equals(2);
@@ -161,7 +161,7 @@ describe('Integration Tests for getting modification info', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
-            return requestHandler.getWithData('/api/user/messages/conversation', {
+            return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 10,
                 skip: 0,
                 threadId: '1'

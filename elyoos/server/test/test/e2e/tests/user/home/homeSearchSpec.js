@@ -64,7 +64,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'user?',
                     maxItems: 20,
                     isSuggestion: true
@@ -146,7 +146,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'user?',
                     maxItems: 20,
                     isSuggestion: false
@@ -238,7 +238,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'luser tMeier4',
                     maxItems: 10,
                     isSuggestion: true
@@ -263,7 +263,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'luser tMeier4',
                     maxItems: 10,
                     isSuggestion: true
@@ -289,7 +289,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'tuser Meier3',
                     maxItems: 10,
                     isSuggestion: true
@@ -315,7 +315,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'tuser Meier3',
                     maxItems: 10,
                     isSuggestion: true
@@ -340,7 +340,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
@@ -366,7 +366,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
@@ -393,7 +393,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true
@@ -420,7 +420,7 @@ describe('Integration Tests for searching people or pages', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home/search', {
+                return requestHandler.get('/api/user/home/search', {
                     search: 'zuser?',
                     maxItems: 10,
                     isSuggestion: true

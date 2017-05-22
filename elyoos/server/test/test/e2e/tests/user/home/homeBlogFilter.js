@@ -52,7 +52,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -75,7 +75,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -103,7 +103,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,

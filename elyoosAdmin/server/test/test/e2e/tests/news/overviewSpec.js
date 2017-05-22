@@ -28,7 +28,7 @@ describe('Integration Tests to get an overview of the news', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/news/overview', {skip: 0, maxItems: 10}, requestAgent);
+            return requestHandler.get('/api/news/overview', {skip: 0, maxItems: 10}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
 

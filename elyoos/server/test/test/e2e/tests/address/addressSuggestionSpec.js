@@ -30,7 +30,7 @@ describe('Integration Tests for getting address suggestion', function () {
             }
         }));
         return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.getWithData('/api/address/suggestion', {address: 'test'}, agent);
+            return requestHandler.get('/api/address/suggestion', {address: 'test'}, agent);
         }).then(function (res) {
             res.status.should.equal(200);
 

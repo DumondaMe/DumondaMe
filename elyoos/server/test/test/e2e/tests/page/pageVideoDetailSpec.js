@@ -77,7 +77,7 @@ describe('Integration Tests for getting youtube page detail', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Youtube'
                 }, requestAgent);

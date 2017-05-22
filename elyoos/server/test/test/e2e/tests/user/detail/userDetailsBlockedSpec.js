@@ -45,7 +45,7 @@ describe('Integration Tests for getting user details when blocking is involved',
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail', {
+                return requestHandler.get('/api/user/detail', {
                     userId: '2'
                 }, requestAgent);
             }).then(function (res) {
@@ -76,7 +76,7 @@ describe('Integration Tests for getting user details when blocking is involved',
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail', {
+                return requestHandler.get('/api/user/detail', {
                     userId: '2'
                 }, requestAgent);
             }).then(function (res) {

@@ -109,7 +109,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
     it('Getting the messages of a thread for the user - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/messages/conversation', {
+            return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 10,
                 skip: 0,
                 threadId: '1'
@@ -154,7 +154,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
     it('Getting the messages of a thread for the user with correct skip and limit- Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/messages/conversation', {
+            return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 2,
                 skip: 1,
                 threadId: '1'
@@ -183,7 +183,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
     it('Trying to get access to a thread which user does not participate - Return 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/messages/conversation', {
+            return requestHandler.get('/api/user/messages/conversation', {
                 maxItems: 10,
                 skip: 0,
                 threadId: '2'

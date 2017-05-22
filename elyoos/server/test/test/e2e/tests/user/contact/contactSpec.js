@@ -157,7 +157,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[2].count.should.equals(0);
             res.body.numberOfContacts.should.equals(4);
             res.status.should.equal(200);
-            return requestHandler.getWithData('/api/user/contact', {
+            return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0
             }, requestAgent);
@@ -210,7 +210,7 @@ describe('Integration Tests for handling contacts', function () {
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.getWithData('/api/user/contact', {
+            return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
                 types: 'Freund'
@@ -219,7 +219,7 @@ describe('Integration Tests for handling contacts', function () {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(3);
             res.body.numberOfContacts.should.equal(3);
-            return requestHandler.getWithData('/api/user/contact', {
+            return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
                 types: 'Familie'
@@ -228,7 +228,7 @@ describe('Integration Tests for handling contacts', function () {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(1);
             res.body.numberOfContacts.should.equal(1);
-            return requestHandler.getWithData('/api/user/contact', {
+            return requestHandler.get('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
                 types: 'Freund,Familie'
@@ -251,7 +251,7 @@ describe('Integration Tests for handling contacts', function () {
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.getWithData('/api/user/contact', {
+            return requestHandler.get('/api/user/contact', {
                 maxItems: 2,
                 skip: 2
             }, requestAgent);

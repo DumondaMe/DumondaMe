@@ -66,7 +66,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -127,7 +127,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 2,
                     maxItems: 2
@@ -167,7 +167,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -194,7 +194,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -219,7 +219,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10
@@ -244,7 +244,7 @@ describe('Integration Tests for getting the contacting in user details', functio
                 return requestHandler.login(users.validUser);
             }).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/detail/contacting', {
+                return requestHandler.get('/api/user/detail/contacting', {
                     userId: '2',
                     skip: 0,
                     maxItems: 10

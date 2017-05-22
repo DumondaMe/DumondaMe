@@ -57,7 +57,7 @@ describe('Integration Tests for contacting privacy settings', function () {
     it('Getting the contacting information for the user with the correct visibility - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/contacting', {
+            return requestHandler.get('/api/user/contact/contacting', {
                 maxItems: 5,
                 skip: 0
             }, requestAgent);

@@ -62,7 +62,7 @@ describe('Integration Tests for getting the pages administrated by the user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/administrator', {
+                    return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);
@@ -100,7 +100,7 @@ describe('Integration Tests for getting the pages administrated by the user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/administrator', {
+                    return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);
@@ -138,7 +138,7 @@ describe('Integration Tests for getting the pages administrated by the user', fu
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/administrator', {
+                    return requestHandler.get('/api/user/page/administrator', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);

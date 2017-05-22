@@ -106,7 +106,7 @@ describe('Integration Tests for getting all threads of a user', function () {
     it('Getting all threads for the user - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/messages/thread', {
+            return requestHandler.get('/api/user/messages/thread', {
                 maxItems: 10,
                 skip: 0
             }, requestAgent);
@@ -144,7 +144,7 @@ describe('Integration Tests for getting all threads of a user', function () {
     it('Getting threads for the user and limit and skip correctly - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/messages/thread', {
+            return requestHandler.get('/api/user/messages/thread', {
                 maxItems: 2,
                 skip: 1
             }, requestAgent);

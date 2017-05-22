@@ -29,7 +29,7 @@ describe('Integration Tests for getting blog details', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Blog'
                 }, requestAgent);
@@ -75,7 +75,7 @@ describe('Integration Tests for getting blog details', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Blog'
                 }, requestAgent);

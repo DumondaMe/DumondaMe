@@ -35,7 +35,7 @@ describe('Integration Tests to get known user by the contacts', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/knowUser', {
+            return requestHandler.get('/api/user/contact/knowUser', {
                 userId: '8',
                 skip: 0,
                 maxItems: 3

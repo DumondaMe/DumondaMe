@@ -38,7 +38,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -87,7 +87,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -136,7 +136,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -176,7 +176,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -228,7 +228,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -279,7 +279,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -322,7 +322,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -359,7 +359,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -395,7 +395,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -441,7 +441,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -483,7 +483,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -523,7 +523,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -559,7 +559,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -584,7 +584,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -612,7 +612,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -644,7 +644,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -679,7 +679,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -719,7 +719,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,

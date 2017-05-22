@@ -63,7 +63,7 @@ describe('Integration Tests for getting page events', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/page/event/overview', {
+            return requestHandler.get('/api/page/event/overview', {
                 skip: 0,
                 maxItems: 2,
                 actual: true,
@@ -111,7 +111,7 @@ describe('Integration Tests for getting page events', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/page/event/overview', {
+            return requestHandler.get('/api/page/event/overview', {
                 skip: 0,
                 maxItems: 2,
                 actual: false,

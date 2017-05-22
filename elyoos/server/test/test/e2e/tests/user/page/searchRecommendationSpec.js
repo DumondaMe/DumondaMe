@@ -61,7 +61,7 @@ describe('Integration Tests for searching recommendations of the user', function
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchRecommendation', {
+                    return requestHandler.get('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
@@ -107,7 +107,7 @@ describe('Integration Tests for searching recommendations of the user', function
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchRecommendation', {
+                    return requestHandler.get('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
@@ -141,7 +141,7 @@ describe('Integration Tests for searching recommendations of the user', function
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchRecommendation', {
+                    return requestHandler.get('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page1Title',
@@ -181,7 +181,7 @@ describe('Integration Tests for searching recommendations of the user', function
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchRecommendation', {
+                    return requestHandler.get('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page3Title',

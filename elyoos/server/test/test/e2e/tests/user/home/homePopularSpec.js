@@ -48,7 +48,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
@@ -175,7 +175,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/user/home', {
+            return requestHandler.get('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,

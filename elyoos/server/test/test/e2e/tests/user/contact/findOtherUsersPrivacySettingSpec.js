@@ -115,7 +115,7 @@ describe('Integration Tests for finding other users and applying the correct pri
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'user',
                 maxItems: 10,
                 isSuggestion: false

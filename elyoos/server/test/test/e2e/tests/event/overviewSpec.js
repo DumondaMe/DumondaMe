@@ -66,7 +66,7 @@ describe('Integration Tests for getting overview events', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/event/overview', {
+            return requestHandler.get('/api/event/overview', {
                 skip: 0,
                 maxItems: 4
             }, requestAgent);

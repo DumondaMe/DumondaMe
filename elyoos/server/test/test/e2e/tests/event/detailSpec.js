@@ -48,7 +48,7 @@ describe('Integration Tests for getting event detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/event/detail', {
+            return requestHandler.get('/api/event/detail', {
                 eventId: '10'
             }, requestAgent);
         }).then(function (res) {
@@ -74,7 +74,7 @@ describe('Integration Tests for getting event detail', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/event/detail', {
+            return requestHandler.get('/api/event/detail', {
                 eventId: '100'
             }, requestAgent);
         }).then(function (res) {

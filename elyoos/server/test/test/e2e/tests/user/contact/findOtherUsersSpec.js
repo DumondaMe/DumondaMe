@@ -61,7 +61,7 @@ describe('Integration Tests for finding other users', function () {
 
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/user/contact/search', {
+                return requestHandler.get('/api/user/contact/search', {
                     search: 'User',
                     maxItems: 10,
                     isSuggestion: false
@@ -105,7 +105,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'User',
                 maxItems: 10,
                 isSuggestion: true
@@ -125,7 +125,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: false
@@ -148,7 +148,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: true
@@ -165,7 +165,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: false
@@ -192,7 +192,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: true
@@ -210,7 +210,7 @@ describe('Integration Tests for finding other users', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'user',
                 maxItems: 4,
                 isSuggestion: true
@@ -234,7 +234,7 @@ describe('Integration Tests for finding other users', function () {
                 mode: 'blockContact'
             }, requestAgent);
         }).then(function () {
-            return requestHandler.getWithData('/api/user/contact/search', {
+            return requestHandler.get('/api/user/contact/search', {
                 search: 'user2 Meier2',
                 maxItems: 3,
                 isSuggestion: false

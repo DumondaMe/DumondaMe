@@ -79,7 +79,7 @@ describe('Integration Tests for getting link page detail', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Link'
                 }, requestAgent);
@@ -124,7 +124,7 @@ describe('Integration Tests for getting link page detail', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '1',
                     label: 'Link'
                 }, requestAgent);

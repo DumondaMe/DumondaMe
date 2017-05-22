@@ -105,7 +105,7 @@ describe('Integration Tests for getting page comments', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/comments', {
+                    return requestHandler.get('/api/page/comments', {
                         skip: '0',
                         maxItems: 10,
                         onlyContacts: true,
@@ -195,7 +195,7 @@ describe('Integration Tests for getting page comments', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/comments', {
+                    return requestHandler.get('/api/page/comments', {
                         skip: '0',
                         maxItems: 10,
                         onlyContacts: false,

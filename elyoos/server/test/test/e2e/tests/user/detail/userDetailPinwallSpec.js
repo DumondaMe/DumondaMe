@@ -62,7 +62,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -145,7 +145,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminNewest'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminNewest'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -228,7 +228,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -300,7 +300,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -318,7 +318,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -333,7 +333,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -348,7 +348,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -364,7 +364,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -380,7 +380,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -396,7 +396,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -412,7 +412,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '2', maxItems: 30, skip: 0, type: 'adminPopular'}, agent);
             }).then(function (res) {
                 res.status.should.equal(200);
 
@@ -425,7 +425,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser).then(function (agent) {
-                return requestHandler.getWithData('/api/user/detail/pinwall', {userId: '1', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
+                return requestHandler.get('/api/user/detail/pinwall', {userId: '1', maxItems: 30, skip: 0, type: 'recommendation'}, agent);
             }).then(function (res) {
                 res.status.should.equal(400);
             });

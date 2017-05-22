@@ -89,7 +89,7 @@ describe('Integration Tests for getting the overview of contact recommended page
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationAllContact', {
+                    return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);
@@ -166,7 +166,7 @@ describe('Integration Tests for getting the overview of contact recommended page
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationAllContact', {
+                    return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50,
                         filters: 'Book'
@@ -217,7 +217,7 @@ describe('Integration Tests for getting the overview of contact recommended page
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationAllContact', {
+                    return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);
@@ -284,7 +284,7 @@ describe('Integration Tests for getting the overview of contact recommended page
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/recommendationAllContact', {
+                    return requestHandler.get('/api/page/recommendationAllContact', {
                         skip: '0',
                         maxItems: 50
                     }, requestAgent);

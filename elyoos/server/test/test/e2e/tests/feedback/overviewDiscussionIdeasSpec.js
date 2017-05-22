@@ -46,7 +46,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewDiscussionIdea',
+            return requestHandler.get('/api/feedback/overviewDiscussionIdea',
                 {maxItems: 10, skip: 0, status: 'open', discussionId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -117,7 +117,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewDiscussionIdea',
+            return requestHandler.get('/api/feedback/overviewDiscussionIdea',
                 {maxItems: 10, skip: 0, status: 'open', discussionId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);

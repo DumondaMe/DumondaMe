@@ -48,19 +48,14 @@ module.exports = {
         req.set('X-HTTP-Method-Override', 'DELETE');
         return req.send(data);
     },
-    get: function (api) {
+    get: function (api, data) {
         let req = request(app).get(api);
         if (cookies) {
             req.cookies = cookies;
         }
-        return req.send();
-    },
-    getWithData: function (api, data) {
-        let req = request(app).get(api);
-        if (cookies) {
-            req.cookies = cookies;
+        if(data) {
+            req.query(data);
         }
-        req.query(data);
         return req.send();
     }
 };

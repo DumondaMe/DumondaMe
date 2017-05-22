@@ -64,7 +64,7 @@ describe('Integration Tests for searching pages administrated by the user', func
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchAdministration', {
+                    return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
@@ -117,7 +117,7 @@ describe('Integration Tests for searching pages administrated by the user', func
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchAdministration', {
+                    return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page',
@@ -151,7 +151,7 @@ describe('Integration Tests for searching pages administrated by the user', func
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchAdministration', {
+                    return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page1Title',
@@ -191,7 +191,7 @@ describe('Integration Tests for searching pages administrated by the user', func
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/user/page/searchAdministration', {
+                    return requestHandler.get('/api/user/page/searchAdministration', {
                         skip: '0',
                         maxItems: 50,
                         search: 'page3Title',

@@ -76,7 +76,7 @@ describe('Integration Tests for getting book page detail', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Book'
                 }, requestAgent);
@@ -135,7 +135,7 @@ describe('Integration Tests for getting book page detail', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
+                return requestHandler.get('/api/page/detail', {
                     pageId: '0',
                     label: 'Book'
                 }, requestAgent);

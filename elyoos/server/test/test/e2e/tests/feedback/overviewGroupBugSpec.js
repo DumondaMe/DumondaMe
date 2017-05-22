@@ -26,7 +26,7 @@ describe('Integration Tests for getting bugs overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.feedbacks.length.should.equals(0);
@@ -56,7 +56,7 @@ describe('Integration Tests for getting bugs overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Bug'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
@@ -126,7 +126,7 @@ describe('Integration Tests for getting bugs overview', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Bug'}, requestAgent);
+            return requestHandler.get('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Bug'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
