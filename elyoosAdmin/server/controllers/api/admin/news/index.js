@@ -44,7 +44,7 @@ module.exports = function (router) {
                     logger.info(`Admin creates news`, req);
                     return createNews.create(request.create);
                 } else if (request.edit) {
-                    logger.info(`Admin edites news`, req);
+                    logger.info(`Admin edits news`, req);
                     //return feedbackComment.create(req.user.id, request, req);
                 }
                 logger.error(`Invalid request`);
