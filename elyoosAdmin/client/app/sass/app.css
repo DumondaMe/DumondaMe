@@ -357,10 +357,11 @@
     margin-bottom: 4px;
     font-size: 16px;
     font-weight: 500;
+    line-height: 30px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   #ely-home .ely-home-overview-card-element {
     max-width: 350px;
-    height: 250px;
+    height: 350px;
     background-color: white; }
 
 #ely-home-overview-feedback {
@@ -412,15 +413,26 @@
             text-overflow: ellipsis; }
 
 .ely-home-overview-card-element #ely-home-overview-feedback .ely-content-container {
-  height: 190px; }
+  height: 290px; }
   .ely-home-overview-card-element #ely-home-overview-feedback .ely-content-container .feedback-container {
-    height: 155px; }
+    height: 245px; }
+
+#ely-home-overview-news {
+  height: 100%; }
+  #ely-home-overview-news .setting {
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    height: 24px; }
+  #ely-home-overview-news .ely-content-container {
+    padding: 8px 0;
+    height: 190px; }
 
 #ely-home-overview-registered-user {
   height: 100%; }
   #ely-home-overview-registered-user .ely-content-container {
     padding: 8px 0;
-    height: 190px; }
+    height: 290px; }
     #ely-home-overview-registered-user .ely-content-container .overview-info {
       padding: 0 8px;
       font-size: 14px;
@@ -429,7 +441,7 @@
         font-weight: 500; }
     #ely-home-overview-registered-user .ely-content-container .registered-user-container {
       padding: 12px 8px 8px 8px;
-      height: 155px;
+      height: 245px;
       overflow-y: scroll; }
       #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user {
         margin-bottom: 4px; }

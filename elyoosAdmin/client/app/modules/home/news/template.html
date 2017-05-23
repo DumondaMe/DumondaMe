@@ -1,0 +1,27 @@
+<md-card class="ely-home-overview-element ely-home-overview-card-element">
+    <div id="ely-home-overview-news">
+        <div class="ely-home-title" layout="row">
+            <span>News</span>
+            <span flex></span>
+            <div>
+                <md-menu md-position-mode="target-right target">
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings News">
+                        <md-icon md-svg-icon="icons:moreVert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.createNews()">News erstellen</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+        <div class="ely-content-container">
+            <div class="news-container" ely-infinite-scroll="ctrl.nextNews">
+                <div ng-repeat="news in ctrl.overviewNews.news" class="news" layout="row">
+                    {{news.text}}
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

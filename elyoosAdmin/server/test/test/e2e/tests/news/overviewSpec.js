@@ -27,7 +27,7 @@ describe('Integration Tests to get an overview of the news', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function () {
-            return requestHandler.get('/api/news/overview', {skip: 0, maxItems: 10});
+            return requestHandler.get('/api/news', {skip: 0, maxItems: 10});
         }).then(function (res) {
             res.status.should.equal(200);
 

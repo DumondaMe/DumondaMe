@@ -12,6 +12,7 @@ describe('Integration Tests edit news', function () {
     let startTime;
 
     beforeEach(function () {
+        stubEmailQueue.createImmediatelyJob.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(4, true);
     });
