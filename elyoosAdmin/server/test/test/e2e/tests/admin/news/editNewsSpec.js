@@ -7,7 +7,7 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 let db = require('elyoos-server-test-util').db;
 let moment = require('moment');
 
-describe('Integration Tests creating news', function () {
+describe('Integration Tests edit news', function () {
 
     let startTime;
 
@@ -21,26 +21,26 @@ describe('Integration Tests creating news', function () {
     });
 
 
-    it('Create news', function () {
+    it('Edit news', function () {
+
+        dbDsl.createNews('1', {created: 500, modified: 602});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function () {
-            return requestHandler.post('/api/admin/news', {title: 'title', text: 'description'});
+            return requestHandler.put('/api/admin/news', {newsId: '1', title: 'title', text: 'description'});
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.created.should.be.at.least(startTime);
+            res.body.modified.should.be.at.least(startTime);
 
-            stubEmailQueue.createImmediatelyJob.calledWith("sendNews", {
-                newsId: res.body.newsId
-            }).should.be.true;
+            stubEmailQueue.createImmediatelyJob.notCalled.should.be.true;
 
-            return db.cypher().match(`(news:News {newsId: {newsId}})`)
-                .return('news')
-                .end({newsId: res.body.newsId}).send();
+            return db.cypher().match(`(news:News {newsId: '1'})`)
+                .return('news').end().send();
         }).then(function (news) {
             news.length.should.equals(1);
-            news[0].news.created.should.be.at.least(startTime);
+            news[0].news.modified.should.be.at.least(startTime);
+            news[0].news.created.should.equals(500);
             news[0].news.title.should.equals("title");
             news[0].news.text.should.equals("description");
         });
