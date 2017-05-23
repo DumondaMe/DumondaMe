@@ -40,6 +40,19 @@ module.exports = {
         }
         return req.send(data);
     },
+
+    put: function (api, data, pathToFile) {
+        let req = request(app).put(api);
+        if (cookies) {
+            req.cookies = cookies;
+        }
+        if (pathToFile) {
+            req.attach('file', pathToFile);
+            req.field('model', JSON.stringify(data));
+            return req.send();
+        }
+        return req.send(data);
+    },
     del: function (api, data) {
         let req = request(app).post(api);
         if (cookies) {
