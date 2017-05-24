@@ -24,4 +24,17 @@ module.exports = ['OverviewNews', 'dateFormatter', 'ScrollRequest', 'OverviewNew
 
             });
         };
+
+        ctrl.editNews = function (news) {
+            ElyModal.show('EditNewsCtrl', 'app/modules/home/news/modal/editNews/template.html',
+                {title: news.title, modified: news.modified, text: news.text, newsId: news.newsId}).then(function (resp) {
+                ctrl.overviewNews.news.forEach(function (newsElement) {
+                    if (newsElement.newsId === resp.newsId) {
+                        newsElement.title = resp.title;
+                        newsElement.text = resp.text;
+                        newsElement.modified = resp.modified;
+                    }
+                });
+            });
+        };
     }];

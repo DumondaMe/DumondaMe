@@ -8,8 +8,35 @@
   }
   .ely-content-container {
     padding: 8px 0;
-    height: 190px;
+    height: 245px;
 
+    .news {
+      margin-bottom: 18px;
+      .news-content {
+        cursor: pointer;
+        padding: 0 8px;
+        .title {
+          font-size: 14px;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .created {
+          margin-top: 4px;
+          font-size: 12px;
+        }
+        .text {
+          margin-top: 6px;
+          font-size: 14px;
+          line-height: 15px;
+          font-weight: 300;
+          color: $secondary-text;
+          height: 45px;
+          overflow-y: hidden;
+        }
+      }
+    }
   }
 }
 

@@ -1,0 +1,35 @@
+<md-dialog id="ely-edit-news-dialog">
+    <form name="ctrl.newsForm" ng-cloak>
+        <div class="md-title ely-dialog-title">News bearbeiten</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <div class="modified">Zu letzt verändert am {{ctrl.getFormattedDate(ctrl.modified, 'L, H:mm')}}</div>
+                <md-input-container class="input-container">
+                    <label>Title</label>
+                    <input name="title" ng-model="ctrl.title" md-maxlength="160" ng-change="ctrl.checkIsEqual()"
+                           ng-disabled="ctrl.uploadRunning || ctrl.showConfirmation" required/>
+                    <div ng-messages="ctrl.newsForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="input-container">
+                    <label>Text</label>
+                    <textarea name="text" ng-model="ctrl.text" md-maxlength="5000" ng-change="ctrl.checkIsEqual()"
+                              ng-disabled="ctrl.uploadRunning || ctrl.showConfirmation" max-rows="10" required></textarea>
+                    <div ng-messages="ctrl.newsForm.text.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.abort()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-disabled="ctrl.isEqual || ctrl.newsForm.$invalid"
+                       ng-click="ctrl.updateNews()">Bearbeiten
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

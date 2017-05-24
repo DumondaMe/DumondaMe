@@ -18,8 +18,12 @@
         </div>
         <div class="ely-content-container">
             <div class="news-container" ely-infinite-scroll="ctrl.nextNews">
-                <div ng-repeat="news in ctrl.overviewNews.news" class="news" layout="row">
-                    {{news.text}}
+                <div ng-repeat="news in ctrl.overviewNews.news" class="news" layout="row" ng-click="ctrl.editNews(news)">
+                    <div class="news-content">
+                        <div class="title">{{news.title}}</div>
+                        <div class="created">{{ctrl.getFormattedDate(news.created, 'L, H:mm')}}</div>
+                        <div class="text">{{news.text}}</div>
+                    </div>
                 </div>
             </div>
         </div>

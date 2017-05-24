@@ -353,6 +353,15 @@
   #ely-create-news-dialog .input-container {
     width: 100%; }
 
+#ely-edit-news-dialog {
+  min-width: 60%; }
+  #ely-edit-news-dialog .modified {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 12px; }
+  #ely-edit-news-dialog .input-container {
+    width: 100%; }
+
 #ely-home {
   position: relative;
   height: 100%; }
@@ -436,7 +445,29 @@
     height: 24px; }
   #ely-home-overview-news .ely-content-container {
     padding: 8px 0;
-    height: 190px; }
+    height: 245px; }
+    #ely-home-overview-news .ely-content-container .news {
+      margin-bottom: 18px; }
+      #ely-home-overview-news .ely-content-container .news .news-content {
+        cursor: pointer;
+        padding: 0 8px; }
+        #ely-home-overview-news .ely-content-container .news .news-content .title {
+          font-size: 14px;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+        #ely-home-overview-news .ely-content-container .news .news-content .created {
+          margin-top: 4px;
+          font-size: 12px; }
+        #ely-home-overview-news .ely-content-container .news .news-content .text {
+          margin-top: 6px;
+          font-size: 14px;
+          line-height: 15px;
+          font-weight: 300;
+          color: rgba(0, 0, 0, 0.54);
+          height: 45px;
+          overflow-y: hidden; }
 
 #ely-home-overview-registered-user {
   height: 100%; }
