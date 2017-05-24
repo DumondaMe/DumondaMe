@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = ['OverviewNews', 'dateFormatter', 'ScrollRequest', 'OverviewNewsScrollRequestResponseHandler',
-    function (OverviewNews, dateFormatter, ScrollRequest, OverviewNewsScrollRequestResponseHandler) {
+    'ElyModal',
+    function (OverviewNews, dateFormatter, ScrollRequest, OverviewNewsScrollRequestResponseHandler, ElyModal) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.getTime;
@@ -16,4 +17,11 @@ module.exports = ['OverviewNews', 'dateFormatter', 'ScrollRequest', 'OverviewNew
             });
         };
         ctrl.nextNews();
+
+        ctrl.createNews = function () {
+            ElyModal.show('CreateNewsCtrl', 'app/modules/home/news/modal/createNews/template.html',
+                {}).then(function (resp) {
+
+            });
+        };
     }];

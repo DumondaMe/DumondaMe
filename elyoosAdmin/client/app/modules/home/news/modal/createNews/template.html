@@ -1,0 +1,41 @@
+<md-dialog id="ely-create-news-dialog">
+    <form name="ctrl.newsForm" ng-cloak>
+        <div class="md-title ely-dialog-title">News erstellen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <div ng-show="ctrl.showConfirmation" class="info-confirmation">Möchtest Du diese News wirklich versenden?</div>
+                <md-input-container class="input-container">
+                    <label>Title</label>
+                    <input name="title" ng-model="ctrl.title" md-maxlength="160"
+                           ng-disabled="ctrl.uploadRunning || ctrl.showConfirmation" required/>
+                    <div ng-messages="ctrl.newsForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="input-container">
+                    <label>Text</label>
+                    <textarea name="text" ng-model="ctrl.text" md-maxlength="5000"
+                              ng-disabled="ctrl.uploadRunning || ctrl.showConfirmation" max-rows="10" required></textarea>
+                    <div ng-messages="ctrl.newsForm.text.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.abort()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-show="!ctrl.showConfirmation" ng-disabled="ctrl.newsForm.$invalid"
+                       ng-click="ctrl.showConfirmation = true">Weiter
+            </md-button>
+            <md-button class="md-primary" ng-show="ctrl.showConfirmation"
+                       ng-click="ctrl.showConfirmation = false">Bearbeiten
+            </md-button>
+            <md-button class="md-primary md-raised" ng-show="ctrl.showConfirmation"
+                       ng-click="ctrl.sendNews()">Senden
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

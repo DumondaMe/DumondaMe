@@ -343,6 +343,16 @@
         border-radius: 4px;
         background-color: #a94442; }
 
+#ely-create-news-dialog {
+  min-width: 60%; }
+  #ely-create-news-dialog .info-confirmation {
+    font-size: 16px;
+    font-weight: 500;
+    color: #EF6C00;
+    margin-bottom: 12px; }
+  #ely-create-news-dialog .input-container {
+    width: 100%; }
+
 #ely-home {
   position: relative;
   height: 100%; }
