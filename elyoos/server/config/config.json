@@ -23,10 +23,12 @@
       "enabled": true
     },
     "static": {
+      "route": "app",
       "priority": 20,
       "module": {
+        "name": "serve-static",
         "arguments": [
-          "path:./../client"
+          "path:./../client/app"
         ]
       }
     },

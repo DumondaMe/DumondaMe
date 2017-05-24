@@ -10,8 +10,17 @@ let cdn = require('./cdnConfig');
 let email = require('./eMail/eMailQueue');
 let version = require('./version');
 
-module.exports = function (app) {
+function setStaticHeaders(config) {
+    let staticMiddleware = config.get('middleware:static');
+    staticMiddleware.module.arguments.push({
+        setHeaders: function (res) {
+            res.setHeader('X-Content-Type-Options', 'nosniff');
+        }
+    });
+}
 
+
+module.exports = function (app) {
 
     let env = process.env.NODE_ENV || 'development';
     app.on('middleware:before:json', function () {
@@ -79,6 +88,7 @@ module.exports = function (app) {
             res.send("User-agent: *\nDisallow: /");
         });
     }
+
     return {
         onconfig: function (config, next) {
 
@@ -89,6 +99,9 @@ module.exports = function (app) {
             cdn.config(cdnConfig);
             db.config(dbConfig);
             email.config(emailConfig);
+
+            setStaticHeaders(config);
+
             next(null, config);
         }
     };

@@ -23,9 +23,13 @@
       "enabled": true
     },
     "static": {
+      "route": "/app",
       "priority": 20,
       "module": {
-        "arguments": ["path:./../client"]
+        "name": "serve-static",
+        "arguments": [
+          "path:./../client/app"
+        ]
       }
     },
     "json": {
