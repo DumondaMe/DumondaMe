@@ -28,7 +28,7 @@ let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let port = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
-    app.enable('trust proxy');
+    app.set('trust proxy', 1);
     logger.info('Enabled trust proxy');
 }
 

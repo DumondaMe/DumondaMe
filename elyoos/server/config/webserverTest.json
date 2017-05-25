@@ -80,6 +80,7 @@
             "cookie": {
               "path": "/",
               "httpOnly": true,
+              "secure": true,
               "maxAge": 43200000
             },
             "rolling": true,
