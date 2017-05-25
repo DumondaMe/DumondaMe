@@ -87,6 +87,11 @@ module.exports = function (app) {
             res.type('text/plain');
             res.send("User-agent: *\nDisallow: /");
         });
+    } else {
+        app.get('/robots.txt', function (req, res) {
+            res.type('text/plain');
+            res.send("User-agent: *\nDisallow: ");
+        });
     }
 
     return {
