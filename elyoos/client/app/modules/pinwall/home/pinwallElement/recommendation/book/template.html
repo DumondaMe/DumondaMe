@@ -4,7 +4,7 @@
             <img ng-src="{{ctrl.element.previewUrl}}">
         </div>
         <div class="description-container" flex>
-            <div class="book-description" ui-sref="page.detail({label: 'Book', pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
+            <div class="book-rec-description" ui-sref="page.detail({label: 'Book', pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
             <div class="action-container">
                 <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
                                                          element="ctrl.element"></ely-pinwall-page-recommendation-actions>
