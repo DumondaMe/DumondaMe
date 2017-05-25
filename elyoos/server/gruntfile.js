@@ -1,5 +1,7 @@
 'use strict';
 
+var mozjpeg = require('imagemin-mozjpeg');
+
 module.exports = function (grunt) {
 
     require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
@@ -25,6 +27,16 @@ module.exports = function (grunt) {
                     nodeOptions: ['--preserve-symlinks']
                 },
                 src: ['test/**/*.js']
+            }
+        },
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,                  // Enable dynamic expansion
+                    cwd: '../client/app/img/',                   // Src matches are relative to this path
+                    src: ['**/*.{png,jpg}'],   // Actual patterns to match
+                    dest: '../client/app/img/dist/'                  // Destination path prefix
+                }]
             }
         },
         sonarRunner: {

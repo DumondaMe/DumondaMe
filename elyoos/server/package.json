@@ -61,10 +61,12 @@
     "sinon": "2.2.0",
     "jsonfile": "3.0.0",
     "matchdep": "1.0.1",
+    "imagemin-mozjpeg": "6.0.0",
     "grunt": "~0.4.5",
     "grunt-mocha-istanbul": "5.0.2",
     "grunt-env": "~0.4.4",
     "grunt-contrib-clean": "1.0.0",
-    "grunt-sonar-runner": "2.4.8"
+    "grunt-sonar-runner": "2.4.8",
+    "grunt-contrib-imagemin": "1.0.1"
   }
 }
