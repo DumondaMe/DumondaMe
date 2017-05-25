@@ -77,9 +77,11 @@
           {
             "key": "sessionElyoos",
             "secret": "23564153589Debd8",
+            "proxy": true,
             "cookie": {
               "path": "/",
               "httpOnly": true,
+              "secure": true,
               "maxAge": 15552000000 //6 Month
             },
             "rolling": true,

@@ -63,7 +63,16 @@ module.exports = function (app) {
 
     app.on('middleware:after:appsec', function () {
         if ('testing' !== env) {
-            app.use(csrf());
+            if ('development' === env || 'production' === env) {
+                app.use(csrf({
+                    cookie: {
+                        httpOnly: true,
+                        secure: true
+                    }
+                }));
+            } else {
+                app.use(csrf());
+            }
             app.use(function (req, res, next) {
                 res.cookie('XSRF-TOKEN', req.csrfToken());
                 next();
