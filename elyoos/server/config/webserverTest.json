@@ -77,6 +77,7 @@
           {
             "key": "sessionElyoosPreview",
             "secret": "23564153589Debd8",
+            "proxy": true,
             "cookie": {
               "path": "/",
               "httpOnly": true,
