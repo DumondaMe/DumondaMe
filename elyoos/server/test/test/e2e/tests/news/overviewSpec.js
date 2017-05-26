@@ -1,6 +1,5 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
@@ -25,8 +24,6 @@ describe('Integration Tests to get an overview of the news', function () {
         dbDsl.createNews('2', {created: 502, modified: 601, isSent: true});
         dbDsl.createNews('3', {created: 501, modified: 600});
         return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function () {
             return requestHandler.get('/api/news', {skip: 0, maxItems: 10});
         }).then(function (res) {
             res.status.should.equal(200);

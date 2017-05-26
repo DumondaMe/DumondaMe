@@ -19,7 +19,7 @@ let schemaGetNewsOverview = {
 
 module.exports = function (router) {
 
-    router.get('/', auth.isAuthenticated(), function (req, res) {
+    router.get('/', function (req, res) {
 
         return controllerErrors('Error occurs when getting news overview', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetNewsOverview, logger).then(function (request) {
