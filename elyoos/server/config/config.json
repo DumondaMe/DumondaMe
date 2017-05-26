@@ -106,7 +106,7 @@
               "policy": [
                 "font-src 'self' https://fonts.gstatic.com/",
                 "style-src 'self' https://fonts.googleapis.com/ 'unsafe-inline'",
-                "script-src 'self' https://ajax.googleapis.com/ 'unsafe-inline'"
+                "script-src 'self' https://ajax.googleapis.com/ https://www.google.com/ https://www.gstatic.com/ 'unsafe-inline'"
               ]
             },
             "xframe": "SAMEORIGIN",
