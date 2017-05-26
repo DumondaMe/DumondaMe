@@ -40,17 +40,17 @@ describe('Unit Test eMailService/jobs/sendNewsJob', function () {
             expect(sendEMail.callCount).to.equals(3);
 
             expect(sendEMail.withArgs('sendNews', {
-                    title: 'news1Title', text: 'news1Text',
+                    title: 'news1Title', text: 'news1Text', forename: 'user',
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user@irgendwo.ch`
                 },
                 'user@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
-                    title: 'news1Title', text: 'news1Text',
+                    title: 'news1Title', text: 'news1Text', forename: 'user',
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user2@irgendwo.ch`
                 },
                 'user2@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
-                    title: 'news1Title', text: 'news1Text',
+                    title: 'news1Title', text: 'news1Text', forename: 'user',
                     unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user3@irgendwo.ch`
                 },
                 'user3@irgendwo.ch').calledOnce).to.equal(true);

@@ -7,8 +7,9 @@ Error: File to import not found or unreadable: foundation-emails.
 1: @import 'settings';
 2: @import 'foundation-emails';
 3: 
-4: @import 'template/template';
-5: @import 'template/invitePerson';
+4: @import 'template/_template';
+5: @import 'template/_news';
+6: @import 'template/_invitePerson';
 
 Backtrace:
 app.scss:2
@@ -54,4 +55,4 @@ C:/Ruby21-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: foundation-emails.\A        Load paths:\A          \A         on line 2 of app.scss\A \A 1: @import 'settings';\A 2: @import 'foundation-emails';\A 3: \A 4: @import 'template/template';\A 5: @import 'template/invitePerson';"; }
+  content: "Error: File to import not found or unreadable: foundation-emails.\A        Load paths:\A          \A         on line 2 of app.scss\A \A 1: @import 'settings';\A 2: @import 'foundation-emails';\A 3: \A 4: @import 'template/_template';\A 5: @import 'template/_news';\A 6: @import 'template/_invitePerson';"; }
