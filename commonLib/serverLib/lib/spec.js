@@ -63,7 +63,7 @@ module.exports = function (app) {
 
     app.on('middleware:after:appsec', function () {
         if ('testing' !== env) {
-            if ('development' === env || 'production' === env) {
+            if ('production' === env) {
                 app.use(csrf({
                     cookie: {
                         httpOnly: true,
