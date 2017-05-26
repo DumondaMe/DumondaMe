@@ -1,6 +1,5 @@
 'use strict';
 
-let auth = require('elyoos-server-lib').auth;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let overview = requireModel('news/overview');
 let controllerErrors = require('elyoos-server-lib').controllerErrors;

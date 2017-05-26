@@ -100,6 +100,15 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
+        .state('public.news', {
+            url: '/news',
+            views: {
+                'content@': {
+                    template: '<ely-public-news></ely-public-news>'
+                }
+            },
+            isPublic: true
+        })
         .state('public.about', {
             url: '/about',
             views: {
