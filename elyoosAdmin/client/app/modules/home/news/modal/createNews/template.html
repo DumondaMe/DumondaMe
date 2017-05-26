@@ -26,7 +26,11 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.abort()">Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-show="!ctrl.showConfirmation" ng-disabled="ctrl.newsForm.$invalid"
+            <md-button class="md-primary md-raised" ng-show="!ctrl.showConfirmation"
+                       ng-click="ctrl.sendPreviewNews()">Preview Senden
+            </md-button>
+            <md-button class="md-primary md-raised" ng-show="!ctrl.showConfirmation"
+                       ng-disabled="ctrl.newsForm.$invalid || !ctrl.newPreviewSent"
                        ng-click="ctrl.showConfirmation = true">Weiter
             </md-button>
             <md-button class="md-primary" ng-show="ctrl.showConfirmation"

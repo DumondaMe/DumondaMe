@@ -6,6 +6,7 @@ let templatesDir = path.resolve(__dirname, 'templates');
 let preProcessingInvitePerson = require('./templates/invitePerson/preProcessing');
 let preProcessingFeedbackNewComment = require('./templates/feedbackNewComment/preProcessing');
 let preProcessingFeedbackStatusChanged = require('./templates/feedbackStatusChanged/preProcessing');
+let preProcessingNews = require('./templates/sendNews/preProcessing');
 let emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
@@ -39,7 +40,7 @@ let emailTemplates = {
     },
     sendNews: {
         template: new EmailTemplate(path.join(templatesDir, 'sendNews')),
-        subject: 'Elyoos News',
+        preProcessing: preProcessingNews.preProcessing,
         attachments: []
     }
 };

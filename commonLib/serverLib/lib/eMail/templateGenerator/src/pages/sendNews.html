@@ -1,19 +1,17 @@
 <container>
     <row>
         <div class="header-elyoos">
-            <div class="logo-description">Elyoos
+            <h1 class="logo-description">Elyoos
                 <span class="show-for-large logo-description-small">Das Netzwerk für einen sozialen Wandel</span>
-            </div>
+            </h1>
         </div>
     </row>
     <spacer size="30"></spacer>
     <row>
         <columns small="12">
-            <h2>{{{{raw}}}}{{title}}{{{{/raw}}}}</h2>
-
-            <h4 class="hello-news-user-title">Hallo, {{{{raw}}}}{{forename}}{{{{/raw}}}}</h4>
-
-            <p class="news-text">{{{{raw}}}}{{text}}{{{{/raw}}}}</p>
+            <p class="hello-news-user-title">Hallo {{{{raw}}}}{{forename}}{{{{/raw}}}}</p>
+            <spacer size="15"></spacer>
+            <p class="news-text">{{{{raw}}}}{{text|safe}}{{{{/raw}}}}</p>
             <spacer size="30"></spacer>
         </columns>
     </row>
