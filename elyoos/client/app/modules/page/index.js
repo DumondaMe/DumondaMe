@@ -2,8 +2,6 @@
 
 var app = angular.module('elyoosApp');
 
-app.service('PageRecommendationAllContact', require('./services/pageRecommendationAllContact'));
-app.service('PageRecommendationOtherUser', require('./services/pageRecommendationOtherUser'));
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('UserPage', require('./services/userPage'));
 app.service('SearchPage', require('./services/searchPage'));
