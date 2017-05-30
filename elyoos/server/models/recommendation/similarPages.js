@@ -1,28 +1,40 @@
 'use strict';
 
 let db = requireDb();
+let pagePreview = require('../page/pagePreview');
 let _ = require('lodash');
 
 let parseResult = function (queryResult, queryResult2) {
-    let combined = _.concat(queryResult, queryResult2), result = [];
-    combined.forEach(function (page) {
-        let similarPage = {};
-        similarPage.pageId = page.similarPage.pageId;
-        similarPage.label = page.similarPage.label;
-        result.push(similarPage);
-    });
-    return {pages: result};
+    let combined = _.concat(queryResult, queryResult2);
+    pagePreview.addRecommendation(combined);
+    pagePreview.addPageUrl(combined);
+    return {pages: combined};
 };
 
+/**
+ * Search for the most popular pages which have no recommendation connection to the basis page.
+ * @param userId
+ * @param pageId
+ * @param skip
+ * @param maxItems
+ */
 let getMostPopularPagesQuery = function (userId, pageId, skip, maxItems) {
     return db.cypher().match(`(page:Page {pageId: {pageId}})`)
         .optionalMatch(`(similarPage:Page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(user:User)`)
-        .where(`user.userId <> {userId} AND similarPage.pageId <> page.pageId AND NOT
+        .where(`user.userId <> {userId} AND similarPage.pageId <> page.pageId AND 
+                ANY(topic IN page.topic WHERE topic IN similarPage.topic) AND
+                ANY(language IN page.language WHERE language IN similarPage.language) AND NOT
+               (similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND NOT 
                (similarPage)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}}) AND NOT
                (similarPage)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User)
                 -[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(page)`)
-        .return(`similarPage, SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations,
-                 COUNT(similarPage)`)
+        .with(`similarPage, COUNT(similarPage) AS countSimilarPage`)
+        .where(`countSimilarPage > 0`)
+        .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
+                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, similarPage.topic AS topic,
+                 similarPage.hostname AS hostname, similarPage.heightPreviewImage AS heightPreviewImage,
+                 EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
         .orderBy("numberOfRecommendations DESC")
         .skip("{skip}")
         .limit("{maxItems}")
@@ -42,14 +54,16 @@ let getSimilarPagesRelationsQuery = function () {
         .match(`(page:Page {pageId: {pageId}})`)
         .optionalMatch(`(page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(user:User)`)
         .where(`user.userId <> {userId}`)
-        .with(`user, EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isContact,
+        .with(`user, page, EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isContact,
                SIZE((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page)
                <-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS numberOfSameRecommendation`)
         .orderBy(`isContact DESC, numberOfSameRecommendation DESC`)
         .where(`numberOfSameRecommendation > 0`)
         .match(`(user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage:Page)`)
-        .where(`similarPage.pageId <> {pageId} AND NOT 
-                (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)`)
+        .where(`similarPage.pageId <> {pageId} AND ANY(topic IN page.topic WHERE topic IN similarPage.topic) AND
+                ANY(language IN page.language WHERE language IN similarPage.language) AND NOT 
+                (similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND NOT 
+                (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)`);
 };
 
 let getSimilarPages = function (userId, params) {
@@ -64,7 +78,11 @@ let getSimilarPages = function (userId, params) {
         .return(`COUNT(*) AS totalNumberOfPages`).end(paramsCypher).getCommand());
 
     return getSimilarPagesRelationsQuery()
-        .return(`similarPage, SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
+        .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
+                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, similarPage.topic AS topic,
+                 similarPage.hostname AS hostname, similarPage.heightPreviewImage AS heightPreviewImage,
+                 EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
         .orderBy("isContact DESC, numberOfSameRecommendation DESC, numberOfRecommendations DESC")
         .skip("{skip}")
         .limit("{maxItems}")
