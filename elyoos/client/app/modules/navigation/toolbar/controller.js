@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo', 'UnreadMessagesService', 'Auth',
-    'ElyModal',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService, Auth, ElyModal) {
-        var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$window', 'ToolbarService', 'userInfo', 'UnreadMessagesService', 'Auth',
+    'ElyModal', '$state',
+    function ($rootScope, $mdSidenav, loginStateHandler, $window, ToolbarService, userInfo, UnreadMessagesService, Auth, ElyModal, $state) {
+        var ctrl = this;
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
         UnreadMessagesService.register('toolbar', ctrl);
@@ -37,13 +37,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         };
 
         ctrl.navigateBack = function () {
-            if (backNavToState && previousState) {
-                $state.go(previousState, previousParams);
-            } else if (defaultBackNavState) {
-                $state.go(defaultBackNavState);
-            } else {
-                $state.go('home');
-            }
+            $window.history.back();
         };
 
         ctrl.modificationChanged = function (modification) {
@@ -76,18 +70,11 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             ctrl.isEnabled = false;
         };
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             ctrl.hasSearch = false;
             ctrl.hasBackNav = true;
-            backNavToState = false;
-            defaultBackNavState = null;
             ctrl.searchExpanded = false;
             ctrl.title = '';
-
-            if (fromState.name !== 'checkLoginState' && !fromState.abstract) {
-                previousState = fromState;
-                previousParams = fromParams;
-            }
 
             if (toState.hasOwnProperty('data')) {
                 ctrl.hasSearch = toState.data.hasSearch;
@@ -95,8 +82,6 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
                 if (toState.data.hasOwnProperty('hasBackNav')) {
                     ctrl.hasBackNav = toState.data.hasBackNav;
                 }
-                backNavToState = toState.data.backNavToState;
-                defaultBackNavState = toState.data.defaultBackNavState;
             }
         });
     }];
