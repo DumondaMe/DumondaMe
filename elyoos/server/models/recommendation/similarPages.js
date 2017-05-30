@@ -31,8 +31,9 @@ let getMostPopularPagesQuery = function (userId, pageId, skip, maxItems) {
         .with(`similarPage, COUNT(similarPage) AS countSimilarPage`)
         .where(`countSimilarPage > 0`)
         .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
-                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, similarPage.topic AS topic,
-                 similarPage.hostname AS hostname, similarPage.heightPreviewImage AS heightPreviewImage,
+                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, 
+                 similarPage.topic AS topic, similarPage.hostname AS hostname, 
+                 similarPage.heightPreviewImage AS heightPreviewImage, similarPage.linkEmbed AS linkEmbed, 
                  EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
         .orderBy("numberOfRecommendations DESC")
@@ -79,8 +80,9 @@ let getSimilarPages = function (userId, params) {
 
     return getSimilarPagesRelationsQuery()
         .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
-                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, similarPage.topic AS topic,
-                 similarPage.hostname AS hostname, similarPage.heightPreviewImage AS heightPreviewImage,
+                 similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, 
+                 similarPage.topic AS topic, similarPage.hostname AS hostname, 
+                 similarPage.heightPreviewImage AS heightPreviewImage, similarPage.linkEmbed AS linkEmbed, 
                  EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
         .orderBy("isContact DESC, numberOfSameRecommendation DESC, numberOfRecommendations DESC")

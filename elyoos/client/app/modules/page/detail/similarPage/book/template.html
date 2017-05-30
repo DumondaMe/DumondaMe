@@ -1,0 +1,18 @@
+<div class="ely-similar-page-book" layout="row">
+    <div class="book-image" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
+        <img ng-src="{{ctrl.page.url}}"/>
+    </div>
+    <div class="page-content-container">
+        <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>
+        <ely-topics-color class="topics" is-text-expanded="true" topics="ctrl.page.topic"></ely-topics-color>
+        <div class="description" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
+            {{ctrl.page.description}}
+        </div>
+        <div>
+            <ely-page-detail-similar-page-recommendation
+                    number-of-recommendations="ctrl.page.recommendation.summary.numberOfRecommendations"
+                    page-id="ctrl.page.pageId">
+            </ely-page-detail-similar-page-recommendation>
+        </div>
+    </div>
+</div>

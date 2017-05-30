@@ -1,0 +1,16 @@
+<div class="ely-similar-page-youtube" layout="row">
+    <div class="youtube-image" flex="none">
+        <img ng-src="{{ctrl.getYoutubeImage(ctrl.page.linkEmbed)}}"/>
+    </div>
+    <div class="page-content-container" flex>
+        <div class="title">{{ctrl.page.title}}</div>
+        <ely-topics-color class="topics" is-text-expanded="true" topics="ctrl.page.topic">
+        </ely-topics-color>
+        <div class="description">{{ctrl.page.description}}</div>
+        <div>
+            <ely-page-detail-similar-page-recommendation
+                    number-of-recommendations="ctrl.page.recommendation.summary.numberOfRecommendations">
+            </ely-page-detail-similar-page-recommendation>
+        </div>
+    </div>
+</div>

@@ -91,6 +91,7 @@ describe('Integration Tests for getting similar pages for a page', function () {
                 res.body.pages[0].title.should.equals("page8Title");
                 res.body.pages[0].description.should.equals("page8Description");
                 res.body.pages[0].link.should.equals("https://www.youtube.com/watch?v=hTarMdJub0M");
+                res.body.pages[0].linkEmbed.should.equals("https://www.youtube.com/embed/hTarMdJub0M");
                 res.body.pages[0].topic.length.should.equals(2);
                 res.body.pages[0].topic[0].should.equals('health');
                 res.body.pages[0].topic[1].should.equals('personalDevelopment');

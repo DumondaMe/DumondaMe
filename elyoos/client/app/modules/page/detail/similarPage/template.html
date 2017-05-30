@@ -1,0 +1,7 @@
+<div id="ely-similar-page">
+    <div class="page-section-title">Könnte dir auch gefallen</div>
+    <div ng-repeat="similarPage in ctrl.similarPages.pages" class="ely-similar-page-element">
+        <ely-page-detail-similar-page-book page="similarPage" ng-if="similarPage.label === 'Book'"></ely-page-detail-similar-page-book>
+        <ely-page-detail-similar-page-youtube page="similarPage" ng-if="similarPage.label === 'Youtube'"></ely-page-detail-similar-page-youtube>
+    </div>
+</div>

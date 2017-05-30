@@ -1,0 +1,81 @@
+#ely-similar-page {
+  padding: 12px;
+  border-top: 1px solid $divider;
+  .ely-similar-page-element {
+    margin-bottom: 22px;
+    height: 150px;
+    .page-content-container {
+      height: 150px;
+      position: relative;
+      .title {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .topics {
+        margin-bottom: 8px;
+      }
+      .description {
+        cursor: pointer;
+        font-size: 14px;
+        color: $secondary-text;
+        line-height: 16px;
+        height: 64px;
+        overflow-y: hidden;
+      }
+      .recommendation {
+        position: absolute;
+        bottom: 0;
+        .page-action.md-fab.md-mini {
+          height: 28px;
+          width: 28px;
+          line-height: 28px;
+          min-height: 0;
+          margin: 0;
+          .action-icon {
+            height: 16px;
+            width: 16px;
+            min-height: 16px;
+            min-width: 16px;
+          }
+        }
+        .upload-recommendation {
+          top: 6px;
+          left: 5px;
+          margin-right: 12px;
+        }
+        .number-container {
+          margin-left: 8px;
+          height: 28px;
+          .number {
+            color: $primary-color;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: 500;
+            vertical-align: middle;
+            margin-right: 2px;
+          }
+          .description {
+            color: $primary-text;
+            line-height: 28px;
+            font-size: 14px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+#ely-page-detail {
+  #ely-similar-page {
+    .page-section-title {
+      margin-bottom: 24px;
+    }
+  }
+}
