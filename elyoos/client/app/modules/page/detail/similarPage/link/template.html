@@ -1,6 +1,7 @@
-<div class="ely-similar-page-book" layout="row">
-    <div class="book-image" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})" flex="none">
-        <img ng-src="{{ctrl.page.url}}"/>
+<div class="ely-similar-page-link" layout="row">
+    <div class="link-image" ng-if="ctrl.page.imageUrl" flex="none"
+         ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
+        <img ng-src="{{ctrl.page.imageUrl}}"/>
     </div>
     <div class="page-content-container" flex="grow">
         <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>

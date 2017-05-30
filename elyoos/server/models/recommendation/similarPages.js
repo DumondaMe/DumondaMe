@@ -4,7 +4,7 @@ let db = requireDb();
 let pagePreview = require('../page/pagePreview');
 let _ = require('lodash');
 
-let parseResult = function (queryResult, queryResult2) {
+let parseResult = function (queryResult, queryResult2 = []) {
     let combined = _.concat(queryResult, queryResult2);
     pagePreview.addRecommendation(combined);
     pagePreview.addPageUrl(combined);
@@ -32,7 +32,7 @@ let getMostPopularPagesQuery = function (userId, pageId, skip, maxItems) {
         .where(`countSimilarPage > 0`)
         .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
                  similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, 
-                 similarPage.topic AS topic, similarPage.hostname AS hostname, 
+                 similarPage.topic AS topic, similarPage.hostname AS hostname, similarPage.text AS text, 
                  similarPage.heightPreviewImage AS heightPreviewImage, similarPage.linkEmbed AS linkEmbed, 
                  EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
@@ -81,7 +81,7 @@ let getSimilarPages = function (userId, params) {
     return getSimilarPagesRelationsQuery()
         .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
                  similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, 
-                 similarPage.topic AS topic, similarPage.hostname AS hostname, 
+                 similarPage.topic AS topic, similarPage.hostname AS hostname, similarPage.text AS text, 
                  similarPage.heightPreviewImage AS heightPreviewImage, similarPage.linkEmbed AS linkEmbed, 
                  EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)

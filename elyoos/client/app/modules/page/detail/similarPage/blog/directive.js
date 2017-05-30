@@ -12,8 +12,8 @@ module.exports = {
             bindToController: {
                 page: '='
             },
-            templateUrl: 'app/modules/page/detail/similarPage/book/template.html'
+            templateUrl: 'app/modules/page/detail/similarPage/blog/template.html'
         };
     }],
-    name: 'elyPageDetailSimilarPageBook'
+    name: 'elyPageDetailSimilarPageBlog'
 };
