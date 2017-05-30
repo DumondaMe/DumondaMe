@@ -54,7 +54,11 @@ $search-boarder-radius: 5px;
           md-autocomplete-wrap {
             box-shadow: none;
             width: 100%;
+            height: 100%;
             border-radius: $search-boarder-radius;
+            @media screen and (min-width: $gt-sm) {
+              height: 58px;
+            }
             #toolbar-search-input {
               border-radius: $search-boarder-radius;
               background-color: $primary-color-light;

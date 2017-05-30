@@ -9,6 +9,9 @@
     width: 38px;
     border-radius: 50%;
     overflow: hidden;
+    @media screen and (min-width: $gt-sm) {
+      margin-right: 16px;
+    }
     img {
       position: absolute;
       left: 50%;

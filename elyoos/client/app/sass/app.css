@@ -2170,7 +2170,11 @@
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
             box-shadow: none;
             width: 100%;
+            height: 100%;
             border-radius: 5px; }
+            @media screen and (min-width: 960px) {
+              .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
+                height: 58px; } }
             .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
               border-radius: 5px;
               background-color: #7986CB;
@@ -2212,11 +2216,13 @@
   .ely-toolbar-search-collapse .ely-toolbar-menu {
     width: 40px; }
 
-.ely-toolbar-search-home li {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  white-space: normal; }
-.ely-toolbar-search-home li:last-child {
-  border-bottom-width: 0; }
+.ely-toolbar-search-home {
+  border-radius: 4px; }
+  .ely-toolbar-search-home li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    white-space: normal; }
+  .ely-toolbar-search-home li:last-child {
+    border-bottom-width: 0; }
 
 .autosuggestion-page {
   padding-top: 5px;
@@ -2229,6 +2235,9 @@
     width: 38px;
     border-radius: 50%;
     overflow: hidden; }
+    @media screen and (min-width: 960px) {
+      .autosuggestion-page .image-container {
+        margin-right: 16px; } }
     .autosuggestion-page .image-container img {
       position: absolute;
       left: 50%;
@@ -2297,6 +2306,9 @@
     height: 38px;
     width: 38px;
     border-radius: 50%; }
+    @media screen and (min-width: 960px) {
+      .autosuggestion-user .profile-Image {
+        margin-right: 16px; } }
   .autosuggestion-user .profile-container {
     height: 38px; }
     .autosuggestion-user .profile-container .user-name {

@@ -7,6 +7,9 @@
     height: 38px;
     width: 38px;
     border-radius: 50%;
+    @media screen and (min-width: $gt-sm) {
+      margin-right: 16px;
+    }
   }
   .profile-container {
     height: 38px;
