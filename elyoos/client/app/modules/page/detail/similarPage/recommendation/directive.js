@@ -10,7 +10,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 numberOfRecommendations: '=',
-                pageId: '='
+                pageId: '=',
+                label: '='
             },
             templateUrl: 'app/modules/page/detail/similarPage/recommendation/template.html'
         };

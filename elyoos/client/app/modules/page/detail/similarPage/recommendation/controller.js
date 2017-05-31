@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['PageRecommendation', 'BlogRecommendation',
-    function (PageRecommendation, BlogRecommendation) {
+module.exports = ['PageRecommendation', 'BlogRecommendation', 'SimilarPageHandlingRecommendation',
+    function (PageRecommendation, BlogRecommendation, SimilarPageHandlingRecommendation) {
         var ctrl = this;
 
         ctrl.addRecommendation = function () {
@@ -13,6 +13,7 @@ module.exports = ['PageRecommendation', 'BlogRecommendation',
             service.save({pageId: ctrl.pageId}, function () {
                 ctrl.uploadRunning = false;
                 ctrl.pageRecommended = true;
+                SimilarPageHandlingRecommendation.pageRecommended();
             });
         };
     }];
