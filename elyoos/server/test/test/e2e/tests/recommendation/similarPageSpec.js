@@ -138,7 +138,7 @@ describe('Integration Tests for getting similar pages for a page', function () {
                 res.body.pages[5].topic[1].should.equals('personalDevelopment');
             });
         });
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('Do not show pages where user is admin, (algorithm similar likes)', function () {
 
