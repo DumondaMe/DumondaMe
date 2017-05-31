@@ -76,14 +76,15 @@ let getSimilarPages = function (userId, params) {
         maxItems: params.maxItems
     };
     commands.push(getSimilarPagesRelationsQuery()
-        .return(`COUNT(*) AS totalNumberOfPages`).end(paramsCypher).getCommand());
+        .return(`COUNT(DISTINCT similarPage.pageId) AS totalNumberOfPages`).end(paramsCypher).getCommand());
 
     return getSimilarPagesRelationsQuery()
-        .return(`similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
+        .return(`count(similarPage), similarPage.pageId AS pageId, similarPage.title AS title, similarPage.description AS description, 
                  similarPage.label AS label, similarPage.language AS language, similarPage.link AS link, 
                  similarPage.topic AS topic, similarPage.hostname AS hostname, similarPage.text AS text, 
                  similarPage.heightPreviewImage AS heightPreviewImage, similarPage.linkEmbed AS linkEmbed, 
-                 EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 EXISTS((similarPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, isContact, 
+                 max(numberOfSameRecommendation) AS numberOfSameRecommendation,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(similarPage)) AS numberOfRecommendations`)
         .orderBy("isContact DESC, numberOfSameRecommendation DESC, numberOfRecommendations DESC")
         .skip("{skip}")
