@@ -52,6 +52,8 @@ if (process.env.NODE_LOGGING === 'production' || process.env.NODE_LOGGING === 'p
 
 let log = function (module, level, message, metadata, request) {
 
+    let logMessage = `[${module}] ${message}`;
+
     if (!metadata) {
         metadata = {};
     }
@@ -63,7 +65,11 @@ let log = function (module, level, message, metadata, request) {
     if (request && request.user && request.user.id) {
         metadata.userId = request.user.id;
     }
-    logger.log(level, '[' + module + '] ' + message, metadata);
+    if (metadata && metadata.error) {
+        metadata.errorMessage = metadata.error.message;
+        logMessage += ` ${metadata.error.message}`;
+    }
+    logger.log(level, logMessage, metadata);
 
 };
 
