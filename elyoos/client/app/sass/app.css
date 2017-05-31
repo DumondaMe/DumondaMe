@@ -2349,11 +2349,18 @@
     height: 100%; }
 
 .ely-similar-page-generic .generic-image {
-  height: 130px;
-  margin-right: 16px;
+  width: 120px;
   cursor: pointer; }
+  .ely-similar-page-generic .generic-image .generic-image-align {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle; }
   .ely-similar-page-generic .generic-image img {
-    height: 100%; }
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100px;
+    max-height: 150px; }
 
 .ely-similar-page-link .link-image {
   width: 120px;
