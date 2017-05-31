@@ -2400,7 +2400,7 @@
       color: rgba(0, 0, 0, 0.54);
       line-height: 16px;
       max-height: 64px;
-      overflow-y: hidden; }
+      overflow: hidden; }
     #ely-similar-page .ely-similar-page-element .page-content-container .recommendation {
       margin-top: 12px; }
       #ely-similar-page .ely-similar-page-element .page-content-container .recommendation .page-action.md-fab.md-mini {
