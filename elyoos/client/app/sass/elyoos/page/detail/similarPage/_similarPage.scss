@@ -2,15 +2,14 @@
   padding: 12px;
   border-top: 1px solid $divider;
   .ely-similar-page-element {
-    margin-bottom: 22px;
-    height: 150px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid $divider;
     .page-content-container {
-      height: 150px;
-      position: relative;
       .title {
         cursor: pointer;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: $primary-color;
         margin-bottom: 2px;
         overflow: hidden;
@@ -25,12 +24,11 @@
         font-size: 14px;
         color: $secondary-text;
         line-height: 16px;
-        height: 64px;
+        max-height: 64px;
         overflow-y: hidden;
       }
       .recommendation {
-        position: absolute;
-        bottom: 0;
+        margin-top: 12px;
         .page-action.md-fab.md-mini {
           height: 28px;
           width: 28px;
@@ -69,6 +67,9 @@
         }
       }
     }
+  }
+  .ely-similar-page-element.last {
+    border-bottom: none;
   }
 }
 

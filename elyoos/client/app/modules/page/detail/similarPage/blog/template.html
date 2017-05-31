@@ -1,9 +1,10 @@
 <div class="ely-similar-page-blog" layout="row">
-    <div class="blog-image" ng-if="ctrl.page.url" flex="none"
+    <div class="blog-image" flex="none"
          ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
-        <img ng-src="{{ctrl.page.url}}"/>
+        <div class="blog-image-align"></div>
+        <img ng-src="{{ctrl.page.url}}" ng-if="ctrl.page.url"/>
     </div>
-    <div class="page-content-container" flex="grow">
+    <div class="page-content-container" flex>
         <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>
         <ely-topics-color class="topics" is-text-expanded="true" topics="ctrl.page.topic"></ely-topics-color>
         <div class="description" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">

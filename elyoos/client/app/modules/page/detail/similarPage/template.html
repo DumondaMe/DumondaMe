@@ -1,10 +1,24 @@
-<div id="ely-similar-page">
-    <div class="page-section-title">Könnte dir auch gefallen</div>
-    <div ng-repeat="similarPage in ctrl.similarPages.pages" class="ely-similar-page-element">
-        <ely-page-detail-similar-page-book page="similarPage" ng-if="similarPage.label === 'Book'"></ely-page-detail-similar-page-book>
-        <ely-page-detail-similar-page-youtube page="similarPage" ng-if="similarPage.label === 'Youtube'"></ely-page-detail-similar-page-youtube>
-        <ely-page-detail-similar-page-link page="similarPage" ng-if="similarPage.label === 'Link'"></ely-page-detail-similar-page-link>
-        <ely-page-detail-similar-page-generic page="similarPage" ng-if="similarPage.label === 'Generic'"></ely-page-detail-similar-page-generic>
-        <ely-page-detail-similar-page-blog page="similarPage" ng-if="similarPage.label === 'Blog'"></ely-page-detail-similar-page-blog>
+<div>
+    <div ng-if="ctrl.similarPages.pages.length > 0" id="ely-similar-page">
+        <div class="page-section-title">Könnte dir auch gefallen</div>
+        <div ng-repeat="similarPage in ctrl.similarPages.pages" class="ely-similar-page-element"
+        ng-class="{'last': $last}">
+            <ely-page-detail-similar-page-book page="similarPage" ng-if="similarPage.label === 'Book'"></ely-page-detail-similar-page-book>
+            <ely-page-detail-similar-page-youtube page="similarPage" ng-if="similarPage.label === 'Youtube'"></ely-page-detail-similar-page-youtube>
+            <ely-page-detail-similar-page-link page="similarPage" ng-if="similarPage.label === 'Link'"></ely-page-detail-similar-page-link>
+            <ely-page-detail-similar-page-generic page="similarPage" ng-if="similarPage.label === 'Generic'"></ely-page-detail-similar-page-generic>
+            <ely-page-detail-similar-page-blog page="similarPage" ng-if="similarPage.label === 'Blog'"></ely-page-detail-similar-page-blog>
+        </div>
+        <div class="show-more" layout="row" layout-align="center center">
+            <div>
+                <md-button class="md-primary" aria-label="More similar pages" ng-if="!ctrl.hideMoreButton"
+                           ng-disabled="ctrl.requestRunning" ng-click="ctrl.nextSimilarPages(8)">
+                    Mehr Vorschläge
+                </md-button>
+            </div>
+        </div>
+        <div class="show-more">
+
+        </div>
     </div>
 </div>

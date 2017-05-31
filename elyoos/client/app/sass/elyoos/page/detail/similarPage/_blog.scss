@@ -1,11 +1,18 @@
 .ely-similar-page-blog {
   .blog-image {
-    height: 130px;
-    max-width: 200px;
-    margin-right: 16px;
+    width: 120px;
     cursor: pointer;
-    img {
+    .blog-image-align {
       height: 100%;
+      display: inline-block;
+      vertical-align: middle
+    }
+    img {
+      border-radius: 2px;
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 100px;
+      max-height: 150px;
     }
   }
 }

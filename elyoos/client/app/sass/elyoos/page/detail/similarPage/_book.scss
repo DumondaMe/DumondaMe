@@ -1,9 +1,10 @@
 .ely-similar-page-book {
   .book-image {
     height: 150px;
-    margin-right: 16px;
+    width: 120px;
     cursor: pointer;
     img {
+      border-radius: 2px;
       height: 100%;
     }
   }

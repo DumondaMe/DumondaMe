@@ -2,7 +2,7 @@
     <div class="book-image" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})" flex="none">
         <img ng-src="{{ctrl.page.url}}"/>
     </div>
-    <div class="page-content-container" flex="grow">
+    <div class="page-content-container" flex>
         <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>
         <ely-topics-color class="topics" is-text-expanded="true" topics="ctrl.page.topic"></ely-topics-color>
         <div class="description" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
