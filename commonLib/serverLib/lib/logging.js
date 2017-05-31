@@ -67,7 +67,6 @@ let log = function (module, level, message, metadata, request) {
     }
     if (metadata && metadata.error) {
         metadata.errorMessage = metadata.error.message;
-        logMessage += ` ${metadata.error.message}`;
     }
     logger.log(level, logMessage, metadata);
 
