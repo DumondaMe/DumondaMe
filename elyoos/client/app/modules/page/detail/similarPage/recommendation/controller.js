@@ -14,6 +14,7 @@ module.exports = ['PageRecommendation', 'BlogRecommendation', 'SimilarPageHandli
                 ctrl.uploadRunning = false;
                 ctrl.pageRecommended = true;
                 SimilarPageHandlingRecommendation.pageRecommended();
+                ctrl.numberOfRecommendations++;
             });
         };
     }];
