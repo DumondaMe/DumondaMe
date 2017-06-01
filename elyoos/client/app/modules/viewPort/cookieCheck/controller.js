@@ -1,16 +1,13 @@
 'use strict';
 
-module.exports = ['$cookieStore',
-    function ($cookieStore) {
+module.exports = ['$cookies',
+    function ($cookies) {
         var ctrl = this;
 
         ctrl.areCookiesEnabled = false;
 
-        $cookieStore.put("TestCookie", "TestCookieText");
-        ctrl.cookieValue = $cookieStore.get("TestCookie");
-
-        if (ctrl.cookieValue) {
-            $cookieStore.remove("TestCookie");
+        ctrl.cookies = $cookies.getAll();
+        if (ctrl.cookies && ctrl.cookies['XSRF-TOKEN']) {
             ctrl.areCookiesEnabled = true;
         }
     }];
