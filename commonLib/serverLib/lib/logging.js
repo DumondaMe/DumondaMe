@@ -30,14 +30,14 @@ let logger = new winston.Logger({
     colors: customLevels.colors
 });
 let winstonCloudWatchConfig;
-if (process.env.NODE_LOGGING === 'production-admin') {
+if (process.env.ELYOOS_MODE === 'production-admin') {
     winstonCloudWatchConfig = {
         logGroupName: 'elyoosWebserver',
         logStreamName: 'webserverAdmin',
         level: 'info',
         awsRegion: 'eu-central-1'
     };
-} else if (process.env.NODE_LOGGING === 'production') {
+} else if (process.env.ELYOOS_MODE === 'production') {
     winstonCloudWatchConfig = {
         logGroupName: 'elyoosWebserver',
         logStreamName: 'webserver',
@@ -46,7 +46,7 @@ if (process.env.NODE_LOGGING === 'production-admin') {
     };
 }
 
-if (process.env.NODE_LOGGING === 'production' || process.env.NODE_LOGGING === 'production-admin') {
+if (process.env.ELYOOS_MODE === 'production' || process.env.ELYOOS_MODE === 'production-admin') {
     logger.add(winstonCloudWatch, winstonCloudWatchConfig);
 }
 

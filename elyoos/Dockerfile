@@ -1,10 +1,10 @@
 FROM node:6.10.1
 
 ARG node_env='production'
-ARG node_logging='production'
+ARG elyoos_mode='production'
 
 ENV NODE_ENV $node_env
-ENV NODE_LOGGING $node_logging
+ENV ELYOOS_MODE $elyoos_mode
 
 COPY GraphicsMagick-1.3.25.tar.gz /tmp
 

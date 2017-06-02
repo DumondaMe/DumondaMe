@@ -1,7 +1,7 @@
 FROM node:6.10.1
 
 ENV NODE_ENV 'production'
-ENV NODE_LOGGING 'production-admin'
+ENV ELYOOS_MODE 'production-admin'
 
 ADD serverLib /tmp/serverLib
 ADD server/package.json /tmp/package.json

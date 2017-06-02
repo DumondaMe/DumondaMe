@@ -22,11 +22,13 @@ function setStaticHeaders(config) {
 
 module.exports = function (app) {
 
-    let env = process.env.NODE_ENV || 'development';
+    let env = process.env.NODE_ENV || 'development',
+        elyoosMode = process.env.ELYOOS_MODE || 'development';
     app.on('middleware:before:json', function () {
         if ('testing' !== env) {
             app.use(function (req, res, next) {
-                if (env === 'production' && req.headers.host.match(/^www/) === null) {
+                if (env === 'production' && elyoosMode !== 'production-admin' &&
+                    req.headers.host.match(/^www/) === null) {
                     return res.redirect('https://www.' + req.headers.host + req.url, 301);
                 }
                 if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http') {
@@ -91,7 +93,7 @@ module.exports = function (app) {
         next();
     });
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || elyoosMode === 'production-admin') {
         app.get('/robots.txt', function (req, res) {
             res.type('text/plain');
             res.send("User-agent: *\nDisallow: /");
