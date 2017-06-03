@@ -86,25 +86,25 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[3].title.should.equal("y written by user?");
                 res.body[3].pageId.should.equal("2");
-                res.body[3].url.should.equal("pages/2/thumbnail.jpg");
+                res.body[3].previewUrl.should.equal("pages/2/thumbnail.jpg");
                 res.body[3].recommendation.summary.numberOfRecommendations.should.equal(2);
                 res.body[3].label.should.equal("Book");
 
                 res.body[4].title.should.equal("book written by user?");
                 res.body[4].pageId.should.equal("0");
-                res.body[4].url.should.equal("pages/0/thumbnail.jpg");
+                res.body[4].previewUrl.should.equal("pages/0/thumbnail.jpg");
                 res.body[4].recommendation.summary.numberOfRecommendations.should.equal(3);
                 res.body[4].label.should.equal("Book");
 
                 res.body[5].title.should.equal("link by user?");
                 res.body[5].pageId.should.equal("6");
-                res.body[5].url.should.equal("pages/6/thumbnail.jpg");
+                res.body[5].previewUrl.should.equal("pages/6/thumbnail.jpg");
                 res.body[5].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[5].label.should.equal("Link");
 
                 res.body[6].title.should.equal("ly by user?");
                 res.body[6].pageId.should.equal("7");
-                should.not.exist(res.body[6].url);
+                should.not.exist(res.body[6].previewUrl);
                 res.body[6].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[6].label.should.equal("Link");
 
@@ -125,7 +125,7 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[9].title.should.equal("zz Generic user? test");
                 res.body[9].pageId.should.equal("10");
-                res.body[9].url.should.equal("pages/10/thumbnail.jpg");
+                res.body[9].previewUrl.should.equal("pages/10/thumbnail.jpg");
                 res.body[9].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[9].label.should.equal("Generic");
             });
@@ -168,7 +168,7 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[3].title.should.equal("y written by user?");
                 res.body[3].pageId.should.equal("2");
                 res.body[3].label.should.equal("Book");
-                res.body[3].url.should.equal("pages/2/pagePreview.jpg");
+                res.body[3].previewUrl.should.equal("pages/2/pagePreview.jpg");
                 res.body[3].topic.length.should.equals(2);
                 res.body[3].topic[0].should.equals('health');
                 res.body[3].topic[1].should.equals('personalDevelopment');
@@ -176,7 +176,7 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[4].title.should.equal("book written by user?");
                 res.body[4].pageId.should.equal("0");
                 res.body[4].label.should.equal("Book");
-                res.body[4].url.should.equal("pages/0/pagePreview.jpg");
+                res.body[4].previewUrl.should.equal("pages/0/pagePreview.jpg");
                 res.body[4].topic.length.should.equals(2);
                 res.body[4].topic[0].should.equals('health');
                 res.body[4].topic[1].should.equals('personalDevelopment');
@@ -185,7 +185,7 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[5].pageId.should.equal("6");
                 res.body[5].label.should.equal("Link");
                 res.body[5].link.should.equal("www.test4.ch");
-                res.body[5].url.should.equal("pages/6/preview.jpg");
+                res.body[5].previewUrl.should.equal("pages/6/preview.jpg");
                 res.body[5].topic.length.should.equals(2);
                 res.body[5].topic[0].should.equals('health');
                 res.body[5].topic[1].should.equals('personalDevelopment');
@@ -194,7 +194,7 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[6].pageId.should.equal("7");
                 res.body[6].label.should.equal("Link");
                 res.body[6].link.should.equal("www.test5.ch");
-                should.not.exist(res.body[6].url);
+                should.not.exist(res.body[6].previewUrl);
                 res.body[6].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[6].topic.length.should.equals(2);
                 res.body[6].topic[0].should.equals('health');
@@ -219,7 +219,7 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[9].title.should.equal("zz Generic user? test");
                 res.body[9].pageId.should.equal("10");
-                res.body[9].url.should.equal("pages/10/preview.jpg");
+                res.body[9].previewUrl.should.equal("pages/10/preview.jpg");
                 res.body[9].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[9].label.should.equal("Generic");
             });

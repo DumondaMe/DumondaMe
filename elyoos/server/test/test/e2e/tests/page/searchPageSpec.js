@@ -77,7 +77,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
-                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/0/pagePreview.jpg');
 
                     res.body.pages[0].recommendation.summary.numberOfRecommendations.should.equals(4);
 
@@ -114,13 +114,13 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
-                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/0/pagePreview.jpg');
 
                     res.body.pages[1].title.should.equals('page1Title');
                     res.body.pages[1].description.should.equals('page3');
                     res.body.pages[1].pageId.should.equals('2');
                     res.body.pages[1].label.should.equals('Book');
-                    res.body.pages[1].url.should.equals('pages/2/pagePreview.jpg');
+                    res.body.pages[1].previewUrl.should.equals('pages/2/pagePreview.jpg');
 
                     res.body.pages[2].title.should.equals('page1Title');
                     res.body.pages[2].description.should.equals('page4');
@@ -231,7 +231,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].label.should.equals('Link');
                     res.body.pages[0].link.should.equals('www.test.com/test');
                     res.body.pages[0].hostname.should.equals('www.test.com');
-                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/2/preview.jpg');
 
                     res.body.totalNumberOfPages.should.equals(1);
                 });
@@ -267,7 +267,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].label.should.equals('Link');
                     res.body.pages[0].link.should.equals('www.test.com/test');
                     res.body.pages[0].hostname.should.equals('www.test.com');
-                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/2/preview.jpg');
 
                     res.body.totalNumberOfPages.should.equals(1);
                 });
@@ -304,7 +304,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].label.should.equals('Link');
                     res.body.pages[0].link.should.equals('www.test.com/test');
                     res.body.pages[0].hostname.should.equals('www.test.com');
-                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/2/preview.jpg');
 
                     res.body.totalNumberOfPages.should.equals(1);
                 });

@@ -109,7 +109,7 @@ describe('Integration Tests for getting similar pages for a page', function () {
                 res.body.pages[2].pageId.should.equals("10");
                 res.body.pages[2].title.should.equals("page10Title");
                 res.body.pages[2].description.should.equals("page10Description");
-                res.body.pages[2].url.should.equals("pages/10/pagePreview.jpg");
+                res.body.pages[2].previewUrl.should.equals("pages/10/pagePreview.jpg");
                 res.body.pages[2].topic.length.should.equals(1);
                 res.body.pages[2].topic[0].should.equals('personalDevelopment');
 
@@ -133,7 +133,7 @@ describe('Integration Tests for getting similar pages for a page', function () {
                 res.body.pages[5].pageId.should.equals("13");
                 res.body.pages[5].title.should.equals("generic13Title");
                 res.body.pages[5].description.should.equals("page13Description");
-                res.body.pages[5].url.should.equals("pages/13/preview.jpg");
+                res.body.pages[5].previewUrl.should.equals("pages/13/preview.jpg");
                 res.body.pages[5].topic.length.should.equals(2);
                 res.body.pages[5].topic[0].should.equals('health');
                 res.body.pages[5].topic[1].should.equals('personalDevelopment');

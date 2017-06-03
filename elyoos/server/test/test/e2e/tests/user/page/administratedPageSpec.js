@@ -108,7 +108,7 @@ describe('Integration Tests for getting the pages administrated by the user', fu
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
+                    res.body.pages[0].previewUrl.should.equals('pages/0/pagePreview.jpg');
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/1/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier');
