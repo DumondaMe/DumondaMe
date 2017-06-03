@@ -2,8 +2,8 @@
     <div class="link-image" flex="none"
          ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
         <div class="link-image-align"></div>
-        <img ng-src="{{ctrl.page.url}}" ng-if="ctrl.page.url"/>
-        <img src="app/img/website.jpg" ng-if="!ctrl.page.url"/>
+        <img ng-src="{{ctrl.page.previewUrl}}" ng-if="ctrl.page.previewUrl"/>
+        <img src="app/img/website.jpg" ng-if="!ctrl.page.previewUrl"/>
     </div>
     <div class="page-content-container" flex>
         <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>
