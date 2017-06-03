@@ -30,10 +30,12 @@ let parseResult = function (showUserRecommendation, skip, firstQuery, secondQuer
     };
 };
 
-let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems) {
+let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems, params) {
+    let filters = pinwallFilter.getFilters(params, 'suggestedPage', true) || 'true';
     return db.cypher().match(`(suggestedPage:Page)<-[:RECOMMENDS]-(recommendation:Recommendation)<-[:RECOMMENDS]-(user:User)`)
         .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND user.userId <> {userId} AND
-                recommendation.created > {oneMonth} AND NOT (:User {userId:{userId}})-[:IS_BLOCKED]->(user)`)
+                recommendation.created > {oneMonth} AND NOT (:User {userId:{userId}})-[:IS_BLOCKED]->(user) AND
+                ${filters}`)
         .with(`suggestedPage, COUNT(suggestedPage) AS countSuggestedPage`)
         .where(`NOT (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page)
                 <-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User)
@@ -51,19 +53,22 @@ let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems) {
             userId: userId,
             skip: skip,
             maxItems: maxItems,
-            oneMonth: time.getNowUtcTimestamp() - 2419200
+            oneMonth: time.getNowUtcTimestamp() - 2419200,
+            language: params.language,
+            topic: params.topic,
+            recommendationType: params.recommendationType
         }).send();
 };
 
-let getSimilarPagesComparedOtherUsersQuery = function () {
-    return db.cypher()
-        .match(`(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page)
+let getSimilarPagesComparedOtherUsersQuery = function (params) {
+    let filters = pinwallFilter.getFilters(params, 'suggestedPage', true) || 'true';
+    return db.cypher().match(`(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(page:Page)
                  <-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(otherUser:User)`)
         .where(`otherUser.userId <> {userId} AND NOT (user)-[:IS_BLOCKED]->(otherUser)`)
         .with(`otherUser, COUNT(otherUser) AS numberOfSameRecommendation, EXISTS((user)-[:IS_CONTACT]->(otherUser)) AS isContact`)
         .orderBy(`isContact DESC, numberOfSameRecommendation DESC`)
         .match(`(otherUser)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(suggestedPage:Page)`)
-        .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND NOT 
+        .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND ${filters} AND NOT 
                (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)`);
 };
 
@@ -80,13 +85,16 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
     let paramsCypher = {
         userId: userId,
         skip: request.skipRecommendation,
-        maxItems: request.maxItems
+        maxItems: request.maxItems,
+        language: request.language,
+        topic: request.topic,
+        recommendationType: request.recommendationType
     };
-    commands.push(getSimilarPagesComparedOtherUsersQuery()
+    commands.push(getSimilarPagesComparedOtherUsersQuery(request)
         .return(`COUNT(DISTINCT suggestedPage.pageId) AS totalNumberOfPages`).end(paramsCypher).getCommand());
 
-    return getSimilarPagesComparedOtherUsersQuery()
-        .return(`count(suggestedPage) AS numberOfSuggestedPages, suggestedPage.pageId AS pageId, suggestedPage.title AS title, 
+    return getSimilarPagesComparedOtherUsersQuery(request)
+        .return(`count(suggestedPage.pageId) AS numberOfSuggestedPages, suggestedPage.pageId AS pageId, suggestedPage.title AS title, 
                  suggestedPage.description AS description, suggestedPage.label AS label, suggestedPage.link AS link, 
                  suggestedPage.topic AS topic, suggestedPage.hostname AS hostname, suggestedPage.text AS text, 
                  suggestedPage.heightPreviewImage AS heightPreviewImage, suggestedPage.linkEmbed AS linkEmbed, 
@@ -101,7 +109,7 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
             if (resp[1].length < paramsCypher.maxItems) {
                 let skip = getSkipMostPopularPage(paramsCypher.skip, resp[5][0].totalNumberOfPages, resp[6].length),
                     maxItems = paramsCypher.maxItems - resp[1].length;
-                return getMostPopularPagesPreviousMonthQuery(userId, skip, maxItems).then(function (respPopular) {
+                return getMostPopularPagesPreviousMonthQuery(userId, skip, maxItems, request).then(function (respPopular) {
                     return parseResult(showUserRecommendation, skip, resp, respPopular);
                 });
             } else {
