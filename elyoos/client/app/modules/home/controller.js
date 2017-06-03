@@ -91,7 +91,8 @@ module.exports =
             $scope.isSideNavOpen = false;
 
             ctrl.openFilterDialog = function () {
-                ElyModal.show('HomeScreenFilterCtrl', 'app/modules/home/modal/filter/template.html', {});
+                ElyModal.show('HomeScreenFilterCtrl', 'app/modules/home/modal/filter/template.html',
+                    {showContactFilter: ctrl.filterOrder !== 'suggestPage'});
             };
 
             $scope.$watch('isSideNavOpen', function (isOpen) {

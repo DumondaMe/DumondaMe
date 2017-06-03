@@ -41,7 +41,8 @@
                             <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
                         </md-select>
                     </md-input-container>
-                    <md-switch id="filter-is-contact" ng-model="ctrl.filters.onlyContact" aria-label="Filter only Contacts" class="md-primary"
+                    <md-switch id="filter-is-contact" ng-model="ctrl.filters.onlyContact" ng-if="ctrl.showContactFilter"
+                               aria-label="Filter only Contacts" class="md-primary"
                                ng-change="ctrl.dataChanged()" md-no-ink>
                         Nur Kontakte
                     </md-switch>
