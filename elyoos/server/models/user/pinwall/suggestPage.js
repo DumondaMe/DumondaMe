@@ -33,7 +33,7 @@ let parseResult = function (showUserRecommendation, skip, firstQuery, secondQuer
 let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems) {
     return db.cypher().match(`(suggestedPage:Page)<-[:RECOMMENDS]-(recommendation:Recommendation)<-[:RECOMMENDS]-(user:User)`)
         .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND user.userId <> {userId} AND
-                recommendation.created > {oneMonth}`)
+                recommendation.created > {oneMonth} AND NOT (:User {userId:{userId}})-[:IS_BLOCKED]->(user)`)
         .with(`suggestedPage, COUNT(suggestedPage) AS countSuggestedPage`)
         .where(`NOT (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page)
                 <-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User)
@@ -59,7 +59,7 @@ let getSimilarPagesComparedOtherUsersQuery = function () {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page)
                  <-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(otherUser:User)`)
-        .where(`otherUser.userId <> {userId}`)
+        .where(`otherUser.userId <> {userId} AND NOT (user)-[:IS_BLOCKED]->(otherUser)`)
         .with(`otherUser, COUNT(otherUser) AS numberOfSameRecommendation, EXISTS((user)-[:IS_CONTACT]->(otherUser)) AS isContact`)
         .orderBy(`isContact DESC, numberOfSameRecommendation DESC`)
         .match(`(otherUser)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(suggestedPage:Page)`)

@@ -211,4 +211,219 @@ describe('Integration Tests for getting page suggestion on the home screen for t
             res.body.pinwall[7].topic[0].should.equals('personalDevelopment');
         });
     });
+
+    it('Do not show pages where user is admin, (algorithm recommendation of contact)', function () {
+
+        dbDsl.createContactConnection('1', '2', 'Freund', 500);
+
+        dbDsl.createBookPage('1', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '1', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages where user is admin, (algorithm recommendation of other user)', function () {
+
+        dbDsl.createBookPage('1', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '1', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages where user is admin, (algorithm recent most popular)', function () {
+
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
+        dbDsl.createBookPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '3', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: startTime - 1}, {userId: '3', created: startTime - 2}]);
+        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: startTime - 2419300}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages already recommended by the user, (algorithm recommendation of contact)', function () {
+
+        dbDsl.createContactConnection('1', '2', 'Freund', 500);
+
+        dbDsl.createBookPage('1', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '1', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('2', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages already recommended by the user, (algorithm recommendation of other user)', function () {
+
+        dbDsl.createBookPage('1', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '1', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('2', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages recommended only by blocked users, (algorithm recommendation of other user)', function () {
+
+        dbDsl.blockUser('1', '2');
+
+        dbDsl.createBookPage('1', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('2', {adminId: '3', language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+
+        //Used for algorithm
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
+    it('Do not show pages recommended only by blocked users, (algorithm recent most popular)', function () {
+
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
+        dbDsl.blockUser('1', '2');
+
+        dbDsl.createBookPage('1', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
+
+        //Recommended pages
+        dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: startTime}]);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function () {
+                return requestHandler.get('/api/user/home/', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 15,
+                    onlyContact: true,
+                    order: 'suggestPage'
+                });
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+                res.body.skipRecommendation.should.equals(0);
+                res.body.skipBlog.should.equals(0);
+            });
+        });
+    });
+
 });
