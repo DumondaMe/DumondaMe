@@ -100,10 +100,14 @@ let getNextSkip = function (skip, totalNumberOfPages, previsouSkipLength) {
 };
 
 let getContactRecommendationAndPopular = function (resp, paramsCypher, request, showUserRecommendation) {
-    let commands = [];
+    let commands = [], index = 0;
 
-    paramsCypher.skip = getNextSkip(paramsCypher.skip, resp[5][0].totalNumberOfPages, resp[6].length);
-    paramsCypher.maxItems = paramsCypher.maxItems - resp[6].length;
+    if (!showUserRecommendation) {
+        index = 3;
+    }
+
+    paramsCypher.skip = getNextSkip(paramsCypher.skip, resp[5 - index][0].totalNumberOfPages, resp[6 - index].length);
+    paramsCypher.maxItems = paramsCypher.maxItems - resp[6 - index].length;
     commands.push(getContactRecommendationsQuery(request)
         .return(`COUNT(DISTINCT suggestedPage.pageId) AS totalNumberOfPages`).end(paramsCypher).getCommand());
 
@@ -120,7 +124,7 @@ let getContactRecommendationAndPopular = function (resp, paramsCypher, request, 
         .end(paramsCypher).send(commands).then(function (respContact) {
             if (respContact[1].length < paramsCypher.maxItems) {
                 let skip = getNextSkip(paramsCypher.skip,
-                        resp[5][0].totalNumberOfPages + respContact[0][0].totalNumberOfPages,
+                        resp[5 - index][0].totalNumberOfPages + respContact[0][0].totalNumberOfPages,
                     respContact[1].length),
                     maxItems = paramsCypher.maxItems - respContact[1].length;
                 return getMostPopularPagesPreviousMonthQuery(paramsCypher.userId, skip, maxItems, request)
@@ -142,7 +146,11 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
         language: request.language,
         topic: request.topic,
         recommendationType: request.recommendationType
-    };
+    }, index = 0;
+
+    if (!showUserRecommendation) {
+        index = 3;
+    }
     commands.push(getSimilarPagesComparedOtherUsersQuery(request)
         .return(`COUNT(DISTINCT suggestedPage.pageId) AS totalNumberOfPages`).end(paramsCypher).getCommand());
 
@@ -159,7 +167,7 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
         .skip("{skip}")
         .limit("{maxItems}")
         .end(paramsCypher).send(commands).then(function (resp) {
-            if (resp[6].length < paramsCypher.maxItems) {
+            if (resp[6 - index].length < paramsCypher.maxItems) {
                 return getContactRecommendationAndPopular(resp, paramsCypher, request, showUserRecommendation);
             } else {
                 return parseResult(showUserRecommendation, request.skipRecommendation, resp);
