@@ -69,7 +69,9 @@ let getSimilarPagesComparedOtherUsersQuery = function (params) {
         .orderBy(`isContact DESC, numberOfSameRecommendation DESC`)
         .match(`(otherUser)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(suggestedPage:Page)`)
         .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND ${filters} AND NOT 
-               (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)`);
+               (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)`)
+        .with(`suggestedPage, numberOfSameRecommendation, recommendation, 
+               CASE WHEN isContact THEN 1 ELSE 0 END AS isContact`);
 };
 
 let getSkipMostPopularPage = function (skip, totalNumberOfPages, previsouSkipLength) {
@@ -98,7 +100,7 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
                  suggestedPage.description AS description, suggestedPage.label AS label, suggestedPage.link AS link, 
                  suggestedPage.topic AS topic, suggestedPage.hostname AS hostname, suggestedPage.text AS text, 
                  suggestedPage.heightPreviewImage AS heightPreviewImage, suggestedPage.linkEmbed AS linkEmbed, 
-                 EXISTS((suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, isContact, 
+                 EXISTS((suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, max(isContact) AS isContact, 
                  max(recommendation.created) AS recommendationCreated, max(numberOfSameRecommendation) AS numberOfSameRecommendation,
                  false AS recommendedByUser, false AS thisRecommendationByUser, 'Recommendation' AS pinwallType,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)) AS totalNumberOfRecommendations`)
