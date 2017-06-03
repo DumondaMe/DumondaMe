@@ -46,9 +46,9 @@ let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems, pa
                  suggestedPage.topic AS topic, suggestedPage.hostname AS hostname, suggestedPage.text AS text, 
                  suggestedPage.heightPreviewImage AS heightPreviewImage, suggestedPage.linkEmbed AS linkEmbed,
                  false AS recommendedByUser, false AS thisRecommendationByUser, 'Recommendation' AS pinwallType,
-                 EXISTS((suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 EXISTS((suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, countSuggestedPage,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)) AS totalNumberOfRecommendations`)
-        .orderBy("countSuggestedPage DESC")
+        .orderBy("countSuggestedPage DESC, totalNumberOfRecommendations DESC")
         .skip("{skip}")
         .limit("{maxItems}").end({
             userId: userId,

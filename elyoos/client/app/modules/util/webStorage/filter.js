@@ -33,7 +33,7 @@ module.exports = [function () {
     this.getFilterOrder = function () {
         var filter = localStorage.getItem("filterOrder");
         if (!filter) {
-            filter = 'new';
+            filter = 'suggestPage';
         } else {
             filter = JSON.parse(filter);
         }
