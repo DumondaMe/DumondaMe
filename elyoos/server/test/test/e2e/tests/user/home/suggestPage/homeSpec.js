@@ -108,6 +108,8 @@ describe('Integration Tests for getting page suggestion on the home screen for t
             res.status.should.equal(200);
 
             res.body.pinwall.length.should.equals(8);
+            res.body.skipRecommendation.should.equals(8);
+            res.body.skipBlog.should.equals(0);
 
             res.body.pinwall[0].pinwallType.should.equals('Recommendation');
             res.body.pinwall[0].label.should.equals("Youtube");

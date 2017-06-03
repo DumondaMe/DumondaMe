@@ -6,7 +6,7 @@ let userInfo = require('./../userInfo');
 let pagePreview = require('../../page/pagePreview');
 let pinwallFilter = require('./pinwallFilter');
 
-let parseResult = function (showUserRecommendation, firstQuery, secondQuery = []) {
+let parseResult = function (showUserRecommendation, skip, firstQuery, secondQuery = []) {
     let pinwall, recommendedUserResult = [];
     userInfo.addImageForThumbnail(firstQuery[0]);
     if (showUserRecommendation) {
@@ -24,7 +24,9 @@ let parseResult = function (showUserRecommendation, firstQuery, secondQuery = []
     return {
         contacting: {users: firstQuery[0], numberOfContacting: firstQuery[1][0].numberOfContacting},
         recommendedUser: recommendedUserResult,
-        pinwall: pinwall
+        pinwall: pinwall,
+        skipRecommendation: skip + pinwall.length,
+        skipBlog: 0
     };
 };
 
@@ -62,11 +64,19 @@ let getSimilarPagesComparedOtherUsersQuery = function () {
         .orderBy(`isContact DESC, numberOfSameRecommendation DESC`)
         .match(`(otherUser)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(suggestedPage:Page)`)
         .where(`NOT (suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}}) AND NOT 
-                (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)`);
+               (:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)`);
+};
+
+let getSkipMostPopularPage = function (skip, totalNumberOfPages, previsouSkipLength) {
+    let result = skip - totalNumberOfPages - previsouSkipLength;
+    if (result < 0) {
+        result = 0;
+    }
+    return result;
 };
 
 let getRecommendations = function (userId, request, commands, showUserRecommendation) {
-    
+
     let paramsCypher = {
         userId: userId,
         skip: request.skipRecommendation,
@@ -81,7 +91,7 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
                  suggestedPage.topic AS topic, suggestedPage.hostname AS hostname, suggestedPage.text AS text, 
                  suggestedPage.heightPreviewImage AS heightPreviewImage, suggestedPage.linkEmbed AS linkEmbed, 
                  EXISTS((suggestedPage)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, isContact, 
-                 max(recommendation.created) AS recommendationCreated, numberOfSameRecommendation,
+                 max(recommendation.created) AS recommendationCreated, max(numberOfSameRecommendation) AS numberOfSameRecommendation,
                  false AS recommendedByUser, false AS thisRecommendationByUser, 'Recommendation' AS pinwallType,
                  SIZE((:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(suggestedPage)) AS totalNumberOfRecommendations`)
         .orderBy("isContact DESC, numberOfSameRecommendation DESC, recommendationCreated DESC, totalNumberOfRecommendations DESC")
@@ -89,13 +99,13 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
         .limit("{maxItems}")
         .end(paramsCypher).send(commands).then(function (resp) {
             if (resp[1].length < paramsCypher.maxItems) {
-                let skip = paramsCypher.skip - resp[5][0].totalNumberOfPages - resp[6].length,
+                let skip = getSkipMostPopularPage(paramsCypher.skip, resp[5][0].totalNumberOfPages, resp[6].length),
                     maxItems = paramsCypher.maxItems - resp[1].length;
                 return getMostPopularPagesPreviousMonthQuery(userId, skip, maxItems).then(function (respPopular) {
-                    return parseResult(showUserRecommendation, resp, respPopular);
+                    return parseResult(showUserRecommendation, skip, resp, respPopular);
                 });
             } else {
-                return parseResult(showUserRecommendation, resp);
+                return parseResult(showUserRecommendation, request.skipRecommendation, resp);
             }
         });
 };
