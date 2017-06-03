@@ -5,14 +5,14 @@ let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 
-describe('Integration Tests for getting blog page suggestion on the home screen for the user', function () {
+describe('Integration Tests for getting link page suggestion on the home screen for the user', function () {
 
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
-            dbDsl.createBlog('0', {blogWriterUserId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, pictureHeight: 400});
-            dbDsl.createBlog('1', {blogWriterUserId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, pictureHeight: 400});
-            dbDsl.createBookPage('2', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
-            dbDsl.createLinkPage('3', {adminId: '3', language: ['de'], topic: ['health'], created: 505, link: 'www.host.com/test'});
+            dbDsl.createLinkPage('0', {adminId: '3', language: ['de'], topic: ['health'], created: 505, link: 'www.host.com/test'});
+            dbDsl.createLinkPage('1', {adminId: '3', language: ['de'], topic: ['health'], created: 505, link: 'www.host.com/test'});
+            dbDsl.createBlog('2', {blogWriterUserId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, pictureHeight: 400});
+            dbDsl.createBookPage('3', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
             dbDsl.createGenericPage('4', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
@@ -31,7 +31,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
 
 
 
-    it('Getting all blog recommendations, (algorithm recommendation of contact)', function () {
+    it('Getting all link recommendations, (algorithm recommendation of contact)', function () {
 
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
 
@@ -53,7 +53,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    recommendationType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -67,7 +67,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
         });
     });
 
-    it('Getting all blog recommendations, (algorithm recommendation of other user)', function () {
+    it('Getting all link recommendations, (algorithm recommendation of other user)', function () {
 
         //Used for algorithm
         dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 500}, {userId: '2', created: 500}]);
@@ -87,7 +87,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    recommendationType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -101,7 +101,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
         });
     });
 
-    it('Getting all blog recommendations, (algorithm recent most popular)', function () {
+    it('Getting all link recommendations, (algorithm recent most popular)', function () {
 
         let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
@@ -123,7 +123,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    recommendationType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
