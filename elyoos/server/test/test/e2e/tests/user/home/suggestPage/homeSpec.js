@@ -8,7 +8,7 @@ let moment = require('moment');
 describe('Integration Tests for getting page suggestion on the home screen for the user', function () {
 
     beforeEach(function () {
-        return dbDsl.init(12).then(function () {
+        return dbDsl.init(13).then(function () {
         });
     });
 
@@ -19,6 +19,7 @@ describe('Integration Tests for getting page suggestion on the home screen for t
     /**
      * - Contacts with the most equal recommendations, sorted by most recent date
      * - Not contacts with the most equal recommendations, sorted by most recent date
+     * - Contacts with no equal recommendations, sorted by most equal recommendations and most recent date
      * - Most popular pages within the last month
      */
     it('Getting for pages for all possibilities', function () {
@@ -29,6 +30,7 @@ describe('Integration Tests for getting page suggestion on the home screen for t
         dbDsl.createContactConnection('1', '3', 'Freund', 500);
         dbDsl.createContactConnection('1', '4', 'Freund', 500);
         dbDsl.createContactConnection('1', '5', 'Freund', 500);
+        dbDsl.createContactConnection('1', '13', 'Freund', 500);
 
         dbDsl.createBookPage('1', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 500, author: 'HansMuster', publishDate: 1000});
         dbDsl.createBookPage('2', {language: ['de'], topic: ['spiritual', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
@@ -57,6 +59,7 @@ describe('Integration Tests for getting page suggestion on the home screen for t
         dbDsl.createBookPage('14', {adminId: '3', language: ['de'], topic: ['personalDevelopment'], created: 502, author: 'HansMuster', publishDate: 1000});
         dbDsl.createBookPage('15', {adminId: '3', language: ['de'], topic: ['personalDevelopment'], created: 502, author: 'HansMuster', publishDate: 1000});
         dbDsl.createBookPage('16', {adminId: '3', language: ['de'], topic: ['personalDevelopment'], created: 502, author: 'HansMuster', publishDate: 1000});
+        dbDsl.createBookPage('17', {adminId: '3', language: ['de'], topic: ['personalDevelopment'], created: 502, author: 'HansMuster', publishDate: 1000});
 
 
         dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500},{userId: '2', created: 500},
@@ -93,6 +96,7 @@ describe('Integration Tests for getting page suggestion on the home screen for t
             {userId: '10', created: startTime - 2419201},
             {userId: '11', created: startTime - 2419202},
             {userId: '12', created: startTime - 2419203}]);
+        dbDsl.crateRecommendationsForPage('17', [{userId: '13', created: startTime}]);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -107,8 +111,8 @@ describe('Integration Tests for getting page suggestion on the home screen for t
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.pinwall.length.should.equals(8);
-            res.body.skipRecommendation.should.equals(8);
+            res.body.pinwall.length.should.equals(9);
+            res.body.skipRecommendation.should.equals(9);
             res.body.skipBlog.should.equals(0);
 
             res.body.pinwall[0].pinwallType.should.equals('Recommendation');
@@ -188,27 +192,39 @@ describe('Integration Tests for getting page suggestion on the home screen for t
 
             res.body.pinwall[6].pinwallType.should.equals('Recommendation');
             res.body.pinwall[6].label.should.equals("Book");
-            res.body.pinwall[6].pageId.should.equals("14");
-            res.body.pinwall[6].title.should.equals("page14Title");
-            res.body.pinwall[6].description.should.equals("page14Description");
-            res.body.pinwall[6].previewUrl.should.equals("pages/14/pagePreview.jpg");
+            res.body.pinwall[6].pageId.should.equals("17");
+            res.body.pinwall[6].title.should.equals("page17Title");
+            res.body.pinwall[6].description.should.equals("page17Description");
+            res.body.pinwall[6].previewUrl.should.equals("pages/17/pagePreview.jpg");
             res.body.pinwall[6].recommendedByUser.should.equals(false);
             res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[6].totalNumberOfRecommendations.should.equals(2);
+            res.body.pinwall[6].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[6].topic.length.should.equals(1);
             res.body.pinwall[6].topic[0].should.equals('personalDevelopment');
 
             res.body.pinwall[7].pinwallType.should.equals('Recommendation');
             res.body.pinwall[7].label.should.equals("Book");
-            res.body.pinwall[7].pageId.should.equals("15");
-            res.body.pinwall[7].title.should.equals("page15Title");
-            res.body.pinwall[7].description.should.equals("page15Description");
-            res.body.pinwall[7].previewUrl.should.equals("pages/15/pagePreview.jpg");
+            res.body.pinwall[7].pageId.should.equals("14");
+            res.body.pinwall[7].title.should.equals("page14Title");
+            res.body.pinwall[7].description.should.equals("page14Description");
+            res.body.pinwall[7].previewUrl.should.equals("pages/14/pagePreview.jpg");
             res.body.pinwall[7].recommendedByUser.should.equals(false);
             res.body.pinwall[7].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[7].totalNumberOfRecommendations.should.equals(3);
+            res.body.pinwall[7].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[7].topic.length.should.equals(1);
             res.body.pinwall[7].topic[0].should.equals('personalDevelopment');
+
+            res.body.pinwall[8].pinwallType.should.equals('Recommendation');
+            res.body.pinwall[8].label.should.equals("Book");
+            res.body.pinwall[8].pageId.should.equals("15");
+            res.body.pinwall[8].title.should.equals("page15Title");
+            res.body.pinwall[8].description.should.equals("page15Description");
+            res.body.pinwall[8].previewUrl.should.equals("pages/15/pagePreview.jpg");
+            res.body.pinwall[8].recommendedByUser.should.equals(false);
+            res.body.pinwall[8].thisRecommendationByUser.should.equals(false);
+            res.body.pinwall[8].totalNumberOfRecommendations.should.equals(3);
+            res.body.pinwall[8].topic.length.should.equals(1);
+            res.body.pinwall[8].topic[0].should.equals('personalDevelopment');
         });
     }).timeout(10000);
 
