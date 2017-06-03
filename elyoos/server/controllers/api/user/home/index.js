@@ -19,7 +19,7 @@ let schemaGetUserHomePinwallInfos = {
         skipRecommendation: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         onlyContact: {type: 'boolean'},
-        order: {enum: ['new', 'popular']},
+        order: {enum: ['new', 'popular', 'suggestPage']},
         language: language.languageMultiple,
         topic: topic.topicMultiple,
         recommendationType: recommendationType.typeMultiple

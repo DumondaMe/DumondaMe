@@ -9,14 +9,14 @@ let addPageUrl = function (previews, thumbnail) {
         otherImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
     underscore.forEach(previews, function (preview) {
         if (preview.label === 'Book') {
-            preview.url = cdn.getUrl('pages/' + preview.pageId + bookImage);
+            preview.previewUrl = cdn.getUrl('pages/' + preview.pageId + bookImage);
             delete preview.link;
         } else if (preview.label === 'Link' && preview.heightPreviewImage) {
             preview.url = cdn.getUrl('pages/' + preview.pageId + otherImage);
         } else if (preview.label === 'Blog' && preview.heightPreviewImage) {
-            preview.url = cdn.getUrl('blog/' + preview.pageId + otherImage);
+            preview.previewUrl = cdn.getUrl('blog/' + preview.pageId + otherImage);
         } else if (preview.label === 'Generic') {
-            preview.url = cdn.getUrl('pages/' + preview.pageId + otherImage);
+            preview.previewUrl = cdn.getUrl('pages/' + preview.pageId + otherImage);
         }
     });
 };

@@ -8,6 +8,7 @@ let pinwallSelector = require('./pinwallSelector');
 let contacting = require('./contacting');
 let recommendedUser = require('./recommendedUser');
 let recommendedUserSetting = require('./../setting/recommendedUser');
+let suggestPage = require('./suggestPage');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let getRecommendationOfUser = function (userId, request) {
@@ -28,7 +29,7 @@ let getRecommendationOfUser = function (userId, request) {
 };
 
 let getPagesOfUserOrder = function (type) {
-    if(type === 'adminPopular') {
+    if (type === 'adminPopular') {
         return "totalNumberOfRecommendations DESC, page.created DESC";
     }
     return "page.created DESC";
@@ -79,7 +80,7 @@ let getRecommendationOfOtherUser = function (userId, request) {
 };
 
 let getPagesOfOtherUserOrder = function (type) {
-    if(type === 'adminPopular') {
+    if (type === 'adminPopular') {
         return "totalNumberOfRecommendations DESC, page.created DESC";
     }
     return "page.created DESC";
@@ -196,7 +197,23 @@ let getFilterWithCreatedCondition = function (filters) {
     return `pinwall.created = created`;
 };
 
-let getRecommendations = function (userId, request) {
+let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, request) {
+    let pinwall;
+    if (showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[5], skipRecommendation, skipBlog, maxItems);
+    } else if (showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[5], resp[6], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], skipRecommendation, skipBlog, maxItems);
+    } else {
+        logger.error(`Error sorting pinwall (Order:${order}, showUserRecommendation: ${showUserRecommendation})`, request);
+    }
+    return pinwall;
+};
+
+let getRecommendations = function (userId, request, commands, showUserRecommendation) {
     let filters = pinwallFilter.getFilters(request, 'pinwallData', request.order === 'popular');
     return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where(filters)
@@ -217,25 +234,26 @@ let getRecommendations = function (userId, request) {
         .end({
             userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems, language: request.language, topic: request.topic,
             recommendationType: request.recommendationType
+        }).send(commands).then(function (resp) {
+            let pinwall, recommendedUserResult = [];
+            userInfo.addImageForThumbnail(resp[0]);
+            if (showUserRecommendation) {
+                userInfo.addImageForThumbnail(resp[2]);
+                userInfo.addImageForThumbnail(resp[3]);
+                userInfo.addImageForThumbnail(resp[4]);
+                recommendedUserResult = resp[2].concat(resp[3], resp[4]);
+            }
+            pinwall = sortPinwall(resp, request.skipRecommendation, request.skipBlog, request.maxItems, request.order, showUserRecommendation);
+
+            return {
+                contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
+                recommendedUser: recommendedUserResult,
+                pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
+                skipRecommendation: pinwall.skipRecommendation,
+                skipBlog: pinwall.skipBlog
+            };
         });
 };
-
-let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, request) {
-    let pinwall;
-    if (showUserRecommendation && order === 'popular') {
-        pinwall = pinwallSelector.sortPinwall(null, resp[5], skipRecommendation, skipBlog, maxItems);
-    } else if (showUserRecommendation) {
-        pinwall = pinwallSelector.sortPinwall(resp[5], resp[6], skipRecommendation, skipBlog, maxItems);
-    } else if (!showUserRecommendation && order === 'popular') {
-        pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
-    } else if (!showUserRecommendation) {
-        pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], skipRecommendation, skipBlog, maxItems);
-    } else {
-        logger.error(`Error sorting pinwall (Order:${order}, showUserRecommendation: ${showUserRecommendation})`, request);
-    }
-    return pinwall;
-};
-
 
 let getPinwall = function (userId, request) {
     let commands = [];
@@ -248,31 +266,15 @@ let getPinwall = function (userId, request) {
             commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10).getCommand());
             commands.push(recommendedUser.getRecommendedUsers(userId, 10).getCommand());
         }
-        if (request.order !== 'popular') {
+        if (request.order === 'new') {
             commands.push(getBlogs(userId, request).getCommand());
         }
 
-        return getRecommendations(userId, request)
-            .send(commands)
-            .then(function (resp) {
-                let pinwall, recommendedUserResult = [];
-                userInfo.addImageForThumbnail(resp[0]);
-                if (showUserRecommendation) {
-                    userInfo.addImageForThumbnail(resp[2]);
-                    userInfo.addImageForThumbnail(resp[3]);
-                    userInfo.addImageForThumbnail(resp[4]);
-                    recommendedUserResult = resp[2].concat(resp[3], resp[4]);
-                }
-                pinwall = sortPinwall(resp, request.skipRecommendation, request.skipBlog, request.maxItems, request.order, showUserRecommendation);
-
-                return {
-                    contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
-                    recommendedUser: recommendedUserResult,
-                    pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
-                    skipRecommendation: pinwall.skipRecommendation,
-                    skipBlog: pinwall.skipBlog
-                };
-            });
+        if (request.order === 'suggestPage') {
+            return suggestPage.getRecommendations(userId, request, commands, showUserRecommendation);
+        } else {
+            return getRecommendations(userId, request, commands, showUserRecommendation);
+        }
     });
 };
 
