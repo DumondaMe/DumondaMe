@@ -14,7 +14,7 @@ var createFilterParams = function (filters, Topics, Languages, RecommendationTyp
         params.language = Languages.getCodes(filters.selectedLanguages);
     }
     if (filters.hasOwnProperty('selectedRecommendationTypes')) {
-        params.recommendationType = RecommendationTypes.getCodes(filters.selectedRecommendationTypes);
+        params.pageType = RecommendationTypes.getCodes(filters.selectedRecommendationTypes);
     }
     return params;
 };
