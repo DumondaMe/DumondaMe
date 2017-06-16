@@ -3,7 +3,6 @@
 let admin = require('./admin');
 let blog = require('./blog');
 let recommendation = require('./recommendation');
-let recommendationBlog = require('./recommendationBlog');
 let _ = require('underscore');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -17,10 +16,7 @@ let getPinwallElements = function (pinwallElements) {
             element = blog.getPinwallElement(pinwallElement);
         } else if (_.contains(pinwallElement.pinwallType, 'Page')) {
             element = recommendation.getPinwallElement(pinwallElement);
-        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && pinwallElement.writer) {
-            element = recommendationBlog.getPinwallElement(pinwallElement);
-        }
-        else {
+        } else {
             logger.error("Unknown Pinwall Element " + pinwallElement.pinwallType);
         }
         result.push(element);
