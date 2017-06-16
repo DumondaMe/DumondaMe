@@ -57,7 +57,7 @@ let getMostPopularPagesPreviousMonthQuery = function (userId, skip, maxItems, pa
             oneMonth: time.getNowUtcTimestamp() - 2419200,
             language: params.language,
             topic: params.topic,
-            recommendationType: params.recommendationType
+            pageType: params.pageType
         }).send();
 };
 
@@ -145,7 +145,7 @@ let getRecommendations = function (userId, request, commands, showUserRecommenda
         maxItems: request.maxItems,
         language: request.language,
         topic: request.topic,
-        recommendationType: request.recommendationType
+        pageType: request.pageType
     }, index = 0;
 
     if (!showUserRecommendation) {

@@ -5,7 +5,7 @@ let auth = require('elyoos-server-lib').auth;
 let pinwall = requireModel('user/pinwall/pinwall');
 let language = require("../../../schema/language");
 let topic = require("../../../schema/topic");
-let recommendationType = require("../../../schema/recommendationType");
+let pageType = require("../../../schema/pageType");
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -22,7 +22,7 @@ let schemaGetUserHomePinwallInfos = {
         order: {enum: ['new', 'popular', 'suggestPage']},
         language: language.languageMultiple,
         topic: topic.topicMultiple,
-        recommendationType: recommendationType.typeMultiple
+        pageType: pageType.typeMultiple
     }
 };
 

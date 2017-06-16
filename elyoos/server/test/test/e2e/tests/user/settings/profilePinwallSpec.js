@@ -83,7 +83,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].previewUrl.should.equals('pages/5/pagePreview.jpg');
             res.body.pinwall[0].created.should.equals(505);
             res.body.pinwall[0].recommendedByUser.should.equals(true);
-            res.body.pinwall[0].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[0].userRecommendationId.should.equals('3');
             res.body.pinwall[0].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[0].isAdmin.should.equals(false);
@@ -98,7 +97,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
             res.body.pinwall[1].created.should.equals(504);
             res.body.pinwall[1].recommendedByUser.should.equals(true);
-            res.body.pinwall[1].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[1].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[1].userRecommendationId.should.equals('6');
             res.body.pinwall[1].isAdmin.should.equals(true);
@@ -108,10 +106,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
 
             res.body.pinwall[2].label.should.equals('Blog');
             res.body.pinwall[2].pageId.should.equals('4');
-            res.body.pinwall[2].writerName.should.equals('user Meier2');
-            res.body.pinwall[2].writerUserId.should.equals('2');
             res.body.pinwall[2].recommendedByUser.should.equals(true);
-            res.body.pinwall[2].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[2].userRecommendationId.should.equals('0');
             res.body.pinwall[2].created.should.equals(502);
             res.body.pinwall[2].heightPreviewImage.should.equals(200);
@@ -126,7 +121,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[3].label.should.equals('Link');
             res.body.pinwall[3].pageId.should.equals('9');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
-            res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[3].userRecommendationId.should.equals('8');
             res.body.pinwall[3].created.should.equals(499);
             res.body.pinwall[3].heightPreviewImage.should.equals(250);
@@ -141,7 +135,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[4].label.should.equals('Generic');
             res.body.pinwall[4].pageId.should.equals('11');
             res.body.pinwall[4].recommendedByUser.should.equals(true);
-            res.body.pinwall[4].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[4].userRecommendationId.should.equals('13');
             res.body.pinwall[4].created.should.equals(498);
             res.body.pinwall[4].previewUrl.should.equals('pages/11/preview.jpg');

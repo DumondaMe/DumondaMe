@@ -10,10 +10,10 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
     beforeEach(function () {
 
         return dbDsl.init(6).then(function () {
-            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'Hans Muster', publishDate: 1000});
-            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createBookPage('0', {adminId: '6', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'Hans Muster', publishDate: 1000});
+            dbDsl.createLinkPage('2', {adminId: '6', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
             dbDsl.createYoutubePage('1', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                adminId: '6', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
         });
@@ -172,7 +172,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
-                order: 'new'
+                order: 'new',
+                pageType: ['Blog']
             });
         }).then(function (res) {
             res.status.should.equal(200);

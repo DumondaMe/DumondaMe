@@ -2,13 +2,12 @@
 
 let profileUrl = require('./profileUrl');
 let cdn = require('elyoos-server-lib').cdn;
-let numberOfRecommendation = require('./numberOfRecommendation');
 
-let addLabelElement = function (element, pinwallElement) {
+let addLabelElement = function (element, page) {
     if (element.label === 'Link') {
-        element.link = pinwallElement.pinwallData.link;
-        element.hostname = pinwallElement.pinwallData.hostname;
-        element.heightPreviewImage = pinwallElement.pinwallData.heightPreviewImage;
+        element.link = page.link;
+        element.hostname = page.hostname;
+        element.heightPreviewImage = page.heightPreviewImage;
         if (element.heightPreviewImage) {
             element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
         }
@@ -17,32 +16,30 @@ let addLabelElement = function (element, pinwallElement) {
     } else if (element.label === 'Generic') {
         element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
     } else if (element.label === 'Youtube') {
-        element.link = pinwallElement.pinwallData.link;
-        element.linkEmbed = pinwallElement.pinwallData.linkEmbed;
+        element.link = page.link;
+        element.linkEmbed = page.linkEmbed;
     }
 };
 
 let getPinwallElement = function (pinwallElement) {
     let element = {};
     element.pinwallType = 'Recommendation';
-    element.created = pinwallElement.pinwall.created;
-    element.label = pinwallElement.pinwallData.label;
-    element.pageId = pinwallElement.pinwallData.pageId;
-    element.description = pinwallElement.pinwallData.description;
-    element.title = pinwallElement.pinwallData.title;
-    element.topic = pinwallElement.pinwallData.topic;
-    element.isAdmin = pinwallElement.isAdmin;
-    element.recommendedByUser = pinwallElement.recommendedByUser;
+    element.created = pinwallElement.created || pinwallElement.page.created;
+    element.label = pinwallElement.page.label;
+    element.pageId = pinwallElement.page.pageId;
+    element.description = pinwallElement.page.description;
+    element.title = pinwallElement.page.title;
+    element.topic = pinwallElement.page.topic;
     element.userRecommendationId = pinwallElement.userRecommendationId;
     element.recommendedByUser = false;
-    if(element.userRecommendationId) {
+    if (element.userRecommendationId) {
         element.recommendedByUser = true;
     }
-    element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
-    element.totalNumberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
-    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    profileUrl.addProfileUrl(element, pinwallElement);
-    addLabelElement(element, pinwallElement);
+    element.isAdmin = pinwallElement.isAdmin;
+    element.totalNumberOfRecommendations = pinwallElement.totalNumberOfRecommendations;
+    element.numberOfContactRecommendations = pinwallElement.numberOfContactRecommendations;
+    profileUrl.addProfileUrl(element, pinwallElement, 'admin');
+    addLabelElement(element, pinwallElement.page);
     return element;
 };
 

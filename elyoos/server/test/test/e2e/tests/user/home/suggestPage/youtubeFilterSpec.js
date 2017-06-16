@@ -56,7 +56,7 @@ describe('Integration Tests for getting youtube page suggestion on the home scre
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Youtube']
+                    pageType: ['Youtube']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -90,7 +90,7 @@ describe('Integration Tests for getting youtube page suggestion on the home scre
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Youtube']
+                    pageType: ['Youtube']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -126,7 +126,7 @@ describe('Integration Tests for getting youtube page suggestion on the home scre
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Youtube']
+                    pageType: ['Youtube']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);

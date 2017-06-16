@@ -236,14 +236,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                 res.body.pinwall[0].label.should.equals('Blog');
                 res.body.pinwall[0].pageId.should.equals('4');
-                res.body.pinwall[0].writerName.should.equals('user Meier');
-                res.body.pinwall[0].writerUserId.should.equals('1');
+                res.body.pinwall[0].name.should.equals('user Meier');
+                res.body.pinwall[0].userId.should.equals('1');
                 res.body.pinwall[0].recommendedByUser.should.equals(false);
                 res.body.pinwall[0].created.should.equals(508);
-                res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
                 res.body.pinwall[0].previewUrl.should.equals('blog/4/preview.jpg');
-                res.body.pinwall[0].urlFull.should.equals('blog/4/normal.jpg');
                 res.body.pinwall[0].text.should.equals('blog4Text');
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
@@ -255,7 +253,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                 res.body.pinwall[1].title.should.equals('page6Title');
                 res.body.pinwall[1].created.should.equals(504);
                 res.body.pinwall[1].previewUrl.should.equals('pages/6/pagePreview.jpg');
-                res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[1].description.should.equals('page6Description');
                 res.body.pinwall[1].recommendedByUser.should.equals(false);
                 res.body.pinwall[1].totalNumberOfRecommendations.should.equals(1);

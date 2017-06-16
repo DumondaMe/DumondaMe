@@ -15,7 +15,7 @@ let getPinwallElements = function (pinwallElements) {
             element = admin.getPinwallElement(pinwallElement);
         } else if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             element = blog.getPinwallElement(pinwallElement);
-        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && !pinwallElement.writer) {
+        } else if (_.contains(pinwallElement.pinwallType, 'Page')) {
             element = recommendation.getPinwallElement(pinwallElement);
         } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && pinwallElement.writer) {
             element = recommendationBlog.getPinwallElement(pinwallElement);

@@ -16,26 +16,19 @@ let getTopicFilter = function (topic, elementName) {
     return null;
 };
 
-let getRecommendationTypeFilter = function (recommendationType, elementName) {
-    if (recommendationType) {
-        return `(ANY(l IN LABELS(${elementName}) WHERE l IN {recommendationType}) OR 
-                 ANY(r IN {recommendationType} WHERE r = ${elementName}.label))`;
+let getPageTypeFilter = function (pageType, elementName) {
+    if (pageType) {
+        return `(ANY(l IN LABELS(${elementName}) WHERE l IN {pageType}) OR 
+                 ANY(r IN {pageType} WHERE r = ${elementName}.label))`;
     }
     return null;
 };
 
-let getOnlyOtherUsers = function (isPopular) {
-    if(!isPopular) {
-        return "NOT user.userId = contact.userId";
-    }
-    return null;
-};
-
-let getFilters = function (params, elementName, isPopular) {
+let getFilters = function (params, elementName) {
     return db.concatCommandsWithAnd([getLanguageFilter(params.language, elementName),
          getTopicFilter(params.topic, elementName),
-        getRecommendationTypeFilter(params.recommendationType, elementName),
-        getOnlyOtherUsers(isPopular)]);
+        getPageTypeFilter(params.pageType, elementName)]) || 'true';
+
 };
 
 module.exports = {

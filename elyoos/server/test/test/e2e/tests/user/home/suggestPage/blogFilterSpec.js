@@ -53,7 +53,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    pageType: ['Blog']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -87,7 +87,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    pageType: ['Blog']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -123,7 +123,7 @@ describe('Integration Tests for getting blog page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Blog']
+                    pageType: ['Blog']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);

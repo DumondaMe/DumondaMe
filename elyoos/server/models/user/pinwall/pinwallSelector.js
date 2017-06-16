@@ -3,32 +3,50 @@
 let _ = require('underscore');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let compare = function (a, b) {
-    return b.pinwall.created - a.pinwall.created;
+let compareCreated = function (a, b) {
+    return b.created - a.created;
 };
 
-let sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog, limit) {
+let comparePopular = function (a, b) {
+    if(b.totalNumberOfRecommendations === a.totalNumberOfRecommendations) {
+        return b.created - a.created;
+    } else {
+        return b.totalNumberOfRecommendations - a.totalNumberOfRecommendations;
+    }
+};
+
+let comparePopularOnlyContacts = function (a, b) {
+    if(b.numberOfContactRecommendations === a.numberOfContactRecommendations) {
+        return b.created - a.created;
+    } else {
+        return b.numberOfContactRecommendations - a.numberOfContactRecommendations;
+    }
+};
+
+let sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog, limit, order, onlyContacts) {
     let result = {
         pinwall: [],
         skipBlog: skipBlog,
         skipRecommendation: skipRecommendation
     };
+    result.pinwall = result.pinwall.concat(recommendations, blogs);
 
-    if (blogs) {
-        result.pinwall = result.pinwall.concat(recommendations, blogs);
-
-        result.pinwall.sort(compare);
-
-        result.pinwall = result.pinwall.slice(0, limit);
+    if (order === 'popular') {
+        if(onlyContacts) {
+            result.pinwall.sort(comparePopularOnlyContacts);
+        } else {
+            result.pinwall.sort(comparePopular);
+        }
     } else {
-        result.pinwall = recommendations;
+        result.pinwall.sort(compareCreated);
     }
+    result.pinwall = result.pinwall.slice(0, limit);
 
     _.each(result.pinwall, function (pinwallElement) {
 
         if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             result.skipBlog++;
-        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {
+        } else if (_.contains(pinwallElement.pinwallType, 'Page')) {
             result.skipRecommendation++;
         } else {
             logger.error("Unknown Pinwall Element " + pinwallElement.pinwallType);

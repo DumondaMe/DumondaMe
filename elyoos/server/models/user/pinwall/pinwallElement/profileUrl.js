@@ -6,22 +6,22 @@ let checkIsContactUser = function (contact, user) {
     return (contact && user) && (contact.userId !== user.userId);
 };
 
-let addProfileUrl = function (element, pinwallElement) {
-    if (pinwallElement.hasOwnProperty('contact') && checkIsContactUser(pinwallElement.contact, pinwallElement.user)) {
-        element.name = pinwallElement.contact.name;
-        element.forename = pinwallElement.contact.forename;
-        element.userId = pinwallElement.contact.userId;
+let addProfileUrl = function (element, pinwallElement, pinwallPropertyName = 'contact') {
+    if (pinwallElement.hasOwnProperty(pinwallPropertyName) && checkIsContactUser(pinwallElement[pinwallPropertyName], pinwallElement.user)) {
+        element.name = pinwallElement[pinwallPropertyName].name;
+        element.forename = pinwallElement[pinwallPropertyName].forename;
+        element.userId = pinwallElement[pinwallPropertyName].userId;
         if (pinwallElement.hasOwnProperty('privacy')) {
             element.profileUrl = userInfo.getImageForPreview(
                 {
-                    userId: pinwallElement.contact.userId,
+                    userId: pinwallElement[pinwallPropertyName].userId,
                     profileVisible: pinwallElement.privacy.profile,
                     imageVisible: pinwallElement.privacy.image
                 }, 'thumbnail.jpg');
         } else {
             element.profileUrl = userInfo.getImageForPreview(
                 {
-                    userId: pinwallElement.contact.userId,
+                    userId: pinwallElement[pinwallPropertyName].userId,
                     profileVisible: pinwallElement.privacyNoContact.profile,
                     imageVisible: pinwallElement.privacyNoContact.image
                 }, 'thumbnail.jpg');

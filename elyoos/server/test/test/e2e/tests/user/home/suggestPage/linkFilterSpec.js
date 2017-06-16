@@ -53,7 +53,7 @@ describe('Integration Tests for getting link page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Link']
+                    pageType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -87,7 +87,7 @@ describe('Integration Tests for getting link page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Link']
+                    pageType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -123,7 +123,7 @@ describe('Integration Tests for getting link page suggestion on the home screen 
                     maxItems: 15,
                     onlyContact: true,
                     order: 'suggestPage',
-                    recommendationType: ['Link']
+                    pageType: ['Link']
                 });
             }).then(function (res) {
                 res.status.should.equal(200);

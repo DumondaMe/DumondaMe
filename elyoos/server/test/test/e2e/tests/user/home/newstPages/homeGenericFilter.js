@@ -4,14 +4,14 @@ let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
-describe('Integration Tests for filtering generic recommendation on home screen', function () {
+describe('Integration Tests for filtering generic pages on home screen', function () {
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createGenericPage('0', {adminId: '3', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501}, [{
+            dbDsl.createGenericPage('0', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 501}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694
@@ -48,7 +48,7 @@ describe('Integration Tests for filtering generic recommendation on home screen'
         return requestHandler.logout();
     });
 
-    it('Language and recommendation type filter for generic page', function () {
+    it('Language and page type filter for generic page', function () {
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -60,7 +60,7 @@ describe('Integration Tests for filtering generic recommendation on home screen'
                 onlyContact: false,
                 order: 'new',
                 language: ['de'],
-                recommendationType: ['Generic']
+                pageType: ['Generic']
             });
         }).then(function (res) {
             res.status.should.equal(200);
@@ -83,14 +83,14 @@ describe('Integration Tests for filtering generic recommendation on home screen'
                 onlyContact: false,
                 order: 'new',
                 topic: ['health', 'socialDevelopment'],
-                recommendationType: ['Generic']
+                pageType: ['Generic']
             });
         }).then(function (res) {
             res.status.should.equal(200);
 
             res.body.pinwall.length.should.equals(2);
             res.body.pinwall[0].pageId.should.equals('1');
-            res.body.pinwall[0].userId.should.equals('2');
+            res.body.pinwall[0].userId.should.equals('3');
             res.body.pinwall[1].pageId.should.equals('0');
             res.body.pinwall[1].userId.should.equals('2');
         });
@@ -108,8 +108,8 @@ describe('Integration Tests for filtering generic recommendation on home screen'
                 maxItems: 10,
                 onlyContact: false,
                 order: 'new',
-                topic: ['health', 'socialDevelopment'],
-                recommendationType: ['Generic']
+                language: ['de'],
+                pageType: ['Generic']
             });
         }).then(function (res) {
             res.status.should.equal(200);
