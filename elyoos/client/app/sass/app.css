@@ -3337,6 +3337,12 @@
       font-size: 14px;
       font-weight: 500;
       vertical-align: middle; }
+    .blog-actions .number-container .number-contact {
+      line-height: 40px;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.54);
+      vertical-align: middle; }
 
 .pinwall-info-element {
   max-width: 340px;
@@ -3432,6 +3438,12 @@
     line-height: 40px;
     font-size: 14px;
     font-weight: 500;
+    vertical-align: middle; }
+  .page-recommendation-actions .number-container .number-contact {
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.54);
     vertical-align: middle; }
 
 .ely-pinwall-container #pinwall-no-result {

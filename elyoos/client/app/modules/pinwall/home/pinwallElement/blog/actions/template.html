@@ -16,9 +16,11 @@
             <span class="number">{{ctrl.element.totalNumberOfRecommendations}}</span>
         </div>
         <div ng-if="ctrl.element.onlyContact">
-            <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
-            <span class="number" ng-if="ctrl.element.numberOfRecommendations !== ctrl.element.totalNumberOfRecommendations">
-                ({{ctrl.element.totalNumberOfRecommendations}})</span>
+            <span class="number">{{ctrl.element.totalNumberOfRecommendations}}</span>
+            <span class="number-contact" ng-if="ctrl.element.totalNumberOfRecommendations !== ctrl.element.numberOfContactRecommendations">
+                ({{ctrl.element.numberOfContactRecommendations}}
+            <ng-pluralize count="ctrl.element.numberOfContactRecommendations" when="{'1': ' Kontakt',
+                                     'other': ' Kontakte'}"></ng-pluralize>)</span>
         </div>
     </div>
 </div>
