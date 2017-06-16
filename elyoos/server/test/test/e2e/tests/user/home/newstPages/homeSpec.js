@@ -88,6 +88,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[0].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[0].description.should.equals('page0Description');
             res.body.pinwall[0].recommendedByUser.should.equals(false);
+            res.body.pinwall[0].isAdmin.should.equals(false);
             res.body.pinwall[0].totalNumberOfRecommendations.should.equals(0);
             res.body.pinwall[0].topic.length.should.equals(1);
             res.body.pinwall[0].topic[0].should.equals('health');
@@ -104,6 +105,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[1].previewUrl.should.equals('pages/1/pagePreview.jpg');
             res.body.pinwall[1].description.should.equals('page1Description');
             res.body.pinwall[1].recommendedByUser.should.equals(true);
+            res.body.pinwall[1].isAdmin.should.equals(false);
             res.body.pinwall[1].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[1].topic.length.should.equals(1);
             res.body.pinwall[1].topic[0].should.equals('health');
@@ -123,6 +125,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[2].heightPreviewImage.should.equals(200);
             res.body.pinwall[2].description.should.equals('page2Description');
             res.body.pinwall[2].recommendedByUser.should.equals(false);
+            res.body.pinwall[2].isAdmin.should.equals(false);
             res.body.pinwall[2].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[2].topic.length.should.equals(1);
             res.body.pinwall[2].topic[0].should.equals('health');
@@ -140,6 +143,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[3].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
             res.body.pinwall[3].description.should.equals('page5Description');
             res.body.pinwall[3].recommendedByUser.should.equals(false);
+            res.body.pinwall[3].isAdmin.should.equals(false);
             res.body.pinwall[3].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[3].topic.length.should.equals(1);
             res.body.pinwall[3].topic[0].should.equals('health');
@@ -207,6 +211,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[7].profileUrl.should.equals('profileImage/5/thumbnail.jpg');
             res.body.pinwall[7].description.should.equals('page10Description');
             res.body.pinwall[7].recommendedByUser.should.equals(false);
+            res.body.pinwall[7].isAdmin.should.equals(false);
             res.body.pinwall[7].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[7].topic.length.should.equals(1);
             res.body.pinwall[7].topic[0].should.equals('health');
@@ -282,6 +287,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[0].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[0].description.should.equals('page0Description');
             res.body.pinwall[0].recommendedByUser.should.equals(false);
+            res.body.pinwall[0].isAdmin.should.equals(false);
             res.body.pinwall[0].totalNumberOfRecommendations.should.equals(0);
             res.body.pinwall[0].topic.length.should.equals(1);
             res.body.pinwall[0].topic[0].should.equals('health');
@@ -298,6 +304,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[1].previewUrl.should.equals('pages/1/pagePreview.jpg');
             res.body.pinwall[1].description.should.equals('page1Description');
             res.body.pinwall[1].recommendedByUser.should.equals(true);
+            res.body.pinwall[1].isAdmin.should.equals(false);
             res.body.pinwall[1].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[1].topic.length.should.equals(1);
             res.body.pinwall[1].topic[0].should.equals('health');
@@ -317,6 +324,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[2].heightPreviewImage.should.equals(200);
             res.body.pinwall[2].description.should.equals('page2Description');
             res.body.pinwall[2].recommendedByUser.should.equals(false);
+            res.body.pinwall[2].isAdmin.should.equals(false);
             res.body.pinwall[2].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[2].topic.length.should.equals(1);
             res.body.pinwall[2].topic[0].should.equals('health');
@@ -336,6 +344,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[3].heightPreviewImage.should.equals(201);
             res.body.pinwall[3].description.should.equals('page3Description');
             res.body.pinwall[3].recommendedByUser.should.equals(false);
+            res.body.pinwall[3].isAdmin.should.equals(false);
             res.body.pinwall[3].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[3].topic.length.should.equals(1);
             res.body.pinwall[3].topic[0].should.equals('health');
@@ -353,6 +362,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[4].profileUrl.should.equals('profileImage/5/thumbnail.jpg');
             res.body.pinwall[4].description.should.equals('page4Description');
             res.body.pinwall[4].recommendedByUser.should.equals(false);
+            res.body.pinwall[4].isAdmin.should.equals(false);
             res.body.pinwall[4].totalNumberOfRecommendations.should.equals(0);
             res.body.pinwall[4].topic.length.should.equals(1);
             res.body.pinwall[4].topic[0].should.equals('health');
@@ -370,6 +380,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[5].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
             res.body.pinwall[5].description.should.equals('page5Description');
             res.body.pinwall[5].recommendedByUser.should.equals(false);
+            res.body.pinwall[5].isAdmin.should.equals(false);
             res.body.pinwall[5].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[5].topic.length.should.equals(1);
             res.body.pinwall[5].topic[0].should.equals('health');
@@ -437,6 +448,7 @@ describe('Integration Tests for getting newest pages on home screen', function (
             res.body.pinwall[9].profileUrl.should.equals('profileImage/5/thumbnail.jpg');
             res.body.pinwall[9].description.should.equals('page10Description');
             res.body.pinwall[9].recommendedByUser.should.equals(false);
+            res.body.pinwall[9].isAdmin.should.equals(false);
             res.body.pinwall[9].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[9].topic.length.should.equals(1);
             res.body.pinwall[5].topic[0].should.equals('health');

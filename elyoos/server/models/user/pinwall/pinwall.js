@@ -222,6 +222,7 @@ let getPages = function (userId, request, commands, showUserRecommendation) {
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(page)")
         .return(`user, admin, page, LABELS(page) AS pinwallType, privacy, privacyNoContact,
             userRec.recommendationId AS userRecommendationId, page.created AS created,
+            EXISTS((user)-[:IS_ADMIN]->(page)) AS isAdmin,
             SIZE((page)<-[:RECOMMENDS]-(:Recommendation)) AS totalNumberOfRecommendations,
             numberOfContactRecommendations`)
         .orderBy(getOrderFilter(request.order, request.onlyContact, 'page'))
