@@ -3954,12 +3954,12 @@
 
 #public-header {
   position: relative;
-  background: url("../img/start/background.jpg");
+  background: url("https://s3.eu-central-1.amazonaws.com/elyoos.static/img/start/background.jpg");
   background-repeat: no-repeat !important;
   background-position: 50% !important; }
   @media screen and (max-width: 600px) {
     #public-header {
-      background: url("../img/start/backgroundMobile.jpg"); } }
+      background: url("https://s3.eu-central-1.amazonaws.com/elyoos.static/img/start/backgroundMobile.jpg"); } }
   #public-header #public-header-container {
     padding-top: 15px;
     padding-bottom: 50px;
