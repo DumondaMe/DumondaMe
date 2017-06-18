@@ -3,7 +3,7 @@
          ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">
         <div class="link-image-align"></div>
         <img ng-src="{{ctrl.page.previewUrl}}" ng-if="ctrl.page.previewUrl"/>
-        <img src="app/img/website.jpg" ng-if="!ctrl.page.previewUrl"/>
+        <img src="https://s3.eu-central-1.amazonaws.com/elyoos.static/img/website.jpg" ng-if="!ctrl.page.previewUrl"/>
     </div>
     <div class="page-content-container" flex>
         <div class="title" ui-sref="page.detail({pageId: ctrl.page.pageId, label: ctrl.page.label})">{{ctrl.page.title}}</div>
