@@ -3742,7 +3742,7 @@
   #ely-about #ely-about-container {
     min-height: 100%;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0 auto 64px auto;
     padding: 32px 16px 0 16px; }
     @media screen and (min-width: 960px) {
       #ely-about #ely-about-container {
@@ -3753,34 +3753,46 @@
     @media screen and (max-width: 960px) {
       #ely-about #ely-about-container {
         padding-top: 18px; } }
-    #ely-about #ely-about-container .about-text {
+    #ely-about #ely-about-container .about-elyoos-text {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px;
-      margin-bottom: 40px; }
-    #ely-about #ely-about-container .profile-image {
-      float: left;
-      height: 100px;
-      width: 100px;
-      margin-right: 18px;
-      border-radius: 4px; }
-    #ely-about #ely-about-container .name {
-      font-size: 20px;
-      font-weight: 500;
-      color: #3F51B5;
-      margin-bottom: 6px; }
-    #ely-about #ely-about-container .ely-function {
-      font-size: 14px;
-      font-weight: 500;
+      margin-bottom: 20px; }
+    #ely-about #ely-about-container .about-elyoos-title {
+      font-size: 24px;
+      font-weight: 400;
       color: rgba(0, 0, 0, 0.87);
-      margin-bottom: 3px; }
-    #ely-about #ely-about-container .contact {
-      font-size: 12px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.54); }
-      @media screen and (min-width: 600px) {
-        #ely-about #ely-about-container .contact {
-          font-size: 14px; } }
+      margin-bottom: 40px; }
+    #ely-about #ely-about-container .user {
+      min-height: 100px; }
+      #ely-about #ely-about-container .user .about-text {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 26px;
+        margin-bottom: 40px; }
+      #ely-about #ely-about-container .user .profile-image {
+        float: left;
+        height: 100px;
+        width: 100px;
+        margin-right: 18px;
+        border-radius: 4px; }
+      #ely-about #ely-about-container .user .name {
+        font-size: 20px;
+        font-weight: 500;
+        color: #3F51B5;
+        margin-bottom: 6px; }
+      #ely-about #ely-about-container .user .ely-function {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+        margin-bottom: 3px; }
+      #ely-about #ely-about-container .user .contact {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54); }
+        @media screen and (min-width: 600px) {
+          #ely-about #ely-about-container .user .contact {
+            font-size: 14px; } }
 
 #check-login {
   height: 100%; }
