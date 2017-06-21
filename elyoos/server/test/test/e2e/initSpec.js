@@ -14,7 +14,7 @@ elyoosTestUtil.stubLimitRate();
 elyoosTestUtil.stubRecaptcha.stub(require('../../../models/util/recaptcha'));
 
 let stubGeoCode = sandbox.stub(require('elyoos-server-lib').geocodingConfig, 'getConfig');
-stubGeoCode.returns({secret:'e0a0c78a5098a52778cc8c5d51f63048'});
+stubGeoCode.returns({secret:'e0a0c78a5098a52778cc8c5d51f63049'});
 
 describe('Initialize Server for all integration tests', function () {
 
