@@ -55,7 +55,7 @@
                 <md-checkbox ng-model="ctrl.agb" aria-label="AGB's zustimmen">
                     Ich akzeptiere die <span class="agb-link" ng-click="ctrl.openAgb()">AGB's</span>
                 </md-checkbox>
-                <div class="ely-recaptcha" vc-recaptcha theme="'light'" key="'6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ'"
+                <div class="ely-recaptcha" vc-recaptcha theme="'light'" key="ctrl.RECAPTCHA_SITE_KEY"
                      on-create="ctrl.setWidgetId(widgetId)" on-success="ctrl.setResponse(response)" on-expire="ctrl.cbExpiration()"></div>
             </div>
         </md-dialog-content>

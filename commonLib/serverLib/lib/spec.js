@@ -7,6 +7,8 @@ let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
 let cdn = require('./cdnConfig');
+let recaptcha = require('./recaptchaConfig');
+let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
 let version = require('./version');
 
@@ -110,11 +112,15 @@ module.exports = function (app) {
 
             let dbConfig = config.get('databaseConfig'),
                 cdnConfig = config.get('cdnStore'),
-                emailConfig = config.get('emailConfig');
+                emailConfig = config.get('emailConfig'),
+                recaptchaConfig = config.get('recaptcha'),
+                geocodingConfig = config.get('geocoding');
 
             cdn.config(cdnConfig);
             db.config(dbConfig);
             email.config(emailConfig);
+            recaptcha.config(recaptchaConfig);
+            geocoding.config(geocodingConfig);
 
             setStaticHeaders(config);
 

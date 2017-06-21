@@ -2,7 +2,8 @@
 
 
 module.exports = ['Register', 'errorToast', '$state', 'vcRecaptchaService', 'ElyModal', 'CheckChangePasswordService',
-    function (Register, errorToast, $state, vcRecaptchaService, ElyModal, CheckChangePasswordService) {
+    'RECAPTCHA_SITE_KEY',
+    function (Register, errorToast, $state, vcRecaptchaService, ElyModal, CheckChangePasswordService, RECAPTCHA_SITE_KEY) {
         var ctrl = this;
 
         ctrl.userToRegister = {};
@@ -10,6 +11,7 @@ module.exports = ['Register', 'errorToast', '$state', 'vcRecaptchaService', 'Ely
         ctrl.showAgb = false;
         ctrl.successfulRegisterRequest = false;
         ctrl.uploadValid = false;
+        ctrl.RECAPTCHA_SITE_KEY = RECAPTCHA_SITE_KEY;
 
         ctrl.newPasswordChanged = function () {
             var uploadValid = CheckChangePasswordService.checkNewPasswordIsValid(ctrl.userToRegister.password, ctrl.confirmNewPassword);

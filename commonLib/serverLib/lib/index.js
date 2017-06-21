@@ -9,6 +9,8 @@ let exceptions = require('./error/exceptions');
 let neo4j = require('./neo4j');
 let auth = require('./auth');
 let cdnConfig = require('./cdnConfig');
+let geocodingConfig = require('./geocodingConfig');
+let recaptchaConfig = require('./recaptchaConfig');
 let cdn = require('./cdn');
 let databaseConfig = require('./databaseConfig');
 let domain = require('./domain');
@@ -35,6 +37,8 @@ module.exports.neo4j = neo4j;
 
 module.exports.auth = auth;
 module.exports.cdnConfig = cdnConfig;
+module.exports.geocodingConfig = geocodingConfig;
+module.exports.recaptchaConfig = recaptchaConfig;
 module.exports.cdn = cdn;
 module.exports.databaseConfig = databaseConfig;
 module.exports.jsonValidation = jsonValidation;

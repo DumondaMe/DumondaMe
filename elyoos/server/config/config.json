@@ -9,6 +9,12 @@
   "cdnStore": {
     "bucket": "elyoos.test"
   },
+  "recaptcha": {
+    "secret": "6LfWvyYTAAAAAOLH1SvjQ4-vAviNkZ0g2gOhtQss"
+  },
+  "geocoding": {
+    "secret": "e0a0c78a5098a52778cc8c5d51f63048"
+  },
   "emailConfig": {
     "host": "localhost",
     "port": 6379,
