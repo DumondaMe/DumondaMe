@@ -28,39 +28,31 @@
       margin-bottom: 40px;
     }
     .user {
-      min-height: 100px;
+      margin-bottom: 60px;
       .about-text {
         font-size: 18px;
         font-weight: 300;
         line-height: 26px;
-        margin-bottom: 40px;
+        margin-bottom: 0;
       }
       .profile-image {
-        float: left;
-        height: 100px;
-        width: 100px;
+        height: 130px;
+        width: 130px;
         margin-right: 18px;
         border-radius: 4px;
       }
       .name {
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 400;
         color: $primary-color;
         margin-bottom: 6px;
+        margin-top: 0;
       }
       .ely-function {
         font-size: 14px;
-        font-weight: 500;
-        color: $primary-text;
-        margin-bottom: 3px;
-      }
-      .contact {
-        font-size: 12px;
-        font-weight: 500;
+        font-weight: 400;
         color: $secondary-text;
-        @media screen and (min-width: $gt-xs) {
-          font-size: 14px;
-        }
+        margin-bottom: 3px;
       }
     }
   }

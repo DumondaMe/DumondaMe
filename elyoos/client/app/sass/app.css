@@ -3764,35 +3764,28 @@
       color: rgba(0, 0, 0, 0.87);
       margin-bottom: 40px; }
     #ely-about #ely-about-container .user {
-      min-height: 100px; }
+      margin-bottom: 60px; }
       #ely-about #ely-about-container .user .about-text {
         font-size: 18px;
         font-weight: 300;
         line-height: 26px;
-        margin-bottom: 40px; }
+        margin-bottom: 0; }
       #ely-about #ely-about-container .user .profile-image {
-        float: left;
-        height: 100px;
-        width: 100px;
+        height: 130px;
+        width: 130px;
         margin-right: 18px;
         border-radius: 4px; }
       #ely-about #ely-about-container .user .name {
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 400;
         color: #3F51B5;
-        margin-bottom: 6px; }
+        margin-bottom: 6px;
+        margin-top: 0; }
       #ely-about #ely-about-container .user .ely-function {
         font-size: 14px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.87);
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.54);
         margin-bottom: 3px; }
-      #ely-about #ely-about-container .user .contact {
-        font-size: 12px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.54); }
-        @media screen and (min-width: 600px) {
-          #ely-about #ely-about-container .user .contact {
-            font-size: 14px; } }
 
 #check-login {
   height: 100%; }
