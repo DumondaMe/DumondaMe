@@ -1,4 +1,4 @@
-FROM node:6.10.1
+FROM node:8.5.0
 
 ENV NODE_ENV 'production'
 ENV ELYOOS_MODE 'production-admin'

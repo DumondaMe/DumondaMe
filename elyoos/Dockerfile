@@ -1,4 +1,4 @@
-FROM node:6.10.1
+FROM node:8.5.0
 
 ARG node_env='production'
 ARG elyoos_mode='production'

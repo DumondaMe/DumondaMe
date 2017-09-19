@@ -12,3 +12,4 @@ npm-debug.log
 .idea
 testResult
 documentation
+package-lock.json
