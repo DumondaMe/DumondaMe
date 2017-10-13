@@ -14,19 +14,6 @@ module.exports = function (grunt) {
             }
         },
 
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'xunit',
-                    captureFile: 'testResult/xunit.xml', // Optionally capture the reporter output to a file
-                    quiet: true, // Optionally suppress output to standard out (defaults to false)
-                    clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false),
-                    timeout: 20000
-                },
-                src: ['test/**/*.js']
-            }
-        },
-
         sonarRunner: {
             analysis: {
                 options: {
@@ -74,7 +61,7 @@ module.exports = function (grunt) {
     grunt.registerTask('coverage', ['env:dev', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
 
-    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'testResult/xunit.xml';
+    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'xunit.xml';
     grunt.registerTask('cleanXunitFile', 'Remove Mocha output from xunit file', function() {
         if (grunt.file.exists('./' + outputFile)) {
             let file = grunt.file.read('./' + outputFile);
