@@ -1,0 +1,42 @@
+{
+  "name": "elyoos-transition-connect-api",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "4.15.2",
+    "kraken-js": "2.1.0",
+    "lodash": "4.12.0",
+    "body-parser": "1.17.1",
+    "method-override": "2.3.8",
+    "express-json": "1.0.0",
+    "express-rate-limit": "2.7.0",
+    "winston": "2.3.1",
+    "winston-cloudwatch": "1.11.3",
+    "bluebird": "3.5.0",
+    "tv4": "1.3.0",
+    "tv4-formats": "3.0.0",
+    "request": "2.81.0",
+    "request-promise": "4.1.1",
+    "neo4j-driver": "1.4.1",
+    "moment": "2.18.1",
+    "url-parse": "1.1.1",
+    "biguint-format": "1.0.0",
+    "flake-idgen": "1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "3.3.0",
+    "grunt-mocha-test": "0.13.2",
+    "supertest": "3.0.0",
+    "istanbul": "0.4.5",
+    "chai": "3.5.0",
+    "chai-as-promised": "6.0.0",
+    "chai-subset": "1.5.0",
+    "sinon": "2.2.0",
+    "jsonfile": "3.0.0",
+    "matchdep": "1.0.1",
+    "grunt": "~0.4.5",
+    "grunt-mocha-istanbul": "5.0.2",
+    "grunt-env": "~0.4.4",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-sonar-runner": "2.4.8"
+  }
+}

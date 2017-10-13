@@ -3,7 +3,8 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
-require('elyoos-server-lib').init('elyoos');
+
+require('elyoos-server-lib').init('tc');
 
 global.requireDb = function () {
     return require('elyoos-server-lib').neo4j;
@@ -14,19 +15,15 @@ global.requireModel = function (name) {
 };
 
 require('elyoos-server-lib').jsonValidation;
-require('elyoos-server-lib').version.setVersion(require('./package.json').version);
 let Promise = require('bluebird');
-Promise.promisifyAll(require('gm').prototype);
-
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 
 let kraken = require('kraken-js');
-let emailService = require('./models/eMailService/eMail');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 let app = require('express')();
-let options = require('elyoos-server-lib').spec(app);
+let options = require('./src/lib/spec')(app);
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 8084;
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
     app.set('trust proxy', 1);
@@ -45,7 +42,6 @@ app.listen(port, function (err) {
 
 app.on('start', function () {
     dbConfig.connected.then(function () {
-        emailService.start();
         logger.info('Server started');
     });
 });

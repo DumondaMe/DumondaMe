@@ -1,54 +1,46 @@
 "use strict";
 
-let eMail = require('./eMail/eMail');
-let eMailService = require('./eMail/eMailService/eMail');
-let eMailQueue = require('./eMail/eMailQueue');
-let controllerErrors = require('./error/controllerErrors');
-let errors = require('./error/errors');
-let exceptions = require('./error/exceptions');
-let neo4j = require('./neo4j');
-let auth = require('./auth');
-let cdnConfig = require('./cdnConfig');
-let geocodingConfig = require('./geocodingConfig');
-let recaptchaConfig = require('./recaptchaConfig');
-let cdn = require('./cdn');
-let databaseConfig = require('./databaseConfig');
-let domain = require('./domain');
-let jsonValidation = require('./jsonValidation');
-let limiteRate = require('./limiteRate');
-let logging = require('./logging');
-let passwordEncryption = require('./passwordEncryption');
-let redisSession = require('./redisSession');
-let spec = require('./spec');
-let time = require('./time');
-let user = require('./user');
-let uuid = require('./uuid');
-let version = require('./version');
+module.exports.init = function (type) {
+    if (type === 'tc') {
+        module.exports.controllerErrors = require('./error/controllerErrors');
+        module.exports.errors = require('./error/errors');
+        module.exports.exceptions = require('./error/exceptions');
 
-module.exports.eMail = eMail;
-module.exports.eMailService = eMailService;
-module.exports.eMailQueue = eMailQueue;
+        module.exports.neo4j = require('./neo4j');
 
-module.exports.controllerErrors = controllerErrors;
-module.exports.errors = errors;
-module.exports.exceptions = exceptions;
+        module.exports.databaseConfig = require('./databaseConfig');
+        module.exports.jsonValidation = require('./jsonValidation');
+        module.exports.limiteRate = require('./limiteRate');
+        module.exports.logging = require('./logging');
+        module.exports.time = require('./time');
+        module.exports.uuid = require('./uuid');
+    } else  {
+        module.exports.eMail = require('./eMail/eMail');
+        module.exports.eMailService = require('./eMail/eMailService/eMail');
+        module.exports.eMailQueue = require('./eMail/eMailQueue');
 
-module.exports.neo4j = neo4j;
+        module.exports.controllerErrors = require('./error/controllerErrors');
+        module.exports.errors = require('./error/errors');
+        module.exports.exceptions = require('./error/exceptions');
 
-module.exports.auth = auth;
-module.exports.cdnConfig = cdnConfig;
-module.exports.geocodingConfig = geocodingConfig;
-module.exports.recaptchaConfig = recaptchaConfig;
-module.exports.cdn = cdn;
-module.exports.databaseConfig = databaseConfig;
-module.exports.jsonValidation = jsonValidation;
-module.exports.limiteRate = limiteRate;
-module.exports.logging = logging;
-module.exports.passwordEncryption = passwordEncryption;
-module.exports.redisSession = redisSession;
-module.exports.spec = spec;
-module.exports.time = time;
-module.exports.user = user;
-module.exports.uuid = uuid;
-module.exports.version = version;
-module.exports.domain = domain;
+        module.exports.neo4j = require('./neo4j');
+
+        module.exports.auth = require('./auth');
+        module.exports.cdnConfig = require('./cdnConfig');
+        module.exports.geocodingConfig = require('./geocodingConfig');
+        module.exports.recaptchaConfig = require('./recaptchaConfig');
+        module.exports.cdn = require('./cdn');
+        module.exports.databaseConfig = require('./databaseConfig');
+        module.exports.jsonValidation = require('./jsonValidation');
+        module.exports.limiteRate = require('./limiteRate');
+        module.exports.logging = require('./logging');
+        module.exports.passwordEncryption = require('./passwordEncryption');
+        module.exports.redisSession = require('./redisSession');
+        module.exports.spec = require('./spec');
+        module.exports.time = require('./time');
+        module.exports.user = require('./user');
+        module.exports.uuid = require('./uuid');
+        module.exports.version = require('./version');
+        module.exports.domain = require('./domain');
+    }
+};

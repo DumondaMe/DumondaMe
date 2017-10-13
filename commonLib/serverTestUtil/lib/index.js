@@ -21,13 +21,15 @@ module.exports.stubLimitRate = stubLimitRate;
 module.exports.stubRecaptcha = stubRecaptcha;
 module.exports.user = user;
 
-module.exports.init = function (newServerLib, app) {
+module.exports.init = function (newServerLib, app, serviceType) {
     if (!serverLib) {
         serverLib = newServerLib;
         db.init(serverLib.neo4j);
         generator.init(serverLib.uuid);
-        stubEmailQueue().init(serverLib.eMailQueue);
         stubLimitRate().init(serverLib.limiteRate);
+        if (serviceType !== 'tc') {
+            stubEmailQueue().init(serverLib.eMailQueue);
+        }
     }
     if (app) {
         request.setApplication(app);

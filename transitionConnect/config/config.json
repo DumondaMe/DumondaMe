@@ -1,0 +1,72 @@
+{
+  "express": {
+    "view engine": null
+  },
+  "view engines": null,
+  "databaseConfig": {
+    "host": "bolt://localhost:7687"
+  },
+  "middleware": {
+    "compress": {
+      "enabled": true
+    },
+    "json": {
+      "priority": 30,
+      "module": {
+        "name": "body-parser",
+        "method": "json",
+        "arguments": [
+          {
+            "type": "application/json"
+          }
+        ]
+      }
+    },
+    "urlEncoded": {
+      "priority": 40,
+      "module": {
+        "name": "body-parser",
+        "method": "urlencoded",
+        "arguments": [
+          {
+            "extended": true
+          }
+        ]
+      }
+    },
+    "appsec": {
+      "enabled": true,
+      "priority": 90,
+      "module": {
+        "name": "lusca",
+        "arguments": [
+          {
+            "csrf": false,
+            "xframe": "SAMEORIGIN",
+            "xssProtection": true,
+            "nosniff": true
+          }
+        ]
+      }
+    },
+    "router": {
+      "priority": 100,
+      "module": {
+        "name": "express-enrouten",
+        "arguments": [
+          {
+            "directory": "path:./src/api"
+          }
+        ]
+      }
+    },
+    "errorHandling": {
+      "enabled": true,
+      "priority": 1000,
+      "module": {
+        "name": "elyoos-server-lib/lib/error/errors",
+        "method": "handlingError"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "express": {
+    "view engine": null
+  },
+  "view engines": null,
+  "databaseConfig": {
+    "host": "bolt://localhost:7688"
+  },
+  "middleware": {
+    "appsec": {
+      "enabled": false,
+      "priority": 90,
+      "module": {
+        "name": "lusca"
+      }
+    }
+  }
+}
