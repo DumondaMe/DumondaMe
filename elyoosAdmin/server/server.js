@@ -3,6 +3,7 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
+require('elyoos-server-lib').init('elyoos');
 global.requireDb = function () {
     return require('elyoos-server-lib').neo4j;
 };
