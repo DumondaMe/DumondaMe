@@ -36,7 +36,7 @@ describe('Integration Tests creating comments for feedback elements', function (
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
-            res.body.creator.name.should.be.at.least('user Meier');
+            res.body.creator.name.should.equals('user Meier');
             return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
@@ -64,7 +64,7 @@ describe('Integration Tests creating comments for feedback elements', function (
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
-            res.body.creator.name.should.be.at.least('user Meier');
+            res.body.creator.name.should.equals('user Meier');
             return db.cypher().match(`(:Feedback:Idea {feedbackId: '3'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
@@ -93,7 +93,7 @@ describe('Integration Tests creating comments for feedback elements', function (
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
-            res.body.creator.name.should.be.at.least('user Meier');
+            res.body.creator.name.should.equals('user Meier');
             return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '7'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')

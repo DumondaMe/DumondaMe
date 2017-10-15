@@ -40,7 +40,7 @@ describe('Integration Tests creating a idea for a discussion', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
-            res.body.creator.name.should.be.at.least('user Meier');
+            res.body.creator.name.should.equals('user Meier');
             return db.cypher().match(`(:Feedback:Discussion {feedbackId: '5'})<-[:IS_IDEA]-(feedback:Feedback:DiscussionIdea {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('feedback')
