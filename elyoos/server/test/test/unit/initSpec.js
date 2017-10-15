@@ -11,7 +11,7 @@ global.requireDb = function () {
 global.requireModel = function (name) {
     return require(`${__dirname}/../../../models/${name}`);
 };
-
+require('elyoos-server-lib').init('elyoos');
 require('elyoos-server-lib').jsonValidation;
 
 require('elyoos-server-test-util').init(require('elyoos-server-lib'));
@@ -31,9 +31,7 @@ describe('Initialize Server Unit Test', function () {
         stubEmailQueue.clear();
     });
 
-    it('dummy Test', function (done) {
-        dbConfig.config({host: 'bolt://localhost:7688'}).then(function () {
-            done();
-        });
+    it('dummy Test', function () {
+        return dbConfig.config({host: 'bolt://localhost:7688'});
     });
 });
