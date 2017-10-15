@@ -9,7 +9,7 @@ module.exports = function () {
     return {
         init: function (newLimiteRate) {
             limiteRate = newLimiteRate;
-            getRate = sinon.stub(limiteRate, 'getRate')
+            getRate = sinon.stub(limiteRate, 'getRate');
             getRate.returns(function (req, res, next) {
                 next();
             });
