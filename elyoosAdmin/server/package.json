@@ -43,16 +43,16 @@
     "deasync": "0.1.9"
   },
   "devDependencies": {
-    "mocha": "3.3.0",
+    "mocha": "4.0.1",
     "xunit-file": "1.0.0",
     "supertest": "3.0.0",
     "istanbul": "0.4.5",
-    "chai": "3.5.0",
-    "chai-as-promised": "6.0.0",
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
     "sinon": "2.2.0",
     "jsonfile": "3.0.0",
     "matchdep": "~1.0.1",
-    "grunt": "~0.4.5",
+    "grunt": "1.0.1",
     "grunt-mocha-istanbul": "5.0.2",
     "grunt-env": "~0.4.4",
     "grunt-sonar-runner": "2.4.8"
