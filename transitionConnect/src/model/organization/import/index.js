@@ -3,7 +3,7 @@
 let db = requireDb();
 let time = require('elyoos-server-lib').time;
 
-let importExisting = async function (organizations) {
+let importOrganizations = async function (organizations) {
     let commands = [];
     await db.cypher().unwind(`{organizations} AS organization`)
         .merge(`(org:Page:ImportTC {pageId: organization.uuid})`)
@@ -17,5 +17,5 @@ let importExisting = async function (organizations) {
 };
 
 module.exports = {
-    importExisting
+    importOrganizations
 };

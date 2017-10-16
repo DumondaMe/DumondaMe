@@ -42,7 +42,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs change organization data', req, res, logger, function () {
             return validation.validateRequest(req, schemaModifyOrganization, logger).then(function (request) {
                 logger.info(`Import of changed organizations`, req);
-                return importOrganizations.importExisting(request.organizations, req);
+                return importOrganizations.importOrganizations(request.organizations, req);
             }).then(function () {
                 res.status(200).end();
             });
