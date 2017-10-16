@@ -5,6 +5,7 @@
     "express": "4.15.2",
     "kraken-js": "2.1.0",
     "lodash": "4.12.0",
+    "underscore": "1.8.3",
     "body-parser": "1.17.1",
     "method-override": "2.3.8",
     "express-json": "1.0.0",

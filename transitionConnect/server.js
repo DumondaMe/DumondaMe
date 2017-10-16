@@ -11,7 +11,7 @@ global.requireDb = function () {
 };
 
 global.requireModel = function (name) {
-    return require(`${__dirname}/models/${name}`);
+    return require(`${__dirname}/src/model/${name}`);
 };
 
 require('elyoos-server-lib').jsonValidation;

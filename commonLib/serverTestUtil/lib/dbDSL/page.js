@@ -55,8 +55,9 @@ let createGenericPage = function (pageId, data, addresses) {
     data.description = data.description || `page${pageId}Description`;
     data.website = data.website || null;
     data.modified = data.modified || data.created;
+    data.importTC = data.importTC ? ':ImportTC' : '';
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
-        .create(`(user)-[:IS_ADMIN]->(page:Page  {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {created}, topic: {topic},
+        .create(`(user)-[:IS_ADMIN]->(page:Page${data.importTC} {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {created}, topic: {topic},
         pageId: {pageId}, website: {website}}) foreach (address in {addresses} | CREATE (page)-[:HAS]->(:Address {address: address.address, description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end({
