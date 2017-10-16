@@ -50,6 +50,14 @@ let Cypher = function (driver) {
         return this.chainingQuery(condition, ' MERGE ', true);
     };
 
+    this.onCreate = function (condition) {
+        return this.chainingQuery(condition, ' ON CREATE ');
+    };
+
+    this.onMatch = function (condition) {
+        return this.chainingQuery(condition, ' ON MATCH ');
+    };
+
     this.case = function (condition) {
         return this.chainingQuery(condition, ' CASE ');
     };
@@ -160,12 +168,12 @@ let Cypher = function (driver) {
         return chainedQuery;
     };
 
-    this.send = function (statementsToSend) {
+    this.send = async function (statementsToSend) {
         if (!statementsToSend || !(statementsToSend instanceof Array)) {
             statementsToSend = [];
         }
         statementsToSend.push(this.getCommand());
-        return communication.send(statementsToSend, driver);
+        return await communication.send(statementsToSend, driver);
     };
 };
 

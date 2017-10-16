@@ -1,53 +1,35 @@
 'use strict';
 
-let bluebird = require('bluebird');
-let BluebirdPromise = bluebird.Promise;
 let parser = require('./parser');
+let logger = require('./../../logging').getLogger(__filename);
 
-function chainPromise(promise, results, statementsToSent, session, chainNumber) {
-
-    if (chainNumber <= 0) {
-        return promise;
+async function runCypherCommands(statementsToSend, session) {
+    let results = [];
+    for (let index = 0; index < statementsToSend.length; index++) {
+        let result, statement = statementsToSend[index];
+        if (statement.isWriteCommand) {
+            result = await session.writeTransaction(tx => tx.run(statement.statement, statement.parameters));
+        } else {
+            result = await session.readTransaction(tx => tx.run(statement.statement, statement.parameters));
+        }
+        results.push(parser.parseResult(result.records));
     }
-
-    let next, statement = statementsToSent[statementsToSent.length - chainNumber], sessionCommand;
-
-    if (statement.isWriteCommand) {
-        sessionCommand = session.writeTransaction;
-    } else {
-        sessionCommand = session.readTransaction;
-    }
-    next = promise.then(function () {
-        return sessionCommand.call(session, function (tx) {
-            return tx.run(statement.statement, statement.parameters);
-        }).then(function (result) {
-            results.push(parser.parseResult(result.records));
-        });
-    });
-
-    return next.then(function () {
-        return chainPromise(next, results, statementsToSent, session, chainNumber - 1);
-    });
+    return results;
 }
 
-function handlingSession(session) {
-    return BluebirdPromise.resolve().disposer(function () {
-        session.close();
-    });
-}
-
-let send = function (statementsToSend, driver) {
+let send = async function (statementsToSend, driver) {
     let results = [];
     const session = driver.session();
-
-    return BluebirdPromise.using(handlingSession(session), function () {
-        return chainPromise(BluebirdPromise.resolve(), results, statementsToSend, session, statementsToSend.length).then(function () {
-            if (results.length === 1) {
-                return results[0];
-            }
-            return results;
-        });
-    });
+    try {
+        results = await runCypherCommands(statementsToSend, session);
+    } catch (ex) {
+        logger.error(ex);
+    }
+    session.close();
+    if (results.length === 1) {
+        return results[0];
+    }
+    return results;
 };
 
 
