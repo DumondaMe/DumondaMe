@@ -9,6 +9,7 @@ let feedback = require('./dbDSL/feedback');
 let messages = require('./dbDSL/messages');
 let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
+let tc = require('./dbDSL/transitionConnect');
 let forum = require('./dbDSL/forum');
 let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
@@ -76,5 +77,8 @@ module.exports = {
     createForumProArgument: forum.createProArgument,
     createForumCounterArgument: forum.createCounterArgument,
     forumRatePositiveAnswer: forum.ratePositiveAnswer,
-    unsubscribeInvitation: unsubscribe.unsubscribeInvitation
+    unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
+    createTransitionConnectExportNode: tc.createTransitionConnectExportNode,
+    exportOrganizationToTransitionConnect: tc.exportOrganization,
+    exportOrganizationToTransitionConnectIsPending: tc.exportOrganizationPending
 };

@@ -3,6 +3,7 @@
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 let importOrganizations = requireModel('organization/import/index');
+let exportOrganizations = requireModel('organization/export/index');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let topic = require("../../../../../elyoos/server/controllers/schema/topic");
 
@@ -36,6 +37,17 @@ let schemaModifyOrganization = {
 };
 
 module.exports = function (router) {
+
+    router.get('/', function (req, res) {
+
+        return controllerErrors('Error occurs when getting feedback detail', req, res, logger, function () {
+
+            logger.info("Export of Organizations", req);
+            return exportOrganizations.exportOrganizations().then(function (data) {
+                res.status(200).json(data);
+            });
+        });
+    });
 
     router.put('/', function (req, res) {
 

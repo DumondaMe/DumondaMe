@@ -7,7 +7,7 @@ let moment = require('moment');
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let should = require('chai').should();
 
-describe('Integration Tests for importing modified organizations', function () {
+describe('Integration Tests for importing organizations', function () {
 
     let startTime;
 
@@ -19,8 +19,6 @@ describe('Integration Tests for importing modified organizations', function () {
     afterEach(function () {
         return requestHandler.logout();
     });
-
-    // Import existing organization fails because the organization was never imported from tc
 
     it('Import modified organization with all possible properties', async function () {
 

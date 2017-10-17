@@ -4,7 +4,6 @@ let db = requireDb();
 let time = require('elyoos-server-lib').time;
 
 let importOrganizations = async function (organizations) {
-    let commands = [];
     await db.cypher().unwind(`{organizations} AS organization`)
         .merge(`(org:Page:ImportTC {pageId: organization.uuid})`)
         .onCreate(`SET org.created = {now}, org.label = 'Generic'`)
@@ -12,7 +11,7 @@ let importOrganizations = async function (organizations) {
                     org.slogan = organization.slogan, org.website = organization.website, 
                     org.language = [organization.language], org.topic = organization.categories,
                     org.modified = {now}`)
-        .end({organizations: organizations, now: time.getNowUtcTimestamp()}).send(commands);
+        .end({organizations: organizations, now: time.getNowUtcTimestamp()}).send();
 
 };
 
