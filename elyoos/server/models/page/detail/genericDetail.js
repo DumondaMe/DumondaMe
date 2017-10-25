@@ -23,8 +23,10 @@ let getDetail = function (pageId, label, userId) {
 
     return db.cypher().match("(page:Page {pageId: {pageId}, label: 'Generic'})")
         .optionalMatch("(page)-[:HAS]->(address:Address)")
-        .return(`page.pageId AS pageId, page.title AS title, page.description AS description, page.topic AS topic, collect(address) AS addresses, 
-                 page.website AS website, page.created AS created, page.modified AS modified, page.label AS label, page.language AS language`)
+        .return(`page.pageId AS pageId, page.title AS title, page.description AS description, 
+                 page.topic AS topic, collect(address) AS addresses, page.website AS website, 
+                 page.created AS created, page.modified AS modified, page.label AS label, 
+                 page.language AS language, page.exportToTc AS exportToTc`)
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
