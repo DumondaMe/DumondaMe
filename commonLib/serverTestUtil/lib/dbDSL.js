@@ -79,6 +79,5 @@ module.exports = {
     forumRatePositiveAnswer: forum.ratePositiveAnswer,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
     createTransitionConnectExportNode: tc.createTransitionConnectExportNode,
-    exportOrganizationToTransitionConnect: tc.exportOrganization,
     exportOrganizationToTransitionConnectIsPending: tc.exportOrganizationPending
 };
