@@ -23,9 +23,9 @@ let schemaModifyOrganization = {
                     uuid: {type: 'string', format: 'notEmptyString', maxLength: 70},
                     name: {type: 'string', format: 'notEmptyString', maxLength: 1000},
                     description: {type: 'string', format: 'notEmptyString', maxLength: 10000},
-                    slogan: {type: 'string', format: 'notEmptyString', maxLength: 500},
+                    slogan: {type: 'string', format: 'string', maxLength: 500},
                     language: {enum: ['de', 'fr', 'en']},
-                    website: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                    website: {type: 'string', format: 'sring', maxLength: 1000},
                     categories: topic.topicMultiple
                 }
             },
