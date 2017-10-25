@@ -9,7 +9,8 @@ describe('Integration Tests for getting generic page detail', function () {
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
             dbDsl.createTransitionConnectExportNode();
-            dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100, website: 'www.elyoos.org'}, [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'],
+                created: 100, website: 'www.elyoos.org', importTC: true}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
@@ -55,7 +56,8 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.created.should.equals(100);
             res.body.page.modified.should.equals(100);
             res.body.page.label.should.equals('Generic');
-            res.body.page.exportToTc.should.equals(true);
+            res.body.page.exportToTc.should.equals(true); // In production exportToTc and importTc can not be both true
+            res.body.page.importTC.should.equals(true);
             res.body.page.imagePreview.should.equals('pages/1/preview.jpg');
             res.body.page.imageNormal.should.equals('pages/1/normal.jpg');
 

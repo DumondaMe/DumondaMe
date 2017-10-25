@@ -1,6 +1,14 @@
 <div class="ely-page-admin-container" ng-show="ctrl.pageDetail.administrators.isAdmin || ctrl.pageDetail.page.isAdmin">
     <div class="page-section-title">Du bist Administrator dieses Beitrages</div>
     <div class="page-admin-actions-container" layout="row">
+        <div ng-show="ctrl.label === 'Generic' && !ctrl.pageDetail.page.importTC">
+            <ely-icon-button ng-if="!ctrl.pageDetail.page.exportToTc"
+                             class="first-element" icon="cardActions:sync"
+                             label="TC Sync starten" ng-click="ctrl.tcSyncState(true)"></ely-icon-button>
+            <ely-icon-button ng-if="ctrl.pageDetail.page.exportToTc"
+                             class="first-element" icon="cardActions:syncOff"
+                             label="TC Sync beenden" ng-click="ctrl.tcSyncState(false)"></ely-icon-button>
+        </div>
         <div>
             <ely-icon-button class="first-element" icon="cardActions:edit" label="Bearbeiten" ng-click="ctrl.editPage()"></ely-icon-button>
         </div>
