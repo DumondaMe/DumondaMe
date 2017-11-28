@@ -16,17 +16,16 @@ let checkIsAllowedToSetState = async function (userId, pageId, req) {
 };
 
 let activateSync = async function (pageId) {
-    await db.cypher().match(`(page:Page {pageId: {pageId}}), (tcExport:TransitionConnectExport)`)
-        .merge(`(page)<-[:EXPORT_TO_TC_PENDING]-(tcExport)`)
-        .set(`page`, {exportToTc: true})
+    await db.cypher().match(`(page:Page {pageId: {pageId}})`)
+        .merge(`(tcExport:TransitionConnectExport)`)
+        .merge(`(page)<-[:EXPORT_TO_TC]-(tcExport)`)
         .end({pageId: pageId}).send();
 };
 
 let deactivateSync = async function (pageId) {
     await db.cypher().match(`(page:Page {pageId: {pageId}}), (tcExport:TransitionConnectExport)`)
-        .optionalMatch(`(page)<-[exportPending:EXPORT_TO_TC_PENDING]-(tcExport)`)
+        .optionalMatch(`(page)<-[exportPending:EXPORT_TO_TC]-(tcExport)`)
         .delete(`exportPending`)
-        .remove(`page.exportToTc`)
         .end({pageId: pageId}).send();
 };
 

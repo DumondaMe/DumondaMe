@@ -19,7 +19,7 @@ let schemaSetSync = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
+    router.put('/:pageId', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaSetSync, logger).then(function (request) {

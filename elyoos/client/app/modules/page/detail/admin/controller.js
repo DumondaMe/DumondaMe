@@ -12,7 +12,7 @@ module.exports = ['UserDetailNavigation', '$mdMedia', '$stateParams', 'SyncTc',
         };
 
         ctrl.tcSyncState = function (state) {
-            SyncTc.save({pageId: ctrl.pageDetail.page.pageId, state: state}, function () {
+            SyncTc.update({pageId: ctrl.pageDetail.page.pageId, state: state}, function () {
                 ctrl.pageDetail.page.exportToTc = state;
             });
         };

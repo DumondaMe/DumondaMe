@@ -84,6 +84,10 @@ module.exports = {
             req.body = JSON.parse(req.body.model);
             delete req.body.model;
         }
+        if(req.params) {
+            convertValues(req.params, requestSchema);
+            req.body = Object.assign(req.body , req.params);
+        }
 
         return validate(req, req.body, requestSchema, logger);
     },

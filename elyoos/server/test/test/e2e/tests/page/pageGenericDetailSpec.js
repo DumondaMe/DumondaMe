@@ -8,7 +8,6 @@ describe('Integration Tests for getting generic page detail', function () {
 
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
-            dbDsl.createTransitionConnectExportNode();
             dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'],
                 created: 100, website: 'www.elyoos.org', importTC: true}, [{
                 address: 'Zuerich',
@@ -26,7 +25,7 @@ describe('Integration Tests for getting generic page detail', function () {
 
     it('Getting the detail of a generic page', function () {
 
-        dbDsl.exportOrganizationToTransitionConnectIsPending({pageId: '1'});
+        dbDsl.exportOrganisationToTransitionConnect({pageId: '1'});
         dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 

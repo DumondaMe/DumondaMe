@@ -26,7 +26,8 @@ let getDetail = function (pageId, label, userId) {
         .return(`page.pageId AS pageId, page.title AS title, page.description AS description, 
                  page.topic AS topic, collect(address) AS addresses, page.website AS website, 
                  page.created AS created, page.modified AS modified, page.label AS label, 
-                 page.language AS language, page.exportToTc AS exportToTc, page:ImportTC AS importTC`)
+                 page.language AS language, page:ImportTC AS importTC,
+                 EXISTS((:TransitionConnectExport)-[:EXPORT_TO_TC]->(page)) AS exportToTc`)
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
