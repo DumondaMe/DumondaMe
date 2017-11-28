@@ -3,19 +3,15 @@
 let db = require('../db');
 let dbConnectionHandling = require('./dbConnectionHandling');
 
-let createTransitionConnectExportNode = function () {
-    dbConnectionHandling.getCommands().push(db.cypher().create(`(:TransitionConnectExport)`).end().getCommand());
-};
-
-let exportOrganizationPending = function (data) {
+let exportOrganisation = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher()
-        .match(`(tcExport:TransitionConnectExport), (org:Page {pageId: {pageId}})`)
-        .merge((`(tcExport)-[:EXPORT_TO_TC_PENDING]->(org)`))
+        .match(`(org:Page {pageId: {pageId}})`)
+        .merge(`(tcExport:TransitionConnectExport)`)
+        .merge((`(tcExport)-[:EXPORT_TO_TC]->(org)`))
         .set(`org`, {exportToTc: true})
         .end({pageId: data.pageId}).getCommand());
 };
 
 module.exports = {
-    createTransitionConnectExportNode,
-    exportOrganizationPending
+    exportOrganisation
 };

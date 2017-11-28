@@ -1,30 +1,38 @@
 'use strict';
 
 let db = requireDb();
+let exceptions = require('elyoos-server-lib').exceptions;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let getNumberOfToExportOrg = function () {
-    return db.cypher().match(`(:TransitionConnectExport)-[export:EXPORT_TO_TC_PENDING]->(org:Page)`)
-        .return(`count(*) AS numberOf`).getCommand();
+let exportOrganisation = async function (id, req) {
+    let resp = await db.cypher().match(`(:TransitionConnectExport)-[EXPORT_TO_TC]->
+                            (org:Page {pageId: {pageId}})<-[:IS_ADMIN]-(admin:User)`)
+        .with(`org, admin`)
+        .orderBy(`admin.email`)
+        .with(`org, collect(admin.email) AS admins`)
+        .return(`org.modified AS timestamp, org.title AS name, org.description AS description, 
+                 '' AS slogan, org.website AS website, org.topic AS categories, admins`)
+        .end({pageId: id}).send();
+    if (resp.length === 1) {
+        return resp[0];
+    } else {
+        return exceptions.getInvalidOperation(`organisation ${id} does not exist or is not exported to tc `, logger, req);
+    }
+
 };
 
-let exportOrganizations = async function () {
-    let resp = await db.cypher().match(`(:TransitionConnectExport)-[export:EXPORT_TO_TC_PENDING]->(org:Page)
-                    <-[:IS_ADMIN]-(admin:User)`)
-        .with(`export, org, admin`)
-        .orderBy(`admin.email`)
-        .with(`export, org, collect(admin.email) AS administrators`)
-        .limit(50)
-        .delete(`export`)
-        .return(`org.pageId AS id, org.title AS name, org.description AS description, '' AS slogan,
-                 org.website AS website, org.language[0] AS language, org.topic AS categories,
-                 administrators`)
-        .orderBy(`org.modified`)
-        .end().send([getNumberOfToExportOrg()]);
+let getListOrganisations = async function (skip) {
+    let resp = await db.cypher().match(`(:TransitionConnectExport)-[:EXPORT_TO_TC]->(org:Page)`)
+        .return(`org.pageId AS id, org.modified AS timestamp`)
+        .orderBy(`org.created`)
+        .skip(`{skip}`)
+        .limit(`1000`)
+        .end({skip: skip}).send();
 
-    return {organizations: resp[1], hasNext: resp[1].length < resp[0][0].numberOf};
-
+    return {organisations: resp};
 };
 
 module.exports = {
-    exportOrganizations
+    exportOrganisation,
+    getListOrganisations
 };

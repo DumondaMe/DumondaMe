@@ -5,7 +5,27 @@ let validation = require('elyoos-server-lib').jsonValidation;
 let importOrganizations = requireModel('organization/import/index');
 let exportOrganizations = requireModel('organization/export/index');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let topic = require("../../../../../elyoos/server/controllers/schema/topic");
+let topic = require("../../../../../../elyoos/server/controllers/schema/topic");
+
+let schemaGetListOrganizations = {
+    name: 'getListOrganizations',
+    type: 'object',
+    additionalProperties: false,
+    required: ['skip'],
+    properties: {
+        skip: {type: 'integer',}
+    }
+};
+
+let schemaGetOrganization = {
+    name: 'getOrganization',
+    type: 'object',
+    additionalProperties: false,
+    required: ['id'],
+    properties: {
+        id: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+    }
+};
 
 let schemaModifyOrganization = {
     name: 'changeOrganizations',
@@ -40,10 +60,24 @@ module.exports = function (router) {
 
     router.get('/', function (req, res) {
 
-        return controllerErrors('Error occurs when getting feedback detail', req, res, logger, function () {
+        return controllerErrors('Error occurs when getting organisation list', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaGetListOrganizations, logger).then(function (request) {
+                logger.info("Get list of organisations exported to tc", req);
+                return exportOrganizations.getListOrganisations(request.skip);
+            }).then(function (data) {
+                res.status(200).json(data);
+            });
+        });
+    });
 
-            logger.info("Export of Organizations", req);
-            return exportOrganizations.exportOrganizations().then(function (data) {
+    router.get('/:id', function (req, res) {
+
+        return controllerErrors('Error occurs when getting organisation detail', req, res, logger, function () {
+
+            return validation.validateParams(req, schemaGetOrganization, logger).then(function (request) {
+                logger.info(`Export of organisation ${request.id}`, req);
+                return exportOrganizations.exportOrganisation(request.id, req);
+            }).then(function (data) {
                 res.status(200).json(data);
             });
         });

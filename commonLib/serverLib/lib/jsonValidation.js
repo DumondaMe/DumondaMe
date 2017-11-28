@@ -90,5 +90,9 @@ module.exports = {
     validateQueryRequest: function (req, requestSchema, logger) {
         convertValues(req.query, requestSchema);
         return validate(req, req.query, requestSchema, logger);
+    },
+    validateParams: function (req, requestSchema, logger) {
+        convertValues(req.params, requestSchema);
+        return validate(req, req.params, requestSchema, logger);
     }
 };
