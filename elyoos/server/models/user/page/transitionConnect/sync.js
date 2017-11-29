@@ -2,6 +2,7 @@
 
 let db = requireDb();
 let security = require('./../security');
+let time = require('elyoos-server-lib').time;
 let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -18,14 +19,26 @@ let checkIsAllowedToSetState = async function (userId, pageId, req) {
 let activateSync = async function (pageId) {
     await db.cypher().match(`(page:Page {pageId: {pageId}})`)
         .merge(`(tcExport:TransitionConnectExport)`)
-        .merge(`(page)<-[:EXPORT_TO_TC]-(tcExport)`)
-        .end({pageId: pageId}).send();
+        .merge(`(page)<-[:EXPORT_TO_TC {timestampExportStarted: {now}}]-(tcExport)`)
+        .return(`page`)
+        .union()
+        .match(`(page:Page {pageId: {pageId}})-[:EVENT]->(event:Event), (tcExport:TransitionConnectExport)`)
+        .merge(`(event)<-[exportRel:EXPORT_EVENT_TO_TC]-(tcExport)`)
+        .onCreate(`SET exportRel.timestampExportStarted = {now}`)
+        .return(`page`)
+        .union()
+        .match(`(:TransitionConnectExport)-[export:EXPORT_TO_TC]->(page:Page {pageId: {pageId}})
+                 <-[stopExport:STOP_EXPORT_TO_TC]-(:TransitionConnectExport)`)
+        .addCommand(` SET export.timestampExportStarted = stopExport.timestampExportStarted`)
+        .delete(`stopExport`)
+        .return(`page`)
+        .end({pageId: pageId, now: time.getNowUtcTimestamp()}).send();
 };
 
 let deactivateSync = async function (pageId) {
-    await db.cypher().match(`(page:Page {pageId: {pageId}}), (tcExport:TransitionConnectExport)`)
-        .optionalMatch(`(page)<-[exportPending:EXPORT_TO_TC]-(tcExport)`)
-        .delete(`exportPending`)
+    await db.cypher().match(`(page:Page {pageId: {pageId}})<-[export:EXPORT_TO_TC]-(tcExport:TransitionConnectExport)`)
+        .merge(`(page)<-[:STOP_EXPORT_TO_TC {timestampExportStarted: export.timestampExportStarted}]-(tcExport)`)
+        .delete(`export`)
         .end({pageId: pageId}).send();
 };
 

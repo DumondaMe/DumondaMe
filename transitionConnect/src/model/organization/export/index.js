@@ -21,14 +21,22 @@ let exportOrganisation = async function (id, req) {
 
 };
 
-let getListOrganisations = async function (skip) {
-    let resp = await db.cypher().match(`(:TransitionConnectExport)-[:EXPORT_TO_TC]->(org:Page)`)
-        .return(`org.pageId AS id, org.modified AS timestamp`)
-        .orderBy(`org.created`)
-        .skip(`{skip}`)
-        .limit(`1000`)
-        .end({skip: skip}).send();
+let deleteAllStopExportToTcRelations = async function (skip) {
+    if (skip === 0) {
+        await db.cypher().match(`(tc:TransitionConnectExport)-[export:STOP_EXPORT_TO_TC]->(org:Page)`)
+            .optionalMatch(`(org)-[:EVENT]->(:Event)<-[exportEvent:EXPORT_EVENT_TO_TC]-(tc)`)
+            .delete(`export, exportEvent`).end().send();
+    }
+};
 
+let getListOrganisations = async function (skip) {
+    await deleteAllStopExportToTcRelations(skip);
+    let resp = await db.cypher().match(`(:TransitionConnectExport)-[export:EXPORT_TO_TC|STOP_EXPORT_TO_TC]->(org:Page)`)
+        .return(`org.pageId AS id, org.modified AS timestamp`)
+        .orderBy(`export.timestampExportStarted`)
+        .skip(`{skip}`)
+        .limit(`10000`)
+        .end({skip: skip}).send();
     return {organisations: resp};
 };
 

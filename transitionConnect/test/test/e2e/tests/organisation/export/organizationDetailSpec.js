@@ -25,9 +25,9 @@ describe('Integration Tests for exporting an organisation', function () {
             adminId: '2', created: 602, title: 'organization4', description: 'description4', website: 'www.link4.org',
             language: ['en'], topic: ['spiritual']
         }, []);
-        dbDsl.exportOrganisationToTransitionConnect({pageId: '1'});
-        dbDsl.exportOrganisationToTransitionConnect({pageId: '2'});
-        dbDsl.exportOrganisationToTransitionConnect({pageId: '3'});
+        dbDsl.exportOrganisationToTransitionConnect({pageId: '1', timestampExportStarted: 800});
+        dbDsl.exportOrganisationToTransitionConnect({pageId: '2', timestampExportStarted: 801});
+        dbDsl.exportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 802});
     });
 
     afterEach(function () {

@@ -104,43 +104,6 @@ describe('Integration Tests for editing generic pages', function () {
         stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/thumbnail.jpg").should.be.true;
     });
 
-    it('Edit a generic page does set EXPORT_TO_TC_PENDING', async function () {
-        let editPage = {
-            genericPage: {
-                pageId: '1',
-                topic: ['health', 'socialDevelopment'],
-                title: 'title',
-                description: 'description',
-                language: ['en', 'fr']
-            }
-        };
-
-        dbDsl.createTransitionConnectExportNode();
-        dbDsl.exportOrganizationToTransitionConnect({pageId: '1'});
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/page/edit', editPage);
-        res.status.should.equal(200);
-
-        let page = await db.cypher().match("(page:Page {pageId: '1'})<-[:EXPORT_TO_TC_PENDING]-(:TransitionConnectExport)")
-            .return(`page`)
-            .end().send();
-        page.length.should.equals(1);
-        page[0].page.created.should.equals(100);
-        page[0].page.modified.should.be.at.least(startTime);
-        page[0].page.pageId.should.equals('1');
-        page[0].page.description.should.equals("description");
-        page[0].page.title.should.equals("title");
-        page[0].page.label.should.equals("Generic");
-        should.not.exist(page[0].page.website);
-        page[0].page.topic.length.should.equals(2);
-        page[0].page.topic[0].should.equals('health');
-        page[0].page.topic[1].should.equals('socialDevelopment');
-        page[0].page.language.length.should.equals(2);
-        page[0].page.language[0].should.equals('en');
-        page[0].page.language[1].should.equals('fr');
-    });
-
     it('Edit of generic page without being administrator - Return 400', async function () {
         let editPage = {
             genericPage: {

@@ -78,5 +78,7 @@ module.exports = {
     createForumCounterArgument: forum.createCounterArgument,
     forumRatePositiveAnswer: forum.ratePositiveAnswer,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
-    exportOrganisationToTransitionConnect: tc.exportOrganisation
+    exportOrganisationToTransitionConnect: tc.exportOrganisation,
+    exportEventToTransitionConnect: tc.exportEvent,
+    stopExportOrganisationToTransitionConnect: tc.stopExportOrganisation
 };

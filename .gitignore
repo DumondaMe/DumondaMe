@@ -1,5 +1,6 @@
 logs/*
 !.gitkeep
+.tgitconfig
 node_modules/
 tmp
 .DS_Store

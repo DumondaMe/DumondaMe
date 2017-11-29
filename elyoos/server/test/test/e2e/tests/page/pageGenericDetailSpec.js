@@ -25,7 +25,7 @@ describe('Integration Tests for getting generic page detail', function () {
 
     it('Getting the detail of a generic page', function () {
 
-        dbDsl.exportOrganisationToTransitionConnect({pageId: '1'});
+        dbDsl.exportOrganisationToTransitionConnect({pageId: '1', timestampExportStarted: 800});
         dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
