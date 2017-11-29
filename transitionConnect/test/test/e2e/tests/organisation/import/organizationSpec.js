@@ -20,7 +20,7 @@ describe('Integration Tests for importing organizations', function () {
         return requestHandler.logout();
     });
 
-    it('Import modified organization with all possible properties', async function () {
+    /*it('Import modified organization with all possible properties', async function () {
 
         dbDsl.createGenericPage('1', {
             adminId: '1', created: 500, title: 'organization2', description: 'description2', website: 'www.link2.org',
@@ -106,5 +106,5 @@ describe('Integration Tests for importing organizations', function () {
         resp[0].org.topic[1].should.equals('spiritual');
         resp[0].org.language.length.should.equals(1);
         resp[0].org.language[0].should.equals('de');
-    });
+    });*/
 });
