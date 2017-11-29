@@ -9,8 +9,10 @@ ENV ELYOOS_MODE $elyoos_mode
 COPY serverLib /tmp/serverLib
 
 RUN mkdir -p /usr/src/app/server/src
+RUN mkdir -p /usr/src/app/server/config
 
 COPY package.json /usr/src/app/server
+COPY config/production.json /usr/src/app/server/config/production.json
 COPY src /usr/src/app/server/src
 
 RUN npm install --production
