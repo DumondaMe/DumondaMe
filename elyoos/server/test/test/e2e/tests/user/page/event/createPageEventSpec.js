@@ -30,6 +30,14 @@ describe('Integration Tests for creating new events for generic pages', function
                 lng: 8.541694,
                 addressId: '2'
             }]);
+            dbDsl.createGenericPage('3', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 111}, [{
+                address: 'Zuerich',
+                description: 'description',
+                lat: 47.376887,
+                lng: 8.541694,
+                addressId: '3'
+            }]);
+            dbDsl.exportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
             return dbDsl.sendToDb();
         });
     });
@@ -79,9 +87,16 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].event.description.should.equals("description");
             resp[0].event.linkDescription.should.equals("www.link.org");
             resp[0].event.created.should.be.at.least(startTime);
+            resp[0].event.modified.should.equals(resp[0].event.created);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
             resp[0].event.endDate.should.equals(startTime + 600);
+
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(0);
         });
     });
 
@@ -125,9 +140,49 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].event.description.should.equals("description");
             should.not.exist(resp[0].event.linkDescription);
             resp[0].event.created.should.be.at.least(startTime);
+            resp[0].event.modified.should.equals(resp[0].event.created);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
             resp[0].event.endDate.should.equals(startTime + 600);
+
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(0);
+        });
+    });
+
+    it('Create a new event and export to transition connect when sync active', function () {
+
+        let createEvent = {
+            create: {
+                title: 'title',
+                description: 'description2',
+                genericPageId: '3',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                address: {address: 'Zuerich2', latitude: 47.376887, longitude: 8.541694}
+            }
+        }, eventId;
+
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/event', createEvent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            eventId = res.body.eventId;
+            return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '3'})")
+                .optionalMatch("(page)-[rel:HAS]->(address)")
+                .return(`event, address, page, rel`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].timestampExportStarted.should.be.at.least(startTime);
         });
     });
 
@@ -171,9 +226,16 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].event.description.should.equals("description2");
             resp[0].event.linkDescription.should.equals("www.link.org");
             resp[0].event.created.should.be.at.least(startTime);
+            resp[0].event.modified.should.equals(resp[0].event.created);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
             resp[0].event.endDate.should.equals(startTime + 600);
+
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(0);
         });
     });
 
@@ -216,9 +278,49 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].event.description.should.equals("description2");
             should.not.exist(resp[0].event.linkDescription);
             resp[0].event.created.should.be.at.least(startTime);
+            resp[0].event.modified.should.equals(resp[0].event.created);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
             resp[0].event.endDate.should.equals(startTime + 600);
+
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(0);
+        });
+    });
+
+    it('Create a new event with existing address and export to transition connect when sync active', function () {
+
+        let createEvent = {
+            create: {
+                title: 'title',
+                description: 'description2',
+                genericPageId: '3',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                existingAddressId: '3'
+            }
+        }, eventId;
+
+        return requestHandler.login(users.validUser).then(function () {
+            return requestHandler.post('/api/user/page/event', createEvent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            eventId = res.body.eventId;
+            return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '3'})")
+                .optionalMatch("(page)-[rel:HAS]->(address)")
+                .return(`event, address, page, rel`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            return db.cypher().match("(event:Event {eventId: {eventId}})<-[export:EXPORT_EVENT_TO_TC]-(:TransitionConnectExport)")
+                .return(`export.timestampExportStarted AS timestampExportStarted`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].timestampExportStarted.should.be.at.least(startTime);
         });
     });
 
