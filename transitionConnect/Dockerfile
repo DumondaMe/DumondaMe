@@ -13,10 +13,11 @@ RUN mkdir -p /usr/src/app/server/config
 
 COPY package.json /usr/src/app/server
 COPY config/production.json /usr/src/app/server/config/production.json
+COPY config/production.json /usr/src/app/server/config/development.json
 COPY src /usr/src/app/server/src
 
-RUN npm install --production
-RUN npm install /tmp/serverLib --no-save
+RUN cd /usr/src/app/server && npm install --production
+RUN cd /usr/src/app/server && npm install /tmp/serverLib --no-save
 
 EXPOSE 8084
 CMD [ "npm", "start" ]
