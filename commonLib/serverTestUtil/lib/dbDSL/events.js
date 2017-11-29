@@ -5,7 +5,7 @@ let dbConnectionHandling = require('./dbConnectionHandling');
 
 let createPageEventNewAddress = function (pageId, eventData, address) {
     address.description = address.description || null;
-    address.modified = address.modified || 700;
+    eventData.modified = eventData.modified || 700;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(page:Page {pageId: {pageId}})`)
         .create(`(page)-[:EVENT]->(:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, startDate: {startDate}, 
                   endDate: {endDate}, modified: {modified}})-[:HAS]->(:Address {addressId: {addressId}, address: {address}, description: {addressDescription},
