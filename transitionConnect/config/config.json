@@ -6,6 +6,9 @@
   "databaseConfig": {
     "host": "bolt://localhost:7687"
   },
+  "apiSecurity": {
+    "token": "fiengib458ckeEr9dicv"
+  },
   "middleware": {
     "compress": {
       "enabled": true
