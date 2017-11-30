@@ -1,6 +1,10 @@
 {
   "name": "elyoos-transition-connect-api",
   "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "4.15.2",
     "kraken-js": "2.1.0",
