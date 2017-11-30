@@ -6,8 +6,6 @@ ARG elyoos_mode='production'
 ENV NODE_ENV $node_env
 ENV ELYOOS_MODE $elyoos_mode
 
-COPY serverLib /tmp/serverLib
-
 RUN mkdir -p /usr/src/app/server/src
 RUN mkdir -p /usr/src/app/server/config
 
