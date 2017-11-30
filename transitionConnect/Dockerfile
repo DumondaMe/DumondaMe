@@ -11,6 +11,8 @@ COPY serverLib /tmp/serverLib
 RUN mkdir -p /usr/src/app/server/src
 RUN mkdir -p /usr/src/app/server/config
 
+WORKDIR /usr/src/app/server
+
 COPY package.json /usr/src/app/server
 COPY config/production.json /usr/src/app/server/config/production.json
 COPY config/production.json /usr/src/app/server/config/development.json
