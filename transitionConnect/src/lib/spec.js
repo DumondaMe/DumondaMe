@@ -11,7 +11,6 @@ module.exports = function (app) {
             if(req.headers['authorization'] && req.headers['authorization'] === token) {
                 next();
             } else  {
-                //next(401);
                 return res.status(401).send();
             }
         });
