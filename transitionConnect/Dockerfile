@@ -10,8 +10,11 @@ COPY serverLib /tmp/serverLib
 
 RUN mkdir -p /usr/src/app/server/src
 RUN mkdir -p /usr/src/app/server/config
+RUN chown node:node /usr/src/app
 
 WORKDIR /usr/src/app/server
+
+USER node
 
 COPY package*.json /usr/src/app/server
 COPY server.js /usr/src/app/server
