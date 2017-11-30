@@ -5,7 +5,7 @@ let validation = require('elyoos-server-lib').jsonValidation;
 let importOrganizations = requireModel('organization/import/index');
 let exportOrganizations = requireModel('organization/export/index');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let topic = require("../../../../../../elyoos/server/controllers/schema/topic");
+let topic = require("../../../schema/topic");
 
 let schemaGetListOrganizations = {
     name: 'getListOrganizations',
