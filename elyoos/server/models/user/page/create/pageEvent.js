@@ -16,7 +16,7 @@ let createTcEventExportCommand = function (params) {
 
 let createEventCommand = function (params) {
     return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'})")
-        .createUnique(`(page)-[:EVENT]->(:Event {eventId: {eventId}, title: {title}, description: {description}, startDate: {startDate}, 
+        .createUnique(`(page)-[:EVENT]->(:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, startDate: {startDate}, 
                             created: {created}, modified: {created}, endDate: {endDate}, linkDescription: {linkDescription}})-[:HAS]->
                             (address:Address {description: {addressDescription}, address: {addressAddress}, latitude: toFloat({addressLat}), 
                             longitude: toFloat({addressLng}), addressId: {addressId}})`)
@@ -27,6 +27,7 @@ let createEvent = function (userId, params, req) {
     placeElements.addPlaceElements(params);
     params.linkDescription = params.linkDescription || null;
     params.eventId = uuid.generateUUID();
+    params.uid = `${params.eventId}@elyoos.org`;
     params.created = time.getNowUtcTimestamp();
     return security.checkAllowedToAddEvent(params, userId, req).then(function () {
         return createTcEventExportCommand(params)
@@ -39,7 +40,7 @@ let createEvent = function (userId, params, req) {
 
 let createEventWithExistingAddressCommand = function (params) {
     return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'}), (address:Address {addressId: {existingAddressId}})")
-        .createUnique(`(page)-[:EVENT]->(event:Event {eventId: {eventId}, title: {title}, description: {description}, startDate: {startDate}, 
+        .createUnique(`(page)-[:EVENT]->(event:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, startDate: {startDate}, 
                             created: {created}, modified: {created}, endDate: {endDate}, linkDescription: {linkDescription}})-[:HAS]->(address)`)
         .return("address").end(params).getCommand();
 };
@@ -47,6 +48,7 @@ let createEventWithExistingAddressCommand = function (params) {
 let createEventWithExistingAddress = function (userId, params, req) {
     params.eventId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
+    params.uid = `${params.eventId}@elyoos.org`;
     params.linkDescription = params.linkDescription || null;
     return security.checkAllowedToAddEvent(params, userId, req).then(function () {
         return createTcEventExportCommand(params)

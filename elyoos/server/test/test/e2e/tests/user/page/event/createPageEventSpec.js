@@ -83,6 +83,7 @@ describe('Integration Tests for creating new events for generic pages', function
             should.exist(resp[0].address.addressId);
             should.not.exist(resp[0].rel);
 
+            resp[0].event.uid.should.equals(`${eventId}@elyoos.org`);
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
             resp[0].event.linkDescription.should.equals("www.link.org");
@@ -136,6 +137,7 @@ describe('Integration Tests for creating new events for generic pages', function
             should.exist(resp[0].address.addressId);
             should.not.exist(resp[0].rel);
 
+            resp[0].event.uid.should.equals(`${eventId}@elyoos.org`);
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
             should.not.exist(resp[0].event.linkDescription);
@@ -222,6 +224,7 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].address.longitude.should.equals(8.541694);
             should.exist(resp[0].rel);
 
+            resp[0].event.uid.should.equals(`${eventId}@elyoos.org`);
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description2");
             resp[0].event.linkDescription.should.equals("www.link.org");
@@ -274,6 +277,7 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].address.longitude.should.equals(8.541694);
             should.exist(resp[0].rel);
 
+            resp[0].event.uid.should.equals(`${eventId}@elyoos.org`);
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description2");
             should.not.exist(resp[0].event.linkDescription);
