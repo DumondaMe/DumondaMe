@@ -1,6 +1,7 @@
 'use strict';
 
 let db = requireDb();
+let time = require('elyoos-server-lib').time;
 let security = require('./../securityAddress');
 
 let hasEvents = function (userId, addressId) {
@@ -25,6 +26,7 @@ let deleteAddress = function (userId, params, req) {
     }).then(function (result) {
         return db.cypher().match(`(:User {userId: {userId}})-[:IS_ADMIN]->(page:Page)
                                   -[relAddress:HAS]->(addressToDelete:Address {addressId: {addressId}})`)
+            .set(`page`, {modifiedAddress: time.getNowUtcTimestamp()})
             .delete(getDeleteElement(result))
             .end({userId: userId, addressId: params.addressId}).send();
 

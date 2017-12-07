@@ -66,6 +66,11 @@ describe('Integration Tests for deleting an address of a page', function () {
                 .return('address').end().send();
         }).then(function (address) {
             address.length.should.equals(0);
+            return db.cypher().match("(page:Page {pageId: '0'})")
+                .return('page').end().send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].page.modifiedAddress.should.at.least(startTime);
         });
 
     });
@@ -83,6 +88,11 @@ describe('Integration Tests for deleting an address of a page', function () {
             resp.length.should.equals(1);
             resp[0].address.addressId.should.equals('2');
             should.not.exist(resp[0].rel);
+            return db.cypher().match("(page:Page {pageId: '0'})")
+                .return('page').end().send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].page.modifiedAddress.should.at.least(startTime);
         });
 
     });

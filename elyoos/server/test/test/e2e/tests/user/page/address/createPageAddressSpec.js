@@ -56,6 +56,7 @@ describe('Integration Tests for creating new address for generic pages', functio
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
+            resp[0].page.modifiedAddress.should.at.least(startTime);
 
             resp[0].address.address.should.equals("Zuerich2");
             resp[0].address.description.should.equals("description");
@@ -85,6 +86,7 @@ describe('Integration Tests for creating new address for generic pages', functio
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
+            resp[0].page.modifiedAddress.should.at.least(startTime);
 
             resp[0].address.address.should.equals("Zuerich2");
             resp[0].address.latitude.should.equals(47.3768871);

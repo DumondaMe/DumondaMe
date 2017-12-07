@@ -60,11 +60,12 @@ describe('Integration Tests for edit address of generic pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(address:Address {addressId :'1'})<-[:HAS]-(page:Page {pageId: '0'})")
-                .return(`address`)
+                .return(`page, address`)
                 .end({eventId: eventId}).send();
         }).then(function (resp) {
             resp.length.should.equals(1);
 
+            resp[0].page.modifiedAddress.should.at.least(startTime);
             resp[0].address.address.should.equals("ZürichNeu");
             resp[0].address.description.should.equals("description");
             resp[0].address.latitude.should.equals(47.37);
@@ -88,11 +89,12 @@ describe('Integration Tests for edit address of generic pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(address:Address {addressId :'1'})<-[:HAS]-(page:Page {pageId: '0'})")
-                .return(`address`)
+                .return(`page, address`)
                 .end({eventId: eventId}).send();
         }).then(function (resp) {
             resp.length.should.equals(1);
 
+            resp[0].page.modifiedAddress.should.at.least(startTime);
             resp[0].address.address.should.equals("ZürichNeu");
             should.not.exist(resp[0].address.description);
             resp[0].address.latitude.should.equals(47.37);
