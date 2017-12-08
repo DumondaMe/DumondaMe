@@ -1,5 +1,6 @@
 'use strict';
 
+let _ = require('lodash');
 let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -46,15 +47,23 @@ let deleteAllStopExportToTcRelations = async function (skip) {
     }
 };
 
+let getTimestampList = function (listOrganisations) {
+    let list = [];
+    for (let organisation of listOrganisations) {
+        list.push({id: organisation.id, timestamp: _.max([organisation.modified, organisation.modifiedAddress])});
+    }
+    return list;
+};
+
 let getListOrganisations = async function (skip) {
     await deleteAllStopExportToTcRelations(skip);
     let resp = await db.cypher().match(`(:TransitionConnectExport)-[export:EXPORT_TO_TC|STOP_EXPORT_TO_TC]->(org:Page)`)
-        .return(`org.pageId AS id, org.modified AS timestamp`)
+        .return(`org.pageId AS id, org.modified AS modified, org.modifiedAddress AS modifiedAddress`)
         .orderBy(`export.timestampExportStarted`)
         .skip(`{skip}`)
         .limit(`10000`)
         .end({skip: skip}).send();
-    return {organisations: resp};
+    return {organisations: getTimestampList(resp)};
 };
 
 module.exports = {

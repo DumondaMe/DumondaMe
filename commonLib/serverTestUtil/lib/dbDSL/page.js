@@ -55,14 +55,15 @@ let createGenericPage = function (pageId, data, addresses) {
     data.description = data.description || `page${pageId}Description`;
     data.website = data.website || null;
     data.modified = data.modified || data.created;
+    data.modifiedAddress = data.modifiedAddress || data.created;
     data.importTC = data.importTC ? ':ImportTC' : '';
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
-        .create(`(user)-[:IS_ADMIN]->(page:Page${data.importTC} {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {created}, topic: {topic},
-        pageId: {pageId}, website: {website}}) foreach (address in {addresses} | CREATE (page)-[:HAS]->(:Address {address: address.address, description: address.description, latitude: toFloat(address.lat), 
-        longitude: toFloat(address.lng), addressId: address.addressId}))`)
+        .create(`(user)-[:IS_ADMIN]->(page:Page${data.importTC} {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, modifiedAddress: {modifiedAddress}, 
+        created: {created}, topic: {topic}, pageId: {pageId}, website: {website}}) foreach (address in {addresses} | CREATE (page)-[:HAS]->(:Address {address: address.address, description: address.description, 
+        latitude: toFloat(address.lat), longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end({
             pageId: pageId, adminId: data.adminId, title: data.title, description: data.description, language: data.language, topic: data.topic, created: data.created,
-            modified: data.modified, addresses: addresses, website: data.website
+            modified: data.modified, modifiedAddress: data.modifiedAddress, addresses: addresses, website: data.website
         }).getCommand());
 };
 

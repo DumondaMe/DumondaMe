@@ -10,11 +10,11 @@ describe('Integration Tests for getting a list of all organisation for exporting
         await dbDsl.init(3);
 
         dbDsl.createGenericPage('1', {
-            adminId: '1', created: 500, modified: 501, title: 'organization', description: 'description', website: 'www.link.org',
+            adminId: '1', created: 500, modified: 501, modifiedAddress: 502, title: 'organization', description: 'description', website: 'www.link.org',
             language: ['de'], topic: ['health']
         }, []);
         dbDsl.createGenericPage('2', {
-            adminId: '2', created: 600, modified: 603, title: 'organization2', description: 'description2', website: 'www.link2.org',
+            adminId: '2', created: 600, modified: 603, modifiedAddress: 602, title: 'organization2', description: 'description2', website: 'www.link2.org',
             language: ['fr'], topic: ['personalDevelopment', 'spiritual']
         }, []);
         dbDsl.createGenericPage('3', {
@@ -45,7 +45,7 @@ describe('Integration Tests for getting a list of all organisation for exporting
         res.body.organisations[0].id.should.equals('3');
         res.body.organisations[0].timestamp.should.equals(602);
         res.body.organisations[1].id.should.equals('1');
-        res.body.organisations[1].timestamp.should.equals(501);
+        res.body.organisations[1].timestamp.should.equals(502);
         res.body.organisations[2].id.should.equals('2');
         res.body.organisations[2].timestamp.should.equals(603);
     });
@@ -60,7 +60,7 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         res.body.organisations.length.should.equals(2);
         res.body.organisations[0].id.should.equals('1');
-        res.body.organisations[0].timestamp.should.equals(501);
+        res.body.organisations[0].timestamp.should.equals(502);
         res.body.organisations[1].id.should.equals('2');
         res.body.organisations[1].timestamp.should.equals(603);
     });
@@ -75,7 +75,7 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         res.body.organisations.length.should.equals(2);
         res.body.organisations[0].id.should.equals('1');
-        res.body.organisations[0].timestamp.should.equals(501);
+        res.body.organisations[0].timestamp.should.equals(502);
         res.body.organisations[1].id.should.equals('2');
         res.body.organisations[1].timestamp.should.equals(603);
     });
@@ -90,7 +90,7 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         res.body.organisations.length.should.equals(2);
         res.body.organisations[0].id.should.equals('1');
-        res.body.organisations[0].timestamp.should.equals(501);
+        res.body.organisations[0].timestamp.should.equals(502);
         res.body.organisations[1].id.should.equals('2');
         res.body.organisations[1].timestamp.should.equals(603);
     });
@@ -105,7 +105,7 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         res.body.organisations.length.should.equals(2);
         res.body.organisations[0].id.should.equals('1');
-        res.body.organisations[0].timestamp.should.equals(501);
+        res.body.organisations[0].timestamp.should.equals(502);
         res.body.organisations[1].id.should.equals('2');
         res.body.organisations[1].timestamp.should.equals(603);
     });
