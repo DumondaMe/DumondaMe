@@ -13,7 +13,7 @@ WORKDIR /usr/src/app/server
 
 COPY ./nodeModuleDeployment/node_modules /usr/src/app/server/node_modules
 
-COPY package*.json /usr/src/app/server
+COPY package.json /usr/src/app/server
 COPY server.js /usr/src/app/server
 COPY config/production.json /usr/src/app/server/config/production.json
 COPY config/production.json /usr/src/app/server/config/development.json
