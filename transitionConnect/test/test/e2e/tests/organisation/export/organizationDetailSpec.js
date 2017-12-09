@@ -1,6 +1,5 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
@@ -48,7 +47,6 @@ describe('Integration Tests for exporting an organisation', function () {
         dbDsl.addAdminToPage('3', '1');
 
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation/1');
         res.status.should.equal(200);
 
@@ -76,7 +74,6 @@ describe('Integration Tests for exporting an organisation', function () {
     it('Export an organisation without locations', async function () {
 
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation/2');
         res.status.should.equal(200);
 
@@ -94,7 +91,6 @@ describe('Integration Tests for exporting an organisation', function () {
 
     it('Not allowed to export organisation because not exported to tc', async function () {
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation/3');
         res.status.should.equal(400);
     });

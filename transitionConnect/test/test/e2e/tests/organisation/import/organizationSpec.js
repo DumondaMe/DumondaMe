@@ -1,7 +1,6 @@
 'use strict';
 
 let db = require('elyoos-server-test-util').db;
-let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let moment = require('moment');
 let requestHandler = require('elyoos-server-test-util').requestHandler;

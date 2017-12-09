@@ -1,6 +1,5 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
@@ -57,7 +56,6 @@ describe('Integration Tests for getting a list of all events for exporting to tc
 
         dbDsl.exportOrganisationToTransitionConnect({pageId: '1', timestampExportStarted: 801});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/event', {skip: 0});
         res.status.should.equal(200);
 
@@ -74,7 +72,6 @@ describe('Integration Tests for getting a list of all events for exporting to tc
 
         dbDsl.exportOrganisationToTransitionConnect({pageId: '1', timestampExportStarted: 801});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/event', {skip: 1});
         res.status.should.equal(200);
 
@@ -89,7 +86,6 @@ describe('Integration Tests for getting a list of all events for exporting to tc
 
         dbDsl.stopExportOrganisationToTransitionConnect({pageId: '1', timestampExportStarted: 801});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         await requestHandler.get('/api/v1/organisation', {skip: 0});
         let res = await requestHandler.get('/api/v1/event', {skip: 0});
         res.status.should.equal(200);

@@ -1,6 +1,5 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 
@@ -37,7 +36,6 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         dbDsl.exportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation', {skip: 0});
         res.status.should.equal(200);
 
@@ -54,7 +52,6 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         dbDsl.exportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation', {skip: 1});
         res.status.should.equal(200);
 
@@ -69,7 +66,6 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         dbDsl.stopExportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation', {skip: 1});
         res.status.should.equal(200);
 
@@ -84,7 +80,6 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         dbDsl.stopExportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation', {skip: 0});
         res.status.should.equal(200);
 
@@ -99,7 +94,6 @@ describe('Integration Tests for getting a list of all organisation for exporting
 
         dbDsl.stopExportOrganisationToTransitionConnect({pageId: '3', timestampExportStarted: 800});
         await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/v1/organisation', {skip: 0});
         res.status.should.equal(200);
 
