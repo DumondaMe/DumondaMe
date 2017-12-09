@@ -45,7 +45,7 @@ module.exports = function (router) {
 
             return validation.validateParams(req, schemaGetEvent, logger).then(function (request) {
                 logger.info(`Export of event ${request.uid}`, req);
-                //return exportOrganizations.exportOrganisation(request.uid, req);
+                return exportEvents.exportEvent(request.uid, req);
             }).then(function (data) {
                 res.status(200).json(data);
             });

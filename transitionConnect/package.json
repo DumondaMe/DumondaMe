@@ -25,7 +25,8 @@
     "moment": "2.18.1",
     "url-parse": "1.1.1",
     "biguint-format": "1.0.0",
-    "flake-idgen": "1.1.0"
+    "flake-idgen": "1.1.0",
+    "ical-generator": "0.2.10"
   },
   "devDependencies": {
     "mocha": "4.0.1",
