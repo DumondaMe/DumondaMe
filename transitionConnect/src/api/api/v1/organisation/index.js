@@ -4,6 +4,7 @@ let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 let importModifiedOrganization = requireModel('organization/import/modifiedOrg');
 let importNewOrganization = requireModel('organization/import/newOrg');
+let deleteOrganization = requireModel('organization/import/deleteOrg');
 let exportOrganizations = requireModel('organization/export/index');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let topic = require("../../../schema/topic");
@@ -91,6 +92,16 @@ let schemaModifyOrganization = {
     }
 };
 
+let schemaDeleteOrganization = {
+    name: 'deleteOrganization',
+    type: 'object',
+    additionalProperties: false,
+    required: ['id'],
+    properties: {
+        id: {type: 'string', format: 'notEmptyString', maxLength: 70},
+    }
+};
+
 module.exports = function (router) {
 
     router.get('/', function (req, res) {
@@ -130,8 +141,19 @@ module.exports = function (router) {
     router.put('/:id', function (req, res) {
         return controllerErrors('Error occurs changing organization data', req, res, logger, function () {
             return validation.validateRequest(req, schemaModifyOrganization, logger).then(function (request) {
-                logger.info(`Import changed organization from tc`, req);
+                logger.info(`Import changed organization ${request.id} from tc`, req);
                 return importModifiedOrganization.import(request, req);
+            }).then(function () {
+                res.status(200).end();
+            });
+        });
+    });
+
+    router.delete('/:id', function (req, res) {
+        return controllerErrors('Error occurs deleting an organization', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteOrganization, logger).then(function (request) {
+                logger.info(`Delete organization ${request.id}`, req);
+                return deleteOrganization.delete(request.id, req);
             }).then(function () {
                 res.status(200).end();
             });

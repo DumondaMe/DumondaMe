@@ -56,7 +56,7 @@ module.exports = {
         return req.set('authorization', 'fiengib458ckeEr9dicv').send(data);
     },
     del: function (api, data) {
-        let req = request(app).post(api);
+        let req = request(app).delete(api);
         if (cookies) {
             req.cookies = cookies;
         }
