@@ -8,8 +8,8 @@ let parser = require('./iCalEventParser');
 
 let deletePreviousLocation = function (uidEvent) {
     return db.cypher().match(`(event:Event:ImportTC {uid: {uid}})`)
-        .optionalMatch(`(event)-[rel:HAS]->(:Address)`)
-        .delete(`rel`)
+        .optionalMatch(`(event)-[rel:HAS]->(address:Address)`)
+        .delete(`rel, address`)
         .end({uid: uidEvent}).getCommand();
 };
 
