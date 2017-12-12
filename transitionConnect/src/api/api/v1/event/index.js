@@ -3,7 +3,8 @@
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 let exportEvents = requireModel('event/export/index');
-let importModifiedEvent = requireModel('event/import/modifiedEvent');
+let modifiedEvent = requireModel('event/import/modifiedEvent');
+let createEvent = requireModel('event/import/createEvent');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaGetListEvents = {
@@ -26,7 +27,18 @@ let schemaGetEvent = {
     }
 };
 
-let schemaModfiyEvent = {
+let schemaCreateEvent = {
+    name: 'createEvent',
+    type: 'object',
+    additionalProperties: false,
+    required: ['orgId', 'iCal'],
+    properties: {
+        orgId: {type: 'string', format: 'notEmptyString', maxLength: 100},
+        iCal: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+    }
+};
+
+let schemaModifyEvent = {
     name: 'modifyEvent',
     type: 'object',
     additionalProperties: false,
@@ -64,13 +76,26 @@ module.exports = function (router) {
         });
     });
 
+    router.post('/', function (req, res) {
+
+        return controllerErrors('Error occurs when create an event', req, res, logger, function () {
+
+            return validation.validateRequest(req, schemaCreateEvent, logger).then(function (request) {
+                logger.info(`Create event for organization ${request.orgId}`, req);
+                return createEvent.importEvent(request.orgId, request.iCal, req);
+            }).then(function (data) {
+                res.status(200).json(data);
+            });
+        });
+    });
+
     router.put('/:uid', function (req, res) {
 
-        return controllerErrors('Error occurs when getting event detail', req, res, logger, function () {
+        return controllerErrors('Error occurs when modify an event', req, res, logger, function () {
 
-            return validation.validateRequest(req, schemaModfiyEvent, logger).then(function (request) {
+            return validation.validateRequest(req, schemaModifyEvent, logger).then(function (request) {
                 logger.info(`Modify event ${request.uid}`, req);
-                return importModifiedEvent.importEvent(request.uid, request.iCal, req);
+                return modifiedEvent.importEvent(request.uid, request.iCal, req);
             }).then(function (data) {
                 res.status(200).json(data);
             });

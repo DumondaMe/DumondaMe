@@ -6,11 +6,15 @@ let uuid = require('elyoos-server-lib').uuid;
 let parser = require('./iCalEventParser');
 
 
-let importLocation = function (uidEvent, address, geo) {
+let deletePreviousLocation = function (uidEvent) {
     return db.cypher().match(`(event:Event:ImportTC {uid: {uid}})`)
         .optionalMatch(`(event)-[rel:HAS]->(:Address)`)
         .delete(`rel`)
-        .with(`event`)
+        .end({uid: uidEvent}).getCommand();
+};
+
+let importLocation = function (uidEvent, address, geo) {
+    return db.cypher().match(`(event:Event:ImportTC {uid: {uid}})`)
         .create(`(address:Address {addressId: {addressId}, address: {address},
                   latitude: {latitude}, longitude: {longitude}})`)
         .merge(`(event)-[:HAS]->(address)`)
@@ -30,9 +34,11 @@ let importEvent = function (uidEvent, event) {
 };
 
 let importModifiedEvent = async function (uidEvent, iCal) {
-    let event = parser.parseEvent(iCal);
-    return await importEvent(uidEvent, event).send(
-        [importLocation(uidEvent, event.location, event.geo)]);
+    let event = parser.parseEvent(iCal), commands = [deletePreviousLocation(uidEvent)];
+    if (event.location && event.geo && event.geo.latitude) {
+        commands.push(importLocation(uidEvent, event.location, event.geo));
+    }
+    return await importEvent(uidEvent, event).send(commands);
 };
 
 module.exports = {
