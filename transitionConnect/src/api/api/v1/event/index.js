@@ -3,6 +3,7 @@
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;
 let exportEvents = requireModel('event/export/index');
+let importModifiedEvent = requireModel('event/import/modifiedEvent');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaGetListEvents = {
@@ -22,6 +23,17 @@ let schemaGetEvent = {
     required: ['uid'],
     properties: {
         uid: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+    }
+};
+
+let schemaModfiyEvent = {
+    name: 'modifyEvent',
+    type: 'object',
+    additionalProperties: false,
+    required: ['uid', 'iCal'],
+    properties: {
+        uid: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        iCal: {type: 'string', format: 'notEmptyString', maxLength: 1000}
     }
 };
 
@@ -46,6 +58,19 @@ module.exports = function (router) {
             return validation.validateParams(req, schemaGetEvent, logger).then(function (request) {
                 logger.info(`Export of event ${request.uid}`, req);
                 return exportEvents.exportEvent(request.uid, req);
+            }).then(function (data) {
+                res.status(200).json(data);
+            });
+        });
+    });
+
+    router.put('/:uid', function (req, res) {
+
+        return controllerErrors('Error occurs when getting event detail', req, res, logger, function () {
+
+            return validation.validateRequest(req, schemaModfiyEvent, logger).then(function (request) {
+                logger.info(`Modify event ${request.uid}`, req);
+                return importModifiedEvent.importEvent(request.uid, request.iCal, req);
             }).then(function (data) {
                 res.status(200).json(data);
             });
