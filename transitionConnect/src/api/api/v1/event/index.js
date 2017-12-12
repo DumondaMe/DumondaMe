@@ -5,6 +5,7 @@ let validation = require('elyoos-server-lib').jsonValidation;
 let exportEvents = requireModel('event/export/index');
 let modifiedEvent = requireModel('event/import/modifiedEvent');
 let createEvent = requireModel('event/import/createEvent');
+let deleteEvent = requireModel('event/import/deleteEvent');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaGetListEvents = {
@@ -46,6 +47,16 @@ let schemaModifyEvent = {
     properties: {
         uid: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         iCal: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+    }
+};
+
+let schemaDeleteEvent = {
+    name: 'modifyDelete',
+    type: 'object',
+    additionalProperties: false,
+    required: ['uid'],
+    properties: {
+        uid: {type: 'string', format: 'notEmptyString', maxLength: 1000}
     }
 };
 
@@ -98,6 +109,17 @@ module.exports = function (router) {
                 return modifiedEvent.importEvent(request.uid, request.iCal, req);
             }).then(function (data) {
                 res.status(200).json(data);
+            });
+        });
+    });
+
+    router.delete('/:uid', function (req, res) {
+        return controllerErrors('Error occurs deleting an event', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteEvent, logger).then(function (request) {
+                logger.info(`Delete event ${request.uid}`, req);
+                return deleteEvent.delete(request.uid, req);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });
