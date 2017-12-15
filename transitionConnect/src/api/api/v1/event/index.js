@@ -35,7 +35,7 @@ let schemaCreateEvent = {
     required: ['orgId', 'iCal'],
     properties: {
         orgId: {type: 'string', format: 'notEmptyString', maxLength: 100},
-        iCal: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+        iCal: {type: 'string', format: 'notEmptyString', maxLength: 100000}
     }
 };
 
@@ -46,7 +46,7 @@ let schemaModifyEvent = {
     required: ['uid', 'iCal'],
     properties: {
         uid: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        iCal: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+        iCal: {type: 'string', format: 'notEmptyString', maxLength: 100000}
     }
 };
 

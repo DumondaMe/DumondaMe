@@ -134,7 +134,7 @@ describe('Importing organizations from tc', function () {
         });
         res.status.should.equal(200);
         let resp = await db.cypher().match("(admin:User)-[:IS_ADMIN]->(org:Page:ImportTC)-[:HAS]->(address:Address)")
-            .optionalMatch(`(adminOnlyTc:TcUser)-[:IS_ADMIN]->(org)`)
+            .optionalMatch(`(:Privacy)<-[:HAS_PRIVACY_NO_CONTACT]-(adminOnlyTc:TcUser)-[:IS_ADMIN]->(org)`)
             .return(`org, admin, adminOnlyTc, collect(address) AS addresses`).end().send();
         resp.length.should.equals(1);
         resp[0].org.title.should.equals('organization');

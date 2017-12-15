@@ -18,7 +18,8 @@ let importLocation = function (uidEvent, address, geo) {
 };
 
 let importEvent = function (orgId, event) {
-    return db.cypher().match(`(org:Page:ImportTC {pageId: {orgId}})`)
+    return db.cypher().match(`(org:Page {pageId: {orgId}})`)
+        .where(`org:ImportTC OR EXISTS((org)<-[:EXPORT_TO_TC]-(:TransitionConnectExport))`)
         .create(`(event:Event:ImportTC {eventId: {eventId}, uid: {uid}, title: {title}, 
                  description: {description}, endDate: {endDate}, startDate: {startDate}, 
                  created: {created}, modified: {created}})`)

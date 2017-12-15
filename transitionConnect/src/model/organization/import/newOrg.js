@@ -24,7 +24,9 @@ let existingUserAsAdmin = function (pageId, admins) {
 let onlyTcUserAsAdmin = function (pageId, onlyTcUser) {
     return db.cypher().match(`(org:Page:ImportTC {pageId: {pageId}})`)
         .unwind(`{admins} AS admin`)
-        .create(`(tcUser:TcUser {email: admin, emailNormalized: toLower(admin)})`)
+        .create(`(tcUser:TcUser {email: admin, emailNormalized: toLower(admin), name: 'Anonymous'})
+                  -[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy {contacts: false, image: false, 
+                  pinwall: false, profile: true, profileData: false})`)
         .merge(`(org)<-[:IS_ADMIN]-(tcUser)`)
         .end({pageId: pageId, admins: onlyTcUser});
 };

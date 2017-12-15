@@ -191,13 +191,15 @@ let getPagePrivacyString = function () {
 
 let getNewestPageFilter = function (onlyContact) {
     if (onlyContact) {
-        return db.cypher().match(`(user:User {userId: {userId}}), (admin:User)-[:IS_ADMIN]->(page:Page)`)
+        return db.cypher().match(`(user:User {userId: {userId}}), (admin)-[:IS_ADMIN]->(page:Page)`)
             .where(`(EXISTS((user)-[:IS_CONTACT]->(:User)-[:IS_ADMIN]->(page)) OR 
                     EXISTS((user)-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(page)) OR 
-                    EXISTS((user)-[:IS_ADMIN]->(page)))`)
+                    EXISTS((user)-[:IS_ADMIN]->(page))) AND (admin:User OR admin:TcUser)`)
             .with(`user, admin, page`);
     }
-    return db.cypher().match(`(user:User {userId: {userId}}), (admin:User)-[:IS_ADMIN]->(page:Page)`);
+    return db.cypher().match(`(user:User {userId: {userId}}), (admin)-[:IS_ADMIN]->(page:Page)`)
+        .where(`admin:User OR admin:TcUser`)
+        .with(`user, admin, page`);
 };
 
 let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, onlyContact) {

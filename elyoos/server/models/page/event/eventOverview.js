@@ -39,8 +39,9 @@ let getEventOverview = function (userId, requestParams) {
 
     commands.push(getTotalNumberOfEvents(requestParams.pageId, requestParams.actual));
 
-    return db.cypher().match(`(:Page {pageId: {pageId}})-[:EVENT]->(event:Event)-[:HAS]->(address:Address)`)
+    return db.cypher().match(`(page:Page {pageId: {pageId}})-[:EVENT]->(event:Event)`)
         .where("(event.endDate > {now} AND {actual} = true) OR (event.endDate < {now} AND {actual} = false)")
+        .optionalMatch(`(page)-[:HAS]->(address:Address)`)
         .return("event, address")
         .orderBy(getOrder(requestParams.actual))
         .skip("{skip}")
