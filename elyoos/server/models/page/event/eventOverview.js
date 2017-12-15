@@ -41,7 +41,7 @@ let getEventOverview = function (userId, requestParams) {
 
     return db.cypher().match(`(page:Page {pageId: {pageId}})-[:EVENT]->(event:Event)`)
         .where("(event.endDate > {now} AND {actual} = true) OR (event.endDate < {now} AND {actual} = false)")
-        .optionalMatch(`(page)-[:HAS]->(address:Address)`)
+        .optionalMatch(`(event)-[:HAS]->(address:Address)`)
         .return("event, address")
         .orderBy(getOrder(requestParams.actual))
         .skip("{skip}")
