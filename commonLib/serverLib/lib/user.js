@@ -2,13 +2,6 @@
 
 let db = require('./neo4j');
 let logger = require('./logging').getLogger(__filename);
-let LRU = require('lru-cache');
-let options = {
-    max: 1000,
-    //30 minutes in cache
-    maxAge: 1000 * 60 * 30
-};
-let cache = LRU(options);
 
 let searchUserWithEmail = function (email) {
     return db.cypher().match('(u:User {emailNormalized: {email}})')
@@ -28,23 +21,10 @@ let searchUserWithEmail = function (email) {
 let UserLibrary = function () {
     return {
         serialize: function (user, done) {
-            done(null, user.email);
+            done(null, {id: user.id, elyoosAdmin: user.elyoosAdmin, email: user.email});
         },
-        deserialize: function (email, done) {
-            let cachedUser = cache.get(email);
-            if (cachedUser) {
-                done(null, cachedUser);
-            } else {
-                searchUserWithEmail(email).then(function (user) {
-                    cache.set(email, user);
-                    done(null, user);
-                }).catch(function (err) {
-                    done(err, null);
-                });
-            }
-        },
-        removeFromCache: function (email) {
-            cache.del(email);
+        deserialize: function (sessionUser, done) {
+            done(null, sessionUser);
         },
         searchUserWithEmail: searchUserWithEmail
     };
