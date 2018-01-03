@@ -1,8 +1,0 @@
-<span>
-    <span class="user-name" ng-if="!ctrl.element.isAdmin"
-          ui-sref="user.detail({userId: ctrl.element.userId})">{{ctrl.element.name}}</span>
-    <span class="user-name" ng-if="ctrl.element.isAdmin" ui-sref="settings.profile()">Du</span>
-    <span ng-if="ctrl.element.isAdmin">hast das Buch</span>
-    <span ng-if="!ctrl.element.isAdmin">hat das Buch</span>
-    <a class="page-title" ui-sref="page.detail({label: 'Book', pageId: ctrl.element.pageId})">{{ctrl.element.title}}</a>
-erstellt</span>
