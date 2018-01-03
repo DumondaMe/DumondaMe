@@ -48,7 +48,8 @@
     "winston-cloudwatch": "1.11.3",
     "xml2js": "0.4.17",
     "xmldom": "0.1.27",
-    "xpath": "0.0.24"
+    "xpath": "0.0.24",
+    "cors": "2.8.4"
   },
   "devDependencies": {
     "mocha": "4.0.1",

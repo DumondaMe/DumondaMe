@@ -24,6 +24,7 @@ let kraken = require('kraken-js');
 let emailService = require('./models/eMailService/eMail');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 let app = require('express')();
+let cors = require('cors');
 let options = require('elyoos-server-lib').spec(app);
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let port = process.env.PORT || 8080;
@@ -33,6 +34,11 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'developme
     logger.info('Enabled trust proxy');
 }
 
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 app.use(kraken(options));
 
 app.listen(port, function (err) {

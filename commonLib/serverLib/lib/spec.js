@@ -2,7 +2,6 @@
 
 let passport = require('passport');
 let methodOverride = require('method-override');
-let csrf = require('csurf');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
@@ -60,25 +59,6 @@ module.exports = function (app) {
             app.use(function (req, res, next) {
                 //Needed because rolling is some how not working
                 req.session.touch();
-                next();
-            });
-        }
-    });
-
-    app.on('middleware:after:appsec', function () {
-        if ('testing' !== env) {
-            if ('production' === env) {
-                app.use(csrf({
-                    cookie: {
-                        httpOnly: true,
-                        secure: true
-                    }
-                }));
-            } else {
-                app.use(csrf());
-            }
-            app.use(function (req, res, next) {
-                res.cookie('XSRF-TOKEN', req.csrfToken());
                 next();
             });
         }
