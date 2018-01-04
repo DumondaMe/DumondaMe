@@ -9,7 +9,6 @@ let cdn = require('./cdnConfig');
 let recaptcha = require('./recaptchaConfig');
 let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
-let version = require('./version');
 
 function setStaticHeaders(config) {
     let staticMiddleware = config.get('middleware:static');
@@ -62,17 +61,6 @@ module.exports = function (app) {
                 next();
             });
         }
-    });
-
-    app.use(function (req, res, next) {
-        let originalStatus = res.status;
-        res.status = function (data) {
-            if (req.headers.elyoosversion && req.headers.elyoosversion !== version.getVersion()) {
-                data = 418;
-            }
-            return originalStatus.apply(this, [data]);
-        };
-        next();
     });
 
     if (process.env.NODE_ENV === 'development' || elyoosMode === 'production-admin') {
