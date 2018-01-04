@@ -28,16 +28,6 @@
     "compress": {
       "enabled": true
     },
-    "static": {
-      "route": "app",
-      "priority": 20,
-      "module": {
-        "name": "serve-static",
-        "arguments": [
-          "path:./../client/app"
-        ]
-      }
-    },
     "json": {
       "priority": 30,
       "module": {
