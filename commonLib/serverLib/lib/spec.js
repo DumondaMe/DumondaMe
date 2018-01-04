@@ -9,16 +9,6 @@ let recaptcha = require('./recaptchaConfig');
 let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
 
-function setStaticHeaders(config) {
-    let staticMiddleware = config.get('middleware:static');
-    staticMiddleware.module.arguments.push({
-        setHeaders: function (res) {
-            res.setHeader('X-Content-Type-Options', 'nosniff');
-        }
-    });
-}
-
-
 module.exports = function (app) {
 
     let env = process.env.NODE_ENV || 'development',
@@ -84,8 +74,6 @@ module.exports = function (app) {
             email.config(emailConfig);
             recaptcha.config(recaptchaConfig);
             geocoding.config(geocodingConfig);
-
-            setStaticHeaders(config);
 
             next(null, config);
         }
