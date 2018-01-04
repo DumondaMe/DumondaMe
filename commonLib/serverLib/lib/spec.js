@@ -1,7 +1,6 @@
 'use strict';
 
 let passport = require('passport');
-let methodOverride = require('method-override');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
@@ -47,10 +46,6 @@ module.exports = function (app) {
         //Give passport a way to serialize and deserialize a user. In this case, by the user's id.
         passport.serializeUser(userLib.serialize);
         passport.deserializeUser(userLib.deserialize);
-    });
-
-    app.on('middleware:before:urlEncoded', function () {
-        app.use(methodOverride('X-HTTP-Method-Override'));
     });
 
     app.on('middleware:after:session', function () {
