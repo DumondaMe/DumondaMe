@@ -1,4 +1,5 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
@@ -19,7 +20,8 @@ module.exports = {
             {hid: 'description', name: 'description', content: 'Nuxt.js project'}
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: 'favicon.ico'}
+            {rel: 'icon', type: 'image/x-icon', href: 'favicon.ico'},
+            {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons'}
         ]
     },
     modules: [
@@ -30,10 +32,32 @@ module.exports = {
     ],
     loading: {color: '#3B8070'},
     build: {
-        vendor: ['axios']
+        babel: {
+            plugins: [
+                ["transform-imports", {
+                    "vuetify": {
+                        "transform": "vuetify/es5/components/${member}",
+                        "preventFullImport": true
+                    }
+                }]
+            ]
+        },
+
+        vendor: ['babel-polyfill', 'axios', '~/plugins/vuetify.js'],
+
+        extend (config, ctx) {
+            if (ctx.isServer) {
+                config.externals = [
+                    nodeExternals({
+                        whitelist: [/^vuetify/]
+                    })
+                ]
+            }
+        }
     },
-    plugins: [
-        { src: '~/plugins/axios', ssr: true }
+    plugins: ['~/plugins/axios.js', '~/plugins/vuetify.js'],
+    css: [
+        '~/assets/style/app.styl'
     ],
     serverMiddleware: [
 

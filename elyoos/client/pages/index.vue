@@ -1,27 +1,15 @@
 <template>
-    <div class="container">
-        <h1>Please login to see the secret content</h1>
-        <form v-if="!$store.state.userIsAuthenticated" @submit.prevent="login">
-            <p class="error" v-if="formError">{{ formError }}</p>
-            <p><i>To login, use <b>demo</b> as username and <b>demo</b> as password.</i></p>
-            <p>Username: <input type="text" v-model="formUsername" name="username"/></p>
-            <p>Password: <input type="password" v-model="formPassword" name="password"/></p>
-            <button type="submit">Login</button>
-        </form>
-        <div v-else>
-            Hello {{ }}!
-            <pre>I am the secret content, I am shown only when the use is connected.</pre>
-            <p><i>You can also refresh this page, you'll still be connected!</i></p>
-            <button @click="logout">Logout</button>
-        </div>
-        <p>
-            <nuxt-link to="/secret">Super secret page</nuxt-link>
-        </p>
-    </div>
+    <elyoos-header></elyoos-header>
 </template>
 
 <script>
+
+    import ElyoosHeader from '~/components/header/ElyoosHeader.vue';
+
     export default {
+        components: {
+            ElyoosHeader
+        },
         data() {
             return {
                 formError: null,
@@ -54,7 +42,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .container {
         padding: 100px;
     }
