@@ -9,16 +9,11 @@
 
 <style lang="scss">
     #elyoos-register-link {
-
-        @media screen and (min-width: 750px) {
-            vertical-align: top;
-            display: inline-block;
-            margin-left: 120px;
-        }
         #register-container {
             width: 300px;
-            @media screen and (max-width: 750px) {
-                margin: 60px auto 0 auto;
+
+            @media screen and (max-width: $sm) {
+                margin: 80px auto;
             }
             h2 {
                 font-size: 24px;

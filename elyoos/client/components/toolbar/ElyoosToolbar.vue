@@ -85,6 +85,14 @@
                 height: 100%;
                 img {
                     margin-top: 13px;
+                    @media screen and (max-width: $sm) {
+                        margin-left: 12px;
+                    }
+                    @media screen and (max-width: $xs) {
+                        margin-top: 18px;
+                        height: 20px;
+                        margin-left: 12px;
+                    }
                 }
             }
             .header-nav {

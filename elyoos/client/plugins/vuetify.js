@@ -8,7 +8,8 @@ import {
     VList,
     vDivider,
     VForm,
-    VTextField
+    VTextField,
+    VGrid
 } from 'vuetify';
 
 Vue.use(Vuetify, {
@@ -29,6 +30,7 @@ Vue.use(Vuetify, {
         VList,
         vDivider,
         VForm,
-        VTextField
+        VTextField,
+        VGrid
     }
 });

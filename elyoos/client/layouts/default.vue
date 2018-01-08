@@ -50,6 +50,10 @@
                         padding-left: 8px;
                         padding-right: 8px;
                     }
+                    .container {
+                        padding: 0;
+                        margin: 0;
+                    }
                 }
             }
         }

@@ -1,8 +1,12 @@
 <template>
-    <div id="first-row">
-        <login></login>
-        <register-link></register-link>
-    </div>
+    <v-layout row wrap>
+        <v-flex xs12 md6>
+            <login></login>
+        </v-flex>
+        <v-flex xs12 md6>
+            <register-link></register-link>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
@@ -13,7 +17,3 @@
         components: {Login, RegisterLink}
     }
 </script>
-
-<style lang="scss">
-
-</style>
