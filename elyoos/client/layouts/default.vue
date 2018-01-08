@@ -1,12 +1,24 @@
 <template>
     <v-app>
-        <v-content>
+        <elyoos-toolbar app></elyoos-toolbar>
+        <v-content id="elyoos-content">
             <v-container>
                 <nuxt/>
             </v-container>
         </v-content>
     </v-app>
 </template>
+
+<script>
+
+    import ElyoosToolbar from '~/components/toolbar/ElyoosToolbar.vue';
+
+    export default {
+        components: {
+            ElyoosToolbar
+        }
+    }
+</script>
 
 <style lang="scss">
     html {
@@ -18,10 +30,29 @@
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         box-sizing: border-box;
+        overflow-y: hidden;
+        height: 100%;
+    }
+    body {
+        height: 100%;
+        #__nuxt {
+            height: 100%;
+            #app {
+                height: 100%;
+                #elyoos-content {
+                    height: 100%;
+                    padding-top: 120px;
+                    overflow-y: auto;
+                    width: 950px;
+                    margin: 0 auto;
+                }
+            }
+        }
     }
 
     *, *:before, *:after {
         box-sizing: border-box;
         margin: 0;
+        text-transform: none !important;
     }
 </style>

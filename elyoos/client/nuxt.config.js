@@ -30,7 +30,13 @@ module.exports = {
     sassResources: [
         path.resolve(__dirname, 'assets/style/variables.scss')
     ],
-    loading: {color: '#3B8070'},
+    loading: false,
+    transition: {
+        name: 'page',
+        mode: 'out-in',
+        css: false,
+        duration: 0
+    },
     build: {
         babel: {
             plugins: [
@@ -43,7 +49,7 @@ module.exports = {
             ]
         },
 
-        vendor: ['babel-polyfill', 'axios', '~/plugins/vuetify.js'],
+        vendor: ['babel-polyfill', '~/plugins/axios.js', '~/plugins/veeValidate.js', '~/plugins/vuetify.js'],
 
         extend (config, ctx) {
             if (ctx.isServer) {
@@ -55,7 +61,7 @@ module.exports = {
             }
         }
     },
-    plugins: ['~/plugins/axios.js', '~/plugins/vuetify.js'],
+    plugins: ['~/plugins/axios.js', '~/plugins/veeValidate.js', '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'
     ],

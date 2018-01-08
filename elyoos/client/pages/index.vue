@@ -1,15 +1,12 @@
 <template>
-    <elyoos-header></elyoos-header>
+    <div>
+        <div>test</div>
+    </div>
 </template>
 
 <script>
-
-    import ElyoosHeader from '~/components/header/ElyoosHeader.vue';
-
     export default {
-        components: {
-            ElyoosHeader
-        },
+
         data() {
             return {
                 formError: null,

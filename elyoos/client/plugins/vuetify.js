@@ -6,14 +6,16 @@ import {
     VIcon,
     VMenu,
     VList,
-    vDivider
+    vDivider,
+    VForm,
+    VTextField
 } from 'vuetify';
 
 Vue.use(Vuetify, {
     theme: {
-        primary: '#9c27b0',
-        accent: '#ce93d8',
-        secondary: '#424242',
+        primary: '#303F9F',
+        accent: '#7986CB',
+        secondary: '#D81B60',
         info: '#0D47A1',
         warning: '#ffb300',
         error: '#B71C1C',
@@ -25,6 +27,8 @@ Vue.use(Vuetify, {
         VIcon,
         VMenu,
         VList,
-        vDivider
+        vDivider,
+        VForm,
+        VTextField
     }
 });

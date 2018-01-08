@@ -20,6 +20,7 @@
     "body-parser": "1.18.2",
     "passport": "0.4.0",
     "axios": "0.17.1",
+    "vee-validate": "2.0.0",
     "babel-polyfill": "6.26.0"
   },
   "devDependencies": {
