@@ -50,12 +50,20 @@
 
 <style lang="scss">
     #elyoos-login {
+        @media screen and (min-width: 750px) {
+            display: inline-block;
+        }
         #login-container {
-            background-color: white;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-            width: 320px;
-            padding: 12px;
+            width: 300px;
+            margin: 0 auto;
+
+            @media screen and (min-width: 750px) {
+                background-color: white;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+                width: 320px;
+                padding: 12px;
+            }
             h2 {
                 font-size: 24px;
                 font-weight: 400;

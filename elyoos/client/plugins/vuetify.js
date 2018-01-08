@@ -13,7 +13,7 @@ import {
 
 Vue.use(Vuetify, {
     theme: {
-        primary: '#303F9F',
+        primary: '#1E88E5',
         accent: '#7986CB',
         secondary: '#D81B60',
         info: '#0D47A1',

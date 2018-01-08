@@ -1,7 +1,7 @@
 <template>
     <div id="elyoos-header">
         <div id="header-container">
-            <div id="elyoos-logo">
+            <div id="elyoos-logo" hidden-xs-only>
                 <img src="img/logo.png"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
@@ -75,7 +75,8 @@
         background-color: white;
         border-bottom: 1px solid #ddd;
         #header-container {
-            width: 950px;
+            max-width: 950px;
+            width: 100%;
             height: 100%;
             margin: 0 auto;
             clear: both;

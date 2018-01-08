@@ -43,8 +43,13 @@
                     height: 100%;
                     padding-top: 120px;
                     overflow-y: auto;
-                    width: 950px;
+                    max-width: 950px;
+                    width: 100%;
                     margin: 0 auto;
+                    @media screen and (max-width: 950px) {
+                        padding-left: 8px;
+                        padding-right: 8px;
+                    }
                 }
             }
         }
