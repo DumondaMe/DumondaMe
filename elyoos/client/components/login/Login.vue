@@ -14,8 +14,9 @@
                                   data-vv-name="password" required>
                     </v-text-field>
                     <v-btn color="primary" type="submit" id="login-button"
+                           :loading="loading"
                            :disabled="errors.has('username') || formUsername.trim() === '' ||
-                                  errors.has('password') || formPassword.trim() === ''">Login
+                                  errors.has('password') || formPassword.trim() === '' || loading">Login
                     </v-btn>
                 </form>
             </div>
@@ -28,12 +29,14 @@
         data() {
             return {
                 formError: null,
+                loading: false,
                 formUsername: '',
                 formPassword: ''
             }
         },
         methods: {
             async login() {
+                this.loading = true;
                 try {
                     await this.$store.dispatch('auth/login', {
                         username: this.formUsername,
@@ -41,6 +44,7 @@
                     });
                     this.$router.push({name: 'index'});
                 } catch (e) {
+                    this.loading = false;
                     this.formError = e.message;
                 }
             }
