@@ -1,0 +1,10 @@
+{
+    "login": {
+        "titleLogin": "Ich habe bereits ein Konto",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "loginButton": "Login",
+        "titleRegister": "Ein Benutzerkonto erstellen",
+        "registerLink": "Registrieren"
+    }
+}

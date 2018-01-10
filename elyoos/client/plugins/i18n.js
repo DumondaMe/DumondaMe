@@ -21,12 +21,19 @@ let setLanguage = function (store, req) {
 export default ({app, store, req}) => {
 
     setLanguage(store, req);
-    let lang = store.state.i18n.language;
-    let resources = {};
-    resources[`${lang}`] = {common: require(`~/locales/${lang}/common.json`)};
+
     i18next.init({
-        lng: lang,
-        resources: resources
+        lng: store.state.i18n.language,
+        resources: {
+            en: {
+                common: require(`~/locales/en/common.json`),
+                pages: require(`~/locales/en/pages.json`)
+            },
+            de: {
+                common: require(`~/locales/de/common.json`),
+                pages: require(`~/locales/de/pages.json`)
+            }
+        }
     });
 
     app.i18n = i18n;

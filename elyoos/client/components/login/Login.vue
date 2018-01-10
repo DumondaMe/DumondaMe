@@ -1,22 +1,25 @@
 <template>
     <div id="elyoos-login">
         <div id="login-container">
-            <h2>Ich habe bereits ein Konto</h2>
+            <h2>{{$t("pages:login.titleLogin")}}</h2>
             <div id="login-content-container">
                 <form @submit.prevent="login">
                     <p class="error" v-if="formError">{{ formError }}</p>
-                    <v-text-field type="text" v-model="formUsername" name="username" label="E-Mail"
+                    <v-text-field type="text" v-model="formUsername" name="username"
+                                  :label="$t('pages:login.email')"
                                   v-validate="'required|max:255'"
-                                  data-vv-name="username" required>
+                                  data-vv-name="username">
                     </v-text-field>
-                    <v-text-field type="password" v-model="formPassword" name="password" label="Passwort"
+                    <v-text-field type="password" v-model="formPassword" name="password"
+                                  :label="$t('pages:login.password')"
                                   v-validate="'required|max:255'"
-                                  data-vv-name="password" required>
+                                  data-vv-name="password">
                     </v-text-field>
                     <v-btn color="primary" type="submit" id="login-button"
                            :loading="loading"
                            :disabled="errors.has('username') || formUsername.trim() === '' ||
-                                  errors.has('password') || formPassword.trim() === '' || loading">Login
+                                  errors.has('password') || formPassword.trim() === '' || loading">
+                        {{$t("pages:login.loginButton")}}
                     </v-btn>
                 </form>
             </div>

@@ -1,8 +1,8 @@
 <template>
     <div id="elyoos-register-link">
         <div id="register-container">
-            <h2>Ein Benutzerkonto erstellen</h2>
-            <v-btn color="primary" @click="$router.push({name: 'register'})">Registrieren</v-btn>
+            <h2>{{$t("pages:login.titleRegister")}}</h2>
+            <v-btn color="primary" @click="$router.push({name: 'register'})">{{$t("pages:login.registerLink")}}</v-btn>
         </div>
     </div>
 </template>

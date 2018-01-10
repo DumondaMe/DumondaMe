@@ -1,3 +1,6 @@
 {
-    "key": "Hallo vom deutschen Common"
+    "key": "Hallo vom deutschen Common",
+    "toolbar": {
+        "login": "Anmelden"
+    }
 }

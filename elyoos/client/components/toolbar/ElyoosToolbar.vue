@@ -31,7 +31,19 @@
                 </v-menu>
             </div>
             <div class="header-nav" v-else>
-                <v-btn flat v-on:click="$router.push({name: 'login'})">Anmelden</v-btn>
+                <v-btn outline v-on:click="$router.push({name: 'login'})">{{$t("common:toolbar.login")}}</v-btn>
+            </div>
+            <div class="header-nav" v-if="!isAuthenticated">
+                <v-menu bottom>
+                    <v-btn outline slot="activator">
+                        {{selectedLanguage.description}}
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile @click="changeLanguage(lang.key)" v-for="lang in getLanguages" :key="lang.key">
+                            <v-list-tile-title>{{lang.description}}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-btn flat icon>
@@ -50,7 +62,15 @@
 <script>
     export default {
         computed: {
-            isAuthenticated () { return this.$store.state.auth.userIsAuthenticated }
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            },
+            getLanguages() {
+                return this.$store.state.i18n.languages
+            },
+            selectedLanguage() {
+                return this.$store.state.i18n.languages.find(lang => lang.key === this.$store.state.i18n.language);
+            }
         },
         methods: {
             async logout() {
@@ -59,6 +79,9 @@
                 } catch (e) {
                     //Show Error message
                 }
+            },
+            changeLanguage(lang) {
+                this.$store.commit('i18n/SET_LANGUAGE', lang);
             }
         }
     }
@@ -100,6 +123,8 @@
                 height: 100%;
                 padding-top: 4px;
                 button {
+                    color: #666666;
+                    border-bottom-color: #666666;
                     i.icon {
                         color: #666666;
                     }
