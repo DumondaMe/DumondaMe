@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>test</div>
+        <div>{{$t("common:key")}}</div>
     </div>
 </template>
 

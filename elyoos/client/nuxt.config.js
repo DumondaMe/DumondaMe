@@ -49,7 +49,12 @@ module.exports = {
             ]
         },
 
-        vendor: ['babel-polyfill', '~/plugins/axios.js', '~/plugins/veeValidate.js', '~/plugins/vuetify.js'],
+        vendor: ['babel-polyfill',
+            'i18next',
+            '@panter/vue-i18next',
+            '~/plugins/axios.js',
+            '~/plugins/veeValidate.js',
+            '~/plugins/vuetify.js'],
 
         extend (config, ctx) {
             if (ctx.isServer) {
@@ -61,7 +66,10 @@ module.exports = {
             }
         }
     },
-    plugins: ['~/plugins/axios.js', '~/plugins/veeValidate.js', '~/plugins/vuetify.js'],
+    plugins: ['~/plugins/axios.js',
+        '~/plugins/i18n.js',
+        '~/plugins/veeValidate.js',
+        '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'
     ],

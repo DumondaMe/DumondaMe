@@ -11,10 +11,6 @@ export const mutations = {
 };
 
 export const actions = {
-
-    nuxtServerInit({commit}, {req}) {
-        commit('SET_USER_IS_AUTHENTICATED', req.isAuthenticated());
-    },
     async login({commit}, {username, password}) {
         try {
             await axios.create().post('/api/login', {username, password});

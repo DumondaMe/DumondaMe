@@ -21,7 +21,9 @@
     "passport": "0.4.0",
     "axios": "0.17.1",
     "vee-validate": "2.0.0",
-    "babel-polyfill": "6.26.0"
+    "babel-polyfill": "6.26.0",
+    "i18next": "10.2.2",
+    "@panter/vue-i18next": "0.9.1"
   },
   "devDependencies": {
     "nuxt-sass-resources-loader": "1.1.0",
