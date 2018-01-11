@@ -9,7 +9,7 @@ let recaptcha = require('./recaptchaConfig');
 let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
 
-module.exports = function (app) {
+module.exports = function (app, nuxt) {
 
     let env = process.env.NODE_ENV || 'development',
         elyoosMode = process.env.ELYOOS_MODE || 'development';
@@ -28,7 +28,15 @@ module.exports = function (app) {
         }
     });
 
-    app.on('middleware:before:router', function () {
+    app.on('middleware:after:session', function () {
+        if ('testing' !== env) {
+            app.use(function (req, res, next) {
+                //Needed because rolling is some how not working
+                req.session.touch();
+                next();
+            });
+        }
+
         app.use(passport.initialize());
         app.use(passport.session());
         //Tell passport to use our newly created local strategy for authentication
@@ -36,14 +44,14 @@ module.exports = function (app) {
         //Give passport a way to serialize and deserialize a user. In this case, by the user's id.
         passport.serializeUser(userLib.serialize);
         passport.deserializeUser(userLib.deserialize);
-    });
 
-    app.on('middleware:after:session', function () {
-        if ('testing' !== env) {
+        if (nuxt && nuxt.render) {
             app.use(function (req, res, next) {
-                //Needed because rolling is some how not working
-                req.session.touch();
-                next();
+                if (req.originalUrl.match(/api/) === null) {
+                    nuxt.render(req, res);
+                } else {
+                    next();
+                }
             });
         }
     });

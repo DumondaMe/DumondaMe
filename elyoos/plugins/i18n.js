@@ -7,9 +7,7 @@ Vue.use(VueI18Next);
 const i18n = new VueI18Next(i18next);
 
 let setLanguage = function (store, req) {
-    if (req && req.session && req.session.userData && req.session.userData.lang) {
-        store.commit('i18n/SET_LANGUAGE', req.session.userData.lang);
-    } else if (req && req.session) {
+    if (req && req.session) {
         if (!req.session.userData) {
             req.session.userData = {};
         }
@@ -37,4 +35,8 @@ export default ({app, store, req}) => {
     });
 
     app.i18n = i18n;
+
+    if (req && req.session) {
+        store.commit('i18n/SET_LANGUAGE', req.session.userData.lang);
+    }
 }

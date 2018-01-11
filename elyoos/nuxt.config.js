@@ -1,15 +1,5 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
-const passport = require('passport');
-const config = require('./nuxt.config.json');
-config.session.session.store = new RedisStore(config.session.redisSession);
-
-passport.deserializeUser(function (user, done) {
-    done(null, user);
-});
 
 module.exports = {
     head: {
@@ -72,13 +62,5 @@ module.exports = {
         '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'
-    ],
-    serverMiddleware: [
-
-        bodyParser.json(),
-        session(config.session.session),
-
-        passport.initialize(),
-        passport.session()
     ]
 };
