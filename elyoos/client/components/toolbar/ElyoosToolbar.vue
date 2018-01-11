@@ -51,7 +51,8 @@
                 </v-btn>
             </div>
             <div class="header-nav">
-                <v-btn flat icon v-on:click="$router.push({name: 'index'})">
+                <v-btn flat icon v-on:click="$router.push({name: 'index'})"
+                       :class="{active: $route.path === '/'}">
                     <v-icon>home</v-icon>
                 </v-btn>
             </div>
@@ -127,6 +128,11 @@
                     border-bottom-color: #666666;
                     i.icon {
                         color: #666666;
+                    }
+                }
+                .active {
+                    i.icon {
+                        color: $primary-color;
                     }
                 }
             }

@@ -12,7 +12,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "nuxt": "^1.0.0-rc11",
+    "nuxt": "1.0.0",
     "vuetify": "0.17.6",
     "connect-redis": "3.3.3",
     "express-session": "1.15.6",

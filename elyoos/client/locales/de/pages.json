@@ -6,5 +6,14 @@
         "loginButton": "Login",
         "titleRegister": "Ein Benutzerkonto erstellen",
         "registerLink": "Registrieren"
+    },
+    "feeds": {
+        "sidebar": {
+            "feedTitle": "Feeds",
+            "question": "Fragen",
+            "post": "Posts",
+            "org": "Organisationen",
+            "event": "Veranstaltungen"
+        }
     }
 }
