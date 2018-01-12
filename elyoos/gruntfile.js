@@ -14,25 +14,15 @@ module.exports = function (grunt) {
             }
         },
         clean: ['testResult/*.*'],
-        imagemin: {
-            dynamic: {
-                files: [{
-                    expand: true,                  // Enable dynamic expansion
-                    cwd: '../client/app/img/',                   // Src matches are relative to this path
-                    src: ['**/*.{png,jpg}'],   // Actual patterns to match
-                    dest: '../client/app/img/dist/'                  // Destination path prefix
-                }]
-            }
-        },
         sonarRunner: {
             analysis: {
                 options: {
                     separator: '\n',
                     sonar: {
-                        projectKey: 'javascript-sonar-runner-elyoos-server',
-                        projectName: 'Elyoos Server',
+                        projectKey: 'javascript-sonar-runner-elyoos-api',
+                        projectName: 'Elyoos Api',
                         projectVersion: '0.1',
-                        sources: 'controllers, models, server.js',
+                        sources: 'api/api, api/models, server.js',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
                         jdbc: {
@@ -52,7 +42,7 @@ module.exports = function (grunt) {
         },
         mocha_istanbul: {
             coverage: {
-                src: ['test/test/**/*.js'],
+                src: ['api/test/test/**/*.js'],
                 options: {
                     coverage: true,
                     coverageFolder: 'coverage',
@@ -68,7 +58,7 @@ module.exports = function (grunt) {
     grunt.registerTask('coverage', ['env:dev', 'clean', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
 
-    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'xunit.xml';
+    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'api/xunit.xml';
     grunt.registerTask('cleanXunitFile', 'Remove Mocha output from xunit file', function() {
         if (grunt.file.exists('./' + outputFile)) {
             let file = grunt.file.read('./' + outputFile);
