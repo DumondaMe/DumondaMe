@@ -14,14 +14,18 @@ module.exports = {
         return request(app).post('/api/login')
             .set('authorization', 'fiengib458ckeEr9dicv')
             .send(user).then(function (res) {
-                cookies = res.headers['set-cookie'].pop().split(';')[0];
-                lastUser.push({user: user, cookies: cookies});
+                if (res.headers['set-cookie'] && res.headers['set-cookie'].pop) {
+                    cookies = res.headers['set-cookie'].pop().split(';')[0];
+                    lastUser.push({user: user, cookies: cookies});
+                } else {
+                    lastUser.push({user: user});
+                }
             });
     },
     logout: function () {
         let user = lastUser.pop();
         if (user) {
-            if(lastUser.length > 0) {
+            if (lastUser.length > 0) {
                 cookies = lastUser[lastUser.length - 1].cookies;
             } else {
                 cookies = null;
@@ -67,7 +71,7 @@ module.exports = {
         if (cookies) {
             req.cookies = cookies;
         }
-        if(data) {
+        if (data) {
             req.query(data);
         }
         return req.set('authorization', 'fiengib458ckeEr9dicv').send();
