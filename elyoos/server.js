@@ -43,6 +43,7 @@ if (isProduction || isDevelopment) {
 app.use(kraken(options));
 
 app.on('start', function () {
+    logger.info('Wait until database connection is established');
     dbConfig.connected.then(function () {
         emailService.start();
         logger.info('Server started');
