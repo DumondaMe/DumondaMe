@@ -58,7 +58,7 @@ module.exports = function (grunt) {
     grunt.registerTask('coverage', ['env:dev', 'clean', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
 
-    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'api/xunit.xml';
+    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'xunit.xml';
     grunt.registerTask('cleanXunitFile', 'Remove Mocha output from xunit file', function() {
         if (grunt.file.exists('./' + outputFile)) {
             let file = grunt.file.read('./' + outputFile);
