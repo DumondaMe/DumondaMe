@@ -89,7 +89,7 @@ describe('Integration Tests for editing generic pages', function () {
         stubCDN.uploadFile.reset();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/test.jpg');
+        let res = await requestHandler.post('/api/user/page/edit', editPage, `${__dirname}/test.jpg`);
         res.status.should.equal(200);
 
         let page = await db.cypher().match("(page:Page {pageId: '1'})")
@@ -117,7 +117,7 @@ describe('Integration Tests for editing generic pages', function () {
         stubCDN.uploadFile.reset();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        let res = await requestHandler.post('/api/user/page/edit', editPage, `${__dirname}/toSmallWidth.jpg`);
         res.status.should.equal(400);
 
         let page = await db.cypher().match("(page:Page {pageId: '2'})")
@@ -154,7 +154,7 @@ describe('Integration Tests for editing generic pages', function () {
         stubCDN.uploadFile.reset();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        let res = await requestHandler.post('/api/user/page/edit', editPage, `${__dirname}/toSmallWidth.jpg`);
         res.status.should.equal(400);
 
         let page = await db.cypher().match("(page:Page {pageId: '1'})")
@@ -191,7 +191,7 @@ describe('Integration Tests for editing generic pages', function () {
         stubCDN.uploadFile.reset();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/page/edit', editPage, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
+        let res = await requestHandler.post('/api/user/page/edit', editPage, `${__dirname}/toSmallHeight.jpg`);
         res.status.should.equal(400);
 
         let page = await db.cypher().match("(page:Page {pageId: '1'})")

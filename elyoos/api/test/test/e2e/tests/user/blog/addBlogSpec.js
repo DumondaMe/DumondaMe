@@ -92,7 +92,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'de'
                     }
-                }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+                }, `${__dirname}/testLandscape.jpg`);
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);
@@ -144,7 +144,7 @@ describe('Integration Tests for adding a blog', function () {
                         topic: ['environmental', 'spiritual'],
                         language: 'fr'
                     }
-                }, './test/test/e2e/tests/user/blog/testPortrait.jpg');
+                }, `${__dirname}/testPortrait.jpg`);
             }).then(function (res) {
                 res.status.should.equal(200);
                 should.exist(res.body.pageId);

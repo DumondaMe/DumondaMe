@@ -54,7 +54,7 @@ describe('Integration Tests for edit a blog', function () {
                     topic: ['environmental', 'spiritual'],
                     language: 'fr'
                 }
-            }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+            }, `${__dirname}/testLandscape.jpg`);
         }).then(function (res) {
             res.status.should.equal(200);
             modified = res.body.modified;
@@ -88,7 +88,7 @@ describe('Integration Tests for edit a blog', function () {
                     topic: ['environmental', 'spiritual'],
                     language: 'fr'
                 }
-            }, './test/test/e2e/tests/user/blog/testLandscape.jpg');
+            }, `${__dirname}/testLandscape.jpg`);
         }).then(function (res) {
             res.status.should.equal(400);
             stubCDN.uploadFile.calledWith(sinon.match.any, "blog/1/preview.jpg").should.be.false;

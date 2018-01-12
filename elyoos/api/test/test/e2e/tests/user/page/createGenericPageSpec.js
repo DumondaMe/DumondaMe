@@ -39,7 +39,7 @@ describe('Integration Tests for creating new generic pages', function () {
         }, pageId;
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/page/create', createPage, './test/test/e2e/tests/user/page/test.jpg');
+            return requestHandler.post('/api/user/page/create', createPage, `${__dirname}/test.jpg`);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
