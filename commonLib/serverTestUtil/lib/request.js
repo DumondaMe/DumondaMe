@@ -60,7 +60,6 @@ module.exports = {
         if (cookies) {
             req.cookies = cookies;
         }
-        req.set('X-HTTP-Method-Override', 'DELETE');
         return req.set('authorization', 'fiengib458ckeEr9dicv').send(data);
     },
     get: function (api, data) {

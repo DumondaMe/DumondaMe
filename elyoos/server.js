@@ -18,11 +18,15 @@ const Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
+const isDevelopment = process.env.NODE_ENV === 'development';
+const isProduction = process.env.NODE_ENV === 'production';
 
-const isProd = process.env.NODE_ENV === 'production';
 const {Nuxt, Builder} = require('nuxt');
-const nuxtConfig = require('./nuxt.config.js');
-const nuxt = new Nuxt(nuxtConfig);
+let nuxt = null;
+if(isProduction || isDevelopment) {
+    const nuxtConfig = require('./nuxt.config.js');
+    nuxt = new Nuxt(nuxtConfig);
+}
 const kraken = require('kraken-js');
 const emailService = require('./api/models/eMailService/eMail');
 const dbConfig = require('elyoos-server-lib').databaseConfig;
@@ -31,12 +35,12 @@ const options = require('elyoos-server-lib').spec(app, nuxt);
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const port = process.env.PORT || 3000;
 
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
+if (isProduction || isDevelopment) {
     app.set('trust proxy', 1);
     logger.info('Enabled trust proxy');
 }
 
-if (!isProd && process.env.NODE_ENV !== 'testing') {
+if (isDevelopment) {
     new Builder(nuxt).build()
         .then(listen)
         .catch((error) => {
