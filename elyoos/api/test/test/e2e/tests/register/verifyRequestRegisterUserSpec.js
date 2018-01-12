@@ -7,7 +7,6 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 let randomstring = require("randomstring");
 let _ = require('lodash');
-let libUser = require('elyoos-server-lib').user();
 
 describe('Integration Tests for verify registering a new user', function () {
 
@@ -24,7 +23,6 @@ describe('Integration Tests for verify registering a new user', function () {
         }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),
         registerRequestUserValidWithInvitation, registerRequestUserValidCaseSensitiveEmail;
     beforeEach(function () {
-        libUser.removeFromCache('info@elyoos.org');
         return dbDsl.init(4).then(function () {
             registerRequestUserExpired = _.cloneDeep(registerRequestUserValid);
             registerRequestUserValidWithInvitation = _.cloneDeep(registerRequestUserValid);

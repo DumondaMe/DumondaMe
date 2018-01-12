@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
@@ -12,7 +11,6 @@ describe('Integration Tests for the privacy settings', function () {
 
     beforeEach(function () {
 
-        libUser.removeFromCache('user@irgendwo.ch');
         return dbDsl.init(4).then(function () {
             let startTime = Math.floor(moment.utc().valueOf() / 1000);
             dbDsl.createPrivacyNoContact(['1'], {profile: false, image: false, contacts: false, pinwall: false});

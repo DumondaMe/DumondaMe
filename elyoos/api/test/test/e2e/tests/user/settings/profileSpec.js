@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let should = require('chai').should();
@@ -9,9 +8,6 @@ let db = require('elyoos-server-test-util').db;
 describe('Integration Tests User Profile Data', function () {
 
     beforeEach(function () {
-
-        libUser.removeFromCache('user@irgendwo.ch');
-        libUser.removeFromCache('userchange@irgendwo.ch');
 
         return db.clearDatabase().then(function () {
 

@@ -36,12 +36,12 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'developme
     logger.info('Enabled trust proxy');
 }
 
-if (!isProd) {
+if (!isProd && process.env.NODE_ENV !== 'testing') {
     new Builder(nuxt).build()
         .then(listen)
         .catch((error) => {
-            console.error(error)
-            process.exit(1)
+            console.error(error);
+            process.exit(1);
         })
 } else {
     listen();

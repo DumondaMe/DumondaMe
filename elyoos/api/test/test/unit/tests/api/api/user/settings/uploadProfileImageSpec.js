@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('../../../../../../../../controllers/api/user/settings/uploadProfileImage');
+let testee = require('../../../../../../../../api/api/user/settings/uploadProfileImage');
 let saveProfileImage  = require('../../../../../../../../models/image/generateProfileImages');
 let request = require('../../../../request');
 let bluebird = require('bluebird');
@@ -8,7 +8,7 @@ let Promise = bluebird.Promise;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/settings/uploadProfileImage', function () {
+describe('Unit Test api/api/user/settings/uploadProfileImage', function () {
 
     let sandbox;
 

@@ -1,6 +1,6 @@
 'use strict';
 
-let app = require('../../../../../server');
+let app = require('../../../../../../server');
 let request = require('supertest');
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;

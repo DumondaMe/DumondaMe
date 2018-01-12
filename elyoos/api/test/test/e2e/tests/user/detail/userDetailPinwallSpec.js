@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let should = require('chai').should();
@@ -10,9 +9,6 @@ let dbDsl = require('elyoos-server-test-util').dbDSL;
 describe('Integration Tests for getting the pinwall of another user', function () {
 
     beforeEach(function () {
-
-        libUser.removeFromCache('user@irgendwo.ch');
-        libUser.removeFromCache('userchange@irgendwo.ch');
 
         return dbDsl.init(6).then(function () {
             let startTime = Math.floor(moment.utc().valueOf() / 1000);

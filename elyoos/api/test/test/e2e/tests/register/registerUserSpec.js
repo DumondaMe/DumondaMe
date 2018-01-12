@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
@@ -11,8 +10,6 @@ let sinon = require('sinon');
 describe('Integration Tests for request to register a new user', function () {
 
     beforeEach(function () {
-
-        libUser.removeFromCache('user@irgendwo.ch');
 
         return dbDsl.init(2).then(function () {
             dbDsl.setUserEmail('1', {email: 'USER@irgendWo.ch'});

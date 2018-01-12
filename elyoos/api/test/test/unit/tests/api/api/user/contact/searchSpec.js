@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('../../../../../../../../controllers/api/user/contact/search');
+let testee = require('../../../../../../../../api/api/user/contact/search');
 let searchUser = require('./../../../../../../../../models/user/searchUser');
 let user = require('../../../../../../../../models/user/user');
 let request = require('../../../../request');
@@ -9,7 +9,7 @@ let Promise = bluebird.Promise;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/contact/search', function () {
+describe('Unit Test api/api/user/contact/search', function () {
 
     let sandbox,
         checkInvalidGetRequest = function (request) {

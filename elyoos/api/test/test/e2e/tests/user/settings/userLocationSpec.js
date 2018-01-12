@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
@@ -11,7 +10,6 @@ describe('Integration Tests setting user location', function () {
 
     beforeEach(function () {
 
-        libUser.removeFromCache('user@irgendwo.ch');
         return dbDsl.init(1).then(function () {
             return dbDsl.sendToDb();
         });

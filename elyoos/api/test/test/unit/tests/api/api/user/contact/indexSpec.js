@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('../../../../../../../../controllers/api/user/contact/index');
+let testee = require('../../../../../../../../api/api/user/contact/index');
 let contact = require('./../../../../../../../../models/contact/contact');
 let validation = require('elyoos-server-lib').jsonValidation;
 let request = require('../../../../request');
@@ -9,7 +9,7 @@ let Promise = bluebird.Promise;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/contact/index', function () {
+describe('Unit Test api/api/user/contact/index', function () {
 
     let sandbox,
         checkInvalidPostRequest = function (request) {

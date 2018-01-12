@@ -1,6 +1,6 @@
 'use strict';
 
-let app = require('../../../server');
+let app = require('../../../../server');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 let elyoosTestUtil = require('elyoos-server-test-util');
 let sinon = require('sinon');

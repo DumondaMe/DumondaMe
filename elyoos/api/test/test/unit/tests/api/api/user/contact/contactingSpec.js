@@ -1,12 +1,12 @@
 'use strict';
 
-let testee = require('../../../../../../../../controllers/api/user/contact/contacting');
+let testee = require('../../../../../../../../api/api/user/contact/contacting');
 let contacting = require('./../../../../../../../../models/contact/contacting');
 let request = require('../../../../request');
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/contact/contacting', function () {
+describe('Unit Test api/api/user/contact/contacting', function () {
 
     let sandbox,
         checkInvalidGetRequest = function (request) {

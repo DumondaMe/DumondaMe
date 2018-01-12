@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('../../../../../../../controllers/api/login/index');
+let testee = require('../../../../../../../api/api/login/index');
 let request = require('../../../request');
 let passport = require('passport');
 let modification = require('../../../../../../../models/modification/modification');
@@ -9,7 +9,7 @@ let Promise = require('bluebird').Promise;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Unit Test controllers/api/login/index', function () {
+describe('Unit Test api/api/login/index', function () {
 
     let sandbox;
 

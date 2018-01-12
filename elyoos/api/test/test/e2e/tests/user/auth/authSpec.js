@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let db = require('elyoos-server-test-util').db;
@@ -12,8 +11,6 @@ describe('Integration Tests for check if user is authenticated', function () {
     let startTime;
 
     beforeEach(function () {
-
-        libUser.removeFromCache('user@irgendwo.ch');
 
         return dbDsl.init(1).then(function () {
             startTime = Math.floor(moment.utc().valueOf() / 1000);

@@ -1,6 +1,5 @@
 'use strict';
 
-let libUser = require('elyoos-server-lib').user();
 let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
@@ -11,8 +10,6 @@ describe('Integration Tests user info', function () {
     let startTime;
 
     beforeEach(function () {
-
-        libUser.removeFromCache('user@irgendwo.ch');
 
         return dbDsl.init(3).then(function () {
             startTime = Math.floor(moment.utc().valueOf() / 1000);
