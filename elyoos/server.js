@@ -40,28 +40,7 @@ if (isProduction || isDevelopment) {
     logger.info('Enabled trust proxy');
 }
 
-if (isDevelopment) {
-    new Builder(nuxt).build()
-        .then(listen)
-        .catch((error) => {
-            console.error(error);
-            process.exit(1);
-        })
-} else {
-    listen();
-}
-
 app.use(kraken(options));
-
-function listen() {
-    app.listen(port, function (err) {
-        if (err) {
-            logger.fatal('Server failed to start', {message: err});
-        } else {
-            logger.info('[' + app.settings.env + '] Listening on http://localhost:' + port);
-        }
-    });
-}
 
 app.on('start', function () {
     dbConfig.connected.then(function () {
@@ -73,6 +52,27 @@ app.on('start', function () {
 app.on('exit', function () {
     requireDb().closeDriver();
 });
+
+if (isDevelopment) {
+    new Builder(nuxt).build()
+        .then(listen)
+        .catch((error) => {
+            console.error(error);
+            process.exit(1);
+        })
+} else {
+    listen();
+}
+
+function listen() {
+    app.listen(port, function (err) {
+        if (err) {
+            logger.fatal('Server failed to start', {message: err});
+        } else {
+            logger.info('[' + app.settings.env + '] Listening on http://localhost:' + port);
+        }
+    });
+}
 
 module.exports = app;
 
