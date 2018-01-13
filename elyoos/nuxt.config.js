@@ -18,7 +18,8 @@ module.exports = {
         'nuxt-sass-resources-loader'
     ],
     sassResources: [
-        path.resolve(__dirname, 'assets/style/variables.scss')
+        path.resolve(__dirname, 'assets/style/variables.scss'),
+        path.resolve(__dirname, 'assets/style/layout.scss')
     ],
     loading: false,
     transition: {

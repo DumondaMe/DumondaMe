@@ -1,11 +1,14 @@
 {
     "login": {
         "titleLogin": "I already have an account",
-        "email": "email",
-        "password": "password",
         "loginButton": "Login",
         "titleRegister": "Create an account",
         "registerLink": "Sign Up"
+    },
+    "register": {
+        "registerTitle": "Create an account for Elyoos",
+        "acceptTermsPrevious": "Accept",
+        "registerButton": "Create"
     },
     "feeds": {
         "sidebar": {

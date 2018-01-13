@@ -1,5 +1,10 @@
 {
-    "key": "hello from common english",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "forename": "Forename",
+    "surname": "Surname",
+    "terms": "terms",
     "toolbar": {
         "login": "Login"
     }

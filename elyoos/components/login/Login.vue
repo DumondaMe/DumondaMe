@@ -6,14 +6,13 @@
                 <form @submit.prevent="login">
                     <p class="error" v-if="formError">{{ formError }}</p>
                     <v-text-field type="text" v-model="formUsername" name="username"
-                                  :label="$t('pages:login.email')"
+                                  :label="$t('common:email')"
                                   v-validate="'required|max:255'"
-                                  data-vv-name="username">
+                                  class="input-group--focused">
                     </v-text-field>
                     <v-text-field type="password" v-model="formPassword" name="password"
-                                  :label="$t('pages:login.password')"
-                                  v-validate="'required|max:255'"
-                                  data-vv-name="password">
+                                  :label="$t('common:password')"
+                                  v-validate="'required|max:255'">
                     </v-text-field>
                     <v-btn color="primary" type="submit" id="login-button"
                            :loading="loading"

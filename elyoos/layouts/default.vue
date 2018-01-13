@@ -1,11 +1,11 @@
 <template>
     <v-app>
         <elyoos-toolbar app></elyoos-toolbar>
-        <v-content id="elyoos-content">
-            <v-container>
+        <div id="elyoos-content">
+            <div id="elyoos-inner-content">
                 <nuxt/>
-            </v-container>
-        </v-content>
+            </div>
+        </div>
     </v-app>
 </template>
 
@@ -33,26 +33,31 @@
         overflow-y: hidden;
         height: 100%;
     }
+
     body {
         height: 100%;
         #__nuxt {
             height: 100%;
-            #app {
+            #__layout {
                 height: 100%;
-                #elyoos-content {
+                #app {
                     height: 100%;
-                    padding-top: 120px;
-                    overflow-y: auto;
-                    max-width: 950px;
-                    width: 100%;
-                    margin: 0 auto;
-                    @media screen and (max-width: 950px) {
-                        padding-left: 8px;
-                        padding-right: 8px;
-                    }
-                    .container {
-                        padding: 0;
-                        margin: 0;
+                    padding-top: 56px;
+                    #elyoos-content {
+                        height: 100%;
+                        padding-top: 64px;
+                        padding-bottom: 64px;
+                        margin-bottom: 56px;
+                        overflow-y: auto;
+                        #elyoos-inner-content {
+                            max-width: 950px;
+                            width: 100%;
+                            margin: 0 auto;
+                            @media screen and (max-width: 950px) {
+                                padding-left: 8px;
+                                padding-right: 8px;
+                            }
+                        }
                     }
                 }
             }

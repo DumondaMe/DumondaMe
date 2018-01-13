@@ -9,6 +9,7 @@ import {
     VDivider,
     VForm,
     VTextField,
+    VCheckbox,
     VGrid,
     VProgressCircular
 } from 'vuetify';
@@ -32,6 +33,7 @@ Vue.use(Vuetify, {
         VDivider,
         VForm,
         VTextField,
+        VCheckbox,
         VGrid,
         VProgressCircular
     }
