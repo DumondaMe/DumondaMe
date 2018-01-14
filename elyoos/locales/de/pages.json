@@ -8,7 +8,8 @@
     "register": {
         "registerTitle": "Benutzerkonto erstellen für Elyoos",
         "acceptTermsPrevious": "Ich akzeptiere die",
-        "registerButton": "Erstellen"
+        "registerButton": "Erstellen",
+        "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an {{email}} versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt."
     },
     "feeds": {
         "sidebar": {

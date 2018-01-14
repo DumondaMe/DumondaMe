@@ -2,7 +2,7 @@
     <div id="elyoos-register">
         <h1>{{$t("pages:register.registerTitle")}}</h1>
         <div id="register-content-container">
-            <v-form @submit.prevent="register" v-model="valid" ref="form">
+            <v-form @submit.prevent="register" v-model="valid" ref="form" v-show="!successfullyRegistered">
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field type="text" v-model="formEmail" name="email"
@@ -64,6 +64,14 @@
                     </v-btn>
                 </div>
             </v-form>
+            <div v-show="successfullyRegistered" id="register-info">
+                {{$t("pages:register.emailSentText", {email: formEmail})}}
+                <div id="register-info-command">
+                    <v-btn color="primary" @click="$router.push({name: 'index'})" class="register-button">
+                        {{$t("common:button.ok")}}
+                    </v-btn>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -71,6 +79,7 @@
 <script>
     import Recaptcha from '~/components/common/recaptcha/Recaptcha.vue';
     import validationRules from '~/mixins/validationRules.js';
+    import axios from '~/plugins/axios';
 
     export default {
         components: {Recaptcha},
@@ -78,6 +87,7 @@
             return {
                 valid: false,
                 loading: false,
+                successfullyRegistered: false,
                 formEmail: '',
                 formPassword: '',
                 formPasswordConfirm: '',
@@ -99,18 +109,19 @@
                 this.rcaptResponse = response;
             },
             async register() {
-                if (this.$refs.form.validate()) {
+                try {
                     this.loading = true;
-                    try {
-                        await this.$store.dispatch('auth/login', {
-                            username: this.formUsername,
-                            password: this.formPassword
-                        });
-                        this.$router.push({name: 'index'});
-                    } catch (e) {
-                        this.loading = false;
-                        this.formError = e.message;
-                    }
+                    await axios.create().post('api/register', {
+                        forename: this.formForename,
+                        surname: this.formSurname,
+                        email: this.formEmail,
+                        password: this.formPassword,
+                        response: this.rcaptResponse,
+                    });
+                    this.loading = false;
+                    this.successfullyRegistered = true;
+                } catch (error) {
+                    this.loading = false;
                 }
             }
         }
@@ -138,10 +149,21 @@
                 margin-bottom: 36px;
             }
             #register-commands {
-                height: 40px;
+                display: flex;
                 #register-button {
-                    float: right;
+                    margin-left: auto;
                     margin-right: 0;
+                }
+            }
+            #register-info {
+                margin-top: 12px;
+                #register-info-command {
+                    margin-top: 12px;
+                    display: flex;
+                    button {
+                        margin-left: auto;
+                        margin-right: 0;
+                    }
                 }
             }
         }
