@@ -3,36 +3,45 @@
         <div id="login-container">
             <h2>{{$t("pages:login.titleLogin")}}</h2>
             <div id="login-content-container">
-                <form @submit.prevent="login">
+                <v-form @submit.prevent="login" v-model="valid" ref="form">
                     <p class="error" v-if="formError">{{ formError }}</p>
                     <v-text-field type="text" v-model="formUsername" name="username"
                                   :label="$t('common:email')"
+                                  :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                           ruleIsEmail($t('validation:isEmail')),
+                                           ruleToManyChars($t('validation:toManyChars'), 255)]"
                                   class="input-group--focused">
                     </v-text-field>
                     <v-text-field type="password" v-model="formPassword" name="password"
-                                  :label="$t('common:password')">
+                                  :label="$t('common:password')"
+                                  :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                           ruleToManyChars($t('validation:toManyChars'), 55)]">
                     </v-text-field>
                     <v-btn color="primary" type="submit" id="login-button"
                            :loading="loading"
-                           :disabled="loading">
+                           :disabled="loading || !valid">
                         {{$t("pages:login.loginButton")}}
                     </v-btn>
-                </form>
+                </v-form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import validationRules from '~/mixins/validationRules.js';
+
     export default {
         data() {
             return {
+                valid: false,
                 formError: null,
                 loading: false,
                 formUsername: '',
                 formPassword: ''
             }
         },
+        mixins: [validationRules],
         methods: {
             async login() {
                 this.loading = true;
