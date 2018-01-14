@@ -25,11 +25,13 @@ export default ({app, store, req}) => {
         resources: {
             en: {
                 common: require(`~/locales/en/common.json`),
-                pages: require(`~/locales/en/pages.json`)
+                pages: require(`~/locales/en/pages.json`),
+                validation: require(`~/locales/en/validation.json`)
             },
             de: {
                 common: require(`~/locales/de/common.json`),
-                pages: require(`~/locales/de/pages.json`)
+                pages: require(`~/locales/de/pages.json`),
+                validation: require(`~/locales/de/validation.json`)
             }
         }
     });

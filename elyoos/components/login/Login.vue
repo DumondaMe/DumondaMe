@@ -7,17 +7,14 @@
                     <p class="error" v-if="formError">{{ formError }}</p>
                     <v-text-field type="text" v-model="formUsername" name="username"
                                   :label="$t('common:email')"
-                                  v-validate="'required|max:255'"
                                   class="input-group--focused">
                     </v-text-field>
                     <v-text-field type="password" v-model="formPassword" name="password"
-                                  :label="$t('common:password')"
-                                  v-validate="'required|max:255'">
+                                  :label="$t('common:password')">
                     </v-text-field>
                     <v-btn color="primary" type="submit" id="login-button"
                            :loading="loading"
-                           :disabled="errors.has('username') || formUsername.trim() === '' ||
-                                  errors.has('password') || formPassword.trim() === '' || loading">
+                           :disabled="loading">
                         {{$t("pages:login.loginButton")}}
                     </v-btn>
                 </form>

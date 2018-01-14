@@ -44,7 +44,6 @@ module.exports = {
             'i18next',
             '@panter/vue-i18next',
             '~/plugins/axios.js',
-            '~/plugins/veeValidate.js',
             '~/plugins/vuetify.js'],
 
         extend (config, ctx) {
@@ -59,7 +58,6 @@ module.exports = {
     },
     plugins: ['~/plugins/axios.js',
         '~/plugins/i18n.js',
-        '~/plugins/veeValidate.js',
         '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'

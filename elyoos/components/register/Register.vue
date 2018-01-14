@@ -2,36 +2,49 @@
     <div id="elyoos-register">
         <h1>{{$t("pages:register.registerTitle")}}</h1>
         <div id="register-content-container">
-            <form @submit.prevent="register">
+            <v-form @submit.prevent="register" v-model="valid" ref="form">
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field type="text" v-model="formEmail" name="email"
                                       :label="$t('common:email')"
-                                      v-validate="'required|max:255'" :counter="255">
+                                      :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleIsEmail($t('validation:isEmail')),
+                                               ruleToManyChars($t('validation:toManyChars'), 255)]"
+                                      :counter="255">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md5>
                         <v-text-field type="password" v-model="formPassword" name="password"
                                       :label="$t('common:password')"
-                                      v-validate="'required|max:55'" :counter="55">
+                                      :rules="[ruleMinLength($t('validation:minLength', {length: 8}), 8),
+                                               rulePasswordChars($t('validation:noPasswordChars')),
+                                               ruleToManyChars($t('validation:toManyChars'), 55)]"
+                                      :counter="55">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md5 offset-md2>
                         <v-text-field type="password" v-model="formPasswordConfirm" name="passwordConfirm"
                                       :label="$t('common:passwordConfirm')"
-                                      v-validate="'required|max:55'" :counter="55">
+                                      :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               rulePasswordEquals($t('validation:passwordNoEqual'), formPassword),
+                                               ruleToManyChars($t('validation:toManyChars'), 55)]"
+                                      :counter="55">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md5>
                         <v-text-field type="text" v-model="formForename" name="forename"
                                       :label="$t('common:forename')"
-                                      v-validate="'required|max:40'" :counter="40">
+                                      :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 40)]"
+                                      :counter="40">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md5 offset-md2>
                         <v-text-field type="text" v-model="formSurname" name="surname"
                                       :label="$t('common:surname')"
-                                      v-validate="'required|max:60'" :counter="60">
+                                      :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 60)]"
+                                      :counter="60">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12>
@@ -46,23 +59,24 @@
                 <div id="register-commands">
                     <v-btn color="primary" type="submit" id="register-button"
                            :loading="loading"
-                           :disabled="loading">
+                           :disabled="loading || !isValid">
                         {{$t("pages:register.registerButton")}}
                     </v-btn>
                 </div>
-            </form>
+            </v-form>
         </div>
     </div>
 </template>
 
 <script>
     import Recaptcha from '~/components/common/recaptcha/Recaptcha.vue';
+    import validationRules from '~/mixins/validationRules.js';
 
     export default {
         components: {Recaptcha},
         data() {
             return {
-                formError: null,
+                valid: false,
                 loading: false,
                 formEmail: '',
                 formPassword: '',
@@ -76,24 +90,27 @@
         },
         computed: {
             isValid() {
-                return null;
+                return this.valid && this.acceptTerms && !!this.rcaptResponse;
             }
         },
+        mixins: [validationRules],
         methods: {
             setResponse(response) {
                 this.rcaptResponse = response;
             },
             async register() {
-                this.loading = true;
-                try {
-                    await this.$store.dispatch('auth/login', {
-                        username: this.formUsername,
-                        password: this.formPassword
-                    });
-                    this.$router.push({name: 'index'});
-                } catch (e) {
-                    this.loading = false;
-                    this.formError = e.message;
+                if (this.$refs.form.validate()) {
+                    this.loading = true;
+                    try {
+                        await this.$store.dispatch('auth/login', {
+                            username: this.formUsername,
+                            password: this.formPassword
+                        });
+                        this.$router.push({name: 'index'});
+                    } catch (e) {
+                        this.loading = false;
+                        this.formError = e.message;
+                    }
                 }
             }
         }
