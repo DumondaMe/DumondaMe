@@ -2,7 +2,7 @@
     <div id="elyoos-header">
         <div id="header-container">
             <div id="elyoos-logo" hidden-xs-only>
-                <img src="img/logo.png"/>
+                <img src="/img/logo.png"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
