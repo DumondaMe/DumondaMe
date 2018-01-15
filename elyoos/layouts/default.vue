@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <elyoos-toolbar app></elyoos-toolbar>
+        <elyoos-toolbar></elyoos-toolbar>
         <div id="elyoos-content">
             <div id="elyoos-inner-content">
                 <nuxt/>
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
     import ElyoosToolbar from '~/components/toolbar/ElyoosToolbar.vue';
 
     export default {
