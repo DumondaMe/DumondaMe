@@ -1,7 +1,7 @@
 <template>
     <v-layout row wrap>
         <v-flex xs12 md6>
-            <login></login>
+            <login email=""></login>
         </v-flex>
         <v-flex xs12 md6>
             <register-link></register-link>

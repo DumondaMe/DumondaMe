@@ -32,12 +32,13 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
+        props: ['email'],
         data() {
             return {
                 valid: false,
                 formError: null,
                 loading: false,
-                formUsername: '',
+                formUsername: this.email,
                 formPassword: ''
             }
         },
