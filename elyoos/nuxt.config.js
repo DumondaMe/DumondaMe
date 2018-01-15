@@ -10,11 +10,12 @@ module.exports = {
             {hid: 'description', name: 'description', content: 'Nuxt.js project'}
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: 'favicon.ico'},
+            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons'}
         ]
     },
     modules: [
+        '@nuxtjs/axios',
         'nuxt-sass-resources-loader'
     ],
     sassResources: [
@@ -43,7 +44,6 @@ module.exports = {
         vendor: ['babel-polyfill',
             'i18next',
             '@panter/vue-i18next',
-            '~/plugins/axios.js',
             '~/plugins/vuetify.js'],
 
         extend (config, ctx) {
@@ -56,8 +56,7 @@ module.exports = {
             }
         }
     },
-    plugins: ['~/plugins/axios.js',
-        '~/plugins/i18n.js',
+    plugins: ['~/plugins/i18n.js',
         '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'

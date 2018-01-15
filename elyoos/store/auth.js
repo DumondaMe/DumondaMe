@@ -1,5 +1,3 @@
-import axios from '~/plugins/axios';
-
 export const state = () => ({
     userIsAuthenticated: false
 });
@@ -13,7 +11,7 @@ export const mutations = {
 export const actions = {
     async login({commit}, {username, password}) {
         try {
-            await axios.create().post('/api/login', {username, password});
+            await this.$axios.$post('/login', {username, password});
             commit('SET_USER_IS_AUTHENTICATED', true);
         } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -24,7 +22,7 @@ export const actions = {
     },
 
     async logout({commit}) {
-        await axios.create().post('/api/logout');
+        await this.$axios.$post('/logout');
         commit('SET_USER_IS_AUTHENTICATED', false);
     }
 

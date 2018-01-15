@@ -79,7 +79,6 @@
 <script>
     import Recaptcha from '~/components/common/recaptcha/Recaptcha.vue';
     import validationRules from '~/mixins/validationRules.js';
-    import axios from '~/plugins/axios';
 
     export default {
         components: {Recaptcha},
@@ -111,7 +110,7 @@
             async register() {
                 try {
                     this.loading = true;
-                    await axios.create().post('api/register', {
+                    await this.$axios.$post('/register', {
                         forename: this.formForename,
                         surname: this.formSurname,
                         email: this.formEmail,

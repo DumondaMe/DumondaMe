@@ -10,7 +10,7 @@
   "dependencies": {
     "@panter/vue-i18next": "0.9.1",
     "aws-sdk": "2.49.0",
-    "axios": "0.17.1",
+    "@nuxtjs/axios": "4.5.2",
     "babel-polyfill": "6.26.0",
     "bcrypt": "1.0.2",
     "biguint-format": "1.0.0",
