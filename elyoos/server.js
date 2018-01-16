@@ -18,12 +18,13 @@ const Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isServerDevelopment = process.env.NODE_ENV === 'development';
 const isProduction = process.env.NODE_ENV === 'production';
+const isTesting = process.env.NODE_ENV === 'testing';
 
 const {Nuxt, Builder} = require('nuxt');
 let nuxt = null;
-if(isProduction || isDevelopment) {
+if (!isTesting) {
     const nuxtConfig = require('./nuxt.config.js');
     nuxt = new Nuxt(nuxtConfig);
 }
@@ -35,7 +36,7 @@ const options = require('elyoos-server-lib').spec(app, nuxt);
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const port = process.env.PORT || 3000;
 
-if (isProduction || isDevelopment) {
+if (isProduction || isServerDevelopment) {
     app.set('trust proxy', 1);
     logger.info('Enabled trust proxy');
 }
@@ -54,15 +55,15 @@ app.on('exit', function () {
     requireDb().closeDriver();
 });
 
-if (isDevelopment) {
+if (isProduction || isServerDevelopment) {
+    listen();
+} else {
     new Builder(nuxt).build()
         .then(listen)
         .catch((error) => {
             console.error(error);
             process.exit(1);
         })
-} else {
-    listen();
 }
 
 function listen() {
