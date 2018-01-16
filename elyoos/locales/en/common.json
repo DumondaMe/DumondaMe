@@ -9,6 +9,8 @@
         "login": "Login"
     },
     "button": {
-        "ok": "Ok"
+        "ok": "Ok",
+        "close": "Close",
+        "create": "Create"
     }
 }

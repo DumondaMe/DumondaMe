@@ -9,6 +9,8 @@
         "login": "Anmelden"
     },
     "button": {
-        "ok": "Ok"
+        "ok": "Ok",
+        "close": "Schliessen",
+        "create": "Erstellen"
     }
 }

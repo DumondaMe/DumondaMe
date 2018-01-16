@@ -44,6 +44,7 @@ module.exports = {
         vendor: ['babel-polyfill',
             'i18next',
             '@panter/vue-i18next',
+            'debounce',
             '~/plugins/vuetify.js'],
 
         extend (config, ctx) {

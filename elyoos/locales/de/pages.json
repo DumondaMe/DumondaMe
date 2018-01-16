@@ -1,23 +1,27 @@
 {
-    "login": {
-        "titleLogin": "Ich habe bereits ein Konto",
-        "loginButton": "Login",
-        "titleRegister": "Ein Benutzerkonto erstellen",
-        "registerLink": "Registrieren"
+  "login": {
+    "titleLogin": "Ich habe bereits ein Konto",
+    "loginButton": "Login",
+    "titleRegister": "Ein Benutzerkonto erstellen",
+    "registerLink": "Registrieren"
+  },
+  "register": {
+    "registerTitle": "Benutzerkonto erstellen für Elyoos",
+    "acceptTermsPrevious": "Ich akzeptiere die",
+    "registerButton": "Erstellen",
+    "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an {{email}} versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt."
+  },
+  "feeds": {
+    "sidebar": {
+      "feedTitle": "Feeds",
+      "question": "Fragen",
+      "post": "Posts",
+      "org": "Organisationen",
+      "event": "Veranstaltungen"
     },
-    "register": {
-        "registerTitle": "Benutzerkonto erstellen für Elyoos",
-        "acceptTermsPrevious": "Ich akzeptiere die",
-        "registerButton": "Erstellen",
-        "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an {{email}} versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt."
-    },
-    "feeds": {
-        "sidebar": {
-            "feedTitle": "Feeds",
-            "question": "Fragen",
-            "post": "Posts",
-            "org": "Organisationen",
-            "event": "Veranstaltungen"
-        }
+    "question": {
+      "yourQuestion": "Wie lautet deine Frage?",
+      "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein."
     }
+  }
 }

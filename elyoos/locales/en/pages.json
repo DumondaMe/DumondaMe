@@ -18,6 +18,10 @@
       "post": "Posts",
       "org": "Organisations",
       "event": "Events"
+    },
+    "question": {
+      "yourQuestion": "What is your question?",
+      "createQuestionInfo": "To create a new question, you must be logged in with your user account."
     }
   }
 }
