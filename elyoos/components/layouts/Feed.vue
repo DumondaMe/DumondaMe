@@ -13,7 +13,7 @@
     #feed-layout {
         #feed-sidebar {
             float: left;
-            width: 270px;
+            width: 220px;
             @media screen and (max-width: $sm) {
                 display: none;
             }
@@ -30,8 +30,10 @@
         }
         #feed-content {
             margin-left: 300px;
+            margin-right: 150px;
             @media screen and (max-width: $sm) {
                 margin-left: 0;
+                margin-right: 0;
             }
         }
     }

@@ -91,7 +91,7 @@
 <style lang="scss">
     #elyoos-header {
         position: fixed;
-        z-index: 1000;
+        z-index: 100;
         top: 0;
         height: 56px;
         right: 0;
