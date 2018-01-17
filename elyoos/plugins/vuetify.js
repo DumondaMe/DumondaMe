@@ -13,6 +13,7 @@ import {
     VTextField,
     VCheckbox,
     VGrid,
+    VSelect,
     VProgressCircular
 } from 'vuetify';
 
@@ -39,6 +40,7 @@ Vue.use(Vuetify, {
         VTextField,
         VCheckbox,
         VGrid,
+        VSelect,
         VProgressCircular
     }
 });
