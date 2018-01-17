@@ -5,7 +5,9 @@ let logger = require('../logging').getLogger(__filename);
 exports.handlingError = function () {
     return function (err, req, res, next) {
         if (err instanceof Error) {
-            if (err.message === '401') {
+            if (err.name === 'invalidJsonRequest') {
+                res.status(400).end();
+            } else if (err.message === '401') {
                 logger.warn('User has no authentication', req, {httpStatusCode: 401, error: err});
                 res.status(401).send('No Authentication');
             } else if (err.message === '403') {
