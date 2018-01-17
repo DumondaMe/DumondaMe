@@ -55,7 +55,7 @@ app.on('exit', function () {
     requireDb().closeDriver();
 });
 
-if (isProduction || isServerDevelopment) {
+if (isProduction || isServerDevelopment || isTesting) {
     listen();
 } else {
     new Builder(nuxt).build()
