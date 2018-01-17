@@ -21,7 +21,8 @@
     },
     "question": {
       "yourQuestion": "What is your question?",
-      "createQuestionInfo": "To create a new question, you must be logged in with your user account."
+      "createQuestionInfo": "To create a new question, you must be logged in with your user account.",
+      "buttonNotExist": "Does Not Exist"
     }
   }
 }

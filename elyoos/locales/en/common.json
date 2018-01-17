@@ -5,6 +5,7 @@
     "forename": "Forename",
     "surname": "Surname",
     "terms": "terms",
+    "description": "Description",
     "toolbar": {
         "login": "Login"
     },
@@ -12,5 +13,15 @@
         "ok": "Ok",
         "close": "Close",
         "create": "Create"
+    },
+    "topic": {
+        "health": "Health",
+        "environmental": "Environmental",
+        "spiritual": "Spiritual",
+        "education": "Education",
+        "personalDevelopment": "Personal development",
+        "politics": "Politics",
+        "economy": "Economy",
+        "socialDevelopment": "Social development"
     }
 }

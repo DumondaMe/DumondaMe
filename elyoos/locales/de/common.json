@@ -5,6 +5,7 @@
     "forename": "Vorname",
     "surname": "Nachname",
     "terms": "AGB's",
+    "description": "Beschreibung",
     "toolbar": {
         "login": "Anmelden"
     },
@@ -12,5 +13,15 @@
         "ok": "Ok",
         "close": "Schliessen",
         "create": "Erstellen"
+    },
+    "topic": {
+        "health": "Gesundheit",
+        "environmental": "Umwelt",
+        "spiritual": "Spiritualität",
+        "education": "Bildung",
+        "personalDevelopment": "Persönliche Entwicklung",
+        "politics": "Politik",
+        "economy": "Wirtschaft",
+        "socialDevelopment": "Gesellschaft"
     }
 }

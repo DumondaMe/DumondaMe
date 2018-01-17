@@ -21,7 +21,8 @@
     },
     "question": {
       "yourQuestion": "Wie lautet deine Frage?",
-      "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein."
+      "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein.",
+      "buttonNotExist": "Existiert nicht"
     }
   }
 }

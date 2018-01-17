@@ -3,6 +3,12 @@ export default {
         ruleFieldRequired: function (text) {
             return (v) => v.trim() !== '' || text;
         },
+        ruleSelectRequired: function (text) {
+            return (v) => !!v || text;
+        },
+        ruleSelectMultipleRequired: function (text) {
+            return (v) => (v.length && v.length > 0) || text;
+        },
         ruleToManyChars: function (text, length) {
             return (v) => v.length <= length || text;
         },

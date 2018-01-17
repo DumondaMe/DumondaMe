@@ -1,0 +1,81 @@
+<template>
+    <v-card id="create-question-container">
+        <v-card-text>
+            <v-form v-model="valid">
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <v-text-field type="text" v-model="newQuestion" name="question"
+                                      :label="$t('pages:feeds.question.yourQuestion')"
+                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 80)]"
+                                      :counter="80">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-text-field type="text" v-model="description" name="description" multi-line auto-grow rows="1"
+                                      :label="$t('common:description')"
+                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 80)]"
+                                      :counter="80">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs12 md5>
+                        <v-select v-model="selectTopic"
+                                  label="Select Topic"
+                                  :rules="[ruleSelectMultipleRequired($t('validation:toManyChars'))]"
+                                  multiple required
+                                  :items="getTopics()">
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 md5 offset-md2>
+                        <v-select v-model="selectLang"
+                                  label="Select Language"
+                                  hint="Language of the question " persistent-hint
+                                  :rules="[ruleSelectRequired($t('validation:toManyChars'))]"
+                                  :items="getLanguages()"
+                                  single-line bottom required>
+                        </v-select>
+                    </v-flex>
+                </v-layout>
+            </v-form>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
+            <v-btn color="primary" flat @click.native="$emit('create-question', question)"
+                   :disabled="!valid">
+                {{$t("common:button.create")}}
+            </v-btn>
+        </v-card-actions>
+    </v-card>
+</template>
+
+<script>
+    import validationRules from '~/mixins/validationRules.js';
+    import topic from '~/mixins/topics.js';
+    import languages from '~/mixins/languages.js';
+
+    export default {
+        props: ['question'],
+        data: function () {
+            return {newQuestion: this.question, description: '', valid: false, selectTopic: [],
+                selectLang: this.$store.state.i18n.language};
+        },
+        mixins: [validationRules, topic, languages]
+    }
+</script>
+
+<style lang="scss">
+    #ask-question-container {
+        padding-top: 6px;
+        padding-left: 12px;
+        padding-right: 12px;
+        .dialog-login-info {
+            margin: 24px 0;
+            font-size: 14px;
+            color: $secondary-text;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+        }
+    }
+</style>
