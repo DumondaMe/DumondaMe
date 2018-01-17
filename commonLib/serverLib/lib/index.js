@@ -2,6 +2,8 @@
 
 module.exports.init = function (type) {
     if (type === 'tc') {
+        module.exports.asyncMiddleware = require('./asyncMiddleware');
+
         module.exports.controllerErrors = require('./error/controllerErrors');
         module.exports.errors = require('./error/errors');
         module.exports.exceptions = require('./error/exceptions');
@@ -18,6 +20,8 @@ module.exports.init = function (type) {
         module.exports.eMail = require('./eMail/eMail');
         module.exports.eMailService = require('./eMail/eMailService/eMail');
         module.exports.eMailQueue = require('./eMail/eMailQueue');
+
+        module.exports.asyncMiddleware = require('./asyncMiddleware');
 
         module.exports.controllerErrors = require('./error/controllerErrors');
         module.exports.errors = require('./error/errors');
