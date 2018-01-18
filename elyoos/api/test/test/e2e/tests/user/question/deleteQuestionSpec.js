@@ -23,7 +23,7 @@ describe('Delete a question', function () {
     it('Delete a question without answers', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -41,9 +41,9 @@ describe('Delete a question', function () {
     it('Mark a question to delete when answers exist', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
         });
-        dbDsl.createAnswer('1', {adminId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
+        dbDsl.createAnswer('1', {creatorId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question', {
@@ -61,7 +61,7 @@ describe('Delete a question', function () {
     it('Only admin is allowed to delete question', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '2', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

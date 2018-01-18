@@ -5,7 +5,8 @@ const exceptions = require('elyoos-server-lib').exceptions;
 
 const isAdmin = async function (userId, questionId) {
 
-    let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_ADMIN]-(:User {userId: {userId}})`)
+    let response = await db.cypher().match(`(question:Question {questionId: {questionId}})
+                 <-[:IS_CREATOR]-(:User {userId: {userId}})`)
         .return(`question`)
         .end({questionId: questionId, userId: userId}).send();
 

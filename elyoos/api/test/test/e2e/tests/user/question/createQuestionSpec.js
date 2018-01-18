@@ -32,7 +32,7 @@ describe('Creating new questions', function () {
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragööääüü');
 
-        let resp = await db.cypher().match("(question:Question)<-[:IS_ADMIN]-(user:User)")
+        let resp = await db.cypher().match("(question:Question)<-[:IS_CREATOR]-(user:User)")
             .return(`question, user`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals(res.body.questionId);
@@ -55,7 +55,7 @@ describe('Creating new questions', function () {
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragööääüü');
 
-        let resp = await db.cypher().match("(question:Question)<-[:IS_ADMIN]-(user:User)")
+        let resp = await db.cypher().match("(question:Question)<-[:IS_CREATOR]-(user:User)")
             .return(`question, user`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals(res.body.questionId);

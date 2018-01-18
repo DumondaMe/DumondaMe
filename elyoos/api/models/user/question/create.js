@@ -14,7 +14,7 @@ const createQuestion = async function (userId, params) {
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(question:Question {questionId: {questionId}, question: {question}, description: {description}, 
                   language: {lang}, topic: {topic}, created: {created}})`)
-        .merge(`(user)-[:IS_ADMIN]->(question)`)
+        .merge(`(user)-[:IS_CREATOR]->(question)`)
         .end(params).send();
     logger.info(`Created question with id ${params.questionId}`);
     return {questionId: params.questionId, slug: dashify(params.question)};

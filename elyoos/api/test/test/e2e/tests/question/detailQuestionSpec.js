@@ -1,7 +1,6 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
@@ -21,8 +20,8 @@ describe('Getting details of a question', function () {
 
     it('Getting details of a question', async function () {
         dbDsl.createQuestion('1', {
-            adminId: '2', question: 'Das ist eine Frage', description: 'description', topic: ['spiritual', 'education'],
-            language: 'de', modified: 700
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description',
+            topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -33,6 +32,9 @@ describe('Getting details of a question', function () {
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
+        res.body.creator.name.should.equals('user Meier2');
+        //@todo test with new privacy settings
+        res.body.creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
     });

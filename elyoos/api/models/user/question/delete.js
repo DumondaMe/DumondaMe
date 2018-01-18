@@ -25,7 +25,7 @@ const deleteQuestion = async function (userId, questionId) {
         logger.info(`Question with id ${questionId} marked to delete`);
         markedForDeletion = true;
     } else {
-        await db.cypher().match(`(question:Question {questionId: {questionId}})<-[isAdmin:IS_ADMIN]-(:User)`)
+        await db.cypher().match(`(question:Question {questionId: {questionId}})<-[isAdmin:IS_CREATOR]-(:User)`)
             .delete(`question, isAdmin`)
             .end({questionId: questionId}).send();
         logger.info(`Deleted question with id ${questionId}`);

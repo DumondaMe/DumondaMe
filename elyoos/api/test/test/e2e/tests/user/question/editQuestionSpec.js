@@ -24,7 +24,7 @@ describe('Edit a question', function () {
     it('Edit a question description', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
             language: 'de'
         });
         await dbDsl.sendToDb();
@@ -48,7 +48,7 @@ describe('Edit a question', function () {
     it('Edit a question without description', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
             language: 'de'
         });
         await dbDsl.sendToDb();
@@ -72,7 +72,7 @@ describe('Edit a question', function () {
     it('Only admin is allowed to edit question', async function () {
 
         dbDsl.createQuestion('1', {
-            adminId: '2', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
+            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topic: ['spiritual'],
             language: 'de'
         });
         await dbDsl.sendToDb();

@@ -9,7 +9,7 @@ const editQuestion = async function (userId, params) {
     params.userId = userId;
     params.description = params.description || null;
     await security.isAdmin(userId, params.questionId);
-    await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_ADMIN]-(:User {userId: {userId}})`)
+    await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
         .set(`question`, {
             question: params.question, description: params.description, topic: params.topic,
             modified: time.getNowUtcTimestamp()
