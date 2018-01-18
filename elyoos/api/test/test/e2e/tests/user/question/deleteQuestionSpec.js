@@ -58,7 +58,7 @@ describe('Delete a question', function () {
         resp[0].question.timeDeleteRequested.should.least(startTime);
     });
 
-    it('Only user is allowed to delete question', async function () {
+    it('Only admin is allowed to delete question', async function () {
 
         dbDsl.createQuestion('1', {
             adminId: '2', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
