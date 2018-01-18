@@ -3,7 +3,8 @@
 const validation = require('elyoos-server-lib').jsonValidation;
 const topic = require("../../../schema/topic");
 const language = require("../../../schema/language");
-const question = requireModel('user/question/create');
+const questionCreate = requireModel('user/question/create');
+const questionDelete = requireModel('user/question/delete');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -25,15 +26,9 @@ const schemaDeleteContact = {
     name: 'deleteContact',
     type: 'object',
     additionalProperties: false,
-    required: ['contactIds'],
+    required: ['questionId'],
     properties: {
-        contactIds: {
-            type: 'array',
-            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
-            minItems: 1,
-            maxItems: 30,
-            uniqueItems: true
-        }
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30}
     }
 };
 
@@ -41,13 +36,13 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaCreateQuestion, logger);
-        let response = await question.createQuestion(req.user.id, params);
+        let response = await questionCreate.createQuestion(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-
-        const request = await validation.validateRequest(req, schemaDeleteContact, logger);
-        res.status(200).end();
+        const params = await validation.validateRequest(req, schemaDeleteContact, logger);
+        let response = await questionDelete.deleteQuestion(req.user.id, params.questionId);
+        res.status(200).json(response);
     }));
 };
