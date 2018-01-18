@@ -10,9 +10,10 @@ const createQuestion = async function (userId, params) {
     params.questionId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
+    params.description = params.description || null;
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(question:Question {questionId: {questionId}, question: {question}, description: {description}, 
-                  language: {lang}, topic: {topic}})`)
+                  language: {lang}, topic: {topic}, created: {created}})`)
         .merge(`(user)-[:IS_ADMIN]->(question)`)
         .end(params).send();
     logger.info(`Created question with id ${params.questionId}`);

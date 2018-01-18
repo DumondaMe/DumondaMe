@@ -40,7 +40,6 @@ const schemaDeleteContact = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-
         const params = await validation.validateRequest(req, schemaCreateQuestion, logger);
         let response = await question.createQuestion(req.user.id, params);
         res.status(200).json(response);
