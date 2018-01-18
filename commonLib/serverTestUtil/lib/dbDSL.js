@@ -10,7 +10,7 @@ let messages = require('./dbDSL/messages');
 let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
 let tc = require('./dbDSL/transitionConnect');
-let forum = require('./dbDSL/forum');
+let question = require('./dbDSL/question');
 let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
@@ -72,11 +72,9 @@ module.exports = {
     createPageEventExistingAddress: events.createPageEventExistingAddress,
     createThread: messages.createThread,
     createMessages: messages.createMessages,
-    createForumQuestion: forum.createQuestion,
-    createForumSolution: forum.createSolution,
-    createForumProArgument: forum.createProArgument,
-    createForumCounterArgument: forum.createCounterArgument,
-    forumRatePositiveAnswer: forum.ratePositiveAnswer,
+    createQuestion: question.createQuestion,
+    createAnswer: question.createAnswer,
+    upVoteAnswer: question.upVoteAnswer,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
     exportEventToTransitionConnect: tc.exportEvent,
