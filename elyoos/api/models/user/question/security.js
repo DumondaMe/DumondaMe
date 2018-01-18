@@ -3,7 +3,6 @@
 const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 
-
 const isAdmin = async function (userId, questionId) {
 
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_ADMIN]-(:User {userId: {userId}})`)
