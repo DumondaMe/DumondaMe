@@ -68,4 +68,12 @@ describe('Creating new questions', function () {
         resp[0].question.language.should.equals('de');
         resp[0].user.userId.should.equals('1');
     });
+
+    it('Only allowed to add a question as logged in user', async function () {
+        await dbDsl.sendToDb();
+        let res = await requestHandler.post('/api/user/question', {
+            question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual', 'education'], lang: 'de'
+        });
+        res.status.should.equal(401);
+    });
 });
