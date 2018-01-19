@@ -20,10 +20,8 @@ export const actions = {
             throw error;
         }
     },
-
     async logout({commit}) {
         await this.$axios.$post('/logout');
         commit('SET_USER_IS_AUTHENTICATED', false);
     }
-
 };
