@@ -82,7 +82,7 @@
                 }
             },
             changeLanguage(lang) {
-                this.$store.commit('i18n/SET_LANGUAGE', lang);
+                this.$store.dispatch('i18n/setLanguage', {language: lang});
             }
         }
     }
