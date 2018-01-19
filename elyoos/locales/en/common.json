@@ -6,13 +6,16 @@
     "surname": "Surname",
     "terms": "terms",
     "description": "Description",
+    "createdOn": "Created on",
     "toolbar": {
         "login": "Login"
     },
     "button": {
         "ok": "Ok",
         "close": "Close",
-        "create": "Create"
+        "create": "Create",
+        "followQuestion": "Follow Question",
+        "answer": "Answer"
     },
     "topic": {
         "health": "Health",

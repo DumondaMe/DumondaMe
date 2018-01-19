@@ -6,13 +6,16 @@
     "surname": "Nachname",
     "terms": "AGB's",
     "description": "Beschreibung",
+    "createdOn": "Erstellt am",
     "toolbar": {
         "login": "Anmelden"
     },
     "button": {
         "ok": "Ok",
         "close": "Schliessen",
-        "create": "Erstellen"
+        "create": "Erstellen",
+        "followQuestion": "Frage Folgen",
+        "answer": "Beantworten"
     },
     "topic": {
         "health": "Gesundheit",

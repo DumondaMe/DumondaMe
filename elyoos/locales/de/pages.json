@@ -24,5 +24,8 @@
       "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein.",
       "buttonNotExist": "Existiert nicht"
     }
+  },
+  "detailQuestion": {
+    "tooltipLoginToAnswerQuestion": "Um eine Antwort zu erstellen musst du dich einloggen"
   }
 }
