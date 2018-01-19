@@ -2,8 +2,9 @@
 
 const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
+let cdn = require('elyoos-server-lib').cdn;
 
-const getQuestion = async function (userId, questionId) {
+const getQuestion = async function (questionId) {
     let response = await db.cypher().match("(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)")
         .return(`question, user`)
         .end({questionId: questionId}).send();
@@ -12,7 +13,7 @@ const getQuestion = async function (userId, questionId) {
         let jsonResponse = response[0].question;
         jsonResponse.creator = {
             name: response[0].user.name,
-            thumbnailUrl: `profileImage/${response[0].user.userId}/thumbnail.jpg` //todo apply new privacy settings
+            thumbnailUrl: cdn.getUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
         return jsonResponse;
     } else {

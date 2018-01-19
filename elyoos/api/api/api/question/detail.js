@@ -18,9 +18,9 @@ const schemaGetQuestionDetail = {
 
 module.exports = function (router) {
 
-    router.get('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.get('/:questionId', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetQuestionDetail, logger);
-        let response = await detail.getQuestion(req.user.id, params.questionId);
+        let response = await detail.getQuestion(params.questionId);
         res.status(200).json(response);
     }));
 };
