@@ -44,6 +44,9 @@ module.exports = {
         vendor: ['babel-polyfill',
             'i18next',
             '@panter/vue-i18next',
+            'moment',
+            'moment/locale/de',
+            'moment/locale/en-gb',
             'debounce',
             '~/plugins/vuetify.js'],
 
@@ -58,6 +61,7 @@ module.exports = {
         }
     },
     plugins: ['~/plugins/i18n.js',
+        '~/plugins/moment.js',
         '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl'
