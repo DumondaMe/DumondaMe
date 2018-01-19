@@ -13,8 +13,8 @@
                     <v-flex xs12>
                         <v-text-field type="text" v-model="description" name="description" multi-line auto-grow rows="1"
                                       :label="$t('common:description')"
-                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 80)]"
-                                      :counter="80">
+                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 700)]"
+                                      :counter="700">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md5>
@@ -40,9 +40,11 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
-            <v-btn color="primary" flat @click.native="$emit('create-question', question)"
-                   :disabled="!valid">
+            <v-btn color="primary" flat :disabled="loading"
+                   @click.native="$emit('close-dialog')">{{$t("common:button.close")}}
+            </v-btn>
+            <v-btn color="primary" flat @click.native="createNewQuestion"
+                   :disabled="!valid || loading">
                 {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>
@@ -57,10 +59,33 @@
     export default {
         props: ['question'],
         data: function () {
-            return {newQuestion: this.question, description: '', valid: false, selectTopic: [],
-                selectLang: this.$store.state.i18n.language};
+            return {
+                newQuestion: this.question, description: '', valid: false, selectTopic: [],
+                selectLang: this.$store.state.i18n.language, loading: false
+            };
         },
-        mixins: [validationRules, topic, languages]
+        mixins: [validationRules, topic, languages],
+        methods: {
+            createNewQuestion: async function () {
+                try {
+                    this.loading = true;
+                    let response = await this.$axios.$post('/user/question', {
+                        question: this.newQuestion,
+                        description: this.description,
+                        topic: this.selectTopic,
+                        lang: this.selectLang
+                    });
+                    this.loading = false;
+                    this.$emit('close-dialog');
+                    this.$router.push({
+                        name: 'question-questionId-slug',
+                        params: {questionId: response.questionId, slug: response.slug}
+                    });
+                } catch (error) {
+                    this.loading = false;
+                }
+            }
+        }
     }
 </script>
 
