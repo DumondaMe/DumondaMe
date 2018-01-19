@@ -8,11 +8,9 @@ const i18n = new VueI18Next(i18next);
 
 let setLanguage = function (store, req) {
     if (req && req.session) {
-        if (!req.session.userData) {
-            req.session.userData = {};
+        if (!req.session.userData || (req.session.userData && !req.session.userData.lang)) {
+            req.session.userData = {lang: 'en'};
         }
-        req.session.userData.lang = 'en';
-        console.log(`Add new language 'en'`);
     }
 };
 
