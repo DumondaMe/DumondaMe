@@ -3,9 +3,9 @@ import moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/en-gb';
 
-Vue.filter('formatTimestampToLocal', function (value) {
+Vue.filter('formatRelativeTimesAgo', function (value) {
     if (value) {
-        return moment.unix(value).format('LL');
+        return moment.unix(value).fromNow();
     }
 });
 
