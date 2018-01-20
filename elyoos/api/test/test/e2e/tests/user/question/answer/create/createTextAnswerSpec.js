@@ -1,0 +1,54 @@
+'use strict';
+
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+
+describe('Creating new text answer', function () {
+
+    let startTime;
+
+    beforeEach(async function () {
+        await dbDsl.init(3);
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
+        dbDsl.createQuestion('1', {
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topic: ['spiritual'],
+            language: 'de'
+        });
+        dbDsl.createQuestion('2', {
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topic: ['health'],
+            language: 'en'
+        });
+        await dbDsl.sendToDb();
+    });
+
+    afterEach(function () {
+        return requestHandler.logout();
+    });
+
+    it('Creating new text answer', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/text/1', {
+            title: 'title', description: 'description'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:TEXT_ANSWER]->(answer:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.title.should.equals('title');
+        resp[0].answer.description.should.equals('description');
+        resp[0].answer.created.should.least(startTime);
+        resp[0].user.userId.should.equals('1');
+    });
+
+    it('Only allowed to add an text answer as logged in user', async function () {
+        let res = await requestHandler.post('/api/user/question/answer/text/1', {
+            title: 'title', description: 'description'
+        });
+        res.status.should.equal(401);
+    });
+});
