@@ -1,8 +1,8 @@
 {
-    "fieldRequired": "Wird benötigt",
-    "toManyChars": "Zu viele Zeichen",
-    "minLength": "Muss mindestens {{length}} Zeichen lang sein",
-    "noPasswordChars": "Muss mindestens ein Grossbuchstaben und eine Zahl enthalten",
-    "passwordNoEqual": "Passwörter stimmen nicht überein",
-    "isEmail": "Keine gültige E-Mail Adresse"
+  "fieldRequired": "Wird benötigt",
+  "toManyChars": "Zu viele Zeichen",
+  "minLength": "Muss mindestens {{length}} Zeichen lang sein",
+  "noPasswordChars": "Muss mindestens ein Grossbuchstaben und eine Zahl enthalten",
+  "passwordNoEqual": "Passwörter stimmen nicht überein",
+  "isEmail": "Keine gültige E-Mail Adresse"
 }
