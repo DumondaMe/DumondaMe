@@ -11,8 +11,7 @@ const createTextAnswer = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     let user = await db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")
-        .create(`(answer:Answer {answerId: {answerId}, title: {title}, 
-                  description: {description}, created: {created}})`)
+        .create(`(answer:Answer {answerId: {answerId}, answer: {answer}, created: {created}})`)
         .merge(`(user)-[:IS_CREATOR]->(answer)<-[:TEXT_ANSWER]-(question)`)
         .return(`user.name AS name`)
         .end(params).send();

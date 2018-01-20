@@ -12,11 +12,10 @@ const schemaCreateTextAnswer = {
     name: 'createTextAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'title', 'description'],
+    required: ['questionId', 'answer'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        title: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 500}
+        answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };
 
@@ -24,11 +23,10 @@ const schemaEditTextAnswer = {
     name: 'editTextAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'title', 'description'],
+    required: ['answerId', 'answer'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        title: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 500}
+        answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };
 

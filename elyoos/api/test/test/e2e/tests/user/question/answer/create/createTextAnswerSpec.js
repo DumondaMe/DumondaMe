@@ -31,7 +31,7 @@ describe('Creating new text answer', function () {
     it('Creating new text answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/text/1', {
-            title: 'title', description: 'description'
+            answer: 'answer'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
@@ -42,8 +42,7 @@ describe('Creating new text answer', function () {
             .return(`answer, user`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
-        resp[0].answer.title.should.equals('title');
-        resp[0].answer.description.should.equals('description');
+        resp[0].answer.answer.should.equals('answer');
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
     });

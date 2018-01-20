@@ -22,10 +22,10 @@ describe('Edit text answer', function () {
             language: 'en'
         });
         dbDsl.createTextAnswer('5', {
-            creatorId: '1', questionId:'1', title: 'Answer', description: 'descriptionAnswer'
+            creatorId: '1', questionId:'1', answer: 'Answer'
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '2', questionId:'1', title: 'Answer2', description: 'descriptionAnswer2'
+            creatorId: '2', questionId:'1', answer: 'Answer2'
         });
         await dbDsl.sendToDb();
     });
@@ -37,7 +37,7 @@ describe('Edit text answer', function () {
     it('Edit text answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/text/5', {
-            title: 'title5', description: 'description5'
+            answer: 'Answer5'
         });
         res.status.should.equal(200);
 
@@ -45,8 +45,7 @@ describe('Edit text answer', function () {
                                             (answer:Answer {answerId: '5'})<-[:IS_CREATOR]-(user:User {userId: '1'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.title.should.equals('title5');
-        resp[0].answer.description.should.equals('description5');
+        resp[0].answer.answer.should.equals('Answer5');
         resp[0].answer.created.should.equals(500);
         resp[0].answer.modified.should.least(startTime);
     });
@@ -54,7 +53,7 @@ describe('Edit text answer', function () {
     it('The user is only allowed to change answers that he has created', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/text/6', {
-            title: 'title5', description: 'description5'
+            answer: 'Answer5'
         });
         res.status.should.equal(400);
 
@@ -62,8 +61,7 @@ describe('Edit text answer', function () {
                                             (answer:Answer {answerId: '6'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.title.should.equals('Answer2');
-        resp[0].answer.description.should.equals('descriptionAnswer2');
+        resp[0].answer.answer.should.equals('Answer2');
         resp[0].answer.created.should.equals(500);
         resp[0].answer.modified.should.equals(500);
     });

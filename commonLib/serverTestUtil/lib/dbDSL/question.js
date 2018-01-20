@@ -22,11 +22,11 @@ let createTextAnswer = function (answerId, data) {
     data.modified = data.modified || data.created;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Answer {answerId: {answerId}, title: {title}, description: {description},
+        .create(`(answer:Answer {answerId: {answerId}, answer: {answer},
                   created: {created}, modified: {modified}})`)
         .merge(`(question)-[:TEXT_ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
         .end({
-            title: data.title, description: data.description, created: data.created, questionId: data.questionId,
+            answer: data.answer, created: data.created, questionId: data.questionId,
             modified: data.modified, answerId: answerId, creatorId: data.creatorId
         }).getCommand());
 };
