@@ -5,7 +5,7 @@
         </div>
         <div class="user-infos">
             <div class="user-name">{{name}}</div>
-            <div class="created-date">{{$t("common:createdOn")}} {{created | formatTimestampToLocal}}</div>
+            <div class="created-date">{{created | formatRelativeTimesAgo}}</div>
         </div>
     </div>
 </template>
