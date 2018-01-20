@@ -12,11 +12,10 @@ export const mutations = {
 };
 
 export const actions = {
-    async createTextAnswer({commit, state}, {title, description}) {
-        let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`,
-            {title, description});
+    async createTextAnswer({commit, state}, {answer}) {
+        let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`, {answer});
         commit('ADD_TEXT_ANSWER', {
-            title, description, created: response.created, creator: response.creator
+            answer, created: response.created, creator: response.creator
         });
     }
 };

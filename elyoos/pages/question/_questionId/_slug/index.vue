@@ -1,7 +1,10 @@
 <template>
     <detail-layout>
-        <div slot="content">
-            <question-header></question-header>
+        <div slot="content" id="question-detail">
+            <question-header>
+            </question-header>
+            <text-answers>
+            </text-answers>
         </div>
         <div slot="sidebar">
             Test Sidebar
@@ -12,6 +15,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail.vue';
     import QuestionHeader from '~/components/question/Header.vue';
+    import TextAnswers from '~/components/question/TextAnswers.vue';
 
     export default {
         async asyncData({params, app, error}) {
@@ -30,10 +34,21 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader},
+        components: {DetailLayout, QuestionHeader, TextAnswers},
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);
         }
     }
 </script>
+
+<style lang="scss">
+    #question-detail {
+        .elyoos-answer-container {
+            margin-top: 24px;
+            .elyoos-answer-content {
+                padding-top: 12px;
+            }
+        }
+    }
+</style>

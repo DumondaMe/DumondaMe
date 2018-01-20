@@ -6,17 +6,9 @@
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>
-                        <v-text-field type="text" v-model="title" name="question"
-                                      :label="$t('common:title')"
-                                      :rules="[ruleMinLength($t('validation:minLength', {length: 4}), 4),
-                                               ruleToManyChars($t('validation:toManyChars'), 80)]"
-                                      :counter="80" required>
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-text-field type="text" v-model="description" name="description"
+                        <v-text-field type="text" v-model="answer" name="answer"
                                       multi-line auto-grow rows="1"
-                                      :label="$t('common:description')"
+                                      :label="$t('pages:detailQuestion.yourAnswer')"
                                       :rules="[ruleMinLength($t('validation:minLength', {length: 10}), 10),
                                                ruleToManyChars($t('validation:toManyChars'), 500)]"
                                       :counter="500" required>
@@ -43,7 +35,7 @@
 
     export default {
         data() {
-            return {valid: false, title: '', description: ''}
+            return {valid: false, answer: ''}
         },
         mixins: [validationRules],
         computed: {
@@ -54,7 +46,7 @@
         methods: {
             async createTextAnswer() {
                 await this.$store.dispatch('question/createTextAnswer',
-                    {title: this.title, description: this.description});
+                    {answer: this.answer});
             }
         }
     }

@@ -53,6 +53,7 @@
 
 <style lang="scss">
     #elyoos-question-header {
+        margin-bottom: 48px;
         h1 {
             margin-bottom: 8px;
             font-size: 28px;
