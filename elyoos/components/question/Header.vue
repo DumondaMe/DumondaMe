@@ -33,7 +33,7 @@
 
 <script>
     import UserInfo from '~/components/common/user/Info.vue';
-    import CreateDialog from '~/components/question/answer/CreateDialog.vue';
+    import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
 
     export default {
         components: {UserInfo, CreateDialog},
