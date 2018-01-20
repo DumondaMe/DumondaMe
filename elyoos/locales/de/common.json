@@ -1,30 +1,32 @@
 {
-    "email": "E-Mail",
-    "password": "Passwort",
-    "passwordConfirm": "Passwort bestätigen",
-    "forename": "Vorname",
-    "surname": "Nachname",
-    "terms": "AGB's",
-    "description": "Beschreibung",
-    "createdOn": "Erstellt am",
-    "toolbar": {
-        "login": "Anmelden"
-    },
-    "button": {
-        "ok": "Ok",
-        "close": "Schliessen",
-        "create": "Erstellen",
-        "followQuestion": "Frage Folgen",
-        "answer": "Beantworten"
-    },
-    "topic": {
-        "health": "Gesundheit",
-        "environmental": "Umwelt",
-        "spiritual": "Spiritualität",
-        "education": "Bildung",
-        "personalDevelopment": "Persönliche Entwicklung",
-        "politics": "Politik",
-        "economy": "Wirtschaft",
-        "socialDevelopment": "Gesellschaft"
-    }
+  "email": "E-Mail",
+  "password": "Passwort",
+  "passwordConfirm": "Passwort bestätigen",
+  "forename": "Vorname",
+  "surname": "Nachname",
+  "terms": "AGB's",
+  "title": "Titel",
+  "description": "Beschreibung",
+  "createdOn": "Erstellt am",
+  "toolbar": {
+    "login": "Anmelden"
+  },
+  "button": {
+    "ok": "Ok",
+    "close": "Schliessen",
+    "create": "Erstellen",
+    "followQuestion": "Frage Folgen",
+    "answer": "Beantworten",
+    "filter": "Filter"
+  },
+  "topic": {
+    "health": "Gesundheit",
+    "environmental": "Umwelt",
+    "spiritual": "Spiritualität",
+    "education": "Bildung",
+    "personalDevelopment": "Persönliche Entwicklung",
+    "politics": "Politik",
+    "economy": "Wirtschaft",
+    "socialDevelopment": "Gesellschaft"
+  }
 }
