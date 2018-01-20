@@ -34,6 +34,9 @@ describe('Creating new text answer', function () {
             title: 'title', description: 'description'
         });
         res.status.should.equal(200);
+        res.body.created.should.least(startTime);
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:TEXT_ANSWER]->(answer:Answer)<-[:IS_CREATOR]-(user:User)`)
             .return(`answer, user`).end().send();
@@ -41,7 +44,7 @@ describe('Creating new text answer', function () {
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.title.should.equals('title');
         resp[0].answer.description.should.equals('description');
-        resp[0].answer.created.should.least(startTime);
+        resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
     });
 
