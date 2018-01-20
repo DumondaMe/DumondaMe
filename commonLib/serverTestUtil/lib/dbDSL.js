@@ -73,7 +73,7 @@ module.exports = {
     createThread: messages.createThread,
     createMessages: messages.createMessages,
     createQuestion: question.createQuestion,
-    createAnswer: question.createAnswer,
+    createTextAnswer: question.createTextAnswer,
     upVoteAnswer: question.upVoteAnswer,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
     exportOrganisationToTransitionConnect: tc.exportOrganisation,

@@ -17,16 +17,16 @@ let createQuestion = function (questionId, data) {
         }).getCommand());
 };
 
-let createAnswer = function (answerId, data) {
+let createTextAnswer = function (answerId, data) {
     data.created = data.created || 500;
     data.modified = data.modified || data.created;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Answer {answerId: {answerId}, answer: {answer},
+        .create(`(answer:Answer {answerId: {answerId}, title: {title}, description: {description},
                   created: {created}, modified: {modified}})`)
-        .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
+        .merge(`(question)-[:TEXT_ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
         .end({
-            answer: data.answer, created: data.created, questionId: data.questionId,
+            title: data.title, description: data.description, created: data.created, questionId: data.questionId,
             modified: data.modified, answerId: answerId, creatorId: data.creatorId
         }).getCommand());
 };
@@ -39,6 +39,6 @@ let upVoteAnswer = function (userId, answerId) {
 
 module.exports = {
     createQuestion,
-    createAnswer,
+    createTextAnswer,
     upVoteAnswer
 };
