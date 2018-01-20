@@ -1,7 +1,7 @@
 <template>
     <detail-layout>
         <div slot="content">
-            <question-header :question="question"></question-header>
+            <question-header></question-header>
         </div>
         <div slot="sidebar">
             Test Sidebar
@@ -30,6 +30,10 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader}
+        components: {DetailLayout, QuestionHeader},
+        created() {
+            this.question.questionId = this.$route.params.questionId;
+            this.$store.commit('question/SET_QUESTION', this.question);
+        }
     }
 </script>

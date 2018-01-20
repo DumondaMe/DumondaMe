@@ -3,8 +3,7 @@
         <select-answer-type @close-dialog="$emit('close-dialog')" v-if="showSelect"
                             @answer-selected="answerSelected">
         </select-answer-type>
-        <answer-text v-else-if="!showSelect && answerType === 'text'" @close-dialog="$emit('close-dialog')"
-                     :question="question">
+        <answer-text v-else-if="!showSelect && answerType === 'text'" @close-dialog="$emit('close-dialog')">
         </answer-text>
     </div>
 </template>
@@ -15,7 +14,6 @@
 
     export default {
         components: {SelectAnswerType, AnswerText},
-        props: ['question'],
         data() {
             return {answerType: '', showSelect: true}
         },

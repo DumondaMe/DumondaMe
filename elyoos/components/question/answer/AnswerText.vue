@@ -31,7 +31,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="" :disabled="!valid">
+            <v-btn color="primary" flat @click.native="createTextAnswer()" :disabled="!valid">
                 {{$t("common:button.answer")}}
             </v-btn>
         </v-card-actions>
@@ -42,11 +42,21 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['question'],
         data() {
             return {valid: false, title: '', description: ''}
         },
-        mixins: [validationRules]
+        mixins: [validationRules],
+        computed: {
+            question() {
+                return this.$store.state.question.question.question;
+            }
+        },
+        methods: {
+            async createTextAnswer() {
+                await this.$store.dispatch('question/createTextAnswer',
+                    {title: this.title, description: this.description});
+            }
+        }
     }
 </script>
 

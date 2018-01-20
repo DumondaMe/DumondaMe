@@ -24,7 +24,7 @@
 
         <v-layout row justify-center>
             <v-dialog v-model="dialog" scrollable persistent max-width="770px">
-                <create-dialog @close-dialog="dialog = false" :question="question.question" v-if="dialog">
+                <create-dialog @close-dialog="dialog = false" v-if="dialog">
                 </create-dialog>
             </v-dialog>
         </v-layout>
@@ -36,7 +36,6 @@
     import CreateDialog from '~/components/question/answer/CreateDialog.vue';
 
     export default {
-        props: ['question'],
         components: {UserInfo, CreateDialog},
         data() {
             return {dialog: false}
@@ -44,11 +43,9 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            }
-        },
-        methods: {
-            setResponse(response) {
-                this.rcaptResponse = response;
+            },
+            question() {
+                return this.$store.state.question.question;
             }
         }
     }
