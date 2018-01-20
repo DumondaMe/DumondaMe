@@ -32,7 +32,7 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['email'],
+        props: ['email', 'fromRoute'],
         data() {
             return {
                 valid: false,
@@ -51,7 +51,12 @@
                         username: this.formUsername,
                         password: this.formPassword
                     });
-                    this.$router.push({name: 'index'});
+                    console.log(this.fromRoute);
+                    if (!this.fromRoute || this.fromRoute.name === null) {
+                        this.$router.push({name: 'index'});
+                    } else {
+                        this.$router.go(-1);
+                    }
                 } catch (e) {
                     this.loading = false;
                     this.formError = e.message;
