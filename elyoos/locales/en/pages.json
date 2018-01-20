@@ -26,6 +26,7 @@
     }
   },
   "detailQuestion": {
-    "tooltipLoginToAnswerQuestion": "To create an answer you need to log in"
+    "tooltipLoginToAnswerQuestion": "To create an answer you need to log in",
+    "yourAnswer": "Your Answer"
   }
 }
