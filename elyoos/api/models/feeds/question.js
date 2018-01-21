@@ -1,5 +1,6 @@
 'use strict';
 
+const dashify = require('dashify');
 const db = requireDb();
 const cdn = require('elyoos-server-lib').cdn;
 
@@ -9,6 +10,7 @@ const getQuestions = function (questions) {
         results.push({
             questionId: questionElement.question.questionId,
             question: questionElement.question.question,
+            slug: dashify(questionElement.question.question),
             description: questionElement.question.description,
             created: questionElement.question.created,
             topic: questionElement.question.topic,

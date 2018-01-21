@@ -42,6 +42,7 @@ describe('Get question feed', function () {
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
         res.body.questions[0].question.should.equals('Das ist eine Frage2');
+        res.body.questions[0].slug.should.equals('das-ist-eine-frage2');
         res.body.questions[0].description.should.equals('description2');
         res.body.questions[0].created.should.equals(600);
         res.body.questions[0].numberOfAnswers.should.equals(0);
@@ -53,6 +54,7 @@ describe('Get question feed', function () {
 
         res.body.questions[1].questionId.should.equals('1');
         res.body.questions[1].question.should.equals('Das ist eine Frage');
+        res.body.questions[1].slug.should.equals('das-ist-eine-frage');
         res.body.questions[1].description.should.equals('description');
         res.body.questions[1].created.should.equals(500);
         res.body.questions[1].numberOfAnswers.should.equals(2);
