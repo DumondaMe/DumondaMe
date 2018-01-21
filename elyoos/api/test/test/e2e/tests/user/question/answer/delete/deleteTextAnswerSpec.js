@@ -22,10 +22,10 @@ describe('Delete text answer', function () {
             language: 'en'
         });
         dbDsl.createTextAnswer('5', {
-            creatorId: '1', questionId:'1', title: 'Answer', description: 'descriptionAnswer'
+            creatorId: '1', questionId:'1', answer: 'Answer'
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '2', questionId:'1', title: 'Answer2', description: 'descriptionAnswer2'
+            creatorId: '2', questionId:'1', answer: 'Answer2'
         });
         await dbDsl.sendToDb();
     });
@@ -54,8 +54,7 @@ describe('Delete text answer', function () {
                                             (answer:Answer {answerId: '6'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.title.should.equals('Answer2');
-        resp[0].answer.description.should.equals('descriptionAnswer2');
+        resp[0].answer.answer.should.equals('Answer2');
         resp[0].answer.created.should.equals(500);
         resp[0].answer.modified.should.equals(500);
     });

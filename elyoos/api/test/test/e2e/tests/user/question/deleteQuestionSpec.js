@@ -43,7 +43,7 @@ describe('Delete a question', function () {
         dbDsl.createQuestion('1', {
             creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
         });
-        dbDsl.createAnswer('1', {creatorId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
+        dbDsl.createTextAnswer('1', {creatorId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question', {

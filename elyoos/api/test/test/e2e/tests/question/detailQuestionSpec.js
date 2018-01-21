@@ -18,10 +18,10 @@ describe('Getting details of a question', function () {
             topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
-            creatorId: '2', questionId:'1', title: 'Answer', description: 'descriptionAnswer', created: 600,
+            creatorId: '2', questionId:'1', answer: 'Answer', created: 600,
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '3', questionId:'1', title: 'Answer2', description: 'descriptionAnswer2'
+            creatorId: '3', questionId:'1', answer: 'Answer2',
         });
     });
 
@@ -48,15 +48,13 @@ describe('Getting details of a question', function () {
 
         res.body.textAnswer.length.should.equals(2);
         res.body.textAnswer[0].answerId.should.equals('5');
-        res.body.textAnswer[0].title.should.equals('Answer');
-        res.body.textAnswer[0].description.should.equals('descriptionAnswer');
+        res.body.textAnswer[0].answer.should.equals('Answer');
         res.body.textAnswer[0].created.should.equals(600);
         res.body.textAnswer[0].creator.name.should.equals('user Meier2');
         res.body.textAnswer[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.textAnswer[1].answerId.should.equals('6');
-        res.body.textAnswer[1].title.should.equals('Answer2');
-        res.body.textAnswer[1].description.should.equals('descriptionAnswer2');
+        res.body.textAnswer[1].answer.should.equals('Answer2');
         res.body.textAnswer[1].created.should.equals(500);
         res.body.textAnswer[1].creator.name.should.equals('user Meier3');
         res.body.textAnswer[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -80,15 +78,13 @@ describe('Getting details of a question', function () {
 
         res.body.textAnswer.length.should.equals(2);
         res.body.textAnswer[0].answerId.should.equals('5');
-        res.body.textAnswer[0].title.should.equals('Answer');
-        res.body.textAnswer[0].description.should.equals('descriptionAnswer');
+        res.body.textAnswer[0].answer.should.equals('Answer');
         res.body.textAnswer[0].created.should.equals(600);
         res.body.textAnswer[0].creator.name.should.equals('user Meier2');
         res.body.textAnswer[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.textAnswer[1].answerId.should.equals('6');
-        res.body.textAnswer[1].title.should.equals('Answer2');
-        res.body.textAnswer[1].description.should.equals('descriptionAnswer2');
+        res.body.textAnswer[1].answer.should.equals('Answer2');
         res.body.textAnswer[1].created.should.equals(500);
         res.body.textAnswer[1].creator.name.should.equals('user Meier3');
         res.body.textAnswer[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
