@@ -37,7 +37,7 @@ describe('Get question feed', function () {
     it('Get question feed', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question');
+        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
@@ -66,6 +66,15 @@ describe('Get question feed', function () {
         res.body.questions[1].topic[1].should.equals('education');
     });
 
+    it('Ignore new question for start page', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/feed/question', {timestamp: 599});
+        res.status.should.equal(200);
+        res.body.questions.length.should.equals(1);
+        res.body.questions[0].questionId.should.equals('1');
+    });
+
     it('Get maximal 20 questions', async function () {
 
         for(let i = 3; i < 23; i++) {
@@ -76,7 +85,7 @@ describe('Get question feed', function () {
         }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question');
+        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
         res.status.should.equal(200);
         res.body.questions.length.should.equals(20);
     });
@@ -90,16 +99,31 @@ describe('Get question feed', function () {
         }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {page: 1});
+        let res = await requestHandler.get('/api/feed/question', {page: 1, timestamp: 601});
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('21');
         res.body.questions[1].questionId.should.equals('22');
     });
 
+    it('Ignore newer question then timestamp calling next page', async function () {
+        for(let i = 3; i < 23; i++) {
+            dbDsl.createQuestion(`${i}`, {
+                creatorId: '2', question: 'Das ist eine Frage1', description: 'description1',
+                topic: ['health'], language: 'de', created: 500 - i,
+            });
+        }
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/feed/question', {page: 1, timestamp: 599});
+        res.status.should.equal(200);
+        res.body.questions.length.should.equals(1);
+        res.body.questions[0].questionId.should.equals('22');
+    });
+
     it('Get question feed when not logged in', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/question');
+        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
