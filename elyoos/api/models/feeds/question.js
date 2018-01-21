@@ -3,6 +3,7 @@
 const dashify = require('dashify');
 const db = requireDb();
 const cdn = require('elyoos-server-lib').cdn;
+const PAGE_SIZE = 20;
 
 const getQuestions = function (questions) {
     let results = [];
@@ -24,13 +25,14 @@ const getQuestions = function (questions) {
     return results;
 };
 
-const getFeed = async function (skip) {
+const getFeed = async function (page) {
+    page = page * PAGE_SIZE;
     let response = await db.cypher().match(`(question:Question)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(question)-[:TEXT_ANSWER]->(answer:Answer)`)
         .return(`question, creator, COUNT(answer) AS numberOfAnswers`)
         .orderBy(`question.created DESC`)
-        .skip(`{skip}`).limit(`20`)
-        .end({skip}).send();
+        .skip(`{page}`).limit(`${PAGE_SIZE}`)
+        .end({page}).send();
 
     return {questions: getQuestions(response)};
 };

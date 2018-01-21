@@ -9,9 +9,9 @@ const schemaGetQuestionFeed = {
     name: 'getQuestionFeed',
     type: 'object',
     additionalProperties: false,
-    required: ['skip'],
+    required: [],
     properties: {
-        skip: {type: 'integer', minimum: 0}
+        page: {type: 'integer', minimum: 0}
     }
 };
 
@@ -19,7 +19,8 @@ module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateQueryRequest(req, schemaGetQuestionFeed, logger);
-        let response = await feed.getFeed(params.skip);
+        params.page = params.page || 0;
+        let response = await feed.getFeed(params.page);
         res.status(200).json(response);
     }));
 };

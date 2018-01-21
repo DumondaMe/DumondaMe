@@ -37,7 +37,7 @@ describe('Get question feed', function () {
     it('Get question feed', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {skip: 0});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
@@ -76,23 +76,30 @@ describe('Get question feed', function () {
         }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {skip: 0});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.questions.length.should.equals(20);
     });
 
-    it('Skip first question', async function () {
+    it('Get next page of questions', async function () {
+        for(let i = 3; i < 23; i++) {
+            dbDsl.createQuestion(`${i}`, {
+                creatorId: '2', question: 'Das ist eine Frage1', description: 'description1',
+                topic: ['health'], language: 'de', created: 500 - i,
+            });
+        }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {skip: 1});
+        let res = await requestHandler.get('/api/feed/question', {page: 1});
         res.status.should.equal(200);
-        res.body.questions.length.should.equals(1);
-        res.body.questions[0].questionId.should.equals('1');
+        res.body.questions.length.should.equals(2);
+        res.body.questions[0].questionId.should.equals('21');
+        res.body.questions[1].questionId.should.equals('22');
     });
 
     it('Get question feed when not logged in', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/question', {skip: 0});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
