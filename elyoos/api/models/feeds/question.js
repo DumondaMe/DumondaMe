@@ -35,7 +35,7 @@ const getFeed = async function (page, timestamp) {
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({page, timestamp}).send();
 
-    return {questions: getQuestions(response)};
+    return {questions: getQuestions(response), timestamp};
 };
 
 module.exports = {

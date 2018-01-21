@@ -37,8 +37,9 @@ describe('Get question feed', function () {
     it('Get question feed', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
         res.body.questions[0].question.should.equals('Das ist eine Frage2');
@@ -66,15 +67,6 @@ describe('Get question feed', function () {
         res.body.questions[1].topic[1].should.equals('education');
     });
 
-    it('Ignore new question for start page', async function () {
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {timestamp: 599});
-        res.status.should.equal(200);
-        res.body.questions.length.should.equals(1);
-        res.body.questions[0].questionId.should.equals('1');
-    });
-
     it('Get maximal 20 questions', async function () {
 
         for(let i = 3; i < 23; i++) {
@@ -85,7 +77,7 @@ describe('Get question feed', function () {
         }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.questions.length.should.equals(20);
     });
@@ -99,7 +91,7 @@ describe('Get question feed', function () {
         }
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/feed/question', {page: 1, timestamp: 601});
+        let res = await requestHandler.get('/api/feed/question', {page: 1});
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('21');
@@ -123,7 +115,7 @@ describe('Get question feed', function () {
 
     it('Get question feed when not logged in', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/question', {timestamp: 601});
+        let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('2');
