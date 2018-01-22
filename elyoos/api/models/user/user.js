@@ -7,7 +7,6 @@ let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
 let underscore = require('underscore');
-let unreadMessages = require('./../messages/util/unreadMessages');
 let contacting = require('./../contact/contacting');
 let contactStatistic = require('./../contact/contactStatistic');
 
@@ -60,7 +59,6 @@ let updateUserProfile = function (userId, userData) {
 let getUserInfo = function (id, req) {
 
     let commands = [];
-    commands.push(unreadMessages.getTotalNumberOfUnreadMessages(id).getCommand());
     commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
 
     return db.cypher().match('(u:User {userId: {id}})')
@@ -69,7 +67,7 @@ let getUserInfo = function (id, req) {
                  u.latitude AS latitude, u.longitude AS longitude`)
         .end({id: id}).send(commands)
         .then(function (resp) {
-            let user = getUser(resp[2], id, [
+            let user = getUser(resp[1], id, [
                 {
                     property: 'profileImage',
                     image: '/thumbnail.jpg'
@@ -77,8 +75,7 @@ let getUserInfo = function (id, req) {
                     property: 'profileImagePreview',
                     image: '/profilePreview.jpg'
                 }], req);
-            user.totalUnreadMessages = resp[0][0].totalUnreadMessages;
-            user.contactStatistic = resp[1];
+            user.contactStatistic = resp[0];
             return user;
         });
 };

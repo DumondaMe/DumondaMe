@@ -3,7 +3,6 @@
 let testee = require('../../../../../../../api/api/login/index');
 let request = require('../../../request');
 let passport = require('passport');
-let modification = require('../../../../../../../models/modification/modification');
 let loginUser = require('../../../../../../../models/user/loginUser');
 let Promise = require('bluebird').Promise;
 let sinon = require('sinon');
@@ -27,12 +26,7 @@ describe('Unit Test api/api/login/index', function () {
         let stubResponse = sandbox.stub(request.res, 'status'),
             stubPassport = sandbox.stub(passport, 'authenticate'),
             stubLogin = sandbox.stub(request.req, 'logIn'),
-            stubLoginUser = sandbox.stub(loginUser, 'setTimestamp'),
-            stubModification = sandbox.stub(modification, 'initModificationOnSession', function () {
-                stubModification.callArgWith(2, undefined);
-                expect(stubResponse.withArgs(200).calledOnce).to.be.true;
-                done();
-            });
+            stubLoginUser = sandbox.stub(loginUser, 'setTimestamp');
 
         stubLoginUser.returns(Promise.resolve());
         stubPassport.returns(function () {
@@ -45,6 +39,12 @@ describe('Unit Test api/api/login/index', function () {
         request.executePostRequest(request.req, request.res);
         stubPassport.callArgWith(1, undefined, {});
         stubLogin.callArgWith(1, undefined);
+        stubResponse.returns({
+            end: function () {
+                expect(stubResponse.withArgs(200).calledOnce).to.be.true;
+                done();
+            }
+        });
     });
 
     it('Error is caused when setting the timestamp - Return a 200', function (done) {

@@ -55,7 +55,6 @@ describe('Integration Tests user info', function () {
             res.body.contactStatistic[0].count.should.equal(1);
             res.body.contactStatistic[1].group.should.equal('Bekannter');
             res.body.contactStatistic[1].count.should.equal(0);
-            res.body.totalUnreadMessages.should.equal(2);
         });
     });
 });
