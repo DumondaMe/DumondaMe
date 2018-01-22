@@ -1,0 +1,17 @@
+//Remove all blogs
+MATCH (:User)-[written:WRITTEN]->(b:Blog)
+OPTIONAL MATCH (b)<-[rel]-(recommendation:Recommendation)<-[rel2:RECOMMENDS]-(:User)
+DELETE written, rel, rel2, b, recommendation;
+
+//Page with generic label to Organisation
+MATCH (b:Page)
+WHERE b.label = 'Generic'
+SET b:Organisation
+REMOVE b:Page, b.label;
+
+//Change Page to Post
+MATCH (b:Page)
+SET b:Post
+SET b.language = b.language[0]
+SET b.postId = b.pageId
+REMOVE b:Page, b.pageId;
