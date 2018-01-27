@@ -5,7 +5,8 @@
   "author": "Roger Waldvogel",
   "private": true,
   "scripts": {
-    "build": "nuxt build"
+    "build": "nuxt build",
+    "installDev": "npm install && npm link ../commonLib/serverTestUtil && npm link ../commonLib/serverLib"
   },
   "dependencies": {
     "@panter/vue-i18next": "0.9.1",
@@ -50,6 +51,7 @@
     "tv4-formats": "3.0.0",
     "underscore": "1.8.3",
     "url-parse": "1.1.1",
+    "url-regex": "4.1.1",
     "vcard": "0.1.0",
     "vuetify": "0.17.6",
     "winston": "2.3.1",
