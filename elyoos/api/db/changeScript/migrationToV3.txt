@@ -1,17 +1,44 @@
+DROP CONSTRAINT ON (page:Page) ASSERT page.pageId IS UNIQUE;
+
 //Remove all blogs
 MATCH (:User)-[written:WRITTEN]->(b:Blog)
 OPTIONAL MATCH (b)<-[rel]-(recommendation:Recommendation)<-[rel2:RECOMMENDS]-(:User)
 DELETE written, rel, rel2, b, recommendation;
 
+//Set language and change pageId to detailInfoId
+MATCH (b:Page)
+SET b.language = b.language[0]
+
 //Page with generic label to Organisation
 MATCH (b:Page)
 WHERE b.label = 'Generic'
 SET b:Organisation
-REMOVE b:Page, b.label;
+SET b.organisationId = b.pageId
+REMOVE b:Page, b.label, b.pageId;
 
-//Change Page to Post
+//Set book label
 MATCH (b:Page)
-SET b:Post
-SET b.language = b.language[0]
-SET b.postId = b.pageId
-REMOVE b:Page, b.pageId;
+WHERE b.label = 'Book'
+SET b:Book
+SET b.bookId = b.pageId
+REMOVE b:Page, b:label, b.publishDate, b.pageId, b.language;
+
+//Set youtube label
+MATCH (b:Page)
+WHERE b.label = 'Youtube'
+SET b:Youtube
+SET b.youtubeId = b.pageId
+REMOVE b:Page, b:label, b.pageId, b.language;
+
+//Set link label
+MATCH (b:Page)
+WHERE b.label = 'Link'
+SET b:Link
+SET b.linkId = b.pageId
+REMOVE b:Page, b:label, b.pageId, b.language;
+
+//Add new constraints
+CREATE CONSTRAINT ON (b:Organisation) ASSERT b.organisationId IS UNIQUE;
+CREATE CONSTRAINT ON (b:Book) ASSERT b.bookId IS UNIQUE;
+CREATE CONSTRAINT ON (b:Youtube) ASSERT b.youtubeId IS UNIQUE;
+CREATE CONSTRAINT ON (b:Link) ASSERT b.linkId IS UNIQUE;
