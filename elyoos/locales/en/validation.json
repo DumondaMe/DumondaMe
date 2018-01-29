@@ -4,5 +4,6 @@
   "minLength": "Must be at least {{length}} characters long",
   "noPasswordChars": "Must contain at least one capital letter and one number",
   "passwordNoEqual": "Passwords do not match",
-  "isEmail": "No valid e-mail address"
+  "isEmail": "No valid e-mail address",
+  "url": "No valid URL e. g. http://example.org"
 }
