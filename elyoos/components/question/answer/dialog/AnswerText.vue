@@ -1,5 +1,5 @@
 <template>
-    <v-card id="select-answer-type-container">
+    <v-card id="text-answer-container">
         <v-card-title>Answers the question <span class="question-title"> {{question}} </span></v-card-title>
         <v-divider></v-divider>
         <v-card-text>
@@ -53,58 +53,7 @@
 </script>
 
 <style lang="scss">
-    #select-answer-type-container {
-        width: 100%;
-        .question-title {
-            padding-left: 8px;
-            font-weight: 500;
-        }
-        .answer-button {
-            width: 150px;
-            height: 150px;
-            border-radius: 4px;
-            border: 1px solid $primary-color-button;
-            margin: 16px auto;
-            padding: 8px;
-            cursor: pointer;
+    #text-answer-container {
 
-            @media screen and (max-width: 700px) and (min-width: 600px) {
-                width: 120px;
-                height: 120px;
-            }
-            @media screen and (max-width: 350px) {
-                width: 120px;
-                height: 120px;
-            }
-
-            .answer-type {
-                margin-top: 20px;
-                color: $primary-color-button;
-                text-align: center;
-                font-size: 14px;
-                font-weight: 500;
-                @media screen and (max-width: 700px) and (min-width: 600px) {
-                    margin-top: 0px;
-                }
-                @media screen and (max-width: 350px) {
-                    margin-top: 0px;
-                }
-            }
-            .answer-description {
-                margin-top: 18px;
-                text-align: center;
-                font-size: 12px;
-                color: $secondary-text;
-                @media screen and (max-width: 700px) and (min-width: 600px) {
-                    font-size: 11px;
-                }
-                @media screen and (max-width: 350px) {
-                    font-size: 11px;
-                }
-            }
-        }
-        :hover.answer-button {
-            background-color: $hover;
-        }
     }
 </style>

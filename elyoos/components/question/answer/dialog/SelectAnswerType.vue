@@ -11,7 +11,7 @@
                     </div>
                 </v-flex>
                 <v-flex xs6 sm3>
-                    <div class="answer-button">
+                    <div class="answer-button" @click="$emit('answer-selected', 'link')">
                         <div class="answer-type">Link</div>
                         <div class="answer-description">Youtube Video, Blog, Zeitunsartikel usw.</div>
                     </div>
