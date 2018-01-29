@@ -3,6 +3,7 @@
 let contactConnections = require('./dbDSL/contactConnection');
 let recommendation = require('./dbDSL/recommendation');
 let page = require('./dbDSL/page');
+let answer = require('./dbDSL/answer');
 let blog = require('./dbDSL/blog');
 let user = require('./dbDSL/user');
 let feedback = require('./dbDSL/feedback');
@@ -45,6 +46,9 @@ module.exports = {
     createGenericPage: page.createGenericPage,
     createLinkPage: page.createLinkPage,
     addAdminToPage: page.addAdminToPage,
+    createBookAnswer: answer.createBookAnswer,
+    createYoutubeAnswer: answer.createYoutubeAnswer,
+    createLinkAnswer: answer.createLinkAnswer,
     createBlog: blog.createBlog,
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
