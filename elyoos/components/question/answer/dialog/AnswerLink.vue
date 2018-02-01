@@ -6,9 +6,10 @@
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>
-                        <v-text-field v-model="link" name="link"
+                        <v-text-field v-model="link" name="link" ref="link"
                                       :label="$t('pages:detailQuestion.yourLink')"
                                       :rules="[isValidLink(),
+                                               isNotEmbedYoutube(),
                                                ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
@@ -94,7 +95,7 @@
                 return this.$store.state.question.question.question;
             },
             isYoutube() {
-                return /\.youtube\.com/igm.test(this.link);
+                return /\.youtube\.com/igm.test(this.link) && !/\/embed\//igm.test(this.link);
             }
         },
         methods: {
@@ -103,13 +104,17 @@
             },
             isValidLink() {
                 return v => urlRegex().test(v) || this.$t("validation:url")
+            },
+            isNotEmbedYoutube() {
+                return v => !/\/embed\//igm.test(v) || 'Embed youtube ist nicht erlaubt'
             }
+
         },
         watch: {
             async link() {
                 this.checkLink = true;
                 this.response = {};
-                if (urlRegex().test(this.link)) {
+                if (this.$refs.link.validate()) {
                     try {
                         this.response = await this.$axios.$get(`/link/search`, {params: {link: this.link}});
                         this.checkLink = false;
