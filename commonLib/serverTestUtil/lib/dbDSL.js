@@ -48,6 +48,7 @@ module.exports = {
     addAdminToPage: page.addAdminToPage,
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
+    createVimeoAnswer: answer.createVimeoAnswer,
     createLinkAnswer: answer.createLinkAnswer,
     createBlog: blog.createBlog,
     setUserRegisteredDate: user.setUserRegisteredDate,

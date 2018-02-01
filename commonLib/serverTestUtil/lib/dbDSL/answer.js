@@ -35,24 +35,43 @@ let createYoutubeAnswer = function (youtubeId, data) {
         }).getCommand());
 };
 
+let createVimeoAnswer = function (vimeoId, data) {
+    data.title = data.title || `vimeo${vimeoId}Title`;
+    data.description = data.description || `vimeo${vimeoId}Description`;
+    data.creatorId = data.creatorId || '1';
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
+                 (question:Question {questionId: {questionId}})`)
+        .create(`(vimeo:Vimeo  {title: {title}, description: {description}, created: {created},
+                 vimeoId: {vimeoId}, link: {link}, linkEmbed: {linkEmbed}})`)
+        .merge(`(question)-[:ANSWER]->(vimeo)`)
+        .merge(`(vimeo)<-[:IS_CREATOR]-(user)`)
+        .end({
+            vimeoId: vimeoId, title: data.title, description: data.description, creatorId: data.creatorId,
+            created: data.created, link: data.link, linkEmbed: data.linkEmbed, questionId: data.questionId
+        }).getCommand());
+};
+
 let createLinkAnswer = function (linkId, data) {
     data.title = data.title || `link${linkId}Title`;
     data.description = data.description || `link${linkId}Description`;
     data.creatorId = data.creatorId || '1';
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {adminId}})
+    data.hasImage = data.hasImage || false;
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
         .create(`(:Link  {title: {title}, description: {description}, created: {created},
-                  linkId: {linkId}, link: {link}})`)
+                  linkId: {linkId}, link: {link}, hasImage: {hasImage}, pageType: {pageType}})`)
         .merge(`(question)-[:ANSWER]->(book)`)
         .merge(`(book)<-[:IS_CREATOR]-(user)`)
         .end({
             linkId: linkId, title: data.title, description: data.description, creatorId: data.creatorId,
-            created: data.created, link: data.link,
+            created: data.created, link: data.link, hasImage: data.hasImage, pageType: data.pageType,
+            questionId: data.questionId
         }).getCommand());
 };
 
 module.exports = {
     createBookAnswer,
     createYoutubeAnswer,
+    createVimeoAnswer,
     createLinkAnswer
 };
