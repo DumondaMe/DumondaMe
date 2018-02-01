@@ -5,6 +5,7 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 const youtubeLink = requireModel('util/youtube');
 const vimeoLink = requireModel('util/vimeo');
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const LINK = 'Link';
 const YOUTUBE = 'Youtube';
@@ -49,20 +50,31 @@ const searchDatabase = async function (link, linkType) {
         response = {title: answer.title, description: answer.description, type: linkType};
         if (linkType === YOUTUBE || linkType === VIMEO) {
             response.linkEmbed = answer.linkEmbed;
+        } else if (linkType === LINK) {
+            response.pageType = answer.pageType;
+            response.imageUrl = `/link/${answer.linkId}/preview.jpg`;
         }
     }
     return response;
 };
 
 const searchWebsite = async function (link, linkType) {
-    const $ = cheerio.load(await rp.get(link));
-    let result = {title: getTitle($), description: getDescription($), type: linkType};
-    if (linkType === YOUTUBE) {
-        result.linkEmbed = youtubeLink.getEmbedUrl(link)
-    } else if (linkType === VIMEO) {
-        result.linkEmbed = vimeoLink.getEmbedUrl(link)
+    try {
+        const $ = cheerio.load(await rp.get(link));
+        let result = {title: getTitle($), description: getDescription($), type: linkType};
+        if (linkType === YOUTUBE) {
+            result.linkEmbed = youtubeLink.getEmbedUrl(link)
+        } else if (linkType === VIMEO) {
+            result.linkEmbed = vimeoLink.getEmbedUrl(link)
+        } else if (linkType === LINK) {
+            result.imageUrl = $("meta[property='og:image']").attr('content');
+            result.pageType = $("meta[property='og:type']").attr('content');
+        }
+        return result;
+    } catch (e) {
+        logger.warn(`Could not load link ${link}`);
+        throw new Error(`404`);
     }
-    return result;
 };
 
 const search = async function (link) {

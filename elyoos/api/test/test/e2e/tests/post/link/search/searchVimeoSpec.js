@@ -44,4 +44,29 @@ describe('Search a vimeo link', function () {
         res.body.linkEmbed.should.equals('https://player.vimeo.com/video/251713531');
         res.body.type.should.equals('Vimeo');
     });
+
+    it('Search for a vimeo video and request to vimeo fails', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.returns(Promise.reject());
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
+        res.status.should.equal(404);
+    });
+
+    it('Search for a vimeo video which has been posted on elyoos', async function () {
+        dbDsl.createVimeoAnswer('10', {creator: '2', questionId: '1', created: 500,
+            link: 'https://vimeo.com/channels/staffpicks/251713531', linkEmbed: 'https://player.vimeo.com/video/251713531'});
+
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.returns(Promise.resolve());
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
+        res.status.should.equal(200);
+        res.body.title.should.equals('vimeo10Title');
+        res.body.description.should.equals('vimeo10Description');
+        res.body.linkEmbed.should.equals('https://player.vimeo.com/video/251713531');
+        res.body.type.should.equals('Vimeo');
+    });
 });
