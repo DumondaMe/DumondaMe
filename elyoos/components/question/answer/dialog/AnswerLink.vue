@@ -26,15 +26,41 @@
                                 <v-text-field v-model="response.title"
                                               :label="$t('common:title')"
                                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 80)]">
+                                               ruleToManyChars($t('validation:toManyChars'), 100)]" :counter="100">
                                 </v-text-field>
                                 <v-text-field v-model="response.description" multi-line rows="4"
                                               :label="$t('common:description')"
                                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 1000)]">
+                                               ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                                 </v-text-field>
                             </v-flex>
                         </v-layout>
+                    </v-flex>
+                    <v-flex xs12 v-else-if="response.type === 'Link'">
+                        <div id="link-container">
+                            <div v-if="response.imageUrl" id="link-image">
+                                <img :src="response.imageUrl" v-if="response.imageUrl"/>
+                            </div>
+                            <div id="link-content" :class="{'image-missing': !response.imageUrl}">
+                                <v-text-field v-model="response.title"
+                                              :label="$t('common:title')"
+                                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 140)]" :counter="140">
+                                </v-text-field>
+                                <v-text-field v-model="response.description" multi-line rows="4"
+                                              :label="$t('common:description')"
+                                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
+                                </v-text-field>
+                                <div id="page-type-title">Was für ein Weblink handelt es sich?</div>
+                                <v-radio-group v-model="response.pageType" column id="page-type-container">
+                                    <v-radio label="Artikel" value="article" color="primary">
+                                    </v-radio>
+                                    <v-radio label="Blog" value="blog" color="primary">
+                                    </v-radio>
+                                </v-radio-group>
+                            </div>
+                        </div>
                     </v-flex>
                 </v-layout>
             </v-form>
@@ -104,6 +130,36 @@
             margin-bottom: -20px;
             font-size: 12px;
             color: $success-text;
+        }
+        #link-container {
+            #link-image {
+                @media screen and (min-width: 700px) {
+                    float: left;
+                }
+                img {
+                    max-width: 300px;
+                    max-height: 300px;
+                    min-width: 150px;
+                    @media screen and (max-width: 699px) {
+                        display: block;
+                        margin: 0 auto 18px auto;
+                    }
+                }
+            }
+            #link-content {
+                @media screen and (min-width: 700px) {
+                    margin-left: 324px;
+                }
+                #page-type-title {
+                    font-size: 14px;
+                }
+                #page-type-container {
+                    padding-top: 6px;
+                }
+            }
+            #link-content.image-missing {
+                margin-left: 0;
+            }
         }
     }
 </style>
