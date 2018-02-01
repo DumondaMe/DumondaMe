@@ -29,7 +29,7 @@ describe('Search a website link', function () {
 
     it('Search for a website which has not yet been posted on elyoos', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>titleWebsite</title>
                 <meta property="og:title" content="ogTitle">
@@ -39,7 +39,7 @@ describe('Search a website link', function () {
                 <meta property="og:type" content="article">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.example.org/blog/1224'});
@@ -58,7 +58,7 @@ describe('Search a website link', function () {
             link: 'https://www.example.org/blog/1224'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.reject(new Error()));
+        stubGetRequest.rejects('error');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.example.org/blog/1224'});

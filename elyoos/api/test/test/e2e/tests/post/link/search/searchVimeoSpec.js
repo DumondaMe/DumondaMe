@@ -28,13 +28,13 @@ describe('Search a vimeo link', function () {
 
     it('Search for a vimeo video which has not yet been posted on elyoos', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>titleWebsite</title>
                 <meta name="description" content="contentWebsite">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
@@ -47,7 +47,7 @@ describe('Search a vimeo link', function () {
 
     it('Search for a vimeo video and request to vimeo fails', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.reject());
+        stubGetRequest.rejects('error');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
@@ -59,7 +59,7 @@ describe('Search a vimeo link', function () {
             link: 'https://vimeo.com/channels/staffpicks/251713531', linkEmbed: 'https://player.vimeo.com/video/251713531'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve());
+        stubGetRequest.rejects('error');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://vimeo.com/channels/staffpicks/251713531'});

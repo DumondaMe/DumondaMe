@@ -28,14 +28,14 @@ describe('Search a youtube link', function () {
 
     it('Search for a youtube video which has not yet been posted on elyoos (with og:title)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>titleWebsite - YouTube</title>
                 <meta name="description" content="contentWebsite">
                 <meta property="og:title" content="ogTitle">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
@@ -48,14 +48,14 @@ describe('Search a youtube link', function () {
 
     it('Search for a youtube video which has not yet been posted on elyoos (with og:description)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>titleWebsite - YouTube</title>
                 <meta name="description" content="contentWebsite">
                 <meta property="og:description" content="ogDescription">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
@@ -68,13 +68,13 @@ describe('Search a youtube link', function () {
 
     it('Search for a youtube video which has not yet been posted on elyoos', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>titleWebsite - YouTube</title>
                 <meta name="description" content="contentWebsite">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
@@ -87,12 +87,12 @@ describe('Search a youtube link', function () {
 
     it('Search for a youtube video which has not yet been posted on elyoos (without title)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <meta name="description" content="  contentWebsite ">
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
@@ -105,12 +105,12 @@ describe('Search a youtube link', function () {
 
     it('Search for a youtube video which has not yet been posted on elyoos (without description)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve(
+        stubGetRequest.resolves(
             `<head>
                 <title>  titleWebsite  </title>
             </head>
             <body></body>`
-        ));
+        );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
@@ -126,7 +126,7 @@ describe('Search a youtube link', function () {
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');
-        stubGetRequest.returns(Promise.resolve());
+        stubGetRequest.resolves();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
