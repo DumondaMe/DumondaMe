@@ -13,6 +13,9 @@ exports.handlingError = function () {
             } else if (err.message === '403') {
                 logger.warn('Forbidden to access resource', req, {httpStatusCode: 403, error: err});
                 res.status(403).send('Forbidden');
+            } else if (err.message === '404') {
+                logger.warn('Not Found', req, {httpStatusCode: 404, error: err});
+                res.status(404).send('Not Found');
             } else {
                 logger.error('Server Error Occured', req, {
                     httpStatusCode: err.message,
