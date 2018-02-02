@@ -32,7 +32,7 @@ const getDescription = function ($) {
 
 const getLinkType = function (link) {
     let linkType = LINK;
-    if (/\.youtube\.com/igm.test(link)) {
+    if (/\.youtube\.com/igm.test(link) || /youtu\.be/i.test(link)) {
         linkType = YOUTUBE;
     } else if (/vimeo\.com\//igm.test(link)) {
         linkType = VIMEO;

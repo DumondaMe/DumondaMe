@@ -40,6 +40,11 @@ describe('Unit Test util/youtube', function () {
         expect(result).to.equal('https://www.youtube.com/embed/a9XwwSDsCr0');
     });
 
+    it('Get valid embedded link for youtu.be youtube url', function () {
+        var result = testee.getEmbedUrl('https://youtu.be/ffxzX17KPm4');
+        expect(result).to.equal('https://www.youtube.com/embed/ffxzX17KPm4');
+    });
+
     it('Get null link for invalid youtube link', function () {
         var result = testee.getEmbedUrl('https://www.youtube.com/embed/Lhku7ZBWEK8');
         expect(result).to.equal(null);

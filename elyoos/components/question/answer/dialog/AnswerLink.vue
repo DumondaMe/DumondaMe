@@ -95,7 +95,8 @@
                 return this.$store.state.question.question.question;
             },
             isYoutube() {
-                return /\.youtube\.com/igm.test(this.link) && !/\/embed\//igm.test(this.link);
+                return (/\.youtube\.com/i.test(this.link) || /youtu\.be/i.test(this.link))
+                    && !/\/embed\//i.test(this.link);
             }
         },
         methods: {
@@ -106,7 +107,7 @@
                 return v => urlRegex().test(v) || this.$t("validation:url")
             },
             isNotEmbedYoutube() {
-                return v => !/\/embed\//igm.test(v) || 'Embed youtube ist nicht erlaubt'
+                return v => !/\/embed\//i.test(v) || 'Embed youtube ist nicht erlaubt'
             }
 
         },
