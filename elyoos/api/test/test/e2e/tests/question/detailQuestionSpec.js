@@ -23,13 +23,17 @@ describe('Getting details of a question', function () {
         dbDsl.createTextAnswer('6', {
             creatorId: '3', questionId:'1', answer: 'Answer2',
         });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
+        });
     });
 
     afterEach(function () {
         return requestHandler.logout();
     });
 
-    it('Getting details of a question', async function () {
+    it('Getting details of a question (answers sorted by date)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1');
@@ -46,21 +50,29 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.textAnswer.length.should.equals(2);
-        res.body.textAnswer[0].answerId.should.equals('5');
-        res.body.textAnswer[0].answer.should.equals('Answer');
-        res.body.textAnswer[0].created.should.equals(600);
-        res.body.textAnswer[0].creator.name.should.equals('user Meier2');
-        res.body.textAnswer[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers.length.should.equals(3);
+        res.body.answers[0].textId.should.equals('5');
+        res.body.answers[0].answer.should.equals('Answer');
+        res.body.answers[0].created.should.equals(600);
+        res.body.answers[0].creator.name.should.equals('user Meier2');
+        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
-        res.body.textAnswer[1].answerId.should.equals('6');
-        res.body.textAnswer[1].answer.should.equals('Answer2');
-        res.body.textAnswer[1].created.should.equals(500);
-        res.body.textAnswer[1].creator.name.should.equals('user Meier3');
-        res.body.textAnswer[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[1].textId.should.equals('6');
+        res.body.answers[1].answer.should.equals('Answer2');
+        res.body.answers[1].created.should.equals(500);
+        res.body.answers[1].creator.name.should.equals('user Meier3');
+        res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
+        res.body.answers[2].title.should.equals('youtube7Title');
+        res.body.answers[2].description.should.equals('youtube7Description');
+        res.body.answers[2].created.should.equals(499);
+        res.body.answers[2].creator.name.should.equals('user Meier2');
+        res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
-    it('Getting details of a question when not logged in', async function () {
+    it('Getting details of a question when not logged in (answers sorted by date)', async function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/question/detail/1');
         res.status.should.equal(200);
@@ -76,17 +88,25 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.textAnswer.length.should.equals(2);
-        res.body.textAnswer[0].answerId.should.equals('5');
-        res.body.textAnswer[0].answer.should.equals('Answer');
-        res.body.textAnswer[0].created.should.equals(600);
-        res.body.textAnswer[0].creator.name.should.equals('user Meier2');
-        res.body.textAnswer[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers.length.should.equals(3);
+        res.body.answers[0].textId.should.equals('5');
+        res.body.answers[0].answer.should.equals('Answer');
+        res.body.answers[0].created.should.equals(600);
+        res.body.answers[0].creator.name.should.equals('user Meier2');
+        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
-        res.body.textAnswer[1].answerId.should.equals('6');
-        res.body.textAnswer[1].answer.should.equals('Answer2');
-        res.body.textAnswer[1].created.should.equals(500);
-        res.body.textAnswer[1].creator.name.should.equals('user Meier3');
-        res.body.textAnswer[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[1].textId.should.equals('6');
+        res.body.answers[1].answer.should.equals('Answer2');
+        res.body.answers[1].created.should.equals(500);
+        res.body.answers[1].creator.name.should.equals('user Meier3');
+        res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
+        res.body.answers[2].title.should.equals('youtube7Title');
+        res.body.answers[2].description.should.equals('youtube7Description');
+        res.body.answers[2].created.should.equals(499);
+        res.body.answers[2].creator.name.should.equals('user Meier2');
+        res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 });

@@ -4,21 +4,13 @@ const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 let cdn = require('elyoos-server-lib').cdn;
 
-const getTextAnswersCommand = function (questionId) {
-    return db.cypher().match(`(:Question {questionId: {questionId}})-[:TEXT_ANSWER]-(answer:Answer)
-                               <-[:IS_CREATOR]-(user:User)`)
-        .return(`answer, user`)
-        .orderBy(`answer.created DESC`)
-        .end({questionId: questionId}).getCommand();
-};
-
-const getTextAnswers = function (answers) {
+const getAnswers = function (answers) {
     let result = [];
     for (let answer of answers) {
-        let formattedAnswer = answer.answer;
+        let formattedAnswer = answer.answer.properties;
         formattedAnswer.creator = {
-            name: answer.user.name,
-            thumbnailUrl: cdn.getUrl(`profileImage/${answer.user.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            name: answer.creator.properties.name,
+            thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.properties.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
         result.push(formattedAnswer);
     }
@@ -26,18 +18,21 @@ const getTextAnswers = function (answers) {
 };
 
 const getQuestion = async function (questionId) {
-    const INDEX_QUESTION = 1;
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
-        .return(`question, user`)
-        .end({questionId: questionId}).send([getTextAnswersCommand(questionId)]);
-    if (response[INDEX_QUESTION].length === 1) {
-        let question = response[INDEX_QUESTION][0].question;
+        .optionalMatch(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(answerCreator:User)`)
+        .with(`question, user, answer, answerCreator`)
+        .orderBy(`answer.created DESC`)
+        .limit(20)
+        .return(`question, user, collect({answer: answer, creator: answerCreator}) AS answers`)
+        .end({questionId: questionId}).send();
+    if (response.length === 1) {
+        let question = response[0].question;
         delete question.questionId;
         question.creator = {
-            name: response[INDEX_QUESTION][0].user.name,
-            thumbnailUrl: cdn.getUrl(`profileImage/${response[INDEX_QUESTION][0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            name: response[0].user.name,
+            thumbnailUrl: cdn.getUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
-        question.textAnswer = getTextAnswers(response[0]);
+        question.answers = getAnswers(response[0].answers);
         return question;
     } else {
         throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
