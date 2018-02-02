@@ -49,7 +49,7 @@ describe('Creating new text answer', function () {
 
     it('Only allowed to add an text answer as logged in user', async function () {
         let res = await requestHandler.post('/api/user/question/answer/text/1', {
-            title: 'title', description: 'description'
+            answer: 'answer'
         });
         res.status.should.equal(401);
     });
