@@ -7,7 +7,7 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const hasAnswers = async function (questionId) {
     let result = await db.cypher().match(`(question:Question {questionId: {questionId}})`)
-        .optionalMatch(`(question)-[:TEXT_ANSWER]->(answer:Answer)`)
+        .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .return(`COUNT(answer) AS numberOfAnswers`)
         .end({questionId: questionId}).send();
     return result[0].numberOfAnswers > 0;

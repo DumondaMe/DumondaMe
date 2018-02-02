@@ -7,10 +7,11 @@ let cdn = require('elyoos-server-lib').cdn;
 const getAnswers = function (answers) {
     let result = [];
     for (let answer of answers) {
-        let formattedAnswer = answer.answer.properties;
+        let formattedAnswer = answer.answer;
+        formattedAnswer.upVotes = answer.upVotes;
         formattedAnswer.creator = {
-            name: answer.creator.properties.name,
-            thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.properties.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            name: answer.creator.name,
+            thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
         result.push(formattedAnswer);
     }
@@ -23,7 +24,10 @@ const getQuestion = async function (questionId) {
         .with(`question, user, answer, answerCreator`)
         .orderBy(`answer.created DESC`)
         .limit(20)
-        .return(`question, user, collect({answer: answer, creator: answerCreator}) AS answers`)
+        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
+        .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes`)
+        .orderBy(`upVotes DESC, answer.created DESC`)
+        .return(`question, user, collect({answer: answer, creator: answerCreator, upVotes: upVotes}) AS answers`)
         .end({questionId: questionId}).send();
     if (response.length === 1) {
         let question = response[0].question;

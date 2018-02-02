@@ -29,7 +29,7 @@ const getFeed = async function (page, timestamp) {
     page = page * PAGE_SIZE;
     let response = await db.cypher().match(`(question:Question)<-[:IS_CREATOR]-(creator:User)`)
         .where(`question.created < {timestamp}`)
-        .optionalMatch(`(question)-[:TEXT_ANSWER]->(answer:Answer)`)
+        .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .return(`question, creator, COUNT(answer) AS numberOfAnswers`)
         .orderBy(`question.created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)

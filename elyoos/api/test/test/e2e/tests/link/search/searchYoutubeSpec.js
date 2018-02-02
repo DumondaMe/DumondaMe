@@ -140,7 +140,7 @@ describe('Search a youtube link', function () {
     });
 
     it('Search for a youtube video which has been posted on elyoos', async function () {
-        dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '1', created: 500,
+        dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '1', created: 500, idOnYoutube: '00zxopGPYW4',
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');

@@ -23,9 +23,9 @@ const schemaEditTextAnswer = {
     name: 'editTextAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'answer'],
+    required: ['textId', 'answer'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        textId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };
@@ -34,9 +34,9 @@ const schemaDeleteTextAnswer = {
     name: 'deleteTextAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId'],
+    required: ['textId'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        textId: {type: 'string', format: 'notEmptyString', maxLength: 30}
     }
 };
 
@@ -48,15 +48,15 @@ module.exports = function (router) {
         res.status(200).json(response);
     }));
 
-    router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.put('/:textId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditTextAnswer, logger);
         await answerEdit.editTextAnswer(req.user.id, params);
         res.status(200).end();
     }));
 
-    router.delete('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.delete('/:textId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaDeleteTextAnswer, logger);
-        await answerDelete.deleteTextAnswer(req.user.id, params.answerId);
+        await answerDelete.deleteTextAnswer(req.user.id, params.textId);
         res.status(200).end();
     }));
 };
