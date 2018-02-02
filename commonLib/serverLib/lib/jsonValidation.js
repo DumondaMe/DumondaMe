@@ -15,12 +15,27 @@ tv4.addFormat('notEmptyString', function (data) {
     return 'String is not empty';
 });
 
-tv4.addFormat('youtubeLink', function (data) {
-    if (typeof data === 'string' &&
-        (data.indexOf('https://www.youtube.com/watch?v=') !== -1 || data.indexOf('https://m.youtube.com/watch?v=') !== -1)) {
+tv4.addFormat('urlWithProtocol', function (data) {
+
+    const protocol = `^(http|https)://`;
+    const domain = '([a-z\\u00a1-\\uffff0-9]+\\.)+';
+    const tld = `([a-z\\u00a1-\\uffff]{2,})+`;
+    const regex = `${protocol}${domain}${tld}`;
+
+    const urlRegex = new RegExp(`${regex}`, 'i');
+
+    if (typeof data === 'string' && urlRegex.test(data)) {
         return null;
     }
-    return 'Invalid Youtube Link';
+    return 'String is not url with protocol';
+});
+
+tv4.addFormat('youtubeLink', function (data) {
+    if (typeof data === 'string' &&
+        (/\.youtube\.com/i.test(data) || /youtu\.be/i.test(data)) && !/\/embed\//igm.test(data)) {
+        return null;
+    }
+    return 'Invalid youtube link';
 });
 
 tv4.addFormat('passwordString', function (data) {
@@ -84,9 +99,9 @@ module.exports = {
             req.body = JSON.parse(req.body.model);
             delete req.body.model;
         }
-        if(req.params) {
+        if (req.params) {
             convertValues(req.params, requestSchema);
-            req.body = Object.assign(req.body , req.params);
+            req.body = Object.assign(req.body, req.params);
         }
 
         return validate(req, req.body, requestSchema, logger);
