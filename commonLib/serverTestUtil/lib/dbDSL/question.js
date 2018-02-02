@@ -17,28 +17,8 @@ let createQuestion = function (questionId, data) {
         }).getCommand());
 };
 
-let createTextAnswer = function (answerId, data) {
-    data.created = data.created || 500;
-    data.modified = data.modified || data.created;
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
-                 (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Answer {answerId: {answerId}, answer: {answer},
-                  created: {created}, modified: {modified}})`)
-        .merge(`(question)-[:TEXT_ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
-        .end({
-            answer: data.answer, created: data.created, questionId: data.questionId,
-            modified: data.modified, answerId: answerId, creatorId: data.creatorId
-        }).getCommand());
-};
 
-let upVoteAnswer = function (userId, answerId) {
-    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
-        .createUnique(`(user)-[:UP_VOTE]->(answer)`)
-        .end({userId: userId, answerId: answerId}).getCommand());
-};
 
 module.exports = {
-    createQuestion,
-    createTextAnswer,
-    upVoteAnswer
+    createQuestion
 };

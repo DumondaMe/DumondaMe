@@ -69,6 +69,26 @@ let createLinkAnswer = function (linkId, data) {
         }).getCommand());
 };
 
+let createTextAnswer = function (textId, data) {
+    data.created = data.created || 500;
+    data.modified = data.modified || data.created;
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
+                 (question:Question {questionId: {questionId}})`)
+        .create(`(answer:Text {textId: {textId}, answer: {answer},
+                  created: {created}, modified: {modified}})`)
+        .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
+        .end({
+            answer: data.answer, created: data.created, questionId: data.questionId,
+            modified: data.modified, textId: textId, creatorId: data.creatorId
+        }).getCommand());
+};
+
+let upVoteAnswer = function (userId, answerId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
+        .createUnique(`(user)-[:UP_VOTE]->(answer)`)
+        .end({userId: userId, answerId: answerId}).getCommand());
+};
+
 let setYoutubeOriginal = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(youtube:Youtube {youtubeId: {youtubeId}}),
                  (original:Youtube {youtubeId: {originalYoutubeId}})`)
@@ -83,5 +103,7 @@ module.exports = {
     createYoutubeAnswer,
     createVimeoAnswer,
     createLinkAnswer,
+    createTextAnswer,
+    upVoteAnswer,
     setYoutubeOriginal
 };
