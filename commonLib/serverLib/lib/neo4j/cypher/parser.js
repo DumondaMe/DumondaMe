@@ -25,6 +25,12 @@ let handlingResultTypes = function (value) {
         value.forEach(function (arrayValue, index) {
             value[index] = handlingResultTypes(arrayValue);
         });
+    } else if(value instanceof Object) {
+        for (let property in value) {
+            if (value.hasOwnProperty(property)) {
+                value[property] = handlingResultTypes(value[property]);
+            }
+        }
     }
     return value;
 };
