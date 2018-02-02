@@ -83,10 +83,16 @@ let createTextAnswer = function (textId, data) {
         }).getCommand());
 };
 
-let upVoteAnswer = function (userId, answerId) {
-    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
-        .createUnique(`(user)-[:UP_VOTE]->(answer)`)
-        .end({userId: userId, answerId: answerId}).getCommand());
+let upVoteTextAnswer = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Text {textId: {textId}})')
+        .merge(`(user)-[:UP_VOTE]->(answer)`)
+        .end({userId: data.userId, textId: data.textId}).getCommand());
+};
+
+let upVoteYoutubeAnswer = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Youtube {youtubeId: {youtubeId}})')
+        .merge(`(user)-[:UP_VOTE]->(answer)`)
+        .end({userId: data.userId, youtubeId: data.youtubeId}).getCommand());
 };
 
 let setYoutubeOriginal = function (data) {
@@ -104,6 +110,7 @@ module.exports = {
     createVimeoAnswer,
     createLinkAnswer,
     createTextAnswer,
-    upVoteAnswer,
+    upVoteTextAnswer,
+    upVoteYoutubeAnswer,
     setYoutubeOriginal
 };
