@@ -26,11 +26,11 @@ let createYoutubeAnswer = function (youtubeId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
         .create(`(youtube:Youtube  {title: {title}, description: {description}, created: {created},
-                 youtubeId: {youtubeId}, link: {link}, linkEmbed: {linkEmbed}})`)
+                 youtubeId: {youtubeId}, idOnYoutube: {idOnYoutube}, link: {link}, linkEmbed: {linkEmbed}})`)
         .merge(`(question)-[:ANSWER]->(youtube)`)
         .merge(`(youtube)<-[:IS_CREATOR]-(user)`)
         .end({
-            youtubeId: youtubeId, title: data.title, description: data.description, creatorId: data.creatorId,
+            youtubeId: youtubeId, idOnYoutube: data.idOnYoutube, title: data.title, description: data.description, creatorId: data.creatorId,
             created: data.created, link: data.link, linkEmbed: data.linkEmbed, questionId: data.questionId
         }).getCommand());
 };
@@ -69,9 +69,19 @@ let createLinkAnswer = function (linkId, data) {
         }).getCommand());
 };
 
+let setYoutubeOriginal = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(youtube:Youtube {youtubeId: {youtubeId}}),
+                 (original:Youtube {youtubeId: {originalYoutubeId}})`)
+        .merge(`(youtube)-[:ORIGINAL]->(original)`)
+        .end({
+            youtubeId: data.youtubeId, originalYoutubeId: data.originalYoutubeId
+        }).getCommand());
+};
+
 module.exports = {
     createBookAnswer,
     createYoutubeAnswer,
     createVimeoAnswer,
-    createLinkAnswer
+    createLinkAnswer,
+    setYoutubeOriginal
 };

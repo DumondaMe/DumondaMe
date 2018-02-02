@@ -50,6 +50,7 @@ module.exports = {
     createYoutubeAnswer: answer.createYoutubeAnswer,
     createVimeoAnswer: answer.createVimeoAnswer,
     createLinkAnswer: answer.createLinkAnswer,
+    setYoutubeOriginal: answer.setYoutubeOriginal,
     createBlog: blog.createBlog,
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
