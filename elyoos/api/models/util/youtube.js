@@ -2,7 +2,8 @@
 
 const {URL} = require('url');
 
-let getYoutubeId = function (youtubeUrl, link) {
+let getYoutubeId = function (link) {
+    const youtubeUrl = new URL(link);
     let youtubeId = null;
     if (/\.youtube\.com/i.test(link)) {
         youtubeId = youtubeUrl.searchParams.get(`v`);
@@ -13,9 +14,9 @@ let getYoutubeId = function (youtubeUrl, link) {
 };
 
 let getEmbedUrl = function (link) {
-    const youtubeUrl = new URL(link);
-    const youtubeId = getYoutubeId(youtubeUrl, link);
+    const youtubeId = getYoutubeId(link);
     if (youtubeId) {
+        const youtubeUrl = new URL(link);
         const youtubeListId = youtubeUrl.searchParams.get(`list`);
         const embedUrl = new URL(`https://www.youtube.com/embed/${youtubeId}`);
         if (youtubeListId) {
@@ -27,5 +28,6 @@ let getEmbedUrl = function (link) {
 };
 
 module.exports = {
-    getEmbedUrl
+    getEmbedUrl,
+    getYoutubeId
 };
