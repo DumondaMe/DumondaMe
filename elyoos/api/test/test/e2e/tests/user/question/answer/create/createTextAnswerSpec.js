@@ -38,10 +38,10 @@ describe('Creating new text answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:TEXT_ANSWER]->(answer:Answer)<-[:IS_CREATOR]-(user:User)`)
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Text)<-[:IS_CREATOR]-(user:User)`)
             .return(`answer, user`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.textId.should.equals(res.body.textId);
         resp[0].answer.answer.should.equals('answer');
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
