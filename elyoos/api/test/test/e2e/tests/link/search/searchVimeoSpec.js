@@ -4,7 +4,6 @@ const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const rp = require('request-promise');
-const Promise = require('bluebird').Promise;
 const sinon = require('sinon');
 
 describe('Search a vimeo link', function () {

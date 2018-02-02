@@ -4,7 +4,6 @@ const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const rp = require('request-promise');
-const Promise = require('bluebird').Promise;
 const sinon = require('sinon');
 
 describe('Search a youtube link', function () {
@@ -78,6 +77,25 @@ describe('Search a youtube link', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        res.status.should.equal(200);
+        res.body.title.should.equals('titleWebsite');
+        res.body.description.should.equals('contentWebsite');
+        res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
+        res.body.type.should.equals('Youtube');
+    });
+
+    it('Search for a youtube video which has not yet been posted on elyoos (youtu.be url)', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves(
+            `<head>
+                <title>titleWebsite - YouTube</title>
+                <meta name="description" content="contentWebsite">
+            </head>
+            <body></body>`
+        );
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search', {link: 'https://youtu.be/00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
         res.body.description.should.equals('contentWebsite');
