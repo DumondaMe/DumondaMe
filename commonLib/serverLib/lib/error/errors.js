@@ -6,7 +6,11 @@ exports.handlingError = function () {
     return function (err, req, res, next) {
         if (err instanceof Error) {
             if (err.name === 'invalidJsonRequest' || err.name === 'invalidOperation') {
-                res.status(400).end();
+                if (err.elyoosErrorCode) {
+                    res.status(400).json({errorCode: err.elyoosErrorCode});
+                } else {
+                    res.status(400).end();
+                }
             } else if (err.message === '401') {
                 logger.warn('User has no authentication', req, {httpStatusCode: 401, error: err});
                 res.status(401).send('No Authentication');
