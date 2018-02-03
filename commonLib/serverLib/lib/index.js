@@ -21,6 +21,7 @@ module.exports.init = function (type) {
         module.exports.eMailService = require('./eMail/eMailService/eMail');
         module.exports.eMailQueue = require('./eMail/eMailQueue');
 
+        module.exports.apiHelper = require('./apiHelper');
         module.exports.asyncMiddleware = require('./asyncMiddleware');
 
         module.exports.controllerErrors = require('./error/controllerErrors');
