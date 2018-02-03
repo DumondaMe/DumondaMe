@@ -6,7 +6,7 @@
             <v-layout row wrap>
                 <v-flex xs6 sm3>
                     <div class="answer-button" @click="$emit('answer-selected', 'text')">
-                        <div class="answer-type">Text Antwort</div>
+                        <div class="answer-type">Text</div>
                         <div class="answer-description">Beantworte die Frage mit deinen Worten</div>
                     </div>
                 </v-flex>

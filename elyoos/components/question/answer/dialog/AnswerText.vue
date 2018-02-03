@@ -24,7 +24,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" flat @click.native="createTextAnswer()" :disabled="!valid">
-                {{$t("common:button.answer")}}
+                {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -47,6 +47,7 @@
             async createTextAnswer() {
                 await this.$store.dispatch('question/createTextAnswer',
                     {answer: this.answer});
+                this.$emit('close-dialog');
             }
         }
     }

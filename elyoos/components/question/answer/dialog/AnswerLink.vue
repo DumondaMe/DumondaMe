@@ -74,7 +74,7 @@
             </v-btn>
             <v-btn color="primary" flat @click.native="createLinkAnswer()"
                    :disabled="!valid || checkLink">
-                {{$t("common:button.answer")}}
+                {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -101,7 +101,10 @@
         },
         methods: {
             async createLinkAnswer() {
-                await this.$store.dispatch('question/createLinkAnswer', {link: this.link});
+                if (this.response.type === 'Youtube') {
+                    await this.$store.dispatch('question/createYoutubeAnswer',
+                        {link: this.link, title: this.response.title, description: this.response.description});
+                }
             },
             isValidLink() {
                 return v => urlRegex().test(v) || this.$t("validation:url")
