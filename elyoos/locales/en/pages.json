@@ -26,8 +26,12 @@
     }
   },
   "detailQuestion": {
-    "tooltipLoginToAnswerQuestion": "To create an answer you need to log in",
+    "loginToAnswerQuestion": "To create an answer you need to log in",
     "yourAnswer": "Your Answer",
-    "yourLink": "Your Link"
+    "yourLink": "Your Link",
+    "answerType": {
+      "text": "Answer",
+      "video": "Video"
+    }
   }
 }
