@@ -91,6 +91,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
@@ -124,6 +125,7 @@ describe('Getting details of a question', function () {
 
         res.body.answers.length.should.equals(3);
         res.body.answers[0].youtubeId.should.equals('7');
+        res.body.answers[0].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[0].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[0].title.should.equals('youtube7Title');
         res.body.answers[0].description.should.equals('youtube7Description');
@@ -184,6 +186,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
