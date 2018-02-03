@@ -104,6 +104,7 @@
                 if (this.response.type === 'Youtube') {
                     await this.$store.dispatch('question/createYoutubeAnswer',
                         {link: this.link, title: this.response.title, description: this.response.description});
+                    this.$emit('close-dialog');
                 }
             },
             isValidLink() {
