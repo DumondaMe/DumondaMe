@@ -6,19 +6,9 @@
         </user-info>
         <p id="question-description">{{question.description}}</p>
         <div id="question-commands">
-            <v-tooltip top :disabled="isAuthenticated">
-                <v-btn outline color="primary" id="answer-question-button" @click="dialog = true"
-                       :disabled="!isAuthenticated" slot="activator">
-                    <v-icon left>chat</v-icon>
-                    {{$t("common:button.answer")}}
-                </v-btn>
-                <span>{{$t("pages:detailQuestion.tooltipLoginToAnswerQuestion")}}</span>
-            </v-tooltip>
-            <v-btn outline color="primary" :disabled="!isAuthenticated">
-                {{$t("common:button.followQuestion")}}
-            </v-btn>
-            <v-btn outline color="primary">
-                {{$t("common:button.filter")}}
+            <v-btn outline color="primary" id="answer-question-button" @click="dialog = true"
+                   :disabled="!isAuthenticated" slot="activator">
+                {{$t("common:button.answer")}}
             </v-btn>
         </div>
 
