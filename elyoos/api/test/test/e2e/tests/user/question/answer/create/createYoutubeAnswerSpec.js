@@ -44,11 +44,11 @@ describe('Creating youtube answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube)<-[:IS_CREATOR]-(user:User)`)
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube:Answer)<-[:IS_CREATOR]-(user:User)`)
             .optionalMatch(`(answer)-[:ORIGINAL]->(original)`)
             .return(`answer, user, original`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.youtubeId.should.equals(res.body.youtubeId);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.title.should.equals('titleYoutube');
         resp[0].answer.description.should.equals('descriptionYoutube');
@@ -76,11 +76,11 @@ describe('Creating youtube answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube)<-[:IS_CREATOR]-(user:User)`)
-            .optionalMatch(`(answer)-[:ORIGINAL]->(original:Youtube {youtubeId: '10'})`)
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .optionalMatch(`(answer)-[:ORIGINAL]->(original:Youtube {answerId: '10'})`)
             .return(`answer, user, original`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.youtubeId.should.equals(res.body.youtubeId);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.title.should.equals('titleYoutube');
         resp[0].answer.description.should.equals('descriptionYoutube');
@@ -113,11 +113,11 @@ describe('Creating youtube answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube)<-[:IS_CREATOR]-(user:User)`)
-            .optionalMatch(`(answer)-[:ORIGINAL]->(original:Youtube {youtubeId: '11'})`)
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .optionalMatch(`(answer)-[:ORIGINAL]->(original:Youtube {answerId: '11'})`)
             .return(`answer, user, original`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.youtubeId.should.equals(res.body.youtubeId);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.title.should.equals('titleYoutube');
         resp[0].answer.description.should.equals('descriptionYoutube');

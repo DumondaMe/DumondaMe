@@ -52,7 +52,7 @@ const searchDatabase = async function (link, linkType) {
             response.linkEmbed = answer.linkEmbed;
         } else if (linkType === LINK) {
             response.pageType = answer.pageType;
-            response.imageUrl = `/link/${answer.linkId}/preview.jpg`;
+            response.imageUrl = `/link/${answer.answerId}/preview.jpg`;
         }
     }
     return response;

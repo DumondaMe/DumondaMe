@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const _ = require('lodash');
 const exceptions = require('elyoos-server-lib').exceptions;
 let cdn = require('elyoos-server-lib').cdn;
 
@@ -11,6 +12,7 @@ const getAnswers = function (answers) {
             let formattedAnswer = answer.answer;
             formattedAnswer.upVotes = answer.upVotes;
             formattedAnswer.isAdmin = answer.isAdmin || false;
+            formattedAnswer.answerType = answer.answerType.filter((l) => ['Youtube', 'Text'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
@@ -29,10 +31,11 @@ const getQuestion = async function (questionId, userId) {
         .orderBy(`answer.created DESC`)
         .limit(20)
         .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
-               answerCreator.userId = {userId} AS isAdmin`)
+               answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .return(`question, user, 
-                 collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin}) AS answers`)
+                 collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
+                          answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;

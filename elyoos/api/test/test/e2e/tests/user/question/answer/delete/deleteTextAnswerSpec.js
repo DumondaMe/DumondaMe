@@ -40,7 +40,7 @@ describe('Delete text answer', function () {
         res.status.should.equal(200);
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
-                                            (answer:Text {textId: '5'})`)
+                                            (answer:Text {answerId: '5'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(0);
     });
@@ -51,7 +51,7 @@ describe('Delete text answer', function () {
         res.status.should.equal(400);
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
-                                            (answer:Text {textId: '6'})`)
+                                            (answer:Text {answerId: '6'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answer.should.equals('Answer2');

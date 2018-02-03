@@ -74,7 +74,8 @@ describe('Getting details of a question', function () {
         res.body.topic[1].should.equals('education');
 
         res.body.answers.length.should.equals(3);
-        res.body.answers[0].textId.should.equals('5');
+        res.body.answers[0].answerId.should.equals('5');
+        res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(true);
@@ -82,7 +83,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        res.body.answers[1].textId.should.equals('6');
+        res.body.answers[1].answerId.should.equals('6');
+        res.body.answers[1].answerType.should.equals('Text');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -90,7 +92,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
-        res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].answerId.should.equals('7');
+        res.body.answers[2].answerType.should.equals('Youtube');
         res.body.answers[2].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[2].title.should.equals('youtube7Title');
@@ -104,9 +107,9 @@ describe('Getting details of a question', function () {
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
 
-        dbDsl.upVoteTextAnswer({userId: '1', textId: '6'});
-        dbDsl.upVoteYoutubeAnswer({userId: '4', youtubeId: '7'});
-        dbDsl.upVoteYoutubeAnswer({userId: '5', youtubeId: '7'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '6'});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7'});
+        dbDsl.upVoteAnswer({userId: '5', answerId: '7'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1');
@@ -124,7 +127,8 @@ describe('Getting details of a question', function () {
         res.body.topic[1].should.equals('education');
 
         res.body.answers.length.should.equals(3);
-        res.body.answers[0].youtubeId.should.equals('7');
+        res.body.answers[0].answerId.should.equals('7');
+        res.body.answers[0].answerType.should.equals('Youtube');
         res.body.answers[0].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[0].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[0].title.should.equals('youtube7Title');
@@ -135,7 +139,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier2');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
-        res.body.answers[1].textId.should.equals('6');
+        res.body.answers[1].answerId.should.equals('6');
+        res.body.answers[1].answerType.should.equals('Text');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(1);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -143,7 +148,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
-        res.body.answers[2].textId.should.equals('5');
+        res.body.answers[2].answerId.should.equals('5');
+        res.body.answers[2].answerType.should.equals('Text');
         res.body.answers[2].answer.should.equals('Answer');
         res.body.answers[2].upVotes.should.equals(0);
         res.body.answers[2].isAdmin.should.equals(true);
@@ -169,7 +175,8 @@ describe('Getting details of a question', function () {
         res.body.topic[1].should.equals('education');
 
         res.body.answers.length.should.equals(3);
-        res.body.answers[0].textId.should.equals('5');
+        res.body.answers[0].answerId.should.equals('5');
+        res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(false);
@@ -177,7 +184,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
-        res.body.answers[1].textId.should.equals('6');
+        res.body.answers[1].answerId.should.equals('6');
+        res.body.answers[1].answerType.should.equals('Text');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -185,7 +193,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
-        res.body.answers[2].youtubeId.should.equals('7');
+        res.body.answers[2].answerId.should.equals('7');
+        res.body.answers[2].answerType.should.equals('Youtube');
         res.body.answers[2].idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[2].title.should.equals('youtube7Title');

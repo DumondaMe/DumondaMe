@@ -3,101 +3,96 @@
 let db = require('../db');
 let dbConnectionHandling = require('./dbConnectionHandling');
 
-let createBookAnswer = function (bookId, data) {
-    data.title = data.title || `book${bookId}Title`;
-    data.description = data.description || `book${bookId}Description`;
+let createBookAnswer = function (answerId, data) {
+    data.title = data.title || `book${answerId}Title`;
+    data.description = data.description || `book${answerId}Description`;
     data.creatorId = data.creatorId || '1';
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}), 
                  (question:Question {questionId: {questionId}})`)
-        .create(`(book:Book {title: {title}, description: {description}, created: {created},
-                         bookId: {bookId}, author: {author}})`)
+        .create(`(book:Book:Answer {title: {title}, description: {description}, created: {created},
+                         answerId: {answerId}, author: {author}})`)
         .merge(`(question)-[:ANSWER]->(book)`)
         .merge(`(book)<-[:IS_CREATOR]-(user)`)
         .end({
-            bookId: bookId, title: data.title, description: data.description, creatorId: data.creatorId,
+            answerId: answerId, title: data.title, description: data.description, creatorId: data.creatorId,
             created: data.created, author: data.author, questionId: data.questionId
         }).getCommand());
 };
 
-let createYoutubeAnswer = function (youtubeId, data) {
-    data.title = data.title || `youtube${youtubeId}Title`;
-    data.description = data.description || `youtube${youtubeId}Description`;
+let createYoutubeAnswer = function (answerId, data) {
+    data.title = data.title || `youtube${answerId}Title`;
+    data.description = data.description || `youtube${answerId}Description`;
     data.creatorId = data.creatorId || '1';
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(youtube:Youtube  {title: {title}, description: {description}, created: {created},
-                 youtubeId: {youtubeId}, idOnYoutube: {idOnYoutube}, link: {link}, linkEmbed: {linkEmbed}})`)
+        .create(`(youtube:Youtube:Answer  {title: {title}, description: {description}, created: {created},
+                 answerId: {answerId}, idOnYoutube: {idOnYoutube}, link: {link}, linkEmbed: {linkEmbed}})`)
         .merge(`(question)-[:ANSWER]->(youtube)`)
         .merge(`(youtube)<-[:IS_CREATOR]-(user)`)
         .end({
-            youtubeId: youtubeId, idOnYoutube: data.idOnYoutube, title: data.title, description: data.description, creatorId: data.creatorId,
+            answerId: answerId, idOnYoutube: data.idOnYoutube, title: data.title, description: data.description, creatorId: data.creatorId,
             created: data.created, link: data.link, linkEmbed: data.linkEmbed, questionId: data.questionId
         }).getCommand());
 };
 
-let createVimeoAnswer = function (vimeoId, data) {
-    data.title = data.title || `vimeo${vimeoId}Title`;
-    data.description = data.description || `vimeo${vimeoId}Description`;
+let createVimeoAnswer = function (answerId, data) {
+    data.title = data.title || `vimeo${answerId}Title`;
+    data.description = data.description || `vimeo${answerId}Description`;
     data.creatorId = data.creatorId || '1';
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(vimeo:Vimeo  {title: {title}, description: {description}, created: {created},
-                 vimeoId: {vimeoId}, link: {link}, linkEmbed: {linkEmbed}})`)
+        .create(`(vimeo:Vimeo:Answer  {title: {title}, description: {description}, created: {created},
+                 answerId: {answerId}, link: {link}, linkEmbed: {linkEmbed}})`)
         .merge(`(question)-[:ANSWER]->(vimeo)`)
         .merge(`(vimeo)<-[:IS_CREATOR]-(user)`)
         .end({
-            vimeoId: vimeoId, title: data.title, description: data.description, creatorId: data.creatorId,
+            answerId: answerId, title: data.title, description: data.description, creatorId: data.creatorId,
             created: data.created, link: data.link, linkEmbed: data.linkEmbed, questionId: data.questionId
         }).getCommand());
 };
 
-let createLinkAnswer = function (linkId, data) {
-    data.title = data.title || `link${linkId}Title`;
-    data.description = data.description || `link${linkId}Description`;
+let createLinkAnswer = function (answerId, data) {
+    data.title = data.title || `link${answerId}Title`;
+    data.description = data.description || `link${answerId}Description`;
     data.creatorId = data.creatorId || '1';
     data.hasImage = data.hasImage || false;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(:Link  {title: {title}, description: {description}, created: {created},
-                  linkId: {linkId}, link: {link}, hasImage: {hasImage}, pageType: {pageType}})`)
+        .create(`(:Link:Answer  {title: {title}, description: {description}, created: {created},
+                  answerId: {answerId}, link: {link}, hasImage: {hasImage}, pageType: {pageType}})`)
         .merge(`(question)-[:ANSWER]->(book)`)
         .merge(`(book)<-[:IS_CREATOR]-(user)`)
         .end({
-            linkId: linkId, title: data.title, description: data.description, creatorId: data.creatorId,
+            answerId: answerId, title: data.title, description: data.description, creatorId: data.creatorId,
             created: data.created, link: data.link, hasImage: data.hasImage, pageType: data.pageType,
             questionId: data.questionId
         }).getCommand());
 };
 
-let createTextAnswer = function (textId, data) {
+let createTextAnswer = function (answerId, data) {
     data.created = data.created || 500;
     data.modified = data.modified || data.created;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Text {textId: {textId}, answer: {answer},
+        .create(`(answer:Text:Answer {answerId: {answerId}, answer: {answer},
                   created: {created}, modified: {modified}})`)
         .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
         .end({
             answer: data.answer, created: data.created, questionId: data.questionId,
-            modified: data.modified, textId: textId, creatorId: data.creatorId
+            modified: data.modified, answerId: answerId, creatorId: data.creatorId
         }).getCommand());
 };
 
-let upVoteTextAnswer = function (data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Text {textId: {textId}})')
+let upVoteAnswer = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
         .merge(`(user)-[:UP_VOTE]->(answer)`)
-        .end({userId: data.userId, textId: data.textId}).getCommand());
+        .end({userId: data.userId, answerId: data.answerId}).getCommand());
 };
 
-let upVoteYoutubeAnswer = function (data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Youtube {youtubeId: {youtubeId}})')
-        .merge(`(user)-[:UP_VOTE]->(answer)`)
-        .end({userId: data.userId, youtubeId: data.youtubeId}).getCommand());
-};
 
 let setYoutubeOriginal = function (data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(youtube:Youtube {youtubeId: {youtubeId}}),
-                 (original:Youtube {youtubeId: {originalYoutubeId}})`)
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(youtube:Youtube {answerId: {youtubeId}}),
+                 (original:Youtube {answerId: {originalYoutubeId}})`)
         .merge(`(youtube)-[:ORIGINAL]->(original)`)
         .end({
             youtubeId: data.youtubeId, originalYoutubeId: data.originalYoutubeId
@@ -110,7 +105,6 @@ module.exports = {
     createVimeoAnswer,
     createLinkAnswer,
     createTextAnswer,
-    upVoteTextAnswer,
-    upVoteYoutubeAnswer,
+    upVoteAnswer,
     setYoutubeOriginal
 };

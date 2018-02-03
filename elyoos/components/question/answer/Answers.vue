@@ -2,9 +2,9 @@
     <div class="elyoos-answer-container">
         <div class="elyoos-answer-content">
             <div v-for="answer in answers">
-                <text-card v-if="answer.textId" :answer="answer">
+                <text-card v-if="answer.answerType === 'Text'" :answer="answer">
                 </text-card>
-                <youtube-card v-if="answer.youtubeId" :answer="answer">
+                <youtube-card v-if="answer.answerType === 'Youtube'" :answer="answer">
                 </youtube-card>
             </div>
         </div>
