@@ -45,7 +45,7 @@ const createYoutubeAnswer = async function (userId, params) {
         if (user[0].length === 1) {
             logger.info(`Created youtube answer ${params.answerId} for question ${params.questionId}`);
             return {
-                answerId: params.answerId, created: params.created,
+                answerId: params.answerId, created: params.created, idOnYoutube: params.idOnYoutube,
                 creator: {name: user[0][0].name, thumbnailUrl: cdn.getUrl(`profileImage/${userId}/thumbnail.jpg`)}
             };
         } else {

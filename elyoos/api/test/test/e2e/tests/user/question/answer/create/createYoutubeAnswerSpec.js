@@ -41,6 +41,7 @@ describe('Creating youtube answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
@@ -73,6 +74,7 @@ describe('Creating youtube answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
@@ -110,6 +112,7 @@ describe('Creating youtube answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
