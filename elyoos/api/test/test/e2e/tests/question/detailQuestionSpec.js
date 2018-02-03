@@ -18,7 +18,7 @@ describe('Getting details of a question', function () {
             topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
-            creatorId: '2', questionId:'1', answer: 'Answer', created: 600,
+            creatorId: '1', questionId:'1', answer: 'Answer', created: 600,
         });
         dbDsl.createTextAnswer('6', {
             creatorId: '3', questionId:'1', answer: 'Answer2',
@@ -31,6 +31,29 @@ describe('Getting details of a question', function () {
 
     afterEach(function () {
         return requestHandler.logout();
+    });
+
+    it('Getting details of a question without answers', async function () {
+        dbDsl.createQuestion('2', {
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2',
+            topic: ['health'], language: 'en', modified: 701
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/2');
+        res.status.should.equal(200);
+        res.body.question.should.equals('Das ist eine Frage2');
+        res.body.description.should.equals('description2');
+        res.body.created.should.equals(500);
+        res.body.modified.should.equals(701);
+        res.body.language.should.equals('en');
+        res.body.creator.name.should.equals('user Meier3');
+        //@todo test with new privacy settings
+        res.body.creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.topic.length.should.equals(1);
+        res.body.topic[0].should.equals('health');
+
+        res.body.answers.length.should.equals(0);
     });
 
     it('Getting details of a question (answers sorted by date)', async function () {
@@ -54,13 +77,15 @@ describe('Getting details of a question', function () {
         res.body.answers[0].textId.should.equals('5');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
+        res.body.answers[0].isAdmin.should.equals(true);
         res.body.answers[0].created.should.equals(600);
-        res.body.answers[0].creator.name.should.equals('user Meier2');
-        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[0].creator.name.should.equals('user Meier');
+        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         res.body.answers[1].textId.should.equals('6');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
+        res.body.answers[1].isAdmin.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -70,12 +95,13 @@ describe('Getting details of a question', function () {
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
         res.body.answers[2].upVotes.should.equals(0);
+        res.body.answers[2].isAdmin.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
-    it('Getting details of a question (answers sorted up votes)', async function () {
+    it('Getting details of a question (answers sorted by up votes)', async function () {
 
         dbDsl.upVoteTextAnswer({userId: '1', textId: '6'});
         dbDsl.upVoteYoutubeAnswer({userId: '4', youtubeId: '7'});
@@ -102,6 +128,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].title.should.equals('youtube7Title');
         res.body.answers[0].description.should.equals('youtube7Description');
         res.body.answers[0].upVotes.should.equals(2);
+        res.body.answers[0].isAdmin.should.equals(false);
         res.body.answers[0].created.should.equals(499);
         res.body.answers[0].creator.name.should.equals('user Meier2');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -109,6 +136,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].textId.should.equals('6');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(1);
+        res.body.answers[1].isAdmin.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -116,9 +144,10 @@ describe('Getting details of a question', function () {
         res.body.answers[2].textId.should.equals('5');
         res.body.answers[2].answer.should.equals('Answer');
         res.body.answers[2].upVotes.should.equals(0);
+        res.body.answers[2].isAdmin.should.equals(true);
         res.body.answers[2].created.should.equals(600);
-        res.body.answers[2].creator.name.should.equals('user Meier2');
-        res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[2].creator.name.should.equals('user Meier');
+        res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
@@ -141,13 +170,15 @@ describe('Getting details of a question', function () {
         res.body.answers[0].textId.should.equals('5');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
+        res.body.answers[0].isAdmin.should.equals(false);
         res.body.answers[0].created.should.equals(600);
-        res.body.answers[0].creator.name.should.equals('user Meier2');
-        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[0].creator.name.should.equals('user Meier');
+        res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         res.body.answers[1].textId.should.equals('6');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
+        res.body.answers[1].isAdmin.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -157,6 +188,7 @@ describe('Getting details of a question', function () {
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
         res.body.answers[2].upVotes.should.equals(0);
+        res.body.answers[2].isAdmin.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');

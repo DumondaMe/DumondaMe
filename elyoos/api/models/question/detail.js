@@ -7,28 +7,33 @@ let cdn = require('elyoos-server-lib').cdn;
 const getAnswers = function (answers) {
     let result = [];
     for (let answer of answers) {
-        let formattedAnswer = answer.answer;
-        formattedAnswer.upVotes = answer.upVotes;
-        formattedAnswer.creator = {
-            name: answer.creator.name,
-            thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
-        };
-        result.push(formattedAnswer);
+        if (answer.answer) {
+            let formattedAnswer = answer.answer;
+            formattedAnswer.upVotes = answer.upVotes;
+            formattedAnswer.isAdmin = answer.isAdmin || false;
+            formattedAnswer.creator = {
+                name: answer.creator.name,
+                thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            };
+            result.push(formattedAnswer);
+        }
     }
     return result;
 };
 
-const getQuestion = async function (questionId) {
+const getQuestion = async function (questionId, userId) {
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
         .optionalMatch(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(answerCreator:User)`)
-        .with(`question, user, answer, answerCreator`)
+        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
+        .with(`question, user, answer, answerCreator, upVotesRel`)
         .orderBy(`answer.created DESC`)
         .limit(20)
-        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
-        .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes`)
+        .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
+               answerCreator.userId = {userId} AS isAdmin`)
         .orderBy(`upVotes DESC, answer.created DESC`)
-        .return(`question, user, collect({answer: answer, creator: answerCreator, upVotes: upVotes}) AS answers`)
-        .end({questionId: questionId}).send();
+        .return(`question, user, 
+                 collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin}) AS answers`)
+        .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;
         delete question.questionId;
