@@ -1,0 +1,59 @@
+<template>
+    <v-layout row justify-center>
+        <v-dialog v-model="dialog" scrollable persistent max-width="250px">
+            <v-card id="dialog-login-required">
+                <v-card-text>
+                    <p>Um diese Aktion ausführen, muss du dich einloggen.</p>
+                    <div>
+                        <v-btn color="primary" outline @click="goToLogin()" class="link-button">
+                            {{$t("common:toolbar.login")}}
+                        </v-btn>
+                    </div>
+                    <div>
+                        <v-btn color="primary" outline @click="goToRegister()" class="link-button">
+                            {{$t("pages:login.registerLink")}}
+                        </v-btn>
+                    </div>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" flat @click.native="$emit('close-dialog')">
+                        {{$t("common:button.close")}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-layout>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {dialog: true}
+        },
+        methods: {
+            goToLogin() {
+                this.$router.push({name: 'login'});
+                this.$emit('close-dialog');
+            },
+            goToRegister() {
+                this.$router.push({name: 'register'});
+                this.$emit('close-dialog');
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    #dialog-login-required {
+        p {
+            font-size: 16px;
+            font-weight: 300;
+        }
+        .link-button {
+            width: 100%;
+            margin: 6px 0 6px 0;
+        }
+    }
+</style>
