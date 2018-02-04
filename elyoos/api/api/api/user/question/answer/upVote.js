@@ -6,8 +6,8 @@ const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaCreateUpVote = {
-    name: 'createUpVote',
+const schemaUpVote = {
+    name: 'upVote',
     type: 'object',
     additionalProperties: false,
     required: ['answerId'],
@@ -20,8 +20,14 @@ const schemaCreateUpVote = {
 module.exports = function (router) {
 
     router.post('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateUpVote, logger);
+        const params = await validation.validateRequest(req, schemaUpVote, logger);
         await upVote.upVote(req.user.id, params.answerId);
+        res.status(200).end();
+    }));
+
+    router.delete('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaUpVote, logger);
+        await upVote.deleteUpVote(req.user.id, params.answerId);
         res.status(200).end();
     }));
 };
