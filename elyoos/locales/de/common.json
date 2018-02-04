@@ -8,6 +8,7 @@
   "title": "Titel",
   "description": "Beschreibung",
   "createdBy": "erstellt von",
+  "you": "dir",
   "toolbar": {
     "login": "Anmelden"
   },

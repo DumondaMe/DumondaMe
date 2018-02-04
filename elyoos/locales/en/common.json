@@ -8,6 +8,7 @@
   "title": "Title",
   "description": "Description",
   "createdBy": "created by",
+  "you": "you",
   "toolbar": {
     "login": "Login"
   },
