@@ -29,28 +29,17 @@
             </div>
             <p class="answer-description" :class="{'show-embed': showEmbed}">{{answer.description}}</p>
         </div>
-        <v-layout row class="answer-commands">
-            <div class="comment-icon">
-                <v-icon>chat_bubble_outline</v-icon>
-                <span class="comment-text">0 Kommentare</span>
-            </div>
-            <v-spacer></v-spacer>
-            <div class="up-vote-button">
-                <span class="up-votes">0</span>
-                <v-btn icon outline :disabled="answer.isAdmin">
-                    <v-icon>arrow_upward</v-icon>
-                </v-btn>
-            </div>
-        </v-layout>
+        <answer-commands :answer="answer"></answer-commands>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
+    import AnswerCommands from './Commands.vue';
 
     export default {
         props: ['answer'],
-        components: {UserInfo},
+        components: {UserInfo, AnswerCommands},
         data() {
             return {showEmbed: false}
         },
@@ -107,45 +96,6 @@
             }
             .answer-description.show-embed {
                 margin-left: 0;
-            }
-        }
-        .answer-commands {
-            margin-top: 6px;
-            .comment-icon {
-                padding-top: 2px;
-                cursor: pointer;
-                i.icon {
-                    color: $primary-color;
-                }
-                .comment-text {
-                    margin-left: 6px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: $secondary-text;
-                }
-                :hover.comment-text {
-                    text-decoration: underline;
-                }
-            }
-            .up-vote-button {
-                .up-votes {
-                    margin-right: 6px;
-                    position: relative;
-                    top: 2px;
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: $secondary-text;
-                }
-                button {
-                    margin: 0 4px 0 0;
-                    height: 28px;
-                    width: 28px;
-                    border-width: 2px;
-                    color: #009688;
-                    i.icon {
-                        font-size: 18px;
-                    }
-                }
             }
         }
     }

@@ -7,15 +7,33 @@ export const mutations = {
         state.question = question;
     },
     ADD_ANSWER(state, answer) {
-        state.question.answers.push(answer);
+        state.question.answers.unshift(answer);
+    },
+    UP_VOTE_ANSWER(state, answerId) {
+        let upVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
+        upVoteAnswer.upVotes++;
+        upVoteAnswer.hasVoted = true;
+    },
+    DOWN_VOTE_ANSWER(state, answerId) {
+        let downVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
+        downVoteAnswer.upVotes--;
+        downVoteAnswer.hasVoted = false;
     }
 };
 
 export const actions = {
+    async upVoteAnswer({commit, state}, answerId) {
+        await this.$axios.$post(`/user/question/answer/upVote/${answerId}`);
+        commit('UP_VOTE_ANSWER', answerId);
+    },
+    async downVoteAnswer({commit, state}, answerId) {
+        await this.$axios.$delete(`/user/question/answer/upVote/${answerId}`);
+        commit('DOWN_VOTE_ANSWER', answerId);
+    },
     async createTextAnswer({commit, state}, {answer}) {
         let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`, {answer});
         commit('ADD_ANSWER', {
-            answerId: response.answerId, isAdmin: true,
+            answerId: response.answerId, isAdmin: true, upVotes: 0,
             answerType: 'Text', answer, created: response.created, creator: response.creator
         });
     },
@@ -25,6 +43,7 @@ export const actions = {
         youtubeData.answerId = response.answerId;
         youtubeData.answerType = 'Youtube';
         youtubeData.isAdmin = true;
+        youtubeData.upVotes = 0;
         youtubeData.idOnYoutube = response.idOnYoutube;
         youtubeData.linkEmbed = `https://www.youtube.com/embed/${response.idOnYoutube}`;
         youtubeData.created = response.created;
