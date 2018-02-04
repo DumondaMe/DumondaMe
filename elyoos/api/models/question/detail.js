@@ -12,6 +12,7 @@ const getAnswers = function (answers) {
             let formattedAnswer = answer.answer;
             formattedAnswer.upVotes = answer.upVotes;
             formattedAnswer.isAdmin = answer.isAdmin || false;
+            formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter((l) => ['Youtube', 'Text'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
@@ -26,16 +27,17 @@ const getAnswers = function (answers) {
 const getQuestion = async function (questionId, userId) {
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
         .optionalMatch(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(answerCreator:User)`)
-        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
-        .with(`question, user, answer, answerCreator, upVotesRel`)
+        .with(`question, user, answer, answerCreator`)
         .orderBy(`answer.created DESC`)
         .limit(20)
+        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
         .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
-               answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType`)
+               answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
+               EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .return(`question, user, 
                  collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
-                          answerType: answerType}) AS answers`)
+                          hasVoted: hasVoted, answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;

@@ -79,6 +79,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(true);
+        res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(600);
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -88,6 +89,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
+        res.body.answers[1].hasVoted.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -99,7 +101,8 @@ describe('Getting details of a question', function () {
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
         res.body.answers[2].upVotes.should.equals(0);
-        res.body.answers[2].isAdmin.should.equals(false);
+        res.body.answers[2].isAdmin.should.equals(false)
+        res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -135,6 +138,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].description.should.equals('youtube7Description');
         res.body.answers[0].upVotes.should.equals(2);
         res.body.answers[0].isAdmin.should.equals(false);
+        res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(499);
         res.body.answers[0].creator.name.should.equals('user Meier2');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -144,6 +148,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(1);
         res.body.answers[1].isAdmin.should.equals(false);
+        res.body.answers[1].hasVoted.should.equals(true);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -153,6 +158,7 @@ describe('Getting details of a question', function () {
         res.body.answers[2].answer.should.equals('Answer');
         res.body.answers[2].upVotes.should.equals(0);
         res.body.answers[2].isAdmin.should.equals(true);
+        res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(600);
         res.body.answers[2].creator.name.should.equals('user Meier');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -180,6 +186,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(false);
+        res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(600);
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -189,6 +196,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
+        res.body.answers[1].hasVoted.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -201,6 +209,7 @@ describe('Getting details of a question', function () {
         res.body.answers[2].description.should.equals('youtube7Description');
         res.body.answers[2].upVotes.should.equals(0);
         res.body.answers[2].isAdmin.should.equals(false);
+        res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
