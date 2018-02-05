@@ -16,7 +16,8 @@ import {
     VGrid,
     VSelect,
     VRadioGroup,
-    VProgressCircular
+    VProgressCircular,
+    VProgressLinear
 } from 'vuetify';
 
 Vue.use(Vuetify, {
@@ -45,6 +46,7 @@ Vue.use(Vuetify, {
         VGrid,
         VSelect,
         VRadioGroup,
-        VProgressCircular
+        VProgressCircular,
+        VProgressLinear
     }
 });
