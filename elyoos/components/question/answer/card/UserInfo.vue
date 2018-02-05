@@ -8,7 +8,7 @@
                 <span class="answer-type">{{answerType}} </span>
                 <span class="answer-title">{{answerTitle}} </span>
                 <span class="answer-by">{{$t("common:createdBy")}}</span>
-                <span class="user-name" v-if="isAdmin"> Dir</span>
+                <span class="user-name" v-if="isAdmin"> {{$t("common:you")}}</span>
                 <span class="user-name" v-else> {{name}}</span>
             </div>
             <div class="created-date">{{created | formatRelativeTimesAgo}}</div>
