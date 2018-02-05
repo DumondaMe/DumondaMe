@@ -1,13 +1,11 @@
 <template>
-    <div id="create-answer-dialog">
-        <select-answer-type @close-dialog="$emit('close-dialog')" v-if="showSelect"
-                            @answer-selected="answerSelected">
-        </select-answer-type>
-        <answer-text v-else-if="answerType === 'text'" @close-dialog="$emit('close-dialog')">
-        </answer-text>
-        <answer-link v-else-if="answerType === 'link'" @close-dialog="$emit('close-dialog')">
-        </answer-link>
-    </div>
+    <select-answer-type @close-dialog="$emit('close-dialog')" v-if="showSelect"
+                        @answer-selected="answerSelected">
+    </select-answer-type>
+    <answer-text v-else-if="answerType === 'text'" @close-dialog="$emit('close-dialog')">
+    </answer-text>
+    <answer-link v-else-if="answerType === 'link'" @close-dialog="$emit('close-dialog')">
+    </answer-link>
 </template>
 
 <script>
@@ -35,8 +33,4 @@
 </script>
 
 <style lang="scss">
-    #create-answer-dialog {
-        width: 100%;
-        height: 100%;
-    }
 </style>

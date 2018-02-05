@@ -1,6 +1,6 @@
 <template>
     <v-card id="text-answer-container">
-        <v-card-title>Answers the question <span class="question-title"> {{question}} </span></v-card-title>
+        <v-card-title>Answer the question <span class="question-title"> {{question}} </span></v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <v-form v-model="valid">
