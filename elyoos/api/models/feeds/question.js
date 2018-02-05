@@ -5,7 +5,7 @@ const db = requireDb();
 const cdn = require('elyoos-server-lib').cdn;
 const PAGE_SIZE = 20;
 
-const getQuestions = function (questions) {
+const getQuestions = async function (questions) {
     let results = [];
     for (let questionElement of questions) {
         results.push({
@@ -18,7 +18,7 @@ const getQuestions = function (questions) {
             numberOfAnswers: questionElement.numberOfAnswers,
             creator: {
                 name: questionElement.creator.name,
-                thumbnailUrl: cdn.getUrl(`profileImage/${questionElement.creator.userId}/thumbnail.jpg`)
+                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${questionElement.creator.userId}/thumbnail.jpg`)
             }
         });
     }
@@ -35,7 +35,7 @@ const getFeed = async function (page, timestamp) {
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({page, timestamp}).send();
 
-    return {questions: getQuestions(response), timestamp};
+    return {questions: await getQuestions(response), timestamp};
 };
 
 module.exports = {

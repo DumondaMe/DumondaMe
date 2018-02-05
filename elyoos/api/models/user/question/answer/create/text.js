@@ -18,7 +18,7 @@ const createTextAnswer = async function (userId, params) {
     logger.info(`Created text answer ${params.answerId} for question ${params.questionId}`);
     return {
         answerId: params.answerId, created: params.created,
-        creator: {name: user[0].name, thumbnailUrl: cdn.getUrl(`profileImage/${userId}/thumbnail.jpg`)}
+        creator: {name: user[0].name, thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)}
     };
 };
 

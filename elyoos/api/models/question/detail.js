@@ -5,7 +5,7 @@ const _ = require('lodash');
 const exceptions = require('elyoos-server-lib').exceptions;
 let cdn = require('elyoos-server-lib').cdn;
 
-const getAnswers = function (answers) {
+const getAnswers = async function (answers) {
     let result = [];
     for (let answer of answers) {
         if (answer.answer) {
@@ -16,7 +16,7 @@ const getAnswers = function (answers) {
             formattedAnswer.answerType = answer.answerType.filter((l) => ['Youtube', 'Text'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
-                thumbnailUrl: cdn.getUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
+                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
             };
             result.push(formattedAnswer);
         }
@@ -44,9 +44,9 @@ const getQuestion = async function (questionId, userId) {
         delete question.questionId;
         question.creator = {
             name: response[0].user.name,
-            thumbnailUrl: cdn.getUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
-        question.answers = getAnswers(response[0].answers);
+        question.answers = await getAnswers(response[0].answers);
         return question;
     } else {
         throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
