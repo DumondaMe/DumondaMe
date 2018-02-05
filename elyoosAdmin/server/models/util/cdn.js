@@ -1,7 +1,6 @@
 'use strict';
 
 let AWS = require('aws-sdk');
-let cdnConfig = require('elyoos-server-lib').cdnConfig;
 let expiresAfterADay = 60 * 60 * 12;
 let deasync = require('deasync');
 
@@ -15,9 +14,9 @@ let s3 = new AWS.S3();
 
 
 module.exports = {
-    getUrl: function (path) {
+    getUrl: function (path, bucket) {
         let params = {
-            Bucket: cdnConfig.getConfig().bucket,
+            Bucket: bucket,
             Key: path,
             Expires: expiresAfterADay
         }, done = false, signedUrl = null;
