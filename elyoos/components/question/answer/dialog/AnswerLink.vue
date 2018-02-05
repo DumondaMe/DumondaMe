@@ -1,20 +1,19 @@
 <template>
     <v-card id="link-answer-container">
-        <v-card-title>Answers the question <span class="question-title"> {{question}} </span></v-card-title>
+        <v-card-title id="link-answer-title">Answer the question<span class="question-title"> {{question}} </span>
+        </v-card-title>
         <v-divider></v-divider>
-        <v-card-text>
+        <v-card-text id="link-answer-content">
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>
-                        <v-text-field v-model="link" name="link" ref="link"
+                        <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
                                       :label="$t('pages:detailQuestion.yourLink')"
                                       :rules="[isValidLink(),
                                                isNotEmbedYoutube(),
                                                ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
-                        <p class="url-type" v-show="isYoutube && valid && !response.type">
-                            Youtube Video Infos werden geladen</p>
                         <p class="url-type" v-show="response.type === 'Youtube'">Youtube Video erkannt</p>
                         <p class="url-type" v-show="response.type === 'Vimeo'">Vimeo Video erkannt</p>
                     </v-flex>
@@ -53,11 +52,13 @@
                                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                                 </v-text-field>
-                                <div id="page-type-title">Was für ein Weblink handelt es sich?</div>
+                                <div id="page-type-title">Um was für ein Weblink handelt es sich?</div>
                                 <v-radio-group v-model="response.pageType" column id="page-type-container">
                                     <v-radio label="Artikel" value="article" color="primary">
                                     </v-radio>
                                     <v-radio label="Blog" value="blog" color="primary">
+                                    </v-radio>
+                                    <v-radio label="Webseite" value="website" color="primary">
                                     </v-radio>
                                 </v-radio-group>
                             </div>
@@ -93,10 +94,6 @@
         computed: {
             question() {
                 return this.$store.state.question.question.question;
-            },
-            isYoutube() {
-                return (/\.youtube\.com/i.test(this.link) || /youtu\.be/i.test(this.link))
-                    && !/\/embed\//i.test(this.link);
             }
         },
         methods: {
@@ -117,10 +114,10 @@
         },
         watch: {
             async link() {
-                this.checkLink = true;
                 this.response = {};
                 if (this.$refs.link.validate()) {
                     try {
+                        this.checkLink = true;
                         this.response = await this.$axios.$get(`/link/search`, {params: {link: this.link}});
                         this.checkLink = false;
                     } catch (error) {
@@ -134,41 +131,50 @@
 
 <style lang="scss">
     #link-answer-container {
-        .url-type {
-            position: relative;
-            top: -20px;
-            margin-bottom: -20px;
-            font-size: 12px;
-            color: $success-text;
+        #link-answer-title {
+            display: block;
+            .question-title {
+                color: $primary-color;
+                white-space: normal;
+            }
         }
-        #link-container {
-            #link-image {
-                @media screen and (min-width: 700px) {
-                    float: left;
-                }
-                img {
-                    max-width: 300px;
-                    max-height: 300px;
-                    min-width: 150px;
-                    @media screen and (max-width: 699px) {
-                        display: block;
-                        margin: 0 auto 18px auto;
+        #link-answer-content {
+            .url-type {
+                position: relative;
+                top: -20px;
+                margin-bottom: -20px;
+                font-size: 12px;
+                color: $success-text;
+            }
+            #link-container {
+                #link-image {
+                    @media screen and (min-width: 700px) {
+                        float: left;
+                    }
+                    img {
+                        max-width: 300px;
+                        max-height: 300px;
+                        min-width: 150px;
+                        @media screen and (max-width: 699px) {
+                            display: block;
+                            margin: 0 auto 18px auto;
+                        }
                     }
                 }
-            }
-            #link-content {
-                @media screen and (min-width: 700px) {
-                    margin-left: 324px;
+                #link-content {
+                    @media screen and (min-width: 700px) {
+                        margin-left: 324px;
+                    }
+                    #page-type-title {
+                        font-size: 14px;
+                    }
+                    #page-type-container {
+                        padding-top: 6px;
+                    }
                 }
-                #page-type-title {
-                    font-size: 14px;
+                #link-content.image-missing {
+                    margin-left: 0;
                 }
-                #page-type-container {
-                    padding-top: 6px;
-                }
-            }
-            #link-content.image-missing {
-                margin-left: 0;
             }
         }
     }
