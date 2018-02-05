@@ -6,8 +6,8 @@
         </user-info>
         <p id="question-description">{{question.description}}</p>
         <div id="question-commands">
-            <v-btn outline color="primary" id="answer-question-button" @click="dialog = true"
-                   :disabled="!isAuthenticated" slot="activator">
+            <v-btn outline color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
+                   slot="activator">
                 {{$t("common:button.answer")}}
             </v-btn>
         </div>
@@ -18,26 +18,37 @@
                 </create-dialog>
             </v-dialog>
         </v-layout>
+
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
     </div>
 </template>
 
 <script>
     import UserInfo from '~/components/common/user/Info.vue';
     import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
 
     export default {
-        components: {UserInfo, CreateDialog},
+        components: {UserInfo, CreateDialog, LoginRequiredDialog},
         data() {
-            return {dialog: false}
+            return {dialog: false, showLoginRequired: false}
         },
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
             question() {
                 return this.$store.state.question.question;
             }
-        }
+        },
+        methods: {
+            openCreateAnswerDialog() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    this.dialog = true;
+                } else {
+                    this.showLoginRequired = true;
+                }
+            }
+
+        },
     }
 </script>
 
