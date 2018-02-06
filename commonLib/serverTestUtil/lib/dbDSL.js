@@ -52,7 +52,7 @@ module.exports = {
     createLinkAnswer: answer.createLinkAnswer,
     createTextAnswer: answer.createTextAnswer,
     upVoteAnswer: answer.upVoteAnswer,
-    setYoutubeOriginal: answer.setYoutubeOriginal,
+    setOriginalAnswer: answer.setOriginalAnswer,
     createBlog: blog.createBlog,
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,

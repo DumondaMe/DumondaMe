@@ -55,16 +55,16 @@ let createLinkAnswer = function (answerId, data) {
     data.title = data.title || `link${answerId}Title`;
     data.description = data.description || `link${answerId}Description`;
     data.creatorId = data.creatorId || '1';
-    data.hasImage = data.hasImage || false;
+    data.hasPreviewImage = data.hasPreviewImage || false;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(:Link:Answer  {title: {title}, description: {description}, created: {created},
-                  answerId: {answerId}, link: {link}, hasImage: {hasImage}, pageType: {pageType}})`)
-        .merge(`(question)-[:ANSWER]->(book)`)
-        .merge(`(book)<-[:IS_CREATOR]-(user)`)
+        .create(`(link:Link:Answer  {title: {title}, description: {description}, created: {created},
+                  answerId: {answerId}, link: {link}, hasPreviewImage: {hasPreviewImage}, pageType: {pageType}})`)
+        .merge(`(question)-[:ANSWER]->(link)`)
+        .merge(`(link)<-[:IS_CREATOR]-(user)`)
         .end({
             answerId: answerId, title: data.title, description: data.description, creatorId: data.creatorId,
-            created: data.created, link: data.link, hasImage: data.hasImage, pageType: data.pageType,
+            created: data.created, link: data.link, hasPreviewImage: data.hasPreviewImage, pageType: data.pageType,
             questionId: data.questionId
         }).getCommand());
 };
@@ -90,12 +90,12 @@ let upVoteAnswer = function (data) {
 };
 
 
-let setYoutubeOriginal = function (data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(youtube:Youtube {answerId: {youtubeId}}),
-                 (original:Youtube {answerId: {originalYoutubeId}})`)
-        .merge(`(youtube)-[:ORIGINAL]->(original)`)
+let setOriginalAnswer = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(answer:Answer {answerId: {answerId}}),
+                 (original:Answer {answerId: {originalAnswerId}})`)
+        .merge(`(answer)-[:ORIGINAL]->(original)`)
         .end({
-            youtubeId: data.youtubeId, originalYoutubeId: data.originalYoutubeId
+            answerId: data.answerId, originalAnswerId: data.originalAnswerId
         }).getCommand());
 };
 
@@ -106,5 +106,5 @@ module.exports = {
     createLinkAnswer,
     createTextAnswer,
     upVoteAnswer,
-    setYoutubeOriginal
+    setOriginalAnswer
 };
