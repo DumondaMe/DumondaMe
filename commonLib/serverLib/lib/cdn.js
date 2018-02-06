@@ -64,6 +64,12 @@ const uploadFile = function (fileName, key, bucket) {
     });
 };
 
+const uploadBuffer = function (buffer, key, bucket) {
+    return s3.putObject({
+        Bucket: bucket, Key: key, Body: buffer
+    }).promise();
+};
+
 const getPublicUrl = function (path) {
     return `${process.env.PUBLIC_IMAGE_BASE_URL}/${path}`;
 };
@@ -124,6 +130,7 @@ module.exports = {
     getUrl: function (arg) {
     },
     uploadFile,
+    uploadBuffer,
     deleteFolder,
     copyFile,
     createFolderRegisterUser,
