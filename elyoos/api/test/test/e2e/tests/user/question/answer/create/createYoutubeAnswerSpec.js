@@ -102,7 +102,7 @@ describe('Creating youtube answer', function () {
             creatorId: '2', questionId: '3', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
-        dbDsl.setYoutubeOriginal({youtubeId: '10', originalYoutubeId: '11'});
+        dbDsl.setOriginalAnswer({answerId: '10', originalAnswerId: '11'});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
