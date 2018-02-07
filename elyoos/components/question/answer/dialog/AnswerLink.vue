@@ -73,8 +73,8 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="createLinkAnswer()"
-                   :disabled="!valid || checkLink">
+            <v-btn color="primary" flat @click.native="createLinkAnswer()" :loading="uploadRunning"
+                   :disabled="!valid || checkLink || uploadRunning">
                 {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>
@@ -88,7 +88,7 @@
 
     export default {
         data() {
-            return {valid: false, checkLink: false, link: '', response: {}}
+            return {valid: false, checkLink: false, uploadRunning: false, link: '', response: {}}
         },
         mixins: [validationRules, languages],
         computed: {
@@ -98,10 +98,22 @@
         },
         methods: {
             async createLinkAnswer() {
-                if (this.response.type === 'Youtube') {
-                    await this.$store.dispatch('question/createYoutubeAnswer',
-                        {link: this.link, title: this.response.title, description: this.response.description});
-                    this.$emit('close-dialog');
+                this.uploadRunning = true;
+                try {
+                    if (this.response.type === 'Youtube') {
+                        await this.$store.dispatch('question/createYoutubeAnswer',
+                            {link: this.link, title: this.response.title, description: this.response.description});
+                        this.$emit('close-dialog');
+                    } else if (this.response.type === 'Link') {
+                        await this.$store.dispatch('question/createLinkAnswer',
+                            {
+                                link: this.link, title: this.response.title, description: this.response.description,
+                                imageUrl: this.response.imageUrl, type: this.response.pageType
+                            });
+                        this.$emit('close-dialog');
+                    }
+                } catch (error) {
+                    this.uploadRunning = false;
                 }
             },
             isValidLink() {

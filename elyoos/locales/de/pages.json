@@ -31,7 +31,13 @@
     "yourLink": "Dein Link",
     "answerType": {
       "text": "Antwort",
-      "video": "Video"
+      "video": "Video",
+      "link": {
+        "link": "Link",
+        "blog": "Link zum Blog",
+        "article": "Link zum Artikel",
+        "website": "Link zur Webseite"
+      }
     }
   }
 }

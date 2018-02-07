@@ -49,5 +49,18 @@ export const actions = {
         youtubeData.created = response.created;
         youtubeData.creator = response.creator;
         commit('ADD_ANSWER', youtubeData);
+    },
+    async createLinkAnswer({commit, state}, linkData) {
+        let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`,
+            linkData);
+        linkData.answerId = response.answerId;
+        linkData.answerType = 'Link';
+        linkData.pageType = linkData.type;
+        linkData.isAdmin = true;
+        linkData.upVotes = 0;
+        linkData.created = response.created;
+        linkData.imageUrl = response.imageUrl;
+        linkData.creator = response.creator;
+        commit('ADD_ANSWER', linkData);
     }
 };
