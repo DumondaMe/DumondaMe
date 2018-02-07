@@ -27,6 +27,10 @@ describe('Getting details of a question', function () {
             creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '2', questionId: '1', created: 498,
+            link: 'https://example.com', pageType: 'blog'
+        });
     });
 
     afterEach(function () {
@@ -73,7 +77,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(3);
+        res.body.answers.length.should.equals(4);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -101,11 +105,25 @@ describe('Getting details of a question', function () {
         res.body.answers[2].title.should.equals('youtube7Title');
         res.body.answers[2].description.should.equals('youtube7Description');
         res.body.answers[2].upVotes.should.equals(0);
-        res.body.answers[2].isAdmin.should.equals(false)
+        res.body.answers[2].isAdmin.should.equals(false);
         res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+        res.body.answers[3].answerId.should.equals('8');
+        res.body.answers[3].answerType.should.equals('Link');
+        res.body.answers[3].link.should.equals('https://example.com');
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].title.should.equals('link8Title');
+        res.body.answers[3].description.should.equals('link8Description');
+        res.body.answers[3].pageType.should.equals('blog');
+        res.body.answers[3].upVotes.should.equals(0);
+        res.body.answers[3].isAdmin.should.equals(false);
+        res.body.answers[3].hasVoted.should.equals(false);
+        res.body.answers[3].created.should.equals(498);
+        res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
@@ -129,7 +147,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(3);
+        res.body.answers.length.should.equals(4);
         res.body.answers[0].answerId.should.equals('7');
         res.body.answers[0].answerType.should.equals('Youtube');
         res.body.answers[0].idOnYoutube.should.equals('Lhku7ZBWEK8');
@@ -162,6 +180,20 @@ describe('Getting details of a question', function () {
         res.body.answers[2].created.should.equals(600);
         res.body.answers[2].creator.name.should.equals('user Meier');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
+
+        res.body.answers[3].answerId.should.equals('8');
+        res.body.answers[3].answerType.should.equals('Link');
+        res.body.answers[3].link.should.equals('https://example.com');
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].title.should.equals('link8Title');
+        res.body.answers[3].description.should.equals('link8Description');
+        res.body.answers[3].pageType.should.equals('blog');
+        res.body.answers[3].upVotes.should.equals(0);
+        res.body.answers[3].isAdmin.should.equals(false);
+        res.body.answers[3].hasVoted.should.equals(false);
+        res.body.answers[3].created.should.equals(498);
+        res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
@@ -180,7 +212,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(3);
+        res.body.answers.length.should.equals(4);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -213,5 +245,19 @@ describe('Getting details of a question', function () {
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+        res.body.answers[3].answerId.should.equals('8');
+        res.body.answers[3].answerType.should.equals('Link');
+        res.body.answers[3].link.should.equals('https://example.com');
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].title.should.equals('link8Title');
+        res.body.answers[3].description.should.equals('link8Description');
+        res.body.answers[3].pageType.should.equals('blog');
+        res.body.answers[3].upVotes.should.equals(0);
+        res.body.answers[3].isAdmin.should.equals(false);
+        res.body.answers[3].hasVoted.should.equals(false);
+        res.body.answers[3].created.should.equals(498);
+        res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 });

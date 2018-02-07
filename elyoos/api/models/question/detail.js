@@ -1,7 +1,6 @@
 'use strict';
 
 const db = requireDb();
-const _ = require('lodash');
 const exceptions = require('elyoos-server-lib').exceptions;
 let cdn = require('elyoos-server-lib').cdn;
 
@@ -13,11 +12,15 @@ const getAnswers = async function (answers) {
             formattedAnswer.upVotes = answer.upVotes;
             formattedAnswer.isAdmin = answer.isAdmin || false;
             formattedAnswer.hasVoted = answer.hasVoted || false;
-            formattedAnswer.answerType = answer.answerType.filter((l) => ['Youtube', 'Text'].some(v => v === l))[0];
+            formattedAnswer.answerType = answer.answerType.filter(
+                (l) => ['Youtube', 'Text', 'Link'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
             };
+            if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`120x120/link/${formattedAnswer.answerId}/preview.jpg`);
+            }
             result.push(formattedAnswer);
         }
     }
