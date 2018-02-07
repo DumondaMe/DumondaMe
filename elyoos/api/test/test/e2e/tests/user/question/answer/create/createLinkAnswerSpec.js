@@ -64,7 +64,7 @@ describe('Creating link answer', function () {
         resp[0].answer.title.should.equals('titleLink');
         resp[0].answer.description.should.equals('descriptionLink');
         resp[0].answer.link.should.equals('https://example.com/blog');
-        resp[0].answer.type.should.equals('blog');
+        resp[0].answer.pageType.should.equals('blog');
         resp[0].answer.hasPreviewImage.should.equals(true);
         resp[0].answer.created.should.equals(res.body.created);
         should.not.exist(resp[0].original);
@@ -94,7 +94,7 @@ describe('Creating link answer', function () {
         resp[0].answer.title.should.equals('titleLink');
         resp[0].answer.description.should.equals('descriptionLink');
         resp[0].answer.link.should.equals('https://example.com/blog');
-        resp[0].answer.type.should.equals('blog');
+        resp[0].answer.pageType.should.equals('blog');
         resp[0].answer.hasPreviewImage.should.equals(false);
         resp[0].answer.created.should.equals(res.body.created);
         should.not.exist(resp[0].original);

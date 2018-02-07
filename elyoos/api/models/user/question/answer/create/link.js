@@ -41,7 +41,7 @@ const createLinkAnswerCommand = function (params) {
     return db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")
         .where(`NOT (question)-[:ANSWER]->(:Link {link: {link}})`)
         .create(`(answer:Link:Answer {answerId: {answerId}, link: {link}, created: {created}, title: {title},
-                      description: {description}, type: {type}, hasPreviewImage: {hasPreviewImage}})`)
+                      description: {description}, pageType: {type}, hasPreviewImage: {hasPreviewImage}})`)
         .merge(`(user)-[:IS_CREATOR]->(answer)<-[:ANSWER]-(question)`)
         .return(`user.name AS name`)
         .end(params).getCommand();
@@ -69,7 +69,10 @@ const createLinkAnswer = async function (userId, params) {
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
         const result = {
             answerId: params.answerId, created: params.created,
-            creator: {name: user[0][0].name, thumbnailUrl: cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)}
+            creator: {
+                name: user[0][0].name,
+                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
+            }
         };
         if (params.imageUrl) {
             result.imageUrl = cdn.getPublicUrl(`120x120/link/${params.answerId}/preview.jpg`);
