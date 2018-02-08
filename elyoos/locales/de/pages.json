@@ -28,7 +28,8 @@
   "detailQuestion": {
     "loginToAnswerQuestion": "Um eine Antwort zu erstellen musst du dich einloggen",
     "yourAnswer": "Deine Antwort",
-    "yourLink": "Dein Link",
+    "searchLink": "Copy Paste deinen Link",
+    "searchBook": "Suche das Buch",
     "answerType": {
       "text": "Antwort",
       "video": "Video",

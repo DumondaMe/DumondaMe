@@ -28,7 +28,8 @@
   "detailQuestion": {
     "loginToAnswerQuestion": "To create an answer you need to log in",
     "yourAnswer": "Your Answer",
-    "yourLink": "Your Link",
+    "searchLink": "Copy paste your link",
+    "searchBook": "Search the book",
     "answerType": {
       "text": "Answer",
       "video": "Video",
