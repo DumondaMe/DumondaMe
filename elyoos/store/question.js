@@ -62,5 +62,17 @@ export const actions = {
         linkData.imageUrl = response.imageUrl;
         linkData.creator = response.creator;
         commit('ADD_ANSWER', linkData);
+    },
+    async createBookAnswer({commit, state}, bookData) {
+        let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,
+            bookData);
+        bookData.answerId = response.answerId;
+        bookData.answerType = 'Book';
+        bookData.isAdmin = true;
+        bookData.upVotes = 0;
+        bookData.created = response.created;
+        bookData.imageUrl = response.imageUrl;
+        bookData.creator = response.creator;
+        commit('ADD_ANSWER', bookData);
     }
 };
