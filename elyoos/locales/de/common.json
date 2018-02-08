@@ -15,6 +15,8 @@
   "button": {
     "ok": "Ok",
     "close": "Schliessen",
+    "back": "Zurück",
+    "next": "Weiter",
     "create": "Erstellen",
     "answer": "Beantworten",
     "filter": "Filter"
