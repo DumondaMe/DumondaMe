@@ -49,7 +49,7 @@ const createBookAnswer = async function (userId, params) {
             }
         };
         if (params.imageUrl) {
-            result.imageUrl = cdn.getPublicUrl(`80x250/book/${params.answerId}/preview.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`120x250/book/${params.answerId}/preview.jpg`);
         }
         return result;
     }

@@ -51,7 +51,7 @@ describe('Creating book answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/80x250/book/${res.body.answerId}/preview.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/${res.body.answerId}/preview.jpg`);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `book/${res.body.answerId}/preview.jpg`, sinon.match.any).should.be.true;
