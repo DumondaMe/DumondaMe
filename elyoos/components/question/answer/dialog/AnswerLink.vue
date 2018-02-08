@@ -8,7 +8,7 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
-                                      :label="$t('pages:detailQuestion.yourLink')"
+                                      :label="$t('pages:detailQuestion.searchLink')"
                                       :rules="[isValidLink(),
                                                isNotEmbedYoutube(),
                                                ruleFieldRequired($t('validation:fieldRequired')),

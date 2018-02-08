@@ -11,7 +11,7 @@
                                       :label="$t('pages:detailQuestion.yourAnswer')"
                                       :rules="[ruleMinLength($t('validation:minLength', {length: 10}), 10),
                                                ruleToManyChars($t('validation:toManyChars'), 500)]"
-                                      :counter="500" required>
+                                      :counter="500">
                         </v-text-field>
                     </v-flex>
                 </v-layout>
