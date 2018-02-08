@@ -33,6 +33,7 @@
     "answerType": {
       "text": "Answer",
       "video": "Video",
+      "book": "Book",
       "link": {
         "link": "Link",
         "blog": "Link to Blog",
