@@ -7,15 +7,18 @@ let createBookAnswer = function (answerId, data) {
     data.title = data.title || `book${answerId}Title`;
     data.description = data.description || `book${answerId}Description`;
     data.creatorId = data.creatorId || '1';
+    data.googleBookId = data.googleBookId || null;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}), 
                  (question:Question {questionId: {questionId}})`)
         .create(`(book:Book:Answer {title: {title}, description: {description}, created: {created},
-                         answerId: {answerId}, author: {author}})`)
+                         answerId: {answerId}, authors: {authors}, hasPreviewImage: {hasPreviewImage},
+                         googleBookId: {googleBookId}})`)
         .merge(`(question)-[:ANSWER]->(book)`)
         .merge(`(book)<-[:IS_CREATOR]-(user)`)
         .end({
             answerId: answerId, title: data.title, description: data.description, creatorId: data.creatorId,
-            created: data.created, author: data.author, questionId: data.questionId
+            created: data.created, authors: data.authors, questionId: data.questionId,
+            hasPreviewImage: data.hasPreviewImage, googleBookId: data.googleBookId
         }).getCommand());
 };
 
