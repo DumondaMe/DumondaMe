@@ -1,41 +1,14 @@
 'use strict';
 
 const db = requireDb();
-const Promise = require('bluebird');
-const rp = require('request');
-const sharp = require('sharp');
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
+const image = require('./image');
 const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_LINK_EXISTS_ALREADY = 2;
-
-const uploadPreviewImage = async function (answerId, url) {
-    try {
-        await new Promise(function (resolve, reject) {
-            if (url) {
-                rp.get(url, function (err) {
-                    if (err) {
-                        reject(err);
-                    }
-                }).pipe(sharp().resize(500, 500).max().toFormat('jpeg')
-                    .withoutEnlargement().toBuffer(async function (err, buffer) {
-                        if (err) {
-                            reject(err);
-                        }
-                        await cdn.uploadBuffer(buffer, `link/${answerId}/preview.jpg`, process.env.BUCKET_PUBLIC);
-                        resolve();
-                    }));
-            } else {
-                resolve();
-            }
-        });
-    } catch (error) {
-        logger.error(`Failed to get image ${url}`, error);
-    }
-};
 
 const createLinkAnswerCommand = function (params) {
     return db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")
@@ -65,7 +38,7 @@ const createLinkAnswer = async function (userId, params) {
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createLinkAnswerOriginalLinkCommand(params).send([createLinkAnswerCommand(params)]);
     if (user[0].length === 1) {
-        await uploadPreviewImage(params.answerId, params.imageUrl);
+        await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
         const result = {
             answerId: params.answerId, created: params.created,
