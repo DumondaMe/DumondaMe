@@ -13,13 +13,15 @@ const getAnswers = async function (answers) {
             formattedAnswer.isAdmin = answer.isAdmin || false;
             formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter(
-                (l) => ['Youtube', 'Text', 'Link'].some(v => v === l))[0];
+                (l) => ['Youtube', 'Text', 'Link', 'Book'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
             };
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`120x120/link/${formattedAnswer.answerId}/preview.jpg`);
+            } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`120x250/book/${formattedAnswer.answerId}/preview.jpg`);
             }
             result.push(formattedAnswer);
         }

@@ -31,6 +31,10 @@ describe('Getting details of a question', function () {
             creatorId: '2', questionId: '1', created: 498, hasPreviewImage: true,
             link: 'https://example.com', pageType: 'blog'
         });
+        dbDsl.createBookAnswer('9', {
+            creatorId: '3', questionId: '1', created: 497, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
     });
 
     afterEach(function () {
@@ -77,7 +81,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(4);
+        res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -124,6 +128,19 @@ describe('Getting details of a question', function () {
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+        res.body.answers[4].answerId.should.equals('9');
+        res.body.answers[4].answerType.should.equals('Book');
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].title.should.equals('book9Title');
+        res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].authors.should.equals('Hans Wurst');
+        res.body.answers[4].upVotes.should.equals(0);
+        res.body.answers[4].isAdmin.should.equals(false);
+        res.body.answers[4].hasVoted.should.equals(false);
+        res.body.answers[4].created.should.equals(497);
+        res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
@@ -147,7 +164,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(4);
+        res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('7');
         res.body.answers[0].answerType.should.equals('Youtube');
         res.body.answers[0].idOnYoutube.should.equals('Lhku7ZBWEK8');
@@ -194,6 +211,19 @@ describe('Getting details of a question', function () {
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+        res.body.answers[4].answerId.should.equals('9');
+        res.body.answers[4].answerType.should.equals('Book');
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].title.should.equals('book9Title');
+        res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].authors.should.equals('Hans Wurst');
+        res.body.answers[4].upVotes.should.equals(0);
+        res.body.answers[4].isAdmin.should.equals(false);
+        res.body.answers[4].hasVoted.should.equals(false);
+        res.body.answers[4].created.should.equals(497);
+        res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
@@ -212,7 +242,7 @@ describe('Getting details of a question', function () {
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
 
-        res.body.answers.length.should.equals(4);
+        res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -259,5 +289,18 @@ describe('Getting details of a question', function () {
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+
+        res.body.answers[4].answerId.should.equals('9');
+        res.body.answers[4].answerType.should.equals('Book');
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].title.should.equals('book9Title');
+        res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].authors.should.equals('Hans Wurst');
+        res.body.answers[4].upVotes.should.equals(0);
+        res.body.answers[4].isAdmin.should.equals(false);
+        res.body.answers[4].hasVoted.should.equals(false);
+        res.body.answers[4].created.should.equals(497);
+        res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 });

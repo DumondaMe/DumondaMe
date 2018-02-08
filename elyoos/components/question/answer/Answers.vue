@@ -8,6 +8,8 @@
                 </youtube-card>
                 <link-card v-else-if="answer.answerType === 'Link'" :answer="answer">
                 </link-card>
+                <book-card v-else-if="answer.answerType === 'Book'" :answer="answer">
+                </book-card>
             </div>
         </div>
     </div>
@@ -17,9 +19,10 @@
     import TextCard from './card/Text.vue';
     import YoutubeCard from './card/Youtube.vue';
     import LinkCard from './card/Link.vue';
+    import BookCard from './card/Book.vue';
 
     export default {
-        components: {TextCard, YoutubeCard, LinkCard},
+        components: {TextCard, YoutubeCard, LinkCard, BookCard},
         computed: {
             answers() {
                 return this.$store.state.question.question.answers;
