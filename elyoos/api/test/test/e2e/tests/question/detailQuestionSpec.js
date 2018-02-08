@@ -28,7 +28,7 @@ describe('Getting details of a question', function () {
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
         dbDsl.createLinkAnswer('8', {
-            creatorId: '2', questionId: '1', created: 498,
+            creatorId: '2', questionId: '1', created: 498, hasPreviewImage: true,
             link: 'https://example.com', pageType: 'blog'
         });
     });
