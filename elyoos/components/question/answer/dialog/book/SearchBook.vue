@@ -85,6 +85,7 @@
                         if (book.volumeInfo) {
                             let normalizedBook = {
                                 title: book.volumeInfo.title,
+                                googleBookId: book.id,
                                 description: this.truncateDescription(book.volumeInfo.description),
                             };
                             if (Array.isArray(book.volumeInfo.authors)) {
