@@ -17,7 +17,7 @@
                     </div>
                 </v-flex>
                 <v-flex xs6 sm3>
-                    <div class="answer-button">
+                    <div class="answer-button" @click="$emit('answer-selected', 'book')">
                         <div class="answer-type">Buch</div>
                         <div class="answer-description">Ein Buch welches Antworten auf die Frage liefert</div>
                     </div>
