@@ -3,14 +3,6 @@
 let rp = require('request-promise');
 let parser = require('./parser');
 
-let redirectUrl = 'http://localhost:8080/auth';
-
-if (process.env.NODE_ENV === 'production') {
-    redirectUrl = 'https://www.elyoos.org/auth';
-} else if (process.env.NODE_ENV === 'development') {
-    redirectUrl = 'https://preview.elyoos.org/auth';
-}
-
 let getAccessToken = function (code) {
     let option = {
         method: 'POST',
@@ -19,7 +11,7 @@ let getAccessToken = function (code) {
             code: code,
             client_id: '270929621236-4cauqnck95vm8ohkvu3rokhp74jued28.apps.googleusercontent.com',
             client_secret: '0C5eH6e2qZ2RHA5FlV8i2wLp',
-            redirect_uri: redirectUrl,
+            redirect_uri: `${process.env.ELYOOS_DOMAIN}auth`,
             grant_type: 'authorization_code'
         },
         headers: {

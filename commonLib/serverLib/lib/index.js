@@ -44,6 +44,5 @@ module.exports.init = function (type) {
         module.exports.time = require('./time');
         module.exports.user = require('./user');
         module.exports.uuid = require('./uuid');
-        module.exports.domain = require('./domain');
     }
 };

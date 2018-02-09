@@ -4,7 +4,6 @@ let db = requireDb();
 let tmp = require('tmp');
 let email = require('elyoos-server-lib').eMail;
 let cdn = require('elyoos-server-lib').cdn;
-let domain = require('elyoos-server-lib').domain;
 let fs = require('fs');
 
 let getInvitationToSend = function (userId) {
@@ -41,7 +40,7 @@ let processDefinition = function (data, done) {
             invitedUsers.forEach(function (invitedUser) {
                 email.sendEMail("invitePerson", {
                     name: data.name, userId: data.userId, userMessage: invitedUser.message, userImage: userImage,
-                    unsubscribeLink: `${domain.getDomain()}unsubscribe/invitation/${invitedUser.email}`
+                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/invitation/${invitedUser.email}`
                 }, invitedUser.email).then(function () {
                     sentEmails.push(invitedUser.email);
                     requestEmails.push(invitedUser.email);
