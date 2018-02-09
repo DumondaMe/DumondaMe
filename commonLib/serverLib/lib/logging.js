@@ -29,24 +29,14 @@ let logger = new winston.Logger({
     levels: customLevels.levels,
     colors: customLevels.colors
 });
-let winstonCloudWatchConfig;
-if (process.env.ELYOOS_MODE === 'production-admin') {
-    winstonCloudWatchConfig = {
-        logGroupName: 'elyoosWebserver',
-        logStreamName: 'webserverAdmin',
-        level: 'info',
-        awsRegion: 'eu-central-1'
-    };
-} else if (process.env.ELYOOS_MODE === 'production') {
-    winstonCloudWatchConfig = {
-        logGroupName: 'elyoosWebserver',
-        logStreamName: 'webserver',
-        level: 'info',
-        awsRegion: 'eu-central-1'
-    };
-}
 
-if (process.env.ELYOOS_MODE === 'production' || process.env.ELYOOS_MODE === 'production-admin') {
+if (process.env.CLOUD_WATCH_LOG_STREAM_NAME) {
+    let winstonCloudWatchConfig = {
+        logGroupName: 'elyoosWebserver',
+        logStreamName: process.env.CLOUD_WATCH_LOG_STREAM_NAME,
+        level: 'info',
+        awsRegion: process.env.AWS_REGION
+    };
     logger.add(winstonCloudWatch, winstonCloudWatchConfig);
 }
 
