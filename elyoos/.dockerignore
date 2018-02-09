@@ -3,7 +3,9 @@
 gruntfile.js
 README.md
 node_modules
+docker_node_modules
 config/config.json
 config/env.list
 config/test.json
-docker_node_modules
+xunit.xml
+e2eResult

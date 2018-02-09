@@ -1,8 +1,6 @@
 FROM node:8.9.4
 
-ARG node_env='production'
-
-ENV NODE_ENV $node_env
+ENV NODE_ENV 'production'
 ENV PORT 8080
 
 RUN mkdir -p /usr/src/app/server
