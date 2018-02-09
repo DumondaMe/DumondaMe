@@ -2,7 +2,6 @@
 
 let db = requireDb();
 let email = require('elyoos-server-lib').eMail;
-let domain = require('elyoos-server-lib').domain;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let getUsers = function (newsId) {
@@ -28,7 +27,7 @@ let processDefinition = function (data, done) {
                             title: news.title,
                             text: news.text,
                             forename: user.forename,
-                            unsubscribeLink: `${domain.getDomain()}unsubscribe/news/${user.email}`
+                            unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/${user.email}`
                         }, user.email);
                     });
                 });

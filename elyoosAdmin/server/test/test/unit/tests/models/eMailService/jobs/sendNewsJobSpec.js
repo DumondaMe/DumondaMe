@@ -2,7 +2,6 @@
 
 let testee = require('../../../../../../../models/eMailService/jobs/sendNewsJob');
 let email = require('elyoos-server-lib').eMail;
-let domain = require('elyoos-server-lib').domain;
 let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let sinon = require('sinon');
@@ -41,17 +40,17 @@ describe('Unit Test eMailService/jobs/sendNewsJob', function () {
 
             expect(sendEMail.withArgs('sendNews', {
                     title: 'news1Title', text: 'news1Text', forename: 'user',
-                    unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user@irgendwo.ch`
+                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
                 },
                 'user@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
                     title: 'news1Title', text: 'news1Text', forename: 'user',
-                    unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user2@irgendwo.ch`
+                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user2@irgendwo.ch`
                 },
                 'user2@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
                     title: 'news1Title', text: 'news1Text', forename: 'user',
-                    unsubscribeLink: `${domain.getDomain()}unsubscribe/news/user3@irgendwo.ch`
+                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user3@irgendwo.ch`
                 },
                 'user3@irgendwo.ch').calledOnce).to.equal(true);
 
