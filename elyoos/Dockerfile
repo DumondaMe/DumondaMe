@@ -3,12 +3,19 @@ FROM node:8.9.4
 ENV NODE_ENV 'production'
 ENV PORT 3000
 
-RUN mkdir -p /usr/src/app/server
+RUN mkdir -p /usr/src/app/server/api/api
+RUN mkdir -p /usr/src/app/server/api/models
+
 COPY docker_node_modules/node_modules /usr/src/app/server/node_modules
 
 WORKDIR /usr/src/app/server
 
-COPY * /usr/src/app/server/
+COPY .nuxt /usr/src/app/server/.nuxt
+COPY api/api /usr/src/app/server/api/api
+COPY api/models /usr/src/app/server/api/models
+COPY config /usr/src/app/server/config
+COPY server.js /usr/src/app/server/nuxt.config.js
+COPY server.js /usr/src/app/server/server.js
 
 USER node
 
