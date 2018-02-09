@@ -10,16 +10,16 @@ let email = require('./eMail/eMailQueue');
 
 module.exports = function (app, nuxt) {
 
-    let env = process.env.NODE_ENV || 'development',
-        elyoosMode = process.env.ELYOOS_MODE || 'development';
     app.on('middleware:before:json', function () {
-        if ('testing' !== env) {
+        if ('testing' !== process.env.NODE_ENV &&
+            (process.env.REDIRECT_WWW === 'true' || process.env.REDIRECT_HTTPS === 'true')) {
             app.use(function (req, res, next) {
-                if (env === 'production' && elyoosMode !== 'production-admin' &&
+                if (process.env.REDIRECT_WWW === 'true' &&
                     req.headers.host.match(/^www/) === null) {
                     return res.redirect('https://www.' + req.headers.host + req.url, 301);
                 }
-                if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http') {
+                if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http' &&
+                    process.env.REDIRECT_HTTPS === 'true') {
                     return res.redirect('https://' + req.headers.host + req.url);
                 }
                 next();
@@ -28,7 +28,7 @@ module.exports = function (app, nuxt) {
     });
 
     app.on('middleware:after:session', function () {
-        if ('testing' !== env) {
+        if ('testing' !== process.env.NODE_ENV) {
             app.use(function (req, res, next) {
                 //Needed because rolling is some how not working
                 req.session.touch();
@@ -55,15 +55,15 @@ module.exports = function (app, nuxt) {
         }
     });
 
-    if (process.env.NODE_ENV === 'development' || elyoosMode === 'production-admin') {
+    if (process.env.ROBOT_TEXT_ENABLE_CRAWLER === 'true') {
         app.get('/robots.txt', function (req, res) {
             res.type('text/plain');
-            res.send("User-agent: *\nDisallow: /");
+            res.send("User-agent: *\nDisallow: ");
         });
     } else {
         app.get('/robots.txt', function (req, res) {
             res.type('text/plain');
-            res.send("User-agent: *\nDisallow: ");
+            res.send("User-agent: *\nDisallow: /");
         });
     }
 
