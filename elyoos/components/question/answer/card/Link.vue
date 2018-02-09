@@ -3,7 +3,7 @@
         <v-layout row>
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
                        :created="answer.created" :isAdmin="answer.isAdmin"
-                       :answer-type="answerType" :answer-title="answer.title">
+                       :answer-type="answerType" :answer-title="answer.title" :link="answer.link">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -21,9 +21,6 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <div class="link">
-            <a target="_blank" :href="answer.link">{{link}}</a>
-        </div>
         <div class="link-answer-content" :class="{'no-link-image': !answer.imageUrl}">
             <div class="link-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
@@ -48,9 +45,6 @@
                     return this.$t(`pages:detailQuestion.answerType.link.${this.answer.pageType}`)
                 }
                 return this.$t(`pages:detailQuestion.answerType.link.link`)
-            },
-            link() {
-                return this.answer.link.replace(/^(http|https):\/\//i, '');
             }
         }
     }
@@ -60,10 +54,6 @@
     .link-answer-card {
         margin-bottom: 12px;
 
-        .link {
-            margin-top: 4px;
-            font-size: 12px;
-        }
         .link-answer-content {
             min-height: 90px;
             .link-preview-image {

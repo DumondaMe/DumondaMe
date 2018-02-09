@@ -6,7 +6,8 @@
         <div class="user-infos">
             <div>
                 <span class="answer-type">{{answerType}} </span>
-                <span class="answer-title">{{answerTitle}} </span>
+                <span class="answer-title" v-if="!link">{{answerTitle}} </span>
+                <span class="answer-title" v-else><a target="_blank" :href="link" class="link">{{answerTitle}} </a></span>
                 <span class="answer-by">{{$t("common:createdBy")}}</span>
                 <span class="user-name" v-if="isAdmin"> {{$t("common:you")}}</span>
                 <span class="user-name" v-else> {{name}}</span>
@@ -18,7 +19,7 @@
 
 <script>
     export default {
-        props: ['answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin']
+        props: ['answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin', 'link']
     }
 </script>
 
@@ -46,6 +47,12 @@
                 font-size: 14px;
                 line-height: 16px;
                 color: $primary-color;
+                .link {
+                    text-decoration: none;
+                }
+                :hover.link {
+                    text-decoration: underline;
+                }
             }
             .answer-by {
                 color: $secondary-text;
