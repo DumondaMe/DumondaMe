@@ -49,6 +49,7 @@
             font-weight: 300;
             font-size: 16px;
             white-space: pre-wrap;
+            line-height: 1.6em;
         }
     }
 </style>

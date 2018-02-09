@@ -80,6 +80,7 @@
                 font-weight: 300;
                 font-size: 16px;
                 white-space: pre-wrap;
+                line-height: 1.6em;
             }
             .answer-description.no-link-image {
                 margin-left: 0;
