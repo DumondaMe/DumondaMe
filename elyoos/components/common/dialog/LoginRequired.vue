@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="250px">
             <v-card id="dialog-login-required">
-                <v-card-text>
+                <v-card-text id="dialog-login-required-content">
                     <p>Um diese Aktion ausführen, muss du dich einloggen.</p>
                     <div>
                         <v-btn color="primary" outline @click="goToLogin()" class="link-button">
@@ -47,13 +47,17 @@
 
 <style lang="scss">
     #dialog-login-required {
-        p {
-            font-size: 16px;
-            font-weight: 300;
-        }
-        .link-button {
-            width: 100%;
-            margin: 6px 0 6px 0;
+        max-width: 250px;
+        #dialog-login-required-content {
+            max-width: 250px;
+            p {
+                font-size: 16px;
+                font-weight: 300;
+            }
+            .link-button {
+                width: 100%;
+                margin: 6px 0 6px 0;
+            }
         }
     }
 </style>
