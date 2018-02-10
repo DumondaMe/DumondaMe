@@ -4,7 +4,6 @@ let passport = require('passport');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
-let recaptcha = require('./recaptchaConfig');
 let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
 
@@ -72,12 +71,10 @@ module.exports = function (app, nuxt) {
 
             let dbConfig = config.get('databaseConfig'),
                 emailConfig = config.get('emailConfig'),
-                recaptchaConfig = config.get('recaptcha'),
                 geocodingConfig = config.get('geocoding');
 
             db.config(dbConfig);
             email.config(emailConfig);
-            recaptcha.config(recaptchaConfig);
             geocoding.config(geocodingConfig);
 
             next(null, config);

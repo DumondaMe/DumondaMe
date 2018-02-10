@@ -94,7 +94,7 @@
                 formSurname: '',
                 acceptTerms: false,
                 rcaptResponse: '',
-                rcaptSigKey: '6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ'
+                rcaptSigKey: process.env.RECAPTCHA_SITE_KEY
             }
         },
         computed: {

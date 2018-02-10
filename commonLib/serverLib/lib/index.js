@@ -32,7 +32,6 @@ module.exports.init = function (type) {
 
         module.exports.auth = require('./auth');
         module.exports.geocodingConfig = require('./geocodingConfig');
-        module.exports.recaptchaConfig = require('./recaptchaConfig');
         module.exports.cdn = require('./cdn');
         module.exports.databaseConfig = require('./databaseConfig');
         module.exports.jsonValidation = require('./jsonValidation');
