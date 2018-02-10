@@ -7,7 +7,7 @@ export default {
             return (v) => !!v || text;
         },
         ruleSelectMultipleRequired: function (text) {
-            return (v) => (typeof v === 'string' && v.length > 0) || text;
+            return (v) => (v && v.length > 0) || text;
         },
         ruleToManyChars: function (text, length) {
             return (v) => (typeof v === 'string' && v.length <= length) || text;
