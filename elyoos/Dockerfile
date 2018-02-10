@@ -19,7 +19,7 @@ COPY api/models /usr/src/app/server/api/models
 COPY config /usr/src/app/server/config
 COPY nuxt.config.js /usr/src/app/server/nuxt.config.js
 COPY server.js /usr/src/app/server/server.js
-COPY package.json /usr/src/app/server/package.json
+COPY originalPackage.json /usr/src/app/server/package.json
 
 USER node
 
