@@ -15,8 +15,7 @@
     "sidebar": {
       "feedTitle": "Feeds",
       "question": "Questions",
-      "post": "Posts",
-      "org": "Organisations",
+      "engagement": "Engagement",
       "event": "Events"
     },
     "question": {

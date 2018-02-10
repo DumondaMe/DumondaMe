@@ -6,10 +6,7 @@
                 <nuxt-link to="/">{{$t("pages:feeds.sidebar.question")}}</nuxt-link>
             </div>
             <div class="feed-link">
-                <nuxt-link to="/posts">{{$t("pages:feeds.sidebar.post")}}</nuxt-link>
-            </div>
-            <div class="feed-link">
-                <nuxt-link to="/organisations">{{$t("pages:feeds.sidebar.org")}}</nuxt-link>
+                <nuxt-link to="/engagment">{{$t("pages:feeds.sidebar.engagement")}}</nuxt-link>
             </div>
             <div class="feed-link">
                 <nuxt-link to="/events">{{$t("pages:feeds.sidebar.event")}}</nuxt-link>
