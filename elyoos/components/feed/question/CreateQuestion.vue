@@ -6,7 +6,8 @@
                     <v-flex xs12>
                         <v-text-field type="text" v-model="newQuestion" name="question"
                                       :label="$t('pages:feeds.question.yourQuestion')"
-                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 80)]"
+                                      :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 80)]"
                                       :counter="80">
                         </v-text-field>
                     </v-flex>
@@ -20,7 +21,7 @@
                     <v-flex xs12 md5>
                         <v-select v-model="selectTopic"
                                   label="Select Topic"
-                                  :rules="[ruleSelectMultipleRequired($t('validation:toManyChars'))]"
+                                  :rules="[ruleSelectMultipleRequired($t('validation:fieldRequired'))]"
                                   multiple required
                                   :items="getTopics()">
                         </v-select>
@@ -29,7 +30,7 @@
                         <v-select v-model="selectLang"
                                   label="Select Language"
                                   hint="Language of the question " persistent-hint
-                                  :rules="[ruleSelectRequired($t('validation:toManyChars'))]"
+                                  :rules="[ruleSelectRequired($t('validation:fieldRequired'))]"
                                   :items="getLanguages()"
                                   single-line bottom required>
                         </v-select>
