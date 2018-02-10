@@ -5,6 +5,9 @@ ENV PORT 3000
 
 RUN mkdir -p /usr/src/app/server/api/api
 RUN mkdir -p /usr/src/app/server/api/models
+RUN mkdir -p /usr/src/app/server/node_modules
+RUN mkdir -p /usr/src/app/server/.nuxt
+RUN mkdir -p /usr/src/app/server/config
 
 COPY docker_node_modules/node_modules /usr/src/app/server/node_modules
 
