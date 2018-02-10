@@ -1,12 +1,11 @@
 'use strict';
 
 let NodeGeocoder = require('node-geocoder');
-let geocodingConfig = require('elyoos-server-lib').geocodingConfig;
 
 let options = {
     provider: 'opencage',
     httpAdapter: 'https',
-    apiKey: geocodingConfig.getConfig().secret,
+    apiKey: process.env.GEOCODING_SECRET,
     language: 'de',
     formatter: null
 };

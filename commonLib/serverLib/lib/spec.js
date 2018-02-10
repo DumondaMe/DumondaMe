@@ -4,7 +4,6 @@ let passport = require('passport');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
-let geocoding = require('./geocodingConfig');
 let email = require('./eMail/eMailQueue');
 
 module.exports = function (app, nuxt) {
@@ -70,12 +69,10 @@ module.exports = function (app, nuxt) {
         onconfig: function (config, next) {
 
             let dbConfig = config.get('databaseConfig'),
-                emailConfig = config.get('emailConfig'),
-                geocodingConfig = config.get('geocoding');
+                emailConfig = config.get('emailConfig');
 
             db.config(dbConfig);
             email.config(emailConfig);
-            geocoding.config(geocodingConfig);
 
             next(null, config);
         }
