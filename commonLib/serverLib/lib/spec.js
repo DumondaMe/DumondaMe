@@ -41,7 +41,9 @@ module.exports = function (app, nuxt) {
         //Give passport a way to serialize and deserialize a user. In this case, by the user's id.
         passport.serializeUser(userLib.serialize);
         passport.deserializeUser(userLib.deserialize);
+    });
 
+    app.on('middleware:after:appsec', function () {
         if (nuxt && nuxt.render) {
             app.use(function (req, res, next) {
                 if (req.originalUrl.match(/api/) === null) {
