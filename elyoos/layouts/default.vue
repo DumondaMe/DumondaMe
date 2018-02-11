@@ -29,43 +29,29 @@
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         box-sizing: border-box;
-        overflow-y: hidden;
-        height: 100%;
     }
 
     body {
-        height: 100%;
-        #__nuxt {
-            height: 100%;
-            #__layout {
-                height: 100%;
-                #app {
-                    height: 100%;
-                    padding-top: 56px;
-                    #elyoos-content {
-                        height: 100%;
-                        padding-top: 64px;
-                        padding-bottom: 64px;
-                        margin-bottom: 56px;
-                        overflow-y: auto;
-                        #elyoos-inner-content {
-                            max-width: 950px;
-                            width: 100%;
-                            margin: 0 auto;
-                            @media screen and (max-width: 950px) {
-                                padding-left: 8px;
-                                padding-right: 8px;
-                            }
-                        }
-                    }
-                }
-                .dialog {
-                    @media screen and (max-width: 500px) {
-                        width: 100%;
-                        min-width: 100%
-                    }
+        #elyoos-content {
+            padding-top: 124px;
+            padding-bottom: 64px;
+            margin-bottom: 56px;
+            #elyoos-inner-content {
+                max-width: 950px;
+                width: 100%;
+                margin: 0 auto;
+                @media screen and (max-width: 950px) {
+                    padding-left: 8px;
+                    padding-right: 8px;
                 }
             }
+        }
+    }
+
+    .dialog {
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            min-width: 100%
         }
     }
 
