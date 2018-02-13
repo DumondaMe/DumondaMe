@@ -1,6 +1,6 @@
 <template>
     <v-card id="text-answer-container">
-        <v-card-title>Answer the question <span class="question-title"> {{question}} </span></v-card-title>
+        <v-card-title id="answer-title">Answer the question <span class="question-title"> {{question}} </span></v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <v-form v-model="valid">
@@ -54,7 +54,11 @@
 </script>
 
 <style lang="scss">
-    #text-answer-container {
-
+    #answer-title {
+        display: block;
+        .question-title {
+            color: $primary-color;
+            white-space: normal;
+        }
     }
 </style>
