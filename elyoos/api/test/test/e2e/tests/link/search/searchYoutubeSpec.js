@@ -154,4 +154,14 @@ describe('Search a youtube link', function () {
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
+
+    it('Search for a youtube video with missing id', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves();
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com'});
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(1);
+    });
 });

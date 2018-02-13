@@ -39,6 +39,9 @@
         "article": "Link to Article",
         "website": "Link to Website"
       }
+    },
+    "error": {
+      "invalidYoutubeId": "Invalid youtube link."
     }
   }
 }

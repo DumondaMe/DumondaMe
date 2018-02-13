@@ -1,28 +1,40 @@
 export default {
     methods: {
-        ruleFieldRequired: function (text) {
+        ruleFieldRequired(text) {
             return (v) => (typeof v === 'string' && v.trim()) !== '' || text;
         },
-        ruleSelectRequired: function (text) {
+        ruleSelectRequired(text) {
             return (v) => !!v || text;
         },
-        ruleSelectMultipleRequired: function (text) {
+        ruleSelectMultipleRequired(text) {
             return (v) => (v && v.length > 0) || text;
         },
-        ruleToManyChars: function (text, length) {
+        ruleToManyChars(text, length) {
             return (v) => (typeof v === 'string' && v.length <= length) || text;
         },
-        ruleMinLength: function (text, minLength) {
+        ruleMinLength(text, minLength) {
             return (v) => (typeof v === 'string' && v.trim().length >= minLength) || text;
         },
-        rulePasswordChars: function (text) {
+        rulePasswordChars(text) {
             return (v) => (/(?=.*[A-Z])/.test(v) && /(?=.*[0-9])/.test(v)) || text;
         },
-        rulePasswordEquals: function (text, password) {
+        rulePasswordEquals(text, password) {
             return (v) => v === password || text;
         },
-        ruleIsEmail: function (text) {
+        ruleIsEmail(text) {
             return (v) => /(.+)@(.+){2,}\.(.+){2,}/.test(v) || text;
+        },
+        isValidYoutubeLink() {
+            return (v) => {
+                if ((/youtu\.be/i.test(v) || /\.youtube\.com/i.test(v)) && /\/embed\//i.test(v)) {
+                    return this.$t("validation:youtubeEmbedUrl")
+                } else if (/\.youtube\.com/i.test(v) && !/v=/i.test(v)) {
+                    return this.$t("validation:youtubeUrl");
+                } else if (/youtu\.be/i.test(v) && !/youtu\.be\/[a-zA-Z0-9]{5,}/i.test(v)) {
+                    return this.$t("validation:youtubeUrl");
+                }
+                return true;
+            }
         }
     }
 }

@@ -5,11 +5,14 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 const youtubeLink = requireModel('util/youtube');
 const vimeoLink = requireModel('util/vimeo');
+const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const LINK = 'Link';
 const YOUTUBE = 'Youtube';
 const VIMEO = 'Vimeo';
+
+const ERROR_CODE_NO_YOUTUBE_ID = 1;
 
 const getTitle = function ($) {
     let title = $("meta[property='og:title']").attr('content');
@@ -77,8 +80,15 @@ const searchWebsite = async function (link, linkType) {
     }
 };
 
+const checkLink = function (link, linkType) {
+    if (linkType === YOUTUBE && youtubeLink.getYoutubeId(link) === null) {
+        throw new exceptions.InvalidOperation(`No id found for link ${link}`, ERROR_CODE_NO_YOUTUBE_ID);
+    }
+};
+
 const search = async function (link) {
     let linkType = getLinkType(link);
+    checkLink(link, linkType);
     let result = await searchDatabase(link, linkType);
     if (!result) {
         result = searchWebsite(link, linkType);

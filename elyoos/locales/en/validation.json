@@ -5,5 +5,7 @@
   "noPasswordChars": "Must contain at least one capital letter and one number",
   "passwordNoEqual": "Passwords do not match",
   "isEmail": "No valid e-mail address",
-  "url": "No valid URL e. g. http://example.org"
+  "url": "No valid URL e. g. http://example.org",
+  "youtubeUrl": "No valid youtube url for Elyoos",
+  "youtubeEmbedUrl": "Do not use embed youtube url"
 }

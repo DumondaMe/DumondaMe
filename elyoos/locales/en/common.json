@@ -31,5 +31,8 @@
     "politics": "Politics",
     "economy": "Economy",
     "socialDevelopment": "Social development"
+  },
+  "error": {
+    "unknown": "An error has occurred."
   }
 }

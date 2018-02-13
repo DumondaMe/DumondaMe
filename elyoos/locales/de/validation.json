@@ -5,5 +5,7 @@
   "noPasswordChars": "Muss mindestens ein Grossbuchstaben und eine Zahl enthalten",
   "passwordNoEqual": "Passwörter stimmen nicht überein",
   "isEmail": "Keine gültige E-Mail Adresse",
-  "url": "Keine gültige URL z.B. http://example.org"
+  "url": "Keine gültige URL z.B. http://example.org",
+  "youtubeUrl": "Keine gültige Youtube Url für Elyoos",
+  "youtubeEmbedUrl": "Verwende keine embed Youtube Url"
 }
