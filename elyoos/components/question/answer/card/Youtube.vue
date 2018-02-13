@@ -2,7 +2,7 @@
     <div class="ely-card youtube-answer-card">
         <v-layout row class="text-answer-header">
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :created="answer.created" :isAdmin="answer.isAdmin"
+                       :created="answer.created" :isAdmin="answer.isAdmin" :link="answer.link"
                        :answer-type="$t('pages:detailQuestion.answerType.video')" :answer-title="answer.title">
             </user-info>
             <v-spacer></v-spacer>

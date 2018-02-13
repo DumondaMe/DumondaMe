@@ -2,7 +2,7 @@
     <div class="ely-card book-answer-card">
         <v-layout row>
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :created="answer.created" :isAdmin="answer.isAdmin"
+                       :created="answer.created" :isAdmin="answer.isAdmin" :link="getExternalLink"
                        :answer-type="$t('pages:detailQuestion.answerType.book')" :answer-title="answer.title">
             </user-info>
             <v-spacer></v-spacer>
@@ -54,6 +54,12 @@
                     return this.$refs.answerDescription.scrollHeight > this.$refs.answerDescription.clientHeight;
                 }
                 return true;
+            },
+            getExternalLink() {
+                let title = this.answer.title.replace(' ', '+');
+                let authors = this.answer.authors.replace(',', '+');
+                authors = this.answer.authors.replace(' ', '+');
+                return `https://duckduckgo.com/?q="${title}"+${authors}&t=hf&ia=web`;
             }
         }
     }
