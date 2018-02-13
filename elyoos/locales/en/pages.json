@@ -41,7 +41,8 @@
       }
     },
     "error": {
-      "invalidYoutubeId": "Invalid youtube link."
+      "invalidYoutubeId": "Invalid youtube link.",
+      "linkAnswerExists": "The link has already been used as an answer to this question"
     }
   }
 }

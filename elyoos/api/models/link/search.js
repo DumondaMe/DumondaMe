@@ -13,6 +13,7 @@ const YOUTUBE = 'Youtube';
 const VIMEO = 'Vimeo';
 
 const ERROR_CODE_NO_YOUTUBE_ID = 1;
+const ERROR_CODE_ANSWER_EXISTS = 2;
 
 const getTitle = function ($) {
     let title = $("meta[property='og:title']").attr('content');
@@ -86,8 +87,33 @@ const checkLink = function (link, linkType) {
     }
 };
 
-const search = async function (link) {
+const existsAlreadyForQuestion = async function (link, linkType, questionId) {
+    let result = null;
+    if (linkType === YOUTUBE) {
+        const idOnYoutube = youtubeLink.getYoutubeId(link);
+        result = await db.cypher().match(`(:Question {questionId: {questionId}})-[:ANSWER]->
+                                              (answer:Youtube {idOnYoutube: {idOnYoutube}})`)
+            .return(`answer`).end({idOnYoutube, questionId}).send();
+    } else if (linkType === VIMEO) {
+        const linkEmbed = vimeoLink.getEmbedUrl(link);
+        result = await db.cypher().match(`(:Question {questionId: {questionId}})-[:ANSWER]->
+                                              (answer:Vimeo {linkEmbed: {linkEmbed}})`)
+            .return(`answer`).end({linkEmbed, questionId}).send();
+    } else if (linkType === LINK) {
+        result = await db.cypher().match(`(:Question {questionId: {questionId}})-[:ANSWER]->
+                                              (answer:Link {link: {link}})`)
+            .return(`answer`).end({link, questionId}).send();
+    }
+
+    if (result && result.length > 0) {
+        throw new exceptions.InvalidOperation(`Link ${link} exists already for question ${questionId}`,
+            ERROR_CODE_ANSWER_EXISTS);
+    }
+};
+
+const search = async function (link, questionId) {
     let linkType = getLinkType(link);
+    await existsAlreadyForQuestion(link, linkType, questionId);
     checkLink(link, linkType);
     let result = await searchDatabase(link, linkType);
     if (!result) {

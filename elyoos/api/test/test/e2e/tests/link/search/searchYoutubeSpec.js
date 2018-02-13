@@ -18,6 +18,11 @@ describe('Search a youtube link', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description',
             topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
+
+        dbDsl.createQuestion('2', {
+            creatorId: '2', question: 'Das ist eine Frage2', description: 'description2',
+            topic: ['spiritual', 'education'], language: 'en', modified: 701
+        });
     });
 
     afterEach(function () {
@@ -37,7 +42,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('ogTitle');
         res.body.description.should.equals('contentWebsite');
@@ -57,7 +62,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
         res.body.description.should.equals('ogDescription');
@@ -76,7 +81,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
         res.body.description.should.equals('contentWebsite');
@@ -95,7 +100,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://youtu.be/00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://youtu.be/00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
         res.body.description.should.equals('contentWebsite');
@@ -113,7 +118,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('');
         res.body.description.should.equals('contentWebsite');
@@ -131,7 +136,7 @@ describe('Search a youtube link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
         res.body.description.should.equals('');
@@ -140,14 +145,14 @@ describe('Search a youtube link', function () {
     });
 
     it('Search for a youtube video which has been posted on elyoos', async function () {
-        dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '1', created: 500, idOnYoutube: '00zxopGPYW4',
+        dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '2', created: 500, idOnYoutube: '00zxopGPYW4',
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('youtube10Title');
         res.body.description.should.equals('youtube10Description');
@@ -160,8 +165,21 @@ describe('Search a youtube link', function () {
         stubGetRequest.resolves();
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.youtube.com'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com'});
         res.status.should.equal(400);
         res.body.errorCode.should.equal(1);
+    });
+
+    it('Youtube link exists already for question', async function () {
+        dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '1', created: 500, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
+
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves();
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(2);
     });
 });

@@ -9,17 +9,18 @@ const schemaSearchLink = {
     name: 'getSearchLink',
     type: 'object',
     additionalProperties: false,
-    required: ['link'],
+    required: ['questionId', 'link'],
     properties: {
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         link: {type: 'string', format: 'notEmptyString', maxLength: 2000}
     }
 };
 
 module.exports = function (router) {
 
-    router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateQueryRequest(req, schemaSearchLink, logger);
-        let response = await linkSearch.search(params.link.trim());
+    router.get('/:questionId', asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaSearchLink, logger);
+        let response = await linkSearch.search(params.link.trim(), params.questionId);
         res.status(200).json(response);
     }));
 };

@@ -19,6 +19,10 @@ describe('Search a website link', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description',
             topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
+        dbDsl.createQuestion('2', {
+            creatorId: '2', question: 'Das ist eine Frage2', description: 'description2',
+            topic: ['spiritual', 'education'], language: 'en', modified: 700
+        });
     });
 
     afterEach(function () {
@@ -41,7 +45,7 @@ describe('Search a website link', function () {
         );
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.example.org/blog/1224'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
         res.status.should.equal(200);
         res.body.title.should.equals('ogTitle');
         res.body.description.should.equals('ogDescription');
@@ -53,19 +57,32 @@ describe('Search a website link', function () {
 
     it('Search for a website which has been posted on elyoos', async function () {
 
-        dbDsl.createLinkAnswer('10', {creator: '2', questionId: '1', created: 500, pageType: 'article',
+        dbDsl.createLinkAnswer('10', {creator: '2', questionId: '2', created: 500, pageType: 'article',
             link: 'https://www.example.org/blog/1224'});
 
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.rejects('error');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/link/search', {link: 'https://www.example.org/blog/1224'});
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
         res.status.should.equal(200);
         res.body.title.should.equals('link10Title');
         res.body.description.should.equals('link10Description');
         res.body.pageType.should.equals('article');
         res.body.imageUrl.should.equals('/link/10/preview.jpg');
         res.body.type.should.equals('Link');
+    });
+
+    it('Link answer which already exists for question', async function () {
+        dbDsl.createLinkAnswer('10', {creator: '2', questionId: '1', created: 500, pageType: 'article',
+            link: 'https://www.example.org/blog/1224'});
+
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves();
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(2);
     });
 });

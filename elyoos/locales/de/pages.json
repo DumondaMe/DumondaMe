@@ -41,7 +41,8 @@
       }
     },
     "error": {
-      "invalidYoutubeId": "Ungültiger Youtube Link."
+      "invalidYoutubeId": "Ungültiger Youtube Link.",
+      "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet"
     }
   }
 }

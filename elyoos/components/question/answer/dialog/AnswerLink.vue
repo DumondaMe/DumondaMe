@@ -67,6 +67,7 @@
                 </v-layout>
             </v-form>
             <div class="elyoos-dialog-error-message" v-show="showErrorMessage">{{showErrorMessage}}</div>
+            <div class="elyoos-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -75,7 +76,8 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" flat @click.native="createLinkAnswer()" :loading="uploadRunning"
-                   :disabled="!valid || checkLink || uploadRunning || this.showErrorMessage">
+                   :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
+                   !!this.showWarningMessage">
                 {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>
@@ -88,12 +90,13 @@
     import validationRules from '~/mixins/validationRules.js';
 
     const ERROR_CODE_NO_YOUTUBE_ID = 1;
+    const ERROR_CODE_ANSWER_EXISTS = 2;
 
     export default {
         data() {
             return {
                 valid: false, checkLink: false, uploadRunning: false, showErrorMessage: false,
-                link: '', response: {}
+                showWarningMessage: false, link: '', response: {}
             }
         },
         mixins: [validationRules, languages],
@@ -130,16 +133,23 @@
         watch: {
             async link() {
                 this.response = {};
+                this.showErrorMessage = false;
+                this.showWarningMessage = false;
                 if (this.$refs.link.validate()) {
                     try {
-                        this.showErrorMessage = false;
+                        let questionId = this.$store.state.question.question.questionId;
                         this.checkLink = true;
-                        this.response = await this.$axios.$get(`/link/search`, {params: {link: this.link}});
+                        this.response = await this.$axios.$get(`/link/search/${questionId}`,
+                            {params: {link: this.link}});
                         this.checkLink = false;
                     } catch (error) {
                         this.checkLink = false;
                         if (error.response.data.errorCode === ERROR_CODE_NO_YOUTUBE_ID) {
                             this.showErrorMessage = this.$t('pages:detailQuestion.error.invalidYoutubeId');
+                        } else if (error.response.data.errorCode === ERROR_CODE_ANSWER_EXISTS) {
+                            this.showWarningMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
+                        } else {
+                            this.showErrorMessage = this.$t('common:error.unknown');
                         }
                     }
                 }
