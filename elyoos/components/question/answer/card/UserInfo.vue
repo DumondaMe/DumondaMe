@@ -28,8 +28,8 @@
         .image-container {
             float: left;
             margin-top: 5px;
-            height: 32px;
-            width: 32px;
+            height: 38px;
+            width: 38px;
             img {
                 border-radius: 50%;
                 height: 100%;
@@ -37,10 +37,11 @@
             }
         }
         .user-infos {
-            margin-left: 44px;
+            margin-left: 52px;
+            padding-top: 2px;
             .answer-type {
                 color: $secondary-text;
-                font-size: 12px;
+                font-size: 14px;
                 line-height: 16px;
             }
             .answer-title {
@@ -56,11 +57,11 @@
             }
             .answer-by {
                 color: $secondary-text;
-                font-size: 12px;
+                font-size: 14px;
                 line-height: 16px;
             }
             .user-name {
-                font-size: 12px;
+                font-size: 14px;
                 line-height: 16px;
             }
             .created-date {

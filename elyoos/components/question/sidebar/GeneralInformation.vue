@@ -5,7 +5,13 @@
             <span class="topic" v-for="topic in question.topic">{{getTopicText(topic)}}</span>
 
         </div>
-        <div class="language">
+        <div class="question-info">
+            {{$t("pages:detailQuestion.sidebar.generalInfo.createdBy")}} {{question.creator.name}}
+        </div>
+        <div class="question-info">
+            {{$t("pages:detailQuestion.sidebar.generalInfo.created")}} {{question.created | formatDate}}
+        </div>
+        <div class="question-info">
             {{$t("pages:detailQuestion.sidebar.generalInfo.language")}} {{getLanguageTranslatedText(question.language)}}
         </div>
     </div>
@@ -27,7 +33,7 @@
 
 <style lang="scss">
     #topic-container {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         .topic {
             margin-right: 8px;
             background-color: #78909C;
@@ -38,8 +44,9 @@
         }
     }
 
-    .language {
+    .question-info {
         font-size: 14px;
         font-weight: 300;
+        margin-bottom: 3px;
     }
 </style>

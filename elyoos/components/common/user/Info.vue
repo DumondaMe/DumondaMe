@@ -21,8 +21,8 @@
         .image-container {
             float: left;
             margin-top: 2px;
-            height: 32px;
-            width: 32px;
+            height: 38px;
+            width: 38px;
             img {
                 border-radius: 50%;
                 height: 100%;
@@ -30,7 +30,8 @@
             }
         }
         .user-infos {
-            margin-left: 44px;
+            margin-left: 52px;
+            padding-top: 3px;
             .user-name {
                 padding-top: 2px;
                 font-size: 14px;

@@ -47,6 +47,8 @@
       },
       "generalInfo": {
         "title": "General information",
+        "createdBy": "Question by:",
+        "created": "Created:",
         "language": "Language:"
       }
     },

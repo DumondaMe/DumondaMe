@@ -9,6 +9,12 @@ Vue.filter('formatRelativeTimesAgo', function (value) {
     }
 });
 
+Vue.filter('formatDate', function (value) {
+    if (value) {
+        return moment.unix(value).format('lll');
+    }
+});
+
 export default ({store}) => {
     moment.locale(store.state.i18n.language);
 }

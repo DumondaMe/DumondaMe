@@ -1,9 +1,6 @@
 <template>
     <div id="elyoos-question-header">
         <h1>{{question.question}}</h1>
-        <user-info :name="question.creator.name" :thumbnail-url="question.creator.thumbnailUrl"
-                   :created="question.created">
-        </user-info>
         <p id="question-description">{{question.description}}</p>
         <div id="question-commands">
             <v-btn outline color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
@@ -56,7 +53,7 @@
     #elyoos-question-header {
         margin-bottom: 48px;
         h1 {
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             font-size: 28px;
         }
         #question-description {
