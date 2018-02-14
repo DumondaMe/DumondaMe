@@ -14,7 +14,7 @@ describe('Getting details of a question', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'description',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'description',
             topic: ['spiritual', 'education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -52,6 +52,7 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.question.should.equals('Das ist eine Frage2');
         res.body.description.should.equals('description2');
+        res.body.isAdmin.should.equals(false);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
@@ -74,9 +75,10 @@ describe('Getting details of a question', function () {
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
-        res.body.creator.name.should.equals('user Meier2');
+        res.body.isAdmin.should.equals(true);
+        res.body.creator.name.should.equals('user Meier');
         //@todo test with new privacy settings
-        res.body.creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
@@ -158,9 +160,10 @@ describe('Getting details of a question', function () {
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
-        res.body.creator.name.should.equals('user Meier2');
+        res.body.isAdmin.should.equals(true);
+        res.body.creator.name.should.equals('user Meier');
         //@todo test with new privacy settings
-        res.body.creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');
@@ -237,9 +240,10 @@ describe('Getting details of a question', function () {
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
-        res.body.creator.name.should.equals('user Meier2');
+        res.body.isAdmin.should.equals(false);
+        res.body.creator.name.should.equals('user Meier');
         //@todo test with new privacy settings
-        res.body.creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
         res.body.topic[0].should.equals('spiritual');
         res.body.topic[1].should.equals('education');

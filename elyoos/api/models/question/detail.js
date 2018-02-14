@@ -40,12 +40,13 @@ const getQuestion = async function (questionId, userId) {
                answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
                EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
         .orderBy(`upVotes DESC, answer.created DESC`)
-        .return(`question, user, 
+        .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
                           hasVoted: hasVoted, answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;
+        question.isAdmin = response[0].isAdmin;
         delete question.questionId;
         question.creator = {
             name: response[0].user.name,
