@@ -110,16 +110,16 @@
                 this.uploadRunning = true;
                 try {
                     if (this.response.type === 'Youtube') {
-                        await this.$store.dispatch('question/createYoutubeAnswer',
+                        let answerId = await this.$store.dispatch('question/createYoutubeAnswer',
                             {link: this.link, title: this.response.title, description: this.response.description});
-                        this.$emit('close-dialog');
+                        this.$emit('close-dialog', answerId);
                     } else if (this.response.type === 'Link') {
-                        await this.$store.dispatch('question/createLinkAnswer',
+                        let answerId = await this.$store.dispatch('question/createLinkAnswer',
                             {
                                 link: this.link, title: this.response.title, description: this.response.description,
                                 imageUrl: this.response.imageUrl, type: this.response.pageType
                             });
-                        this.$emit('close-dialog');
+                        this.$emit('close-dialog', answerId);
                     }
                 } catch (error) {
                     this.uploadRunning = false;

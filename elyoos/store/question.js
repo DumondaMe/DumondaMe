@@ -7,7 +7,9 @@ export const mutations = {
         state.question = question;
     },
     ADD_ANSWER(state, answer) {
+        answer.newAddedAnswer = true;
         state.question.answers.unshift(answer);
+        state.question.answers.sort((a, b) => b.upVotes - a.upVotes)
     },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
@@ -36,6 +38,7 @@ export const actions = {
             answerId: response.answerId, isAdmin: true, upVotes: 0,
             answerType: 'Text', answer, created: response.created, creator: response.creator
         });
+        return response.answerId;
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
         let response = await this.$axios.$post(`/user/question/answer/youtube/${state.question.questionId}`,
@@ -49,6 +52,7 @@ export const actions = {
         youtubeData.created = response.created;
         youtubeData.creator = response.creator;
         commit('ADD_ANSWER', youtubeData);
+        return response.answerId;
     },
     async createLinkAnswer({commit, state}, linkData) {
         let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`,
@@ -62,6 +66,7 @@ export const actions = {
         linkData.imageUrl = response.imageUrl;
         linkData.creator = response.creator;
         commit('ADD_ANSWER', linkData);
+        return response.answerId;
     },
     async createBookAnswer({commit, state}, bookData) {
         let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,
@@ -74,5 +79,6 @@ export const actions = {
         bookData.imageUrl = response.imageUrl;
         bookData.creator = response.creator;
         commit('ADD_ANSWER', bookData);
+        return response.answerId;
     }
 };

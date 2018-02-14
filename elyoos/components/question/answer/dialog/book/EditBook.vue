@@ -58,13 +58,13 @@
             async createBookAnswer() {
                 this.uploadRunning = true;
                 try {
-                    await this.$store.dispatch('question/createBookAnswer',
+                    let answerId = await this.$store.dispatch('question/createBookAnswer',
                         {
                             title: this.selected.title, description: this.selected.description,
                             imageUrl: this.selected.thumbnail, authors: this.selected.authors,
                             googleBookId: this.selected.googleBookId
                         });
-                    this.$emit('close-dialog');
+                    this.$emit('close-dialog', answerId);
                 } catch (error) {
                     this.uploadRunning = false;
                 }

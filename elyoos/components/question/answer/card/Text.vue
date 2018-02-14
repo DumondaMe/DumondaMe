@@ -1,5 +1,6 @@
 <template>
-    <div class="ely-card text-answer-card">
+    <div class="ely-card text-answer-card" :id="'card-' + answer.answerId"
+         :class="{'new-added-answer': answer.newAddedAnswer}">
         <v-layout row class="text-answer-header">
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
                        :isAdmin="answer.isAdmin" :created="answer.created"

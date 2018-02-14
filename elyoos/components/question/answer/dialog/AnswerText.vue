@@ -1,6 +1,7 @@
 <template>
     <v-card id="text-answer-container">
-        <v-card-title id="answer-title">Answer the question <span class="question-title"> {{question}} </span></v-card-title>
+        <v-card-title id="answer-title">Answer the question <span class="question-title"> {{question}} </span>
+        </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <v-form v-model="valid">
@@ -45,9 +46,9 @@
         },
         methods: {
             async createTextAnswer() {
-                await this.$store.dispatch('question/createTextAnswer',
+                let answerId = await this.$store.dispatch('question/createTextAnswer',
                     {answer: this.answer});
-                this.$emit('close-dialog');
+                this.$emit('close-dialog', answerId);
             }
         }
     }

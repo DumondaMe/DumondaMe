@@ -34,6 +34,9 @@
 <style lang="scss">
     .elyoos-answer-container {
         .elyoos-answer-content {
+            .new-added-answer {
+                border: 1px solid $success-text;
+            }
             .ely-card {
                 .menu {
                     button {
