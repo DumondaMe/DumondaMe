@@ -1,8 +1,8 @@
 <template>
     <div class="sidebar-container">
-        <h3>Administrator</h3>
+        <h3>{{$t("pages:detailQuestion.sidebar.admin.title")}}</h3>
         <div id="question-admin-container">
-            <p>Du bist der Administrator dieser Frage.</p>
+            <p>{{$t("pages:detailQuestion.sidebar.admin.description")}}</p>
             <div id="admin-commands">
                 <v-btn outline fab color="primary">
                     <v-icon>edit</v-icon>
@@ -16,8 +16,7 @@
 </template>
 
 <script>
-    export default {
-    }
+    export default {}
 </script>
 
 <style lang="scss">

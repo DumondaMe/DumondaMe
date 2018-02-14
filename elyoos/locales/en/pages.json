@@ -40,6 +40,16 @@
         "website": "Link to Website"
       }
     },
+    "sidebar": {
+      "admin": {
+        "title": "Administrator",
+        "description": "You are the administrator of this question."
+      },
+      "generalInfo": {
+        "title": "General information",
+        "language": "Language:"
+      }
+    },
     "error": {
       "invalidYoutubeId": "Invalid youtube link.",
       "linkAnswerExists": "The link has already been used as an answer to this question"

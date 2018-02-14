@@ -40,6 +40,16 @@
         "website": "Link zur Webseite"
       }
     },
+    "sidebar": {
+      "admin": {
+        "title": "Administrator",
+        "description": "Du bist der Administrator dieser Frage."
+      },
+      "generalInfo": {
+        "title": "Allgemeine Informationen",
+        "language": "Sprache:"
+      }
+    },
     "error": {
       "invalidYoutubeId": "Ungültiger Youtube Link.",
       "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet"

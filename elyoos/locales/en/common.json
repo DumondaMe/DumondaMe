@@ -32,6 +32,10 @@
     "economy": "Economy",
     "socialDevelopment": "Social development"
   },
+  "language": {
+    "de": "German",
+    "en": "English"
+  },
   "error": {
     "unknown": "An error has occurred."
   }

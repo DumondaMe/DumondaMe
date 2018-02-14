@@ -32,6 +32,10 @@
     "economy": "Wirtschaft",
     "socialDevelopment": "Gesellschaft"
   },
+  "language": {
+    "de": "Deutsch",
+    "en": "Englisch"
+  },
   "error": {
     "unknown": "Es ist ein Fehler aufgetreten."
   }
