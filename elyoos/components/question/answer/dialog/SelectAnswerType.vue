@@ -24,8 +24,8 @@
                 </v-flex>
                 <v-flex xs6 sm3>
                     <div class="answer-button">
-                        <div class="answer-type">Organisation</div>
-                        <div class="answer-description">Welche Organisation beschäftig sich mit dieser Fragestellung?
+                        <div class="answer-type">Engagement</div>
+                        <div class="answer-description">Welches Engagement beschäftig sich mit dieser Fragestellung?
                         </div>
                     </div>
                 </v-flex>
