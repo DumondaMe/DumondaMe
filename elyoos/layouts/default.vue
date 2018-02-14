@@ -32,17 +32,22 @@
     }
 
     body {
-        #elyoos-content {
-            padding-top: 124px;
-            padding-bottom: 64px;
-            margin-bottom: 56px;
-            #elyoos-inner-content {
-                max-width: 950px;
-                width: 100%;
-                margin: 0 auto;
-                @media screen and (max-width: 950px) {
-                    padding-left: 8px;
-                    padding-right: 8px;
+        #__layout {
+            .application.theme--light {
+                background-color: $background-normal;
+                #elyoos-content {
+                    padding-top: 124px;
+                    padding-bottom: 64px;
+                    margin-bottom: 56px;
+                    #elyoos-inner-content {
+                        max-width: 950px;
+                        width: 100%;
+                        margin: 0 auto;
+                        @media screen and (max-width: 950px) {
+                            padding-left: 8px;
+                            padding-right: 8px;
+                        }
+                    }
                 }
             }
         }
