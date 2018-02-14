@@ -7,7 +7,8 @@
             </answers>
         </div>
         <div slot="sidebar">
-            Test Sidebar
+            <sidebar>
+            </sidebar>
         </div>
     </detail-layout>
 </template>
@@ -16,6 +17,7 @@
     import DetailLayout from '~/components/layouts/Detail.vue';
     import QuestionHeader from '~/components/question/Header.vue';
     import Answers from '~/components/question/answer/Answers.vue';
+    import Sidebar from '~/components/question/sidebar/Sidebar.vue';
 
     export default {
         async asyncData({params, app, error}) {
@@ -34,7 +36,7 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader, Answers},
+        components: {DetailLayout, QuestionHeader, Answers, Sidebar},
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);
