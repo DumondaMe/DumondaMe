@@ -13,7 +13,7 @@
     #detail-layout {
         #detail-content {
             float: left;
-            width: 650px;
+            width: 620px;
             @media screen and (max-width: $sm) {
                 width: 100%;
                 margin-left: 0;
