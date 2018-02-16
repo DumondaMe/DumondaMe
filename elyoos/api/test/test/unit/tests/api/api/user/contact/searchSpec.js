@@ -2,7 +2,6 @@
 
 let testee = require('../../../../../../../../api/api/user/contact/search');
 let searchUser = require('./../../../../../../../../models/user/searchUser');
-let user = require('../../../../../../../../models/user/user');
 let request = require('../../../../request');
 let bluebird = require('bluebird');
 let Promise = bluebird.Promise;

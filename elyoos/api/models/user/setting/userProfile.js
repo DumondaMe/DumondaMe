@@ -6,8 +6,8 @@
 let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
-let contacting = require('./../contact/contacting');
-let contactStatistic = require('./../contact/contactStatistic');
+let contacting = require('./../../contact/contacting');
+let contactStatistic = require('./../../contact/contactStatistic');
 
 let getUser = async function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
