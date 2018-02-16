@@ -1,13 +1,9 @@
 'use strict';
 
 let contactConnections = require('./dbDSL/contactConnection');
-let recommendation = require('./dbDSL/recommendation');
 let page = require('./dbDSL/page');
 let answer = require('./dbDSL/answer');
-let blog = require('./dbDSL/blog');
 let user = require('./dbDSL/user');
-let feedback = require('./dbDSL/feedback');
-let messages = require('./dbDSL/messages');
 let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
 let tc = require('./dbDSL/transitionConnect');
@@ -19,7 +15,6 @@ let db = require('./db');
 let init = function (numberOfUser, isElyoosAdmin) {
     let i = 0, userId;
     isElyoosAdmin = isElyoosAdmin || false;
-    recommendation.init();
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
@@ -39,12 +34,7 @@ module.exports = {
     init: init,
     sendToDb: dbConnectionHandling.sendToDb,
     createContactConnection: contactConnections.createContactConnection,
-    crateRecommendationsForPage: recommendation.crateRecommendationsForPage,
-    crateRecommendationsForBlog: recommendation.crateRecommendationsForBlog,
-    createBookPage: page.createBookPage,
-    createYoutubePage: page.createYoutubePage,
     createGenericPage: page.createGenericPage,
-    createLinkPage: page.createLinkPage,
     addAdminToPage: page.addAdminToPage,
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
@@ -53,7 +43,6 @@ module.exports = {
     createTextAnswer: answer.createTextAnswer,
     upVoteAnswer: answer.upVoteAnswer,
     setOriginalAnswer: answer.setOriginalAnswer,
-    createBlog: blog.createBlog,
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
@@ -69,18 +58,8 @@ module.exports = {
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact,
     createNews: news.createNews,
-    createFeedbackBug: feedback.createFeedbackBug,
-    createFeedbackIdea: feedback.createFeedbackIdea,
-    createFeedbackDiscussion: feedback.createFeedbackDiscussion,
-    createFeedbackDiscussionIdea: feedback.createFeedbackDiscussionIdea,
-    createFeedbackComment: feedback.createFeedbackComment,
-    createFeedbackRecommendation: feedback.createFeedbackRecommendation,
-    closeFeedback: feedback.closeFeedback,
-    reopenFeedback: feedback.reopenFeedback,
     createPageEventNewAddress: events.createPageEventNewAddress,
     createPageEventExistingAddress: events.createPageEventExistingAddress,
-    createThread: messages.createThread,
-    createMessages: messages.createMessages,
     createQuestion: question.createQuestion,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
