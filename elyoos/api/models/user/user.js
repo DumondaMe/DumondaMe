@@ -6,15 +6,14 @@
 let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
-let underscore = require('underscore');
 let contacting = require('./../contact/contacting');
 let contactStatistic = require('./../contact/contactStatistic');
 
-let getUser = function (resp, id, profileUrls, req) {
+let getUser = async function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
-        underscore.forEach(profileUrls, function (profileUrl) {
-            resp[0][profileUrl.property] = cdn.getUrl('profileImage/' + id + profileUrl.image);
-        });
+        for (let profileUrl of profileUrls) {
+            resp[0][profileUrl.property] = await cdn.getSignedUrl('profileImage/' + id + profileUrl.image);
+        }
         return resp[0];
     }
     if (resp.length > 1) {
@@ -34,8 +33,8 @@ let getUserProfile = function (id, req) {
     return db.cypher().match('(u:User {userId: {id}})')
         .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email')
         .end({id: id}).send(commands)
-        .then(function (resp) {
-            let profile = getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
+        .then(async function (resp) {
+            let profile = await getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
             profile.numberOfContacting = resp[0][0].count;
             profile.numberOfContacts = resp[1][0].numberOfContacts;
             return profile;
@@ -56,32 +55,7 @@ let updateUserProfile = function (userId, userData) {
         }).end({id: userId}).send();
 };
 
-let getUserInfo = function (id, req) {
-
-    let commands = [];
-    commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
-
-    return db.cypher().match('(u:User {userId: {id}})')
-        .return(`u.name AS name, u.forename AS forename, u.userId AS userId, u.email AS email, 
-                 u.lastSetupAccount AS lastSetupAccount, u.userLocationDescription AS userLocationDescription,
-                 u.latitude AS latitude, u.longitude AS longitude`)
-        .end({id: id}).send(commands)
-        .then(function (resp) {
-            let user = getUser(resp[1], id, [
-                {
-                    property: 'profileImage',
-                    image: '/thumbnail.jpg'
-                }, {
-                    property: 'profileImagePreview',
-                    image: '/profilePreview.jpg'
-                }], req);
-            user.contactStatistic = resp[0];
-            return user;
-        });
-};
-
 module.exports = {
     getUserProfile: getUserProfile,
-    updateUserProfile: updateUserProfile,
-    getUserInfo: getUserInfo
+    updateUserProfile: updateUserProfile
 };

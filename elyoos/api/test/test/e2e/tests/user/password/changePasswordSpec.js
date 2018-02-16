@@ -41,12 +41,7 @@ describe('Integration Tests for changing password of a user', function () {
                 'username': 'user@irgendwo.ch',
                 'password': 'abzBzae1'
             });
-        }).then(function () {
-            return requestHandler.get('/api/user/userInfo');
-        }).then(function (res) {
-            res.status.should.equal(200);
-            res.body.name.should.equal('user Meier');
-        });
+        })
     });
 
     it('Change the password fails because actual password is wrong - Return 400', function () {

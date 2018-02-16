@@ -1,12 +1,12 @@
 'use strict';
 
-let user = requireModel('user/user');
-let auth = require('elyoos-server-lib').auth;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+const user = requireModel('user/user');
+const auth = require('elyoos-server-lib').auth;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const validation = require('elyoos-server-lib').jsonValidation;
 
-let schemaPostNewProfileData = {
+const schemaPostNewProfileData = {
     name: 'newProfileData',
     type: 'object',
     additionalProperties: false,
@@ -19,26 +19,16 @@ let schemaPostNewProfileData = {
 
 module.exports = function (router) {
 
-    router.get('/', auth.isAuthenticated(), function (req, res) {
+    router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        let userProfile = await user.getUserProfile(req.user.id, req);
+        logger.info("User requests the user profile", req);
+        res.status(200).json(userProfile);
+    }));
 
-        return user.getUserProfile(req.user.id, req).then(function (userProfile) {
-            logger.info("User requests the user profile", req);
-            res.status(200).json(userProfile);
-        }).catch(function (err) {
-            logger.error('Getting profile data failed', req, {error: err.errors});
-            res.status(500).end();
-        });
-    });
-
-    router.post('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Update of profile data failed', req, res, logger, function () {
-            return validation.validateRequest(req, schemaPostNewProfileData, logger).then(function () {
-                return user.updateUserProfile(req.user.id, req.body);
-            }).then(function () {
-                logger.info("User Successfully updated user profile", req);
-                res.status(200).end();
-            });
-        });
-    });
+    router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        await validation.validateRequest(req, schemaPostNewProfileData, logger);
+        await user.updateUserProfile(req.user.id, req.body);
+        logger.info("User Successfully updated user profile", req);
+        res.status(200).end();
+    }));
 };
