@@ -2,13 +2,30 @@
 
 let db = requireDb();
 let userInfo = require('../userInfo');
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let numberOfContacts = function (contactId) {
-    return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)')
+let getContactWithPrivacyCommand = function (invisible) {
+    invisible = invisible ?  'NOT' : '';
+    return db.cypher().match(`(user:User {userId: {userDetailId}})`)
+        .where(`user.privacyMode = 'public' OR user.userId = {userId} OR 
+               (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
+               (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))`)
+        .with('user')
+        .match(`(user)-[:IS_CONTACT]->(contact:User)`)
+        .where(`${invisible} (contact.privacyMode = 'public' OR
+               (contact.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
+               (contact.privacyMode = 'onlyContact' AND (contact)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
+};
+
+let numberOfInvisibleContacts = function (userId, userDetailId) {
+    return getContactWithPrivacyCommand(true)
+        .return('count(*) AS numberOfInvisibleContacts')
+        .end({userId, userDetailId});
+};
+
+let numberOfContacts = function (userId, userDetailId) {
+    return getContactWithPrivacyCommand(false)
         .return('count(*) AS numberOfContacts')
-        .end({contactId: contactId});
+        .end({userId, userDetailId});
 };
 
 let numberOfSameContacts = function (userId, contactId) {
@@ -18,44 +35,26 @@ let numberOfSameContacts = function (userId, contactId) {
 };
 
 let getContactsCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
-    return db.cypher().match('(:User {userId: {userDetailId}})-[:IS_CONTACT]->(contactOfUser:User)')
-        .with('contactOfUser')
-        .match("(contactOfUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
-        .optionalMatch('(:User {userId: {userId}})-[isContactOfUser:IS_CONTACT]->(contactOfUser)')
-        .with("rContact, isContactOfUser, contactOfUser, privacy, vr")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return('contactOfUser.name AS name, contactOfUser.userId AS userId, isContactOfUser.type AS type, ' +
-            'privacy.profile AS profileVisible, privacy.image AS imageVisible')
-        .orderBy('name')
-        .skip('{skipContacts}')
-        .limit('{contactsPerPage}')
-        .end({userDetailId: userDetailId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts});
+    return getContactWithPrivacyCommand(false)
+        .return(`contact.name AS name, contact.userId AS userId,
+                 EXISTS((contact)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isContactOfLoggedInUser`)
+        .orderBy(`name`)
+        .skip(`{skipContacts}`)
+        .limit(`{contactsPerPage}`)
+        .end({userDetailId, userId, contactsPerPage, skipContacts});
 };
 
-let allowedToGetContacts = function (userId, userDetailId, req) {
-    return db.cypher().match("(userDetail:User {userId: {userDetailId}})-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch("(user:User {userId: {userId}})<-[isContact:IS_CONTACT]-(userDetail)")
-        .with("isContact, privacy, vr")
-        .where("(isContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (isContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("privacy.profile AS profile, privacy.contacts AS contacts")
-        .end({userId: userId, userDetailId: userDetailId})
-        .send().then(function (resp) {
-            if (!resp[0] || !resp[0].profile || !resp[0].contacts) {
-                return exceptions.getInvalidOperation('Not allowed to view contacts of this user', logger, req);
-            }
-        });
-};
-
-let getContacts = function (userId, userDetailId, contactsPerPage, skipContacts, req) {
-    return allowedToGetContacts(userId, userDetailId, req).then(function () {
-        return getContactsCommand(userId, userDetailId, contactsPerPage, skipContacts)
-            .send().then(function (resp) {
-                userInfo.setUserImageVisible(userId, resp);
-                userInfo.addImageForPreview(resp);
-                return {users: resp};
-            });
-    });
+let getContacts = async function (userId, userDetailId, contactsPerPage, skipContacts) {
+    let contacts = await getContactsCommand(userId, userDetailId, contactsPerPage, skipContacts).send([
+            numberOfContacts(userId, userDetailId).getCommand(),
+            numberOfInvisibleContacts(userId, userDetailId).getCommand()
+        ]
+    );
+    await userInfo.addImageForThumbnail(contacts[2]);
+    return {
+        contacts: contacts[2], numberOfContacts: contacts[0][0].numberOfContacts,
+        numberOfInvisibleContacts: contacts[1][0].numberOfInvisibleContacts
+    };
 };
 
 

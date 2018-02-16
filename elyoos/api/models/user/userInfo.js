@@ -1,33 +1,26 @@
 'use strict';
 
-let underscore = require('underscore');
 let cdn = require('elyoos-server-lib').cdn;
 let _ = require("lodash");
 
-let getImageForPreview = function (contact, profileType) {
-    if ((contact.profileVisible && contact.imageVisible) || (contact.profileVisibleNoContact && contact.imageVisibleNoContact)) {
-        return cdn.getUrl('profileImage/' + contact.userId + '/' + profileType);
+let getImageForPreview = async function (contact, profileType) {
+    return await cdn.getSignedUrl('profileImage/' + contact.userId + '/' + profileType);
+    //return cdn.getUrl('profileImage/default/' + profileType);
+
+};
+
+let addImage = async function (contacts, imageTyp) {
+    for (let contact of contacts) {
+        contact.profileUrl = await getImageForPreview(contact, imageTyp);
     }
-    return cdn.getUrl('profileImage/default/' + profileType);
-
 };
 
-let addImage = function (contacts, imageTyp) {
-    underscore.each(contacts, function (contact) {
-        contact.profileUrl = getImageForPreview(contact, imageTyp);
-        delete contact.profileVisible;
-        delete contact.imageVisible;
-        delete contact.profileVisibleNoContact;
-        delete contact.imageVisibleNoContact;
-    });
+let addImageForPreview = async function (contacts) {
+    await addImage(contacts, 'profilePreview.jpg');
 };
 
-let addImageForPreview = function (contacts) {
-    addImage(contacts, 'profilePreview.jpg');
-};
-
-let addImageForThumbnail = function (contacts) {
-    addImage(contacts, 'thumbnail.jpg');
+let addImageForThumbnail = async function (contacts) {
+    await addImage(contacts, 'thumbnail.jpg');
 };
 
 let setUserImageVisible = function (userId, contacts) {
