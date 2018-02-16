@@ -30,8 +30,9 @@ let getUserProfile = function (id, req) {
     commands.push(contacting.getContactingStatistics(id).getCommand());
     commands.push(contactStatistic.getTotalNumberOfContacts(id).getCommand());
 
-    return db.cypher().match('(u:User {userId: {id}})')
-        .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email')
+    return db.cypher().match(`(u:User {userId: {id}})`)
+        .return(`u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, 
+                 u.privacyMode AS privacyMode`)
         .end({id: id}).send(commands)
         .then(async function (resp) {
             let profile = await getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);

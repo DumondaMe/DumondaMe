@@ -43,8 +43,15 @@ let createUserRegisterRequest = function (data) {
     forename: {forename}, email: {email}, emailNormalized: {emailNormalized}, linkId: {linkId}, password: {password}, registerDate: {registerDate},
     latitude: {latitude}, longitude: {longitude}})`)
         .end({
-            name: `${data.forename} ${data.surname}`, surname: data.surname, forename: data.forename, email: data.email, emailNormalized: data.emailNormalized,
-            linkId: data.linkId, password: data.password, registerDate: data.registerDate, latitude: data.latitude,
+            name: `${data.forename} ${data.surname}`,
+            surname: data.surname,
+            forename: data.forename,
+            email: data.email,
+            emailNormalized: data.emailNormalized,
+            linkId: data.linkId,
+            password: data.password,
+            registerDate: data.registerDate,
+            latitude: data.latitude,
             longitude: data.longitude
         }).getCommand());
 };
@@ -78,6 +85,12 @@ let inviteUser = function (userId, invitedUserId) {
         .end({
             userId: userId, invitedUserId: invitedUserId
         }).getCommand());
+};
+
+let setUserPrivacy = function (userIds, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
+        .where("u.userId IN {userIds}")
+        .set("u", {privacyMode: data.privacyMode}).end({userIds}).getCommand());
 };
 
 let createPrivacy = function (userIds, type, privacy) {
@@ -134,6 +147,7 @@ module.exports = {
     blockUser: blockUser,
     invitationSentBeforeRegistration: invitationSentBeforeRegistration,
     inviteUser: inviteUser,
+    setUserPrivacy: setUserPrivacy,
     createPrivacy: createPrivacy,
     createPrivacyNoContact: createPrivacyNoContact,
     setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen
