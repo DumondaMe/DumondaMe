@@ -15,6 +15,12 @@ Vue.filter('formatDate', function (value) {
     }
 });
 
+Vue.filter('formatDateOnly', function (value) {
+    if (value) {
+        return moment.unix(value).format('ll');
+    }
+});
+
 export default ({store}) => {
     moment.locale(store.state.i18n.language);
 }

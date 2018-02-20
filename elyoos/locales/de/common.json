@@ -17,10 +17,13 @@
     "close": "Schliessen",
     "back": "Zurück",
     "next": "Weiter",
+    "showMore": "Mehr Anzeigen",
     "create": "Erstellen",
     "answer": "Beantworten",
     "filter": "Filter",
-    "readMore": "Mehr lesen"
+    "readMore": "Mehr lesen",
+    "change": "Ändern",
+    "uploadImage": "Bild hochladen"
   },
   "topic": {
     "health": "Gesundheit",

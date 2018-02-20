@@ -56,5 +56,15 @@
       "invalidYoutubeId": "Ungültiger Youtube Link.",
       "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet"
     }
+  },
+  "detailUser": {
+    "sidebar": {
+      "contacts": {
+        "title": "Deine Kontakte",
+        "contactInfo": "Du hast ein Kontakt",
+        "contactInfo_plural": "Du hast {{count}} Kontakte",
+        "since": "Seit {{date}}"
+      }
+    }
   }
 }

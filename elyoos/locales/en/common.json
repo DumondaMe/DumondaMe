@@ -17,10 +17,13 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
+    "showMore": "Show More",
     "create": "Create",
     "answer": "Answer",
     "filter": "Filters",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "change": "Change",
+    "uploadImage": "Upload Image"
   },
   "topic": {
     "health": "Health",

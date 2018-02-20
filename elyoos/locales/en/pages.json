@@ -56,5 +56,15 @@
       "invalidYoutubeId": "Invalid youtube link.",
       "linkAnswerExists": "The link has already been used as an answer to this question"
     }
+  },
+  "detailUser": {
+    "sidebar": {
+      "contacts": {
+        "title": "Your Contacts",
+        "contactInfo": "You have a contact",
+        "contactInfo_plural": "You have {{count}} contacts",
+        "since": "Since {{date}}"
+      }
+    }
   }
 }

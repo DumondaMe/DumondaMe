@@ -35,6 +35,15 @@
                     border-bottom: 1px solid #ddd;
                 }
             }
+
+            .sidebar-container {
+                margin-bottom: 32px;
+                h3 {
+                    font-size: 16px;
+                    border-bottom: 1px solid #ddd;
+                    margin-bottom: 12px;
+                }
+            }
         }
     }
 </style>
