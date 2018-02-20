@@ -20,16 +20,15 @@
                     </v-flex>
                     <v-flex xs12 md5>
                         <v-select v-model="selectTopic"
-                                  label="Select Topic"
+                                  :label="$t('pages:feeds.question.selectTopic')"
                                   :rules="[ruleSelectMultipleRequired($t('validation:fieldRequired'))]"
                                   multiple required
                                   :items="getTopics()">
                         </v-select>
                     </v-flex>
                     <v-flex xs12 md5 offset-md2>
-                        <v-select v-model="selectLang"
-                                  label="Select Language"
-                                  hint="Language of the question " persistent-hint
+                        <v-select v-model="selectLang" id="select-language"
+                                  :label="$t('pages:feeds.question.selectLanguage')"
                                   :rules="[ruleSelectRequired($t('validation:fieldRequired'))]"
                                   :items="getLanguages()"
                                   single-line bottom required>
@@ -91,17 +90,12 @@
 </script>
 
 <style lang="scss">
-    #ask-question-container {
-        padding-top: 6px;
-        padding-left: 12px;
-        padding-right: 12px;
-        .dialog-login-info {
-            margin: 24px 0;
-            font-size: 14px;
-            color: $secondary-text;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
-            padding: 8px;
+    #create-question-container {
+        #select-language {
+            label {
+                display: inline-block;
+                max-width: 100%;
+            }
         }
     }
 </style>
