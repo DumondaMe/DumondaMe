@@ -40,5 +40,12 @@ WHERE b.label = 'Link'
 SET b:Link
 REMOVE b:Page, b:label;
 
+//Set new privacy settings
+MATCH (u:User)
+SET u.privacyMode = 'public';
+
+MATCH (u:User)-[rel:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)
+DELETE rel, privacy;
+
 //Add new constraints
 CREATE CONSTRAINT ON (b:Answer) ASSERT b.answerId IS UNIQUE;
