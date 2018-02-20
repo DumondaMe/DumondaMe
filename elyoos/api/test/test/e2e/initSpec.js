@@ -3,8 +3,6 @@
 let app = require('../../../../server');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 let elyoosTestUtil = require('elyoos-server-test-util');
-let sinon = require('sinon');
-let sandbox = sinon.sandbox.create();
 
 elyoosTestUtil.init(require('elyoos-server-lib'), app);
 
