@@ -24,7 +24,7 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {DetailLayout, UserProfile, Sidebar},
+        components: {DetailLayout, UserProfile, Sidebar}
     }
 </script>
 
