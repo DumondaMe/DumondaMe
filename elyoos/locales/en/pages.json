@@ -21,7 +21,9 @@
     "question": {
       "yourQuestion": "What is your question?",
       "createQuestionInfo": "To create a new question, you must be logged in with your user account.",
-      "buttonNotExist": "Does Not Exist"
+      "buttonNotExist": "Does Not Exist",
+      "selectLanguage": "Language of the question",
+      "selectTopic": "Topic"
     }
   },
   "detailQuestion": {
@@ -65,6 +67,9 @@
         "contactInfo_plural": "You have {{count}} contacts",
         "since": "Since {{date}}"
       }
+    },
+    "settings": {
+      "languageUI": "User interface language"
     }
   }
 }
