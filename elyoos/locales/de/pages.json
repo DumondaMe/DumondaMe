@@ -60,7 +60,7 @@
   "detailUser": {
     "sidebar": {
       "contacts": {
-        "title": "Deine Kontakte",
+        "title": "Kontakte",
         "contactInfo": "Du hast ein Kontakt",
         "contactInfo_plural": "Du hast {{count}} Kontakte",
         "since": "Seit {{date}}"
