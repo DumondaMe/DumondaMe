@@ -112,8 +112,8 @@ describe('Get all contacts of a user', function () {
 
     it('Get all contacts of logged in user (all public)', async function () {
 
-        dbDsl.createContactConnection('1', '3');
-        dbDsl.createContactConnection('1', '4');
+        dbDsl.createContactConnection('1', '3', null, 666);
+        dbDsl.createContactConnection('1', '4', null, 777);
         dbDsl.createContactConnection('4', '1');
 
         dbDsl.createContactConnection('6', '1');
@@ -130,11 +130,13 @@ describe('Get all contacts of a user', function () {
         res.body.contacts.length.should.equal(2);
         res.body.contacts[0].userId.should.equal("3");
         res.body.contacts[0].name.should.equal("user Meier3");
+        res.body.contacts[0].isContactSince.should.equal(666);
         res.body.contacts[0].isContactOfLoggedInUser.should.equal(true);
         res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.contacts[1].userId.should.equal("4");
         res.body.contacts[1].name.should.equal("user Meier4");
+        res.body.contacts[1].isContactSince.should.equal(777);
         res.body.contacts[1].isContactOfLoggedInUser.should.equal(true);
         res.body.contacts[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
@@ -144,7 +146,7 @@ describe('Get all contacts of a user', function () {
 
     it('Get all contacts of logged in user (User profile visible for Elyoos accounts)', async function () {
 
-        dbDsl.createContactConnection('1', '3');
+        dbDsl.createContactConnection('1', '3', null, 666);
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
 
         await dbDsl.sendToDb();
@@ -159,6 +161,7 @@ describe('Get all contacts of a user', function () {
         res.body.contacts.length.should.equal(1);
         res.body.contacts[0].userId.should.equal("3");
         res.body.contacts[0].name.should.equal("user Meier3");
+        res.body.contacts[0].isContactSince.should.equal(666);
         res.body.contacts[0].isContactOfLoggedInUser.should.equal(true);
         res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 

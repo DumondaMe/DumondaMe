@@ -10,7 +10,7 @@ let getContactWithPrivacyCommand = function (invisible) {
                (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
                (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))`)
         .with('user')
-        .match(`(user)-[:IS_CONTACT]->(contact:User)`)
+        .match(`(user)-[isContactRel:IS_CONTACT]->(contact:User)`)
         .where(`${invisible} (contact.privacyMode = 'public' OR
                (contact.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
                (contact.privacyMode = 'onlyContact' AND (contact)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
@@ -36,7 +36,7 @@ let numberOfSameContacts = function (userId, contactId) {
 
 let getContactsCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
     return getContactWithPrivacyCommand(false)
-        .return(`contact.name AS name, contact.userId AS userId,
+        .return(`contact.name AS name, contact.userId AS userId, isContactRel.contactAdded AS isContactSince,
                  EXISTS((contact)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isContactOfLoggedInUser`)
         .orderBy(`name`)
         .skip(`{skipContacts}`)
