@@ -166,7 +166,7 @@ describe('Creating link answer', function () {
         res.body.errorCode.should.equal(2);
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Link:Answer)<-[:IS_CREATOR]-(user:User {userId: '1'})`)
-            .return(`original`).end().send();
+            .return(`answer`).end().send();
         resp.length.should.equals(0);
     });
 
