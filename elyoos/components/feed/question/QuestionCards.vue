@@ -7,9 +7,6 @@
                     {{question.question}}
                 </nuxt-link>
             </h2>
-            <user-info :name="question.creator.name" :thumbnail-url="question.creator.thumbnailUrl"
-                       :created="question.created">
-            </user-info>
             <p class="description">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                                  params: {questionId: question.questionId, slug: question.slug}}">
@@ -27,14 +24,8 @@
 </template>
 
 <script>
-    import UserInfo from '~/components/common/user/Info.vue';
-
     export default {
-        components: {UserInfo},
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
             questions() {
                 return this.$store.state.feedQuestion.questions
             }
