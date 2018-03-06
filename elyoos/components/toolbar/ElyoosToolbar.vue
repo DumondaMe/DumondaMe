@@ -10,6 +10,9 @@
                         <v-icon>more_vert</v-icon>
                     </v-btn>
                     <v-list>
+                        <v-list-tile @click="$router.push({name: 'setting'})">
+                            <v-list-tile-title>Einstellungen</v-list-tile-title>
+                        </v-list-tile>
                         <v-list-tile @click="$router.push({name: 'user'})">
                             <v-list-tile-title>Dein Profil</v-list-tile-title>
                         </v-list-tile>

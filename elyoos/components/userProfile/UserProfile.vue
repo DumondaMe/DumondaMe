@@ -13,21 +13,16 @@
                 </v-btn>
             </div>
         </div>
-        <setting-language>
-        </setting-language>
     </div>
 </template>
 
 <script>
-    import SettingLanguage from './setting/Language.vue';
-
     export default {
         computed: {
             user() {
                 return this.$store.state.userProfile.user;
             }
-        },
-        components: {SettingLanguage}
+        }
     }
 </script>
 

@@ -2,7 +2,7 @@
     <div id="language-setting-container">
         <h2 class="user-profile-title">Sprach Settings</h2>
         <v-select id="select-user-language" :label="$t('pages:detailUser.settings.languageUI')"
-                  :items="getLanguages" v-model="selectedLanguage"  single-line bottom
+                  :items="getLanguages" v-model="selectedLanguage"
                   item-value="key" item-text="description">
         </v-select>
     </div>
