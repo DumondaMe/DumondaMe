@@ -1,7 +1,7 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
-let recommendedUser = requireModel('user/setting/recommendedUser');
+let recommendedUser = requireModel('user/recommendedUser');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);

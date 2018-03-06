@@ -28,7 +28,6 @@ describe('Getting user profile data', function () {
         res.body.email.should.equal('user@irgendwo.ch');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier');
-        res.body.privacyMode.should.equal('public');
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/1/profile.jpg');
         res.body.numberOfContacts.should.equal(2);

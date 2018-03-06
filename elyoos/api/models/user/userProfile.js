@@ -33,8 +33,7 @@ let getUserProfile = function (id, req) {
     commands.push(contact.getContactsCommand(id, id, 10, 0).getCommand());
 
     return db.cypher().match(`(u:User {userId: {id}})`)
-        .return(`u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, 
-                 u.privacyMode AS privacyMode`)
+        .return(`u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email`)
         .end({id: id}).send(commands)
         .then(async function (resp) {
             let profile = await getUser(resp[3], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
