@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "installDev": "npm install && npm link ../commonLib/serverTestUtil && npm link ../commonLib/serverLib"
+    "installDev": "npm install && npm link ../commonLib/serverTestUtil && npm link ../commonLib/serverLib",
+    "startStaticServer": "node node_modules/http-server/bin/http-server ./staticServer"
   },
   "dependencies": {
     "@panter/vue-i18next": "0.9.1",
@@ -77,6 +78,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "http-server": "0.11.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "mocha": "5.0.1",

@@ -2,7 +2,7 @@
     <div id="elyoos-header">
         <div id="header-container">
             <div id="elyoos-logo" hidden-xs-only>
-                <img src="/img/logo.png"/>
+                <img :src="getLogoUrl"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
@@ -74,6 +74,9 @@
             },
             selectedLanguage() {
                 return this.$store.state.i18n.languages.find(lang => lang.key === this.$store.state.i18n.language);
+            },
+            getLogoUrl() {
+                return `${process.env.staticUrl}/img/logo.png`;
             }
         },
         methods: {

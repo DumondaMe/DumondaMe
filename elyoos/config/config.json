@@ -92,8 +92,8 @@
             "csp": {
               "policy": [
                 "font-src 'self' https://fonts.gstatic.com/",
-                "style-src 'self' https://fonts.googleapis.com/ 'unsafe-inline'",
-                "script-src 'self' https://ajax.googleapis.com/ https://www.google.com/ https://www.gstatic.com/ 'unsafe-inline'"
+                "style-src 'self' https://fonts.googleapis.com/ http://localhost:8080 'unsafe-inline'",
+                "script-src 'self' https://ajax.googleapis.com/ https://www.google.com/ https://www.gstatic.com/ http://localhost:8080 'unsafe-inline'"
               ]
             },
             "xframe": "SAMEORIGIN",
