@@ -3,26 +3,20 @@
  */
 'use strict';
 
-let gm = require('./../util/gm');
+let sharp = require('sharp');
 let cdn = require('elyoos-server-lib').cdn;
-let tmp = require('tmp');
 
 module.exports = {
     generateProfileImage: async function (originalFilePath, userId) {
-        let preview = tmp.fileSync({postfix: '.jpg'}),
-            thumbnail = tmp.fileSync({postfix: '.jpg'}),
-            profile = tmp.fileSync({postfix: '.jpg'});
+        let previewBuffer = await sharp(originalFilePath).resize(100).max().jpeg({quality: 93}).withoutEnlargement()
+            .toBuffer();
+        let thumbnailBuffer = await sharp(originalFilePath).resize(48).max().jpeg({quality: 90}).withoutEnlargement()
+            .toBuffer();
+        let profileBuffer = await sharp(originalFilePath).resize(400).max().jpeg({quality: 92}).withoutEnlargement()
+            .toBuffer();
 
-        await gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(100, 100, preview.name, 93);
-        await gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(48, 48, thumbnail.name, 97);
-        await gm.gm(originalFilePath).background('#FFFFFF').flatten().thumbAsync(450, 450, profile.name, 92);
-
-        await cdn.uploadFile(preview.name, 'profileImage/' + userId + '/profilePreview.jpg', process.env.BUCKET_PRIVATE);
-        await cdn.uploadFile(thumbnail.name, 'profileImage/' + userId + '/thumbnail.jpg', process.env.BUCKET_PRIVATE);
-        await cdn.uploadFile(profile.name, 'profileImage/' + userId + '/profile.jpg', process.env.BUCKET_PRIVATE);
-
-        preview.removeCallback();
-        thumbnail.removeCallback();
-        profile.removeCallback();
+        await cdn.uploadBuffer(previewBuffer, 'profileImage/' + userId + '/profilePreview.jpg', process.env.BUCKET_PRIVATE);
+        await cdn.uploadBuffer(thumbnailBuffer, 'profileImage/' + userId + '/thumbnail.jpg', process.env.BUCKET_PRIVATE);
+        await cdn.uploadBuffer(profileBuffer, 'profileImage/' + userId + '/profile.jpg', process.env.BUCKET_PRIVATE);
     }
 };
