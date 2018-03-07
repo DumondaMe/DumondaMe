@@ -24,6 +24,16 @@
                 error({statusCode: e.statusCode})
             }
         },
+        head() {
+            return {
+                script: [
+                    {src: `${process.env.staticUrl}/lib/cropperjs/cropper.1.3.2.min.js`}
+                ],
+                link: [
+                    {rel: 'stylesheet', href: `${process.env.staticUrl}/lib/cropperjs/cropper.1.3.2.min.css`}
+                ]
+            }
+        },
         components: {DetailLayout, UserProfile, Sidebar}
     }
 </script>

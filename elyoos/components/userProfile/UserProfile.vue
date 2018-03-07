@@ -3,7 +3,11 @@
         <div id="elyoos-user-profile-content">
             <div id="elyoos-user-image-container">
                 <img :src="user.profileImage"/>
-                <v-btn id="button-change-image" color="primary" @click="">{{$t("common:button.uploadImage")}}</v-btn>
+                <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
+                       @change="handleImageChange"/>
+                <v-btn id="button-change-image" color="primary" @click="openUploadImage()">
+                    {{$t("common:button.uploadImage")}}
+                </v-btn>
             </div>
             <div id="profile-info-container">
                 <div class="user-name">{{user.forename}} {{user.surname}}</div>
@@ -13,14 +17,40 @@
                 </v-btn>
             </div>
         </div>
+        <upload-cropped-image-dialog v-if="dialogUploadImage" @close-dialog="dialogUploadImage = false"
+                                     @update-image="updateProfileImage"
+                                     :initial-image="imageToUpload">
+        </upload-cropped-image-dialog>
     </div>
 </template>
 
 <script>
+    import UploadCroppedImageDialog from '~/components/common/dialog/UploadCroppedImage.vue';
+
     export default {
+        components: {UploadCroppedImageDialog},
+        data() {
+            return {dialogUploadImage: false, imageToUpload: null}
+        },
         computed: {
             user() {
                 return this.$store.state.userProfile.user;
+            }
+        },
+        methods: {
+            openUploadImage() {
+                this.$refs.openFileDialog.value = null; //Needed to open same picture twice
+                this.$refs.openFileDialog.click();
+            },
+            handleImageChange(e) {
+                if (e.target.files.length === 1) {
+                    this.dialogUploadImage = true;
+                    this.imageToUpload = e.target.files[0];
+                }
+            },
+            updateProfileImage(dataUrl) {
+                this.dialogUploadImage = false;
+                this.$store.commit('userProfile/UPDATE_USER_PROFILE_IMAGE', dataUrl);
             }
         }
     }

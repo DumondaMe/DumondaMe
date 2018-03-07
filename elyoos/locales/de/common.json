@@ -15,6 +15,7 @@
   "button": {
     "ok": "Ok",
     "close": "Schliessen",
+    "abort": "Abbrechen",
     "back": "Zurück",
     "next": "Weiter",
     "showMore": "Mehr Anzeigen",
@@ -23,6 +24,7 @@
     "filter": "Filter",
     "readMore": "Mehr lesen",
     "change": "Ändern",
+    "upload": "Hochladen",
     "uploadImage": "Bild hochladen"
   },
   "topic": {

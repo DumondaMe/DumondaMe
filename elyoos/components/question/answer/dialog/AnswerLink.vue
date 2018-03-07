@@ -86,7 +86,7 @@
 
 <script>
     import languages from '~/mixins/languages.js';
-    import urlRegex from '~/shared/url';
+    import urlRegex from '~/utils/url';
     import validationRules from '~/mixins/validationRules.js';
 
     const ERROR_CODE_NO_YOUTUBE_ID = 1;
