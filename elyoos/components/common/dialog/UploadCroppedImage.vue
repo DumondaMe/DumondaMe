@@ -11,20 +11,21 @@
                 <v-card-actions>
                     <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                            @change="handleImageChange"/>
-                    <v-btn flat icon color="primary" @click="openUploadImage()">
+                    <v-btn flat icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
                         <v-icon>insert_photo</v-icon>
                     </v-btn>
-                    <v-btn flat icon @click="imageCropper.rotate(-90)">
+                    <v-btn flat icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
                         <v-icon>rotate_left</v-icon>
                     </v-btn>
-                    <v-btn flat icon @click="imageCropper.rotate(90)">
+                    <v-btn flat icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
                         <v-icon>rotate_right</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
                     <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                         {{$t("common:button.abort")}}
                     </v-btn>
-                    <v-btn color="primary" @click.native="uploadImage()">
+                    <v-btn color="primary" @click.native="uploadImage()" :loading="uploadRunning"
+                           :disabled="uploadRunning">
                         {{$t("common:button.upload")}}
                     </v-btn>
                 </v-card-actions>
@@ -40,7 +41,7 @@
     export default {
         props: ['initialImage'],
         data() {
-            return {dialog: true, image: this.initialImage, imgSrc: null, imageCropper: null}
+            return {dialog: true, image: this.initialImage, imgSrc: null, imageCropper: null, uploadRunning: false}
         },
         mounted: function () {
 
@@ -84,13 +85,24 @@
                     this.readImage(e.target.files[0]);
                 }
             },
-            async uploadImage() {
+            uploadImage() {
                 let dataCanvas = this.imageCropper.getCroppedCanvas();
                 if ('toDataURL' in dataCanvas) {
-                    let dataUrl = dataCanvas.toDataURL();
-                    let blob = dataURItoBlob(dataUrl);
-                    await uploadFileToUrl(this.$axios, blob, 'user/settings/uploadProfileImage');
-                    this.$emit('update-image', dataUrl);
+                    this.uploadRunning = true;
+                    this.imageCropper.disable();
+                    setTimeout(async () => {
+                        try {
+                            let dataUrl = dataCanvas.toDataURL();
+                            let blob = dataURItoBlob(dataUrl);
+                            await uploadFileToUrl(this.$axios, blob, 'user/settings/uploadProfileImage');
+                            this.$emit('update-image', dataUrl);
+                        } catch (e) {
+
+                        } finally {
+                            this.imageCropper.enable();
+                            this.uploadRunning = false;
+                        }
+                    }, 0);
                 }
             }
         }
