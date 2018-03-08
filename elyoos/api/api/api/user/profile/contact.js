@@ -1,11 +1,11 @@
 'use strict';
 
-let validation = require('elyoos-server-lib').jsonValidation;
-let userProfileContacts = requireModel('user/profile/contact');
+const validation = require('elyoos-server-lib').jsonValidation;
+const userProfileContacts = requireModel('user/profile/contact');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let schemaRequestGetUserDetailContacts = {
+const schemaRequestGetUserDetailContacts = {
     name: 'getUserDetailContacts',
     type: 'object',
     additionalProperties: false,

@@ -6,8 +6,8 @@ const auth = require('elyoos-server-lib').auth;
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaRequestContact = {
-    name: 'contactHandling',
+const schemaBlockContact = {
+    name: 'blockContact',
     type: 'object',
     additionalProperties: false,
     required: ['contactId'],
@@ -19,16 +19,16 @@ const schemaRequestContact = {
 module.exports = function (router) {
 
     router.post('/:contactId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestContact, logger);
-        logger.info(`User has added ${request.contactId} to the contact list`, req);
-        await contact.addContact(req.user.id, request.contactId, req);
+        let request = await validation.validateRequest(req, schemaBlockContact, logger);
+        logger.info(`User has blocked ${request.contactId}`, req);
+        await contact.blockContact(req.user.id, request.contactId, req);
         res.status(200).end();
     }));
 
     router.delete('/:contactId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestContact, logger);
-        logger.info(`User removed ${request.contactId} from the contact list`, req);
-        await contact.deleteContact(req.user.id, request.contactId, req);
+        let request = await validation.validateRequest(req, schemaBlockContact, logger);
+        logger.info(`User removed blocking of ${request.contactId}`, req);
+        await contact.unblockContact(req.user.id, request.contactId, req);
         res.status(200).end();
     }));
 };
