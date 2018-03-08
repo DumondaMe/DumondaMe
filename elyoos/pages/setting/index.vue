@@ -1,6 +1,5 @@
 <template>
     <div id="ely-user-setting-layout">
-        <h1>Einstellungen</h1>
         <language>
         </language>
         <privacy>
@@ -26,14 +25,9 @@
 
 <style lang="scss">
     #ely-user-setting-layout {
-        h1 {
-            border-bottom: 1px solid $divider;
-            padding-bottom: 4px;
-            margin-bottom: 32px;
-            color: $primary-color;
-        }
         h2 {
             font-size: 18px;
+            color: $primary-color;
         }
     }
 </style>
