@@ -23,8 +23,6 @@ COPY nuxt.config.js /usr/src/app/server/nuxt.config.js
 COPY server.js /usr/src/app/server/server.js
 COPY originalPackage.json /usr/src/app/server/package.json
 
-RUN npm run build
-
 USER node
 
 EXPOSE 3000
