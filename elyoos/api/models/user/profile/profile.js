@@ -4,42 +4,41 @@
 'use strict';
 
 let db = requireDb();
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
 let contact = require('./contact');
 let userInfo = require('./../userInfo');
 
-let getUser = async function (resp, id, profileUrls, req) {
-    if (resp.length === 1) {
-        for (let profileUrl of profileUrls) {
-            resp[0][profileUrl.property] = await cdn.getSignedUrl('profileImage/' + id + profileUrl.image);
-        }
-        return resp[0];
-    }
-    if (resp.length > 1) {
-        logger.error('More then one user with id ' + id, req);
-    }
-    if (resp.length === 0) {
-        logger.error('User with id ' + id + ' not found', req);
+let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
+    if (!userId && !userIdOfProfile) {
+        throw new Error('401');
     }
 };
 
-let getUserProfile = function (id, req) {
+let getUserProfile = async function (userId, userIdOfProfile) {
 
+    checkAllowedToGetProfile(userId, userIdOfProfile);
+    userId = userId || null;
+    userIdOfProfile = userIdOfProfile || userId;
     let commands = [];
-    commands.push(contact.numberOfContacts(id, id).getCommand());
-    commands.push(contact.getContactsCommand(id, id, 10, 0).getCommand());
+    commands.push(contact.numberOfContacts(userId, userIdOfProfile).getCommand());
+    commands.push(contact.getContactsCommand(userId, userIdOfProfile, 10, 0).getCommand());
 
-    return db.cypher().match(`(u:User {userId: {id}})`)
-        .return(`u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email`)
-        .end({id: id}).send(commands)
-        .then(async function (resp) {
-            let profile = await getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
-            profile.numberOfContacts = resp[0][0].numberOfContacts;
-            await userInfo.addImageForThumbnail(resp[1]);
-            profile.contacts = resp[1];
-            return profile;
-        });
+    let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
+        .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
+                (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
+                (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
+        .return(`u.forename AS forename, u.surname AS surname`)
+        .end({userId, userIdOfProfile}).send(commands);
+    if (resp[2].length === 1) {
+        let profile = resp[2][0];
+        profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
+        profile.numberOfContacts = resp[0][0].numberOfContacts;
+        profile.isLoggedInUser = userId === userIdOfProfile;
+        await userInfo.addImageForThumbnail(resp[1]);
+        profile.contacts = resp[1];
+        return profile;
+    }
+    throw new Error('401');
 };
 
 let updateUserProfile = function (userId, userData) {
@@ -57,6 +56,6 @@ let updateUserProfile = function (userId, userData) {
 };
 
 module.exports = {
-    getUserProfile: getUserProfile,
-    updateUserProfile: updateUserProfile
+    getUserProfile,
+    updateUserProfile
 };

@@ -13,7 +13,7 @@ export const mutations = {
 
 export const actions = {
     async getProfile({commit}) {
-        let user = await this.$axios.$get(`user`);
+        let user = await this.$axios.$get(`user/profile`);
         commit('SET_USER_PROFILE', user);
     }
 };

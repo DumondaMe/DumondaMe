@@ -28,24 +28,9 @@ const schemaPostNewProfileData = {
 };
 
 module.exports = function (router) {
-    /*router.get('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Error when getting detail of a user', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaRequestGetUserDetails, logger)
-                .then(function (request) {
-                    logger.info("User requests detail information for user " + request.userId, req);
-                    return userProfile.getUserDetails(req.user.id, request.userId, req);
-
-                })
-                .then(function (userDetailResp) {
-                    res.status(200).json(userDetailResp);
-                });
-        });
-    });*/
-
     router.get('/', asyncMiddleware(async (req, res) => {
-        //let response = await validation.validateQueryRequest(req, schemaRequestGetUserDetails, logger);
-        let userProfile = await profile.getUserProfile(req.user.id, req);
+        let response = await validation.validateRequest(req, schemaRequestGetUserDetails, logger);
+        let userProfile = await profile.getUserProfile(req.user.id, response.userId);
         logger.info("Requests of user profile", req);
         res.status(200).json(userProfile);
     }));
