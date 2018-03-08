@@ -22,7 +22,7 @@ describe('Change user profile data', function () {
         };
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.post('/api/user', user, null);
+        let res = await requestHandler.post('/api/user/profile', user, null);
         res.status.should.equal(401);
     });
 
@@ -34,7 +34,7 @@ describe('Change user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user', user);
+        let res = await requestHandler.post('/api/user/profile', user);
         res.status.should.equal(200);
         res = await  db.cypher().match("(user:User {userId: '1'})")
             .return('user').end().send();

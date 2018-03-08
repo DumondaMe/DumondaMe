@@ -1,7 +1,7 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
-let userDetailContacts = requireModel('user/detail/contact');
+let userProfileContacts = requireModel('user/profile/contact');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -21,7 +21,7 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         let request = await validation.validateQueryRequest(req, schemaRequestGetUserDetailContacts, logger);
         logger.info(`User requests contacts of user ${request.userId}`, req);
-        let contacts = await userDetailContacts.getContacts(req.user.id, request.contactOfUserId,
+        let contacts = await userProfileContacts.getContacts(req.user.id, request.contactOfUserId,
             request.maxItems, request.skip, req);
         res.status(200).json(contacts);
     }));

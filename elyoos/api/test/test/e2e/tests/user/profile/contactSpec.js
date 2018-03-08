@@ -25,7 +25,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '2',
             maxItems: 10,
             skip: 0
@@ -54,7 +54,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '2',
             maxItems: 10,
             skip: 0
@@ -78,7 +78,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '2',
             maxItems: 10,
             skip: 0
@@ -98,7 +98,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '2',
             maxItems: 10,
             skip: 0
@@ -121,7 +121,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -152,7 +152,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -177,7 +177,7 @@ describe('Get all contacts of a user', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -199,7 +199,7 @@ describe('Get all contacts of a user', function () {
 
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -227,7 +227,7 @@ describe('Get all contacts of a user', function () {
 
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -246,7 +246,7 @@ describe('Get all contacts of a user', function () {
 
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -265,7 +265,7 @@ describe('Get all contacts of a user', function () {
 
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0
@@ -284,7 +284,7 @@ describe('Get all contacts of a user', function () {
 
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/user/detail/contact', {
+        let res = await requestHandler.get('/api/user/profile/contact', {
             contactOfUserId: '1',
             maxItems: 10,
             skip: 0

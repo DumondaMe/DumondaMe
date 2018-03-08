@@ -1,7 +1,7 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
-let userDetailContactings = requireModel('user/detail/contacting');
+let userProfileContactings = requireModel('user/profile/contacting');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -25,7 +25,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaRequestGetUserDetailContactings, logger)
                 .then(function (request) {
                     logger.info("User requests contacting of another user " + request.userId, req);
-                    return userDetailContactings.getContacting(req.user.id, request.userId, request.maxItems, request.skip, req);
+                    return userProfileContactings.getContacting(req.user.id, request.userId, request.maxItems, request.skip, req);
                 })
                 .then(function (userContactings) {
                     res.status(200).json(userContactings);

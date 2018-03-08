@@ -6,9 +6,8 @@
 let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let cdn = require('elyoos-server-lib').cdn;
-let contacting = require('./../contact/contacting');
-let contact = require('./detail/contact');
-let userInfo = require('./userInfo');
+let contact = require('./contact');
+let userInfo = require('./../userInfo');
 
 let getUser = async function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
@@ -28,7 +27,6 @@ let getUser = async function (resp, id, profileUrls, req) {
 let getUserProfile = function (id, req) {
 
     let commands = [];
-    commands.push(contacting.getContactingStatistics(id).getCommand());
     commands.push(contact.numberOfContacts(id, id).getCommand());
     commands.push(contact.getContactsCommand(id, id, 10, 0).getCommand());
 
@@ -36,11 +34,10 @@ let getUserProfile = function (id, req) {
         .return(`u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email`)
         .end({id: id}).send(commands)
         .then(async function (resp) {
-            let profile = await getUser(resp[3], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
-            profile.numberOfContacting = resp[0][0].count;
-            profile.numberOfContacts = resp[1][0].numberOfContacts;
-            await userInfo.addImageForThumbnail(resp[2]);
-            profile.contacts = resp[2];
+            let profile = await getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
+            profile.numberOfContacts = resp[0][0].numberOfContacts;
+            await userInfo.addImageForThumbnail(resp[1]);
+            profile.contacts = resp[1];
             return profile;
         });
 };
