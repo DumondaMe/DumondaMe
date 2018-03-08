@@ -35,11 +35,13 @@ describe('Getting user profile data', function () {
         res.body.contacts.length.should.equal(2);
         res.body.contacts[0].userId.should.equal('2');
         res.body.contacts[0].name.should.equal('user Meier2');
+        res.body.contacts[0].slug.should.equal('user-meier2');
         res.body.contacts[0].isContactOfLoggedInUser.should.equal(true);
         res.body.contacts[0].profileUrl.should.equal('profileImage/2/thumbnail.jpg');
 
         res.body.contacts[1].userId.should.equal('3');
         res.body.contacts[1].name.should.equal('user Meier3');
+        res.body.contacts[1].slug.should.equal('user-meier3');
         res.body.contacts[1].isContactOfLoggedInUser.should.equal(true);
         res.body.contacts[1].profileUrl.should.equal('profileImage/3/thumbnail.jpg');
     });
@@ -58,7 +60,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -74,7 +76,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -87,7 +89,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -101,7 +103,7 @@ describe('Getting user profile data', function () {
         dbDsl.createContactConnection('7', '2');
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -113,11 +115,13 @@ describe('Getting user profile data', function () {
         res.body.contacts.length.should.equal(2);
         res.body.contacts[0].userId.should.equal('3');
         res.body.contacts[0].name.should.equal('user Meier3');
+        res.body.contacts[0].slug.should.equal('user-meier3');
         res.body.contacts[0].isContactOfLoggedInUser.should.equal(false);
         res.body.contacts[0].profileUrl.should.equal('profileImage/3/thumbnail.jpg');
 
         res.body.contacts[1].userId.should.equal('4');
         res.body.contacts[1].name.should.equal('user Meier4');
+        res.body.contacts[1].slug.should.equal('user-meier4');
         res.body.contacts[1].isContactOfLoggedInUser.should.equal(false);
         res.body.contacts[1].profileUrl.should.equal('profileImage/4/thumbnail.jpg');
     });
@@ -125,14 +129,14 @@ describe('Getting user profile data', function () {
     it('Deny access to profile when not logged in (PrivacyMode publicEl)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(401);
     });
 
     it('Deny access to profile when not logged in (PrivacyMode contactOnly)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile/2');
         res.status.should.equal(401);
     });
 });

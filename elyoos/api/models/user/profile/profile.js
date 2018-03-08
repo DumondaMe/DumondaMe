@@ -3,14 +3,21 @@
  */
 'use strict';
 
-let db = requireDb();
-let cdn = require('elyoos-server-lib').cdn;
-let contact = require('./contact');
-let userInfo = require('./../userInfo');
+const db = requireDb();
+const dashify = require('dashify');
+const cdn = require('elyoos-server-lib').cdn;
+const contact = require('./contact');
+const userInfo = require('./../userInfo');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
     if (!userId && !userIdOfProfile) {
         throw new Error('401');
+    }
+};
+
+let addSlugToContacts = function (contacts) {
+    for (let contact of contacts) {
+        contact.slug = dashify(contact.name);
     }
 };
 
@@ -36,6 +43,7 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         profile.isLoggedInUser = userId === userIdOfProfile;
         await userInfo.addImageForThumbnail(resp[1]);
         profile.contacts = resp[1];
+        addSlugToContacts(profile.contacts);
         return profile;
     }
     throw new Error('401');

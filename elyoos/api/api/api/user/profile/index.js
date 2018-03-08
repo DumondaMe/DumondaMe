@@ -28,10 +28,17 @@ const schemaPostNewProfileData = {
 };
 
 module.exports = function (router) {
+
     router.get('/', asyncMiddleware(async (req, res) => {
+        let userProfile = await profile.getUserProfile(req.user.id, null);
+        logger.info("Requests of user profile", req);
+        res.status(200).json(userProfile);
+    }));
+
+    router.get('/:userId', asyncMiddleware(async (req, res) => {
         let response = await validation.validateRequest(req, schemaRequestGetUserDetails, logger);
         let userProfile = await profile.getUserProfile(req.user.id, response.userId);
-        logger.info("Requests of user profile", req);
+        logger.info("Requests of another user profile", req);
         res.status(200).json(userProfile);
     }));
 
