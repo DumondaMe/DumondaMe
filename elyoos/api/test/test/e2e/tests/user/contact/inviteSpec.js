@@ -29,7 +29,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
 
     it('Invite only user without a profile on elyoos or without a contact connection', function () {
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/contact/invite',
+            return requestHandler.put('/api/user/contact/invite',
                 {
                     emails: ['user2@irgendwo.ch',
                         'user5@irgendwo.ch',
@@ -72,7 +72,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
 
     it('Invite only user with existing account on elyoos', function () {
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/contact/invite',
+            return requestHandler.put('/api/user/contact/invite',
                 {
                     emails: ['user2@irgendwo.ch',
                         'user4@IRGENDWO.ch',
@@ -101,7 +101,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
 
     it('Invite all not existing users to elyoos', function () {
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/contact/invite',
+            return requestHandler.put('/api/user/contact/invite',
                 {
                     emails: ['user8@irgendwo.ch',
                         'user9@IRGENDWO.ch',
@@ -131,7 +131,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
 
     it('Invite no user', function () {
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/contact/invite',
+            return requestHandler.put('/api/user/contact/invite',
                 {
                     emails: ['User5@irgendwo.ch']
                 });

@@ -1,12 +1,12 @@
 'use strict';
 
-let validation = require('elyoos-server-lib').jsonValidation;
-let invite = requireModel('eMailService/invitePerson');
-let auth = require('elyoos-server-lib').auth;
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const validation = require('elyoos-server-lib').jsonValidation;
+const invite = requireModel('eMailService/invitePerson');
+const auth = require('elyoos-server-lib').auth;
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let schemaInviteFriends = {
+const schemaInviteFriends = {
     name: 'inviteFriends',
     type: 'object',
     additionalProperties: false,
@@ -25,15 +25,10 @@ let schemaInviteFriends = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Error when inviting friends', req, res, logger, function () {
-            return validation.validateRequest(req, schemaInviteFriends, logger).then(function (request) {
-                logger.info("User invites friends", req);
-                return invite.sendInvitation(req.user.id, request.emails, request.message);
-            }).then(function () {
-                res.status(200).end();
-            });
-        });
-    });
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        logger.info("User invites friends", req);
+        let request = await validation.validateRequest(req, schemaInviteFriends, logger);
+        await invite.sendInvitation(req.user.id, request.emails, request.message);
+        res.status(200).end();
+    }));
 };
