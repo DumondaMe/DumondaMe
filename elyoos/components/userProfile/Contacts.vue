@@ -23,7 +23,14 @@
                     {{$t("pages:detailUser.trustCircle.since", {date: getDate(contact.isContactSince)})}}
                 </div>
                 <div class="user-info" v-else-if="isAuthenticated">
-                    <v-icon :class="{'out-of-trust-circle': !contact.isContactOfLoggedInUser, 'in-trust-circle': contact.isContactOfLoggedInUser}">account_circle</v-icon>
+                    <v-tooltip bottom debounce="500">
+                        <v-icon :class="{'out-of-trust-circle': !contact.isContactOfLoggedInUser, 'in-trust-circle': contact.isContactOfLoggedInUser}"
+                                slot="activator">
+                            account_circle
+                        </v-icon>
+                        <span v-if="contact.isContactOfLoggedInUser">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
+                        <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
+                    </v-tooltip>
                 </div>
             </div>
             <div class="user-settings">
