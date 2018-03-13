@@ -60,13 +60,18 @@
     }
   },
   "detailUser": {
-    "sidebar": {
-      "contacts": {
-        "title": "Kontakte",
-        "contactInfo": "Du hast ein Kontakt",
-        "contactInfo_plural": "Du hast {{count}} Kontakte",
-        "since": "Seit {{date}}"
-      }
+    "trustCircle": {
+      "title": "Trust Circle",
+      "loggedInUserInfo": "Du hast eine Person in deinem Trust Circle",
+      "loggedInUserInfo_plural": "Du hast {{count}} Personen in deinem Trust Circle",
+      "otherUserInfo": "Hat eine Person im Trust Circle",
+      "otherUserInfo_plural": "Hat {{count}} Personen im Trust Circle",
+      "inYourCircle": "In deinem Trust Circle",
+      "notInYourCircle": "Nicht in deinem Trust Circle",
+      "removeFromYourCircle": "Aus Trust Circle entfernen",
+      "addToYourCircle": "Zu Trust Circle hinzufügen",
+      "blockUser": "Benutzer sperren",
+      "since": "Seit {{date}}"
     },
     "settings": {
       "languageUI": "Sprache der Benutzeroberfläche"

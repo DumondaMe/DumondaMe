@@ -89,11 +89,19 @@
                 font-weight: 500;
                 color: $secondary-text;
             }
-            button.up-vote {
-                margin: 0 4px 0 0;
+            button {
                 height: 28px;
                 width: 28px;
                 border-width: 2px;
+                i {
+                    height: 18px;
+                    width: 18px;
+                    top: -2px;
+                    position: relative;
+                }
+            }
+            button.up-vote {
+                margin: 0 4px 0 0;
                 color: #009688;
                 i.icon {
                     font-size: 18px;
@@ -101,9 +109,6 @@
             }
             button.down-vote {
                 margin: 0 4px 0 0;
-                height: 28px;
-                width: 28px;
-                border-width: 2px;
                 color: #FF5252;
                 i.icon {
                     font-size: 18px;

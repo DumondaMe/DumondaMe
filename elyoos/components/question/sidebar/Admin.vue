@@ -4,10 +4,10 @@
         <div id="question-admin-container">
             <p>{{$t("pages:detailQuestion.sidebar.admin.description")}}</p>
             <div id="admin-commands">
-                <v-btn outline fab color="primary">
+                <v-btn outline fab small color="primary">
                     <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn outline fab color="primary">
+                <v-btn outline fab small color="primary">
                     <v-icon>delete</v-icon>
                 </v-btn>
             </div>
@@ -28,8 +28,6 @@
         }
         #admin-commands {
             button {
-                height: 36px;
-                width: 36px;
                 margin-left: 0;
                 margin-right: 16px;
             }

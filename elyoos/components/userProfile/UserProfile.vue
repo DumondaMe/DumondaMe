@@ -5,17 +5,33 @@
                 <img :src="user.profileImage"/>
                 <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                        @change="handleImageChange"/>
-                <v-btn id="button-change-image" color="primary" @click="openUploadImage()">
+                <v-btn id="button-change-image" color="primary" @click="openUploadImage()"
+                       v-if="isLoggedInUser">
                     {{$t("common:button.uploadImage")}}
                 </v-btn>
             </div>
             <div id="profile-info-container">
-                <div class="user-name">{{user.forename}} {{user.surname}}</div>
-                <div class="email-address">{{user.email}}</div>
-                <v-btn outline fab color="primary" id="button-change-profile-data">
+                <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
+                <div class="user-status-info in-circle" v-if="isAuthenticated && !isLoggedInUser && user.isContactOfLoggedInUser">
+                    <v-icon>account_circle</v-icon>
+                    {{$t("pages:detailUser.trustCircle.inYourCircle")}}
+                </div>
+                <div class="user-status-info" v-else-if="isAuthenticated && !isLoggedInUser && !user.isContactOfLoggedInUser">
+                    <v-icon>account_circle</v-icon>
+                    {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
+                </div>
+                <v-btn outline fab small color="primary" id="button-change-profile-data" v-if="isLoggedInUser">
                     <v-icon>edit</v-icon>
                 </v-btn>
             </div>
+        </div>
+        <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
+            <v-btn color="primary" @click="" slot="activator" v-if="user.isContactOfLoggedInUser">
+                {{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
+            </v-btn>
+            <v-btn color="primary" @click="" slot="activator" v-else>
+                {{$t("pages:detailUser.trustCircle.addToYourCircle")}}
+            </v-btn>
         </div>
         <upload-cropped-image-dialog v-if="dialogUploadImage" @close-dialog="dialogUploadImage = false"
                                      @update-image="updateProfileImage"
@@ -25,6 +41,7 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import UploadCroppedImageDialog from '~/components/common/dialog/UploadCroppedImage.vue';
 
     export default {
@@ -33,9 +50,13 @@
             return {dialogUploadImage: false, imageToUpload: null}
         },
         computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            },
             user() {
                 return this.$store.state.userProfile.user;
-            }
+            },
+            ...mapGetters({isLoggedInUser: 'userProfile/isLoggedInUser'})
         },
         methods: {
             openUploadImage() {
@@ -58,16 +79,16 @@
 
 <style lang="scss">
     #elyoos-user-profile {
+        padding-bottom: 12px;
+        border-bottom: 1px solid $divider;
         #elyoos-user-profile-content {
-            border-bottom: 1px solid $divider;
+            display: flex;
             #elyoos-user-image-container {
-                float: left;
-                height: 142px;
                 width: 142px;
                 img {
                     border-radius: 50%;
-                    height: 100%;
-                    width: 100%;
+                    height: 142px;
+                    width: 142px;
                 }
                 #button-change-image {
                     width: 142px;
@@ -76,24 +97,32 @@
                 }
             }
             #profile-info-container {
-                margin-left: 200px;
-                min-height: 220px;
-                .user-name {
+                flex-grow: 1;
+                margin-left: 52px;
+                #user-name {
                     font-weight: 300;
                     font-size: 32px;
                     line-height: 28px;
                 }
-                .email-address {
-                    margin-top: 8px;
-                    font-size: 14px;
+                .user-status-info {
+                    margin-top: 6px;
                     color: $secondary-text;
                 }
+                .user-status-info.in-circle {
+                    i {
+                        color: $success-text;
+                    }
+                }
                 #button-change-profile-data {
-                    height: 36px;
-                    width: 36px;
-                    margin-top: 8px;
+                    margin-top: 12px;
                     margin-left: 0;
                 }
+            }
+        }
+        #other-user-commands {
+            margin-top: 12px;
+            button {
+                margin-left: 0;
             }
         }
         .user-profile-title {

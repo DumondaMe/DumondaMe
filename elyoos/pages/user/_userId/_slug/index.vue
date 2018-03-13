@@ -1,7 +1,7 @@
 <template>
-    <div id="ely-user-logged-in-profile-layout">
+    <div id="ely-user-profile-layout">
         <detail-layout>
-            <div slot="content">
+            <div slot="content" id="question-detail">
                 <user-profile></user-profile>
             </div>
             <div slot="sidebar">
@@ -17,21 +17,16 @@
     import Contacts from '~/components/userProfile/Contacts.vue';
 
     export default {
-        async fetch({store, error}) {
+        async fetch({params, store, error}) {
             try {
-                await store.dispatch(`userProfile/getProfile`);
+                await store.dispatch(`userProfile/getProfileOtherUser`, params.userId);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }
         },
         head() {
             return {
-                script: [
-                    {src: `${process.env.staticUrl}/lib/cropperjs/cropper.1.3.2.min.js`}
-                ],
-                link: [
-                    {rel: 'stylesheet', href: `${process.env.staticUrl}/lib/cropperjs/cropper.1.3.2.min.css`}
-                ]
+                title: this.$store.state.userProfile.user.forename,
             }
         },
         components: {DetailLayout, UserProfile, Contacts}
@@ -39,7 +34,7 @@
 </script>
 
 <style lang="scss">
-    #ely-user-logged-in-profile-layout {
+    #ely-user-profile-layout {
         #detail-layout {
             #detail-content {
                 width: 550px;
