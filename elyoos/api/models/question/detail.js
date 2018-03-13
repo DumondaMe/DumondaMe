@@ -2,7 +2,8 @@
 
 const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
-let cdn = require('elyoos-server-lib').cdn;
+const cdn = require('elyoos-server-lib').cdn;
+const dashify = require('dashify');
 
 const getAnswers = async function (answers) {
     let result = [];
@@ -16,6 +17,8 @@ const getAnswers = async function (answers) {
                 (l) => ['Youtube', 'Text', 'Link', 'Book'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
+                userId: answer.creator.userId,
+                slug: dashify(answer.creator.name),
                 thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
             };
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {

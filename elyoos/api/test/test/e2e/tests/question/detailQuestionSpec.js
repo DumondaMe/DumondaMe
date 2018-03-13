@@ -92,6 +92,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(600);
         res.body.answers[0].creator.name.should.equals('user Meier');
+        res.body.answers[0].creator.userId.should.equals('1');
+        res.body.answers[0].creator.slug.should.equals('user-meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         res.body.answers[1].answerId.should.equals('6');
@@ -102,6 +104,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].hasVoted.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
+        res.body.answers[1].creator.userId.should.equals('3');
+        res.body.answers[1].creator.slug.should.equals('user-meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.answers[2].answerId.should.equals('7');
@@ -116,6 +120,8 @@ describe('Getting details of a question', function () {
         res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
+        res.body.answers[2].creator.userId.should.equals('2');
+        res.body.answers[2].creator.slug.should.equals('user-meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[3].answerId.should.equals('8');
@@ -130,6 +136,8 @@ describe('Getting details of a question', function () {
         res.body.answers[3].hasVoted.should.equals(false);
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.userId.should.equals('2');
+        res.body.answers[3].creator.slug.should.equals('user-meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[4].answerId.should.equals('9');
@@ -143,6 +151,8 @@ describe('Getting details of a question', function () {
         res.body.answers[4].hasVoted.should.equals(false);
         res.body.answers[4].created.should.equals(497);
         res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.userId.should.equals('3');
+        res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 
@@ -181,6 +191,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(499);
         res.body.answers[0].creator.name.should.equals('user Meier2');
+        res.body.answers[0].creator.userId.should.equals('2');
+        res.body.answers[0].creator.slug.should.equals('user-meier2');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[1].answerId.should.equals('6');
@@ -191,6 +203,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].hasVoted.should.equals(true);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
+        res.body.answers[1].creator.userId.should.equals('3');
+        res.body.answers[1].creator.slug.should.equals('user-meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.answers[2].answerId.should.equals('5');
@@ -201,6 +215,8 @@ describe('Getting details of a question', function () {
         res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(600);
         res.body.answers[2].creator.name.should.equals('user Meier');
+        res.body.answers[2].creator.userId.should.equals('1');
+        res.body.answers[2].creator.slug.should.equals('user-meier');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         res.body.answers[3].answerId.should.equals('8');
@@ -215,6 +231,8 @@ describe('Getting details of a question', function () {
         res.body.answers[3].hasVoted.should.equals(false);
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.userId.should.equals('2');
+        res.body.answers[3].creator.slug.should.equals('user-meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[4].answerId.should.equals('9');
@@ -228,6 +246,8 @@ describe('Getting details of a question', function () {
         res.body.answers[4].hasVoted.should.equals(false);
         res.body.answers[4].created.should.equals(497);
         res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.userId.should.equals('3');
+        res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 
@@ -257,6 +277,8 @@ describe('Getting details of a question', function () {
         res.body.answers[0].hasVoted.should.equals(false);
         res.body.answers[0].created.should.equals(600);
         res.body.answers[0].creator.name.should.equals('user Meier');
+        res.body.answers[0].creator.userId.should.equals('1');
+        res.body.answers[0].creator.slug.should.equals('user-meier');
         res.body.answers[0].creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         res.body.answers[1].answerId.should.equals('6');
@@ -267,6 +289,8 @@ describe('Getting details of a question', function () {
         res.body.answers[1].hasVoted.should.equals(false);
         res.body.answers[1].created.should.equals(500);
         res.body.answers[1].creator.name.should.equals('user Meier3');
+        res.body.answers[1].creator.userId.should.equals('3');
+        res.body.answers[1].creator.slug.should.equals('user-meier3');
         res.body.answers[1].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.answers[2].answerId.should.equals('7');
@@ -281,6 +305,8 @@ describe('Getting details of a question', function () {
         res.body.answers[2].hasVoted.should.equals(false);
         res.body.answers[2].created.should.equals(499);
         res.body.answers[2].creator.name.should.equals('user Meier2');
+        res.body.answers[2].creator.userId.should.equals('2');
+        res.body.answers[2].creator.slug.should.equals('user-meier2');
         res.body.answers[2].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[3].answerId.should.equals('8');
@@ -295,6 +321,8 @@ describe('Getting details of a question', function () {
         res.body.answers[3].hasVoted.should.equals(false);
         res.body.answers[3].created.should.equals(498);
         res.body.answers[3].creator.name.should.equals('user Meier2');
+        res.body.answers[3].creator.userId.should.equals('2');
+        res.body.answers[3].creator.slug.should.equals('user-meier2');
         res.body.answers[3].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.answers[4].answerId.should.equals('9');
@@ -308,6 +336,8 @@ describe('Getting details of a question', function () {
         res.body.answers[4].hasVoted.should.equals(false);
         res.body.answers[4].created.should.equals(497);
         res.body.answers[4].creator.name.should.equals('user Meier3');
+        res.body.answers[4].creator.userId.should.equals('3');
+        res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
     });
 });
