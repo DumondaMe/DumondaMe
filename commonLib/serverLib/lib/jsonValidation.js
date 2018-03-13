@@ -103,7 +103,7 @@ module.exports = {
             convertValues(req.params, requestSchema);
             req.body = Object.assign(req.body, req.params);
         }
-        if(req.query) {
+        if (req.query) {
             convertValues(req.query, requestSchema);
             req.body = Object.assign(req.body, req.query);
         }

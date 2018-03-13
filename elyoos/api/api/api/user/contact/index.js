@@ -4,7 +4,7 @@ const validation = require('elyoos-server-lib').jsonValidation;
 const contact = requireModel('user/contact/contact');
 const auth = require('elyoos-server-lib').auth;
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const schemaRequestContact = {
     name: 'contactHandling',
