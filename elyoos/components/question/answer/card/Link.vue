@@ -4,7 +4,8 @@
         <v-layout row>
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
                        :created="answer.created" :isAdmin="answer.isAdmin"
-                       :answer-type="answerType" :answer-title="answer.title" :link="answer.link">
+                       :answer-type="answerType" :answer-title="answer.title" :link="answer.link"
+                       :userId="answer.creator.userId" :slug="answer.creator.slug">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">

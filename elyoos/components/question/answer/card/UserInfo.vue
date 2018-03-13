@@ -1,7 +1,8 @@
 <template>
     <div class="user-info-answer-container">
         <div class="image-container">
-            <img :src="thumbnailUrl">
+            <img :src="thumbnailUrl" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: userId, slug: slug}})">
         </div>
         <div class="user-infos">
             <div>
@@ -9,8 +10,10 @@
                 <span class="answer-title" v-if="!link">{{answerTitle}} </span>
                 <span class="answer-title" v-else><a target="_blank" :href="link" class="link">{{answerTitle}} </a></span>
                 <span class="answer-by">{{$t("common:createdBy")}}</span>
-                <span class="user-name" v-if="isAdmin"> {{$t("common:you")}}</span>
-                <span class="user-name" v-else> {{name}}</span>
+                <span class="user-name" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: userId, slug: slug}})" v-if="isAdmin"> {{$t("common:you")}}</span>
+                <span class="user-name" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: userId, slug: slug}})" v-else> {{name}}</span>
             </div>
             <div class="created-date">{{created | formatRelativeTimesAgo}}</div>
         </div>
@@ -19,7 +22,7 @@
 
 <script>
     export default {
-        props: ['answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin', 'link']
+        props: ['answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin', 'link', 'userId', 'slug']
     }
 </script>
 
@@ -31,6 +34,7 @@
             height: 38px;
             width: 38px;
             img {
+                cursor: pointer;
                 border-radius: 50%;
                 height: 100%;
                 width: 100%;
@@ -61,8 +65,12 @@
                 line-height: 16px;
             }
             .user-name {
+                cursor: pointer;
                 font-size: 14px;
                 line-height: 16px;
+            }
+            :hover.user-name {
+                text-decoration: underline;
             }
             .created-date {
                 font-size: 12px;

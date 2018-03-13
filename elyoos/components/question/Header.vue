@@ -3,7 +3,7 @@
         <h1>{{question.question}}</h1>
         <p id="question-description">{{question.description}}</p>
         <div id="question-commands">
-            <v-btn outline color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
+            <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
                    slot="activator">
                 {{$t("common:button.answer")}}
             </v-btn>
