@@ -28,6 +28,7 @@ describe('Getting user profile data', function () {
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier');
         res.body.isLoggedInUser.should.equal(true);
+        res.body.isContactOfLoggedInUser.should.equal(false);
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/1/profile.jpg');
         res.body.numberOfContacts.should.equal(2);
@@ -57,6 +58,7 @@ describe('Getting user profile data', function () {
         dbDsl.createContactConnection('2', '4');
 
         dbDsl.createContactConnection('7', '2');
+        dbDsl.createContactConnection('1', '2');
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -65,10 +67,11 @@ describe('Getting user profile data', function () {
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.isLoggedInUser.should.equal(false);
+        res.body.isContactOfLoggedInUser.should.equal(true);
     });
 
     it('Get profile data of another user (PrivacyMode publicEl)', async function () {
-        dbDsl.createContactConnection('2', '3');
+        dbDsl.createContactConnection('2', '1');
         dbDsl.createContactConnection('2', '4');
 
         dbDsl.createContactConnection('7', '2');
@@ -81,6 +84,7 @@ describe('Getting user profile data', function () {
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.isLoggedInUser.should.equal(false);
+        res.body.isContactOfLoggedInUser.should.equal(false);
     });
 
     it('Get profile data of another user (PrivacyMode onlyContact)', async function () {
@@ -94,6 +98,7 @@ describe('Getting user profile data', function () {
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.isLoggedInUser.should.equal(false);
+        res.body.isContactOfLoggedInUser.should.equal(false);
     });
 
     it('Get profile data of a user (Not logged in)', async function () {
@@ -108,6 +113,7 @@ describe('Getting user profile data', function () {
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.isLoggedInUser.should.equal(false);
+        res.body.isContactOfLoggedInUser.should.equal(false);
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/2/profile.jpg');
         res.body.numberOfContacts.should.equal(2);
