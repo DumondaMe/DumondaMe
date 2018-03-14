@@ -27,6 +27,7 @@ describe('Getting user profile data', function () {
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier');
+        res.body.userDescription.should.equal('superman');
         res.body.isLoggedInUser.should.equal(true);
         res.body.isContactOfLoggedInUser.should.equal(false);
         should.not.exist(res.body.password);
@@ -66,6 +67,7 @@ describe('Getting user profile data', function () {
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
+        res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isContactOfLoggedInUser.should.equal(true);
     });
@@ -83,6 +85,7 @@ describe('Getting user profile data', function () {
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
+        res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isContactOfLoggedInUser.should.equal(false);
     });
@@ -97,6 +100,7 @@ describe('Getting user profile data', function () {
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
+        res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isContactOfLoggedInUser.should.equal(false);
     });
@@ -112,6 +116,7 @@ describe('Getting user profile data', function () {
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
+        res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isContactOfLoggedInUser.should.equal(false);
         should.not.exist(res.body.password);

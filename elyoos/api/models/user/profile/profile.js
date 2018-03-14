@@ -34,7 +34,7 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
                 (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
                 (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
-        .return(`u.forename AS forename, u.surname AS surname, 
+        .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isContactOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[2].length === 1) {
@@ -58,9 +58,8 @@ let updateUserProfile = function (userId, userData) {
     }
     return db.cypher().match('(u:User {userId: {id}})')
         .set('u', {
-            name: name,
-            forename: userData.forename,
-            surname: userData.surname
+            name: name, forename: userData.forename, surname: userData.surname,
+            userDescription: userData.userDescription
         }).end({id: userId}).send();
 };
 

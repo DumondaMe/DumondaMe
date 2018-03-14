@@ -22,8 +22,9 @@ const schemaPostNewProfileData = {
     additionalProperties: false,
     required: ['forename', 'surname'],
     properties: {
-        forename: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50}
+        forename: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 40},
+        surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 60},
+        userDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 200}
     }
 };
 
@@ -42,7 +43,7 @@ module.exports = function (router) {
         res.status(200).json(userProfile);
     }));
 
-    router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         await validation.validateRequest(req, schemaPostNewProfileData, logger);
         await profile.updateUserProfile(req.user.id, req.body);
         logger.info("Successfully updated user profile", req);
