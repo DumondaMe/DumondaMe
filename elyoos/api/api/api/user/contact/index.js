@@ -21,8 +21,8 @@ module.exports = function (router) {
     router.post('/:contactId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaRequestContact, logger);
         logger.info(`User has added ${request.contactId} to the contact list`, req);
-        await contact.addContact(req.user.id, request.contactId, req);
-        res.status(200).end();
+        let result = await contact.addContact(req.user.id, request.contactId, req);
+        res.status(200).json(result);
     }));
 
     router.delete('/:contactId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {

@@ -21,7 +21,6 @@ let removeInvitation = function (userId, contactId) {
 };
 
 let addContact = async function (userId, contactId) {
-
     await validAddContactCommand(userId, contactId);
     let commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User {userId: {contactId}})')
@@ -35,10 +34,10 @@ let addContact = async function (userId, contactId) {
         }).getCommand());
 
     await removeInvitation(userId, contactId).send(commands);
+    return {isContactSince: timeAddedContact};
 };
 
 let deleteContact = async function (userId, contactId) {
-
     let commands = [];
 
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contactId}})')
@@ -50,7 +49,6 @@ let deleteContact = async function (userId, contactId) {
 };
 
 let blockContact = async function (userId, blockedUserId) {
-
     let commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User {userId: {blockedUserId}})')
         .merge('(u)-[:IS_BLOCKED]->(u2)')

@@ -28,11 +28,12 @@ describe('Handling contact relationships', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/contact/5');
         res.status.should.equal(200);
+        res.body.isContactSince.should.least(startTime);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
             .return('r.contactAdded as contactAdded')
             .end().send();
         user.length.should.equals(1);
-        user[0].contactAdded.should.least(startTime);
+        user[0].contactAdded.should.equals(res.body.isContactSince);
     });
 
     it('Adding a contact and remove invitations', async function () {
