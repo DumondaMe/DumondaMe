@@ -19,11 +19,8 @@
                      @click="$router.push({name: 'user-userId-slug',
                      params: {userId: contact.userId, slug: contact.slug}})">{{contact.name}}
                 </div>
-                <div class="user-info" v-if="user.isLoggedInUser">
-                    {{$t("pages:detailUser.trustCircle.since", {date: getDate(contact.isContactSince)})}}
-                </div>
-                <div class="user-info" v-else-if="isAuthenticated">
-                    <v-tooltip bottom debounce="500">
+                <div class="user-info" v-if="isAuthenticated">
+                    <v-tooltip bottom debounce="1500">
                         <v-icon :class="{'out-of-trust-circle': !contact.isContactOfLoggedInUser, 'in-trust-circle': contact.isContactOfLoggedInUser}"
                                 slot="activator">
                             account_circle
@@ -31,19 +28,22 @@
                         <span v-if="contact.isContactOfLoggedInUser">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
                         <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
                     </v-tooltip>
+                    <span v-if="user.isLoggedInUser && contact.isContactSince">
+                        {{$t("pages:detailUser.trustCircle.since", {date: getDate(contact.isContactSince)})}}</span>
                 </div>
             </div>
-            <div class="user-settings">
+            <div class="user-settings" v-if="isAuthenticated">
                 <v-menu bottom left>
                     <v-btn icon slot="activator">
                         <v-icon>more_vert</v-icon>
                     </v-btn>
                     <v-list>
-                        <v-list-tile @click="" v-if="user.isLoggedInUser || contact.isContactOfLoggedInUser">
+                        <v-list-tile v-if="contact.isContactOfLoggedInUser"
+                                     @click="removeUserFromTrustCircle(contact.userId)">
                             <v-list-tile-title>{{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
                             </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile v-else @click="">
+                        <v-list-tile v-else @click="addUserToTrustCircle(contact.userId)">
                             <v-list-tile-title>{{$t("pages:detailUser.trustCircle.addToYourCircle")}}
                             </v-list-tile-title>
                         </v-list-tile>
@@ -76,6 +76,12 @@
             },
             async loadNextContacts() {
 
+            },
+            addUserToTrustCircle(userId) {
+                this.$store.dispatch('userProfile/addUserToTrustCircle', userId);
+            },
+            removeUserFromTrustCircle(userId) {
+                this.$store.dispatch(`userProfile/removeUserFromTrustCircle`, userId);
             }
         }
     }
@@ -114,7 +120,6 @@
                     text-decoration: underline;
                 }
                 .user-info {
-                    height: 19px;
                     font-size: 12px;
                     color: $secondary-text;
                     i {
@@ -125,6 +130,9 @@
                         width: 19px;
                         vertical-align: inherit;
                         cursor: pointer;
+                    }
+                    span {
+                        vertical-align: top;
                     }
                     .in-trust-circle {
                         color: $success-text;

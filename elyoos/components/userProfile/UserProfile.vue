@@ -12,11 +12,13 @@
             </div>
             <div id="profile-info-container">
                 <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
-                <div class="user-status-info in-circle" v-if="isAuthenticated && !isLoggedInUser && user.isContactOfLoggedInUser">
+                <div class="user-status-info in-circle"
+                     v-if="isAuthenticated && !isLoggedInUser && user.isContactOfLoggedInUser">
                     <v-icon>account_circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.inYourCircle")}}
                 </div>
-                <div class="user-status-info" v-else-if="isAuthenticated && !isLoggedInUser && !user.isContactOfLoggedInUser">
+                <div class="user-status-info"
+                     v-else-if="isAuthenticated && !isLoggedInUser && !user.isContactOfLoggedInUser">
                     <v-icon>account_circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
                 </div>
@@ -26,10 +28,11 @@
             </div>
         </div>
         <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
-            <v-btn color="primary" @click="" slot="activator" v-if="user.isContactOfLoggedInUser">
+            <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
+                   v-if="user.isContactOfLoggedInUser">
                 {{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
             </v-btn>
-            <v-btn color="primary" @click="" slot="activator" v-else>
+            <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
                 {{$t("pages:detailUser.trustCircle.addToYourCircle")}}
             </v-btn>
         </div>
@@ -72,6 +75,12 @@
             updateProfileImage(dataUrl) {
                 this.dialogUploadImage = false;
                 this.$store.commit('userProfile/UPDATE_USER_PROFILE_IMAGE', dataUrl);
+            },
+            addUserToTrustCircle() {
+                this.$store.dispatch('userProfile/addUserToTrustCircle', this.user.userId);
+            },
+            removeUserFromTrustCircle() {
+                this.$store.dispatch(`userProfile/removeUserFromTrustCircle`, this.user.userId);
             }
         }
     }
