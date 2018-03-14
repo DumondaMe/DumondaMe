@@ -73,6 +73,10 @@
       "blockUser": "Benutzer sperren",
       "since": "Seit {{date}}"
     },
+    "profileData": {
+      "changeProfileDataTitle": "Profildaten ändern",
+      "userDescription": "Eine kurze Beschreibung deiner Person"
+    },
     "settings": {
       "languageUI": "Sprache der Benutzeroberfläche"
     }

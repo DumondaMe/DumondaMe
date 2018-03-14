@@ -22,7 +22,9 @@
                     <v-icon>account_circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
                 </div>
-                <v-btn outline fab small color="primary" id="button-change-profile-data" v-if="isLoggedInUser">
+                <div class="user-description">{{user.userDescription}}</div>
+                <v-btn outline fab small color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
+                       @click="showUploadUserDataDialog = true">
                     <v-icon>edit</v-icon>
                 </v-btn>
             </div>
@@ -40,17 +42,20 @@
                                      @update-image="updateProfileImage"
                                      :initial-image="imageToUpload">
         </upload-cropped-image-dialog>
+        <upload-user-data-dialog v-if="showUploadUserDataDialog" @close-dialog="showUploadUserDataDialog = false">
+        </upload-user-data-dialog>
     </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
     import UploadCroppedImageDialog from '~/components/common/dialog/UploadCroppedImage.vue';
+    import UploadUserDataDialog from './UploadUserDataDialog.vue';
 
     export default {
-        components: {UploadCroppedImageDialog},
+        components: {UploadCroppedImageDialog, UploadUserDataDialog},
         data() {
-            return {dialogUploadImage: false, imageToUpload: null}
+            return {dialogUploadImage: false, imageToUpload: null, showUploadUserDataDialog: false}
         },
         computed: {
             isAuthenticated() {
@@ -116,6 +121,11 @@
                 .user-status-info {
                     margin-top: 6px;
                     color: $secondary-text;
+                }
+                .user-description {
+                    margin-top: 18px;
+                    font-size: 16px;
+                    font-weight: 300;
                 }
                 .user-status-info.in-circle {
                     i {

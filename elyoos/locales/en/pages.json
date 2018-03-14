@@ -73,6 +73,10 @@
       "blockUser": "Block User",
       "since": "Since {{date}}"
     },
+    "profileData": {
+      "changeProfileDataTitle": "Change Profile Data",
+      "userDescription": "A short description of your person"
+    },
     "settings": {
       "languageUI": "User interface language"
     }

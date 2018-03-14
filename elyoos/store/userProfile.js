@@ -5,6 +5,14 @@ export const state = () => ({
 export const mutations = {
     SET_USER_PROFILE: function (state, user) {
         state.user = user;
+        if (!state.user.userDescription) {
+            state.user.userDescription = '';
+        }
+    },
+    CHANGE_USER_DATA: function (state, user) {
+        state.user.forename = user.forename;
+        state.user.surname = user.surname;
+        state.user.userDescription = user.userDescription;
     },
     UPDATE_USER_PROFILE_IMAGE: function (state, image) {
         state.user.profileImage = image;
@@ -62,5 +70,12 @@ export const actions = {
     async removeUserFromTrustCircle({commit}, userId) {
         await this.$axios.$delete(`user/contact/${userId}`);
         commit('REMOVE_USER_FROM_TRUST_CIRCLE', userId);
+    },
+    async uploadUserData({commit}, userProfile) {
+        if (typeof userProfile.userDescription === 'string' && userProfile.userDescription.trim().length === 0) {
+            delete userProfile.userDescription;
+        }
+        await this.$axios.$put(`user/profile`, userProfile);
+        commit('CHANGE_USER_DATA', userProfile);
     }
 };

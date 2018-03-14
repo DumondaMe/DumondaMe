@@ -10,7 +10,7 @@ export default {
             return (v) => (v && v.length > 0) || text;
         },
         ruleToManyChars(text, length) {
-            return (v) => (typeof v === 'string' && v.length <= length) || text;
+            return (v) => (typeof v === 'undefined' || (typeof v === 'string' && v.length <= length)) || text;
         },
         ruleMinLength(text, minLength) {
             return (v) => (typeof v === 'string' && v.trim().length >= minLength) || text;
