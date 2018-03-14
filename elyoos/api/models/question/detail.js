@@ -53,6 +53,8 @@ const getQuestion = async function (questionId, userId) {
         delete question.questionId;
         question.creator = {
             name: response[0].user.name,
+            userId: response[0].user.userId,
+            slug: dashify(response[0].user.name),
             thumbnailUrl: await cdn.getSignedUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
         };
         question.answers = await getAnswers(response[0].answers);

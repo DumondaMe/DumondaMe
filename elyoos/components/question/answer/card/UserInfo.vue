@@ -10,8 +10,7 @@
                 <span class="answer-title" v-if="!link">{{answerTitle}} </span>
                 <span class="answer-title" v-else><a target="_blank" :href="link" class="link">{{answerTitle}} </a></span>
                 <span class="answer-by">{{$t("common:createdBy")}}</span>
-                <span class="user-name" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: userId, slug: slug}})" v-if="isAdmin"> {{$t("common:you")}}</span>
+                <span class="user-name" @click="$router.push({name: 'user'})" v-if="isAdmin"> {{$t("common:you")}}</span>
                 <span class="user-name" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: userId, slug: slug}})" v-else> {{name}}</span>
             </div>

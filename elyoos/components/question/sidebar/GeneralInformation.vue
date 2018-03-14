@@ -6,7 +6,12 @@
 
         </div>
         <div class="question-info">
-            {{$t("pages:detailQuestion.sidebar.generalInfo.createdBy")}} {{question.creator.name}}
+            {{$t("pages:detailQuestion.sidebar.generalInfo.createdBy")}}
+            <span class="user-name" v-if="question.isAdmin" @click="$router.push({name: 'user'})">
+                {{$t("common:you")}}</span>
+            <span class="user-name" v-else @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: question.creator.userId, slug: question.creator.slug}})">
+                {{question.creator.name}}</span>
         </div>
         <div class="question-info">
             {{$t("pages:detailQuestion.sidebar.generalInfo.created")}} {{question.created | formatDate}}
@@ -48,5 +53,12 @@
         font-size: 14px;
         font-weight: 300;
         margin-bottom: 3px;
+        .user-name {
+            font-weight: 400;
+            cursor: pointer;
+        }
+        :hover.user-name {
+            text-decoration: underline;
+        }
     }
 </style>

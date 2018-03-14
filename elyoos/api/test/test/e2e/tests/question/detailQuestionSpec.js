@@ -57,6 +57,8 @@ describe('Getting details of a question', function () {
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
         res.body.creator.name.should.equals('user Meier3');
+        res.body.creator.userId.should.equals('3');
+        res.body.creator.slug.should.equals('user-meier3');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
         res.body.topic.length.should.equals(1);
@@ -77,6 +79,8 @@ describe('Getting details of a question', function () {
         res.body.language.should.equals('de');
         res.body.isAdmin.should.equals(true);
         res.body.creator.name.should.equals('user Meier');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
@@ -172,6 +176,8 @@ describe('Getting details of a question', function () {
         res.body.language.should.equals('de');
         res.body.isAdmin.should.equals(true);
         res.body.creator.name.should.equals('user Meier');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
@@ -262,6 +268,8 @@ describe('Getting details of a question', function () {
         res.body.language.should.equals('de');
         res.body.isAdmin.should.equals(false);
         res.body.creator.name.should.equals('user Meier');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.topic.length.should.equals(2);
