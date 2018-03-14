@@ -1,7 +1,7 @@
 <template>
     <div id="language-setting-container">
-        <h2 class="user-profile-title">Sprach Settings</h2>
-        <v-select id="select-user-language" :label="$t('pages:detailUser.settings.languageUI')"
+        <h2 class="user-profile-title">{{$t("pages:settings.languageTitle")}}</h2>
+        <v-select id="select-user-language" :label="$t('pages:settings.languageUI')"
                   :items="getLanguages" v-model="selectedLanguage"
                   item-value="key" item-text="description">
         </v-select>

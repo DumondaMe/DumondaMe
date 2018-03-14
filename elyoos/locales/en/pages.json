@@ -1,4 +1,12 @@
 {
+  "toolbar": {
+    "settings": "Settings",
+    "yourProfile": "Your Profil",
+    "createQuestion": "Create Question",
+    "createEngagement": "Create Engagement",
+    "aboutElyoos": "About Elyoos",
+    "logout": "Logout"
+  },
   "login": {
     "titleLogin": "I already have an account",
     "loginButton": "Login",
@@ -76,9 +84,14 @@
     "profileData": {
       "changeProfileDataTitle": "Change Profile Data",
       "userDescription": "A short description of your person"
-    },
-    "settings": {
-      "languageUI": "User interface language"
     }
+  },
+  "settings": {
+    "languageTitle": "Language Settings",
+    "languageUI": "User interface language",
+    "privacyTitle": "Privacy Settings",
+    "privacyPublic": "Your profile is public",
+    "privacyPublicOnElyoos": "Your profile will only be seen by other users of Elyoos",
+    "privacyOnlyContact": "Only people in your trust circle see your profile"
   }
 }
