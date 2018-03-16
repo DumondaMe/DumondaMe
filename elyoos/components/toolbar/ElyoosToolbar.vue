@@ -21,7 +21,7 @@
                             <v-list-tile-title>{{$t("pages:toolbar.createQuestion")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="">
-                            <v-list-tile-title>{{$t("pages:toolbar.createEngagement")}}</v-list-tile-title>
+                            <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile @click="">

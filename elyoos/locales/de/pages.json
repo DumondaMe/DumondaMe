@@ -3,7 +3,7 @@
     "settings": "Einstellungen",
     "yourProfile": "Dein Profil",
     "createQuestion": "Frage erstellen",
-    "createEngagement": "Engagement erstellen",
+    "createCommitment": "Engagement erstellen",
     "aboutElyoos": "Über Elyoos",
     "logout": "Abmelden"
   },
@@ -23,7 +23,7 @@
     "sidebar": {
       "feedTitle": "Feeds",
       "question": "Fragen",
-      "engagement": "Engagements",
+      "commitment": "Engagements",
       "event": "Veranstaltungen"
     },
     "question": {
