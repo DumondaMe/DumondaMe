@@ -11,10 +11,10 @@ SET b:Answer
 SET b.answerId = b.pageId
 REMOVE b.pageId;
 
-//Page with generic label to Organisation
+//Page with generic label to Commitment
 MATCH (b:Page)
 WHERE b.label = 'Generic'
-SET b:Organisation
+SET b:Commitment
 SET b.language = b.language[0]
 REMOVE b:Page, b.label;
 
