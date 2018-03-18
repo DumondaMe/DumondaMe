@@ -42,7 +42,7 @@ module.exports = {
         if (pathToFile) {
             req.attach('file', pathToFile);
             req.field('model', JSON.stringify(data));
-            return req.set('authorization', 'fiengib458ckeEr9dicv').send();
+            return req.set('authorization', 'fiengib458ckeEr9dicv');
         }
         return req.set('authorization', 'fiengib458ckeEr9dicv').send(data);
     },
