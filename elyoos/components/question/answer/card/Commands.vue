@@ -90,29 +90,26 @@
                 color: $secondary-text;
             }
             button {
-                height: 28px;
-                width: 28px;
+                margin: 0 4px 0 0;
+                display: inline-block;
+                height: 30px;
+                width: 30px;
                 border-width: 2px;
-                i {
-                    height: 18px;
-                    width: 18px;
-                    top: -2px;
-                    position: relative;
+                font-size: 14px;
+                .btn__content {
+                    height: 100%;
+                    width: 100%;
+                    i.icon {
+                        font-size: 20px;
+                        font-weight: 400;
+                    }
                 }
             }
             button.up-vote {
-                margin: 0 4px 0 0;
                 color: #009688;
-                i.icon {
-                    font-size: 18px;
-                }
             }
             button.down-vote {
-                margin: 0 4px 0 0;
                 color: #FF5252;
-                i.icon {
-                    font-size: 18px;
-                }
             }
         }
     }
