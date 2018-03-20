@@ -85,4 +85,22 @@ describe('Search a website link', function () {
         res.status.should.equal(400);
         res.body.errorCode.should.equal(2);
     });
+
+    it('Only logged in user can search for a link', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves(
+            `<head>
+                <title>titleWebsite</title>
+                <meta property="og:title" content="ogTitle">
+                <meta property="og:description" content="ogDescription">
+                <meta property="og:image" content="https://www.example.org/image.jpg">
+                <meta property="og:image" content="https://www.example.org/image2.jpg">
+                <meta property="og:type" content="article">
+            </head>
+            <body></body>`
+        );
+        await dbDsl.sendToDb();
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
+        res.status.should.equal(401);
+    });
 });

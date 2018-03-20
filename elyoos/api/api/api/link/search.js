@@ -3,6 +3,7 @@
 const validation = require('elyoos-server-lib').jsonValidation;
 const linkSearch = requireModel('link/search');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const schemaSearchLink = {
@@ -18,7 +19,7 @@ const schemaSearchLink = {
 
 module.exports = function (router) {
 
-    router.get('/:questionId', asyncMiddleware(async (req, res) => {
+    router.get('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaSearchLink, logger);
         let response = await linkSearch.search(params.link.trim(), params.questionId);
         res.status(200).json(response);
