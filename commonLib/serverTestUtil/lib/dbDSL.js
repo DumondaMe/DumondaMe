@@ -2,6 +2,7 @@
 
 let contactConnections = require('./dbDSL/contactConnection');
 let page = require('./dbDSL/page');
+let commitment = require('./dbDSL/commitment');
 let answer = require('./dbDSL/answer');
 let user = require('./dbDSL/user');
 let news = require('./dbDSL/news');
@@ -36,6 +37,7 @@ module.exports = {
     createContactConnection: contactConnections.createContactConnection,
     createGenericPage: page.createGenericPage,
     addAdminToPage: page.addAdminToPage,
+    createCommitment: commitment.createCommitment,
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
     createVimeoAnswer: answer.createVimeoAnswer,
