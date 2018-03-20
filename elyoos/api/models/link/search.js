@@ -3,6 +3,7 @@
 const db = requireDb();
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const parseWebsite = require('./../website/parse');
 const youtubeLink = requireModel('util/youtube');
 const vimeoLink = requireModel('util/vimeo');
 const exceptions = require('elyoos-server-lib').exceptions;
@@ -14,25 +15,6 @@ const VIMEO = 'Vimeo';
 
 const ERROR_CODE_NO_YOUTUBE_ID = 1;
 const ERROR_CODE_ANSWER_EXISTS = 2;
-
-const getTitle = function ($) {
-    let title = $("meta[property='og:title']").attr('content');
-    if (!title || (typeof title === 'string' && title.trim() === '')) {
-        title = $("head title").text() || '';
-    }
-    title = title.replace(/(- YouTube)+$/, "");
-    title = title.trim();
-    return title;
-};
-
-const getDescription = function ($) {
-    let description = $("meta[property='og:description']").attr('content');
-    if (!description || (typeof description === 'string' && description.trim() === '')) {
-        description = $("meta[name='description']").attr('content') || '';
-    }
-    description = description.trim();
-    return description;
-};
 
 const getLinkType = function (link) {
     let linkType = LINK;
@@ -65,7 +47,7 @@ const searchDatabase = async function (link, linkType) {
 const searchWebsite = async function (link, linkType) {
     try {
         const $ = cheerio.load(await rp.get(link));
-        let result = {title: getTitle($), description: getDescription($), type: linkType};
+        let result = {title: parseWebsite.getTitle($), description: parseWebsite.getDescription($), type: linkType};
         if (linkType === YOUTUBE) {
             result.linkEmbed = youtubeLink.getEmbedUrl(link)
         } else if (linkType === VIMEO) {
