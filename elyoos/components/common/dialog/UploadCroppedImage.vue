@@ -35,8 +35,9 @@
 </template>
 
 <script>
-    import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js'
-    import {uploadFileToUrl} from '~/utils/files/upload.js'
+    import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
+    import {uploadFileToUrl} from '~/utils/files/upload.js';
+    import Cropper from 'cropperjs/dist/cropper.min.js';
 
     export default {
         props: ['initialImage'],

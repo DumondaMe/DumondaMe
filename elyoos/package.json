@@ -21,6 +21,7 @@
     "cheerio": "1.0.0-rc.2",
     "connect-redis": "3.3.3",
     "csurf": "1.9.0",
+    "cropperjs": "1.3.3",
     "cuid": "1.3.8",
     "deasync": "0.1.9",
     "debounce": "1.1.0",

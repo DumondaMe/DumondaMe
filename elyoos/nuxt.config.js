@@ -47,6 +47,7 @@ module.exports = {
         vendor: ['babel-polyfill',
             'i18next',
             '@panter/vue-i18next',
+            'cropperjs/dist/cropper.min.js',
             'moment',
             'moment/locale/de',
             'moment/locale/en-gb',
@@ -67,6 +68,7 @@ module.exports = {
         '~/plugins/moment.js',
         '~/plugins/vuetify.js'],
     css: [
-        '~/assets/style/app.styl'
+        '~/assets/style/app.styl',
+        'cropperjs/dist/cropper.min.css'
     ]
 };
