@@ -24,7 +24,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="createTextAnswer()" :disabled="!valid">
+            <v-btn color="primary" @click.native="createTextAnswer()" :disabled="!valid">
                 {{$t("common:button.create")}}
             </v-btn>
         </v-card-actions>

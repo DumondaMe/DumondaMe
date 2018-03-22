@@ -31,7 +31,7 @@
             <v-btn color="primary" flat @click.native="$emit('selected-book', null)" v-show="selected">
                 {{$t("common:button.back")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="createBookAnswer()" :loading="uploadRunning"
+            <v-btn color="primary" @click.native="createBookAnswer()" :loading="uploadRunning"
                    :disabled="!valid || uploadRunning">
                 {{$t("common:button.create")}}
             </v-btn>

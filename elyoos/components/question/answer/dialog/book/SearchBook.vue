@@ -37,7 +37,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat
+            <v-btn color="primary"
                    :disabled="true">
                 {{$t("common:button.create")}}
             </v-btn>

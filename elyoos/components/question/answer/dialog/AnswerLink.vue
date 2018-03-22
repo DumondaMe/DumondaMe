@@ -75,7 +75,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="createLinkAnswer()" :loading="uploadRunning"
+            <v-btn color="primary" @click.native="createLinkAnswer()" :loading="uploadRunning"
                    :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
                    !!this.showWarningMessage">
                 {{$t("common:button.create")}}
@@ -127,7 +127,7 @@
             },
             isValidLink() {
                 return v => urlRegex().test(v) || this.$t("validation:url")
-            },
+            }
 
         },
         watch: {
