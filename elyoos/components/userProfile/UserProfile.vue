@@ -49,7 +49,7 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import UploadCroppedImageDialog from '~/components/common/dialog/UploadCroppedImage.vue';
+    import UploadCroppedImageDialog from '~/components/common/dialog/cropper/UploadCroppedImage.vue';
     import UploadUserDataDialog from './UploadUserDataDialog.vue';
 
     export default {
