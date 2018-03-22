@@ -20,7 +20,7 @@
                         <v-list-tile @click="">
                             <v-list-tile-title>{{$t("pages:toolbar.createQuestion")}}</v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile @click="">
+                        <v-list-tile @click="showCreateCommitment = true">
                             <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-divider></v-divider>
@@ -60,11 +60,19 @@
                 </v-btn>
             </div>
         </div>
+        <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
+        </create-commitment-dialog>
     </div>
 </template>
 
 <script>
+    import CreateCommitmentDialog from '~/components/commitment/create/Dialog.vue'
+
     export default {
+        data() {
+            return {showCreateCommitment: false}
+        },
+        components: {CreateCommitmentDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

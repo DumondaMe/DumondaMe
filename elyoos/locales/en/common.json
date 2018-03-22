@@ -7,6 +7,7 @@
   "terms": "terms",
   "title": "Title",
   "description": "Description",
+  "website": "Website",
   "createdBy": "created by",
   "you": "you",
   "toolbar": {
@@ -22,10 +23,11 @@
     "create": "Create",
     "answer": "Answer",
     "filter": "Filters",
-    "readMore": "Read more",
+    "readMore": "Read More",
     "change": "Change",
     "upload": "Upload",
-    "uploadImage": "Upload Image"
+    "uploadImage": "Upload Image",
+    "changeImage": "Change Image"
   },
   "topic": {
     "health": "Health",

@@ -34,6 +34,14 @@
       "selectTopic": "Thema"
     }
   },
+  "commitment": {
+    "createDialog": {
+      "link": "Link zur Website deines Engagments",
+      "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
+      "language": "Sprache des Engagements",
+      "noWebsiteButton": "Keine Website, Weiter"
+    }
+  },
   "detailQuestion": {
     "loginToAnswerQuestion": "Um eine Antwort zu erstellen musst du dich einloggen",
     "yourAnswer": "Deine Antwort",

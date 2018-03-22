@@ -7,6 +7,7 @@
   "terms": "AGB's",
   "title": "Titel",
   "description": "Beschreibung",
+  "website": "Webseite",
   "createdBy": "erstellt von",
   "you": "dir",
   "toolbar": {
@@ -22,10 +23,11 @@
     "create": "Erstellen",
     "answer": "Beantworten",
     "filter": "Filter",
-    "readMore": "Mehr lesen",
+    "readMore": "Mehr Lesen",
     "change": "Ändern",
     "upload": "Hochladen",
-    "uploadImage": "Bild hochladen"
+    "uploadImage": "Bild Hochladen",
+    "changeImage": "Bild Ändern"
   },
   "topic": {
     "health": "Gesundheit",

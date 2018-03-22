@@ -34,6 +34,14 @@
       "selectTopic": "Topic"
     }
   },
+  "commitment": {
+    "createDialog": {
+      "link": "Link to the website of your commitment",
+      "websiteLoaded": "The link to your website has been successfully checked.",
+      "language": "Language of engagement",
+      "noWebsiteButton": "No Website, Next"
+    }
+  },
   "detailQuestion": {
     "loginToAnswerQuestion": "To create an answer you need to log in",
     "yourAnswer": "Your Answer",
