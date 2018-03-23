@@ -59,6 +59,8 @@
             addTopic(event) {
                 event.preventDefault();
                 if (this.$refs.form.validate() && this.newTopic.trim() !== '') {
+                    this.newTopic = this.newTopic.toLowerCase();
+                    this.newTopic = this.newTopic.replace(/\b\w/g, l => l.toUpperCase());
                     this.topics.push({name: this.newTopic, isActive: true});
                     this.newTopic = '';
                 }
