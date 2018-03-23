@@ -42,14 +42,14 @@
       "addKeyTerm": "Add key term",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
       "keyTermUsed": "This key term is already in use",
-      "keyTermDescription": "Use key terms that can be associated with your commitment. E.g. Zero Waste, Food Waste etc.",
+      "keyTermDescription": "Use appropriate key terms that describe your commitment in more detail. E.g. Zero Waste, Food Waste etc.",
       "maxKeyTerm": "A maximum of {{count}} key terms can be used",
-      "topicDescription": "Which categories can your commitment be assigned to?",
+      "topicDescription": "Which topics can be assigned to your commitment?",
       "noWebsiteButton": "No Website, Next",
       "createCommitmentButton": "Create Commitment",
       "stepWebsite": "Website",
       "stepData": "Commitment",
-      "stepTopic": "Category",
+      "stepTopic": "Topic",
       "stepKeyTerms": "Key Terms"
     }
   },

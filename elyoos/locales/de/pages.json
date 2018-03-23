@@ -36,20 +36,20 @@
   },
   "commitment": {
     "createDialog": {
-      "link": "Link zur Website deines Engagments",
+      "link": "Link zur Webseite deines Engagments",
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
       "language": "Sprache des Engagements",
       "addKeyTerm": "Schlüsselwort hinzufügen",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",
       "keyTermUsed": "Dieses Schlüsselwort wird bereits verwendet",
-      "keyTermDescription": "Verwende Schlüsselwörter welche deinem Engagement zugeordnet werden können. Z.B. Zero Waste, Food Waste usw.",
+      "keyTermDescription": "Verwende treffende Schlüsselbegriffe welche dein Engagement genauer beschreiben. Z.B. Zero Waste, Food Waste usw.",
       "maxKeyTerm": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
-      "topicDescription": "Welchen Kategorien kann dein Engagement zu geordnet werden?",
-      "noWebsiteButton": "Keine Website, Weiter",
+      "topicDescription": "Welchen Themengebieten kann dein Engagement zugeordnet werden?",
+      "noWebsiteButton": "Keine Webseite, Weiter",
       "createCommitmentButton": "Engagement erstellen",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
-      "stepTopic": "Kategorien",
+      "stepTopic": "Themengebiet",
       "stepKeyTerms": "Schlüsselbegriffe"
     }
   },
