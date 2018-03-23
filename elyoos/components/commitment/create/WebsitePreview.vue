@@ -4,7 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text id="dialog-create-commitment-content">
-            <v-form v-model="valid">
+            <v-form v-model="valid" @keydown.enter.native="goToNext">
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
@@ -25,10 +25,11 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" v-if="previewLoaded">
+            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" :loading="checkLink"
+                   v-if="previewLoaded">
                 {{$t("common:button.next")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" v-else>
+            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" :loading="checkLink" v-else>
                 {{$t("pages:commitment.createDialog.noWebsiteButton")}}
             </v-btn>
         </v-card-actions>
@@ -50,6 +51,12 @@
                         return true
                     }
                     return urlRegex().test(v) || this.$t("validation:url")
+                }
+            },
+            goToNext(event) {
+                event.preventDefault();
+                if (!this.checkLink) {
+                    this.$emit('next');
                 }
             }
         },

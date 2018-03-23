@@ -64,8 +64,8 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="topics.length === 0">
-                {{$t("common:button.next")}}
+            <v-btn color="primary" @click.native="finish" :disabled="topics.length === 0">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -75,6 +75,7 @@
     import TopicButton from './TopicButton';
 
     export default {
+        props: ['actionButtonText'],
         data() {
             return {topics: []}
         },
@@ -88,6 +89,12 @@
             },
             removeTopic(topic) {
                 this.topics = this.topics.filter((v) => v !== topic);
+            },
+            finish(event) {
+                event.preventDefault();
+                if (this.topics.length > 0) {
+                    this.$emit('finish', this.topics);
+                }
             }
         }
     }

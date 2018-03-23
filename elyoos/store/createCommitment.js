@@ -11,6 +11,12 @@ export const mutations = {
     },
     SET_TITLE_IMAGE: function (state, image) {
         state.commitment.image = image;
+    },
+    SET_TOPICS: function (state, topics) {
+        state.commitment.topics = topics;
+    },
+    SET_KEY_TERMS: function (state, keyTerms) {
+        state.commitment.keyTerms = keyTerms;
     }
 };
 

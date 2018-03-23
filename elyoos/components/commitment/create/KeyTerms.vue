@@ -4,8 +4,8 @@
             <slot name="header"></slot>
         </div>
         <v-card-text id="dialog-create-key-terms-commitment-content">
-            <v-form v-model="valid">
-                <v-btn color="primary" @click="addKeyTerm()" id="add-key-term-button" icon
+            <v-form v-model="valid" @keydown.enter.native="addKeyTerm" ref="form">
+                <v-btn color="primary" @click="addKeyTerm" id="add-key-term-button" icon
                        :disabled="!valid || newKeyTerm.trim() === ''">
                     <v-icon>add</v-icon>
                 </v-btn>
@@ -14,7 +14,8 @@
                                   :label="$t('pages:commitment.createDialog.addKeyTerm')"
                                   :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
                                            keyTermNotAlreadyUsed(),
-                                           maxNumberOfKeyTerms()]">
+                                           maxNumberOfKeyTerms(),
+                                           maxNumberOfSpaces()]">
                     </v-text-field>
                 </div>
             </v-form>
@@ -35,8 +36,9 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="newKeyTerm.trim() !== ''">
-                {{$t("common:button.next")}}
+            <v-btn color="primary" @click.native="finish()"
+                   :disabled="newKeyTerm.trim() !== '' || !valid || keyTerms.length === 0">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -46,15 +48,20 @@
     import validationRules from '~/mixins/validationRules.js';
 
     const MAX_NUMBER_OF_KEY_TERMS = 15;
+    const MAX_NUMBER_OF_SPACES = 2;
 
     export default {
+        props: ['actionButtonText'],
         data() {
             return {valid: false, newKeyTerm: '', keyTerms: []}
         },
         methods: {
-            addKeyTerm() {
-                this.keyTerms.push({name: this.newKeyTerm, isActive: true});
-                this.newKeyTerm = '';
+            addKeyTerm(event) {
+                event.preventDefault();
+                if (this.$refs.form.validate() && this.newKeyTerm.trim() !== '') {
+                    this.keyTerms.push({name: this.newKeyTerm, isActive: true});
+                    this.newKeyTerm = '';
+                }
             },
             onKeyTermRemove(keyTerm) {
                 this.keyTerms = this.keyTerms.filter((v) => v.name !== keyTerm.name);
@@ -68,6 +75,19 @@
             maxNumberOfKeyTerms() {
                 return this.keyTerms.length < MAX_NUMBER_OF_KEY_TERMS ||
                     this.$t("pages:commitment.createDialog.maxKeyTerm", {count: MAX_NUMBER_OF_KEY_TERMS});
+            },
+            maxNumberOfSpaces() {
+                if (this.newKeyTerm.split(" ").length - 1 > MAX_NUMBER_OF_SPACES) {
+                    return this.$t("pages:commitment.createDialog.toManySpaces", {count: MAX_NUMBER_OF_SPACES});
+                }
+                return true;
+            },
+            finish() {
+                let terms = [];
+                for (let term in this.keyTerms) {
+                    terms.push(term.name);
+                }
+                this.$emit('finish', terms);
             }
         },
         mixins: [validationRules]

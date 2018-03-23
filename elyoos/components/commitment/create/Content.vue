@@ -4,7 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text id="dialog-create-content-commitment-content">
-            <v-form v-model="valid">
+            <v-form v-model="valid" @keydown.enter.native="finish" ref="form">
                 <v-layout row wrap>
                     <v-flex xs12 md4>
                         <div id="commitment-image-preview-container">
@@ -48,8 +48,8 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="!valid">
-                {{$t("common:button.next")}}
+            <v-btn color="primary" @click.native="finish" :disabled="!valid">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -63,6 +63,7 @@
     import CropImage from '~/components/common/dialog/cropper/CropImage';
 
     export default {
+        props: ['actionButtonText'],
         data() {
             return {
                 commitment: this.$store.getters['createCommitment/getCommitmentCopy'],
@@ -96,10 +97,18 @@
                 let dataCanvas = imageCropper.getCroppedCanvas();
                 if ('toDataURL' in dataCanvas) {
                     this.imgSrc = dataCanvas.toDataURL();
-                    this.$store.commit('createCommitment/SET_TITLE_IMAGE', this.imgSrc);
-
                 }
                 this.showImageCrop = false;
+            },
+            finish(event) {
+                event.preventDefault();
+                if (this.$refs.form.validate()) {
+                    let imageData = null;
+                    if (this.imgSrc) {
+                        imageData = this.imgSrc;
+                    }
+                    this.$emit('finish', {commitment: this.commitment, imageData});
+                }
             }
         },
         computed: {
