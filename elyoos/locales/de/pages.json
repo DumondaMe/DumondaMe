@@ -41,6 +41,7 @@
       "language": "Sprache des Engagements",
       "addKeyTerm": "Schlüsselwort hinzufügen",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",
+      "equalToTopic": "Schlüsselbegriffe dürfen nicht nach Themengebieten benannt werden",
       "keyTermUsed": "Dieses Schlüsselwort wird bereits verwendet",
       "keyTermDescription": "Verwende treffende Schlüsselbegriffe welche dein Engagement genauer beschreiben. Z.B. Zero Waste, Food Waste usw.",
       "maxKeyTerm": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",

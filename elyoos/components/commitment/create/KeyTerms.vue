@@ -15,7 +15,8 @@
                                   :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
                                            keyTermNotAlreadyUsed(),
                                            maxNumberOfKeyTerms(),
-                                           maxNumberOfSpaces()]">
+                                           maxNumberOfSpaces(),
+                                           equalToTopics()]">
                     </v-text-field>
                 </div>
             </v-form>
@@ -81,6 +82,23 @@
                     return this.$t("pages:commitment.createDialog.toManySpaces", {count: MAX_NUMBER_OF_SPACES});
                 }
                 return true;
+            },
+            equalToTopics() {
+                if (this.compareWithTopics(['Spiritualität', 'Gesundheit', 'Umwelt', 'Bildung',
+                        'Persönliche Entwicklung', 'Politik', 'Wirtschaft', 'Gesellschaftliche Entwicklung',
+                        'Health', 'Environmental', 'Spiritual', 'Education', 'Personal development', 'Politics',
+                        'Economy', 'Social development'])) {
+                    return this.$t("pages:commitment.createDialog.equalToTopic");
+                }
+                return true;
+            },
+            compareWithTopics(keywords) {
+                for (let keyword of keywords) {
+                    if (this.newKeyTerm.toLowerCase() === keyword.toLowerCase()) {
+                        return true;
+                    }
+                }
+                return false;
             },
             finish() {
                 let terms = [];

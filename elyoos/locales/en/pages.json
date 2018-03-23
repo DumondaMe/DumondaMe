@@ -41,6 +41,7 @@
       "language": "Language of engagement",
       "addKeyTerm": "Add key term",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
+      "equalToTopic": "Key terms are not allowed to be named by topic",
       "keyTermUsed": "This key term is already in use",
       "keyTermDescription": "Use appropriate key terms that describe your commitment in more detail. E.g. Zero Waste, Food Waste etc.",
       "maxKeyTerm": "A maximum of {{count}} key terms can be used",
