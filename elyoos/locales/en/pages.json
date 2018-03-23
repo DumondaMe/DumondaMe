@@ -39,7 +39,16 @@
       "link": "Link to the website of your commitment",
       "websiteLoaded": "The link to your website has been successfully checked.",
       "language": "Language of engagement",
-      "noWebsiteButton": "No Website, Next"
+      "addKeyTerm": "Add key term",
+      "keyTermUsed": "This key term is already in use",
+      "keyTermDescription": "Use key terms that can be associated with your commitment. E.g. Zero Waste, Food Waste etc.",
+      "maxKeyTerm": "A maximum of {{count}} key terms can be used",
+      "topicDescription": "Which categories can your commitment be assigned to?",
+      "noWebsiteButton": "No Website, Next",
+      "stepWebsite": "Website",
+      "stepData": "Commitment",
+      "stepTopic": "Category",
+      "stepKeyTerms": "Key Terms"
     }
   },
   "detailQuestion": {

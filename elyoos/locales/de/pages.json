@@ -39,7 +39,16 @@
       "link": "Link zur Website deines Engagments",
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
       "language": "Sprache des Engagements",
-      "noWebsiteButton": "Keine Website, Weiter"
+      "addKeyTerm": "Schlüsselwort hinzufügen",
+      "keyTermUsed": "Dieses Schlüsselwort wird bereits verwendet",
+      "keyTermDescription": "Verwende Schlüsselwörter welche deinem Engagement zugeordnet werden können. Z.B. Zero Waste, Food Waste usw.",
+      "maxKeyTerm": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
+      "topicDescription": "Welchen Kategorien kann dein Engagement zu geordnet werden?",
+      "noWebsiteButton": "Keine Website, Weiter",
+      "stepWebsite": "Webseite",
+      "stepData": "Engagement",
+      "stepTopic": "Kategorien",
+      "stepKeyTerms": "Schlüsselbegriffe"
     }
   },
   "detailQuestion": {

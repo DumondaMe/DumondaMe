@@ -3,6 +3,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+    RESET: function (state) {
+        state.commitment = {title: '', description: '', website: '', language: 'de'};
+    },
     SET_COMMITMENT: function (state, commitment) {
         state.commitment = commitment;
     },

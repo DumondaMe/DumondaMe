@@ -1,5 +1,8 @@
 <template>
     <v-card id="dialog-create-content-commitment" v-if="!showImageCrop">
+        <div>
+            <slot name="header"></slot>
+        </div>
         <v-card-text id="dialog-create-content-commitment-content">
             <v-form v-model="valid">
                 <v-layout row wrap>
@@ -45,7 +48,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('close-dialog')" :disabled="!valid">
+            <v-btn color="primary" @click.native="$emit('next')" :disabled="!valid">
                 {{$t("common:button.next")}}
             </v-btn>
         </v-card-actions>
@@ -62,8 +65,6 @@
     export default {
         data() {
             return {
-                checkLink: false,
-                link: '',
                 commitment: this.$store.getters['createCommitment/getCommitmentCopy'],
                 valid: false,
                 imgSrc: null,

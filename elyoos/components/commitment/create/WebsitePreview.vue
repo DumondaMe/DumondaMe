@@ -1,5 +1,8 @@
 <template>
     <v-card id="dialog-create-commitment">
+        <div>
+            <slot name="header"></slot>
+        </div>
         <v-card-text id="dialog-create-commitment-content">
             <v-form v-model="valid">
                 <v-layout row wrap>
@@ -73,9 +76,7 @@
 
 <style lang="scss">
     #dialog-create-commitment {
-        max-width: 550px;
         #dialog-create-commitment-content {
-            max-width: 550px;
             #website-successfully-loaded {
                 color: $success-text;
             }
