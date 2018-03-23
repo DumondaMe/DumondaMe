@@ -44,12 +44,12 @@
       "keyTermUsed": "Dieses Schlüsselwort wird bereits verwendet",
       "keyTermDescription": "Verwende treffende Schlüsselbegriffe welche dein Engagement genauer beschreiben. Z.B. Zero Waste, Food Waste usw.",
       "maxKeyTerm": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
-      "topicDescription": "Welchen Themengebieten kann dein Engagement zugeordnet werden?",
+      "topicDescription": "Welche Themengebiete treffen auf dein Engagement zu?",
       "noWebsiteButton": "Keine Webseite, Weiter",
       "createCommitmentButton": "Engagement erstellen",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
-      "stepTopic": "Themengebiet",
+      "stepTopic": "Themengebiete",
       "stepKeyTerms": "Schlüsselbegriffe"
     }
   },
