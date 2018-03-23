@@ -9,13 +9,9 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment-content>
             <topics v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
-                    :action-button-text="$t('common:button.next')">
-                <stepper slot="header" :selected-step="showPage"></stepper>
-            </topics>
-            <key-terms v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishKeyTerms"
                        :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
-            </key-terms>
+            </topics>
         </v-dialog>
     </v-layout>
 </template>
@@ -23,7 +19,6 @@
 <script>
     import WebsitePreview from './WebsitePreview';
     import CommitmentContent from './Content';
-    import KeyTerms from './KeyTerms';
     import Topics from './Topics';
     import Stepper from './Stepper';
 
@@ -31,7 +26,7 @@
         data() {
             return {dialog: true, showPage: 1}
         },
-        components: {WebsitePreview, CommitmentContent, KeyTerms, Topics, Stepper},
+        components: {WebsitePreview, CommitmentContent, Topics, Stepper},
         mounted() {
             this.$store.commit('createCommitment/RESET');
         },
@@ -45,11 +40,6 @@
             },
             finishTopics(topics) {
                 this.$store.commit('createCommitment/SET_TOPICS', topics);
-                this.showPage = 4;
-            },
-            finishKeyTerms(keyTerms) {
-                this.$store.commit('createCommitment/SET_KEY_TERMS', keyTerms);
-
             }
         }
     }
