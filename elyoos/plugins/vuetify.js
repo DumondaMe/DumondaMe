@@ -15,6 +15,7 @@ import {
     VCheckbox,
     VGrid,
     VSelect,
+    VChip,
     VRadioGroup,
     VProgressCircular,
     VProgressLinear
@@ -45,6 +46,7 @@ Vue.use(Vuetify, {
         VCheckbox,
         VGrid,
         VSelect,
+        VChip,
         VRadioGroup,
         VProgressCircular,
         VProgressLinear
