@@ -15,7 +15,7 @@ describe('Get question feed', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description',
-            topic: ['spiritual', 'education'], language: 'de', created: 500, modified: 700
+            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer', created: 600,
@@ -26,7 +26,7 @@ describe('Get question feed', function () {
 
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'description2',
-            topic: ['health'], language: 'de', created: 600,
+            topics: ['Health'], language: 'de', created: 600,
         });
     });
 
@@ -50,8 +50,8 @@ describe('Get question feed', function () {
         res.body.questions[0].creator.name.should.equals('user Meier3');
         //@todo test with new privacy settings
         res.body.questions[0].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
-        res.body.questions[0].topic.length.should.equals(1);
-        res.body.questions[0].topic[0].should.equals('health');
+        res.body.questions[0].topics.length.should.equals(1);
+        res.body.questions[0].topics.should.include('Health');
 
         res.body.questions[1].questionId.should.equals('1');
         res.body.questions[1].question.should.equals('Das ist eine Frage');
@@ -62,9 +62,9 @@ describe('Get question feed', function () {
         res.body.questions[1].creator.name.should.equals('user Meier2');
         //@todo test with new privacy settings
         res.body.questions[1].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
-        res.body.questions[1].topic.length.should.equals(2);
-        res.body.questions[1].topic[0].should.equals('spiritual');
-        res.body.questions[1].topic[1].should.equals('education');
+        res.body.questions[1].topics.length.should.equals(2);
+        res.body.questions[1].topics.should.include('Spiritual');
+        res.body.questions[1].topics.should.include('Education');
     });
 
     it('Get maximal 20 questions', async function () {
@@ -72,7 +72,7 @@ describe('Get question feed', function () {
         for(let i = 3; i < 23; i++) {
             dbDsl.createQuestion(`${i}`, {
                 creatorId: '2', question: 'Das ist eine Frage1', description: 'description1',
-                topic: ['health'], language: 'de', created: 500 - i,
+                topics: ['Health'], language: 'de', created: 500 - i,
             });
         }
         await dbDsl.sendToDb();
@@ -86,7 +86,7 @@ describe('Get question feed', function () {
         for(let i = 3; i < 23; i++) {
             dbDsl.createQuestion(`${i}`, {
                 creatorId: '2', question: 'Das ist eine Frage1', description: 'description1',
-                topic: ['health'], language: 'de', created: 500 - i,
+                topics: ['Health'], language: 'de', created: 500 - i,
             });
         }
         await dbDsl.sendToDb();
@@ -102,7 +102,7 @@ describe('Get question feed', function () {
         for(let i = 3; i < 23; i++) {
             dbDsl.createQuestion(`${i}`, {
                 creatorId: '2', question: 'Das ist eine Frage1', description: 'description1',
-                topic: ['health'], language: 'de', created: 500 - i,
+                topics: ['Health'], language: 'de', created: 500 - i,
             });
         }
         await dbDsl.sendToDb();

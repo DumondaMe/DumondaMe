@@ -39,17 +39,20 @@ const getQuestion = async function (questionId, userId) {
         .orderBy(`answer.created DESC`)
         .limit(20)
         .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
-        .with(`question, user, answer, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
+        .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
+        .with(`question, user, answer, topic, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
                answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
                EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
-                 collect({answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
+                 collect(DISTINCT topic.name) AS topics,
+                 collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
                           hasVoted: hasVoted, answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;
         question.isAdmin = response[0].isAdmin;
+        question.topics = response[0].topics;
         delete question.questionId;
         question.creator = {
             name: response[0].user.name,

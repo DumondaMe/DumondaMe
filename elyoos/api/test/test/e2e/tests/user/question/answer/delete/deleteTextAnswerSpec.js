@@ -14,11 +14,11 @@ describe('Delete text answer', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topic: ['spiritual'],
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
         });
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topic: ['health'],
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['Health'],
             language: 'en'
         });
         dbDsl.createTextAnswer('5', {

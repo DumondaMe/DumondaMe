@@ -15,7 +15,7 @@ describe('Getting details of a question', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'description',
-            topic: ['spiritual', 'education'], language: 'de', modified: 700
+            topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '1', questionId:'1', answer: 'Answer', created: 600,
@@ -44,7 +44,7 @@ describe('Getting details of a question', function () {
     it('Getting details of a question without answers', async function () {
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'description2',
-            topic: ['health'], language: 'en', modified: 701
+            topics: ['Health'], language: 'en', modified: 701
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -61,8 +61,8 @@ describe('Getting details of a question', function () {
         res.body.creator.slug.should.equals('user-meier3');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
-        res.body.topic.length.should.equals(1);
-        res.body.topic[0].should.equals('health');
+        res.body.topics.length.should.equals(1);
+        res.body.topics[0].should.equals('Health');
 
         res.body.answers.length.should.equals(0);
     });
@@ -83,9 +83,9 @@ describe('Getting details of a question', function () {
         res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
-        res.body.topic.length.should.equals(2);
-        res.body.topic[0].should.equals('spiritual');
-        res.body.topic[1].should.equals('education');
+        res.body.topics.length.should.equals(2);
+        res.body.topics.should.include('Spiritual');
+        res.body.topics.should.include('Education');
 
         res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('5');
@@ -180,9 +180,9 @@ describe('Getting details of a question', function () {
         res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
-        res.body.topic.length.should.equals(2);
-        res.body.topic[0].should.equals('spiritual');
-        res.body.topic[1].should.equals('education');
+        res.body.topics.length.should.equals(2);
+        res.body.topics.should.include('Spiritual');
+        res.body.topics.should.include('Education');
 
         res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('7');
@@ -272,9 +272,9 @@ describe('Getting details of a question', function () {
         res.body.creator.slug.should.equals('user-meier');
         //@todo test with new privacy settings
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
-        res.body.topic.length.should.equals(2);
-        res.body.topic[0].should.equals('spiritual');
-        res.body.topic[1].should.equals('education');
+        res.body.topics.length.should.equals(2);
+        res.body.topics.should.include('Spiritual');
+        res.body.topics.should.include('Education');
 
         res.body.answers.length.should.equals(5);
         res.body.answers[0].answerId.should.equals('5');

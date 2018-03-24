@@ -17,11 +17,11 @@ describe('Search a website link', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description',
-            topic: ['spiritual', 'education'], language: 'de', modified: 700
+            topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createQuestion('2', {
             creatorId: '2', question: 'Das ist eine Frage2', description: 'description2',
-            topic: ['spiritual', 'education'], language: 'en', modified: 700
+            topics: ['Spiritual', 'Education'], language: 'en', modified: 700
         });
     });
 

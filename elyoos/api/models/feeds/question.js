@@ -14,7 +14,7 @@ const getQuestions = async function (questions) {
             slug: dashify(questionElement.question.question),
             description: questionElement.question.description,
             created: questionElement.question.created,
-            topic: questionElement.question.topic,
+            topics: questionElement.topics,
             numberOfAnswers: questionElement.numberOfAnswers,
             creator: {
                 name: questionElement.creator.name,
@@ -30,7 +30,8 @@ const getFeed = async function (page, timestamp) {
     let response = await db.cypher().match(`(question:Question)<-[:IS_CREATOR]-(creator:User)`)
         .where(`question.created < {timestamp}`)
         .optionalMatch(`(question)-[:ANSWER]->(answer)`)
-        .return(`question, creator, COUNT(answer) AS numberOfAnswers`)
+        .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
+        .return(`question, creator, COUNT(DISTINCT answer) AS numberOfAnswers, collect(DISTINCT topic.name) AS topics`)
         .orderBy(`question.created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({page, timestamp}).send();

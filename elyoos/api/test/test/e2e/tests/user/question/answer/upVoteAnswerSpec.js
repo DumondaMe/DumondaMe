@@ -14,7 +14,7 @@ describe('Up vote answers', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topic: ['spiritual'],
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],
             language: 'de'
         });
     });
