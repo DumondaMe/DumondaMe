@@ -10,6 +10,8 @@
   "website": "Website",
   "createdBy": "created by",
   "you": "you",
+  "question": "Question",
+  "topic": "Topic",
   "toolbar": {
     "login": "Login"
   },

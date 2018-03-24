@@ -3,15 +3,16 @@
         <div id="question-activity">
             <span id="question-text" @click="dialog = true">{{$t("pages:feeds.question.yourQuestion")}}</span>
         </div>
-        <v-layout row justify-center>
+        <v-layout row justify-center v-if="dialog">
             <v-dialog v-model="dialog" scrollable persistent max-width="500px">
                 <search-question v-if="searchQuestion"
-                                 @question-changed="newQuestion => question = newQuestion"
                                  @create-question="createNewQuestion"
-                                 @close-dialog="closeDialog">
+                                 @close-dialog="dialog = false">
                 </search-question>
-                <create-question v-else :question="question"
-                                 @close-dialog="closeDialog"></create-question>
+                <create-question v-else :action-button-text="$t('common:button.next')"
+                                 :init-question="$store.getters['createQuestion/getQuestionCopy']"
+                                 @close-dialog="dialog = false">
+                </create-question>
             </v-dialog>
         </v-layout>
     </div>
@@ -19,7 +20,7 @@
 
 <script>
     import SearchQuestion from './SearchQuestion.vue';
-    import CreateQuestion from './CreateQuestion.vue';
+    import CreateQuestion from '~/components/question/dialog/CreateQuestionDialogContent';
 
     export default {
         components: {SearchQuestion, CreateQuestion},
@@ -30,18 +31,14 @@
         },
         data: function () {
             return {
-                dialog: false, searchQuestion: true, question: ''
+                dialog: false, searchQuestion: true
             };
         },
         methods: {
             createNewQuestion(newQuestion) {
-                this.question = newQuestion;
+                this.$store.commit('createQuestion/SET_QUESTION',
+                    {question: newQuestion, description: '', lang: 'de'});
                 this.searchQuestion = false;
-            },
-            closeDialog() {
-                this.searchQuestion = true;
-                this.question = '';
-                this.dialog = false;
             }
         }
     }

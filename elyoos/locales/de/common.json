@@ -10,6 +10,8 @@
   "website": "Webseite",
   "createdBy": "erstellt von",
   "you": "dir",
+  "question": "Frage",
+  "topic": "Themenbereich",
   "toolbar": {
     "login": "Anmelden"
   },

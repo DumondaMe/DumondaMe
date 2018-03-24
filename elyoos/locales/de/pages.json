@@ -45,10 +45,16 @@
       "topicDescription": "Welchen Themengebieten kann dein Engagement zugeordnet werden. Z.B. Zero Waste, Food Waste usw.",
       "maxTopic": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
       "noWebsiteButton": "Keine Webseite, Weiter",
-      "createCommitmentButton": "Engagement erstellen",
+      "createCommitmentButton": "Engagement Erstellen",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
       "stepTopic": "Themengebiete"
+    }
+  },
+  "question": {
+    "createDialog": {
+      "createQuestionButton": "Frage Erstellen",
+      "topicDescription": "Welche Themengebiete können deiner Frage zugeordnet werden. Z.B. Zero Waste, Food Waste usw."
     }
   },
   "detailQuestion": {
@@ -71,6 +77,11 @@
       "admin": {
         "title": "Administrator",
         "description": "Du bist der Administrator dieser Frage."
+      },
+      "deleteQuestion": {
+        "title": "Frage löschen",
+        "description": "Willst du die Frage {{question}} wirklich löschen?",
+        "confirmButton": "Ja, Frage löschen"
       },
       "generalInfo": {
         "title": "Allgemeine Informationen",

@@ -51,6 +51,12 @@
       "stepTopic": "Topics"
     }
   },
+  "question": {
+    "createDialog": {
+      "createQuestionButton": "Create Question",
+      "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc."
+    }
+  },
   "detailQuestion": {
     "loginToAnswerQuestion": "To create an answer you need to log in",
     "yourAnswer": "Your Answer",
@@ -71,6 +77,11 @@
       "admin": {
         "title": "Administrator",
         "description": "You are the administrator of this question."
+      },
+      "deleteQuestion": {
+        "title": "Delete Question",
+        "description": "Do you really want to delete the question '{{question}}'?",
+        "confirmButton": "Yes, Delete Question"
       },
       "generalInfo": {
         "title": "General information",

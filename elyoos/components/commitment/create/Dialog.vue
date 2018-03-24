@@ -9,7 +9,8 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment-content>
             <topics v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
-                       :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')">
+                       :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
+                       :description="$t('pages:commitment.createDialog.topicDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
         </v-dialog>
@@ -19,7 +20,7 @@
 <script>
     import WebsitePreview from './WebsitePreview';
     import CommitmentContent from './Content';
-    import Topics from './Topics';
+    import Topics from '~/components/topic/dialog/Topics';
     import Stepper from './Stepper';
 
     export default {

@@ -26,7 +26,7 @@
                     </v-chip>
                 </div>
                 <div id="topic-description" v-show="topics.length === 0">
-                    {{$t("pages:commitment.createDialog.topicDescription")}}
+                    {{description}}
                 </div>
             </div>
         </v-card-text>
@@ -36,8 +36,8 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="finish()"
-                   :disabled="newTopic.trim() !== '' || !valid || topics.length === 0">
+            <v-btn color="primary" @click.native="finish()" :loading="loading"
+                   :disabled="newTopic.trim() !== '' || !valid || topics.length === 0 || loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -51,7 +51,7 @@
     const MAX_NUMBER_OF_SPACES = 2;
 
     export default {
-        props: ['actionButtonText'],
+        props: ['actionButtonText', 'description', 'loading'],
         data() {
             return {valid: false, newTopic: '', topics: []}
         },
@@ -86,7 +86,7 @@
             },
             finish() {
                 let topics = [];
-                for (let topic in this.topics) {
+                for (let topic of this.topics) {
                     topics.push(topic.name);
                 }
                 this.$emit('finish', topics);
