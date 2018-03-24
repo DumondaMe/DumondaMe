@@ -29,16 +29,6 @@
     "uploadImage": "Bild Hochladen",
     "changeImage": "Bild Ändern"
   },
-  "topic": {
-    "health": "Gesundheit",
-    "environmental": "Umwelt",
-    "spiritual": "Spiritualität",
-    "education": "Bildung",
-    "personalDevelopment": "Persönliche Entwicklung",
-    "politics": "Politik",
-    "economy": "Wirtschaft",
-    "socialDevelopment": "Gesellschaftliche Entwicklung"
-  },
   "language": {
     "de": "Deutsch",
     "en": "Englisch"

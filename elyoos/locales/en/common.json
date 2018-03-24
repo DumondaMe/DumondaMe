@@ -29,16 +29,6 @@
     "uploadImage": "Upload Image",
     "changeImage": "Change Image"
   },
-  "topic": {
-    "health": "Health",
-    "environmental": "Environmental",
-    "spiritual": "Spiritual",
-    "education": "Education",
-    "personalDevelopment": "Personal development",
-    "politics": "Politics",
-    "economy": "Economy",
-    "socialDevelopment": "Social development"
-  },
   "language": {
     "de": "German",
     "en": "English"

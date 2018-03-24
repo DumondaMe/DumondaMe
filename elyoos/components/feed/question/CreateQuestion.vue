@@ -53,7 +53,6 @@
 
 <script>
     import validationRules from '~/mixins/validationRules.js';
-    import topic from '~/mixins/topics.js';
     import languages from '~/mixins/languages.js';
 
     export default {
@@ -64,7 +63,7 @@
                 selectLang: this.$store.state.i18n.language, loading: false
             };
         },
-        mixins: [validationRules, topic, languages],
+        mixins: [validationRules,  languages],
         methods: {
             createNewQuestion: async function () {
                 try {
