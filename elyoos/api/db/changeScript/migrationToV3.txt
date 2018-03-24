@@ -18,9 +18,57 @@ SET b:Commitment
 SET b.language = b.language[0]
 REMOVE b:Page, b.label;
 
+//Crate Topics
+MERGE (:Topic {name: 'Gesellschaftliche Entwicklung'});
+MERGE (:Topic {name: 'Umwelt'});
+MERGE (:Topic {name: 'Politik'});
+MERGE (:Topic {name: 'Wirtschaft'});
+MERGE (:Topic {name: 'Persönliche Entwicklung'});
+MERGE (:Topic {name: 'Gesundheit'});
+MERGE (:Topic {name: 'Bildung'});
+MERGE (:Topic {name: 'Spiritualität'});
+
+CREATE CONSTRAINT ON (t:Topic) ASSERT t.name IS UNIQUE;
+
+//ASSIGN Topics
+MATCH (b:Commitment), (t:Topic {name: 'Gesundheit'})
+WHERE 'health' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Umwelt'})
+WHERE 'environmental' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Spiritualität'})
+WHERE 'spiritual' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Bildung'})
+WHERE 'education' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Persönliche Entwicklung'})
+WHERE 'personalDevelopment' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Politik'})
+WHERE 'politics' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Wirtschaft'})
+WHERE 'economy' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
+MATCH (b:Commitment), (t:Topic {name: 'Gesellschaftliche Entwicklung'})
+WHERE 'socialDevelopment' IN b.topic
+MERGE (b)<-[:TOPIC]-(t);
+
 //Remove topic and language
 MATCH (b:Page)
 REMOVE b.language, b.topic;
+
+MATCH (b:Commitment)
+REMOVE b.topic;
 
 //Set book label
 MATCH (b:Page)
