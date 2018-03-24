@@ -69,7 +69,7 @@ describe('Get a preview from the website for a commitment', function () {
         );
 
         dbDsl.createCommitment('1', {
-            adminId: '2', topic: ['spiritual'], language: 'de', created: 700, website: 'https://www.example.org/'
+            adminId: '2', topics: ['spiritual'], language: 'de', created: 700, website: 'https://www.example.org/'
         }, []);
 
         await dbDsl.sendToDb();
