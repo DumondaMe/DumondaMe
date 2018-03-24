@@ -2,7 +2,7 @@
     <div class="sidebar-container">
         <h3>{{$t("pages:detailQuestion.sidebar.generalInfo.title")}}</h3>
         <div id="topic-container">
-            <span class="topic" v-for="topic in question.topic">{{getTopicText(topic)}}</span>
+            <span class="topic" v-for="topic in question.topics">{{topic}}</span>
 
         </div>
         <div class="question-info">
@@ -23,11 +23,10 @@
 </template>
 
 <script>
-    import topic from '~/mixins/topics.js';
-    import language from '~/mixins/languages.js';
+     import language from '~/mixins/languages.js';
 
     export default {
-        mixins: [topic, language],
+        mixins: [language],
         computed: {
             question() {
                 return this.$store.state.question.question;
