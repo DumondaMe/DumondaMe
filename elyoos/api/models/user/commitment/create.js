@@ -3,6 +3,7 @@
 const dashify = require('dashify');
 const sharp = require('sharp');
 const db = requireDb();
+const topics = require('./../../util/topics');
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
@@ -19,19 +20,12 @@ const uploadTitleImage = async function (titlePath, answerId) {
     }
 };
 
-const normalizeTopics = function (topics) {
-    for (let i = 0; i < topics.length; i++) {
-        topics[i] = topics[i].toLowerCase();
-        topics[i] = topics[i].replace(/\b\w/g, l => l.toUpperCase());
-    }
-};
-
 const createCommitment = async function (userId, params, titlePath) {
     params.answerId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.website = params.website || null;
-    normalizeTopics(params.topics);
+    topics.normalizeTopics(params.topics);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(commitment:Answer:Commitment {answerId: {answerId}, title: {title}, description: {description}, 
                   language: {lang}, website: {website}, created: {created}})`)

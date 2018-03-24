@@ -14,11 +14,11 @@ const schemaCreateQuestion = {
     name: 'createQuestion',
     type: 'object',
     additionalProperties: false,
-    required: ['question', 'topic', 'lang'],
+    required: ['question', 'topics', 'lang'],
     properties: {
         question: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
-        topic: topic.topicMultiple,
+        topics: topic.topics,
         lang: language.language
     }
 };
@@ -27,12 +27,12 @@ const schemaEditQuestion = {
     name: 'editQuestion',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'question', 'topic'],
+    required: ['questionId', 'question', 'topics'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         question: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
-        topic: topic.topicMultiple,
+        topics: topic.topics
     }
 };
 

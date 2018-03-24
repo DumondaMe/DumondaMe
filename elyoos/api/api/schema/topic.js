@@ -1,22 +1,11 @@
 'use strict';
 
-let topic = ['health',
-    'environmental',
-    'spiritual',
-    'personalDevelopment',
-    'socialDevelopment',
-    'education',
-    'politics',
-    'economy'];
-
 module.exports = {
-    topic: {
-        enum: topic
-    },
-    topicMultiple: {
+    topics: {
         type: 'array',
+        items: {type: 'string', format: 'notEmptyString', maxLength: 30},
         minItems: 1,
-        items: {enum: topic},
+        maxItems: 15,
         uniqueItems: true
     }
 };

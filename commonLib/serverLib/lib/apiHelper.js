@@ -8,6 +8,14 @@ const getUserId = function (req) {
     return userId;
 };
 
+const getFile = function (req) {
+    if (req.files && req.files.file && req.files.file.path) {
+        return req.files.file.path;
+    }
+    return null;
+};
+
 module.exports = {
-    getUserId
+    getUserId,
+    getFile
 };

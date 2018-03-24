@@ -20,10 +20,10 @@ describe('Delete a question', function () {
         return requestHandler.logout();
     });
 
-    it('Delete a question without answers', async function () {
+    it('Delete a question without answers and delete topic', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -36,12 +36,43 @@ describe('Delete a question', function () {
         let resp = await db.cypher().match("(question:Question)")
             .return(`question`).end().send();
         resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(topic:Topic)")
+            .return(`topic`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Delete a question without answers do not delete topic used by other question', async function () {
+
+        dbDsl.createQuestion('1', {
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
+        });
+        dbDsl.createQuestion('2', {
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü2', topics: ['Spiritual'], language: 'de'
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question', {
+            questionId: '1'
+        });
+        res.status.should.equal(200);
+        res.body.markedForDeletion.should.equals(false);
+
+        let resp = await db.cypher().match("(question:Question)")
+            .return(`question`).end().send();
+        resp.length.should.equals(1);
+        resp[0].question.questionId.should.equals('2');
+
+        resp = await db.cypher().match("(topic:Topic)")
+            .return(`topic`).end().send();
+        resp.length.should.equals(1);
+        resp[0].topic.name.should.equals('Spiritual');
     });
 
     it('Mark a question to delete when answers exist', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
         });
         dbDsl.createTextAnswer('1', {creatorId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
         await dbDsl.sendToDb();
@@ -61,7 +92,7 @@ describe('Delete a question', function () {
     it('Only admin is allowed to delete question', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual'], language: 'de'
+            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
