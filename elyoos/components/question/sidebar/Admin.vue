@@ -7,16 +7,31 @@
                 <v-btn outline fab small color="primary">
                     <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn outline fab small color="primary">
+                <v-btn outline fab small color="primary" @click.native="showDeleteQuestionDialog = true">
                     <v-icon>delete</v-icon>
                 </v-btn>
             </div>
         </div>
+        <delete-question-dialog v-if="showDeleteQuestionDialog" @delete-question="deleteQuestion"
+                                @close-dialog="showDeleteQuestionDialog = false">
+        </delete-question-dialog>
     </div>
 </template>
 
 <script>
-    export default {}
+    import DeleteQuestionDialog from './DeleteQuestionDialog';
+
+    export default {
+        components: {DeleteQuestionDialog},
+        data() {
+            return {showDeleteQuestionDialog: false}
+        },
+        methods: {
+            deleteQuestion() {
+                this.$router.push({name: 'index'});
+            }
+        },
+    }
 </script>
 
 <style lang="scss">

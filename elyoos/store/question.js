@@ -24,6 +24,9 @@ export const mutations = {
 };
 
 export const actions = {
+    async deleteQuestion({commit, state}) {
+        await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
+    },
     async upVoteAnswer({commit, state}, answerId) {
         await this.$axios.$post(`/user/question/answer/upVote/${answerId}`);
         commit('UP_VOTE_ANSWER', answerId);
