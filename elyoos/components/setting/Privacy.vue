@@ -35,7 +35,7 @@
         margin-top: 12px;
         #select-privacy-setting {
             label {
-                width: initial;
+                width: auto;
             }
         }
     }
