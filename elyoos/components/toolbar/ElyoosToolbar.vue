@@ -1,8 +1,8 @@
 <template>
     <div id="elyoos-header">
         <div id="header-container">
-            <div id="elyoos-logo" hidden-xs-only>
-                <img :src="getLogoUrl"/>
+            <div id="elyoos-logo" hidden-xs-only >
+                <img :src="getLogoUrl" @click="$router.push({name: 'index'})"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
@@ -54,7 +54,7 @@
                 </v-btn>
             </div>
             <div class="header-nav">
-                <v-btn flat icon v-on:click="$router.push({name: 'index'})"
+                <v-btn flat icon @click="$router.push({name: 'index'})"
                        :class="{active: $route.path === '/'}">
                     <v-icon>home</v-icon>
                 </v-btn>
@@ -123,6 +123,7 @@
             clear: both;
             #elyoos-logo {
                 display: inline-block;
+                cursor: pointer;
                 height: 100%;
                 img {
                     margin-top: 13px;
