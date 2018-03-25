@@ -1,7 +1,7 @@
 <template>
     <div id="privacy-setting-container">
         <h2 class="user-profile-title">{{$t("pages:settings.privacyTitle")}}</h2>
-        <v-radio-group v-model="privacyMode">
+        <v-radio-group v-model="privacyMode" id="select-privacy-setting">
             <v-radio value="public" color="primary">
                 <span slot="label">{{$t("pages:settings.privacyPublic")}}</span>
             </v-radio>
@@ -33,5 +33,10 @@
 <style lang="scss">
     #privacy-setting-container {
         margin-top: 12px;
+        #select-privacy-setting {
+            label {
+                width: initial;
+            }
+        }
     }
 </style>
