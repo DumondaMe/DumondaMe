@@ -44,7 +44,7 @@ describe('Get commitment feed', function () {
         res.body.commitments[0].title.should.equals('Test Commitment');
         res.body.commitments[0].slug.should.equals('test-commitment');
         res.body.commitments[0].description.should.equals('commitment1Description');
-        res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/commitment/1/title.jpg`);
+        res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/120x120/title.jpg`);
         res.body.commitments[0].created.should.equals(700);
         res.body.commitments[0].topics.length.should.equals(2);
         res.body.commitments[0].topics.should.include('Spiritual');

@@ -13,7 +13,7 @@ const getCommitments = async function (commitments) {
             title: commitment.commitment.title,
             slug: dashify(commitment.commitment.title),
             description: commitment.commitment.description,
-            imageUrl: cdn.getPublicUrl(`120x120/commitment/${commitment.commitment.answerId}/title.jpg`),
+            imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitment.answerId}/120x120/title.jpg`),
             created: commitment.commitment.created,
             topics: commitment.topics
         });
