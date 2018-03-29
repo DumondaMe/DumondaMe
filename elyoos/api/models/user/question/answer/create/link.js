@@ -4,6 +4,7 @@ const db = requireDb();
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
+const sharp = require('sharp');
 const image = require('./image');
 const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -31,6 +32,16 @@ const createLinkAnswerOriginalLinkCommand = function (params) {
         .end(params);
 };
 
+const uploadImages = async function (params) {
+    let buffer = await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+    if (buffer) {
+        let resizeBuffer = await sharp(buffer).resize(120, 120).max().jpeg({quality: 80})
+            .withoutEnlargement().toBuffer();
+        await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/120x120/preview.jpg`,
+            process.env.BUCKET_PUBLIC);
+    }
+};
+
 const createLinkAnswer = async function (userId, params) {
     params.answerId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
@@ -38,7 +49,7 @@ const createLinkAnswer = async function (userId, params) {
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createLinkAnswerOriginalLinkCommand(params).send([createLinkAnswerCommand(params)]);
     if (user[0].length === 1) {
-        await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+        await uploadImages(params);
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
         const result = {
             answerId: params.answerId, created: params.created,
@@ -48,7 +59,7 @@ const createLinkAnswer = async function (userId, params) {
             }
         };
         if (params.imageUrl) {
-            result.imageUrl = cdn.getPublicUrl(`120x120/link/${params.answerId}/preview.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`link/${params.answerId}/120x120/preview.jpg`);
         }
         return result;
     }

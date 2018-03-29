@@ -9,7 +9,7 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const uploadPreviewImage = async function (uploadKey, originalImageUrl, width, height) {
     try {
-        await new Promise(function (resolve, reject) {
+        return await new Promise(function (resolve, reject) {
             if (originalImageUrl) {
                 rp.get(originalImageUrl, function (err) {
                     if (err) {
@@ -21,7 +21,7 @@ const uploadPreviewImage = async function (uploadKey, originalImageUrl, width, h
                             reject(err);
                         }
                         await cdn.uploadBuffer(buffer, uploadKey, process.env.BUCKET_PUBLIC);
-                        resolve();
+                        resolve(buffer);
                     }));
             } else {
                 resolve();

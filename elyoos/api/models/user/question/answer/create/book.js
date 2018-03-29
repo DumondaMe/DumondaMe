@@ -6,6 +6,7 @@ const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const exceptions = require('elyoos-server-lib').exceptions;
 const image = require('./image');
+const sharp = require('sharp');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_BOOK_EXISTS_ALREADY = 2;
@@ -32,6 +33,16 @@ const createBookAnswerOriginalLinkCommand = function (params) {
         .end(params);
 };
 
+const uploadImages = async function (params) {
+    let buffer = await image.uploadPreviewImage(`book/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+    if (buffer) {
+        let resizedBuffer = await sharp(buffer).resize(120, 250).max().jpeg({quality: 80})
+            .withoutEnlargement().toBuffer();
+        await cdn.uploadBuffer(resizedBuffer, `book/${params.answerId}/120x250/preview.jpg`,
+            process.env.BUCKET_PUBLIC);
+    }
+};
+
 const createBookAnswer = async function (userId, params) {
     params.answerId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
@@ -39,7 +50,7 @@ const createBookAnswer = async function (userId, params) {
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createBookAnswerOriginalLinkCommand(params).send([createBookAnswerCommand(params)]);
     if (user[0].length === 1) {
-        await image.uploadPreviewImage(`book/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+        await uploadImages(params);
         logger.info(`Created book answer ${params.answerId} for question ${params.questionId}`);
         const result = {
             answerId: params.answerId, created: params.created,
@@ -49,7 +60,7 @@ const createBookAnswer = async function (userId, params) {
             }
         };
         if (params.imageUrl) {
-            result.imageUrl = cdn.getPublicUrl(`120x250/book/${params.answerId}/preview.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`book/${params.answerId}/120x250/preview.jpg`);
         }
         return result;
     }
