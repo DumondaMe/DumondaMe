@@ -1,17 +1,17 @@
 {
   "name": "elyoos-processing",
   "version": "1.0.0",
+  "scripts": {
+    "installDev": "npm install &&  npm link ../../../commonLib/serverLib"
+  },
   "dependencies": {
-    "lodash": "4.12.0",
-    "gm": "1.22.0",
-    "aws-sdk": "2.4.6",
-    "tmp": "0.0.28",
+    "sharp": "0.20.1",
+    "aws-sdk": "2.216.1",
     "nodemailer": "2.7.0",
     "nodemailer-ses-transport": "1.5.0",
     "email-templates": "2.5.4",
     "ejs": "2.5.5",
     "node-sass": "4.3.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
