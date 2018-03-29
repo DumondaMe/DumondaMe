@@ -22,9 +22,9 @@ const getAnswers = async function (answers) {
                 thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
             };
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
-                formattedAnswer.imageUrl = cdn.getPublicUrl(`120x120/link/${formattedAnswer.answerId}/preview.jpg`);
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/120x120/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {
-                formattedAnswer.imageUrl = cdn.getPublicUrl(`120x250/book/${formattedAnswer.answerId}/preview.jpg`);
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`book/${formattedAnswer.answerId}/120x250/preview.jpg`);
             }
             result.push(formattedAnswer);
         }

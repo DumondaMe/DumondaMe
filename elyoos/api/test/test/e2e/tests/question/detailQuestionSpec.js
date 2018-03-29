@@ -131,7 +131,7 @@ describe('Getting details of a question', function () {
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -146,7 +146,7 @@ describe('Getting details of a question', function () {
 
         res.body.answers[4].answerId.should.equals('9');
         res.body.answers[4].answerType.should.equals('Book');
-        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
         res.body.answers[4].authors.should.equals('Hans Wurst');
@@ -228,7 +228,7 @@ describe('Getting details of a question', function () {
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -243,7 +243,7 @@ describe('Getting details of a question', function () {
 
         res.body.answers[4].answerId.should.equals('9');
         res.body.answers[4].answerType.should.equals('Book');
-        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
         res.body.answers[4].authors.should.equals('Hans Wurst');
@@ -320,7 +320,7 @@ describe('Getting details of a question', function () {
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x120/link/8/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -335,7 +335,7 @@ describe('Getting details of a question', function () {
 
         res.body.answers[4].answerId.should.equals('9');
         res.body.answers[4].answerType.should.equals('Book');
-        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/120x250/book/9/preview.jpg`);
+        res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
         res.body.answers[4].authors.should.equals('Hans Wurst');
