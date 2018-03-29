@@ -9,6 +9,7 @@ let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
 let tc = require('./dbDSL/transitionConnect');
 let question = require('./dbDSL/question');
+let region = require('./dbDSL/region');
 let topic = require('./dbDSL/topic');
 let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
@@ -68,5 +69,6 @@ module.exports = {
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
     exportEventToTransitionConnect: tc.exportEvent,
     stopExportOrganisationToTransitionConnect: tc.stopExportOrganisation,
-    createTopic: topic.createTopic
+    createTopic: topic.createTopic,
+    createRegion: region.createRegion
 };
