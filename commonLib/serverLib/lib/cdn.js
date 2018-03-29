@@ -5,7 +5,6 @@ const AWS = require('aws-sdk');
 const expiresAfterADay = 60 * 60 * 12;
 const fs = require('fs');
 const _ = require('underscore');
-const deasync = require('deasync');
 const logger = require('./logging').getLogger(__filename);
 
 if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
@@ -110,18 +109,8 @@ const createFolderRegisterUser = async function (userId) {
 };
 
 const getObject = function (path, bucket) {
-    let params = {Bucket: bucket, Key: path}, done = false, result = null;
-    s3.getObject(params, function (err, data) {
-        if (err) {
-            logger.error(`Getting Object ${path} from s3 failed`, null, err);
-        }
-        result = data;
-        done = true;
-    });
-    deasync.loopWhile(function () {
-        return !done;
-    });
-    return result;
+    let params = {Bucket: bucket, Key: path};
+    return s3.getObject(params).promise();
 };
 
 module.exports = {
