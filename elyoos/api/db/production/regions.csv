@@ -1,0 +1,32 @@
+code,name,belongs_to_region
+international,International,
+ch,Schweiz,international
+ch-ag,Aargau,ch
+ch-ai,Appenzell Innerrohden ,ch
+ch-al,Appenzell Ausserrhoden,ch
+ch-be,Bern,ch
+ch-be-st,Bern Stadt,ch-be
+ch-bl,Basel,ch
+ch-bl-st,Basel Stadt,ch-bl
+ch-fr,Freiburg,ch
+ch-ge,Genf,ch
+ch-gl,Glarus,ch
+ch-gr,Graubünden,ch
+ch-ju,Jura,ch
+ch-lu,Luzern,ch
+ch-ne,Neuenburg,ch
+ch-nw,Nidwalden,ch
+ch-ow,Obwalden,ch
+ch-sg,St.Gallen,ch
+ch-sh,Schaffausen,ch
+ch-so,Solothurn,ch
+ch-sz,Schwyz,ch
+ch-tg,Thurgau,ch
+ch-ti,Tessin,ch
+ch-ur,Uri,ch
+ch-vd,Waadt,ch
+ch-vs,Wallis,ch
+ch-zg,Zug,ch
+ch-zh,Zürich,ch
+ch-zh-st,Zürich Stadt,ch-zh
+ch-zh-wt,Winterthur,ch-zh

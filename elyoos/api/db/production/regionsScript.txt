@@ -1,0 +1,7 @@
+CREATE CONSTRAINT ON (r:Region) ASSERT r.code IS UNIQUE;
+
+LOAD CSV WITH HEADERS FROM "file:///regions.csv" AS csvLine
+MERGE (r:Region {code: csvLine.code})
+WITH r, csvLine
+MATCH (r2:Region {code: csvLine.belongs_to_region})
+MERGE (r2)-[:SUB_REGION]->(r);
