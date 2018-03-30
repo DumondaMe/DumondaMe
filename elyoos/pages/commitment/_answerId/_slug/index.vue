@@ -5,6 +5,8 @@
             </commitment-header>
         </div>
         <div slot="sidebar" id="commitment-sidebar">
+            <admin v-if="commitment.isAdmin">
+            </admin>
             <general-information>
             </general-information>
         </div>
@@ -14,6 +16,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail.vue';
     import CommitmentHeader from '~/components/commitment/detail/Header.vue';
+    import Admin from '~/components/commitment/detail/Admin.vue';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation.vue';
     import {mapGetters} from 'vuex';
 
@@ -33,7 +36,7 @@
                 ]
             }
         },
-        components: {DetailLayout, CommitmentHeader, GeneralInformation},
+        components: {DetailLayout, CommitmentHeader, Admin, GeneralInformation},
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
         }

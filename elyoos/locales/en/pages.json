@@ -96,6 +96,10 @@
     }
   },
   "detailCommitment": {
+    "admin": {
+      "title": "Administrator",
+      "description": "You are the administrator of this commitment."
+    },
     "generalInfo": {
       "title": "General Information"
     }
