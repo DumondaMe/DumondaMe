@@ -5,6 +5,10 @@ MATCH (:User)-[written:WRITTEN]->(b:Blog)
 OPTIONAL MATCH (b)<-[rel]-(recommendation:Recommendation)<-[rel2:RECOMMENDS]-(:User)
 DELETE written, rel, rel2, b, recommendation;
 
+//Remove all recommendations
+MATCH (r:Recommendation)-[rel]-()
+DELETE r, rel;
+
 //Set Answer label
 MATCH (b:Page)
 SET b:Answer
@@ -17,6 +21,10 @@ WHERE b.label = 'Generic'
 SET b:Commitment
 SET b.language = b.language[0]
 REMOVE b:Page, b.label;
+
+//Remove addresses
+MATCH (a:Address)-[rel]-()
+DELETE a, rel;
 
 //Crate Topics
 MERGE (:Topic {name: 'Gesellschaftliche Entwicklung'});
