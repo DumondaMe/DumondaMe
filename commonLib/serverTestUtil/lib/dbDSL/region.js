@@ -6,12 +6,12 @@ const dbConnectionHandling = require('./dbConnectionHandling');
 const createRegion = function (code, data) {
     data.upperRegionLayerCode = data.upperRegionLayerCode || null;
     dbConnectionHandling.getCommands().push(db.cypher()
-        .create(`(region:Region {code: {code}, name: {name}})`)
+        .create(`(region:Region {code: {code}})`)
         .with(`region`)
         .match(`(upperRegionLayer:Region {code: {upperRegionLayerCode}})`)
         .merge(`(region)<-[:SUB_REGION]-(upperRegionLayer)`)
         .end({
-            code, name: data.name, upperRegionLayerCode: data.upperRegionLayerCode
+            code, upperRegionLayerCode: data.upperRegionLayerCode
         }).getCommand());
 };
 
