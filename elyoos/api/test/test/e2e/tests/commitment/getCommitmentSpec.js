@@ -30,6 +30,7 @@ describe('Get details of a commitment', function () {
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.language.should.equals('de');
@@ -49,6 +50,7 @@ describe('Get details of a commitment', function () {
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.language.should.equals('de');

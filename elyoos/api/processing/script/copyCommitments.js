@@ -23,8 +23,11 @@ const resizeTitleImage = async function (pages) {
                 .toBuffer();
             let newTitleImage120x120 = await sharp(newTitleImage).resize(120, 120).jpeg({quality: 93})
                 .toBuffer();
+            let newTitleImage148x148 = await sharp(newTitleImage).resize(148, 148).jpeg({quality: 93})
+                .toBuffer();
             await cdn.uploadBuffer(newTitleImage, `commitment/${result.answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
             await cdn.uploadBuffer(newTitleImage120x120, `commitment/${result.answerId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
+            await cdn.uploadBuffer(newTitleImage148x148, `commitment/${result.answerId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
         } catch(error) {
             logger.error(`Error resize title image for commitment ${result.answerId}`);
         }

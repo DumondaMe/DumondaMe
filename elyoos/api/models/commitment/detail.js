@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const getDetail = async function (userId, answerId) {
@@ -15,6 +16,7 @@ const getDetail = async function (userId, answerId) {
         logger.warn(`Commitment with id ${answerId} had ${resp.length} results`);
         throw new Error('404');
     }
+    resp[0].imageUrl = cdn.getPublicUrl(`commitment/${answerId}/148x148/title.jpg`);
     logger.info(`Get commitment with answerId ${answerId}`);
     return resp[0];
 };
