@@ -12,7 +12,7 @@ const getDetail = async function (userId, answerId) {
                  collect(t.name) AS topics`)
         .end({userId, answerId}).send();
     if (resp.length !== 1) {
-        logger.warn(`Commitment with id ${answerId} not found`);
+        logger.warn(`Commitment with id ${answerId} had ${resp.length} results`);
         throw new Error('404');
     }
     logger.info(`Get commitment with answerId ${answerId}`);
