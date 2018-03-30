@@ -30,13 +30,6 @@
             <expand-text :expand-text="answer.description" class="answer-description"
                          :class="{'no-book-image': !answer.imageUrl}">
             </expand-text>
-            <!--<div>
-                <p class="answer-description" :class="{'no-book-image': !answer.imageUrl, 'expand': expandDescription}"
-                   ref="answerDescription">{{answer.description}}</p>
-                <div v-show="showTextExpanse && !expandDescription" class="expanse-button"
-                     @click="expandDescription = true">{{$t('common:button.readMore')}}
-                </div>
-            </div>-->
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
@@ -55,12 +48,6 @@
             return {expandDescription: false}
         },
         computed: {
-            showTextExpanse() {
-                if (this.$refs.answerDescription) {
-                    return this.$refs.answerDescription.scrollHeight > this.$refs.answerDescription.clientHeight;
-                }
-                return true;
-            },
             getExternalLink() {
                 let title = this.answer.title.replace(' ', '+');
                 let authors = this.answer.authors.replace(',', '+');
