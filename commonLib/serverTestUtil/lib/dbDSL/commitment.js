@@ -17,7 +17,7 @@ const createCommitment = function (answerId, data) {
         foreach (topic in {topics} | MERGE (:Topic {name: topic})-[:TOPIC]->(commitment))`)
         .with(`commitment`)
         .match(`(region:Region {code: {region}})`)
-        .merge(`(region)-[:BELONGS_TO_REGION]->(commitment)`)
+        .merge(`(region)<-[:BELONGS_TO_REGION]-(commitment)`)
         .end({
             answerId: answerId,
             adminId: data.adminId,
