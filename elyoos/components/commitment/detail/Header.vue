@@ -39,6 +39,7 @@
         #commitment-infos {
             margin-left: 142px;
             padding-left: 18px;
+            min-height: 142px;
             h1 {
                 margin-bottom: 4px;
                 font-size: 28px;

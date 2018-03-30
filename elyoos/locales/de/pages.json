@@ -95,6 +95,11 @@
       "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet"
     }
   },
+  "detailCommitment": {
+    "generalInfo": {
+      "title": "Allgemeine Informationen"
+    }
+  },
   "detailUser": {
     "trustCircle": {
       "title": "Trust Circle",

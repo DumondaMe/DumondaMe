@@ -4,8 +4,9 @@
             <commitment-header>
             </commitment-header>
         </div>
-        <div slot="sidebar">
-
+        <div slot="sidebar" id="commitment-sidebar">
+            <general-information>
+            </general-information>
         </div>
     </detail-layout>
 </template>
@@ -13,6 +14,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail.vue';
     import CommitmentHeader from '~/components/commitment/detail/Header.vue';
+    import GeneralInformation from '~/components/commitment/detail/GeneralInformation.vue';
     import {mapGetters} from 'vuex';
 
     export default {
@@ -31,7 +33,7 @@
                 ]
             }
         },
-        components: {DetailLayout, CommitmentHeader},
+        components: {DetailLayout, CommitmentHeader, GeneralInformation},
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
         }
@@ -41,5 +43,16 @@
 <style lang="scss">
     #commitment-detail {
 
+    }
+
+    #commitment-sidebar {
+        .sidebar-container {
+            margin-bottom: 32px;
+            h3 {
+                font-size: 16px;
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 12px;
+            }
+        }
     }
 </style>

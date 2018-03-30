@@ -84,7 +84,7 @@
         "confirmButton": "Yes, Delete Question"
       },
       "generalInfo": {
-        "title": "General information",
+        "title": "General Information",
         "createdBy": "Question by:",
         "created": "Created:",
         "language": "Language:"
@@ -93,6 +93,11 @@
     "error": {
       "invalidYoutubeId": "Invalid youtube link.",
       "linkAnswerExists": "The link has already been used as an answer to this question"
+    }
+  },
+  "detailCommitment": {
+    "generalInfo": {
+      "title": "General Information"
     }
   },
   "detailUser": {
