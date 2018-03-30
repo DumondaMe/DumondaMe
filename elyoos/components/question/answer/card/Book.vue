@@ -27,13 +27,16 @@
             <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <div>
+            <expand-text :expand-text="answer.description" class="answer-description"
+                         :class="{'no-book-image': !answer.imageUrl}">
+            </expand-text>
+            <!--<div>
                 <p class="answer-description" :class="{'no-book-image': !answer.imageUrl, 'expand': expandDescription}"
                    ref="answerDescription">{{answer.description}}</p>
                 <div v-show="showTextExpanse && !expandDescription" class="expanse-button"
                      @click="expandDescription = true">{{$t('common:button.readMore')}}
                 </div>
-            </div>
+            </div>-->
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
@@ -43,10 +46,11 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
+    import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands},
+        components: {UserInfo, AnswerCommands, ExpandText},
         data() {
             return {expandDescription: false}
         },
@@ -83,30 +87,10 @@
             }
             .answer-description {
                 margin-left: 18px;
-                margin-top: 12px;
-                margin-bottom: 4px;
-                font-weight: 300;
-                font-size: 16px;
-                white-space: pre-wrap;
-                line-height: 1.6em;
-                max-height: 8em;
-                overflow-y: hidden;
+                margin-top: 13px;
             }
             .answer-description.no-book-image {
                 margin-left: 0;
-            }
-            .answer-description.expand {
-                max-height: none;
-            }
-            .expanse-button {
-                display: inline-block;
-                margin-left: 18px;
-                font-size: 12px;
-                color: $secondary-text;
-                cursor: pointer;
-            }
-            :hover.expanse-button {
-                text-decoration: underline;
             }
         }
         .book-answer-content.no-book-image {
