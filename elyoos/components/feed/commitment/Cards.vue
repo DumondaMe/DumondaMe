@@ -11,6 +11,7 @@
                         {{commitment.title}}
                     </nuxt-link>
                 </h2>
+                <topics :topics="commitment.topics"></topics>
                 <div class="description">
                     <expand-text :expand-text="commitment.description">
                     </expand-text>
@@ -22,9 +23,10 @@
 
 <script>
     import ExpandText from '~/components/common/text/Expand.vue'
+    import Topics from '~/components/common/topic/Topic.vue'
 
     export default {
-        components: {ExpandText},
+        components: {ExpandText, Topics},
         computed: {
             commitments() {
                 return this.$store.state.feedCommitment.commitments
@@ -51,7 +53,6 @@
                 min-height: 120px;
                 h2 {
                     margin-top: 0;
-                    margin-bottom: 4px;
                     font-size: 18px;
                     font-weight: 400;
                     a {

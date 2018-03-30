@@ -7,6 +7,7 @@
                     {{question.question}}
                 </nuxt-link>
             </h2>
+            <topics :topics="question.topics"></topics>
             <p class="description">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                                  params: {questionId: question.questionId, slug: question.slug}}">
@@ -24,7 +25,10 @@
 </template>
 
 <script>
+    import Topics from '~/components/common/topic/Topic.vue'
+
     export default {
+        components: {Topics},
         computed: {
             questions() {
                 return this.$store.state.feedQuestion.questions
@@ -39,7 +43,6 @@
         .question-card {
             margin-bottom: 12px;
             h2 {
-                margin-bottom: 8px;
                 font-size: 18px;
                 font-weight: 400;
                 a {
