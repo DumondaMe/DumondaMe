@@ -24,8 +24,9 @@ const getCommitments = async function (commitments) {
 const getFeed = async function (page, timestamp, region) {
     page = page * PAGE_SIZE;
     let response = await db.cypher()
-        .match(`(commitment:Commitment)<-[:BELONGS_TO_REGION*]-(region:Region {code: {region}})`)
-        .where(`commitment.created < {timestamp}`)
+        .match(`(commitment:Commitment)-[:BELONGS_TO_REGION]->(region:Region)`)
+        .where(`commitment.created < {timestamp} AND 
+        (region.code = {region} OR EXISTS((region)<-[:SUB_REGION*]-(:Region {code: {region}})))`)
         .optionalMatch(`(commitment)<-[:TOPIC]-(topic:Topic)`)
         .return(`commitment, collect(DISTINCT topic.name) AS topics`)
         .orderBy(`commitment.created DESC`)
