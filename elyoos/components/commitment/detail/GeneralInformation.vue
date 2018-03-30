@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar-container">
         <h3>{{$t("pages:detailCommitment.generalInfo.title")}}</h3>
-        <div class="commitment-info topics" v-if="commitment.website">
+        <div class="commitment-info topics">
             <v-icon class="info-icon">vpn_key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in commitment.topics">
