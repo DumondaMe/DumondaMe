@@ -1,6 +1,6 @@
 <template>
     <div class="expand-text-container">
-        <p :class="{'expand': expandDescription}" ref="expandDescriptionElement">{{expandText}}</p>
+        <p :class="{'expand': expandDescription}" ref="expandElement">{{expandText}}</p>
         <div v-show="showTextExpanse && !expandDescription" class="expanse-button"
              @click="expandDescription = true">{{$t('common:button.readMore')}}
         </div>
@@ -11,16 +11,18 @@
     export default {
         props: ['expandText'],
         data() {
-            return {expandDescription: false}
+            return {expandDescription: false, isMounted: false}
         },
         computed: {
             showTextExpanse() {
-                if (this.$refs.expandDescriptionElement) {
-                    return this.$refs.expandDescriptionElement.scrollHeight >
-                        this.$refs.expandDescriptionElement.clientHeight;
+                if (this.isMounted) {
+                    return this.$refs.expandElement.scrollHeight > this.$refs.expandElement.clientHeight;
                 }
-                return true;
+                return false;
             }
+        },
+        mounted(){
+            this.isMounted = true;
         }
     }
 </script>
