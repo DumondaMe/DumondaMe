@@ -14,7 +14,7 @@
         </div>
         <div class="commitment-info">
             <v-icon class="info-icon">location_on</v-icon>
-            <span>Region</span>
+            <span>{{$t("regions:" + commitment.region)}}</span>
         </div>
     </div>
 </template>
