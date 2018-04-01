@@ -16,12 +16,12 @@
         .topic {
             display: inline-block;
             margin-right: 8px;
-            background-color: #78909C;
-            color: #ffffff;
-            padding: 2px 4px;
-            border-radius: 4px;
+            background-color: #EEEEEE;
+            color: #4e4d47;
+            padding: 4px;
+            border-radius: 2px;
             font-size: 12px;
-            font-weight: 300;
+            font-weight: 400;
         }
     }
 </style>
