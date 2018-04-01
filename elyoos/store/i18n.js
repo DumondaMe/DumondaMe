@@ -1,4 +1,3 @@
-import i18next from 'i18next';
 import moment from 'moment';
 
 export const state = () => ({
@@ -12,7 +11,6 @@ export const state = () => ({
 export const mutations = {
     SET_LANGUAGE: function (state, language) {
         if (state.language !== language) {
-            i18next.changeLanguage(language);
             state.language = language;
             moment.locale(language);
         }
