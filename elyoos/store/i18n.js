@@ -23,7 +23,7 @@ export const actions = {
     setLanguage({commit}, {language}) {
         try {
             this.$axios.$put(`/user/language/${language}`);
-            commit('SET_LANGUAGE', language);
+            location.reload(true);
         } catch (error) {
 
         }
