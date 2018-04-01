@@ -12,6 +12,10 @@ describe('Get details of a commitment', function () {
     beforeEach(async function () {
         await dbDsl.init(3);
         sandbox = sinon.sandbox.create();
+
+        dbDsl.createRegion('region-1', {name: 'region1'});
+        dbDsl.createRegion('region-2', {name: 'region2'});
+        dbDsl.createRegion('region-1-1', {name: 'region11', upperRegionLayerCode: 'region-1'});
     });
 
     afterEach(function () {
@@ -21,8 +25,9 @@ describe('Get details of a commitment', function () {
 
     it('Get a commitment (User is Admin and logged in)', async function () {
         dbDsl.createCommitment('1', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, website: 'https://www.example.org/'
-        }, []);
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', region: 'region-1-1'
+        });
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -34,6 +39,7 @@ describe('Get details of a commitment', function () {
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.language.should.equals('de');
+        res.body.region.should.equals('region-1-1');
         res.body.isAdmin.should.equals(true);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -42,8 +48,9 @@ describe('Get details of a commitment', function () {
 
     it('Get a commitment (User is not logged in)', async function () {
         dbDsl.createCommitment('1', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, website: 'https://www.example.org/'
-        }, []);
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', region: 'region-1'
+        });
 
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/commitment', {answerId: '1'});
@@ -54,6 +61,7 @@ describe('Get details of a commitment', function () {
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.language.should.equals('de');
+        res.body.region.should.equals('region-1');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -62,8 +70,9 @@ describe('Get details of a commitment', function () {
 
     it('Get non existing commitment', async function () {
         dbDsl.createCommitment('1', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, website: 'https://www.example.org/'
-        }, []);
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', region: 'region-1'
+        });
 
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/commitment', {answerId: '2'});
