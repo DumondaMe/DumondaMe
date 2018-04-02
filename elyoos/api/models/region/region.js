@@ -26,7 +26,7 @@ const getRegions = async function () {
 
     let regions = parseRegionsQueryResult(resp, {code: 'international', subRegions: []});
     logger.info(`Get all regions`);
-    return {regions: regions};
+    return {regions: [{code: 'international', subRegions: []}].concat(regions.subRegions)};
 };
 
 module.exports = {
