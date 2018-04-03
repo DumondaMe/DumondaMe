@@ -35,8 +35,9 @@
                         </v-text-field>
                         <v-select id="select-language"
                                   :items="getLanguages" v-model="commitment.language"
-                                  item-value="key" item-text="description">
-                            <span slot="label">{{$t('pages:commitment.createDialog.language')}}</span>
+                                  item-value="key" item-text="description" persistent-hint
+                                  :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
+                            <span slot="label">{{$t('pages:commitment.createDialog.primaryLanguage')}}</span>
                         </v-select>
                     </v-flex>
                 </v-layout>

@@ -38,7 +38,8 @@
     "createDialog": {
       "link": "Link to the website of your commitment",
       "websiteLoaded": "The link to your website has been successfully checked.",
-      "language": "Language of engagement",
+      "primaryLanguage": "Primary Language",
+      "primaryLanguageDescription": "More languages can be added later",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
       "regionDescription": "In which region are you active with your commitment?",
       "addTopicButton": "Add Topic",

@@ -38,7 +38,8 @@
     "createDialog": {
       "link": "Link zur Webseite deines Engagments",
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
-      "language": "Sprache des Engagements",
+      "primaryLanguage": "Hauptsprache",
+      "primaryLanguageDescription": "Weitere Sprachen können später hinzugefügt werden.",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",
       "regionDescription": "In welcher Region bist du mit deinem Engagement aktiv.",
       "addTopicButton": "Themengebiete hinzufügen",
