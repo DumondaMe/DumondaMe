@@ -21,7 +21,7 @@
 
     export default {
         name: 'select-region-element',
-        props: ['region', 'topRegion', 'isTopRegion'],
+        props: ['region', 'topRegion', 'isTopRegion', 'isInternational'],
         components: {SelectRegionElement},
         data() {
             return {selected: false, numberOfSubRegionsSelected: 0}
@@ -48,6 +48,14 @@
             forwardUnselected(region) {
                 this.$emit('unselected', region);
                 this.numberOfSubRegionsSelected--;
+            }
+        },
+        watch: {
+            isInternational(isInternational) {
+                if (isInternational && this.region.code !== 'international' ||
+                    !isInternational && this.region.code === 'international') {
+                    this.selected = false;
+                }
             }
         }
     }

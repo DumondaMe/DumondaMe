@@ -1,7 +1,7 @@
 <template>
     <div id="select-region-container">
         <select-region-element :region="region" v-for="region in regions" :key="region.code"
-                               :is-top-region="true" :top-region="region.code"
+                               :is-top-region="true" :top-region="region.code" :is-international="isInternational"
                                @selected="selected" @unselected="unselected">
         </select-region-element>
     </div>
@@ -14,15 +14,22 @@
         props: ['regions'],
         components: {SelectRegionElement},
         data() {
-            return {selectedRegions: []}
+            return {selectedRegions: [], isInternational: false}
         },
         methods: {
             selected(region) {
-                this.selectedRegions.push(region);
+                if (region.code === 'international') {
+                    this.selectedRegions = [region];
+                    this.isInternational = true;
+                } else {
+                    this.selectedRegions.push(region);
+                    this.selectedRegions = this.selectedRegions.filter((r) => 'international' !== r.code);
+                    this.isInternational = false;
+                }
                 this.$emit('select-changed', this.getCodes(this.selectedRegions));
             },
             unselected(region) {
-                if(region.isTopRegion) {
+                if (region.isTopRegion) {
                     this.selectedRegions = this.selectedRegions.filter((r) => region.code !== r.code);
                     this.selectedRegions = this.selectedRegions.filter((r) => region.topRegion !== r.topRegion);
                 } else {
