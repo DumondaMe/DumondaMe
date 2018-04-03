@@ -8,7 +8,12 @@
                                 @finish="finishCommitmentData" :action-button-text="$t('common:button.next')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment-content>
-            <topics v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
+            <region v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
+                    :action-button-text="$t('common:button.next')"
+                    :description="$t('pages:commitment.createDialog.regionDescription')">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </region>
+            <topics v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                        :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
                        :description="$t('pages:commitment.createDialog.topicDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
@@ -21,13 +26,14 @@
     import WebsitePreview from './WebsitePreview';
     import CommitmentContent from './Content';
     import Topics from '~/components/topic/dialog/Topics';
+    import Region from '~/components/region/dialog/Region';
     import Stepper from './Stepper';
 
     export default {
         data() {
             return {dialog: true, showPage: 1}
         },
-        components: {WebsitePreview, CommitmentContent, Topics, Stepper},
+        components: {WebsitePreview, CommitmentContent, Topics, Region, Stepper},
         mounted() {
             this.$store.commit('createCommitment/RESET');
         },
@@ -38,6 +44,10 @@
                     this.$store.commit('createCommitment/SET_TITLE_IMAGE', imageData);
                 }
                 this.showPage = 3;
+            },
+            finishRegion(regions) {
+                this.$store.commit('createCommitment/SET_REGIONS', regions);
+                this.showPage = 4;
             },
             finishTopics(topics) {
                 this.$store.commit('createCommitment/SET_TOPICS', topics);

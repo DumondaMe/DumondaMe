@@ -41,6 +41,7 @@
       "language": "Language of engagement",
       "addTopic": "Add topic",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
+      "regionDescription": "In which region are you active with your commitment?",
       "topicUsed": "This topic is already in use",
       "topicDescription": "Which topics can be assigned to your commitment?. E.g. Zero Waste, Food Waste etc.",
       "maxTopic": "A maximum of {{count}} topics can be used",
@@ -48,6 +49,7 @@
       "createCommitmentButton": "Create Commitment",
       "stepWebsite": "Website",
       "stepData": "Commitment",
+      "stepRegion": "Region",
       "stepTopic": "Topics"
     }
   },

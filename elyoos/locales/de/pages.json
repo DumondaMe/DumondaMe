@@ -41,6 +41,7 @@
       "language": "Sprache des Engagements",
       "addTopic": "Themengebiete hinzufügen",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",
+      "regionDescription": "In welcher Region bist du mit deinem Engagement aktiv.",
       "topicUsed": "Dieses Themengebiete wird bereits verwendet",
       "topicDescription": "Welchen Themengebieten kann dein Engagement zugeordnet werden. Z.B. Zero Waste, Food Waste usw.",
       "maxTopic": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
@@ -48,6 +49,7 @@
       "createCommitmentButton": "Engagement Erstellen",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
+      "stepRegion": "Region",
       "stepTopic": "Themengebiete"
     }
   },

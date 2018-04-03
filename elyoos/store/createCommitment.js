@@ -12,6 +12,9 @@ export const mutations = {
     SET_TITLE_IMAGE: function (state, image) {
         state.commitment.image = image;
     },
+    SET_REGIONS: function (state, regions) {
+        state.commitment.regions = regions;
+    },
     SET_TOPICS: function (state, topics) {
         state.commitment.topics = topics;
     }
