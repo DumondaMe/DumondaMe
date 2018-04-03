@@ -1,5 +1,8 @@
-export async function uploadFileToUrl(axios, file, uploadUrl) {
+export async function uploadFileToUrl(axios, file, uploadUrl, params) {
     const fd = new FormData();
     fd.append('file', file);
-    await axios.$post(uploadUrl, fd);
+    if (params) {
+        fd.append('model', JSON.stringify(params));
+    }
+    return await axios.$post(uploadUrl, fd);
 }
