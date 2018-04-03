@@ -49,8 +49,21 @@
                 this.$store.commit('createCommitment/SET_REGIONS', regions);
                 this.showPage = 4;
             },
-            finishTopics(topics) {
-                this.$store.commit('createCommitment/SET_TOPICS', topics);
+            async finishTopics(topics) {
+                try {
+                    this.$store.commit('createCommitment/SET_TOPICS', topics);
+                    this.loading = true;
+                    let response = await this.$store.dispatch('createCommitment/createCommitment');
+                    this.loading = false;
+                    this.$emit('close-dialog');
+                    this.$router.push({
+                        name: 'commitment-answerId-slug',
+                        params: {answerId: response.answerId, slug: response.slug}
+                    });
+                }
+                catch (e) {
+                    this.loading = false;
+                }
             }
         }
     }

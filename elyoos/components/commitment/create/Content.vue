@@ -34,7 +34,7 @@
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
                         <v-select id="select-language"
-                                  :items="getLanguages" v-model="commitment.language"
+                                  :items="getLanguages" v-model="commitment.lang"
                                   item-value="key" item-text="description" persistent-hint
                                   :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
                             <span slot="label">{{$t('pages:commitment.createDialog.primaryLanguage')}}</span>
