@@ -4,14 +4,17 @@
             <slot name="header"></slot>
         </div>
         <v-card-text id="dialog-create-topic-commitment-content">
-            <v-form v-model="valid" @keydown.enter.native="addTopic" ref="form">
-                <v-btn color="primary" @click="addTopic" id="add-topic-button" icon
+            <div id="topic-description">
+                {{description}}
+            </div>
+            <v-form v-model="valid" @keydown.enter.native="addTopic" ref="form" id="add-topic-container">
+                <v-btn color="primary" @click="addTopic" id="add-topic-button"
                        :disabled="!valid || newTopic.trim() === ''">
-                    <v-icon>add</v-icon>
+                    {{$t('pages:commitment.createDialog.addTopicButton')}}
                 </v-btn>
                 <div id="topic-input">
                     <v-text-field v-model="newTopic"
-                                  :label="$t('pages:commitment.createDialog.addTopic')"
+                                  :label="$t('pages:commitment.createDialog.addTopicDescription')"
                                   :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
                                            topicNotAlreadyUsed(),
                                            maxNumberOfTopics(),
@@ -24,9 +27,6 @@
                     <v-chip v-model="topic.isActive" @input="onTopicRemove(topic)" close>
                         {{topic.name}}
                     </v-chip>
-                </div>
-                <div id="topic-description" v-show="topics.length === 0">
-                    {{description}}
                 </div>
             </div>
         </v-card-text>
@@ -101,21 +101,23 @@
         max-width: 650px;
         #dialog-create-topic-commitment-content {
             max-width: 100%;
-            #topic-input {
-                display: block;
-                margin-left: 58px;
+            #topic-description {
+                padding-left: 8px;
+                font-weight: 300;
             }
-            #add-topic-button {
-                float: left;
-                margin-top: 19px;
+            #add-topic-container {
+                display: flex;
+                #topic-input {
+                    margin-left: 12px;
+                    width: 100%;
+                }
+                #add-topic-button {
+                    margin-top: 16px;
+                }
             }
             #topic-container {
                 .topic {
                     display: inline-block;
-                }
-                #topic-description {
-                    padding-left: 12px;
-                    font-weight: 300;
                 }
             }
         }
