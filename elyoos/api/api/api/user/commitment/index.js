@@ -13,11 +13,18 @@ const schemaCreateQuestion = {
     name: 'createQuestion',
     type: 'object',
     additionalProperties: false,
-    required: ['title', 'description', 'topics', 'lang'],
+    required: ['title', 'description', 'topics', 'regions', 'lang'],
     properties: {
         title: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
         topics: topic.topics,
+        regions: {
+            type: 'array',
+            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
+            minItems: 1,
+            maxItems: 50,
+            uniqueItems: true
+        },
         lang: language.language,
         website: {type: 'string', format: 'urlWithProtocol', maxLength: 2000}
     }
