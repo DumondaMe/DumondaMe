@@ -12,9 +12,11 @@
             <v-icon class="info-icon">language</v-icon>
             <a target="_blank" :href="commitment.website">{{website}}</a>
         </div>
-        <div class="commitment-info">
+        <div class="commitment-info regions">
             <v-icon class="info-icon">location_on</v-icon>
-            <span>{{$t("regions:" + commitment.region)}}</span>
+            <div id="region-container">
+                <div v-for="region in commitment.regions">{{$t("regions:" + region)}}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -49,6 +51,9 @@
             font-size: 18px;
             color: #90A4AE;
         }
+        #region-container {
+            margin-left: 30px;
+        }
         a {
             text-decoration: none;
         }
@@ -56,7 +61,14 @@
             text-decoration: underline;
         }
     }
+
     .commitment-info.topics {
+        .info-icon {
+            margin-top: 2px;
+            float: left;
+        }
+    }
+    .commitment-info.regions {
         .info-icon {
             margin-top: 2px;
             float: left;

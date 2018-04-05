@@ -13,11 +13,11 @@ describe('Get commitment feed', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {name: 'region1'});
-        dbDsl.createRegion('region-2', {name: 'region2'});
-        dbDsl.createRegion('region-1-1', {name: 'region11', upperRegionLayerCode: 'region-1'});
-        dbDsl.createRegion('region-1-2', {name: 'region12', upperRegionLayerCode: 'region-1'});
-        dbDsl.createRegion('region-1-1-1', {name: 'region111', upperRegionLayerCode: 'region-1-1'});
+        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-2', {});
+        dbDsl.createRegion('region-1-1', {upperRegionLayerCode: 'region-1'});
+        dbDsl.createRegion('region-1-2', {upperRegionLayerCode: 'region-1'});
+        dbDsl.createRegion('region-1-1-1', {upperRegionLayerCode: 'region-1-1'});
     });
 
     afterEach(function () {
@@ -28,11 +28,11 @@ describe('Get commitment feed', function () {
 
         dbDsl.createCommitment('1', {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 700, title: 'Test Commitment',
-            website: 'https://www.example.org/', region: 'region-1-1-1'
+            website: 'https://www.example.org/', regions: ['region-1-1-1']
         });
         dbDsl.createCommitment('2', {
             adminId: '3', topics: ['Health'], language: 'de', created: 600, website: 'https://www.example2.org/',
-            region: 'region-1-1'
+            regions: ['region-1-1']
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -55,11 +55,11 @@ describe('Get commitment feed', function () {
 
         dbDsl.createCommitment('1', {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 700, title: 'Test Commitment',
-            website: 'https://www.example.org/', region: 'region-1-1-1'
+            website: 'https://www.example.org/', regions: ['region-1-1-1']
         });
         dbDsl.createCommitment('2', {
             adminId: '3', topics: ['Health'], language: 'de', created: 699, website: 'https://www.example2.org/',
-            region: 'region-1-1'
+            regions: ['region-1-1']
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -91,11 +91,11 @@ describe('Get commitment feed', function () {
 
         dbDsl.createCommitment('1', {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 700, title: 'Test Commitment',
-            website: 'https://www.example.org/', region: 'region-1-1-1'
+            website: 'https://www.example.org/', regions: ['region-1-1-1']
         });
         dbDsl.createCommitment('2', {
             adminId: '3', topics: ['Health'], language: 'de', created: 600, website: 'https://www.example2.org/',
-            region: 'region-1-1'
+            regions: ['region-1-1']
         });
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/feed/commitment', {region: 'region-1-1-1'});

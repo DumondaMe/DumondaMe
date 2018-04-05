@@ -8,10 +8,6 @@
                 {{description}}
             </div>
             <v-form v-model="valid" @keydown.enter.native="addTopic" ref="form" id="add-topic-container">
-                <v-btn color="primary" @click="addTopic" id="add-topic-button"
-                       :disabled="!valid || newTopic.trim() === ''">
-                    {{$t('pages:commitment.createDialog.addTopicButton')}}
-                </v-btn>
                 <div id="topic-input">
                     <v-text-field v-model="newTopic"
                                   :label="$t('pages:commitment.createDialog.addTopicDescription')"
@@ -21,6 +17,10 @@
                                            maxNumberOfSpaces()]">
                     </v-text-field>
                 </div>
+                <v-btn color="primary" @click="addTopic" id="add-topic-button"
+                       :disabled="!valid || newTopic.trim() === ''">
+                    {{$t('pages:commitment.createDialog.addTopicButton')}}
+                </v-btn>
             </v-form>
             <div id="topic-container">
                 <div class="topic" v-for="topic in topics" :key="topic.name">
@@ -109,10 +109,11 @@
                 display: flex;
                 #topic-input {
                     margin-left: 12px;
-                    width: 100%;
+                    flex-grow: 1
                 }
                 #add-topic-button {
                     margin-top: 16px;
+                    margin-right: 0;
                 }
             }
             #topic-container {

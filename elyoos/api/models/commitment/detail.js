@@ -11,7 +11,7 @@ const getDetail = async function (userId, answerId) {
         .optionalMatch(`(r:Region)<-[:BELONGS_TO_REGION]-(c)`)
         .return(`c.title AS title, c.description AS description, c.website AS website, c.created AS created,
                  c.language AS language, EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
-                 collect(t.name) AS topics, r.code AS region`)
+                 collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
         .end({userId, answerId}).send();
     if (resp.length !== 1) {
         logger.warn(`Commitment with id ${answerId} had ${resp.length} results`);
