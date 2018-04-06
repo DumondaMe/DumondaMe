@@ -11,7 +11,10 @@ export const getters = {
 export const mutations = {
     SET_COMMITMENT(state, commitment) {
         state.commitment = commitment;
-    }
+    },
+    SET_TOPICS(state, topics) {
+        state.commitment.topics = topics;
+    },
 };
 
 export const actions = {

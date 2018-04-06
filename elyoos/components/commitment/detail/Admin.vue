@@ -4,23 +4,51 @@
         <div id="commitment-admin-container">
             <p>{{$t("pages:detailCommitment.admin.description")}}</p>
             <div id="admin-commands">
-                <v-btn outline fab small color="primary">
-                    <v-icon>edit</v-icon>
-                </v-btn>
+                <v-menu bottom left offset-y>
+                    <v-btn outline fab small color="primary" slot="activator">
+                        <v-icon>edit</v-icon>
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile @click="">
+                            <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile @click="showModifyTopicDialog = true">
+                            <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
                 <v-btn outline fab small color="primary" @click.native="showDeleteCommitmentDialog = true">
                     <v-icon>delete</v-icon>
                 </v-btn>
             </div>
         </div>
+        <modify-topic-dialog v-if="showModifyTopicDialog" @close-dialog="showModifyTopicDialog = false"
+                             @finish="topicsChanged"
+                             :title-text="$t('pages:commitment.modifyTopicDialog.title', {commitment: commitment.title})"
+                             :existing-topics="commitment.topics" api="user/commitment/topic/"
+                             :api-param="$route.params.answerId">
+        </modify-topic-dialog>
     </div>
 </template>
 
 <script>
+    import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
 
     export default {
-        components: {},
+        components: {ModifyTopicDialog},
         data() {
-            return {showDeleteCommitmentDialog: false}
+            return {showDeleteCommitmentDialog: false, showModifyTopicDialog: false}
+        },
+        computed: {
+            commitment() {
+                return this.$store.state.commitment.commitment;
+            }
+        },
+        methods: {
+            topicsChanged(topics) {
+                this.showModifyTopicDialog = false;
+                this.$store.commit('commitment/SET_TOPICS', topics);
+            }
         }
     }
 </script>

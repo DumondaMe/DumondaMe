@@ -53,6 +53,10 @@
       "stepData": "Commitment",
       "stepRegion": "Region",
       "stepTopic": "Topics"
+    },
+    "modifyTopicDialog": {
+      "title": "Change topic for '{{commitment}}'",
+      "changeButton": "Change Topic"
     }
   },
   "question": {

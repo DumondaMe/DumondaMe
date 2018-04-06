@@ -53,6 +53,10 @@
       "stepData": "Engagement",
       "stepRegion": "Region",
       "stepTopic": "Themengebiete"
+    },
+    "modifyTopicDialog": {
+      "title": "Themengebiete für '{{commitment}}' anpassen",
+      "changeButton": "Themengebiete ändern"
     }
   },
   "question": {
