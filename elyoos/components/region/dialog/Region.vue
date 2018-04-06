@@ -5,7 +5,7 @@
         </div>
         <v-card-text id="dialog-create-region-commitment-content">
             <div class="user-description">{{description}}</div>
-            <select-region-container :regions="regions" @select-changed="selectedChanged">
+            <select-region-container>
             </select-region-container>
         </v-card-text>
         <v-divider></v-divider>
@@ -15,7 +15,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish()" :loading="loading"
-                   :disabled="selectedRegions.length === 0  || loading">
+                   :disabled="selectedRegions.length === 0 || loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -23,26 +23,24 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import SelectRegionContainer from '~/components/region/select/RegionContainer';
 
     export default {
         props: ['actionButtonText', 'description', 'loading'],
         components: {SelectRegionContainer},
         data() {
-            return {valid: false, regions: [], selectedRegions: [], loadingRegions: false}
+            return {loadingRegions: false}
+        },
+        computed: {
+            ...mapGetters({selectedRegions: 'selectRegions/getSelected'})
         },
         async mounted() {
             this.loadingRegions = true;
-            let region = await this.$axios.get('region');
-            if (region.data && region.data.regions) {
-                this.regions = region.data.regions;
-            }
+            await this.$store.dispatch('selectRegions/getRegions');
             this.loadingRegions = false;
         },
         methods: {
-            selectedChanged(selectedRegions) {
-                this.selectedRegions = selectedRegions;
-            },
             finish() {
                 this.$emit('finish', this.selectedRegions);
             }

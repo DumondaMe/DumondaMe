@@ -1,16 +1,16 @@
 <template>
     <div class="select-region">
-        <div class="region-container" :class="{'region-selected': selected}" @click="select()">
-            <v-icon class="region-icon" v-show="selected">done</v-icon>
+        <div class="region-container" @click="select()"
+             :class="{'region-selected': region.isSelected, 'sub-region-selected': region.subRegionIsSelected}">
+            <v-icon class="region-icon" v-show="region.isSelected">done</v-icon>
             <div class="region" :class="{'main-bold': isTopRegion}">
                 {{$t("regions:" + region.code)}}
             </div>
         </div>
-        <div class="sub-regions" v-if="(selected || (numberOfSubRegionsSelected > 0 && !isTopRegion)) &&
+        <div class="sub-regions" v-if="(region.isSelected || (region.subRegionIsSelected)) &&
                                         region.subRegions.length > 0">
             <select-region-element :region="subRegion" v-for="subRegion in region.subRegions"
-                                   :key="subRegion.code" :top-region="topRegion" :is-top-region="false"
-                                   @selected="forwardSelected" @unselected="forwardUnselected">
+                                   :key="subRegion.code" :is-top-region="false">
             </select-region-element>
         </div>
     </div>
@@ -21,41 +21,14 @@
 
     export default {
         name: 'select-region-element',
-        props: ['region', 'topRegion', 'isTopRegion', 'isInternational'],
+        props: ['region', 'isTopRegion'],
         components: {SelectRegionElement},
         data() {
-            return {selected: false, numberOfSubRegionsSelected: 0}
+            return {}
         },
         methods: {
             select() {
-                this.selected = !this.selected;
-                if (this.selected) {
-                    this.$emit('selected', {
-                        code: this.region.code, topRegion: this.topRegion,
-                        isTopRegion: this.isTopRegion
-                    });
-                } else {
-                    this.$emit('unselected', {
-                        code: this.region.code, topRegion: this.topRegion,
-                        isTopRegion: this.isTopRegion
-                    });
-                }
-            },
-            forwardSelected(region) {
-                this.$emit('selected', region);
-                this.numberOfSubRegionsSelected++;
-            },
-            forwardUnselected(region) {
-                this.$emit('unselected', region);
-                this.numberOfSubRegionsSelected--;
-            }
-        },
-        watch: {
-            isInternational(isInternational) {
-                if (isInternational && this.region.code !== 'international' ||
-                    !isInternational && this.region.code === 'international') {
-                    this.selected = false;
-                }
+                this.$store.commit('selectRegions/SELECT_CHANGED', this.region);
             }
         }
     }
@@ -83,6 +56,10 @@
         .region-selected {
             font-weight: 500;
             color: $success-text;
+            background-color: #EEEEEE;
+        }
+        .sub-region-selected {
+            font-weight: 500;
             background-color: #EEEEEE;
         }
     }
