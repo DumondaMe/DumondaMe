@@ -15,7 +15,7 @@
             </region>
             <topics v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                        :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
-                       :description="$t('pages:commitment.createDialog.topicDescription')">
+                       :description="$t('pages:commitment.createDialog.topicDescription')" :loading="loading">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
         </v-dialog>
@@ -31,7 +31,7 @@
 
     export default {
         data() {
-            return {dialog: true, showPage: 1}
+            return {dialog: true, showPage: 1, loading: false}
         },
         components: {WebsitePreview, CommitmentContent, Topics, Region, Stepper},
         mounted() {
