@@ -10,7 +10,7 @@
                     </v-btn>
                     <v-list>
                         <v-list-tile @click="">
-                            <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
+                            <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showModifyTopicDialog = true">
                             <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
