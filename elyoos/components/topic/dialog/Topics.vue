@@ -37,7 +37,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish()" :loading="loading"
-                   :disabled="newTopic.trim() !== '' || !valid || topics.length === 0 || loading">
+                   :disabled="newTopic.trim() !== '' || !valid || topics.length === 0 || topicHasNotChanged || loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -51,9 +51,31 @@
     const MAX_NUMBER_OF_SPACES = 2;
 
     export default {
-        props: ['actionButtonText', 'description', 'loading'],
+        props: ['actionButtonText', 'description', 'loading', 'existingTopics'],
         data() {
-            return {valid: false, newTopic: '', topics: []}
+            return {valid: false, newTopic: '', topics: [], originalTopics: []}
+        },
+        mounted() {
+            if (this.existingTopics) {
+                for (let existingTopic of this.existingTopics) {
+                    this.topics.push({name: existingTopic, isActive: true});
+                }
+                this.originalTopics = JSON.parse(JSON.stringify(this.topics));
+            }
+        },
+        computed: {
+            topicHasNotChanged() {
+                let equals = this.originalTopics.length === this.topics.length;
+                if (equals) {
+                    for (let originalTopic of this.originalTopics) {
+                        if (!this.topics.find(topic => topic.name === originalTopic.name)) {
+                            equals = false;
+                            break;
+                        }
+                    }
+                }
+                return equals;
+            }
         },
         methods: {
             addTopic(event) {

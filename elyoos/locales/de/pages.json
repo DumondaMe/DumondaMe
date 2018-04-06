@@ -59,6 +59,10 @@
     "createDialog": {
       "createQuestionButton": "Frage Erstellen",
       "topicDescription": "Welche Themengebiete können deiner Frage zugeordnet werden. Z.B. Zero Waste, Food Waste usw."
+    },
+    "modifyTopicDialog": {
+      "title": "Themengebiete für '{{question}}' anpassen",
+      "changeButton": "Themengebiete ändern"
     }
   },
   "detailQuestion": {

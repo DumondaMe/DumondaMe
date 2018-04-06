@@ -4,9 +4,19 @@
         <div id="question-admin-container">
             <p>{{$t("pages:detailQuestion.sidebar.admin.description")}}</p>
             <div id="admin-commands">
-                <v-btn outline fab small color="primary">
-                    <v-icon>edit</v-icon>
-                </v-btn>
+                <v-menu bottom left offset-y>
+                    <v-btn outline fab small color="primary" slot="activator">
+                        <v-icon>edit</v-icon>
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile @click="">
+                            <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile @click="showModifyTopicDialog = true">
+                            <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
                 <v-btn outline fab small color="primary" @click.native="showDeleteQuestionDialog = true">
                     <v-icon>delete</v-icon>
                 </v-btn>
@@ -15,16 +25,25 @@
         <delete-question-dialog v-if="showDeleteQuestionDialog" @delete-question="deleteQuestion"
                                 @close-dialog="showDeleteQuestionDialog = false">
         </delete-question-dialog>
+        <modify-topic-dialog v-if="showModifyTopicDialog" @close-dialog="showModifyTopicDialog = false"
+                             :existing-topics="question.topics" :question="question.question">
+        </modify-topic-dialog>
     </div>
 </template>
 
 <script>
     import DeleteQuestionDialog from './DeleteQuestionDialog';
+    import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
 
     export default {
-        components: {DeleteQuestionDialog},
+        components: {DeleteQuestionDialog, ModifyTopicDialog},
         data() {
-            return {showDeleteQuestionDialog: false}
+            return {showDeleteQuestionDialog: false, showModifyTopicDialog: false}
+        },
+        computed: {
+            question() {
+                return this.$store.state.question.question;
+            }
         },
         methods: {
             deleteQuestion() {
