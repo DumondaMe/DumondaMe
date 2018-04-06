@@ -40,6 +40,7 @@
     .commitment-info {
         font-size: 14px;
         margin-bottom: 3px;
+        font-weight: 300;
         #topic-container {
             margin-left: 30px;
             .topic {

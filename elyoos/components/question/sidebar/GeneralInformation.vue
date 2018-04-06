@@ -50,6 +50,7 @@
     .question-info {
         font-size: 14px;
         margin-bottom: 3px;
+        font-weight: 300;
 
         #topic-container {
             margin-left: 30px;
@@ -60,7 +61,7 @@
         .question-info-content {
             margin-left: 30px;
             .user-name {
-                font-weight: 500;
+                font-weight: 400;
                 cursor: pointer;
             }
             :hover.user-name {
