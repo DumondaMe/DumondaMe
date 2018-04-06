@@ -88,10 +88,7 @@
         "confirmButton": "Ja, Frage löschen"
       },
       "generalInfo": {
-        "title": "Allgemeine Informationen",
-        "createdBy": "Frage von:",
-        "created": "Erstellt:",
-        "language": "Sprache:"
+        "title": "Allgemeine Informationen"
       }
     },
     "error": {

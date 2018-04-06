@@ -88,10 +88,7 @@
         "confirmButton": "Yes, Delete Question"
       },
       "generalInfo": {
-        "title": "General Information",
-        "createdBy": "Question by:",
-        "created": "Created:",
-        "language": "Language:"
+        "title": "General Information"
       }
     },
     "error": {
