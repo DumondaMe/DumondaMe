@@ -16,19 +16,7 @@ const editQuestion = async function (userId, params) {
             question: params.question, description: params.description,
             modified: time.getNowUtcTimestamp()
         })
-        .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
-        .with(`question`)
-        .match(`(topic:Topic)`)
-        .where(`topic.name IN {topics}`)
-        .merge(`(topic)-[:TOPIC]->(question)`)
-        .with(`DISTINCT question`)
-        .match(`(topic:Topic)`)
-        .where(`NOT topic.name IN {topics} AND (topic)-[:TOPIC]->(question)`)
-        .match(`(topic)-[relTopic:TOPIC]->(question)`)
-        .delete(`relTopic`)
-        .with(`topic`)
-        .where(`NOT EXISTS((topic)-[:TOPIC]->())`)
-        .delete(`topic`)
+        .addCommand(topics.changeTopicsCommand('question'))
         .end(params).send();
     logger.info(`Edit question with id ${params.questionId}`);
 };
