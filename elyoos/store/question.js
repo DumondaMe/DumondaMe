@@ -6,6 +6,9 @@ export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
     },
+    SET_TOPICS(state, topics) {
+        state.question.topics = topics;
+    },
     ADD_ANSWER(state, answer) {
         answer.newAddedAnswer = true;
         state.question.answers.unshift(answer);

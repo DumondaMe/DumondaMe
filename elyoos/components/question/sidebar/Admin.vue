@@ -26,7 +26,10 @@
                                 @close-dialog="showDeleteQuestionDialog = false">
         </delete-question-dialog>
         <modify-topic-dialog v-if="showModifyTopicDialog" @close-dialog="showModifyTopicDialog = false"
-                             :existing-topics="question.topics" :question="question.question">
+                             @finish="topicsChanged"
+                             :title-text="$t('pages:question.modifyTopicDialog.title', {question: question.question})"
+                             :existing-topics="question.topics" api="user/question/topic/"
+                             :api-param="question.questionId">
         </modify-topic-dialog>
     </div>
 </template>
@@ -48,8 +51,12 @@
         methods: {
             deleteQuestion() {
                 this.$router.push({name: 'index'});
+            },
+            topicsChanged(topics) {
+                this.showModifyTopicDialog = false;
+                this.$store.commit('question/SET_TOPICS', topics);
             }
-        },
+        }
     }
 </script>
 

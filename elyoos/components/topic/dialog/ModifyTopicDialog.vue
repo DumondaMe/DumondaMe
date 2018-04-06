@@ -6,7 +6,7 @@
                     :description="$t('pages:question.createDialog.topicDescription')" :loading="loading">
                 <div slot="header">
                     <div id="elyoos-dialog-header" class="modify-topic-dialog-header">
-                        {{$t('pages:question.modifyTopicDialog.title', {question})}}
+                        {{titleText}}
                     </div>
                     <v-divider></v-divider>
                 </div>
@@ -19,7 +19,7 @@
     import Topics from '~/components/topic/dialog/Topics';
 
     export default {
-        props: ['existingTopics', 'question'],
+        props: ['existingTopics', 'titleText', 'api', 'apiParam'],
         data() {
             return {dialog: true, loading: false}
         },
@@ -28,9 +28,9 @@
             async changeTopics(topics) {
                 try {
                     this.loading = true;
-                    //let response = await this.$store.dispatch('createCommitment/createCommitment');
+                    await this.$axios.$put(`${this.api}${this.apiParam}`, {topics});
                     this.loading = false;
-                    this.$emit('close-dialog');
+                    this.$emit('finish', topics);
                 }
                 catch (e) {
                     this.loading = false;
