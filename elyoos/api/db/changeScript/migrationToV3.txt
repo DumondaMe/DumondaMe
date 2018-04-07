@@ -105,3 +105,12 @@ DELETE rel, privacy;
 
 //Add new constraints
 CREATE CONSTRAINT ON (b:Answer) ASSERT b.answerId IS UNIQUE;
+
+//APOC constrains
+CALL apoc.index.addAllNodes('entities',{
+  User: ["name"],
+  Question:  ["question"],
+  Commitment: ["title"]}, {autoUpdate:true, type:"fulltext"});
+
+CALL apoc.index.addAllNodes('keywords',{
+    Topic: ["name"]}, {autoUpdate:true, type:"fulltext"});
