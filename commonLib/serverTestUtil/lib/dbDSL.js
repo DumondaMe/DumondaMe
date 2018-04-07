@@ -33,8 +33,18 @@ let init = function (numberOfUser, isElyoosAdmin) {
     });
 };
 
+let setApocIndex = async function () {
+    await db.cypher().call(`apoc.index.addAllNodes('keywords',{Topic: ["name"]}, {autoUpdate:true, type:"fulltext"})`)
+        .send();
+    await db.cypher().call(`apoc.index.addAllNodes('entities',{
+                            User: ["name"],
+                            Question:  ["question"],
+                            Commitment: ["title"]}, {autoUpdate:true, type:"fulltext"})`).send();
+};
+
 module.exports = {
     init: init,
+    setApocIndex: setApocIndex,
     sendToDb: dbConnectionHandling.sendToDb,
     createContactConnection: contactConnections.createContactConnection,
     createGenericPage: page.createGenericPage,
