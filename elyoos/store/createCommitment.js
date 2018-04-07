@@ -9,6 +9,7 @@ export const state = () => ({
 export const mutations = {
     RESET: function (state) {
         state.commitment = {title: '', description: '', website: '', lang: 'de'};
+        state.titleImage = null;
     },
     SET_COMMITMENT: function (state, commitment) {
         state.commitment = commitment;
@@ -30,6 +31,20 @@ export const getters = {
     }
 };
 
+const getCommitmentForUpload = function (commitment) {
+    let commitmentForUpload = {
+        title: commitment.title,
+        description: commitment.description,
+        lang: commitment.lang,
+        topics: commitment.topics,
+        regions: commitment.regions,
+    };
+    if (commitment.website && commitment.website.trim() !== '') {
+        commitmentForUpload.website = commitment.website;
+    }
+    return commitmentForUpload;
+};
+
 export const actions = {
     async getWebsitePreview({commit}, link) {
         let commitment = await this.$axios.$get(`/commitment/websitePreview`, {params: {link}});
@@ -37,10 +52,7 @@ export const actions = {
         commit('SET_COMMITMENT', commitment);
     },
     async createCommitment({state}) {
-        let commitment = JSON.parse(JSON.stringify(state.commitment));
-        if (commitment.website.trim() === '') {
-            delete commitment.website;
-        }
+        let commitment = getCommitmentForUpload(state.commitment);
         if (state.titleImage) {
             let blob = dataURItoBlob(state.titleImage);
             return await uploadFileToUrl(this.$axios, blob, 'user/commitment', commitment);
