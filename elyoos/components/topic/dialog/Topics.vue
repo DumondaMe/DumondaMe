@@ -78,11 +78,21 @@
             }
         },
         methods: {
+            normalizeTopic(topic) {
+                let normalizedTopic = '';
+                for (let word of topic.split(' ')) {
+                    if (word.length > 1) {
+                        normalizedTopic += word.charAt(0).toUpperCase() + word.slice(1) + ' '
+                    } else if (word.length === 1) {
+                        normalizedTopic += word.charAt(0).toUpperCase() + ' '
+                    }
+                }
+                return normalizedTopic.trim();
+            },
             addTopic(event) {
                 event.preventDefault();
                 if (this.$refs.form.validate() && this.newTopic.trim() !== '') {
-                    this.newTopic = this.newTopic.toLowerCase();
-                    this.newTopic = this.newTopic.replace(/\b\w/g, l => l.toUpperCase());
+                    this.newTopic = this.normalizeTopic(this.newTopic);
                     this.topics.push({name: this.newTopic, isActive: true});
                     this.newTopic = '';
                 }

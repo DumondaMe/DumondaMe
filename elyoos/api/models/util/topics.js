@@ -1,9 +1,20 @@
 const db = requireDb();
 
+const normalizeTopic = function(topic) {
+    let normalizedTopic = '';
+    for (let word of topic.split(' ')) {
+        if (word.length > 1) {
+            normalizedTopic += word.charAt(0).toUpperCase() + word.slice(1) + ' '
+        } else if (word.length === 1) {
+            normalizedTopic += word.charAt(0).toUpperCase() + ' '
+        }
+    }
+    return normalizedTopic.trim();
+};
+
 const normalizeTopics = function (topics) {
     for (let i = 0; i < topics.length; i++) {
-        topics[i] = topics[i].toLowerCase();
-        topics[i] = topics[i].replace(/\b\w/g, l => l.toUpperCase());
+        topics[i] = normalizeTopic(topics[i]);
     }
 };
 
