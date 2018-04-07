@@ -27,7 +27,7 @@ const searchWebsite = async function (link) {
             title: parseWebsite.getTitle($),
             description: parseWebsite.getDescription($),
             imageUrl: $("meta[property='og:image']").attr('content') || null,
-            language: parseWebsite.getLanguage($)
+            lang: parseWebsite.getLanguage($)
         };
     } catch (e) {
         logger.warn(`Could not load website ${link} for commitment`);
