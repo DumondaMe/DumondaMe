@@ -94,6 +94,10 @@ let Cypher = function (driver) {
         return this.chainingQuery(condition, ' UNWIND ');
     };
 
+    this.call = function (condition) {
+        return this.chainingQuery(condition, ' CALL ');
+    };
+
     this.union = function () {
         chainedQuery = chainedQuery + ' UNION ';
         return this;
