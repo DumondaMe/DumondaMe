@@ -36,6 +36,7 @@
                         <v-select id="select-language"
                                   :items="getLanguages" v-model="commitment.lang"
                                   item-value="key" item-text="description" persistent-hint
+                                  :rules="[ruleSelectRequired($t('validation:fieldRequired'))]">
                                   :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
                             <span slot="label">{{$t('pages:commitment.createDialog.primaryLanguage')}}</span>
                         </v-select>
