@@ -11,7 +11,7 @@ Vue.filter('formatRelativeTimesAgo', function (value) {
 
 Vue.filter('formatDate', function (value) {
     if (value) {
-        return moment.unix(value).format('lll');
+        return moment.unix(value).format('l LT');
     }
 });
 
