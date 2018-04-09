@@ -12,7 +12,11 @@ module.exports = {
     },
     concatCommandsWithAnd: helper.concatCommandsWithAnd,
     connect: function (host) {
-        driver = neo4j.driver(host);
+        if (process.env.NEO4J_PASSWORD) {
+            driver = neo4j.driver(host, neo4j.auth.basic('neo4j', process.env.NEO4J_PASSWORD));
+        } else {
+            driver = neo4j.driver(host);
+        }
         const session = driver.session();
         return session.run('RETURN 1').then(() => {
             session.close();
