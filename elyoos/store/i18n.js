@@ -18,9 +18,9 @@ export const mutations = {
 };
 
 export const actions = {
-    setLanguage({commit}, {language}) {
+    async setLanguage({commit}, {language}) {
         try {
-            this.$axios.$put(`/user/language/${language}`);
+            await this.$axios.$put(`/user/language/${language}`);
             location.reload(true);
         } catch (error) {
 
