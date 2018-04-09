@@ -9,16 +9,22 @@
             </div>
             <v-form v-model="valid" @keydown.enter.native="addTopic" ref="form" id="add-topic-container">
                 <div id="topic-input">
-                    <v-text-field v-model="newTopic"
-                                  :label="$t('pages:commitment.createDialog.addTopicDescription')"
-                                  :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
-                                           topicNotAlreadyUsed(),
-                                           maxNumberOfTopics(),
-                                           maxNumberOfSpaces()]">
-                    </v-text-field>
+                    <v-select :label="$t('pages:commitment.createDialog.addTopicDescription')"
+                              autocomplete
+                              :loading="loading"
+                              dense
+                              :items="searchTopics"
+                              :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
+                                       topicNotAlreadyUsed(),
+                                       maxNumberOfTopics(),
+                                       maxNumberOfSpaces()]"
+                              :search-input.sync="newTopic"
+                              v-model="newTopic"
+                              @change="selectTopic">
+                    </v-select>
                 </div>
                 <v-btn color="primary" @click="addTopic" id="add-topic-button"
-                       :disabled="!valid || newTopic.trim() === ''">
+                       :disabled="!valid || (newTopic && newTopic.trim() === '') || !newTopic">
                     {{$t('pages:commitment.createDialog.addTopicButton')}}
                 </v-btn>
             </v-form>
@@ -37,7 +43,8 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish()" :loading="loading"
-                   :disabled="newTopic.trim() !== '' || !valid || topics.length === 0 || topicHasNotChanged || loading">
+                   :disabled="(newTopic && newTopic.trim().length > 0) || !valid ||
+                               topics.length === 0 || topicHasNotChanged || loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -46,6 +53,9 @@
 
 <script>
     import validationRules from '~/mixins/validationRules.js';
+    import Autocomplete from '~/components/common/autocomplete/Autocomplete';
+    import debounce from 'debounce';
+    import Vue from 'vue';
 
     const MAX_NUMBER_OF_TOPICS = 15;
     const MAX_NUMBER_OF_SPACES = 2;
@@ -53,8 +63,9 @@
     export default {
         props: ['actionButtonText', 'description', 'loading', 'existingTopics'],
         data() {
-            return {valid: false, newTopic: '', topics: [], originalTopics: []}
+            return {valid: false, newTopic: '', searchTopics: [], topics: [], originalTopics: []}
         },
+        components: {Autocomplete},
         mounted() {
             if (this.existingTopics) {
                 for (let existingTopic of this.existingTopics) {
@@ -77,7 +88,25 @@
                 return equals;
             }
         },
+        watch: {
+            async newTopic(val) {
+                if (typeof val === 'string' && val.trim().length > 1 && this.$refs.form.validate()) {
+                    this.queryTopics(val);
+                }
+            }
+        },
         methods: {
+            queryTopics: debounce(async function (query) {
+                let result = await this.$axios.$get('topic/search', {params: {query: query}});
+                this.searchTopics = result.topics.filter((topic) => {
+                    for (let existingTopic of this.topics) {
+                        if (existingTopic.name === topic) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+            }, 500),
             normalizeTopic(topic) {
                 let normalizedTopic = '';
                 for (let word of topic.split(' ')) {
@@ -89,19 +118,31 @@
                 }
                 return normalizedTopic.trim();
             },
-            addTopic(event) {
-                event.preventDefault();
-                if (this.$refs.form.validate() && this.newTopic.trim() !== '') {
-                    this.newTopic = this.normalizeTopic(this.newTopic);
-                    this.topics.push({name: this.newTopic, isActive: true});
-                    this.newTopic = '';
+            async selectTopic(topic) {
+                if (typeof topic === 'string' && topic.trim() !== '' &&
+                    !this.topics.find(existingTopic => existingTopic.name === topic)) {
+                    await this.pushTopic(topic);
                 }
+            },
+            async addTopic(event) {
+                event.preventDefault();
+                if (this.$refs.form.validate() && this.newTopic.trim() !== '' &&
+                    !this.topics.find(existingTopic => existingTopic.name === this.newTopic)) {
+                    this.newTopic = this.normalizeTopic(this.newTopic);
+                    await this.pushTopic(this.newTopic);
+                }
+            },
+            async pushTopic(topic) {
+                this.topics.push({name: topic, isActive: true});
+                this.searchTopics = this.searchTopics.filter(searchTopic => searchTopic !== topic);
+                await Vue.nextTick();
+                this.newTopic = '';
             },
             onTopicRemove(topic) {
                 this.topics = this.topics.filter((v) => v.name !== topic.name);
             },
             topicNotAlreadyUsed() {
-                if (this.topics.find((v) => v.name.toLowerCase() === this.newTopic.toLowerCase())) {
+                if (this.newTopic && this.topics.find((v) => v.name.toLowerCase() === this.newTopic.toLowerCase())) {
                     return this.$t("pages:commitment.createDialog.topicUsed");
                 }
                 return true;
@@ -111,7 +152,7 @@
                     this.$t("pages:commitment.createDialog.maxTopics", {count: MAX_NUMBER_OF_TOPICS});
             },
             maxNumberOfSpaces() {
-                if (this.newTopic.split(" ").length - 1 > MAX_NUMBER_OF_SPACES) {
+                if (this.newTopic && this.newTopic.split(" ").length - 1 > MAX_NUMBER_OF_SPACES) {
                     return this.$t("pages:commitment.createDialog.toManySpaces", {count: MAX_NUMBER_OF_SPACES});
                 }
                 return true;
@@ -140,8 +181,8 @@
             #add-topic-container {
                 display: flex;
                 #topic-input {
-                    margin-left: 12px;
-                    flex-grow: 1
+                    margin-left: 8px;
+                    flex-grow: 1;
                 }
                 #add-topic-button {
                     margin-top: 16px;
@@ -149,6 +190,7 @@
                 }
             }
             #topic-container {
+                padding-left: 4px;
                 .topic {
                     display: inline-block;
                 }
