@@ -5,7 +5,7 @@ const db = requireDb();
 const getQueryString = function (query) {
     let queryString = '';
     for (let word of query.trim().split(' ')) {
-        queryString += `${word}~ `
+        queryString += `${word}*~ ${word}~ `
     }
     return queryString.trim();
 };

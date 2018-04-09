@@ -35,8 +35,8 @@ describe('Search a topic with fuzzy match', function () {
         let res = await requestHandler.get('/api/topic/search', {query: 'Tet'});
         res.status.should.equal(200);
         res.body.topics.length.should.equals(2);
-        res.body.topics[0].should.equals('Test2');
-        res.body.topics[1].should.equals('Test1');
+        res.body.topics[0].should.equals('Test1');
+        res.body.topics[1].should.equals('Test2');
     });
 
     it('Get list of keywords (Irgendwas Weitr)', async function () {
