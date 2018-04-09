@@ -53,7 +53,6 @@
 
 <script>
     import validationRules from '~/mixins/validationRules.js';
-    import Autocomplete from '~/components/common/autocomplete/Autocomplete';
     import debounce from 'debounce';
     import Vue from 'vue';
 
@@ -65,7 +64,6 @@
         data() {
             return {valid: false, newTopic: '', searchTopics: [], topics: [], originalTopics: []}
         },
-        components: {Autocomplete},
         mounted() {
             if (this.existingTopics) {
                 for (let existingTopic of this.existingTopics) {
