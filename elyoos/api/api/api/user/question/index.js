@@ -27,12 +27,12 @@ const schemaEditQuestion = {
     name: 'editQuestion',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'question', 'topics'],
+    required: ['questionId', 'question', 'lang'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         question: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
-        topics: topic.topics
+        lang: language.language
     }
 };
 

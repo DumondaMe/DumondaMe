@@ -64,6 +64,10 @@
       "createQuestionButton": "Create Question",
       "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc."
     },
+    "modifyQuestionDialog": {
+      "title": "Change Question '{{question}}'",
+      "changeButton": "Edit Question"
+    },
     "modifyTopicDialog": {
       "title": "Change topic for '{{question}}'",
       "changeButton": "Change Topic"

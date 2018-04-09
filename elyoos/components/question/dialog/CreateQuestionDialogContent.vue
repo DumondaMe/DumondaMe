@@ -1,7 +1,7 @@
 <template>
     <question v-if="showPage === 1" @close-dialog="$emit('close-dialog')"
               @finish="finishQuestion" :action-button-text="$t('common:button.next')"
-              :init-question="initQuestion">
+              :init-question="initQuestion" :is-modify-mode="false">
         <stepper slot="header" :selected-step="showPage"></stepper>
     </question>
     <topics v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishTopics"

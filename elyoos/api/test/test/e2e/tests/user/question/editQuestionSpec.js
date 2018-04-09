@@ -30,7 +30,7 @@ describe('Edit a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', description: 'description2', topics: ['Spiritual']
+            question: 'Andere Frage', description: 'description2', lang: 'en'
         });
         res.status.should.equal(200);
 
@@ -42,11 +42,7 @@ describe('Edit a question', function () {
         resp[0].question.modified.should.least(startTime);
         resp[0].topics.length.should.equals(1);
         resp[0].topics.should.include('Spiritual');
-        resp[0].question.language.should.equals('de');
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`collect(topic.name) AS topics`).end().send();
-        resp[0].topics.length.should.equals(1);
+        resp[0].question.language.should.equals('en');
     });
 
     it('Edit a question without description', async function () {
@@ -58,7 +54,7 @@ describe('Edit a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', topics: ['health']
+            question: 'Andere Frage', lang: 'en'
         });
         res.status.should.equal(200);
 
@@ -69,40 +65,8 @@ describe('Edit a question', function () {
         should.not.exist(resp[0].question.description);
         resp[0].question.modified.should.least(startTime);
         resp[0].topics.length.should.equals(1);
-        resp[0].topics.should.include('Health');
-        resp[0].question.language.should.equals('de');
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`collect(topic.name) AS topics`).end().send();
-        resp[0].topics.length.should.equals(1);
-    });
-
-    it('Edit a question and do not remove topic which is used by other question', async function () {
-
-        dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topics: ['Spiritual'],
-            language: 'de'
-        });
-        dbDsl.createQuestion('2', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü2', description: 'description2', topics: ['Spiritual'],
-            language: 'de'
-        });
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', topics: ['health']
-        });
-        res.status.should.equal(200);
-
-        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
-            .return(`question, collect(topic.name) AS topics`).end().send();
-        resp.length.should.equals(1);
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`collect(topic.name) AS topics`).end().send();
-        resp[0].topics.length.should.equals(2);
-        resp[0].topics.should.include('Health');
         resp[0].topics.should.include('Spiritual');
+        resp[0].question.language.should.equals('en');
     });
 
     it('Only admin is allowed to edit question', async function () {
@@ -114,7 +78,7 @@ describe('Edit a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', description: 'description2', topics: ['health']
+            question: 'Andere Frage', description: 'description2', lang: 'en'
         });
         res.status.should.equal(400);
 
@@ -127,9 +91,5 @@ describe('Edit a question', function () {
         resp[0].topics.length.should.equals(1);
         resp[0].topics.should.include('Spiritual');
         resp[0].question.language.should.equals('de');
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`collect(topic.name) AS topics`).end().send();
-        resp[0].topics.length.should.equals(1);
     });
 });

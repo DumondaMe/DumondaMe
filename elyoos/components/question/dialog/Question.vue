@@ -39,8 +39,8 @@
             <v-btn color="primary" flat :disabled="loading"
                    @click.native="$emit('close-dialog')">{{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('finish', question)"
-                   :disabled="!valid || loading">
+            <v-btn color="primary" @click.native="$emit('finish', question)" :loading="loading"
+                   :disabled="!valid || loading || !hasChanged">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -52,11 +52,22 @@
     import languages from '~/mixins/languages.js';
 
     export default {
-        props: ['initQuestion', 'actionButtonText', 'loading'],
+        props: ['initQuestion', 'actionButtonText', 'loading', 'isModifyMode'],
         data: function () {
             return {
-                question: this.initQuestion, valid: false
+                question: JSON.parse(JSON.stringify(this.initQuestion)),
+                questionCompare: JSON.parse(JSON.stringify(this.initQuestion)), valid: false
             };
+        },
+        computed: {
+          hasChanged() {
+              if(this.isModifyMode) {
+                  return (this.question.question !== this.questionCompare.question ||
+                      this.question.description !== this.questionCompare.description ||
+                      this.question.lang !== this.questionCompare.lang);
+              }
+              return true;
+          }
         },
         mixins: [validationRules, languages]
     }

@@ -2,9 +2,24 @@ export const state = () => ({
     question: null
 });
 
+export const getters = {
+    getQuestionInfo: state => {
+        return JSON.parse(JSON.stringify({
+            question: state.question.question,
+            description: state.question.description,
+            lang: state.question.language,
+        }));
+    }
+};
+
 export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
+    },
+    SET_QUESTION_INFO(state, question) {
+        state.question.question = question.question;
+        state.question.description = question.description;
+        state.question.language = question.lang;
     },
     SET_TOPICS(state, topics) {
         state.question.topics = topics;

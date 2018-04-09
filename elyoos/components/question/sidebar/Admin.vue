@@ -9,7 +9,7 @@
                         <v-icon>edit</v-icon>
                     </v-btn>
                     <v-list>
-                        <v-list-tile @click="">
+                        <v-list-tile @click="showModifyQuestionDialog = true">
                             <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showModifyTopicDialog = true">
@@ -31,17 +31,21 @@
                              :existing-topics="question.topics" api="user/question/topic/"
                              :api-param="question.questionId">
         </modify-topic-dialog>
+        <modify-question-dialog v-if="showModifyQuestionDialog" @close-dialog="showModifyQuestionDialog = false"
+                                @finish="showModifyQuestionDialog = false">
+        </modify-question-dialog>
     </div>
 </template>
 
 <script>
     import DeleteQuestionDialog from './DeleteQuestionDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
+    import ModifyQuestionDialog from '~/components/question/dialog/ModifyQuestionDialog';
 
     export default {
-        components: {DeleteQuestionDialog, ModifyTopicDialog},
+        components: {DeleteQuestionDialog, ModifyTopicDialog, ModifyQuestionDialog},
         data() {
-            return {showDeleteQuestionDialog: false, showModifyTopicDialog: false}
+            return {showDeleteQuestionDialog: false, showModifyTopicDialog: false, showModifyQuestionDialog: false}
         },
         computed: {
             question() {
