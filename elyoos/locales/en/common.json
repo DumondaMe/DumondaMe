@@ -12,6 +12,7 @@
   "you": "You",
   "question": "Question",
   "commitment": "Commitment",
+  "region": "Region",
   "topic": "Topic",
   "toolbar": {
     "login": "Login"

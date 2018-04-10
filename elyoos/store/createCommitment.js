@@ -1,21 +1,16 @@
 import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
-import {uploadFileToUrl} from '~/utils/files/upload.js';
+import {postWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
-    commitment: {title: '', description: '', website: '', lang: 'de'},
-    titleImage: null
+    commitment: {title: '', description: '', website: '', lang: 'de', imageUrl: null}
 });
 
 export const mutations = {
     RESET: function (state) {
-        state.commitment = {title: '', description: '', website: '', lang: 'de'};
-        state.titleImage = null;
+        state.commitment = {title: '', description: '', website: '', lang: 'de', imageUrl: null};
     },
     SET_COMMITMENT: function (state, commitment) {
         state.commitment = commitment;
-    },
-    SET_TITLE_IMAGE: function (state, image) {
-        state.titleImage = image;
     },
     SET_REGIONS: function (state, regions) {
         state.commitment.regions = regions;
@@ -53,9 +48,9 @@ export const actions = {
     },
     async createCommitment({state}) {
         let commitment = getCommitmentForUpload(state.commitment);
-        if (state.titleImage) {
-            let blob = dataURItoBlob(state.titleImage);
-            return await uploadFileToUrl(this.$axios, blob, 'user/commitment', commitment);
+        if (state.commitment.imageUrl) {
+            let blob = dataURItoBlob(state.commitment.imageUrl);
+            return await postWithFile(this.$axios, blob, 'user/commitment', commitment);
         }
         return await this.$axios.$post('/user/commitment', commitment);
     }

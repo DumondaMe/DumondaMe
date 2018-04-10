@@ -54,6 +54,10 @@
       "stepRegion": "Region",
       "stepTopic": "Themengebiete"
     },
+    "modifyCommitmentDialog": {
+      "title": "Engagement '{{commitment}}' bearbeiten",
+      "changeButton": "Engagement ändern"
+    },
     "modifyTopicDialog": {
       "title": "Themengebiete für '{{commitment}}' anpassen",
       "changeButton": "Themengebiete ändern"

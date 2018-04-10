@@ -11,7 +11,7 @@
 
 <script>
     import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
-    import {uploadFileToUrl} from '~/utils/files/upload.js';
+    import {postWithFile} from '~/utils/files/upload.js';
     import CropImage from './CropImage';
 
     export default {
@@ -30,7 +30,7 @@
                         try {
                             let dataUrl = dataCanvas.toDataURL();
                             let blob = dataURItoBlob(dataUrl);
-                            await uploadFileToUrl(this.$axios, blob, 'user/settings/uploadProfileImage');
+                            await postWithFile(this.$axios, blob, 'user/settings/uploadProfileImage');
                             this.$emit('update-image', dataUrl);
                         } catch (e) {
 

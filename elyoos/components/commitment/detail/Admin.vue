@@ -9,8 +9,11 @@
                         <v-icon>edit</v-icon>
                     </v-btn>
                     <v-list>
-                        <v-list-tile @click="">
+                        <v-list-tile @click="showModifyCommitmentDialog = true">
                             <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile @click="">
+                            <v-list-tile-title>{{$t("common:region")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showModifyTopicDialog = true">
                             <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
@@ -22,6 +25,9 @@
                 </v-btn>
             </div>
         </div>
+        <modify-commitment-dialog v-if="showModifyCommitmentDialog" @close-dialog="showModifyCommitmentDialog = false"
+                                  @finish="showModifyCommitmentDialog = false">
+        </modify-commitment-dialog>
         <modify-topic-dialog v-if="showModifyTopicDialog" @close-dialog="showModifyTopicDialog = false"
                              @finish="topicsChanged"
                              :title-text="$t('pages:commitment.modifyTopicDialog.title', {commitment: commitment.title})"
@@ -32,12 +38,13 @@
 </template>
 
 <script>
+    import ModifyCommitmentDialog from '~/components/commitment/dialog/ModifyCommitmentDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
 
     export default {
-        components: {ModifyTopicDialog},
+        components: {ModifyCommitmentDialog, ModifyTopicDialog},
         data() {
-            return {showDeleteCommitmentDialog: false, showModifyTopicDialog: false}
+            return {showModifyCommitmentDialog: false, showModifyTopicDialog: false}
         },
         computed: {
             commitment() {

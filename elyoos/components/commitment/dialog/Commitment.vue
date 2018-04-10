@@ -8,7 +8,8 @@
                 <v-layout row wrap>
                     <v-flex xs12 md4>
                         <div id="commitment-image-preview-container">
-                            <img v-if="imgSrc" class="commitment-image-preview" :src="imgSrc"/>
+                            <img v-if="commitment.imageUrl" class="commitment-image-preview"
+                                 :src="commitment.imageUrl"/>
                             <img v-else class="commitment-image-preview" :src="defaultCommitmentImage"/>
                             <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                                    @change="handleImageChange"/>
@@ -37,7 +38,7 @@
                                   :items="getLanguages" v-model="commitment.lang"
                                   item-value="key" item-text="description" persistent-hint
                                   :rules="[ruleSelectRequired($t('validation:fieldRequired'))]">
-                                  :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
+                            :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
                             <span slot="label">{{$t('pages:commitment.createDialog.primaryLanguage')}}</span>
                         </v-select>
                     </v-flex>
@@ -50,13 +51,15 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="finish" :disabled="!valid">
+            <v-btn color="primary" @click.native="finish" :disabled="!valid || !hasChanged || loading"
+                   :loading="loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
     <crop-image v-else :initial-image="imageToCrop" :action-label="$t('common:button.ok')"
-                @close="showImageCrop = false" @action="setImage"></crop-image>
+                @close="showImageCrop = false" @action="setImage">
+    </crop-image>
 </template>
 
 <script>
@@ -65,12 +68,12 @@
     import CropImage from '~/components/common/dialog/cropper/CropImage';
 
     export default {
-        props: ['actionButtonText'],
+        props: ['actionButtonText', 'initCommitment', 'loading', 'isModifyMode'],
         data() {
             return {
-                commitment: this.$store.getters['createCommitment/getCommitmentCopy'],
+                commitment: JSON.parse(JSON.stringify(this.initCommitment)),
+                commitmentCompare: JSON.parse(JSON.stringify(this.initCommitment)),
                 valid: false,
-                imgSrc: null,
                 imageToCrop: null,
                 showImageCrop: false
             }
@@ -79,7 +82,7 @@
         methods: {
             isValidLink() {
                 return v => {
-                    if (v.trim() === '') {
+                    if (!v || v.trim() === '') {
                         return true
                     }
                     return urlRegex().test(v) || this.$t("validation:url")
@@ -98,22 +101,32 @@
             setImage(imageCropper) {
                 let dataCanvas = imageCropper.getCroppedCanvas();
                 if ('toDataURL' in dataCanvas) {
-                    this.imgSrc = dataCanvas.toDataURL();
+                    this.commitment.imageUrl = dataCanvas.toDataURL();
                 }
                 this.showImageCrop = false;
             },
             finish(event) {
                 event.preventDefault();
                 if (this.$refs.form.validate()) {
-                    let imageData = null;
-                    if (this.imgSrc) {
-                        imageData = this.imgSrc;
-                    }
-                    this.$emit('finish', {commitment: this.commitment, imageData});
+                    let imageHasChanged = this.commitment.imageUrl !== this.commitmentCompare.imageUrl;
+                    this.$emit('finish', {commitment: this.commitment, imageHasChanged});
                 }
             }
         },
         computed: {
+            hasChanged() {
+                if (this.isModifyMode) {
+                    if (typeof this.commitment.website === 'string' && this.commitment.website.trim() === '') {
+                        delete this.commitment.website;
+                    }
+                    return (this.commitment.title !== this.commitmentCompare.title ||
+                        this.commitment.description !== this.commitmentCompare.description ||
+                        this.commitment.lang !== this.commitmentCompare.lang ||
+                        this.commitment.website !== this.commitmentCompare.website ||
+                        this.commitment.imageUrl !== this.commitmentCompare.imageUrl);
+                }
+                return true;
+            },
             defaultCommitmentImage() {
                 return `${process.env.staticUrl}/img/defaultCommitmentTitle.jpg`;
             },

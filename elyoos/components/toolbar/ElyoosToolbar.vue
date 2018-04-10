@@ -68,7 +68,7 @@
 </template>
 
 <script>
-    import CreateCommitmentDialog from '~/components/commitment/create/Dialog.vue'
+    import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
 
     export default {

@@ -54,6 +54,10 @@
       "stepRegion": "Region",
       "stepTopic": "Topics"
     },
+    "modifyCommitmentDialog": {
+      "title": "Change Commitment '{{commitment}}'",
+      "changeButton": "Change Commitment"
+    },
     "modifyTopicDialog": {
       "title": "Change topic for '{{commitment}}'",
       "changeButton": "Change Topic"
