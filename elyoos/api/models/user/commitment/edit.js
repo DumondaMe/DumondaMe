@@ -20,7 +20,7 @@ const editCommitment = async function (userId, params, titlePath) {
         })
         .end(params).send();
 
-    await image.uploadTitleImage(titlePath, params.answerId);
+    await image.uploadTitleImage(titlePath, params.answerId, params.resetImage);
     logger.info(`Updated commitment with id ${params.answerId}`);
 
     return {slug: dashify(params.title)};

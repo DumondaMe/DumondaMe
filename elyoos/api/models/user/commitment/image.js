@@ -4,7 +4,7 @@ const sharp = require('sharp');
 const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const uploadTitleImage = async function (titlePath, answerId) {
+const uploadTitleImage = async function (titlePath, answerId, resetImage) {
     if (typeof titlePath === 'string') {
         let original = await sharp(titlePath).resize(400, 400).crop(sharp.strategy.entropy).jpeg({quality: 93})
             .toBuffer();
@@ -14,7 +14,7 @@ const uploadTitleImage = async function (titlePath, answerId) {
         await cdn.uploadBuffer(title148x148, `commitment/${answerId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title120x120, `commitment/${answerId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
         logger.info(`Uploaded title image for commitment ${answerId}`);
-    } else {
+    } else if (resetImage) {
         await cdn.copyFile(`default/commitment/title.jpg`, `commitment/${answerId}/title.jpg`,
             process.env.BUCKET_PUBLIC);
         await cdn.copyFile(`default/commitment/148x148/title.jpg`, `commitment/${answerId}/148x148/title.jpg`,

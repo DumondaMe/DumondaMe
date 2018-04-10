@@ -26,7 +26,7 @@ describe('Get details of a commitment', function () {
 
     it('Get a commitment (User is Admin and logged in)', async function () {
         dbDsl.createCommitment('1', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, modified: 701,
             website: 'https://www.example.org/', regions: ['region-1-1', 'region-1-2']
         });
 
@@ -36,7 +36,7 @@ describe('Get details of a commitment', function () {
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg?v=701`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');

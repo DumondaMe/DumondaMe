@@ -34,7 +34,7 @@ const createCommitment = async function (userId, params, titlePath) {
         .end(params).send();
     logger.info(`Created commitment with id ${params.answerId}`);
 
-    await image.uploadTitleImage(titlePath, params.answerId);
+    await image.uploadTitleImage(titlePath, params.answerId, true);
 
     return {answerId: params.answerId, slug: dashify(params.title)};
 };

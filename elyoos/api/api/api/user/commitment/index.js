@@ -41,7 +41,8 @@ const schemaEditCommitment = {
         title: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
         lang: language.language,
-        website: {type: 'string', format: 'urlWithProtocol', maxLength: 2000}
+        website: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
+        resetImage: {type: 'boolean'}
     }
 };
 

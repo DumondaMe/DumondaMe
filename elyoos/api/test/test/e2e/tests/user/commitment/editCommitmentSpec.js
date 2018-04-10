@@ -39,13 +39,14 @@ describe('Modify a commitment', function () {
         return requestHandler.logout();
     });
 
-    it('Modify a commitment (only mandatory properties)', async function () {
+    it('Modify a commitment with reset of the title image (only mandatory properties)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/commitment/1', {
             title: 'Commitment Example',
             description: 'Commitment Example Description',
-            lang: 'en'
+            lang: 'en',
+            resetImage: true
         });
         res.status.should.equal(200);
         res.body.slug.should.equals('commitment-example');
@@ -63,6 +64,21 @@ describe('Modify a commitment', function () {
         resp[0].commitment.created.should.equals(700);
         resp[0].commitment.modified.should.least(startTime);
         resp[0].commitment.language.should.equals('en');
+    });
+
+    it('Modify a commitment and not reset of the title image (only mandatory properties)', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/commitment/1', {
+            title: 'Commitment Example',
+            description: 'Commitment Example Description',
+            lang: 'en',
+            resetImage: false
+        });
+        res.status.should.equal(200);
+        res.body.slug.should.equals('commitment-example');
+        stubCDN.uploadBuffer.called.should.be.false;
+        stubCDN.copyFile.called.should.be.false;
     });
 
     it('Modify a commitment (all properties)', async function () {
