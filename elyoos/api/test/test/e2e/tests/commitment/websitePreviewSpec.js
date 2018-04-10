@@ -38,7 +38,6 @@ describe('Get a preview from the website for a commitment', function () {
         res.status.should.equal(200);
         res.body.title.should.equals('ogTitle');
         res.body.description.should.equals('ogDescription');
-        res.body.imageUrl.should.equals('https://www.example.org/image.jpg');
         res.body.lang.should.equals('de');
         should.not.exist(res.body.existingCommitment);
     });

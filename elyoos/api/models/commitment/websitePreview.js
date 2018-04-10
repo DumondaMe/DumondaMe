@@ -4,10 +4,7 @@ const db = requireDb();
 const rp = require('request-promise');
 const parseWebsite = require('./../website/parse');
 const cheerio = require('cheerio');
-const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-
-const ERROR_COMMITMENT_EXISTS = 1;
 
 const searchDatabase = async function (link) {
     let result = await db.cypher().match(`(answer:Commitment {website: {link}})`)
@@ -15,8 +12,6 @@ const searchDatabase = async function (link) {
         .limit(`1`).end({link}).send();
     if (result.length === 1) {
         return result[0];
-        throw new exceptions.InvalidOperation(`Commitment for ${link} exists already on Elyoos`,
-            ERROR_COMMITMENT_EXISTS);
     }
 };
 
@@ -26,7 +21,7 @@ const searchWebsite = async function (link) {
         return {
             title: parseWebsite.getTitle($),
             description: parseWebsite.getDescription($),
-            imageUrl: $("meta[property='og:image']").attr('content') || null,
+            imageUrl: null,
             lang: parseWebsite.getLanguage($)
         };
     } catch (e) {
@@ -34,7 +29,6 @@ const searchWebsite = async function (link) {
         return {};
     }
 };
-
 
 const getPreview = async function (link) {
     let resultDatabase = await searchDatabase(link);
