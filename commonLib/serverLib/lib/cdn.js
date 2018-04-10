@@ -69,8 +69,12 @@ const uploadBuffer = function (buffer, key, bucket) {
     }).promise();
 };
 
-const getPublicUrl = function (path) {
-    return `${process.env.PUBLIC_IMAGE_BASE_URL}/${path}`;
+const getPublicUrl = function (path, version) {
+    let publicUrl = `${process.env.PUBLIC_IMAGE_BASE_URL}/${path}`;
+    if (version) {
+        publicUrl = publicUrl + `?v=${version}`;
+    }
+    return publicUrl;
 };
 
 const deleteFolder = function (folderName, bucket) {
