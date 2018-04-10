@@ -4,6 +4,7 @@ const validation = require('elyoos-server-lib').jsonValidation;
 const topic = require("../../../schema/topic");
 const language = require("../../../schema/language");
 const commitmentCreate = requireModel('user/commitment/create');
+const commitmentEdit = requireModel('user/commitment/edit');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const apiHelper = require('elyoos-server-lib').apiHelper;
@@ -30,11 +31,31 @@ const schemaCreateQuestion = {
     }
 };
 
+const schemaEditCommitment = {
+    name: 'editCommitment',
+    type: 'object',
+    additionalProperties: false,
+    required: ['answerId', 'title', 'description', 'lang'],
+    properties: {
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        title: {type: 'string', format: 'notEmptyString', maxLength: 80},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        lang: language.language,
+        website: {type: 'string', format: 'urlWithProtocol', maxLength: 2000}
+    }
+};
+
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaCreateQuestion, logger);
         let response = await commitmentCreate.createCommitment(req.user.id, params, apiHelper.getFile(req));
+        res.status(200).json(response);
+    }));
+
+    router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaEditCommitment, logger);
+        let response = await commitmentEdit.editCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);
     }));
 };

@@ -10,7 +10,7 @@ const getDetail = async function (userId, answerId) {
         .optionalMatch(`(t:Topic)-[:TOPIC]->(c)`)
         .optionalMatch(`(r:Region)<-[:BELONGS_TO_REGION]-(c)`)
         .return(`c.title AS title, c.description AS description, c.website AS website, c.created AS created,
-                 c.language AS language, EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
+                 c.language AS lang, EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
         .end({userId, answerId}).send();
     if (resp.length !== 1) {

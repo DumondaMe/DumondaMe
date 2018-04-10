@@ -39,7 +39,7 @@ describe('Get details of a commitment', function () {
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
-        res.body.language.should.equals('de');
+        res.body.lang.should.equals('de');
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
         res.body.regions.should.include('region-1-1');
@@ -63,7 +63,7 @@ describe('Get details of a commitment', function () {
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
-        res.body.language.should.equals('de');
+        res.body.lang.should.equals('de');
         res.body.regions.length.should.equals(1);
         res.body.regions.should.include('region-1');
         res.body.isAdmin.should.equals(false);
