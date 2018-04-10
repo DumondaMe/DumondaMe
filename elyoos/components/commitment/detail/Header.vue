@@ -49,6 +49,7 @@
                 margin-top: 12px;
                 font-size: 16px;
                 font-weight: 300;
+                white-space: pre-line;
             }
         }
     }
