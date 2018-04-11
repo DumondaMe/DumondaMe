@@ -78,7 +78,7 @@
             <v-btn color="primary" @click.native="createLinkAnswer()" :loading="uploadRunning"
                    :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
                    !!this.showWarningMessage">
-                {{$t("common:button.create")}}
+                {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
     </v-card>

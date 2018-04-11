@@ -8,17 +8,20 @@
     </answer-link>
     <answer-book v-else-if="answerType === 'book'" @close-dialog="closeDialog">
     </answer-book>
+    <answer-commitment v-else-if="answerType === 'commitment'" @close-dialog="closeDialog">
+    </answer-commitment>
 </template>
 
 <script>
-    import SelectAnswerType from './SelectAnswerType.vue';
-    import AnswerText from './AnswerText.vue';
-    import AnswerLink from './AnswerLink.vue';
-    import AnswerBook from './AnswerBook.vue';
+    import SelectAnswerType from './SelectAnswerType';
+    import AnswerText from './AnswerText';
+    import AnswerLink from './AnswerLink';
+    import AnswerBook from './AnswerBook';
+    import AnswerCommitment from './AnswerCommitment';
     import Vue from 'vue';
 
     export default {
-        components: {SelectAnswerType, AnswerText, AnswerLink, AnswerBook},
+        components: {SelectAnswerType, AnswerText, AnswerLink, AnswerBook, AnswerCommitment},
         data() {
             return {answerType: '', showSelect: true}
         },

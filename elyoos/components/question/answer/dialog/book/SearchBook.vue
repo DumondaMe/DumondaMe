@@ -39,7 +39,7 @@
             </v-btn>
             <v-btn color="primary"
                    :disabled="true">
-                {{$t("common:button.create")}}
+                {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
     </v-card>

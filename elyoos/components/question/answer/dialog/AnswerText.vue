@@ -25,7 +25,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="createTextAnswer()" :disabled="!valid">
-                {{$t("common:button.create")}}
+                {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
     </v-card>

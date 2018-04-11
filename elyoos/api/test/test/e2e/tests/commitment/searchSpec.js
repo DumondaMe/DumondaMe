@@ -30,16 +30,22 @@ describe('Search a commitment with fuzzy match', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/commitment/search', {query: 'weiter'});
         res.status.should.equal(200);
-        res.body.commitments.length.should.equals(1);
-        res.body.commitments[0].should.equals('Wie geht es weiter mit diesem Engagement');
+        res.body.length.should.equals(1);
+        res.body[0].answerId.should.equals('2');
+        res.body[0].title.should.equals('Wie geht es weiter mit diesem Engagement');
+        res.body[0].description.should.equals('commitment2Description');
+        res.body[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
     });
 
     it('find a commitment with two query words', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/commitment/search', {query: 'weiter mit'});
         res.status.should.equal(200);
-        res.body.commitments.length.should.equals(1);
-        res.body.commitments[0].should.equals('Wie geht es weiter mit diesem Engagement');
+        res.body.length.should.equals(1);
+        res.body[0].answerId.should.equals('2');
+        res.body[0].title.should.equals('Wie geht es weiter mit diesem Engagement');
+        res.body[0].description.should.equals('commitment2Description');
+        res.body[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
     });
 
 });

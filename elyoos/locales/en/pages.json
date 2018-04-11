@@ -82,6 +82,8 @@
     "yourAnswer": "Your Answer",
     "searchLink": "Copy paste your link",
     "searchBook": "Search the book",
+    "searchCommitment": "Search the commitment",
+    "createAnswerButton": "Create Answer",
     "answerType": {
       "text": "Answer",
       "video": "Video",

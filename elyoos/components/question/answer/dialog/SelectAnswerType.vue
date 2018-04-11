@@ -23,7 +23,7 @@
                     </div>
                 </v-flex>
                 <v-flex xs6 sm3>
-                    <div class="answer-button">
+                    <div class="answer-button" @click="$emit('answer-selected', 'commitment')">
                         <div class="answer-type">Engagement</div>
                         <div class="answer-description">Welches Engagement beschäftig sich mit dieser Fragestellung?
                         </div>

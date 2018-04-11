@@ -33,7 +33,7 @@
             </v-btn>
             <v-btn color="primary" @click.native="createBookAnswer()" :loading="uploadRunning"
                    :disabled="!valid || uploadRunning">
-                {{$t("common:button.create")}}
+                {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
     </v-card>

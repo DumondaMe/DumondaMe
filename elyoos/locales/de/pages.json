@@ -82,6 +82,8 @@
     "yourAnswer": "Deine Antwort",
     "searchLink": "Copy Paste deinen Link",
     "searchBook": "Suche das Buch",
+    "searchCommitment": "Suche das Engagment",
+    "createAnswerButton": "Antwort Erstellen",
     "answerType": {
       "text": "Antwort",
       "video": "Video",
