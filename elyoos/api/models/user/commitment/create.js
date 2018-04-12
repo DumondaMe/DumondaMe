@@ -10,7 +10,7 @@ const time = require('elyoos-server-lib').time;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const createCommitment = async function (userId, params, titlePath) {
-    params.answerId = uuid.generateUUID();
+    params.commitmentId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.website = params.website || null;
@@ -18,7 +18,7 @@ const createCommitment = async function (userId, params, titlePath) {
     regionSecurity.checkOnlyInternational(params.regions);
     await regionSecurity.checkRegionsExists(params.regions);
     await db.cypher().match("(user:User {userId: {userId}})")
-        .create(`(commitment:Answer:Commitment {answerId: {answerId}, title: {title}, description: {description}, 
+        .create(`(commitment:Answer:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
                   language: {lang}, website: {website}, created: {created}})`)
         .merge(`(user)-[:IS_ADMIN]->(commitment)`)
         .with(`commitment`)
@@ -32,11 +32,11 @@ const createCommitment = async function (userId, params, titlePath) {
         .where(`topic.name IN {topics}`)
         .merge(`(topic)-[:TOPIC]->(commitment)`)
         .end(params).send();
-    logger.info(`Created commitment with id ${params.answerId}`);
+    logger.info(`Created commitment with id ${params.commitmentId}`);
 
-    await image.uploadTitleImage(titlePath, params.answerId, true);
+    await image.uploadTitleImage(titlePath, params.commitmentId, true);
 
-    return {answerId: params.answerId, slug: dashify(params.title)};
+    return {commitmentId: params.commitmentId, slug: dashify(params.title)};
 };
 
 module.exports = {
