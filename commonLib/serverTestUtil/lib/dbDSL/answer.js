@@ -86,6 +86,21 @@ let createTextAnswer = function (answerId, data) {
         }).getCommand());
 };
 
+let createCommitmentAnswer = function (answerId, data) {
+    data.created = data.created || 500;
+    data.modified = data.modified || null;
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
+                 (question:Question {questionId: {questionId}}), (commitment:Commitment {commitmentId: {commitmentId}})`)
+        .create(`(answer:CommitmentAnswer:Answer {answerId: {answerId}, description: {description},
+                  created: {created}, modified: {modified}})`)
+        .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
+        .merge(`(answer)-[:COMMITMENT]->(commitment)`)
+        .end({
+            description: data.description, created: data.created, questionId: data.questionId,
+            commitmentId: data.commitmentId, modified: data.modified, answerId: answerId, creatorId: data.creatorId
+        }).getCommand());
+};
+
 let upVoteAnswer = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
         .merge(`(user)-[:UP_VOTE]->(answer)`)
@@ -108,6 +123,7 @@ module.exports = {
     createVimeoAnswer,
     createLinkAnswer,
     createTextAnswer,
+    createCommitmentAnswer,
     upVoteAnswer,
     setOriginalAnswer
 };

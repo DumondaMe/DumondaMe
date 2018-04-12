@@ -55,6 +55,7 @@ module.exports = {
     createVimeoAnswer: answer.createVimeoAnswer,
     createLinkAnswer: answer.createLinkAnswer,
     createTextAnswer: answer.createTextAnswer,
+    createCommitmentAnswer: answer.createCommitmentAnswer,
     upVoteAnswer: answer.upVoteAnswer,
     setOriginalAnswer: answer.setOriginalAnswer,
     setUserRegisteredDate: user.setUserRegisteredDate,
