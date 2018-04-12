@@ -32,7 +32,7 @@
                              @finish="topicsChanged"
                              :title-text="$t('pages:commitment.modifyTopicDialog.title', {commitment: commitment.title})"
                              :existing-topics="commitment.topics" api="user/commitment/topic/"
-                             :api-param="$route.params.answerId">
+                             :api-param="$route.params.commitmentId">
         </modify-topic-dialog>
     </div>
 </template>

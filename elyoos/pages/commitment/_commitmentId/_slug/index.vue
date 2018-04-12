@@ -23,7 +23,7 @@
     export default {
         async fetch({params, store, error}) {
             try {
-                await store.dispatch(`commitment/getCommitment`, params.answerId);
+                await store.dispatch(`commitment/getCommitment`, params.commitmentId);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }

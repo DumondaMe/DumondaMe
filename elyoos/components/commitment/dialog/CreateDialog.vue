@@ -55,8 +55,8 @@
                     this.loading = false;
                     this.$emit('close-dialog');
                     this.$router.push({
-                        name: 'commitment-answerId-slug',
-                        params: {answerId: response.answerId, slug: response.slug}
+                        name: 'commitment-commitmentId-slug',
+                        params: {commitmentId: response.commitmentId, slug: response.slug}
                     });
                 }
                 catch (e) {

@@ -33,7 +33,7 @@
                 try {
                     this.loading = true;
                     await this.$store.dispatch('commitment/updateCommitment',
-                        {commitment, answerId: this.$route.params.answerId, imageHasChanged});
+                        {commitment, commitmentId: this.$route.params.commitmentId, imageHasChanged});
                     this.$emit('finish');
                 }
                 catch (e) {

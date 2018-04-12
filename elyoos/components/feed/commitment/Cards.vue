@@ -1,13 +1,13 @@
 <template>
     <div id="commitment-cards-container">
-        <div class="commitment-card ely-card" v-for="commitment in commitments" :key="commitment.answerId">
+        <div class="commitment-card ely-card" v-for="commitment in commitments" :key="commitment.commitmentId">
             <div class="image-container">
                 <img :src="commitment.imageUrl">
             </div>
             <div class="info-container">
                 <h2>
-                    <nuxt-link :to="{name: 'commitment-answerId-slug',
-                                 params: {answerId: commitment.answerId, slug: commitment.slug}}">
+                    <nuxt-link :to="{name: 'commitment-commitmentId-slug',
+                                 params: {commitmentId: commitment.commitmentId, slug: commitment.slug}}">
                         {{commitment.title}}
                     </nuxt-link>
                 </h2>

@@ -33,18 +33,18 @@ const getCommitmentForUpload = function (commitment) {
 };
 
 export const actions = {
-    async getCommitment({commit, state}, answerId) {
-        let resp = await this.$axios.$get(`commitment`, {params: {answerId}});
+    async getCommitment({commit, state}, commitmentId) {
+        let resp = await this.$axios.$get(`commitment`, {params: {commitmentId}});
         commit('SET_COMMITMENT', resp);
     },
-    async updateCommitment({commit, state}, {commitment, answerId, imageHasChanged}) {
+    async updateCommitment({commit, state}, {commitment, commitmentId, imageHasChanged}) {
         let commitmentToUpload = getCommitmentForUpload(commitment, imageHasChanged);
         if (imageHasChanged && commitment.imageUrl) {
             let blob = dataURItoBlob(commitment.imageUrl);
-            await putWithFile(this.$axios, blob, `user/commitment/${answerId}`, commitmentToUpload);
+            await putWithFile(this.$axios, blob, `user/commitment/${commitmentId}`, commitmentToUpload);
         } else {
             commitmentToUpload.resetImage = (imageHasChanged && !commitment.imageUrl);
-            await this.$axios.$put(`/user/commitment/${answerId}`, commitmentToUpload);
+            await this.$axios.$put(`/user/commitment/${commitmentId}`, commitmentToUpload);
         }
         commit('SET_COMMITMENT', commitment);
     }
