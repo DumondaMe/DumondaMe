@@ -76,7 +76,7 @@ describe('Get a preview from the website for a commitment', function () {
         let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'https://www.example.org/'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.existingCommitment.answerId.should.equals('1');
+        res.body.existingCommitment.commitmentId.should.equals('1');
         res.body.existingCommitment.title.should.equals('commitment1Title');
         res.body.existingCommitment.description.should.equals('commitment1Description');
     });

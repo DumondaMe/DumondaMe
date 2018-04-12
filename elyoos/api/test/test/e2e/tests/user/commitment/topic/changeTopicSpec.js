@@ -31,14 +31,14 @@ describe('Change topic of a commitment', function () {
 
         let resp = await db.cypher().match("(topic:Topic)")
             .optionalMatch("(topic)-[:TOPIC]->(commitment:Commitment)")
-            .return(`DISTINCT topic.name AS topic, commitment.answerId AS answerId`).orderBy(`topic.name`).end().send();
+            .return(`DISTINCT topic.name AS topic, commitment.commitmentId AS commitmentId`).orderBy(`topic.name`).end().send();
         resp.length.should.equals(3);
         resp[0].topic.should.equals('Test1');
-        resp[0].answerId.should.equals('1');
+        resp[0].commitmentId.should.equals('1');
         resp[1].topic.should.equals('Test3');
-        resp[1].answerId.should.equals('1');
+        resp[1].commitmentId.should.equals('1');
         resp[2].topic.should.equals('Test4');
-        resp[2].answerId.should.equals('1');
+        resp[2].commitmentId.should.equals('1');
     });
 
     it('Change topic of a commitment (other commitment references same previous topic)', async function () {
@@ -59,12 +59,12 @@ describe('Change topic of a commitment', function () {
 
         let resp = await db.cypher().match("(topic:Topic)")
             .optionalMatch("(topic)-[:TOPIC]->(commitment:Commitment)")
-            .return(`DISTINCT topic.name AS topic, commitment.answerId AS answerId`).orderBy(`topic.name`).end().send();
+            .return(`DISTINCT topic.name AS topic, commitment.commitmentId AS commitmentId`).orderBy(`topic.name`).end().send();
         resp.length.should.equals(2);
         resp[0].topic.should.equals('Test1');
-        resp[0].answerId.should.equals('2');
+        resp[0].commitmentId.should.equals('2');
         resp[1].topic.should.equals('Test3');
-        resp[1].answerId.should.equals('1');
+        resp[1].commitmentId.should.equals('1');
     });
 
     it('Not allowed to change topic of a commitment where user is not admin', async function () {
@@ -80,7 +80,7 @@ describe('Change topic of a commitment', function () {
         res.status.should.equal(400);
     });
 
-    it('Only allowed change topics as logged in user', async function () {
+    it('Only allowed change topics as not logged in user', async function () {
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Test1'], language: 'de', created: 700, website: 'https://www.example.org/'
         }, []);

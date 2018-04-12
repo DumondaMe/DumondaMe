@@ -7,8 +7,8 @@ const cheerio = require('cheerio');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const searchDatabase = async function (link) {
-    let result = await db.cypher().match(`(answer:Commitment {website: {link}})`)
-        .return(`answer.answerId AS answerId, answer.title AS title, answer.description AS description`)
+    let result = await db.cypher().match(`(c:Commitment {website: {link}})`)
+        .return(`c.commitmentId AS commitmentId, c.title AS title, c.description AS description`)
         .limit(`1`).end({link}).send();
     if (result.length === 1) {
         return result[0];

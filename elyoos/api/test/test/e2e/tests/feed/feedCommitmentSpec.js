@@ -40,7 +40,7 @@ describe('Get commitment feed', function () {
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.commitments.length.should.equals(1);
-        res.body.commitments[0].answerId.should.equals('1');
+        res.body.commitments[0].commitmentId.should.equals('1');
         res.body.commitments[0].title.should.equals('Test Commitment');
         res.body.commitments[0].slug.should.equals('test-commitment');
         res.body.commitments[0].description.should.equals('commitment1Description');
@@ -67,7 +67,7 @@ describe('Get commitment feed', function () {
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.commitments.length.should.equals(2);
-        res.body.commitments[0].answerId.should.equals('1');
+        res.body.commitments[0].commitmentId.should.equals('1');
         res.body.commitments[0].title.should.equals('Test Commitment');
         res.body.commitments[0].slug.should.equals('test-commitment');
         res.body.commitments[0].description.should.equals('commitment1Description');
@@ -77,7 +77,7 @@ describe('Get commitment feed', function () {
         res.body.commitments[0].topics.should.include('Spiritual');
         res.body.commitments[0].topics.should.include('Education');
 
-        res.body.commitments[1].answerId.should.equals('2');
+        res.body.commitments[1].commitmentId.should.equals('2');
         res.body.commitments[1].title.should.equals('commitment2Title');
         res.body.commitments[1].slug.should.equals('commitment2title');
         res.body.commitments[1].description.should.equals('commitment2Description');
@@ -102,6 +102,6 @@ describe('Get commitment feed', function () {
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.commitments.length.should.equals(1);
-        res.body.commitments[0].answerId.should.equals('1');
+        res.body.commitments[0].commitmentId.should.equals('1');
     });
 });

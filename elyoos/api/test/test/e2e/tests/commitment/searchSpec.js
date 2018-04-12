@@ -31,7 +31,7 @@ describe('Search a commitment with fuzzy match', function () {
         let res = await requestHandler.get('/api/commitment/search', {query: 'weiter', lang: 'de'});
         res.status.should.equal(200);
         res.body.length.should.equals(1);
-        res.body[0].answerId.should.equals('2');
+        res.body[0].commitmentId.should.equals('2');
         res.body[0].title.should.equals('Wie geht es weiter mit diesem Engagement');
         res.body[0].description.should.equals('commitment2Description');
         res.body[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
@@ -49,7 +49,7 @@ describe('Search a commitment with fuzzy match', function () {
         let res = await requestHandler.get('/api/commitment/search', {query: 'weiter mit', lang: 'de'});
         res.status.should.equal(200);
         res.body.length.should.equals(1);
-        res.body[0].answerId.should.equals('2');
+        res.body[0].commitmentId.should.equals('2');
         res.body[0].title.should.equals('Wie geht es weiter mit diesem Engagement');
         res.body[0].description.should.equals('commitment2Description');
         res.body[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);

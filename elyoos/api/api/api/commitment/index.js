@@ -10,9 +10,9 @@ const schemaCommitmentDetail = {
     name: 'getCommitmentDetail',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId'],
+    required: ['commitmentId'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30}
     }
 };
 
@@ -21,7 +21,7 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaCommitmentDetail, logger);
         let userId = apiHelper.getUserId(req);
-        let response = await commitment.getDetail(userId, params.answerId);
+        let response = await commitment.getDetail(userId, params.commitmentId);
         res.status(200).json(response);
     }));
 };

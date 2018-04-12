@@ -35,9 +35,9 @@ const schemaEditCommitment = {
     name: 'editCommitment',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'title', 'description', 'lang'],
+    required: ['commitmentId', 'title', 'description', 'lang'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
         lang: language.language,
@@ -54,7 +54,7 @@ module.exports = function (router) {
         res.status(200).json(response);
     }));
 
-    router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditCommitment, logger);
         let response = await commitmentEdit.editCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);

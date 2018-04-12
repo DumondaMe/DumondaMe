@@ -32,7 +32,7 @@ describe('Get details of a commitment', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/commitment', {answerId: '1'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
@@ -56,7 +56,7 @@ describe('Get details of a commitment', function () {
         });
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/commitment', {answerId: '1'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
@@ -79,7 +79,7 @@ describe('Get details of a commitment', function () {
         });
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/commitment', {answerId: '2'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '2'});
         res.status.should.equal(404);
     });
 

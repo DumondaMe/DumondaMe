@@ -17,10 +17,10 @@ const getResponse = function (commitments) {
     let response = [];
     for (let commitment of commitments) {
         response.push({
-            answerId: commitment.answerId,
+            commitmentId: commitment.commitmentId,
             title: commitment.title,
             description: commitment.description,
-            imageUrl: cdn.getPublicUrl(`commitment/${commitment.answerId}/120x120/title.jpg`)
+            imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitmentId}/120x120/title.jpg`)
         });
     }
     return response;
@@ -31,7 +31,7 @@ const search = async function (query, lang) {
 
     let result = await db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS c`)
         .where(`c.language = {lang}`)
-        .return(`c.title AS title, c.description AS description, c.answerId AS answerId`)
+        .return(`c.title AS title, c.description AS description, c.commitmentId AS commitmentId`)
         .limit(`10`).end({queryString, lang}).send();
     return getResponse(result);
 };
