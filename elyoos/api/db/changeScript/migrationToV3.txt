@@ -9,12 +9,6 @@ DELETE written, rel, rel2, b, recommendation;
 MATCH (r:Recommendation)-[rel]-()
 DELETE r, rel;
 
-//Set Answer label
-MATCH (b:Page)
-SET b:Answer
-SET b.answerId = b.pageId
-REMOVE b.pageId;
-
 //Page with generic label to Commitment
 MATCH (b:Page)
 WHERE b.label = 'Generic'
@@ -25,6 +19,12 @@ REMOVE b:Page, b.label;
 //Remove addresses
 MATCH (a:Address)-[rel]-()
 DELETE a, rel;
+
+//Set Answer label
+MATCH (b:Page)
+SET b:Answer
+SET b.answerId = b.pageId
+REMOVE b.pageId;
 
 //Crate Topics
 MERGE (:Topic {name: 'Gesellschaftliche Entwicklung'});
