@@ -23,7 +23,7 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <p class="answer-description">{{answer.answer}}</p>
+        <p class="answer-description" itemprop="text">{{answer.answer}}</p>
         <answer-commands :answer="answer"></answer-commands>
     </div>
 </template>

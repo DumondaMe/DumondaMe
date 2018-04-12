@@ -7,7 +7,7 @@
             </div>
             <v-spacer></v-spacer>
             <div class="up-vote-button">
-                <span class="up-votes">{{answer.upVotes}}</span>
+                <span class="up-votes" itemprop="upvoteCount">{{answer.upVotes}}</span>
                 <v-btn icon outline :disabled="answer.isAdmin || upVoteRunning" @click="upVote()" class="up-vote"
                        :loading="upVoteRunning" v-if="!answer.hasVoted || answer.isAdmin ">
                     <v-icon>arrow_upward</v-icon>

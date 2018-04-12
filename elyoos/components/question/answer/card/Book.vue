@@ -28,7 +28,7 @@
                 <img :src="answer.imageUrl">
             </div>
             <expand-text :expand-text="answer.description" class="answer-description"
-                         :class="{'no-book-image': !answer.imageUrl}">
+                         :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
             </expand-text>
         </div>
         <answer-commands :answer="answer">

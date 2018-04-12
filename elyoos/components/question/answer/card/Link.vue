@@ -27,7 +27,8 @@
             <div class="link-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <p class="answer-description" :class="{'no-link-image': !answer.imageUrl}">{{answer.description}}</p>
+            <p class="answer-description" :class="{'no-link-image': !answer.imageUrl}"
+               itemprop="text">{{answer.description}}</p>
         </div>
         <answer-commands :answer="answer">
         </answer-commands>

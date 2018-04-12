@@ -1,7 +1,7 @@
 <template>
     <div id="elyoos-question-header">
-        <h1>{{question.question}}</h1>
-        <p id="question-description">{{question.description}}</p>
+        <h1 itemprop="name">{{question.question}}</h1>
+        <p id="question-description" itemprop="text">{{question.description}}</p>
         <div id="question-commands">
             <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
                    slot="activator">

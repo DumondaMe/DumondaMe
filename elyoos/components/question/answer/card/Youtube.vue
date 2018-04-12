@@ -29,7 +29,7 @@
                         v-if="showEmbed"></iframe>
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
-            <p class="answer-description" :class="{'show-embed': showEmbed}">{{answer.description}}</p>
+            <p class="answer-description" :class="{'show-embed': showEmbed}" itemprop="text">{{answer.description}}</p>
         </div>
         <answer-commands :answer="answer"></answer-commands>
     </div>

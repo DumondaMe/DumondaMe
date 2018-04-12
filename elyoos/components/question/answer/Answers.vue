@@ -1,7 +1,8 @@
 <template>
     <div class="elyoos-answer-container">
         <div class="elyoos-answer-content">
-            <div v-for="answer in answers">
+            <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope
+                 itemtype="http://schema.org/Answer">
                 <text-card v-if="answer.answerType === 'Text'" :answer="answer">
                 </text-card>
                 <youtube-card v-else-if="answer.answerType === 'Youtube'" :answer="answer">

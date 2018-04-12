@@ -1,5 +1,5 @@
 <template>
-    <detail-layout>
+    <detail-layout itemscope itemtype="http://schema.org/Question">
         <div slot="content" id="question-detail">
             <question-header>
             </question-header>
