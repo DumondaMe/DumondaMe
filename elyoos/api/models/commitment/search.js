@@ -26,12 +26,13 @@ const getResponse = function (commitments) {
     return response;
 };
 
-const search = async function (query) {
+const search = async function (query, lang) {
     let queryString = getQueryString(query);
 
     let result = await db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS c`)
+        .where(`c.language = {lang}`)
         .return(`c.title AS title, c.description AS description, c.answerId AS answerId`)
-        .limit(`10`).end({queryString}).send();
+        .limit(`10`).end({queryString, lang}).send();
     return getResponse(result);
 };
 
