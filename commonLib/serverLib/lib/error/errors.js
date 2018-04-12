@@ -6,6 +6,7 @@ exports.handlingError = function () {
     return function (err, req, res, next) {
         if (err instanceof Error) {
             if (err.name === 'invalidJsonRequest' || err.name === 'invalidOperation') {
+                logger.error(err.message);
                 if (err.elyoosErrorCode) {
                     res.status(400).json({errorCode: err.elyoosErrorCode});
                 } else {
