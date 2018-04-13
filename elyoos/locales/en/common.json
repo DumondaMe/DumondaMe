@@ -15,6 +15,7 @@
   "commitment": "Commitment",
   "region": "Region",
   "topic": "Topic",
+  "trustCircle": "Trust Circle",
   "toolbar": {
     "login": "Login"
   },

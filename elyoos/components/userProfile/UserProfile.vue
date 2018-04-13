@@ -32,10 +32,12 @@
         <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
             <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
                    v-if="user.isContactOfLoggedInUser">
-                {{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
+                <v-icon left dark>remove_circle_outline</v-icon>
+                {{$t("common:trustCircle")}}
             </v-btn>
             <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
-                {{$t("pages:detailUser.trustCircle.addToYourCircle")}}
+                <v-icon left dark>person_add</v-icon>
+                {{$t("common:trustCircle")}}
             </v-btn>
         </div>
         <upload-cropped-image-dialog v-if="dialogUploadImage" @close-dialog="dialogUploadImage = false"
@@ -121,6 +123,7 @@
                 .user-status-info {
                     margin-top: 6px;
                     color: $secondary-text;
+
                 }
                 .user-description {
                     margin-top: 18px;
@@ -141,7 +144,11 @@
         #other-user-commands {
             margin-top: 12px;
             button {
+                min-width: 142px;
                 margin-left: 0;
+                .icon {
+                    margin-right: 8px;
+                }
             }
         }
         .user-profile-title {
