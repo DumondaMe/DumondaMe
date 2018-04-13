@@ -13,8 +13,13 @@ const createCommitment = function (commitmentId, data) {
     data.regions = data.regions || null;
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
         .create(`(user)-[:IS_ADMIN]->(commitment:Commitment${data.importTC} {title: {title}, language: {language}, description: {description}, modified: {modified}, modifiedAddress: {modifiedAddress}, 
-        created: {created}, commitmentId: {commitmentId}, website: {website}}) 
-        foreach (topic in {topics} | MERGE (:Topic {name: topic})-[:TOPIC]->(commitment))`)
+        created: {created}, commitmentId: {commitmentId}, website: {website}})`)
+        .with(`commitment`)
+        .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
+        .with(`commitment`)
+        .match(`(topic:Topic)`)
+        .where(`topic.name IN {topics}`)
+        .merge(`(topic)-[:TOPIC]->(commitment)`)
         .with(`commitment`)
         .match(`(region:Region)`)
         .where(`region.code IN {regions}`)
