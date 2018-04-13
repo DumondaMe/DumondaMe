@@ -104,6 +104,7 @@
                 .commitment-image {
                     width: 80px;
                     height: 80px;
+                    flex: 0 0 80px;
                     img {
                         width: 100%;
                         height: 100%;
