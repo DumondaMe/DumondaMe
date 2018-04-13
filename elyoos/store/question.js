@@ -104,7 +104,8 @@ export const actions = {
     },
     async createCommitmentAnswer({commit, state}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
-            commitmentData);
+            {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
+        commitmentData.answerId = response.answerId;
         commitmentData.commitmentId = response.commitmentId;
         commitmentData.answerType = 'Commitment';
         commitmentData.isAdmin = true;
@@ -112,7 +113,7 @@ export const actions = {
         commitmentData.created = response.created;
         commitmentData.imageUrl = response.imageUrl;
         commitmentData.creator = response.creator;
-        commit('ADD_ANSWER', bookData);
-        return response.commitmentId;
+        commit('ADD_ANSWER', commitmentData);
+        return response.answerId;
     }
 };

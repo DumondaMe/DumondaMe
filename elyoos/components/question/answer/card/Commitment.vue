@@ -1,5 +1,5 @@
 <template>
-    <div class="ely-card commitment-answer-card" :id="'card-' + answer.commitmentId"
+    <div class="ely-card commitment-answer-card" :id="'card-' + answer.answerId"
          :class="{'new-added-answer': answer.newAddedAnswer}">
         <v-layout row>
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"

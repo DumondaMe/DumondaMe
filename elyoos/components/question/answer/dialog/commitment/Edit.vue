@@ -57,11 +57,12 @@
             async createCommitmentAnswer() {
                 this.uploadRunning = true;
                 try {
-                    let commitmentId = await this.$store.dispatch('question/createCommitmentAnswer',
+                    let answerId = await this.$store.dispatch('question/createCommitmentAnswer',
                         {
-                            description: this.selected.description, commitmentId: this.selected.commitmentId
+                            title: this.selected.title, description: this.selected.description,
+                            commitmentId: this.selected.commitmentId
                         });
-                    this.$emit('close-dialog', commitmentId);
+                    this.$emit('close-dialog', answerId);
                 } catch (error) {
                     this.uploadRunning = false;
                 }
