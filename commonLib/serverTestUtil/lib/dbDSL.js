@@ -7,6 +7,7 @@ let answer = require('./dbDSL/answer');
 let user = require('./dbDSL/user');
 let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
+let notification = require('./dbDSL/notification');
 let tc = require('./dbDSL/transitionConnect');
 let question = require('./dbDSL/question');
 let region = require('./dbDSL/region');
@@ -81,5 +82,6 @@ module.exports = {
     exportEventToTransitionConnect: tc.exportEvent,
     stopExportOrganisationToTransitionConnect: tc.stopExportOrganisation,
     createTopic: topic.createTopic,
-    createRegion: region.createRegion
+    createRegion: region.createRegion,
+    notificationShowQuestionOnCommitmentRequest: notification.showQuestionOnCommitmentRequest
 };
