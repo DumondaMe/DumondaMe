@@ -11,9 +11,10 @@ const schemaSearchCommitment = {
     name: 'getSearchCommitment',
     type: 'object',
     additionalProperties: false,
-    required: ['query', 'lang'],
+    required: ['query'],
     properties: {
-        query: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        query: {type: 'string', format: 'notEmptyString', maxLength: 255},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         lang: schemaLanguage.language
     }
 };
@@ -22,7 +23,7 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaSearchCommitment, logger);
-        let response = await searchCommitment.search(params.query, params.lang);
+        let response = await searchCommitment.search(params.query, params.lang, params.questionId);
         res.status(200).json(response);
     }));
 };
