@@ -21,7 +21,7 @@ const schemaCreateCommitmentAnswer = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.post('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaCreateCommitmentAnswer, logger);
         let response = await answerCreate.createCommitmentAnswer(req.user.id, params);
         res.status(200).json(response);

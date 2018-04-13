@@ -6,8 +6,6 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
 const should = require('chai').should();
-const sinon = require('sinon');
-const stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Creating a commitment answer', function () {
 
@@ -43,8 +41,8 @@ describe('Creating a commitment answer', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/answer/commitment', {
-            commitmentId: '10', questionId: '1', description: 'This is a commitment'
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
@@ -74,8 +72,8 @@ describe('Creating a commitment answer', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/answer/commitment', {
-            commitmentId: '10', questionId: '1', description: 'This is a commitment'
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment'
         });
         res.status.should.equal(200);
 
@@ -105,8 +103,8 @@ describe('Creating a commitment answer', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/answer/commitment', {
-            commitmentId: '10', questionId: '1', description: 'This is a commitment'
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment'
         });
         res.status.should.equal(400);
     });
@@ -119,8 +117,8 @@ describe('Creating a commitment answer', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/answer/commitment', {
-            commitmentId: '10', questionId: '1', description: 'This is a commitment'
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment'
         });
         res.status.should.equal(400);
     });
