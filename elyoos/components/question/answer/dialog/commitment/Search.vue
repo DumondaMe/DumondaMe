@@ -10,7 +10,8 @@
                                    ruleToManyChars($t('validation:toManyChars'), 200)]">
             </v-text-field>
             <div v-for="commitment in commitments" class="commitment-preview"
-                 @click="$emit('selected-commitment', commitment)">
+                 :class="{'linked-with-question': commitment.linkedWithQuestion}"
+                 @click="selectCommitment(commitment)">
                 <div class="commitment-image">
                     <img :src="commitment.imageUrl"/>
                 </div>
@@ -18,6 +19,9 @@
                     <h3 class="commitment-title">
                         {{commitment.title}}
                     </h3>
+                    <div class="already-linked" v-if="commitment.linkedWithQuestion">
+                        {{$t("pages:detailQuestion.commitmentAlreadyLinked")}}
+                    </div>
                     <p class="commitment-description">
                         {{commitment.description}}
                     </p>
@@ -54,13 +58,25 @@
                 return this.$store.state.question.question.question;
             }
         },
+        methods: {
+            selectCommitment(commitment) {
+                if (!commitment.linkedWithQuestion) {
+                    this.$emit('selected-commitment', commitment);
+                }
+            }
+        },
         watch: {
             titleCommitment: debounce(async function (newTitle) {
                 if (typeof newTitle === 'string' && newTitle.trim().length > 1)
                     try {
                         this.searchCommitmentRunning = true;
                         this.commitments = await this.$axios.$get('commitment/search',
-                            {params: {query: newTitle, lang: this.$store.state.question.question.language}});
+                            {
+                                params: {
+                                    query: newTitle, lang: this.$store.state.question.question.language,
+                                    questionId: this.$store.state.question.question.questionId
+                                }
+                            });
                         this.searchCommitmentRunning = false;
                     } catch (error) {
                         this.searchCommitmentRunning = false;
@@ -101,9 +117,13 @@
                     .commitment-title {
                         font-size: 16px;
                         line-height: 16px;
-                        margin-bottom: 4px;
+                    }
+                    .already-linked {
+                        font-size: 14px;
+                        color: $warning;
                     }
                     .commitment-description {
+                        margin-top: 4px;
                         font-size: 14px;
                         font-weight: 300;
                         line-height: 1.4em;
@@ -115,6 +135,12 @@
             :hover.commitment-preview {
                 background: $hover;
                 border-radius: 4px;
+            }
+            .linked-with-question.commitment-preview {
+                cursor: not-allowed;
+            }
+            :hover.linked-with-question.commitment-preview {
+                background: white;
             }
         }
     }

@@ -84,6 +84,7 @@
     "searchBook": "Search the book",
     "searchCommitment": "Search the commitment",
     "createAnswerButton": "Create Answer",
+    "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "answerType": {
       "text": "Answer",
       "video": "Video",
