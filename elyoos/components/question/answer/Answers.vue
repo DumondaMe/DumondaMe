@@ -11,6 +11,8 @@
                 </link-card>
                 <book-card v-else-if="answer.answerType === 'Book'" :answer="answer">
                 </book-card>
+                <commitment-card v-else-if="answer.answerType === 'Commitment'" :answer="answer">
+                </commitment-card>
             </div>
         </div>
     </div>
@@ -21,9 +23,10 @@
     import YoutubeCard from './card/Youtube.vue';
     import LinkCard from './card/Link.vue';
     import BookCard from './card/Book.vue';
+    import CommitmentCard from './card/Commitment.vue';
 
     export default {
-        components: {TextCard, YoutubeCard, LinkCard, BookCard},
+        components: {TextCard, YoutubeCard, LinkCard, BookCard, CommitmentCard},
         computed: {
             answers() {
                 return this.$store.state.question.question.answers;

@@ -3,8 +3,8 @@
          :class="{'new-added-answer': answer.newAddedAnswer}">
         <v-layout row class="text-answer-header">
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :isAdmin="answer.isAdmin" :created="answer.created"
-                       :answer-type="$t('pages:detailQuestion.answerType.text')"
+                       :isAdmin="answer.isAdmin" :created="answer.created" :answer-type="answer.answerType"
+                       :answer-type-translated="$t('pages:detailQuestion.answerType.text')"
                        :userId="answer.creator.userId" :slug="answer.creator.slug">
             </user-info>
             <v-spacer></v-spacer>

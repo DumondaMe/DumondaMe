@@ -6,11 +6,19 @@
         </div>
         <div class="user-infos">
             <div>
-                <span class="answer-type">{{answerType}} </span>
-                <span class="answer-title" v-if="!link">{{answerTitle}} </span>
-                <span class="answer-title" v-else><a target="_blank" :href="link" class="link">{{answerTitle}} </a></span>
-                <span class="answer-by">{{$t("common:createdBy")}}</span>
-                <span class="user-name" @click="$router.push({name: 'user'})" v-if="isAdmin"> {{$t("common:you")}}</span>
+                <span class="answer-type">{{answerTypeTranslated}} </span>
+                <span class="answer-title" v-if="answerType === 'Commitment'"
+                      @click="$router.push({name: 'commitment-commitmentId-slug',
+                              params: {commitmentId: commitmentId, slug: commitmentSlug}})">
+                    {{answerTitle}}
+                </span>
+                <span class="answer-title" v-else-if="!link">{{answerTitle}} </span>
+                <span class="answer-title" v-else><a target="_blank" :href="link"
+                                                     class="link">{{answerTitle}} </a></span>
+                <span class="answer-by" v-if="answerType === 'Commitment'">{{$t("common:linkedBy")}}</span>
+                <span class="answer-by" v-else>{{$t("common:createdBy")}}</span>
+                <span class="user-name" @click="$router.push({name: 'user'})"
+                      v-if="isAdmin"> {{$t("common:you")}}</span>
                 <span class="user-name" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: userId, slug: slug}})" v-else> {{name}}</span>
             </div>
@@ -21,7 +29,8 @@
 
 <script>
     export default {
-        props: ['answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin', 'link', 'userId', 'slug']
+        props: ['answerTypeTranslated', 'answerType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin',
+            'link', 'userId', 'slug', 'commitmentId', 'commitmentSlug']
     }
 </script>
 
@@ -43,11 +52,12 @@
             margin-left: 52px;
             padding-top: 2px;
             .answer-type {
-                color: $secondary-text;
-                font-size: 14px;
+                font-weight: 500;
+                font-size: 16px;
                 line-height: 16px;
             }
             .answer-title {
+                cursor: pointer;
                 font-size: 14px;
                 line-height: 16px;
                 color: $primary-color;
@@ -58,12 +68,16 @@
                     text-decoration: underline;
                 }
             }
+            :hover.answer-title {
+                text-decoration: underline;
+            }
             .answer-by {
                 color: $secondary-text;
                 font-size: 14px;
                 line-height: 16px;
             }
             .user-name {
+                font-weight: 400;
                 cursor: pointer;
                 font-size: 14px;
                 line-height: 16px;

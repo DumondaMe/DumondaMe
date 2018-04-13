@@ -1,12 +1,12 @@
 <template>
-    <div class="ely-card book-answer-card" :id="'card-' + answer.answerId"
+    <div class="ely-card commitment-answer-card" :id="'card-' + answer.commitmentId"
          :class="{'new-added-answer': answer.newAddedAnswer}">
         <v-layout row>
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :created="answer.created" :isAdmin="answer.isAdmin" :link="getExternalLink"
-                       :answer-type-translated="$t('pages:detailQuestion.answerType.book')"
-                       :answer-type="answer.answerType" :answer-title="answer.title"
-                       :userId="answer.creator.userId" :slug="answer.creator.slug">
+                       :created="answer.created" :isAdmin="answer.isAdmin" :answer-type="answer.answerType"
+                       :answer-type-translated="$t('pages:detailQuestion.answerType.commitment')"
+                       :answer-title="answer.title" :userId="answer.creator.userId" :slug="answer.creator.slug"
+                       :commitment-id="answer.commitmentId" :commitment-slug="answer.slug">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -24,8 +24,8 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
-            <div class="book-preview-image" v-if="answer.imageUrl">
+        <div class="commitment-answer-content">
+            <div class="commitment-preview-image">
                 <img :src="answer.imageUrl">
             </div>
             <expand-text :expand-text="answer.description" class="answer-description"
@@ -60,17 +60,17 @@
 </script>
 
 <style lang="scss">
-    .book-answer-card {
+    .commitment-answer-card {
         margin-bottom: 12px;
 
-        .book-answer-content {
+        .commitment-answer-content {
             min-height: 90px;
             display: flex;
-            .book-preview-image {
+            .commitment-preview-image {
                 img {
                     margin-top: 19px;
-                    max-height: 250px;
-                    max-width: 120px;
+                    width: 120px;
+                    height: 120px;
                 }
             }
             .answer-description {
@@ -80,9 +80,6 @@
             .answer-description.no-book-image {
                 margin-left: 0;
             }
-        }
-        .book-answer-content.no-book-image {
-            min-height: 0;
         }
     }
 </style>

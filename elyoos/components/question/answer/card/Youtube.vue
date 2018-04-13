@@ -4,8 +4,9 @@
         <v-layout row class="text-answer-header">
             <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
                        :created="answer.created" :isAdmin="answer.isAdmin" :link="answer.link"
-                       :answer-type="$t('pages:detailQuestion.answerType.video')" :answer-title="answer.title"
-                       :userId="answer.creator.userId" :slug="answer.creator.slug">
+                       :answer-type-translated="$t('pages:detailQuestion.answerType.video')"
+                       :answer-type="answer.answerType" :answer-title="answer.title" :userId="answer.creator.userId"
+                       :slug="answer.creator.slug">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
