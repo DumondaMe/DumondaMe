@@ -27,6 +27,8 @@
                     </p>
                 </div>
             </div>
+            <div v-if="showNotFoundMessage">{{$t("pages:detailQuestion.commitmentNotFound", {search: lastSearch})}}
+            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -50,6 +52,7 @@
         data() {
             return {
                 titleCommitment: '', commitments: [], searchCommitmentRunning: false,
+                showNotFoundMessage: false, lastSearch: ''
             }
         },
         mixins: [validationRules],
@@ -67,7 +70,8 @@
         },
         watch: {
             titleCommitment: debounce(async function (newTitle) {
-                if (typeof newTitle === 'string' && newTitle.trim().length > 1)
+                this.showNotFoundMessage = false;
+                if (typeof newTitle === 'string' && newTitle.trim().length > 1) {
                     try {
                         this.searchCommitmentRunning = true;
                         this.commitments = await this.$axios.$get('commitment/search',
@@ -77,10 +81,13 @@
                                     questionId: this.$store.state.question.question.questionId
                                 }
                             });
+                        this.showNotFoundMessage = this.commitments.length === 0;
+                        this.lastSearch = newTitle;
                         this.searchCommitmentRunning = false;
                     } catch (error) {
                         this.searchCommitmentRunning = false;
                     }
+                }
             }, 400)
         }
     }
