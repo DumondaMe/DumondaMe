@@ -13,6 +13,13 @@ describe('Getting details of a question', function () {
         await dbDsl.init(5);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
+        dbDsl.createRegion('region-1', {});
+
+        dbDsl.createCommitment('2', {
+            title: 'Das ist ein Engagement', regions: ['region-1'],
+            adminId: '2', topics: ['Spiritual', 'Test2'], language: 'de', created: 700, website: 'https://www.example.org/'
+        }, []);
+
         dbDsl.createQuestion('1', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'description',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
@@ -34,6 +41,9 @@ describe('Getting details of a question', function () {
         dbDsl.createBookAnswer('9', {
             creatorId: '3', questionId: '1', created: 497, authors: 'Hans Wurst', googleBookId: '1234',
             hasPreviewImage: true
+        });
+        dbDsl.createCommitmentAnswer('11', {
+            creatorId: '2', questionId: '1', commitmentId: '2', created: 496, description: 'test'
         });
     });
 
@@ -87,7 +97,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.include('Spiritual');
         res.body.topics.should.include('Education');
 
-        res.body.answers.length.should.equals(5);
+        res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -158,6 +168,21 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        res.body.answers[5].answerId.should.equals('11');
+        res.body.answers[5].commitmentId.should.equals('2');
+        res.body.answers[5].answerType.should.equals('Commitment');
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].description.should.equals('test');
+        res.body.answers[5].upVotes.should.equals(0);
+        res.body.answers[5].isAdmin.should.equals(false);
+        res.body.answers[5].hasVoted.should.equals(false);
+        res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].creator.name.should.equals('user Meier2');
+        res.body.answers[5].creator.userId.should.equals('2');
+        res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
@@ -184,7 +209,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.include('Spiritual');
         res.body.topics.should.include('Education');
 
-        res.body.answers.length.should.equals(5);
+        res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('7');
         res.body.answers[0].answerType.should.equals('Youtube');
         res.body.answers[0].idOnYoutube.should.equals('Lhku7ZBWEK8');
@@ -255,6 +280,21 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        res.body.answers[5].answerId.should.equals('11');
+        res.body.answers[5].commitmentId.should.equals('2');
+        res.body.answers[5].answerType.should.equals('Commitment');
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].description.should.equals('test');
+        res.body.answers[5].upVotes.should.equals(0);
+        res.body.answers[5].isAdmin.should.equals(false);
+        res.body.answers[5].hasVoted.should.equals(false);
+        res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].creator.name.should.equals('user Meier2');
+        res.body.answers[5].creator.userId.should.equals('2');
+        res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
@@ -276,7 +316,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.include('Spiritual');
         res.body.topics.should.include('Education');
 
-        res.body.answers.length.should.equals(5);
+        res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
         res.body.answers[0].answer.should.equals('Answer');
@@ -347,5 +387,20 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
         res.body.answers[4].creator.thumbnailUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+        res.body.answers[5].answerId.should.equals('11');
+        res.body.answers[5].commitmentId.should.equals('2');
+        res.body.answers[5].answerType.should.equals('Commitment');
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].description.should.equals('test');
+        res.body.answers[5].upVotes.should.equals(0);
+        res.body.answers[5].isAdmin.should.equals(false);
+        res.body.answers[5].hasVoted.should.equals(false);
+        res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].creator.name.should.equals('user Meier2');
+        res.body.answers[5].creator.userId.should.equals('2');
+        res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].creator.thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
     });
 });

@@ -14,7 +14,7 @@ const getAnswers = async function (answers) {
             formattedAnswer.isAdmin = answer.isAdmin || false;
             formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book'].some(v => v === l))[0];
+                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 userId: answer.creator.userId,
@@ -25,6 +25,11 @@ const getAnswers = async function (answers) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/120x120/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`book/${formattedAnswer.answerId}/120x250/preview.jpg`);
+            } else if (formattedAnswer.answerType === 'CommitmentAnswer') {
+                formattedAnswer.answerType = 'Commitment';
+                formattedAnswer.commitmentId = answer.commitment.commitmentId;
+                formattedAnswer.title = answer.commitment.title;
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/120x120/title.jpg`);
             }
             result.push(formattedAnswer);
         }
@@ -44,10 +49,11 @@ const getQuestion = async function (questionId, userId) {
                answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
                EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
         .orderBy(`upVotes DESC, answer.created DESC`)
+        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)`)
         .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  collect(DISTINCT topic.name) AS topics,
                  collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
-                          hasVoted: hasVoted, answerType: answerType}) AS answers`)
+                         hasVoted: hasVoted, commitment: commitment, answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;
