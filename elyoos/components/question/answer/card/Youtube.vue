@@ -83,6 +83,7 @@
                     max-height: 90px;
                     max-width: 120px;
                     cursor: pointer;
+                    border-radius: 2px;
                 }
             }
             .youtube-embed.show-embed {

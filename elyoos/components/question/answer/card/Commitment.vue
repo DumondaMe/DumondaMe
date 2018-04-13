@@ -71,6 +71,7 @@
                     margin-top: 19px;
                     width: 120px;
                     height: 120px;
+                    border-radius: 2px;
                 }
             }
             .answer-description {

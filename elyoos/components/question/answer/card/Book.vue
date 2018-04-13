@@ -68,6 +68,7 @@
             display: flex;
             .book-preview-image {
                 img {
+                    border-radius: 2px;
                     margin-top: 19px;
                     max-height: 250px;
                     max-width: 120px;

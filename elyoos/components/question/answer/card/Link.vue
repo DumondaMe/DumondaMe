@@ -62,6 +62,7 @@
             .link-preview-image {
                 float: left;
                 img {
+                    border-radius: 2px;
                     margin-top: 5px;
                     max-height: 90px;
                     max-width: 120px;
