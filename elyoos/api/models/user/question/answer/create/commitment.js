@@ -5,9 +5,6 @@ const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const exceptions = require('elyoos-server-lib').exceptions;
-const image = require('./image');
-const sharp = require('sharp');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const createCommitmentCommand = function (params) {
     return db.cypher().match(`(c:Commitment {commitmentId: {commitmentId}}), (q:Question {questionId: {questionId}}), 
@@ -17,7 +14,6 @@ const createCommitmentCommand = function (params) {
         .merge(`(u)-[:IS_CREATOR {created: {created}}]->(answer)`)
         .merge(`(q)-[:ANSWER]->(answer)`)
         .merge(`(answer)-[:COMMITMENT]->(c)`)
-        .merge(`(answer)-[:SHOW_ANSWER]->(c)`)
         .return(`u.name AS name`)
         .end(params).getCommand();
 };
@@ -25,15 +21,13 @@ const createCommitmentCommand = function (params) {
 const handlingNotification = function (params) {
     return db.cypher().match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:CommitmentAnswer:Answer 
                             {answerId: {answerId}})-[:COMMITMENT]->
-                            (c:Commitment {commitmentId: {commitmentId}}), (u:User {userId: {userId}})`)
-        .where(`NOT (u)-[:IS_ADMIN]->(c)`)
-        .optionalMatch(`(answer)-[showAnswer:SHOW_ANSWER]->(c)`)
-        .delete(`showAnswer`)
-        .with(`q, c`)
+                            (c:Commitment {commitmentId: {commitmentId}})`)
         .match(`(c)<-[:IS_ADMIN]-(admin:User)`)
-        .where(`NOT (q)<-[:NOTIFICATION]-(:Notification {type: 'showQuestionRequest'})-[:NOTIFIED]->(admin)`)
-        .merge(`(q)<-[:NOTIFICATION]-(:Notification {created: {created}, type: 'showQuestionRequest'})
+        .where(`NOT (c)<-[:NOTIFICATION]-(:Notification {type: 'showQuestionRequest'})-[:NOTIFIED]->(admin)`)
+        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {created: {created}, type: 'showQuestionRequest'})
               -[:NOTIFIED]->(admin)`)
+        .with(`notification, c`)
+        .merge(`(c)<-[:NOTIFICATION]-(notification)`)
         .end(params)
 };
 
