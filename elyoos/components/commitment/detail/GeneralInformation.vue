@@ -41,6 +41,7 @@
         font-size: 14px;
         margin-bottom: 3px;
         font-weight: 300;
+        width: 100%;
         #topic-container {
             margin-left: 30px;
             .topic {
@@ -48,6 +49,8 @@
             }
         }
         .info-icon {
+            margin-top: 2px;
+            float: left;
             margin-right: 12px;
             font-size: 18px;
             color: #90A4AE;
@@ -56,6 +59,12 @@
             margin-left: 30px;
         }
         a {
+            display: block;
+            margin-left: 30px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             text-decoration: none;
         }
         a:hover {
@@ -66,13 +75,11 @@
     .commitment-info.topics {
         .info-icon {
             margin-top: 2px;
-            float: left;
         }
     }
     .commitment-info.regions {
         .info-icon {
             margin-top: 2px;
-            float: left;
         }
     }
 </style>

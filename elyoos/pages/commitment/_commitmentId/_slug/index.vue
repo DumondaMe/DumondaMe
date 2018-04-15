@@ -49,7 +49,9 @@
     }
 
     #commitment-sidebar {
+        width: 100%;
         .sidebar-container {
+            width: 100%;
             margin-bottom: 32px;
             h3 {
                 font-size: 16px;

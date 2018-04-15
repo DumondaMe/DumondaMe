@@ -16,6 +16,7 @@
         .topic {
             display: inline-block;
             margin-right: 8px;
+            margin-bottom: 4px;
             background-color: #EEEEEE;
             color: #4e4d47;
             padding: 4px;

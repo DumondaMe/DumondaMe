@@ -50,6 +50,7 @@
                 font-size: 16px;
                 font-weight: 300;
                 white-space: pre-line;
+                word-break: break-word;
             }
         }
     }

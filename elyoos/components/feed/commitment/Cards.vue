@@ -45,6 +45,7 @@
                 max-width: 120px;
                 margin-top: 6px;
                 img {
+                    border-radius: 2px;
                     width: 100%;
                 }
             }
@@ -64,10 +65,9 @@
                     text-decoration: underline;
                 }
                 .description {
-                    margin-top: 6px;
                     .expand-text-container {
                         p {
-                            max-height: 6.4em;
+                            max-height: 4.8em;
                         }
                         p.expand {
                             max-height: none;

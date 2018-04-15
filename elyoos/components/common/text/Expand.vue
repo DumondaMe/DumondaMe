@@ -36,6 +36,7 @@
             line-height: 1.6em;
             max-height: 8em;
             overflow-y: hidden;
+            overflow-x: hidden;
             margin-bottom: 4px;
         }
         p.expand {
