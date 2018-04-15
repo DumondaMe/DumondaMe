@@ -14,9 +14,11 @@ describe('Getting details of a question', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-2', {});
+        dbDsl.createRegion('region-3', {});
 
         dbDsl.createCommitment('2', {
-            title: 'Das ist ein Engagement', regions: ['region-1'],
+            title: 'Das ist ein Engagement', regions: ['region-1', 'region-2'],
             adminId: '2', topics: ['Spiritual', 'Test2'], language: 'de', created: 700, website: 'https://www.example.org/'
         }, []);
 
@@ -179,6 +181,9 @@ describe('Getting details of a question', function () {
         res.body.answers[5].isAdmin.should.equals(false);
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].regions.length.should.equals(2);
+        res.body.answers[5].regions.should.include('region-1');
+        res.body.answers[5].regions.should.include('region-2');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
@@ -291,6 +296,9 @@ describe('Getting details of a question', function () {
         res.body.answers[5].isAdmin.should.equals(false);
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].regions.length.should.equals(2);
+        res.body.answers[5].regions.should.include('region-1');
+        res.body.answers[5].regions.should.include('region-2');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
@@ -398,6 +406,9 @@ describe('Getting details of a question', function () {
         res.body.answers[5].isAdmin.should.equals(false);
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
+        res.body.answers[5].regions.length.should.equals(2);
+        res.body.answers[5].regions.should.include('region-1');
+        res.body.answers[5].regions.should.include('region-2');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');

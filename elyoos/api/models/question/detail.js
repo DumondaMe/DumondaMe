@@ -30,6 +30,7 @@ const getAnswers = async function (answers) {
                 formattedAnswer.commitmentId = answer.commitment.commitmentId;
                 formattedAnswer.title = answer.commitment.title;
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/120x120/title.jpg`);
+                formattedAnswer.regions = answer.regions.map((region) => region.code);
             }
             result.push(formattedAnswer);
         }
@@ -48,12 +49,15 @@ const getQuestion = async function (questionId, userId) {
         .with(`question, user, answer, topic, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
                answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
                EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
+        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
+        .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted,
+               commitment, collect(region) AS regions`)
         .orderBy(`upVotes DESC, answer.created DESC`)
-        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)`)
         .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  collect(DISTINCT topic.name) AS topics,
                  collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
-                         hasVoted: hasVoted, commitment: commitment, answerType: answerType}) AS answers`)
+                         hasVoted: hasVoted, commitment: commitment, regions: regions, 
+                         answerType: answerType}) AS answers`)
         .end({questionId, userId}).send();
     if (response.length === 1) {
         let question = response[0].question;
