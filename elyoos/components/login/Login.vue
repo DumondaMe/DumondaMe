@@ -51,7 +51,7 @@
                         username: this.formUsername,
                         password: this.formPassword
                     });
-                    console.log(this.fromRoute);
+                    await this.$store.dispatch('notification/getNotifications');
                     if (!this.fromRoute || this.fromRoute.name === null) {
                         this.$router.push({name: 'index'});
                     } else {

@@ -3,6 +3,7 @@ import {
     Vuetify,
     VApp,
     VBtn,
+    VBadge,
     VIcon,
     VMenu,
     VList,
@@ -34,6 +35,7 @@ Vue.use(Vuetify, {
     components: {
         VApp,
         VBtn,
+        VBadge,
         VIcon,
         VMenu,
         VList,

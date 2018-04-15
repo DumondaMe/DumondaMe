@@ -1,7 +1,7 @@
 <template>
     <div id="elyoos-header">
         <div id="header-container">
-            <div id="elyoos-logo" hidden-xs-only >
+            <div id="elyoos-logo" hidden-xs-only>
                 <img :src="getLogoUrl" @click="$router.push({name: 'index'})"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
@@ -17,7 +17,7 @@
                             <v-list-tile-title>{{$t("pages:toolbar.yourProfile")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-divider></v-divider>
-                        <v-list-tile  @click="showCreateQuestion = true">
+                        <v-list-tile @click="showCreateQuestion = true">
                             <v-list-tile-title>{{$t("pages:toolbar.createQuestion")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showCreateCommitment = true">
@@ -50,7 +50,10 @@
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-btn flat icon>
-                    <v-icon>notifications_none</v-icon>
+                    <v-badge color="secondary" v-model="showNotification" right overlap>
+                        <v-icon>notifications_none</v-icon>
+                        <span slot="badge">{{numberOfUnreadNotifications}}</span>
+                    </v-badge>
                 </v-btn>
             </div>
             <div class="header-nav">
@@ -70,12 +73,18 @@
 <script>
     import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
+    import {mapGetters} from 'vuex';
 
     export default {
         data() {
             return {showCreateCommitment: false, showCreateQuestion: false}
         },
         components: {CreateCommitmentDialog, CreateQuestionDialog},
+        mounted: async function () {
+            if (this.$store.state.auth.userIsAuthenticated) {
+                await this.$store.dispatch('notification/getNotifications');
+            }
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -88,12 +97,20 @@
             },
             getLogoUrl() {
                 return `${process.env.staticUrl}/img/logo.png`;
-            }
+            },
+            showNotification() {
+                return this.numberOfUnreadNotifications > 0;
+            },
+            ...mapGetters({
+                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications',
+                notification: 'notification/notification'
+            })
         },
         methods: {
             async logout() {
                 try {
                     await this.$store.dispatch('auth/logout');
+                    this.$store.commit('notification/RESET_NOTIFICATION');
                 } catch (e) {
                     //Show Error message
                 }

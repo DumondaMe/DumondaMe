@@ -3,8 +3,6 @@
 const notification = requireModel('user/notification/notification');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-
 
 module.exports = function (router) {
 
