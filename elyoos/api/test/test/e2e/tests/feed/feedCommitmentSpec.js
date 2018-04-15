@@ -46,6 +46,8 @@ describe('Get commitment feed', function () {
         res.body.commitments[0].description.should.equals('commitment1Description');
         res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/120x120/title.jpg`);
         res.body.commitments[0].created.should.equals(700);
+        res.body.commitments[0].regions.length.should.equals(1);
+        res.body.commitments[0].regions.should.include('region-1-1-1');
         res.body.commitments[0].topics.length.should.equals(2);
         res.body.commitments[0].topics.should.include('Spiritual');
         res.body.commitments[0].topics.should.include('Education');
@@ -73,6 +75,8 @@ describe('Get commitment feed', function () {
         res.body.commitments[0].description.should.equals('commitment1Description');
         res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/120x120/title.jpg`);
         res.body.commitments[0].created.should.equals(700);
+        res.body.commitments[0].regions.length.should.equals(1);
+        res.body.commitments[0].regions.should.include('region-1-1-1');
         res.body.commitments[0].topics.length.should.equals(2);
         res.body.commitments[0].topics.should.include('Spiritual');
         res.body.commitments[0].topics.should.include('Education');
@@ -83,6 +87,8 @@ describe('Get commitment feed', function () {
         res.body.commitments[1].description.should.equals('commitment2Description');
         res.body.commitments[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
         res.body.commitments[1].created.should.equals(699);
+        res.body.commitments[1].regions.length.should.equals(1);
+        res.body.commitments[1].regions.should.include('region-1-1');
         res.body.commitments[1].topics.length.should.equals(1);
         res.body.commitments[1].topics.should.include('Health');
     });

@@ -15,6 +15,7 @@ const getCommitments = async function (commitments) {
             description: commitment.commitment.description,
             imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitment.commitmentId}/120x120/title.jpg`),
             created: commitment.commitment.created,
+            regions: commitment.regions,
             topics: commitment.topics
         });
     }
@@ -28,7 +29,8 @@ const getFeed = async function (page, timestamp, region) {
         .where(`commitment.created < {timestamp} AND 
         (region.code = {region} OR EXISTS((region)<-[:SUB_REGION*]-(:Region {code: {region}})))`)
         .optionalMatch(`(commitment)<-[:TOPIC]-(topic:Topic)`)
-        .return(`commitment, collect(DISTINCT topic.name) AS topics`)
+        .optionalMatch(`(commitment)-[:BELONGS_TO_REGION]->(region:Region)`)
+        .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT region.code) AS regions`)
         .orderBy(`commitment.created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({page, timestamp, region}).send();
