@@ -150,5 +150,10 @@
     "privacyPublic": "Your profile is public",
     "privacyPublicOnElyoos": "Your profile will only be seen by other users of Elyoos",
     "privacyOnlyContact": "Only people in your trust circle see your profile"
+  },
+  "notifications": {
+    "showQuestionRequest": {
+      "notification": "Should the question <span class=\"bold\"> {{question}}</span> be displayed on the details page of your commitment <span class=\"bold\"> {{commitment}}</span>?"
+    }
   }
 }

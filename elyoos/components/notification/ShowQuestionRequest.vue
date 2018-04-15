@@ -1,17 +1,17 @@
 <template>
     <div class="notification-show-question-request">
-        <div class="notification-title">Soll auf der Detailseite deines Engagements
-            <span class="bold">{{notification.commitmentTitle}}</span> die Frage
-            <span class="bold">{{notification.question}}</span> angezeigt werden?
+        <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
+        <div class="notification-title" v-html="$t('pages:notifications.showQuestionRequest.notification', {
+                           commitment: notification.commitmentTitle, question: notification.question})">
         </div>
         <div class="commands-container">
             <v-btn outline color="success">
                 <v-icon>done</v-icon>
-                Ja
+                {{$t('common:button.yes')}}
             </v-btn>
             <v-btn outline color="error">
                 <v-icon>clear</v-icon>
-                Nein
+                {{$t('common:button.no')}}
             </v-btn>
         </div>
     </div>

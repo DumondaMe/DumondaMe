@@ -20,6 +20,8 @@
     "login": "Anmelden"
   },
   "button": {
+    "yes": "Ja",
+    "no": "Nein",
     "ok": "Ok",
     "close": "Schliessen",
     "abort": "Abbrechen",

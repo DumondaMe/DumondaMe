@@ -20,6 +20,8 @@
     "login": "Login"
   },
   "button": {
+    "yes": "Yes",
+    "no": "No",
     "ok": "Ok",
     "close": "Close",
     "abort": "Abort",

@@ -150,5 +150,10 @@
     "privacyPublic": "Dein Profil ist öffentlich",
     "privacyPublicOnElyoos": "Dein Profil wird nur von anderen Benutzern von Elyoos gesehen",
     "privacyOnlyContact": "Nur Personen in deinem Trust Circle sehen dein Profil"
+  },
+  "notifications": {
+    "showQuestionRequest": {
+      "notification": "Soll auf der Detailseite deines Engagements <span class=\"bold\"> {{commitment}}</span> die Frage <span class=\"bold\"> {{question}}</span> angezeigt werden?"
+    }
   }
 }
