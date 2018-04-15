@@ -102,8 +102,7 @@
                 return this.numberOfUnreadNotifications > 0;
             },
             ...mapGetters({
-                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications',
-                notification: 'notification/notification'
+                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
             })
         },
         methods: {
