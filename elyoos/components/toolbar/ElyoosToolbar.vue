@@ -49,7 +49,7 @@
                 </v-menu>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon>
+                <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>notifications_none</v-icon>
                         <span slot="badge">{{numberOfUnreadNotifications}}</span>
@@ -81,7 +81,7 @@
         },
         components: {CreateCommitmentDialog, CreateQuestionDialog},
         mounted: async function () {
-            if (this.$store.state.auth.userIsAuthenticated) {
+            if (this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'user-notifications') {
                 await this.$store.dispatch('notification/getNotifications');
             }
         },

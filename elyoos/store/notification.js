@@ -7,7 +7,7 @@ export const getters = {
     numberOfUnreadNotifications: state => {
         return state.numberOfUnreadNotifications;
     },
-    notification: state => {
+    notifications: state => {
         return state.notifications;
     }
 };
