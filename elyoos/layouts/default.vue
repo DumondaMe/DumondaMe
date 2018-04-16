@@ -6,16 +6,16 @@
                 <nuxt/>
             </div>
         </div>
+        <elyoos-footer></elyoos-footer>
     </v-app>
 </template>
 
 <script>
-    import ElyoosToolbar from '~/components/toolbar/ElyoosToolbar.vue';
+    import ElyoosToolbar from '~/components/toolbar/ElyoosToolbar';
+    import ElyoosFooter from '~/components/footer/Footer';
 
     export default {
-        components: {
-            ElyoosToolbar
-        }
+        components: {ElyoosToolbar, ElyoosFooter}
     }
 </script>
 
@@ -36,9 +36,10 @@
             .application.theme--light {
                 background-color: $background-normal;
                 #elyoos-content {
+                    min-height: 100%;
+                    height: 100%;
                     padding-top: 124px;
                     padding-bottom: 64px;
-                    margin-bottom: 56px;
                     #elyoos-inner-content {
                         max-width: 950px;
                         width: 100%;
