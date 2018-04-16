@@ -5,6 +5,9 @@
             <show-question-request :notification="notification" v-if="notification.type = 'showQuestionRequest'">
             </show-question-request>
         </div>
+        <div id="no-notifications" v-if="notifications.length === 0">
+            {{$t("pages:notifications.noNotifications")}}
+        </div>
     </div>
 </template>
 
@@ -39,6 +42,12 @@
         }
         .show-border {
             border-bottom: 1px solid #e0e0e0;
+        }
+        #no-notifications {
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 300;
+            text-align: center;
         }
     }
 </style>
