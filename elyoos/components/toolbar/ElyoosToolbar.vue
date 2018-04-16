@@ -110,6 +110,7 @@
                 try {
                     await this.$store.dispatch('auth/logout');
                     this.$store.commit('notification/RESET_NOTIFICATION');
+                    this.$router.push({name: 'index'});
                 } catch (e) {
                     //Show Error message
                 }
