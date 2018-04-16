@@ -156,5 +156,14 @@
       "notification": "Should the question <span class=\"bold\"> {{question}}</span> be displayed on the details page of your commitment <span class=\"bold\"> {{commitment}}</span>?"
     },
     "noNotifications": "You haven't received any notifications yet."
+  },
+  "footer": {
+    "vision": "Vision",
+    "aboutUs": "About us",
+    "news": "News",
+    "donate": "Donate",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "contact": "Contact"
   }
 }

@@ -156,5 +156,14 @@
       "notification": "Soll auf der Detailseite deines Engagements <span class=\"bold\"> {{commitment}}</span> die Frage <span class=\"bold\"> {{question}}</span> angezeigt werden?"
     },
     "noNotifications": "Du hast noch keine Benachrichtigungen erhalten."
+  },
+  "footer": {
+    "vision": "Vision",
+    "aboutUs": "Über uns",
+    "news": "News",
+    "donate": "Spenden",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
+    "contact": "Kontakt"
   }
 }

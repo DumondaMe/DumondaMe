@@ -1,13 +1,13 @@
 <template>
     <div id="ely-footer">
         <div id="ely-footer-container">
-            <div class="footer-nav">Vision</div>
-            <div class="footer-nav">Über uns</div>
-            <div class="footer-nav">News</div>
-            <div class="footer-nav">Spenden</div>
-            <div class="footer-nav" @click="$router.push({name: 'terms'})">AGB</div>
-            <div class="footer-nav">Datenschutz</div>
-            <div class="footer-nav">Kontakt</div>
+            <div class="footer-nav">{{$t("pages:footer.vision")}}</div>
+            <div class="footer-nav">{{$t("pages:footer.aboutUs")}}</div>
+            <div class="footer-nav">{{$t("pages:footer.news")}}</div>
+            <div class="footer-nav">{{$t("pages:footer.donate")}}</div>
+            <div class="footer-nav" @click="$router.push({name: 'terms'})">{{$t("pages:footer.terms")}}</div>
+            <div class="footer-nav">{{$t("pages:footer.privacy")}}</div>
+            <div class="footer-nav">{{$t("pages:footer.contact")}}</div>
         </div>
     </div>
 </template>
