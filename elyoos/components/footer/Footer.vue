@@ -5,7 +5,7 @@
             <div class="footer-nav">Über uns</div>
             <div class="footer-nav">News</div>
             <div class="footer-nav">Spenden</div>
-            <div class="footer-nav">AGB</div>
+            <div class="footer-nav" @click="$router.push({name: 'terms'})">AGB</div>
             <div class="footer-nav">Datenschutz</div>
             <div class="footer-nav">Kontakt</div>
         </div>
