@@ -29,6 +29,8 @@
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         box-sizing: border-box;
+        min-height: 100%;
+        height: 100%;
     }
 
     body {
@@ -36,8 +38,8 @@
             .application.theme--light {
                 background-color: $background-normal;
                 #elyoos-content {
-                    min-height: 100%;
-                    height: 100%;
+                    min-height: inherit;
+                    height: inherit;
                     padding-top: 124px;
                     padding-bottom: 64px;
                     #elyoos-inner-content {
