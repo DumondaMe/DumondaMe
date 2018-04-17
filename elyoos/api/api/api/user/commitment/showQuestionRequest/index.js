@@ -10,11 +10,11 @@ const schemaShowQuestionRequest = {
     name: 'showQuestionRequest',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'questionId', 'show'],
+    required: ['commitmentId', 'questionId', 'showQuestion'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        show: {type: 'boolean'}
+        showQuestion: {type: 'boolean'}
     }
 };
 
@@ -22,7 +22,7 @@ module.exports = function (router) {
 
     router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaShowQuestionRequest, logger);
-        await request.showQuestion(req.user.id, params.commitmentId, params.questionId, params.show);
+        await request.showQuestion(req.user.id, params.commitmentId, params.questionId, params.showQuestion);
         res.status(200).end();
     }));
 };

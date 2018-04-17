@@ -35,7 +35,7 @@ describe('Show question on commitment activation', function () {
     it('Accept request to show question on commitment detail page', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', show: true});
+        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', showQuestion: true});
         res.status.should.equal(200);
 
         let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
@@ -49,7 +49,7 @@ describe('Show question on commitment activation', function () {
     it('Deny request to show question on commitment detail page', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', show: false});
+        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', showQuestion: false});
         res.status.should.equal(200);
 
         let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
@@ -63,7 +63,7 @@ describe('Show question on commitment activation', function () {
     it('Only administrator of commitment is allowed to activate show request', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', show: true});
+        let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', showQuestion: true});
         res.status.should.equal(400);
 
         let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
