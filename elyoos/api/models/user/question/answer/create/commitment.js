@@ -1,5 +1,6 @@
 'use strict';
 
+const dashify = require('dashify');
 const db = requireDb();
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
@@ -14,7 +15,7 @@ const createCommitmentCommand = function (params) {
         .merge(`(u)-[:IS_CREATOR {created: {created}}]->(answer)`)
         .merge(`(q)-[:ANSWER]->(answer)`)
         .merge(`(answer)-[:COMMITMENT]->(c)`)
-        .return(`u.name AS name`)
+        .return(`u.name AS userName, c.title AS commitmentTitle`)
         .end(params).getCommand();
 };
 
@@ -54,14 +55,15 @@ const createCommitmentAnswer = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     await checkCommitmentNotLinkedWithQuestion(params.commitmentId, params.questionId);
-    let user = await handlingNotification(params).send([createCommitmentCommand(params)]);
+    let commitment = await handlingNotification(params).send([createCommitmentCommand(params)]);
 
     return {
         answerId: params.answerId,
         created: params.created,
+        slug: dashify(commitment[0][0].commitmentTitle),
         imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/120x120/title.jpg`),
         creator: {
-            name: user[0][0].name,
+            name: commitment[0][0].userName,
             thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
         }
     }

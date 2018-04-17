@@ -36,7 +36,7 @@ describe('Creating a commitment answer', function () {
     it('Answer a question with a commitment', async function () {
         dbDsl.createCommitment('10', {
             adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
-            website: 'https://www.example.org/', regions: ['region-1']
+            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
         });
 
         await dbDsl.sendToDb();
@@ -45,6 +45,11 @@ describe('Creating a commitment answer', function () {
             commitmentId: '10', description: 'This is a commitment'
         });
         res.status.should.equal(200);
+        res.body.created.should.least(startTime);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg`);
+        res.body.slug.should.equals('das-ist-ein-engagement');
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
 
         let resp = await db.cypher()
             .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)
@@ -55,7 +60,9 @@ describe('Creating a commitment answer', function () {
             .optionalMatch(`(c)<-[relNotificationToCommitment:NOTIFICATION]-(notification)`)
             .return(`answer, notification, showAnswer, isCreator, relNotificationToCommitment`).end().send();
         resp.length.should.equals(1);
-        resp[0].notification.created.should.least(startTime);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.created.should.equals(res.body.created);
+        resp[0].notification.created.should.equals(res.body.created);
         resp[0].notification.type.should.equals('showQuestionRequest');
         should.not.exist(resp[0].showAnswer);
         should.exist(resp[0].relNotificationToCommitment);

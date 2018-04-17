@@ -106,6 +106,7 @@ export const actions = {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
             {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
         commitmentData.answerId = response.answerId;
+        commitmentData.slug = response.slug;
         commitmentData.commitmentId = commitmentData.commitmentId;
         commitmentData.answerType = 'Commitment';
         commitmentData.isAdmin = true;
