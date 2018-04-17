@@ -153,7 +153,7 @@
   },
   "notifications": {
     "showQuestionRequest": {
-      "notification": "Soll auf der Detailseite deines Engagements <span class=\"bold\"> {{commitment}}</span> die Frage <span class=\"bold\"> {{question}}</span> angezeigt werden?"
+      "notification": "Dein Engagement <span class=\"bold\"> {{commitment}}</span> wurde mit der Frage <span class=\"bold\"> {{question}}</span> verlinkt. Soll diese Frage auf der Seite deines Engagements angezeigt werden?"
     },
     "noNotifications": "Du hast noch keine Benachrichtigungen erhalten."
   },

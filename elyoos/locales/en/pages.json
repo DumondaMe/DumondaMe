@@ -153,7 +153,7 @@
   },
   "notifications": {
     "showQuestionRequest": {
-      "notification": "Should the question <span class=\"bold\"> {{question}}</span> be displayed on the details page of your commitment <span class=\"bold\"> {{commitment}}</span>?"
+      "notification": "Your Commitment <span class=\"bold\"> {{commitment}}</span>  has been linked to the question <span class=\"bold\"> {{question}}</span>. Should this question be displayed on your commitment page?"
     },
     "noNotifications": "You haven't received any notifications yet."
   },
