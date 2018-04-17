@@ -27,7 +27,9 @@
 
 <style lang="scss">
     #elyoos-commitment-header {
-        margin-bottom: 48px;
+        padding-bottom: 8px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid $divider;
         #commitment-image {
             float: left;
             width: 142px;

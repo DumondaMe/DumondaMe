@@ -2,7 +2,7 @@
     <div id="notifications-container">
         <div class="notification" v-for="(notification, index) in notifications"
              :class="{'show-border': index < notifications.length - 1}">
-            <show-question-request :notification="notification" v-if="notification.type = 'showQuestionRequest'">
+            <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>
         </div>
         <div id="no-notifications" v-if="notifications.length === 0">

@@ -124,6 +124,12 @@
     },
     "generalInfo": {
       "title": "General Information"
+    },
+    "notifications": {
+      "showQuestionRequest": {
+        "notification1": "Soll die Frage",
+        "notification2": "auf der Seite dieses Engagements angezeigt werden?"
+      }
     }
   },
   "detailUser": {

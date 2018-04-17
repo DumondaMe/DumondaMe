@@ -18,6 +18,9 @@ export const mutations = {
         state.numberOfNotifications = 0;
     },
     SET_NOTIFICATION: function (state, notification) {
+        for (let n of notification.notifications) {
+            n.removed = false;
+        }
         state.notifications = notification.notifications;
         state.numberOfNotifications = notification.numberOfNotifications;
     }
