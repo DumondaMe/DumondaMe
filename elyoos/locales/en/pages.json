@@ -153,9 +153,17 @@
   },
   "notifications": {
     "showQuestionRequest": {
-      "notification": "Your Commitment <span class=\"bold\"> {{commitment}}</span>  has been linked to the question <span class=\"bold\"> {{question}}</span>. Should this question be displayed on your commitment page?"
+      "notification1": "Your Commitment",
+      "notification2": "has been linked to the question",
+      "notification3": ". Should this question be displayed on your commitment page?",
+      "postNotificationAccepted1": "The question",
+      "postNotificationAccepted2": "is displayed on your commitment page",
+      "postNotificationAccepted3": ".",
+      "postNotificationDeny1": "The question",
+      "postNotificationDeny2": "is not displayed on the",
+      "postNotificationDeny3": "page of your commitment."
     },
-    "noNotifications": "You haven't received any notifications yet."
+    "noNotifications": "You have no notifications."
   },
   "footer": {
     "vision": "Vision",

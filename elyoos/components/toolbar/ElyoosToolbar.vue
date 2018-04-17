@@ -52,7 +52,7 @@
                 <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>notifications_none</v-icon>
-                        <span slot="badge">{{numberOfUnreadNotifications}}</span>
+                        <span slot="badge">{{numberOfNotifications}}</span>
                     </v-badge>
                 </v-btn>
             </div>
@@ -99,10 +99,10 @@
                 return `${process.env.staticUrl}/img/logo.png`;
             },
             showNotification() {
-                return this.numberOfUnreadNotifications > 0;
+                return this.numberOfNotifications > 0;
             },
             ...mapGetters({
-                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
+                numberOfNotifications: 'notification/numberOfNotifications'
             })
         },
         methods: {

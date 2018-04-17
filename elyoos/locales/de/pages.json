@@ -153,9 +153,17 @@
   },
   "notifications": {
     "showQuestionRequest": {
-      "notification": "Dein Engagement <span class=\"bold\"> {{commitment}}</span> wurde mit der Frage <span class=\"bold\"> {{question}}</span> verlinkt. Soll diese Frage auf der Seite deines Engagements angezeigt werden?"
+      "notification1": "Dein Engagement",
+      "notification2": "wurde mit der Frage",
+      "notification3": "verlinkt. Soll diese Frage auf der Seite deines Engagements angezeigt werden?",
+      "postNotificationAccepted1": "Die Frage",
+      "postNotificationAccepted2": "wird auf der Seite deines Engagments",
+      "postNotificationAccepted3": "angezeigt.",
+      "postNotificationDeny1": "Die Frage",
+      "postNotificationDeny2": "wird nicht auf der Seite deines Engagments",
+      "postNotificationDeny3": "angezeigt."
     },
-    "noNotifications": "Du hast noch keine Benachrichtigungen erhalten."
+    "noNotifications": "Du hast keine Benachrichtigungen."
   },
   "footer": {
     "vision": "Vision",

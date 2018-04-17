@@ -1,11 +1,11 @@
 export const state = () => ({
     notifications: [],
-    numberOfUnreadNotifications: 0
+    numberOfNotifications: 0
 });
 
 export const getters = {
-    numberOfUnreadNotifications: state => {
-        return state.numberOfUnreadNotifications;
+    numberOfNotifications: state => {
+        return state.numberOfNotifications;
     },
     notifications: state => {
         return state.notifications;
@@ -15,11 +15,19 @@ export const getters = {
 export const mutations = {
     RESET_NOTIFICATION: function (state) {
         state.notifications = [];
-        state.numberOfUnreadNotifications = 0;
+        state.numberOfNotifications = 0;
     },
     SET_NOTIFICATION: function (state, notification) {
         state.notifications = notification.notifications;
-        state.numberOfUnreadNotifications = notification.numberOfUnreadNotifications;
+        state.numberOfNotifications = notification.numberOfNotifications;
+    }
+    ,
+    NOTIFICATION_REMOVED: function (state, notificationToRemove) {
+        let index = state.notifications.indexOf(notificationToRemove);
+        if (index > -1) {
+            state.notifications[index].removed = true;
+        }
+        state.numberOfNotifications--;
     }
 };
 
