@@ -11,7 +11,6 @@ const getResponse = function (notifications) {
         let question = notification.infos.find((info) => typeof info.questionId === 'string');
         response.push({
             created: notification.notification.created,
-            read: notification.notification.read,
             type: notification.notification.type,
             commitmentId: commitment.commitmentId,
             commitmentTitle: commitment.title,
@@ -26,7 +25,7 @@ const getResponse = function (notifications) {
 
 const getNumberOfUnreadNotificationsCommand = function (userId) {
     return db.cypher().match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
-        .return(`COUNT(DISTINCT n) AS numberOfUnreadNotifications`)
+        .return(`COUNT(DISTINCT n) AS numberOfNotifications`)
         .end({userId}).getCommand();
 };
 
@@ -39,7 +38,7 @@ const getNotifications = async function (userId) {
     logger.info(`User ${userId} requested notifications`);
     return {
         notifications: getResponse(result[1]),
-        numberOfUnreadNotifications: result[0][0].numberOfUnreadNotifications
+        numberOfNotifications: result[0][0].numberOfNotifications
     };
 };
 

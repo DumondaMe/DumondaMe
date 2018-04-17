@@ -36,16 +36,15 @@ describe('Get notifications of a user', function () {
         });
 
         dbDsl.notificationShowQuestionOnCommitmentRequest({questionId: '1', commitmentId: '2', adminId: '1',
-            read: false, created: 666});
+            created: 666});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfUnreadNotifications.should.equals(1);
+        res.body.numberOfNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].created.should.equals(666);
-        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].type.should.equals('showQuestionRequest');
         res.body.notifications[0].commitmentId.should.equals('2');
         res.body.notifications[0].commitmentTitle.should.equals('Das ist ein Test');
