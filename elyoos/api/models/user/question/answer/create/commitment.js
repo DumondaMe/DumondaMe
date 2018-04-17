@@ -23,7 +23,6 @@ const handlingNotification = function (params) {
                             {answerId: {answerId}})-[:COMMITMENT]->
                             (c:Commitment {commitmentId: {commitmentId}})`)
         .match(`(c)<-[:IS_ADMIN]-(admin:User)`)
-        .where(`NOT (c)<-[:NOTIFICATION]-(:Notification {type: 'showQuestionRequest'})-[:NOTIFIED]->(admin)`)
         .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {created: {created}, type: 'showQuestionRequest'})
               -[:NOTIFIED]->(admin)`)
         .with(`notification, c`)
