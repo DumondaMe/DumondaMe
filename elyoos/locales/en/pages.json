@@ -131,6 +131,11 @@
         "notification1": "Should the question",
         "notification2": "be displayed on the page of this commitment"
       }
+    },
+    "questions": {
+      "title": "Questions linked to this commitment",
+      "upVotes": "Up Vote",
+      "upVotes_plural": "Up Votes"
     }
   },
   "detailUser": {

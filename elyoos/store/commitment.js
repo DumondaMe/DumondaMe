@@ -2,7 +2,7 @@ import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
 import {putWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
-    commitment: {title: null, description: null, website: null, lang: null, imageUrl: null}
+    commitment: {title: null, description: null, website: null, lang: null, imageUrl: null, linkedWithQuestions: []}
 });
 
 export const getters = {

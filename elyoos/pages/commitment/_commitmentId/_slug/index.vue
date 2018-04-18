@@ -5,6 +5,8 @@
             </commitment-header>
             <notifications>
             </notifications>
+            <questions>
+            </questions>
         </div>
         <div slot="sidebar" id="commitment-sidebar">
             <admin v-if="commitment.isAdmin">
@@ -19,6 +21,7 @@
     import DetailLayout from '~/components/layouts/Detail';
     import CommitmentHeader from '~/components/commitment/detail/Header';
     import Notifications from '~/components/commitment/detail/notifications/Notifications';
+    import Questions from '~/components/commitment/detail/Questions';
     import Admin from '~/components/commitment/detail/Admin';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation';
     import {mapGetters} from 'vuex';
@@ -39,7 +42,7 @@
                 ]
             }
         },
-        components: {DetailLayout, CommitmentHeader, Notifications, Admin, GeneralInformation},
+        components: {DetailLayout, CommitmentHeader, Notifications, Questions, Admin, GeneralInformation},
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
         }
@@ -48,9 +51,13 @@
 
 <style lang="scss">
     #commitment-detail {
+        margin-bottom: 48px;
         h2 {
-            font-size: 18px;
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 32px;
             margin-bottom: 12px;
+            border-bottom: 1px solid $divider;
         }
     }
 

@@ -131,6 +131,11 @@
         "notification1": "Soll die Frage",
         "notification2": "auf der Seite dieses Engagements angezeigt werden?"
       }
+    },
+    "questions": {
+      "title": "Fragen welche mit diesem Engagement verlinkt sind",
+      "upVotes": "Zustimmung",
+      "upVotes_plural": "Zustimmungen"
     }
   },
   "detailUser": {
