@@ -15,7 +15,7 @@ const createCommitmentCommand = function (params) {
         .merge(`(u)-[:IS_CREATOR {created: {created}}]->(answer)`)
         .merge(`(q)-[:ANSWER]->(answer)`)
         .merge(`(answer)-[:COMMITMENT]->(c)`)
-        .return(`u.name AS userName, c.title AS commitmentTitle`)
+        .return(`u.name AS userName, c.title AS commitmentTitle, EXISTS((c)<-[:IS_ADMIN]-(u)) AS isAdminOfCommitment`)
         .end(params).getCommand();
 };
 
@@ -64,6 +64,7 @@ const createCommitmentAnswer = async function (userId, params) {
         imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/120x120/title.jpg`),
         creator: {
             name: commitment[0][0].userName,
+            isAdminOfCommitment: commitment[0][0].isAdminOfCommitment,
             thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
         }
     }
