@@ -18,6 +18,9 @@ export const mutations = {
     SET_TOPICS(state, topics) {
         state.commitment.topics = topics;
     },
+    ADD_QUESTION(state, question) {
+        state.commitment.linkedWithQuestions.unshift(question);
+    },
 };
 
 const getCommitmentForUpload = function (commitment) {

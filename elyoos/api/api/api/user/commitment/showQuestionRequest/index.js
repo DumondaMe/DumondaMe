@@ -22,7 +22,8 @@ module.exports = function (router) {
 
     router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaShowQuestionRequest, logger);
-        await request.showQuestion(req.user.id, params.commitmentId, params.questionId, params.showQuestion);
-        res.status(200).end();
+        let response = await request.showQuestion(req.user.id, params.commitmentId, params.questionId,
+            params.showQuestion);
+        res.status(200).json(response);
     }));
 };

@@ -8,7 +8,7 @@ const requestHandler = require('elyoos-server-test-util').requestHandler;
 describe('Show question on commitment activation', function () {
 
     beforeEach(async function () {
-        await dbDsl.init(3);
+        await dbDsl.init(4);
 
         dbDsl.createRegion('region', {});
 
@@ -26,6 +26,11 @@ describe('Show question on commitment activation', function () {
             questionId: '2', commitmentId: '1', adminId: '1',
             created: 666
         });
+
+        dbDsl.createCommitmentAnswer('100', {
+            creatorId: '1', questionId: '2', commitmentId: '1', created: 500, description: 'test'
+        });
+        dbDsl.upVoteAnswer({userId: '3', answerId: '100'});
     });
 
     afterEach(function () {
@@ -37,6 +42,10 @@ describe('Show question on commitment activation', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', showQuestion: true});
         res.status.should.equal(200);
+        res.body.question.should.equals('Das ist eine Frage');
+        res.body.description.should.equals('description');
+        res.body.slug.should.equals('das-ist-eine-frage');
+        res.body.upVotes.should.equals(1);
 
         let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
         resp.length.should.equals(0);

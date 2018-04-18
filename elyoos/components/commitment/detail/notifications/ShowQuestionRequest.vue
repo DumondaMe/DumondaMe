@@ -36,9 +36,13 @@
             async setShowQuestionOnCommitment(showQuestion, requestRunning) {
                 try {
                     this[requestRunning] = true;
-                    await this.$axios.$put(`user/commitment/showQuestionRequest/${this.notification.commitmentId}`,
+                    let response = await this.$axios.$put(`user/commitment/showQuestionRequest/${this.notification.commitmentId}`,
                         {questionId: this.notification.questionId, showQuestion: showQuestion});
+                    response.questionId = this.notification.questionId;
                     this.$store.commit('notification/REMOVE_NOTIFICATION', this.notification);
+                    if (response.question) {
+                        this.$store.commit('commitment/ADD_QUESTION', response);
+                    }
                     this[requestRunning] = false;
                     this.uploaded = requestRunning;
                 } catch (error) {
