@@ -39,6 +39,14 @@ const createCommitment = function (commitmentId, data) {
         }).getCommand());
 };
 
+const showQuestionOnCommitment = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(c:Commitment {commitmentId: {commitmentId}}), (q:Question {questionId: {questionId}})`)
+        .merge(`(q)<-[:SHOW_QUESTION]-(c)`)
+        .end({commitmentId: data.commitmentId, questionId: data.questionId}).getCommand());
+};
+
 module.exports = {
-    createCommitment
+    createCommitment,
+    showQuestionOnCommitment
 };

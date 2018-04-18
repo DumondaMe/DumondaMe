@@ -51,6 +51,7 @@ module.exports = {
     createGenericPage: page.createGenericPage,
     addAdminToPage: page.addAdminToPage,
     createCommitment: commitment.createCommitment,
+    showQuestionOnCommitment: commitment.showQuestionOnCommitment,
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
     createVimeoAnswer: answer.createVimeoAnswer,
