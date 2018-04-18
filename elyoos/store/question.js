@@ -106,7 +106,7 @@ export const actions = {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
             {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
         commitmentData.answerId = response.answerId;
-        commitmentData.slug = response.slug;
+        commitmentData.commitmentSlug = response.slug;
         commitmentData.answerType = 'Commitment';
         commitmentData.isAdmin = true;
         commitmentData.upVotes = 0;
@@ -114,10 +114,10 @@ export const actions = {
         commitmentData.imageUrl = response.imageUrl;
         commitmentData.creator = response.creator;
         commit('ADD_ANSWER', commitmentData);
-        if (response.isAdminOfCommitment) {
+        if (response.creator && response.creator.isAdminOfCommitment) {
             commit('notification/ADD_NOTIFICATION', {
                 type: 'showQuestionRequest', created: response.created, commitmentId: commitmentData.commitmentId,
-                commitmentTitle: commitmentData.title, commitmentSlug: commitmentData.slug,
+                commitmentTitle: commitmentData.title, commitmentSlug: commitmentData.commitmentSlug,
                 questionId: state.question.questionId, question: state.question.question,
                 questionSlug: commitmentData.questionSlug, removed: false
             }, {root: true});

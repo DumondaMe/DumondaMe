@@ -6,7 +6,7 @@
                        :created="answer.created" :isAdmin="answer.isAdmin" :answer-type="answer.answerType"
                        :answer-type-translated="$t('pages:detailQuestion.answerType.commitment')"
                        :answer-title="answer.title" :userId="answer.creator.userId" :slug="answer.creator.slug"
-                       :commitment-id="answer.commitmentId" :commitment-slug="answer.slug"
+                       :commitment-id="answer.commitmentId" :commitment-slug="answer.commitmentSlug"
                        :regions="answer.regions">
             </user-info>
             <v-spacer></v-spacer>
