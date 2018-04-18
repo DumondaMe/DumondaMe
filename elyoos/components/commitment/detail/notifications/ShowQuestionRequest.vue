@@ -38,7 +38,7 @@
                     this[requestRunning] = true;
                     await this.$axios.$put(`user/commitment/showQuestionRequest/${this.notification.commitmentId}`,
                         {questionId: this.notification.questionId, showQuestion: showQuestion});
-                    this.$store.commit('notification/NOTIFICATION_REMOVED', this.notification);
+                    this.$store.commit('notification/REMOVE_NOTIFICATION', this.notification);
                     this[requestRunning] = false;
                     this.uploaded = requestRunning;
                 } catch (error) {

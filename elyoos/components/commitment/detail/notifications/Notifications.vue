@@ -1,6 +1,6 @@
 <template>
     <div id="commitment-notifications-container" v-if="notifications.length > 0">
-        <h2>Benachrichtigungen</h2>
+        <h2>{{$t('pages:detailCommitment.notifications.title')}}</h2>
         <div class="notification ely-card" v-for="notification in notifications">
             <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>

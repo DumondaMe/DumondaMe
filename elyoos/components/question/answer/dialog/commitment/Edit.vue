@@ -60,7 +60,7 @@
                     let answerId = await this.$store.dispatch('question/createCommitmentAnswer',
                         {
                             title: this.selected.title, description: this.selected.description,
-                            commitmentId: this.selected.commitmentId
+                            commitmentId: this.selected.commitmentId, questionSlug: this.$route.params.slug
                         });
                     this.$emit('close-dialog', answerId);
                 } catch (error) {

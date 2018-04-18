@@ -126,6 +126,7 @@
       "title": "Allgemeine Informationen"
     },
     "notifications": {
+      "title": "Benachrichtigungen",
       "showQuestionRequest": {
         "notification1": "Soll die Frage",
         "notification2": "auf der Seite dieses Engagements angezeigt werden?"

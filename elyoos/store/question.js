@@ -107,7 +107,6 @@ export const actions = {
             {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
         commitmentData.answerId = response.answerId;
         commitmentData.slug = response.slug;
-        commitmentData.commitmentId = commitmentData.commitmentId;
         commitmentData.answerType = 'Commitment';
         commitmentData.isAdmin = true;
         commitmentData.upVotes = 0;
@@ -115,6 +114,14 @@ export const actions = {
         commitmentData.imageUrl = response.imageUrl;
         commitmentData.creator = response.creator;
         commit('ADD_ANSWER', commitmentData);
+        if (response.isAdminOfCommitment) {
+            commit('notification/ADD_NOTIFICATION', {
+                type: 'showQuestionRequest', created: response.created, commitmentId: commitmentData.commitmentId,
+                commitmentTitle: commitmentData.title, commitmentSlug: commitmentData.slug,
+                questionId: state.question.questionId, question: state.question.question,
+                questionSlug: commitmentData.questionSlug, removed: false
+            }, {root: true});
+        }
         return response.answerId;
     }
 };

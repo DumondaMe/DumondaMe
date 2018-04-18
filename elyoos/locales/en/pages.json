@@ -126,9 +126,10 @@
       "title": "General Information"
     },
     "notifications": {
+      "title": "Notifications",
       "showQuestionRequest": {
-        "notification1": "Soll die Frage",
-        "notification2": "auf der Seite dieses Engagements angezeigt werden?"
+        "notification1": "Should the question",
+        "notification2": "be displayed on the page of this commitment"
       }
     }
   },

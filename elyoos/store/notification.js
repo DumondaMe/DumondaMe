@@ -23,14 +23,17 @@ export const mutations = {
         }
         state.notifications = notification.notifications;
         state.numberOfNotifications = notification.numberOfNotifications;
-    }
-    ,
-    NOTIFICATION_REMOVED: function (state, notificationToRemove) {
+    },
+    REMOVE_NOTIFICATION: function (state, notificationToRemove) {
         let index = state.notifications.indexOf(notificationToRemove);
         if (index > -1) {
             state.notifications[index].removed = true;
         }
         state.numberOfNotifications--;
+    },
+    ADD_NOTIFICATION: function (state, notificationToAdd) {
+        state.notifications.unshift(notificationToAdd);
+        state.numberOfNotifications++;
     }
 };
 
