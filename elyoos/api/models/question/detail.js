@@ -28,6 +28,7 @@ const getAnswers = async function (answers) {
             } else if (formattedAnswer.answerType === 'CommitmentAnswer') {
                 formattedAnswer.answerType = 'Commitment';
                 formattedAnswer.commitmentId = answer.commitment.commitmentId;
+                formattedAnswer.commitmentSlug = dashify(answer.commitment.title);
                 formattedAnswer.title = answer.commitment.title;
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/120x120/title.jpg`);
                 formattedAnswer.regions = answer.regions.map((region) => region.code);

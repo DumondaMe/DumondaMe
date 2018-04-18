@@ -176,6 +176,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
@@ -291,6 +292,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
@@ -401,6 +403,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
