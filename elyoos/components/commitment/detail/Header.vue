@@ -18,16 +18,19 @@
             <h1>{{commitment.title}}</h1>
             <p id="commitment-description">{{commitment.description}}</p>
         </div>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
     </div>
 </template>
 
 <script>
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
     import {mapGetters} from 'vuex';
 
     export default {
-        components: {},
+        components: {LoginRequiredDialog},
         data() {
-            return {}
+            return {showLoginRequired: false}
         },
         computed: {
             isAdmin() {
@@ -40,6 +43,8 @@
                 if (this.$store.state.auth.userIsAuthenticated) {
                     await this.$axios.$put(`user/commitment/watch/${this.$route.params.commitmentId}`);
                     this.$store.commit('commitment/SET_WATCH')
+                } else {
+                    this.showLoginRequired = true;
                 }
             },
             async removeWatch() {
@@ -47,6 +52,8 @@
                     await this.$axios.$delete(`user/commitment/watch/`,
                         {params: {commitmentId: this.$route.params.commitmentId}});
                     this.$store.commit('commitment/REMOVE_WATCH')
+                } else {
+                    this.showLoginRequired = true;
                 }
             }
         }
