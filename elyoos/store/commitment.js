@@ -31,7 +31,7 @@ export const mutations = {
     REMOVE_WATCH(state) {
         state.commitment.userWatchesCommitment = false;
         state.commitment.numberOfWatches--;
-    },
+    }
 };
 
 const getCommitmentForUpload = function (commitment) {
