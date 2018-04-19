@@ -16,6 +16,7 @@
   "region": "Region",
   "topic": "Themenbereich",
   "trustCircle": "Trust Circle",
+  "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "toolbar": {
     "login": "Anmelden"
   },

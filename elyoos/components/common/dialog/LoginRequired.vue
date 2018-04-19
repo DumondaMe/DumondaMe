@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="250px">
             <v-card id="dialog-login-required">
                 <v-card-text id="dialog-login-required-content">
-                    <p>Um diese Aktion ausführen, muss du dich einloggen.</p>
+                    <p>{{$t("common:loginRequiredInfo")}}</p>
                     <div>
                         <v-btn color="primary" outline @click="goToLogin()" class="link-button">
                             {{$t("common:toolbar.login")}}
