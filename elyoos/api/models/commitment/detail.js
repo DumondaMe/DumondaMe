@@ -32,8 +32,10 @@ const getDetail = async function (userId, commitmentId) {
     let resp = await db.cypher().match("(c:Commitment {commitmentId: {commitmentId}})<-[:IS_ADMIN]-(user:User)")
         .optionalMatch(`(t:Topic)-[:TOPIC]->(c)`)
         .optionalMatch(`(r:Region)<-[:BELONGS_TO_REGION]-(c)`)
+        .optionalMatch(`(:User)-[w:WATCH]->(c)`)
         .return(`c.title AS title, c.description AS description, c.website AS website, c.created AS created,
-                 c.modified AS modified, c.language AS lang, 
+                 c.modified AS modified, c.language AS lang, count(DISTINCT w) AS numberOfWatches,
+                 EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
         .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId)]);

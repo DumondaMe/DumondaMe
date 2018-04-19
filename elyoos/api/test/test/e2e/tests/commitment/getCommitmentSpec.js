@@ -10,7 +10,7 @@ describe('Get details of a commitment', function () {
     let sandbox;
 
     beforeEach(async function () {
-        await dbDsl.init(5);
+        await dbDsl.init(8);
         sandbox = sinon.sandbox.create();
 
         dbDsl.createRegion('region-1', {});
@@ -57,6 +57,8 @@ describe('Get details of a commitment', function () {
         dbDsl.showQuestionOnCommitment({questionId: '11', commitmentId: '1'});
         dbDsl.upVoteAnswer({userId: '3', answerId: '100'});
         dbDsl.upVoteAnswer({userId: '4', answerId: '100'});
+        dbDsl.watchCommitment({commitmentId: '1', userId: '5'});
+        dbDsl.watchCommitment({commitmentId: '1', userId: '6'});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -68,6 +70,8 @@ describe('Get details of a commitment', function () {
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');
+        res.body.numberOfWatches.should.equals(2);
+        res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
         res.body.regions.should.include('region-1-1');
@@ -89,6 +93,7 @@ describe('Get details of a commitment', function () {
     });
 
     it('Get a commitment (User is not Admin and logged in)', async function () {
+        dbDsl.watchCommitment({commitmentId: '1', userId: '2'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
@@ -99,6 +104,8 @@ describe('Get details of a commitment', function () {
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');
+        res.body.numberOfWatches.should.equals(1);
+        res.body.userWatchesCommitment.should.equals(true);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
         res.body.regions.should.include('region-1-1');
@@ -114,6 +121,8 @@ describe('Get details of a commitment', function () {
         dbDsl.showQuestionOnCommitment({questionId: '11', commitmentId: '1'});
         dbDsl.upVoteAnswer({userId: '3', answerId: '100'});
         dbDsl.upVoteAnswer({userId: '4', answerId: '100'});
+        dbDsl.watchCommitment({commitmentId: '1', userId: '1'});
+        dbDsl.watchCommitment({commitmentId: '1', userId: '6'});
 
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
@@ -124,6 +133,8 @@ describe('Get details of a commitment', function () {
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');
+        res.body.numberOfWatches.should.equals(2);
+        res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
         res.body.regions.should.include('region-1-1');
