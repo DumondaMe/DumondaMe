@@ -46,7 +46,15 @@ const showQuestionOnCommitment = function (data) {
         .end({commitmentId: data.commitmentId, questionId: data.questionId}).getCommand());
 };
 
+const watchCommitment = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(c:Commitment {commitmentId: {commitmentId}}), (u:User {userId: {userId}})`)
+        .merge(`(c)<-[:WATCH]-(u)`)
+        .end({commitmentId: data.commitmentId, userId: data.userId}).getCommand());
+};
+
 module.exports = {
     createCommitment,
-    showQuestionOnCommitment
+    showQuestionOnCommitment,
+    watchCommitment
 };
