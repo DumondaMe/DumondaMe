@@ -10,8 +10,8 @@ const auth = require('elyoos-server-lib').auth;
 const apiHelper = require('elyoos-server-lib').apiHelper;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaCreateQuestion = {
-    name: 'createQuestion',
+const schemaCreateCommitment = {
+    name: 'createCommitment',
     type: 'object',
     additionalProperties: false,
     required: ['title', 'description', 'topics', 'regions', 'lang'],
@@ -49,7 +49,7 @@ const schemaEditCommitment = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateQuestion, logger);
+        const params = await validation.validateRequest(req, schemaCreateCommitment, logger);
         let response = await commitmentCreate.createCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);
     }));
