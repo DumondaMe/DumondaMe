@@ -2,7 +2,10 @@ import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
 import {putWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
-    commitment: {title: null, description: null, website: null, lang: null, imageUrl: null, linkedWithQuestions: []}
+    commitment: {
+        title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
+        imageUrl: null, linkedWithQuestions: []
+    }
 });
 
 export const getters = {
@@ -20,6 +23,14 @@ export const mutations = {
     },
     ADD_QUESTION(state, question) {
         state.commitment.linkedWithQuestions.unshift(question);
+    },
+    SET_WATCH(state) {
+        state.commitment.userWatchesCommitment = true;
+        state.commitment.numberOfWatches++;
+    },
+    REMOVE_WATCH(state) {
+        state.commitment.userWatchesCommitment = false;
+        state.commitment.numberOfWatches--;
     },
 };
 

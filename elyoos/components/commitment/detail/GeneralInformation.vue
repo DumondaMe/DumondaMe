@@ -1,6 +1,12 @@
 <template>
     <div class="sidebar-container">
         <h3>{{$t("pages:detailCommitment.generalInfo.title")}}</h3>
+        <div class="commitment-info">
+            <v-icon class="info-icon">visibility</v-icon>
+            <div v-if="commitment.numberOfWatches > 0">
+                {{$t('pages:detailCommitment.generalInfo.watchers', {count: commitment.numberOfWatches})}}</div>
+            <div v-else>{{$t('pages:detailCommitment.generalInfo.watchersNotExisting')}}</div>
+        </div>
         <div class="commitment-info topics">
             <v-icon class="info-icon">vpn_key</v-icon>
             <div id="topic-container">
@@ -38,6 +44,7 @@
 
 <style lang="scss">
     .commitment-info {
+        display: block;
         font-size: 14px;
         margin-bottom: 3px;
         font-weight: 300;

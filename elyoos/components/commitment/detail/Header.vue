@@ -2,6 +2,17 @@
     <div id="elyoos-commitment-header">
         <div id="commitment-image">
             <img :src="commitment.imageUrl"/>
+            <div id="button-watch-container" v-if="!isAdmin">
+                <v-btn class="button-watch" color="primary" outline @click="addWatch"
+                       v-if="!commitment.userWatchesCommitment">
+                    <v-icon>visibility</v-icon>
+                    {{$t("common:button.watch")}}
+                </v-btn>
+                <v-btn class="button-watch" color="primary" outline @click="removeWatch" v-else>
+                    <v-icon>visibility_off</v-icon>
+                    {{$t("common:button.watch")}}
+                </v-btn>
+            </div>
         </div>
         <div id="commitment-infos">
             <h1>{{commitment.title}}</h1>
@@ -19,9 +30,26 @@
             return {}
         },
         computed: {
+            isAdmin() {
+                return this.$store.state.commitment.commitment.isAdmin;
+            },
             ...mapGetters({commitment: 'commitment/getCommitment'})
         },
-        methods: {}
+        methods: {
+            async addWatch() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    await this.$axios.$put(`user/commitment/watch/${this.$route.params.commitmentId}`);
+                    this.$store.commit('commitment/SET_WATCH')
+                }
+            },
+            async removeWatch() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    await this.$axios.$delete(`user/commitment/watch/`,
+                        {params: {commitmentId: this.$route.params.commitmentId}});
+                    this.$store.commit('commitment/REMOVE_WATCH')
+                }
+            }
+        }
     }
 </script>
 
@@ -34,6 +62,17 @@
             img {
                 width: 100%;
                 border-radius: 6px;
+            }
+            #button-watch-container {
+                width: 142px;
+                margin-top: 8px;
+                .button-watch {
+                    width: 142px;
+                    margin: 0 auto;
+                    .icon {
+                        margin-right: 8px;
+                    }
+                }
             }
         }
         #commitment-infos {
