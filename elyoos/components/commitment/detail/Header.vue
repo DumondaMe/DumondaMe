@@ -2,9 +2,9 @@
     <div id="elyoos-commitment-header">
         <div id="commitment-image">
             <img :src="commitment.imageUrl"/>
-            <div id="button-watch-container" v-if="!isAdmin">
+            <div id="button-watch-container">
                 <v-btn class="button-watch" color="primary" outline @click="addWatch"
-                       v-if="!commitment.userWatchesCommitment">
+                       v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
                     <v-icon>visibility</v-icon>
                     {{$t("common:button.watch")}}
                 </v-btn>
