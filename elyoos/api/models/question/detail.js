@@ -54,8 +54,10 @@ const getQuestion = async function (questionId, userId) {
         .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted,
                commitment, collect(region) AS regions`)
         .orderBy(`upVotes DESC, answer.created DESC`)
+        .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
         .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
-                 collect(DISTINCT topic.name) AS topics,
+                 collect(DISTINCT topic.name) AS topics, count(DISTINCT watch) AS numberOfWatches,
+                 EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion,
                  collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
                          hasVoted: hasVoted, commitment: commitment, regions: regions, 
                          answerType: answerType}) AS answers`)
@@ -64,7 +66,8 @@ const getQuestion = async function (questionId, userId) {
         let question = response[0].question;
         question.isAdmin = response[0].isAdmin;
         question.topics = response[0].topics;
-        delete question.questionId;
+        question.numberOfWatches = response[0].numberOfWatches;
+        question.userWatchesQuestion = response[0].userWatchesQuestion;
         question.creator = {
             name: response[0].user.name,
             userId: response[0].user.userId,

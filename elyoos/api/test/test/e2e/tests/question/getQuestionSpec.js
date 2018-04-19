@@ -62,12 +62,15 @@ describe('Getting details of a question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/2');
         res.status.should.equal(200);
+        res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
         res.body.description.should.equals('description2');
         res.body.isAdmin.should.equals(false);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
+        res.body.numberOfWatches.should.equals(0);
+        res.body.userWatchesQuestion.should.equals(false);
         res.body.creator.name.should.equals('user Meier3');
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
@@ -80,15 +83,21 @@ describe('Getting details of a question', function () {
     });
 
     it('Getting details of a question (answers sorted by date)', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.watchQuestion({questionId: '1', userId: '4'});
+
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1');
         res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('description');
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
+        res.body.numberOfWatches.should.equals(2);
+        res.body.userWatchesQuestion.should.equals(true);
         res.body.isAdmin.should.equals(true);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
@@ -192,7 +201,6 @@ describe('Getting details of a question', function () {
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
-
         dbDsl.upVoteAnswer({userId: '1', answerId: '6'});
         dbDsl.upVoteAnswer({userId: '4', answerId: '7'});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7'});
@@ -200,11 +208,14 @@ describe('Getting details of a question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1');
         res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('description');
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
+        res.body.numberOfWatches.should.equals(0);
+        res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(true);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
@@ -308,14 +319,19 @@ describe('Getting details of a question', function () {
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.watchQuestion({questionId: '1', userId: '4'});
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/question/detail/1');
         res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('description');
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
+        res.body.numberOfWatches.should.equals(2);
+        res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(false);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
