@@ -109,7 +109,10 @@
         "confirmButton": "Ja, Frage löschen"
       },
       "generalInfo": {
-        "title": "Allgemeine Informationen"
+        "title": "Allgemeine Informationen",
+        "watchers": "{{count}} Person",
+        "watchers_plural": "{{count}} Personen",
+        "watchersNotExisting": "Noch Niemand"
       }
     },
     "error": {

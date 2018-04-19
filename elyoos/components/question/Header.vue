@@ -3,9 +3,18 @@
         <h1 itemprop="name">{{question.question}}</h1>
         <p id="question-description" itemprop="text">{{question.description}}</p>
         <div id="question-commands">
-            <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()"
-                   slot="activator">
+            <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()">
                 {{$t("common:button.answer")}}
+            </v-btn>
+
+            <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
+                   v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
+                <v-icon>visibility</v-icon>
+                {{$t("common:button.watch")}}
+            </v-btn>
+            <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
+                <v-icon>visibility_off</v-icon>
+                {{$t("common:button.watch")}}
             </v-btn>
         </div>
 
@@ -43,8 +52,24 @@
                 } else {
                     this.showLoginRequired = true;
                 }
+            },
+            async addWatch() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    await this.$axios.$put(`user/question/watch/${this.question.questionId}`);
+                    this.$store.commit('question/SET_WATCH')
+                } else {
+                    this.showLoginRequired = true;
+                }
+            },
+            async removeWatch() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    await this.$axios.$delete(`user/question/watch`,
+                        {params: {questionId: this.question.questionId}});
+                    this.$store.commit('question/REMOVE_WATCH')
+                } else {
+                    this.showLoginRequired = true;
+                }
             }
-
         },
     }
 </script>

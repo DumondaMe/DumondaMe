@@ -2,6 +2,14 @@
     <div class="sidebar-container">
         <h3>{{$t("pages:detailQuestion.sidebar.generalInfo.title")}}</h3>
         <div class="question-info">
+            <v-icon class="info-icon">visibility</v-icon>
+            <div v-if="question.numberOfWatches > 0" class="visibility-container">
+                {{$t('pages:detailQuestion.sidebar.generalInfo.watchers', {count: question.numberOfWatches})}}
+            </div>
+            <div class="visibility-container" v-else>{{$t('pages:detailQuestion.sidebar.generalInfo.watchersNotExisting')}}
+            </div>
+        </div>
+        <div class="question-info">
             <v-icon class="info-icon">vpn_key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in question.topics">
@@ -48,6 +56,7 @@
 
 <style lang="scss">
     .question-info {
+        display: block;
         font-size: 14px;
         margin-bottom: 3px;
         font-weight: 300;
@@ -67,6 +76,9 @@
             :hover.user-name {
                 text-decoration: underline;
             }
+        }
+        .visibility-container {
+            margin-left: 30px;
         }
         .info-icon {
             float: left;

@@ -1,5 +1,8 @@
 export const state = () => ({
-    question: null
+    question: {
+        question: null, description: null, lang: null, numberOfWatches: 0, userWatchesQuestion: false,
+        answers: [], topics: [], regions: []
+    }
 });
 
 export const getters = {
@@ -23,6 +26,14 @@ export const mutations = {
     },
     SET_TOPICS(state, topics) {
         state.question.topics = topics;
+    },
+    SET_WATCH(state) {
+        state.question.userWatchesQuestion = true;
+        state.question.numberOfWatches++;
+    },
+    REMOVE_WATCH(state) {
+        state.question.userWatchesQuestion = false;
+        state.question.numberOfWatches--;
     },
     ADD_ANSWER(state, answer) {
         answer.newAddedAnswer = true;

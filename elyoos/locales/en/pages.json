@@ -109,7 +109,10 @@
         "confirmButton": "Yes, Delete Question"
       },
       "generalInfo": {
-        "title": "General Information"
+        "title": "General Information",
+        "watchers": "{{count}} Person",
+        "watchers_plural": "{{count}} People",
+        "watchersNotExisting": "Nobody yet"
       }
     },
     "error": {
