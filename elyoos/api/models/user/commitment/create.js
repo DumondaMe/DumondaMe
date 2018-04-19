@@ -18,7 +18,7 @@ const createCommitment = async function (userId, params, titlePath) {
     regionSecurity.checkOnlyInternational(params.regions);
     await regionSecurity.checkRegionsExists(params.regions);
     await db.cypher().match("(user:User {userId: {userId}})")
-        .create(`(commitment:Answer:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
+        .create(`(commitment:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
                   language: {lang}, website: {website}, created: {created}})`)
         .merge(`(user)-[:IS_ADMIN]->(commitment)`)
         .with(`commitment`)

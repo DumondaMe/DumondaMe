@@ -49,7 +49,7 @@ describe('Creating a new commitment', function () {
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.called.should.be.false;
 
-        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Answer:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
             .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
         resp.length.should.equals(1);
@@ -83,7 +83,7 @@ describe('Creating a new commitment', function () {
         stubCDN.copyFile.calledWith('default/commitment/120x120/title.jpg', `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/148x148/title.jpg', `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
 
-        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Answer:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
             .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
         resp.length.should.equals(1);
@@ -121,7 +121,7 @@ describe('Creating a new commitment', function () {
         stubCDN.copyFile.calledWith('default/commitment/120x120/title.jpg', `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/148x148/title.jpg', `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
 
-        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Answer:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .return(`collect(topic.name) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].topics.length.should.equals(2);
@@ -145,7 +145,7 @@ describe('Creating a new commitment', function () {
         }, `${__dirname}/test.jpg`);
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match("(commitment:Answer:Commitment)-[:BELONGS_TO_REGION]->(:Region {code: 'international'})")
+        let resp = await db.cypher().match("(commitment:Commitment)-[:BELONGS_TO_REGION]->(:Region {code: 'international'})")
             .return(`commitment`).end().send();
         resp.length.should.equals(1);
     });
@@ -165,7 +165,7 @@ describe('Creating a new commitment', function () {
         stubCDN.uploadBuffer.called.should.be.false;
         stubCDN.copyFile.called.should.be.false;
 
-        let resp = await db.cypher().match("(commitment:Answer:Commitment)")
+        let resp = await db.cypher().match("(commitment:Commitment)")
             .return(`commitment`).end().send();
         resp.length.should.equals(0);
     });
@@ -185,7 +185,7 @@ describe('Creating a new commitment', function () {
         stubCDN.uploadBuffer.called.should.be.false;
         stubCDN.copyFile.called.should.be.false;
 
-        let resp = await db.cypher().match("(commitment:Answer:Commitment)")
+        let resp = await db.cypher().match("(commitment:Commitment)")
             .return(`commitment`).end().send();
         resp.length.should.equals(0);
     });
