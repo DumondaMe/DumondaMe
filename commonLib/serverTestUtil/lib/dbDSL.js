@@ -79,6 +79,7 @@ module.exports = {
     createPageEventNewAddress: events.createPageEventNewAddress,
     createPageEventExistingAddress: events.createPageEventExistingAddress,
     createQuestion: question.createQuestion,
+    watchQuestion: question.watchQuestion,
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
     exportEventToTransitionConnect: tc.exportEvent,

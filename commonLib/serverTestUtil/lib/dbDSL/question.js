@@ -22,8 +22,14 @@ let createQuestion = function (questionId, data) {
         }).getCommand());
 };
 
-
+const watchQuestion = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}})`)
+        .merge(`(q)<-[:WATCH]-(u)`)
+        .end({questionId: data.questionId, userId: data.userId}).getCommand());
+};
 
 module.exports = {
-    createQuestion
+    createQuestion,
+    watchQuestion
 };
