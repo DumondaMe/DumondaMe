@@ -17,6 +17,8 @@
   "topic": "Themenbereich",
   "trustCircle": "Trust Circle",
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
+  "personalizationActivated": "Personalisierung ist aktiviert",
+  "personalizationDeactivated": "Personalisierung ist deaktiviert",
   "toolbar": {
     "login": "Anmelden"
   },

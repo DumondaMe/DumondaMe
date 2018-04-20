@@ -5,8 +5,10 @@
             </feeds>
         </div>
         <div slot="content">
-            <question-activity>
-            </question-activity>
+            <question-filter>
+            </question-filter>
+            <personalization-filter v-if="isAuthenticated">
+            </personalization-filter>
             <question-cards>
             </question-cards>
         </div>
@@ -16,7 +18,8 @@
 <script>
     import FeedLayout from '~/components/layouts/Feed.vue';
     import Feeds from '~/components/feed/sidebar/Feeds.vue';
-    import QuestionActivity from '~/components/feed/question/QuestionActivity.vue';
+    import QuestionFilter from '~/components/feed/question/Filter.vue';
+    import PersonalizationFilter from '~/components/feed/question/Personalization.vue';
     import QuestionCards from '~/components/feed/question/QuestionCards.vue';
 
     export default {
@@ -27,7 +30,12 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {FeedLayout, Feeds, QuestionActivity, QuestionCards}
+        components: {FeedLayout, Feeds, QuestionFilter, PersonalizationFilter, QuestionCards},
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
+        }
     }
 </script>
 

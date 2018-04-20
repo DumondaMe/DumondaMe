@@ -17,6 +17,8 @@
   "topic": "Topic",
   "trustCircle": "Trust Circle",
   "loginRequiredInfo": "You must be logged in to perform this action.",
+  "personalizationActivated": "Activate Personalization",
+  "personalizationDeactivated": "Deactivate Personalization",
   "toolbar": {
     "login": "Login"
   },
