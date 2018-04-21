@@ -20,6 +20,7 @@ const addCommitmentProperties = function (result, feedElement) {
     if (result.type === 'CommitmentAnswer') {
         result.type = 'Commitment';
         result.commitmentId = feedElement.commitment.commitmentId;
+        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
         result.title = feedElement.commitment.title;
         result.commitmentSlug = dashify(feedElement.commitment.title);
     }
@@ -29,20 +30,23 @@ const addLinkProperties = function (result, feedElement) {
     if (result.type === 'Link') {
         result.pageType = feedElement.feedElement.pageType;
         result.link = feedElement.feedElement.link;
-        result.hasPreviewImage = feedElement.feedElement.hasPreviewImage;
+        if(feedElement.feedElement.hasPreviewImage) {
+            result.imageUrl = cdn.getPublicUrl(`link/${result.answerId}/120x120/preview.jpg`);
+        }
     }
 };
 
 const addYoutubeProperties = function (result, feedElement) {
     if (result.type === 'Youtube') {
         result.linkEmbed = feedElement.feedElement.linkEmbed;
+        result.link = feedElement.feedElement.link;
         result.idOnYoutube = feedElement.feedElement.idOnYoutube;
     }
 };
 
 const addBookProperties = function (result, feedElement) {
-    if (result.type === 'Book') {
-        result.hasPreviewImage = feedElement.feedElement.hasPreviewImage;
+    if (result.type === 'Book' && feedElement.feedElement.hasPreviewImage) {
+        result.imageUrl = cdn.getPublicUrl(`book/${result.answerId}/120x250/preview.jpg`);
     }
 };
 

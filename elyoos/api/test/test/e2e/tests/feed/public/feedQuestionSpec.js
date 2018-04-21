@@ -34,7 +34,7 @@ describe('Get question and answers from public question feed', function () {
         });
         dbDsl.createYoutubeAnswer('7', {creatorId: '2', questionId: '2', created: 603, idOnYoutube: '00zxopGPYW4',
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
-        dbDsl.createLinkAnswer('8', {creatorId: '2', questionId: '2', created: 604, pageType: 'article',
+        dbDsl.createLinkAnswer('8', {creatorId: '2', questionId: '2', created: 604, pageType: 'article', hasPreviewImage: true,
             link: 'https://www.example.org/blog/1224'});
         dbDsl.createCommitmentAnswer('9', {
             creatorId: '2', questionId: '2', commitmentId: '100', created: 605, description: 'commitmentDescription'
@@ -59,6 +59,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitmentDescription');
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg`);
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
@@ -75,7 +76,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[1].title.should.equals('link8Title');
         res.body.feed[1].description.should.equals('link8Description');
         res.body.feed[1].link.should.equals('https://www.example.org/blog/1224');
-        res.body.feed[1].hasPreviewImage.should.equals(false);
+        res.body.feed[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].question.should.equals('Das ist eine Frage2');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage2');
@@ -92,6 +93,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[2].description.should.equals('youtube7Description');
         res.body.feed[2].idOnYoutube.should.equals('00zxopGPYW4');
         res.body.feed[2].linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
+        res.body.feed[2].link.should.equals('https://www.youtube.com/watch?v=00zxopGPYW4');
         res.body.feed[2].questionId.should.equals('2');
         res.body.feed[2].question.should.equals('Das ist eine Frage2');
         res.body.feed[2].questionSlug.should.equals('das-ist-eine-frage2');
@@ -119,7 +121,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[4].answerId.should.equals('6');
         res.body.feed[4].title.should.equals('book6Title');
         res.body.feed[4].description.should.equals('book6Description');
-        res.body.feed[4].hasPreviewImage.should.equals(true);
+        res.body.feed[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/6/120x250/preview.jpg`);
         res.body.feed[4].questionId.should.equals('1');
         res.body.feed[4].question.should.equals('Das ist eine Frage');
         res.body.feed[4].questionSlug.should.equals('das-ist-eine-frage');
