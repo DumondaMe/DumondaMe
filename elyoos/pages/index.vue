@@ -20,12 +20,13 @@
     import Feeds from '~/components/feed/sidebar/Feeds.vue';
     import QuestionFilter from '~/components/feed/question/Filter.vue';
     import PersonalizationFilter from '~/components/feed/question/Personalization.vue';
-    import QuestionCards from '~/components/feed/question/QuestionCards.vue';
+    import QuestionCards from '~/components/feed/question/Cards.vue';
 
     export default {
         async fetch({params, app, error, store}) {
             try {
-                await store.dispatch(`feedQuestion/getQuestionFeed`, params.page);
+                await store.dispatch(`feedQuestion/getQuestionFeed`,
+                    {page: params.page, isAuthenticated: store.state.auth.userIsAuthenticated});
             } catch (e) {
                 error({statusCode: e.statusCode})
             }

@@ -31,7 +31,13 @@
       "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein.",
       "buttonNotExist": "Existiert nicht",
       "selectLanguage": "Sprache der Frage",
-      "selectTopic": "Thema"
+      "selectTopic": "Thema",
+      "card": {
+        "questionType": "Frage",
+        "inResponse": "als Antwort auf die Frage",
+        "inResponseText": "auf die Frage",
+        "createdBy": "erstellt von"
+      }
     }
   },
   "commitment": {

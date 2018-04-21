@@ -1,11 +1,11 @@
 export const state = () => ({
-    questions: [],
+    feed: [],
     timestamp: Number.MAX_SAFE_INTEGER
 });
 
 export const mutations = {
-    SET_QUESTIONS(state, questions) {
-        state.questions = questions;
+    SET_FEED(state, feed) {
+        state.feed = feed;
     },
     SET_TIMESTAMP(state, timestamp) {
         state.timestamp = timestamp;
@@ -13,13 +13,18 @@ export const mutations = {
 };
 
 export const actions = {
-    async getQuestionFeed({commit, state}, page) {
+    async getQuestionFeed({commit, state}, {page, isAuthenticated}) {
         let params;
         if (page > 0) {
             params = {page, timestamp: state.timestamp}
         }
-        let response = await this.$axios.$get(`/feed/question`, params);
-        commit('SET_QUESTIONS', response.questions);
+        let response;
+        if (isAuthenticated) {
+            response = await this.$axios.$get(`/feed/question`, params);
+        } else {
+            response = await this.$axios.$get(`/feed/public/question`, params);
+        }
+        commit('SET_FEED', response.feed);
         if (!page) {
             commit('SET_TIMESTAMP', response.timestamp);
         }

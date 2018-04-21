@@ -31,7 +31,13 @@
       "createQuestionInfo": "To create a new question, you must be logged in with your user account.",
       "buttonNotExist": "Does Not Exist",
       "selectLanguage": "Language of the question",
-      "selectTopic": "Topic"
+      "selectTopic": "Topic",
+      "card": {
+        "questionType": "Question",
+        "inResponse": "in response to the question",
+        "inResponseText": "to the question",
+        "createdBy": "created by"
+      }
     }
   },
   "commitment": {
