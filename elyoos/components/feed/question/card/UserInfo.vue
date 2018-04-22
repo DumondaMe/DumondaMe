@@ -1,9 +1,5 @@
 <template>
     <div class="user-info-question-feed-container">
-        <div class="image-container">
-            <img :src="thumbnailUrl" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: userId, slug: slug}})">
-        </div>
         <div class="user-infos">
             <div class="user-title-container" v-if="cardType !== 'Question'">
                 <span class="card-type">{{cardTypeTranslated}} </span>
@@ -58,20 +54,7 @@
 
 <style lang="scss">
     .user-info-question-feed-container {
-        .image-container {
-            float: left;
-            margin-top: 5px;
-            height: 38px;
-            width: 38px;
-            img {
-                cursor: pointer;
-                border-radius: 50%;
-                height: 100%;
-                width: 100%;
-            }
-        }
         .user-infos {
-            margin-left: 52px;
             .user-title-container {
                 display: block;
                 margin-top: 4px;

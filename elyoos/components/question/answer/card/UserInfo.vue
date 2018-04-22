@@ -1,9 +1,5 @@
 <template>
     <div class="user-info-answer-container">
-        <div class="image-container">
-            <img :src="thumbnailUrl" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: userId, slug: slug}})">
-        </div>
         <div class="user-infos">
             <div class="user-title-container">
                 <span class="answer-type">{{answerTypeTranslated}} </span>
@@ -40,26 +36,12 @@
 
 <style lang="scss">
     .user-info-answer-container {
-        .image-container {
-            float: left;
-            margin-top: 5px;
-            height: 38px;
-            width: 38px;
-            img {
-                cursor: pointer;
-                border-radius: 50%;
-                height: 100%;
-                width: 100%;
-            }
-        }
         .user-infos {
-            margin-left: 52px;
             padding-top: 2px;
             .user-title-container {
                 display: block;
                 margin-top: 4px;
                 line-height: 16px;
-                //margin-bottom: 6px;
                 .answer-type {
                     font-weight: 500;
                     font-size: 16px;
