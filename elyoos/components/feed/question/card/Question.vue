@@ -29,7 +29,7 @@
         <v-layout row class="question-info">
             <div class="answer-icon">
                 <v-icon>chat_bubble_outline</v-icon>
-                <span class="answer-text">{{question.numberOfAnswers}} Antworten</span>
+                <span class="answer-text">{{$t('pages:feeds.question.card.answer', {count: question.numberOfAnswers})}}</span>
             </div>
         </v-layout>
     </div>

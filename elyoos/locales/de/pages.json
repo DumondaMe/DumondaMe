@@ -34,6 +34,8 @@
       "selectTopic": "Thema",
       "card": {
         "questionType": "Frage",
+        "answer": "{{count}} Antwort",
+        "answer_plural": "{{count}} Antworten",
         "inResponse": "als Antwort auf die Frage",
         "inResponseText": "auf die Frage",
         "createdBy": "erstellt von"
