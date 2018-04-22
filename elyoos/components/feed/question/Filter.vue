@@ -1,14 +1,5 @@
 <template>
     <div id="question-filter" class="ely-card">
-        <!--<div id="personalization-container">
-            <div class="activated-personalization personalization" @click="personalizationActivated = true"
-                 v-if="!personalizationActivated">
-                {{$t("common:button.personalizationActivate")}}
-            </div>
-            <div class="deactivated-personalization personalization" @click="personalizationActivated = false" v-else>
-                {{$t("common:button.personalizationDeactivate")}}
-            </div>
-        </div>-->
         <div id="search-question-container">
             <v-text-field name="searchQuestion" id="search-question-text" clearable append-icon="search"
                           :placeholder="$t('pages:feeds.question.yourQuestion')">
@@ -16,17 +7,17 @@
         </div>
         <div id="type-filter-container">
             <div id="type-filter-inner-container">
-                <div class="filter-element active-filter">
-                    Alle
+                <div class="filter-element"
+                     :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
+                    {{$t('pages:feeds.question.filter.all')}}
                 </div>
-                <div class="filter-element">
-                    Fragen
+                <div class="filter-element"
+                     :class="{'active-filter': activeTypeFilter === 'question'}" @click="setFilter('question')">
+                    {{$t('pages:feeds.question.filter.question')}}
                 </div>
-                <div class="filter-element">
-                    Antworten
-                </div>
-                <div class="filter-element">
-                    Up Votes
+                <div class="filter-element"
+                     :class="{'active-filter': activeTypeFilter === 'answer'}" @click="setFilter('answer')">
+                    {{$t('pages:feeds.question.filter.answer')}}
                 </div>
             </div>
         </div>
@@ -39,6 +30,9 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            activeTypeFilter() {
+                return this.$store.state.feedQuestion.typeFilter;
             }
         },
         data: function () {
@@ -46,25 +40,17 @@
                 dialog: false, searchQuestion: true, personalizationActivated: false
             }
         },
-        methods: {}
+        methods: {
+            async setFilter(filter) {
+                await this.$store.dispatch('feedQuestion/setTypeFilter',
+                    {filter, isAuthenticated: this.isAuthenticated});
+            }
+        }
     }
 </script>
 
 <style lang="scss">
     #question-filter {
-        #personalization-container {
-            font-size: 14px;
-            cursor: pointer;
-            .activated-personalization {
-                color: $primary-color;
-            }
-            .deactivated-personalization {
-                color: $secondary-text;
-            }
-            :hover.personalization {
-                text-decoration: underline;
-            }
-        }
         #search-question-container {
             padding: 0;
             .input-group {
@@ -72,13 +58,6 @@
                 #search-question-text {
                 }
             }
-        }
-        .personalization-button {
-            margin-top: 0;
-            margin-left: 0;
-        }
-        .activated-personalization-button {
-            color: #43A047;
         }
         #type-filter-container {
             #type-filter-inner-container {

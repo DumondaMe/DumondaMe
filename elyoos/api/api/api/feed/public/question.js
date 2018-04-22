@@ -13,7 +13,8 @@ const schemaGetQuestionFeed = {
     required: [],
     properties: {
         page: {type: 'integer', minimum: 0},
-        timestamp: {type: 'integer', minimum: 0}
+        timestamp: {type: 'integer', minimum: 0},
+        typeFilter: {enum: ['question', 'answer']}
     }
 };
 
@@ -23,7 +24,7 @@ module.exports = function (router) {
         const params = await validation.validateQueryRequest(req, schemaGetQuestionFeed, logger);
         params.page = params.page || 0;
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();
-        let response = await feed.getFeed(params.page, params.timestamp);
+        let response = await feed.getFeed(params.page, params.timestamp, params.typeFilter);
         res.status(200).json(response);
     }));
 };

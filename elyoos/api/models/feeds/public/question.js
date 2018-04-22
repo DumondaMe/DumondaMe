@@ -30,7 +30,7 @@ const addLinkProperties = function (result, feedElement) {
     if (result.type === 'Link') {
         result.pageType = feedElement.feedElement.pageType;
         result.link = feedElement.feedElement.link;
-        if(feedElement.feedElement.hasPreviewImage) {
+        if (feedElement.feedElement.hasPreviewImage) {
             result.imageUrl = cdn.getPublicUrl(`link/${result.answerId}/120x120/preview.jpg`);
         }
     }
@@ -94,10 +94,20 @@ const getPublicFeed = async function (feedElements) {
     return results;
 };
 
-const getFeed = async function (page, timestamp) {
+const getTypeFilter = function (filter) {
+    if(filter === 'question') {
+        return `feedElement:Question`;
+    } else if(filter === 'answer') {
+        return `feedElement:Answer`;
+    } else {
+        return `(feedElement:Question OR feedElement:Answer)`;
+    }
+};
+
+const getFeed = async function (page, timestamp, typeFilter) {
     page = page * PAGE_SIZE;
     let response = await db.cypher().match(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
-        .where(`feedElement.created < {timestamp} AND (feedElement:Question OR feedElement:Answer)`)
+        .where(`feedElement.created < {timestamp} AND ${getTypeFilter(typeFilter)}`)
         .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(question:Question)-[:ANSWER]->(feedElement)`)
         .optionalMatch(`(commitment:Commitment)<-[:COMMITMENT]-(feedElement)`)

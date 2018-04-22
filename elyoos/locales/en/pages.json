@@ -32,6 +32,11 @@
       "buttonNotExist": "Does Not Exist",
       "selectLanguage": "Language of the question",
       "selectTopic": "Topic",
+      "filter": {
+        "all": "All",
+        "question": "Questions",
+        "answer": "Answers"
+      },
       "card": {
         "questionType": "Question",
         "answer": "{{count}} Answer",

@@ -32,6 +32,11 @@
       "buttonNotExist": "Existiert nicht",
       "selectLanguage": "Sprache der Frage",
       "selectTopic": "Thema",
+      "filter": {
+        "all": "Alle",
+        "question": "Fragen",
+        "answer": "Antworten"
+      },
       "card": {
         "questionType": "Frage",
         "answer": "{{count}} Antwort",
