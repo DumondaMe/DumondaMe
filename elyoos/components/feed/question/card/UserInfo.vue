@@ -11,34 +11,21 @@
                 <span class="card-title" v-else-if="!link">{{answerTitle}} </span>
                 <span class="card-title" v-else><a target="_blank" :href="link"
                                                    class="link">{{answerTitle}} </a></span>
-                <span class="secondary-text" v-if="cardType !== 'Text'">
-                    {{$t("pages:feeds.question.card.inResponse")}}
-                </span>
-                <span class="secondary-text" v-else>{{$t("pages:feeds.question.card.inResponseText")}}</span>
-                <span class="card-title secondary-card-title"
-                      @click="$router.push({name: 'question-questionId-slug',
-                              params: {questionId: questionId, slug: questionSlug}})">
-                    {{question}}
-                </span>
             </div>
             <div class="user-title-container" v-else>
-                <span class="card-type">{{cardTypeTranslated}} </span>
+                <span class="card-type">{{$t("common:question")}} </span>
                 <span class="card-title"
                       @click="$router.push({name: 'question-questionId-slug',
                               params: {questionId: questionId, slug: questionSlug}})">
                     {{question}}
                 </span>
             </div>
-            <div class="created-date">{{created | formatRelativeTimesAgo}}
-                {{$t("pages:feeds.question.card.createdBy")}}
-            </div>
-            <span class="user-name" @click="$router.push({name: 'user'})"
-                  v-if="isAdmin"> {{$t("common:you")}}</span>
-            <span class="user-name" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: userId, slug: slug}})" v-else> {{name}}</span>
-            <div class="regions" v-if="regions && regions.length > 0">
-                <v-icon class="info-region">location_on</v-icon>
-                <span v-for="region in regions" class="region">{{$t("regions:" + region)}}</span>
+            <div class="question-container" v-if="cardType !== 'Question'">
+                {{$t("pages:feeds.question.card.answersQuestion")}}:
+                <span class="question" @click="$router.push({name: 'question-questionId-slug',
+                              params: {questionId: questionId, slug: questionSlug}})">
+                    {{question}}
+                </span>
             </div>
         </div>
     </div>
@@ -46,9 +33,8 @@
 
 <script>
     export default {
-        props: ['cardTypeTranslated', 'cardType', 'answerTitle', 'name', 'thumbnailUrl', 'created', 'isAdmin',
-            'link', 'userId', 'slug', 'commitmentId', 'commitmentSlug', 'regions', 'questionId', 'questionSlug',
-            'question']
+        props: ['cardType', 'cardTypeTranslated', 'answerTitle', 'isAdmin', 'link', 'commitmentId',
+            'commitmentSlug', 'questionId', 'questionSlug', 'question']
     }
 </script>
 
@@ -76,46 +62,21 @@
                         text-decoration: underline;
                     }
                 }
-                .card-title.secondary-card-title {
-                    color: $primary-text;
-                }
                 :hover.card-title {
                     text-decoration: underline;
                 }
-                .secondary-text {
-                    color: $secondary-text;
-                    font-size: 14px;
-                    line-height: 16px;
-                }
+
             }
-            .created-date {
-                display: inline-block;
+            .question-container {
+                margin-top: 2px;
                 line-height: 12px;
                 font-size: 12px;
                 color: $secondary-text;
-            }
-            .user-name {
-                font-weight: 400;
-                cursor: pointer;
-                font-size: 12px;
-            }
-            :hover.user-name {
-                text-decoration: underline;
-            }
-            .regions {
-                display: inline-block;
-                line-height: 14px;
-                margin-left: 12px;
-                .info-region {
-                    position: relative;
-                    margin-left: -4px;
-                    display: inline-block;
-                    font-size: 14px;
+                .question {
+                    cursor: pointer;
                 }
-                .region {
-                    font-size: 12px;
-                    color: $secondary-text;
-                    margin-right: 6px;
+                :hover.question {
+                    text-decoration: underline;
                 }
             }
         }

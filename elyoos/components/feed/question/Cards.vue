@@ -31,9 +31,9 @@
 
 <style lang="scss">
     #question-feed-cards-container {
-        margin-top: 28px;
+        margin-top: 32px;
         .question-card {
-            margin-bottom: 12px;
+            margin-bottom: 18px;
             padding-bottom: 12px;
             h2 {
                 font-size: 18px;

@@ -41,9 +41,7 @@
         "questionType": "Question",
         "answer": "{{count}} Answer",
         "answer_plural": "{{count}} Answers",
-        "inResponse": "in response to the question",
-        "inResponseText": "to the question",
-        "createdBy": "created by"
+        "answersQuestion": "Answer to the question"
       }
     }
   },

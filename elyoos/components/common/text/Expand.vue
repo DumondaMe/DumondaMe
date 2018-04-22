@@ -32,15 +32,15 @@
         p {
             font-weight: 300;
             font-size: 16px;
-            white-space: pre-wrap;
             line-height: 1.6em;
             max-height: 8em;
             overflow-y: hidden;
             overflow-x: hidden;
-            margin-bottom: 4px;
+            margin-bottom: 0;
         }
         p.expand {
             max-height: none;
+            white-space: pre-wrap;
         }
         .expanse-button {
             display: inline-block;

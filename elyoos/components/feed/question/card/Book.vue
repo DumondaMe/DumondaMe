@@ -1,12 +1,10 @@
 <template>
     <div class="book-answer-feed-card">
         <v-layout row>
-            <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :created="answer.created" :isAdmin="answer.isAdmin" :link="getExternalLink"
-                       :card-type-translated="$t('pages:detailQuestion.answerType.book')"
-                       :card-type="answer.type" :answer-title="answer.title"
-                       :question-id="answer.questionId" :question-slug="answer.questionSlug" :question="answer.question"
-                       :userId="answer.creator.userId" :slug="answer.creator.slug">
+            <user-info :isAdmin="answer.isAdmin" :link="getExternalLink"
+                       :card-type-translated="$t('pages:detailQuestion.answerType.book')" :card-type="answer.type"
+                       :answer-title="answer.title" :question-id="answer.questionId"
+                       :question-slug="answer.questionSlug" :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -32,16 +30,20 @@
                          :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
             </expand-text>
         </div>
+        <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
+                     :created="answer.created">
+        </card-footer>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
+    import CardFooter from './footer.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
         },
@@ -56,8 +58,6 @@
 
 <style lang="scss">
     .book-answer-feed-card {
-        margin-bottom: 12px;
-
         .book-answer-content {
             min-height: 90px;
             display: flex;

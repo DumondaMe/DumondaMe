@@ -1,12 +1,10 @@
 <template>
     <div class="youtube-answer-feed-card">
         <v-layout row class="text-answer-header">
-            <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :created="answer.created" :isAdmin="answer.isAdmin" :link="answer.link"
+            <user-info :isAdmin="answer.isAdmin" :link="answer.link"
                        :card-type-translated="$t('pages:detailQuestion.answerType.video')"
-                       :card-type="answer.answerType" :answer-title="answer.title" :userId="answer.creator.userId"
-                       :question-id="answer.questionId" :question-slug="answer.questionSlug" :question="answer.question"
-                       :slug="answer.creator.slug">
+                       :card-type="answer.answerType" :answer-title="answer.title" :question-id="answer.questionId"
+                       :question-slug="answer.questionSlug" :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -34,16 +32,20 @@
                          itemprop="text">
             </expand-text>
         </div>
+        <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
+                     :created="answer.created">
+        </card-footer>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
+    import CardFooter from './footer.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         data() {
             return {showEmbed: false}
         },
@@ -73,8 +75,6 @@
 
 <style lang="scss">
     .youtube-answer-feed-card {
-        margin-bottom: 12px;
-
         .youtube-answer-content {
             min-height: 100px;
             .youtube-embed {

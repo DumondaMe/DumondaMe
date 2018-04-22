@@ -1,11 +1,10 @@
 <template>
     <div class="text-answer-feed-card">
         <v-layout row class="text-answer-header">
-            <user-info :name="answer.creator.name" :thumbnail-url="answer.creator.thumbnailUrl"
-                       :isAdmin="answer.isAdmin" :created="answer.created" :card-type="answer.type"
+            <user-info :isAdmin="answer.isAdmin" :created="answer.created" :card-type="answer.type"
                        :card-type-translated="$t('pages:detailQuestion.answerType.text')"
-                       :question-id="answer.questionId" :question-slug="answer.questionSlug" :question="answer.question"
-                       :userId="answer.creator.userId" :slug="answer.creator.slug">
+                       :question-id="answer.questionId" :question-slug="answer.questionSlug"
+                       :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -25,16 +24,20 @@
         </v-layout>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
+        <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
+                     :created="answer.created">
+        </card-footer>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
+    import CardFooter from './footer.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -45,7 +48,6 @@
 
 <style lang="scss">
     .text-answer-feed-card {
-        margin-bottom: 12px;
         .answer-description {
             margin-top: 12px;
         }

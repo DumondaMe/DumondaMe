@@ -1,12 +1,9 @@
 <template>
     <div class="question-feed-card">
         <v-layout row>
-            <user-info :name="question.creator.name" :thumbnail-url="question.creator.thumbnailUrl"
-                       :isAdmin="question.isAdmin" :created="question.created" :card-type="'Question'"
-                       :card-type-translated="$t('pages:feeds.question.card.questionType')"
+            <user-info :isAdmin="question.isAdmin" :created="question.created" :card-type="'Question'"
                        :question-id="question.questionId" :question-slug="question.questionSlug"
-                       :question="question.question"
-                       :userId="question.creator.userId" :slug="question.creator.slug">
+                       :question="question.question">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="question.isAdmin">
@@ -26,22 +23,20 @@
         </v-layout>
         <expand-text :expand-text="question.description" class="question-description" itemprop="text">
         </expand-text>
-        <v-layout row class="question-info">
-            <div class="answer-icon">
-                <v-icon>chat_bubble_outline</v-icon>
-                <span class="answer-text">{{$t('pages:feeds.question.card.answer', {count: question.numberOfAnswers})}}</span>
-            </div>
-        </v-layout>
+        <card-footer :user="question.creator.name" :userId="question.creator.userId" :userSlug="question.creator.slug"
+                     :created="question.created" :number-of-answers="question.numberOfAnswers">
+        </card-footer>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
+    import CardFooter from './footer.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['question'],
-        components: {UserInfo, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -52,7 +47,6 @@
 
 <style lang="scss">
     .question-feed-card {
-        margin-bottom: 12px;
         .question-description {
             margin-top: 12px;
         }
