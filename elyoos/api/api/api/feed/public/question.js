@@ -1,7 +1,7 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const feed = requireModel('feeds/public/question');
+const feed = requireModel('feeds/question/public/question');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const time = require('elyoos-server-lib').time;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
