@@ -41,7 +41,8 @@
     "upload": "Upload",
     "uploadImage": "Upload Image",
     "changeImage": "Change Image",
-    "watch": "Watch"
+    "watch": "Watch",
+    "readNotification": "Notification Read"
   },
   "language": {
     "de": "German",

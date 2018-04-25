@@ -40,7 +40,8 @@
     "change": "Ändern",
     "upload": "Hochladen",
     "uploadImage": "Bild Hochladen",
-    "watch": "Beobachten"
+    "watch": "Beobachten",
+    "readNotification": "Benachrichtigung Gelesen"
   },
   "language": {
     "de": "Deutsch",

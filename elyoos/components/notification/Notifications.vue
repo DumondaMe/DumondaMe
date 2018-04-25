@@ -4,6 +4,8 @@
              :class="{'show-border': index < notifications.length - 1}">
             <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>
+            <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
+            </add-to-trust-circle>
         </div>
         <div id="no-notifications" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
@@ -14,10 +16,11 @@
 <script>
     import {mapGetters} from 'vuex';
     import ShowQuestionRequest from './ShowQuestionRequest';
+    import AddToTrustCircle from './AddToTrustCircle';
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest},
+        components: {ShowQuestionRequest, AddToTrustCircle},
         computed: {
             ...mapGetters({
                 notifications: 'notification/notifications'
@@ -36,6 +39,7 @@
         .notification {
             padding: 16px;
             .notification-created {
+                margin-bottom: 8px;
                 font-size: 12px;
                 color: $secondary-text;
             }

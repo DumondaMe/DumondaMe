@@ -192,6 +192,10 @@
       "postNotificationDeny2": "wird nicht auf der Seite deines Engagments",
       "postNotificationDeny3": "angezeigt."
     },
+    "addToTrustCircle": {
+      "notification": "Folgende Person hat dich zu ihrem Trust Circle hinzugefügt.",
+      "notification_plural": "Folgende Personen haben dich zu ihrem Trust Circle hinzugefügt."
+    },
     "noNotifications": "Du hast keine Benachrichtigungen."
   },
   "footer": {
