@@ -78,7 +78,6 @@ module.exports = {
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     setUserPrivacy: user.setUserPrivacy,
     createPrivacy: user.createPrivacy,
-    createPrivacyNoContact: user.createPrivacyNoContact,
 
     createNews: news.createNews,
 

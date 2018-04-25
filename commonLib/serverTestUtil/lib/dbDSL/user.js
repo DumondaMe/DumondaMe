@@ -112,24 +112,6 @@ let createPrivacy = function (userIds, type, privacy) {
         }).getCommand());
 };
 
-let createPrivacyNoContact = function (userIds, privacy) {
-    let idsCommand = null;
-    if (userIds) {
-        idsCommand = "u.userId IN {userIds}";
-    }
-    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
-        .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
-                  pinwall: {pinwall}})`)
-        .end({
-            userIds: userIds,
-            profile: privacy.profile,
-            image: privacy.image,
-            contacts: privacy.contacts,
-            pinwall: privacy.pinwall
-        }).getCommand());
-};
-
 let setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: '1'})")
         .set('u', {showUserRecommendationOnHome: showUserRecommendationOnHome})
@@ -149,6 +131,5 @@ module.exports = {
     inviteUser: inviteUser,
     setUserPrivacy: setUserPrivacy,
     createPrivacy: createPrivacy,
-    createPrivacyNoContact: createPrivacyNoContact,
     setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen
 };
