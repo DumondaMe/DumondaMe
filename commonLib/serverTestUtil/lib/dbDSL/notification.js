@@ -18,6 +18,23 @@ const showQuestionOnCommitmentRequest = function (data) {
         }).getCommand());
 };
 
+const userAddedToTrustCircle = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(userAddedToTrustCircle:User {userId: {userId}})`)
+        .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification {type: 'addedToTrustCircle', 
+                                      created: {created}})`)
+        .with(`notification`)
+        .match(`(user:User)`)
+        .where(`user.userId IN {trustCircleUsers}`)
+        .merge(`(user)<-[:NOTIFICATION]-(notification)`)
+        .end({
+            userId: data.userId,
+            trustCircleUsers: data.trustCircleUsers,
+            created: data.created
+        }).getCommand());
+};
+
 module.exports = {
-    showQuestionOnCommitmentRequest
+    showQuestionOnCommitmentRequest,
+    userAddedToTrustCircle
 };

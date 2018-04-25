@@ -20,6 +20,22 @@ let removeInvitation = function (userId, contactId) {
         .end({userId, contactId});
 };
 
+let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, contactAdded) {
+    return db.cypher().match(`(u:User {userId: {userId}}), 
+             (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification {type: 'addedToTrustCircle'})`)
+        .set(`n`, {created: contactAdded})
+        .merge(`(n)-[:NOTIFICATION]->(u)`)
+        .end({userId, contactId}).getCommand()
+};
+
+let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId, contactAdded) {
+    return db.cypher().match('(u:User {userId: {userId}}), (contact:User {userId: {contactId}})')
+        .where(`NOT (contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle'})`)
+        .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}})
+                 -[:NOTIFICATION]->(u)`)
+        .end({userId, contactId, contactAdded}).getCommand()
+};
+
 let addContact = async function (userId, contactId) {
     await validAddContactCommand(userId, contactId);
     let commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
@@ -29,9 +45,9 @@ let addContact = async function (userId, contactId) {
         .with('u, u2')
         .match('(u)-[r:IS_BLOCKED]->(u2)')
         .delete('r')
-        .end({
-            userId: userId, contactId: contactId, contactAdded: timeAddedContact
-        }).getCommand());
+        .end({userId, contactId, contactAdded: timeAddedContact}).getCommand());
+    commands.push(addUserAddedToTrustCircleNotificationExists(userId, contactId, timeAddedContact));
+    commands.push(addUserAddedToTrustCircleNotificationNotExists(userId, contactId, timeAddedContact));
 
     await removeInvitation(userId, contactId).send(commands);
     return {isContactSince: timeAddedContact};

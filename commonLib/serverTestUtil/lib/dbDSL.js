@@ -48,11 +48,14 @@ module.exports = {
     setApocIndex: setApocIndex,
     sendToDb: dbConnectionHandling.sendToDb,
     createContactConnection: contactConnections.createContactConnection,
+
     createGenericPage: page.createGenericPage,
     addAdminToPage: page.addAdminToPage,
+
     createCommitment: commitment.createCommitment,
     showQuestionOnCommitment: commitment.showQuestionOnCommitment,
     watchCommitment: commitment.watchCommitment,
+
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
     createVimeoAnswer: answer.createVimeoAnswer,
@@ -61,6 +64,7 @@ module.exports = {
     createCommitmentAnswer: answer.createCommitmentAnswer,
     upVoteAnswer: answer.upVoteAnswer,
     setOriginalAnswer: answer.setOriginalAnswer,
+
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
@@ -75,16 +79,25 @@ module.exports = {
     setUserPrivacy: user.setUserPrivacy,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact,
+
     createNews: news.createNews,
+
     createPageEventNewAddress: events.createPageEventNewAddress,
     createPageEventExistingAddress: events.createPageEventExistingAddress,
+
     createQuestion: question.createQuestion,
     watchQuestion: question.watchQuestion,
+
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
+
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
     exportEventToTransitionConnect: tc.exportEvent,
     stopExportOrganisationToTransitionConnect: tc.stopExportOrganisation,
+
     createTopic: topic.createTopic,
+
     createRegion: region.createRegion,
-    notificationShowQuestionOnCommitmentRequest: notification.showQuestionOnCommitmentRequest
+
+    notificationShowQuestionOnCommitmentRequest: notification.showQuestionOnCommitmentRequest,
+    notificationUserAddedToTrustCircle: notification.userAddedToTrustCircle
 };

@@ -22,7 +22,7 @@ describe('Handling contact relationships', function () {
         return requestHandler.logout();
     });
 
-    it('Adding a contact', async function () {
+    it('Adding a contact and send adding notification to contact (Added contact has no notifications)', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -34,6 +34,41 @@ describe('Handling contact relationships', function () {
             .end().send();
         user.length.should.equals(1);
         user[0].contactAdded.should.equals(res.body.isContactSince);
+
+        let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'addedToTrustCircle'})-[:NOTIFICATION]->(user)`)
+            .return('notification, collect(user.userId) AS users')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.created.should.least(startTime);
+        notification[0].users.length.should.equals(1);
+        notification[0].users.should.includes('1');
+    });
+
+    it('Adding a contact and send adding notification to contact (Added contact has notifications)', async function () {
+        dbDsl.notificationUserAddedToTrustCircle({userId: '5', created: 678, trustCircleUsers: ['3', '4']});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/contact/5');
+        res.status.should.equal(200);
+        res.body.isContactSince.should.least(startTime);
+        let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
+            .return('r.contactAdded as contactAdded')
+            .end().send();
+        user.length.should.equals(1);
+        user[0].contactAdded.should.equals(res.body.isContactSince);
+
+        let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'addedToTrustCircle'})-[:NOTIFICATION]->(user)`)
+            .return('notification, collect(user.userId) AS users')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.created.should.least(startTime);
+        notification[0].users.length.should.equals(3);
+        notification[0].users.should.includes('1');
+        notification[0].users.should.includes('3');
+        notification[0].users.should.includes('4');
     });
 
     it('Adding a contact and remove invitations', async function () {
