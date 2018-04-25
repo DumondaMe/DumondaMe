@@ -24,9 +24,10 @@ const userAddedToTrustCircle = function (data) {
         .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification {type: 'addedToTrustCircle', 
                                       created: {created}})`)
         .with(`notification`)
+        .unwind(`{trustCircleUsers} AS trustCircleUser`)
         .match(`(user:User)`)
-        .where(`user.userId IN {trustCircleUsers}`)
-        .merge(`(user)<-[:NOTIFICATION]-(notification)`)
+        .where(`user.userId = trustCircleUser.userId`)
+        .merge(`(user)<-[:NOTIFICATION {created: trustCircleUser.created}]-(notification)`)
         .end({
             userId: data.userId,
             trustCircleUsers: data.trustCircleUsers,

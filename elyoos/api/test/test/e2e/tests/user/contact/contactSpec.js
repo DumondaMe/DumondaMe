@@ -36,17 +36,20 @@ describe('Handling contact relationships', function () {
         user[0].contactAdded.should.equals(res.body.isContactSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'addedToTrustCircle'})-[:NOTIFICATION]->(user)`)
-            .return('notification, collect(user.userId) AS users')
+        (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+            .return('notification, user.userId AS userId, relNot.created AS created')
             .end().send();
         notification.length.should.equals(1);
         notification[0].notification.created.should.least(startTime);
-        notification[0].users.length.should.equals(1);
-        notification[0].users.should.includes('1');
+        notification[0].userId.should.equals('1');
+        notification[0].created.should.least(startTime);
     });
 
     it('Adding a contact and send adding notification to contact (Added contact has notifications)', async function () {
-        dbDsl.notificationUserAddedToTrustCircle({userId: '5', created: 678, trustCircleUsers: ['3', '4']});
+        dbDsl.notificationUserAddedToTrustCircle({
+            userId: '5',
+            created: 678, trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}]
+        });
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -60,15 +63,18 @@ describe('Handling contact relationships', function () {
         user[0].contactAdded.should.equals(res.body.isContactSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'addedToTrustCircle'})-[:NOTIFICATION]->(user)`)
-            .return('notification, collect(user.userId) AS users')
+        (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+            .return('notification, user.userId AS userId, relNot.created AS created')
+            .orderBy(`created DESC`)
             .end().send();
-        notification.length.should.equals(1);
+        notification.length.should.equals(3);
         notification[0].notification.created.should.least(startTime);
-        notification[0].users.length.should.equals(3);
-        notification[0].users.should.includes('1');
-        notification[0].users.should.includes('3');
-        notification[0].users.should.includes('4');
+        notification[0].userId.should.equals('1');
+        notification[0].created.should.least(startTime);
+        notification[1].userId.should.equals('3');
+        notification[1].created.should.equals(555);
+        notification[2].userId.should.equals('4');
+        notification[2].created.should.equals(444);
     });
 
     it('Adding a contact and remove invitations', async function () {

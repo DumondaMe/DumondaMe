@@ -24,7 +24,7 @@ let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, c
     return db.cypher().match(`(u:User {userId: {userId}}), 
              (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification {type: 'addedToTrustCircle'})`)
         .set(`n`, {created: contactAdded})
-        .merge(`(n)-[:NOTIFICATION]->(u)`)
+        .merge(`(n)-[:NOTIFICATION {created: {created}}]->(u)`)
         .end({userId, contactId}).getCommand()
 };
 
@@ -32,7 +32,7 @@ let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId
     return db.cypher().match('(u:User {userId: {userId}}), (contact:User {userId: {contactId}})')
         .where(`NOT (contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle'})`)
         .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}})
-                 -[:NOTIFICATION]->(u)`)
+                 -[:NOTIFICATION {created: {contactAdded}}]->(u)`)
         .end({userId, contactId, contactAdded}).getCommand()
 };
 
