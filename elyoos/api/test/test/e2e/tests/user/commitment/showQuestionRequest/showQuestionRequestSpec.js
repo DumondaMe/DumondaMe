@@ -22,7 +22,7 @@ describe('Show question on commitment activation', function () {
             topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
         });
 
-        dbDsl.notificationShowQuestionOnCommitmentRequest({
+        dbDsl.notificationShowQuestionOnCommitmentRequest('50', {
             questionId: '2', commitmentId: '1', adminId: '1',
             created: 666
         });

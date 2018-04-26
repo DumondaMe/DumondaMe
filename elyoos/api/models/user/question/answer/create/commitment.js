@@ -20,12 +20,13 @@ const createCommitmentCommand = function (params) {
 };
 
 const handlingNotification = function (params) {
+    params.notificationId = uuid.generateUUID();
     return db.cypher().match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:CommitmentAnswer:Answer 
                             {answerId: {answerId}})-[:COMMITMENT]->
                             (c:Commitment {commitmentId: {commitmentId}})`)
         .match(`(c)<-[:IS_ADMIN]-(admin:User)`)
-        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {created: {created}, type: 'showQuestionRequest'})
-              -[:NOTIFIED]->(admin)`)
+        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {created: {created}, type: 'showQuestionRequest',
+                notificationId: {notificationId}})-[:NOTIFIED]->(admin)`)
         .with(`notification, c`)
         .merge(`(c)<-[:NOTIFICATION]-(notification)`)
         .end(params)

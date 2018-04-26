@@ -63,6 +63,7 @@ describe('Creating a commitment answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.created.should.equals(res.body.created);
+        should.exist(resp[0].notification.notificationId);
         resp[0].notification.created.should.equals(res.body.created);
         resp[0].notification.type.should.equals('showQuestionRequest');
         should.not.exist(resp[0].showAnswer);
@@ -100,6 +101,7 @@ describe('Creating a commitment answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.created.should.equals(res.body.created);
+        should.exist(resp[0].notification.notificationId);
         resp[0].notification.created.should.equals(res.body.created);
         resp[0].notification.type.should.equals('showQuestionRequest');
         should.not.exist(resp[0].showAnswer);

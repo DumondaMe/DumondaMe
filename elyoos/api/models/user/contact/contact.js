@@ -1,7 +1,8 @@
 'use strict';
 
-let db = requireDb();
-let moment = require('moment');
+const db = requireDb();
+const uuid = require('elyoos-server-lib').uuid;
+const moment = require('moment');
 
 let validAddContactCommand = async function (userId, contactId) {
     let resp = await db.cypher().match(`(u:User {userId: {contactId}})`)
@@ -29,11 +30,12 @@ let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, c
 };
 
 let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId, contactAdded) {
+    let notificationId = uuid.generateUUID();
     return db.cypher().match('(u:User {userId: {userId}}), (contact:User {userId: {contactId}})')
         .where(`NOT (contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle'})`)
-        .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}})
-                 -[:NOTIFICATION {created: {contactAdded}}]->(u)`)
-        .end({userId, contactId, contactAdded}).getCommand()
+        .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}, 
+                 notificationId: {notificationId}})-[:NOTIFICATION {created: {contactAdded}}]->(u)`)
+        .end({userId, contactId, contactAdded, notificationId}).getCommand()
 };
 
 let addContact = async function (userId, contactId) {

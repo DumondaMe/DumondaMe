@@ -35,7 +35,7 @@ describe('Get notifications of a user', function () {
             creatorId: '2', questionId: '1', commitmentId: '10', created: 500, description: 'test'
         });
 
-        dbDsl.notificationShowQuestionOnCommitmentRequest({questionId: '1', commitmentId: '2', adminId: '1',
+        dbDsl.notificationShowQuestionOnCommitmentRequest('50', {questionId: '1', commitmentId: '2', adminId: '1',
             created: 666});
 
         await dbDsl.sendToDb();
@@ -44,6 +44,7 @@ describe('Get notifications of a user', function () {
         res.status.should.equal(200);
         res.body.numberOfNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
+        res.body.notifications[0].notificationId.should.equals('50');
         res.body.notifications[0].created.should.equals(666);
         res.body.notifications[0].type.should.equals('showQuestionRequest');
         res.body.notifications[0].commitmentId.should.equals('2');
@@ -59,7 +60,7 @@ describe('Get notifications of a user', function () {
 
         dbDsl.createContactConnection('3', '1', null, 400);
         dbDsl.createContactConnection('4', '1', null, 401);
-        dbDsl.notificationUserAddedToTrustCircle({userId: '1', created: 678, trustCircleUsers:
+        dbDsl.notificationUserAddedToTrustCircle('50', {userId: '1', created: 678, trustCircleUsers:
                 [{userId: '3', created: 400}, {userId: '4', created: 401}]});
 
         await dbDsl.sendToDb();
@@ -68,6 +69,7 @@ describe('Get notifications of a user', function () {
         res.status.should.equal(200);
         res.body.numberOfNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
+        res.body.notifications[0].notificationId.should.equals('50');
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('addedToTrustCircle');
         res.body.notifications[0].numberOfAddedUsers.should.equals(2);

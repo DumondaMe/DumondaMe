@@ -1,10 +1,11 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('elyoos-server-test-util').user;
+const db = require('elyoos-server-test-util').db;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
+const requestHandler = require('elyoos-server-test-util').requestHandler;
+const moment = require('moment');
+const should = require('chai').should();
 
 describe('Handling contact relationships', function () {
 
@@ -40,13 +41,14 @@ describe('Handling contact relationships', function () {
             .return('notification, user.userId AS userId, relNot.created AS created')
             .end().send();
         notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
         notification[0].notification.created.should.least(startTime);
         notification[0].userId.should.equals('1');
         notification[0].created.should.least(startTime);
     });
 
     it('Adding a contact and send adding notification to contact (Added contact has notifications)', async function () {
-        dbDsl.notificationUserAddedToTrustCircle({
+        dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '5',
             created: 678, trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}]
         });
@@ -68,6 +70,7 @@ describe('Handling contact relationships', function () {
             .orderBy(`created DESC`)
             .end().send();
         notification.length.should.equals(3);
+        notification[0].notification.notificationId.should.equals('50');
         notification[0].notification.created.should.least(startTime);
         notification[0].userId.should.equals('1');
         notification[0].created.should.least(startTime);

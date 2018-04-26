@@ -9,6 +9,7 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
     let commitment = notification.infos.find((info) => typeof info.commitmentId === 'string');
     let question = notification.infos.find((info) => typeof info.questionId === 'string');
     return {
+        notificationId: notification.notification.notificationId,
         created: notification.notification.created,
         type: notification.notification.type,
         commitmentId: commitment.commitmentId,
@@ -34,6 +35,7 @@ const getUserAddedToTrustCircle = async function (notification) {
         });
     }
     return {
+        notificationId: notification.notification.notificationId,
         users: users,
         numberOfAddedUsers: notification.infos.length,
         created: notification.notification.created,
