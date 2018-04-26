@@ -164,6 +164,8 @@
       "otherUserInfo_plural": "Has {{count}} persons in the trust circle",
       "inYourCircle": "In your trust circle",
       "notInYourCircle": "Not in your trust circle",
+      "removeFromYourCircle": "Remove from Trust Circle",
+      "addToYourCircle": "Add to your Trust Circle",
       "blockUser": "Block User",
       "since": "Since {{date}}"
     },
