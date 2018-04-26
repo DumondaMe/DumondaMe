@@ -212,4 +212,47 @@ describe('Handling contact relationships', function () {
             .return('r').end().send();
         rel.length.should.equals(0);
     });
+
+    it('Remove user from contact list (Delete user from notification)', async function () {
+
+        dbDsl.createContactConnection('1', '2');
+        dbDsl.notificationUserAddedToTrustCircle('50', {
+            userId: '2',
+            created: 678, trustCircleUsers: [{userId: '1', created: 555}, {userId: '4', created: 444}]
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/contact/2');
+        res.status.should.equal(200);
+
+        let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
+            .return('r').end().send();
+        rel.length.should.equals(0);
+
+        rel = await db.cypher().match("(:User {userId: '2'})<-[:NOTIFIED]-(n:Notification)-[:NOTIFICATION]->(u:User)")
+            .return('n, u').end().send();
+        rel.length.should.equals(1);
+        rel[0].u.userId.should.equals('4');
+    });
+
+    it('Remove user from contact list (Delete user from notification and delete notification)', async function () {
+
+        dbDsl.createContactConnection('1', '2');
+        dbDsl.notificationUserAddedToTrustCircle('50', {
+            userId: '2',
+            created: 678, trustCircleUsers: [{userId: '1', created: 555}]
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/contact/2');
+        res.status.should.equal(200);
+
+        let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
+            .return('r').end().send();
+        rel.length.should.equals(0);
+
+        rel = await db.cypher().match("(:User {userId: '2'})<-[:NOTIFIED]-(n:Notification)")
+            .return('n').end().send();
+        rel.length.should.equals(0);
+    });
 });

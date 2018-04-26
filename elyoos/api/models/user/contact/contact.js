@@ -55,6 +55,18 @@ let addContact = async function (userId, contactId) {
     return {isContactSince: timeAddedContact};
 };
 
+let removeUserAddedToTrustCircleNotification = function (userId, contactId) {
+    return db.cypher()
+        .match(`(u:User {userId: {userId}})<-[rel:NOTIFICATION]-(notification:Notification {type: 'addedToTrustCircle'})
+                 -[:NOTIFIED]->(contact:User {userId: {contactId}})`)
+        .delete(`rel`)
+        .with(`notification`)
+        .match('(notification)-[notified:NOTIFIED]->(:User)')
+        .where(`NOT (notification)-[:NOTIFICATION]->()`)
+        .delete(`notification, notified`)
+        .end({userId, contactId}).getCommand()
+};
+
 let deleteContact = async function (userId, contactId) {
     let commands = [];
 
@@ -62,6 +74,8 @@ let deleteContact = async function (userId, contactId) {
         .delete('r')
         .end({userId, contactId})
         .getCommand());
+
+    commands.push(removeUserAddedToTrustCircleNotification(userId, contactId));
 
     await removeInvitation(userId, contactId).send(commands);
 };
