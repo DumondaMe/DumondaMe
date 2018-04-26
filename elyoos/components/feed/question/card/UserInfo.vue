@@ -2,6 +2,7 @@
     <div class="user-info-question-feed-container">
         <div class="user-infos">
             <div class="user-title-container" v-if="cardType !== 'Question'">
+                <v-icon class="card-type-icon">mdi-forum</v-icon>
                 <span class="card-type">{{cardTypeTranslated}} </span>
                 <span class="card-title" v-if="cardType === 'Commitment'"
                       @click="$router.push({name: 'commitment-commitmentId-slug',
@@ -13,6 +14,7 @@
                                                    class="link">{{answerTitle}} </a></span>
             </div>
             <div class="user-title-container" v-else>
+                <v-icon class="card-type-icon">mdi-help-circle-outline</v-icon>
                 <span class="card-type">{{$t("common:question")}} </span>
                 <span class="card-title"
                       @click="$router.push({name: 'question-questionId-slug',
@@ -45,6 +47,11 @@
                 display: block;
                 margin-top: 4px;
                 line-height: 16px;
+                .card-type-icon {
+                    margin-left: -2px;
+                    margin-right: 6px;
+                    font-size: 22px;
+                }
                 .card-type {
                     font-weight: 500;
                     font-size: 16px;
