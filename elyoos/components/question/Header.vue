@@ -9,11 +9,11 @@
 
             <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
                    v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
-                <v-icon>visibility</v-icon>
+                <v-icon>mdi-eye</v-icon>
                 {{$t("common:button.watch")}}
             </v-btn>
             <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
-                <v-icon>visibility_off</v-icon>
+                <v-icon>mdi-eye-off</v-icon>
                 {{$t("common:button.watch")}}
             </v-btn>
         </div>

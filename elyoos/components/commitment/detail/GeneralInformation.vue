@@ -2,24 +2,24 @@
     <div class="sidebar-container">
         <h3>{{$t("pages:detailCommitment.generalInfo.title")}}</h3>
         <div class="commitment-info">
-            <v-icon class="info-icon">visibility</v-icon>
+            <v-icon class="info-icon">mdi-eye</v-icon>
             <div v-if="commitment.numberOfWatches > 0">
                 {{$t('pages:detailCommitment.generalInfo.watchers', {count: commitment.numberOfWatches})}}</div>
             <div v-else>{{$t('pages:detailCommitment.generalInfo.watchersNotExisting')}}</div>
         </div>
         <div class="commitment-info topics">
-            <v-icon class="info-icon">vpn_key</v-icon>
+            <v-icon class="info-icon">mdi-key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in commitment.topics">
                     {{topic}}<span v-if="index < commitment.topics.length - 1">, </span></span>
             </div>
         </div>
         <div class="commitment-info" v-if="commitment.website">
-            <v-icon class="info-icon">language</v-icon>
+            <v-icon class="info-icon">mdi-link</v-icon>
             <a target="_blank" :href="commitment.website">{{website}}</a>
         </div>
         <div class="commitment-info regions">
-            <v-icon class="info-icon">location_on</v-icon>
+            <v-icon class="info-icon">mdi-map-marker</v-icon>
             <div id="region-container">
                 <div v-for="region in commitment.regions">{{$t("regions:" + region)}}</div>
             </div>

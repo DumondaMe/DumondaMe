@@ -2,7 +2,7 @@
     <div>
         <v-layout row class="answer-commands">
             <div class="comment-icon">
-                <v-icon>chat_bubble_outline</v-icon>
+                <v-icon>mdi-comment-multiple-outline</v-icon>
                 <span class="comment-text">0 Kommentare</span>
             </div>
             <v-spacer></v-spacer>
@@ -10,11 +10,11 @@
                 <span class="up-votes" itemprop="upvoteCount">{{answer.upVotes}}</span>
                 <v-btn icon outline :disabled="answer.isAdmin || upVoteRunning" @click="upVote()" class="up-vote"
                        :loading="upVoteRunning" v-if="!answer.hasVoted || answer.isAdmin ">
-                    <v-icon>arrow_upward</v-icon>
+                    <v-icon>mdi-arrow-up</v-icon>
                 </v-btn>
                 <v-btn icon outline :disabled="answer.isAdmin || upVoteRunning" @click="downVote()" class="down-vote"
                        :loading="upVoteRunning" v-if="answer.hasVoted && !answer.isAdmin">
-                    <v-icon>arrow_downward</v-icon>
+                    <v-icon>mdi-arrow-down</v-icon>
                 </v-btn>
             </div>
         </v-layout>

@@ -10,13 +10,13 @@
             <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                    @change="handleImageChange"/>
             <v-btn flat icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
-                <v-icon>insert_photo</v-icon>
+                <v-icon>mdi-image</v-icon>
             </v-btn>
             <v-btn flat icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
-                <v-icon>rotate_left</v-icon>
+                <v-icon>mdi-rotate-left</v-icon>
             </v-btn>
             <v-btn flat icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
-                <v-icon>rotate_right</v-icon>
+                <v-icon>mdi-rotate-right</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close')">

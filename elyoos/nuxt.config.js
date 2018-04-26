@@ -69,6 +69,7 @@ module.exports = {
         '~/plugins/vuetify.js'],
     css: [
         '~/assets/style/app.styl',
-        'cropperjs/dist/cropper.min.css'
+        'cropperjs/dist/cropper.min.css',
+        '@mdi/font/css/materialdesignicons.min.css'
     ]
 };

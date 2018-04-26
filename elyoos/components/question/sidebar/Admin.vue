@@ -6,7 +6,7 @@
             <div id="admin-commands">
                 <v-menu bottom left offset-y>
                     <v-btn outline fab small color="primary" slot="activator">
-                        <v-icon>edit</v-icon>
+                        <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                     <v-list>
                         <v-list-tile @click="showModifyQuestionDialog = true">
@@ -18,7 +18,7 @@
                     </v-list>
                 </v-menu>
                 <v-btn outline fab small color="primary" @click.native="showDeleteQuestionDialog = true">
-                    <v-icon>delete</v-icon>
+                    <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </div>
         </div>

@@ -14,29 +14,29 @@
                 <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
                 <div class="user-status-info in-circle"
                      v-if="isAuthenticated && !isLoggedInUser && user.isContactOfLoggedInUser">
-                    <v-icon>account_circle</v-icon>
+                    <v-icon>mdi-account-circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.inYourCircle")}}
                 </div>
                 <div class="user-status-info"
                      v-else-if="isAuthenticated && !isLoggedInUser && !user.isContactOfLoggedInUser">
-                    <v-icon>account_circle</v-icon>
+                    <v-icon>mdi-account-circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
                 </div>
                 <div class="user-description">{{user.userDescription}}</div>
                 <v-btn outline fab small color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
                        @click="showUploadUserDataDialog = true">
-                    <v-icon>edit</v-icon>
+                    <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </div>
         </div>
         <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
             <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
                    v-if="user.isContactOfLoggedInUser">
-                <v-icon left dark>remove_circle_outline</v-icon>
+                <v-icon left dark>mdi-account-remove</v-icon>
                 {{$t("common:trustCircle")}}
             </v-btn>
             <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
-                <v-icon left dark>person_add</v-icon>
+                <v-icon left dark>mdi-account-plus</v-icon>
                 {{$t("common:trustCircle")}}
             </v-btn>
         </div>

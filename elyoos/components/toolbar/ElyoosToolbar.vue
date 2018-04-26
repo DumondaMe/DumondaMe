@@ -7,7 +7,7 @@
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
                     <v-btn icon slot="activator">
-                        <v-icon>more_vert</v-icon>
+                        <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn>
                     <v-list>
                         <v-list-tile @click="$router.push({name: 'setting'})">
@@ -51,7 +51,7 @@
             <div class="header-nav" v-if="isAuthenticated">
                 <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
-                        <v-icon>notifications_none</v-icon>
+                        <v-icon>mdi-bell-outline</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
                     </v-badge>
                 </v-btn>
@@ -59,7 +59,7 @@
             <div class="header-nav">
                 <v-btn flat icon @click="$router.push({name: 'index'})"
                        :class="{active: $route.path === '/'}">
-                    <v-icon>home</v-icon>
+                    <v-icon>mdi-home</v-icon>
                 </v-btn>
             </div>
         </div>

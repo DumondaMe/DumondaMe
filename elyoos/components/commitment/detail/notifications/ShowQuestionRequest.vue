@@ -12,13 +12,13 @@
             <v-btn outline color="success" @click="setShowQuestionOnCommitment(true, 'requestShowQuestionRunning')"
                    :loading="requestShowQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
-                <v-icon>done</v-icon>
+                <v-icon>mdi-check</v-icon>
                 {{$t('common:button.yes')}}
             </v-btn>
             <v-btn outline color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
                    :loading="requestHideQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
-                <v-icon>clear</v-icon>
+                <v-icon>mdi-clear</v-icon>
                 {{$t('common:button.no')}}
             </v-btn>
         </div>

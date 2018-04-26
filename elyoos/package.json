@@ -13,6 +13,7 @@
     "@panter/vue-i18next": "0.9.1",
     "aws-sdk": "2.188.0",
     "@nuxtjs/axios": "4.5.2",
+    "@mdi/font": "2.3.54",
     "babel-polyfill": "6.26.0",
     "bcrypt": "1.0.2",
     "biguint-format": "1.0.0",

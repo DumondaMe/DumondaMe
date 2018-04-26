@@ -23,7 +23,7 @@
                     <v-tooltip bottom debounce="1500">
                         <v-icon :class="{'out-of-trust-circle': !contact.isContactOfLoggedInUser, 'in-trust-circle': contact.isContactOfLoggedInUser}"
                                 slot="activator">
-                            account_circle
+                            mdi-account-circle
                         </v-icon>
                         <span v-if="contact.isContactOfLoggedInUser">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
                         <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
@@ -35,7 +35,7 @@
             <div class="user-settings" v-if="isAuthenticated">
                 <v-menu bottom left>
                     <v-btn icon slot="activator">
-                        <v-icon>more_vert</v-icon>
+                        <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn>
                     <v-list>
                         <v-list-tile v-if="contact.isContactOfLoggedInUser"

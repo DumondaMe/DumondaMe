@@ -1,16 +1,16 @@
 <template>
     <div class="card-footer-question-feed">
         <div class="footer-icon">
-            <v-icon>person</v-icon>
+            <v-icon>mdi-account</v-icon>
             <span class="footer-text">{{$t('common:by')}} <span class="footer-link" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: userId, slug: userSlug}})">{{user}}</span></span>
         </div>
         <div class="footer-icon">
-            <v-icon>query_builder</v-icon>
+            <v-icon>mdi-clock</v-icon>
             <span class="footer-text">{{created | formatRelativeTimesAgo}}</span>
         </div>
         <div class="footer-icon" v-if="numberOfAnswers >= 0">
-            <v-icon>chat_bubble_outline</v-icon>
+            <v-icon>mdi-forum</v-icon>
             <span class="footer-text">{{$t('pages:feeds.question.card.answer', {count: numberOfAnswers})}}
             </span>
         </div>

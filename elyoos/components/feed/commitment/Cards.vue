@@ -12,7 +12,7 @@
                     </nuxt-link>
                 </h2>
                 <div class="regions">
-                    <v-icon class="info-region">location_on</v-icon>
+                    <v-icon class="info-region">mdi-map-marker</v-icon>
                     <span v-for="region in commitment.regions" class="region">{{$t("regions:" + region)}}</span>
                 </div>
                 <topics :topics="commitment.topics"></topics>

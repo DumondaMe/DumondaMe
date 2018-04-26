@@ -1,7 +1,7 @@
 <template>
     <div id="question-filter" class="ely-card">
         <div id="search-question-container">
-            <v-text-field name="searchQuestion" id="search-question-text" clearable append-icon="search"
+            <v-text-field name="searchQuestion" id="search-question-text" clearable append-icon="mdi-magnify"
                           :placeholder="$t('pages:feeds.question.yourQuestion')">
             </v-text-field>
         </div>

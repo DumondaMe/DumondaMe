@@ -2,7 +2,7 @@
     <div class="sidebar-container">
         <h3>{{$t("pages:detailQuestion.sidebar.generalInfo.title")}}</h3>
         <div class="question-info">
-            <v-icon class="info-icon">visibility</v-icon>
+            <v-icon class="info-icon">mdi-eye</v-icon>
             <div v-if="question.numberOfWatches > 0" class="visibility-container">
                 {{$t('pages:detailQuestion.sidebar.generalInfo.watchers', {count: question.numberOfWatches})}}
             </div>
@@ -10,14 +10,14 @@
             </div>
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">vpn_key</v-icon>
+            <v-icon class="info-icon">mdi-key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in question.topics">
                     {{topic}}<span v-if="index < question.topics.length - 1">, </span></span>
             </div>
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">account_box</v-icon>
+            <v-icon class="info-icon">mdi-account-box</v-icon>
             <div class="question-info-content">
             <span class="user-name" v-if="question.isAdmin" @click="$router.push({name: 'user'})">
                 {{$t("common:you")}}</span>
@@ -27,13 +27,13 @@
             </div>
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">create</v-icon>
+            <v-icon class="info-icon">mdi-pencil</v-icon>
             <div class="question-info-content">
                 {{question.created | formatDate}}
             </div>
         </div>
         <div class="question-info" v-if="question.isAdmin">
-            <v-icon class="info-icon">chat_bubble_outline</v-icon>
+            <v-icon class="info-icon">mdi-web</v-icon>
             <div class="question-info-content">
                 {{getLanguageTranslatedText(question.language)}}
             </div>

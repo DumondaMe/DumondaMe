@@ -5,11 +5,11 @@
             <div id="button-watch-container">
                 <v-btn class="button-watch" color="primary" outline @click="addWatch"
                        v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                    <v-icon>visibility</v-icon>
+                    <v-icon>mdi-eye</v-icon>
                     {{$t("common:button.watch")}}
                 </v-btn>
                 <v-btn class="button-watch" color="primary" outline @click="removeWatch" v-else>
-                    <v-icon>visibility_off</v-icon>
+                    <v-icon>mdi-eye-off</v-icon>
                     {{$t("common:button.watch")}}
                 </v-btn>
             </div>
