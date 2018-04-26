@@ -6,7 +6,7 @@
             <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
             </add-to-trust-circle>
         </div>
-        <div id="no-notifications" v-if="notifications.length === 0">
+        <div id="no-notifications" class="ely-card" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
         </div>
     </div>
