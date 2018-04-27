@@ -2,7 +2,7 @@
     <div>
         <v-layout row class="answer-commands">
             <div class="comment-icon">
-                <v-icon>mdi-comment-multiple-outline</v-icon>
+                <v-icon>mdi-wechat</v-icon>
                 <span class="comment-text">
                     {{$t("pages:detailQuestion.discussion.numberOfDiscussions", {count: 0})}}</span>
             </div>
