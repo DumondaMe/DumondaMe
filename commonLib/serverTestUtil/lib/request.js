@@ -20,6 +20,7 @@ module.exports = {
                 } else {
                     lastUser.push({user: user});
                 }
+                return res;
             });
     },
     logout: function () {

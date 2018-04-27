@@ -30,19 +30,21 @@ module.exports = function (router) {
                 return res.status(400).end();
             }
 
-            req.logIn(user, function (errLogin) {
+            req.logIn(user, async function (errLogin) {
                 if (errLogin) {
                     logger.error('Login of user failed', req, {error: errLogin});
                     return res.status(500).end();
                 }
 
-                loginUser.setTimestamp(req.user.id).then(function () {
-                    res.status(200).json({"username": user.email});
+                try {
+                    await loginUser.setTimestamp(req.user.id);
+                    res.status(200).json({username: user.email, lang: user.lang});
                     logger.info(`Successful login of user ${req.user.id}`, req, {});
-                }).catch(function (errTimestamp) {
-                    logger.error('Setting Timestamp failed', req, {error: errTimestamp});
+                }
+                catch (error) {
+                    logger.error('Setting Timestamp failed', req, {error: error});
                     res.status(500).end();
-                });
+                }
             });
 
         })(req, res);

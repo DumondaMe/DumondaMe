@@ -12,7 +12,7 @@ describe('Integration Tests Login', function () {
     beforeEach(function () {
         return db.clearDatabase().then(function () {
             return db.cypher().create("(:User {email: 'uSer@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', " +
-                "lastLogin: 100, userId:'1' })")
+                "lastLogin: 100, userId:'1', language: 'de'})")
                 .end().send();
         });
     });
@@ -30,6 +30,12 @@ describe('Integration Tests Login', function () {
 
     it('Login with capital letters- Return a 200', function (done) {
         request(app).post('/api/login').send(users.validUser3).expect(200).end(done);
+    });
+
+    it('Login and getting language back', async function () {
+        let res = await requestHandler.login(users.validUser);
+        res.status.should.equal(200);
+        res.body.lang.should.equals('de');
     });
 
     it('Login and setting the flag last login - Return a 200', function () {
