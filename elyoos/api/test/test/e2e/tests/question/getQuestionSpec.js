@@ -11,6 +11,7 @@ describe('Getting details of a question', function () {
 
     beforeEach(async function () {
         await dbDsl.init(5);
+        await requestHandler.logout();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {});
