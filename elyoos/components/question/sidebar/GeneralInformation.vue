@@ -10,6 +10,12 @@
             </div>
         </div>
         <div class="question-info">
+            <v-icon class="info-icon">mdi-forum</v-icon>
+            <div class="visibility-container">
+                {{$t('pages:detailQuestion.sidebar.generalInfo.answer', {count: question.numberOfAnswers})}}
+            </div>
+        </div>
+        <div class="question-info">
             <v-icon class="info-icon">mdi-key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in question.topics">

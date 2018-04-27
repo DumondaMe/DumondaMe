@@ -123,7 +123,9 @@
         "title": "General Information",
         "watchers": "{{count}} Person",
         "watchers_plural": "{{count}} People",
-        "watchersNotExisting": "Nobody yet"
+        "watchersNotExisting": "Nobody yet",
+        "answer": "{{count}} Answer",
+        "answer_plural": "{{count}} Answers"
       }
     },
     "error": {

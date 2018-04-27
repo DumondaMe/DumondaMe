@@ -5,7 +5,7 @@ const exceptions = require('elyoos-server-lib').exceptions;
 const cdn = require('elyoos-server-lib').cdn;
 const dashify = require('dashify');
 
-const getAnswers = async function (answers) {
+const getAnswers = function (answers) {
     let result = [];
     for (let answer of answers) {
         if (answer.answer) {
@@ -18,8 +18,7 @@ const getAnswers = async function (answers) {
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 userId: answer.creator.userId,
-                slug: dashify(answer.creator.name),
-                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`) //todo apply new privacy settings
+                slug: dashify(answer.creator.name)
             };
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/120x120/preview.jpg`);
@@ -47,16 +46,19 @@ const getQuestion = async function (questionId, userId) {
         .limit(20)
         .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
         .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
-        .with(`question, user, answer, topic, answerCreator, count(DISTINCT upVotesRel) AS upVotes, 
+        .with(`question, user, answer, topic, answerCreator, count(DISTINCT upVotesRel) AS upVotes,
                answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
                EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
-        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
+        .optionalMatch(`(question)-[:ANSWER]->(countAnswer)`)
         .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted,
+               count(DISTINCT countAnswer) AS numberOfAnswers`)
+        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
+        .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted, numberOfAnswers,
                commitment, collect(region) AS regions`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
         .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
-                 collect(DISTINCT topic.name) AS topics, count(DISTINCT watch) AS numberOfWatches,
+                 collect(DISTINCT topic.name) AS topics, count(DISTINCT watch) AS numberOfWatches, numberOfAnswers,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion,
                  collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
                          hasVoted: hasVoted, commitment: commitment, regions: regions, 
@@ -67,18 +69,17 @@ const getQuestion = async function (questionId, userId) {
         question.isAdmin = response[0].isAdmin;
         question.topics = response[0].topics;
         question.numberOfWatches = response[0].numberOfWatches;
+        question.numberOfAnswers = response[0].numberOfAnswers;
         question.userWatchesQuestion = response[0].userWatchesQuestion;
         question.creator = {
             name: response[0].user.name,
             userId: response[0].user.userId,
-            slug: dashify(response[0].user.name),
-            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${response[0].user.userId}/thumbnail.jpg`) //todo apply new privacy settings
+            slug: dashify(response[0].user.name)
         };
-        question.answers = await getAnswers(response[0].answers);
+        question.answers = getAnswers(response[0].answers);
         return question;
-    } else {
-        throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
     }
+    throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
 };
 
 module.exports = {

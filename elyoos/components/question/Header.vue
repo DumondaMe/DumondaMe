@@ -90,8 +90,10 @@
             #answer-question-button {
                 margin-left: 0;
             }
-            .material-icons {
-                margin-right: 8px;
+            .watch-question-button {
+                i {
+                    margin-right: 6px;
+                }
             }
         }
     }
