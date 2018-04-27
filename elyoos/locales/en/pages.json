@@ -97,6 +97,10 @@
     "createAnswerButton": "Create Answer",
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "commitmentNotFound": "No commitment was found for the search '{{search}}'.",
+    "discussion": {
+      "numberOfDiscussions": "{{count}} Discussion Post",
+      "numberOfDiscussions_plural": "{{count}} Discussion Posts"
+    },
     "answerType": {
       "text": "Answer",
       "video": "Video",

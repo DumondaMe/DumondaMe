@@ -97,6 +97,10 @@
     "createAnswerButton": "Antwort Erstellen",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
+    "discussion": {
+      "numberOfDiscussions": "{{count}} Diskussionsbeitrag",
+      "numberOfDiscussions_plural": "{{count}} Diskussionsbeiträge"
+    },
     "answerType": {
       "text": "Antwort",
       "video": "Video",
