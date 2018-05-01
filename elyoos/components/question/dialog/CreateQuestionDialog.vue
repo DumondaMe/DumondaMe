@@ -15,6 +15,9 @@
         data() {
             return {dialog: true}
         },
+        created() {
+            this.$store.commit('createQuestion/RESET');
+        },
         components: {CreateQuestionDialogContent}
     }
 </script>
