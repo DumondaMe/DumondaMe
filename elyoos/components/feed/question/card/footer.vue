@@ -25,7 +25,7 @@
 
 <style lang="scss">
     .card-footer-question-feed {
-        margin-top: 12px;
+        margin-top: 16px;
         .footer-icon {
             margin-right: 12px;
             display: inline-block;

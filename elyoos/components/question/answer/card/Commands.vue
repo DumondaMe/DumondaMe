@@ -2,9 +2,9 @@
     <div>
         <v-layout row class="answer-commands">
             <div class="comment-icon">
-                <v-icon>mdi-wechat</v-icon>
+                <v-icon>mdi-note-outline</v-icon>
                 <span class="comment-text">
-                    {{$t("pages:detailQuestion.discussion.numberOfDiscussions", {count: 0})}}</span>
+                    {{$t("pages:detailQuestion.discussion.numberOfNotes", {count: 0})}}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="up-vote-button">

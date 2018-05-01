@@ -1,9 +1,7 @@
 <template>
     <div class="youtube-answer-feed-card">
         <v-layout row class="text-answer-header">
-            <user-info :isAdmin="answer.isAdmin" :link="answer.link"
-                       :card-type-translated="$t('pages:detailQuestion.answerType.video')"
-                       :card-type="answer.answerType" :answer-title="answer.title" :question-id="answer.questionId"
+            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type" :question-id="answer.questionId"
                        :question-slug="answer.questionSlug" :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
@@ -28,9 +26,16 @@
                         v-if="showEmbed"></iframe>
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
-            <expand-text :expand-text="answer.description" :class="{'show-embed': showEmbed}" class="answer-description"
-                         itemprop="text">
-            </expand-text>
+            <div class="answer-description" :class="{'show-embed': showEmbed}">
+                <div class="title-container">
+                    <v-icon class="card-type-icon">mdi-video</v-icon>
+                    <span class="card-title"><a target="_blank" :href="answer.link"
+                                                class="link">{{answer.title}}</a></span>
+                </div>
+                <expand-text :expand-text="answer.description"
+                             itemprop="text">
+                </expand-text>
+            </div>
         </div>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
                      :created="answer.created">

@@ -1,32 +1,16 @@
 <template>
     <div class="user-info-question-feed-container">
         <div class="user-infos">
-            <div class="user-title-container" v-if="cardType !== 'Question'">
-                <v-icon class="card-type-icon">mdi-forum</v-icon>
-                <span class="card-type">{{cardTypeTranslated}} </span>
-                <span class="card-title" v-if="cardType === 'Commitment'"
-                      @click="$router.push({name: 'commitment-commitmentId-slug',
-                              params: {commitmentId: commitmentId, slug: commitmentSlug}})">
-                    {{answerTitle}}
+            <div class="question-container" v-if="cardType !== 'Question'">
+                <span class="question" @click="$router.push({name: 'question-questionId-slug',
+                              params: {questionId: questionId, slug: questionSlug}})">{{question}}
                 </span>
-                <span class="card-title" v-else-if="!link">{{answerTitle}} </span>
-                <span class="card-title" v-else><a target="_blank" :href="link"
-                                                   class="link">{{answerTitle}} </a></span>
             </div>
             <div class="user-title-container" v-else>
                 <v-icon class="card-type-icon">mdi-help-circle-outline</v-icon>
-                <span class="card-type">{{$t("common:question")}} </span>
                 <span class="card-title"
                       @click="$router.push({name: 'question-questionId-slug',
-                              params: {questionId: questionId, slug: questionSlug}})">
-                    {{question}}
-                </span>
-            </div>
-            <div class="question-container" v-if="cardType !== 'Question'">
-                {{$t("pages:feeds.question.card.answersQuestion")}}:
-                <span class="question" @click="$router.push({name: 'question-questionId-slug',
-                              params: {questionId: questionId, slug: questionSlug}})">
-                    {{question}}
+                              params: {questionId: questionId, slug: questionSlug}})">{{question}}
                 </span>
             </div>
         </div>
@@ -35,8 +19,7 @@
 
 <script>
     export default {
-        props: ['cardType', 'cardTypeTranslated', 'answerTitle', 'isAdmin', 'link', 'commitmentId',
-            'commitmentSlug', 'questionId', 'questionSlug', 'question']
+        props: ['cardType', 'isAdmin', 'questionId', 'questionSlug', 'question']
     }
 </script>
 
@@ -45,22 +28,16 @@
         .user-infos {
             .user-title-container {
                 display: block;
-                margin-top: 4px;
                 line-height: 16px;
                 .card-type-icon {
                     margin-left: -2px;
-                    margin-right: 6px;
+                    margin-right: 8px;
                     font-size: 22px;
-                }
-                .card-type {
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 20px;
                 }
                 .card-title {
                     cursor: pointer;
-                    font-size: 14px;
-                    line-height: 20px;
+                    font-size: 16px;
+                    vertical-align: middle;
                     color: $primary-color;
                     .link {
                         text-decoration: none;
@@ -75,11 +52,19 @@
 
             }
             .question-container {
-                margin-top: 2px;
-                line-height: 12px;
+                margin-bottom: 10px;
+                line-height: 14px;
+                font-weight: 400;
                 font-size: 12px;
                 color: $secondary-text;
+                .question-icon {
+                    font-size: 18px;
+                    margin-right: 10px;
+                }
                 .question {
+                    line-height: 18px;
+                    vertical-align: middle;
+                    color: $primary-color;
                     cursor: pointer;
                 }
                 :hover.question {

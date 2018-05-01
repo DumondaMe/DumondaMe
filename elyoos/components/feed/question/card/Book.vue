@@ -1,9 +1,7 @@
 <template>
     <div class="book-answer-feed-card">
         <v-layout row>
-            <user-info :isAdmin="answer.isAdmin" :link="getExternalLink"
-                       :card-type-translated="$t('pages:detailQuestion.answerType.book')" :card-type="answer.type"
-                       :answer-title="answer.title" :question-id="answer.questionId"
+            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type" :question-id="answer.questionId"
                        :question-slug="answer.questionSlug" :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
@@ -26,9 +24,16 @@
             <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <expand-text :expand-text="answer.description" class="answer-description"
-                         :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
-            </expand-text>
+            <div class="answer-description">
+                <div class="title-container">
+                    <v-icon class="card-type-icon">mdi-book-open-page-variant</v-icon>
+                    <span class="card-title"><a target="_blank" :href="getExternalLink"
+                                                       class="link">{{answer.title}}</a></span>
+                </div>
+                <expand-text :expand-text="answer.description"
+                             :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
+                </expand-text>
+            </div>
         </div>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
                      :created="answer.created">

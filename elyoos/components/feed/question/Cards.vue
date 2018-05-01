@@ -52,6 +52,29 @@
                     color: $primary-text;
                 }
             }
+            .title-container {
+                margin-bottom: 4px;
+                .card-type-icon {
+                    margin-right: 8px;
+                    font-size: 18px;
+                }
+                .card-title {
+                    cursor: pointer;
+                    font-size: 16px;
+                    line-height: 18px;
+                    vertical-align: middle;
+                    color: $primary-color;
+                    .link {
+                        text-decoration: none;
+                    }
+                    :hover.link {
+                        text-decoration: underline;
+                    }
+                }
+                :hover.card-title {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 </style>

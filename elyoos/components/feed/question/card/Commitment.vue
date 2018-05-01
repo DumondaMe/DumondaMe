@@ -2,9 +2,6 @@
     <div class="commitment-answer-feed-card">
         <v-layout row>
             <user-info :isAdmin="answer.isAdmin" :card-type="answer.type"
-                       :card-type-translated="$t('pages:detailQuestion.answerType.commitment')"
-                       :answer-title="answer.title" :commitment-id="answer.commitmentId"
-                       :commitment-slug="answer.commitmentSlug"
                        :question-id="answer.questionId" :question-slug="answer.questionSlug"
                        :question="answer.question">
             </user-info>
@@ -28,9 +25,16 @@
             <div class="commitment-preview-image">
                 <img :src="answer.imageUrl">
             </div>
-            <expand-text :expand-text="answer.description" class="answer-description"
-                         :class="{'no-commitment-image': !answer.imageUrl}" itemprop="text">
-            </expand-text>
+            <div class="answer-description">
+                <div class="title-container">
+                    <v-icon class="card-type-icon">mdi-human-handsup</v-icon>
+                    <span class="card-title" @click="$router.push({name: 'commitment-commitmentId-slug',
+                     params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}})">{{answer.title}}</span>
+                </div>
+                <expand-text :expand-text="answer.description"
+                             :class="{'no-commitment-image': !answer.imageUrl}" itemprop="text">
+                </expand-text>
+            </div>
         </div>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
                      :created="answer.created">
@@ -68,7 +72,7 @@
             display: flex;
             .commitment-preview-image {
                 img {
-                    margin-top: 19px;
+                    margin-top: 12px;
                     width: 120px;
                     height: 120px;
                     border-radius: 2px;
@@ -76,7 +80,7 @@
             }
             .answer-description {
                 margin-left: 18px;
-                margin-top: 13px;
+                margin-top: 5px;
             }
             .answer-description.no-commitment-image {
                 margin-left: 0;

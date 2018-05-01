@@ -2,7 +2,6 @@
     <div class="link-answer-feed-card">
         <v-layout row>
             <user-info :isAdmin="answer.isAdmin" :card-type="answer.type"
-                       :card-type-translated="answerType" :answer-title="answer.title" :link="answer.link"
                        :question-id="answer.questionId" :question-slug="answer.questionSlug"
                        :question="answer.question">
             </user-info>
@@ -22,13 +21,20 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <div class="link-answer-content" :class="{'no-link-image': !answer.imageUrl}">
+        <div class="link-answer-content">
             <div class="link-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <expand-text :expand-text="answer.description" class="answer-description"
-                         :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
-            </expand-text>
+            <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
+                <div class="title-container">
+                    <v-icon class="card-type-icon">mdi-link</v-icon>
+                    <span class="card-title"><a target="_blank" :href="answer.link"
+                                                class="link">{{answer.title}}</a></span>
+                </div>
+                <expand-text :expand-text="answer.description"
+                             :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
+                </expand-text>
+            </div>
         </div>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
                      :created="answer.created">

@@ -1,8 +1,7 @@
 <template>
     <div class="text-answer-feed-card">
         <v-layout row class="text-answer-header">
-            <user-info :isAdmin="answer.isAdmin" :created="answer.created" :card-type="answer.type"
-                       :card-type-translated="$t('pages:detailQuestion.answerType.text')"
+            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type"
                        :question-id="answer.questionId" :question-slug="answer.questionSlug"
                        :question="answer.question">
             </user-info>
