@@ -44,7 +44,9 @@
         }
         .expanse-button {
             display: inline-block;
+            vertical-align: top;
             font-size: 12px;
+            line-height: 16px;
             color: $secondary-text;
             cursor: pointer;
         }
