@@ -6,6 +6,8 @@ const parseWebsite = require('./../website/parse');
 const cheerio = require('cheerio');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
+const WEBSITE_LOAD_FAILED = 1;
+
 const searchDatabase = async function (link) {
     let result = await db.cypher().match(`(c:Commitment {website: {link}})`)
         .return(`c.commitmentId AS commitmentId, c.title AS title, c.description AS description`)
@@ -16,8 +18,26 @@ const searchDatabase = async function (link) {
 };
 
 const searchWebsite = async function (link) {
+    let pattern = /^(http|https):\/\//i;
+    let requestLink = link;
+    if (!pattern.test(link)) {
+        requestLink = `https://${link}`;
+    }
+    let res = await requestWebsite(requestLink);
+    if (res.error && requestLink !== link) {
+        requestLink = `http://${link}`;
+        res = await requestWebsite(requestLink);
+    }
+    if (!res.error) {
+        res.link = requestLink;
+    }
+    return res;
+};
+
+const requestWebsite = async function (link) {
     try {
-        const $ = cheerio.load(await rp.get(link));
+        let response = await rp.get(link);
+        const $ = cheerio.load(response);
         return {
             title: parseWebsite.getTitle($),
             description: parseWebsite.getDescription($),
@@ -26,7 +46,7 @@ const searchWebsite = async function (link) {
         };
     } catch (e) {
         logger.warn(`Could not load website ${link} for commitment`);
-        return {};
+        return {error: WEBSITE_LOAD_FAILED};
     }
 };
 

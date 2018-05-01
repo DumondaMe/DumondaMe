@@ -49,6 +49,8 @@
     "createDialog": {
       "link": "Link to the website of your commitment",
       "websiteLoaded": "The link to your website has been successfully checked.",
+      "websiteLoadedFailed": "Your website could not be reached.",
+      "websiteLoading": "The link to your website will be checked.",
       "primaryLanguage": "Primary Language",
       "primaryLanguageDescription": "More languages can be added later",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",

@@ -49,6 +49,8 @@
     "createDialog": {
       "link": "Link zur Webseite deines Engagments",
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
+      "websiteLoadedFailed": "Deine Webseite konnte nicht erreicht werden.",
+      "websiteLoading": "Der Link zu deiner Webseite wird geprüft.",
       "primaryLanguage": "Hauptsprache",
       "primaryLanguageDescription": "Weitere Sprachen können später hinzugefügt werden.",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",

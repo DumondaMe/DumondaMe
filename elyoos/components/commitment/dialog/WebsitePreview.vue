@@ -12,8 +12,14 @@
                                       :rules="[isValidLink(),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
-                        <p id="website-successfully-loaded" v-if="previewLoaded && !checkLink">
+                        <p id="website-successfully-loaded" v-if="previewLoaded && !checkLink && !loadingWebsiteFailed">
                             {{$t('pages:commitment.createDialog.websiteLoaded')}}
+                        </p>
+                        <p id="website-loading-failed" v-else-if="!previewLoaded &&!checkLink && loadingWebsiteFailed">
+                            {{$t('pages:commitment.createDialog.websiteLoadedFailed')}}
+                        </p>
+                        <p v-else-if="checkLink">
+                            {{$t('pages:commitment.createDialog.websiteLoading')}}
                         </p>
                     </v-flex>
                 </v-layout>
@@ -38,11 +44,12 @@
 
 <script>
     import validationRules from '~/mixins/validationRules.js';
+    import debounce from 'debounce';
     import urlRegex from '~/utils/url';
 
     export default {
         data() {
-            return {checkLink: false, link: '', valid: true, previewLoaded: false}
+            return {checkLink: false, link: '', valid: true, previewLoaded: false, loadingWebsiteFailed: false}
         },
         methods: {
             isValidLink() {
@@ -58,21 +65,25 @@
                 if (!this.checkLink) {
                     this.$emit('next');
                 }
-            }
+            },
+            loadWebsite: debounce(async function (link) {
+                try {
+                    this.checkLink = true;
+                    let success = await this.$store.dispatch('createCommitment/getWebsitePreview', link);
+                    this.loadingWebsiteFailed = !success;
+                    this.previewLoaded = success;
+                    this.checkLink = false;
+                } catch (error) {
+                    this.checkLink = false;
+                }
+            }, 500)
         },
         mixins: [validationRules],
         watch: {
-            async link() {
+            link() {
                 this.response = {};
                 if (this.$refs.link.validate() && this.link.trim() !== '') {
-                    try {
-                        this.checkLink = true;
-                        await this.$store.dispatch('createCommitment/getWebsitePreview', this.link);
-                        this.checkLink = false;
-                        this.previewLoaded = true;
-                    } catch (error) {
-                        this.checkLink = false;
-                    }
+                    this.loadWebsite(this.link)
                 } else {
                     this.previewLoaded = false;
                 }
@@ -86,6 +97,9 @@
         #dialog-create-commitment-content {
             #website-successfully-loaded {
                 color: $success-text;
+            }
+            #website-loading-failed {
+                color: $error-text;
             }
         }
     }

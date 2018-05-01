@@ -39,7 +39,56 @@ describe('Get a preview from the website for a commitment', function () {
         res.body.title.should.equals('ogTitle');
         res.body.description.should.equals('ogDescription');
         res.body.lang.should.equals('de');
+        res.body.link.should.equals('https://www.example.org/');
         should.not.exist(res.body.existingCommitment);
+        should.not.exist(res.body.error);
+    });
+
+    it('Get preview for a website of a commitment (og and add https)', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves(
+            `<html lang="de-DE"><head>
+                <title>titleWebsite</title>
+                <meta property="og:title" content="ogTitle">
+                <meta property="og:description" content="ogDescription">
+                <meta property="og:image" content="https://www.example.org/image.jpg">
+            </head>
+            <body></body></html>`
+        );
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'www.example.org/'});
+        res.status.should.equal(200);
+        res.body.title.should.equals('ogTitle');
+        res.body.description.should.equals('ogDescription');
+        res.body.lang.should.equals('de');
+        res.body.link.should.equals('https://www.example.org/');
+        should.not.exist(res.body.existingCommitment);
+        should.not.exist(res.body.error);
+    });
+
+    it('Get preview for a website of a commitment (og and add http because https fails)', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.onFirstCall().rejects();
+        stubGetRequest.onSecondCall().resolves(
+            `<html lang="de-DE"><head>
+                <title>titleWebsite</title>
+                <meta property="og:title" content="ogTitle">
+                <meta property="og:description" content="ogDescription">
+                <meta property="og:image" content="https://www.example.org/image.jpg">
+            </head>
+            <body></body></html>`
+        );
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'www.example.org/'});
+        res.status.should.equal(200);
+        res.body.title.should.equals('ogTitle');
+        res.body.description.should.equals('ogDescription');
+        res.body.lang.should.equals('de');
+        res.body.link.should.equals('http://www.example.org/');
+        should.not.exist(res.body.existingCommitment);
+        should.not.exist(res.body.error);
     });
 
     it('Get preview for a website with only title', async function () {
@@ -55,7 +104,9 @@ describe('Get a preview from the website for a commitment', function () {
         let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'https://www.example.org/'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
+        res.body.link.should.equals('https://www.example.org/');
         should.not.exist(res.body.existingCommitment);
+        should.not.exist(res.body.error);
     });
 
     it('Get preview for a website of a commitment which exists already in Elyoos', async function () {
@@ -76,9 +127,26 @@ describe('Get a preview from the website for a commitment', function () {
         let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'https://www.example.org/'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
+        res.body.link.should.equals('https://www.example.org/');
         res.body.existingCommitment.commitmentId.should.equals('1');
         res.body.existingCommitment.title.should.equals('commitment1Title');
         res.body.existingCommitment.description.should.equals('commitment1Description');
+        should.not.exist(res.body.error);
+    });
+
+    it('Return error when connecting request to website fails', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.rejects();
+
+        dbDsl.createCommitment('1', {
+            adminId: '2', topics: ['spiritual'], language: 'de', created: 700, website: 'https://www.example.org/'
+        }, []);
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/commitment/websitePreview', {link: 'https://www.example.org/'});
+        res.status.should.equal(200);
+        res.body.error.should.equals(1);
     });
 
     it('Only logged in user can get a preview of a commitment website', async function () {

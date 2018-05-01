@@ -43,8 +43,13 @@ const getCommitmentForUpload = function (commitment) {
 export const actions = {
     async getWebsitePreview({commit}, link) {
         let commitment = await this.$axios.$get(`/commitment/websitePreview`, {params: {link}});
-        commitment.website = link;
-        commit('SET_COMMITMENT', commitment);
+        if (!commitment.error) {
+            commitment.website = commitment.link;
+            commit('SET_COMMITMENT', commitment);
+            return true;
+        }
+        commit('RESET', commitment);
+        return false;
     },
     async createCommitment({state}) {
         let commitment = getCommitmentForUpload(state.commitment);
