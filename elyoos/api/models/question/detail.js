@@ -11,6 +11,7 @@ const getAnswers = function (answers) {
         if (answer.answer) {
             let formattedAnswer = answer.answer;
             formattedAnswer.upVotes = answer.upVotes;
+            formattedAnswer.numberOfNotes = answer.numberOfNotes;
             formattedAnswer.isAdmin = answer.isAdmin || false;
             formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter(
@@ -38,45 +39,47 @@ const getAnswers = function (answers) {
     return result;
 };
 
+const getAnswersCommand = function (questionId, userId) {
+    return db.cypher()
+        .match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:Answer)<-[:IS_CREATOR]-(creator:User)`)
+        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
+        .with(`q, creator, answer, count(DISTINCT upVotesRel) AS upVotes,
+               creator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
+               EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
+        .orderBy(`upVotes DESC, answer.created DESC`)
+        .limit(20)
+        .optionalMatch(`(answer)-[:NOTE]->(note:Note)`)
+        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
+        .return(`answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, 
+                 collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes`)
+        .orderBy(`upVotes DESC, answer.created DESC`)
+        .end({questionId, userId}).getCommand();
+};
+
 const getQuestion = async function (questionId, userId) {
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
-        .optionalMatch(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(answerCreator:User)`)
-        .with(`question, user, answer, answerCreator`)
-        .orderBy(`answer.created DESC`)
-        .limit(20)
-        .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
-        .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
-        .with(`question, user, answer, topic, answerCreator, count(DISTINCT upVotesRel) AS upVotes,
-               answerCreator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
-               EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(answer)) AS hasVoted`)
-        .optionalMatch(`(question)-[:ANSWER]->(countAnswer)`)
-        .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted,
-               count(DISTINCT countAnswer) AS numberOfAnswers`)
-        .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
-        .with(`question, user, answer, topic, answerCreator, upVotes, isAdmin, answerType, hasVoted, numberOfAnswers,
-               commitment, collect(region) AS regions`)
-        .orderBy(`upVotes DESC, answer.created DESC`)
+        .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
-        .return(`question, user, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
-                 collect(DISTINCT topic.name) AS topics, count(DISTINCT watch) AS numberOfWatches, numberOfAnswers,
-                 EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion,
-                 collect(DISTINCT {answer: answer, creator: answerCreator, upVotes: upVotes, isAdmin: isAdmin, 
-                         hasVoted: hasVoted, commitment: commitment, regions: regions, 
-                         answerType: answerType}) AS answers`)
-        .end({questionId, userId}).send();
-    if (response.length === 1) {
-        let question = response[0].question;
-        question.isAdmin = response[0].isAdmin;
-        question.topics = response[0].topics;
-        question.numberOfWatches = response[0].numberOfWatches;
-        question.numberOfAnswers = response[0].numberOfAnswers;
-        question.userWatchesQuestion = response[0].userWatchesQuestion;
+        .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
+        .return(`question, user, count(DISTINCT answer) AS numberOfAnswers, count(DISTINCT watch) AS numberOfWatches,
+                 collect(DISTINCT topic.name) AS topics,
+                 EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
+                 EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion`)
+        .end({questionId, userId}).send([getAnswersCommand(questionId, userId)]);
+    if (response[1].length === 1) {
+        let questionResponse = response[1][0];
+        let question = questionResponse.question;
+        question.isAdmin = questionResponse.isAdmin;
+        question.topics = questionResponse.topics;
+        question.numberOfWatches = questionResponse.numberOfWatches;
+        question.numberOfAnswers = questionResponse.numberOfAnswers;
+        question.userWatchesQuestion = questionResponse.userWatchesQuestion;
         question.creator = {
-            name: response[0].user.name,
-            userId: response[0].user.userId,
-            slug: dashify(response[0].user.name)
+            name: questionResponse.user.name,
+            userId: questionResponse.user.userId,
+            slug: dashify(questionResponse.user.name)
         };
-        question.answers = getAnswers(response[0].answers);
+        question.answers = getAnswers(response[0]);
         return question;
     }
     throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);

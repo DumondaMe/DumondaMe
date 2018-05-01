@@ -62,6 +62,8 @@ module.exports = {
     createLinkAnswer: answer.createLinkAnswer,
     createTextAnswer: answer.createTextAnswer,
     createCommitmentAnswer: answer.createCommitmentAnswer,
+    createNote: answer.createNote,
+    upVoteNote: answer.upVoteNote,
     upVoteAnswer: answer.upVoteAnswer,
     setOriginalAnswer: answer.setOriginalAnswer,
 

@@ -4,13 +4,14 @@ let users = require('elyoos-server-test-util').user;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
+const should = require('chai').should();
 
 describe('Getting details of a question', function () {
 
     let startTime;
 
     beforeEach(async function () {
-        await dbDsl.init(5);
+        await dbDsl.init(6);
         await requestHandler.logout();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
@@ -19,8 +20,13 @@ describe('Getting details of a question', function () {
         dbDsl.createRegion('region-3', {});
 
         dbDsl.createCommitment('2', {
-            title: 'Das ist ein Engagement', regions: ['region-1', 'region-2'],
-            adminId: '2', topics: ['Spiritual', 'Test2'], language: 'de', created: 700, website: 'https://www.example.org/'
+            title: 'Das ist ein Engagement',
+            regions: ['region-1', 'region-2'],
+            adminId: '2',
+            topics: ['Spiritual', 'Test2'],
+            language: 'de',
+            created: 700,
+            website: 'https://www.example.org/'
         }, []);
 
         dbDsl.createQuestion('1', {
@@ -28,10 +34,10 @@ describe('Getting details of a question', function () {
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
-            creatorId: '1', questionId:'1', answer: 'Answer', created: 600,
+            creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '3', questionId:'1', answer: 'Answer2',
+            creatorId: '3', questionId: '1', answer: 'Answer2',
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
@@ -86,6 +92,14 @@ describe('Getting details of a question', function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1'});
         dbDsl.watchQuestion({questionId: '1', userId: '4'});
 
+        dbDsl.createNote('50', {answerId: '6', creatorId: '1', created: 555});
+        dbDsl.createNote('51', {answerId: '6', creatorId: '2', created: 444});
+        dbDsl.createNote('52', {answerId: '7', creatorId: '3', created: 666});
+        dbDsl.createNote('53', {answerId: '7', creatorId: '1', created: 666});
+        dbDsl.upVoteNote({noteId: '52', userId: '1'});
+        dbDsl.upVoteNote({noteId: '52', userId: '2'});
+        dbDsl.upVoteNote({noteId: '53', userId: '3'});
+
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1');
@@ -118,6 +132,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.userId.should.equals('1');
         res.body.answers[0].creator.slug.should.equals('user-meier');
+        res.body.answers[0].numberOfNotes.should.equals(0);
 
         res.body.answers[1].answerId.should.equals('6');
         res.body.answers[1].answerType.should.equals('Text');
@@ -129,6 +144,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.userId.should.equals('3');
         res.body.answers[1].creator.slug.should.equals('user-meier3');
+        res.body.answers[1].numberOfNotes.should.equals(2);
 
         res.body.answers[2].answerId.should.equals('7');
         res.body.answers[2].answerType.should.equals('Youtube');
@@ -144,6 +160,7 @@ describe('Getting details of a question', function () {
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.userId.should.equals('2');
         res.body.answers[2].creator.slug.should.equals('user-meier2');
+        res.body.answers[2].numberOfNotes.should.equals(2);
 
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
@@ -159,6 +176,7 @@ describe('Getting details of a question', function () {
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.userId.should.equals('2');
         res.body.answers[3].creator.slug.should.equals('user-meier2');
+        res.body.answers[3].numberOfNotes.should.equals(0);
 
         res.body.answers[4].answerId.should.equals('9');
         res.body.answers[4].answerType.should.equals('Book');
@@ -173,6 +191,7 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.name.should.equals('user Meier3');
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
+        res.body.answers[4].numberOfNotes.should.equals(0);
 
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');

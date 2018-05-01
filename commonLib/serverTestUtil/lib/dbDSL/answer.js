@@ -101,6 +101,22 @@ let createCommitmentAnswer = function (answerId, data) {
         }).getCommand());
 };
 
+let createNote = function (noteId, data) {
+    data.text = data.text || `note${noteId}Text`;
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}), (answer:Answer {answerId: {answerId}})`)
+        .create(`(note:Note {noteId: {noteId}, text: {text}, created: {created}})`)
+        .merge(`(answer)-[:NOTE]->(note)<-[:IS_CREATOR]-(user)`)
+        .end({
+            noteId, created: data.created, answerId: data.answerId, text: data.text, creatorId: data.creatorId,
+        }).getCommand());
+};
+
+let upVoteNote = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (note:Note {noteId: {noteId}})')
+        .merge(`(user)-[:UP_VOTE]->(note)`)
+        .end({userId: data.userId, noteId: data.noteId}).getCommand());
+};
+
 let upVoteAnswer = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
         .merge(`(user)-[:UP_VOTE]->(answer)`)
@@ -125,5 +141,7 @@ module.exports = {
     createTextAnswer,
     createCommitmentAnswer,
     upVoteAnswer,
-    setOriginalAnswer
+    setOriginalAnswer,
+    createNote,
+    upVoteNote
 };
