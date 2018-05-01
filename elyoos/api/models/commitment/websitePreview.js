@@ -2,6 +2,8 @@
 
 const db = requireDb();
 const rp = require('request-promise');
+const dashify = require('dashify');
+const cdn = require('elyoos-server-lib').cdn;
 const parseWebsite = require('./../website/parse');
 const cheerio = require('cheerio');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -10,9 +12,14 @@ const WEBSITE_LOAD_FAILED = 1;
 
 const searchDatabase = async function (link) {
     let result = await db.cypher().match(`(c:Commitment {website: {link}})`)
-        .return(`c.commitmentId AS commitmentId, c.title AS title, c.description AS description`)
+        .return(`c.commitmentId AS commitmentId, c.title AS title, c.description AS description, c.modified AS modified`)
         .limit(`1`).end({link}).send();
     if (result.length === 1) {
+        result[0].slug = dashify(result[0].title);
+        result[0].imageUrl = cdn.getPublicUrl(`commitment/${result[0].commitmentId}/148x148/title.jpg`);
+        if(result[0].modified) {
+            result[0].imageUrl = `${result[0].imageUrl}?v=${result[0].modified}`
+        }
         return result[0];
     }
 };

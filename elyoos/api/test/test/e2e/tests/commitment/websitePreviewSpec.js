@@ -119,7 +119,8 @@ describe('Get a preview from the website for a commitment', function () {
         );
 
         dbDsl.createCommitment('1', {
-            adminId: '2', topics: ['spiritual'], language: 'de', created: 700, website: 'https://www.example.org/'
+            adminId: '2', topics: ['spiritual'], language: 'de', created: 700, modified: 701, website: 'https://www.example.org/',
+            title: 'Commitment does exist'
         }, []);
 
         await dbDsl.sendToDb();
@@ -129,7 +130,9 @@ describe('Get a preview from the website for a commitment', function () {
         res.body.title.should.equals('titleWebsite');
         res.body.link.should.equals('https://www.example.org/');
         res.body.existingCommitment.commitmentId.should.equals('1');
-        res.body.existingCommitment.title.should.equals('commitment1Title');
+        res.body.existingCommitment.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg?v=701`);
+        res.body.existingCommitment.title.should.equals('Commitment does exist');
+        res.body.existingCommitment.slug.should.equals('commitment-does-exist');
         res.body.existingCommitment.description.should.equals('commitment1Description');
         should.not.exist(res.body.error);
     });

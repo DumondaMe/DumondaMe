@@ -46,10 +46,10 @@ export const actions = {
         if (!commitment.error) {
             commitment.website = commitment.link;
             commit('SET_COMMITMENT', commitment);
-            return true;
+        } else {
+            commit('RESET', commitment);
         }
-        commit('RESET', commitment);
-        return false;
+        return commitment;
     },
     async createCommitment({state}) {
         let commitment = getCommitmentForUpload(state.commitment);

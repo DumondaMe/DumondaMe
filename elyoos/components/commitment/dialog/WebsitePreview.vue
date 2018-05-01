@@ -12,15 +12,31 @@
                                       :rules="[isValidLink(),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
-                        <p id="website-successfully-loaded" v-if="previewLoaded && !checkLink && !loadingWebsiteFailed">
+                        <p id="website-successfully-loaded" v-if="previewLoaded && !checkLink && !loadingWebsiteFailed
+                        && !existingCommitment">
                             {{$t('pages:commitment.createDialog.websiteLoaded')}}
                         </p>
-                        <p id="website-loading-failed" v-else-if="!previewLoaded &&!checkLink && loadingWebsiteFailed">
+                        <p id="website-loading-failed" v-else-if="!previewLoaded &&!checkLink && loadingWebsiteFailed
+                        && !existingCommitment">
                             {{$t('pages:commitment.createDialog.websiteLoadedFailed')}}
                         </p>
-                        <p v-else-if="checkLink">
+                        <p v-else-if="checkLink && !existingCommitment">
                             {{$t('pages:commitment.createDialog.websiteLoading')}}
                         </p>
+                        <p id="warning-commitment-exists" v-else-if="existingCommitment">
+                            {{$t('pages:commitment.createDialog.commitmentExists')}}
+                        </p>
+                        <div id="commitment-preview-container" v-if="existingCommitment">
+                            <div class="image-container">
+                                <img :src="existingCommitment.imageUrl">
+                            </div>
+                            <div class="commitment-info-container">
+                                <div class="commitment-title"
+                                     @click="navigateToExistingCommitment()">{{existingCommitment.title}}
+                                </div>
+                                <div class="commitment-description">{{existingCommitment.description}}</div>
+                            </div>
+                        </div>
                     </v-flex>
                 </v-layout>
             </v-form>
@@ -49,7 +65,10 @@
 
     export default {
         data() {
-            return {checkLink: false, link: '', valid: true, previewLoaded: false, loadingWebsiteFailed: false}
+            return {
+                checkLink: false, link: '', valid: true, previewLoaded: false, loadingWebsiteFailed: false,
+                existingCommitment: null
+            }
         },
         methods: {
             isValidLink() {
@@ -66,28 +85,36 @@
                     this.$emit('next');
                 }
             },
-            loadWebsite: debounce(async function (link) {
-                try {
-                    this.checkLink = true;
-                    let success = await this.$store.dispatch('createCommitment/getWebsitePreview', link);
-                    this.loadingWebsiteFailed = !success;
-                    this.previewLoaded = success;
-                    this.checkLink = false;
-                } catch (error) {
-                    this.checkLink = false;
+            navigateToExistingCommitment() {
+                if (this.existingCommitment) {
+                    this.$emit('close-dialog');
+                    this.$router.push({
+                        name: 'commitment-commitmentId-slug',
+                        params: {commitmentId: this.existingCommitment.commitmentId, slug: this.existingCommitment.slug}
+                    });
                 }
-            }, 500)
+            }
         },
         mixins: [validationRules],
         watch: {
-            link() {
-                this.response = {};
+            link: debounce(async function (link) {
                 if (this.$refs.link.validate() && this.link.trim() !== '') {
-                    this.loadWebsite(this.link)
+                    try {
+                        this.checkLink = true;
+                        let commitmentPreview = await this.$store.dispatch('createCommitment/getWebsitePreview', link);
+                        this.loadingWebsiteFailed = !!commitmentPreview.error;
+                        this.previewLoaded = !commitmentPreview.error;
+                        this.existingCommitment = commitmentPreview.existingCommitment;
+                        this.checkLink = false;
+                    } catch (error) {
+                        this.existingCommitment = null;
+                        this.checkLink = false;
+                    }
                 } else {
+                    this.$store.commit('createCommitment/RESET');
                     this.previewLoaded = false;
                 }
-            }
+            }, 500)
         }
     }
 </script>
@@ -100,6 +127,39 @@
             }
             #website-loading-failed {
                 color: $error-text;
+            }
+            #warning-commitment-exists {
+                color: $warning;
+            }
+            #commitment-preview-container {
+                .image-container {
+                    float: left;
+                    width: 120px;
+                    height: 120px;
+                    img {
+                        border-radius: 2px;
+                        width: 120px;
+                        height: 120px;
+                    }
+                }
+                .commitment-info-container {
+                    display: block;
+                    margin-left: 138px;
+                    .commitment-title {
+                        cursor: pointer;
+                        font-size: 16px;
+                        line-height: 16px;
+                        color: $primary-color;
+                    }
+                    :hover.commitment-title {
+                        text-decoration: underline;
+                    }
+                    .commitment-description {
+                        margin-top: 8px;
+                        font-size: 14px;
+                        font-weight: 300;
+                    }
+                }
             }
         }
     }
