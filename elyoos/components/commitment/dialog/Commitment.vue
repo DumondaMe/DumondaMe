@@ -85,7 +85,7 @@
                     if (!v || v.trim() === '') {
                         return true
                     }
-                    return urlRegex().test(v) || this.$t("validation:url")
+                    return urlRegex(true).test(v) || this.$t("validation:url")
                 }
             },
             openCropImage() {

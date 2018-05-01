@@ -126,7 +126,7 @@
                 }
             },
             isValidLink() {
-                return v => urlRegex().test(v) || this.$t("validation:url")
+                return v => urlRegex(true).test(v) || this.$t("validation:url")
             }
 
         },

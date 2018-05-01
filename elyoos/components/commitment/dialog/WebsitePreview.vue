@@ -50,7 +50,7 @@
                     if (v.trim() === '') {
                         return true
                     }
-                    return urlRegex().test(v) || this.$t("validation:url")
+                    return urlRegex(false).test(v) || this.$t("validation:url")
                 }
             },
             goToNext(event) {
