@@ -98,8 +98,8 @@
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "discussion": {
-      "numberOfDiscussions": "{{count}} Diskussionsbeitrag",
-      "numberOfDiscussions_plural": "{{count}} Diskussionsbeiträge"
+      "numberOfNotes": "{{count}} Anmerkung",
+      "numberOfNotes_plural": "{{count}} Anmerkungen"
     },
     "answerType": {
       "text": "Antwort",
