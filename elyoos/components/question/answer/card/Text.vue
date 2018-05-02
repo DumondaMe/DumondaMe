@@ -23,7 +23,8 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <p class="answer-description" itemprop="text">{{answer.answer}}</p>
+        <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
+        </expand-text>
         <answer-commands :answer="answer"></answer-commands>
     </div>
 </template>
@@ -31,10 +32,11 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
+    import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands},
+        components: {UserInfo, AnswerCommands, ExpandText},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

@@ -30,7 +30,9 @@
                         v-if="showEmbed"></iframe>
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
-            <p class="answer-description" :class="{'show-embed': showEmbed}" itemprop="text">{{answer.description}}</p>
+            <expand-text :expand-text="answer.description" class="answer-description"
+                         :class="{'show-embed': showEmbed}" itemprop="text">
+            </expand-text>
         </div>
         <answer-commands :answer="answer"></answer-commands>
     </div>
@@ -39,10 +41,11 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
+    import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands},
+        components: {UserInfo, AnswerCommands, ExpandText},
         data() {
             return {showEmbed: false}
         },
@@ -92,12 +95,8 @@
                 margin: 12px auto 0 auto;
             }
             .answer-description {
+                display: block;
                 margin-left: 138px;
-                margin-top: 12px;
-                font-weight: 300;
-                font-size: 16px;
-                white-space: pre-wrap;
-                line-height: 1.6em;
             }
             .answer-description.show-embed {
                 margin-left: 0;

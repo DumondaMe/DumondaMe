@@ -23,12 +23,13 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <div class="link-answer-content" :class="{'no-link-image': !answer.imageUrl}">
+        <div class="link-answer-content">
             <div class="link-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <p class="answer-description" :class="{'no-link-image': !answer.imageUrl}"
-               itemprop="text">{{answer.description}}</p>
+            <expand-text :expand-text="answer.description" class="answer-description"
+                         :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
+            </expand-text>
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
@@ -38,10 +39,11 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
+    import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands},
+        components: {UserInfo, AnswerCommands, ExpandText},
         computed: {
             answerType() {
                 if (this.answer.pageType) {
@@ -59,29 +61,20 @@
 
         .link-answer-content {
             min-height: 90px;
+            display: flex;
             .link-preview-image {
-                float: left;
                 img {
                     border-radius: 2px;
                     margin-top: 5px;
-                    max-height: 90px;
                     max-width: 120px;
                 }
             }
             .answer-description {
-                margin-left: 138px;
-                margin-top: 12px;
-                font-weight: 300;
-                font-size: 16px;
-                white-space: pre-wrap;
-                line-height: 1.6em;
+                margin-left: 18px;
             }
             .answer-description.no-link-image {
                 margin-left: 0;
             }
-        }
-        .link-answer-content.no-link-image {
-            min-height: 0;
         }
     }
 </style>

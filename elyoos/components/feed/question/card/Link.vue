@@ -66,17 +66,16 @@
         .link-answer-content {
             margin-top: 12px;
             min-height: 90px;
+            display: flex;
             .link-preview-image {
-                float: left;
                 img {
                     border-radius: 2px;
                     margin-top: 5px;
-                    max-height: 90px;
                     max-width: 120px;
                 }
             }
             .answer-description {
-                margin-left: 138px;
+                margin-left: 18px;
             }
             .answer-description.no-link-image {
                 margin-left: 0;
