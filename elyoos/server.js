@@ -15,7 +15,6 @@ global.requireModel = function (name) {
 
 require('elyoos-server-lib').jsonValidation;
 const Promise = require('bluebird');
-Promise.promisifyAll(require('gm').prototype);
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 const isServerDevelopment = process.env.NODE_ENV === 'development';

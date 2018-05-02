@@ -32,7 +32,6 @@
     "express-rate-limit": "2.7.0",
     "express-session": "1.15.6",
     "flake-idgen": "1.1.0",
-    "gm": "1.23.0",
     "i18next": "10.2.2",
     "kraken-js": "2.2.0",
     "kue": "0.11.5",

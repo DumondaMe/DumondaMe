@@ -17,9 +17,7 @@ require('elyoos-server-lib').jsonValidation;
 require('elyoos-server-test-util').init(require('elyoos-server-lib'));
 
 let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-let Promise = require('bluebird');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
-Promise.promisifyAll(require('gm').prototype);
 
 let chai = require('chai');
 let chaiSubset = require('chai-subset');
