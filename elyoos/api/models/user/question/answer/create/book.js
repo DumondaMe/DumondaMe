@@ -36,8 +36,8 @@ const createBookAnswerOriginalLinkCommand = function (params) {
 const uploadImages = async function (params) {
     let buffer = await image.uploadPreviewImage(`book/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
     if (buffer) {
-        let resizedBuffer = await sharp(buffer).resize(120, 250).max().jpeg({quality: 80})
-            .withoutEnlargement().toBuffer();
+        let resizedBuffer = await sharp(buffer).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
+            .resize(120, 250).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
         await cdn.uploadBuffer(resizedBuffer, `book/${params.answerId}/120x250/preview.jpg`,
             process.env.BUCKET_PUBLIC);
     }

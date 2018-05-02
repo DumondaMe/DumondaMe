@@ -35,8 +35,8 @@ const createLinkAnswerOriginalLinkCommand = function (params) {
 const uploadImages = async function (params) {
     let buffer = await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
     if (buffer) {
-        let resizeBuffer = await sharp(buffer).resize(120, 120).max().jpeg({quality: 80})
-            .withoutEnlargement().toBuffer();
+        let resizeBuffer = await sharp(buffer).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
+            .resize(120, 120).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
         await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/120x120/preview.jpg`,
             process.env.BUCKET_PUBLIC);
     }

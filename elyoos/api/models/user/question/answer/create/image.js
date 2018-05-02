@@ -15,7 +15,8 @@ const uploadPreviewImage = async function (uploadKey, originalImageUrl, width, h
                     if (err) {
                         reject(err);
                     }
-                }).pipe(sharp().resize(width, height).max().jpeg({quality: 94})
+                }).pipe(sharp().background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
+                    .resize(width, height).max().jpeg({quality: 94})
                     .withoutEnlargement().toBuffer(async function (err, buffer) {
                         if (err) {
                             reject(err);
