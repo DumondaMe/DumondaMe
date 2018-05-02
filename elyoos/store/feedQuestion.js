@@ -28,10 +28,13 @@ const getFeed = async function (commit, isAuthenticated, params, $axios) {
 };
 
 export const actions = {
-    async getQuestionFeed({commit, state}, {page, isAuthenticated}) {
-        let params;
+    async getQuestionFeed({commit, state}, {page, isAuthenticated, typeFilter}) {
+        let params = {params: {}};
         if (page > 0) {
-            params = {page, timestamp: state.timestamp}
+            params = {params: {page, timestamp: state.timestamp}}
+        }
+        if (typeFilter) {
+            params.params.typeFilter = typeFilter;
         }
         let response = await getFeed(commit, isAuthenticated, params, this.$axios);
         if (!page) {

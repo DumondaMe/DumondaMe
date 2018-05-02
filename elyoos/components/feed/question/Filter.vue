@@ -42,6 +42,11 @@
         },
         methods: {
             async setFilter(filter) {
+                if(filter) {
+                    this.$router.push({query: Object.assign({}, this.$route.query, {typeFilter: filter})});
+                } else {
+                    this.$router.push({query: null});
+                }
                 await this.$store.dispatch('feedQuestion/setTypeFilter',
                     {filter, isAuthenticated: this.isAuthenticated});
             }

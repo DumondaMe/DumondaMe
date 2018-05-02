@@ -23,10 +23,18 @@
     import QuestionCards from '~/components/feed/question/Cards.vue';
 
     export default {
-        async fetch({params, app, error, store}) {
+        async fetch({query, app, error, store}) {
             try {
+                if (query.typeFilter) {
+                    store.commit(`feedQuestion/SET_TYPE_FILTER`, query.typeFilter);
+                } else {
+                    store.commit(`feedQuestion/SET_TYPE_FILTER`, null);
+                }
                 await store.dispatch(`feedQuestion/getQuestionFeed`,
-                    {page: params.page, isAuthenticated: store.state.auth.userIsAuthenticated});
+                    {
+                        page: query.page, isAuthenticated: store.state.auth.userIsAuthenticated,
+                        typeFilter: query.typeFilter
+                    });
             } catch (e) {
                 error({statusCode: e.statusCode})
             }
