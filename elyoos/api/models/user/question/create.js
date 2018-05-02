@@ -1,6 +1,7 @@
 'use strict';
 
 const dashify = require('dashify');
+const linkifyHtml = require('linkifyjs/html');
 const db = requireDb();
 const topics = require('./../../util/topics');
 const uuid = require('elyoos-server-lib').uuid;
@@ -12,6 +13,9 @@ const createQuestion = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.description = params.description || null;
+    if(params.description) {
+        params.description = linkifyHtml(params.description);
+    }
     topics.normalizeTopics(params.topics);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(question:Question {questionId: {questionId}, question: {question}, description: {description}, 
