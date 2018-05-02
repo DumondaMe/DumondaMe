@@ -16,8 +16,8 @@ const schemaCreateCommitment = {
     additionalProperties: false,
     required: ['title', 'description', 'topics', 'regions', 'lang'],
     properties: {
-        title: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        title: {type: 'string', format: 'notEmptyString', maxLength: 100},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         topics: topic.topics,
         regions: {
             type: 'array',
@@ -38,8 +38,8 @@ const schemaEditCommitment = {
     required: ['commitmentId', 'title', 'description', 'lang'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        title: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        title: {type: 'string', format: 'notEmptyString', maxLength: 100},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         lang: language.language,
         website: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         resetImage: {type: 'boolean'}
