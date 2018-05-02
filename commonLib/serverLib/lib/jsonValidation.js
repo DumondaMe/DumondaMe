@@ -18,8 +18,8 @@ tv4.addFormat('notEmptyString', function (data) {
 tv4.addFormat('urlWithProtocol', function (data) {
 
     const protocol = `^(http|https)://`;
-    const domain = '([a-z\\u00a1-\\uffff0-9]+\\.)+';
-    const tld = `([a-z\\u00a1-\\uffff]{2,})+`;
+    const domain = '([a-z\\u00a1-\\uffff0-9\\-\\_]+\\.){1,}';
+    const tld = `[a-z\\u00a1-\\uffff]{2,}`;
     const regex = `${protocol}${domain}${tld}`;
 
     const urlRegex = new RegExp(`${regex}`, 'i');

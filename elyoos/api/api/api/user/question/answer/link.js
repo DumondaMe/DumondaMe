@@ -15,7 +15,7 @@ const schemaCreateLinkAnswer = {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         link: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         imageUrl: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
-        title: {type: 'string', format: 'notEmptyString', maxLength: 100},
+        title: {type: 'string', format: 'notEmptyString', maxLength: 140},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         type: {enum: ['article', 'blog', 'website']}
     }
