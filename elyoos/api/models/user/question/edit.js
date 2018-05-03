@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const linkifyHtml = require('linkifyjs/html');
 const security = require('./security');
 const time = require('elyoos-server-lib').time;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -16,6 +17,11 @@ const editQuestion = async function (userId, params) {
         })
         .end(params).send();
     logger.info(`Edit question with id ${params.questionId}`);
+    let response = {};
+    if(params.description) {
+        response.descriptionHtml = linkifyHtml(params.description);
+    }
+    return response;
 };
 
 module.exports = {

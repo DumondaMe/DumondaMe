@@ -13,9 +13,6 @@ const createQuestion = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.description = params.description || null;
-    if(params.description) {
-        params.description = linkifyHtml(params.description);
-    }
     topics.normalizeTopics(params.topics);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(question:Question {questionId: {questionId}, question: {question}, description: {description}, 
@@ -28,7 +25,11 @@ const createQuestion = async function (userId, params) {
         .merge(`(topic)-[:TOPIC]->(question)`)
         .end(params).send();
     logger.info(`Created question with id ${params.questionId}`);
-    return {questionId: params.questionId, slug: dashify(params.question)};
+    let response = {questionId: params.questionId, slug: dashify(params.question)};
+    if(params.description) {
+        response.descriptionHtml = linkifyHtml(params.description);
+    }
+    return response;
 };
 
 module.exports = {

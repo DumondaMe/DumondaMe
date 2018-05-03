@@ -4,6 +4,7 @@ const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 const cdn = require('elyoos-server-lib').cdn;
 const dashify = require('dashify');
+const linkifyHtml = require('linkifyjs/html');
 
 const getAnswers = function (answers) {
     let result = [];
@@ -69,6 +70,9 @@ const getQuestion = async function (questionId, userId) {
     if (response[1].length === 1) {
         let questionResponse = response[1][0];
         let question = questionResponse.question;
+        if (question.description) {
+            question.descriptionHtml = linkifyHtml(question.description);
+        }
         question.isAdmin = questionResponse.isAdmin;
         question.topics = questionResponse.topics;
         question.numberOfWatches = questionResponse.numberOfWatches;

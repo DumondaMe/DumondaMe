@@ -1,15 +1,17 @@
 'use strict';
 
 const dashify = require('dashify');
-const db = requireDb();
+const linkifyHtml = require('linkifyjs/html');
 const cdn = require('elyoos-server-lib').cdn;
-const PAGE_SIZE = 20;
 
 const addDefaultAnswerProperties = function (result, feedElement) {
     if (feedElement.question) {
         result.answerId = feedElement.feedElement.answerId;
         result.title = feedElement.feedElement.title;
         result.description = feedElement.feedElement.description;
+        if (result.description) {
+            result.descriptionHtml = linkifyHtml(result.description);
+        }
         result.questionId = feedElement.question.questionId;
         result.question = feedElement.question.question;
         result.questionSlug = dashify(feedElement.question.question);
@@ -62,6 +64,9 @@ const addQuestionProperties = function (result, feedElement) {
         result.question = feedElement.feedElement.question;
         result.questionSlug = dashify(feedElement.feedElement.question);
         result.description = feedElement.feedElement.description;
+        if (result.description) {
+            result.descriptionHtml = linkifyHtml(result.description);
+        }
         result.numberOfAnswers = feedElement.numberOfAnswers;
     }
 };

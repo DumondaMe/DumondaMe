@@ -56,8 +56,8 @@ module.exports = function (router) {
 
     router.put('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditQuestion, logger);
-        await questionEdit.editQuestion(req.user.id, params);
-        res.status(200).end();
+        let response = await questionEdit.editQuestion(req.user.id, params);
+        res.status(200).json(response);
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {

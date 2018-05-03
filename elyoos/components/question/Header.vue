@@ -1,7 +1,7 @@
 <template>
     <div id="elyoos-question-header">
         <h1 itemprop="name">{{question.question}}</h1>
-        <p id="question-description" itemprop="text"><span v-html="question.description"></span></p>
+        <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
         <div id="question-commands">
             <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()">
                 {{$t("common:button.answer")}}

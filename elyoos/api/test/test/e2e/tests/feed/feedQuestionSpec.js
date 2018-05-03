@@ -18,7 +18,7 @@ describe('Get question feed when user is logged in', function () {
         });
 
         dbDsl.createQuestion('1', {
-            creatorId: '3', question: 'Das ist eine Frage', description: 'description',
+            creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
             topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -109,6 +109,7 @@ describe('Get question feed when user is logged in', function () {
         res.body.feed[3].question.should.equals('Das ist eine Frage2');
         res.body.feed[3].questionSlug.should.equals('das-ist-eine-frage2');
         res.body.feed[3].description.should.equals('description2');
+        res.body.feed[3].descriptionHtml.should.equals('description2');
         res.body.feed[3].created.should.equals(602);
         res.body.feed[3].numberOfAnswers.should.equals(3);
         res.body.feed[3].creator.userId.should.equals('3');
@@ -149,7 +150,8 @@ describe('Get question feed when user is logged in', function () {
         res.body.feed[6].questionId.should.equals('1');
         res.body.feed[6].question.should.equals('Das ist eine Frage');
         res.body.feed[6].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[6].description.should.equals('description');
+        res.body.feed[6].description.should.equals('Test elyoos.org change the world');
+        res.body.feed[6].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.feed[6].created.should.equals(500);
         res.body.feed[6].numberOfAnswers.should.equals(2);
         res.body.feed[6].creator.userId.should.equals('3');
@@ -171,6 +173,7 @@ describe('Get question feed when user is logged in', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
         res.body.feed[0].description.should.equals('description2');
+        res.body.feed[0].descriptionHtml.should.equals('description2');
         res.body.feed[0].created.should.equals(602);
         res.body.feed[0].numberOfAnswers.should.equals(3);
         res.body.feed[0].creator.userId.should.equals('3');
@@ -183,7 +186,8 @@ describe('Get question feed when user is logged in', function () {
         res.body.feed[1].questionId.should.equals('1');
         res.body.feed[1].question.should.equals('Das ist eine Frage');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[1].description.should.equals('description');
+        res.body.feed[1].description.should.equals('Test elyoos.org change the world');
+        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.feed[1].created.should.equals(500);
         res.body.feed[1].numberOfAnswers.should.equals(2);
         res.body.feed[1].creator.userId.should.equals('3');

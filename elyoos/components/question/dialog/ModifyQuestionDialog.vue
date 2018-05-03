@@ -32,7 +32,8 @@
             async changeQuestion(question) {
                 try {
                     this.loading = true;
-                    await this.$axios.$put(`/user/question/${this.$route.params.questionId}`, question);
+                    let response = await this.$axios.$put(`/user/question/${this.$route.params.questionId}`, question);
+                    question.descriptionHtml = response.descriptionHtml;
                     this.$store.commit('question/SET_QUESTION_INFO', question);
                     this.$emit('finish');
                 }

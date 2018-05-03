@@ -30,7 +30,7 @@ describe('Getting details of a question', function () {
         }, []);
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'description',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -62,7 +62,7 @@ describe('Getting details of a question', function () {
 
     it('Getting details of a question without answers', async function () {
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
             topics: ['Health'], language: 'en', modified: 701
         });
         await dbDsl.sendToDb();
@@ -71,7 +71,37 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
-        res.body.description.should.equals('description2');
+        res.body.description.should.equals('Test elyoos.org change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.isAdmin.should.equals(false);
+        res.body.created.should.equals(500);
+        res.body.modified.should.equals(701);
+        res.body.language.should.equals('en');
+        res.body.numberOfWatches.should.equals(0);
+        res.body.numberOfAnswers.should.equals(0);
+        res.body.userWatchesQuestion.should.equals(false);
+        res.body.creator.name.should.equals('user Meier3');
+        res.body.creator.userId.should.equals('3');
+        res.body.creator.slug.should.equals('user-meier3');
+        res.body.topics.length.should.equals(1);
+        res.body.topics[0].should.equals('Health');
+
+        res.body.answers.length.should.equals(0);
+    });
+
+    it('Getting details of a question without answers and description', async function () {
+        dbDsl.createQuestion('2', {
+            creatorId: '3', question: 'Das ist eine Frage2',
+            topics: ['Health'], language: 'en', modified: 701
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/2');
+        res.status.should.equal(200);
+        res.body.questionId.should.equals('2');
+        res.body.question.should.equals('Das ist eine Frage2');
+        should.not.exist(res.body.description);
+        should.not.exist(res.body.descriptionHtml);
         res.body.isAdmin.should.equals(false);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
@@ -106,7 +136,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('description');
+        res.body.description.should.equals('Test elyoos.org change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -222,7 +253,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('description');
+        res.body.description.should.equals('Test elyoos.org change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -331,7 +363,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('description');
+        res.body.description.should.equals('Test elyoos.org change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');

@@ -1,7 +1,7 @@
 export const state = () => ({
     question: {
-        question: null, description: null, lang: null, numberOfWatches: 0, userWatchesQuestion: false,
-        answers: [], topics: [], regions: []
+        question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0,
+        userWatchesQuestion: false, answers: [], topics: [], regions: []
     }
 });
 
@@ -22,6 +22,7 @@ export const mutations = {
     SET_QUESTION_INFO(state, question) {
         state.question.question = question.question;
         state.question.description = question.description;
+        state.question.descriptionHtml = question.descriptionHtml;
         state.question.language = question.lang;
     },
     SET_TOPICS(state, topics) {
