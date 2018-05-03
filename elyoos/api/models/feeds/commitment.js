@@ -8,12 +8,16 @@ const PAGE_SIZE = 20;
 const getCommitments = async function (commitments) {
     let results = [];
     for (let commitment of commitments) {
+        let imageUrl = cdn.getPublicUrl(`commitment/${commitment.commitment.commitmentId}/120x120/title.jpg`);
+        if (commitment.commitment.modified) {
+            imageUrl += `?v=${commitment.commitment.modified}`;
+        }
         results.push({
             commitmentId: commitment.commitment.commitmentId,
             title: commitment.commitment.title,
             slug: dashify(commitment.commitment.title),
             description: commitment.commitment.description,
-            imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitment.commitmentId}/120x120/title.jpg`),
+            imageUrl: imageUrl,
             created: commitment.commitment.created,
             regions: commitment.regions,
             topics: commitment.topics

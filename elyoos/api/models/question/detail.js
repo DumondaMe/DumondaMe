@@ -32,6 +32,9 @@ const getAnswers = function (answers) {
                 formattedAnswer.commitmentSlug = dashify(answer.commitment.title);
                 formattedAnswer.title = answer.commitment.title;
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/120x120/title.jpg`);
+                if (answer.commitment.modified) {
+                    formattedAnswer.imageUrl += `?v=${answer.commitment.modified}`;
+                }
                 formattedAnswer.regions = answer.regions.map((region) => region.code);
             }
             result.push(formattedAnswer);

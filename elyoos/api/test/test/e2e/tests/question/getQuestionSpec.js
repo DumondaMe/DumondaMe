@@ -25,7 +25,7 @@ describe('Getting details of a question', function () {
             adminId: '2',
             topics: ['Spiritual', 'Test2'],
             language: 'de',
-            created: 700,
+            created: 700, modified: 701,
             website: 'https://www.example.org/'
         }, []);
 
@@ -227,7 +227,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
@@ -339,7 +339,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
@@ -449,7 +449,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');

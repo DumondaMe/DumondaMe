@@ -23,6 +23,9 @@ const addCommitmentProperties = function (result, feedElement) {
         result.type = 'Commitment';
         result.commitmentId = feedElement.commitment.commitmentId;
         result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
+        if (feedElement.commitment.modified) {
+            result.imageUrl += `?v=${feedElement.commitment.modified}`;
+        }
         result.title = feedElement.commitment.title;
         result.commitmentSlug = dashify(feedElement.commitment.title);
     }

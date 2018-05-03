@@ -13,7 +13,7 @@ describe('Get question and answers from public question feed', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createCommitment('100', {
-            adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 400, title: 'Test Commitment',
+            adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',
             website: 'https://www.example.org/', regions: ['region-1-1-1']
         });
 
@@ -59,7 +59,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitmentDescription');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
@@ -210,7 +210,7 @@ describe('Get question and answers from public question feed', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitmentDescription');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');

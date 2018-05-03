@@ -56,7 +56,7 @@ describe('Get commitment feed', function () {
     it('Get commitment feed (include sub regions)', async function () {
 
         dbDsl.createCommitment('1', {
-            adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 700, title: 'Test Commitment',
+            adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 700, modified: 701, title: 'Test Commitment',
             website: 'https://www.example.org/', regions: ['region-1-1-1']
         });
         dbDsl.createCommitment('2', {
@@ -73,7 +73,7 @@ describe('Get commitment feed', function () {
         res.body.commitments[0].title.should.equals('Test Commitment');
         res.body.commitments[0].slug.should.equals('test-commitment');
         res.body.commitments[0].description.should.equals('commitment1Description');
-        res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/120x120/title.jpg`);
+        res.body.commitments[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/120x120/title.jpg?v=701`);
         res.body.commitments[0].created.should.equals(700);
         res.body.commitments[0].regions.length.should.equals(1);
         res.body.commitments[0].regions.should.include('region-1-1-1');
