@@ -59,11 +59,11 @@ export const actions = {
     async setTypeFilter({commit, state}, {filter, isAuthenticated}) {
         if (filter !== state.typeFilter) {
             commit('SET_TYPE_FILTER', filter);
-            let params = null;
+            let params = {params: {page: 0}};
             if (filter) {
-                params = {params: {typeFilter: filter}}
+                params.typeFilter = filter;
             }
-            await getFeed(commit, isAuthenticated, params, this.$axios);
+            await getFeed(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
         }
     }
 };
