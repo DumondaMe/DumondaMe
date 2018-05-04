@@ -61,7 +61,7 @@ export const actions = {
             commit('SET_TYPE_FILTER', filter);
             let params = {params: {page: 0}};
             if (filter) {
-                params.typeFilter = filter;
+                params.params.typeFilter = filter;
             }
             await getFeed(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
         }
