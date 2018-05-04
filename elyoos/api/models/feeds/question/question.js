@@ -1,23 +1,15 @@
 'use strict';
 
 const responseHandler = require('./response');
+const feedElementCounter = require('./feedElementCounter');
+const filter = require('./filter');
 const db = requireDb();
 const PAGE_SIZE = 20;
-
-const getTypeFilter = function (filter) {
-    if(filter === 'question') {
-        return `feedElement:Question`;
-    } else if(filter === 'answer') {
-        return `feedElement:Answer`;
-    } else {
-        return `(feedElement:Question OR feedElement:Answer)`;
-    }
-};
 
 const getFeed = async function (page, timestamp, typeFilter) {
     page = page * PAGE_SIZE;
     let response = await db.cypher().match(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
-        .where(`feedElement.created < {timestamp} AND ${getTypeFilter(typeFilter)}`)
+        .where(`feedElement.created < {timestamp} AND ${filter.getTypeFilter(typeFilter)}`)
         .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(question:Question)-[:ANSWER]->(feedElement)`)
         .optionalMatch(`(commitment:Commitment)<-[:COMMITMENT]-(feedElement)`)
@@ -25,9 +17,12 @@ const getFeed = async function (page, timestamp, typeFilter) {
                  labels(feedElement) AS type`)
         .orderBy(`feedElement.created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
-        .end({page, timestamp}).send();
+        .end({page, timestamp}).send([feedElementCounter.getTotalNumberOfFeedElements(timestamp, typeFilter)]);
 
-    return {feed: await responseHandler.getFeed(response), timestamp};
+    return {
+        feed: await responseHandler.getFeed(response[1]), totalNumberOfElements: response[0][0].numberOfElements,
+        timestamp
+    };
 };
 
 module.exports = {

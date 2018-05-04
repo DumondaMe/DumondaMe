@@ -11,6 +11,10 @@
             </personalization-filter>
             <question-cards>
             </question-cards>
+            <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
+                   :disabled="loadNextRunning" v-if="showLoadNextButton">
+                {{$t("common:button.showMore")}}
+            </v-btn>
         </div>
     </feed-layout>
 </template>
@@ -32,7 +36,7 @@
                 }
                 await store.dispatch(`feedQuestion/getQuestionFeed`,
                     {
-                        page: query.page, isAuthenticated: store.state.auth.userIsAuthenticated,
+                        isAuthenticated: store.state.auth.userIsAuthenticated,
                         typeFilter: query.typeFilter
                     });
             } catch (e) {
@@ -40,14 +44,36 @@
             }
         },
         components: {FeedLayout, Feeds, QuestionFilter, PersonalizationFilter, QuestionCards},
+        data() {
+            return {loadNextRunning: false}
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            showLoadNextButton() {
+                return this.$store.state.feedQuestion.totalNumberOfElements >
+                    this.$store.state.feedQuestion.feed.length;
+            }
+        },
+        methods: {
+            async loadNext() {
+                try {
+                    this.loadNextRunning = true;
+                    await this.$store.dispatch(`feedQuestion/loadNextFeedElements`,
+                        {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
+                    this.loadNextRunning = false;
+                }
+                catch (error) {
+                    this.loadNextRunning = false;
+                }
             }
         }
     }
 </script>
 
 <style lang="scss">
-
+    #load-next-page {
+        margin-left: 0;
+    }
 </style>

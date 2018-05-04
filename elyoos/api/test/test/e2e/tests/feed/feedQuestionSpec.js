@@ -50,6 +50,7 @@ describe('Get question feed when user is logged in', function () {
         let res = await requestHandler.get('/api/feed/question');
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(7);
         res.body.feed.length.should.equals(7);
 
         res.body.feed[0].type.should.equals('Commitment');
@@ -165,6 +166,7 @@ describe('Get question feed when user is logged in', function () {
         let res = await requestHandler.get('/api/feed/question', {typeFilter: 'question'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Question');
@@ -201,6 +203,7 @@ describe('Get question feed when user is logged in', function () {
         let res = await requestHandler.get('/api/feed/question', {typeFilter: 'answer'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(5);
         res.body.feed.length.should.equals(5);
 
         res.body.feed[0].type.should.equals('Commitment');
