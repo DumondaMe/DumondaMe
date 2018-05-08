@@ -13,7 +13,7 @@ const schemaNote = {
     required: ['answerId', 'text'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        text: {type: 'string', format: 'notEmptyString', maxLength: 400}
+        text: {type: 'string', format: 'notEmptyString', maxLength: 240}
     }
 };
 
