@@ -100,9 +100,13 @@
     "createAnswerButton": "Antwort Erstellen",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
-    "discussion": {
+    "note": {
       "numberOfNotes": "{{count}} Anmerkung",
-      "numberOfNotes_plural": "{{count}} Anmerkungen"
+      "numberOfNotes_plural": "{{count}} Anmerkungen",
+      "createNoteDialog": {
+        "title": "Anmerkung erstellen für '{{answer}}'",
+        "text": "Deine Anmerkung"
+      }
     },
     "answerType": {
       "text": "Antwort",

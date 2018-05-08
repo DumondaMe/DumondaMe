@@ -1,7 +1,7 @@
 export const state = () => ({
     question: {
         question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0,
-        userWatchesQuestion: false, answers: [], topics: [], regions: []
+        numberOfAnswers: 0, userWatchesQuestion: false, answers: [], topics: [], regions: []
     }
 });
 
@@ -39,7 +39,16 @@ export const mutations = {
     ADD_ANSWER(state, answer) {
         answer.newAddedAnswer = true;
         state.question.answers.unshift(answer);
-        state.question.answers.sort((a, b) => b.upVotes - a.upVotes)
+        state.question.answers.sort((a, b) => b.upVotes - a.upVotes);
+        state.question.numberOfAnswers++;
+    },
+    ADD_ANSWER_NOTE(state, {answerId, note}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        if (!answer.notes) {
+            answer.notes = [];
+        }
+        answer.notes.unshift(note);
+        answer.numberOfNotes++;
     },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
@@ -135,5 +144,14 @@ export const actions = {
             }, {root: true});
         }
         return response.answerId;
-    }
+    },
+    async createAnswerNote({commit, state}, {answerId, text}) {
+        let response = await this.$axios.$post(`/user/question/answer/note`, {answerId, text});
+        commit('ADD_ANSWER_NOTE', {
+            answerId, note: {
+                noteId: response.noteId, isAdmin: true, upVotes: 0,
+                created: response.created, creator: response.creator
+            }
+        });
+    },
 };

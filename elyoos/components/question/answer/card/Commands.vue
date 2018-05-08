@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-layout row class="answer-commands">
-            <div class="comment-icon">
+            <div class="note-icon" v-if="answer.answerType !== 'Commitment'">
                 <v-icon>mdi-note-outline</v-icon>
-                <span class="comment-text">
-                    {{$t("pages:detailQuestion.discussion.numberOfNotes", {count: 0})}}</span>
+                <span class="note-text" @click="showNote">
+                    {{$t("pages:detailQuestion.note.numberOfNotes", {count: answer.numberOfNotes})}}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="up-vote-button">
@@ -21,21 +21,32 @@
         </v-layout>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
+        <create-note-dialog v-if="showCreateNoteDialog" @close-dialog="showCreateNoteDialog = false"
+                            @finish="noteAdded"
+                            :answer-id="answer.answerId" :answer-title="getAnswerTitle">
+        </create-note-dialog>
     </div>
 </template>
 
 <script>
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import CreateNoteDialog from '~/components/question/answer/note/CreateDialog.vue';
 
     export default {
         props: ['answer'],
-        components: {LoginRequiredDialog},
+        components: {LoginRequiredDialog, CreateNoteDialog},
         data() {
-            return {showLoginRequired: false, upVoteRunning: false}
+            return {showLoginRequired: false, showCreateNoteDialog: false, upVoteRunning: false}
         },
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
+            getAnswerTitle() {
+                if (this.answer.answerType === 'Text') {
+                    if (this.answer.answer.length > 40) {
+                        return this.answer.answer.slice(0, 40) + '...';
+                    }
+                    return this.answer.answer;
+                }
+                return this.answer.title;
             }
         },
         methods: {
@@ -57,6 +68,18 @@
             },
             async downVote() {
                 this.voteCommand('question/downVoteAnswer');
+            },
+            showNote() {
+                if (this.$store.state.auth.userIsAuthenticated && this.answer.numberOfNotes === 0) {
+                    this.showCreateNoteDialog = true;
+                } else if (this.answer.numberOfNotes === 0) {
+                    this.showLoginRequired = true;
+                } else {
+
+                }
+            },
+            noteAdded() {
+                this.showCreateNoteDialog = false;
             }
         }
     }
@@ -65,19 +88,19 @@
 <style lang="scss">
     .answer-commands {
         margin-top: 6px;
-        .comment-icon {
+        .note-icon {
             padding-top: 2px;
             cursor: pointer;
             i.icon {
                 color: $primary-color;
             }
-            .comment-text {
+            .note-text {
                 margin-left: 6px;
                 font-size: 14px;
                 font-weight: 500;
                 color: $secondary-text;
             }
-            :hover.comment-text {
+            :hover.note-text {
                 text-decoration: underline;
             }
         }
