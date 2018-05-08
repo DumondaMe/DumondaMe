@@ -32,6 +32,10 @@ describe('Creating a note for a answer', function () {
         let res = await requestHandler.post('/api/user/question/answer/note', {answerId: '5', text: 'This is a note'});
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.textHtml.should.equals('This is a note');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
 
         let resp = await db.cypher().match(`(answer:Text:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
             .return(`answer, note`).end().send();
@@ -51,13 +55,17 @@ describe('Creating a note for a answer', function () {
             {answerId: '5', text: 'Test elyoos.org change the world'});
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
 
         let resp = await db.cypher().match(`(answer:Text:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
             .return(`answer, note`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals('5');
         resp[0].note.noteId.should.equals(res.body.noteId);
-        resp[0].note.text.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        resp[0].note.text.should.equals(`Test elyoos.org change the world`);
     });
 
     it('Creating a note for a commitment answer is not allowed', async function () {
