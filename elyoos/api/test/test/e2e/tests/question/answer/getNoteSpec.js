@@ -25,7 +25,7 @@ describe('Getting notes of an answer', function () {
         dbDsl.createNote('50', {answerId: '6', creatorId: '1', created: 555});
         dbDsl.createNote('51', {answerId: '6', creatorId: '2', created: 444});
         dbDsl.createNote('52', {answerId: '6', creatorId: '3', created: 333});
-        dbDsl.createNote('53', {answerId: '6', creatorId: '1', created: 666});
+        dbDsl.createNote('53', {answerId: '6', creatorId: '1', created: 666, text: 'Test elyoos.org change the world'});
         dbDsl.upVoteNote({noteId: '52', userId: '1'});
         dbDsl.upVoteNote({noteId: '52', userId: '2'});
         dbDsl.upVoteNote({noteId: '53', userId: '3'});
@@ -46,6 +46,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes.length.should.equals(4);
         res.body.notes[0].noteId.should.equals('52');
         res.body.notes[0].text.should.equals('note52Text');
+        res.body.notes[0].textHtml.should.equals('note52Text');
         res.body.notes[0].created.should.equals(333);
         res.body.notes[0].upVotes.should.equals(2);
         res.body.notes[0].isAdmin.should.equals(false);
@@ -54,7 +55,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.slug.should.equals('user-meier3');
 
         res.body.notes[1].noteId.should.equals('53');
-        res.body.notes[1].text.should.equals('note53Text');
+        res.body.notes[1].text.should.equals('Test elyoos.org change the world');
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].isAdmin.should.equals(true);
@@ -64,6 +66,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[2].noteId.should.equals('50');
         res.body.notes[2].text.should.equals('note50Text');
+        res.body.notes[2].textHtml.should.equals('note50Text');
         res.body.notes[2].created.should.equals(555);
         res.body.notes[2].upVotes.should.equals(0);
         res.body.notes[2].isAdmin.should.equals(true);
@@ -73,6 +76,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[3].noteId.should.equals('51');
         res.body.notes[3].text.should.equals('note51Text');
+        res.body.notes[3].textHtml.should.equals('note51Text');
         res.body.notes[3].created.should.equals(444);
         res.body.notes[3].upVotes.should.equals(0);
         res.body.notes[3].isAdmin.should.equals(false);
@@ -89,6 +93,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes.length.should.equals(4);
         res.body.notes[0].noteId.should.equals('52');
         res.body.notes[0].text.should.equals('note52Text');
+        res.body.notes[0].textHtml.should.equals('note52Text');
         res.body.notes[0].created.should.equals(333);
         res.body.notes[0].upVotes.should.equals(2);
         res.body.notes[0].isAdmin.should.equals(false);
@@ -97,7 +102,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.slug.should.equals('user-meier3');
 
         res.body.notes[1].noteId.should.equals('53');
-        res.body.notes[1].text.should.equals('note53Text');
+        res.body.notes[1].text.should.equals('Test elyoos.org change the world');
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].isAdmin.should.equals(false);
@@ -107,6 +113,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[2].noteId.should.equals('50');
         res.body.notes[2].text.should.equals('note50Text');
+        res.body.notes[2].textHtml.should.equals('note50Text');
         res.body.notes[2].created.should.equals(555);
         res.body.notes[2].upVotes.should.equals(0);
         res.body.notes[2].isAdmin.should.equals(false);
@@ -116,6 +123,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[3].noteId.should.equals('51');
         res.body.notes[3].text.should.equals('note51Text');
+        res.body.notes[3].textHtml.should.equals('note51Text');
         res.body.notes[3].created.should.equals(444);
         res.body.notes[3].upVotes.should.equals(0);
         res.body.notes[3].isAdmin.should.equals(false);

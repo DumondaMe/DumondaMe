@@ -1,8 +1,6 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const cdn = require('elyoos-server-lib').cdn;
 const dashify = require('dashify');
 const linkifyHtml = require('linkifyjs/html');
 
@@ -14,6 +12,7 @@ const getNotesResponse = function (notes) {
         response.push({
             noteId: note.noteId,
             text: note.text,
+            textHtml: linkifyHtml(note.text),
             created: note.created,
             upVotes: note.upVotes,
             isAdmin: note.isAdmin,
