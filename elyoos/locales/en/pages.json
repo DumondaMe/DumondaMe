@@ -103,6 +103,10 @@
     "note": {
       "numberOfNotes": "{{count}} Note",
       "numberOfNotes_plural": "{{count}} Notes",
+      "sort": {
+        "newest": "Newest",
+        "upVotes": "Popular"
+      },
       "createNoteDialog": {
         "title": "Create note for'{{answer}}'",
         "text": "Your Note"

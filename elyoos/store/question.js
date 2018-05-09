@@ -85,6 +85,13 @@ export const mutations = {
         upVotedNote.upVotes--;
         upVotedNote.hasVoted = false;
     },
+    TOGGLE_ANSWER_NOTE_SORT(state) {
+        if(state.sortNotes === 'newest') {
+            state.sortNotes = 'upVotes'
+        } else {
+            state.sortNotes = 'newest'
+        }
+    },
     DELETE_NOTE_OF_ANSWER(state, {answerId, noteId}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
         let noteToDelete = answer.notes.findIndex((note) => note.noteId === noteId);

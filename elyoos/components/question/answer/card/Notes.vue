@@ -2,10 +2,10 @@
     <div class="answer-notes-container">
         <div class="notes-commands">
             <div class="sort-button-container" :class="{'sort-deactivated': answer.notes.length < 2}">
-                <v-btn icon class="sort-button" @click="">
+                <v-btn icon class="sort-button" @click="toggleSort">
                     <v-icon>mdi-sort-descending</v-icon>
                 </v-btn>
-                <span class="sort-text">Neuste</span>
+                <span class="sort-text" @click="toggleSort">{{$t('pages:detailQuestion.note.sort.' + noteSort)}}</span>
             </div>
             <v-btn icon class="add-note-button" @click="showCreateNoteDialog = true">
                 <v-icon>mdi-note-plus</v-icon>
@@ -30,6 +30,11 @@
         data() {
             return {showCreateNoteDialog: false}
         },
+        computed: {
+            noteSort() {
+                return this.$store.state.question.sortNotes;
+            }
+        },
         async created() {
             if (this.answer.notes.length === 0) {
                 try {
@@ -38,7 +43,19 @@
                 catch (error) {
                 }
             }
-        }
+        },
+        methods: {
+            async toggleSort() {
+                if (this.answer.notes.length >= 2) {
+                    try {
+                        this.$store.commit('question/TOGGLE_ANSWER_NOTE_SORT');
+                        await this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
+                    }
+                    catch (error) {
+                    }
+                }
+            }
+        },
     }
 </script>
 

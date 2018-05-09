@@ -103,6 +103,10 @@
     "note": {
       "numberOfNotes": "{{count}} Anmerkung",
       "numberOfNotes_plural": "{{count}} Anmerkungen",
+      "sort": {
+        "newest": "Neuste",
+        "upVotes": "Beliebteste"
+      },
       "createNoteDialog": {
         "title": "Anmerkung erstellen für '{{answer}}'",
         "text": "Deine Anmerkung"
