@@ -66,7 +66,7 @@
 
 <style lang="scss">
     .answer-note {
-        margin-top: 8px;
+        margin-top: 14px;
         font-size: 14px;
         .note-title {
             .user-name {

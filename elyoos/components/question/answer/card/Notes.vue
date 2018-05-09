@@ -47,7 +47,7 @@
     .answer-notes-container {
         margin-top: 22px;
         .notes-commands {
-            margin-bottom: 14px;
+            margin-bottom: 18px;
             .add-note-button {
                 color: $primary-color;
                 padding: 0;
