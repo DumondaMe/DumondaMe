@@ -85,6 +85,12 @@ export const mutations = {
         upVotedNote.upVotes--;
         upVotedNote.hasVoted = false;
     },
+    DELETE_NOTE_OF_ANSWER(state, {answerId, noteId}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        let noteToDelete = answer.notes.findIndex((note) => note.noteId === noteId);
+        answer.notes.splice(noteToDelete, 1);
+        answer.numberOfNotes--;
+    },
 };
 
 const addDefaultProperties = function (answer, type, response) {
@@ -180,11 +186,15 @@ export const actions = {
         });
     },
     async upVoteNoteOfAnswer({commit}, {answerId, noteId}) {
-        await this.$axios.$post(`/user/question/answer/note/upVote/`, {noteId});
+        await this.$axios.$post(`/user/question/answer/note/upVote`, {noteId});
         commit('UP_VOTE_NOTE_OF_ANSWER', {answerId, noteId});
     },
     async downVoteNoteOfAnswer({commit}, {answerId, noteId}) {
-        await this.$axios.$delete(`/user/question/answer/note/upVote/`, {params: {noteId}});
+        await this.$axios.$delete(`/user/question/answer/note/upVote`, {params: {noteId}});
         commit('DOWN_VOTE_NOTE_OF_ANSWER', {answerId, noteId});
+    },
+    async deleteNoteOfAnswer({commit}, {answerId, noteId}) {
+        await this.$axios.$delete(`/user/question/answer/note`, {params: {noteId}});
+        commit('DELETE_NOTE_OF_ANSWER', {answerId, noteId});
     },
 };

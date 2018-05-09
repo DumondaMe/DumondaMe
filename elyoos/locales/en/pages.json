@@ -109,6 +109,11 @@
       },
       "editNoteDialog": {
         "title": "Edit note for '{{answer}}'"
+      },
+      "deleteNoteDialog": {
+        "title": "Delete Note",
+        "description": "Do you really want to delete the note '{{note}}'?",
+        "confirmButton": "Yes, Delete Note"
       }
     },
     "answerType": {

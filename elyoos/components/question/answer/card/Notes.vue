@@ -36,7 +36,6 @@
                     await this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
                 }
                 catch (error) {
-                    debugger
                 }
             }
         }

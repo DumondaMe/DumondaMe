@@ -23,7 +23,7 @@
                 </v-btn>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command">
+                <v-btn icon outline class="command" @click="showDeleteNoteDialog = true">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </div>
@@ -32,17 +32,22 @@
                           @finish="showEditNoteDialog = false" :note-text="note.text" :note-id="note.noteId"
                           :answer-id="answerId" :answer-title="answerTitle">
         </edit-note-dialog>
+        <delete-note-dialog v-if="showDeleteNoteDialog" @close-dialog="showDeleteNoteDialog = false"
+                            @finish="showDeleteNoteDialog = false" :note-id="note.noteId" :answer-id="answerId"
+                            :note-text="note.text">
+        </delete-note-dialog>
     </div>
 </template>
 
 <script>
     import EditNoteDialog from '~/components/question/answer/note/EditDialog';
+    import DeleteNoteDialog from '~/components/question/answer/note/DeleteNoteDialog';
 
     export default {
         props: ['note', 'answerId', 'answerTitle'],
-        components: {EditNoteDialog},
+        components: {EditNoteDialog, DeleteNoteDialog},
         data() {
-            return {upVoteRunning: false, showEditNoteDialog: false}
+            return {upVoteRunning: false, showEditNoteDialog: false, showDeleteNoteDialog: false}
         },
         methods: {
             async upVoteNote(noteId) {

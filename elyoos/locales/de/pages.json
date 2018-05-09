@@ -109,6 +109,11 @@
       },
       "editNoteDialog": {
         "title": "Anmerkung für '{{answer}}' bearbeiten"
+      },
+      "deleteNoteDialog": {
+        "title": "Anmerkung löschen",
+        "description": "Willst du die Anmerkung '{{note}}' wirklich löschen?",
+        "confirmButton": "Ja, Anmerkung Löschen"
       }
     },
     "answerType": {
