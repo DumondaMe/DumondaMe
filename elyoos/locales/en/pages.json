@@ -104,8 +104,11 @@
       "numberOfNotes": "{{count}} Note",
       "numberOfNotes_plural": "{{count}} Notes",
       "createNoteDialog": {
-        "title": "Create Note for'{{answer}}'",
+        "title": "Create note for'{{answer}}'",
         "text": "Your Note"
+      },
+      "editNoteDialog": {
+        "title": "Edit note for '{{answer}}'"
       }
     },
     "answerType": {

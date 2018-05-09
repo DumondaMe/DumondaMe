@@ -57,6 +57,12 @@ export const mutations = {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
         answer.notes = notes;
     },
+    EDIT_ANSWER_NOTE(state, {answerId, noteId, text, textHtml}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        let editNote = answer.notes.find((note) => note.noteId === noteId);
+        editNote.text = text;
+        editNote.textHtml = textHtml;
+    },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
         upVoteAnswer.upVotes++;

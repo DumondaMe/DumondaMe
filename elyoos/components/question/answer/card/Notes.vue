@@ -11,7 +11,8 @@
                 <v-icon>mdi-note-plus</v-icon>
             </v-btn>
         </div>
-        <note :note="note" :answer-id="answer.answerId" v-for="note in answer.notes" :key="note.noteId"></note>
+        <note :note="note" :answer-id="answer.answerId" :answer-title="answerTitle"
+              v-for="note in answer.notes" :key="note.noteId"></note>
         <create-note-dialog v-if="showCreateNoteDialog" @close-dialog="showCreateNoteDialog = false"
                             @finish="showCreateNoteDialog = false"
                             :answer-id="answer.answerId" :answer-title="answerTitle">

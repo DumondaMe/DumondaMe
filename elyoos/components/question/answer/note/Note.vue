@@ -20,7 +20,7 @@
                    @click.native="$emit('close-dialog')">{{$t("common:button.abort")}}
             </v-btn>
             <v-btn color="primary" @click.native="$emit('finish', noteText)" :loading="loading"
-                   :disabled="!valid || loading">
+                   :disabled="!valid || loading || hasNotChanged">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -31,9 +31,14 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['actionButtonText', 'loading'],
+        props: ['actionButtonText', 'loading', 'initNoteText'],
         data: function () {
-            return {noteText: '', valid: false};
+            return {noteText: this.initNoteText, valid: false};
+        },
+        computed: {
+            hasNotChanged() {
+                return this.initNoteText === this.noteText;
+            }
         },
         mixins: [validationRules]
     }

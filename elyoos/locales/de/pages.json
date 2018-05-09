@@ -106,6 +106,9 @@
       "createNoteDialog": {
         "title": "Anmerkung erstellen für '{{answer}}'",
         "text": "Deine Anmerkung"
+      },
+      "editNoteDialog": {
+        "title": "Anmerkung für '{{answer}}' bearbeiten"
       }
     },
     "answerType": {

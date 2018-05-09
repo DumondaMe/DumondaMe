@@ -18,7 +18,7 @@
                 <span class="command-text">{{note.upVotes}}</span>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command">
+                <v-btn icon outline class="command" @click="showEditNoteDialog = true">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </div>
@@ -28,17 +28,21 @@
                 </v-btn>
             </div>
         </div>
+        <edit-note-dialog v-if="showEditNoteDialog" @close-dialog="showEditNoteDialog = false"
+                          @finish="showEditNoteDialog = false" :note-text="note.text" :note-id="note.noteId"
+                          :answer-id="answerId" :answer-title="answerTitle">
+        </edit-note-dialog>
     </div>
 </template>
 
 <script>
-    import CreateNoteDialog from '~/components/question/answer/note/CreateDialog';
+    import EditNoteDialog from '~/components/question/answer/note/EditDialog';
 
     export default {
-        props: ['note', 'answerId'],
-        components: {CreateNoteDialog},
+        props: ['note', 'answerId', 'answerTitle'],
+        components: {EditNoteDialog},
         data() {
-            return {upVoteRunning: false}
+            return {upVoteRunning: false, showEditNoteDialog: false}
         },
         methods: {
             async upVoteNote(noteId) {
