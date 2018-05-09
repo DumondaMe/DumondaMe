@@ -1,9 +1,9 @@
 <template>
     <div>
         <v-layout row class="answer-commands">
-            <div class="note-icon" v-if="answer.answerType !== 'Commitment'">
-                <v-icon>mdi-note-outline</v-icon>
-                <span class="note-text" @click="showNote">
+            <div class="note-icon-container" v-if="answer.answerType !== 'Commitment'">
+                <v-icon class="note-icon">mdi-note-outline</v-icon>
+                <span class="note-text" @click="toggleNotes">
                     {{$t("pages:detailQuestion.note.numberOfNotes", {count: answer.numberOfNotes})}}</span>
             </div>
             <v-spacer></v-spacer>
@@ -19,6 +19,8 @@
                 </v-btn>
             </div>
         </v-layout>
+        <notes :answer="answer" :answer-title="getAnswerTitle" v-if="showNotes">
+        </notes>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <create-note-dialog v-if="showCreateNoteDialog" @close-dialog="showCreateNoteDialog = false"
@@ -29,14 +31,18 @@
 </template>
 
 <script>
-    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
-    import CreateNoteDialog from '~/components/question/answer/note/CreateDialog.vue';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
+    import CreateNoteDialog from '~/components/question/answer/note/CreateDialog';
+    import Notes from './Notes';
 
     export default {
         props: ['answer'],
-        components: {LoginRequiredDialog, CreateNoteDialog},
+        components: {LoginRequiredDialog, CreateNoteDialog, Notes},
         data() {
-            return {showLoginRequired: false, showCreateNoteDialog: false, upVoteRunning: false}
+            return {
+                showLoginRequired: false, showCreateNoteDialog: false, showNotes: false, upVoteRunning: false,
+                sortNotes: null
+            }
         },
         computed: {
             getAnswerTitle() {
@@ -69,17 +75,22 @@
             async downVote() {
                 this.voteCommand('question/downVoteAnswer');
             },
-            showNote() {
-                if (this.$store.state.auth.userIsAuthenticated && this.answer.numberOfNotes === 0) {
-                    this.showCreateNoteDialog = true;
-                } else if (this.answer.numberOfNotes === 0) {
-                    this.showLoginRequired = true;
+            toggleNotes() {
+                if (!this.showNotes) {
+                    if (this.$store.state.auth.userIsAuthenticated && this.answer.numberOfNotes === 0) {
+                        this.showCreateNoteDialog = true;
+                    } else if (this.answer.numberOfNotes === 0) {
+                        this.showLoginRequired = true;
+                    } else {
+                        this.showNotes = true;
+                    }
                 } else {
-
+                    this.showNotes = false;
                 }
             },
             noteAdded() {
                 this.showCreateNoteDialog = false;
+                this.showNotes = true;
             }
         }
     }
@@ -88,14 +99,17 @@
 <style lang="scss">
     .answer-commands {
         margin-top: 6px;
-        .note-icon {
+        .note-icon-container {
             padding-top: 2px;
-            cursor: pointer;
             i.icon {
                 color: $primary-color;
             }
+            .note-icon.icon {
+                margin-left: -3px;
+            }
             .note-text {
-                margin-left: 6px;
+                cursor: pointer;
+                margin-left: 2px;
                 font-size: 14px;
                 font-weight: 500;
                 color: $secondary-text;

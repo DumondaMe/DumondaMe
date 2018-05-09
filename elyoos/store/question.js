@@ -18,6 +18,9 @@ export const getters = {
 export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
+        for (let answer of state.question.answers) {
+            answer.notes = [];
+        }
     },
     SET_QUESTION_INFO(state, question) {
         state.question.question = question.question;
@@ -44,11 +47,12 @@ export const mutations = {
     },
     ADD_ANSWER_NOTE(state, {answerId, note}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
-        if (!answer.notes) {
-            answer.notes = [];
-        }
         answer.notes.unshift(note);
         answer.numberOfNotes++;
+    },
+    SET_ANSWER_NOTES(state, {answerId, notes}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        answer.notes = notes;
     },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
@@ -60,6 +64,17 @@ export const mutations = {
         downVoteAnswer.upVotes--;
         downVoteAnswer.hasVoted = false;
     }
+};
+
+const addDefaultProperties = function (answer, type, response) {
+    answer.answerId = response.answerId;
+    answer.created = response.created;
+    answer.creator = response.creator;
+    answer.answerType = type;
+    answer.isAdmin = true;
+    answer.upVotes = 0;
+    answer.numberOfNotes = 0;
+    answer.notes = [];
 };
 
 export const actions = {
@@ -85,55 +100,36 @@ export const actions = {
     async createYoutubeAnswer({commit, state}, youtubeData) {
         let response = await this.$axios.$post(`/user/question/answer/youtube/${state.question.questionId}`,
             youtubeData);
-        youtubeData.answerId = response.answerId;
-        youtubeData.answerType = 'Youtube';
-        youtubeData.isAdmin = true;
-        youtubeData.upVotes = 0;
+        addDefaultProperties(youtubeData, 'Youtube', response);
         youtubeData.idOnYoutube = response.idOnYoutube;
         youtubeData.linkEmbed = `https://www.youtube.com/embed/${response.idOnYoutube}`;
-        youtubeData.created = response.created;
-        youtubeData.creator = response.creator;
+
         commit('ADD_ANSWER', youtubeData);
         return response.answerId;
     },
     async createLinkAnswer({commit, state}, linkData) {
         let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`,
             linkData);
-        linkData.answerId = response.answerId;
-        linkData.answerType = 'Link';
+        addDefaultProperties(linkData, 'Link', response);
         linkData.pageType = linkData.type;
-        linkData.isAdmin = true;
-        linkData.upVotes = 0;
-        linkData.created = response.created;
         linkData.imageUrl = response.imageUrl;
-        linkData.creator = response.creator;
         commit('ADD_ANSWER', linkData);
         return response.answerId;
     },
     async createBookAnswer({commit, state}, bookData) {
         let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,
             bookData);
-        bookData.answerId = response.answerId;
-        bookData.answerType = 'Book';
-        bookData.isAdmin = true;
-        bookData.upVotes = 0;
-        bookData.created = response.created;
+        addDefaultProperties(bookData, 'Book', response);
         bookData.imageUrl = response.imageUrl;
-        bookData.creator = response.creator;
         commit('ADD_ANSWER', bookData);
         return response.answerId;
     },
     async createCommitmentAnswer({commit, state}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
             {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
-        commitmentData.answerId = response.answerId;
+        addDefaultProperties(commitmentData, 'Commitment', response);
         commitmentData.commitmentSlug = response.slug;
-        commitmentData.answerType = 'Commitment';
-        commitmentData.isAdmin = true;
-        commitmentData.upVotes = 0;
-        commitmentData.created = response.created;
         commitmentData.imageUrl = response.imageUrl;
-        commitmentData.creator = response.creator;
         commit('ADD_ANSWER', commitmentData);
         if (response.creator && response.creator.isAdminOfCommitment) {
             commit('notification/ADD_NOTIFICATION', {
@@ -149,9 +145,15 @@ export const actions = {
         let response = await this.$axios.$post(`/user/question/answer/note`, {answerId, text});
         commit('ADD_ANSWER_NOTE', {
             answerId, note: {
-                noteId: response.noteId, isAdmin: true, upVotes: 0,
+                noteId: response.noteId, text: text, textHtml: response.textHtml, isAdmin: true, upVotes: 0,
                 created: response.created, creator: response.creator
             }
+        });
+    },
+    async loadAnswerNote({commit, state}, answerId) {
+        let response = await this.$axios.$get(`/question/answer/note`, {params: {answerId, page: 0}});
+        commit('SET_ANSWER_NOTES', {
+            answerId, notes: response.notes
         });
     },
 };
