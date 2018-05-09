@@ -1,8 +1,11 @@
+import Vue from 'vue';
+
 export const state = () => ({
     question: {
         question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0,
         numberOfAnswers: 0, userWatchesQuestion: false, answers: [], topics: [], regions: []
-    }
+    },
+    sortNotes: 'newest'
 });
 
 export const getters = {
@@ -19,7 +22,7 @@ export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
         for (let answer of state.question.answers) {
-            answer.notes = [];
+            Vue.set(answer, 'notes', []);
         }
     },
     SET_QUESTION_INFO(state, question) {
@@ -151,7 +154,9 @@ export const actions = {
         });
     },
     async loadAnswerNote({commit, state}, answerId) {
-        let response = await this.$axios.$get(`/question/answer/note`, {params: {answerId, page: 0}});
+        let response = await this.$axios.$get(`/question/answer/note`, {
+            params: {answerId, page: 0, sort: state.sortNotes}
+        });
         commit('SET_ANSWER_NOTES', {
             answerId, notes: response.notes
         });

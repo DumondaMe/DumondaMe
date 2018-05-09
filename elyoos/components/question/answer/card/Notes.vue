@@ -52,13 +52,13 @@
         data() {
             return {showCreateNoteDialog: false}
         },
-        async mounted() {
+        async created() {
             if (this.answer.notes.length === 0) {
                 try {
-                    this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
+                    await this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
                 }
                 catch (error) {
-
+                    debugger
                 }
             }
         },
