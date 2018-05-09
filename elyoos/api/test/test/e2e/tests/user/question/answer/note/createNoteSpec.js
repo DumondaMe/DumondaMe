@@ -6,7 +6,7 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
 
-describe('Creating a note for a answer', function () {
+describe('Creating a note for an answer', function () {
 
     let startTime;
 
@@ -23,7 +23,7 @@ describe('Creating a note for a answer', function () {
         return requestHandler.logout();
     });
 
-    it('Creating a note for a answer (without url)', async function () {
+    it('Creating a note for an answer (without url)', async function () {
         dbDsl.createTextAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
@@ -45,7 +45,7 @@ describe('Creating a note for a answer', function () {
         resp[0].note.text.should.equals('This is a note');
     });
 
-    it('Creating a note for a answer (with url)', async function () {
+    it('Creating a note for an answer (with url)', async function () {
         dbDsl.createTextAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });

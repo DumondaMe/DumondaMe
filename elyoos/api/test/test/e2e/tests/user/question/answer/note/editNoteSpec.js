@@ -6,7 +6,7 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
 
-describe('Edit a note for a answer', function () {
+describe('Edit a note for an answer', function () {
 
     let startTime;
 
@@ -29,7 +29,7 @@ describe('Edit a note for a answer', function () {
         return requestHandler.logout();
     });
 
-    it('Edit a note for a answer (without url)', async function () {
+    it('Edit a note for an answer (without url)', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '50', text: 'This is a note'});
         res.status.should.equal(200);
@@ -41,7 +41,7 @@ describe('Edit a note for a answer', function () {
         resp[0].note.text.should.equals('This is a note');
     });
 
-    it('Edit a note for a answer (with url)', async function () {
+    it('Edit a note for an answer (with url)', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '50', text: 'Test elyoos.org change the world'});
         res.status.should.equal(200);
@@ -53,7 +53,7 @@ describe('Edit a note for a answer', function () {
         resp[0].note.text.should.equals('Test elyoos.org change the world');
     });
 
-    it('Edit a note for a answer (not creator of note)', async function () {
+    it('Edit a note for an answer (not creator of note)', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '51', text: 'This is a note'});
         res.status.should.equal(400);
