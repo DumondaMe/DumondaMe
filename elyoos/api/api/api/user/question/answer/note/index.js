@@ -3,6 +3,7 @@
 const validation = require('elyoos-server-lib').jsonValidation;
 const createNote = requireModel('user/question/answer/note/create');
 const editNote = requireModel('user/question/answer/note/edit');
+const deleteNote = requireModel('user/question/answer/note/delete');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -33,9 +34,9 @@ const schemaDeleteNote = {
     name: 'deleteNote',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId'],
+    required: ['noteId'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        noteId: {type: 'string', format: 'notEmptyString', maxLength: 30}
     }
 };
 
@@ -54,8 +55,8 @@ module.exports = function (router) {
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        /*const params = await validation.validateRequest(req, schemaDeleteNote, logger);
-        let response = await questionDelete.deleteQuestion(req.user.id, params.questionId);
-        res.status(200).json(response);*/
+        const params = await validation.validateRequest(req, schemaDeleteNote, logger);
+        await deleteNote.deleteNote(req.user.id, params.noteId);
+        res.status(200).end();
     }));
 };
