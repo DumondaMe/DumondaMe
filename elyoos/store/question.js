@@ -62,11 +62,23 @@ export const mutations = {
         upVoteAnswer.upVotes++;
         upVoteAnswer.hasVoted = true;
     },
+    UP_VOTE_NOTE_OF_ANSWER(state, {answerId, noteId}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        let upVotedNote = answer.notes.find((note) => note.noteId === noteId);
+        upVotedNote.upVotes++;
+        upVotedNote.hasVoted = true;
+    },
     DOWN_VOTE_ANSWER(state, answerId) {
         let downVoteAnswer = state.question.answers.find((answer) => answer.answerId === answerId);
         downVoteAnswer.upVotes--;
         downVoteAnswer.hasVoted = false;
-    }
+    },
+    DOWN_VOTE_NOTE_OF_ANSWER(state, {answerId, noteId}) {
+        let answer = state.question.answers.find((answer) => answer.answerId === answerId);
+        let upVotedNote = answer.notes.find((note) => note.noteId === noteId);
+        upVotedNote.upVotes--;
+        upVotedNote.hasVoted = false;
+    },
 };
 
 const addDefaultProperties = function (answer, type, response) {
@@ -160,5 +172,13 @@ export const actions = {
         commit('SET_ANSWER_NOTES', {
             answerId, notes: response.notes
         });
+    },
+    async upVoteNoteOfAnswer({commit}, {answerId, noteId}) {
+        await this.$axios.$post(`/user/question/answer/note/upVote/`, {noteId});
+        commit('UP_VOTE_NOTE_OF_ANSWER', {answerId, noteId});
+    },
+    async downVoteNoteOfAnswer({commit}, {answerId, noteId}) {
+        await this.$axios.$delete(`/user/question/answer/note/upVote/`, {params: {noteId}});
+        commit('DOWN_VOTE_NOTE_OF_ANSWER', {answerId, noteId});
     },
 };
