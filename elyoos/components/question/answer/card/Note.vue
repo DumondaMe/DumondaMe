@@ -1,7 +1,11 @@
 <template>
     <div class="answer-note">
         <div class="note-title">
-            <span class="user-name">{{note.creator.name}} </span>
+            <span class="user-name" v-if="note.isAdmin" @click="$router.push({name: 'user'})">
+                {{$t("common:you")}} </span>
+            <span class="user-name" v-else @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: note.creator.userId, slug: note.creator.slug}})">
+                {{note.creator.name}} </span>
             <span class="created">{{note.created | formatRelativeTimesAgo}}</span>
         </div>
         <div class="note-text" v-html="note.textHtml"></div>
