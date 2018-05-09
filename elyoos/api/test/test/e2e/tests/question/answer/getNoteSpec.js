@@ -49,6 +49,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].textHtml.should.equals('note52Text');
         res.body.notes[0].created.should.equals(333);
         res.body.notes[0].upVotes.should.equals(2);
+        res.body.notes[0].hasVoted.should.equals(true);
         res.body.notes[0].isAdmin.should.equals(false);
         res.body.notes[0].creator.userId.should.equals('3');
         res.body.notes[0].creator.name.should.equals('user Meier3');
@@ -59,6 +60,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
+        res.body.notes[1].hasVoted.should.equals(false);
         res.body.notes[1].isAdmin.should.equals(true);
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
@@ -69,6 +71,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].textHtml.should.equals('note50Text');
         res.body.notes[2].created.should.equals(555);
         res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].hasVoted.should.equals(false);
         res.body.notes[2].isAdmin.should.equals(true);
         res.body.notes[2].creator.userId.should.equals('1');
         res.body.notes[2].creator.name.should.equals('user Meier');
@@ -79,6 +82,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].textHtml.should.equals('note51Text');
         res.body.notes[3].created.should.equals(444);
         res.body.notes[3].upVotes.should.equals(0);
+        res.body.notes[3].hasVoted.should.equals(false);
         res.body.notes[3].isAdmin.should.equals(false);
         res.body.notes[3].creator.userId.should.equals('2');
         res.body.notes[3].creator.name.should.equals('user Meier2');
@@ -98,6 +102,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
+        res.body.notes[0].hasVoted.should.equals(false);
         res.body.notes[0].isAdmin.should.equals(true);
         res.body.notes[0].creator.userId.should.equals('1');
         res.body.notes[0].creator.name.should.equals('user Meier');
@@ -108,6 +113,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].textHtml.should.equals('note50Text');
         res.body.notes[1].created.should.equals(555);
         res.body.notes[1].upVotes.should.equals(0);
+        res.body.notes[1].hasVoted.should.equals(false);
         res.body.notes[1].isAdmin.should.equals(true);
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
@@ -118,6 +124,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].textHtml.should.equals('note51Text');
         res.body.notes[2].created.should.equals(444);
         res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].hasVoted.should.equals(false);
         res.body.notes[2].isAdmin.should.equals(false);
         res.body.notes[2].creator.userId.should.equals('2');
         res.body.notes[2].creator.name.should.equals('user Meier2');
@@ -128,6 +135,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].textHtml.should.equals('note52Text');
         res.body.notes[3].created.should.equals(333);
         res.body.notes[3].upVotes.should.equals(2);
+        res.body.notes[3].hasVoted.should.equals(true);
         res.body.notes[3].isAdmin.should.equals(false);
         res.body.notes[3].creator.userId.should.equals('3');
         res.body.notes[3].creator.name.should.equals('user Meier3');
@@ -145,6 +153,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].textHtml.should.equals('note52Text');
         res.body.notes[0].created.should.equals(333);
         res.body.notes[0].upVotes.should.equals(2);
+        res.body.notes[0].hasVoted.should.equals(false);
         res.body.notes[0].isAdmin.should.equals(false);
         res.body.notes[0].creator.userId.should.equals('3');
         res.body.notes[0].creator.name.should.equals('user Meier3');
@@ -155,6 +164,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
+        res.body.notes[1].hasVoted.should.equals(false);
         res.body.notes[1].isAdmin.should.equals(false);
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
@@ -165,6 +175,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].textHtml.should.equals('note50Text');
         res.body.notes[2].created.should.equals(555);
         res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].hasVoted.should.equals(false);
         res.body.notes[2].isAdmin.should.equals(false);
         res.body.notes[2].creator.userId.should.equals('1');
         res.body.notes[2].creator.name.should.equals('user Meier');
@@ -175,6 +186,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].textHtml.should.equals('note51Text');
         res.body.notes[3].created.should.equals(444);
         res.body.notes[3].upVotes.should.equals(0);
+        res.body.notes[3].hasVoted.should.equals(false);
         res.body.notes[3].isAdmin.should.equals(false);
         res.body.notes[3].creator.userId.should.equals('2');
         res.body.notes[3].creator.name.should.equals('user Meier2');
@@ -193,6 +205,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
+        res.body.notes[0].hasVoted.should.equals(false);
         res.body.notes[0].isAdmin.should.equals(false);
         res.body.notes[0].creator.userId.should.equals('1');
         res.body.notes[0].creator.name.should.equals('user Meier');
@@ -203,6 +216,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].textHtml.should.equals('note50Text');
         res.body.notes[1].created.should.equals(555);
         res.body.notes[1].upVotes.should.equals(0);
+        res.body.notes[1].hasVoted.should.equals(false);
         res.body.notes[1].isAdmin.should.equals(false);
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
@@ -213,6 +227,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].textHtml.should.equals('note51Text');
         res.body.notes[2].created.should.equals(444);
         res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].hasVoted.should.equals(false);
         res.body.notes[2].isAdmin.should.equals(false);
         res.body.notes[2].creator.userId.should.equals('2');
         res.body.notes[2].creator.name.should.equals('user Meier2');
@@ -223,6 +238,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].textHtml.should.equals('note52Text');
         res.body.notes[3].created.should.equals(333);
         res.body.notes[3].upVotes.should.equals(2);
+        res.body.notes[3].hasVoted.should.equals(false);
         res.body.notes[3].isAdmin.should.equals(false);
         res.body.notes[3].creator.userId.should.equals('3');
         res.body.notes[3].creator.name.should.equals('user Meier3');

@@ -15,6 +15,7 @@ const getNotesResponse = function (notes) {
             textHtml: linkifyHtml(note.text),
             created: note.created,
             upVotes: note.upVotes,
+            hasVoted: note.hasVoted,
             isAdmin: note.isAdmin,
             creator: {
                 userId: note.creator.userId,
@@ -45,7 +46,8 @@ const getNotes = async function (userId, answerId, page, sort) {
         .optionalMatch(`(answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(note)<-[upVote:UP_VOTE]-(:User)`)
         .return(`DISTINCT note.noteId AS noteId, note.text AS text, note.created AS created, count(upVote) AS upVotes,
-                 creator, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(note)) AS isAdmin`)
+                 creator, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(note)) AS isAdmin,
+                 EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(note)) AS hasVoted`)
         .orderBy(getSortOrder(sort))
         .skip(`{page}`)
         .limit(`${PAGE_SIZE}`)
