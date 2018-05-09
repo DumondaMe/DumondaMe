@@ -32,14 +32,21 @@ const getTotalNumberOfNotesCommand = function (answerId) {
         .return(`count(*) AS numberOfNotes`).end({answerId}).getCommand();
 };
 
-const getNotes = async function (userId, answerId, page) {
+const getSortOrder = function (sort) {
+  if(sort === 'newest') {
+      return `created DESC`;
+  }
+  return `upVotes DESC, created DESC`;
+};
+
+const getNotes = async function (userId, answerId, page, sort) {
     page = PAGE_SIZE * page;
     let response = await db.cypher().match(`(answer:Answer {answerId: {answerId}})<-[:IS_CREATOR]-(user:User)`)
         .optionalMatch(`(answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(note)<-[upVote:UP_VOTE]-(:User)`)
         .return(`DISTINCT note.noteId AS noteId, note.text AS text, note.created AS created, count(upVote) AS upVotes,
                  creator, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(note)) AS isAdmin`)
-        .orderBy(`upVotes DESC, created DESC`)
+        .orderBy(getSortOrder(sort))
         .skip(`{page}`)
         .limit(`${PAGE_SIZE}`)
         .end({answerId, page, userId}).send([getTotalNumberOfNotesCommand(answerId)]);

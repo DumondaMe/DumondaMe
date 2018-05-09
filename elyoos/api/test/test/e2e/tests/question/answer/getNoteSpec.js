@@ -37,10 +37,10 @@ describe('Getting notes of an answer', function () {
         return requestHandler.logout();
     });
 
-    it('Getting notes of an answer (logged in)', async function () {
+    it('Getting notes of an answer (logged in, sort upVotes)', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0});
+        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0, sort: 'upVotes'});
         res.status.should.equal(200);
         res.body.numberOfNotes.should.equals(4);
         res.body.notes.length.should.equals(4);
@@ -85,9 +85,58 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.slug.should.equals('user-meier2');
     });
 
-    it('Getting notes of an answer (public)', async function () {
+    it('Getting notes of an answer (logged in, sort newest)', async function () {
 
-        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0});
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0, sort: 'newest'});
+        res.status.should.equal(200);
+        res.body.numberOfNotes.should.equals(4);
+        res.body.notes.length.should.equals(4);
+
+        res.body.notes[0].noteId.should.equals('53');
+        res.body.notes[0].text.should.equals('Test elyoos.org change the world');
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[0].created.should.equals(666);
+        res.body.notes[0].upVotes.should.equals(1);
+        res.body.notes[0].isAdmin.should.equals(true);
+        res.body.notes[0].creator.userId.should.equals('1');
+        res.body.notes[0].creator.name.should.equals('user Meier');
+        res.body.notes[0].creator.slug.should.equals('user-meier');
+
+        res.body.notes[1].noteId.should.equals('50');
+        res.body.notes[1].text.should.equals('note50Text');
+        res.body.notes[1].textHtml.should.equals('note50Text');
+        res.body.notes[1].created.should.equals(555);
+        res.body.notes[1].upVotes.should.equals(0);
+        res.body.notes[1].isAdmin.should.equals(true);
+        res.body.notes[1].creator.userId.should.equals('1');
+        res.body.notes[1].creator.name.should.equals('user Meier');
+        res.body.notes[1].creator.slug.should.equals('user-meier');
+
+        res.body.notes[2].noteId.should.equals('51');
+        res.body.notes[2].text.should.equals('note51Text');
+        res.body.notes[2].textHtml.should.equals('note51Text');
+        res.body.notes[2].created.should.equals(444);
+        res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].isAdmin.should.equals(false);
+        res.body.notes[2].creator.userId.should.equals('2');
+        res.body.notes[2].creator.name.should.equals('user Meier2');
+        res.body.notes[2].creator.slug.should.equals('user-meier2');
+
+        res.body.notes[3].noteId.should.equals('52');
+        res.body.notes[3].text.should.equals('note52Text');
+        res.body.notes[3].textHtml.should.equals('note52Text');
+        res.body.notes[3].created.should.equals(333);
+        res.body.notes[3].upVotes.should.equals(2);
+        res.body.notes[3].isAdmin.should.equals(false);
+        res.body.notes[3].creator.userId.should.equals('3');
+        res.body.notes[3].creator.name.should.equals('user Meier3');
+        res.body.notes[3].creator.slug.should.equals('user-meier3');
+    });
+
+    it('Getting notes of an answer (public, sort upVotes)', async function () {
+
+        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0, sort: 'upVotes'});
         res.status.should.equal(200);
         res.body.numberOfNotes.should.equals(4);
         res.body.notes.length.should.equals(4);
@@ -130,5 +179,53 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.userId.should.equals('2');
         res.body.notes[3].creator.name.should.equals('user Meier2');
         res.body.notes[3].creator.slug.should.equals('user-meier2');
+    });
+
+    it('Getting notes of an answer (logged in, sort newest)', async function () {
+
+        let res = await requestHandler.get('/api/question/answer/note', {answerId: '6', page: 0, sort: 'newest'});
+        res.status.should.equal(200);
+        res.body.numberOfNotes.should.equals(4);
+        res.body.notes.length.should.equals(4);
+
+        res.body.notes[0].noteId.should.equals('53');
+        res.body.notes[0].text.should.equals('Test elyoos.org change the world');
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[0].created.should.equals(666);
+        res.body.notes[0].upVotes.should.equals(1);
+        res.body.notes[0].isAdmin.should.equals(false);
+        res.body.notes[0].creator.userId.should.equals('1');
+        res.body.notes[0].creator.name.should.equals('user Meier');
+        res.body.notes[0].creator.slug.should.equals('user-meier');
+
+        res.body.notes[1].noteId.should.equals('50');
+        res.body.notes[1].text.should.equals('note50Text');
+        res.body.notes[1].textHtml.should.equals('note50Text');
+        res.body.notes[1].created.should.equals(555);
+        res.body.notes[1].upVotes.should.equals(0);
+        res.body.notes[1].isAdmin.should.equals(false);
+        res.body.notes[1].creator.userId.should.equals('1');
+        res.body.notes[1].creator.name.should.equals('user Meier');
+        res.body.notes[1].creator.slug.should.equals('user-meier');
+
+        res.body.notes[2].noteId.should.equals('51');
+        res.body.notes[2].text.should.equals('note51Text');
+        res.body.notes[2].textHtml.should.equals('note51Text');
+        res.body.notes[2].created.should.equals(444);
+        res.body.notes[2].upVotes.should.equals(0);
+        res.body.notes[2].isAdmin.should.equals(false);
+        res.body.notes[2].creator.userId.should.equals('2');
+        res.body.notes[2].creator.name.should.equals('user Meier2');
+        res.body.notes[2].creator.slug.should.equals('user-meier2');
+
+        res.body.notes[3].noteId.should.equals('52');
+        res.body.notes[3].text.should.equals('note52Text');
+        res.body.notes[3].textHtml.should.equals('note52Text');
+        res.body.notes[3].created.should.equals(333);
+        res.body.notes[3].upVotes.should.equals(2);
+        res.body.notes[3].isAdmin.should.equals(false);
+        res.body.notes[3].creator.userId.should.equals('3');
+        res.body.notes[3].creator.name.should.equals('user Meier3');
+        res.body.notes[3].creator.slug.should.equals('user-meier3');
     });
 });

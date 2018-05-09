@@ -10,10 +10,11 @@ const schemaGetNotesOfAnswer = {
     name: 'getNotesOfAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'page'],
+    required: ['answerId', 'page', 'sort'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        page: {type: 'integer', minimum: 0}
+        page: {type: 'integer', minimum: 0},
+        sort: {enum: ['newest', 'upVotes']}
     }
 };
 
@@ -22,7 +23,7 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetNotesOfAnswer, logger);
         let userId = apiHelper.getUserId(req);
-        let response = await notes.getNotes(userId, params.answerId, params.page);
+        let response = await notes.getNotes(userId, params.answerId, params.page, params.sort);
         res.status(200).json(response);
     }));
 };
