@@ -7,6 +7,7 @@ const parseWebsite = require('./../website/parse');
 const youtubeLink = requireModel('util/youtube');
 const vimeoLink = requireModel('util/vimeo');
 const exceptions = require('elyoos-server-lib').exceptions;
+const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const LINK = 'Link';
@@ -38,7 +39,7 @@ const searchDatabase = async function (link, linkType) {
             response.linkEmbed = answer.linkEmbed;
         } else if (linkType === LINK) {
             response.pageType = answer.pageType;
-            response.imageUrl = `/link/${answer.answerId}/preview.jpg`;
+            response.imageUrl = cdn.getPublicUrl(`link/${answer.answerId}/preview.jpg`);
         }
     }
     return response;

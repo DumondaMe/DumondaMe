@@ -69,7 +69,7 @@ describe('Search a website link', function () {
         res.body.title.should.equals('link10Title');
         res.body.description.should.equals('link10Description');
         res.body.pageType.should.equals('article');
-        res.body.imageUrl.should.equals('/link/10/preview.jpg');
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/10/preview.jpg`);
         res.body.type.should.equals('Link');
     });
 
