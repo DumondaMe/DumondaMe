@@ -13,7 +13,7 @@
                 {{$t("common:button.watch")}}
             </v-btn>
             <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
-                <v-icon>mdi-eye-off</v-icon>
+                <v-icon>mdi-check</v-icon>
                 {{$t("common:button.watch")}}
             </v-btn>
         </div>

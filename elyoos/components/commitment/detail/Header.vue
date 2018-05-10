@@ -9,7 +9,7 @@
                     {{$t("common:button.watch")}}
                 </v-btn>
                 <v-btn class="button-watch" color="primary" outline @click="removeWatch" v-else>
-                    <v-icon>mdi-eye-off</v-icon>
+                    <v-icon>mdi-check</v-icon>
                     {{$t("common:button.watch")}}
                 </v-btn>
             </div>

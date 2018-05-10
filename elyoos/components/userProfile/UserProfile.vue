@@ -32,7 +32,7 @@
         <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
             <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
                    v-if="user.isContactOfLoggedInUser">
-                <v-icon left dark>mdi-account-remove</v-icon>
+                <v-icon left dark>mdi-check</v-icon>
                 {{$t("common:trustCircle")}}
             </v-btn>
             <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
