@@ -10,7 +10,7 @@
         head() {
             return {
                 script: [
-                    {src: 'https://www.google.com/recaptcha/api.js?render=explicit', body: true}
+                    {src: 'https://www.google.com/recaptcha/api.js?onload=onloadRecaptchaCallback&render=explicit', body: true}
                 ],
             }
         }
