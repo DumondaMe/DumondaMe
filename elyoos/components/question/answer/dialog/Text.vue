@@ -24,8 +24,9 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="createTextAnswer()" :disabled="!valid">
-                {{$t("pages:detailQuestion.createAnswerButton")}}
+            <v-btn color="primary" @click.native="updateTextAnswer()" :disabled="!valid || !hasChanged || loading"
+                   :loading="loading">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -35,20 +36,37 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
+        props: ['initAnswer', 'answerId', 'actionButtonText'],
         data() {
-            return {valid: false, answer: ''}
+            return {valid: false, answer: this.initAnswer, loading: false}
         },
         mixins: [validationRules],
         computed: {
+            hasChanged() {
+                return this.initAnswer !== this.answer;
+            },
             question() {
                 return this.$store.state.question.question.question;
             }
         },
         methods: {
-            async createTextAnswer() {
-                let answerId = await this.$store.dispatch('question/createTextAnswer',
-                    {answer: this.answer});
-                this.$emit('close-dialog', answerId);
+            async updateTextAnswer() {
+                let answerId;
+                this.loading = true;
+                try {
+                    if (this.answerId) {
+                        await this.$store.dispatch('question/editTextAnswer',
+                            {answer: this.answer, answerId: this.answerId});
+                    } else {
+                        answerId = await this.$store.dispatch('question/createTextAnswer',
+                            {answer: this.answer});
+                    }
+                    this.$emit('close-dialog', answerId);
+                } catch (e) {
+
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }

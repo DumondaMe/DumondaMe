@@ -98,6 +98,8 @@
     "searchBook": "Suche das Buch",
     "searchCommitment": "Suche das Engagment",
     "createAnswerButton": "Antwort Erstellen",
+    "editAnswerButton": "Antwort Ändern",
+    "editAnswerTitle": "Antwort '{{answer}}' ändern",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {

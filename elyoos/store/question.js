@@ -48,6 +48,10 @@ export const mutations = {
         state.question.answers.sort((a, b) => b.upVotes - a.upVotes);
         state.question.numberOfAnswers++;
     },
+    EDIT_ANSWER(state, {answerId, answer}) {
+        let answerToEdit = state.question.answers.find((answer) => answer.answerId === answerId);
+        answerToEdit.answer = answer;
+    },
     ADD_ANSWER_NOTE(state, {answerId, note}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
         answer.notes.unshift(note);
@@ -86,7 +90,7 @@ export const mutations = {
         upVotedNote.hasVoted = false;
     },
     TOGGLE_ANSWER_NOTE_SORT(state) {
-        if(state.sortNotes === 'newest') {
+        if (state.sortNotes === 'newest') {
             state.sortNotes = 'upVotes'
         } else {
             state.sortNotes = 'newest'
@@ -130,6 +134,10 @@ export const actions = {
             answerType: 'Text', answer, created: response.created, creator: response.creator
         });
         return response.answerId;
+    },
+    async editTextAnswer({commit}, {answer, answerId}) {
+        await this.$axios.$put(`/user/question/answer/text/${answerId}`, {answer});
+        commit('EDIT_ANSWER', {answerId, answer});
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
         let response = await this.$axios.$post(`/user/question/answer/youtube/${state.question.questionId}`,

@@ -2,7 +2,8 @@
     <select-answer-type @close-dialog="$emit('close-dialog')" v-if="showSelect"
                         @answer-selected="answerSelected">
     </select-answer-type>
-    <answer-text v-else-if="answerType === 'text'" @close-dialog="closeDialog">
+    <answer-text v-else-if="answerType === 'text'" @close-dialog="closeDialog" init-answer=""
+                 :action-button-text="$t('pages:detailQuestion.createAnswerButton')">
     </answer-text>
     <answer-link v-else-if="answerType === 'link'" @close-dialog="closeDialog">
     </answer-link>
@@ -14,10 +15,10 @@
 
 <script>
     import SelectAnswerType from './SelectAnswerType';
-    import AnswerText from './AnswerText';
-    import AnswerLink from './AnswerLink';
-    import AnswerBook from './AnswerBook';
-    import AnswerCommitment from './AnswerCommitment';
+    import AnswerText from './Text';
+    import AnswerLink from './Link';
+    import AnswerBook from './Book';
+    import AnswerCommitment from './Commitment';
     import Vue from 'vue';
 
     export default {

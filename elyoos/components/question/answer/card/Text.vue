@@ -13,7 +13,7 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="showEditTextDialog = true">
                         <v-list-tile-title>Bearbeiten</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
@@ -26,6 +26,9 @@
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
         <answer-commands :answer="answer"></answer-commands>
+        <edit-text-dialog v-if="showEditTextDialog" @close-dialog="showEditTextDialog = false"
+                          :init-answer="answer.answer" :answer-id="answer.answerId">
+        </edit-text-dialog>
     </div>
 </template>
 
@@ -33,10 +36,14 @@
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
+    import EditTextDialog from '~/components/question/answer/dialog/EditTextDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText},
+        components: {UserInfo, AnswerCommands, ExpandText, EditTextDialog},
+        data() {
+            return {showEditTextDialog: false}
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
