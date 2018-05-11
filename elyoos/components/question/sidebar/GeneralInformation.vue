@@ -35,7 +35,7 @@
         <div class="question-info">
             <v-icon class="info-icon">mdi-pencil</v-icon>
             <div class="question-info-content">
-                {{question.created | formatDate}}
+                {{question.created | formatRelativeTimesAgo}}
             </div>
         </div>
         <div class="question-info" v-if="question.isAdmin">
