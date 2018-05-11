@@ -1,6 +1,7 @@
 {
   "fieldRequired": "Is required",
   "toManyChars": "To many characters",
+  "onlyLetters": "No numbers or special characters are allowed",
   "minLength": "Must be at least {{length}} characters long",
   "noPasswordChars": "Must contain at least one capital letter and one number",
   "passwordNoEqual": "Passwords do not match",

@@ -15,6 +15,7 @@
                               dense
                               :items="searchTopics"
                               :rules="[ruleToManyChars($t('validation:toManyChars'), 30),
+                                       onlyLettersAllowed($t('validation:onlyLetters')),
                                        topicNotAlreadyUsed(),
                                        maxNumberOfTopics(),
                                        maxNumberOfSpaces()]"
@@ -147,7 +148,7 @@
             },
             maxNumberOfTopics() {
                 return this.topics.length < MAX_NUMBER_OF_TOPICS ||
-                    this.$t("pages:commitment.createDialog.maxTopics", {count: MAX_NUMBER_OF_TOPICS});
+                    this.$t("pages:commitment.createDialog.maxTopic", {count: MAX_NUMBER_OF_TOPICS});
             },
             maxNumberOfSpaces() {
                 if (this.newTopic && this.newTopic.split(" ").length - 1 > MAX_NUMBER_OF_SPACES) {

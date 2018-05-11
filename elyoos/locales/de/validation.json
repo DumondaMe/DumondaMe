@@ -1,6 +1,7 @@
 {
   "fieldRequired": "Wird benötigt",
   "toManyChars": "Zu viele Zeichen",
+  "onlyLetters": "Es dürfen keine Zahlen oder Sonderzeichen verwendet werden",
   "minLength": "Muss mindestens {{length}} Zeichen lang sein",
   "noPasswordChars": "Muss mindestens ein Grossbuchstaben und eine Zahl enthalten",
   "passwordNoEqual": "Passwörter stimmen nicht überein",
