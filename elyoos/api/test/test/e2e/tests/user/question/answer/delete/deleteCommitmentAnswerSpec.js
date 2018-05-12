@@ -6,7 +6,7 @@ let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 
-describe('Delete text answer', function () {
+describe('Delete commitment answer', function () {
 
     let startTime;
 
@@ -17,15 +17,19 @@ describe('Delete text answer', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
         });
-        dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['Health'],
-            language: 'en'
+        dbDsl.createCommitment('100', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
         });
-        dbDsl.createTextAnswer('5', {
-            creatorId: '1', questionId:'1', answer: 'Answer'
+        dbDsl.createCommitmentAnswer('5', {
+            creatorId: '1', questionId: '1', commitmentId: '100', created: 555, description: 'test'
         });
-        dbDsl.createTextAnswer('6', {
-            creatorId: '2', questionId:'1', answer: 'Answer2'
+        dbDsl.createCommitment('101', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example2.org/', regions: ['region-1'], title: 'Das ist ein Engagement2'
+        });
+        dbDsl.createCommitmentAnswer('6', {
+            creatorId: '2', questionId: '1', commitmentId: '101', created: 666, description: 'test2'
         });
     });
 
@@ -33,7 +37,7 @@ describe('Delete text answer', function () {
         return requestHandler.logout();
     });
 
-    it('Delete text answer (without notes)', async function () {
+    it('Delete commitment answer (without notes)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
@@ -45,21 +49,7 @@ describe('Delete text answer', function () {
         resp.length.should.equals(0);
     });
 
-    it('Delete text answer (with notes)', async function () {
-        dbDsl.createNote('50', {answerId: '5', creatorId: '1', created: 555});
-        dbDsl.createNote('51', {answerId: '5', creatorId: '2', created: 555});
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
-        res.status.should.equal(200);
-
-        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
-                                            (answer:Answer {answerId: '5'})`)
-            .return(`answer`).end().send();
-        resp.length.should.equals(0);
-    });
-
-    it('The user is only allowed to delete text answers that he has created', async function () {
+    it('The user is only allowed to delete commitment answers that he has created', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});
@@ -69,8 +59,7 @@ describe('Delete text answer', function () {
                                             (answer:Answer {answerId: '6'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.answer.should.equals('Answer2');
-        resp[0].answer.created.should.equals(500);
-        resp[0].answer.modified.should.equals(500);
+        resp[0].answer.description.should.equals('test2');
+        resp[0].answer.created.should.equals(666);
     });
 });

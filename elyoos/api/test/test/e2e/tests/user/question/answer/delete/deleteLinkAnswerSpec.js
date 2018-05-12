@@ -6,7 +6,7 @@ let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 
-describe('Delete text answer', function () {
+describe('Delete link answer', function () {
 
     let startTime;
 
@@ -17,15 +17,13 @@ describe('Delete text answer', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
         });
-        dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['Health'],
-            language: 'en'
+        dbDsl.createLinkAnswer('5', {
+            creatorId: '1', questionId: '1', created: 555,
+            link: 'https://example.com', pageType: 'blog'
         });
-        dbDsl.createTextAnswer('5', {
-            creatorId: '1', questionId:'1', answer: 'Answer'
-        });
-        dbDsl.createTextAnswer('6', {
-            creatorId: '2', questionId:'1', answer: 'Answer2'
+        dbDsl.createLinkAnswer('6', {
+            creatorId: '2', questionId: '1', created: 666,
+            link: 'https://example2.com', pageType: 'blog'
         });
     });
 
@@ -33,7 +31,7 @@ describe('Delete text answer', function () {
         return requestHandler.logout();
     });
 
-    it('Delete text answer (without notes)', async function () {
+    it('Delete link answer (without notes)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
@@ -45,7 +43,7 @@ describe('Delete text answer', function () {
         resp.length.should.equals(0);
     });
 
-    it('Delete text answer (with notes)', async function () {
+    it('Delete link answer (with notes)', async function () {
         dbDsl.createNote('50', {answerId: '5', creatorId: '1', created: 555});
         dbDsl.createNote('51', {answerId: '5', creatorId: '2', created: 555});
         await dbDsl.sendToDb();
@@ -59,7 +57,7 @@ describe('Delete text answer', function () {
         resp.length.should.equals(0);
     });
 
-    it('The user is only allowed to delete text answers that he has created', async function () {
+    it('The user is only allowed to delete link answers that he has created', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});
@@ -69,8 +67,7 @@ describe('Delete text answer', function () {
                                             (answer:Answer {answerId: '6'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.answer.should.equals('Answer2');
-        resp[0].answer.created.should.equals(500);
-        resp[0].answer.modified.should.equals(500);
+        resp[0].answer.link.should.equals('https://example2.com');
+        resp[0].answer.created.should.equals(666);
     });
 });
