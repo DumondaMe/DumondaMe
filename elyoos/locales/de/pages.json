@@ -100,6 +100,9 @@
     "createAnswerButton": "Antwort Erstellen",
     "editAnswerButton": "Antwort Ändern",
     "editAnswerTitle": "Antwort '{{answer}}' ändern",
+    "deleteAnswerTitle": "Antwort löschen",
+    "deleteAnswerDescription": "Willst du die Antwort '{{answer}}' wirklich löschen?",
+    "deleteAnswerButton": "Ja, Antwort löschen",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {

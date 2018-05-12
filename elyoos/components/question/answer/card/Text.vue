@@ -17,7 +17,7 @@
                         <v-list-tile-title>Bearbeiten</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="showDeleteAnswerDialog = true">
                         <v-list-tile-title>Löschen</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
@@ -29,20 +29,24 @@
         <edit-text-dialog v-if="showEditTextDialog" @close-dialog="showEditTextDialog = false"
                           :init-answer="answer.answer" :answer-id="answer.answerId">
         </edit-text-dialog>
+        <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
+                              :answer="answer.answer" :answer-id="answer.answerId">
+        </delete-answer-dialog>
     </div>
 </template>
 
 <script>
-    import UserInfo from './UserInfo.vue';
-    import AnswerCommands from './Commands.vue';
-    import ExpandText from '~/components/common/text/Expand.vue'
+    import UserInfo from './UserInfo';
+    import AnswerCommands from './Commands';
+    import ExpandText from '~/components/common/text/Expand'
     import EditTextDialog from '~/components/question/answer/dialog/EditTextDialog'
+    import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, EditTextDialog},
+        components: {UserInfo, AnswerCommands, ExpandText, EditTextDialog, DeleteAnswerDialog},
         data() {
-            return {showEditTextDialog: false}
+            return {showEditTextDialog: false, showDeleteAnswerDialog: false}
         },
         computed: {
             isAuthenticated() {

@@ -52,6 +52,11 @@ export const mutations = {
         let answerToEdit = state.question.answers.find((answer) => answer.answerId === answerId);
         answerToEdit.answer = answer;
     },
+    DELETE_ANSWER(state, answerId) {
+        let indexOfAnswer = state.question.answers.findIndex((answer) => answer.answerId === answerId);
+        state.question.answers.splice(indexOfAnswer, 1);
+        state.question.numberOfAnswers--;
+    },
     ADD_ANSWER_NOTE(state, {answerId, note}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
         answer.notes.unshift(note);
@@ -182,6 +187,10 @@ export const actions = {
             }, {root: true});
         }
         return response.answerId;
+    },
+    async deleteAnswer({commit, state}, answerId) {
+        await this.$axios.$delete(`/user/question/answer`, {params: {answerId}});
+        commit('DELETE_ANSWER', answerId);
     },
     async createAnswerNote({commit, state}, {answerId, text}) {
         let response = await this.$axios.$post(`/user/question/answer/note`, {answerId, text});

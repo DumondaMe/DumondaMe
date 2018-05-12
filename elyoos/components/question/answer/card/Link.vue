@@ -17,7 +17,7 @@
                         <v-list-tile-title>Bearbeiten</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="showDeleteAnswerDialog = true">
                         <v-list-tile-title>Löschen</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
@@ -33,6 +33,9 @@
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
+        <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
+                              :answer="answer.title" :answer-id="answer.answerId">
+        </delete-answer-dialog>
     </div>
 </template>
 
@@ -40,10 +43,14 @@
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
+    import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText},
+        components: {UserInfo, AnswerCommands, ExpandText, DeleteAnswerDialog},
+        data() {
+            return {showDeleteAnswerDialog: false}
+        },
         computed: {
             answerType() {
                 if (this.answer.pageType) {
