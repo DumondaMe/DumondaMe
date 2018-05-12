@@ -37,7 +37,7 @@ describe('Delete commitment answer', function () {
         return requestHandler.logout();
     });
 
-    it('Delete commitment answer (without notes)', async function () {
+    it('Delete commitment answer (without notification)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
@@ -46,6 +46,43 @@ describe('Delete commitment answer', function () {
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Delete commitment answer (with notification)', async function () {
+        dbDsl.notificationShowQuestionOnCommitmentRequest('50', {questionId: '1', commitmentId: '100', adminId: '2',
+            created: 777});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
+                                            (answer:Answer {answerId: '5'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match(`(notification:Notification)`)
+            .return(`notification`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Delete commitment answer (with show question)', async function () {
+        dbDsl.showQuestionOnCommitment({questionId: '1', commitmentId: '100'});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
+                                            (answer:Answer {answerId: '5'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match(`(c:Commitment)-[SHOW_QUESTION]->(:Question)`)
+            .return(`c`).end().send();
         resp.length.should.equals(0);
     });
 
