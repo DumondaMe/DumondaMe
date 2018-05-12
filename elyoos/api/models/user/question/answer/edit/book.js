@@ -10,7 +10,7 @@ const editBookAnswer = async function (userId, params) {
     await security.isAdmin(userId, params.answerId);
     await db.cypher().match(`(answer:Book:Answer {answerId: {answerId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
         .set(`answer`, {
-            title: params.title, description: params.description, authors: params.authors,
+            description: params.description, authors: params.authors,
             modified: time.getNowUtcTimestamp()
         })
         .end({userId, answerId: params.answerId}).send();

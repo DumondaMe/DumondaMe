@@ -26,10 +26,9 @@ const schemaEditBookAnswer = {
     name: 'editBookAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'title', 'description'],
+    required: ['answerId', 'description'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         authors: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
