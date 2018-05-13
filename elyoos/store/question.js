@@ -50,7 +50,11 @@ export const mutations = {
     },
     EDIT_ANSWER(state, {answerId, answer}) {
         let answerToEdit = state.question.answers.find((answer) => answer.answerId === answerId);
-        answerToEdit.answer = answer;
+        for (let prop in answer) {
+            if (answer.hasOwnProperty(prop)) {
+                answerToEdit[prop] = answer[prop];
+            }
+        }
     },
     DELETE_ANSWER(state, answerId) {
         let indexOfAnswer = state.question.answers.findIndex((answer) => answer.answerId === answerId);
@@ -142,7 +146,7 @@ export const actions = {
     },
     async editTextAnswer({commit}, {answer, answerId}) {
         await this.$axios.$put(`/user/question/answer/text/${answerId}`, {answer});
-        commit('EDIT_ANSWER', {answerId, answer});
+        commit('EDIT_ANSWER', {answerId, answer: {answer}});
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
         let response = await this.$axios.$post(`/user/question/answer/youtube/${state.question.questionId}`,
@@ -170,6 +174,10 @@ export const actions = {
         bookData.imageUrl = response.imageUrl;
         commit('ADD_ANSWER', bookData);
         return response.answerId;
+    },
+    async editBookAnswer({commit, state}, {answerId, description}) {
+        await this.$axios.$put(`/user/question/answer/book/${answerId}`, {description});
+        commit('EDIT_ANSWER', {answerId, answer: {description}});
     },
     async createCommitmentAnswer({commit, state}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,

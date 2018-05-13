@@ -6,13 +6,13 @@
         <v-card-text id="book-answer-content">
             <v-form v-model="valid">
                 <div id="book-container">
-                    <div v-if="selected.thumbnail" id="book-image">
-                        <img :src="selected.thumbnail"/>
+                    <div v-if="book.thumbnail" id="book-image">
+                        <img :src="book.thumbnail"/>
                     </div>
-                    <div id="book-content" :class="{'image-missing': !selected.thumbnail}">
-                        <div class="book-title">{{selected.title}}</div>
-                        <div class="book-authors">{{selected.authors}}</div>
-                        <v-text-field v-model="selected.description" multi-line rows="5"
+                    <div id="book-content" :class="{'image-missing': !book.thumbnail}">
+                        <div class="book-title">{{book.title}}</div>
+                        <div class="book-authors">{{book.authors}}</div>
+                        <v-text-field v-model="book.description" multi-line rows="5"
                                       :label="$t('common:description')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
@@ -28,12 +28,12 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="$emit('selected-book', null)" v-show="selected">
+            <v-btn color="primary" flat @click.native="$emit('selected-book', null)" v-show="book && !answerId">
                 {{$t("common:button.back")}}
             </v-btn>
-            <v-btn color="primary" @click.native="createBookAnswer()" :loading="uploadRunning"
-                   :disabled="!valid || uploadRunning">
-                {{$t("pages:detailQuestion.createAnswerButton")}}
+            <v-btn color="primary" @click.native="bookAnswer()" :loading="uploadRunning"
+                   :disabled="!valid || uploadRunning || !hasChanged">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -44,26 +44,38 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['selected'],
+        props: ['initBook', 'answerId', 'actionButtonText'],
         data() {
-            return {valid: false, uploadRunning: false}
+            return {valid: false, uploadRunning: false, book: JSON.parse(JSON.stringify(this.initBook))}
         },
         mixins: [validationRules, languages],
         computed: {
             question() {
                 return this.$store.state.question.question.question;
+            },
+            hasChanged() {
+                if (this.answerId) {
+                    return this.initBook.description !== this.book.description;
+                }
+                return true;
             }
         },
         methods: {
-            async createBookAnswer() {
+            async bookAnswer() {
                 this.uploadRunning = true;
                 try {
-                    let answerId = await this.$store.dispatch('question/createBookAnswer',
-                        {
-                            title: this.selected.title, description: this.selected.description,
-                            imageUrl: this.selected.thumbnail, authors: this.selected.authors,
-                            googleBookId: this.selected.googleBookId
+                    let answerId;
+                    if (this.answerId) {
+                        await this.$store.dispatch('question/editBookAnswer', {
+                            description: this.book.description, answerId: this.answerId
                         });
+                    } else {
+                        answerId = await this.$store.dispatch('question/createBookAnswer', {
+                            title: this.book.title, description: this.book.description,
+                            imageUrl: this.book.thumbnail, authors: this.book.authors,
+                            googleBookId: this.book.googleBookId
+                        });
+                    }
                     this.$emit('close-dialog', answerId);
                 } catch (error) {
                     this.uploadRunning = false;

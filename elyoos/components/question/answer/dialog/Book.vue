@@ -2,8 +2,8 @@
     <search-book v-if="selectedBook === null" @close-dialog="$emit('close-dialog')"
                  @selected-book="setSelected">
     </search-book>
-    <edit-book v-else @close-dialog="(answer) => $emit('close-dialog', answer)" :selected="selectedBook"
-               @selected-book="setSelected">
+    <edit-book v-else @close-dialog="(answer) => $emit('close-dialog', answer)" :init-book="selectedBook"
+               :action-button-text="$t('pages:detailQuestion.createAnswerButton')" @selected-book="setSelected">
     </edit-book>
 </template>
 
