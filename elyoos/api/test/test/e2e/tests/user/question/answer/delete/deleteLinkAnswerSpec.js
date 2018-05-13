@@ -57,6 +57,27 @@ describe('Delete link answer', function () {
         resp.length.should.equals(0);
     });
 
+    it('Delete link answer (with original connection to other link answer)', async function () {
+        dbDsl.createQuestion('2', {
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
+            language: 'de'
+        });
+        dbDsl.createLinkAnswer('7', {
+            creatorId: '2', questionId: '1', created: 555,
+            link: 'https://example.com', pageType: 'blog'
+        });
+        dbDsl.setOriginalAnswer({answerId: '5', originalAnswerId: '7'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
+                                            (answer:Answer {answerId: '5'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(0);
+    });
+
     it('The user is only allowed to delete link answers that he has created', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
