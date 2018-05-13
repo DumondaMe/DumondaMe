@@ -16,7 +16,7 @@
 <script>
     import SelectAnswerType from './SelectAnswerType';
     import AnswerText from './Text';
-    import AnswerLink from './Link';
+    import AnswerLink from './link/Link';
     import AnswerBook from './Book';
     import AnswerCommitment from './Commitment';
     import Vue from 'vue';

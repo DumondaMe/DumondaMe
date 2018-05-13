@@ -1,0 +1,93 @@
+<template>
+    <v-flex xs12>
+        <div id="link-container">
+            <div v-if="linkData.imageUrl" id="link-image">
+                <img :src="linkData.imageUrl" v-if="linkData.imageUrl"/>
+            </div>
+            <div id="link-content" :class="{'image-missing': !linkData.imageUrl}">
+                <v-text-field v-model="linkData.title"
+                              :label="$t('common:title')"
+                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 140)]" :counter="140">
+                </v-text-field>
+                <v-text-field v-model="linkData.description" multi-line rows="4"
+                              :label="$t('common:description')"
+                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
+                                               ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
+                </v-text-field>
+                <div id="page-type-title">Um was für ein Weblink handelt es sich?</div>
+                <v-radio-group v-model="linkData.pageType" column id="page-type-container">
+                    <v-radio label="Artikel" value="article" color="primary">
+                    </v-radio>
+                    <v-radio label="Blog" value="blog" color="primary">
+                    </v-radio>
+                    <v-radio label="Webseite" value="website" color="primary">
+                    </v-radio>
+                </v-radio-group>
+            </div>
+        </div>
+    </v-flex>
+</template>
+
+<script>
+    import validationRules from '~/mixins/validationRules.js';
+
+    export default {
+        props: ['initLinkData', 'link'],
+        data() {
+            return {
+                linkData: JSON.parse(JSON.stringify(this.initLinkData))
+            }
+        },
+        mixins: [validationRules],
+        mounted() {
+            this.$emit('upload-command', this.createLinkAnswer)
+        },
+        methods: {
+            async createLinkAnswer() {
+                let answerId = await this.$store.dispatch('question/createLinkAnswer', {
+                    link: this.link, title: this.linkData.title, description: this.linkData.description,
+                    imageUrl: this.linkData.imageUrl, type: this.linkData.pageType
+                });
+                this.$emit('close-dialog', answerId);
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    #link-answer-container {
+        #link-answer-content {
+            #link-container {
+                #link-image {
+                    @media screen and (min-width: 700px) {
+                        float: left;
+                    }
+                    img {
+                        max-width: 300px;
+                        max-height: 300px;
+                        min-width: 150px;
+                        @media screen and (max-width: 699px) {
+                            display: block;
+                            margin: 0 auto 18px auto;
+                        }
+                    }
+                }
+                #link-content {
+                    @media screen and (min-width: 700px) {
+                        margin-left: 324px;
+                    }
+                    #page-type-title {
+                        font-size: 14px;
+                    }
+                    #page-type-container {
+                        padding-top: 6px;
+                    }
+                }
+                #link-content.image-missing {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+</style>
