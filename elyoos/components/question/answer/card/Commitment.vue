@@ -15,7 +15,7 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="showEditCommitmentDialog = true">
                         <v-list-tile-title>Bearbeiten</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
@@ -35,6 +35,9 @@
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
+        <edit-commitment-dialog v-if="showEditCommitmentDialog" @close-dialog="showEditCommitmentDialog = false"
+                                :init-commitment="answer" :answer-id="answer.answerId">
+        </edit-commitment-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
                               :answer="answer.title" :answer-id="answer.answerId">
         </delete-answer-dialog>
@@ -45,13 +48,14 @@
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue';
+    import EditCommitmentDialog from '~/components/question/answer/dialog/EditCommitmentDialog';
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog';
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, DeleteAnswerDialog},
+        components: {UserInfo, AnswerCommands, ExpandText, EditCommitmentDialog, DeleteAnswerDialog},
         data() {
-            return {showDeleteAnswerDialog: false}
+            return {showDeleteAnswerDialog: false, showEditCommitmentDialog: false}
         },
         computed: {
             getExternalLink() {

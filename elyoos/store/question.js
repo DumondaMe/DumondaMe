@@ -196,6 +196,10 @@ export const actions = {
         }
         return response.answerId;
     },
+    async editCommitmentAnswer({commit, state}, {answerId, description}) {
+        await this.$axios.$put(`/user/question/answer/commitment/${answerId}`, {description});
+        commit('EDIT_ANSWER', {answerId, answer: {description}});
+    },
     async deleteAnswer({commit, state}, answerId) {
         await this.$axios.$delete(`/user/question/answer`, {params: {answerId}});
         commit('DELETE_ANSWER', answerId);

@@ -2,8 +2,9 @@
     <search-commitment v-if="selectedCommitment === null" @close-dialog="$emit('close-dialog')"
                        @selected-commitment="setSelected">
     </search-commitment>
-    <edit-commitment v-else @close-dialog="(answer) => $emit('close-dialog', answer)" :selected="selectedCommitment"
-                     @selected-commitment="setSelected">
+    <edit-commitment v-else @close-dialog="(answer) => $emit('close-dialog', answer)"
+                     @selected-commitment="setSelected" :init-commitment="selectedCommitment"
+                     :action-button-text="$t('pages:detailQuestion.createAnswerButton')">
     </edit-commitment>
 </template>
 

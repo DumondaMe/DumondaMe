@@ -7,11 +7,11 @@
             <v-form v-model="valid">
                 <div id="commitment-container">
                     <div id="commitment-image">
-                        <img :src="selected.imageUrl"/>
+                        <img :src="commitment.imageUrl"/>
                     </div>
                     <div id="commitment-content">
-                        <div class="commitment-title">{{selected.title}}</div>
-                        <v-text-field v-model="selected.description" multi-line rows="5"
+                        <div class="commitment-title">{{commitment.title}}</div>
+                        <v-text-field v-model="commitment.description" multi-line rows="5"
                                       :label="$t('common:description')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 700)]" :counter="700">
@@ -27,12 +27,12 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" flat @click.native="$emit('selected-commitment', null)">
+            <v-btn color="primary" flat @click.native="$emit('selected-commitment', null)" v-show="!answerId">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-btn color="primary" @click.native="createCommitmentAnswer()" :loading="uploadRunning"
-                   :disabled="!valid || uploadRunning">
-                {{$t("pages:detailQuestion.createAnswerButton")}}
+                   :disabled="!valid || uploadRunning || !hasChanged">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -43,25 +43,37 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['selected'],
+        props: ['initCommitment', 'answerId', 'actionButtonText'],
         data() {
-            return {valid: false, uploadRunning: false}
+            return {valid: false, uploadRunning: false, commitment: JSON.parse(JSON.stringify(this.initCommitment))}
         },
         mixins: [validationRules, languages],
         computed: {
             question() {
                 return this.$store.state.question.question.question;
+            },
+            hasChanged() {
+                if (this.answerId) {
+                    return this.initCommitment.description !== this.commitment.description;
+                }
+                return true;
             }
         },
         methods: {
             async createCommitmentAnswer() {
                 this.uploadRunning = true;
                 try {
-                    let answerId = await this.$store.dispatch('question/createCommitmentAnswer',
-                        {
-                            title: this.selected.title, description: this.selected.description,
-                            commitmentId: this.selected.commitmentId, questionSlug: this.$route.params.slug
+                    let answerId;
+                    if (this.answerId) {
+                        await this.$store.dispatch('question/editCommitmentAnswer', {
+                            description: this.commitment.description, answerId: this.answerId
                         });
+                    } else {
+                        answerId = await this.$store.dispatch('question/createCommitmentAnswer', {
+                            title: this.commitment.title, description: this.commitment.description,
+                            commitmentId: this.commitment.commitmentId, questionSlug: this.$route.params.slug
+                        });
+                    }
                     this.$emit('close-dialog', answerId);
                 } catch (error) {
                     this.uploadRunning = false;
