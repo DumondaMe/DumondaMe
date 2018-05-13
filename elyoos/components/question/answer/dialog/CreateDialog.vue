@@ -5,7 +5,8 @@
     <answer-text v-else-if="answerType === 'text'" @close-dialog="closeDialog" init-answer=""
                  :action-button-text="$t('pages:detailQuestion.createAnswerButton')">
     </answer-text>
-    <answer-link v-else-if="answerType === 'link'" @close-dialog="closeDialog">
+    <answer-link v-else-if="answerType === 'link'" @close-dialog="closeDialog" init-link="" :init-link-data="{}"
+                 :action-button-text="$t('pages:detailQuestion.createAnswerButton')">
     </answer-link>
     <answer-book v-else-if="answerType === 'book'" @close-dialog="closeDialog">
     </answer-book>

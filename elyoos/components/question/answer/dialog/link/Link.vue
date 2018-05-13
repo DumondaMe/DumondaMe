@@ -9,19 +9,24 @@
                     <v-flex xs12>
                         <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
                                       :label="$t('pages:detailQuestion.searchLink')"
+                                      :disabled="!!answerId"
                                       :rules="[isValidLink(),
                                                isValidYoutubeLink(),
                                                ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
-                        <p class="url-type" v-show="linkToChange.type === 'Youtube'">Youtube Video erkannt</p>
-                        <p class="url-type" v-show="linkToChange.type === 'Vimeo'">Vimeo Video erkannt</p>
+                        <p class="url-type" v-show="linkData.type === 'Youtube'" v-if="!answerId">
+                            Youtube Video erkannt</p>
+                        <p class="url-type" v-show="linkData.type === 'Vimeo'" v-if="!answerId">
+                            Vimeo Video erkannt</p>
                     </v-flex>
-                    <youtube v-if="linkToChange.type === 'Youtube'" :init-link-data="linkToChange" :link="link"
-                             @upload-command="setUploadCommand">
+                    <youtube v-if="linkData.type === 'Youtube'" :init-link-data="linkData" :link="link"
+                             :answer-id="answerId" @upload-command="setUploadCommand"
+                             @link-data-changed="setHasChanged">
                     </youtube>
-                    <website-link v-else-if="linkToChange.type === 'Link'" :init-link-data="linkToChange" :link="link"
-                                  @upload-command="setUploadCommand">
+                    <website-link v-else-if="linkData.type === 'Link'" :init-link-data="linkData" :link="link"
+                                  :answer-id="answerId" @upload-command="setUploadCommand"
+                                  @link-data-changed="setHasChanged">
                     </website-link>
                 </v-layout>
             </v-form>
@@ -36,8 +41,8 @@
             </v-btn>
             <v-btn color="primary" @click.native="startUpload()" :loading="uploadRunning"
                    :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
-                   !!this.showWarningMessage">
-                {{$t("pages:detailQuestion.createAnswerButton")}}
+                   !!this.showWarningMessage || !hasChanged">
+                {{actionButtonText}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -53,10 +58,12 @@
     const ERROR_CODE_ANSWER_EXISTS = 2;
 
     export default {
+        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText'],
         data() {
             return {
                 valid: false, checkLink: false, uploadRunning: false, showErrorMessage: false,
-                showWarningMessage: false, link: '', linkToChange: {}, uploadCommand: function () {
+                showWarningMessage: false, link: this.initLink, linkData: JSON.parse(JSON.stringify(this.initLinkData)),
+                hasChanged: !this.answerId, uploadCommand: function () {
                 }
             }
         },
@@ -74,6 +81,9 @@
             setUploadCommand(newUploadCommand) {
                 this.uploadCommand = newUploadCommand;
             },
+            setHasChanged(hasChanged) {
+                this.hasChanged = hasChanged;
+            },
             async startUpload() {
                 try {
                     this.uploadRunning = true;
@@ -86,21 +96,21 @@
         },
         watch: {
             async link() {
-                this.linkToChange = {};
+                this.linkData = {};
                 this.showErrorMessage = false;
                 this.showWarningMessage = false;
                 if (this.$refs.link.validate()) {
                     try {
                         let questionId = this.$store.state.question.question.questionId;
                         this.checkLink = true;
-                        this.linkToChange = await this.$axios.$get(`/link/search/${questionId}`,
+                        this.linkData = await this.$axios.$get(`/link/search/${questionId}`,
                             {params: {link: this.link}});
                         this.checkLink = false;
                     } catch (error) {
                         this.checkLink = false;
-                        if (error.linkToChange.data.errorCode === ERROR_CODE_NO_YOUTUBE_ID) {
+                        if (error.response.data.errorCode === ERROR_CODE_NO_YOUTUBE_ID) {
                             this.showErrorMessage = this.$t('pages:detailQuestion.error.invalidYoutubeId');
-                        } else if (error.linkToChange.data.errorCode === ERROR_CODE_ANSWER_EXISTS) {
+                        } else if (error.response.data.errorCode === ERROR_CODE_ANSWER_EXISTS) {
                             this.showWarningMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
                         } else {
                             this.showErrorMessage = this.$t('common:error.unknown');

@@ -33,7 +33,7 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['initLinkData', 'link'],
+        props: ['initLinkData', 'link', 'answerId'],
         data() {
             return {
                 linkData: JSON.parse(JSON.stringify(this.initLinkData))
@@ -41,7 +41,25 @@
         },
         mixins: [validationRules],
         mounted() {
-            this.$emit('upload-command', this.createLinkAnswer)
+            if (this.answerId) {
+                this.$emit('upload-command', this.editLinkAnswer)
+            } else {
+                this.$emit('upload-command', this.createLinkAnswer)
+            }
+        },
+        watch: {
+            linkData: {
+                handler(newLinkData) {
+                    if (this.answerId) {
+                        this.$emit('link-data-changed', this.initLinkData.title !== newLinkData.title ||
+                            this.initLinkData.description !== newLinkData.description ||
+                            this.initLinkData.pageType !== newLinkData.pageType);
+                    } else {
+                        this.$emit('link-data-changed', true);
+                    }
+                },
+                deep: true
+            }
         },
         methods: {
             async createLinkAnswer() {
@@ -50,6 +68,13 @@
                     imageUrl: this.linkData.imageUrl, type: this.linkData.pageType
                 });
                 this.$emit('close-dialog', answerId);
+            },
+            async editLinkAnswer() {
+                await this.$store.dispatch('question/editLinkAnswer', {
+                    title: this.linkData.title, description: this.linkData.description,
+                    type: this.linkData.pageType, answerId: this.answerId
+                });
+                this.$emit('close-dialog');
             }
         }
     }
@@ -59,10 +84,10 @@
     #link-answer-container {
         #link-answer-content {
             #link-container {
+                @media screen and (min-width: 700px) {
+                    display: flex;
+                }
                 #link-image {
-                    @media screen and (min-width: 700px) {
-                        float: left;
-                    }
                     img {
                         max-width: 300px;
                         max-height: 300px;
@@ -74,8 +99,9 @@
                     }
                 }
                 #link-content {
+                    width: 100%;
                     @media screen and (min-width: 700px) {
-                        margin-left: 324px;
+                        margin-left: 18px;
                     }
                     #page-type-title {
                         font-size: 14px;

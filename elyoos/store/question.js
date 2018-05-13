@@ -158,6 +158,10 @@ export const actions = {
         commit('ADD_ANSWER', youtubeData);
         return response.answerId;
     },
+    async editYoutubeAnswer({commit, state}, {answerId, description, title}) {
+        await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, {description, title});
+        commit('EDIT_ANSWER', {answerId, answer: {description, title}});
+    },
     async createLinkAnswer({commit, state}, linkData) {
         let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`,
             linkData);
@@ -166,6 +170,10 @@ export const actions = {
         linkData.imageUrl = response.imageUrl;
         commit('ADD_ANSWER', linkData);
         return response.answerId;
+    },
+    async editLinkAnswer({commit, state}, {answerId, description, title, type}) {
+        await this.$axios.$put(`/user/question/answer/link/${answerId}`, {description, title, type});
+        commit('EDIT_ANSWER', {answerId, answer: {description, title, pageType: type}});
     },
     async createBookAnswer({commit, state}, bookData) {
         let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,

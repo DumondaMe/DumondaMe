@@ -13,7 +13,7 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="openEditLinkDialog()">
                         <v-list-tile-title>Bearbeiten</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
@@ -33,6 +33,9 @@
         </div>
         <answer-commands :answer="answer">
         </answer-commands>
+        <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"
+                          :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId">
+        </edit-link-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
                               :answer="answer.title" :answer-id="answer.answerId">
         </delete-answer-dialog>
@@ -43,13 +46,14 @@
     import UserInfo from './UserInfo.vue';
     import AnswerCommands from './Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
+    import EditLinkDialog from '~/components/question/answer/dialog/EditLinkDialog'
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, DeleteAnswerDialog},
+        components: {UserInfo, AnswerCommands, ExpandText, EditLinkDialog, DeleteAnswerDialog},
         data() {
-            return {showDeleteAnswerDialog: false}
+            return {showDeleteAnswerDialog: false, showEditAnswerDialog: false}
         },
         computed: {
             answerType() {
@@ -57,6 +61,12 @@
                     return this.$t(`pages:detailQuestion.answerType.link.${this.answer.pageType}`)
                 }
                 return this.$t(`pages:detailQuestion.answerType.link.link`)
+            }
+        },
+        methods: {
+            openEditLinkDialog() {
+                this.answer.type = 'Link';
+                this.showEditAnswerDialog = true;
             }
         }
     }

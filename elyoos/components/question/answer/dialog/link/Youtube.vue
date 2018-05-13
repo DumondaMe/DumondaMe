@@ -24,7 +24,7 @@
     import validationRules from '~/mixins/validationRules.js';
 
     export default {
-        props: ['initLinkData', 'link'],
+        props: ['initLinkData', 'link', 'answerId'],
         data() {
             return {
                 linkData: JSON.parse(JSON.stringify(this.initLinkData))
@@ -32,12 +32,34 @@
         },
         mixins: [validationRules],
         mounted() {
-            this.$emit('upload-command', this.createYoutubeAnswer)
+            if (this.answerId) {
+                this.$emit('upload-command', this.editYoutubeAnswer);
+            } else {
+                this.$emit('upload-command', this.createYoutubeAnswer);
+            }
+        },
+        watch: {
+            linkData: {
+                handler(newLinkData) {
+                    if (this.answerId) {
+                        this.$emit('link-data-changed', this.initLinkData.title !== newLinkData.title ||
+                            this.initLinkData.description !== newLinkData.description);
+                    } else {
+                        this.$emit('link-data-changed', true);
+                    }
+                },
+                deep: true
+            }
         },
         methods: {
             async createYoutubeAnswer() {
                 let answerId = await this.$store.dispatch('question/createYoutubeAnswer',
                     {link: this.link, title: this.linkData.title, description: this.linkData.description});
+                this.$emit('close-dialog', answerId);
+            },
+            async editYoutubeAnswer() {
+                let answerId = await this.$store.dispatch('question/editYoutubeAnswer',
+                    {answerId: this.answerId, title: this.linkData.title, description: this.linkData.description});
                 this.$emit('close-dialog', answerId);
             }
 
