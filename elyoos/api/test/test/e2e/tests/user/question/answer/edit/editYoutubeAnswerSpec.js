@@ -35,7 +35,6 @@ describe('Edit youtube answer', function () {
     it('Edit youtube answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/youtube/5', {
-            link: 'https://youtu.be/Lhku7ZBWEK7',
             title: 'titleYoutube', description: 'descriptionYoutube'
         });
         res.status.should.equal(200);
@@ -45,9 +44,9 @@ describe('Edit youtube answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.title.should.equals('titleYoutube');
         resp[0].answer.description.should.equals('descriptionYoutube');
-        resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK7');
-        resp[0].answer.link.should.equals('https://youtu.be/Lhku7ZBWEK7');
-        resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK7');
+        resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
+        resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
+        resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         resp[0].answer.created.should.equals(555);
         resp[0].answer.modified.should.least(startTime);
     });
@@ -55,7 +54,6 @@ describe('Edit youtube answer', function () {
     it('The user can only edit the answers he has created.', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/youtube/6', {
-            link: 'https://youtu.be/Lhku7ZBWEK7',
             title: 'titleYoutube', description: 'descriptionYoutube'
         });
         res.status.should.equal(400);

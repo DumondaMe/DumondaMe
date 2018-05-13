@@ -24,10 +24,9 @@ const schemaEditYoutubeAnswer = {
     name: 'editYoutubeAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'link', 'title', 'description'],
+    required: ['answerId', 'title', 'description'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        link: {type: 'string', format: 'youtubeLink', maxLength: 2000},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
     }
