@@ -13,12 +13,16 @@
     export default {
         async fetch({store, error}) {
             try {
+                store.dispatch('notification/stopCheckNotificationChanged');
                 await store.dispatch(`notification/getNotifications`);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }
         },
-        components: {Notifications}
+        components: {Notifications},
+        async beforeDestroy() {
+            await this.$store.dispatch('notification/startCheckNotificationChanged');
+        }
     }
 </script>
 

@@ -24,6 +24,9 @@ export const mutations = {
         state.notifications = notification.notifications;
         state.numberOfNotifications = notification.numberOfNotifications;
     },
+    SET_NUMBER_OF_NOTIFICATIONS: function (state, numberOfNotifications) {
+        state.numberOfNotifications = numberOfNotifications;
+    },
     REMOVE_NOTIFICATION: function (state, notificationToRemove) {
         let index = state.notifications.indexOf(notificationToRemove);
         if (index > -1) {
@@ -37,6 +40,17 @@ export const mutations = {
     }
 };
 
+let checkNotificationTimer;
+
+const checkNotificationChanged = async function (axios, commit) {
+    try {
+        let status = await axios.$get('user/notification/status');
+        commit('SET_NUMBER_OF_NOTIFICATIONS', status.numberOfNotifications);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const actions = {
     async getNotifications({commit}) {
         try {
@@ -44,6 +58,18 @@ export const actions = {
             commit('SET_NOTIFICATION', notifications);
         } catch (error) {
             console.log(error);
+        }
+    },
+    async startCheckNotificationChanged({commit}) {
+        if (!checkNotificationTimer) {
+            await checkNotificationChanged(this.$axios, commit);
+            checkNotificationTimer = setInterval(checkNotificationChanged, 30000, this.$axios, commit);
+        }
+    },
+    stopCheckNotificationChanged() {
+        if (checkNotificationTimer) {
+            clearInterval(checkNotificationTimer);
+            checkNotificationTimer = null;
         }
     },
     async notificationRead({commit}, notification) {

@@ -58,7 +58,12 @@ const getResponse = async function (notifications) {
 const getNumberOfNotificationsCommand = function (userId) {
     return db.cypher().match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
         .return(`COUNT(DISTINCT n) AS numberOfNotifications`)
-        .end({userId}).getCommand();
+        .end({userId});
+};
+
+const getNumberOfNotifications = async function (userId) {
+    let result = await getNumberOfNotificationsCommand(userId).send();
+    return {numberOfNotifications: result[0].numberOfNotifications};
 };
 
 const getNotifications = async function (userId) {
@@ -68,7 +73,7 @@ const getNotifications = async function (userId) {
         .orderBy(`relInfo.created DESC`)
         .return(`n AS notification, collect(info) AS infos, collect(relInfo) AS relInfos`)
         .orderBy(`n.created DESC`)
-        .end({userId}).send([getNumberOfNotificationsCommand(userId)]);
+        .end({userId}).send([getNumberOfNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);
     return {
         notifications: await getResponse(result[1]),
@@ -77,5 +82,6 @@ const getNotifications = async function (userId) {
 };
 
 module.exports = {
-    getNotifications
+    getNotifications,
+    getNumberOfNotifications
 };

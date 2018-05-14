@@ -80,9 +80,9 @@
             return {showCreateCommitment: false, showCreateQuestion: false}
         },
         components: {CreateCommitmentDialog, CreateQuestionDialog},
-        mounted: async function () {
+        mounted: function () {
             if (this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'user-notifications') {
-                await this.$store.dispatch('notification/getNotifications');
+                this.$store.dispatch('notification/startCheckNotificationChanged');
             }
         },
         computed: {
@@ -109,6 +109,7 @@
             async logout() {
                 try {
                     await this.$store.dispatch('auth/logout');
+                    this.$store.dispatch('notification/stopCheckNotificationChanged');
                     this.$store.commit('notification/RESET_NOTIFICATION');
                     this.$router.push({name: 'index'});
                 } catch (e) {
