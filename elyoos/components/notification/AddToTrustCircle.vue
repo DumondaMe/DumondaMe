@@ -6,12 +6,14 @@
         </div>
         <div class="user-container">
             <div class="user" v-for="user in notification.users">
-                <div class="user-image">
+                <div class="user-image" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: user.userId, slug: user.slug}})">
                     <img :src="user.thumbnailUrl"/>
                 </div>
                 <div class="user-info">
                     <div class="user-name-container">
-                        <span class="user-name">{{user.name}}</span>
+                        <span class="user-name" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: user.userId, slug: user.slug}})">{{user.name}}</span>
                     </div>
                     <div class="created">
                         {{user.added | formatRelativeTimesAgo}}
