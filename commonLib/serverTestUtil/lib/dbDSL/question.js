@@ -23,10 +23,11 @@ let createQuestion = function (questionId, data) {
 };
 
 const watchQuestion = function (data) {
+    data.created = data.created || 555;
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}})`)
-        .merge(`(q)<-[:WATCH]-(u)`)
-        .end({questionId: data.questionId, userId: data.userId}).getCommand());
+        .merge(`(q)<-[:WATCH {created: {created}}]-(u)`)
+        .end({questionId: data.questionId, userId: data.userId, created: data.created}).getCommand());
 };
 
 module.exports = {

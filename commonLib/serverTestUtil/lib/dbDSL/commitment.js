@@ -47,10 +47,11 @@ const showQuestionOnCommitment = function (data) {
 };
 
 const watchCommitment = function (data) {
+    data.created = data.created || 555;
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(c:Commitment {commitmentId: {commitmentId}}), (u:User {userId: {userId}})`)
-        .merge(`(c)<-[:WATCH]-(u)`)
-        .end({commitmentId: data.commitmentId, userId: data.userId}).getCommand());
+        .merge(`(c)<-[:WATCH {created: {created}}]-(u)`)
+        .end({commitmentId: data.commitmentId, userId: data.userId, created: data.created}).getCommand());
 };
 
 module.exports = {

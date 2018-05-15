@@ -118,9 +118,10 @@ let upVoteNote = function (data) {
 };
 
 let upVoteAnswer = function (data) {
+    data.created = data.created || 555;
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})')
-        .merge(`(user)-[:UP_VOTE]->(answer)`)
-        .end({userId: data.userId, answerId: data.answerId}).getCommand());
+        .merge(`(user)-[:UP_VOTE {created: {created}}]->(answer)`)
+        .end({userId: data.userId, answerId: data.answerId, created: data.created}).getCommand());
 };
 
 
