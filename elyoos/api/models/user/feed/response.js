@@ -18,9 +18,8 @@ const addDefaultAnswerProperties = function (result, feedElement) {
     }
 };
 
-const addCommitmentProperties = function (result, feedElement) {
+const addCommitmentAnswerProperties = function (result, feedElement) {
     if (result.type === 'CommitmentAnswer') {
-        result.type = 'Commitment';
         result.commitmentId = feedElement.commitment.commitmentId;
         result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
         if (feedElement.commitment.modified) {
@@ -28,6 +27,23 @@ const addCommitmentProperties = function (result, feedElement) {
         }
         result.title = feedElement.commitment.title;
         result.commitmentSlug = dashify(feedElement.commitment.title);
+    }
+};
+
+const addCommitmentProperties = function (result, feedElement) {
+    if (result.type === 'Commitment') {
+        result.commitmentId = feedElement.feedElement.commitmentId;
+        result.commitmentSlug = dashify(feedElement.feedElement.title);
+        result.title = feedElement.feedElement.title;
+        result.description = feedElement.feedElement.description;
+        if (result.description) {
+            result.descriptionHtml = linkifyHtml(result.description);
+        }
+        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
+        if (feedElement.feedElement.modified) {
+            result.imageUrl += `?v=${feedElement.feedElement.modified}`;
+        }
+        result.regions = feedElement.regions;
     }
 };
 
@@ -74,22 +90,44 @@ const addQuestionProperties = function (result, feedElement) {
     }
 };
 
-const getFeed = async function (feedElements) {
+const getAction = function (relAction) {
+    if (relAction === 'UP_VOTE') {
+        return 'upVote'
+    } else if (relAction === 'WATCH') {
+        return 'watch'
+    } else if (relAction === 'IS_CREATOR' || relAction === 'ANSWER') {
+        return 'created'
+    }
+};
+
+const getCreator = function (feedElement) {
+    if (feedElement.relWatch === 'WATCH') {
+        return {
+            userId: feedElement.creator.userId,
+            name: feedElement.creator.name,
+            slug: dashify(feedElement.creator.name)
+        }
+    }
+    return {
+        userId: feedElement.watch.userId,
+        name: feedElement.watch.name,
+        slug: dashify(feedElement.watch.name)
+    }
+};
+
+const getFeed = function (feedElements) {
     let results = [];
     for (let feedElement of feedElements) {
         let result = {
             type: feedElement.type.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Question'].some(v => v === l))[0],
-            action: 'created',
-            created: feedElement.feedElement.created,
-            creator: {
-                userId: feedElement.creator.userId,
-                name: feedElement.creator.name,
-                slug: dashify(feedElement.creator.name),
-                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
-            }
+                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question']
+                    .some(v => v === l))[0],
+            action: getAction(feedElement.relAction),
+            created: feedElement.created,
+            creator: getCreator(feedElement)
         };
         addDefaultAnswerProperties(result, feedElement);
+        addCommitmentAnswerProperties(result, feedElement);
         addCommitmentProperties(result, feedElement);
         addLinkProperties(result, feedElement);
         addYoutubeProperties(result, feedElement);
