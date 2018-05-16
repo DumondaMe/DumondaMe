@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="question-activity">
-            <span id="question-text" @click="dialog = true">{{$t("pages:feeds.question.yourQuestion")}}</span>
+            <span id="question-text" @click="dialog = true">{{$t("pages:feeds.yourQuestion")}}</span>
         </div>
         <v-layout row justify-center v-if="dialog">
             <v-dialog v-model="dialog" scrollable persistent max-width="500px">

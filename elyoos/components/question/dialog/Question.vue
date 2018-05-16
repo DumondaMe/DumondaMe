@@ -8,7 +8,7 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field type="text" v-model="question.question" name="question"
-                                      :label="$t('pages:feeds.question.yourQuestion')"
+                                      :label="$t('pages:feeds.yourQuestion')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 80)]"
                                       :counter="80">
@@ -24,7 +24,7 @@
                     </v-flex>
                     <v-flex xs12>
                         <v-select v-model="question.lang" id="select-language"
-                                  :label="$t('pages:feeds.question.selectLanguage')"
+                                  :label="$t('pages:feeds.selectLanguage')"
                                   :rules="[ruleSelectRequired($t('validation:fieldRequired'))]"
                                   :items="getLanguages()"
                                   single-line bottom required>

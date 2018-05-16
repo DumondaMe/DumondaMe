@@ -20,6 +20,8 @@
     "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account."
   },
   "feeds": {
+    "yourQuestion": "What is your question?",
+    "selectLanguage": "Language of the question",
     "sidebar": {
       "feedTitle": "Feeds",
       "question": "Questions",
