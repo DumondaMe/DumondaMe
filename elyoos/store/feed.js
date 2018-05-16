@@ -31,9 +31,9 @@ export const mutations = {
     }
 };
 
-const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, $axios) {
+const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, isPublicFeed, $axios) {
     let response;
-    if (isAuthenticated) {
+    if (isAuthenticated && !isPublicFeed) {
         response = await $axios.$get(`/user/feed`, params);
     } else {
         response = await $axios.$get(`/feed`, params);
@@ -50,7 +50,7 @@ export const actions = {
         if (typeFilter) {
             params.params.typeFilter = typeFilter;
         }
-        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
+        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
         commit('SET_TIMESTAMP', response.timestamp);
     },
     async loadNextFeedElements({commit, state}, {isAuthenticated}) {
@@ -58,7 +58,7 @@ export const actions = {
         if (state.typeFilter) {
             params.params.typeFilter = state.typeFilter;
         }
-        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', this.$axios);
+        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', state.publicFeed, this.$axios);
     },
     async setTypeFilter({commit, state}, {filter, isAuthenticated}) {
         if (filter !== state.typeFilter) {
@@ -67,7 +67,7 @@ export const actions = {
             if (filter) {
                 params.params.typeFilter = filter;
             }
-            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
+            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
         }
     }
 };

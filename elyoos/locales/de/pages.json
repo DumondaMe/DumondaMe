@@ -27,7 +27,9 @@
       "event": "Veranstaltungen"
     },
     "filter": {
-      "all": "Alle"
+      "all": "Alle",
+      "publicFeed": "Public Feed",
+      "yourFeed": "Dein Feed"
     },
     "card": {
       "answer": "{{count}} Antwort",

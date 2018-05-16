@@ -52,6 +52,7 @@
                         password: this.formPassword
                     });
                     this.$store.dispatch('notification/startCheckNotificationChanged');
+                    this.$store.commit('feed/SET_IS_PUBLIC_FEED', false);
                     if (!this.fromRoute || this.fromRoute.name === null) {
                         this.$router.push({name: 'index'});
                     } else {
