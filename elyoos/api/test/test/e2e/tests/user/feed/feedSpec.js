@@ -266,4 +266,31 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
     });
+
+    it('Hide answers created by the user', async function () {
+        dbDsl.createTextAnswer('21', {
+            creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(0);
+        res.body.feed.length.should.equals(0);
+    });
+
+    it('Hide question created by the user', async function () {
+        dbDsl.createQuestion('21', {
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(0);
+        res.body.feed.length.should.equals(0);
+    });
 });

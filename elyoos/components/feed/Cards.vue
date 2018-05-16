@@ -1,6 +1,7 @@
 <template>
     <div id="question-feed-cards-container">
         <div class="question-card ely-card" v-for="element in feed">
+            <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
             <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
             <book-card :answer="element" v-if="element.type === 'Book'"></book-card>
             <text-card :answer="element" v-if="element.type === 'Text'"></text-card>
@@ -23,7 +24,7 @@
         components: {CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard},
         computed: {
             feed() {
-                return this.$store.state.feedQuestion.feed
+                return this.$store.state.feed.feed
             }
         }
     }

@@ -27,12 +27,12 @@ export const mutations = {
     }
 };
 
-const getFeed = async function (commit, isAuthenticated, params, commitCommand, $axios) {
+const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, $axios) {
     let response;
     if (isAuthenticated) {
-        response = await $axios.$get(`/feed/question`, params);
+        response = await $axios.$get(`/user/feed`, params);
     } else {
-        response = await $axios.$get(`/feed/public/question`, params);
+        response = await $axios.$get(`/feed`, params);
     }
     commit(commitCommand, response.feed);
     commit('SET_NUMBER_OF_ELEMENTS', response.totalNumberOfElements);
@@ -41,12 +41,12 @@ const getFeed = async function (commit, isAuthenticated, params, commitCommand, 
 };
 
 export const actions = {
-    async getQuestionFeed({commit, state}, {isAuthenticated, typeFilter}) {
+    async getFeed({commit, state}, {isAuthenticated, typeFilter}) {
         let params = {params: {page: 0}};
         if (typeFilter) {
             params.params.typeFilter = typeFilter;
         }
-        let response = await getFeed(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
+        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
         commit('SET_TIMESTAMP', response.timestamp);
     },
     async loadNextFeedElements({commit, state}, {isAuthenticated}) {
@@ -54,7 +54,7 @@ export const actions = {
         if (state.typeFilter) {
             params.params.typeFilter = state.typeFilter;
         }
-        await getFeed(commit, isAuthenticated, params, 'ADD_TO_FEED', this.$axios);
+        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', this.$axios);
     },
     async setTypeFilter({commit, state}, {filter, isAuthenticated}) {
         if (filter !== state.typeFilter) {
@@ -63,7 +63,7 @@ export const actions = {
             if (filter) {
                 params.params.typeFilter = filter;
             }
-            await getFeed(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
+            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', this.$axios);
         }
     }
 };

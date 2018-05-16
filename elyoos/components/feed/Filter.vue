@@ -32,7 +32,7 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             activeTypeFilter() {
-                return this.$store.state.feedQuestion.typeFilter;
+                return this.$store.state.feed.typeFilter;
             }
         },
         data: function () {
@@ -47,7 +47,7 @@
                 } else {
                     this.$router.push({query: null});
                 }
-                await this.$store.dispatch('feedQuestion/setTypeFilter',
+                await this.$store.dispatch('feed/setTypeFilter',
                     {filter, isAuthenticated: this.isAuthenticated});
             }
         }

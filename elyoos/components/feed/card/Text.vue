@@ -24,7 +24,7 @@
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
-                     :created="answer.created">
+                     :created="answer.created" :action="answer.action">
         </card-footer>
     </div>
 </template>

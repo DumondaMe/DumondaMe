@@ -1,9 +1,8 @@
 <template>
-    <div class="commitment-answer-feed-card">
+    <div class="book-answer-feed-card">
         <v-layout row>
-            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type"
-                       :question-id="answer.questionId" :question-slug="answer.questionSlug"
-                       :question="answer.question">
+            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type" :question-id="answer.questionId"
+                       :question-slug="answer.questionSlug" :question="answer.question">
             </user-info>
             <v-spacer></v-spacer>
             <v-menu bottom v-if="answer.isAdmin">
@@ -21,23 +20,23 @@
                 </v-list>
             </v-menu>
         </v-layout>
-        <div class="commitment-answer-content">
-            <div class="commitment-preview-image">
+        <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
+            <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
             <div class="answer-description">
                 <div class="title-container">
-                    <v-icon class="card-type-icon">mdi-human-handsup</v-icon>
-                    <span class="card-title" @click="$router.push({name: 'commitment-commitmentId-slug',
-                     params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}})">{{answer.title}}</span>
+                    <v-icon class="card-type-icon">mdi-book-open-page-variant</v-icon>
+                    <span class="card-title"><a target="_blank" :href="getExternalLink"
+                                                       class="link">{{answer.title}}</a></span>
                 </div>
                 <expand-text :expand-text="answer.description"
-                             :class="{'no-commitment-image': !answer.imageUrl}" itemprop="text">
+                             :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
                 </expand-text>
             </div>
         </div>
         <card-footer :user="answer.creator.name" :userId="answer.creator.userId" :userSlug="answer.creator.slug"
-                     :created="answer.created">
+                     :created="answer.created" :action="answer.action">
         </card-footer>
     </div>
 </template>
@@ -45,46 +44,46 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import CardFooter from './footer.vue';
-    import AnswerCommands from '~/components/question/answer/card/Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, CardFooter, AnswerCommands, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
         },
         computed: {
             getExternalLink() {
                 let title = this.answer.title.replace(' ', '+');
-                let authors = this.answer.authors.replace(',', '+');
-                authors = this.answer.authors.replace(' ', '+');
-                return `https://duckduckgo.com/?q="${title}"+${authors}&t=hf&ia=web`;
+                return `https://duckduckgo.com/?q="${title}"&t=hf&ia=web`;
             }
         }
     }
 </script>
 
 <style lang="scss">
-    .commitment-answer-feed-card {
-        .commitment-answer-content {
+    .book-answer-feed-card {
+        .book-answer-content {
             min-height: 90px;
             display: flex;
-            .commitment-preview-image {
+            .book-preview-image {
                 img {
-                    margin-top: 12px;
-                    width: 120px;
-                    height: 120px;
                     border-radius: 2px;
+                    margin-top: 19px;
+                    max-height: 250px;
+                    max-width: 120px;
                 }
             }
             .answer-description {
                 margin-left: 18px;
-                margin-top: 5px;
+                margin-top: 13px;
             }
-            .answer-description.no-commitment-image {
+            .answer-description.no-book-image {
                 margin-left: 0;
             }
+        }
+        .book-answer-content.no-book-image {
+            min-height: 0;
         }
     }
 </style>
