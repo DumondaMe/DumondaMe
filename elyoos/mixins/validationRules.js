@@ -19,7 +19,7 @@ export default {
             return (v) => (/(?=.*[A-Z])/.test(v) && /(?=.*[0-9])/.test(v)) || text;
         },
         onlyLettersAllowed(text) {
-            return (v) => (/^[a-zA-ZÄäÖöÜüÉéÀàÈè]*$/.test(v)) || text;
+            return (v) => (/^[a-zA-ZÄäÖöÜüÉéÀàÈè ]*$/.test(v)) || text;
         },
         rulePasswordEquals(text, password) {
             return (v) => v === password || text;
