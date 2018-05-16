@@ -46,58 +46,9 @@ describe('Get the public feed', function () {
         return requestHandler.logout();
     });
 
-    it('Get question feed (all)', async function () {
-        await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed');
-        res.status.should.equal(200);
-        res.body.timestamp.should.least(startTime);
-        res.body.totalNumberOfElements.should.equals(3);
-        res.body.feed.length.should.equals(3);
-
-        res.body.feed[0].type.should.equals('Question');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].questionId.should.equals('2');
-        res.body.feed[0].question.should.equals('Das ist eine Frage2');
-        res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
-        res.body.feed[0].description.should.equals('description2');
-        res.body.feed[0].descriptionHtml.should.equals('description2');
-        res.body.feed[0].created.should.equals(602);
-        res.body.feed[0].numberOfAnswers.should.equals(3);
-        res.body.feed[0].creator.userId.should.equals('3');
-        res.body.feed[0].creator.name.should.equals('user Meier3');
-        res.body.feed[0].creator.slug.should.equals('user-meier3');
-
-        res.body.feed[1].type.should.equals('Question');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].questionId.should.equals('1');
-        res.body.feed[1].question.should.equals('Das ist eine Frage');
-        res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[1].description.should.equals('Test elyoos.org change the world');
-        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
-        res.body.feed[1].created.should.equals(500);
-        res.body.feed[1].numberOfAnswers.should.equals(2);
-        res.body.feed[1].creator.userId.should.equals('3');
-        res.body.feed[1].creator.name.should.equals('user Meier3');
-        res.body.feed[1].creator.slug.should.equals('user-meier3');
-
-        res.body.feed[2].type.should.equals('Commitment');
-        res.body.feed[2].action.should.equals('created');
-        res.body.feed[2].commitmentId.should.equals('100');
-        res.body.feed[2].commitmentSlug.should.equals('test-commitment');
-        res.body.feed[2].title.should.equals('Test Commitment');
-        res.body.feed[2].description.should.equals('commitment100Description');
-        res.body.feed[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
-        res.body.feed[2].created.should.equals(400);
-        res.body.feed[2].regions.length.should.equals(1);
-        res.body.feed[2].regions.should.include('region-1');
-        res.body.feed[2].creator.userId.should.equals('2');
-        res.body.feed[2].creator.name.should.equals('user Meier2');
-        res.body.feed[2].creator.slug.should.equals('user-meier2');
-    });
-
     it('Get question feed (only questions)', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/', {typeFilter: 'question'});
+        let res = await requestHandler.get('/api/feed/');
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(2);
