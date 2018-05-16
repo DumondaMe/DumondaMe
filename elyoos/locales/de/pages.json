@@ -26,23 +26,12 @@
       "commitment": "Engagements",
       "event": "Veranstaltungen"
     },
-    "question": {
-      "yourQuestion": "Wie lautet deine Frage?",
-      "createQuestionInfo": "Um eine neue Frage zu erstellen musst du mit deinem Benutzerkonto angemeldet sein.",
-      "buttonNotExist": "Existiert nicht",
-      "selectLanguage": "Sprache der Frage",
-      "selectTopic": "Thema",
-      "filter": {
-        "all": "Alle",
-        "question": "Fragen",
-        "answer": "Antworten"
-      },
-      "card": {
-        "questionType": "Frage",
-        "answer": "{{count}} Antwort",
-        "answer_plural": "{{count}} Antworten",
-        "answersQuestion": "Antwort auf die Frage"
-      }
+    "filter": {
+      "all": "Alle"
+    },
+    "card": {
+      "answer": "{{count}} Antwort",
+      "answer_plural": "{{count}} Antworten"
     }
   },
   "commitment": {

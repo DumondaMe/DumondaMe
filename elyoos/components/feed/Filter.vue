@@ -1,25 +1,24 @@
 <template>
-    <div id="question-filter" class="ely-card">
-        <div id="search-question-container">
-            <v-text-field name="searchQuestion" id="search-question-text" clearable append-icon="mdi-magnify"
-                          :placeholder="$t('pages:feeds.question.yourQuestion')">
-            </v-text-field>
-        </div>
-        <div id="type-filter-container">
-            <div id="type-filter-inner-container">
-                <div class="filter-element"
-                     :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
-                    {{$t('pages:feeds.question.filter.all')}}
-                </div>
-                <div class="filter-element"
-                     :class="{'active-filter': activeTypeFilter === 'question'}" @click="setFilter('question')">
-                    {{$t('pages:feeds.question.filter.question')}}
-                </div>
-                <div class="filter-element"
-                     :class="{'active-filter': activeTypeFilter === 'answer'}" @click="setFilter('answer')">
-                    {{$t('pages:feeds.question.filter.answer')}}
-                </div>
+    <div id="feed-filter">
+        <div class="type-filter-container" v-if="isPublicFeed">
+            <div class="filter-element"
+                 :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
+                <v-icon>mdi-help-circle-outline</v-icon>
             </div>
+            <div class="filter-element"
+                 :class="{'active-filter': activeTypeFilter === 'commitment'}" @click="setFilter('commitment')">
+                <v-icon>mdi-human-handsup</v-icon>
+            </div>
+            <div class="filter-element"
+                 :class="{'active-filter': activeTypeFilter === 'event'}" @click="setFilter('event')">
+                <v-icon>mdi-calendar</v-icon>
+            </div>
+            <v-spacer></v-spacer>
+            <div class="feed-selector">Public Feed</div>
+            <v-icon class="feed-icon">mdi-rss</v-icon>
+        </div>
+        <div class="type-filter-container" v-else>
+
         </div>
     </div>
 </template>
@@ -33,6 +32,9 @@
             },
             activeTypeFilter() {
                 return this.$store.state.feed.typeFilter;
+            },
+            isPublicFeed() {
+                return this.$store.state.feed.publicFeed
             }
         },
         data: function () {
@@ -42,7 +44,7 @@
         },
         methods: {
             async setFilter(filter) {
-                if(filter) {
+                if (filter) {
                     this.$router.push({query: Object.assign({}, this.$route.query, {typeFilter: filter})});
                 } else {
                     this.$router.push({query: null});
@@ -55,33 +57,34 @@
 </script>
 
 <style lang="scss">
-    #question-filter {
-        #search-question-container {
-            padding: 0;
-            .input-group {
-                padding-top: 0;
-                #search-question-text {
+    #feed-filter {
+        .type-filter-container {
+            display: flex;
+            border-bottom: 1px solid $divider;
+            .filter-element {
+                cursor: pointer;
+                font-size: 14px;
+                display: inline-block;
+                padding: 0 12px 2px 12px;
+                color: $secondary-text;
+            }
+            .filter-element.filter-element-first {
+                padding-left: 0;
+            }
+            .filter-element.active-filter {
+                border-bottom: 3px solid $primary-color;
+                i.icon {
+                    color: $primary-color;
                 }
             }
-        }
-        #type-filter-container {
-            #type-filter-inner-container {
-                display: inline-block;
-                .filter-element {
-                    cursor: pointer;
-                    font-size: 14px;
-                    display: inline-block;
-                    padding: 0 12px 2px 12px;
-                    color: $secondary-text;
-                }
-                .filter-element.filter-element-first {
-                    padding-left: 0;
-                }
-                .filter-element.active-filter {
-                    font-weight: 500;
-                    color: $primary-color;
-                    border-bottom: 3px solid $primary-color;
-                }
+            .feed-selector {
+                font-size: 16px;
+                font-weight: 500;
+                margin-right: 8px;
+                line-height: 28px;
+            }
+            .feed-icon {
+                padding-bottom: 4px;
             }
         }
     }

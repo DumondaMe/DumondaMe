@@ -26,23 +26,12 @@
       "commitment": "Commitments",
       "event": "Events"
     },
-    "question": {
-      "yourQuestion": "What is your question?",
-      "createQuestionInfo": "To create a new question, you must be logged in with your user account.",
-      "buttonNotExist": "Does Not Exist",
-      "selectLanguage": "Language of the question",
-      "selectTopic": "Topic",
-      "filter": {
-        "all": "All",
-        "question": "Questions",
-        "answer": "Answers"
-      },
-      "card": {
-        "questionType": "Question",
-        "answer": "{{count}} Answer",
-        "answer_plural": "{{count}} Answers",
-        "answersQuestion": "Answer to the question"
-      }
+    "filter": {
+      "all": "All"
+    },
+    "card": {
+      "answer": "{{count}} Answer",
+      "answer_plural": "{{count}} Answers"
     }
   },
   "commitment": {

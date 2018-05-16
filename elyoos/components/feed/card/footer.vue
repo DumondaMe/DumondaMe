@@ -18,7 +18,7 @@
         </div>
         <div class="footer-icon" v-if="numberOfAnswers >= 0">
             <v-icon>mdi-forum</v-icon>
-            <span class="footer-text">{{$t('pages:feeds.question.card.answer', {count: numberOfAnswers})}}
+            <span class="footer-text">{{$t('pages:feeds.card.answer', {count: numberOfAnswers})}}
             </span>
         </div>
     </div>

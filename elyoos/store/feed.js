@@ -3,6 +3,7 @@ export const state = () => ({
     page: 0,
     totalNumberOfElements: 0,
     typeFilter: null,
+    publicFeed: true, //Is feed in public mode
     timestamp: Number.MAX_SAFE_INTEGER
 });
 
@@ -24,6 +25,9 @@ export const mutations = {
     },
     SET_TYPE_FILTER(state, filter) {
         state.typeFilter = filter;
+    },
+    SET_IS_PUBLIC_FEED(state, publicFeed) {
+        state.publicFeed = publicFeed;
     }
 };
 
