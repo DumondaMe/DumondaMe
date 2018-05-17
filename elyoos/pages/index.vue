@@ -6,7 +6,9 @@
         <div slot="content">
             <feed-filter>
             </feed-filter>
-            <cards>
+            <feed-help v-if="showHelpFeedInfo">
+            </feed-help>
+            <cards v-else>
             </cards>
             <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
@@ -17,9 +19,10 @@
 </template>
 
 <script>
-    import FeedLayout from '~/components/layouts/Feed.vue';
-    import FeedFilter from '~/components/feed/Filter.vue';
-    import Cards from '~/components/feed/Cards.vue';
+    import FeedLayout from '~/components/layouts/Feed';
+    import FeedFilter from '~/components/feed/Filter';
+    import Cards from '~/components/feed/Cards';
+    import FeedHelp from "~/components/feed/FeedHelp";
 
     export default {
         async fetch({query, app, error, store}) {
@@ -37,13 +40,16 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {FeedLayout, FeedFilter, Cards},
+        components: {FeedLayout, FeedFilter, Cards, FeedHelp},
         data() {
             return {loadNextRunning: false}
         },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            showHelpFeedInfo() {
+                return this.$store.state.feed.totalNumberOfElements === 0 && !this.$store.state.feed.publicFeed;
             },
             showLoadNextButton() {
                 return this.$store.state.feed.totalNumberOfElements >
