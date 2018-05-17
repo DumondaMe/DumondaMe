@@ -15,7 +15,7 @@ const schemaGetQuestionFeed = {
     properties: {
         page: {type: 'integer', minimum: 0},
         timestamp: {type: 'integer', minimum: 0},
-        typeFilter: {enum: ['question', 'answer', 'commitment']}
+        typeFilter: {enum: ['question', 'commitment', 'event']}
     }
 };
 

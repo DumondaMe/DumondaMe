@@ -2,6 +2,7 @@
 
 const responseHandler = require('./response');
 const feedElementCounter = require('./feedElementCounter');
+const filter = require('./filter');
 const db = requireDb();
 const PAGE_SIZE = 20;
 
@@ -10,8 +11,7 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch:WATCH|IS_CONTACT]->(watch)
                 -[relAction:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER]->(feedElement)`)
-        .where(`(watch:User OR watch:Question OR watch:Commitment) AND 
-                (feedElement:Answer OR feedElement:Commitment OR feedElement:Question)`)
+        .where(filter.getTypeFilter(typeFilter))
         .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)

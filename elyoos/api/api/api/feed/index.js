@@ -14,7 +14,7 @@ const schemaGetPublicFeed = {
     properties: {
         page: {type: 'integer', minimum: 0},
         timestamp: {type: 'integer', minimum: 0},
-        typeFilter: {enum: ['question', 'commitment']}
+        typeFilter: {enum: ['commitment', 'event']}
     }
 };
 
