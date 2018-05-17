@@ -4,9 +4,21 @@
             <v-tooltip bottom>
                 <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-eye</v-icon>
                 <span v-if="action === 'watch'">Beobachtet von {{user}}</span>
-                <v-icon v-if="action === 'created'" slot="activator" class="action-icon">mdi-pencil</v-icon>
-                <span v-if="action === 'created'">Erstellt von {{user}}</span>
-                <v-icon v-if="action === 'upVote'" slot="activator" class="action-icon">mdi-arrow-up-bold-circle-outline</v-icon>
+                <v-icon v-if="action === 'created' && (cardType === 'Question' || cardType === 'Commitment')"
+                        slot="activator" class="action-icon">
+                    mdi-pencil
+                </v-icon>
+                <span v-if="action === 'created' && (cardType === 'Question' || cardType === 'Commitment')">
+                    Erstellt von {{user}}</span>
+                <v-icon v-if="action === 'created' && cardType !== 'Question' && cardType !== 'Commitment'"
+                        slot="activator" class="action-icon">
+                    mdi-forum
+                </v-icon>
+                <span v-if="action === 'created' && cardType !== 'Question' && cardType !== 'Commitment'">
+                    Antwort von {{user}}</span>
+                <v-icon v-if="action === 'upVote'" slot="activator" class="action-icon">
+                    mdi-arrow-up-bold-circle-outline
+                </v-icon>
                 <span v-if="action === 'upVote'">Zustimmung von {{user}}</span>
             </v-tooltip>
             <span class="footer-text">{{$t('common:by')}} <span class="footer-link" @click="$router.push({name: 'user-userId-slug',
@@ -26,7 +38,7 @@
 
 <script>
     export default {
-        props: ['user', 'userId', 'userSlug', 'created', 'numberOfAnswers', 'action']
+        props: ['user', 'userId', 'userSlug', 'created', 'numberOfAnswers', 'action', 'cardType']
     }
 </script>
 
