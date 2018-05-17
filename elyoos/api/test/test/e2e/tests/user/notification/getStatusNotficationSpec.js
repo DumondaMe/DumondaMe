@@ -3,22 +3,17 @@
 const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
-const sinon = require('sinon');
 const should = require('chai').should();
 
 describe('Get number of notifications for a user', function () {
 
-    let sandbox;
-
     beforeEach(async function () {
         await dbDsl.init(5);
-        sandbox = sinon.sandbox.create();
 
         dbDsl.createRegion('region-1', {});
     });
 
     afterEach(function () {
-        sandbox.restore();
         return requestHandler.logout();
     });
 

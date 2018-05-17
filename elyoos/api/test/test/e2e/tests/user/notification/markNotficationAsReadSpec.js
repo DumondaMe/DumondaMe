@@ -4,21 +4,16 @@ const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const db = require('elyoos-server-test-util').db;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
-const sinon = require('sinon');
 
 describe('Mark Notification as read', function () {
 
-    let sandbox;
-
     beforeEach(async function () {
         await dbDsl.init(5);
-        sandbox = sinon.sandbox.create();
 
         dbDsl.createRegion('region-1', {});
     });
 
     afterEach(function () {
-        sandbox.restore();
         return requestHandler.logout();
     });
 
