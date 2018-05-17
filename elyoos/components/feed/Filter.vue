@@ -1,8 +1,16 @@
 <template>
     <div id="feed-filter">
-        <div class="type-filter-container" v-if="isPublicFeed">
-            <div class="filter-element"
+        <div class="type-filter-container">
+            <div class="filter-element filter-text-element" v-if="!isPublicFeed"
                  :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
+                {{$t("pages:feeds.filter.all")}}
+            </div>
+            <div class="filter-element" v-if="isPublicFeed"
+                 :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
+                <v-icon>mdi-help-circle-outline</v-icon>
+            </div>
+            <div class="filter-element" v-else
+                 :class="{'active-filter': activeTypeFilter === 'question'}" @click="setFilter('question')">
                 <v-icon>mdi-help-circle-outline</v-icon>
             </div>
             <div class="filter-element"
@@ -21,38 +29,10 @@
                     <v-icon>mdi-rss</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile @click="setFeed(false)">
+                    <v-list-tile @click="setFeed(false)" v-if="isPublicFeed && isAuthenticated">
                         <v-list-tile-title>{{$t("pages:feeds.filter.yourFeed")}}</v-list-tile-title>
                     </v-list-tile>
-                </v-list>
-            </v-menu>
-        </div>
-        <div class="type-filter-container" v-else>
-            <div class="filter-element filter-text-element"
-                 :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
-                {{$t("pages:feeds.filter.all")}}
-            </div>
-            <div class="filter-element"
-                 :class="{'active-filter': activeTypeFilter === 'question'}" @click="setFilter('question')">
-                <v-icon>mdi-help-circle-outline</v-icon>
-            </div>
-            <div class="filter-element"
-                 :class="{'active-filter': activeTypeFilter === 'commitment'}" @click="setFilter('commitment')">
-                <v-icon>mdi-human-handsup</v-icon>
-            </div>
-            <div class="filter-element"
-                 :class="{'active-filter': activeTypeFilter === 'event'}" @click="setFilter('event')">
-                <v-icon>mdi-calendar</v-icon>
-            </div>
-            <v-spacer></v-spacer>
-            <div class="feed-selector" v-if="isPublicFeed">{{$t("pages:feeds.filter.publicFeed")}}</div>
-            <div class="feed-selector" v-else>{{$t("pages:feeds.filter.yourFeed")}}</div>
-            <v-menu bottom left>
-                <v-btn icon slot="activator" class="feed-icon">
-                    <v-icon :class="{'user-feed': !isPublicFeed}">mdi-rss</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile @click="setFeed(true)">
+                    <v-list-tile @click="setFeed(true)" v-if="!isPublicFeed">
                         <v-list-tile-title>{{$t("pages:feeds.filter.publicFeed")}}</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
