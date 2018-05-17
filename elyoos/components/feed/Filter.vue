@@ -92,6 +92,8 @@
             },
             async setFeed(isPublicFeed) {
                 this.$store.commit('feed/SET_IS_PUBLIC_FEED', isPublicFeed);
+                this.$store.commit('feed/SET_TYPE_FILTER', null);
+                this.$router.push({query: null});
                 await this.$store.dispatch('feed/getFeed', {isAuthenticated: this.isAuthenticated});
             }
         }
