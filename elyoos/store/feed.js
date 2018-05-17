@@ -31,11 +31,12 @@ export const mutations = {
     }
 };
 
-const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, isPublicFeed, $axios) {
+const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, isPublicFeed, language, $axios) {
     let response;
     if (isAuthenticated && !isPublicFeed) {
         response = await $axios.$get(`/user/feed`, params);
     } else {
+        params.params.language = language;
         response = await $axios.$get(`/feed`, params);
     }
     commit(commitCommand, response.feed);
@@ -46,28 +47,31 @@ const getFeedRequest = async function (commit, isAuthenticated, params, commitCo
 
 export const actions = {
     async getFeed({commit, state, rootState}, {isAuthenticated, typeFilter}) {
-        let params = {params: {page: 0, language: rootState.i18n.language}};
+        let params = {params: {page: 0}};
         if (typeFilter) {
             params.params.typeFilter = typeFilter;
         }
-        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
+        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed,
+            rootState.i18n.language, this.$axios);
         commit('SET_TIMESTAMP', response.timestamp);
     },
     async loadNextFeedElements({commit, state, rootState}, {isAuthenticated}) {
-        let params = {params: {page: state.page + 1, language: rootState.i18n.language}};
+        let params = {params: {page: state.page + 1}};
         if (state.typeFilter) {
             params.params.typeFilter = state.typeFilter;
         }
-        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', state.publicFeed, this.$axios);
+        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', state.publicFeed, rootState.i18n.language,
+            this.$axios);
     },
     async setTypeFilter({commit, state, rootState}, {filter, isAuthenticated}) {
         if (filter !== state.typeFilter) {
             commit('SET_TYPE_FILTER', filter);
-            let params = {params: {page: 0, language: rootState.i18n.language}};
+            let params = {params: {page: 0}};
             if (filter) {
                 params.params.typeFilter = filter;
             }
-            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
+            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, rootState.i18n.language,
+                this.$axios);
         }
     }
 };

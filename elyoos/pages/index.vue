@@ -41,6 +41,13 @@
             }
         },
         components: {FeedLayout, FeedFilter, Cards, FeedHelp},
+        head() {
+            return {
+                htmlAttrs: {
+                    lang: this.$store.state.i18n.language
+                },
+            }
+        },
         data() {
             return {loadNextRunning: false}
         },

@@ -31,6 +31,9 @@
         head() {
             return {
                 title: this.question.question,
+                htmlAttrs: {
+                    lang: this.question.language
+                },
                 meta: [
                     {hid: 'description', name: 'description', content: this.question.description}
                 ]

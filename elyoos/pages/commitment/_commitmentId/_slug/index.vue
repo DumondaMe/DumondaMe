@@ -37,6 +37,9 @@
         head() {
             return {
                 title: this.commitment.title,
+                htmlAttrs: {
+                    lang: this.commitment.lang
+                },
                 meta: [
                     {hid: 'description', name: 'description', content: this.commitment.description}
                 ]
