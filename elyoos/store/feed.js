@@ -45,25 +45,25 @@ const getFeedRequest = async function (commit, isAuthenticated, params, commitCo
 };
 
 export const actions = {
-    async getFeed({commit, state}, {isAuthenticated, typeFilter}) {
-        let params = {params: {page: 0}};
+    async getFeed({commit, state, rootState}, {isAuthenticated, typeFilter}) {
+        let params = {params: {page: 0, language: rootState.i18n.language}};
         if (typeFilter) {
             params.params.typeFilter = typeFilter;
         }
         let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
         commit('SET_TIMESTAMP', response.timestamp);
     },
-    async loadNextFeedElements({commit, state}, {isAuthenticated}) {
-        let params = {params: {page: state.page + 1}};
+    async loadNextFeedElements({commit, state, rootState}, {isAuthenticated}) {
+        let params = {params: {page: state.page + 1, language: rootState.i18n.language}};
         if (state.typeFilter) {
             params.params.typeFilter = state.typeFilter;
         }
         await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', state.publicFeed, this.$axios);
     },
-    async setTypeFilter({commit, state}, {filter, isAuthenticated}) {
+    async setTypeFilter({commit, state, rootState}, {filter, isAuthenticated}) {
         if (filter !== state.typeFilter) {
             commit('SET_TYPE_FILTER', filter);
-            let params = {params: {page: 0}};
+            let params = {params: {page: 0, language: rootState.i18n.language}};
             if (filter) {
                 params.params.typeFilter = filter;
             }

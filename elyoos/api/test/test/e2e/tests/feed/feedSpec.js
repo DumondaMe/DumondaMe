@@ -17,6 +17,10 @@ describe('Get the public feed', function () {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',
             website: 'https://www.example.org/', regions: ['region-1']
         });
+        dbDsl.createCommitment('101', {
+            adminId: '2', topics: ['Spiritual', 'Education'], language: 'en', created: 400, modified: 606, title: 'Test Commitment2',
+            website: 'https://www.example2.org/', regions: ['region-1']
+        });
 
         dbDsl.createQuestion('1', {
             creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
@@ -40,6 +44,10 @@ describe('Get the public feed', function () {
         dbDsl.createCommitmentAnswer('9', {
             creatorId: '2', questionId: '2', commitmentId: '100', created: 605, description: 'commitmentDescription'
         });
+        dbDsl.createQuestion('3', {
+            creatorId: '3', question: 'Das ist eine Frage3', description: 'description3',
+            topics: ['Health'], language: 'en', created: 602,
+        });
     });
 
     afterEach(function () {
@@ -48,7 +56,7 @@ describe('Get the public feed', function () {
 
     it('Get question feed (only questions)', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/');
+        let res = await requestHandler.get('/api/feed/', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(2);
@@ -83,7 +91,7 @@ describe('Get the public feed', function () {
 
     it('Get question feed (only commitment)', async function () {
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);

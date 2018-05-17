@@ -1,12 +1,13 @@
 'use strict';
 
-const getTypeFilter = function (filter) {
+const getTypeFilter = function (filter, language) {
+    let result = `feedElement.language = '${language}' AND`;
     if (filter === 'commitment') {
-        return `feedElement:Commitment`;
+        return `${result} feedElement:Commitment`;
     } else if (filter === 'event') {
-        return `feedElement:Event`;
+        return `${result} feedElement:Event`;
     }
-    return `feedElement:Question`;
+    return `${result} feedElement:Question`;
 };
 
 module.exports = {
