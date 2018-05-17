@@ -21,6 +21,7 @@ const createCommitment = async function (userId, params, titlePath) {
         .create(`(commitment:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
                   language: {lang}, website: {website}, created: {created}})`)
         .merge(`(user)-[:IS_ADMIN]->(commitment)`)
+        .merge(`(user)-[:IS_CREATOR]->(commitment)`)
         .with(`commitment`)
         .match(`(region:Region)`)
         .where(`region.code IN {regions}`)

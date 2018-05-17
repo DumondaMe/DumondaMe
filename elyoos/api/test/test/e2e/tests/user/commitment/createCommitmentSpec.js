@@ -51,6 +51,7 @@ describe('Creating a new commitment', function () {
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
+            .match("(commitment)<-[:IS_CREATOR]->(user)")
             .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].commitment.commitmentId.should.equals(res.body.commitmentId);
@@ -85,6 +86,7 @@ describe('Creating a new commitment', function () {
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
+            .match("(commitment)<-[:IS_CREATOR]->(user)")
             .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].commitment.commitmentId.should.equals(res.body.commitmentId);
@@ -122,6 +124,7 @@ describe('Creating a new commitment', function () {
         stubCDN.copyFile.calledWith('default/commitment/148x148/title.jpg', `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
+            .match("(commitment)<-[:IS_CREATOR]->(user)")
             .return(`collect(topic.name) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].topics.length.should.equals(2);
@@ -146,6 +149,7 @@ describe('Creating a new commitment', function () {
         res.status.should.equal(200);
 
         let resp = await db.cypher().match("(commitment:Commitment)-[:BELONGS_TO_REGION]->(:Region {code: 'international'})")
+            .match("(commitment)<-[:IS_CREATOR]->(user)")
             .return(`commitment`).end().send();
         resp.length.should.equals(1);
     });

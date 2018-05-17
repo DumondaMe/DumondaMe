@@ -239,6 +239,41 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.slug.should.equals('user-meier9');
     });
 
+    it('A user from the Trust Circle created a commitment', async function () {
+        dbDsl.createContactConnection('1', '9');
+        dbDsl.createCommitment('101', {
+            adminId: '9',
+            topics: ['Spiritual'],
+            language: 'de',
+            created: 555,
+            modified: 607,
+            title: 'Test Commitment',
+            website: 'https://www.example.org/',
+            regions: ['region-1']
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(1);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Commitment');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].commitmentId.should.equals('101');
+        res.body.feed[0].commitmentSlug.should.equals('test-commitment');
+        res.body.feed[0].title.should.equals('Test Commitment');
+        res.body.feed[0].description.should.equals('commitment101Description');
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/120x120/title.jpg?v=607`);
+        res.body.feed[0].regions.length.should.equals(1);
+        res.body.feed[0].regions.should.include('region-1');
+        res.body.feed[0].created.should.equals(555);
+        res.body.feed[0].creator.userId.should.equals('9');
+        res.body.feed[0].creator.name.should.equals('user Meier9');
+        res.body.feed[0].creator.slug.should.equals('user-meier9');
+    });
+
     it('Up vote of an answer by users from the Trust Circle', async function () {
         dbDsl.createContactConnection('1', '9');
         dbDsl.upVoteAnswer({userId: '9', answerId: '8', created: 999});
@@ -284,6 +319,26 @@ describe('Get feed of the user', function () {
         dbDsl.createQuestion('21', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
             topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(0);
+        res.body.feed.length.should.equals(0);
+    });
+
+    it('Hide commitment created by the user', async function () {
+        dbDsl.createCommitment('101', {
+            adminId: '1',
+            topics: ['Spiritual', 'Education'],
+            language: 'de',
+            created: 400,
+            modified: 606,
+            title: 'Test Commitment',
+            website: 'https://www.example.org/',
+            regions: ['region-1']
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

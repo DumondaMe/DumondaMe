@@ -14,6 +14,8 @@ const createCommitment = function (commitmentId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
         .create(`(user)-[:IS_ADMIN]->(commitment:Commitment${data.importTC} {title: {title}, language: {language}, description: {description}, modified: {modified}, modifiedAddress: {modifiedAddress}, 
         created: {created}, commitmentId: {commitmentId}, website: {website}})`)
+        .with(`commitment, user`)
+        .merge(`(user)-[:IS_CREATOR]->(commitment)`)
         .with(`commitment`)
         .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
         .with(`commitment`)
