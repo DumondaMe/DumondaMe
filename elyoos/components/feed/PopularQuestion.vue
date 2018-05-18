@@ -29,6 +29,7 @@
         .popular-question {
             margin-top: 6px;
             a {
+                color: $primary-text;
                 display: inline-block;
                 vertical-align: top;
                 font-size: 12px;
@@ -37,7 +38,7 @@
                 line-height: 20px;
                 text-decoration: none;
             }
-            :hover a {
+            a:hover  {
                 text-decoration: underline;
             }
         }
