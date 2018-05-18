@@ -13,9 +13,6 @@
                         <v-list-tile @click="$router.push({name: 'setting'})">
                             <v-list-tile-title>{{$t("pages:toolbar.settings")}}</v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile @click="$router.push({name: 'user'})">
-                            <v-list-tile-title>{{$t("pages:toolbar.yourProfile")}}</v-list-tile-title>
-                        </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile @click="showCreateQuestion = true">
                             <v-list-tile-title>{{$t("pages:toolbar.createQuestion")}}</v-list-tile-title>
@@ -24,9 +21,6 @@
                             <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-divider></v-divider>
-                        <v-list-tile @click="">
-                            <v-list-tile-title>{{$t("pages:toolbar.aboutElyoos")}}</v-list-tile-title>
-                        </v-list-tile>
                         <v-list-tile @click="logout()">
                             <v-list-tile-title>{{$t("pages:toolbar.logout")}}</v-list-tile-title>
                         </v-list-tile>
@@ -56,10 +50,15 @@
                     </v-badge>
                 </v-btn>
             </div>
+            <div class="header-nav" v-if="isAuthenticated">
+                <v-btn flat icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
+                    <v-icon>mdi-account-outline</v-icon>
+                </v-btn>
+            </div>
             <div class="header-nav">
                 <v-btn flat icon @click="$router.push({name: 'index'})"
                        :class="{active: $route.path === '/'}">
-                    <v-icon>mdi-home</v-icon>
+                    <v-icon>mdi-home-outline</v-icon>
                 </v-btn>
             </div>
         </div>
