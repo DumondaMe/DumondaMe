@@ -17,12 +17,12 @@
             @media screen and (max-width: $sm) {
                 display: none;
             }
-            .feeds-container {
-                .feedTitle {
-                    font-size: 18px;
-                    font-weight: 500;
-                    padding-left: 5px;
+            .feed-additional-info-container {
+                .additional-info-title {
+                    font-size: 16px;
+                    font-weight: 400;
                     padding-bottom: 3px;
+                    margin-top: 1px;
                     margin-bottom: 8px;
                     border-bottom: 1px solid #ddd;
                 }

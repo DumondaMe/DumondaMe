@@ -1,5 +1,6 @@
 export const state = () => ({
     feed: [],
+    popularQuestions: [],
     page: 0,
     totalNumberOfElements: 0,
     typeFilter: null,
@@ -10,6 +11,9 @@ export const state = () => ({
 export const mutations = {
     SET_FEED(state, feed) {
         state.feed = feed;
+    },
+    SET_POPULAR_QUESTIONS(state, popularQuestions) {
+        state.popularQuestions = popularQuestions;
     },
     ADD_TO_FEED(state, feed) {
         state.feed = state.feed.concat(feed);
@@ -73,5 +77,9 @@ export const actions = {
             await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, rootState.i18n.language,
                 this.$axios);
         }
-    }
+    },
+    async getPopularQuestion({commit, state, rootState}) {
+        let response = await this.$axios.$get(`/question/popular`, {params: {language: rootState.i18n.language}});
+        commit('SET_POPULAR_QUESTIONS', response.popularQuestions);
+    },
 };

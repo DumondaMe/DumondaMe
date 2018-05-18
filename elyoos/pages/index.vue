@@ -1,7 +1,8 @@
 <template>
     <feed-layout>
         <div slot="sidebar">
-
+            <feed-popular-question>
+            </feed-popular-question>
         </div>
         <div slot="content">
             <feed-filter>
@@ -21,6 +22,7 @@
 <script>
     import FeedLayout from '~/components/layouts/Feed';
     import FeedFilter from '~/components/feed/Filter';
+    import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import Cards from '~/components/feed/Cards';
     import FeedHelp from "~/components/feed/FeedHelp";
 
@@ -32,15 +34,15 @@
                 } else {
                     store.commit(`feed/SET_TYPE_FILTER`, null);
                 }
-                await store.dispatch(`feed/getFeed`, {
+                await Promise.all([store.dispatch(`feed/getFeed`, {
                     isAuthenticated: store.state.auth.userIsAuthenticated,
                     typeFilter: query.typeFilter
-                });
+                }), store.dispatch(`feed/getPopularQuestion`)]);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }
         },
-        components: {FeedLayout, FeedFilter, Cards, FeedHelp},
+        components: {FeedLayout, FeedFilter, FeedPopularQuestion, Cards, FeedHelp},
         head() {
             return {
                 htmlAttrs: {

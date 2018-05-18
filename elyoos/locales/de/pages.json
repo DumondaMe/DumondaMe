@@ -36,6 +36,9 @@
     "card": {
       "answer": "{{count}} Antwort",
       "answer_plural": "{{count}} Antworten"
+    },
+    "popularQuestion": {
+      "title": "Aktuelle Fragen"
     }
   },
   "commitment": {
