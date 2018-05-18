@@ -26,14 +26,18 @@
 <style lang="scss">
     .popular-question-container {
         .popular-question {
-            margin-top: 4px;
+            margin-top: 8px;
             a {
                 display: inline-block;
                 vertical-align: top;
                 font-size: 14px;
+                font-weight: 300;
                 white-space: normal;
                 line-height: 20px;
                 text-decoration: none;
+            }
+            :hover a {
+                text-decoration: underline;
             }
         }
     }

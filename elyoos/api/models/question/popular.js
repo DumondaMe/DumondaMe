@@ -28,7 +28,7 @@ const getPopularQuestions = async function (language) {
                  count(DISTINCT answer) AS numberOfAnswers,
                  count(DISTINCT watches) AS numberOfWatches, score`)
         .orderBy(`score DESC, created DESC`)
-        .limit(10)
+        .limit(7)
         .end({language, fourWeeks: time.getNowUtcTimestamp() - FOUR_WEEKS}).send();
 
     return {popularQuestions: addQuestionSlug(response)};
