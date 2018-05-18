@@ -29,9 +29,9 @@
         left: 0;
         right: 0;
         #ely-footer-container {
-            max-width: 950px;
             margin: 0 auto;
             padding: 0 8px;
+            text-align:center;
             .footer-nav {
                 display: inline-block;
                 color: #ffffff;
