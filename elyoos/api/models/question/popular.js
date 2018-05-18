@@ -24,10 +24,10 @@ const getPopularQuestions = async function (language) {
         .with(`question, reduce(totalScore = 0, n IN scoreList | totalScore + n) AS score`)
         .optionalMatch(`(question)<-[watches:WATCH]-(:User)`)
         .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
-        .return(`question.questionId AS questionId, question.question AS question, 
+        .return(`question.questionId AS questionId, question.question AS question, question.created AS created,
                  count(DISTINCT answer) AS numberOfAnswers,
                  count(DISTINCT watches) AS numberOfWatches, score`)
-        .orderBy(`score DESC`)
+        .orderBy(`score DESC, created DESC`)
         .limit(10)
         .end({language, fourWeeks: time.getNowUtcTimestamp() - FOUR_WEEKS}).send();
 
