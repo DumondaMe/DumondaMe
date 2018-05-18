@@ -25,12 +25,13 @@
 
 <style lang="scss">
     .popular-question-container {
+        margin-top: 18px;
         .popular-question {
-            margin-top: 8px;
+            margin-top: 6px;
             a {
                 display: inline-block;
                 vertical-align: top;
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: 300;
                 white-space: normal;
                 line-height: 20px;
