@@ -58,9 +58,8 @@ describe('Get public popular question', function () {
         dbDsl.watchQuestion({questionId: '4', userId: '5', created: startTime - (FOUR_WEEKS - 10)});
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/', {language: 'de'});
+        let res = await requestHandler.get('/api/question/popular', {language: 'de'});
         res.status.should.equal(200);
-        res.body.timestamp.should.least(startTime);
         res.body.popularQuestions.length.should.equals(3);
 
         res.body.popularQuestions[0].questionId.should.equals('4');
@@ -97,9 +96,8 @@ describe('Get public popular question', function () {
         dbDsl.watchQuestion({questionId: '4', userId: '5', created: startTime - (FOUR_WEEKS + 1)});
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/feed/', {language: 'de'});
+        let res = await requestHandler.get('/api/question/popular', {language: 'de'});
         res.status.should.equal(200);
-        res.body.timestamp.should.least(startTime);
         res.body.popularQuestions.length.should.equals(2);
 
         res.body.popularQuestions[0].questionId.should.equals('3');

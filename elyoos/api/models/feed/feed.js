@@ -2,18 +2,9 @@
 
 const responseHandler = require('./response');
 const feedElementCounter = require('./feedElementCounter');
-const popularQuestion = require('./popularQuestion');
 const filter = require('./filter');
-const dashify = require('dashify');
 const db = requireDb();
 const PAGE_SIZE = 20;
-
-const addQuestionSlug = function (popularQuestions) {
-    for (let popularQuestion of popularQuestions) {
-        popularQuestion.questionSlug = dashify(popularQuestion.question);
-    }
-    return popularQuestions;
-};
 
 const getFeed = async function (page, timestamp, typeFilter, language) {
     page = page * PAGE_SIZE;
@@ -26,12 +17,11 @@ const getFeed = async function (page, timestamp, typeFilter, language) {
         .orderBy(`feedElement.created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({page, timestamp})
-        .send([feedElementCounter.getTotalNumberOfFeedElements(timestamp, typeFilter, language),
-            popularQuestion.getPopularQuestions(language)]);
+        .send([feedElementCounter.getTotalNumberOfFeedElements(timestamp, typeFilter, language)]);
 
     return {
-        feed: responseHandler.getFeed(response[2]), totalNumberOfElements: response[0][0].numberOfElements,
-        timestamp, popularQuestions: addQuestionSlug(response[1])
+        feed: responseHandler.getFeed(response[1]), totalNumberOfElements: response[0][0].numberOfElements,
+        timestamp
     };
 };
 
