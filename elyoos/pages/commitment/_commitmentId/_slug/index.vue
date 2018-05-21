@@ -7,6 +7,8 @@
             </notifications>
             <questions>
             </questions>
+            <events>
+            </events>
         </div>
         <div slot="sidebar" id="commitment-sidebar">
             <admin v-if="commitment.isAdmin">
@@ -22,6 +24,7 @@
     import CommitmentHeader from '~/components/commitment/detail/Header';
     import Notifications from '~/components/commitment/detail/notifications/Notifications';
     import Questions from '~/components/commitment/detail/Questions';
+    import Events from '~/components/commitment/detail/Events';
     import Admin from '~/components/commitment/detail/Admin';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation';
     import {mapGetters} from 'vuex';
@@ -45,7 +48,7 @@
                 ]
             }
         },
-        components: {DetailLayout, CommitmentHeader, Notifications, Questions, Admin, GeneralInformation},
+        components: {DetailLayout, CommitmentHeader, Notifications, Questions, Events, Admin, GeneralInformation},
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
         }

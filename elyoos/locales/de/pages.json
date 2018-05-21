@@ -179,6 +179,9 @@
       "title": "Fragen welche mit diesem Engagement verlinkt sind",
       "upVotes": "Zustimmung",
       "upVotes_plural": "Zustimmungen"
+    },
+    "events": {
+      "title": "Veranstaltungen"
     }
   },
   "detailUser": {
