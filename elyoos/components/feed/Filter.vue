@@ -26,7 +26,7 @@
             <div class="feed-selector" v-else>{{$t("pages:feeds.filter.yourFeed")}}</div>
             <v-menu bottom left>
                 <v-btn icon slot="activator" class="feed-icon">
-                    <v-icon>mdi-rss</v-icon>
+                    <v-icon :class="{'user-feed': !isPublicFeed}">mdi-rss</v-icon>
                 </v-btn>
                 <v-list>
                     <v-list-tile @click="setFeed(false)" v-if="isPublicFeed && isAuthenticated">
