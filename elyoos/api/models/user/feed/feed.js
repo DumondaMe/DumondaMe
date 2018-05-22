@@ -11,8 +11,9 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch:WATCH|IS_CONTACT]->(watch)
                 -[relAction:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER]->(feedElement)`)
-        .where(filter.getTypeFilter(typeFilter) + ` AND NOT (type(relAction) = 'IS_CREATOR' AND 
-                 type(relWatch) = 'IS_CONTACT' AND (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
+        .where(filter.getTypeFilter(typeFilter) + ` AND NOT ((type(relAction) = 'IS_CREATOR' OR 
+                type(relAction) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
+                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
         .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)

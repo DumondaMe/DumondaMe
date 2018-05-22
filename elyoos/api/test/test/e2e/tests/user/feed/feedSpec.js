@@ -126,7 +126,7 @@ describe('Get feed of the user', function () {
         res.body.feed[2].creator.slug.should.equals('user-meier2');
     });
 
-    it('Watching a question does not duplicate feed entries', async function () {
+    it('Watching a question does not duplicate feed entries (created answer form user in trust circle)', async function () {
 
         dbDsl.createContactConnection('1', '9');
         dbDsl.createQuestion('3', {
@@ -149,6 +149,37 @@ describe('Get feed of the user', function () {
 
         res.body.feed[0].type.should.equals('Youtube');
         res.body.feed[0].answerId.should.equals('7');
+    });
+
+    it('Watching a question does not duplicate feed entries (up voted answer form user in a trust circle)', async function () {
+
+        dbDsl.createContactConnection('1', '9');
+        dbDsl.createQuestion('3', {
+            creatorId: '8', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            topics: ['Health'], language: 'de', created: 602,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '8', questionId: '3', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.upVoteAnswer({userId: '9', answerId: '7', created: 777});
+        dbDsl.watchQuestion({questionId: '3', userId: '1', created: 999});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(2);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Youtube');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('7');
+
+        res.body.feed[1].type.should.equals('Youtube');
+        res.body.feed[1].action.should.equals('created');
+        res.body.feed[1].answerId.should.equals('7');
     });
 
     it('Newly created answers by users from the Trust Circle', async function () {
