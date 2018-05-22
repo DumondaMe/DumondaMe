@@ -10,7 +10,7 @@ describe('Get feed of the user', function () {
     let startTime;
 
     beforeEach(async function () {
-        await dbDsl.init(10);
+        await dbDsl.init(11);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {});
@@ -124,6 +124,31 @@ describe('Get feed of the user', function () {
         res.body.feed[2].creator.userId.should.equals('2');
         res.body.feed[2].creator.name.should.equals('user Meier2');
         res.body.feed[2].creator.slug.should.equals('user-meier2');
+    });
+
+    it('Watching a question does not duplicate feed entries', async function () {
+
+        dbDsl.createContactConnection('1', '9');
+        dbDsl.createQuestion('3', {
+            creatorId: '8', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            topics: ['Health'], language: 'de', created: 602,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '9', questionId: '3', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.watchQuestion({questionId: '3', userId: '1', created: 999});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(1);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Youtube');
+        res.body.feed[0].answerId.should.equals('7');
     });
 
     it('Newly created answers by users from the Trust Circle', async function () {

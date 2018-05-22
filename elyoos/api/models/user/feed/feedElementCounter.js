@@ -5,9 +5,10 @@ const db = requireDb();
 
 const getTotalNumberOfFeedElements = function (userId, timestamp, typeFilter) {
     return db.cypher()
-        .match(`(user:User {userId: {userId}})-[:WATCH|IS_CONTACT]->(watch)
-                -[rel:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER]->(feedElement)`)
-        .where(filter.getTypeFilter(typeFilter))
+        .match(`(user:User {userId: {userId}})-[relWatch:WATCH|IS_CONTACT]->(watch)
+                -[relAction:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER]->(feedElement)`)
+        .where(filter.getTypeFilter(typeFilter) + ` AND NOT (type(relAction) = 'IS_CREATOR' AND 
+                 type(relWatch) = 'IS_CONTACT' AND (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
         .return(`count(*) AS numberOfElements`)
         .end({userId, timestamp}).getCommand();
 };
