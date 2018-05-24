@@ -19,7 +19,8 @@ import {
     VChip,
     VRadioGroup,
     VProgressCircular,
-    VProgressLinear
+    VProgressLinear,
+    VDatePicker
 } from 'vuetify';
 
 Vue.use(Vuetify, {
@@ -51,6 +52,7 @@ Vue.use(Vuetify, {
         VChip,
         VRadioGroup,
         VProgressCircular,
-        VProgressLinear
+        VProgressLinear,
+        VDatePicker
     }
 });
