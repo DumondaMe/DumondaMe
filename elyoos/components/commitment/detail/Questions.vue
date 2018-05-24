@@ -8,7 +8,7 @@
             <div class="description">{{question.description}}</div>
             <div class="info-container">
                 <div class="info-icon-element">
-                    <v-icon class="info-icon">arrow_upward</v-icon>
+                    <v-icon class="info-icon">mdi-arrow-up</v-icon>
                     <span class="info-text"><span class="number">{{question.upVotes}}</span>
                         {{$t('pages:detailCommitment.questions.upVotes', {count: question.upVotes})}}</span>
                 </div>
