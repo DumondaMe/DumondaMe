@@ -64,6 +64,15 @@
       "stepRegion": "Region",
       "stepTopic": "Themengebiete"
     },
+    "createEventDialog": {
+      "title": "Titel der Veranstaltung",
+      "location": "Ort wo die Veranstaltung stattfindet",
+      "linkDescription": "Link zur Beschreibung der Veranstaltung",
+      "start": "Beginnt:",
+      "end": "Endet:",
+      "stepEvent": "Veranstaltung",
+      "stepTopic": "Themengebiete"
+    },
     "modifyCommitmentDialog": {
       "title": "Engagement '{{commitment}}' bearbeiten",
       "changeButton": "Engagement ändern"

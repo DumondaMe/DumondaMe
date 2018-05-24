@@ -1,9 +1,9 @@
 <template>
     <div class="ely-start-end-date-time-picker">
-        <date-time-picker description="Beginnt am:" :min="min" :init-date="startDate"
+        <date-time-picker :description="startDateDescription" :min="min" :init-date="startDate"
                           @date-changed="startDateChanged">
         </date-time-picker>
-        <date-time-picker description="Endet am:" :min="min" :init-date="endDate"
+        <date-time-picker :description="endDateDescription" :min="min" :init-date="endDate"
                           @date-changed="endDateChanged">
         </date-time-picker>
     </div>
@@ -15,7 +15,7 @@
     const HOUR = 3600;
 
     export default {
-        props: ['initStartDate', 'initEndDate', 'min'],
+        props: ['initStartDate', 'initEndDate', 'min', 'startDateDescription', 'endDateDescription'],
         components: {DateTimePicker},
         data() {
             return {startDate: this.initStartDate, endDate: this.initEndDate}

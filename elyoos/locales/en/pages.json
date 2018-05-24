@@ -64,6 +64,15 @@
       "stepRegion": "Region",
       "stepTopic": "Topics"
     },
+    "createEventDialog": {
+      "title": "Title of the event",
+      "location": "Place where the event takes place",
+      "linkDescription": "Link to the description of the event",
+      "start": "Start:",
+      "end": "End:",
+      "stepEvent": "Event",
+      "stepTopic": "Topics"
+    },
     "modifyCommitmentDialog": {
       "title": "Change Commitment '{{commitment}}'",
       "changeButton": "Change Commitment"

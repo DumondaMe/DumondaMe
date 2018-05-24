@@ -2,9 +2,13 @@
     <div id="events-container" v-if="events.length > 0 || isAdmin">
         <h2>{{$t('pages:detailCommitment.events.title')}}</h2>
         <div id="event-admin-commands" v-if="isAdmin">
-            <v-btn color="primary" outline>
+            <v-btn color="primary" outline @click="showCreateEventDialog = true">
                 <v-icon>mdi-calendar-plus</v-icon>
-                {{$t("common:button.create")}}
+                Veranstaltung
+            </v-btn>
+            <v-btn color="primary" outline @click="showCreateEventDialog = true">
+                <v-icon>mdi-calendar-plus</v-icon>
+                Webinar
             </v-btn>
         </div>
         <div class="event ely-card" :class="{'last-event': index === events.length - 1}"
@@ -12,12 +16,20 @@
             <div class="event-title">{{event.title}}</div>
             <div class="description">{{event.description}}</div>
         </div>
+        <create-event-dialog v-if="showCreateEventDialog" @close-dialog="showCreateEventDialog = false">
+        </create-event-dialog>
     </div>
 </template>
 
 <script>
+    import CreateEventDialog from '~/components/commitment/dialog/event/CreateDialog';
+
     export default {
         name: "questions",
+        components: {CreateEventDialog},
+        data() {
+            return {showCreateEventDialog: false}
+        },
         computed: {
             events() {
                 return this.$store.state.commitment.commitment.events;
