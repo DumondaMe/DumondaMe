@@ -1,6 +1,10 @@
 <template>
     <div id="events-container" v-if="events.length > 0 || isAdmin">
-        <h2>{{$t('pages:detailCommitment.events.title')}}</h2>
+        <h2>{{$t('pages:detailCommitment.events.title')}}
+            <span class="select-event-container">
+                (<span :class="{'selected': selectNext}" class="select-event">{{$t('pages:detailCommitment.events.upcoming')}}</span> |
+                <span :class="{'selected': !selectNext}" class="select-event">{{$t('pages:detailCommitment.events.past')}}</span>)</span>
+        </h2>
         <div id="event-admin-commands" v-if="isAdmin">
             <v-btn color="primary" @click="showCreateEventDialog = true">
                 <v-icon>mdi-calendar-plus</v-icon>
@@ -25,7 +29,7 @@
         name: "commitmentEvents",
         components: {CreateEventDialog, Event},
         data() {
-            return {showCreateEventDialog: false}
+            return {showCreateEventDialog: false, selectNext: true}
         },
         computed: {
             events() {
@@ -40,6 +44,18 @@
 
 <style lang="scss">
     #events-container {
+        .select-event-container {
+            font-size: 12px;
+            .select-event {
+                cursor: pointer;
+            }
+            :hover.select-event {
+                text-decoration: underline;
+            }
+            .select-event.selected {
+                color: $primary-color;
+            }
+        }
         #event-admin-commands {
             margin-bottom: 12px;
             button {

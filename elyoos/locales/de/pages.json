@@ -196,6 +196,8 @@
     },
     "events": {
       "title": "Veranstaltungen",
+      "upcoming": "Bevorstehende",
+      "past": "Vergangene",
       "at": "von"
     }
   },

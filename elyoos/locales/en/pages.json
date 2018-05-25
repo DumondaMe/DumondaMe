@@ -191,6 +191,8 @@
     },
     "events": {
       "title": "Events",
+      "upcoming": "Upcoming",
+      "past": "Past",
       "at": "at"
     }
   },
