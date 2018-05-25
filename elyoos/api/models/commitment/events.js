@@ -3,18 +3,37 @@
 const db = requireDb();
 const time = require('elyoos-server-lib').time;
 
-const getEventsCommand = function (commitmentId) {
+const PAGE_SIZE = 7;
+
+const getUpcomingFilter = function (upComing) {
+    if (upComing) {
+        return `event.endDate > {now}`;
+    }
+    return `event.endDate < {now}`;
+};
+
+const getEventsCommand = function (commitmentId, upComing, page) {
+    let skip = PAGE_SIZE * page;
     return db.cypher()
         .match(`(:Commitment {commitmentId: {commitmentId}})-[:EVENT]->(event:Event)-[:BELONGS_TO_REGION]->(r:Region)`)
-        .where(`event.endDate > {now}`)
+        .where(getUpcomingFilter(upComing))
         .match(`(t:Topic)-[:TOPIC]->(event)`)
         .return(`event.eventId AS eventId, event.title AS title, event.description AS description, 
                  event.startDate AS startDate, event.endDate AS endDate, event.created AS created, 
                  event.modified AS modified, event.location AS location, 
                  collect(DISTINCT t.name) AS topics, r.code AS region`)
-        .end({commitmentId, now: time.getNowUtcTimestamp()}).getCommand();
+        .orderBy(`startDate`)
+        .skip(`{skip}`)
+        .limit(`{pageSize}`)
+        .end({commitmentId, skip, pageSize: PAGE_SIZE, now: time.getNowUtcTimestamp()});
+};
+
+const getEvents = async function (commitmentId, upComing, page) {
+    let resp = await getEventsCommand(commitmentId, upComing, page).send();
+    return {events: resp};
 };
 
 module.exports = {
-    getEventsCommand
+    getEventsCommand,
+    getEvents
 };

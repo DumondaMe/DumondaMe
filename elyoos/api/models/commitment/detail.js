@@ -39,7 +39,8 @@ const getDetail = async function (userId, commitmentId) {
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
-        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId), events.getEventsCommand(commitmentId)]);
+        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId),
+            events.getEventsCommand(commitmentId, true, 0).getCommand()]);
     if (resp[2].length !== 1) {
         logger.warn(`Commitment ${commitmentId} had ${resp.length} results`);
         throw new Error('404');
