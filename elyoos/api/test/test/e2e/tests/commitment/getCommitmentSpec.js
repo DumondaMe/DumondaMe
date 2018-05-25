@@ -3,15 +3,15 @@
 const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
-const sinon = require('sinon');
+const moment = require('moment');
 
 describe('Get details of a commitment', function () {
 
-    let sandbox;
+    let startTime;
 
     beforeEach(async function () {
         await dbDsl.init(8);
-        sandbox = sinon.sandbox.create();
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {});
         dbDsl.createRegion('region-2', {});
@@ -45,10 +45,12 @@ describe('Get details of a commitment', function () {
         dbDsl.createCommitmentAnswer('102', {
             creatorId: '2', questionId: '12', commitmentId: '1', created: 502, description: 'test3'
         });
+
+        dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2', topics: ['Spiritual']})
     });
 
     afterEach(function () {
-        sandbox.restore();
         return requestHandler.logout();
     });
 
@@ -74,7 +76,7 @@ describe('Get details of a commitment', function () {
         res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-1');
+        res.body.regions.should.include('region-1-2');
         res.body.isAdmin.should.equals(true);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -90,6 +92,15 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].slug.should.equals('das-ist-eine-frage2');
         res.body.linkedWithQuestions[1].description.should.equals('description2');
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
+
+        res.body.events.length.should.equals(1);
+        res.body.events[0].eventId.should.equals('22');
+        res.body.events[0].title.should.equals('event22Title');
+        res.body.events[0].description.should.equals('event22Description');
+        res.body.events[0].startDate.should.equals(startTime + 100);
+        res.body.events[0].endDate.should.equals(startTime + 200);
+        res.body.events[0].region.should.equals('region-2');
+        res.body.events[0].location.should.equals('event22Location');
     });
 
     it('Get a commitment (User is not Admin and logged in)', async function () {
@@ -108,12 +119,13 @@ describe('Get details of a commitment', function () {
         res.body.userWatchesCommitment.should.equals(true);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-1');
+        res.body.regions.should.include('region-1-2');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
         res.body.topics.should.include('Meditation');
         res.body.linkedWithQuestions.length.should.equals(0);
+        res.body.events.length.should.equals(1);
     });
 
     it('Get a commitment (User is not logged in)', async function () {
@@ -137,7 +149,7 @@ describe('Get details of a commitment', function () {
         res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
         res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-1');
+        res.body.regions.should.include('region-1-2');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -153,6 +165,7 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].slug.should.equals('das-ist-eine-frage2');
         res.body.linkedWithQuestions[1].description.should.equals('description2');
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
+        res.body.events.length.should.equals(1);
     });
 
     it('Get non existing commitment', async function () {

@@ -53,6 +53,7 @@ module.exports = {
     addAdminToPage: page.addAdminToPage,
 
     createCommitment: commitment.createCommitment,
+    createCommitmentEvent: commitment.createEvent,
     showQuestionOnCommitment: commitment.showQuestionOnCommitment,
     watchCommitment: commitment.watchCommitment,
 

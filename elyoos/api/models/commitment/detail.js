@@ -2,6 +2,7 @@
 
 const dashify = require('dashify');
 const db = requireDb();
+const events = require('./events');
 const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -38,14 +39,15 @@ const getDetail = async function (userId, commitmentId) {
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
-        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId)]);
-    if (resp[1].length !== 1) {
+        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId), events.getEventsCommand(commitmentId)]);
+    if (resp[2].length !== 1) {
         logger.warn(`Commitment ${commitmentId} had ${resp.length} results`);
         throw new Error('404');
     }
-    let response = resp[1][0];
+    let response = resp[2][0];
     response.imageUrl = cdn.getPublicUrl(`commitment/${commitmentId}/148x148/title.jpg`, response.modified);
     response.linkedWithQuestions = getLinkedQuestionResponse(resp[0]);
+    response.events = resp[1];
     logger.info(`Get commitment ${commitmentId}`);
     return response;
 };

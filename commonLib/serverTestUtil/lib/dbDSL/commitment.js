@@ -41,6 +41,33 @@ const createCommitment = function (commitmentId, data) {
         }).getCommand());
 };
 
+const createEvent = function (data) {
+    data.title = data.title || `event${data.eventId}Title`;
+    data.description = data.description || `event${data.eventId}Description`;
+    data.location = data.location || `event${data.eventId}Location`;
+    data.uid = data.description || `${data.eventId}@elyoos.org`;
+    data.created = data.created || 500;
+    data.modified = data.modified || null;
+
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(commitment:Commitment {commitmentId: {commitmentId}})`)
+        .create(`(commitment)-[:EVENT]->(event:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, 
+                 location: {location}, startDate: {startDate}, endDate: {endDate}, modified: {modified}})`)
+        .with(`event`)
+        .match(`(region:Region {code: {region}})`)
+        .merge(`(event)-[:BELONGS_TO_REGION]->(region)`)
+        .with(`event`)
+        .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
+        .with(`event`)
+        .match(`(topic:Topic)`)
+        .where(`topic.name IN {topics}`)
+        .merge(`(topic)-[:TOPIC]->(event)`)
+        .end({
+            commitmentId: data.commitmentId, eventId: data.eventId, uid: data.uid, title: data.title,
+            description: data.description, startDate: data.startDate, endDate: data.endDate, created: data.created,
+            modified: data.modified, region: data.region, topics: data.topics, location: data.location
+        }).getCommand());
+};
+
 const showQuestionOnCommitment = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(c:Commitment {commitmentId: {commitmentId}}), (q:Question {questionId: {questionId}})`)
@@ -58,6 +85,7 @@ const watchCommitment = function (data) {
 
 module.exports = {
     createCommitment,
+    createEvent,
     showQuestionOnCommitment,
     watchCommitment
 };
