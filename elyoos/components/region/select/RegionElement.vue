@@ -10,7 +10,7 @@
         <div class="sub-regions" v-if="(region.isSelected || (region.subRegionIsSelected)) &&
                                         region.subRegions.length > 0">
             <select-region-element :region="subRegion" v-for="subRegion in region.subRegions"
-                                   :key="subRegion.code" :is-top-region="false">
+                                   :key="subRegion.code" :is-top-region="false" :select-multiple="selectMultiple">
             </select-region-element>
         </div>
     </div>
@@ -21,14 +21,15 @@
 
     export default {
         name: 'select-region-element',
-        props: ['region', 'isTopRegion'],
+        props: ['region', 'isTopRegion', 'selectMultiple'],
         components: {SelectRegionElement},
-        data() {
-            return {}
-        },
         methods: {
             select() {
-                this.$store.commit('selectRegions/SELECT_CHANGED', this.region);
+                if (this.selectMultiple) {
+                    this.$store.commit('selectRegions/SELECT_CHANGED', this.region);
+                } else {
+                    this.$store.commit('selectRegion/SELECT_CHANGED', this.region);
+                }
             }
         }
     }

@@ -66,11 +66,16 @@
     },
     "createEventDialog": {
       "title": "Titel der Veranstaltung",
-      "location": "Ort wo die Veranstaltung stattfindet",
+      "location": "Adresse wo die Veranstaltung stattfindet",
       "linkDescription": "Link zur Beschreibung der Veranstaltung",
       "start": "Beginnt:",
       "end": "Endet:",
+      "createEventButton": "Veranstaltung Erstellten",
+      "regionDescription": "In welcher Region findet die Veranstaltung statt?",
+      "topicEventDescription": "Welchen Themenbereichen soll diese Veranstaltung zugeordnet werden? Es können nur die Themenbereiche des Engagements verwendet werden.",
       "stepEvent": "Veranstaltung",
+      "stepRegion": "Region",
+      "stepLocation": "Adresse",
       "stepTopic": "Themengebiete"
     },
     "modifyCommitmentDialog": {

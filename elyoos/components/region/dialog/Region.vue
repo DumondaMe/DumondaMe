@@ -5,7 +5,7 @@
         </div>
         <v-card-text id="dialog-create-region-commitment-content">
             <div class="user-description">{{description}}</div>
-            <select-region-container>
+            <select-region-container :regions="regions" select-multiple="true">
             </select-region-container>
         </v-card-text>
         <v-divider></v-divider>
@@ -33,7 +33,7 @@
             return {loadingRegions: false}
         },
         computed: {
-            ...mapGetters({selectedRegions: 'selectRegions/getSelected'})
+            ...mapGetters({selectedRegions: 'selectRegions/getSelected', regions: 'selectRegions/getRegions'})
         },
         async mounted() {
             this.loadingRegions = true;

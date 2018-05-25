@@ -16,7 +16,9 @@
             <div class="event-title">{{event.title}}</div>
             <div class="description">{{event.description}}</div>
         </div>
-        <create-event-dialog v-if="showCreateEventDialog" @close-dialog="showCreateEventDialog = false">
+        <create-event-dialog v-if="showCreateEventDialog" @close-dialog="showCreateEventDialog = false"
+                             :init-topic="$store.state.commitment.commitment.topics"
+                             :commitment-id="$route.params.commitmentId">
         </create-event-dialog>
     </div>
 </template>

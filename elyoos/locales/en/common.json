@@ -18,6 +18,7 @@
   "region": "Region",
   "topic": "Topic",
   "trustCircle": "Trust Circle",
+  "selectAll": "Select All",
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "personalizationActivated": "Activate Personalization",
   "personalizationDeactivated": "Deactivate Personalization",

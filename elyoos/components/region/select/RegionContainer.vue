@@ -1,25 +1,18 @@
 <template>
     <div id="select-region-container">
         <select-region-element :region="region" v-for="region in regions" :key="region.code"
-                               :is-top-region="true" :top-region="region.code" :is-international="isInternational">
+                               :is-top-region="true" :top-region="region.code"
+                               :select-multiple="selectMultiple">
         </select-region-element>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
     import SelectRegionElement from './RegionElement';
 
     export default {
-        components: {SelectRegionElement},
-        data() {
-            return {isInternational: false}
-        },
-        computed: {
-            ...mapGetters({
-                regions: 'selectRegions/getRegions'
-            })
-        }
+        props: ['regions', 'selectMultiple'],
+        components: {SelectRegionElement}
     }
 </script>
 

@@ -17,12 +17,12 @@
                 </v-text-field>
                 <v-text-field v-model="event.linkDescription"
                               :label="$t('pages:commitment.createEventDialog.linkDescription')"
-                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                       isValidLink(),
+                              :rules="[isValidLink(),
                                        ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="2000">
                 </v-text-field>
             </v-form>
-            <start-end-date-time-picker :init-start-date="event.startDate" :init-end-date="event.endDate" :min="minDate"
+            <start-end-date-time-picker class="date-picker" :init-start-date="event.startDate"
+                                        :init-end-date="event.endDate" :min="minDate"
                                         @start-date-changed="startDateChanged" @end-date-changed="endDateChanged"
                                         :start-date-description="$t('pages:commitment.createEventDialog.start')"
                                         :end-date-description="$t('pages:commitment.createEventDialog.end')">
@@ -64,13 +64,16 @@
         methods: {
             isValidLink() {
                 return v => {
-                    return urlRegex(true).test(v) || this.$t("validation:url")
+                    if (v && v.trim() !== '') {
+                        return urlRegex(true).test(v) || this.$t("validation:url")
+                    }
+                    return true;
                 }
             },
             finish(event) {
                 event.preventDefault();
                 if (this.$refs.form.validate() && this.validStartDate && this.validEndDate) {
-
+                    this.$emit('finish', {event: this.event});
                 }
             },
             startDateChanged({date, isValid}) {
@@ -93,6 +96,8 @@
 <style lang="scss">
     #dialog-event {
         max-width: 650px;
-
+        .date-picker {
+            margin-top: 12px;
+        }
     }
 </style>

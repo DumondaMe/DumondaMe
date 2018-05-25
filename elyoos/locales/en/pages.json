@@ -66,11 +66,16 @@
     },
     "createEventDialog": {
       "title": "Title of the event",
-      "location": "Place where the event takes place",
+      "location": "Address where the event takes place",
       "linkDescription": "Link to the description of the event",
       "start": "Start:",
       "end": "End:",
+      "createEventButton": "Create Event",
+      "regionDescription": "In which region will the event take place?",
+      "topicEventDescription": "Which topics should this event be assigned to? Only the subject areas of the commitment can be used.",
       "stepEvent": "Event",
+      "stepRegion": "Region",
+      "stepLocation": "Address",
       "stepTopic": "Topics"
     },
     "modifyCommitmentDialog": {

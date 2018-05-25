@@ -24,6 +24,12 @@ export const mutations = {
     SET_EVENT: function (state, event) {
         state.event = event;
     },
+    SET_REGION: function (state, region) {
+        state.event.region = region;
+    },
+    SET_LOCATION: function (state, location) {
+        state.event.location = location;
+    },
     SET_TOPICS: function (state, topics) {
         state.topics = topics;
     }
@@ -31,7 +37,7 @@ export const mutations = {
 
 export const getters = {
     getEventCopy: state => {
-        return JSON.parse(JSON.stringify(state.event));
+        return state.event;
     }
 };
 
@@ -52,8 +58,10 @@ const getEventForUpload = function (event, topics) {
 };
 
 export const actions = {
-    async createEvent({state}) {
+    async createEvent({state}, commitmentId) {
+        debugger
         let event = getEventForUpload(state.event, state.topics);
+        event.commitmentId = commitmentId;
         return await this.$axios.$post('/user/commitment/event', event);
     }
 };

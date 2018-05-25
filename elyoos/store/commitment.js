@@ -4,7 +4,7 @@ import {putWithFile} from '~/utils/files/upload.js';
 export const state = () => ({
     commitment: {
         title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
-        imageUrl: null, linkedWithQuestions: [], events: []
+        imageUrl: null, linkedWithQuestions: [], events: [], topics: []
     }
 });
 
