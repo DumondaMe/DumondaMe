@@ -47,7 +47,10 @@ describe('Get details of a commitment', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2', topics: ['Spiritual']})
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2', topics: ['Spiritual']});
+
+        dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '23',
+            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2', topics: ['Spiritual']});
     });
 
     afterEach(function () {
@@ -97,7 +100,7 @@ describe('Get details of a commitment', function () {
         res.body.events[0].eventId.should.equals('22');
         res.body.events[0].title.should.equals('event22Title');
         res.body.events[0].description.should.equals('event22Description');
-        res.body.events[0].startDate.should.equals(startTime + 100);
+        res.body.events[0].startDate.should.equals(startTime - 100);
         res.body.events[0].endDate.should.equals(startTime + 200);
         res.body.events[0].region.should.equals('region-2');
         res.body.events[0].location.should.equals('event22Location');
