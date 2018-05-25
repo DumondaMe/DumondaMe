@@ -56,7 +56,6 @@
                 try {
                     this.$store.commit('createEvent/SET_TOPICS', topics);
                     this.loading = true;
-                    debugger
                     let response = await this.$store.dispatch('createEvent/createEvent', this.commitmentId);
                     this.loading = false;
                     this.$emit('close-dialog');

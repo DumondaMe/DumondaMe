@@ -59,7 +59,6 @@ const getEventForUpload = function (event, topics) {
 
 export const actions = {
     async createEvent({state}, commitmentId) {
-        debugger
         let event = getEventForUpload(state.event, state.topics);
         event.commitmentId = commitmentId;
         return await this.$axios.$post('/user/commitment/event', event);
