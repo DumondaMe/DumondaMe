@@ -17,7 +17,6 @@ export const getters = {
 export const mutations = {
     SET_COMMITMENT(state, commitment) {
         state.commitment = commitment;
-        state.commitment.events = [];
     },
     SET_TOPICS(state, topics) {
         state.commitment.topics = topics;

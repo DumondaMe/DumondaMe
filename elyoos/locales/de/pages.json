@@ -195,7 +195,8 @@
       "upVotes_plural": "Zustimmungen"
     },
     "events": {
-      "title": "Veranstaltungen"
+      "title": "Veranstaltungen",
+      "at": "von"
     }
   },
   "detailUser": {

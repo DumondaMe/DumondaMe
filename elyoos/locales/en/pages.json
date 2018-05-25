@@ -190,7 +190,8 @@
       "upVotes_plural": "Up Votes"
     },
     "events": {
-      "title": "Events"
+      "title": "Events",
+      "at": "at"
     }
   },
   "detailUser": {

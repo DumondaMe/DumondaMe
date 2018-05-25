@@ -42,11 +42,13 @@
                 font-weight: 300;
             }
             .info-container {
-                margin-top: 6px;
+                margin-top: 12px;
+                margin-left: -2px;
                 .info-icon-element {
                     display: inline-block;
-                    font-size: 14px;
-                    font-weight: 300;
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: $secondary-text;
                     .info-icon {
                         color: #009688;
                         font-size: 16px;

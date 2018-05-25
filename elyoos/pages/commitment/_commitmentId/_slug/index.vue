@@ -24,7 +24,7 @@
     import CommitmentHeader from '~/components/commitment/detail/Header';
     import Notifications from '~/components/commitment/detail/notifications/Notifications';
     import Questions from '~/components/commitment/detail/Questions';
-    import Events from '~/components/commitment/detail/Events';
+    import Events from '~/components/commitment/detail/event/Events';
     import Admin from '~/components/commitment/detail/Admin';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation';
     import {mapGetters} from 'vuex';
