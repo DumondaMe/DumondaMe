@@ -13,6 +13,7 @@ const createEvent = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.linkDescription = params.linkDescription || null;
+    params.description = params.description || null;
     await regionSecurity.checkRegionsExists([params.region]);
     await topicSecurity.checkTopicsExists(params.topics);
     await commitmentSecurity.isAdmin(userId, params.commitmentId);

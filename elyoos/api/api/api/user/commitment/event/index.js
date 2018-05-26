@@ -12,7 +12,7 @@ const schemaCreateEvent = {
     name: 'createEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'title', 'description', 'location', 'topics', 'region', 'startDate', 'endDate'],
+    required: ['commitmentId', 'title', 'location', 'topics', 'region', 'startDate', 'endDate'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},

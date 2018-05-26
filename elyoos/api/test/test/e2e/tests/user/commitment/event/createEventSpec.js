@@ -41,7 +41,6 @@ describe('Create a new event for a commitment', function () {
         let res = await requestHandler.post('/api/user/commitment/event', {
             commitmentId: '1',
             title: 'Event Example',
-            description: 'Event Example Description',
             location: 'Some where',
             topics: ['Spiritual', 'Meditation'],
             region: 'region-2',
@@ -57,7 +56,6 @@ describe('Create a new event for a commitment', function () {
             .return(`event, collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].event.title.should.equals('Event Example');
-        resp[0].event.description.should.equals('Event Example Description');
         resp[0].event.location.should.equals('Some where');
         resp[0].event.created.should.least(startTime);
         resp[0].event.startDate.should.equals(startTime + 100);
@@ -67,6 +65,7 @@ describe('Create a new event for a commitment', function () {
         resp[0].topics.length.should.equals(2);
         resp[0].topics.should.include('Spiritual');
         resp[0].topics.should.include('Meditation');
+        should.not.exist(resp[0].event.description);
         should.not.exist(resp[0].event.linkDescription);
     });
 
