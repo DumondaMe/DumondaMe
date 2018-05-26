@@ -44,7 +44,6 @@ export const getters = {
 const getEventForUpload = function (event, topics) {
     let eventForUpload = {
         title: event.title,
-        description: event.description,
         location: event.location,
         topics: topics,
         region: event.region,
@@ -53,6 +52,9 @@ const getEventForUpload = function (event, topics) {
     };
     if (event.linkDescription && event.linkDescription.trim() !== '') {
         eventForUpload.linkDescription = event.linkDescription;
+    }
+    if (event.description && event.description.trim() !== '') {
+        eventForUpload.description = event.description;
     }
     return eventForUpload;
 };

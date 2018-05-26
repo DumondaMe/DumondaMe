@@ -6,15 +6,11 @@
                            :init-event="$store.getters['createEvent/getEventCopy']">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </event-content>
-            <region v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
-                    :action-button-text="$t('common:button.next')" :loading="loading">
-                <stepper slot="header" :selected-step="showPage"></stepper>
-            </region>
-            <location v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishLocation"
+            <location v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishLocation"
                       :action-button-text="$t('common:button.next')" :loading="loading">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </location>
-            <topics v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
+            <topics v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                     :action-button-text="$t('pages:commitment.createEventDialog.createEventButton')"
                     :init-topic="initTopic" :loading="loading">
                 <stepper slot="header" :selected-step="showPage"></stepper>
@@ -26,7 +22,6 @@
 <script>
     import EventContent from './Event';
     import Location from './Location';
-    import Region from './Region';
     import Topics from './Topics';
     import Stepper from './Stepper';
 
@@ -35,7 +30,7 @@
         data() {
             return {dialog: true, showPage: 1, loading: false}
         },
-        components: {EventContent, Topics, Location, Region, Stepper},
+        components: {EventContent, Topics, Location, Stepper},
         mounted() {
             this.$store.commit('createEvent/RESET');
         },
@@ -44,13 +39,10 @@
                 this.$store.commit('createEvent/SET_EVENT', event);
                 this.showPage = 2;
             },
-            finishRegion(region) {
+            finishLocation({region, location}) {
                 this.$store.commit('createEvent/SET_REGION', region);
-                this.showPage = 3;
-            },
-            finishLocation(location) {
                 this.$store.commit('createEvent/SET_LOCATION', location);
-                this.showPage = 4;
+                this.showPage = 3;
             },
             async finishTopics(topics) {
                 try {

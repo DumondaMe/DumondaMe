@@ -3,13 +3,10 @@
         <step :name="$t('pages:commitment.createEventDialog.stepEvent')" :number="1" :selected-step="selectedStep">
         </step>
         <v-divider></v-divider>
-        <step :name="$t('pages:commitment.createEventDialog.stepRegion')" :number="2" :selected-step="selectedStep">
+        <step :name="$t('pages:commitment.createEventDialog.stepLocation')" :number="2" :selected-step="selectedStep">
         </step>
         <v-divider></v-divider>
-        <step :name="$t('pages:commitment.createEventDialog.stepLocation')" :number="3" :selected-step="selectedStep">
-        </step>
-        <v-divider></v-divider>
-        <step :name="$t('pages:commitment.createEventDialog.stepTopic')" :number="4" :selected-step="selectedStep">
+        <step :name="$t('pages:commitment.createEventDialog.stepTopic')" :number="3" :selected-step="selectedStep">
         </step>
     </stepper-header>
 </template>
