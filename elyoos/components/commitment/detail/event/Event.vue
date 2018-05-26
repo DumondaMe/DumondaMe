@@ -90,6 +90,7 @@
             margin-bottom: 8px;
         }
         .event-description {
+            margin-top: 12px;
             font-weight: 300;
             white-space: pre-wrap;
         }
