@@ -2,7 +2,6 @@
 
 const db = requireDb();
 const regionSecurity = require('./../../../region/security');
-const topicSecurity = require('./../../../topic/security');
 const commitmentSecurity = require('./../security');
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
@@ -15,7 +14,6 @@ const createEvent = async function (userId, params) {
     params.linkDescription = params.linkDescription || null;
     params.description = params.description || null;
     await regionSecurity.checkRegionsExists([params.region]);
-    await topicSecurity.checkTopicsExists(params.topics);
     await commitmentSecurity.isAdmin(userId, params.commitmentId);
     await db.cypher()
         .match("(:User {userId: {userId}})-[:IS_ADMIN]->(commitment:Commitment {commitmentId: {commitmentId}})")
@@ -26,10 +24,6 @@ const createEvent = async function (userId, params) {
         .with(`event`)
         .match(`(region:Region {code: {region}})`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(event)`)
-        .with(`event`)
-        .match(`(topic:Topic)`)
-        .where(`topic.name IN {topics}`)
-        .merge(`(event)<-[:TOPIC]-(topic)`)
         .end(params).send();
 
     logger.info(`Created event with id ${params.eventId}`);

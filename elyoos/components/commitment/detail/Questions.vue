@@ -32,7 +32,7 @@
     #questions-container {
         .question {
             cursor: pointer;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             .question-title {
                 color: $primary-color;
                 font-size: 16px;

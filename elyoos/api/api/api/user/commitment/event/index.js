@@ -1,7 +1,6 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const topic = require("../../../../schema/topic");
 const create = requireModel('user/commitment/event/create');
 //const eventEdit = requireModel('user/commitment/event/edit');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
@@ -12,13 +11,12 @@ const schemaCreateEvent = {
     name: 'createEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'title', 'location', 'topics', 'region', 'startDate', 'endDate'],
+    required: ['commitmentId', 'title', 'location','region', 'startDate', 'endDate'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        topics: topic.topics,
         region: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         startDate: {type: 'integer'},
         endDate: {type: 'integer'},
@@ -30,13 +28,12 @@ const schemaEditEvent = {
     name: 'editEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['eventId', 'title', 'description', 'location', 'topics', 'region', 'startDate', 'endDate'],
+    required: ['eventId', 'title', 'description', 'location', 'region', 'startDate', 'endDate'],
     properties: {
         eventId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        topics: topic.topics,
         region: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         startDate: {type: 'integer'},
         endDate: {type: 'integer'},
