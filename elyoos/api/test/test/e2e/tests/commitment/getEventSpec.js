@@ -24,10 +24,10 @@ describe('Get events of a commitment', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2', topics: ['Spiritual']});
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '23',
-            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2', topics: ['Environmental']});
+            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2'});
     });
 
     afterEach(function () {
@@ -48,8 +48,6 @@ describe('Get events of a commitment', function () {
         res.body.events[0].endDate.should.equals(startTime + 200);
         res.body.events[0].region.should.equals('region-2');
         res.body.events[0].location.should.equals('event22Location');
-        res.body.events[0].topics.length.should.equals(1);
-        res.body.events[0].topics.should.include('Spiritual');
     });
 
     it('Getting past events', async function () {
@@ -66,8 +64,6 @@ describe('Get events of a commitment', function () {
         res.body.events[0].endDate.should.equals(startTime - 200);
         res.body.events[0].region.should.equals('region-2');
         res.body.events[0].location.should.equals('event23Location');
-        res.body.events[0].topics.length.should.equals(1);
-        res.body.events[0].topics.should.include('Environmental');
     });
 
     it('Get non existing commitment', async function () {
