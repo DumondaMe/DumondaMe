@@ -27,12 +27,6 @@
                 <v-icon>mdi-map-marker</v-icon>
                 <span class="footer-text">{{event.location}} ({{$t("regions:" + event.region)}})</span>
             </div>
-            <div class="footer-icon admin-icon" v-if="isAdmin">
-                <v-icon>mdi-key</v-icon>
-                <span v-for="(topic, index) in event.topics">
-                    <span class="footer-text">{{topic}}</span><span v-if="index !== event.topics.length -1">,</span>
-                </span>
-            </div>
         </div>
     </div>
 </template>
@@ -66,7 +60,7 @@
 
 <style lang="scss">
     .commitment-event {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         .event-header-container {
             display: flex;
             .event-title {
@@ -112,11 +106,6 @@
                     :hover.footer-link {
                         text-decoration: underline;
                     }
-                }
-            }
-            .footer-icon.admin-icon {
-                i.icon {
-                    color: $primary-color;
                 }
             }
         }

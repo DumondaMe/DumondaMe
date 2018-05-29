@@ -5,9 +5,6 @@
         <v-divider></v-divider>
         <step :name="$t('pages:commitment.createEventDialog.stepLocation')" :number="2" :selected-step="selectedStep">
         </step>
-        <v-divider></v-divider>
-        <step :name="$t('pages:commitment.createEventDialog.stepTopic')" :number="3" :selected-step="selectedStep">
-        </step>
     </stepper-header>
 </template>
 

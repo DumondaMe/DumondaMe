@@ -47,10 +47,10 @@ describe('Get details of a commitment', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2', topics: ['Spiritual']});
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '23',
-            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2', topics: ['Spiritual']});
+            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2'});
     });
 
     afterEach(function () {

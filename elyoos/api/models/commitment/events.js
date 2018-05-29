@@ -17,11 +17,9 @@ const getEventsCommand = function (commitmentId, upComing, page) {
     return db.cypher()
         .match(`(:Commitment {commitmentId: {commitmentId}})-[:EVENT]->(event:Event)-[:BELONGS_TO_REGION]->(r:Region)`)
         .where(getUpcomingFilter(upComing))
-        .match(`(t:Topic)-[:TOPIC]->(event)`)
         .return(`event.eventId AS eventId, event.title AS title, event.description AS description, 
                  event.startDate AS startDate, event.endDate AS endDate, event.created AS created, 
-                 event.modified AS modified, event.location AS location, 
-                 collect(DISTINCT t.name) AS topics, r.code AS region`)
+                 event.modified AS modified, event.location AS location, r.code AS region`)
         .orderBy(`startDate`)
         .skip(`{skip}`)
         .limit(`{pageSize}`)

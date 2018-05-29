@@ -55,16 +55,10 @@ const createEvent = function (data) {
         .with(`event`)
         .match(`(region:Region {code: {region}})`)
         .merge(`(event)-[:BELONGS_TO_REGION]->(region)`)
-        .with(`event`)
-        .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
-        .with(`event`)
-        .match(`(topic:Topic)`)
-        .where(`topic.name IN {topics}`)
-        .merge(`(topic)-[:TOPIC]->(event)`)
         .end({
             commitmentId: data.commitmentId, eventId: data.eventId, uid: data.uid, title: data.title,
             description: data.description, startDate: data.startDate, endDate: data.endDate, created: data.created,
-            modified: data.modified, region: data.region, topics: data.topics, location: data.location
+            modified: data.modified, region: data.region, location: data.location
         }).getCommand());
 };
 

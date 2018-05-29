@@ -9,8 +9,7 @@ export const state = () => ({
     event: {
         title: '', description: '', location: '', region: '', startDate: getTimestamp('10'),
         endDate: getTimestamp('11'), linkDescription: null
-    },
-    topics: []
+    }
 });
 
 export const mutations = {
@@ -19,7 +18,6 @@ export const mutations = {
             title: '', description: '', location: '', region: '', startDate: getTimestamp('10'),
             endDate: getTimestamp('11'), linkDescription: null
         };
-        state.topics = [];
     },
     SET_EVENT: function (state, event) {
         state.event = event;
@@ -29,9 +27,6 @@ export const mutations = {
     },
     SET_LOCATION: function (state, location) {
         state.event.location = location;
-    },
-    SET_TOPICS: function (state, topics) {
-        state.topics = topics;
     }
 };
 
@@ -41,11 +36,10 @@ export const getters = {
     }
 };
 
-const getEventForUpload = function (event, topics) {
+const getEventForUpload = function (event) {
     let eventForUpload = {
         title: event.title,
         location: event.location,
-        topics: topics,
         region: event.region,
         startDate: event.startDate,
         endDate: event.endDate,
@@ -61,7 +55,7 @@ const getEventForUpload = function (event, topics) {
 
 export const actions = {
     async createEvent({state}, commitmentId) {
-        let event = getEventForUpload(state.event, state.topics);
+        let event = getEventForUpload(state.event);
         event.commitmentId = commitmentId;
         return await this.$axios.$post('/user/commitment/event', event);
     }
