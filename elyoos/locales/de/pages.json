@@ -198,7 +198,9 @@
       "title": "Veranstaltungen",
       "upcoming": "Bevorstehende",
       "past": "Vergangene",
-      "at": "von"
+      "at": "von",
+      "noUpComingEvents": "Es finden in nächster Zeit keine Events statt.",
+      "noPastEvents": "Es fanden noch keine Events statt."
     }
   },
   "detailUser": {

@@ -193,7 +193,9 @@
       "title": "Events",
       "upcoming": "Upcoming",
       "past": "Past",
-      "at": "at"
+      "at": "at",
+      "noUpComingEvents": "There will be no events in the near future..",
+      "noPastEvents": "No events have taken place yet."
     }
   },
   "detailUser": {
