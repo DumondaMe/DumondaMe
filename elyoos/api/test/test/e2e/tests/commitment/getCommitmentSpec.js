@@ -96,6 +96,7 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].description.should.equals('description2');
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
 
+        res.body.totalNumberOfEvents.should.equals(1);
         res.body.events.length.should.equals(1);
         res.body.events[0].eventId.should.equals('22');
         res.body.events[0].title.should.equals('event22Title');
@@ -129,6 +130,7 @@ describe('Get details of a commitment', function () {
         res.body.topics.should.include('Meditation');
         res.body.linkedWithQuestions.length.should.equals(0);
         res.body.events.length.should.equals(1);
+        res.body.totalNumberOfEvents.should.equals(1);
     });
 
     it('Get a commitment (User is not logged in)', async function () {
@@ -169,6 +171,7 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].description.should.equals('description2');
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
         res.body.events.length.should.equals(1);
+        res.body.totalNumberOfEvents.should.equals(1);
     });
 
     it('Get non existing commitment', async function () {

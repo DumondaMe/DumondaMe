@@ -26,12 +26,22 @@ const getEventsCommand = function (commitmentId, upComing, page) {
         .end({commitmentId, skip, pageSize: PAGE_SIZE, now: time.getNowUtcTimestamp()});
 };
 
+const getTotalNumberOfEventsCommand = function (commitmentId, upComing) {
+    return db.cypher()
+        .match(`(:Commitment {commitmentId: {commitmentId}})-[:EVENT]->(event:Event)`)
+        .where(getUpcomingFilter(upComing))
+        .return(`COUNT(DISTINCT event) AS numberOfEvents`)
+        .end({commitmentId, now: time.getNowUtcTimestamp()});
+};
+
 const getEvents = async function (commitmentId, upComing, page) {
-    let resp = await getEventsCommand(commitmentId, upComing, page).send();
-    return {events: resp};
+    let resp = await getEventsCommand(commitmentId, upComing, page)
+        .send([getTotalNumberOfEventsCommand(commitmentId, upComing).getCommand()]);
+    return {events: resp[1], totalNumberOfEvents: resp[0][0].numberOfEvents};
 };
 
 module.exports = {
     getEventsCommand,
+    getTotalNumberOfEventsCommand,
     getEvents
 };

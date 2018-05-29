@@ -40,15 +40,17 @@ const getDetail = async function (userId, commitmentId) {
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
         .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId),
-            events.getEventsCommand(commitmentId, true, 0).getCommand()]);
-    if (resp[2].length !== 1) {
+            events.getEventsCommand(commitmentId, true, 0).getCommand(),
+            events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand()]);
+    if (resp[3].length !== 1) {
         logger.warn(`Commitment ${commitmentId} had ${resp.length} results`);
         throw new Error('404');
     }
-    let response = resp[2][0];
+    let response = resp[3][0];
     response.imageUrl = cdn.getPublicUrl(`commitment/${commitmentId}/148x148/title.jpg`, response.modified);
     response.linkedWithQuestions = getLinkedQuestionResponse(resp[0]);
     response.events = resp[1];
+    response.totalNumberOfEvents = resp[2][0].numberOfEvents;
     logger.info(`Get commitment ${commitmentId}`);
     return response;
 };

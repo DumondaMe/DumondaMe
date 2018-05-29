@@ -23,11 +23,15 @@ describe('Get events of a commitment', function () {
             website: 'https://www.example.org/', regions: ['region-1-1', 'region-1-2']
         });
 
-        dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
+        dbDsl.createCommitmentEvent({
+            commitmentId: '1', eventId: '22',
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'
+        });
 
-        dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '23',
-            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2'});
+        dbDsl.createCommitmentEvent({
+            commitmentId: '1', eventId: '23',
+            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2'
+        });
     });
 
     afterEach(function () {
@@ -40,6 +44,7 @@ describe('Get events of a commitment', function () {
         let res = await requestHandler.get('/api/commitment/event', {commitmentId: '1', upComing: true, page: 0});
         res.status.should.equal(200);
 
+        res.body.totalNumberOfEvents.should.equals(1);
         res.body.events.length.should.equals(1);
         res.body.events[0].eventId.should.equals('22');
         res.body.events[0].title.should.equals('event22Title');
@@ -56,6 +61,7 @@ describe('Get events of a commitment', function () {
         let res = await requestHandler.get('/api/commitment/event', {commitmentId: '1', upComing: false, page: 0});
         res.status.should.equal(200);
 
+        res.body.totalNumberOfEvents.should.equals(1);
         res.body.events.length.should.equals(1);
         res.body.events[0].eventId.should.equals('23');
         res.body.events[0].title.should.equals('event23Title');
@@ -64,6 +70,23 @@ describe('Get events of a commitment', function () {
         res.body.events[0].endDate.should.equals(startTime - 200);
         res.body.events[0].region.should.equals('region-2');
         res.body.events[0].location.should.equals('event23Location');
+    });
+
+    it('Counting of upcoming events', async function () {
+
+        for (let index = 0; index < 10; index++) {
+            dbDsl.createCommitmentEvent({
+                commitmentId: '1', eventId: '22' + index,
+                startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'
+            });
+        }
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/commitment/event', {commitmentId: '1', upComing: true, page: 0});
+        res.status.should.equal(200);
+
+        res.body.totalNumberOfEvents.should.equals(11);
     });
 
     it('Get non existing commitment', async function () {
