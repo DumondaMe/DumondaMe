@@ -51,7 +51,7 @@ const createEvent = function (data) {
 
     dbConnectionHandling.getCommands().push(db.cypher().match(`(commitment:Commitment {commitmentId: {commitmentId}})`)
         .create(`(commitment)-[:EVENT]->(event:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, 
-                 location: {location}, startDate: {startDate}, endDate: {endDate}, modified: {modified}})`)
+                 location: {location}, startDate: {startDate}, endDate: {endDate}, created: {created}, modified: {modified}})`)
         .with(`event`)
         .match(`(region:Region {code: {region}})`)
         .merge(`(event)-[:BELONGS_TO_REGION]->(region)`)
