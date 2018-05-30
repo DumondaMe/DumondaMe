@@ -1,7 +1,7 @@
 <template>
     <div id="ely-footer">
         <div id="ely-footer-container">
-            <div class="footer-nav">{{$t("pages:footer.vision")}}</div>
+            <div class="footer-nav" @click="$router.push({name: 'vision'})">{{$t("pages:footer.vision")}}</div>
             <div class="footer-nav">{{$t("pages:footer.aboutUs")}}</div>
             <div class="footer-nav">{{$t("pages:footer.news")}}</div>
             <div class="footer-nav">{{$t("pages:footer.donate")}}</div>
