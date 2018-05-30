@@ -1,5 +1,6 @@
 import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
 import {putWithFile} from '~/utils/files/upload.js';
+import {replaceProperties} from '~/utils/object/property.js';
 
 export const state = () => ({
     commitment: {
@@ -35,6 +36,10 @@ export const mutations = {
     ADD_EVENT(state, event) {
         state.commitment.events.unshift(event);
     },
+    EDIT_EVENT(state, event) {
+        let eventToEdit = state.commitment.events.find((eventToFind) => eventToFind.eventId === event.eventId);
+        replaceProperties(eventToEdit, event);
+    },
     DELETE_EVENT(state, eventId) {
         let indexOfEvent = state.commitment.events.findIndex((event) => event.eventId === eventId);
         state.commitment.events.splice(indexOfEvent, 1);
@@ -69,6 +74,24 @@ const getCommitmentForUpload = function (commitment) {
         commitmentForUpload.website = commitment.website;
     }
     return commitmentForUpload;
+};
+
+const getEditEvent = function (event) {
+    let eventToEdit = {
+        eventId: event.eventId,
+        title: event.title,
+        location: event.location,
+        region: event.region,
+        startDate: event.startDate,
+        endDate: event.endDate
+    };
+    if (event.linkDescription && event.linkDescription.trim() !== '') {
+        eventToEdit.linkDescription = event.linkDescription;
+    }
+    if (event.description && event.description.trim() !== '') {
+        eventToEdit.description = event.description;
+    }
+    return eventToEdit;
 };
 
 export const actions = {
@@ -110,5 +133,9 @@ export const actions = {
     async deleteEvent({commit, state}, eventId) {
         await this.$axios.$delete(`user/commitment/event`, {params: {eventId}});
         commit('DELETE_EVENT', eventId);
+    },
+    async editEvent({commit, state}, event) {
+        await this.$axios.$put(`user/commitment/event`, getEditEvent(event));
+        commit('EDIT_EVENT', event);
     }
 };

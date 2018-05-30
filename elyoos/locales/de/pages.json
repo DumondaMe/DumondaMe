@@ -201,10 +201,15 @@
       "at": "von",
       "noUpComingEvents": "Es finden in nächster Zeit keine Events statt.",
       "noPastEvents": "Es fanden noch keine Events statt.",
+      "editEvent": "Veranstaltung bearbeiten",
+      "editLocation": "Adresse bearbeiten",
       "deleteDialog": {
         "title": "Veranstaltung löschen",
         "description": "Willst du die Veranstaltung {{- event}} wirklich löschen?",
         "deleteEventButton": "Ja, Veranstaltung löschen"
+      },
+      "editDialog": {
+        "title": "Veranstaltung {{- title}} bearbeiten "
       }
     }
   },

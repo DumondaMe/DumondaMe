@@ -196,6 +196,8 @@
       "at": "at",
       "noUpComingEvents": "There will be no events in the near future..",
       "noPastEvents": "No events have taken place yet.",
+      "editEvent": "Edit Event",
+      "editLocation": "Edit Address",
       "deleteDialog": {
         "title": "Delete Event",
         "description": "Do you really want to delete the event {{- event}}?",

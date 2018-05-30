@@ -20,7 +20,7 @@
     import Stepper from './Stepper';
 
     export default {
-        props: ['commitmentId', 'initTopic'],
+        props: ['commitmentId'],
         data() {
             return {dialog: true, showPage: 1, loading: false}
         },

@@ -9,7 +9,10 @@
                 </v-btn>
                 <v-list>
                     <v-list-tile @click="showEditEvent = true">
-                        <v-list-tile-title>{{$t("common:button.edit")}}</v-list-tile-title>
+                        <v-list-tile-title>{{$t("pages:detailCommitment.events.editEvent")}}</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="showEditLocation= true">
+                        <v-list-tile-title>{{$t("pages:detailCommitment.events.editLocation")}}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile @click="showDeleteEvent = true">
                         <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
@@ -31,19 +34,23 @@
         <delete-event-dialog :event="event.title" :event-id="event.eventId" v-if="showDeleteEvent"
                              @close-dialog="showDeleteEvent = false">
         </delete-event-dialog>
+        <edit-event-dialog :init-event="event" v-if="showEditEvent" @finish="showEditEvent = false"
+                           @close-dialog="showEditEvent = false">
+        </edit-event-dialog>
     </div>
 </template>
 
 <script>
     import moment from 'moment';
     import DeleteEventDialog from '~/components/commitment/dialog/event/DeleteEventDialog';
+    import EditEventDialog from '~/components/commitment/dialog/event/EditEventDialog';
 
     export default {
         props: ['event'],
         name: "commitmentEvent",
-        components: {DeleteEventDialog},
+        components: {DeleteEventDialog, EditEventDialog},
         data() {
-            return {showEditEvent: false, showDeleteEvent: false}
+            return {showEditEvent: false, showEditLocation: false, showDeleteEvent: false}
         },
         computed: {
             eventDate() {
