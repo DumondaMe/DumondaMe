@@ -32,6 +32,9 @@ export const mutations = {
     ADD_EVENTS(state, events) {
         state.commitment.events = state.commitment.events.concat(events);
     },
+    ADD_EVENT(state, event) {
+        state.commitment.events.unshift(event);
+    },
     SET_TOTAL_NUMBER_OF_EVENTS(state, totalNumberOfEvents) {
         state.commitment.totalNumberOfEvents = totalNumberOfEvents;
     },

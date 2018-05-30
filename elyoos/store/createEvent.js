@@ -57,6 +57,8 @@ export const actions = {
     async createEvent({state}, commitmentId) {
         let event = getEventForUpload(state.event);
         event.commitmentId = commitmentId;
-        return await this.$axios.$post('/user/commitment/event', event);
+        let response = await this.$axios.$post('/user/commitment/event', event);
+        event.eventId = response.eventId;
+        return event;
     }
 };

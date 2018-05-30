@@ -38,9 +38,8 @@
                     this.$store.commit('createEvent/SET_REGION', region);
                     this.$store.commit('createEvent/SET_LOCATION', location);
                     this.loading = true;
-                    let response = await this.$store.dispatch('createEvent/createEvent', this.commitmentId);
-                    this.loading = false;
-                    this.$emit('close-dialog');
+                    let event = await this.$store.dispatch('createEvent/createEvent', this.commitmentId);
+                    this.$emit('finish', event);
                 }
                 catch (e) {
                     this.loading = false;

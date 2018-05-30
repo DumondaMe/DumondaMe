@@ -32,6 +32,7 @@
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
         <create-event-dialog v-if="showCreateEventDialog" @close-dialog="showCreateEventDialog = false"
+                             @finish="eventCreated"
                              :init-topic="$store.state.commitment.commitment.topics"
                              :commitment-id="$route.params.commitmentId">
         </create-event-dialog>
@@ -86,6 +87,10 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            eventCreated(event) {
+                this.showCreateEventDialog = false;
+                this.$store.commit('commitment/ADD_EVENT', event);
             }
         },
     }
