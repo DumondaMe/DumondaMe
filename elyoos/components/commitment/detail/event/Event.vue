@@ -28,15 +28,20 @@
                 <span class="footer-text">{{event.location}} ({{$t("regions:" + event.region)}})</span>
             </div>
         </div>
+        <delete-event-dialog :event="event.title" :event-id="event.eventId" v-if="showDeleteEvent"
+                             @close-dialog="showDeleteEvent = false">
+        </delete-event-dialog>
     </div>
 </template>
 
 <script>
     import moment from 'moment';
+    import DeleteEventDialog from '~/components/commitment/dialog/event/DeleteEventDialog';
 
     export default {
         props: ['event'],
         name: "commitmentEvent",
+        components: {DeleteEventDialog},
         data() {
             return {showEditEvent: false, showDeleteEvent: false}
         },

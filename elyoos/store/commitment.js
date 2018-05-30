@@ -35,6 +35,11 @@ export const mutations = {
     ADD_EVENT(state, event) {
         state.commitment.events.unshift(event);
     },
+    DELETE_EVENT(state, eventId) {
+        let indexOfEvent = state.commitment.events.findIndex((event) => event.eventId === eventId);
+        state.commitment.events.splice(indexOfEvent, 1);
+        state.commitment.totalNumberOfEvents--;
+    },
     SET_TOTAL_NUMBER_OF_EVENTS(state, totalNumberOfEvents) {
         state.commitment.totalNumberOfEvents = totalNumberOfEvents;
     },
@@ -101,5 +106,9 @@ export const actions = {
         });
         commit('ADD_EVENTS', events.events);
         commit('SET_EVENTS_PAGE', state.eventPage + 1);
+    },
+    async deleteEvent({commit, state}, eventId) {
+        await this.$axios.$delete(`user/commitment/event`, {params: {eventId}});
+        commit('DELETE_EVENT', eventId);
     }
 };

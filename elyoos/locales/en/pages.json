@@ -195,7 +195,12 @@
       "past": "Past",
       "at": "at",
       "noUpComingEvents": "There will be no events in the near future..",
-      "noPastEvents": "No events have taken place yet."
+      "noPastEvents": "No events have taken place yet.",
+      "deleteDialog": {
+        "title": "Delete Event",
+        "description": "Do you really want to delete the event {{- event}}?",
+        "deleteEventButton": "Yes, Delete Event"
+      }
     }
   },
   "detailUser": {
