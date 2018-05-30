@@ -1,7 +1,9 @@
 <template>
     <div class="commitment-event ely-card">
         <div class="event-header-container">
-            <div class="event-title">{{event.title}}</div>
+            <div class="event-title" v-if="event.linkDescription"><a target="_blank" :href="event.linkDescription"
+                                                                     class="link">{{event.title}} </a></div>
+            <div class="event-title" v-else>{{event.title}}</div>
             <v-spacer v-if="isAdmin"></v-spacer>
             <v-menu bottom left v-if="isAdmin">
                 <v-btn icon slot="activator">
@@ -29,6 +31,12 @@
             <div class="footer-icon">
                 <v-icon>mdi-map-marker</v-icon>
                 <span class="footer-text">{{event.location}} ({{$t("regions:" + event.region)}})</span>
+            </div>
+            <div class="footer-icon" v-if="event.linkDescription">
+                <v-icon>mdi-calendar-text</v-icon>
+                <span class="footer-text">
+                    <a target="_blank" :href="event.linkDescription" class="link">{{linkDescriptionWithoutProtocol}}</a>
+                </span>
             </div>
         </div>
         <delete-event-dialog :event="event.title" :event-id="event.eventId" v-if="showDeleteEvent"
@@ -67,6 +75,12 @@
                 return `${startDate.format('LL')} ${this.$t('pages:detailCommitment.events.at')}
                 ${startDate.format('HH:mm')} - ${endDate.format('LL')} ${endDate.format('HH:mm')}`
             },
+            linkDescriptionWithoutProtocol() {
+                if (this.event && this.event.linkDescription) {
+                    return this.event.linkDescription.replace(/(^\w+:|^)\/\//, '');
+                }
+                return '';
+            },
             isAdmin() {
                 return this.$store.state.commitment.commitment.isAdmin;
             }
@@ -82,6 +96,12 @@
             .event-title {
                 color: $primary-color;
                 font-size: 16px;
+                a {
+                    text-decoration: none;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
             }
             .menu {
                 button {
@@ -120,6 +140,13 @@
                         cursor: pointer;
                     }
                     :hover.footer-link {
+                        text-decoration: underline;
+                    }
+                    a {
+                        color: $secondary-text;
+                        text-decoration: none;
+                    }
+                    a:hover {
                         text-decoration: underline;
                     }
                 }
