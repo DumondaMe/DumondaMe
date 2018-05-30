@@ -45,20 +45,22 @@ const createEvent = function (data) {
     data.title = data.title || `event${data.eventId}Title`;
     data.description = data.description || `event${data.eventId}Description`;
     data.location = data.location || `event${data.eventId}Location`;
+    data.linkDescription = data.linkDescription || `https://example.org/${data.eventId}`;
     data.uid = data.description || `${data.eventId}@elyoos.org`;
     data.created = data.created || 500;
     data.modified = data.modified || null;
 
     dbConnectionHandling.getCommands().push(db.cypher().match(`(commitment:Commitment {commitmentId: {commitmentId}})`)
         .create(`(commitment)-[:EVENT]->(event:Event {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, 
-                 location: {location}, startDate: {startDate}, endDate: {endDate}, created: {created}, modified: {modified}})`)
+                 location: {location}, startDate: {startDate}, endDate: {endDate}, created: {created}, modified: {modified},
+                 linkDescription: {linkDescription}})`)
         .with(`event`)
         .match(`(region:Region {code: {region}})`)
         .merge(`(event)-[:BELONGS_TO_REGION]->(region)`)
         .end({
             commitmentId: data.commitmentId, eventId: data.eventId, uid: data.uid, title: data.title,
             description: data.description, startDate: data.startDate, endDate: data.endDate, created: data.created,
-            modified: data.modified, region: data.region, location: data.location
+            modified: data.modified, region: data.region, location: data.location, linkDescription: data.linkDescription
         }).getCommand());
 };
 

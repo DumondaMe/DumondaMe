@@ -103,6 +103,7 @@ describe('Get details of a commitment', function () {
         res.body.events[0].description.should.equals('event22Description');
         res.body.events[0].startDate.should.equals(startTime - 100);
         res.body.events[0].endDate.should.equals(startTime + 200);
+        res.body.events[0].linkDescription.should.equals('https://example.org/22');
         res.body.events[0].region.should.equals('region-2');
         res.body.events[0].location.should.equals('event22Location');
     });
