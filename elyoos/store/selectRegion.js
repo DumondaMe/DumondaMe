@@ -7,32 +7,33 @@ const setSelectedRegion = function (regions, selectedRegion) {
     for (let region of regions) {
         if (region.code === selectedRegion) {
             region.isSelected = true;
-            return true;
+            return region;
         } else if (region.subRegions.length > 0) {
-            if (setSelectedRegion(region.subRegions, selectedRegion)) {
+            let subRegionSelected = setSelectedRegion(region.subRegions, selectedRegion);
+            if (subRegionSelected) {
                 region.subRegionIsSelected = true;
-                return true;
+                return subRegionSelected;
             }
         }
     }
-    return false;
+    return null;
 };
 
 export const mutations = {
     RESET: function (state) {
         state.regions = [];
+        state.selectedRegion = null;
     },
     SET_REGIONS: function (state, regions) {
         state.regions = regions;
     },
     SELECT_CHANGED: function (state, selectedRegion) {
-        if (state.selectedRegion && state.selectedRegion.code === selectedRegion.code) {
+        if (state.selectedRegion && state.selectedRegion.code === selectedRegion) {
             resetAllProperties(state.regions);
             state.selectedRegion = null;
         } else {
             resetAllProperties(state.regions);
-            setSelectedRegion(state.regions, selectedRegion.code);
-            state.selectedRegion = selectedRegion;
+            state.selectedRegion = setSelectedRegion(state.regions, selectedRegion);
         }
     }
 };

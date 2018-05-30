@@ -37,6 +37,9 @@
         <edit-event-dialog :init-event="event" v-if="showEditEvent" @finish="showEditEvent = false"
                            @close-dialog="showEditEvent = false">
         </edit-event-dialog>
+        <edit-location-dialog :init-event="event" v-if="showEditLocation" @finish="showEditLocation = false"
+                              @close-dialog="showEditLocation = false">
+        </edit-location-dialog>
     </div>
 </template>
 
@@ -44,11 +47,12 @@
     import moment from 'moment';
     import DeleteEventDialog from '~/components/commitment/dialog/event/DeleteEventDialog';
     import EditEventDialog from '~/components/commitment/dialog/event/EditEventDialog';
+    import EditLocationDialog from '~/components/commitment/dialog/event/EditLocationDialog';
 
     export default {
         props: ['event'],
         name: "commitmentEvent",
-        components: {DeleteEventDialog, EditEventDialog},
+        components: {DeleteEventDialog, EditEventDialog, EditLocationDialog},
         data() {
             return {showEditEvent: false, showEditLocation: false, showDeleteEvent: false}
         },

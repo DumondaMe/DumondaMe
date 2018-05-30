@@ -202,6 +202,12 @@
         "title": "Delete Event",
         "description": "Do you really want to delete the event {{- event}}?",
         "deleteEventButton": "Yes, Delete Event"
+      },
+      "editDialog": {
+        "title": "Edit Event {{- title}}"
+      },
+      "editLocationDialog": {
+        "title": "Edit location of event {{- title}}"
       }
     }
   },

@@ -24,7 +24,7 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="finish" :disabled="!valid || !selectedRegion"
+            <v-btn color="primary" @click.native="finish" :disabled="!valid || !selectedRegion || !hasChanged"
                    :loading="loading">
                 {{actionButtonText}}
             </v-btn>
@@ -38,16 +38,19 @@
     import SelectRegionContainer from '~/components/region/select/RegionContainer';
 
     export default {
-        props: ['actionButtonText', 'loading'],
+        props: ['actionButtonText', 'loading', 'initLocation', 'initRegion'],
         components: {SelectRegionContainer},
         data() {
             return {
-                valid: false, location: '', loadingRegions: false
+                valid: false, location: this.initLocation, loadingRegions: false
             }
         },
-        async mounted() {
+        async created() {
             this.loadingRegions = true;
             await this.$store.dispatch('selectRegion/getRegions');
+            if (this.initRegion) {
+                this.$store.commit('selectRegion/SELECT_CHANGED', this.initRegion)
+            }
             this.loadingRegions = false;
         },
         methods: {
@@ -59,6 +62,10 @@
             }
         },
         computed: {
+            hasChanged() {
+                return this.initLocation !== this.location ||
+                    (this.selectedRegion && this.initRegion !== this.selectedRegion.code);
+            },
             ...mapGetters({regions: 'selectRegion/getRegions', selectedRegion: 'selectRegion/getSelectedRegion'})
         },
         mixins: [validationRules]
@@ -74,7 +81,7 @@
             font-weight: 500;
             width: 100%;
             padding-bottom: 6px;
-            margin: 0 auto;
+            margin: 8px auto 0 auto;
             color: $primary-color;
         }
         .input-location {

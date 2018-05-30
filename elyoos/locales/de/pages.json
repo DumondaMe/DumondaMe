@@ -210,6 +210,9 @@
       },
       "editDialog": {
         "title": "Veranstaltung {{- title}} bearbeiten "
+      },
+      "editLocationDialog": {
+        "title": "Addresse der Veranstaltung {{- title}} bearbeiten "
       }
     }
   },

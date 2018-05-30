@@ -7,7 +7,8 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </event-content>
             <location v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishLocation"
-                      :action-button-text="$t('pages:commitment.createEventDialog.createEventButton')" :loading="loading">
+                      :action-button-text="$t('pages:commitment.createEventDialog.createEventButton')"
+                      :loading="loading" :init-location="''">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </location>
         </v-dialog>

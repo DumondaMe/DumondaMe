@@ -48,13 +48,13 @@ export const mutations = {
         state.regions = regions;
     },
     SELECT_CHANGED: function (state, selectedRegion) {
-        if (selectedRegion.code === 'international') {
+        if (selectedRegion === 'international') {
             disableSubRegions(state.regions);
             let international = state.regions.find((topRegion) => topRegion.code === 'international');
             international.isSelected = true;
         } else {
             state.regions.find((topRegion) => topRegion.code === 'international').isSelected = false;
-            changeSelectOfRegion(state.regions, selectedRegion.code);
+            changeSelectOfRegion(state.regions, selectedRegion);
         }
     }
 };

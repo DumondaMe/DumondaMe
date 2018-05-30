@@ -26,9 +26,9 @@
         methods: {
             select() {
                 if (this.selectMultiple) {
-                    this.$store.commit('selectRegions/SELECT_CHANGED', this.region);
+                    this.$store.commit('selectRegions/SELECT_CHANGED', this.region.code);
                 } else {
-                    this.$store.commit('selectRegion/SELECT_CHANGED', this.region);
+                    this.$store.commit('selectRegion/SELECT_CHANGED', this.region.code);
                 }
             }
         }
