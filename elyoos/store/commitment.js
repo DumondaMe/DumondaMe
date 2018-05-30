@@ -4,10 +4,10 @@ import {putWithFile} from '~/utils/files/upload.js';
 export const state = () => ({
     commitment: {
         title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
-        imageUrl: null, linkedWithQuestions: [], events: [], topics: []
+        imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: []
     },
     isUpComingEvents: true,
-    eventPage: 0
+    eventPage: 1
 });
 
 export const getters = {
@@ -28,6 +28,12 @@ export const mutations = {
     },
     SET_EVENTS(state, events) {
         state.commitment.events = events;
+    },
+    ADD_EVENTS(state, events) {
+        state.commitment.events = state.commitment.events.concat(events);
+    },
+    SET_TOTAL_NUMBER_OF_EVENTS(state, totalNumberOfEvents) {
+        state.commitment.totalNumberOfEvents = totalNumberOfEvents;
     },
     SET_TOPICS(state, topics) {
         state.commitment.topics = topics;
@@ -76,12 +82,21 @@ export const actions = {
     },
     async getEvents({commit, state}, {commitmentId, isUpComingEvents}) {
         if (isUpComingEvents !== state.isUpComingEvents) {
+            commit('SET_EVENTS_PAGE', 0);
             let events = await this.$axios.$get(`commitment/event`, {
-                params: {commitmentId, upComing: isUpComingEvents, page: 0}
+                params: {commitmentId, upComing: isUpComingEvents, page: state.eventPage}
             });
             commit('SET_EVENTS', events.events);
+            commit('SET_TOTAL_NUMBER_OF_EVENTS', events.totalNumberOfEvents);
             commit('SET_IS_UP_COMING_EVENTS', isUpComingEvents);
-            commit('SET_EVENTS_PAGE', 1);
+            commit('SET_EVENTS_PAGE', state.eventPage + 1);
         }
     },
+    async getNextEvents({commit, state}, {commitmentId}) {
+        let events = await this.$axios.$get(`commitment/event`, {
+            params: {commitmentId, upComing: state.isUpComingEvents, page: state.eventPage}
+        });
+        commit('ADD_EVENTS', events.events);
+        commit('SET_EVENTS_PAGE', state.eventPage + 1);
+    }
 };
