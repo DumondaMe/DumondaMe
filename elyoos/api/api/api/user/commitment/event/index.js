@@ -2,7 +2,7 @@
 
 const validation = require('elyoos-server-lib').jsonValidation;
 const create = requireModel('user/commitment/event/create');
-//const eventEdit = requireModel('user/commitment/event/edit');
+const eventEdit = requireModel('user/commitment/event/edit');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -11,7 +11,7 @@ const schemaCreateEvent = {
     name: 'createEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'title', 'location','region', 'startDate', 'endDate'],
+    required: ['commitmentId', 'title', 'location', 'region', 'startDate', 'endDate'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
@@ -28,7 +28,7 @@ const schemaEditEvent = {
     name: 'editEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['eventId', 'title', 'description', 'location', 'region', 'startDate', 'endDate'],
+    required: ['eventId', 'title', 'location', 'region', 'startDate', 'endDate'],
     properties: {
         eventId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
@@ -49,9 +49,9 @@ module.exports = function (router) {
         res.status(200).json(response);
     }));
 
-    router.put('/:eventId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditEvent, logger);
-        //let response = await eventEdit.editEvent(req.user.id, params);
-        //res.status(200).json(response);
+        await eventEdit.editEvent(req.user.id, params);
+        res.status(200).end();
     }));
 };
