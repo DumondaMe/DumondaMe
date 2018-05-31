@@ -19,10 +19,6 @@
                      params: {userId: userId, slug: slug}})" v-else> {{name}}</span>
             </div>
             <div class="created-date">{{created | formatRelativeTimesAgo}}</div>
-            <div class="regions" v-if="regions && regions.length > 0">
-                <v-icon class="info-region">mdi-map-marker</v-icon>
-                <span v-for="region in regions" class="region">{{$t("regions:" + region)}}</span>
-            </div>
         </div>
     </div>
 </template>

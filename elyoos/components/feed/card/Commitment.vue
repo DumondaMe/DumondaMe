@@ -45,12 +45,11 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import CardFooter from './footer.vue';
-    import AnswerCommands from '~/components/question/answer/card/Commands.vue';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, CardFooter, AnswerCommands, ExpandText},
+        components: {UserInfo, CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
         },

@@ -33,8 +33,8 @@
                          :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
             </expand-text>
         </div>
-        <answer-commands :answer="answer">
-        </answer-commands>
+        <answer-footer :answer="answer">
+        </answer-footer>
         <edit-commitment-dialog v-if="showEditCommitmentDialog" @close-dialog="showEditCommitmentDialog = false"
                                 :init-commitment="answer" :answer-id="answer.answerId">
         </edit-commitment-dialog>
@@ -46,14 +46,14 @@
 
 <script>
     import UserInfo from './UserInfo.vue';
-    import AnswerCommands from './Commands.vue';
+    import AnswerFooter from './Footer';
     import ExpandText from '~/components/common/text/Expand.vue';
     import EditCommitmentDialog from '~/components/question/answer/dialog/EditCommitmentDialog';
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog';
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, EditCommitmentDialog, DeleteAnswerDialog},
+        components: {UserInfo, AnswerFooter, ExpandText, EditCommitmentDialog, DeleteAnswerDialog},
         data() {
             return {showDeleteAnswerDialog: false, showEditCommitmentDialog: false}
         },

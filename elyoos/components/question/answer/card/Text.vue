@@ -25,7 +25,7 @@
         </v-layout>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
-        <answer-commands :answer="answer"></answer-commands>
+        <answer-footer :answer="answer"></answer-footer>
         <edit-text-dialog v-if="showEditTextDialog" @close-dialog="showEditTextDialog = false"
                           :init-answer="answer.answer" :answer-id="answer.answerId">
         </edit-text-dialog>
@@ -37,14 +37,14 @@
 
 <script>
     import UserInfo from './UserInfo';
-    import AnswerCommands from './Commands';
+    import AnswerFooter from './Footer';
     import ExpandText from '~/components/common/text/Expand'
     import EditTextDialog from '~/components/question/answer/dialog/EditTextDialog'
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, EditTextDialog, DeleteAnswerDialog},
+        components: {UserInfo, AnswerFooter, ExpandText, EditTextDialog, DeleteAnswerDialog},
         data() {
             return {showEditTextDialog: false, showDeleteAnswerDialog: false}
         },

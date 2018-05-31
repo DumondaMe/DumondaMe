@@ -31,8 +31,8 @@
                          :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
             </expand-text>
         </div>
-        <answer-commands :answer="answer">
-        </answer-commands>
+        <answer-footer :answer="answer">
+        </answer-footer>
         <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"
                           :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId">
         </edit-link-dialog>
@@ -44,14 +44,14 @@
 
 <script>
     import UserInfo from './UserInfo.vue';
-    import AnswerCommands from './Commands.vue';
+    import AnswerFooter from './Footer';
     import ExpandText from '~/components/common/text/Expand.vue'
     import EditLinkDialog from '~/components/question/answer/dialog/EditLinkDialog'
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, EditLinkDialog, DeleteAnswerDialog},
+        components: {UserInfo, AnswerFooter, ExpandText, EditLinkDialog, DeleteAnswerDialog},
         data() {
             return {showDeleteAnswerDialog: false, showEditAnswerDialog: false}
         },

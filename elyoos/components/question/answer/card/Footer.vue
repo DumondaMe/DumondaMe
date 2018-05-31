@@ -1,10 +1,14 @@
 <template>
     <div>
-        <v-layout row class="answer-commands">
+        <v-layout row class="answer-footer">
             <div class="note-icon-container" v-if="answer.answerType !== 'Commitment'">
                 <v-icon class="note-icon">mdi-note-outline</v-icon>
                 <span class="note-text" @click="toggleNotes">
                     {{$t("pages:detailQuestion.note.numberOfNotes", {count: answer.numberOfNotes})}}</span>
+            </div>
+            <div class="region-icon-container" v-else>
+                <v-icon class="region-icon">mdi-map-marker</v-icon>
+                <span v-for="region in answer.regions" class="region">{{$t("regions:" + region)}}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="up-vote-button">
@@ -97,11 +101,12 @@
 </script>
 
 <style lang="scss">
-    .answer-commands {
+    .answer-footer {
         margin-top: 6px;
         .note-icon-container {
             padding-top: 2px;
             i.icon {
+                font-size: 20px;
                 color: $primary-color;
             }
             .note-icon.icon {
@@ -111,11 +116,23 @@
                 cursor: pointer;
                 margin-left: 2px;
                 font-size: 14px;
-                font-weight: 500;
                 color: $secondary-text;
             }
             :hover.note-text {
                 text-decoration: underline;
+            }
+        }
+        .region-icon-container {
+            .region-icon {
+                margin-left: -4px;
+                font-size: 20px;
+                margin-right: 2px;
+            }
+            .region {
+                margin-left: 2px;
+                line-height: 20px;
+                font-size: 14px;
+                color: $secondary-text;
             }
         }
         .up-vote-button {

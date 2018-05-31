@@ -32,8 +32,8 @@
                          :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
             </expand-text>
         </div>
-        <answer-commands :answer="answer">
-        </answer-commands>
+        <answer-footer :answer="answer">
+        </answer-footer>
         <edit-book-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"
                           :init-book="answer" :answer-id="answer.answerId">
         </edit-book-dialog>
@@ -45,14 +45,14 @@
 
 <script>
     import UserInfo from './UserInfo.vue';
-    import AnswerCommands from './Commands.vue';
+    import AnswerFooter from './Footer';
     import ExpandText from '~/components/common/text/Expand.vue'
     import EditBookDialog from '~/components/question/answer/dialog/EditBookDialog'
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerCommands, ExpandText, EditBookDialog, DeleteAnswerDialog},
+        components: {UserInfo, AnswerFooter, ExpandText, EditBookDialog, DeleteAnswerDialog},
         data() {
             return {showDeleteAnswerDialog: false, showEditAnswerDialog: false}
         },
