@@ -5,9 +5,9 @@
   "ch-ai": "Appenzell Innerrohden",
   "ch-al": "Appenzell Ausserrhoden",
   "ch-be": "Bern",
-  "ch-be-st": "Bern, City",
+  "ch-be-st": "Bern (City)",
   "ch-bl": "Basel",
-  "ch-bl-st": "Basel, City",
+  "ch-bl-st": "Basel (City)",
   "ch-fr": "Fribourg",
   "ch-ge": "Genf",
   "ch-gl": "Glarus",
@@ -28,6 +28,6 @@
   "ch-vs": "Valais",
   "ch-zg": "Zug",
   "ch-zh": "Zurich",
-  "ch-zh-st": "Zurich, City",
+  "ch-zh-st": "Zurich (City)",
   "ch-zh-wt": "Winterthur"
 }
