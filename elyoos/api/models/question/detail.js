@@ -3,8 +3,27 @@
 const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 const cdn = require('elyoos-server-lib').cdn;
+const time = require('elyoos-server-lib').time;
 const dashify = require('dashify');
 const linkifyHtml = require('linkifyjs/html');
+
+const getEvents = function (events) {
+    let result = [];
+    for (let index = 0; index < events.length && index < 2; index++) {
+        let event = events[index];
+        if (event.event && event.region) {
+            result.push({
+                eventId: event.event.eventId,
+                title: event.event.title,
+                startDate: event.event.startDate,
+                endDate: event.event.endDate,
+                location: event.event.location,
+                region: event.region.code
+            })
+        }
+    }
+    return result;
+};
 
 const getAnswers = function (answers) {
     let result = [];
@@ -36,6 +55,7 @@ const getAnswers = function (answers) {
                     formattedAnswer.imageUrl += `?v=${answer.commitment.modified}`;
                 }
                 formattedAnswer.regions = answer.regions.map((region) => region.code);
+                formattedAnswer.events = getEvents(answer.events)
             }
             result.push(formattedAnswer);
         }
@@ -54,10 +74,18 @@ const getAnswersCommand = function (questionId, userId) {
         .limit(20)
         .optionalMatch(`(answer)-[:NOTE]->(note:Note)`)
         .optionalMatch(`(answer)-[:COMMITMENT]->(commitment:Commitment)-[:BELONGS_TO_REGION]-(region:Region)`)
-        .return(`answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, 
-                 collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes`)
+        .with(`answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, region, note`)
         .orderBy(`upVotes DESC, answer.created DESC`)
-        .end({questionId, userId}).getCommand();
+        .limit(20)
+        .optionalMatch(`(commitment)-[:EVENT]->(event:Event)-[:BELONGS_TO_REGION]->(eventRegion:Region)`)
+        .where(`event.endDate > {now}`)
+        .with(`answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, region, eventRegion, note, event`)
+        .orderBy(`upVotes DESC, answer.created DESC, event.startDate`)
+        .return(`DISTINCT answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, 
+                 collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes,
+                 collect(DISTINCT {event: event, region: eventRegion}) AS events`)
+        .orderBy(`upVotes DESC, answer.created DESC`)
+        .end({questionId, userId, now: time.getNowUtcTimestamp()}).getCommand();
 };
 
 const getQuestion = async function (questionId, userId) {

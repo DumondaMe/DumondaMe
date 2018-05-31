@@ -35,6 +35,8 @@
         </div>
         <answer-footer :answer="answer">
         </answer-footer>
+        <events-footer :events="answer.events" v-if="answer.events.length > 0">
+        </events-footer>
         <edit-commitment-dialog v-if="showEditCommitmentDialog" @close-dialog="showEditCommitmentDialog = false"
                                 :init-commitment="answer" :answer-id="answer.answerId">
         </edit-commitment-dialog>
@@ -47,13 +49,14 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import AnswerFooter from './Footer';
+    import EventsFooter from './FooterEvents';
     import ExpandText from '~/components/common/text/Expand.vue';
     import EditCommitmentDialog from '~/components/question/answer/dialog/EditCommitmentDialog';
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog';
 
     export default {
         props: ['answer'],
-        components: {UserInfo, AnswerFooter, ExpandText, EditCommitmentDialog, DeleteAnswerDialog},
+        components: {UserInfo, AnswerFooter, EventsFooter, ExpandText, EditCommitmentDialog, DeleteAnswerDialog},
         data() {
             return {showDeleteAnswerDialog: false, showEditCommitmentDialog: false}
         },

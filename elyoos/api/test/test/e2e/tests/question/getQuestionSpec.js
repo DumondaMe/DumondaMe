@@ -54,6 +54,13 @@ describe('Getting details of a question', function () {
         dbDsl.createCommitmentAnswer('11', {
             creatorId: '2', questionId: '1', commitmentId: '2', created: 496, description: 'test'
         });
+
+        dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '22',
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
+        dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '23',
+            startDate: startTime - 101, endDate: startTime + 201, region: 'region-3'});
+        dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '24',
+            startDate: startTime - 100, endDate: startTime - 10, region: 'region-2'});
     });
 
     afterEach(function () {
@@ -241,6 +248,19 @@ describe('Getting details of a question', function () {
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].events.length.should.equals(2);
+        res.body.answers[5].events[0].eventId.should.equals('23');
+        res.body.answers[5].events[0].title.should.equals('event23Title');
+        res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
+        res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
+        res.body.answers[5].events[0].location.should.equals('event23Location');
+        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[1].eventId.should.equals('22');
+        res.body.answers[5].events[1].title.should.equals('event22Title');
+        res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
+        res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
+        res.body.answers[5].events[1].location.should.equals('event22Location');
+        res.body.answers[5].events[1].region.should.equals('region-2');
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
@@ -353,6 +373,19 @@ describe('Getting details of a question', function () {
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].events.length.should.equals(2);
+        res.body.answers[5].events[0].eventId.should.equals('23');
+        res.body.answers[5].events[0].title.should.equals('event23Title');
+        res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
+        res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
+        res.body.answers[5].events[0].location.should.equals('event23Location');
+        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[1].eventId.should.equals('22');
+        res.body.answers[5].events[1].title.should.equals('event22Title');
+        res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
+        res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
+        res.body.answers[5].events[1].location.should.equals('event22Location');
+        res.body.answers[5].events[1].region.should.equals('region-2');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
@@ -463,5 +496,18 @@ describe('Getting details of a question', function () {
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].events.length.should.equals(2);
+        res.body.answers[5].events[0].eventId.should.equals('23');
+        res.body.answers[5].events[0].title.should.equals('event23Title');
+        res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
+        res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
+        res.body.answers[5].events[0].location.should.equals('event23Location');
+        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[1].eventId.should.equals('22');
+        res.body.answers[5].events[1].title.should.equals('event22Title');
+        res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
+        res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
+        res.body.answers[5].events[1].location.should.equals('event22Location');
+        res.body.answers[5].events[1].region.should.equals('region-2');
     });
 });

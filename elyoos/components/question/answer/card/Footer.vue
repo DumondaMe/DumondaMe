@@ -110,7 +110,7 @@
                 color: $primary-color;
             }
             .note-icon.icon {
-                margin-left: -3px;
+                margin-left: -2px;
             }
             .note-text {
                 cursor: pointer;
@@ -123,14 +123,17 @@
             }
         }
         .region-icon-container {
+            height: 30px;
             .region-icon {
                 margin-left: -4px;
                 font-size: 20px;
+                line-height: 30px;
                 margin-right: 2px;
             }
             .region {
                 margin-left: 2px;
-                line-height: 20px;
+                line-height: 30px;
+                height: 30px;
                 font-size: 14px;
                 color: $secondary-text;
             }

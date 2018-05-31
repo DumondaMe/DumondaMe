@@ -21,6 +21,17 @@ Vue.filter('formatDateOnly', function (value) {
     }
 });
 
+Vue.filter('formatFromToDate', function (startDate, endDate, atTranslation) {
+    startDate = moment.unix(startDate);
+    endDate = moment.unix(endDate);
+    if (startDate.isSame(endDate, 'day')) {
+        return `${startDate.format('LL')} ${atTranslation}
+                    ${startDate.format('HH:mm')} - ${endDate.format('HH:mm')}`
+    }
+    return `${startDate.format('LL')} ${atTranslation}
+                ${startDate.format('HH:mm')} - ${endDate.format('LL')} ${endDate.format('HH:mm')}`
+});
+
 export default ({store}) => {
     moment.locale(store.state.i18n.language);
 }
