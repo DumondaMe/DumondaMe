@@ -26,7 +26,7 @@
         <div class="event-footer">
             <div class="footer-icon">
                 <v-icon>mdi-clock</v-icon>
-                <span class="footer-text">{{eventDate}}</span>
+                <span class="footer-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</span>
             </div>
             <div class="footer-icon">
                 <v-icon>mdi-map-marker</v-icon>
@@ -65,16 +65,6 @@
             return {showEditEvent: false, showEditLocation: false, showDeleteEvent: false}
         },
         computed: {
-            eventDate() {
-                let startDate = moment.unix(this.event.startDate);
-                let endDate = moment.unix(this.event.endDate);
-                if (startDate.isSame(endDate, 'day')) {
-                    return `${startDate.format('LL')} ${this.$t('pages:detailCommitment.events.at')}
-                    ${startDate.format('HH:mm')} - ${endDate.format('HH:mm')}`
-                }
-                return `${startDate.format('LL')} ${this.$t('pages:detailCommitment.events.at')}
-                ${startDate.format('HH:mm')} - ${endDate.format('LL')} ${endDate.format('HH:mm')}`
-            },
             linkDescriptionWithoutProtocol() {
                 if (this.event && this.event.linkDescription) {
                     return this.event.linkDescription.replace(/(^\w+:|^)\/\//, '');
