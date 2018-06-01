@@ -21,6 +21,14 @@ describe('Get the public feed', function () {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'en', created: 400, modified: 606, title: 'Test Commitment2',
             website: 'https://www.example2.org/', regions: ['region-1']
         });
+        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
+        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '23', created: 778,
+            startDate: startTime - 101, endDate: startTime + 199, region: 'region-1'});
+        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '24',created: 888,
+            startDate: startTime - 300, endDate: startTime - 200, region: 'region-1'});
+        dbDsl.createCommitmentEvent({commitmentId: '101', eventId: '25',created: 999,
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
 
         dbDsl.createQuestion('1', {
             creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
@@ -110,5 +118,40 @@ describe('Get the public feed', function () {
         res.body.feed[0].creator.userId.should.equals('2');
         res.body.feed[0].creator.name.should.equals('user Meier2');
         res.body.feed[0].creator.slug.should.equals('user-meier2');
+    });
+
+    it('Get question feed (only events)', async function () {
+        await dbDsl.sendToDb();
+        let res = await requestHandler.get('/api/feed', {typeFilter: 'event', language: 'de'});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(2);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Event');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed[0].commitmentSlug.should.equals('test-commitment');
+        res.body.feed[0].commitmentTitle.should.equals('Test Commitment');
+        res.body.feed[0].eventId.should.equals('23');
+        res.body.feed[0].title.should.equals('event23Title');
+        res.body.feed[0].description.should.equals('event23Description');
+        res.body.feed[0].region.should.equals('region-1');
+        res.body.feed[0].location.should.equals('event23Location');
+        res.body.feed[0].startDate.should.equals(startTime - 101);
+        res.body.feed[0].endDate.should.equals(startTime + 199);
+
+        res.body.feed[1].type.should.equals('Event');
+        res.body.feed[1].action.should.equals('created');
+        res.body.feed[1].commitmentId.should.equals('100');
+        res.body.feed[1].commitmentSlug.should.equals('test-commitment');
+        res.body.feed[1].commitmentTitle.should.equals('Test Commitment');
+        res.body.feed[1].eventId.should.equals('22');
+        res.body.feed[1].title.should.equals('event22Title');
+        res.body.feed[1].description.should.equals('event22Description');
+        res.body.feed[1].region.should.equals('region-1');
+        res.body.feed[1].location.should.equals('event22Location');
+        res.body.feed[1].startDate.should.equals(startTime - 100);
+        res.body.feed[1].endDate.should.equals(startTime + 200);
     });
 });

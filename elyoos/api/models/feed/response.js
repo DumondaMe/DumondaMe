@@ -15,6 +15,12 @@ const addQuestionProperties = function (result, feedElement) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
         result.numberOfAnswers = feedElement.numberOfAnswers;
+        result.created = feedElement.feedElement.created;
+        result.creator = {
+            userId: feedElement.creator.userId,
+            name: feedElement.creator.name,
+            slug: dashify(feedElement.creator.name)
+        };
     }
 };
 
@@ -32,6 +38,27 @@ const addCommitmentProperties = function (result, feedElement) {
             result.imageUrl += `?v=${feedElement.feedElement.modified}`;
         }
         result.regions = feedElement.regions;
+        result.created = feedElement.feedElement.created;
+        result.creator = {
+            userId: feedElement.creator.userId,
+            name: feedElement.creator.name,
+            slug: dashify(feedElement.creator.name)
+        };
+    }
+};
+
+const addEventProperties = function (result, feedElement) {
+    if (result.type === 'Event') {
+        result.commitmentId = feedElement.creator.commitmentId;
+        result.commitmentSlug = dashify(feedElement.creator.title);
+        result.commitmentTitle = feedElement.creator.title;
+        result.eventId = feedElement.feedElement.eventId;
+        result.title = feedElement.feedElement.title;
+        result.description = feedElement.feedElement.description;
+        result.location = feedElement.feedElement.location;
+        result.region = feedElement.regions[0];
+        result.startDate = feedElement.feedElement.startDate;
+        result.endDate = feedElement.feedElement.endDate;
     }
 };
 
@@ -39,18 +66,12 @@ const getFeed = function (feedElements) {
     let results = [];
     for (let feedElement of feedElements) {
         let result = {
-            type: feedElement.type.filter(
-                (l) => ['Commitment', 'Question'].some(v => v === l))[0],
+            type: feedElement.type.filter((l) => ['Commitment', 'Question', 'Event'].some(v => v === l))[0],
             action: 'created',
-            created: feedElement.feedElement.created,
-            creator: {
-                userId: feedElement.creator.userId,
-                name: feedElement.creator.name,
-                slug: dashify(feedElement.creator.name)
-            }
         };
         addQuestionProperties(result, feedElement);
         addCommitmentProperties(result, feedElement);
+        addEventProperties(result, feedElement);
 
         results.push(result);
     }

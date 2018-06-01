@@ -1,13 +1,12 @@
 'use strict';
 
 const getTypeFilter = function (filter, language) {
-    let result = `feedElement.language = '${language}' AND`;
     if (filter === 'commitment') {
-        return `${result} feedElement:Commitment`;
+        return `feedElement.language = '${language}' AND feedElement:Commitment`;
     } else if (filter === 'event') {
-        return `${result} feedElement:Event`;
+        return `creator.language = '${language}' AND feedElement:Event AND feedElement.endDate > {timestamp}`;
     }
-    return `${result} feedElement:Question`;
+    return `feedElement.language = '${language}' AND feedElement:Question`;
 };
 
 module.exports = {
