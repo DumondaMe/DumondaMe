@@ -24,7 +24,7 @@
 
 <style lang="scss">
     .commitment-events-footer {
-        margin-top: 18px;
+        margin-top: 22px;
         border-top: 1px solid $divider;
         .event {
             margin-top: 14px;
@@ -33,7 +33,6 @@
                 white-space: nowrap;
                 overflow-x: hidden;
                 text-overflow: ellipsis;
-                //font-weight: 300;
             }
             .event-title:hover {
                 text-overflow: clip;

@@ -23,16 +23,16 @@
         </v-layout>
         <expand-text :expand-text="question.descriptionHtml" class="question-description" itemprop="text">
         </expand-text>
-        <card-footer :user="question.creator.name" :userId="question.creator.userId" :userSlug="question.creator.slug"
-                     :created="question.created" :number-of-answers="question.numberOfAnswers" :action="question.action"
-                     :card-type="question.type">
+        <card-footer :creator="question.creator.name" :creator-id="question.creator.userId"
+                     :creator-slug="question.creator.slug" :created="question.created"
+                     :number-of-answers="question.numberOfAnswers" :action="question.action" :card-type="question.type">
         </card-footer>
     </div>
 </template>
 
 <script>
     import UserInfo from './UserInfo.vue';
-    import CardFooter from './footer.vue';
+    import CardFooter from './footer/Question';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
