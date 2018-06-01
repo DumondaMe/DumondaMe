@@ -6,10 +6,11 @@ const getTypeFilter = function (filter) {
     } else if (filter === 'commitment') {
         return `(watch:User OR watch:Commitment) AND feedElement:Commitment`;
     } else if (filter === 'event') {
-        return `(watch:User OR watch:Commitment) AND feedElement:Event`;
+        return `(watch:User OR watch:Commitment) AND feedElement:Event AND feedElement.endDate > {timestamp}`;
     }
     return `(watch:User OR watch:Question OR watch:Commitment) AND 
-            (feedElement:Answer OR feedElement:Commitment OR feedElement:Question)`;
+            (feedElement:Answer OR feedElement:Commitment OR feedElement:Question OR 
+            (feedElement:Event AND feedElement.endDate > {timestamp}))`;
 };
 
 module.exports = {

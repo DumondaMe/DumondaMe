@@ -130,6 +130,35 @@ describe('Get feed of the user', function () {
         res.body.feed[2].creator.slug.should.equals('user-meier2');
     });
 
+    it('Upcoming event of an commitment the user watches', async function () {
+        dbDsl.watchCommitment({commitmentId: '100', userId: '1'});
+        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
+            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
+        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '23', created: 778,
+            startDate: startTime - 200, endDate: startTime - 100, region: 'region-1'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed');
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.totalNumberOfElements.should.equals(1);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Event');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed[0].commitmentSlug.should.equals('test-commitment');
+        res.body.feed[0].commitmentTitle.should.equals('Test Commitment');
+        res.body.feed[0].eventId.should.equals('22');
+        res.body.feed[0].created.should.equals(777);
+        res.body.feed[0].title.should.equals('event22Title');
+        res.body.feed[0].description.should.equals('event22Description');
+        res.body.feed[0].region.should.equals('region-1');
+        res.body.feed[0].location.should.equals('event22Location');
+        res.body.feed[0].startDate.should.equals(startTime - 100);
+        res.body.feed[0].endDate.should.equals(startTime + 200);
+    });
+
     it('Watching a question does not duplicate feed entries (created answer form user in trust circle)', async function () {
 
         dbDsl.createContactConnection('1', '9');

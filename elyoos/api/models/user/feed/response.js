@@ -91,12 +91,28 @@ const addQuestionProperties = function (result, feedElement) {
     }
 };
 
+const addEventProperties = function (result, feedElement) {
+    if (result.type === 'Event') {
+        result.commitmentId = feedElement.watch.commitmentId;
+        result.commitmentSlug = dashify(feedElement.watch.title);
+        result.commitmentTitle = feedElement.watch.title;
+
+        result.eventId = feedElement.feedElement.eventId;
+        result.title = feedElement.feedElement.title;
+        result.description = feedElement.feedElement.description;
+        result.location = feedElement.feedElement.location;
+        result.region = feedElement.regions[0];
+        result.endDate = feedElement.feedElement.endDate;
+        result.startDate = feedElement.feedElement.startDate;
+    }
+};
+
 const getAction = function (relAction) {
     if (relAction === 'UP_VOTE') {
         return 'upVote'
     } else if (relAction === 'WATCH') {
         return 'watch'
-    } else if (relAction === 'IS_CREATOR' || relAction === 'ANSWER') {
+    } else if (relAction === 'IS_CREATOR' || relAction === 'ANSWER' || relAction === 'EVENT') {
         return 'created'
     }
 };
@@ -121,12 +137,14 @@ const getFeed = function (feedElements) {
     for (let feedElement of feedElements) {
         let result = {
             type: feedElement.type.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question']
+                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question', 'Event']
                     .some(v => v === l))[0],
             action: getAction(feedElement.relAction),
-            created: feedElement.created,
-            creator: getCreator(feedElement)
+            created: feedElement.created
         };
+        if (result.type !== 'Event') {
+            result.creator = getCreator(feedElement)
+        }
         addDefaultAnswerProperties(result, feedElement);
         addCommitmentAnswerProperties(result, feedElement);
         addCommitmentProperties(result, feedElement);
@@ -135,6 +153,7 @@ const getFeed = function (feedElements) {
         addBookProperties(result, feedElement);
         addTextProperties(result, feedElement);
         addQuestionProperties(result, feedElement);
+        addEventProperties(result, feedElement);
 
         results.push(result);
     }
