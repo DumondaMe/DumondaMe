@@ -37,7 +37,8 @@
             </div>
         </div>
         <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-slug="answer.creator.slug" :created="answer.created" :action="answer.action">
+                     :creator-slug="answer.creator.slug" :created="answer.created" :action="answer.action"
+                     :regions="answer.regions" :card-type="answer.type">
         </card-footer>
     </div>
 </template>

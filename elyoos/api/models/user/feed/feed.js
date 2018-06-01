@@ -18,10 +18,11 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(feedElement)<-[:ANSWER]-(question:Question)`)
-        .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)`)
+        .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)-[:BELONGS_TO_REGION]->(rca:Region)`)
         .unwind(`[relAction.created, feedElement.created] AS tempCreated`)
         .return(`DISTINCT feedElement, watch, creator, question, commitment, COUNT(DISTINCT answer) AS numberOfAnswers, 
                  collect(DISTINCT region.code) AS regions, labels(feedElement) AS type, 
+                 collect(DISTINCT rca.code) AS commitmentAnswerRegions,
                  max(tempCreated) AS created, type(relAction) AS relAction, type(relWatch) AS relWatch`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)

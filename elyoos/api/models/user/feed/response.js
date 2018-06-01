@@ -27,6 +27,7 @@ const addCommitmentAnswerProperties = function (result, feedElement) {
         }
         result.title = feedElement.commitment.title;
         result.commitmentSlug = dashify(feedElement.commitment.title);
+        result.regions = feedElement.commitmentAnswerRegions;
     }
 };
 
