@@ -1,9 +1,10 @@
 <template>
     <div class="ely-start-end-date-time-picker">
-        <date-time-picker :description="startDateDescription" :min="min" :init-date="startDate"
+        <date-time-picker :description="startDateDescription" :min="min" :init-date="initStartDate"
+                          :warning="startDateAfterEndDate" :warning-text="$t('common:error.startDateAfterEndDate')"
                           @date-changed="startDateChanged">
         </date-time-picker>
-        <date-time-picker :description="endDateDescription" :min="min" :init-date="endDate"
+        <date-time-picker :description="endDateDescription" :min="min" :init-date="initEndDate"
                           @date-changed="endDateChanged">
         </date-time-picker>
     </div>
@@ -18,24 +19,22 @@
         props: ['initStartDate', 'initEndDate', 'min', 'startDateDescription', 'endDateDescription'],
         components: {DateTimePicker},
         data() {
-            return {startDate: this.initStartDate, endDate: this.initEndDate}
+            return {startDate: this.initStartDate, endDate: this.initEndDate, startDateAfterEndDate: false}
         },
         methods: {
             startDateChanged({date, isValid}) {
                 if (isValid) {
                     this.startDate = date;
-                    if (this.startDate > this.endDate) {
-                        this.endDate = this.startDate + HOUR;
-                    }
+                    this.startDateAfterEndDate = this.startDate >= this.endDate;
+                    isValid = !this.startDateAfterEndDate;
                 }
                 this.$emit(`start-date-changed`, {date, isValid});
             },
             endDateChanged({date, isValid}) {
                 if (isValid) {
                     this.endDate = date;
-                    if (this.startDate > this.endDate) {
-                        this.startDate = this.endDate - HOUR;
-                    }
+                    this.startDateAfterEndDate = this.startDate >= this.endDate;
+                    isValid = !this.startDateAfterEndDate;
                 }
                 this.$emit(`end-date-changed`, {date, isValid});
             }

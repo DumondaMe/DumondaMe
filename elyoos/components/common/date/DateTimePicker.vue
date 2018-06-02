@@ -13,6 +13,12 @@
         <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock"
                       :rules="[isValidTime()]">
         </v-text-field>
+        <div class="warning-date-icon" v-if="warning">
+            <v-tooltip bottom debounce="300">
+                <v-icon slot="activator">mdi-alert-outline</v-icon>
+                <span>{{warningText}}</span>
+            </v-tooltip>
+        </div>
     </div>
 </template>
 
@@ -20,7 +26,7 @@
     import moment from 'moment';
 
     export default {
-        props: ['description', 'min', 'initDate'],
+        props: ['description', 'min', 'initDate', 'warning', 'warningText'],
         data() {
             return {
                 time: moment.unix(this.initDate).format('HH:mm'),
@@ -95,6 +101,13 @@
             margin-left: 18px;
             width: 90px;
             max-width: 90px;
+        }
+        .warning-date-icon {
+            margin-left: 8px;
+            i.icon {
+                padding-top: 22px;
+                color: $warning;
+            }
         }
     }
 </style>

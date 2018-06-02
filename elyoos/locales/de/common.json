@@ -53,6 +53,7 @@
     "en": "Englisch"
   },
   "error": {
-    "unknown": "Es ist ein Fehler aufgetreten."
+    "unknown": "Es ist ein Fehler aufgetreten.",
+    "startDateAfterEndDate": "Start ist nach dem Ende"
   }
 }
