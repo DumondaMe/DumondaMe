@@ -45,7 +45,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('ogTitle');
-        res.body.description.should.equals('contentWebsite');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -65,7 +64,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.description.should.equals('ogDescription');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -84,7 +82,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.description.should.equals('contentWebsite');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -103,7 +100,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://youtu.be/00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.description.should.equals('contentWebsite');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -121,7 +117,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('');
-        res.body.description.should.equals('contentWebsite');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -139,7 +134,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.description.should.equals('');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });
@@ -155,7 +149,6 @@ describe('Search a youtube link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.youtube.com/watch?v=00zxopGPYW4'});
         res.status.should.equal(200);
         res.body.title.should.equals('youtube10Title');
-        res.body.description.should.equals('youtube10Description');
         res.body.linkEmbed.should.equals('https://www.youtube.com/embed/00zxopGPYW4');
         res.body.type.should.equals('Youtube');
     });

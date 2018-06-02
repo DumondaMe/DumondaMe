@@ -48,10 +48,10 @@ describe('Search a website link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
         res.status.should.equal(200);
         res.body.title.should.equals('ogTitle');
-        res.body.description.should.equals('ogDescription');
         res.body.pageType.should.equals('article');
         res.body.imageUrl.should.equals('https://www.example.org/image.jpg');
         should.not.exist(res.body.linkEmbed);
+        should.not.exist(res.body.description);
         res.body.type.should.equals('Link');
     });
 
@@ -67,10 +67,10 @@ describe('Search a website link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
         res.status.should.equal(200);
         res.body.title.should.equals('link10Title');
-        res.body.description.should.equals('link10Description');
         res.body.pageType.should.equals('article');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/10/preview.jpg`);
         res.body.type.should.equals('Link');
+        should.not.exist(res.body.description);
     });
 
     it('Link answer which already exists for question', async function () {

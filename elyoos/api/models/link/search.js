@@ -34,7 +34,7 @@ const searchDatabase = async function (link, linkType) {
     let response = null;
     if (result.length === 1) {
         let answer = result[0].answer;
-        response = {title: answer.title, description: answer.description, type: linkType};
+        response = {title: answer.title, type: linkType};
         if (linkType === YOUTUBE || linkType === VIMEO) {
             response.linkEmbed = answer.linkEmbed;
         } else if (linkType === LINK) {
@@ -48,7 +48,7 @@ const searchDatabase = async function (link, linkType) {
 const searchWebsite = async function (link, linkType) {
     try {
         const $ = cheerio.load(await rp.get(link));
-        let result = {title: parseWebsite.getTitle($), description: parseWebsite.getDescription($), type: linkType};
+        let result = {title: parseWebsite.getTitle($), type: linkType};
         if (linkType === YOUTUBE) {
             result.linkEmbed = youtubeLink.getEmbedUrl(link)
         } else if (linkType === VIMEO) {

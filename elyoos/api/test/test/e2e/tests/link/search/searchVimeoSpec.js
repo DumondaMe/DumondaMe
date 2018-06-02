@@ -44,7 +44,6 @@ describe('Search a vimeo link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
         res.status.should.equal(200);
         res.body.title.should.equals('titleWebsite');
-        res.body.description.should.equals('contentWebsite');
         res.body.linkEmbed.should.equals('https://player.vimeo.com/video/251713531');
         res.body.type.should.equals('Vimeo');
     });
@@ -69,7 +68,6 @@ describe('Search a vimeo link', function () {
         let res = await requestHandler.get('/api/link/search/1', {link: 'https://vimeo.com/channels/staffpicks/251713531'});
         res.status.should.equal(200);
         res.body.title.should.equals('vimeo10Title');
-        res.body.description.should.equals('vimeo10Description');
         res.body.linkEmbed.should.equals('https://player.vimeo.com/video/251713531');
         res.body.type.should.equals('Vimeo');
     });
