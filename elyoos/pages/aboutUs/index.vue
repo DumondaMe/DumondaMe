@@ -27,7 +27,7 @@
                     <p class="about-text">Interessiert in Digitalen Währungen und Blockchain, Gartenkräuterhalter.</p>
                 </div>
             </div>
-            <p>Des weiteren unterstützten uns <a target="_blank" href="https://momoundronja.ch/">Momo&Ronja</a>
+            <p>Des weiteren unterstützten uns <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a>
                 tatkräftig beim Aufbau dieser Plattform.</p>
         </div>
         <div v-else-if="selectedLanguage === 'en'">
@@ -56,7 +56,7 @@
                     <p class="about-text">Interested in Digital Currencies and Blockchain, Garden Herb Holder.</p>
                 </div>
             </div>
-            <p>Furthermore, <a target="_blank" href="https://momoundronja.ch/">Momo&Ronja</a>
+            <p>Furthermore, <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a>
                 actively supported us in building this platform.</p>
         </div>
     </div>
