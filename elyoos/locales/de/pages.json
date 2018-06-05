@@ -99,6 +99,40 @@
     "modifyTopicDialog": {
       "title": "Themengebiete für '{{question}}' anpassen",
       "changeButton": "Themengebiete ändern"
+    },
+    "answerDialog": {
+      "title": "Antwort zur Frage {{- question}}",
+      "answerInfoText": "Beantworte mit deinen eigenen Worten die Frage.",
+      "answerDescriptionLink": "Weshalb beantwortet dieser Link die Frage?",
+      "answerInfoLink": "Beantworte mit einem Link auf eine Website, einen Blog, einen Zeitungsartikel usw. die Frage.",
+      "answerHintLink": "Z.Bsp. https://www.kulturpark.ch",
+      "answerDescriptionVideo": "Weshalb beantwortet dieses Video die Frage?",
+      "answerInfoVideo": "Beantworte mit einem Youtube oder Vimeo Video die Frage.",
+      "answerHintVideo": "Z.Bsp. https://www.youtube.com/watch?v=TEy6HPpXRAo",
+      "answerDescriptionBook": "Weshalb beantwortet dieses Buch die Frage?",
+      "answerInfoBook": "Beantworte mit einem Hinweis zu einem Buch die Frage.",
+      "answerDescriptionCommitment": "Weshalb beantwortet dieses Engagement die Frage?",
+      "answerInfoCommitment": "Beantworte mit einem Engagement die Frage."
+    },
+    "answerLinkDialog": {
+      "answerInfoWrongType": "Bei deinem Link handelt es sich nicht um ein Youtube oder Vimeo Video.",
+      "answerSwitchTypeButton": "Link Erfassen",
+      "typeOfWebsiteDescription":"Um was für ein Weblink handelt es sich?",
+      "typeWebsite":"Webseite",
+      "typeArticle":"Artikel",
+      "typeBlog":"Blog"
+    },
+    "answerVideoDialog": {
+      "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube oder Vimeo Video.",
+      "answerSwitchTypeButton": "Video Erfassen"
+    },
+    "selectAnswerDialog": {
+      "title": "Antworten",
+      "textDescription": "Beantworte die Frage mit deinen Worten",
+      "linkDescription": "Webseite, Blog, Zeitungsartikel usw.",
+      "videoDescription": "Youtube und Vimeo Videos",
+      "bookDescription": "Ein Buch welches Antworten auf die Frage liefert",
+      "commitmentDescription": "Welches Engagement beschäftigt sich mit dieser Fragestellung?"
     }
   },
   "detailQuestion": {
@@ -168,7 +202,8 @@
     },
     "error": {
       "invalidYoutubeId": "Ungültiger Youtube Link.",
-      "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet"
+      "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet",
+      "websiteNotFound": "Die Webseite konnte nicht erreicht werden. Prüfe ob dein Link korrekt ist."
     }
   },
   "detailCommitment": {

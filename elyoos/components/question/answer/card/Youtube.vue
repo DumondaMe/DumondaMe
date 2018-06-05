@@ -35,7 +35,7 @@
             </expand-text>
         </div>
         <answer-footer :answer="answer"></answer-footer>
-        <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"
+        <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false" :is-video="true"
                           :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId">
         </edit-link-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"

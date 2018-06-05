@@ -19,6 +19,9 @@
         methods: {
             setSelected(newSelectedBook) {
                 this.selectedBook = newSelectedBook;
+                if (this.selectedBook && this.selectedBook.description) {
+                    delete this.selectedBook.description;
+                }
             }
         }
     }

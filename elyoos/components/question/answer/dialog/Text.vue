@@ -1,9 +1,10 @@
 <template>
     <v-card id="text-answer-container">
-        <v-card-title id="answer-title">Answer the question <span class="question-title"> {{question}} </span>
+        <v-card-title id="answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
+            <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoText')}}</div>
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>
@@ -46,7 +47,7 @@
                 return this.initAnswer !== this.answer;
             },
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
             }
         },
         methods: {
@@ -73,11 +74,17 @@
 </script>
 
 <style lang="scss">
-    #answer-title {
-        display: block;
-        .question-title {
-            color: $primary-color;
-            white-space: normal;
+    #text-answer-container {
+        #answer-title {
+            display: block;
+            .question-title {
+                color: $primary-color;
+                white-space: normal;
+            }
+        }
+        .info-answer {
+            font-weight: 300;
+            margin-bottom: 12px;
         }
     }
 </style>

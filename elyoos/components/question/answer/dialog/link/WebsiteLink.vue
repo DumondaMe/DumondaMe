@@ -10,18 +10,18 @@
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 140)]" :counter="140">
                 </v-text-field>
-                <v-text-field v-model="linkData.description" multi-line rows="4"
-                              :label="$t('common:description')"
+                <v-text-field v-model="linkData.description" multi-line rows="4" autofocus
+                              :label="$t('pages:question.answerDialog.answerDescriptionLink')"
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                 </v-text-field>
-                <div id="page-type-title">Um was für ein Weblink handelt es sich?</div>
+                <div id="page-type-title">{{$t('pages:question.answerLinkDialog.typeOfWebsiteDescription')}}</div>
                 <v-radio-group v-model="linkData.pageType" column id="page-type-container">
-                    <v-radio label="Artikel" value="article" color="primary">
+                    <v-radio :label="$t('pages:question.answerLinkDialog.typeArticle')" value="article" color="primary">
                     </v-radio>
-                    <v-radio label="Blog" value="blog" color="primary">
+                    <v-radio :label="$t('pages:question.answerLinkDialog.typeBlog')" value="blog" color="primary">
                     </v-radio>
-                    <v-radio label="Webseite" value="website" color="primary">
+                    <v-radio :label="$t('pages:question.answerLinkDialog.typeWebsite')" value="website" color="primary">
                     </v-radio>
                 </v-radio-group>
             </div>

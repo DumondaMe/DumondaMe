@@ -1,9 +1,10 @@
 <template>
     <v-card id="search-book-answer-container">
-        <v-card-title id="book-answer-title">Answer the question<span class="question-title"> {{question}} </span>
+        <v-card-title id="book-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text id="book-answer-content">
+            <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoBook')}}</div>
             <v-text-field v-model="title" :loading="searchBookRunning"
                           :label="$t('pages:detailQuestion.searchBook')"
                           :rules="[ruleFieldRequired($t('validation:fieldRequired')),
@@ -63,7 +64,7 @@
         mixins: [validationRules, languages],
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
             }
         },
         methods: {
@@ -148,6 +149,10 @@
                 color: $primary-color;
                 white-space: normal;
             }
+        }
+        .info-answer {
+            font-weight: 300;
+            margin-bottom: 12px;
         }
         #book-answer-content {
             .book-preview-element {

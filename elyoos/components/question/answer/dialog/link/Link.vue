@@ -1,34 +1,47 @@
 <template>
     <v-card id="link-answer-container">
-        <v-card-title id="link-answer-title">Answer the question<span class="question-title"> {{question}} </span>
+        <v-card-title id="link-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text id="link-answer-content">
+            <div class="info-answer" v-if="isVideo">{{$t('pages:question.answerDialog.answerInfoVideo')}}</div>
+            <div class="info-answer" v-else>{{$t('pages:question.answerDialog.answerInfoLink')}}</div>
             <v-form v-model="valid">
-                <v-layout row wrap>
-                    <v-flex xs12>
-                        <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
-                                      :label="$t('pages:detailQuestion.searchLink')"
-                                      :disabled="!!answerId"
-                                      :rules="[isValidLink(),
-                                               isValidYoutubeLink(),
-                                               ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 1000)]">
-                        </v-text-field>
-                        <p class="url-type" v-show="linkData.type === 'Youtube'" v-if="!answerId">
-                            Youtube Video erkannt</p>
-                        <p class="url-type" v-show="linkData.type === 'Vimeo'" v-if="!answerId">
-                            Vimeo Video erkannt</p>
-                    </v-flex>
+                <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
+                              :label="$t('pages:detailQuestion.searchLink')"
+                              :disabled="!!answerId" :hint="linkHint" :persistent-hint="!initLink"
+                              :rules="[isValidLink(),
+                                       isValidYoutubeLink(),
+                                       ruleFieldRequired($t('validation:fieldRequired')),
+                                       ruleToManyChars($t('validation:toManyChars'), 1000)]">
+                </v-text-field>
+                <div v-if="validLinkType" class="link-content">
                     <youtube v-if="linkData.type === 'Youtube'" :init-link-data="linkData" :link="link"
                              :answer-id="answerId" @upload-command="setUploadCommand"
                              @link-data-changed="setHasChanged">
                     </youtube>
-                    <website-link v-else-if="linkData.type === 'Link'" :init-link-data="linkData" :link="link"
+                    <website-link v-else-if="linkData.type === 'Link'" :init-link-data="linkData"
+                                  :link="link"
                                   :answer-id="answerId" @upload-command="setUploadCommand"
                                   @link-data-changed="setHasChanged">
                     </website-link>
-                </v-layout>
+                </div>
+                <div v-else-if="valid">
+                    <div class="invalid-link-type-info" v-if="linkData.type === 'Link' && isVideo">
+                        <div>{{$t('pages:question.answerLinkDialog.answerInfoWrongType')}}</div>
+                        <v-btn color="primary" @click="isVideo = false">
+                            <v-icon>mdi-link</v-icon>
+                            {{$t('pages:question.answerLinkDialog.answerSwitchTypeButton')}}
+                        </v-btn>
+                    </div>
+                    <div class="invalid-link-type-info" v-if="linkData.type === 'Youtube' && !isVideo">
+                        <div>{{$t('pages:question.answerVideoDialog.answerInfoWrongType')}}</div>
+                        <v-btn color="primary" @click="isVideo = true">
+                            <v-icon>mdi-video</v-icon>
+                            {{$t('pages:question.answerVideoDialog.answerSwitchTypeButton')}}
+                        </v-btn>
+                    </div>
+                </div>
             </v-form>
             <div class="elyoos-dialog-error-message" v-show="showErrorMessage">{{showErrorMessage}}</div>
             <div class="elyoos-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
@@ -41,7 +54,7 @@
             </v-btn>
             <v-btn color="primary" @click.native="startUpload()" :loading="uploadRunning"
                    :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
-                   !!this.showWarningMessage || !hasChanged">
+                   !!this.showWarningMessage || !hasChanged || !validLinkType">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -53,17 +66,19 @@
     import validationRules from '~/mixins/validationRules.js';
     import WebsiteLink from './WebsiteLink';
     import Youtube from './Youtube';
+    import debounce from 'debounce';
 
     const ERROR_CODE_NO_YOUTUBE_ID = 1;
     const ERROR_CODE_ANSWER_EXISTS = 2;
+    const PAGE_NOT_FOUND = 404;
 
     export default {
-        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText'],
+        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo'],
         data() {
             return {
                 valid: false, checkLink: false, uploadRunning: false, showErrorMessage: false,
                 showWarningMessage: false, link: this.initLink, linkData: JSON.parse(JSON.stringify(this.initLinkData)),
-                hasChanged: !this.answerId, uploadCommand: function () {
+                isVideo: this.initIsVideo, hasChanged: !this.answerId, uploadCommand: function () {
                 }
             }
         },
@@ -71,7 +86,22 @@
         mixins: [validationRules],
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
+            },
+            linkHint() {
+                if (this.isVideo) {
+                    return this.$t('pages:question.answerDialog.answerHintVideo');
+                }
+                return this.$t('pages:question.answerDialog.answerHintLink');
+            },
+            validLinkType() {
+                let isValid = false;
+                if (this.linkData.type === 'Youtube' && this.isVideo) {
+                    isValid = true
+                } else if (this.linkData.type === 'Link' && !this.isVideo) {
+                    isValid = true
+                }
+                return isValid;
             }
         },
         methods: {
@@ -95,7 +125,7 @@
             }
         },
         watch: {
-            async link() {
+            link: debounce(async function () {
                 this.linkData = {};
                 this.showErrorMessage = false;
                 this.showWarningMessage = false;
@@ -112,18 +142,24 @@
                             this.showErrorMessage = this.$t('pages:detailQuestion.error.invalidYoutubeId');
                         } else if (error.response.data.errorCode === ERROR_CODE_ANSWER_EXISTS) {
                             this.showWarningMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
+                        } else if (error.response.status === PAGE_NOT_FOUND) {
+                            this.showWarningMessage = this.$t('pages:detailQuestion.error.websiteNotFound');
                         } else {
                             this.showErrorMessage = this.$t('common:error.unknown');
                         }
                     }
                 }
-            }
+            }, 500)
         }
     }
 </script>
 
 <style lang="scss">
     #link-answer-container {
+        .info-answer {
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
         #link-answer-title {
             display: block;
             .question-title {
@@ -132,12 +168,18 @@
             }
         }
         #link-answer-content {
-            .url-type {
-                position: relative;
-                top: -20px;
-                margin-bottom: -20px;
-                font-size: 12px;
-                color: $success-text;
+            .invalid-link-type-info {
+                margin-top: 12px;
+                color: $warning;
+                button {
+                    margin-left: 0;
+                }
+                i.icon {
+                    margin-right: 8px;
+                }
+            }
+            .link-content {
+                margin-top: 12px;
             }
         }
     }

@@ -8,6 +8,9 @@
     <answer-link v-else-if="answerType === 'link'" @close-dialog="closeDialog" init-link="" :init-link-data="{}"
                  :action-button-text="$t('pages:detailQuestion.createAnswerButton')">
     </answer-link>
+    <answer-link v-else-if="answerType === 'video'" @close-dialog="closeDialog" init-link="" :init-link-data="{}"
+                 :action-button-text="$t('pages:detailQuestion.createAnswerButton')" :init-is-video="true">
+    </answer-link>
     <answer-book v-else-if="answerType === 'book'" @close-dialog="closeDialog">
     </answer-book>
     <answer-commitment v-else-if="answerType === 'commitment'" @close-dialog="closeDialog">

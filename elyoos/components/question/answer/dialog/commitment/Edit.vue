@@ -1,6 +1,6 @@
 <template>
     <v-card id="edit-commitment-answer">
-        <v-card-title id="commitment-answer-title">Answer the question<span class="question-title"> {{question}} </span>
+        <v-card-title id="commitment-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text id="commitment-answer-content">
@@ -12,7 +12,7 @@
                     <div id="commitment-content">
                         <div class="commitment-title">{{commitment.title}}</div>
                         <v-text-field v-model="commitment.description" multi-line rows="5"
-                                      :label="$t('common:description')"
+                                      :label="$t('pages:question.answerDialog.answerDescriptionCommitment')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 700)]" :counter="700">
                         </v-text-field>
@@ -50,7 +50,7 @@
         mixins: [validationRules, languages],
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
             },
             hasChanged() {
                 if (this.answerId) {

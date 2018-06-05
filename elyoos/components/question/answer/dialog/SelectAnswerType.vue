@@ -1,31 +1,42 @@
 <template>
     <v-card id="select-answer-type-container">
-        <v-card-title>Select an Answer Type</v-card-title>
+        <v-card-title>{{$t('pages:question.selectAnswerDialog.title')}}</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <v-layout row wrap>
-                <v-flex xs6 sm3>
+                <v-flex xs6 sm4>
                     <div class="answer-button" @click="$emit('answer-selected', 'text')">
-                        <div class="answer-type">Text</div>
-                        <div class="answer-description">Beantworte die Frage mit deinen Worten</div>
+                        <div class="answer-type"><v-icon>mdi-tooltip-text</v-icon></div>
+                        <div class="answer-description">{{$t('pages:question.selectAnswerDialog.textDescription')}}
+                        </div>
                     </div>
                 </v-flex>
-                <v-flex xs6 sm3>
+                <v-flex xs6 sm4>
+                    <div class="answer-button" @click="$emit('answer-selected', 'video')">
+                        <div class="answer-type"><v-icon>mdi-video</v-icon></div>
+                        <div class="answer-description">{{$t('pages:question.selectAnswerDialog.videoDescription')}}
+                        </div>
+                    </div>
+                </v-flex>
+                <v-flex xs6 sm4>
                     <div class="answer-button" @click="$emit('answer-selected', 'link')">
-                        <div class="answer-type">Link</div>
-                        <div class="answer-description">Youtube Video, Blog, Zeitunsartikel usw.</div>
+                        <div class="answer-type"><v-icon>mdi-link</v-icon></div>
+                        <div class="answer-description">{{$t('pages:question.selectAnswerDialog.linkDescription')}}
+                        </div>
                     </div>
                 </v-flex>
-                <v-flex xs6 sm3>
+                <v-flex xs6 sm4>
                     <div class="answer-button" @click="$emit('answer-selected', 'book')">
-                        <div class="answer-type">Buch</div>
-                        <div class="answer-description">Ein Buch welches Antworten auf die Frage liefert</div>
+                        <div class="answer-type"><v-icon>mdi-book-open-page-variant</v-icon></div>
+                        <div class="answer-description">{{$t('pages:question.selectAnswerDialog.bookDescription')}}
+                        </div>
                     </div>
                 </v-flex>
-                <v-flex xs6 sm3>
+                <v-flex xs6 sm4>
                     <div class="answer-button" @click="$emit('answer-selected', 'commitment')">
-                        <div class="answer-type">Engagement</div>
-                        <div class="answer-description">Welches Engagement beschäftig sich mit dieser Fragestellung?
+                        <div class="answer-type"><v-icon>mdi-human-handsup</v-icon></div>
+                        <div class="answer-description">
+                            {{$t('pages:question.selectAnswerDialog.commitmentDescription')}}
                         </div>
                     </div>
                 </v-flex>
@@ -64,15 +75,16 @@
 
             .answer-type {
                 margin-top: 20px;
-                color: $primary-color-button;
                 text-align: center;
-                font-size: 14px;
-                font-weight: 500;
                 @media screen and (max-width: 700px) and (min-width: 600px) {
                     margin-top: 0px;
                 }
                 @media screen and (max-width: 350px) {
                     margin-top: 0px;
+                }
+                i.icon {
+                    color: $primary-color;
+                    font-size: 28px;
                 }
             }
             .answer-description {

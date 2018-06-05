@@ -18,8 +18,11 @@
             return {selectedCommitment: null}
         },
         methods: {
-            setSelected(newSelectedBook) {
-                this.selectedCommitment = newSelectedBook;
+            setSelected(newSelectedCommitment) {
+                this.selectedCommitment = newSelectedCommitment;
+                if (this.selectedCommitment && this.selectedCommitment.description) {
+                    delete this.selectedCommitment.description;
+                }
             }
         }
     }

@@ -1,9 +1,10 @@
 <template>
     <v-card id="search-commitment-answer">
-        <v-card-title id="commitment-answer-title">Answer the question <span class="question-title"> {{question}}</span>
+        <v-card-title id="commitment-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text id="commitment-answer-content">
+            <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoCommitment')}}</div>
             <v-text-field v-model="titleCommitment" :loading="searchCommitmentRunning"
                           :label="$t('pages:detailQuestion.searchCommitment')"
                           :rules="[ruleFieldRequired($t('validation:fieldRequired')),
@@ -58,7 +59,7 @@
         mixins: [validationRules],
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
             }
         },
         methods: {
@@ -103,6 +104,10 @@
             }
         }
         #commitment-answer-content {
+            .info-answer {
+                font-weight: 300;
+                margin-bottom: 12px;
+            }
             .commitment-preview {
                 padding-bottom: 6px;
                 padding-top: 6px;

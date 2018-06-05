@@ -1,6 +1,6 @@
 <template>
     <v-card id="edit-book-answer-container">
-        <v-card-title id="book-answer-title">Answer the question<span class="question-title"> {{question}} </span>
+        <v-card-title id="book-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text id="book-answer-content">
@@ -12,8 +12,8 @@
                     <div id="book-content" :class="{'image-missing': !book.thumbnail}">
                         <div class="book-title">{{book.title}}</div>
                         <div class="book-authors">{{book.authors}}</div>
-                        <v-text-field v-model="book.description" multi-line rows="5"
-                                      :label="$t('common:description')"
+                        <v-text-field v-model="book.description" multi-line rows="5" autofocus
+                                      :label="$t('pages:question.answerDialog.answerDescriptionBook')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                         </v-text-field>
@@ -51,7 +51,7 @@
         mixins: [validationRules, languages],
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return `<span class="question-title"> ${this.$store.state.question.question.question}</span>`;
             },
             hasChanged() {
                 if (this.answerId) {
