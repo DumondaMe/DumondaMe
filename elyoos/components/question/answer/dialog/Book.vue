@@ -10,6 +10,7 @@
 <script>
     import EditBook from './book/EditBook.vue';
     import SearchBook from './book/SearchBook.vue';
+    import Vue from 'vue';
 
     export default {
         components: {EditBook, SearchBook},
@@ -19,8 +20,8 @@
         methods: {
             setSelected(newSelectedBook) {
                 this.selectedBook = newSelectedBook;
-                if (this.selectedBook && this.selectedBook.description) {
-                    delete this.selectedBook.description;
+                if (this.selectedBook) {
+                    Vue.set(this.selectedBook, 'description', '');
                 }
             }
         }

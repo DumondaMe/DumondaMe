@@ -67,6 +67,7 @@
     import WebsiteLink from './WebsiteLink';
     import Youtube from './Youtube';
     import debounce from 'debounce';
+    import Vue from 'vue';
 
     const ERROR_CODE_NO_YOUTUBE_ID = 1;
     const ERROR_CODE_ANSWER_EXISTS = 2;
@@ -136,6 +137,7 @@
                         this.linkData = await this.$axios.$get(`/link/search/${questionId}`,
                             {params: {link: this.link}});
                         this.checkLink = false;
+                        Vue.set(this.linkData, 'description', '');
                     } catch (error) {
                         this.checkLink = false;
                         if (error.response.data.errorCode === ERROR_CODE_NO_YOUTUBE_ID) {

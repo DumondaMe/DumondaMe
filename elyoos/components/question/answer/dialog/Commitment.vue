@@ -11,6 +11,7 @@
 <script>
     import EditCommitment from './commitment/Edit';
     import SearchCommitment from './commitment/Search';
+    import Vue from 'vue';
 
     export default {
         components: {EditCommitment, SearchCommitment},
@@ -20,8 +21,8 @@
         methods: {
             setSelected(newSelectedCommitment) {
                 this.selectedCommitment = newSelectedCommitment;
-                if (this.selectedCommitment && this.selectedCommitment.description) {
-                    delete this.selectedCommitment.description;
+                if (this.selectedCommitment) {
+                    Vue.set(this.selectedCommitment, 'description', '');
                 }
             }
         }
