@@ -3,9 +3,9 @@
         <detail-layout>
             <div slot="content">
                 <user-profile></user-profile>
+                <user-trust-circle></user-trust-circle>
             </div>
             <div slot="sidebar">
-                <contacts></contacts>
             </div>
         </detail-layout>
     </div>
@@ -14,7 +14,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail.vue';
     import UserProfile from '~/components/userProfile/UserProfile.vue';
-    import Contacts from '~/components/userProfile/Contacts.vue';
+    import UserTrustCircle from '~/components/userProfile/TrustCircle/UserTrustCircle.vue';
 
     export default {
         async fetch({store, error}) {
@@ -24,7 +24,7 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {DetailLayout, UserProfile, Contacts}
+        components: {DetailLayout, UserProfile, UserTrustCircle}
     }
 </script>
 

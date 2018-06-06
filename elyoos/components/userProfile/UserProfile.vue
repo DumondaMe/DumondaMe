@@ -96,7 +96,6 @@
 <style lang="scss">
     #elyoos-user-profile {
         padding-bottom: 12px;
-        border-bottom: 1px solid $divider;
         #elyoos-user-profile-content {
             display: flex;
             #elyoos-user-image-container {
