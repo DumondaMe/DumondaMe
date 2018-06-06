@@ -7,7 +7,7 @@ const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
 const should = require('chai').should();
 
-describe('Handling contact relationships', function () {
+describe('Handling people of trust relationships', function () {
 
     let startTime;
 
@@ -23,11 +23,11 @@ describe('Handling contact relationships', function () {
         return requestHandler.logout();
     });
 
-    it('Adding a contact and send adding notification to contact (Added contact has no notifications)', async function () {
+    it('Adding a person of trust and send adding notification to person (Added person of trust has no notifications)', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/5');
+        let res = await requestHandler.post('/api/user/otherUser/5');
         res.status.should.equal(200);
         res.body.isContactSince.should.least(startTime);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
@@ -47,7 +47,7 @@ describe('Handling contact relationships', function () {
         notification[0].created.should.least(startTime);
     });
 
-    it('Adding a contact and send adding notification to contact (Added contact has notifications)', async function () {
+    it('Adding a person of trust and send adding notification to person (Added person has notifications)', async function () {
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '5',
             created: 678, trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}]
@@ -55,7 +55,7 @@ describe('Handling contact relationships', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/5');
+        let res = await requestHandler.post('/api/user/otherUser/5');
         res.status.should.equal(200);
         res.body.isContactSince.should.least(startTime);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
@@ -80,11 +80,11 @@ describe('Handling contact relationships', function () {
         notification[2].created.should.equals(444);
     });
 
-    it('Adding a contact and remove invitations', async function () {
+    it('Adding a person of trust and remove invitations', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/6');
+        let res = await requestHandler.post('/api/user/otherUser/6');
         res.status.should.equal(200);
         let user = await db.cypher().match("(u:User {userId: '1'})<-[:HAS_INVITED]-(:User {userId: '6'})")
             .return('u').end().send();
@@ -96,44 +96,44 @@ describe('Handling contact relationships', function () {
         user[0].contactAdded.should.least(startTime);
     });
 
-    it('Deny adding to contact when privacy set to onlyContact and no contact relationship exits', async function () {
+    it('Deny adding to trust circle when privacy set to onlyContact and no person of trust relationship exits', async function () {
 
         dbDsl.setUserPrivacy('4', {privacyMode: 'onlyContact'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/4');
+        let res = await requestHandler.post('/api/user/otherUser/4');
         res.status.should.equal(401);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '4'})")
             .return('r').end().send();
         user.length.should.equals(0);
     });
 
-    it('Add the same User two times as contact should result in one contact connection', async function () {
+    it('Add the same User two times to trust circle should result in one person of trust connection', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/2');
+        let res = await requestHandler.post('/api/user/otherUser/2');
         res.status.should.equal(200);
 
-        res = await requestHandler.post('/api/user/contact/2');
+        res = await requestHandler.post('/api/user/otherUser/2');
         res.status.should.equal(200);
         let user = await db.cypher().match(`(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})`)
             .return('r').end().send();
         user.length.should.equals(1);
     });
 
-    it('If user is blocked, add contact removes blocked state', async function () {
+    it('If user is blocked, adding person of trust removes blocked state', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/block/2');
+        let res = await requestHandler.post('/api/user/otherUser/block/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_BLOCKED]->(:User {userId: '2'})")
             .return('r').end().send();
         rel.length.should.equals(1);
 
-        res = await requestHandler.post('/api/user/contact/2');
+        res = await requestHandler.post('/api/user/otherUser/2');
         res.status.should.equal(200);
 
         rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_BLOCKED]->(:User {userId: '2'})")
@@ -145,18 +145,18 @@ describe('Handling contact relationships', function () {
         rel.length.should.equals(1);
     });
 
-    it('Contact is blocked after it is added to the contacts', async function () {
+    it('Person of trust is blocked after it is added to the trust circle', async function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/2');
+        let res = await requestHandler.post('/api/user/otherUser/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
             .return('r').end().send();
         rel.length.should.equals(1);
 
-        res = await requestHandler.post('/api/user/contact/block/2');
+        res = await requestHandler.post('/api/user/otherUser/block/2');
         res.status.should.equal(200);
 
         rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
@@ -172,7 +172,7 @@ describe('Handling contact relationships', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/block/6');
+        let res = await requestHandler.post('/api/user/otherUser/block/6');
         res.status.should.equal(200);
 
         let user = await db.cypher().match("(user:User {userId: '1'})<-[:HAS_INVITED]-(:User {userId: '6'})")
@@ -180,19 +180,19 @@ describe('Handling contact relationships', function () {
         user.length.should.equals(0);
     });
 
-    it('Contact are unblocked', async function () {
+    it('Person of trust is unblocked', async function () {
 
         dbDsl.createContactConnection('1', '2');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/contact/block/2');
+        let res = await requestHandler.post('/api/user/otherUser/block/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_BLOCKED]->(:User {userId: '2'})")
             .return('r').end().send();
         rel.length.should.equals(1);
 
-        res = await requestHandler.del('/api/user/contact/block/2');
+        res = await requestHandler.del('/api/user/otherUser/block/2');
         res.status.should.equal(200);
 
         rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_BLOCKED]->(:User {userId: '2'})")
@@ -200,12 +200,12 @@ describe('Handling contact relationships', function () {
         rel.length.should.equals(0);
     });
 
-    it('Remove user from contact list', async function () {
+    it('Remove user from trust circle', async function () {
 
         dbDsl.createContactConnection('1', '2');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.del('/api/user/contact/2');
+        let res = await requestHandler.del('/api/user/otherUser/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
@@ -213,7 +213,7 @@ describe('Handling contact relationships', function () {
         rel.length.should.equals(0);
     });
 
-    it('Remove user from contact list (Delete user from notification)', async function () {
+    it('Remove user from trust circle (Delete user from notification)', async function () {
 
         dbDsl.createContactConnection('1', '2');
         dbDsl.notificationUserAddedToTrustCircle('50', {
@@ -222,7 +222,7 @@ describe('Handling contact relationships', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.del('/api/user/contact/2');
+        let res = await requestHandler.del('/api/user/otherUser/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")
@@ -235,7 +235,7 @@ describe('Handling contact relationships', function () {
         rel[0].u.userId.should.equals('4');
     });
 
-    it('Remove user from contact list (Delete user from notification and delete notification)', async function () {
+    it('Remove user from trust circle (Delete user from notification and delete notification)', async function () {
 
         dbDsl.createContactConnection('1', '2');
         dbDsl.notificationUserAddedToTrustCircle('50', {
@@ -244,7 +244,7 @@ describe('Handling contact relationships', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.del('/api/user/contact/2');
+        let res = await requestHandler.del('/api/user/otherUser/2');
         res.status.should.equal(200);
 
         let rel = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '2'})")

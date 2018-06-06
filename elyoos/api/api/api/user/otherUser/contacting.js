@@ -1,7 +1,8 @@
+/*
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
-let contacting = requireModel('contact/contacting');
+let userIsPersonOfTrust = requireModel('contact/userIsPersonOfTrust');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -31,3 +32,4 @@ module.exports = function (router) {
         });
     });
 };
+*/

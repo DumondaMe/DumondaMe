@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 let db = requireDb();
@@ -57,3 +58,4 @@ module.exports = {
     getContacting: getContactingNormal,
     getContactingStatistics: getContactingStatistics
 };
+*/

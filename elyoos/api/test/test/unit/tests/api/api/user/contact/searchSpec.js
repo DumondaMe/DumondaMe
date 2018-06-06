@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('../../../../../../../../api/api/user/contact/search');
+let testee = require('../../../../../../../../api/api/user/otherUser/search');
 let searchUser = require('./../../../../../../../../models/user/searchUser');
 let request = require('../../../../request');
 let bluebird = require('bluebird');

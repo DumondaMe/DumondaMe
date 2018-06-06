@@ -63,7 +63,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -81,7 +81,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -96,7 +96,7 @@ describe('Getting user profile data', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -112,7 +112,7 @@ describe('Getting user profile data', function () {
         dbDsl.createContactConnection('7', '2');
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
@@ -140,14 +140,14 @@ describe('Getting user profile data', function () {
     it('Deny access to profile when not logged in (PrivacyMode publicEl)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(401);
     });
 
     it('Deny access to profile when not logged in (PrivacyMode contactOnly)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile/2');
+        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(401);
     });
 });

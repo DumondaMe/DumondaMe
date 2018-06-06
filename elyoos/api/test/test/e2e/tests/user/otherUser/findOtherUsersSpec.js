@@ -103,7 +103,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request only with forename in suggestion mode- Return correct sorted list (Contacts first)', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'User',
                 maxItems: 10,
                 isSuggestion: true
@@ -122,7 +122,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request with forename and surname - Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: false
@@ -144,7 +144,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request with forename and surname in suggestion mode- Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'User2 meier',
                 maxItems: 5,
                 isSuggestion: true
@@ -160,7 +160,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request with only surname - Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: false
@@ -186,7 +186,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request with only surname in suggestion mode - Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'meier',
                 maxItems: 3,
                 isSuggestion: true
@@ -203,7 +203,7 @@ describe('Integration Tests for finding other users', function () {
     it('Request only with forename - Return correct sorted list in suggestion mode (Contacts first)', function () {
 
         return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.get('/api/user/contact/search', {
+            return requestHandler.get('/api/user/otherUser/search', {
                 search: 'user',
                 maxItems: 4,
                 isSuggestion: true

@@ -1,17 +1,17 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const userProfileContacts = requireModel('user/profile/contact');
+const trustCircle = requireModel('user/profile/trustCircle');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaRequestGetUserDetailContacts = {
-    name: 'getUserDetailContacts',
+const schemaRequestGetPeopleOfTrust = {
+    name: 'getTrustCircle',
     type: 'object',
     additionalProperties: false,
-    required: ['contactOfUserId', 'skip', 'maxItems'],
+    required: ['userId', 'skip', 'maxItems'],
     properties: {
-        contactOfUserId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50}
     }
@@ -19,9 +19,9 @@ const schemaRequestGetUserDetailContacts = {
 
 module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
-        let request = await validation.validateQueryRequest(req, schemaRequestGetUserDetailContacts, logger);
-        logger.info(`User requests contacts of user ${request.userId}`, req);
-        let contacts = await userProfileContacts.getContacts(req.user.id, request.contactOfUserId,
+        let request = await validation.validateRequest(req, schemaRequestGetPeopleOfTrust, logger);
+        logger.info(`Requests trust circle of user ${request.userId}`, req);
+        let contacts = await trustCircle.getTrustCircle(req.user.id, request.userId,
             request.maxItems, request.skip, req);
         res.status(200).json(contacts);
     }));

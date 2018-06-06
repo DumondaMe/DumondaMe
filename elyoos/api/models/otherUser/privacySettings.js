@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 let db = requireDb();
@@ -14,3 +15,4 @@ let getPrivacySettings = function (userId) {
 module.exports = {
     getPrivacySettings: getPrivacySettings
 };
+*/

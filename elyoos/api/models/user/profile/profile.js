@@ -6,7 +6,7 @@
 const db = requireDb();
 const dashify = require('dashify');
 const cdn = require('elyoos-server-lib').cdn;
-const contact = require('./contact');
+const trustCircle = require('./trustCircle');
 const userInfo = require('./../userInfo');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
@@ -15,9 +15,9 @@ let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
     }
 };
 
-let addSlugToContacts = function (contacts) {
-    for (let contact of contacts) {
-        contact.slug = dashify(contact.name);
+let addSlugToPeopleOfTrust = function (peopleOfTrust) {
+    for (let person of peopleOfTrust) {
+        person.slug = dashify(person.name);
     }
 };
 
@@ -27,8 +27,8 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     userId = userId || null;
     userIdOfProfile = userIdOfProfile || userId;
     let commands = [];
-    commands.push(contact.numberOfContacts(userId, userIdOfProfile).getCommand());
-    commands.push(contact.getContactsCommand(userId, userIdOfProfile, 10, 0).getCommand());
+    commands.push(trustCircle.numberOfPeopleInTrustCircle(userId, userIdOfProfile).getCommand());
+    commands.push(trustCircle.getTrustCircleCommand(userId, userIdOfProfile, 10, 0).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
@@ -44,7 +44,7 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         profile.isLoggedInUser = userId === userIdOfProfile;
         await userInfo.addImageForThumbnail(resp[1]);
         profile.contacts = resp[1];
-        addSlugToContacts(profile.contacts);
+        addSlugToPeopleOfTrust(profile.contacts);
         return profile;
     }
     throw new Error('401');
