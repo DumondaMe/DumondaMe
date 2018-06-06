@@ -5,6 +5,7 @@ const topic = require("../../../schema/topic");
 const language = require("../../../schema/language");
 const commitmentCreate = requireModel('user/commitment/create');
 const commitmentEdit = requireModel('user/commitment/edit');
+const commitmentDelete = requireModel('user/commitment/delete');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const apiHelper = require('elyoos-server-lib').apiHelper;
@@ -46,6 +47,16 @@ const schemaEditCommitment = {
     }
 };
 
+const schemaDeleteCommitment = {
+    name: 'deleteCommitment',
+    type: 'object',
+    additionalProperties: false,
+    required: ['commitmentId'],
+    properties: {
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+    }
+};
+
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
@@ -58,5 +69,11 @@ module.exports = function (router) {
         const params = await validation.validateRequest(req, schemaEditCommitment, logger);
         let response = await commitmentEdit.editCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);
+    }));
+
+    router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaDeleteCommitment, logger);
+        await commitmentDelete.deleteCommitment(req.user.id, params.commitmentId);
+        res.status(200).end();
     }));
 };
