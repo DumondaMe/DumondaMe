@@ -4,7 +4,7 @@ export const state = () => ({
 
 const setSubRegionSelected = function (region) {
     if (region.subRegions.find((subRegion) => subRegion.isSelected === true ||
-            subRegion.subRegionIsSelected === true)) {
+        subRegion.subRegionIsSelected === true)) {
         region.subRegionIsSelected = true;
         region.isSelected = false;
     } else {
@@ -40,6 +40,17 @@ const changeSelectOfRegion = function (regions, selectedRegion) {
     return false;
 };
 
+const changeSelection = function (state, selectedRegion) {
+    if (selectedRegion === 'international') {
+        disableSubRegions(state.regions);
+        let international = state.regions.find((topRegion) => topRegion.code === 'international');
+        international.isSelected = true;
+    } else {
+        state.regions.find((topRegion) => topRegion.code === 'international').isSelected = false;
+        changeSelectOfRegion(state.regions, selectedRegion);
+    }
+};
+
 export const mutations = {
     RESET: function (state) {
         state.regions = [];
@@ -47,15 +58,15 @@ export const mutations = {
     SET_REGIONS: function (state, regions) {
         state.regions = regions;
     },
-    SELECT_CHANGED: function (state, selectedRegion) {
-        if (selectedRegion === 'international') {
-            disableSubRegions(state.regions);
-            let international = state.regions.find((topRegion) => topRegion.code === 'international');
-            international.isSelected = true;
-        } else {
-            state.regions.find((topRegion) => topRegion.code === 'international').isSelected = false;
-            changeSelectOfRegion(state.regions, selectedRegion);
+    SET_SELECTED_REGIONS: function (state, selectedRegions) {
+        if (selectedRegions) {
+            for (let selectedRegion of selectedRegions) {
+                changeSelection(state, selectedRegion);
+            }
         }
+    },
+    SELECT_CHANGED: function (state, selectedRegion) {
+        changeSelection(state, selectedRegion);
     }
 };
 

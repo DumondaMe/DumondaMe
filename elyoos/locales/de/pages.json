@@ -85,6 +85,9 @@
     "modifyTopicDialog": {
       "title": "Themengebiete für '{{commitment}}' anpassen",
       "changeButton": "Themengebiete ändern"
+    },
+    "editRegionDialog": {
+      "title": "Regionen für {{- commitment}} anpassen"
     }
   },
   "question": {

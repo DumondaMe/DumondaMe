@@ -85,6 +85,9 @@
     "modifyTopicDialog": {
       "title": "Change topic for '{{commitment}}'",
       "changeButton": "Change Topic"
+    },
+    "editRegionDialog": {
+      "title": "Change Regions for {{- commitment}}"
     }
   },
   "question": {
@@ -229,7 +232,7 @@
       "upcoming": "Upcoming",
       "past": "Past",
       "at": "at",
-      "noUpComingEvents": "There will be no events in the near future..",
+      "noUpComingEvents": "There will be no events in the near future.",
       "noPastEvents": "No events have taken place yet.",
       "editEvent": "Edit Event",
       "editLocation": "Edit Address",

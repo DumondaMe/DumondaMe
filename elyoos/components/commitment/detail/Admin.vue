@@ -12,7 +12,7 @@
                         <v-list-tile @click="showModifyCommitmentDialog = true">
                             <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile @click="">
+                        <v-list-tile @click="showEditRegionDialog = true">
                             <v-list-tile-title>{{$t("common:region")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showModifyTopicDialog = true">
@@ -37,6 +37,11 @@
         <delete-commitment-dialog :commitment="commitment.title" :commitment-id="$route.params.commitmentId"
                                   v-if="showDeleteCommitmentDialog" @close-dialog="showDeleteCommitmentDialog = false">
         </delete-commitment-dialog>
+        <edit-region-dialog v-if="showEditRegionDialog" @close-dialog="showEditRegionDialog = false"
+                            :title-text="$t('pages:commitment.editRegionDialog.title', {commitment: commitmentTitle})"
+                            :existing-regions="commitment.regions" api="user/commitment/region/"
+                            :api-param="$route.params.commitmentId" @finish="regionsChanged">
+        </edit-region-dialog>
     </div>
 </template>
 
@@ -44,21 +49,32 @@
     import ModifyCommitmentDialog from '~/components/commitment/dialog/ModifyCommitmentDialog';
     import DeleteCommitmentDialog from '~/components/commitment/dialog/DeleteCommitmentDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
+    import EditRegionDialog from '~/components/region/dialog/EditRegionDialog';
 
     export default {
-        components: {ModifyCommitmentDialog, DeleteCommitmentDialog, ModifyTopicDialog},
+        components: {ModifyCommitmentDialog, DeleteCommitmentDialog, ModifyTopicDialog, EditRegionDialog},
         data() {
-            return {showModifyCommitmentDialog: false, showDeleteCommitmentDialog: false, showModifyTopicDialog: false}
+            return {
+                showModifyCommitmentDialog: false, showDeleteCommitmentDialog: false, showModifyTopicDialog: false,
+                showEditRegionDialog: false
+            }
         },
         computed: {
             commitment() {
                 return this.$store.state.commitment.commitment;
+            },
+            commitmentTitle() {
+                return `<span class="title-element-primary">${this.commitment.title}</span>`
             }
         },
         methods: {
             topicsChanged(topics) {
                 this.showModifyTopicDialog = false;
                 this.$store.commit('commitment/SET_TOPICS', topics);
+            },
+            regionsChanged(topics) {
+                this.showEditRegionDialog = false;
+                this.$store.commit('commitment/SET_REGIONS', topics);
             }
         }
     }

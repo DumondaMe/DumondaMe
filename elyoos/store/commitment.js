@@ -5,7 +5,7 @@ import {replaceProperties} from '~/utils/object/property.js';
 export const state = () => ({
     commitment: {
         title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
-        imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: []
+        imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: [], regions: []
     },
     isUpComingEvents: true,
     eventPage: 1
@@ -50,6 +50,9 @@ export const mutations = {
     },
     SET_TOPICS(state, topics) {
         state.commitment.topics = topics;
+    },
+    SET_REGIONS(state, regions) {
+        state.commitment.regions = regions;
     },
     ADD_QUESTION(state, question) {
         state.commitment.linkedWithQuestions.unshift(question);

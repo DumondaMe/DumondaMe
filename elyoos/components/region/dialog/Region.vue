@@ -15,7 +15,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish()" :loading="loading"
-                   :disabled="selectedRegions.length === 0 || loading">
+                   :disabled="selectedRegions.length === 0 || loading || !hasChanged">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -27,17 +27,26 @@
     import SelectRegionContainer from '~/components/region/select/RegionContainer';
 
     export default {
-        props: ['actionButtonText', 'description', 'loading'],
+        props: ['actionButtonText', 'description', 'loading', 'initSelectedRegions'],
         components: {SelectRegionContainer},
         data() {
             return {loadingRegions: false}
         },
         computed: {
+            hasChanged() {
+                if (this.initSelectedRegions && this.selectedRegions) {
+                    let initRegions = JSON.parse(JSON.stringify(this.initSelectedRegions));
+                    let selectedRegions = JSON.parse(JSON.stringify(this.selectedRegions));
+                    return JSON.stringify(initRegions.sort()) !== JSON.stringify(selectedRegions.sort());
+                }
+                return true;
+            },
             ...mapGetters({selectedRegions: 'selectRegions/getSelected', regions: 'selectRegions/getRegions'})
         },
         async mounted() {
             this.loadingRegions = true;
             await this.$store.dispatch('selectRegions/getRegions');
+            this.$store.commit('selectRegions/SET_SELECTED_REGIONS', this.initSelectedRegions);
             this.loadingRegions = false;
         },
         methods: {
