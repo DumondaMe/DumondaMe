@@ -100,6 +100,9 @@ export const actions = {
         commit('SET_COMMITMENT', resp);
         commit('SET_IS_UP_COMING_EVENTS', true);
     },
+    async deleteCommitment({commit, state}, commitmentId) {
+        await this.$axios.$delete(`user/commitment`, {params: {commitmentId}});
+    },
     async updateCommitment({commit, state}, {commitment, commitmentId, imageHasChanged}) {
         let commitmentToUpload = getCommitmentForUpload(commitment, imageHasChanged);
         if (imageHasChanged && commitment.imageUrl) {

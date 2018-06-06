@@ -244,6 +244,11 @@
       "editLocationDialog": {
         "title": "Edit location of event {{- title}}"
       }
+    },
+    "deleteDialog": {
+      "title": "Delete Commitment",
+      "description": "Do you really want to delete this commitment {{- commitment}}?",
+      "deleteCommitmentButton": "Yes, Delete Commitment"
     }
   },
   "detailUser": {

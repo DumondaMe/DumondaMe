@@ -34,17 +34,21 @@
                              :existing-topics="commitment.topics" api="user/commitment/topic/"
                              :api-param="$route.params.commitmentId">
         </modify-topic-dialog>
+        <delete-commitment-dialog :commitment="commitment.title" :commitment-id="$route.params.commitmentId"
+                                  v-if="showDeleteCommitmentDialog" @close-dialog="showDeleteCommitmentDialog = false">
+        </delete-commitment-dialog>
     </div>
 </template>
 
 <script>
     import ModifyCommitmentDialog from '~/components/commitment/dialog/ModifyCommitmentDialog';
+    import DeleteCommitmentDialog from '~/components/commitment/dialog/DeleteCommitmentDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
 
     export default {
-        components: {ModifyCommitmentDialog, ModifyTopicDialog},
+        components: {ModifyCommitmentDialog, DeleteCommitmentDialog, ModifyTopicDialog},
         data() {
-            return {showModifyCommitmentDialog: false, showModifyTopicDialog: false}
+            return {showModifyCommitmentDialog: false, showDeleteCommitmentDialog: false, showModifyTopicDialog: false}
         },
         computed: {
             commitment() {

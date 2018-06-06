@@ -249,6 +249,11 @@
       "editLocationDialog": {
         "title": "Addresse der Veranstaltung {{- title}} bearbeiten "
       }
+    },
+    "deleteDialog": {
+      "title": "Engagement löschen",
+      "description": "Willst du das Engagement {{- commitment}} wirklich löschen?",
+      "deleteCommitmentButton": "Ja, Engagement löschen"
     }
   },
   "detailUser": {
