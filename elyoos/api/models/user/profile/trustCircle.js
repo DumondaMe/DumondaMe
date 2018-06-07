@@ -16,22 +16,16 @@ let getPeopleOfTrustWithPrivacyCommand = function (invisible) {
                (contact.privacyMode = 'onlyContact' AND (contact)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
 };
 
-let numberOfInvisibleContacts = function (userId, userDetailId) {
+let numberOfInvisiblePeopleInTrustCircle = function (userId, userDetailId) {
     return getPeopleOfTrustWithPrivacyCommand(true)
-        .return('count(*) AS numberOfInvisibleContacts')
+        .return('count(*) AS numberOfInvisiblePeopleOfTrust')
         .end({userId, userDetailId});
 };
 
 let numberOfPeopleInTrustCircle = function (userId, userDetailId) {
     return getPeopleOfTrustWithPrivacyCommand(false)
-        .return('count(*) AS numberOfContacts')
+        .return('count(*) AS numberOfPeopleOfTrust')
         .end({userId, userDetailId});
-};
-
-let numberOfSamePeopleInTrustCircle = function (userId, contactId) {
-    return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})')
-        .return('count(*) AS numberOfSameContacts')
-        .end({contactId: contactId, userId: userId});
 };
 
 let getTrustCircleCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
@@ -47,20 +41,20 @@ let getTrustCircleCommand = function (userId, userDetailId, contactsPerPage, ski
 let getTrustCircle = async function (userId, userDetailId, contactsPerPage, skipContacts) {
     let peopleOfTrust = await getTrustCircleCommand(userId, userDetailId, contactsPerPage, skipContacts).send([
             numberOfPeopleInTrustCircle(userId, userDetailId).getCommand(),
-            numberOfInvisibleContacts(userId, userDetailId).getCommand()
+            numberOfInvisiblePeopleInTrustCircle(userId, userDetailId).getCommand()
         ]
     );
     await userInfo.addImageForThumbnail(peopleOfTrust[2]);
     return {
-        peopleOfTrust: peopleOfTrust[2], numberOfPeopleOfTrust: peopleOfTrust[0][0].numberOfContacts,
-        numberOfInvisiblePeopleOfTrust: peopleOfTrust[1][0].numberOfInvisibleContacts
+        peopleOfTrust: peopleOfTrust[2], numberOfPeopleOfTrust: peopleOfTrust[0][0].numberOfPeopleOfTrust,
+        numberOfInvisiblePeopleOfTrust: peopleOfTrust[1][0].numberOfInvisiblePeopleOfTrust
     };
 };
 
 
 module.exports = {
     numberOfPeopleInTrustCircle,
-    numberOfSamePeopleInTrustCircle,
+    numberOfInvisiblePeopleInTrustCircle,
     getTrustCircleCommand,
     getTrustCircle
 };

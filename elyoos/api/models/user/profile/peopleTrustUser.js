@@ -2,13 +2,23 @@
 
 let db = requireDb();
 let userInfo = require('../userInfo');
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let numberOfPeopleTrustUser = function (userId) {
-    return db.cypher().match('(:User {userId: {userId}})<-[:IS_CONTACT]-(:User)')
+let numberOfPeopleTrustUser = function (userId, userDetailId) {
+    return db.cypher().match('(:User {userId: {userDetailId}})<-[:IS_CONTACT]-(user:User)')
+        .where(`user.privacyMode = 'public' OR user.userId = {userId} OR 
+               (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
+               (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))`)
         .return('count(*) AS numberOfPeopleTrustUser')
-        .end({userId});
+        .end({userId, userDetailId});
+};
+
+let numberOfInvisiblePeopleTrustUser = function (userId, userDetailId) {
+    return db.cypher().match('(:User {userId: {userDetailId}})<-[:IS_CONTACT]-(user:User)')
+        .where(`NOT (user.privacyMode = 'public' OR
+               (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
+               (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
+        .return('count(*) AS numberOfInvisiblePeopleTrustUser')
+        .end({userId, userDetailId});
 };
 
 let getPeopleTrustUserCommand = function (userId, userDetailId, personPerPage, skipPeople) {
@@ -33,6 +43,7 @@ let getPeopleTrustUser = async function (userId, userDetailId, contactsPerPage, 
 
 module.exports = {
     numberOfPeopleTrustUser,
+    numberOfInvisiblePeopleTrustUser,
     getPeopleTrustUserCommand,
     getPeopleTrustUser
 };

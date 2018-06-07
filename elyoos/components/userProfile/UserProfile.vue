@@ -13,12 +13,12 @@
             <div id="profile-info-container">
                 <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
                 <div class="user-status-info in-circle"
-                     v-if="isAuthenticated && !isLoggedInUser && user.isContactOfLoggedInUser">
+                     v-if="isAuthenticated && !isLoggedInUser && user.isPersonOfTrustOfLoggedInUser">
                     <v-icon>mdi-account-circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.inYourCircle")}}
                 </div>
                 <div class="user-status-info"
-                     v-else-if="isAuthenticated && !isLoggedInUser && !user.isContactOfLoggedInUser">
+                     v-else-if="isAuthenticated && !isLoggedInUser && !user.isPersonOfTrustOfLoggedInUser">
                     <v-icon>mdi-account-circle</v-icon>
                     {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
                 </div>
@@ -31,7 +31,7 @@
         </div>
         <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
             <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
-                   v-if="user.isContactOfLoggedInUser">
+                   v-if="user.isPersonOfTrustOfLoggedInUser">
                 <v-icon left dark>mdi-check</v-icon>
                 {{$t("common:trustCircle")}}
             </v-btn>

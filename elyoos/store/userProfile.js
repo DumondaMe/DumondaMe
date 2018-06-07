@@ -19,12 +19,12 @@ export const mutations = {
     },
     REMOVE_USER_FROM_TRUST_CIRCLE: function (state, userId) {
         if (state.user.userId === userId) {
-            state.user.loggedInUserIsPersonOfTrust = false;
+            state.user.isPersonOfTrustOfLoggedInUser = false;
         } else {
             let user = state.user.peopleOfTrust.find((contact) => contact.userId === userId);
             if (user) {
                 delete user.personOfTrustSince;
-                user.loggedInUserIsPersonOfTrust = false;
+                user.isPersonOfTrust = false;
                 if (state.user.isLoggedInUser) {
                     state.user.numberOfPeopleOfTrust--;
                 }
@@ -33,12 +33,12 @@ export const mutations = {
     },
     ADD_USER_TO_TRUST_CIRCLE: function (state, userToAdd) {
         if (state.user.userId === userToAdd.userId) {
-            state.user.loggedInUserIsPersonOfTrust = true;
+            state.user.isPersonOfTrustOfLoggedInUser = true;
         } else {
             let user = state.user.peopleOfTrust.find((contact) => contact.userId === userToAdd.userId);
             if (user) {
                 user.personOfTrustSince = userToAdd.personOfTrustSince;
-                user.loggedInUserIsPersonOfTrust = true;
+                user.isPersonOfTrust = true;
                 if (state.user.isLoggedInUser) {
                     state.user.numberOfPeopleOfTrust++;
                 }

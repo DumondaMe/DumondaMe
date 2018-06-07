@@ -11,11 +11,11 @@
             </div>
             <div class="user-info" v-if="isAuthenticated">
                 <v-tooltip bottom debounce="1500">
-                    <v-icon :class="{'out-of-trust-circle': !user.loggedInUserIsPersonOfTrust, 'in-trust-circle': user.loggedInUserIsPersonOfTrust}"
+                    <v-icon :class="{'out-of-trust-circle': !user.isPersonOfTrust, 'in-trust-circle': user.isPersonOfTrust}"
                             slot="activator">
                         mdi-account-circle
                     </v-icon>
-                    <span v-if="user.loggedInUserIsPersonOfTrust">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
+                    <span v-if="user.isPersonOfTrust">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
                     <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
                 </v-tooltip>
                 <span v-if="isLoggedInUser && user.personOfTrustSince">
@@ -28,7 +28,7 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile v-if="user.loggedInUserIsPersonOfTrust"
+                    <v-list-tile v-if="user.isPersonOfTrust"
                                  @click="removeUserFromTrustCircle(user.userId)">
                         <v-list-tile-title>{{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
                         </v-list-tile-title>
@@ -44,7 +44,7 @@
             </v-menu>
         </div>
         <div class="user-settings" v-if="isAuthenticated">
-            <v-btn small outline color="primary" v-if="user.loggedInUserIsPersonOfTrust"
+            <v-btn small outline color="primary" v-if="user.isPersonOfTrust"
                    @click="removeUserFromTrustCircle(user.userId)">
                 <v-icon left>mdi-check</v-icon> Trust Circle</v-btn>
             <v-btn small outline color="primary" v-else

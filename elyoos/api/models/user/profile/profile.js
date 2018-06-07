@@ -29,8 +29,10 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     userIdOfProfile = userIdOfProfile || userId;
     let commands = [];
     commands.push(trustCircle.numberOfPeopleInTrustCircle(userId, userIdOfProfile).getCommand());
+    commands.push(trustCircle.numberOfInvisiblePeopleInTrustCircle(userId, userIdOfProfile).getCommand());
     commands.push(trustCircle.getTrustCircleCommand(userId, userIdOfProfile, 10, 0).getCommand());
-    commands.push(peopleTrustUser.numberOfPeopleTrustUser(userIdOfProfile).getCommand());
+    commands.push(peopleTrustUser.numberOfPeopleTrustUser(userId, userIdOfProfile).getCommand());
+    commands.push(peopleTrustUser.numberOfInvisiblePeopleTrustUser(userId, userIdOfProfile).getCommand());
     commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 10, 0).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
@@ -40,16 +42,21 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
-    if (resp[4].length === 1) {
-        let profile = resp[4][0];
+    if (resp[6].length === 1) {
+        let profile = resp[6][0];
         profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
-        profile.numberOfPeopleOfTrust = resp[0][0].numberOfContacts;
+
+        profile.numberOfPeopleOfTrust = resp[0][0].numberOfPeopleOfTrust;
+        profile.numberOfInvisiblePeopleOfTrust = resp[1][0].numberOfInvisiblePeopleOfTrust;
+        profile.peopleOfTrust = resp[2];
+        await userInfo.addImageForThumbnail(resp[2]);
+
+        profile.numberOfPeopleTrustUser = resp[3][0].numberOfPeopleTrustUser;
+        profile.numberOfInvisiblePeopleTrustUser = resp[4][0].numberOfInvisiblePeopleTrustUser;
+        profile.peopleTrustUser = resp[5];
+        await userInfo.addImageForThumbnail(resp[5]);
+
         profile.isLoggedInUser = userId === userIdOfProfile;
-        await userInfo.addImageForThumbnail(resp[1]);
-        await userInfo.addImageForThumbnail(resp[3]);
-        profile.peopleOfTrust = resp[1];
-        profile.numberOfPeopleTrustUser = resp[2][0].numberOfPeopleTrustUser;
-        profile.peopleTrustUser = resp[3];
         addSlugToPeople(profile.peopleOfTrust);
         addSlugToPeople(profile.peopleTrustUser);
         return profile;

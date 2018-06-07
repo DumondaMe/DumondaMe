@@ -116,8 +116,12 @@ describe('Getting user profile data', function () {
     it('Get profile data of a user (Not logged in)', async function () {
         dbDsl.createContactConnection('2', '3');
         dbDsl.createContactConnection('2', '4');
+        dbDsl.createContactConnection('2', '6');
 
         dbDsl.createContactConnection('7', '2');
+        dbDsl.createContactConnection('8', '2');
+        dbDsl.setUserPrivacy('8', {privacyMode: 'onlyContact'});
+        dbDsl.setUserPrivacy('6', {privacyMode: 'onlyContact'});
 
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/user/profile', {userId: '2'});
@@ -130,7 +134,9 @@ describe('Getting user profile data', function () {
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/2/profile.jpg');
         res.body.numberOfPeopleOfTrust.should.equal(2);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
         res.body.numberOfPeopleTrustUser.should.equal(1);
+        res.body.numberOfInvisiblePeopleTrustUser.should.equal(1);
 
         res.body.peopleOfTrust.length.should.equal(2);
         res.body.peopleOfTrust[0].userId.should.equal('3');
