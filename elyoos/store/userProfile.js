@@ -64,11 +64,11 @@ export const actions = {
         commit('SET_USER_PROFILE', user);
     },
     async addUserToTrustCircle({commit}, userId) {
-        let response = await this.$axios.$post(`user/otherUser/${userId}`);
+        let response = await this.$axios.$post(`user/trustCircle/${userId}`);
         commit('ADD_USER_TO_TRUST_CIRCLE', {userId, isContactSince: response.isContactSince});
     },
     async removeUserFromTrustCircle({commit}, userId) {
-        await this.$axios.$delete(`user/otherUser/${userId}`);
+        await this.$axios.$delete(`user/trustCircle/${userId}`);
         commit('REMOVE_USER_FROM_TRUST_CIRCLE', userId);
     },
     async uploadUserData({commit}, userProfile) {
