@@ -32,12 +32,12 @@ describe('Get other users from the trust circle of a user', function () {
         res.body.peopleOfTrust.length.should.equal(2);
         res.body.peopleOfTrust[0].userId.should.equal("3");
         res.body.peopleOfTrust[0].name.should.equal("user Meier3");
-        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(false);
         res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.peopleOfTrust[1].userId.should.equal("4");
         res.body.peopleOfTrust[1].name.should.equal("user Meier4");
-        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[1].isPersonOfTrust.should.equal(true);
         res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
         res.body.numberOfPeopleOfTrust.should.equal(2);
@@ -59,7 +59,7 @@ describe('Get other users from the trust circle of a user', function () {
         res.body.peopleOfTrust.length.should.equal(1);
         res.body.peopleOfTrust[0].userId.should.equal("3");
         res.body.peopleOfTrust[0].name.should.equal("user Meier3");
-        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(false);
         res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.numberOfPeopleOfTrust.should.equal(1);
@@ -121,13 +121,13 @@ describe('Get other users from the trust circle of a user', function () {
         res.body.peopleOfTrust[0].userId.should.equal("3");
         res.body.peopleOfTrust[0].name.should.equal("user Meier3");
         res.body.peopleOfTrust[0].personOfTrustSince.should.equal(666);
-        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(true);
         res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.peopleOfTrust[1].userId.should.equal("4");
         res.body.peopleOfTrust[1].name.should.equal("user Meier4");
         res.body.peopleOfTrust[1].personOfTrustSince.should.equal(777);
-        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[1].isPersonOfTrust.should.equal(true);
         res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
         res.body.numberOfPeopleOfTrust.should.equal(2);
@@ -150,7 +150,7 @@ describe('Get other users from the trust circle of a user', function () {
         res.body.peopleOfTrust[0].userId.should.equal("3");
         res.body.peopleOfTrust[0].name.should.equal("user Meier3");
         res.body.peopleOfTrust[0].personOfTrustSince.should.equal(666);
-        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(true);
         res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.numberOfPeopleOfTrust.should.equal(1);
@@ -192,12 +192,12 @@ describe('Get other users from the trust circle of a user', function () {
         res.body.peopleOfTrust.length.should.equal(2);
         res.body.peopleOfTrust[0].userId.should.equal("3");
         res.body.peopleOfTrust[0].name.should.equal("user Meier3");
-        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(false);
         res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
         res.body.peopleOfTrust[1].userId.should.equal("4");
         res.body.peopleOfTrust[1].name.should.equal("user Meier4");
-        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[1].isPersonOfTrust.should.equal(false);
         res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
         res.body.numberOfPeopleOfTrust.should.equal(2);
