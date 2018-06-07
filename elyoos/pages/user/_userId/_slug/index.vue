@@ -14,7 +14,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail.vue';
     import UserProfile from '~/components/userProfile/UserProfile.vue';
-    import UserTrustCircle from '~/components/userProfile/TrustCircle/UserTrustCircle.vue';
+    import UserTrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
 
     export default {
         async fetch({params, store, error}) {
