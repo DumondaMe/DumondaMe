@@ -35,16 +35,16 @@ let getUserProfile = async function (userId, userIdOfProfile) {
                 (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
                 (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
         .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
-                 EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isContactOfLoggedInUser`)
+                 EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[2].length === 1) {
         let profile = resp[2][0];
         profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
-        profile.numberOfContacts = resp[0][0].numberOfContacts;
+        profile.numberOfPeopleOfTrust = resp[0][0].numberOfContacts;
         profile.isLoggedInUser = userId === userIdOfProfile;
         await userInfo.addImageForThumbnail(resp[1]);
-        profile.contacts = resp[1];
-        addSlugToPeopleOfTrust(profile.contacts);
+        profile.peopleOfTrust = resp[1];
+        addSlugToPeopleOfTrust(profile.peopleOfTrust);
         return profile;
     }
     throw new Error('401');

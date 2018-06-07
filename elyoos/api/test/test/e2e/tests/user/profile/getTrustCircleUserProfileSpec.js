@@ -29,19 +29,19 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '2', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(2);
-        res.body.contacts[0].userId.should.equal("3");
-        res.body.contacts[0].name.should.equal("user Meier3");
-        res.body.contacts[0].isContactOfLoggedInUser.should.equal(false);
-        res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
+        res.body.peopleOfTrust.length.should.equal(2);
+        res.body.peopleOfTrust[0].userId.should.equal("3");
+        res.body.peopleOfTrust[0].name.should.equal("user Meier3");
+        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
-        res.body.contacts[1].userId.should.equal("4");
-        res.body.contacts[1].name.should.equal("user Meier4");
-        res.body.contacts[1].isContactOfLoggedInUser.should.equal(true);
-        res.body.contacts[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
+        res.body.peopleOfTrust[1].userId.should.equal("4");
+        res.body.peopleOfTrust[1].name.should.equal("user Meier4");
+        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
-        res.body.numberOfContacts.should.equal(2);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(2);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of another user (User profile visible for Elyoos accounts)', async function () {
@@ -56,14 +56,14 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '2', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(1);
-        res.body.contacts[0].userId.should.equal("3");
-        res.body.contacts[0].name.should.equal("user Meier3");
-        res.body.contacts[0].isContactOfLoggedInUser.should.equal(false);
-        res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
+        res.body.peopleOfTrust.length.should.equal(1);
+        res.body.peopleOfTrust[0].userId.should.equal("3");
+        res.body.peopleOfTrust[0].name.should.equal("user Meier3");
+        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
-        res.body.numberOfContacts.should.equal(1);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(1);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of another user (Contact profile only visible for persons of trust)', async function () {
@@ -78,10 +78,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '2', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(1);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
     });
 
     it('Get all users in the trust circle of another user (User profile only visible for persons of trust)', async function () {
@@ -96,10 +96,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '2', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of logged in user (all public)', async function () {
@@ -117,21 +117,21 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(2);
-        res.body.contacts[0].userId.should.equal("3");
-        res.body.contacts[0].name.should.equal("user Meier3");
-        res.body.contacts[0].isContactSince.should.equal(666);
-        res.body.contacts[0].isContactOfLoggedInUser.should.equal(true);
-        res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
+        res.body.peopleOfTrust.length.should.equal(2);
+        res.body.peopleOfTrust[0].userId.should.equal("3");
+        res.body.peopleOfTrust[0].name.should.equal("user Meier3");
+        res.body.peopleOfTrust[0].personOfTrustSince.should.equal(666);
+        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
-        res.body.contacts[1].userId.should.equal("4");
-        res.body.contacts[1].name.should.equal("user Meier4");
-        res.body.contacts[1].isContactSince.should.equal(777);
-        res.body.contacts[1].isContactOfLoggedInUser.should.equal(true);
-        res.body.contacts[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
+        res.body.peopleOfTrust[1].userId.should.equal("4");
+        res.body.peopleOfTrust[1].name.should.equal("user Meier4");
+        res.body.peopleOfTrust[1].personOfTrustSince.should.equal(777);
+        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
-        res.body.numberOfContacts.should.equal(2);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(2);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of logged in user (User profile visible for Elyoos accounts)', async function () {
@@ -146,15 +146,15 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(1);
-        res.body.contacts[0].userId.should.equal("3");
-        res.body.contacts[0].name.should.equal("user Meier3");
-        res.body.contacts[0].isContactSince.should.equal(666);
-        res.body.contacts[0].isContactOfLoggedInUser.should.equal(true);
-        res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
+        res.body.peopleOfTrust.length.should.equal(1);
+        res.body.peopleOfTrust[0].userId.should.equal("3");
+        res.body.peopleOfTrust[0].name.should.equal("user Meier3");
+        res.body.peopleOfTrust[0].personOfTrustSince.should.equal(666);
+        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
-        res.body.numberOfContacts.should.equal(1);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(1);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of logged in user (Contact profile only visible for persons of trust)', async function () {
@@ -169,10 +169,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(1);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
     });
 
     it('Get all users in the trust circle of a user requested with a public user (all public)', async function () {
@@ -189,19 +189,19 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(2);
-        res.body.contacts[0].userId.should.equal("3");
-        res.body.contacts[0].name.should.equal("user Meier3");
-        res.body.contacts[0].isContactOfLoggedInUser.should.equal(false);
-        res.body.contacts[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
+        res.body.peopleOfTrust.length.should.equal(2);
+        res.body.peopleOfTrust[0].userId.should.equal("3");
+        res.body.peopleOfTrust[0].name.should.equal("user Meier3");
+        res.body.peopleOfTrust[0].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
 
-        res.body.contacts[1].userId.should.equal("4");
-        res.body.contacts[1].name.should.equal("user Meier4");
-        res.body.contacts[1].isContactOfLoggedInUser.should.equal(false);
-        res.body.contacts[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
+        res.body.peopleOfTrust[1].userId.should.equal("4");
+        res.body.peopleOfTrust[1].name.should.equal("user Meier4");
+        res.body.peopleOfTrust[1].loggedInUserIsPersonOfTrust.should.equal(false);
+        res.body.peopleOfTrust[1].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
 
-        res.body.numberOfContacts.should.equal(2);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(2);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of a user requested with a public user (Contact profile only visible for Elyoos accounts)', async function () {
@@ -215,10 +215,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(1);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
     });
 
     it('Get all users in the trust circle of a user requested with a public user (User profile only visible for Elyoos accounts)', async function () {
@@ -232,10 +232,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 
     it('Get all users in the trust circle of a user requested with a public user (Contact profile only visible for persons of trust)', async function () {
@@ -249,10 +249,10 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(1);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
     });
 
     it('Get all users in the trust circle of a user requested with a public user (User profile only visible for persons of trust)', async function () {
@@ -266,9 +266,9 @@ describe('Get other users from the trust circle of a user', function () {
             userId: '1', maxItems: 10, skip: 0
         });
         res.status.should.equal(200);
-        res.body.contacts.length.should.equal(0);
+        res.body.peopleOfTrust.length.should.equal(0);
 
-        res.body.numberOfContacts.should.equal(0);
-        res.body.numberOfInvisibleContacts.should.equal(0);
+        res.body.numberOfPeopleOfTrust.should.equal(0);
+        res.body.numberOfInvisiblePeopleOfTrust.should.equal(0);
     });
 });

@@ -36,8 +36,8 @@ let numberOfSamePeopleInTrustCircle = function (userId, contactId) {
 
 let getTrustCircleCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
     return getPeopleOfTrustWithPrivacyCommand(false)
-        .return(`contact.name AS name, contact.userId AS userId, isContactRel.contactAdded AS isContactSince,
-                 EXISTS((contact)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isContactOfLoggedInUser`)
+        .return(`contact.name AS name, contact.userId AS userId, isContactRel.contactAdded AS personOfTrustSince,
+                 EXISTS((contact)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS loggedInUserIsPersonOfTrust`)
         .orderBy(`name`)
         .skip(`{skipContacts}`)
         .limit(`{contactsPerPage}`)
@@ -45,15 +45,15 @@ let getTrustCircleCommand = function (userId, userDetailId, contactsPerPage, ski
 };
 
 let getTrustCircle = async function (userId, userDetailId, contactsPerPage, skipContacts) {
-    let contacts = await getTrustCircleCommand(userId, userDetailId, contactsPerPage, skipContacts).send([
+    let peopleOfTrust = await getTrustCircleCommand(userId, userDetailId, contactsPerPage, skipContacts).send([
             numberOfPeopleInTrustCircle(userId, userDetailId).getCommand(),
             numberOfInvisibleContacts(userId, userDetailId).getCommand()
         ]
     );
-    await userInfo.addImageForThumbnail(contacts[2]);
+    await userInfo.addImageForThumbnail(peopleOfTrust[2]);
     return {
-        contacts: contacts[2], numberOfContacts: contacts[0][0].numberOfContacts,
-        numberOfInvisibleContacts: contacts[1][0].numberOfInvisibleContacts
+        peopleOfTrust: peopleOfTrust[2], numberOfPeopleOfTrust: peopleOfTrust[0][0].numberOfContacts,
+        numberOfInvisiblePeopleOfTrust: peopleOfTrust[1][0].numberOfInvisibleContacts
     };
 };
 
