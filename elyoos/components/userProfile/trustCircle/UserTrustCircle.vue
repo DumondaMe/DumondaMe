@@ -3,17 +3,18 @@
         <h3>{{$t("pages:detailUser.trustCircle.title")}}</h3>
         <div class="general-user-info">
             <span v-if="user.isLoggedInUser">
-                {{$t("pages:detailUser.trustCircle.loggedInUserInfo", {count: user.numberOfContacts})}}
+                {{$t("pages:detailUser.trustCircle.loggedInUserInfo", {count: user.numberOfPeopleOfTrust})}}
             </span>
             <span v-else>
-                {{$t("pages:detailUser.trustCircle.otherUserInfo", {count: user.numberOfContacts})}}
+                {{$t("pages:detailUser.trustCircle.otherUserInfo", {count: user.numberOfPeopleOfTrust})}}
             </span>
         </div>
-        <div class="user-info" v-for="contact in user.contacts">
-            <trust-circle-user :contact="contact">
+        <div class="user-info" v-for="personOfTrust in user.peopleOfTrust">
+            <trust-circle-user :user="personOfTrust">
             </trust-circle-user>
         </div>
-        <v-btn outline color="primary" @click="loadNextContacts()" v-if="user.contacts.length < user.numberOfContacts">
+        <v-btn outline color="primary" @click="loadNextPeopleOfTrust()"
+               v-if="user.peopleOfTrust.length < user.numberOfPeopleOfTrust">
             {{$t("common:button.showMore")}}
         </v-btn>
     </div>
@@ -25,25 +26,13 @@
     export default {
         components: {TrustCircleUser},
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
             user() {
                 return this.$store.state.userProfile.user;
             }
         },
         methods: {
-            getDate(date) {
-                return this.$options.filters.formatDateOnly(date);
-            },
-            async loadNextContacts() {
+            async loadNextPeopleOfTrust() {
 
-            },
-            addUserToTrustCircle(userId) {
-                this.$store.dispatch('userProfile/addUserToTrustCircle', userId);
-            },
-            removeUserFromTrustCircle(userId) {
-                this.$store.dispatch(`userProfile/removeUserFromTrustCircle`, userId);
             }
         }
     }

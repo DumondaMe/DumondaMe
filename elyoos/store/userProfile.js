@@ -19,28 +19,28 @@ export const mutations = {
     },
     REMOVE_USER_FROM_TRUST_CIRCLE: function (state, userId) {
         if (state.user.userId === userId) {
-            state.user.isContactOfLoggedInUser = false;
+            state.user.loggedInUserIsPersonOfTrust = false;
         } else {
-            let user = state.user.contacts.find((contact) => contact.userId === userId);
+            let user = state.user.peopleOfTrust.find((contact) => contact.userId === userId);
             if (user) {
-                delete user.isContactSince;
-                user.isContactOfLoggedInUser = false;
+                delete user.personOfTrustSince;
+                user.loggedInUserIsPersonOfTrust = false;
                 if (state.user.isLoggedInUser) {
-                    state.user.numberOfContacts--;
+                    state.user.numberOfPeopleOfTrust--;
                 }
             }
         }
     },
     ADD_USER_TO_TRUST_CIRCLE: function (state, userToAdd) {
         if (state.user.userId === userToAdd.userId) {
-            state.user.isContactOfLoggedInUser = true;
+            state.user.loggedInUserIsPersonOfTrust = true;
         } else {
-            let user = state.user.contacts.find((contact) => contact.userId === userToAdd.userId);
+            let user = state.user.peopleOfTrust.find((contact) => contact.userId === userToAdd.userId);
             if (user) {
-                user.isContactSince = userToAdd.isContactSince;
-                user.isContactOfLoggedInUser = true;
+                user.personOfTrustSince = userToAdd.personOfTrustSince;
+                user.loggedInUserIsPersonOfTrust = true;
                 if (state.user.isLoggedInUser) {
-                    state.user.numberOfContacts++;
+                    state.user.numberOfPeopleOfTrust++;
                 }
             }
         }
@@ -65,7 +65,7 @@ export const actions = {
     },
     async addUserToTrustCircle({commit}, userId) {
         let response = await this.$axios.$post(`user/trustCircle/${userId}`);
-        commit('ADD_USER_TO_TRUST_CIRCLE', {userId, isContactSince: response.isContactSince});
+        commit('ADD_USER_TO_TRUST_CIRCLE', {userId, personOfTrustSince: response.personOfTrustSince});
     },
     async removeUserFromTrustCircle({commit}, userId) {
         await this.$axios.$delete(`user/trustCircle/${userId}`);

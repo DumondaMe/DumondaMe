@@ -29,12 +29,12 @@ describe('Handling person of trust relationship', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/trustCircle/5');
         res.status.should.equal(200);
-        res.body.isContactSince.should.least(startTime);
+        res.body.personOfTrustSince.should.least(startTime);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
             .return('r.contactAdded as contactAdded')
             .end().send();
         user.length.should.equals(1);
-        user[0].contactAdded.should.equals(res.body.isContactSince);
+        user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
         (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
@@ -57,12 +57,12 @@ describe('Handling person of trust relationship', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/trustCircle/5');
         res.status.should.equal(200);
-        res.body.isContactSince.should.least(startTime);
+        res.body.personOfTrustSince.should.least(startTime);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
             .return('r.contactAdded as contactAdded')
             .end().send();
         user.length.should.equals(1);
-        user[0].contactAdded.should.equals(res.body.isContactSince);
+        user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
         (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)

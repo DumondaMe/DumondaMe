@@ -1,25 +1,25 @@
 <template>
     <div class="trust-circle-user-info">
         <div class="image-container" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: contact.userId, slug: contact.slug}})">
-            <img :src="contact.profileUrl">
+                     params: {userId: user.userId, slug: user.slug}})">
+            <img :src="user.profileUrl">
         </div>
         <div class="user-info-container">
             <div class="user-name"
                  @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: contact.userId, slug: contact.slug}})">{{contact.name}}
+                     params: {userId: user.userId, slug: user.slug}})">{{user.name}}
             </div>
             <div class="user-info" v-if="isAuthenticated">
                 <v-tooltip bottom debounce="1500">
-                    <v-icon :class="{'out-of-trust-circle': !contact.isContactOfLoggedInUser, 'in-trust-circle': contact.isContactOfLoggedInUser}"
+                    <v-icon :class="{'out-of-trust-circle': !user.loggedInUserIsPersonOfTrust, 'in-trust-circle': user.loggedInUserIsPersonOfTrust}"
                             slot="activator">
                         mdi-account-circle
                     </v-icon>
-                    <span v-if="contact.isContactOfLoggedInUser">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
+                    <span v-if="user.loggedInUserIsPersonOfTrust">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
                     <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
                 </v-tooltip>
-                <span v-if="user.isLoggedInUser && contact.isContactSince">
-                        {{$t("pages:detailUser.trustCircle.since", {date: getDate(contact.isContactSince)})}}</span>
+                <span v-if="isLoggedInUser && user.personOfTrustSince">
+                        {{$t("pages:detailUser.trustCircle.since", {date: getDate(user.personOfTrustSince)})}}</span>
             </div>
         </div>
         <div class="user-settings-menu" v-if="isAuthenticated">
@@ -28,12 +28,12 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile v-if="contact.isContactOfLoggedInUser"
-                                 @click="removeUserFromTrustCircle(contact.userId)">
+                    <v-list-tile v-if="user.loggedInUserIsPersonOfTrust"
+                                 @click="removeUserFromTrustCircle(user.userId)">
                         <v-list-tile-title>{{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
                         </v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile v-else @click="addUserToTrustCircle(contact.userId)">
+                    <v-list-tile v-else @click="addUserToTrustCircle(user.userId)">
                         <v-list-tile-title>{{$t("pages:detailUser.trustCircle.addToYourCircle")}}
                         </v-list-tile-title>
                     </v-list-tile>
@@ -44,11 +44,11 @@
             </v-menu>
         </div>
         <div class="user-settings" v-if="isAuthenticated">
-            <v-btn small outline color="primary" v-if="contact.isContactOfLoggedInUser"
-                   @click="removeUserFromTrustCircle(contact.userId)">
+            <v-btn small outline color="primary" v-if="user.loggedInUserIsPersonOfTrust"
+                   @click="removeUserFromTrustCircle(user.userId)">
                 <v-icon left>mdi-check</v-icon> Trust Circle</v-btn>
             <v-btn small outline color="primary" v-else
-                   @click="addUserToTrustCircle(contact.userId)">
+                   @click="addUserToTrustCircle(user.userId)">
                 <v-icon left>mdi-account-plus</v-icon> Trust Circle</v-btn>
         </div>
     </div>
@@ -56,13 +56,13 @@
 
 <script>
     export default {
-        props: ['contact'],
+        props: ['user'],
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
             },
-            user() {
-                return this.$store.state.userProfile.user;
+            isLoggedInUser() {
+                return this.$store.state.userProfile.user.isLoggedInUser;
             }
         },
         methods: {

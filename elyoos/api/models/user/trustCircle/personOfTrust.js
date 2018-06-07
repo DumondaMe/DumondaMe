@@ -52,7 +52,7 @@ let addPersonToTrustCircle = async function (userId, contactId) {
     commands.push(addUserAddedToTrustCircleNotificationNotExists(userId, contactId, timeAddedContact));
 
     await removeInvitation(userId, contactId).send(commands);
-    return {isContactSince: timeAddedContact};
+    return {personOfTrustSince: timeAddedContact};
 };
 
 let removeUserAddedToTrustCircleNotification = function (userId, contactId) {
