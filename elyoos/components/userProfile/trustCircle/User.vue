@@ -43,14 +43,6 @@
                 </v-list>
             </v-menu>
         </div>
-        <div class="user-settings" v-if="isAuthenticated && !user.isLoggedInUser">
-            <v-btn small outline color="primary" v-if="user.isPersonOfTrust"
-                   @click="removeUserFromTrustCircle(user.userId)">
-                <v-icon left>mdi-check</v-icon> Trust Circle</v-btn>
-            <v-btn small outline color="primary" v-else
-                   @click="addUserToTrustCircle(user.userId)">
-                <v-icon left>mdi-account-plus</v-icon> Trust Circle</v-btn>
-        </div>
     </div>
 </template>
 
@@ -130,9 +122,7 @@
             }
         }
         .user-settings-menu {
-            @media screen and (min-width: 600px) {
-                display: none;
-            }
+
             button {
                 margin-right: 0;
                 i.icon {
@@ -140,18 +130,5 @@
                 }
             }
         }
-        .user-settings {
-            @media screen and (max-width: 600px) {
-                display: none;
-            }
-            button {
-                margin-top: 10px;
-                margin-right: 0;
-                i.icon {
-                    font-size: 20px;
-                }
-            }
-        }
-
     }
 </style>

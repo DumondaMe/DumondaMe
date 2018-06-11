@@ -1,49 +1,35 @@
 <template>
     <div id="elyoos-user-profile">
-        <div id="elyoos-user-profile-content">
-            <div id="elyoos-user-image-container">
-                <img :src="user.profileImage"/>
-                <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
-                       @change="handleImageChange"/>
-                <v-btn id="button-change-image" color="primary" @click="openUploadImage()"
-                       v-if="isLoggedInUser">
-                    {{$t("common:button.uploadImage")}}
-                </v-btn>
+        <div id="profile-info-container">
+            <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
+            <div class="user-status-info in-circle"
+                 v-if="isAuthenticated && !isLoggedInUser && user.isPersonOfTrustOfLoggedInUser">
+                <v-icon>mdi-account-circle</v-icon>
+                {{$t("pages:detailUser.trustCircle.inYourCircle")}}
             </div>
-            <div id="profile-info-container">
-                <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
-                <div class="user-status-info in-circle"
-                     v-if="isAuthenticated && !isLoggedInUser && user.isPersonOfTrustOfLoggedInUser">
-                    <v-icon>mdi-account-circle</v-icon>
-                    {{$t("pages:detailUser.trustCircle.inYourCircle")}}
-                </div>
-                <div class="user-status-info"
-                     v-else-if="isAuthenticated && !isLoggedInUser && !user.isPersonOfTrustOfLoggedInUser">
-                    <v-icon>mdi-account-circle</v-icon>
-                    {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
-                </div>
-                <div class="user-description">{{user.userDescription}}</div>
-                <v-btn outline fab small color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
-                       @click="showUploadUserDataDialog = true">
-                    <v-icon>mdi-pencil</v-icon>
+            <div class="user-status-info"
+                 v-else-if="isAuthenticated && !isLoggedInUser && !user.isPersonOfTrustOfLoggedInUser">
+                <v-icon>mdi-account-circle</v-icon>
+                {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
+            </div>
+            <div class="user-description">{{user.userDescription}}</div>
+            <v-btn color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
+                   @click="showUploadUserDataDialog = true">
+                <v-icon>mdi-account</v-icon>
+                {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
+            </v-btn>
+            <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
+                <v-btn color="primary" outline @click="removeUserFromTrustCircle()" slot="activator"
+                       v-if="user.isPersonOfTrustOfLoggedInUser">
+                    <v-icon left>mdi-check</v-icon>
+                    {{$t("common:trustCircle")}}
+                </v-btn>
+                <v-btn color="primary" outline @click="addUserToTrustCircle()" slot="activator" v-else>
+                    <v-icon left>mdi-account-plus</v-icon>
+                    {{$t("common:trustCircle")}}
                 </v-btn>
             </div>
         </div>
-        <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
-            <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
-                   v-if="user.isPersonOfTrustOfLoggedInUser">
-                <v-icon left dark>mdi-check</v-icon>
-                {{$t("common:trustCircle")}}
-            </v-btn>
-            <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
-                <v-icon left dark>mdi-account-plus</v-icon>
-                {{$t("common:trustCircle")}}
-            </v-btn>
-        </div>
-        <upload-cropped-image-dialog v-if="dialogUploadImage" @close-dialog="dialogUploadImage = false"
-                                     @update-image="updateProfileImage"
-                                     :initial-image="imageToUpload">
-        </upload-cropped-image-dialog>
         <upload-user-data-dialog v-if="showUploadUserDataDialog" @close-dialog="showUploadUserDataDialog = false">
         </upload-user-data-dialog>
     </div>
@@ -51,13 +37,12 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import UploadCroppedImageDialog from '~/components/common/dialog/cropper/UploadCroppedImage.vue';
     import UploadUserDataDialog from './UploadUserDataDialog.vue';
 
     export default {
-        components: {UploadCroppedImageDialog, UploadUserDataDialog},
+        components: {UploadUserDataDialog},
         data() {
-            return {dialogUploadImage: false, imageToUpload: null, showUploadUserDataDialog: false}
+            return {showUploadUserDataDialog: false}
         },
         computed: {
             isAuthenticated() {
@@ -69,20 +54,6 @@
             ...mapGetters({isLoggedInUser: 'userProfile/isLoggedInUser'})
         },
         methods: {
-            openUploadImage() {
-                this.$refs.openFileDialog.value = null; //Needed to open same picture twice
-                this.$refs.openFileDialog.click();
-            },
-            handleImageChange(e) {
-                if (e.target.files.length === 1) {
-                    this.dialogUploadImage = true;
-                    this.imageToUpload = e.target.files[0];
-                }
-            },
-            updateProfileImage(dataUrl) {
-                this.dialogUploadImage = false;
-                this.$store.commit('userProfile/UPDATE_USER_PROFILE_IMAGE', dataUrl);
-            },
             addUserToTrustCircle() {
                 this.$store.dispatch('userProfile/addUserToTrustCircle', this.user.userId);
             },
@@ -95,58 +66,38 @@
 
 <style lang="scss">
     #elyoos-user-profile {
-        padding-bottom: 12px;
-        #elyoos-user-profile-content {
-            display: flex;
-            #elyoos-user-image-container {
-                width: 142px;
-                img {
-                    border-radius: 50%;
-                    height: 142px;
-                    width: 142px;
-                }
-                #button-change-image {
-                    width: 142px;
-                    margin-top: 18px;
-                    margin-left: 0;
-                }
+        padding-bottom: 32px;
+        #profile-info-container {
+            #user-name {
+                font-weight: 300;
+                font-size: 32px;
+                line-height: 28px;
             }
-            #profile-info-container {
-                flex-grow: 1;
-                margin-left: 52px;
-                #user-name {
-                    font-weight: 300;
-                    font-size: 32px;
-                    line-height: 28px;
-                }
-                .user-status-info {
-                    margin-top: 6px;
-                    color: $secondary-text;
+            .user-status-info {
+                margin-top: 6px;
+                color: $secondary-text;
 
+            }
+            .user-description {
+                margin-top: 18px;
+                font-size: 16px;
+                font-weight: 300;
+            }
+            .user-status-info.in-circle {
+                i {
+                    color: $success-text;
                 }
-                .user-description {
-                    margin-top: 18px;
-                    font-size: 16px;
-                    font-weight: 300;
-                }
-                .user-status-info.in-circle {
-                    i {
-                        color: $success-text;
-                    }
-                }
-                #button-change-profile-data {
-                    margin-top: 12px;
+            }
+            #other-user-commands {
+                button {
                     margin-left: 0;
                 }
             }
-        }
-        #other-user-commands {
-            margin-top: 12px;
-            button {
-                min-width: 142px;
+            #button-change-profile-data {
+                margin-top: 12px;
                 margin-left: 0;
-                .icon {
-                    margin-right: 8px;
+                i.icon {
+                    margin-right: 12px;
                 }
             }
         }

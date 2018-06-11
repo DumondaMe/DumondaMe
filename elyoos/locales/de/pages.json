@@ -280,8 +280,17 @@
       "otherUserInfo_plural": "{{count}} Personen haben {{name}} in ihrem Trust Circle."
     },
     "profileData": {
-      "changeProfileDataTitle": "Profildaten ändern",
+      "changeProfileDataTitle": "Profil bearbeiten",
+      "changeProfileDataButton": "Profil Bearbeiten",
       "userDescription": "Eine kurze Beschreibung deiner Person"
+    },
+    "profileInfo": {
+      "noTrustCircle": "Noch Niemand im Trust Circle",
+      "trustCircle": "Eine Person im Trust Circle",
+      "trustCircle_plural": "{{count}} Personen im Trust Circle",
+      "noTrustCircleOtherUser": "Noch keine Reichweite",
+      "trustCircleOtherUser": "Erreicht eine Person",
+      "trustCircleOtherUser_plural": "Reichweite von {{count}} Personen"
     }
   },
   "settings": {
