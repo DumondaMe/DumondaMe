@@ -262,16 +262,22 @@
   "detailUser": {
     "trustCircle": {
       "title": "Trust Circle",
-      "loggedInUserInfo": "Du hast eine Person in deinem Trust Circle",
-      "loggedInUserInfo_plural": "Du hast {{count}} Personen in deinem Trust Circle",
-      "otherUserInfo": "Hat eine Person im Trust Circle",
-      "otherUserInfo_plural": "Hat {{count}} Personen im Trust Circle",
+      "loggedInUserInfo": "Du hast eine Person in deinem Trust Circle.",
+      "loggedInUserInfo_plural": "Du hast {{count}} Personen in deinem Trust Circle.",
+      "otherUserInfo": "Hat eine Person im Trust Circle.",
+      "otherUserInfo_plural": "Hat {{count}} Personen im Trust Circle.",
       "inYourCircle": "In deinem Trust Circle",
       "notInYourCircle": "Nicht in deinem Trust Circle",
       "removeFromYourCircle": "Aus Trust Circle entfernen",
       "addToYourCircle": "Zu deinem Trust Circle hinzufügen",
       "blockUser": "Benutzer sperren",
       "since": "Seit {{date}}"
+    },
+    "peopleTrustUser": {
+      "loggedInUserInfo": "Eine Person hat dich in ihrem Trust Circle.",
+      "loggedInUserInfo_plural": "{{count}} Personen haben dich in ihrem Trust Circle.",
+      "otherUserInfo": "Eine Person hat {{name}} in ihrem Trust Circle.",
+      "otherUserInfo_plural": "{{count}} Personen haben {{name}} in ihrem Trust Circle."
     },
     "profileData": {
       "changeProfileDataTitle": "Profildaten ändern",
