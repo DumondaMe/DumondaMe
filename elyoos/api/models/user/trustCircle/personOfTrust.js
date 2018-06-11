@@ -2,16 +2,22 @@
 
 const db = requireDb();
 const uuid = require('elyoos-server-lib').uuid;
+const exceptions = require('elyoos-server-lib').exceptions;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const moment = require('moment');
 
-let validAddContactCommand = async function (userId, contactId) {
-    let resp = await db.cypher().match(`(u:User {userId: {contactId}})`)
-        .where(`u.privacyMode <> 'onlyContact' OR 
+let validAddContactCommand = async function (userId, contactId, req) {
+    if (userId !== contactId) {
+        let resp = await db.cypher().match(`(u:User {userId: {contactId}})`)
+            .where(`u.privacyMode <> 'onlyContact' OR 
                (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
-        .return(`u`)
-        .end({userId, contactId}).send();
-    if (resp.length === 0) {
-        throw new Error('401');
+            .return(`u`)
+            .end({userId, contactId}).send();
+        if (resp.length === 0) {
+            return exceptions.getInvalidOperation(`User ${contactId} can not be added to trust circle of user ${userId}`, logger, req);
+        }
+    } else {
+        return exceptions.getInvalidOperation(`UserId and contactId are the same ${userId}`, logger, req);
     }
 };
 
@@ -38,8 +44,8 @@ let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId
         .end({userId, contactId, contactAdded, notificationId}).getCommand()
 };
 
-let addPersonToTrustCircle = async function (userId, contactId) {
-    await validAddContactCommand(userId, contactId);
+let addPersonToTrustCircle = async function (userId, contactId, req) {
+    await validAddContactCommand(userId, contactId, req);
     let commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User {userId: {contactId}})')
         .where('NOT (u)-[:IS_CONTACT]->(u2)')

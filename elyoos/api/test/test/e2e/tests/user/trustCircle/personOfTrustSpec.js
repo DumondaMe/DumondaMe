@@ -102,10 +102,17 @@ describe('Handling person of trust relationship', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/trustCircle/4');
-        res.status.should.equal(401);
+        res.status.should.equal(400);
         let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '4'})")
             .return('r').end().send();
         user.length.should.equals(0);
+    });
+
+    it('Deny adding user to his own trust circle', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/trustCircle/1');
+        res.status.should.equal(400);
     });
 
     it('Add the same User two times to trust circle should result in one person of trust connection', async function () {
