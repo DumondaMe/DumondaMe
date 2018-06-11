@@ -30,10 +30,10 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     let commands = [];
     commands.push(trustCircle.numberOfPeopleInTrustCircle(userId, userIdOfProfile).getCommand());
     commands.push(trustCircle.numberOfInvisiblePeopleInTrustCircle(userId, userIdOfProfile).getCommand());
-    commands.push(trustCircle.getTrustCircleCommand(userId, userIdOfProfile, 10, 0).getCommand());
+    commands.push(trustCircle.getTrustCircleCommand(userId, userIdOfProfile, 7, 0).getCommand());
     commands.push(peopleTrustUser.numberOfPeopleTrustUser(userId, userIdOfProfile).getCommand());
     commands.push(peopleTrustUser.numberOfInvisiblePeopleTrustUser(userId, userIdOfProfile).getCommand());
-    commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 10, 0).getCommand());
+    commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 7, 0).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
