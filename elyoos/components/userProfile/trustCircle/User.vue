@@ -10,7 +10,7 @@
                      params: {userId: user.userId, slug: user.slug}})">{{user.name}}
             </div>
             <div class="user-info" v-if="isAuthenticated">
-                <v-tooltip bottom debounce="1500">
+                <v-tooltip bottom debounce="1500" v-if="!user.isLoggedInUser">
                     <v-icon :class="{'out-of-trust-circle': !user.isPersonOfTrust, 'in-trust-circle': user.isPersonOfTrust}"
                             slot="activator">
                         mdi-account-circle
@@ -22,7 +22,7 @@
                         {{$t("pages:detailUser.trustCircle.since", {date: getDate(user.personOfTrustSince)})}}</span>
             </div>
         </div>
-        <div class="user-settings-menu" v-if="isAuthenticated">
+        <div class="user-settings-menu" v-if="isAuthenticated && !user.isLoggedInUser">
             <v-menu bottom left>
                 <v-btn icon slot="activator">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -43,7 +43,7 @@
                 </v-list>
             </v-menu>
         </div>
-        <div class="user-settings" v-if="isAuthenticated">
+        <div class="user-settings" v-if="isAuthenticated && !user.isLoggedInUser">
             <v-btn small outline color="primary" v-if="user.isPersonOfTrust"
                    @click="removeUserFromTrustCircle(user.userId)">
                 <v-icon left>mdi-check</v-icon> Trust Circle</v-btn>

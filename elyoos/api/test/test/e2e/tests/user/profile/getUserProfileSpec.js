@@ -40,12 +40,14 @@ describe('Getting user profile data', function () {
         res.body.peopleOfTrust[0].name.should.equal('user Meier2');
         res.body.peopleOfTrust[0].slug.should.equal('user-meier2');
         res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[0].isLoggedInUser.should.equal(false);
         res.body.peopleOfTrust[0].profileUrl.should.equal('profileImage/2/thumbnail.jpg');
 
         res.body.peopleOfTrust[1].userId.should.equal('3');
         res.body.peopleOfTrust[1].name.should.equal('user Meier3');
         res.body.peopleOfTrust[1].slug.should.equal('user-meier3');
         res.body.peopleOfTrust[1].isPersonOfTrust.should.equal(true);
+        res.body.peopleOfTrust[1].isLoggedInUser.should.equal(false);
         res.body.peopleOfTrust[1].profileUrl.should.equal('profileImage/3/thumbnail.jpg');
 
         res.body.peopleTrustUser.length.should.equal(1);
@@ -53,6 +55,7 @@ describe('Getting user profile data', function () {
         res.body.peopleTrustUser[0].name.should.equal('user Meier7');
         res.body.peopleTrustUser[0].slug.should.equal('user-meier7');
         res.body.peopleTrustUser[0].isPersonOfTrust.should.equal(false);
+        res.body.peopleTrustUser[0].isLoggedInUser.should.equal(false);
         res.body.peopleTrustUser[0].profileUrl.should.equal('profileImage/7/thumbnail.jpg');
     });
 
@@ -114,10 +117,11 @@ describe('Getting user profile data', function () {
     });
 
     it('Get profile data of a user (Not logged in)', async function () {
-        dbDsl.createContactConnection('2', '3');
+        dbDsl.createContactConnection('2', '1');
         dbDsl.createContactConnection('2', '4');
         dbDsl.createContactConnection('2', '6');
 
+        dbDsl.createContactConnection('1', '2');
         dbDsl.createContactConnection('7', '2');
         dbDsl.createContactConnection('8', '2');
         dbDsl.setUserPrivacy('8', {privacyMode: 'onlyContact'});
@@ -135,15 +139,15 @@ describe('Getting user profile data', function () {
         res.body.profileImage.should.equal('profileImage/2/profile.jpg');
         res.body.numberOfPeopleOfTrust.should.equal(2);
         res.body.numberOfInvisiblePeopleOfTrust.should.equal(1);
-        res.body.numberOfPeopleTrustUser.should.equal(1);
+        res.body.numberOfPeopleTrustUser.should.equal(2);
         res.body.numberOfInvisiblePeopleTrustUser.should.equal(1);
 
         res.body.peopleOfTrust.length.should.equal(2);
-        res.body.peopleOfTrust[0].userId.should.equal('3');
-        res.body.peopleOfTrust[0].name.should.equal('user Meier3');
-        res.body.peopleOfTrust[0].slug.should.equal('user-meier3');
+        res.body.peopleOfTrust[0].userId.should.equal('1');
+        res.body.peopleOfTrust[0].name.should.equal('user Meier');
+        res.body.peopleOfTrust[0].slug.should.equal('user-meier');
         res.body.peopleOfTrust[0].isPersonOfTrust.should.equal(false);
-        res.body.peopleOfTrust[0].profileUrl.should.equal('profileImage/3/thumbnail.jpg');
+        res.body.peopleOfTrust[0].profileUrl.should.equal('profileImage/1/thumbnail.jpg');
 
         res.body.peopleOfTrust[1].userId.should.equal('4');
         res.body.peopleOfTrust[1].name.should.equal('user Meier4');
@@ -151,12 +155,18 @@ describe('Getting user profile data', function () {
         res.body.peopleOfTrust[1].isPersonOfTrust.should.equal(false);
         res.body.peopleOfTrust[1].profileUrl.should.equal('profileImage/4/thumbnail.jpg');
 
-        res.body.peopleTrustUser.length.should.equal(1);
-        res.body.peopleTrustUser[0].userId.should.equal('7');
-        res.body.peopleTrustUser[0].name.should.equal('user Meier7');
-        res.body.peopleTrustUser[0].slug.should.equal('user-meier7');
+        res.body.peopleTrustUser.length.should.equal(2);
+        res.body.peopleTrustUser[0].userId.should.equal('1');
+        res.body.peopleTrustUser[0].name.should.equal('user Meier');
+        res.body.peopleTrustUser[0].slug.should.equal('user-meier');
         res.body.peopleTrustUser[0].isPersonOfTrust.should.equal(false);
-        res.body.peopleTrustUser[0].profileUrl.should.equal('profileImage/7/thumbnail.jpg');
+        res.body.peopleTrustUser[0].profileUrl.should.equal('profileImage/1/thumbnail.jpg');
+
+        res.body.peopleTrustUser[1].userId.should.equal('7');
+        res.body.peopleTrustUser[1].name.should.equal('user Meier7');
+        res.body.peopleTrustUser[1].slug.should.equal('user-meier7');
+        res.body.peopleTrustUser[1].isPersonOfTrust.should.equal(false);
+        res.body.peopleTrustUser[1].profileUrl.should.equal('profileImage/7/thumbnail.jpg');
     });
 
     it('Deny access to profile when not logged in (PrivacyMode publicEl)', async function () {

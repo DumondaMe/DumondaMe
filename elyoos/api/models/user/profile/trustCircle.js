@@ -31,6 +31,7 @@ let numberOfPeopleInTrustCircle = function (userId, userDetailId) {
 let getTrustCircleCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
     return getPeopleOfTrustWithPrivacyCommand(false)
         .return(`contact.name AS name, contact.userId AS userId, isContactRel.contactAdded AS personOfTrustSince,
+                 contact.userId = {userId} AS isLoggedInUser,
                  EXISTS((contact)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrust`)
         .orderBy(`name`)
         .skip(`{skipContacts}`)

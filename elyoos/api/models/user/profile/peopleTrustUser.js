@@ -27,7 +27,7 @@ let getPeopleTrustUserCommand = function (userId, userDetailId, personPerPage, s
         .where(`user.privacyMode = 'public' OR user.userId = {userId} OR 
                (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
                (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))`)
-        .return(`user.name AS name, user.userId AS userId,
+        .return(`user.name AS name, user.userId AS userId, user.userId = {userId} AS isLoggedInUser,
                  EXISTS((user)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrust`)
         .orderBy('name')
         .skip('{skipPeople}')
