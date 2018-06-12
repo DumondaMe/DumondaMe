@@ -42,7 +42,8 @@
     export default {
         components: {Question},
         data() {
-            return {showCreatedQuestions: true}
+            return {showCreatedQuestions: !(this.$store.state.userProfile.user.numberOfCreatedQuestions === 0 &&
+                    this.$store.state.userProfile.user.numberOfWatchingQuestions > 0)}
         },
         computed: {
             numberOfQuestions() {
