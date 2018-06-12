@@ -306,6 +306,21 @@
       "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Fragen.",
       "otherUserInfo": "Interessiert sich für eine Frage.",
       "otherUserInfo_plural": "Interessiert sich für {{count}} Fragen."
+    },
+    "commitment": {
+      "title": "Engagements"
+    },
+    "adminCommitment": {
+      "loggedInUserInfo": "Du bist der Administrator von einem Engagement.",
+      "loggedInUserInfo_plural": "Du bist Administrator von {{count}} Engagements.",
+      "otherUserInfo": "Ist Administrator von einem Engagement.",
+      "otherUserInfo_plural": "Administrator von {{count}} Engagements."
+    },
+    "watchedCommitment": {
+      "loggedInUserInfo": "Du beobachtest ein Engagement.",
+      "loggedInUserInfo_plural": "Du beobachtest {{count}} Engagements.",
+      "otherUserInfo": "Beobachtet ein Engagement.",
+      "otherUserInfo_plural": "Beobachtet {{count}} Engagements."
     }
   },
   "settings": {

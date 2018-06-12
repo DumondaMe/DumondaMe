@@ -301,6 +301,21 @@
       "loggedInUserInfo_plural": "You are interested in {{count}} questions.",
       "otherUserInfo": "Interested in one question.",
       "otherUserInfo_plural": "Interested in {{count}} questions."
+    },
+    "commitment": {
+      "title": "Commitments"
+    },
+    "adminCommitment": {
+      "loggedInUserInfo": "You are administrator of an commitment.",
+      "loggedInUserInfo_plural": "You are administrator of {{count}} commitments.",
+      "otherUserInfo": "Is administrator of a commitment.",
+      "otherUserInfo_plural": "Is administrator of {{count}} commitments."
+    },
+    "watchedCommitment": {
+      "loggedInUserInfo": "You're watching a commitment.",
+      "loggedInUserInfo_plural": "You're watching {{count}} commitments.",
+      "otherUserInfo": "Watch a commitment.",
+      "otherUserInfo_plural": "Watch {{count}} commitments."
     }
   },
   "settings": {

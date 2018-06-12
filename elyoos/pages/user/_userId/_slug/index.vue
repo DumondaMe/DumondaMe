@@ -3,8 +3,9 @@
         <detail-layout>
             <div slot="content" id="question-detail">
                 <user-profile></user-profile>
-                <trust-circle></trust-circle>
+                <commitments></commitments>
                 <questions></questions>
+                <trust-circle></trust-circle>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
@@ -20,6 +21,7 @@
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
     import Questions from '~/components/userProfile/question/Questions.vue';
+    import Commitments from '~/components/userProfile/commitment/Commitments.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
 
     export default {
@@ -35,7 +37,7 @@
                 title: this.$store.state.userProfile.user.forename,
             }
         },
-        components: {DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, TrustCircle}
+        components: {DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, Commitments, TrustCircle}
     }
 </script>
 
