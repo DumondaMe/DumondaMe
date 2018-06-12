@@ -2,7 +2,7 @@
 
 const db = requireDb();
 const dashify = require('dashify');
-const linkifyHtml = require('linkifyjs/html');
+const cdn = require('elyoos-server-lib').cdn;
 
 let getRelation = function (isWatching) {
     if (isWatching) {
@@ -21,6 +21,10 @@ let getCreated = function (isWatching) {
 let handlingResponseOfCommitment = function (commtiments) {
     for (let commitment of commtiments) {
         commitment.commitmentSlug = dashify(commitment.title);
+        commitment.imageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/120x120/title.jpg`);
+        if (commitment.modified) {
+            commitment.imageUrl += `?v=${commitment.modified}`;
+        }
     }
 };
 
@@ -35,7 +39,7 @@ let getCommitmentCommand = function (userId, questionsPerPage, skipQuestions, is
         .optionalMatch(`(commitment)-[:SHOW_QUESTION]->(question:Question)`)
         .optionalMatch(`(commitment)<-[:WATCH]-(watchingUser:User)`)
         .return(`commitment.commitmentId AS commitmentId, commitment.title AS title, 
-                 commitment.description AS description, ${getCreated(isWatching)}, 
+                 commitment.description AS description, ${getCreated(isWatching)}, commitment.modified AS modified,
                  count(DISTINCT question) AS numberOfLinkedQuestions, 
                  count(DISTINCT watchingUser) AS numberOfWatches`)
         .orderBy(`created DESC`)

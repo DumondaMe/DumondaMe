@@ -1,11 +1,18 @@
 <template>
     <div class="user-commitment-info ely-card">
-        <div class="commitment-title" @click="$router.push({name: 'commitment-commitmentId-slug',
+        <div class="commitment-content">
+            <div class="commitment-image">
+                <img :src="commitment.imageUrl"/>
+            </div>
+            <div>
+                <div class="commitment-title" @click="$router.push({name: 'commitment-commitmentId-slug',
                      params: {commitmentId: commitment.commitmentId, slug: commitment.commitmentSlug}})">
-            {{commitment.title}}
+                    {{commitment.title}}
+                </div>
+                <expand-text :expand-text="commitment.description" class="description">
+                </expand-text>
+            </div>
         </div>
-        <expand-text :expand-text="commitment.description" class="description">
-        </expand-text>
         <div class="info-container">
             <div class="info-icon-element">
                 <v-icon class="info-icon">mdi-help-circle-outline</v-icon>
@@ -40,18 +47,29 @@
 <style lang="scss">
     .user-commitment-info {
         margin-bottom: 8px;
-        .commitment-title {
-            cursor: pointer;
-            color: $primary-color;
-            font-size: 16px;
-            font-weight: 400;
-        }
-        :hover.commitment-title {
-            text-decoration: underline;
-        }
-        .description {
-            font-size: 16px;
-            font-weight: 300;
+        .commitment-content {
+            display: flex;
+            .commitment-image {
+                margin-right: 18px;
+                img {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 2px;
+                }
+            }
+            .commitment-title {
+                cursor: pointer;
+                color: $primary-color;
+                font-size: 16px;
+                font-weight: 400;
+            }
+            :hover.commitment-title {
+                text-decoration: underline;
+            }
+            .description {
+                font-size: 16px;
+                font-weight: 300;
+            }
         }
         .info-container {
             margin-top: 12px;

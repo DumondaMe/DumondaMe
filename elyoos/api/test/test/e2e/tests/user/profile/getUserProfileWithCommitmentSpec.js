@@ -22,7 +22,7 @@ describe('Getting user profile with commitments', function () {
         dbDsl.createRegion('region-1', {});
 
         dbDsl.createCommitment('10', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 888,
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 888, modified: 1111,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Commitment'
         });
         dbDsl.watchCommitment({commitmentId: '10', userId: '2', created: 999});
@@ -67,6 +67,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[0].title.should.equal('Das ist ein Commitment');
         res.body.commitments[0].description.should.equal(`commitment10Description`);
         res.body.commitments[0].commitmentSlug.should.equal('das-ist-ein-commitment');
+        res.body.commitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg?v=1111`);
         res.body.commitments[0].created.should.equal(888);
         res.body.commitments[0].numberOfWatches.should.equal(2);
         res.body.commitments[0].numberOfLinkedQuestions.should.equal(1);
@@ -75,6 +76,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[1].title.should.equal('Das ist ein Commitment2');
         res.body.commitments[1].description.should.equal(`commitment11Description`);
         res.body.commitments[1].commitmentSlug.should.equal('das-ist-ein-commitment2');
+        res.body.commitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/11/120x120/title.jpg`);
         res.body.commitments[1].created.should.equal(777);
         res.body.commitments[1].numberOfWatches.should.equal(0);
         res.body.commitments[1].numberOfLinkedQuestions.should.equal(0);
@@ -84,6 +86,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[0].title.should.equal('Das ist ein Commitment3');
         res.body.watchingCommitments[0].description.should.equal(`commitment12Description`);
         res.body.watchingCommitments[0].commitmentSlug.should.equal('das-ist-ein-commitment3');
+        res.body.watchingCommitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/12/120x120/title.jpg`);
         res.body.watchingCommitments[0].created.should.equal(555);
         res.body.watchingCommitments[0].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[0].numberOfLinkedQuestions.should.equal(0);
@@ -92,6 +95,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[1].title.should.equal('Das ist ein Commitment4');
         res.body.watchingCommitments[1].description.should.equal(`commitment13Description`);
         res.body.watchingCommitments[1].commitmentSlug.should.equal('das-ist-ein-commitment4');
+        res.body.watchingCommitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/13/120x120/title.jpg`);
         res.body.watchingCommitments[1].created.should.equal(444);
         res.body.watchingCommitments[1].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[1].numberOfLinkedQuestions.should.equal(2);
@@ -112,6 +116,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[0].title.should.equal('Das ist ein Commitment');
         res.body.commitments[0].description.should.equal(`commitment10Description`);
         res.body.commitments[0].commitmentSlug.should.equal('das-ist-ein-commitment');
+        res.body.commitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg?v=1111`);
         res.body.commitments[0].created.should.equal(888);
         res.body.commitments[0].numberOfWatches.should.equal(2);
         res.body.commitments[0].numberOfLinkedQuestions.should.equal(1);
@@ -120,6 +125,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[1].title.should.equal('Das ist ein Commitment2');
         res.body.commitments[1].description.should.equal(`commitment11Description`);
         res.body.commitments[1].commitmentSlug.should.equal('das-ist-ein-commitment2');
+        res.body.commitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/11/120x120/title.jpg`);
         res.body.commitments[1].created.should.equal(777);
         res.body.commitments[1].numberOfWatches.should.equal(0);
         res.body.commitments[1].numberOfLinkedQuestions.should.equal(0);
@@ -129,6 +135,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[0].title.should.equal('Das ist ein Commitment3');
         res.body.watchingCommitments[0].description.should.equal(`commitment12Description`);
         res.body.watchingCommitments[0].commitmentSlug.should.equal('das-ist-ein-commitment3');
+        res.body.watchingCommitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/12/120x120/title.jpg`);
         res.body.watchingCommitments[0].created.should.equal(555);
         res.body.watchingCommitments[0].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[0].numberOfLinkedQuestions.should.equal(0);
@@ -137,6 +144,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[1].title.should.equal('Das ist ein Commitment4');
         res.body.watchingCommitments[1].description.should.equal(`commitment13Description`);
         res.body.watchingCommitments[1].commitmentSlug.should.equal('das-ist-ein-commitment4');
+        res.body.watchingCommitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/13/120x120/title.jpg`);
         res.body.watchingCommitments[1].created.should.equal(444);
         res.body.watchingCommitments[1].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[1].numberOfLinkedQuestions.should.equal(2);
@@ -156,6 +164,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[0].title.should.equal('Das ist ein Commitment');
         res.body.commitments[0].description.should.equal(`commitment10Description`);
         res.body.commitments[0].commitmentSlug.should.equal('das-ist-ein-commitment');
+        res.body.commitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg?v=1111`);
         res.body.commitments[0].created.should.equal(888);
         res.body.commitments[0].numberOfWatches.should.equal(2);
         res.body.commitments[0].numberOfLinkedQuestions.should.equal(1);
@@ -164,6 +173,7 @@ describe('Getting user profile with commitments', function () {
         res.body.commitments[1].title.should.equal('Das ist ein Commitment2');
         res.body.commitments[1].description.should.equal(`commitment11Description`);
         res.body.commitments[1].commitmentSlug.should.equal('das-ist-ein-commitment2');
+        res.body.commitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/11/120x120/title.jpg`);
         res.body.commitments[1].created.should.equal(777);
         res.body.commitments[1].numberOfWatches.should.equal(0);
         res.body.commitments[1].numberOfLinkedQuestions.should.equal(0);
@@ -173,6 +183,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[0].title.should.equal('Das ist ein Commitment3');
         res.body.watchingCommitments[0].description.should.equal(`commitment12Description`);
         res.body.watchingCommitments[0].commitmentSlug.should.equal('das-ist-ein-commitment3');
+        res.body.watchingCommitments[0].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/12/120x120/title.jpg`);
         res.body.watchingCommitments[0].created.should.equal(555);
         res.body.watchingCommitments[0].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[0].numberOfLinkedQuestions.should.equal(0);
@@ -181,6 +192,7 @@ describe('Getting user profile with commitments', function () {
         res.body.watchingCommitments[1].title.should.equal('Das ist ein Commitment4');
         res.body.watchingCommitments[1].description.should.equal(`commitment13Description`);
         res.body.watchingCommitments[1].commitmentSlug.should.equal('das-ist-ein-commitment4');
+        res.body.watchingCommitments[1].imageUrl.should.equal(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/13/120x120/title.jpg`);
         res.body.watchingCommitments[1].created.should.equal(444);
         res.body.watchingCommitments[1].numberOfWatches.should.equal(1);
         res.body.watchingCommitments[1].numberOfLinkedQuestions.should.equal(2);
