@@ -291,6 +291,21 @@
       "noTrustCircleOtherUser": "Noch keine Reichweite",
       "trustCircleOtherUser": "Erreicht eine Person",
       "trustCircleOtherUser_plural": "Reichweite von {{count}} Personen"
+    },
+    "question": {
+      "title": "Fragen"
+    },
+    "createdQuestion": {
+      "loggedInUserInfo": "Du hast eine Frage erstellt.",
+      "loggedInUserInfo_plural": "Du hast {{count}} Fragen erstellt.",
+      "otherUserInfo": "Hat eine Frage erstellt.",
+      "otherUserInfo_plural": "Hat {{count}} Fragen erstellt."
+    },
+    "watchedQuestion": {
+      "loggedInUserInfo": "Du interessierst dich für eine Frage.",
+      "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Fragen.",
+      "otherUserInfo": "Interessiert sich für eine Frage.",
+      "otherUserInfo_plural": "Interessiert sich für {{count}} Fragen."
     }
   },
   "settings": {

@@ -4,6 +4,7 @@
             <div slot="content">
                 <user-profile></user-profile>
                 <trust-circle></trust-circle>
+                <questions></questions>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
@@ -18,6 +19,7 @@
     import UserProfile from '~/components/userProfile/UserProfile.vue';
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
+    import Questions from '~/components/userProfile/question/Questions.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
 
     export default {
@@ -28,7 +30,7 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {DetailLayout, UserProfile, ProfileImage, GeneralInformation, TrustCircle}
+        components: {DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, TrustCircle}
     }
 </script>
 

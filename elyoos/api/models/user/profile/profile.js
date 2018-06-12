@@ -8,6 +8,7 @@ const dashify = require('dashify');
 const cdn = require('elyoos-server-lib').cdn;
 const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
+const question = require('./question');
 const userInfo = require('./../userInfo');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
@@ -34,6 +35,10 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     commands.push(peopleTrustUser.numberOfPeopleTrustUser(userId, userIdOfProfile).getCommand());
     commands.push(peopleTrustUser.numberOfInvisiblePeopleTrustUser(userId, userIdOfProfile).getCommand());
     commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 7, 0).getCommand());
+    commands.push(question.numberOfQuestions(userIdOfProfile, false).getCommand());
+    commands.push(question.getQuestionCommand(userIdOfProfile, 4, 0, false).getCommand());
+    commands.push(question.numberOfQuestions(userIdOfProfile, true).getCommand());
+    commands.push(question.getQuestionCommand(userIdOfProfile, 4, 0, true).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
@@ -42,8 +47,8 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
-    if (resp[6].length === 1) {
-        let profile = resp[6][0];
+    if (resp[10].length === 1) {
+        let profile = resp[10][0];
         profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
 
         profile.numberOfPeopleOfTrust = resp[0][0].numberOfPeopleOfTrust;
@@ -55,6 +60,14 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         profile.numberOfInvisiblePeopleTrustUser = resp[4][0].numberOfInvisiblePeopleTrustUser;
         profile.peopleTrustUser = resp[5];
         await userInfo.addImageForThumbnail(resp[5]);
+
+        profile.numberOfCreatedQuestions = resp[6][0].numberOfQuestions;
+        profile.createdQuestions = resp[7];
+        question.handlingResponseToQuestion(profile.createdQuestions);
+
+        profile.numberOfWatchingQuestions = resp[8][0].numberOfQuestions;
+        profile.watchingQuestions = resp[9];
+        question.handlingResponseToQuestion(profile.watchingQuestions);
 
         profile.isLoggedInUser = userId === userIdOfProfile;
         addSlugToPeople(profile.peopleOfTrust);

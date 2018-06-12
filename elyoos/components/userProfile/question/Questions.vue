@@ -1,61 +1,61 @@
 <template>
-    <div class="user-trust-circle-container">
-        <h3>{{$t("pages:detailUser.trustCircle.title")}}
+    <div class="user-question-container">
+        <h3>{{$t("pages:detailUser.question.title")}}
             <span class="filter-icon-container"> (
-            <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showTrustCircle}"
-                    @click="showTrustCircle = true">mdi-circle-outline
+            <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showCreatedQuestions}"
+                    @click="showCreatedQuestions = true">mdi-pencil
             </v-icon> |
-            <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showTrustCircle}"
-                    @click="showTrustCircle = false">mdi-google-circles-group
+            <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showCreatedQuestions}"
+                    @click="showCreatedQuestions = false">mdi-eye
             </v-icon> )</span>
         </h3>
-        <div class="general-user-info" v-if="showTrustCircle">
+        <div class="general-user-info" v-if="showCreatedQuestions">
             <span v-if="isLoggedInUser">
-                {{$t("pages:detailUser.trustCircle.loggedInUserInfo", {count: numberOfPeople})}}
+                {{$t("pages:detailUser.createdQuestion.loggedInUserInfo", {count: numberOfQuestions})}}
             </span>
             <span v-else>
-                {{$t("pages:detailUser.trustCircle.otherUserInfo", {count: numberOfPeople})}}
+                {{$t("pages:detailUser.createdQuestion.otherUserInfo", {count: numberOfQuestions})}}
             </span>
         </div>
         <div class="general-user-info" v-else>
             <span v-if="isLoggedInUser">
-                {{$t("pages:detailUser.peopleTrustUser.loggedInUserInfo", {count: numberOfPeople})}}
+                {{$t("pages:detailUser.watchedQuestion.loggedInUserInfo", {count: numberOfQuestions})}}
             </span>
             <span v-else>
-                {{$t("pages:detailUser.peopleTrustUser.otherUserInfo", {count: numberOfPeople, name: userForename})}}
+                {{$t("pages:detailUser.watchedQuestion.otherUserInfo", {count: numberOfQuestions, name: userForename})}}
             </span>
         </div>
-        <div class="user-info" v-for="user in people">
-            <trust-circle-user :user="user">
-            </trust-circle-user>
+        <div class="question-info" v-for="question in questions">
+            <question :question="question">
+            </question>
         </div>
-        <v-btn outline color="primary" @click="loadNextPeople()"
-               v-if="people.length < numberOfPeople">
+        <v-btn outline color="primary" @click="loadNextQuestions()"
+               v-if="questions.length < numberOfQuestions">
             {{$t("common:button.showMore")}}
         </v-btn>
     </div>
 </template>
 
 <script>
-    import TrustCircleUser from './User';
+    import Question from './Question';
 
     export default {
-        components: {TrustCircleUser},
+        components: {Question},
         data() {
-            return {showTrustCircle: true}
+            return {showCreatedQuestions: true}
         },
         computed: {
-            numberOfPeople() {
-                if (this.showTrustCircle) {
-                    return this.$store.state.userProfile.user.numberOfPeopleOfTrust
+            numberOfQuestions() {
+                if (this.showCreatedQuestions) {
+                    return this.$store.state.userProfile.user.numberOfCreatedQuestions
                 }
-                return this.$store.state.userProfile.user.numberOfPeopleTrustUser
+                return this.$store.state.userProfile.user.numberOfWatchingQuestions
             },
-            people() {
-                if (this.showTrustCircle) {
-                    return this.$store.state.userProfile.user.peopleOfTrust
+            questions() {
+                if (this.showCreatedQuestions) {
+                    return this.$store.state.userProfile.user.createdQuestions
                 }
-                return this.$store.state.userProfile.user.peopleTrustUser
+                return this.$store.state.userProfile.user.watchingQuestions
             },
             userForename() {
                 return this.$store.state.userProfile.user.forename;
@@ -65,7 +65,7 @@
             }
         },
         methods: {
-            async loadNextPeople() {
+            async loadNextQuestions() {
 
             }
         }
@@ -73,7 +73,7 @@
 </script>
 
 <style lang="scss">
-    .user-trust-circle-container {
+    .user-question-container {
         margin-bottom: 38px;
         h3 {
             font-size: 16px;

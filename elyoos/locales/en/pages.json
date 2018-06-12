@@ -286,6 +286,21 @@
       "noTrustCircleOtherUser": "No reach yet",
       "trustCircleOtherUser": "Reach of one person",
       "trustCircleOtherUser_plural": "Reach of {{count}} people"
+    },
+    "question": {
+      "title": "Questions"
+    },
+    "createdQuestion": {
+      "loggedInUserInfo": "You created a question.",
+      "loggedInUserInfo_plural": "You created {{count}} questions.",
+      "otherUserInfo": "Created a question.",
+      "otherUserInfo_plural": "Created {{count}} questions."
+    },
+    "watchedQuestion": {
+      "loggedInUserInfo": "You are interested in one question.",
+      "loggedInUserInfo_plural": "You are interested in {{count}} questions.",
+      "otherUserInfo": "Interested in one question.",
+      "otherUserInfo_plural": "Interested in {{count}} questions."
     }
   },
   "settings": {
