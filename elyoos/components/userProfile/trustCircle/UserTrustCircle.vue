@@ -74,7 +74,7 @@
 
 <style lang="scss">
     .user-trust-circle-container {
-        margin-bottom: 38px;
+        margin-top: 48px;
         h3 {
             font-size: 16px;
             font-weight: 400;

@@ -3,13 +3,13 @@
         <detail-layout>
             <div slot="content">
                 <user-profile></user-profile>
-                <trust-circle></trust-circle>
                 <commitments></commitments>
                 <questions></questions>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
                 <general-information></general-information>
+                <trust-circle></trust-circle>
             </div>
         </detail-layout>
     </div>

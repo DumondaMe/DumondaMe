@@ -5,11 +5,11 @@
                 <user-profile></user-profile>
                 <commitments></commitments>
                 <questions></questions>
-                <trust-circle></trust-circle>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
                 <general-information></general-information>
+                <trust-circle></trust-circle>
             </div>
         </detail-layout>
     </div>
