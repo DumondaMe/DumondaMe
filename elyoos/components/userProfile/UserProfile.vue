@@ -2,16 +2,6 @@
     <div id="elyoos-user-profile">
         <div id="profile-info-container">
             <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
-            <div class="user-status-info in-circle"
-                 v-if="isAuthenticated && !isLoggedInUser && user.isPersonOfTrustOfLoggedInUser">
-                <v-icon>mdi-account-circle</v-icon>
-                {{$t("pages:detailUser.trustCircle.inYourCircle")}}
-            </div>
-            <div class="user-status-info"
-                 v-else-if="isAuthenticated && !isLoggedInUser && !user.isPersonOfTrustOfLoggedInUser">
-                <v-icon>mdi-account-circle</v-icon>
-                {{$t("pages:detailUser.trustCircle.notInYourCircle")}}
-            </div>
             <div class="user-description">{{user.userDescription}}</div>
             <v-btn color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
                    @click="showUploadUserDataDialog = true">

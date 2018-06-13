@@ -14,18 +14,31 @@
             </div>
             <div v-else>{{$t('pages:detailUser.profileInfo.noTrustCircleOtherUser')}}</div>
         </div>
+        <div class="user-profile-info" v-if="!isLoggedInUser && isAuthenticated">
+            <v-icon class="info-icon" :class="{'in-circle': user.isPersonOfTrustOfLoggedInUser}">mdi-account-circle
+            </v-icon>
+            <span v-if="user.isPersonOfTrustOfLoggedInUser">
+                {{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
+            <span v-else>
+                {{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
+        </div>
     </div>
 </template>
 
 <script>
     import language from '~/mixins/languages.js';
+    import {mapGetters} from 'vuex';
 
     export default {
         mixins: [language],
         computed: {
             user() {
                 return this.$store.state.userProfile.user;
-            }
+            },
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            },
+            ...mapGetters({isLoggedInUser: 'userProfile/isLoggedInUser'})
         }
     }
 </script>
@@ -45,6 +58,9 @@
                 margin-right: 12px;
                 font-size: 18px;
                 color: #90A4AE;
+            }
+            i.icon.in-circle {
+                color: $success-text;
             }
         }
     }
