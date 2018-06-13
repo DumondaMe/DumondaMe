@@ -25,6 +25,7 @@ describe('Getting user profile data', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile');
         res.status.should.equal(200);
+        res.body.userId.should.equal('1');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier');
         res.body.userDescription.should.equal('superman');
@@ -76,6 +77,7 @@ describe('Getting user profile data', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
+        res.body.userId.should.equal('2');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.userDescription.should.equal('superman2');
@@ -94,6 +96,7 @@ describe('Getting user profile data', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
+        res.body.userId.should.equal('2');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.userDescription.should.equal('superman2');
@@ -109,6 +112,7 @@ describe('Getting user profile data', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
+        res.body.userId.should.equal('2');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.userDescription.should.equal('superman2');
@@ -130,6 +134,7 @@ describe('Getting user profile data', function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/user/profile', {userId: '2'});
         res.status.should.equal(200);
+        res.body.userId.should.equal('2');
         res.body.forename.should.equal('user');
         res.body.surname.should.equal('Meier2');
         res.body.userDescription.should.equal('superman2');

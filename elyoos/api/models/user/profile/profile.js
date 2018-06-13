@@ -55,7 +55,7 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
                 (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
                 (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
-        .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
+        .return(`u.userId AS userId, u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[18].length === 1) {
