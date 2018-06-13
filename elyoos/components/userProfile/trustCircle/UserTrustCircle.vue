@@ -70,6 +70,8 @@
                     this.loading = true;
                     if (this.showTrustCircle) {
                         await this.$store.dispatch('userProfile/loadNextPeopleOfTrust');
+                    } else {
+                        await this.$store.dispatch('userProfile/loadNextPeopleTrustUser');
                     }
                 } catch (error) {
 

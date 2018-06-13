@@ -1,6 +1,7 @@
 export const state = () => ({
     user: {},
-    nextPeopleOfTrust: 0
+    nextPeopleOfTrust: 0,
+    nextPeopleTrustUser: 0
 });
 
 export const mutations = {
@@ -10,6 +11,7 @@ export const mutations = {
             state.user.userDescription = '';
         }
         state.nextPeopleOfTrust = user.peopleOfTrust.length;
+        state.nextPeopleTrustUser = user.peopleTrustUser.length;
     },
     CHANGE_USER_DATA: function (state, user) {
         state.user.forename = user.forename;
@@ -52,6 +54,12 @@ export const mutations = {
         state.user.numberOfPeopleOfTrust = numberOfPeopleOfTrust;
         state.user.numberOfInvisiblePeopleOfTrust = numberOfInvisiblePeopleOfTrust;
         state.nextPeopleOfTrust = state.user.peopleOfTrust.length;
+    },
+    ADD_PEOPLE_TRUST_USER: function (state, {peopleTrustUser, numberOfPeopleTrustUser, numberOfInvisiblePeopleTrustUser}) {
+        state.user.peopleTrustUser = state.user.peopleTrustUser.concat(peopleTrustUser);
+        state.user.numberOfPeopleTrustUser = numberOfPeopleTrustUser;
+        state.user.numberOfInvisiblePeopleTrustUser = numberOfInvisiblePeopleTrustUser;
+        state.nextPeopleTrustUser = state.user.peopleTrustUser.length;
     }
 };
 
@@ -94,4 +102,13 @@ export const actions = {
             numberOfInvisiblePeopleOfTrust: response.numberOfInvisiblePeopleOfTrust
         });
     },
+    async loadNextPeopleTrustUser({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/peopleTrustUser`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextPeopleTrustUser}});
+        commit('ADD_PEOPLE_TRUST_USER', {
+            peopleTrustUser: response.peopleTrustUser,
+            numberOfPeopleTrustUser: response.numberOfPeopleTrustUser,
+            numberOfInvisiblePeopleTrustUser: response.numberOfInvisiblePeopleTrustUser
+        });
+    }
 };
