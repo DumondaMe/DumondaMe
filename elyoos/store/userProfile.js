@@ -1,5 +1,6 @@
 export const state = () => ({
-    user: {}
+    user: {},
+    nextPeopleOfTrust: 0
 });
 
 export const mutations = {
@@ -8,6 +9,7 @@ export const mutations = {
         if (!state.user.userDescription) {
             state.user.userDescription = '';
         }
+        state.nextPeopleOfTrust = user.peopleOfTrust.length;
     },
     CHANGE_USER_DATA: function (state, user) {
         state.user.forename = user.forename;
@@ -44,6 +46,12 @@ export const mutations = {
                 }
             }
         }
+    },
+    ADD_PEOPLE_OF_TRUST: function (state, {peopleOfTrust, numberOfPeopleOfTrust, numberOfInvisiblePeopleOfTrust}) {
+        state.user.peopleOfTrust = state.user.peopleOfTrust.concat(peopleOfTrust);
+        state.user.numberOfPeopleOfTrust = numberOfPeopleOfTrust;
+        state.user.numberOfInvisiblePeopleOfTrust = numberOfInvisiblePeopleOfTrust;
+        state.nextPeopleOfTrust = state.user.peopleOfTrust.length;
     }
 };
 
@@ -60,7 +68,6 @@ export const actions = {
     },
     async getProfileOtherUser({commit}, userId) {
         let user = await this.$axios.$get(`user/profile/`, {params: {userId}});
-        user.userId = userId;
         commit('SET_USER_PROFILE', user);
     },
     async addUserToTrustCircle({commit}, userId) {
@@ -77,5 +84,14 @@ export const actions = {
         }
         await this.$axios.$put(`user/profile`, userProfile);
         commit('CHANGE_USER_DATA', userProfile);
-    }
+    },
+    async loadNextPeopleOfTrust({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/trustCircle`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextPeopleOfTrust}});
+        commit('ADD_PEOPLE_OF_TRUST', {
+            peopleOfTrust: response.peopleOfTrust,
+            numberOfPeopleOfTrust: response.numberOfPeopleOfTrust,
+            numberOfInvisiblePeopleOfTrust: response.numberOfInvisiblePeopleOfTrust
+        });
+    },
 };

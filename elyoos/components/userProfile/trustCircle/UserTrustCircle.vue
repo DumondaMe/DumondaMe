@@ -29,7 +29,7 @@
             <trust-circle-user :user="user">
             </trust-circle-user>
         </div>
-        <v-btn outline color="primary" @click="loadNextPeople()"
+        <v-btn outline color="primary" @click="loadNextPeople()" :loading="loading" :disabled="loading"
                v-if="people.length < numberOfPeople">
             {{$t("common:button.showMore")}}
         </v-btn>
@@ -42,7 +42,7 @@
     export default {
         components: {TrustCircleUser},
         data() {
-            return {showTrustCircle: true}
+            return {showTrustCircle: true, loading: false}
         },
         computed: {
             numberOfPeople() {
@@ -66,7 +66,16 @@
         },
         methods: {
             async loadNextPeople() {
+                try {
+                    this.loading = true;
+                    if (this.showTrustCircle) {
+                        await this.$store.dispatch('userProfile/loadNextPeopleOfTrust');
+                    }
+                } catch (error) {
 
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }
