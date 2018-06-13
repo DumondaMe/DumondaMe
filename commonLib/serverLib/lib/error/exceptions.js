@@ -17,6 +17,14 @@ function invalidOperation(message, errorCode) {
 invalidOperation.prototype = Object.create(Error.prototype);
 invalidOperation.prototype.constructor = invalidOperation;
 
+function unauthorized(message, errorCode) {
+    this.message = message;
+    this.name = "unauthorized";
+    this.elyoosErrorCode = errorCode;
+}
+unauthorized.prototype = Object.create(Error.prototype);
+unauthorized.prototype.constructor = unauthorized;
+
 function invalidAuthentication(message, errorCode) {
     this.message = message;
     this.name = "invalidAuthentication";
@@ -31,9 +39,16 @@ function getInvalidOperation(message, logger, req, errorCode) {
     return Promise.reject(invalidOperationException);
 }
 
+function getUnauthorized(message, logger, req, errorCode) {
+    let unauthorizedException = new unauthorized(message, errorCode);
+    logger.warn(unauthorizedException.message, req, {error: ''});
+    return Promise.reject(unauthorizedException);
+}
+
 module.exports = {
     InvalidJsonRequest: invalidJsonRequest,
     InvalidOperation: invalidOperation,
     InvalidAuthentication: invalidAuthentication,
-    getInvalidOperation: getInvalidOperation
+    getInvalidOperation,
+    getUnauthorized
 };
