@@ -316,6 +316,21 @@
       "loggedInUserInfo_plural": "You're watching {{count}} commitments.",
       "otherUserInfo": "Watch a commitment.",
       "otherUserInfo_plural": "Watch {{count}} commitments."
+    },
+    "answer": {
+      "title": "Answers"
+    },
+    "createdAnswers": {
+      "loggedInUserInfo": "You created an answer.",
+      "loggedInUserInfo_plural": "You have created {{count}} answers.",
+      "otherUserInfo": "Created an answer.",
+      "otherUserInfo_plural": "Created  {{count}} answers."
+    },
+    "upVotedAnswers": {
+      "loggedInUserInfo": "You up voted an answer.",
+      "loggedInUserInfo_plural": "You up voted {{count}} answers.",
+      "otherUserInfo": "Voted for an answer.",
+      "otherUserInfo_plural": "Voted for {{count}} answers."
     }
   },
   "settings": {

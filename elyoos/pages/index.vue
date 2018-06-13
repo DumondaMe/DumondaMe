@@ -9,7 +9,7 @@
             </feed-filter>
             <feed-help v-if="showHelpFeedInfo">
             </feed-help>
-            <cards v-else>
+            <cards v-else :feed="feed">
             </cards>
             <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
@@ -63,6 +63,9 @@
             showLoadNextButton() {
                 return this.$store.state.feed.totalNumberOfElements >
                     this.$store.state.feed.feed.length;
+            },
+            feed() {
+                return this.$store.state.feed.feed
             }
         },
         methods: {

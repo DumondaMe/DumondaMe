@@ -1,5 +1,5 @@
 <template>
-    <div id="feed-cards-container">
+    <div class="feed-cards-container">
         <div class="feed-card ely-card" v-for="element in feed">
             <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
             <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
@@ -23,17 +23,16 @@
     import QuestionCard from './card/Question'
 
     export default {
+        props: ['feed'],
         components: {CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard},
         computed: {
-            feed() {
-                return this.$store.state.feed.feed
-            }
+
         }
     }
 </script>
 
 <style lang="scss">
-    #feed-cards-container {
+    .feed-cards-container {
         margin-top: 32px;
         .feed-card {
             margin-bottom: 18px;

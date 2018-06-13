@@ -10,6 +10,8 @@ const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
 const question = require('./question');
 const commitment = require('./commitment');
+const answer = require('./answer');
+const answerResponseHandler = require('./../feed/response');
 const userInfo = require('./../userInfo');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
@@ -44,6 +46,10 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     commands.push(commitment.getCommitmentCommand(userIdOfProfile, 4, 0, false).getCommand());
     commands.push(commitment.numberOfCommitments(userIdOfProfile, true).getCommand());
     commands.push(commitment.getCommitmentCommand(userIdOfProfile, 4, 0, true).getCommand());
+    commands.push(answer.numberOfAnswers(userIdOfProfile, false).getCommand());
+    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, false).getCommand());
+    commands.push(answer.numberOfAnswers(userIdOfProfile, true).getCommand());
+    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, true).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
@@ -52,8 +58,8 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         .return(`u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
-    if (resp[14].length === 1) {
-        let profile = resp[14][0];
+    if (resp[18].length === 1) {
+        let profile = resp[18][0];
         profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
 
         profile.numberOfPeopleOfTrust = resp[0][0].numberOfPeopleOfTrust;
@@ -81,6 +87,12 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         profile.numberOfWatchingCommitments = resp[12][0].numberOfCommitments;
         profile.watchingCommitments = resp[13];
         commitment.handlingResponseOfCommitment(profile.watchingCommitments);
+
+        profile.numberOfAnswers = resp[14][0].numberOfAnswers;
+        profile.answers = answerResponseHandler.getAnswersWithoutCreator(resp[15]);
+
+        profile.numberOfUpVotedAnswers = resp[16][0].numberOfAnswers;
+        profile.upVotedAnswers = answerResponseHandler.getAnswersWithoutCreator(resp[17]);
 
         profile.isLoggedInUser = userId === userIdOfProfile;
         addSlugToPeople(profile.peopleOfTrust);

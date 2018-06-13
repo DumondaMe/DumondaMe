@@ -1,6 +1,6 @@
 <template>
     <div class="card-footer-feed">
-        <div class="footer-icon">
+        <div class="footer-icon" v-if="creator">
             <v-tooltip bottom>
                 <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-eye</v-icon>
                 <span v-if="action === 'watch'">Beobachtet von {{creator}}</span>

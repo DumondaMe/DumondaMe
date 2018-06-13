@@ -120,10 +120,10 @@
     "answerLinkDialog": {
       "answerInfoWrongType": "Bei deinem Link handelt es sich nicht um ein Youtube oder Vimeo Video.",
       "answerSwitchTypeButton": "Link Erfassen",
-      "typeOfWebsiteDescription":"Um was für ein Weblink handelt es sich?",
-      "typeWebsite":"Webseite",
-      "typeArticle":"Artikel",
-      "typeBlog":"Blog"
+      "typeOfWebsiteDescription": "Um was für ein Weblink handelt es sich?",
+      "typeWebsite": "Webseite",
+      "typeArticle": "Artikel",
+      "typeBlog": "Blog"
     },
     "answerVideoDialog": {
       "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube oder Vimeo Video.",
@@ -321,6 +321,21 @@
       "loggedInUserInfo_plural": "Du beobachtest {{count}} Engagements.",
       "otherUserInfo": "Beobachtet ein Engagement.",
       "otherUserInfo_plural": "Beobachtet {{count}} Engagements."
+    },
+    "answer": {
+      "title": "Antworten"
+    },
+    "createdAnswers": {
+      "loggedInUserInfo": "Du hast eine Antwort erstellt.",
+      "loggedInUserInfo_plural": "Du hast {{count}} Antworten erstellt.",
+      "otherUserInfo": "Hat eine Antwort erstellt.",
+      "otherUserInfo_plural": "Hat {{count}} Antworten erstellt."
+    },
+    "upVotedAnswers": {
+      "loggedInUserInfo": "Du hast einer Antwort zugestimmt.",
+      "loggedInUserInfo_plural": "Du hast {{count}} Antworten zugestimmt.",
+      "otherUserInfo": "Hat einer Antwort zugestimmt.",
+      "otherUserInfo_plural": "Hat {{count}} Antworten zugestimmt."
     }
   },
   "settings": {

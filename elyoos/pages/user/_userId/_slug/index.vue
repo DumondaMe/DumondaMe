@@ -5,6 +5,7 @@
                 <user-profile></user-profile>
                 <commitments></commitments>
                 <questions></questions>
+                <answers></answers>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
@@ -21,6 +22,7 @@
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
     import Questions from '~/components/userProfile/question/Questions.vue';
+    import Answers from '~/components/userProfile/answers/Answers.vue';
     import Commitments from '~/components/userProfile/commitment/Commitments.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
 
@@ -37,7 +39,10 @@
                 title: this.$store.state.userProfile.user.forename,
             }
         },
-        components: {DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, Commitments, TrustCircle}
+        components: {
+            DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, Answers, Commitments,
+            TrustCircle
+        }
     }
 </script>
 
