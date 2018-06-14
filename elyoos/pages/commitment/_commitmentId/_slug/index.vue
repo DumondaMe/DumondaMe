@@ -11,10 +11,12 @@
             </events>
         </div>
         <div slot="sidebar" id="commitment-sidebar">
-            <admin v-if="commitment.isAdmin">
-            </admin>
+            <profile-image>
+            </profile-image>
             <general-information>
             </general-information>
+            <admin v-if="commitment.isAdmin">
+            </admin>
         </div>
     </detail-layout>
 </template>
@@ -22,6 +24,7 @@
 <script>
     import DetailLayout from '~/components/layouts/Detail';
     import CommitmentHeader from '~/components/commitment/detail/Header';
+    import ProfileImage from '~/components/commitment/detail/ProfileImage';
     import Notifications from '~/components/commitment/detail/notifications/Notifications';
     import Questions from '~/components/commitment/detail/Questions';
     import Events from '~/components/commitment/detail/event/Events';
@@ -48,7 +51,10 @@
                 ]
             }
         },
-        components: {DetailLayout, CommitmentHeader, Notifications, Questions, Events, Admin, GeneralInformation},
+        components: {
+            DetailLayout, CommitmentHeader, ProfileImage, Notifications, Questions, Events, Admin,
+            GeneralInformation
+        },
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
         }
@@ -71,7 +77,7 @@
         width: 100%;
         .sidebar-container {
             width: 100%;
-            margin-bottom: 32px;
+            margin-top: 32px;
             h3 {
                 font-size: 16px;
                 border-bottom: 1px solid #ddd;

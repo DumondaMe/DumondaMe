@@ -1,6 +1,5 @@
 <template>
-    <div class="sidebar-container">
-        <h3>{{$t("pages:detailCommitment.generalInfo.title")}}</h3>
+    <div class="general-info-container">
         <div class="commitment-info">
             <v-icon class="info-icon">mdi-eye</v-icon>
             <div v-if="commitment.numberOfWatches > 0">
@@ -43,50 +42,53 @@
 </script>
 
 <style lang="scss">
-    .commitment-info {
-        display: block;
-        font-size: 14px;
-        margin-bottom: 3px;
-        font-weight: 300;
-        width: 100%;
-        #topic-container {
-            margin-left: 30px;
-            .topic {
-                font-size: 14px;
+    .general-info-container {
+        margin-top: 18px;
+        .commitment-info {
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            margin-bottom: 3px;
+            width: 100%;
+            #topic-container {
+                margin-left: 30px;
+                .topic {
+                    font-size: 14px;
+                }
+            }
+            .info-icon {
+                margin-top: 2px;
+                float: left;
+                margin-right: 12px;
+                font-size: 18px;
+                color: #90A4AE;
+            }
+            #region-container {
+                margin-left: 30px;
+            }
+            a {
+                display: block;
+                margin-left: 30px;
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
             }
         }
-        .info-icon {
-            margin-top: 2px;
-            float: left;
-            margin-right: 12px;
-            font-size: 18px;
-            color: #90A4AE;
-        }
-        #region-container {
-            margin-left: 30px;
-        }
-        a {
-            display: block;
-            margin-left: 30px;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    }
 
-    .commitment-info.topics {
-        .info-icon {
-            margin-top: 2px;
+        .commitment-info.topics {
+            .info-icon {
+                margin-top: 2px;
+            }
         }
-    }
-    .commitment-info.regions {
-        .info-icon {
-            margin-top: 2px;
+        .commitment-info.regions {
+            .info-icon {
+                margin-top: 2px;
+            }
         }
     }
 </style>
