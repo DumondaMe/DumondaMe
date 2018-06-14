@@ -21,9 +21,9 @@ const schemaRequestGetCommitment = {
 module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaRequestGetCommitment, logger);
-        logger.info(`Requests people who trust user ${request.userId}`, req);
-        let contacts = await commitment.getCommitment(req.user.id, request.userId,
+        logger.info(`Requests commitment of user ${request.userId}`, req);
+        let commitments = await commitment.getCommitment(req.user.id, request.userId,
             request.maxItems, request.skip, request.isWatching, req);
-        res.status(200).json(contacts);
+        res.status(200).json(commitments);
     }));
 };
