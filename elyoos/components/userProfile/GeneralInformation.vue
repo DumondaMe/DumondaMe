@@ -45,7 +45,7 @@
 
 <style lang="scss">
     .profile-image-general-information {
-        margin-top: 12px;
+        margin-top: 18px;
         .user-profile-info {
             display: block;
             font-size: 14px;

@@ -1,7 +1,9 @@
 <template>
     <div id="elyoos-user-profile-image">
         <div id="elyoos-user-image-container">
-            <img :src="user.profileImage"/>
+            <div class="user-image">
+                <img :src="user.profileImage"/>
+            </div>
             <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                    @change="handleImageChange"/>
             <v-btn id="button-change-image" color="primary" @click="openUploadImage()"
@@ -62,11 +64,14 @@
 <style lang="scss">
     #elyoos-user-profile-image {
         #elyoos-user-image-container {
-            width: 180px;
-            img {
-                border-radius: 6px;
-                height: 180px;
+            .user-image {
                 width: 180px;
+                height: 180px;
+                img {
+                    border-radius: 6px;
+                    height: 100%;
+                    width: 100%;
+                }
             }
             #button-change-image {
                 width: 180px;
