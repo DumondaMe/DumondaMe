@@ -1,27 +1,23 @@
 <template>
-    <div class="sidebar-container">
-        <h3>{{$t("pages:detailQuestion.sidebar.admin.title")}}</h3>
-        <div id="question-admin-container">
-            <p>{{$t("pages:detailQuestion.sidebar.admin.description")}}</p>
-            <div id="admin-commands">
-                <v-menu bottom left offset-y>
-                    <v-btn outline fab small color="primary" slot="activator">
-                        <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-list>
-                        <v-list-tile @click="showModifyQuestionDialog = true">
-                            <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-list-tile @click="showModifyTopicDialog = true">
-                            <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-                <v-btn outline fab small color="primary" @click.native="showDeleteQuestionDialog = true">
-                    <v-icon>mdi-delete</v-icon>
-                </v-btn>
-            </div>
-        </div>
+    <div id="question-admin-commands-container">
+        <v-menu bottom left offset-y id="admin-commands">
+            <v-btn outline color="primary" slot="activator">
+                <v-icon>mdi-pencil</v-icon>
+                {{$t('common:button.edit')}}
+            </v-btn>
+            <v-list>
+                <v-list-tile @click="showModifyQuestionDialog = true">
+                    <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="showModifyTopicDialog = true">
+                    <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile @click="showDeleteQuestionDialog = true">
+                    <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
+                </v-list-tile>
+            </v-list>
+        </v-menu>
         <delete-question-dialog v-if="showDeleteQuestionDialog" @delete-question="deleteQuestion"
                                 @close-dialog="showDeleteQuestionDialog = false">
         </delete-question-dialog>
@@ -38,7 +34,7 @@
 </template>
 
 <script>
-    import DeleteQuestionDialog from './DeleteQuestionDialog';
+    import DeleteQuestionDialog from './dialog/DeleteQuestionDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
     import ModifyQuestionDialog from '~/components/question/dialog/ModifyQuestionDialog';
 
@@ -65,16 +61,15 @@
 </script>
 
 <style lang="scss">
-    #question-admin-container {
-        p {
-            font-size: 14px;
-            font-weight: 300;
-            margin-bottom: 6px;
-        }
+    #question-admin-commands-container {
+        height: 49px;
+        display: inline-block;
         #admin-commands {
+            i.icon {
+                margin-right: 8px;
+            }
             button {
-                margin-left: 0;
-                margin-right: 16px;
+                margin-top: 7px;
             }
         }
     }

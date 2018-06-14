@@ -184,24 +184,18 @@
         "website": "Link zur Webseite"
       }
     },
-    "sidebar": {
-      "admin": {
-        "title": "Administrator",
-        "description": "Du bist der Administrator dieser Frage."
-      },
-      "deleteQuestion": {
-        "title": "Frage löschen",
-        "description": "Willst du die Frage {{question}} wirklich löschen?",
-        "confirmButton": "Ja, Frage löschen"
-      },
-      "generalInfo": {
-        "title": "Allgemeine Informationen",
-        "watchers": "{{count}} Person",
-        "watchers_plural": "{{count}} Personen",
-        "watchersNotExisting": "Noch Niemand",
-        "answer": "{{count}} Antwort",
-        "answer_plural": "{{count}} Antworten"
-      }
+    "deleteDialogQuestion": {
+      "title": "Frage löschen",
+      "description": "Willst du die Frage {{question}} wirklich löschen?",
+      "confirmButton": "Ja, Frage löschen"
+    },
+    "generalInfo": {
+      "title": "Allgemeines",
+      "watchers": "{{count}} Person",
+      "watchers_plural": "{{count}} Personen",
+      "watchersNotExisting": "Noch Niemand",
+      "answer": "{{count}} Antwort",
+      "answer_plural": "{{count}} Antworten"
     },
     "error": {
       "invalidYoutubeId": "Ungültiger Youtube Link.",

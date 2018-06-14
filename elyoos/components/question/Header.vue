@@ -6,16 +6,18 @@
             <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()">
                 {{$t("common:button.answer")}}
             </v-btn>
-
-            <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
-                   v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
-                <v-icon>mdi-eye</v-icon>
-                {{$t("common:button.watch")}}
-            </v-btn>
-            <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
-                <v-icon>mdi-check</v-icon>
-                {{$t("common:button.watch")}}
-            </v-btn>
+            <admin-commands v-if="question.isAdmin"></admin-commands>
+            <div class="watch-question-button-container" v-else>
+                <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
+                       v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
+                    <v-icon>mdi-eye</v-icon>
+                    {{$t("common:button.watch")}}
+                </v-btn>
+                <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
+                    <v-icon>mdi-check</v-icon>
+                    {{$t("common:button.watch")}}
+                </v-btn>
+            </div>
         </div>
 
         <v-layout row justify-center>
@@ -34,9 +36,10 @@
     import UserInfo from '~/components/common/user/Info.vue';
     import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import AdminCommands from './AdminCommands';
 
     export default {
-        components: {UserInfo, CreateDialog, LoginRequiredDialog},
+        components: {UserInfo, CreateDialog, LoginRequiredDialog, AdminCommands},
         data() {
             return {dialog: false, showLoginRequired: false}
         },
@@ -90,9 +93,12 @@
             #answer-question-button {
                 margin-left: 0;
             }
-            .watch-question-button {
-                i {
-                    margin-right: 6px;
+            .watch-question-button-container {
+                display: inline-block;
+                .watch-question-button {
+                    i {
+                        margin-right: 6px;
+                    }
                 }
             }
         }
