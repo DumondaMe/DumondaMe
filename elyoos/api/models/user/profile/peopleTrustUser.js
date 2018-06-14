@@ -2,21 +2,7 @@
 
 let db = requireDb();
 let userInfo = require('../userInfo');
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-
-let checkAllowedToGetProfile = async function (userId, userDetailId, req) {
-    userId = userId || null;
-    let response = await db.cypher().match('(user:User {userId: {userDetailId}})')
-        .where(`user.privacyMode = 'public' OR user.userId = {userId} OR 
-               (user.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR
-               (user.privacyMode = 'onlyContact' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))`)
-        .return(`user`).end({userId, userDetailId}).send();
-    if (response.length !== 1) {
-        return exceptions.getUnauthorized(`User ${userId} has not access rights to view user profile ${userDetailId}`,
-            logger, req);
-    }
-};
+let security = require('./security');
 
 let numberOfPeopleTrustUser = function (userId, userDetailId) {
     return db.cypher().match('(:User {userId: {userDetailId}})<-[:IS_CONTACT]-(user:User)')
@@ -50,7 +36,7 @@ let getPeopleTrustUserCommand = function (userId, userDetailId, personPerPage, s
 };
 
 let getPeopleTrustUser = async function (userId, userDetailId, contactsPerPage, skipContacts, req) {
-    await checkAllowedToGetProfile(userId, userDetailId, req);
+    await security.checkAllowedToGetProfile(userId, userDetailId, req);
 
     let resp = await getPeopleTrustUserCommand(userId, userDetailId, contactsPerPage, skipContacts)
         .send([numberOfPeopleTrustUser(userId, userDetailId).getCommand(),
