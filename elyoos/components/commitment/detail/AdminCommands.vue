@@ -1,29 +1,27 @@
 <template>
-    <div class="sidebar-container">
-        <h3>{{$t("pages:detailCommitment.admin.title")}}</h3>
-        <div id="commitment-admin-container">
-            <p>{{$t("pages:detailCommitment.admin.description")}}</p>
-            <div id="admin-commands">
-                <v-menu bottom left offset-y>
-                    <v-btn outline fab small color="primary" slot="activator">
-                        <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-list>
-                        <v-list-tile @click="showModifyCommitmentDialog = true">
-                            <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-list-tile @click="showEditRegionDialog = true">
-                            <v-list-tile-title>{{$t("common:region")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-list-tile @click="showModifyTopicDialog = true">
-                            <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-                <v-btn outline fab small color="primary" @click.native="showDeleteCommitmentDialog = true">
-                    <v-icon>mdi-delete</v-icon>
+    <div id="commitment-admin-commands-container">
+        <div id="admin-commands">
+            <v-menu offset-y>
+                <v-btn outline color="primary" slot="activator">
+                    <v-icon>mdi-pencil</v-icon>
+                    {{$t('common:button.edit')}}
                 </v-btn>
-            </div>
+                <v-list>
+                    <v-list-tile @click="showModifyCommitmentDialog = true">
+                        <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="showEditRegionDialog = true">
+                        <v-list-tile-title>{{$t("common:region")}}</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="showModifyTopicDialog = true">
+                        <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                    <v-list-tile @click="showDeleteCommitmentDialog = true">
+                        <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
         </div>
         <modify-commitment-dialog v-if="showModifyCommitmentDialog" @close-dialog="showModifyCommitmentDialog = false"
                                   @finish="showModifyCommitmentDialog = false">
@@ -81,16 +79,13 @@
 </script>
 
 <style lang="scss">
-    #commitment-admin-container {
-        p {
-            font-size: 14px;
-            font-weight: 300;
-            margin-bottom: 6px;
-        }
+    #commitment-admin-commands-container {
         #admin-commands {
             button {
                 margin-left: 0;
-                margin-right: 16px;
+                i.icon {
+                    margin-right: 8px;
+                }
             }
         }
     }

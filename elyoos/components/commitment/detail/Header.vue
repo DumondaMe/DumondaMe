@@ -2,9 +2,10 @@
     <div id="elyoos-commitment-header">
         <h1>{{commitment.title}}</h1>
         <p id="commitment-description">{{commitment.description}}</p>
-        <div id="commands-container">
+        <admin-commands v-if="isAdmin"></admin-commands>
+        <div id="commands-container" v-else>
             <v-btn class="button-watch" color="primary" outline @click="addWatch"
-                   v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
+                   v-if="!commitment.userWatchesCommitment">
                 <v-icon>mdi-eye</v-icon>
                 {{$t("common:button.watch")}}
             </v-btn>
@@ -20,10 +21,11 @@
 
 <script>
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import AdminCommands from './AdminCommands';
     import {mapGetters} from 'vuex';
 
     export default {
-        components: {LoginRequiredDialog},
+        components: {LoginRequiredDialog, AdminCommands},
         data() {
             return {showLoginRequired: false}
         },

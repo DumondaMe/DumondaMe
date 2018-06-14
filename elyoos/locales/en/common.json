@@ -23,6 +23,7 @@
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "personalizationActivated": "Activate Personalization",
   "personalizationDeactivated": "Deactivate Personalization",
+  "youAreAdmin": "You are administrator",
   "toolbar": {
     "login": "Login"
   },

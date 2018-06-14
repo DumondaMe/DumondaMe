@@ -23,6 +23,7 @@
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "personalizationActivated": "Personalisierung ist aktiviert",
   "personalizationDeactivated": "Personalisierung ist deaktiviert",
+  "youAreAdmin": "Du bist Administrator",
   "toolbar": {
     "login": "Anmelden"
   },

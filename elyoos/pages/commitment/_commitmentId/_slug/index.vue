@@ -15,8 +15,6 @@
             </profile-image>
             <general-information>
             </general-information>
-            <admin v-if="commitment.isAdmin">
-            </admin>
         </div>
     </detail-layout>
 </template>
@@ -28,7 +26,6 @@
     import Notifications from '~/components/commitment/detail/notifications/Notifications';
     import Questions from '~/components/commitment/detail/Questions';
     import Events from '~/components/commitment/detail/event/Events';
-    import Admin from '~/components/commitment/detail/Admin';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation';
     import {mapGetters} from 'vuex';
 
@@ -52,8 +49,7 @@
             }
         },
         components: {
-            DetailLayout, CommitmentHeader, ProfileImage, Notifications, Questions, Events, Admin,
-            GeneralInformation
+            DetailLayout, CommitmentHeader, ProfileImage, Notifications, Questions, Events, GeneralInformation
         },
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})
