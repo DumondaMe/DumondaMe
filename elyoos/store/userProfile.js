@@ -5,7 +5,9 @@ export const state = () => ({
     nextAdminCommitments: 0,
     nextWatchedCommitments: 0,
     nextCreatedQuestions: 0,
-    nextWatchedQuestions: 0
+    nextWatchedQuestions: 0,
+    nextCreatedAnswers: 0,
+    nextUpVotedAnswers: 0
 });
 
 export const mutations = {
@@ -20,6 +22,8 @@ export const mutations = {
         state.nextWatchedCommitments = user.watchingCommitments.length;
         state.nextCreatedQuestions = user.questions.length;
         state.nextWatchedQuestions = user.watchingQuestions.length;
+        state.nextCreatedAnswers = user.answers.length;
+        state.nextUpVotedAnswers = user.upVotedAnswers.length;
     },
     CHANGE_USER_DATA: function (state, user) {
         state.user.forename = user.forename;
@@ -88,6 +92,16 @@ export const mutations = {
         state.user.watchingQuestions = state.user.watchingQuestions.concat(questions);
         state.user.numberOfWatchingQuestions = numberOfQuestions;
         state.nextWatchedQuestions = state.user.watchingQuestions.length;
+    },
+    ADD_CREATED_ANSWERS: function (state, {answers, numberOfAnswers}) {
+        state.user.answers = state.user.answers.concat(answers);
+        state.user.numberOfAnswers = numberOfAnswers;
+        state.nextCreatedAnswers = state.user.answers.length;
+    },
+    ADD_UP_VOTED_ANSWERS: function (state, {answers, numberOfAnswers}) {
+        state.user.upVotedAnswers = state.user.upVotedAnswers.concat(answers);
+        state.user.numberOfUpVotedAnswers = numberOfAnswers;
+        state.nextUpVotedAnswers = state.user.upVotedAnswers.length;
     }
 };
 
@@ -169,6 +183,22 @@ export const actions = {
         commit('ADD_WATCHED_QUESTIONS', {
             questions: response.questions,
             numberOfQuestions: response.numberOfQuestions
+        });
+    },
+    async loadNextCreatedAnswers({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/answer`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextCreatedAnswers, upVoted: false}});
+        commit('ADD_CREATED_ANSWERS', {
+            answers: response.answers,
+            numberOfAnswers: response.numberOfAnswers
+        });
+    },
+    async loadNextUpVotedAnswers({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/answer`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextUpVotedAnswers, upVoted: true}});
+        commit('ADD_UP_VOTED_ANSWERS', {
+            answers: response.answers,
+            numberOfAnswers: response.numberOfAnswers
         });
     },
 };

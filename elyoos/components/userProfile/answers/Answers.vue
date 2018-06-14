@@ -26,7 +26,7 @@
             </span>
         </div>
         <cards :feed="answers"></cards>
-        <v-btn outline color="primary" @click="loadNextAnswers()"
+        <v-btn outline color="primary" @click="loadNextAnswers()" :loading="loading" :disabled="loading"
                v-if="answers.length < numberOfAnswers">
             {{$t("common:button.showMore")}}
         </v-btn>
@@ -41,7 +41,7 @@
         data() {
             return {
                 showCreatedAnswers: !(this.$store.state.userProfile.user.numberOfAnswers === 0 &&
-                    this.$store.state.userProfile.user.numberOfUpVotedAnswers > 0)
+                    this.$store.state.userProfile.user.numberOfUpVotedAnswers > 0), loading: false
             }
         },
         computed: {
@@ -66,7 +66,18 @@
         },
         methods: {
             async loadNextAnswers() {
+                try {
+                    this.loading = true;
+                    if (this.showCreatedAnswers) {
+                        await this.$store.dispatch('userProfile/loadNextCreatedAnswers');
+                    } else {
+                        await this.$store.dispatch('userProfile/loadNextUpVotedAnswers');
+                    }
+                } catch (error) {
 
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 'use strict';
 
 const db = requireDb();
+const security = require('./security');
+const answerResponseHandler = require('./../feed/response');
 
 let getRelation = function (hasUpVoted) {
     if (hasUpVoted) {
@@ -40,10 +42,15 @@ let getAnswerCommand = function (userId, answersPerPage, skipAnswer, hasUpVoted)
         .end({userId, answersPerPage, skipAnswer});
 };
 
-let getAnswer = async function (userId, questionsPerPage, skipQuestions, isWatching) {
-    let questions = await getAnswerCommand(userId, questionsPerPage, skipQuestions, isWatching)
-        .send([numberOfAnswers(userId, isWatching).getCommand()]);
-    return {};
+let getAnswer = async function (userId, userDetailId, answersPerPage, skipAnswers, upVoted, req) {
+    await security.checkAllowedToGetProfile(userId, userDetailId, req);
+
+    let response = await getAnswerCommand(userDetailId, answersPerPage, skipAnswers, upVoted)
+        .send([numberOfAnswers(userDetailId, upVoted).getCommand()]);
+    return {
+        answers: answerResponseHandler.getAnswersWithoutCreator(response[1]),
+        numberOfAnswers: response[0][0].numberOfAnswers
+    };
 };
 
 
