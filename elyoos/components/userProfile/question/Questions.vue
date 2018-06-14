@@ -29,7 +29,7 @@
             <question :question="question">
             </question>
         </div>
-        <v-btn outline color="primary" @click="loadNextQuestions()"
+        <v-btn outline color="primary" @click="loadNextQuestions()" :loading="loading" :disabled="loading"
                v-if="questions.length < numberOfQuestions">
             {{$t("common:button.showMore")}}
         </v-btn>
@@ -43,7 +43,7 @@
         components: {Question},
         data() {
             return {showCreatedQuestions: !(this.$store.state.userProfile.user.numberOfCreatedQuestions === 0 &&
-                    this.$store.state.userProfile.user.numberOfWatchingQuestions > 0)}
+                    this.$store.state.userProfile.user.numberOfWatchingQuestions > 0), loading: false}
         },
         computed: {
             numberOfQuestions() {
@@ -54,7 +54,7 @@
             },
             questions() {
                 if (this.showCreatedQuestions) {
-                    return this.$store.state.userProfile.user.createdQuestions
+                    return this.$store.state.userProfile.user.questions
                 }
                 return this.$store.state.userProfile.user.watchingQuestions
             },
@@ -67,7 +67,18 @@
         },
         methods: {
             async loadNextQuestions() {
+                try {
+                    this.loading = true;
+                    if (this.showCreatedQuestions) {
+                        await this.$store.dispatch('userProfile/loadNextCreatedQuestions');
+                    } else {
+                        await this.$store.dispatch('userProfile/loadNextWatchedQuestions');
+                    }
+                } catch (error) {
 
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }

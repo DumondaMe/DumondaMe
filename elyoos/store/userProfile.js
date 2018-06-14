@@ -3,7 +3,9 @@ export const state = () => ({
     nextPeopleOfTrust: 0,
     nextPeopleTrustUser: 0,
     nextAdminCommitments: 0,
-    nextWatchedCommitments: 0
+    nextWatchedCommitments: 0,
+    nextCreatedQuestions: 0,
+    nextWatchedQuestions: 0
 });
 
 export const mutations = {
@@ -16,6 +18,8 @@ export const mutations = {
         state.nextPeopleTrustUser = user.peopleTrustUser.length;
         state.nextAdminCommitments = user.commitments.length;
         state.nextWatchedCommitments = user.watchingCommitments.length;
+        state.nextCreatedQuestions = user.questions.length;
+        state.nextWatchedQuestions = user.watchingQuestions.length;
     },
     CHANGE_USER_DATA: function (state, user) {
         state.user.forename = user.forename;
@@ -74,6 +78,16 @@ export const mutations = {
         state.user.watchingCommitments = state.user.watchingCommitments.concat(commitments);
         state.user.numberOfWatchingCommitments = numberOfCommitments;
         state.nextWatchedCommitments = state.user.watchingCommitments.length;
+    },
+    ADD_CREATED_QUESTIONS: function (state, {questions, numberOfQuestions}) {
+        state.user.questions = state.user.questions.concat(questions);
+        state.user.numberOfQuestions = numberOfQuestions;
+        state.nextCreatedQuestions = state.user.questions.length;
+    },
+    ADD_WATCHED_QUESTIONS: function (state, {questions, numberOfQuestions}) {
+        state.user.watchingQuestions = state.user.watchingQuestions.concat(questions);
+        state.user.numberOfWatchingQuestions = numberOfQuestions;
+        state.nextWatchedQuestions = state.user.watchingQuestions.length;
     }
 };
 
@@ -140,5 +154,21 @@ export const actions = {
             commitments: response.commitments,
             numberOfCommitments: response.numberOfCommitments
         });
-    }
+    },
+    async loadNextCreatedQuestions({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/question`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextCreatedQuestions, isWatching: false}});
+        commit('ADD_CREATED_QUESTIONS', {
+            questions: response.questions,
+            numberOfQuestions: response.numberOfQuestions
+        });
+    },
+    async loadNextWatchedQuestions({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/question`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextWatchedQuestions, isWatching: true}});
+        commit('ADD_WATCHED_QUESTIONS', {
+            questions: response.questions,
+            numberOfQuestions: response.numberOfQuestions
+        });
+    },
 };

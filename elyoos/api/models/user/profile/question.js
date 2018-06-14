@@ -3,6 +3,7 @@
 const db = requireDb();
 const dashify = require('dashify');
 const linkifyHtml = require('linkifyjs/html');
+const security = require('./security');
 
 let getRelation = function (isWatching) {
     if (isWatching) {
@@ -19,6 +20,7 @@ let handlingResponseToQuestion = function (questions) {
             delete question.description;
         }
     }
+    return questions;
 };
 
 let numberOfQuestions = function (userId, isWatching) {
@@ -40,10 +42,12 @@ let getQuestionCommand = function (userId, questionsPerPage, skipQuestions, isWa
         .end({userId, questionsPerPage, skipQuestions});
 };
 
-let getQuestion = async function (userId, questionsPerPage, skipQuestions, isWatching) {
-    let questions = await getQuestionCommand(userId, questionsPerPage, skipQuestions, isWatching)
-        .send([numberOfQuestions(userId, isWatching).getCommand()]);
-    return {};
+let getQuestion = async function (userId, userDetailId, questionsPerPage, skipQuestions, isWatching, req) {
+    await security.checkAllowedToGetProfile(userId, userDetailId, req);
+
+    let response = await getQuestionCommand(userDetailId, questionsPerPage, skipQuestions, isWatching)
+        .send([numberOfQuestions(userDetailId, isWatching).getCommand()]);
+    return {questions: handlingResponseToQuestion(response[1]), numberOfQuestions: response[0][0].numberOfQuestions};
 };
 
 
