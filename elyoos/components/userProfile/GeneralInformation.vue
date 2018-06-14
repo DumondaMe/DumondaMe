@@ -1,5 +1,13 @@
 <template>
     <div class="profile-image-general-information">
+        <div class="user-profile-info" v-if="!isLoggedInUser && isAuthenticated">
+            <v-icon class="info-icon" :class="{'in-circle': user.isPersonOfTrustOfLoggedInUser}">mdi-account-circle
+            </v-icon>
+            <span v-if="user.isPersonOfTrustOfLoggedInUser">
+                {{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
+            <span v-else>
+                {{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
+        </div>
         <div class="user-profile-info">
             <v-icon class="info-icon">mdi-circle-outline</v-icon>
             <div v-if="user.numberOfPeopleOfTrust > 0">
@@ -13,14 +21,6 @@
                 {{$t('pages:detailUser.profileInfo.trustCircleOtherUser', {count: user.numberOfPeopleTrustUser})}}
             </div>
             <div v-else>{{$t('pages:detailUser.profileInfo.noTrustCircleOtherUser')}}</div>
-        </div>
-        <div class="user-profile-info" v-if="!isLoggedInUser && isAuthenticated">
-            <v-icon class="info-icon" :class="{'in-circle': user.isPersonOfTrustOfLoggedInUser}">mdi-account-circle
-            </v-icon>
-            <span v-if="user.isPersonOfTrustOfLoggedInUser">
-                {{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
-            <span v-else>
-                {{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
         </div>
     </div>
 </template>
