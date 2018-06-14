@@ -81,6 +81,7 @@
             .answer-description {
                 margin-left: 18px;
                 margin-top: 5px;
+                word-wrap: break-word;
             }
             .answer-description.no-commitment-image {
                 margin-left: 0;

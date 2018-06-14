@@ -1,7 +1,9 @@
 export const state = () => ({
     user: {},
     nextPeopleOfTrust: 0,
-    nextPeopleTrustUser: 0
+    nextPeopleTrustUser: 0,
+    nextAdminCommitments: 0,
+    nextWatchedCommitments: 0
 });
 
 export const mutations = {
@@ -12,6 +14,8 @@ export const mutations = {
         }
         state.nextPeopleOfTrust = user.peopleOfTrust.length;
         state.nextPeopleTrustUser = user.peopleTrustUser.length;
+        state.nextAdminCommitments = user.commitments.length;
+        state.nextWatchedCommitments = user.watchingCommitments.length;
     },
     CHANGE_USER_DATA: function (state, user) {
         state.user.forename = user.forename;
@@ -60,6 +64,16 @@ export const mutations = {
         state.user.numberOfPeopleTrustUser = numberOfPeopleTrustUser;
         state.user.numberOfInvisiblePeopleTrustUser = numberOfInvisiblePeopleTrustUser;
         state.nextPeopleTrustUser = state.user.peopleTrustUser.length;
+    },
+    ADD_ADMIN_COMMITMENTS: function (state, {commitments, numberOfCommitments}) {
+        state.user.commitments = state.user.commitments.concat(commitments);
+        state.user.numberOfCommitments = numberOfCommitments;
+        state.nextAdminCommitments = state.user.commitments.length;
+    },
+    ADD_WATCHED_COMMITMENTS: function (state, {commitments, numberOfCommitments}) {
+        state.user.watchingCommitments = state.user.watchingCommitments.concat(commitments);
+        state.user.numberOfWatchingCommitments = numberOfCommitments;
+        state.nextWatchedCommitments = state.user.watchingCommitments.length;
     }
 };
 
@@ -109,6 +123,22 @@ export const actions = {
             peopleTrustUser: response.peopleTrustUser,
             numberOfPeopleTrustUser: response.numberOfPeopleTrustUser,
             numberOfInvisiblePeopleTrustUser: response.numberOfInvisiblePeopleTrustUser
+        });
+    },
+    async loadNextAdminCommitments({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/commitment`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextAdminCommitments, isWatching: false}});
+        commit('ADD_ADMIN_COMMITMENTS', {
+            commitments: response.commitments,
+            numberOfCommitments: response.numberOfCommitments
+        });
+    },
+    async loadNextWatchedCommitments({state, commit}) {
+        let response = await this.$axios.$get(`user/profile/commitment`,
+            {params: {userId: state.user.userId, maxItems: 15, skip: state.nextWatchedCommitments, isWatching: true}});
+        commit('ADD_WATCHED_COMMITMENTS', {
+            commitments: response.commitments,
+            numberOfCommitments: response.numberOfCommitments
         });
     }
 };

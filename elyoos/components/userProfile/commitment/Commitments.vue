@@ -29,7 +29,7 @@
             <commitment :commitment="commitment">
             </commitment>
         </div>
-        <v-btn outline color="primary" @click="loadNextCommitments()"
+        <v-btn outline color="primary" @click="loadNextCommitments()" :loading="loading" :disabled="loading"
                v-if="commitments.length < numberOfCommitments">
             {{$t("common:button.showMore")}}
         </v-btn>
@@ -43,7 +43,7 @@
         components: {Commitment},
         data() {
             return {showAdminCommitments: !(this.$store.state.userProfile.user.numberOfCommitments === 0 &&
-                    this.$store.state.userProfile.user.numberOfWatchingCommitments > 0)}
+                    this.$store.state.userProfile.user.numberOfWatchingCommitments > 0), loading: false}
         },
         computed: {
             numberOfCommitments() {
@@ -67,7 +67,18 @@
         },
         methods: {
             async loadNextCommitments() {
+                try {
+                    this.loading = true;
+                    if (this.showAdminCommitments) {
+                        await this.$store.dispatch('userProfile/loadNextAdminCommitments');
+                    } else {
+                        await this.$store.dispatch('userProfile/loadNextWatchedCommitments');
+                    }
+                } catch (error) {
 
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }
