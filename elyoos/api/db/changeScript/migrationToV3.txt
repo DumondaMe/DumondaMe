@@ -103,6 +103,11 @@ SET u.privacyMode = 'public';
 MATCH (u:User)-[rel:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)
 DELETE rel, privacy;
 
+//Adding to existing events a region
+match (event:Event)
+where not (event)-[:BELONGS_TO_REGION]->(:Region)
+return event
+
 //Add new constraints
 CREATE CONSTRAINT ON (b:Answer) ASSERT b.answerId IS UNIQUE;
 CREATE CONSTRAINT ON (b:Commitment) ASSERT b.commitmentId IS UNIQUE;
