@@ -73,8 +73,8 @@ let getUserProfile = async function (userId, userIdOfProfile) {
         await userInfo.addImageForThumbnail(resp[5]);
 
         profile.numberOfCreatedQuestions = resp[6][0].numberOfQuestions;
-        profile.createdQuestions = resp[7];
-        question.handlingResponseToQuestion(profile.createdQuestions);
+        profile.questions = resp[7];
+        question.handlingResponseToQuestion(profile.questions);
 
         profile.numberOfWatchingQuestions = resp[8][0].numberOfQuestions;
         profile.watchingQuestions = resp[9];

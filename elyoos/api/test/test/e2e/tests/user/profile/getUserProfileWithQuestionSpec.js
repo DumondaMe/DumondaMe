@@ -45,22 +45,22 @@ describe('Getting user profile with questions', function () {
         res.body.numberOfCreatedQuestions.should.equal(2);
         res.body.numberOfWatchingQuestions.should.equal(1);
 
-        res.body.createdQuestions.length.should.equal(2);
-        res.body.createdQuestions[0].questionId.should.equal('10');
-        res.body.createdQuestions[0].question.should.equal('Das ist eine Frage');
-        res.body.createdQuestions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
-        res.body.createdQuestions[0].questionSlug.should.equal('das-ist-eine-frage');
-        res.body.createdQuestions[0].created.should.equal(666);
-        res.body.createdQuestions[0].numberOfWatches.should.equal(2);
-        res.body.createdQuestions[0].numberOfAnswers.should.equal(1);
+        res.body.questions.length.should.equal(2);
+        res.body.questions[0].questionId.should.equal('10');
+        res.body.questions[0].question.should.equal('Das ist eine Frage');
+        res.body.questions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.questions[0].questionSlug.should.equal('das-ist-eine-frage');
+        res.body.questions[0].created.should.equal(666);
+        res.body.questions[0].numberOfWatches.should.equal(2);
+        res.body.questions[0].numberOfAnswers.should.equal(1);
 
-        res.body.createdQuestions[1].questionId.should.equal('11');
-        res.body.createdQuestions[1].question.should.equal('Das ist eine Frage2');
-        should.not.exist(res.body.createdQuestions[1].descriptionHtml);
-        res.body.createdQuestions[1].questionSlug.should.equal('das-ist-eine-frage2');
-        res.body.createdQuestions[1].created.should.equal(555);
-        res.body.createdQuestions[1].numberOfWatches.should.equal(0);
-        res.body.createdQuestions[1].numberOfAnswers.should.equal(0);
+        res.body.questions[1].questionId.should.equal('11');
+        res.body.questions[1].question.should.equal('Das ist eine Frage2');
+        should.not.exist(res.body.questions[1].descriptionHtml);
+        res.body.questions[1].questionSlug.should.equal('das-ist-eine-frage2');
+        res.body.questions[1].created.should.equal(555);
+        res.body.questions[1].numberOfWatches.should.equal(0);
+        res.body.questions[1].numberOfAnswers.should.equal(0);
 
         res.body.watchingQuestions.length.should.equal(1);
         res.body.watchingQuestions[0].questionId.should.equal('12');
@@ -82,22 +82,22 @@ describe('Getting user profile with questions', function () {
         res.body.numberOfCreatedQuestions.should.equal(2);
         res.body.numberOfWatchingQuestions.should.equal(1);
 
-        res.body.createdQuestions.length.should.equal(2);
-        res.body.createdQuestions[0].questionId.should.equal('10');
-        res.body.createdQuestions[0].question.should.equal('Das ist eine Frage');
-        res.body.createdQuestions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
-        res.body.createdQuestions[0].questionSlug.should.equal('das-ist-eine-frage');
-        res.body.createdQuestions[0].created.should.equal(666);
-        res.body.createdQuestions[0].numberOfWatches.should.equal(2);
-        res.body.createdQuestions[0].numberOfAnswers.should.equal(1);
+        res.body.questions.length.should.equal(2);
+        res.body.questions[0].questionId.should.equal('10');
+        res.body.questions[0].question.should.equal('Das ist eine Frage');
+        res.body.questions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.questions[0].questionSlug.should.equal('das-ist-eine-frage');
+        res.body.questions[0].created.should.equal(666);
+        res.body.questions[0].numberOfWatches.should.equal(2);
+        res.body.questions[0].numberOfAnswers.should.equal(1);
 
-        res.body.createdQuestions[1].questionId.should.equal('11');
-        res.body.createdQuestions[1].question.should.equal('Das ist eine Frage2');
-        should.not.exist(res.body.createdQuestions[1].descriptionHtml);
-        res.body.createdQuestions[1].questionSlug.should.equal('das-ist-eine-frage2');
-        res.body.createdQuestions[1].created.should.equal(555);
-        res.body.createdQuestions[1].numberOfWatches.should.equal(0);
-        res.body.createdQuestions[1].numberOfAnswers.should.equal(0);
+        res.body.questions[1].questionId.should.equal('11');
+        res.body.questions[1].question.should.equal('Das ist eine Frage2');
+        should.not.exist(res.body.questions[1].descriptionHtml);
+        res.body.questions[1].questionSlug.should.equal('das-ist-eine-frage2');
+        res.body.questions[1].created.should.equal(555);
+        res.body.questions[1].numberOfWatches.should.equal(0);
+        res.body.questions[1].numberOfAnswers.should.equal(0);
 
         res.body.watchingQuestions.length.should.equal(1);
         res.body.watchingQuestions[0].questionId.should.equal('12');
@@ -119,22 +119,22 @@ describe('Getting user profile with questions', function () {
         res.body.numberOfCreatedQuestions.should.equal(2);
         res.body.numberOfWatchingQuestions.should.equal(1);
 
-        res.body.createdQuestions.length.should.equal(2);
-        res.body.createdQuestions[0].questionId.should.equal('10');
-        res.body.createdQuestions[0].question.should.equal('Das ist eine Frage');
-        res.body.createdQuestions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
-        res.body.createdQuestions[0].questionSlug.should.equal('das-ist-eine-frage');
-        res.body.createdQuestions[0].created.should.equal(666);
-        res.body.createdQuestions[0].numberOfWatches.should.equal(2);
-        res.body.createdQuestions[0].numberOfAnswers.should.equal(1);
+        res.body.questions.length.should.equal(2);
+        res.body.questions[0].questionId.should.equal('10');
+        res.body.questions[0].question.should.equal('Das ist eine Frage');
+        res.body.questions[0].descriptionHtml.should.equal(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.questions[0].questionSlug.should.equal('das-ist-eine-frage');
+        res.body.questions[0].created.should.equal(666);
+        res.body.questions[0].numberOfWatches.should.equal(2);
+        res.body.questions[0].numberOfAnswers.should.equal(1);
 
-        res.body.createdQuestions[1].questionId.should.equal('11');
-        res.body.createdQuestions[1].question.should.equal('Das ist eine Frage2');
-        should.not.exist(res.body.createdQuestions[1].descriptionHtml);
-        res.body.createdQuestions[1].questionSlug.should.equal('das-ist-eine-frage2');
-        res.body.createdQuestions[1].created.should.equal(555);
-        res.body.createdQuestions[1].numberOfWatches.should.equal(0);
-        res.body.createdQuestions[1].numberOfAnswers.should.equal(0);
+        res.body.questions[1].questionId.should.equal('11');
+        res.body.questions[1].question.should.equal('Das ist eine Frage2');
+        should.not.exist(res.body.questions[1].descriptionHtml);
+        res.body.questions[1].questionSlug.should.equal('das-ist-eine-frage2');
+        res.body.questions[1].created.should.equal(555);
+        res.body.questions[1].numberOfWatches.should.equal(0);
+        res.body.questions[1].numberOfAnswers.should.equal(0);
 
         res.body.watchingQuestions.length.should.equal(1);
         res.body.watchingQuestions[0].questionId.should.equal('12');
