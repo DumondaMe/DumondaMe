@@ -22,7 +22,7 @@
                 return false;
             }
         },
-        mounted(){
+        mounted() {
             this.isMounted = true;
         }
     }
@@ -31,12 +31,14 @@
 <style lang="scss">
     .expand-text-container {
         p {
+            width: 100%;
             font-weight: 300;
             font-size: 16px;
             line-height: 1.6em;
             max-height: 8em;
             overflow-y: hidden;
             overflow-x: hidden;
+            word-break: break-word;
             margin-bottom: 0;
         }
         p.expand {
