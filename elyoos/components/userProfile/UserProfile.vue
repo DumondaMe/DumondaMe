@@ -5,7 +5,7 @@
             <div class="user-description">{{user.userDescription}}</div>
             <v-btn color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
                    @click="showUploadUserDataDialog = true">
-                <v-icon>mdi-account</v-icon>
+                <v-icon>mdi-account-edit</v-icon>
                 {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
             </v-btn>
             <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
