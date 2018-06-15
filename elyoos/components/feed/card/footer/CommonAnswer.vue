@@ -18,7 +18,7 @@
                      params: {userId: creatorId, slug: creatorSlug}})">{{creator}}</span></span>
         </div>
         <div class="footer-icon">
-            <v-icon>mdi-clock</v-icon>
+            <v-icon>mdi-clock-outline</v-icon>
             <span class="footer-text">{{created | formatRelativeTimesAgo}}</span>
         </div>
     </div>

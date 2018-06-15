@@ -2,8 +2,8 @@
     <div class="card-footer-feed">
         <div class="footer-icon">
             <v-tooltip bottom>
-                <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-eye</v-icon>
-                <span v-if="action === 'watch'">Beobachtet von {{creator}}</span>
+                <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-star</v-icon>
+                <span v-if="action === 'watch'">{{creator}} interessiert sich für diese Frage</span>
 
                 <v-icon v-if="action === 'created'"
                         slot="activator" class="action-icon">
@@ -21,7 +21,7 @@
                      params: {userId: creatorId, slug: creatorSlug}})">{{creator}}</span></span>
         </div>
         <div class="footer-icon">
-            <v-icon>mdi-clock</v-icon>
+            <v-icon>mdi-clock-outline</v-icon>
             <span class="footer-text">{{created | formatRelativeTimesAgo}}</span>
         </div>
         <div class="footer-icon">

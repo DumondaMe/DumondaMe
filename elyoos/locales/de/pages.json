@@ -295,7 +295,7 @@
       "otherUserInfo": "Hat eine Frage erstellt.",
       "otherUserInfo_plural": "Hat {{count}} Fragen erstellt."
     },
-    "watchedQuestion": {
+    "interestedInTheQuestion": {
       "loggedInUserInfo": "Du interessierst dich für eine Frage.",
       "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Fragen.",
       "otherUserInfo": "Interessiert sich für eine Frage.",
@@ -310,11 +310,11 @@
       "otherUserInfo": "Ist Administrator von einem Engagement.",
       "otherUserInfo_plural": "Administrator von {{count}} Engagements."
     },
-    "watchedCommitment": {
-      "loggedInUserInfo": "Du beobachtest ein Engagement.",
-      "loggedInUserInfo_plural": "Du beobachtest {{count}} Engagements.",
-      "otherUserInfo": "Beobachtet ein Engagement.",
-      "otherUserInfo_plural": "Beobachtet {{count}} Engagements."
+    "interestedInTheCommitment": {
+      "loggedInUserInfo": "Du interessierst dich für ein Engagement.",
+      "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Engagements.",
+      "otherUserInfo": "Interessiert sich für ein Engagement.",
+      "otherUserInfo_plural": "Interessiert sich für {{count}} Engagements."
     },
     "answer": {
       "title": "Antworten"

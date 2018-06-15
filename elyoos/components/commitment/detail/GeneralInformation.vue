@@ -5,7 +5,7 @@
             {{$t('common:youAreAdmin')}}
         </div>
         <div class="commitment-info">
-            <v-icon class="info-icon">mdi-eye</v-icon>
+            <v-icon class="info-icon">mdi-star</v-icon>
             <div v-if="commitment.numberOfWatches > 0">
                 {{$t('pages:detailCommitment.generalInfo.watchers', {count: commitment.numberOfWatches})}}
             </div>

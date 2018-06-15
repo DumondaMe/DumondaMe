@@ -6,12 +6,12 @@
             {{$t('common:youAreAdmin')}}
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">mdi-eye</v-icon>
+            <v-icon class="info-icon">mdi-star</v-icon>
             <div v-if="question.numberOfWatches > 0" class="visibility-container">
                 {{$t('pages:detailQuestion.generalInfo.watchers', {count: question.numberOfWatches})}}
             </div>
             <div class="visibility-container" v-else>
-                {{$t('pages:detailQuestion.sidebar.generalInfo.watchersNotExisting')}}
+                {{$t('pages:detailQuestion.generalInfo.watchersNotExisting')}}
             </div>
         </div>
         <div class="question-info">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">mdi-calendar</v-icon>
+            <v-icon class="info-icon">mdi-clock-outline</v-icon>
             <div class="question-info-content">
                 {{question.created | formatRelativeTimesAgo}}
             </div>

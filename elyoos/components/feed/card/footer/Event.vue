@@ -13,7 +13,7 @@
 
         </div>
         <div class="footer-icon">
-            <v-icon>mdi-clock</v-icon>
+            <v-icon>mdi-clock-outline</v-icon>
             <span class="footer-text">{{startDate | formatFromToDate(endDate, $t('common:at'))}}</span>
         </div>
         <div class="footer-icon">

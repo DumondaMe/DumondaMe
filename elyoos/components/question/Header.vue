@@ -10,12 +10,12 @@
             <div class="watch-question-button-container" v-else>
                 <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
                        v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
-                    <v-icon>mdi-eye</v-icon>
-                    {{$t("common:button.watch")}}
+                    <v-icon>mdi-star</v-icon>
+                    {{$t("common:button.interested")}}
                 </v-btn>
                 <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
                     <v-icon>mdi-check</v-icon>
-                    {{$t("common:button.watch")}}
+                    {{$t("common:button.interested")}}
                 </v-btn>
             </div>
         </div>
@@ -96,7 +96,8 @@
             .watch-question-button-container {
                 display: inline-block;
                 .watch-question-button {
-                    i {
+                    i.icon {
+                        font-size: 20px;
                         margin-right: 6px;
                     }
                 }

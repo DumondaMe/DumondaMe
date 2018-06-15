@@ -6,7 +6,7 @@
                     @click="showCreatedQuestions = true">mdi-pencil
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showCreatedQuestions}"
-                    @click="showCreatedQuestions = false">mdi-eye
+                    @click="showCreatedQuestions = false">mdi-star
             </v-icon> )</span>
         </h3>
         <div class="general-user-info" v-if="showCreatedQuestions">
@@ -19,10 +19,10 @@
         </div>
         <div class="general-user-info" v-else>
             <span v-if="isLoggedInUser">
-                {{$t("pages:detailUser.watchedQuestion.loggedInUserInfo", {count: numberOfQuestions})}}
+                {{$t("pages:detailUser.interestedInTheQuestion.loggedInUserInfo", {count: numberOfQuestions})}}
             </span>
             <span v-else>
-                {{$t("pages:detailUser.watchedQuestion.otherUserInfo", {count: numberOfQuestions, name: userForename})}}
+                {{$t("pages:detailUser.interestedInTheQuestion.otherUserInfo", {count: numberOfQuestions, name: userForename})}}
             </span>
         </div>
         <div class="question-info" v-for="question in questions">

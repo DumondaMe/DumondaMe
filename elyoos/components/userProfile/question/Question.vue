@@ -11,7 +11,7 @@
                 <span class="info-text">{{question.numberOfAnswers}}</span>
             </div>
             <div class="info-icon-element">
-                <v-icon class="info-icon">mdi-eye</v-icon>
+                <v-icon class="info-icon">mdi-star</v-icon>
                 <span class="info-text">{{question.numberOfWatches}}</span>
             </div>
         </div>

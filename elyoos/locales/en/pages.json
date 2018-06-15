@@ -296,7 +296,7 @@
       "otherUserInfo": "Created a question.",
       "otherUserInfo_plural": "Created {{count}} questions."
     },
-    "watchedQuestion": {
+    "interestedInTheQuestion": {
       "loggedInUserInfo": "You are interested in one question.",
       "loggedInUserInfo_plural": "You are interested in {{count}} questions.",
       "otherUserInfo": "Interested in one question.",
@@ -311,11 +311,11 @@
       "otherUserInfo": "Is administrator of a commitment.",
       "otherUserInfo_plural": "Is administrator of {{count}} commitments."
     },
-    "watchedCommitment": {
-      "loggedInUserInfo": "You're watching a commitment.",
-      "loggedInUserInfo_plural": "You're watching {{count}} commitments.",
-      "otherUserInfo": "Watch a commitment.",
-      "otherUserInfo_plural": "Watch {{count}} commitments."
+    "interestedInTheCommitment": {
+      "loggedInUserInfo": "You are interested in one commitment.",
+      "loggedInUserInfo_plural": "You are interested in {{count}} commitments.",
+      "otherUserInfo": "Interested in one commitment.",
+      "otherUserInfo_plural": "Interested in {{count}} commitments."
     },
     "answer": {
       "title": "Answers"

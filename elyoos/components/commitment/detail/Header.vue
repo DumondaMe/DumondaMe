@@ -6,12 +6,12 @@
         <div id="commands-container" v-else>
             <v-btn class="button-watch" color="primary" outline @click="addWatch"
                    v-if="!commitment.userWatchesCommitment">
-                <v-icon>mdi-eye</v-icon>
-                {{$t("common:button.watch")}}
+                <v-icon>mdi-star</v-icon>
+                {{$t("common:button.interested")}}
             </v-btn>
             <v-btn class="button-watch" color="primary" outline @click="removeWatch" v-else>
                 <v-icon>mdi-check</v-icon>
-                {{$t("common:button.watch")}}
+                {{$t("common:button.interested")}}
             </v-btn>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
@@ -76,6 +76,7 @@
             .button-watch {
                 margin-left: 0;
                 i.icon {
+                    font-size: 20px;
                     margin-right: 8px;
                 }
             }

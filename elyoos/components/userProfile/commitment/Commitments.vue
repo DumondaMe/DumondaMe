@@ -6,7 +6,7 @@
                     @click="showAdminCommitments = true">mdi-pencil
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showAdminCommitments}"
-                    @click="showAdminCommitments = false">mdi-eye
+                    @click="showAdminCommitments = false">mdi-star
             </v-icon> )</span>
         </h3>
         <div class="general-user-info" v-if="showAdminCommitments">
@@ -19,10 +19,10 @@
         </div>
         <div class="general-user-info" v-else>
             <span v-if="isLoggedInUser">
-                {{$t("pages:detailUser.watchedCommitment.loggedInUserInfo", {count: numberOfCommitments})}}
+                {{$t("pages:detailUser.interestedInTheCommitment.loggedInUserInfo", {count: numberOfCommitments})}}
             </span>
             <span v-else>
-                {{$t("pages:detailUser.watchedCommitment.otherUserInfo", {count: numberOfCommitments, name: userForename})}}
+                {{$t("pages:detailUser.interestedInTheCommitment.otherUserInfo", {count: numberOfCommitments, name: userForename})}}
             </span>
         </div>
         <div class="question-info" v-for="commitment in commitments">

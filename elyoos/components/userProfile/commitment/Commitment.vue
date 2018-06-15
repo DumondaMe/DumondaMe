@@ -19,7 +19,7 @@
                 <span class="info-text">{{commitment.numberOfLinkedQuestions}}</span>
             </div>
             <div class="info-icon-element">
-                <v-icon class="info-icon">mdi-eye</v-icon>
+                <v-icon class="info-icon">mdi-star</v-icon>
                 <span class="info-text">{{commitment.numberOfWatches}}</span>
             </div>
         </div>

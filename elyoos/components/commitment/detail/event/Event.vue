@@ -25,7 +25,7 @@
         <div class="event-description">{{event.description}}</div>
         <div class="event-footer">
             <div class="footer-icon">
-                <v-icon>mdi-clock</v-icon>
+                <v-icon>mdi-clock-outline</v-icon>
                 <span class="footer-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</span>
             </div>
             <div class="footer-icon">
