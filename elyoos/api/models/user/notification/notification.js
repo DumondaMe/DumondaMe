@@ -21,11 +21,11 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
     }
 };
 
-const getUserAddedToTrustCircle = async function (notification) {
+const getNotificationWithOriginators = async function (notification) {
     let index, users = [];
-    for (index = 0; index < 3 && index < notification.infos.length; index++) {
-        let user = notification.infos[index];
-        let created = notification.relInfos[index].created;
+    for (index = 0; index < 3 && index < notification.originators.length; index++) {
+        let user = notification.originators[index];
+        let created = notification.relOriginators[index].created;
         users.push({
             userId: user.userId,
             name: user.name,
@@ -37,9 +37,17 @@ const getUserAddedToTrustCircle = async function (notification) {
     return {
         notificationId: notification.notification.notificationId,
         users: users,
-        numberOfAddedUsers: notification.infos.length,
+        numberOfUsers: notification.originators.length,
         created: notification.notification.created,
         type: notification.notification.type
+    }
+};
+
+const addWatchingCommitmentProperties = function (notificationResponse, notification) {
+    if (notificationResponse.type === 'watchingCommitment' && notification.infos.length === 1) {
+        notificationResponse.commitmentId = notification.infos[0].commitmentId;
+        notificationResponse.commitmentTitle = notification.infos[0].title;
+        notificationResponse.commitmentSlug = dashify(notification.infos[0].title);
     }
 };
 
@@ -48,8 +56,11 @@ const getResponse = async function (notifications) {
     for (let notification of notifications) {
         if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
-        } else if (notification.notification.type === 'addedToTrustCircle') {
-            response.push(await getUserAddedToTrustCircle(notification));
+        } else if (notification.notification.type === 'addedToTrustCircle' ||
+            notification.notification.type === 'watchingCommitment') {
+            let notificationResponse = await getNotificationWithOriginators(notification);
+            addWatchingCommitmentProperties(notificationResponse, notification);
+            response.push(notificationResponse);
         }
     }
     return response;
@@ -68,10 +79,13 @@ const getNumberOfNotifications = async function (userId) {
 
 const getNotifications = async function (userId) {
     let result = await db.cypher()
-        .match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)-[relInfo:NOTIFICATION]->(info)`)
-        .with(`n, info, relInfo`)
-        .orderBy(`relInfo.created DESC`)
-        .return(`n AS notification, collect(info) AS infos, collect(relInfo) AS relInfos`)
+        .match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
+        .optionalMatch(`(n)-[relInfo:NOTIFICATION]->(info)`)
+        .optionalMatch(`(n)-[relOriginator:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
+        .with(`n, info, relInfo, originator, relOriginator`)
+        .orderBy(`relOriginator.created DESC, relInfo.created DESC`)
+        .return(`DISTINCT n AS notification, collect(DISTINCT info) AS infos, collect(DISTINCT relInfo) AS relInfos,
+                 collect(DISTINCT originator) AS originators, collect(DISTINCT relOriginator) AS relOriginators`)
         .orderBy(`n.created DESC`)
         .end({userId}).send([getNumberOfNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);
