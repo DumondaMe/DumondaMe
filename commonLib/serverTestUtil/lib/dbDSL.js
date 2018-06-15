@@ -101,5 +101,6 @@ module.exports = {
     createRegion: region.createRegion,
 
     notificationShowQuestionOnCommitmentRequest: notification.showQuestionOnCommitmentRequest,
-    notificationUserAddedToTrustCircle: notification.userAddedToTrustCircle
+    notificationUserAddedToTrustCircle: notification.userAddedToTrustCircle,
+    userWatchesCommitment: notification.userWatchesCommitment
 };

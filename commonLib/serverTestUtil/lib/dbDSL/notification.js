@@ -19,7 +19,7 @@ const showQuestionOnCommitmentRequest = function (notificationId, data) {
         }).getCommand());
 };
 
-const userAddedToTrustCircle = function (notificationId,data) {
+const userAddedToTrustCircle = function (notificationId, data) {
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(userAddedToTrustCircle:User {userId: {userId}})`)
         .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification {type: 'addedToTrustCircle', 
@@ -37,7 +37,29 @@ const userAddedToTrustCircle = function (notificationId,data) {
         }).getCommand());
 };
 
+const userWatchesCommitment = function (notificationId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .merge(`(notification:Notification {type: 'watchingCommitment', 
+                                      created: {created}, notificationId: {notificationId}})`)
+        .with(`notification`)
+        .match(`(admin:User)-[:IS_ADMIN]->(c:Commitment {commitmentId: {commitmentId}})`)
+        .merge(`(admin)<-[:NOTIFIED]-(notification)`)
+        .merge(`(c)<-[:NOTIFICATION]-(notification)`)
+        .with(`notification`)
+        .unwind(`{watchingUsers} AS watchingUsers`)
+        .match(`(user:User)`)
+        .where(`user.userId = watchingUsers.userId`)
+        .merge(`(user)<-[:ORIGINATOR_OF_NOTIFICATION {created: watchingUsers.created}]-(notification)`)
+        .end({
+            notificationId,
+            commitmentId: data.commitmentId,
+            watchingUsers: data.watchingUsers,
+            created: data.created
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
-    userAddedToTrustCircle
+    userAddedToTrustCircle,
+    userWatchesCommitment
 };
