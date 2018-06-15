@@ -1,8 +1,8 @@
 <template>
-    <div class="notification-added-to-trust-circle">
+    <div class="notification-watch-commitment">
         <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
-        <div class="notification-description">
-            {{$t('pages:notifications.addToTrustCircle.notification', {count: notification.numberOfUsers})}}
+        <div class="notification-description" v-html="$t('pages:notifications.watchingCommitment.notification',
+            {count: notification.numberOfUsers, commitment})">
         </div>
         <div class="user-container">
             <div class="user" v-for="user in notification.users">
@@ -43,15 +43,30 @@
                 await this.$store.dispatch('notification/notificationRead', this.notification);
                 this.requestWatchedRunning = false;
             }
+        },
+        computed: {
+            commitment() {
+                return `<a class="commitment-title"
+                           href="/commitment/${this.notification.commitmentId}/${this.notification.commitmentSlug}">
+                        ${this.notification.commitmentTitle}</a>`
+            }
         }
     }
 </script>
 
 <style lang="scss">
-    .notification-added-to-trust-circle {
+    .notification-watch-commitment {
         font-weight: 300;
         .notification-description {
             font-size: 16px;
+        }
+        .commitment-title {
+            font-weight: 500;
+            color: $primary-color;
+            text-decoration: none;
+        }
+        :hover.commitment-title {
+            text-decoration: underline;
         }
         .user-container {
             .user {

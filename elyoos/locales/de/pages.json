@@ -356,6 +356,10 @@
       "notification": "Folgende Person hat dich zu ihrem Trust Circle hinzugefügt.",
       "notification_plural": "Folgende Personen haben dich zu ihrem Trust Circle hinzugefügt."
     },
+    "watchingCommitment": {
+      "notification": "Folgende Person findet dein Engagement {{- commitment}} interessant.",
+      "notification_plural": "Folgende Personen findet dein Engagement {{- commitment}} interessant."
+    },
     "noNotifications": "Du hast keine Benachrichtigungen."
   },
   "footer": {

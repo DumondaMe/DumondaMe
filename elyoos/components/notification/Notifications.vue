@@ -5,6 +5,8 @@
             </show-question-request>
             <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
             </add-to-trust-circle>
+            <watch-commitment :notification="notification" v-if="notification.type === 'watchingCommitment'">
+            </watch-commitment>
         </div>
         <div id="no-notifications" class="ely-card" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
@@ -16,10 +18,11 @@
     import {mapGetters} from 'vuex';
     import ShowQuestionRequest from './ShowQuestionRequest';
     import AddToTrustCircle from './AddToTrustCircle';
+    import WatchCommitment from './WatchCommitment';
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest, AddToTrustCircle},
+        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment},
         computed: {
             ...mapGetters({
                 notifications: 'notification/notifications'
