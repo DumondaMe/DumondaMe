@@ -40,6 +40,30 @@ describe('Mark Notification as read', function () {
         notification[0].notificationId.should.equals('51');
     });
 
+    it('Remove watchCommitment notification', async function () {
+
+        dbDsl.createRegion('region', {});
+
+        dbDsl.createCommitment('50', {
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, title: 'Das ist ein Engagement',
+            website: 'https://www.example.org/', regions: ['region']
+        });
+
+        dbDsl.userWatchesCommitment('20', {
+            commitmentId: '50',
+            created: 678, watchingUsers: [{userId: '2', created: 444}, {userId: '4', created: 555}]
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/notification/read', {notificationId: '20'});
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(n:Notification)`)
+            .return('n.notificationId AS notificationId').end().send();
+        notification.length.should.equals(0);
+    });
+
     it('Not allowed to remove notification of other user', async function () {
 
         dbDsl.notificationUserAddedToTrustCircle('50', {

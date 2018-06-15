@@ -16,9 +16,10 @@ const isOwnerOfNotification = async function (userId, notificationId) {
 const remove = async function (userId, notificationId) {
     await isOwnerOfNotification(userId, notificationId);
     await db.cypher()
-        .match(`(:User {userId: {userId}})<-[rel1:NOTIFIED]-(n:Notification {notificationId: {notificationId}})
-                 -[rel2:NOTIFICATION]->(info)`)
-        .delete(`rel1, rel2, n`)
+        .match(`(:User {userId: {userId}})<-[rel1:NOTIFIED]-(n:Notification {notificationId: {notificationId}})`)
+        .optionalMatch(`(n)-[rel2:NOTIFICATION]->()`)
+        .optionalMatch(`(n)-[rel3:ORIGINATOR_OF_NOTIFICATION]->(:User)`)
+        .delete(`rel1, rel2, rel3, n`)
         .end({userId, notificationId}).send();
     logger.info(`User ${userId} has notification ${notificationId} read`);
 };
