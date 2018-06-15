@@ -31,7 +31,7 @@ let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, c
     return db.cypher().match(`(u:User {userId: {userId}}), 
              (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification {type: 'addedToTrustCircle'})`)
         .set(`n`, {created: contactAdded})
-        .merge(`(n)-[:NOTIFICATION {created: {created}}]->(u)`)
+        .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]->(u)`)
         .end({userId, contactId}).getCommand()
 };
 
@@ -40,7 +40,7 @@ let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId
     return db.cypher().match('(u:User {userId: {userId}}), (contact:User {userId: {contactId}})')
         .where(`NOT (contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle'})`)
         .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}, 
-                 notificationId: {notificationId}})-[:NOTIFICATION {created: {contactAdded}}]->(u)`)
+                 notificationId: {notificationId}})-[:ORIGINATOR_OF_NOTIFICATION {created: {contactAdded}}]->(u)`)
         .end({userId, contactId, contactAdded, notificationId}).getCommand()
 };
 
@@ -63,12 +63,12 @@ let addPersonToTrustCircle = async function (userId, contactId, req) {
 
 let removeUserAddedToTrustCircleNotification = function (userId, contactId) {
     return db.cypher()
-        .match(`(u:User {userId: {userId}})<-[rel:NOTIFICATION]-(notification:Notification {type: 'addedToTrustCircle'})
-                 -[:NOTIFIED]->(contact:User {userId: {contactId}})`)
+        .match(`(u:User {userId: {userId}})<-[rel:ORIGINATOR_OF_NOTIFICATION]
+         -(notification:Notification {type: 'addedToTrustCircle'})-[:NOTIFIED]->(contact:User {userId: {contactId}})`)
         .delete(`rel`)
         .with(`notification`)
         .match('(notification)-[notified:NOTIFIED]->(:User)')
-        .where(`NOT (notification)-[:NOTIFICATION]->()`)
+        .where(`NOT (notification)-[:ORIGINATOR_OF_NOTIFICATION]->()`)
         .delete(`notification, notified`)
         .end({userId, contactId}).getCommand()
 };
