@@ -3,7 +3,7 @@
         <div class="footer-icon">
             <v-tooltip bottom>
                 <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-star</v-icon>
-                <span v-if="action === 'watch'">{{creator}} interessiert sich für diese Frage</span>
+                <span v-if="action === 'watch'">{{creator}} findet diese Frage interessant</span>
 
                 <v-icon v-if="action === 'created'"
                         slot="activator" class="action-icon">

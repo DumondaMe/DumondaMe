@@ -297,10 +297,10 @@
       "otherUserInfo_plural": "Created {{count}} questions."
     },
     "interestedInTheQuestion": {
-      "loggedInUserInfo": "You are interested in one question.",
-      "loggedInUserInfo_plural": "You are interested in {{count}} questions.",
-      "otherUserInfo": "Interested in one question.",
-      "otherUserInfo_plural": "Interested in {{count}} questions."
+      "loggedInUserInfo": "You find one question interesting.",
+      "loggedInUserInfo_plural": "You find {{count}} questions interesting.",
+      "otherUserInfo": "Finds one question interesting.",
+      "otherUserInfo_plural": "Finds{{count}} questions interesting."
     },
     "commitment": {
       "title": "Commitments"
@@ -312,10 +312,10 @@
       "otherUserInfo_plural": "Is administrator of {{count}} commitments."
     },
     "interestedInTheCommitment": {
-      "loggedInUserInfo": "You are interested in one commitment.",
-      "loggedInUserInfo_plural": "You are interested in {{count}} commitments.",
-      "otherUserInfo": "Interested in one commitment.",
-      "otherUserInfo_plural": "Interested in {{count}} commitments."
+      "loggedInUserInfo": "You find one commitment interesting.",
+      "loggedInUserInfo_plural": "You find {{count}} commitments interesting.",
+      "otherUserInfo": "Finds one commitment interesting.",
+      "otherUserInfo_plural": "Finds {{count}} commitment interesting."
     },
     "answer": {
       "title": "Answers"

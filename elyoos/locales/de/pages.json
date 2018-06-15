@@ -296,10 +296,10 @@
       "otherUserInfo_plural": "Hat {{count}} Fragen erstellt."
     },
     "interestedInTheQuestion": {
-      "loggedInUserInfo": "Du interessierst dich für eine Frage.",
-      "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Fragen.",
-      "otherUserInfo": "Interessiert sich für eine Frage.",
-      "otherUserInfo_plural": "Interessiert sich für {{count}} Fragen."
+      "loggedInUserInfo": "Du findest eine Frage interessant.",
+      "loggedInUserInfo_plural": "Du findest {{count}} Fragen interessant.",
+      "otherUserInfo": "Findet eine Frage interessant.",
+      "otherUserInfo_plural": "Findet {{count}} Fragen interessant."
     },
     "commitment": {
       "title": "Engagements"
@@ -311,10 +311,10 @@
       "otherUserInfo_plural": "Administrator von {{count}} Engagements."
     },
     "interestedInTheCommitment": {
-      "loggedInUserInfo": "Du interessierst dich für ein Engagement.",
-      "loggedInUserInfo_plural": "Du interessierst dich für {{count}} Engagements.",
-      "otherUserInfo": "Interessiert sich für ein Engagement.",
-      "otherUserInfo_plural": "Interessiert sich für {{count}} Engagements."
+      "loggedInUserInfo": "Du findest eine Engagement interessant.",
+      "loggedInUserInfo_plural": "Du findest {{count}} Engagements interessant.",
+      "otherUserInfo": "Findet ein Engagement interessant.",
+      "otherUserInfo_plural": "Findet {{count}} Engagements interessant."
     },
     "answer": {
       "title": "Antworten"
