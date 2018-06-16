@@ -353,13 +353,15 @@
       "postNotificationDeny3": "angezeigt."
     },
     "addToTrustCircle": {
-      "notification": "Folgende Person hat dich zu ihrem Trust Circle hinzugefügt.",
-      "notification_plural": "Folgende Personen haben dich zu ihrem Trust Circle hinzugefügt."
+      "notification": "Eine Person hat dich zu ihrem Trust Circle hinzugefügt.",
+      "notification_plural": "{{count}} Personen haben dich zu ihrem Trust Circle hinzugefügt."
     },
     "watchingCommitment": {
       "notification": "Folgende Person findet dein Engagement {{- commitment}} interessant.",
-      "notification_plural": "Folgende Personen findet dein Engagement {{- commitment}} interessant."
+      "notification_plural": "{{count}} weitere Personen findet dein Engagement {{- commitment}} interessant."
     },
+    "moreUser": "Und eine weitere Person",
+    "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen."
   },
   "footer": {
