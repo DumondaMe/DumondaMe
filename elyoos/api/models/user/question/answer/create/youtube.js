@@ -5,6 +5,7 @@ const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const youtube = require('../../../../util/youtube');
+const notification = require(`./notification`);
 const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -41,7 +42,9 @@ const createYoutubeAnswer = async function (userId, params) {
     if (idOnYoutube) {
         params.idOnYoutube = idOnYoutube;
         params.embed = youtube.getEmbedUrl(params.link);
-        let user = await createYoutubeAnswerOriginalLinkCommand(params).send([createYoutubeAnswerCommand(params)]);
+        let user = await createYoutubeAnswerOriginalLinkCommand(params)
+            .send([createYoutubeAnswerCommand(params),
+                notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
         if (user[0].length === 1) {
             logger.info(`Created youtube answer ${params.answerId} for question ${params.questionId}`);
             return {

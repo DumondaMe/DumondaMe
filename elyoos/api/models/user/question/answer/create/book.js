@@ -6,6 +6,7 @@ const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const exceptions = require('elyoos-server-lib').exceptions;
 const image = require('./image');
+const notification = require(`./notification`);
 const sharp = require('sharp');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -48,7 +49,9 @@ const createBookAnswer = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.hasPreviewImage = typeof params.imageUrl === 'string';
-    let user = await createBookAnswerOriginalLinkCommand(params).send([createBookAnswerCommand(params)]);
+    let user = await createBookAnswerOriginalLinkCommand(params)
+        .send([createBookAnswerCommand(params),
+            notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
     if (user[0].length === 1) {
         await uploadImages(params);
         logger.info(`Created book answer ${params.answerId} for question ${params.questionId}`);

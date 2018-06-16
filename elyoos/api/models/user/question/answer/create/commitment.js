@@ -6,6 +6,7 @@ const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const exceptions = require('elyoos-server-lib').exceptions;
+const notification = require(`./notification`);
 
 const createCommitmentCommand = function (params) {
     return db.cypher().match(`(c:Commitment {commitmentId: {commitmentId}}), (q:Question {questionId: {questionId}}), 
@@ -19,7 +20,7 @@ const createCommitmentCommand = function (params) {
         .end(params).getCommand();
 };
 
-const handlingNotification = function (params) {
+const showQuestionRequestNotification = function (params) {
     params.notificationId = uuid.generateUUID();
     return db.cypher().match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:CommitmentAnswer:Answer 
                             {answerId: {answerId}})-[:COMMITMENT]->
@@ -56,7 +57,8 @@ const createCommitmentAnswer = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     await checkCommitmentNotLinkedWithQuestion(params.commitmentId, params.questionId);
-    let commitment = await handlingNotification(params).send([createCommitmentCommand(params)]);
+    let commitment = await showQuestionRequestNotification(params).send([createCommitmentCommand(params),
+        notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
 
     return {
         answerId: params.answerId,

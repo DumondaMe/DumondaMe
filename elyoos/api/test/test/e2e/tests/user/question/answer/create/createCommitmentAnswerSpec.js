@@ -57,7 +57,7 @@ describe('Creating a commitment answer', function () {
                      -[:COMMITMENT]->(c:Commitment {commitmentId: '10'})`)
             .optionalMatch(`(answer)-[showAnswer:SHOW_ANSWER]->(c)`)
             .optionalMatch(`(answer)<-[isCreator:IS_CREATOR]-(:User {userId: '1'})`)
-            .optionalMatch(`(q)<-[:NOTIFICATION]-(notification:Notification)-[:NOTIFIED]->(:User {userId: '2'})`)
+            .optionalMatch(`(q)<-[:NOTIFICATION]-(notification:Notification {type: 'showQuestionRequest'})-[:NOTIFIED]->(:User {userId: '2'})`)
             .optionalMatch(`(c)<-[relNotificationToCommitment:NOTIFICATION]-(notification)`)
             .return(`answer, notification, showAnswer, isCreator, relNotificationToCommitment`).end().send();
         resp.length.should.equals(1);

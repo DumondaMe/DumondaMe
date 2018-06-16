@@ -6,6 +6,7 @@ const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const sharp = require('sharp');
 const image = require('./image');
+const notification = require(`./notification`);
 const exceptions = require('elyoos-server-lib').exceptions;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -47,7 +48,9 @@ const createLinkAnswer = async function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.hasPreviewImage = typeof params.imageUrl === 'string';
-    let user = await createLinkAnswerOriginalLinkCommand(params).send([createLinkAnswerCommand(params)]);
+    let user = await createLinkAnswerOriginalLinkCommand(params)
+        .send([createLinkAnswerCommand(params),
+            notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
     if (user[0].length === 1) {
         await uploadImages(params);
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
