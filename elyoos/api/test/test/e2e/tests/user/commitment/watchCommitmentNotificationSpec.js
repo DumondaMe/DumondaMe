@@ -11,8 +11,6 @@ describe('Notification when user watches a commitment', function () {
 
     let startTime;
 
-    //notification can not be added twice to the same user
-
     beforeEach(async function () {
         await dbDsl.init(5);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
