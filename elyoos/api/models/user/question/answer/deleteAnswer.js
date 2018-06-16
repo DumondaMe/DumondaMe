@@ -25,7 +25,7 @@ const deleteShowQuestionOnCommitment = function (answerId) {
 const deleteCreatedAnswerNotification = function (userId, answerId) {
     return db.cypher()
         .match(`(creatorAnswer:User {userId: {userId}})-[:IS_CREATOR]->(answer:Answer {answerId: {answerId}})
-         <-[rel:NOTIFICATION]-(n:Notification)`)
+         <-[rel:NOTIFICATION]-(n:Notification {type: 'createdAnswer'})`)
         .match(`(n)-[rel2]->()`)
         .delete(`rel, rel2, n`)
         .end({userId, answerId}).getCommand();

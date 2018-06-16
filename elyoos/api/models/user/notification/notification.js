@@ -6,8 +6,8 @@ const db = requireDb();
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const getShowQuestionOnCommitmentRequest = function (notification) {
-    let commitment = notification.infos.find((info) => typeof info.commitmentId === 'string');
-    let question = notification.infos.find((info) => typeof info.questionId === 'string');
+    let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
+    let question = notification.infos.find((info) => typeof info.info.questionId === 'string').info;
     return {
         notificationId: notification.notification.notificationId,
         created: notification.notification.created,
@@ -45,17 +45,39 @@ const getNotificationWithOriginators = async function (notification) {
 
 const addWatchingCommitmentProperties = function (notificationResponse, notification) {
     if (notificationResponse.type === 'watchingCommitment' && notification.infos.length === 1) {
-        notificationResponse.commitmentId = notification.infos[0].commitmentId;
-        notificationResponse.commitmentTitle = notification.infos[0].title;
-        notificationResponse.commitmentSlug = dashify(notification.infos[0].title);
+        notificationResponse.commitmentId = notification.infos[0].info.commitmentId;
+        notificationResponse.commitmentTitle = notification.infos[0].info.title;
+        notificationResponse.commitmentSlug = dashify(notification.infos[0].info.title);
     }
 };
 
 const addWatchingQuestionProperties = function (notificationResponse, notification) {
     if (notificationResponse.type === 'watchingQuestion' && notification.infos.length === 1) {
-        notificationResponse.questionId = notification.infos[0].questionId;
-        notificationResponse.questionTitle = notification.infos[0].question;
-        notificationResponse.questionSlug = dashify(notification.infos[0].question);
+        notificationResponse.questionId = notification.infos[0].info.questionId;
+        notificationResponse.questionTitle = notification.infos[0].info.question;
+        notificationResponse.questionSlug = dashify(notification.infos[0].info.question);
+    }
+};
+
+const addCreatedAnswerProperties = function (notificationResponse, notification) {
+    if (notificationResponse.type === 'createdAnswer') {
+        let answer = notification.infos.find((info) => typeof info.info.answerId === 'string');
+        let question = notification.infos.find((info) => typeof info.info.questionId === 'string').info;
+        notificationResponse.questionId = question.questionId;
+        notificationResponse.questionTitle = question.question;
+        notificationResponse.questionSlug = dashify(question.question);
+        notificationResponse.answerId = answer.info.answerId;
+        notificationResponse.answerType = answer.type.filter(
+            (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
+
+        if (notificationResponse.answerType === 'CommitmentAnswer') {
+            let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
+            notificationResponse.answerTitle = commitment.title;
+        } else if (notificationResponse.answerType === 'Text') {
+            notificationResponse.answerTitle = answer.info.answer;
+        } else {
+            notificationResponse.answerTitle = answer.info.title;
+        }
     }
 };
 
@@ -66,10 +88,12 @@ const getResponse = async function (notifications) {
             response.push(getShowQuestionOnCommitmentRequest(notification));
         } else if (notification.notification.type === 'addedToTrustCircle' ||
             notification.notification.type === 'watchingCommitment' ||
-            notification.notification.type === 'watchingQuestion') {
+            notification.notification.type === 'watchingQuestion' ||
+            notification.notification.type === 'createdAnswer') {
             let notificationResponse = await getNotificationWithOriginators(notification);
             addWatchingCommitmentProperties(notificationResponse, notification);
             addWatchingQuestionProperties(notificationResponse, notification);
+            addCreatedAnswerProperties(notificationResponse, notification);
             response.push(notificationResponse);
         }
     }
@@ -94,7 +118,8 @@ const getNotifications = async function (userId) {
         .optionalMatch(`(n)-[relOriginator:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
         .with(`n, info, relInfo, originator, relOriginator`)
         .orderBy(`relOriginator.created DESC, relInfo.created DESC`)
-        .return(`DISTINCT n AS notification, collect(DISTINCT info) AS infos, collect(DISTINCT relInfo) AS relInfos,
+        .return(`DISTINCT n AS notification, collect(DISTINCT {info: info, type: labels(info)}) AS infos, 
+                 collect(DISTINCT relInfo) AS relInfos,
                  collect(DISTINCT originator) AS originators, collect(DISTINCT relOriginator) AS relOriginators`)
         .orderBy(`n.created DESC`)
         .end({userId}).send([getNumberOfNotificationsCommand(userId).getCommand()]);
