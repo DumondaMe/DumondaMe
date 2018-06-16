@@ -4,17 +4,23 @@ const db = requireDb();
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const exceptions = require('elyoos-server-lib').exceptions;
 
-const isOwnerOfNotification = async function (userId, notificationId) {
+const ERROR_CODE_NOTIFICATION_NOT_EXISTING = 1;
+
+const isAllowedToReadNotification = async function (userId, notificationId) {
     let result = await db.cypher()
-        .match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification {notificationId: {notificationId}})`)
-        .return(`n`).end({userId, notificationId}).send();
+        .match(`(n:Notification {notificationId: {notificationId}})`)
+        .optionalMatch(`(user:User {userId: {userId}})<-[:NOTIFIED]-(n)`)
+        .return(`n, user`).end({userId, notificationId}).send();
     if (result.length === 0) {
+        throw new exceptions.InvalidOperation(`Notification ${notificationId} does not exist`,
+            ERROR_CODE_NOTIFICATION_NOT_EXISTING);
+    } else if (!result[0].user) {
         throw new exceptions.InvalidOperation(`User ${userId} is not owner of notification ${notificationId}`);
     }
 };
 
 const remove = async function (userId, notificationId) {
-    await isOwnerOfNotification(userId, notificationId);
+    await isAllowedToReadNotification(userId, notificationId);
     await db.cypher()
         .match(`(:User {userId: {userId}})<-[rel1:NOTIFIED]-(n:Notification {notificationId: {notificationId}})`)
         .optionalMatch(`(n)-[rel2:NOTIFICATION]->()`)

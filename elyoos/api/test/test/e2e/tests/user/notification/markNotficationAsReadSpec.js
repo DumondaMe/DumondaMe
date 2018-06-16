@@ -64,6 +64,14 @@ describe('Mark Notification as read', function () {
         notification.length.should.equals(0);
     });
 
+    it('Remove not existing notification', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/notification/read', {notificationId: '11'});
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(1);
+    });
+
     it('Not allowed to remove notification of other user', async function () {
 
         dbDsl.notificationUserAddedToTrustCircle('50', {

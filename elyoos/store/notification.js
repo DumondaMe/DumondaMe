@@ -73,12 +73,8 @@ export const actions = {
         }
     },
     async notificationRead({commit}, notification) {
-        try {
-            await this.$axios.$put('user/notification/read',
-                {notificationId: notification.notificationId});
-            commit('REMOVE_NOTIFICATION', notification);
-        } catch (error) {
-            console.log(error);
-        }
+        await this.$axios.$put('user/notification/read',
+            {notificationId: notification.notificationId});
+        commit('REMOVE_NOTIFICATION', notification);
     }
 };

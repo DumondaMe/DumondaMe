@@ -9,6 +9,8 @@
 </template>
 
 <script>
+    const ERROR_CODE_NOTIFICATION_NOT_EXISTING = 1;
+
     export default {
         props: ['notification'],
         data() {
@@ -16,9 +18,16 @@
         },
         methods: {
             async readNotificationEvent() {
-                this.requestWatchedRunning = true;
-                await this.$store.dispatch('notification/notificationRead', this.notification);
-                this.requestWatchedRunning = false;
+                try {
+                    this.requestWatchedRunning = true;
+                    await this.$store.dispatch('notification/notificationRead', this.notification);
+                } catch (error) {
+                    if (error.response.data.errorCode === ERROR_CODE_NOTIFICATION_NOT_EXISTING) {
+                        this.$store.commit('notification/REMOVE_NOTIFICATION', this.notification);
+                    }
+                } finally {
+                    this.requestWatchedRunning = false;
+                }
             }
         }
     }
