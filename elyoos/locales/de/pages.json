@@ -360,6 +360,10 @@
       "notification": "Folgende Person findet dein Engagement {{- commitment}} interessant.",
       "notification_plural": "{{count}} weitere Personen findet dein Engagement {{- commitment}} interessant."
     },
+    "watchingQuestion": {
+      "notification": "Folgende Person findet deine Frage {{- question}} interessant.",
+      "notification_plural": "{{count}} weitere Personen findet deine Frage {{- question}} interessant."
+    },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen."

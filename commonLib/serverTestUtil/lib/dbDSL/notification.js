@@ -58,8 +58,30 @@ const userWatchesCommitment = function (notificationId, data) {
         }).getCommand());
 };
 
+const userWatchesQuestion = function (notificationId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .merge(`(notification:Notification {type: 'watchingQuestion', 
+                 created: {created}, notificationId: {notificationId}})`)
+        .with(`notification`)
+        .match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})`)
+        .merge(`(creator)<-[:NOTIFIED]-(notification)`)
+        .merge(`(q)<-[:NOTIFICATION]-(notification)`)
+        .with(`notification`)
+        .unwind(`{watchingUsers} AS watchingUsers`)
+        .match(`(user:User)`)
+        .where(`user.userId = watchingUsers.userId`)
+        .merge(`(user)<-[:ORIGINATOR_OF_NOTIFICATION {created: watchingUsers.created}]-(notification)`)
+        .end({
+            notificationId,
+            questionId: data.questionId,
+            watchingUsers: data.watchingUsers,
+            created: data.created
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
-    userWatchesCommitment
+    userWatchesCommitment,
+    userWatchesQuestion
 };

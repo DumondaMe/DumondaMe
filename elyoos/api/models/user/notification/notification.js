@@ -51,15 +51,25 @@ const addWatchingCommitmentProperties = function (notificationResponse, notifica
     }
 };
 
+const addWatchingQuestionProperties = function (notificationResponse, notification) {
+    if (notificationResponse.type === 'watchingQuestion' && notification.infos.length === 1) {
+        notificationResponse.questionId = notification.infos[0].questionId;
+        notificationResponse.questionTitle = notification.infos[0].question;
+        notificationResponse.questionSlug = dashify(notification.infos[0].question);
+    }
+};
+
 const getResponse = async function (notifications) {
     let response = [];
     for (let notification of notifications) {
         if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
         } else if (notification.notification.type === 'addedToTrustCircle' ||
-            notification.notification.type === 'watchingCommitment') {
+            notification.notification.type === 'watchingCommitment' ||
+            notification.notification.type === 'watchingQuestion') {
             let notificationResponse = await getNotificationWithOriginators(notification);
             addWatchingCommitmentProperties(notificationResponse, notification);
+            addWatchingQuestionProperties(notificationResponse, notification);
             response.push(notificationResponse);
         }
     }

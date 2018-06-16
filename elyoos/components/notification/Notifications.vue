@@ -7,6 +7,8 @@
             </add-to-trust-circle>
             <watch-commitment :notification="notification" v-if="notification.type === 'watchingCommitment'">
             </watch-commitment>
+            <watch-question :notification="notification" v-if="notification.type === 'watchingQuestion'">
+            </watch-question>
         </div>
         <div id="no-notifications" class="ely-card" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
@@ -19,10 +21,11 @@
     import ShowQuestionRequest from './ShowQuestionRequest';
     import AddToTrustCircle from './AddToTrustCircle';
     import WatchCommitment from './WatchCommitment';
+    import WatchQuestion from './WatchQuestion';
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment},
+        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion},
         computed: {
             ...mapGetters({
                 notifications: 'notification/notifications'

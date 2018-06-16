@@ -361,8 +361,12 @@
       "notification": "The following person is interested in your commitment{{- commitment}}.",
       "notification_plural": "{{count}} more people find your commitment {{- commitment}} interesting."
     },
-    "moreUser": "Und eine weitere Person",
-    "moreUser_plural": "Und {{count}} weitere Personen",
+    "watchingQuestion": {
+      "notification": "The following person is interested in your question {{- question}}.",
+      "notification_plural": "{{count}} more people find your question {{- question}} interesting."
+    },
+    "moreUser": "And another person",
+    "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications."
   },
   "footer": {
