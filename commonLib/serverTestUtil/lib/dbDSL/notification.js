@@ -79,9 +79,33 @@ const userWatchesQuestion = function (notificationId, data) {
         }).getCommand());
 };
 
+const createAnswer = function (notificationId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .merge(`(notification:Notification {type: 'createdAnswer', 
+                                      created: {created}, notificationId: {notificationId}})`)
+        .with(`notification`)
+        .match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})`)
+        .merge(`(creator)<-[:NOTIFIED]-(notification)`)
+        .merge(`(q)<-[:NOTIFICATION]-(notification)`)
+        .with(`notification`)
+        .match(`(user:User)-[:IS_CREATOR]-(answer:Answer {answerId: {answerId}})`)
+        .merge(`(user)<-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]-(notification)`)
+        .merge(`(answer)<-[:NOTIFICATION]-(notification)`)
+        .with(`notification, answer`)
+        .match(`(answer)-[:COMMITMENT]->(commitment:Commitment)`)
+        .merge(`(commitment)<-[:NOTIFICATION]-(notification)`)
+        .end({
+            notificationId,
+            questionId: data.questionId,
+            answerId: data.answerId,
+            created: data.created
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
     userWatchesCommitment,
-    userWatchesQuestion
+    userWatchesQuestion,
+    createAnswer
 };
