@@ -16,7 +16,8 @@
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                 </v-text-field>
                 <div id="page-type-title">{{$t('pages:question.answerLinkDialog.typeOfWebsiteDescription')}}</div>
-                <v-radio-group v-model="linkData.pageType" column id="page-type-container">
+                <v-radio-group v-model="linkData.pageType" column id="page-type-container"
+                               :rules="[ruleSelectRequired($t('validation:fieldRequired'))]">
                     <v-radio :label="$t('pages:question.answerLinkDialog.typeArticle')" value="article" color="primary">
                     </v-radio>
                     <v-radio :label="$t('pages:question.answerLinkDialog.typeBlog')" value="blog" color="primary">
@@ -108,6 +109,9 @@
                     }
                     #page-type-container {
                         padding-top: 6px;
+                        label {
+                            width: auto;
+                        }
                     }
                 }
                 #link-content.image-missing {
