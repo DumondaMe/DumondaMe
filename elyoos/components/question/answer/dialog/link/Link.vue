@@ -18,11 +18,13 @@
                 <div v-if="validLinkType" class="link-content">
                     <youtube v-if="linkData.type === 'Youtube'" :init-link-data="linkData" :link="link"
                              :answer-id="answerId" @upload-command="setUploadCommand"
+                             @close-dialog="answerId => $emit('close-dialog', answerId)"
                              @link-data-changed="setHasChanged">
                     </youtube>
                     <website-link v-else-if="linkData.type === 'Link'" :init-link-data="linkData"
                                   :link="link"
                                   :answer-id="answerId" @upload-command="setUploadCommand"
+                                  @close-dialog="answerId => $emit('close-dialog', answerId)"
                                   @link-data-changed="setHasChanged">
                     </website-link>
                 </div>
