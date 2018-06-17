@@ -11,7 +11,7 @@
                     </div>
                     <div id="commitment-content">
                         <div class="commitment-title">{{commitment.title}}</div>
-                        <v-text-field v-model="commitment.description" multi-line rows="5" autofocus
+                        <v-text-field v-model="commitment.description" multi-line rows="5"
                                       :label="$t('pages:question.answerDialog.answerDescriptionCommitment')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 700)]" :counter="700">

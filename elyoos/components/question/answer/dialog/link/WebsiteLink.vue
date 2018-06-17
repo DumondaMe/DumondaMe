@@ -10,7 +10,7 @@
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 140)]" :counter="140">
                 </v-text-field>
-                <v-text-field v-model="linkData.description" multi-line rows="4" autofocus
+                <v-text-field v-model="linkData.description" multi-line rows="4"
                               :label="$t('pages:question.answerDialog.answerDescriptionLink')"
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
