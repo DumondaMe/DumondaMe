@@ -193,6 +193,7 @@ export const actions = {
         addDefaultProperties(commitmentData, 'Commitment', response);
         commitmentData.commitmentSlug = response.slug;
         commitmentData.imageUrl = response.imageUrl;
+        commitmentData.regions = response.regions;
         commit('ADD_ANSWER', commitmentData);
         if (response.creator && response.creator.isAdminOfCommitment) {
             commit('notification/ADD_NOTIFICATION', {

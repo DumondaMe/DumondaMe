@@ -35,7 +35,7 @@
         </div>
         <answer-footer :answer="answer">
         </answer-footer>
-        <events-footer :events="answer.events" v-if="answer.events.length > 0">
+        <events-footer :events="answer.events" v-if="answer.events && answer.events.length > 0">
         </events-footer>
         <edit-commitment-dialog v-if="showEditCommitmentDialog" @close-dialog="showEditCommitmentDialog = false"
                                 :init-commitment="answer" :answer-id="answer.answerId">

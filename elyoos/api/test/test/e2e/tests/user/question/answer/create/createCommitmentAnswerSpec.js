@@ -51,6 +51,8 @@ describe('Creating a commitment answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.isAdminOfCommitment.should.equals(false);
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.regions.length.should.equals(1);
+        res.body.regions.should.include('region-1');
 
         let resp = await db.cypher()
             .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)
@@ -89,6 +91,8 @@ describe('Creating a commitment answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.isAdminOfCommitment.should.equals(true);
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.regions.length.should.equals(1);
+        res.body.regions.should.include('region-1');
 
         let resp = await db.cypher()
             .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)

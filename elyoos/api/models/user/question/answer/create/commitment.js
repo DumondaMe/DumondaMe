@@ -16,7 +16,10 @@ const createCommitmentCommand = function (params) {
         .merge(`(u)-[:IS_CREATOR {created: {created}}]->(answer)`)
         .merge(`(q)-[:ANSWER]->(answer)`)
         .merge(`(answer)-[:COMMITMENT]->(c)`)
-        .return(`u.name AS userName, c.title AS commitmentTitle, EXISTS((c)<-[:IS_ADMIN]-(u)) AS isAdminOfCommitment`)
+        .with(`u, c`)
+        .optionalMatch(`(c)-[:BELONGS_TO_REGION]->(region:Region)`)
+        .return(`u.name AS userName, c.title AS commitmentTitle, EXISTS((c)<-[:IS_ADMIN]-(u)) AS isAdminOfCommitment,
+                 collect(region.code) AS regions`)
         .end(params).getCommand();
 };
 
@@ -65,6 +68,7 @@ const createCommitmentAnswer = async function (userId, params) {
         created: params.created,
         slug: dashify(commitment[0][0].commitmentTitle),
         imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/120x120/title.jpg`),
+        regions: commitment[0][0].regions,
         creator: {
             name: commitment[0][0].userName,
             isAdminOfCommitment: commitment[0][0].isAdminOfCommitment,
