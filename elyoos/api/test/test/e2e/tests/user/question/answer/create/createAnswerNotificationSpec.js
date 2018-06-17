@@ -167,4 +167,105 @@ describe('Notification when user creates answers for a question', function () {
         notification[0].userId.should.equals('1');
         notification[0].created.should.least(startTime);
     });
+
+    it('Create no notification when book answer has been created by creator of question', async function () {
+        sandbox.stub(rp, 'get');
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.post('/api/user/question/answer/book/1', {
+            authors: 'Hans Wurst', googleBookId: '1234',
+            title: 'titleBook', description: 'descriptionBook'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'createdAnswer'})`)
+            .return('DISTINCT notification')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Create no notification when commitment answer has been created by creator of question', async function () {
+        dbDsl.createRegion('region-1', {});
+        dbDsl.createCommitment('10', {
+            adminId: '3', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
+        });
+
+        dbDsl.createCommitment('11', {
+            adminId: '3', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example2.org/', regions: ['region-1'], title: 'Das ist ein Engagement2'
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .match(`(notification)-[:NOTIFICATION]->(commitment:Commitment)`)
+            .return('DISTINCT notification, question, answer, commitment, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Create not notification when link answer has been created by creator of question', async function () {
+        sandbox.stub(rp, 'get');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.post('/api/user/question/answer/link/1', {
+            link: 'https://example.com/blog', imageUrl: 'https://example.com/example.jpg',
+            title: 'titleLink', description: 'descriptionLink', type: 'blog'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Create no notification when text answer has been created by creator of question', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.post('/api/user/question/answer/text/1', {
+            answer: 'answer'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Create no notification when youtube answer has been created by creator of question', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
 });

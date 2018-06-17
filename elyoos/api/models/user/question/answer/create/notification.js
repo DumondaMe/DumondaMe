@@ -8,6 +8,7 @@ const addCreatedAnswerNotification = function (userId, answerId, created) {
     return db.cypher()
         .match(`(creatorAnswer:User {userId: {userId}})-[:IS_CREATOR]->(answer:Answer {answerId: {answerId}})
          <-[:ANSWER]-(question:Question)<-[:IS_CREATOR]-(creatorQuestion:User)`)
+        .where(`creatorAnswer.userId <> creatorQuestion.userId`)
         .create(`(n:Notification {type: 'createdAnswer', created: {created}, 
                  notificationId: {notificationId}})`)
         .merge(`(n)-[:NOTIFIED]->(creatorQuestion)`)
