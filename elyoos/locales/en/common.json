@@ -53,6 +53,12 @@
     "de": "German",
     "en": "English"
   },
+  "answerType": {
+    "Book": "Book",
+    "CommitmentAnswer": "Commitment",
+    "Link": "Link",
+    "Youtube": "Youtube Video"
+  },
   "error": {
     "unknown": "An error has occurred.",
     "startDateAfterEndDate": "Start is after the end"

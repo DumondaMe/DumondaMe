@@ -365,6 +365,10 @@
       "notification": "The following person is interested in your question {{- question}}.",
       "notification_plural": "{{count}} more people find your question {{- question}} interesting."
     },
+    "createdAnswer": {
+      "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
+      "notificationTextAnswer": "Has answered the question{{- question}}."
+    },
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications."

@@ -364,6 +364,10 @@
       "notification": "Folgende Person findet deine Frage {{- question}} interessant.",
       "notification_plural": "{{count}} weitere Personen findet deine Frage {{- question}} interessant."
     },
+    "createdAnswer": {
+      "notification": "Hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
+      "notificationTextAnswer": "Hat die Frage {{- question}} beantwortet."
+    },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen."

@@ -43,6 +43,15 @@
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);
+        },
+        mounted() {
+            if (this.$route.query.answerId) {
+                let e = window.document.getElementById(`card-${this.$route.query.answerId}`);
+                if (!!e && e.scrollIntoView) {
+                    e.scrollIntoView(true);
+                    window.scrollBy(0, -62);
+                }
+            }
         }
     }
 </script>
