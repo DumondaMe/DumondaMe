@@ -66,10 +66,10 @@
                     line-height: 18px;
                     vertical-align: middle;
                     color: $primary-color;
-                    .link {
+                    a {
                         text-decoration: none;
                     }
-                    :hover.link {
+                    a:hover {
                         text-decoration: underline;
                     }
                 }

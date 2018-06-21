@@ -28,8 +28,7 @@
             <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
                 <div class="title-container">
                     <v-icon class="card-type-icon">mdi-link</v-icon>
-                    <span class="card-title"><a target="_blank" :href="answer.link"
-                                                class="link">{{answer.title}}</a></span>
+                    <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
                 </div>
                 <expand-text :expand-text="answer.description"
                              :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
@@ -57,6 +56,9 @@
                     return this.$t(`pages:detailQuestion.answerType.link.${this.answer.pageType}`)
                 }
                 return this.$t(`pages:detailQuestion.answerType.link.link`)
+            },
+            getQuestionLink() {
+                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
             }
         }
     }

@@ -29,8 +29,7 @@
             <div class="answer-description" :class="{'show-embed': showEmbed}">
                 <div class="title-container">
                     <v-icon class="card-type-icon">mdi-video</v-icon>
-                    <span class="card-title"><a target="_blank" :href="answer.link"
-                                                class="link">{{answer.title}}</a></span>
+                    <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
                 </div>
                 <expand-text :expand-text="answer.description"
                              itemprop="text">
@@ -74,6 +73,9 @@
             },
             youtubeHeight() {
                 return this.$refs.answerContent.clientWidth * 0.6;
+            },
+            getQuestionLink() {
+                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
             }
         }
     }

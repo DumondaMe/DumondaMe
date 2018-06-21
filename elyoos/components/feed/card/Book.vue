@@ -27,8 +27,7 @@
             <div class="answer-description">
                 <div class="title-container">
                     <v-icon class="card-type-icon">mdi-book-open-page-variant</v-icon>
-                    <span class="card-title"><a target="_blank" :href="getExternalLink"
-                                                       class="link">{{answer.title}}</a></span>
+                    <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
                 </div>
                 <expand-text :expand-text="answer.description"
                              :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
@@ -53,9 +52,8 @@
             return {expandDescription: false}
         },
         computed: {
-            getExternalLink() {
-                let title = this.answer.title.replace(' ', '+');
-                return `https://duckduckgo.com/?q="${title}"&t=hf&ia=web`;
+            getQuestionLink() {
+                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
             }
         }
     }
