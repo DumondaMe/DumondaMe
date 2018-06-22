@@ -1,29 +1,27 @@
 <template>
-    <h1>das ist ein Test</h1>
+    <single-view>
+        <div slot="content">
+            <login v-if="!isAuthenticated"></login>
+            <div v-else>Du bist eingelogt</div>
+        </div>
+    </single-view>
 </template>
 
 <script>
+    import SingleView from '~/components/layouts/SingleView';
+    import Login from '~/components/login/Login';
 
     export default {
         async fetch({query, app, error, store}) {
-            console.log('Eigentlich muesste das laden')
-            /*try {
+            if (store.state.auth.userIsAuthenticated) {
+                try {
 
-            } catch (e) {
-                error({statusCode: e.statusCode})
-            }*/
-        },
-        components: {},
-        head() {
-            return {
-                htmlAttrs: {
-                    lang: this.$store.state.i18n.language
-                },
+                } catch (e) {
+                    error({statusCode: e.statusCode})
+                }
             }
         },
-        data() {
-            return {loadNextRunning: false}
-        },
+        components: {Login, SingleView},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

@@ -1,3 +1,9 @@
 {
-
+  "fieldRequired": "Wird benötigt",
+  "toManyChars": "Zu viele Zeichen",
+  "onlyLetters": "Es dürfen keine Zahlen oder Sonderzeichen verwendet werden",
+  "minLength": "Muss mindestens {{length}} Zeichen lang sein",
+  "passwordNoEqual": "Passwörter stimmen nicht überein",
+  "isEmail": "Keine gültige E-Mail Adresse",
+  "url": "Keine gültige URL z.B. http://example.org"
 }

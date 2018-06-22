@@ -1,3 +1,10 @@
 {
-
+  "email": "Email",
+  "password": "Password",
+  "toolbar": {
+    "login": "Anmelden",
+    "logout": "Abmelden"
+  },
+  "button": {
+  }
 }

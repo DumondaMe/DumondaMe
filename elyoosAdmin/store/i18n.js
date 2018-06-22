@@ -2,8 +2,8 @@ import moment from 'moment';
 
 export const state = () => ({
     languages: [
-        {key: 'de', description: 'Deutsch'},
-        {key: 'en', description: 'English'}
+        {key: 'de', description: 'DE'},
+        {key: 'en', description: 'EN'}
     ],
     language: 'de'
 });
@@ -20,7 +20,7 @@ export const mutations = {
 export const actions = {
     async setLanguage({commit}, {language}) {
         try {
-            await this.$axios.$put(`/user/language/${language}`);
+            await this.$axios.$put(`/admin/language/${language}`);
             location.reload(true);
         } catch (error) {
 

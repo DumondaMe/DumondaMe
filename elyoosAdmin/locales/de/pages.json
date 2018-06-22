@@ -1,3 +1,6 @@
 {
-
+  "login": {
+    "titleLogin": "Login",
+    "loginButton": "Login"
+  }
 }

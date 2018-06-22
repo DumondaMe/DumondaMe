@@ -1,3 +1,9 @@
 {
-
+  "fieldRequired": "Is required",
+  "toManyChars": "To many characters",
+  "onlyLetters": "No numbers or special characters are allowed",
+  "minLength": "Must be at least {{length}} characters long",
+  "passwordNoEqual": "Passwords do not match",
+  "isEmail": "No valid e-mail address",
+  "url": "No valid URL e. g. http://example.org"
 }
