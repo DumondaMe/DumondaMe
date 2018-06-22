@@ -1,7 +1,7 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const schemaLanguage = require("../../schema/language");
+const schemaLanguage = require("../schema/language");
 const language = requireModel('language/language');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);

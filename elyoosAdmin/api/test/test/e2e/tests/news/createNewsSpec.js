@@ -26,7 +26,7 @@ describe('Integration Tests creating news', function () {
     it('Create news', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/admin/news', {title: 'title', text: 'description'});
+        let res = await requestHandler.post('/api/news', {title: 'title', text: 'description'});
         res.status.should.equal(200);
         res.body.created.should.be.at.least(startTime);
 

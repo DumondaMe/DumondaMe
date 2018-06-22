@@ -27,7 +27,7 @@ describe('Integration Tests edit news', function () {
     it('Edit news', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/admin/news/1', {title: 'title', text: 'description'});
+        let res = await requestHandler.put('/api/news/1', {title: 'title', text: 'description'});
         res.status.should.equal(200);
         res.body.modified.should.be.at.least(startTime);
 

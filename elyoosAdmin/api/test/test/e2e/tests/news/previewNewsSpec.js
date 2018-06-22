@@ -21,7 +21,7 @@ describe('Integration Tests to send news preview', function () {
     it('Sending news preview', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await  requestHandler.post('/api/admin/news/preview', {title: 'title', text: 'description'});
+        let res = await  requestHandler.post('/api/news/preview', {title: 'title', text: 'description'});
         res.status.should.equal(200);
 
         stubEmailQueue.createImmediatelyJob.calledWith("sendPreviewNews", {
