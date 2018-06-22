@@ -1,19 +1,19 @@
 'use strict';
 
-let db = requireDb();
-let cdn = require('elyoos-server-lib').cdn;
+const db = requireDb();
+const cdn = require('elyoos-server-lib').cdn;
 
-let getNumberOfUser = function () {
+const getNumberOfUser = function () {
     return db.cypher().match(`(user:User)`)
         .return("count(user) AS numberOfUser").end();
 };
 
-let getOverviewOfUser = function (params) {
+const getOverviewOfUser = function (params) {
     return db.cypher().match(`(user:User)`)
         .return("user").orderBy("user.registerDate DESC").skip("{skip}").limit("{maxItems}").end(params);
 };
 
-let getUser = async function (users) {
+const getUser = async function (users) {
     let formattedUsers = [];
     for (let user of users) {
         let formattedUser = {};
@@ -26,7 +26,7 @@ let getUser = async function (users) {
     return formattedUsers;
 };
 
-let getOverview = async function (params) {
+const getOverview = async function (params) {
 
     let commands = [];
 
@@ -40,5 +40,5 @@ let getOverview = async function (params) {
 
 
 module.exports = {
-    getOverview: getOverview
+    getOverview
 };

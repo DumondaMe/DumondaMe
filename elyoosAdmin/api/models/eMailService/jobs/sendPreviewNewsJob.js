@@ -1,8 +1,8 @@
 "use strict";
 
-let email = require('elyoos-server-lib').eMail;
+const email = require('elyoos-server-lib').eMail;
 
-let processDefinition = function (data, done) {
+const processDefinition = function (data, done) {
 
     email.sendEMail("sendNews", {
         title: data.title,
@@ -14,5 +14,5 @@ let processDefinition = function (data, done) {
 };
 
 module.exports = {
-    processDefinition: processDefinition
+    processDefinition
 };

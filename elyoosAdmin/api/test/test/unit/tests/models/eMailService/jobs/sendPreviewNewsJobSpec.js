@@ -1,12 +1,12 @@
 'use strict';
 
-let testee = require('../../../../../../../models/eMailService/jobs/sendPreviewNewsJob');
-let email = require('elyoos-server-lib').eMail;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let sinon = require('sinon');
-let expect = require('chai').expect;
-let bluebird = require('bluebird');
-let Promise = bluebird.Promise;
+const testee = require('../../../../../../../models/eMailService/jobs/sendPreviewNewsJob');
+const email = require('elyoos-server-lib').eMail;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
+const sinon = require('sinon');
+const expect = require('chai').expect;
+const bluebird = require('bluebird');
+const Promise = bluebird.Promise;
 
 describe('Unit Test eMailService/jobs/sendPreviewNewsJob', function () {
 
@@ -16,13 +16,12 @@ describe('Unit Test eMailService/jobs/sendPreviewNewsJob', function () {
         sandbox = sinon.sandbox.create();
     });
 
-    beforeEach(function () {
-        return dbDsl.init(3).then(function () {
-            dbDsl.createNews('1', {created: 500});
-            dbDsl.createNews('2', {created: 501, isSent: true});
-            dbDsl.createNews('3', {created: 502});
-            return dbDsl.sendToDb();
-        });
+    beforeEach(async function () {
+        await dbDsl.init(3);
+        dbDsl.createNews('1', {created: 500});
+        dbDsl.createNews('2', {created: 501, isSent: true});
+        dbDsl.createNews('3', {created: 502});
+        await dbDsl.sendToDb();
     });
 
     afterEach(function () {
@@ -38,10 +37,9 @@ describe('Unit Test eMailService/jobs/sendPreviewNewsJob', function () {
             expect(sendEMail.callCount).to.equals(1);
 
             expect(sendEMail.withArgs('sendNews', {
-                    title: 'title', text: 'description', forename: 'user',
-                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
-                },
-                'user@irgendwo.ch').calledOnce).to.equal(true);
+                title: 'title', text: 'description', forename: 'user',
+                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
+            }, 'user@irgendwo.ch').calledOnce).to.equal(true);
 
             done();
         };

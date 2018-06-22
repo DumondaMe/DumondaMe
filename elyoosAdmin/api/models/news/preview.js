@@ -1,24 +1,23 @@
 'use strict';
 
-let db = requireDb();
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let sendNews = require('./../eMailService/news');
+const db = requireDb();
+const exceptions = require('elyoos-server-lib').exceptions;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const sendNews = require('./../eMailService/news');
 
-let preview = function (userId, params, req) {
+const preview = async function (userId, params, req) {
 
-    return db.cypher().match(`(user:User {userId: {userId}})`)
+    let res = await db.cypher().match(`(user:User {userId: {userId}})`)
         .return(`user.email AS email, user.forename AS forename`)
-        .end({userId: userId}).send().then(function (res) {
-            if(res.length === 1) {
-                sendNews.sendPreviewNews(res[0].email, res[0].forename, params.title, params.text);
-            } else {
-                return exceptions.getInvalidOperation(`User not found ${userId}`, logger, req);
-            }
-        });
+        .end({userId: userId}).send()
+    if (res.length === 1) {
+        sendNews.sendPreviewNews(res[0].email, res[0].forename, params.title, params.text);
+    } else {
+        return exceptions.getInvalidOperation(`User not found ${userId}`, logger, req);
+    }
 };
 
 
 module.exports = {
-    preview: preview
+    preview
 };

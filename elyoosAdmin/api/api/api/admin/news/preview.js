@@ -1,10 +1,10 @@
 'use strict';
 
-let auth = require('elyoos-server-lib').auth;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let previewNews = requireModel('news/preview');
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+const auth = require('elyoos-server-lib').auth;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const previewNews = requireModel('news/preview');
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const validation = require('elyoos-server-lib').jsonValidation;
 
 let schemaPreviewNews = {
     name: 'previewNews',
@@ -19,14 +19,10 @@ let schemaPreviewNews = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
-        return controllerErrors('Error occurs when sending preview news', req, res, logger, function () {
-            return validation.validateRequest(req, schemaPreviewNews, logger).then(function (request) {
-                logger.info(`Admin sends preview of news`, req);
-                return previewNews.preview(req.user.id, request, req);
-            }).then(function () {
-                res.status(200).end();
-            });
-        });
-    });
+    router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaPreviewNews, logger);
+        logger.info(`Admin sends preview of news`, req);
+        await previewNews.preview(req.user.id, params, req);
+        res.status(200).end();
+    }));
 };

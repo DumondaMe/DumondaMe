@@ -1,10 +1,10 @@
 'use strict';
 
-let passport = require('passport');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let rateLimit = require('elyoos-server-lib').limiteRate;
+const passport = require('passport');
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const rateLimit = require('elyoos-server-lib').limiteRate;
 
-let apiLimiter = rateLimit.getRate({
+const apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
     delayAfter: 3,
     delayMs: 3 * 1000,

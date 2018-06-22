@@ -1,43 +1,38 @@
 'use strict';
 
-let app = require('../../../../../../server');
-let request = require('supertest');
-let users = require('elyoos-server-test-util').user;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+const app = require('../../../../../../server');
+const request = require('supertest');
+const users = require('elyoos-server-test-util').user;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
 
 describe('Integration Tests Login', function () {
 
-    beforeEach(function () {
-        return dbDsl.init(1).then();
+    beforeEach(async function () {
+        await dbDsl.init(1);
     });
 
-    it('Login - Return 400 when invalid username', function (done) {
-        dbDsl.sendToDb().then(function () {
-            request(app).post('/api/login').send(users.invalidUsername).expect(400).end(done);
-        });
+    it('Login - Return 400 when invalid username', async function () {
+        await dbDsl.sendToDb();
+        await request(app).post('/api/login').send(users.invalidUsername).expect(400);
     });
-    it('Login - Return 400 when invalid password', function (done) {
-        dbDsl.sendToDb().then(function () {
-            request(app).post('/api/login').send(users.invalidPassword).expect(400).end(done);
-        });
+    it('Login - Return 400 when invalid password', async function () {
+        await dbDsl.sendToDb();
+        await request(app).post('/api/login').send(users.invalidPassword).expect(400);
     });
 
-    it('Login - Return 400 because user is not ElyoosAdmin', function (done) {
-        dbDsl.sendToDb().then(function () {
-            request(app).post('/api/login').send(users.validUser).expect(400).end(done);
-        });
+    it('Login - Return 400 because user is not ElyoosAdmin', async function () {
+        await dbDsl.sendToDb();
+        await request(app).post('/api/login').send(users.validUser).expect(400);
     });
 
-    it('Login - Return 200', function (done) {
+    it('Login - Return 200', async function () {
         dbDsl.setUserIsElyoosAdmin('1');
-        dbDsl.sendToDb().then(function () {
-            request(app).post('/api/login').send(users.validUser).expect(200).end(done);
-        });
+        await dbDsl.sendToDb();
+        await request(app).post('/api/login').send(users.validUser).expect(200);
     });
 
-    it('Logout - Return 200', function (done) {
-        dbDsl.sendToDb().then(function () {
-            request(app).post('/api/logout').send({}).expect(200).end(done);
-        });
+    it('Logout - Return 200', async function () {
+        await dbDsl.sendToDb();
+        await request(app).post('/api/logout').send({}).expect(200);
     });
 });

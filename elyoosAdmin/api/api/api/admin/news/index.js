@@ -1,13 +1,13 @@
 'use strict';
 
-let auth = require('elyoos-server-lib').auth;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let createNews = requireModel('news/create');
-let editNews = requireModel('news/edit');
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+const auth = require('elyoos-server-lib').auth;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const createNews = requireModel('news/create');
+const editNews = requireModel('news/edit');
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const validation = require('elyoos-server-lib').jsonValidation;
 
-let schemaCreateNews = {
+const schemaCreateNews = {
     name: 'createNews',
     type: 'object',
     additionalProperties: false,
@@ -18,7 +18,7 @@ let schemaCreateNews = {
     }
 };
 
-let schemaEditNews = {
+const schemaEditNews = {
     name: 'editNews',
     type: 'object',
     additionalProperties: false,
@@ -32,25 +32,17 @@ let schemaEditNews = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
-        return controllerErrors('Error occurs when creating news', req, res, logger, function () {
-            return validation.validateRequest(req, schemaCreateNews, logger).then(function (request) {
-                logger.info(`Admin creates news`, req);
-                return createNews.create(request);
-            }).then(function (data) {
-                res.status(200).json(data);
-            });
-        });
-    });
+    router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaCreateNews, logger);
+        logger.info(`Admin creates news`, req);
+        let response = await createNews.create(params);
+        res.status(200).json(response);
+    }));
 
-    router.put('/', auth.isAuthenticated(), function (req, res) {
-        return controllerErrors('Error occurs when edit news', req, res, logger, function () {
-            return validation.validateRequest(req, schemaEditNews, logger).then(function (request) {
-                logger.info(`Admin edits news`, req);
-                return editNews.edit(request);
-            }).then(function (data) {
-                res.status(200).json(data);
-            });
-        });
-    });
+    router.put('/:newsId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaEditNews, logger);
+        logger.info(`Admin edits news`, req);
+        let response = await editNews.edit(params);
+        res.status(200).json(response);
+    }));
 };

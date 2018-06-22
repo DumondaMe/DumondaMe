@@ -1,19 +1,16 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('elyoos-server-test-util').user;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
+const stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+const requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests to send news preview', function () {
 
-    let startTime;
-
-    beforeEach(function () {
+    beforeEach(async function () {
         stubEmailQueue.createImmediatelyJob.reset();
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return dbDsl.init(4, true);
+        await dbDsl.init(4, true);
+        await dbDsl.sendToDb();
     });
 
     afterEach(function () {
@@ -21,18 +18,14 @@ describe('Integration Tests to send news preview', function () {
     });
 
 
-    it('Sending news preview', function () {
+    it('Sending news preview', async function () {
 
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function () {
-            return requestHandler.post('/api/admin/news/preview', {title: 'title', text: 'description'});
-        }).then(function (res) {
-            res.status.should.equal(200);
+        await requestHandler.login(users.validUser);
+        let res = await  requestHandler.post('/api/admin/news/preview', {title: 'title', text: 'description'});
+        res.status.should.equal(200);
 
-            stubEmailQueue.createImmediatelyJob.calledWith("sendPreviewNews", {
-                email: 'user@irgendwo.ch', forename: 'user', title: 'title', text: 'description'
-            }).should.be.true;
-        });
+        stubEmailQueue.createImmediatelyJob.calledWith("sendPreviewNews", {
+            email: 'user@irgendwo.ch', forename: 'user', title: 'title', text: 'description'
+        }).should.be.true;
     });
 });

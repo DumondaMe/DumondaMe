@@ -1,12 +1,12 @@
 'use strict';
 
-let auth = require('elyoos-server-lib').auth;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let overview = requireModel('register/overview');
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+const auth = require('elyoos-server-lib').auth;
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const overview = requireModel('register/overview');
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const validation = require('elyoos-server-lib').jsonValidation;
 
-let schemaGetRegisteredOverview = {
+const schemaGetRegisteredOverview = {
     name: 'getFeedbackRegisteredOverview',
     type: 'object',
     additionalProperties: false,
@@ -19,15 +19,10 @@ let schemaGetRegisteredOverview = {
 
 module.exports = function (router) {
 
-    router.get('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Error occurs when getting registered user overview', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaGetRegisteredOverview, logger).then(function (request) {
-                logger.info("User requests feedback registered overview", req);
-                return overview.getOverview(request);
-            }).then(function (data) {
-                res.status(200).json(data);
-            });
-        });
-    });
+    router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaGetRegisteredOverview, logger);
+        logger.info("User requests feedback registered overview", req);
+        const response = await overview.getOverview(params);
+        res.status(200).json(response);
+    }));
 };
