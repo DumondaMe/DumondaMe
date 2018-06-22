@@ -34,7 +34,7 @@ const getOverview = async function (params) {
 
     let resp = await getNumberOfUser().send(commands);
     return {
-        numberOfUser: resp[1][0].numberOfUser, users: await getUserResponse(resp[0])
+        numberOfUsers: resp[1][0].numberOfUser, users: await getUserResponse(resp[0])
     };
 };
 

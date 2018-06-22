@@ -2,7 +2,10 @@
     <single-view>
         <div slot="content">
             <login v-if="!isAuthenticated"></login>
-            <div v-else>Du bist eingelogt</div>
+            <div v-else>
+                <registered-users></registered-users>
+                <news></news>
+            </div>
         </div>
     </single-view>
 </template>
@@ -10,18 +13,20 @@
 <script>
     import SingleView from '~/components/layouts/SingleView';
     import Login from '~/components/login/Login';
+    import RegisteredUsers from '~/components/home/RegisteredUsers';
+    import News from '~/components/home/News';
 
     export default {
-        async fetch({query, app, error, store}) {
+        async fetch({error, store}) {
             if (store.state.auth.userIsAuthenticated) {
                 try {
-
+                    await store.dispatch(`home/getHome`);
                 } catch (e) {
                     error({statusCode: e.statusCode})
                 }
             }
         },
-        components: {Login, SingleView},
+        components: {Login, SingleView, RegisteredUsers, News},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

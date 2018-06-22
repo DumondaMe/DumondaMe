@@ -3,7 +3,6 @@
 const user = require('../register/overview');
 const news = require('../news/overview');
 
-
 const getOverview = async function () {
 
     let commands = [];
@@ -14,11 +13,10 @@ const getOverview = async function () {
 
     let resp = await news.getOverviewCommand(params).send(commands);
     return {
-        numberOfUser: resp[1][0].numberOfUser, users: await user.getUserResponse(resp[0]),
+        numberOfUsers: resp[1][0].numberOfUser, users: await user.getUserResponse(resp[0]),
         news: resp[2]
     };
 };
-
 
 module.exports = {
     getOverview

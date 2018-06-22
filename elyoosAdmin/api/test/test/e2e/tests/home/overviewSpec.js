@@ -50,6 +50,7 @@ describe('Getting initial home screen', function () {
         res.body.news[2].created.should.equals(500);
         res.body.news[2].modified.should.equals(602);
 
+        res.body.numberOfUsers.should.equals(3);
         res.body.users.length.should.equals(3);
         res.body.users[0].name.should.equals("user Meier3");
         res.body.users[0].registerDate.should.equals(startTime - 499);

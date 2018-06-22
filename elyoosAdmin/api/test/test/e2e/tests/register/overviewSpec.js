@@ -29,7 +29,7 @@ describe('Integration Tests for getting registered user overview', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/register/overview', {skip: 0, maxItems: 10});
         res.status.should.equal(200);
-        res.body.numberOfUser.should.equals(3);
+        res.body.numberOfUsers.should.equals(3);
 
         res.body.users.length.should.equals(3);
         res.body.users[0].name.should.equals("user Meier3");

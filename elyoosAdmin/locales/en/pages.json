@@ -2,5 +2,10 @@
   "login": {
     "titleLogin": "Login",
     "loginButton": "Login"
+  },
+  "home": {
+    "users": {
+      "numberOfUsers": "registered users"
+    }
   }
 }
