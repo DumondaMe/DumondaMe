@@ -31,20 +31,20 @@ describe('Integration Tests for getting registered user overview', function () {
         res.status.should.equal(200);
         res.body.numberOfUser.should.equals(3);
 
-        res.body.user.length.should.equals(3);
-        res.body.user[0].name.should.equals("user Meier3");
-        res.body.user[0].registerDate.should.equals(startTime - 499);
-        res.body.user[0].userId.should.equals("3");
-        res.body.user[0].url.should.equals("profileImage/3/thumbnail.jpg");
+        res.body.users.length.should.equals(3);
+        res.body.users[0].name.should.equals("user Meier3");
+        res.body.users[0].registerDate.should.equals(startTime - 499);
+        res.body.users[0].userId.should.equals("3");
+        res.body.users[0].url.should.equals("profileImage/3/thumbnail.jpg");
 
-        res.body.user[1].name.should.equals("user Meier2");
-        res.body.user[1].registerDate.should.equals(startTime - 500);
-        res.body.user[1].userId.should.equals("2");
-        res.body.user[1].url.should.equals("profileImage/2/thumbnail.jpg");
+        res.body.users[1].name.should.equals("user Meier2");
+        res.body.users[1].registerDate.should.equals(startTime - 500);
+        res.body.users[1].userId.should.equals("2");
+        res.body.users[1].url.should.equals("profileImage/2/thumbnail.jpg");
 
-        res.body.user[2].name.should.equals("user Meier");
-        res.body.user[2].registerDate.should.equals(startTime - 600);
-        res.body.user[2].userId.should.equals("1");
-        res.body.user[2].url.should.equals("profileImage/1/thumbnail.jpg");
+        res.body.users[2].name.should.equals("user Meier");
+        res.body.users[2].registerDate.should.equals(startTime - 600);
+        res.body.users[2].userId.should.equals("1");
+        res.body.users[2].url.should.equals("profileImage/1/thumbnail.jpg");
     });
 });

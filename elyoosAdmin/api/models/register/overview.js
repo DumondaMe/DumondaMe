@@ -13,7 +13,7 @@ const getOverviewOfUser = function (params) {
         .return("user").orderBy("user.registerDate DESC").skip("{skip}").limit("{maxItems}").end(params);
 };
 
-const getUser = async function (users) {
+const getUserResponse = async function (users) {
     let formattedUsers = [];
     for (let user of users) {
         let formattedUser = {};
@@ -34,11 +34,14 @@ const getOverview = async function (params) {
 
     let resp = await getNumberOfUser().send(commands);
     return {
-        numberOfUser: resp[1][0].numberOfUser, user: await getUser(resp[0])
+        numberOfUser: resp[1][0].numberOfUser, users: await getUserResponse(resp[0])
     };
 };
 
 
 module.exports = {
-    getOverview
+    getOverview,
+    getOverviewOfUser,
+    getUserResponse,
+    getNumberOfUser
 };
