@@ -1,0 +1,13 @@
+# dependencies
+node_modules
+staticServer
+clientPrevious
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
