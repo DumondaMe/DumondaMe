@@ -19,7 +19,7 @@ module.exports = {
     },
     modules: [
         '@nuxtjs/axios',
-        'nuxt-matomo', { matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID},
+        ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
         'nuxt-sass-resources-loader'
     ],
     sassResources: [
