@@ -39,6 +39,26 @@
     },
     "popularQuestion": {
       "title": "Aktuelle Fragen"
+    },
+    "empty": {
+      "descriptionAllFilter": "Dein persönlicher Feed ist im Moment noch leer. Macht nichts! Wir zeigen dir wie du dies ändern kannst.",
+      "descriptionQuestionFilter": "Bisher hat noch keine Person aus deinem Trust Circle eine Frage gestellt oder Fragen beantwortet.",
+      "descriptionCommitmentFilter": "Bisher hat noch keine Person aus deinem Trust Circle ein Engagment erstellt oder interessiert sich dafür.",
+      "descriptionEventFilter": "Im Moment finden keine Veranstaltungen von Engagements statt welche dich interessieren. "
+    },
+    "help": {
+      "trustCircle": {
+        "title": "Trust Circle",
+        "description": "Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+      },
+      "question": {
+        "title": "Frage",
+        "description": "Findest du eine Frage spannend? Dann markiere sie als interessant und du wirst in deinem Feed informiert, wenn jemand eine neue Antwort erstellt."
+      },
+      "commitment": {
+        "title": "Engagement",
+        "description": "Wie die Fragen kannst du auch ein Engagement als interessant markieren und bleibst so über dessen Aktivitäten informiert."
+      }
     }
   },
   "commitment": {

@@ -39,6 +39,26 @@
     },
     "popularQuestion": {
       "title": "Hot Questions"
+    },
+    "empty": {
+      "descriptionAllFilter": "Your personal feed is currently empty. It doesn't matter! We show you how to change this.",
+      "descriptionQuestionFilter": "So far, no one from your Trust Circle has asked a question or answered questions.",
+      "descriptionCommitmentFilter": "No person from your Trust Circle has created or is interested in a commitment yet.",
+      "descriptionEventFilter": "At the moment there are no events of commitments that interest you."
+    },
+    "help": {
+      "trustCircle": {
+        "title": "Trust Circle",
+        "description": "Add people whose opinions you value to your Trust Circle. This allows you to see in your feed when they ask a question, answer questions, agree to answers, and much more."
+      },
+      "question": {
+        "title": "Question",
+        "description": "Do you find a question exciting? Then mark it as interesting and you will be informed in your feed when someone creates a new answer."
+      },
+      "commitment": {
+        "title": "Commitment",
+        "description": "Like the questions, you can also mark a commitment as interesting and stay informed about its activities."
+      }
     }
   },
   "commitment": {

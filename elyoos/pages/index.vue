@@ -7,8 +7,8 @@
         <div slot="content">
             <feed-filter>
             </feed-filter>
-            <feed-help v-if="showHelpFeedInfo">
-            </feed-help>
+            <feed-empty v-if="showHelpFeedInfo">
+            </feed-empty>
             <cards v-else :feed="feed">
             </cards>
             <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
@@ -24,7 +24,7 @@
     import FeedFilter from '~/components/feed/Filter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import Cards from '~/components/feed/Cards';
-    import FeedHelp from "~/components/feed/FeedHelp";
+    import FeedEmpty from "~/components/feed/FeedEmpty";
 
     export default {
         async fetch({query, app, error, store}) {
@@ -42,7 +42,7 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {FeedLayout, FeedFilter, FeedPopularQuestion, Cards, FeedHelp},
+        components: {FeedLayout, FeedFilter, FeedPopularQuestion, Cards, FeedEmpty},
         head() {
             return {
                 htmlAttrs: {

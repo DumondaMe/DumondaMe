@@ -1,24 +1,22 @@
 <template>
     <div id="feed-help">
-        <div class="description">
-            Dein persönlicher Feed ist im Moment noch leer. Macht nichts! Wir zeigen dir wie du dies ändern kannst.
-        </div>
-        <h2 class="feed-help-title">Trust Circle</h2>
+        <h2 class="feed-help-title">{{$t('pages:feeds.help.trustCircle.title')}}</h2>
         <div class="image-text-container">
             <img :src="getTrustCircleImage">
             <div class="description">
-                Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed,
-                wenn sie eine Frage erstellen, Fragen beantworten, Antworten zustimmen und noch vieles mehr.
+                {{$t('pages:feeds.help.trustCircle.description')}}
             </div>
         </div>
-        <h2 class="feed-help-title">Engagement beobachten</h2>
+        <h2 class="feed-help-title">{{$t('pages:feeds.help.question.title')}}</h2>
         <div class="text-container">
             <div class="description">
+                {{$t('pages:feeds.help.question.description')}}
             </div>
         </div>
-        <h2 class="feed-help-title">Frage beobachten</h2>
+        <h2 class="feed-help-title">{{$t('pages:feeds.help.commitment.title')}}</h2>
         <div class="text-container">
             <div class="description">
+                {{$t('pages:feeds.help.commitment.description')}}
             </div>
         </div>
     </div>
