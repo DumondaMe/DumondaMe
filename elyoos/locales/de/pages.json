@@ -10,6 +10,7 @@
   "login": {
     "titleLogin": "Ich habe bereits ein Konto",
     "loginButton": "Login",
+    "invalidLoginData": "Die eingegebenen Benutzerdaten sind nicht korrekt.",
     "titleRegister": "Ein Benutzerkonto erstellen",
     "registerLink": "Registrieren"
   },
