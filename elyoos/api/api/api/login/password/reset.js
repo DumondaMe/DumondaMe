@@ -1,12 +1,12 @@
 'use strict';
 
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let rateLimit = require('elyoos-server-lib').limiteRate;
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
-let resetPassword = requireModel('user/password/resetPassword');
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const rateLimit = require('elyoos-server-lib').limiteRate;
+const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const validation = require('elyoos-server-lib').jsonValidation;
+const resetPassword = requireModel('user/password/resetPassword');
 
-let schemaRequestPasswordReset = {
+const schemaRequestPasswordReset = {
     name: 'passwordReset',
     type: 'object',
     additionalProperties: false,
@@ -17,7 +17,7 @@ let schemaRequestPasswordReset = {
     }
 };
 
-let apiLimiter = rateLimit.getRate({
+const apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
     delayAfter: 3,
     delayMs: 3 * 1000,
@@ -26,15 +26,10 @@ let apiLimiter = rateLimit.getRate({
 
 module.exports = function (router) {
 
-    router.post('/', apiLimiter, function (req, res) {
-
-        return controllerErrors('Error occurs during password reset', req, res, logger, function () {
-            return validation.validateRequest(req, schemaRequestPasswordReset, logger).then(function (request) {
-                logger.info(`Password reset for linkId ${request.linkId}`);
-                return resetPassword.resetPassword(request.linkId, request.newPassword, req);
-            }).then(function () {
-                res.status(200).end();
-            });
-        });
-    });
+    router.post('/', apiLimiter, asyncMiddleware(async (req, res) => {
+        let request = await validation.validateRequest(req, schemaRequestPasswordReset, logger);
+        logger.info(`Password reset for linkId ${request.linkId}`);
+        await resetPassword.resetPassword(request.linkId, request.newPassword, req);
+        res.status(200).end();
+    }));
 };

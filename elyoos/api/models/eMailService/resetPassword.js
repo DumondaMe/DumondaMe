@@ -8,39 +8,33 @@ let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let timeValid = 60 * 20;  //20 Minutes
 
-let setPasswordIsRequested = function (userId) {
+let setPasswordIsRequested = async function (userId) {
     let linkId = randomstring.generate(64);
-    return db.cypher().match("(user:User {userId: {userId}})").set("user", {
+    await db.cypher().match("(user:User {userId: {userId}})").set("user", {
         resetPasswordRequestTimeout: time.getNowUtcTimestamp() + timeValid,
         resetPasswordLinkId: linkId
-    }).end({userId: userId}).send()
-        .then(function () {
-            return linkId;
-        });
+    }).end({userId: userId}).send();
+    return linkId;
 };
 
-let sendReset = function (email) {
+let sendReset = async function (email) {
     let originalEmailAddress;
     email = email.toLowerCase();
-    return db.cypher().match("(user:User {emailNormalized: {email}})")
-        .return("user").end({email: email}).send()
-        .then(function (resp) {
-            if (resp.length === 1) {
-                originalEmailAddress = resp[0].user.email;
-                if (resp[0].user.hasOwnProperty('resetPasswordRequestTimeout') &&
-                    resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) {
-                    return setPasswordIsRequested(resp[0].user.userId);
-                } else if (!resp[0].user.hasOwnProperty('resetPasswordRequestTimeout')) {
-                    return setPasswordIsRequested(resp[0].user.userId);
-                }
-            }
-        }).then(function (linkId) {
-            if (linkId) {
-                eMailQueue.createImmediatelyJob('resetPassword', {email: originalEmailAddress, linkId: linkId});
-            } else {
-                logger.info(`Reset password email is not sent to ${originalEmailAddress}`);
-            }
-        });
+    let resp = await db.cypher().match("(user:User {emailNormalized: {email}})")
+        .return("user").end({email: email}).send();
+    if (resp.length === 1) {
+        originalEmailAddress = resp[0].user.email;
+        if ((resp[0].user.hasOwnProperty('resetPasswordRequestTimeout') &&
+            resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) ||
+            !resp[0].user.hasOwnProperty('resetPasswordRequestTimeout')) {
+            let linkId = await setPasswordIsRequested(resp[0].user.userId);
+            eMailQueue.createImmediatelyJob('resetPassword', {email: originalEmailAddress, linkId: linkId});
+        } else {
+            logger.info(`Reset password email is not sent to ${originalEmailAddress}`);
+        }
+    } else {
+        logger.info(`User not found for ${email}`);
+    }
 };
 
 module.exports = {
