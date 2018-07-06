@@ -22,12 +22,12 @@ describe('Unit Test eMailService/jobs/resetPasswordJob', function () {
         sandbox.restore();
     });
 
-    it('Send a email to a user with reset password link', function () {
+    it('Send a email to a user with reset password link', async function () {
 
         let finished = sinon.spy(), linkId = 'abro8ueiQ', sendEMail = sandbox.stub(email, 'sendEMail');
 
-        return testee.processDefinition({email: 'test@gmx.ch', linkId: linkId}, finished);
-        expect(sendEMail.withArgs('resetPassword', {link: `${process.env.ELYOOS_DOMAIN}password/reset/${linkId}`,}, 'test@gmx.ch').calledOnce).to.be.true;
+        await testee.processDefinition({email: 'test@gmx.ch', linkId: linkId}, finished);
+        expect(sendEMail.withArgs('resetPassword', {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${linkId}`,}, 'test@gmx.ch').calledOnce).to.be.true;
         expect(finished.calledOnce).to.be.true;
 
     });
