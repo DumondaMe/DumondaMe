@@ -11,8 +11,24 @@
     "titleLogin": "I already have an account",
     "loginButton": "Login",
     "invalidLoginData": "The user data is not correct.",
+    "passwordReset": "Forgotten your password?",
     "titleRegister": "Create an account",
     "registerLink": "Sign Up"
+  },
+  "passwordResetRequest": {
+    "title": "Forgotten your password?",
+    "description": "Enter the email address you used to create your Elyoos account.",
+    "sentDescription": "An email with a link to reset the password was sent to {{email}}. The link is only valid for 20 minutes.",
+    "errorToManyRequest": "You tried too many times to reset the password. Try again later.",
+    "resetPasswordButton": "Send Request"
+  },
+  "passwordReset": {
+    "title": "Change Password",
+    "newPassword": "New password",
+    "newPasswordConfirm": "Confirm new password",
+    "sentDescription": "Your password has been changed. You can now log in with the new password.",
+    "error": "Password could not be changed. The link may be invalid. It is valid for only 20 minutes.",
+    "loginButton": "Login"
   },
   "register": {
     "registerTitle": "Create an account for Elyoos",
@@ -141,10 +157,10 @@
     "answerLinkDialog": {
       "answerInfoWrongType": "Your link is not a YouTube or Vimeo video.",
       "answerSwitchTypeButton": "Create Link",
-      "typeOfWebsiteDescription":"What kind of weblink is it?",
-      "typeWebsite":"Website",
-      "typeArticle":"Article",
-      "typeBlog":"Blog"
+      "typeOfWebsiteDescription": "What kind of weblink is it?",
+      "typeWebsite": "Website",
+      "typeArticle": "Article",
+      "typeBlog": "Blog"
     },
     "answerVideoDialog": {
       "answerInfoWrongType": "Your link is a YouTube or Vimeo video.",

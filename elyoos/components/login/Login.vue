@@ -23,6 +23,8 @@
                         {{$t("pages:login.loginButton")}}
                     </v-btn>
                 </v-form>
+                <nuxt-link class="password-reset" to="/login/passwordResetRequest">{{$t('pages:login.passwordReset')}}
+                </nuxt-link>
             </div>
         </div>
     </div>
@@ -53,7 +55,8 @@
                     });
                     this.$store.dispatch('notification/startCheckNotificationChanged');
                     this.$store.commit('feed/SET_IS_PUBLIC_FEED', false);
-                    if (!this.fromRoute || this.fromRoute.name === null) {
+                    if (!this.fromRoute || this.fromRoute.name === null ||
+                        this.fromRoute.name === 'login-passwordReset') {
                         this.$router.push({name: 'index'});
                     } else {
                         this.$router.go(-1);
@@ -96,6 +99,13 @@
                     margin-left: 0;
                     margin-right: 0;
                     width: 100%;
+                }
+                .password-reset {
+                    text-decoration: none;
+                    font-size: 12px;
+                }
+                :hover.password-reset {
+                    text-decoration: underline;
                 }
             }
         }

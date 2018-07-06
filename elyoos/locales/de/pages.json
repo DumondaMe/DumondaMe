@@ -11,8 +11,24 @@
     "titleLogin": "Ich habe bereits ein Konto",
     "loginButton": "Login",
     "invalidLoginData": "Die eingegebenen Benutzerdaten sind nicht korrekt.",
+    "passwordReset": "Passwort vergessen?",
     "titleRegister": "Ein Benutzerkonto erstellen",
     "registerLink": "Registrieren"
+  },
+  "passwordResetRequest": {
+    "title": "Passwort vergessen?",
+    "description": "Gib die E-Mail Adresse an mit welcher du deinen Elyoos Account erstellt hast.",
+    "sentDescription": "Es wurde ein Email mit einem Link zum zurück setzten des Passwortes an {{email}}  versendet. Der Link ist nur 20 Minuten gültig.",
+    "errorToManyRequest": "Du hast zu oft versucht das Passwort zurück zu setzten. Versuche es später wieder.",
+    "resetPasswordButton": "Absenden"
+  },
+  "passwordReset": {
+    "title": "Passwort ändern",
+    "newPassword": "Neues Passwort",
+    "newPasswordConfirm": "Neues Passwort bestätigen",
+    "sentDescription": "Dein Passwort wurde geändert. Du kannst dich nun mit dem neuen Passwort einloggen.",
+    "error": "Passwort konnte nicht geändert werden. Möglicherweise ist der Link ungültig. Dieser ist nur 20 Minuten lang gültig.",
+    "loginButton": "Anmelden"
   },
   "register": {
     "registerTitle": "Benutzerkonto erstellen für Elyoos",
