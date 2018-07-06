@@ -22,12 +22,12 @@ describe('Unit Test eMailService/jobs/registerUserRequestJob', function () {
         sandbox.restore();
     });
 
-    it('Send a email to verify the email address', function () {
+    it('Send a email to verify the email address', async function () {
 
         let finished = sinon.spy(), linkId = 'abro8ueiQ', emailAddress = 'test@gmx.ch',
             sendEMail = sandbox.stub(email, 'sendEMail');
 
-        testee.processDefinition({email: emailAddress, linkId: linkId}, finished);
+        await testee.processDefinition({email: emailAddress, linkId: linkId}, finished);
         expect(sendEMail.withArgs('registerUserRequest', {link: `${process.env.ELYOOS_DOMAIN}register/verify/${linkId}`,}, emailAddress).calledOnce).to.be.true;
         expect(finished.calledOnce).to.be.true;
     });
