@@ -24,7 +24,8 @@ let resetPassword = function (linkId, newPassword, req) {
             return passwordEncryption.generatePasswordHash(newPassword);
         }).then(function (hash) {
             return db.cypher().match('(u:User {resetPasswordLinkId: {resetPasswordLinkId}})')
-                .set('u', {password: hash}).remove("u.resetPasswordLinkId").end({resetPasswordLinkId: linkId}).send();
+                .set('u', {password: hash}).remove("u.resetPasswordLinkId, u.resetPasswordRequestTimeout")
+                .end({resetPasswordLinkId: linkId}).send();
         });
 };
 
