@@ -2,12 +2,12 @@
 
 let email = require('elyoos-server-lib').eMail;
 
-let processDefinition = function (data, done) {
+let processDefinition = async function (data, done) {
 
-    email.sendEMail("resetPassword", {link: `${process.env.ELYOOS_DOMAIN}password/reset/${data.linkId}`}, data.email);
+    await email.sendEMail("resetPassword", {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${data.linkId}`}, data.email);
     return done();
 };
 
 module.exports = {
-    processDefinition: processDefinition
+    processDefinition
 };
