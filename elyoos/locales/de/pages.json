@@ -2,8 +2,7 @@
   "toolbar": {
     "settings": "Einstellungen",
     "yourProfile": "Dein Profil",
-    "createQuestion": "Frage erstellen",
-    "createCommitment": "Engagement erstellen",
+    "createCommitment": "Engagement erfassen",
     "aboutElyoos": "Über Elyoos",
     "logout": "Abmelden"
   },
