@@ -1,6 +1,9 @@
 <template>
     <div class="event-feed-card">
-        <div class="event-title">{{event.title}}</div>
+        <div class="title-container">
+            <v-icon class="card-type-icon">mdi-calendar</v-icon>
+            <span class="card-title"><a :href="getEventLink">{{event.title}}</a></span>
+        </div>
         <expand-text :expand-text="event.description" class="event-description" itemprop="text"
                      v-if="event.description">
         </expand-text>
@@ -21,18 +24,28 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            getEventLink() {
+                return `/commitment/${this.event.commitmentId}/${this.event.commitmentSlug}?eventId=${this.event.eventId}`;
             }
-        },
+        }
     }
 </script>
 
 <style lang="scss">
     .event-feed-card {
-        .event-title {
-            color: $primary-color;
+        .title-container {
+            margin-bottom: 12px;
+            .event-icon {
+                font-size: 18px;
+                margin-right: 8px;
+            }
+            .event-title {
+                color: $primary-color;
+            }
         }
         .event-description {
-            margin-top: 8px;
+            margin-bottom: 16px;
         }
     }
 </style>

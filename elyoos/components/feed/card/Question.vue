@@ -1,26 +1,12 @@
 <template>
     <div class="question-feed-card">
-        <v-layout row>
-            <user-info :isAdmin="question.isAdmin" :created="question.created" :card-type="'Question'"
-                       :question-id="question.questionId" :question-slug="question.questionSlug"
-                       :question="question.question">
-            </user-info>
-            <v-spacer></v-spacer>
-            <v-menu bottom v-if="question.isAdmin">
-                <v-btn icon slot="activator">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Bearbeiten</v-list-tile-title>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Löschen</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </v-layout>
+        <div class="question-header">
+            <v-icon class="question-icon">mdi-help-circle-outline</v-icon>
+            <span class="question-title"
+                  @click="$router.push({name: 'question-questionId-slug',
+                              params: {questionId: question.questionId, slug: question.questionSlug}})">{{question.question}}
+                </span>
+        </div>
         <expand-text :expand-text="question.descriptionHtml" class="question-description" itemprop="text">
         </expand-text>
         <card-footer :creator="question.creator.name" :creator-id="question.creator.userId"
@@ -31,13 +17,12 @@
 </template>
 
 <script>
-    import UserInfo from './UserInfo.vue';
     import CardFooter from './footer/Question';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['question'],
-        components: {UserInfo, CardFooter, ExpandText},
+        components: {CardFooter, ExpandText},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -50,18 +35,26 @@
     .question-feed-card {
         .question-description {
             margin-top: 12px;
+            margin-bottom: 16px;
         }
-        .question-info {
-            margin-top: 12px;
-            .answer-icon {
-                i.icon {
-                    color: $primary-color;
+        .question-header {
+            display: block;
+            line-height: 16px;
+            .question-icon {
+                margin-left: -2px;
+                margin-right: 8px;
+                font-size: 22px;
+            }
+            .question-title {
+                cursor: pointer;
+                font-size: 16px;
+                vertical-align: middle;
+                color: $primary-color;
+                .link {
+                    text-decoration: none;
                 }
-                .answer-text {
-                    margin-left: 6px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: $secondary-text;
+                :hover.link {
+                    text-decoration: underline;
                 }
             }
         }

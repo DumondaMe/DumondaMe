@@ -55,7 +55,7 @@
                 }
             }
             .title-container {
-                margin-bottom: 4px;
+                line-height: 18px;
                 .card-type-icon {
                     margin-right: 8px;
                     font-size: 18px;
@@ -80,7 +80,6 @@
         }
     }
     .card-footer-feed {
-        margin-top: 16px;
         .footer-icon {
             margin-right: 12px;
             display: inline-block;

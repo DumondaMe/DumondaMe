@@ -1,26 +1,8 @@
 <template>
     <div class="text-answer-feed-card">
-        <v-layout row class="text-answer-header">
-            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type"
-                       :question-id="answer.questionId" :question-slug="answer.questionSlug"
-                       :question="answer.question">
-            </user-info>
-            <v-spacer></v-spacer>
-            <v-menu bottom v-if="answer.isAdmin">
-                <v-btn icon slot="activator">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Bearbeiten</v-list-tile-title>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Löschen</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </v-layout>
+        <question-to-answer :question-id="answer.questionId" :question-slug="answer.questionSlug"
+                            :question="answer.question">
+        </question-to-answer>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
         <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
@@ -31,13 +13,13 @@
 </template>
 
 <script>
-    import UserInfo from './UserInfo.vue';
     import CardFooter from './footer/CommonAnswer';
+    import QuestionToAnswer from './QuestionToAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, CardFooter, ExpandText},
+        components: {CardFooter, QuestionToAnswer, ExpandText},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -49,7 +31,10 @@
 <style lang="scss">
     .text-answer-feed-card {
         .answer-description {
-            margin-top: 12px;
+            margin-bottom: 16px;
+        }
+        .question-to-answer-container {
+            margin-bottom: 8px;
         }
     }
 </style>

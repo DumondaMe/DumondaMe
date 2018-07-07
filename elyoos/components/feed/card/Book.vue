@@ -1,25 +1,5 @@
 <template>
     <div class="book-answer-feed-card">
-        <v-layout row>
-            <user-info :isAdmin="answer.isAdmin" :card-type="answer.type" :question-id="answer.questionId"
-                       :question-slug="answer.questionSlug" :question="answer.question">
-            </user-info>
-            <v-spacer></v-spacer>
-            <v-menu bottom v-if="answer.isAdmin">
-                <v-btn icon slot="activator">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Bearbeiten</v-list-tile-title>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                    <v-list-tile @click="">
-                        <v-list-tile-title>Löschen</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </v-layout>
         <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
             <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
@@ -29,6 +9,9 @@
                     <v-icon class="card-type-icon">mdi-book-open-page-variant</v-icon>
                     <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
                 </div>
+                <question-to-answer :question-id="answer.questionId" :question-slug="answer.questionSlug"
+                                    :question="answer.question">
+                </question-to-answer>
                 <expand-text :expand-text="answer.description"
                              :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
                 </expand-text>
@@ -41,13 +24,13 @@
 </template>
 
 <script>
-    import UserInfo from './UserInfo.vue';
     import CardFooter from './footer/CommonAnswer';
+    import QuestionToAnswer from './QuestionToAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {UserInfo, CardFooter, ExpandText},
+        components: {CardFooter, QuestionToAnswer, ExpandText},
         data() {
             return {expandDescription: false}
         },
@@ -64,17 +47,17 @@
         .book-answer-content {
             min-height: 90px;
             display: flex;
+            margin-bottom: 16px;
             .book-preview-image {
                 img {
                     border-radius: 2px;
-                    margin-top: 19px;
+                    margin-top: 6px;
                     max-height: 250px;
                     max-width: 120px;
                 }
             }
             .answer-description {
-                margin-left: 18px;
-                margin-top: 13px;
+                margin-left: 18px
             }
             .answer-description.no-book-image {
                 margin-left: 0;
