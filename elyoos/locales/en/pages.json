@@ -31,7 +31,8 @@
   },
   "register": {
     "registerTitle": "Create an account for Elyoos",
-    "acceptTermsPrevious": "Accept",
+    "acceptTerms": "Accept",
+    "acceptTerms2": "and the",
     "registerButton": "Create",
     "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account."
   },

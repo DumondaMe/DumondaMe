@@ -50,8 +50,11 @@
                     <v-flex xs12>
                         <v-checkbox v-model="acceptTerms" class="accept-terms" color="primary">
                             <span slot="label" @click="event => event.stopPropagation()">
-                                {{$t('pages:register.acceptTermsPrevious')}}
-                                <a href="/terms" target="_blank">{{$t('common:terms')}}</a></span>
+                                {{$t('pages:register.acceptTerms')}}
+                                <a href="/terms" target="_blank">{{$t('common:terms')}}</a>
+                                {{$t('pages:register.acceptTerms2')}}
+                                <a href="/privacy" target="_blank">{{$t('common:privacyPolicy')}}</a></span>
+
                         </v-checkbox>
                     </v-flex>
                 </v-layout>
@@ -138,7 +141,12 @@
             margin-top: 24px;
             .accept-terms {
                 margin-left: -4px;
+                margin-top: 12px;
+                margin-bottom: 12px;
                 label {
+                    text-overflow: unset;
+                    white-space: unset;
+                    overflow: unset;
                     width: auto;
                     min-width: 0;
                 }
