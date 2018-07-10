@@ -309,9 +309,18 @@
             font-size: 14px;
         }
 
+        h1 {
+            font-size: 52px;
+            line-height: 60px;
+            color: #333;
+            margin-bottom: 40px;
+        }
         h2 {
-            margin-top: 24px;
-            margin-bottom: 8px;
+            font-size: 36px;
+            line-height: 52px;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 20px;
         }
 
         ul {

@@ -408,6 +408,61 @@
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen."
   },
+  "privacy": {
+    "title": "Datenschutzerklärung",
+    "general": {
+      "title": "Allgemeine Hinweise",
+      "point1": "Stand: 10.07.2018",
+      "point2": "Diese Datenschutzerklärung gilt für den gesamten Dienst Elyoos",
+      "point3": "Verantwortlich für die Verarbeitung personenbezogener Daten ist der Verein Elyoos"
+    },
+    "processingData": {
+      "title": "Wie werden deine personenbezogenen Daten verarbeitet?",
+      "general": {
+        "title": "Allgemeines zu den Zwecken der Datenverarbeitung.",
+        "text1": "Im Wesentlichen verarbeiten wir personenbezogene Daten, um unseren Verpflichtungen gegenüber unseren Nutzern nachzukommen. Die Verarbeitung der Daten ist die Voraussetzung dafür, dass wir dir beispielsweise Fragen, Antworten und weitere Informationen vorschlagen können."
+      },
+      "informationProvideToUs": {
+        "title": "Informationen, die du uns mitteilst.",
+        "text1": "Dies sind Daten, die wir direkt von dir erhalten und Informationen, die du auf der Elyoos Website veröffentlichst, beispielsweise:",
+        "point1": "Zugangsdaten (z.B. Nutzername und Passwort)",
+        "point2": "Profildaten (z.B. Foto, Beschreibung über dich, welche Fragen du erstellt hast, usw.)",
+        "point3": "Fragen, Antworten, Engagements"
+      },
+      "informationAutomaticallyObtain": {
+        "title": "Informationen, die wir auf Grund deiner Nutzung von Elyoos automatisch erhalten.",
+        "text1": "Während du den Dienst Elyoos nutzt oder besuchst, werden automatisch Daten von dir mittels Tracking (Matomo) und Logfiles auf unseren Servern gesammelt. Die erhobenen Daten speichern wir für bis zu 90 Tagen in vollständiger Form. Wir verwenden das Tracking aus folgenden Gründen:",
+        "point1": "Gewährleistung der Sicherheit",
+        "point2": "Optimierung der Website",
+        "point3": "Ermittlung statistischer Kennwerte"
+      },
+      "informationFromOtherSource": {
+        "title": "Informationen, die wir über dich aus anderen Quellen erhalten.",
+        "text1": "Wenn jemand auf Elyoos eine Person einlädt die noch kein Konto hat, speichern wir diese E-Mail Adresse. Die eingeladenen Nicht-Nutzer können über einen Opt-Out-Link in der Einladungs-E-Mail dem Versand weiterer Einladungen oder Einladungs-Erinnerungen an die jeweilige E-Mail-Adresse widersprechen."
+      },
+      "whoReceiveInformation": {
+        "title": "Wer erhält Daten zu deiner Person?",
+        "text1": "Wir geben deine personenbezogenen Daten nur an Dritte weiter, wenn …",
+        "point1": "Du uns dies in den Privatsphäre Einstellungen erlaubst.",
+        "point2": "Wir gesetzlich, gerichtlich oder behördlich dazu verpflichtet sind."
+      }
+    },
+    "rights": {
+      "title": "Welche Rechte kannst du geltend machen?",
+      "userRights": {
+        "title": "Rechte des Nutzers",
+        "text1": "Du hast als Nutzer das Recht, auf Antrag eine kostenlose Auskunft darüber zu erhalten, welche personenbezogenen Daten über dich gespeichert wurden. Du hast ausserdem das Recht auf Berichtigung falscher Daten und auf die Verarbeitungseinschränkung oder Löschung deiner personenbezogener Daten. Falls zutreffend, kannst du auch dein Recht auf Datenportabilität geltend machen. Solltest Du annehmen, dass deine Daten unrechtmäßig verarbeitet wurden, kannst du eine Beschwerde bei der zuständigen Aufsichtsbehörde einreichen."
+      },
+      "deleteData": {
+        "title": "Löschung von Daten",
+        "text1": "Sofern dein Wunsch nicht mit einer gesetzlichen Pflicht zur Aufbewahrung von Daten kollidiert, hast du ein Anrecht auf Löschung deiner Daten. Von uns gespeicherte Daten werden, sollten sie für deine Zweckbestimmung nicht mehr vonnöten sein und es keine gesetzlichen Aufbewahrungsfristen gibt, gelöscht. Falls eine Löschung nicht durchgeführt werden kann, da die Daten für zulässige gesetzliche Zwecke erforderlich sind, erfolgt eine Einschränkung der Datenverarbeitung. In diesem Fall werden die Daten gesperrt und nicht für andere Zwecke verarbeitet."
+      },
+      "rightOfObjection": {
+        "title": "Widerspruchsrecht",
+        "text1": "Nutzer dieser Webseite können von ihrem Widerspruchsrecht Gebrauch machen und der Verarbeitung ihrer personenbezogenen Daten zu jeder Zeit widersprechen. Wenn du eine Berichtigung, Sperrung, Löschung oder Auskunft über die zu deiner Person gespeicherten personenbezogenen Daten wünscht oder Fragen bzgl. der Erhebung, Verarbeitung oder Verwendung deiner personenbezogenen Daten hast oder erteilte Einwilligungen widerrufen möchtest, dann wende dich bitte an folgende E-Mail-Adresse: info@elyoos.org"
+      }
+    }
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "Über uns",
