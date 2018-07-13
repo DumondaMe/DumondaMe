@@ -2,11 +2,11 @@
     <div id="ely-vision">
         <div v-if="selectedLanguage === 'de'">
             <h1>Unsere Vision</h1>
-            <p>Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit
-                und Frieden so selbstverständlich sind wie die Luft zum Atmen? Um dies zu verwirklichen ist es
-                unabdingbar, dass wir die notwendigen Fragen stellen und die passenden Antworten umsetzen. Dazu braucht
-                es Engagement in verschiedenen Themenbereichen wie Politik, Wirtschaft, Gesellschaftliche Entwicklung,
-                Umweltschutz, Spiritualität, Gesundheit, Bildung und vielen mehr.</p>
+            <p>Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit,
+                eine hohe Lebensqualität und Frieden so selbstverständlich ist wie die Luft zum Atmen? Um dies zu
+                verwirklichen ist es unabdingbar, dass wir die notwendigen Fragen stellen und die passenden Antworten
+                umsetzen. Dazu braucht es Engagement in verschiedenen Themenbereichen wie Politik, Wirtschaft,
+                Gesellschaftliche Entwicklung, Umweltschutz, Spiritualität, Gesundheit, Bildung und vielen mehr.</p>
             <p>Elyoos dient als Katalysator, welcher die bereits vorhanden Lösungsvorschläge sichtbar macht und das
                 Erarbeiten von Neuen unterstützt. Das soziale Netzwerk nutzt dabei das Potenzial des Internets, um mit
                 vereinten Kräften einen Paradigmenwechsel zu ermöglichen. Einer welcher uns nicht länger nur von einer
@@ -42,9 +42,9 @@
         max-width: 600px;
         margin: 0 auto;
         h1 {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 8px;
+            font-size: 52px;
+            line-height: 60px;
+            margin-bottom: 18px;
         }
         p {
             font-weight: 300;

@@ -301,12 +301,14 @@
     #terms {
         .terms-date {
             margin-top: 4px;
-            font-size: 14px;
+            font-weight: 300;
+            font-size: 16px;
         }
 
         .terms-text {
             margin-top: 12px;
-            font-size: 14px;
+            font-weight: 300;
+            font-size: 16px;
         }
 
         h1 {
@@ -324,8 +326,16 @@
         }
 
         ul {
+            font-weight: 300;
+            font-size: 16px;
             margin-left: 18px;
             margin-bottom: 18px;
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
         }
     }
 </style>

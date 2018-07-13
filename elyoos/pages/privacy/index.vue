@@ -93,7 +93,16 @@
             margin-bottom: 12px;
         }
 
+        p {
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
         ul {
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
             margin-left: 18px;
             margin-bottom: 18px;
         }
