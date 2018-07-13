@@ -17,7 +17,7 @@
                 </v-icon>
                 <span v-if="action === 'upVote'">Zustimmung von {{creator}}</span>
             </v-tooltip>
-            <span class="footer-text">{{$t('common:by')}} <span class="footer-link" @click="$router.push({name: 'user-userId-slug',
+            <span class="footer-text"><span class="footer-link" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: creatorId, slug: creatorSlug}})">{{creator}}</span></span>
         </div>
         <div class="footer-icon">
