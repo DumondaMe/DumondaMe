@@ -34,7 +34,8 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish" :loading="loading"
-                   :disabled="!valid || !validStartDate || !validEndDate || !hasChanged || loading">
+                   :disabled="!valid || !validStartDate || !validEndDate || startDateAfterEndDate ||
+                              !hasChanged || loading">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -57,6 +58,7 @@
                 valid: false,
                 validStartDate: true,
                 validEndDate: true,
+                startDateAfterEndDate: false,
                 minDate: moment().add(1, 'd').format('YYYY-MM-DD')
             }
         },
@@ -90,14 +92,16 @@
                     this.$emit('finish', {event: this.event});
                 }
             },
-            startDateChanged({date, isValid}) {
+            startDateChanged({date, isValid, startDateAfterEndDate}) {
                 this.validStartDate = isValid;
+                this.startDateAfterEndDate = startDateAfterEndDate;
                 if (isValid) {
                     this.event.startDate = date;
                 }
             },
-            endDateChanged({date, isValid}) {
+            endDateChanged({date, isValid, startDateAfterEndDate}) {
                 this.validEndDate = isValid;
+                this.startDateAfterEndDate = startDateAfterEndDate;
                 if (isValid) {
                     this.event.endDate = date;
                 }

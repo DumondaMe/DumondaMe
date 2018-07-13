@@ -58,19 +58,13 @@
                 } else {
                     this.$emit('date-changed', {date: null, isValid: false});
                 }
-            },
-            initDate(initDate) {
-                this.time = moment.unix(initDate).format('HH:mm');
-                this.date = moment.unix(initDate).format('YYYY-MM-DD');
-                this.dateFormatted = this.formatDate(moment.unix(initDate).format('YYYY-MM-DD'));
-                this.validTime = true;
             }
         },
         methods: {
             isValidTime() {
                 return v => {
                     this.validTime = this.validTimeRegex(v);
-                    return this.validTime || 'Invalid time'
+                    return this.validTime || this.$t("validation:invalidTime")
                 }
             },
             validTimeRegex(time) {

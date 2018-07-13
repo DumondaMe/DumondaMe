@@ -26,17 +26,15 @@
                 if (isValid) {
                     this.startDate = date;
                     this.startDateAfterEndDate = this.startDate >= this.endDate;
-                    isValid = !this.startDateAfterEndDate;
                 }
-                this.$emit(`start-date-changed`, {date, isValid});
+                this.$emit(`start-date-changed`, {date, isValid, startDateAfterEndDate: this.startDateAfterEndDate});
             },
             endDateChanged({date, isValid}) {
                 if (isValid) {
                     this.endDate = date;
                     this.startDateAfterEndDate = this.startDate >= this.endDate;
-                    isValid = !this.startDateAfterEndDate;
                 }
-                this.$emit(`end-date-changed`, {date, isValid});
+                this.$emit(`end-date-changed`, {date, isValid, startDateAfterEndDate: this.startDateAfterEndDate});
             }
         },
     }

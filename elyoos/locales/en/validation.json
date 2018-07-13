@@ -8,5 +8,6 @@
   "isEmail": "No valid e-mail address",
   "url": "No valid URL e. g. http://example.org",
   "youtubeUrl": "No valid youtube url for Elyoos",
-  "youtubeEmbedUrl": "Do not use embed youtube url"
+  "youtubeEmbedUrl": "Do not use embed youtube url",
+  "invalidTime": "Invalid Time"
 }
