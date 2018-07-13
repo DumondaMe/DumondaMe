@@ -1,23 +1,26 @@
 <template>
     <div id="feed-help">
+        <h2 class="feed-help-title">{{$t('pages:feeds.help.question.title')}}</h2>
+        <div class="text-container">
+            <p class="description">
+                {{$t('pages:feeds.help.question.text1')}}
+            </p>
+            <ul>
+                <li>{{$t('pages:feeds.help.question.text2')}}</li>
+                <li>{{$t('pages:feeds.help.question.text3')}}</li>
+                <li>{{$t('pages:feeds.help.question.text4')}}</li>
+                <li>{{$t('pages:feeds.help.question.text5')}}</li>
+            </ul>
+        </div>
         <h2 class="feed-help-title">{{$t('pages:feeds.help.trustCircle.title')}}</h2>
         <div class="image-text-container">
             <img :src="getTrustCircleImage">
-            <div class="description">
-                {{$t('pages:feeds.help.trustCircle.description')}}
-            </div>
-        </div>
-        <h2 class="feed-help-title">{{$t('pages:feeds.help.question.title')}}</h2>
-        <div class="text-container">
-            <div class="description">
-                {{$t('pages:feeds.help.question.description')}}
-            </div>
+            <p class="description">{{$t('pages:feeds.help.trustCircle.text1')}}</p>
         </div>
         <h2 class="feed-help-title">{{$t('pages:feeds.help.commitment.title')}}</h2>
         <div class="text-container">
-            <div class="description">
-                {{$t('pages:feeds.help.commitment.description')}}
-            </div>
+            <p class="description">{{$t('pages:feeds.help.commitment.text1')}}</p>
+            <p class="description">{{$t('pages:feeds.help.commitment.text2')}}</p>
         </div>
     </div>
 </template>
@@ -38,6 +41,11 @@
         margin-top: 32px;
         .description {
             font-weight: 300;
+        }
+        ul {
+            font-weight: 300;
+            font-size: 16px;
+            margin-left: 18px;
             margin-bottom: 18px;
         }
         .feed-help-title {

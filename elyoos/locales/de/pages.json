@@ -58,7 +58,7 @@
       "title": "Aktuelle Fragen"
     },
     "empty": {
-      "descriptionAllFilter": "Dein persönlicher Feed ist im Moment noch leer. Macht nichts! Wir zeigen dir wie du dies ändern kannst.",
+      "descriptionAllFilter": "Nachfolgend ein kleiner Überblick zu den wichtigsten Konzepten von Elyoos.",
       "descriptionQuestionFilter": "Bisher hat noch keine Person aus deinem Trust Circle eine Frage gestellt oder Fragen beantwortet.",
       "descriptionCommitmentFilter": "Bisher hat noch keine Person aus deinem Trust Circle ein Engagment erstellt oder interessiert sich dafür.",
       "descriptionEventFilter": "Im Moment finden keine Veranstaltungen von Engagements statt welche dich interessieren. "
@@ -66,15 +66,20 @@
     "help": {
       "trustCircle": {
         "title": "Trust Circle",
-        "description": "Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+        "text1": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr. Wenn sehr viele Personen dich in ihrem  Trust Circle führen, hast du eine hohe Reichweite im Netzwerk. Interessiert dich z.B. eine Frage bedeutet dies, dass viele Personen es in ihrem Feed sehen."
       },
       "question": {
         "title": "Frage",
-        "description": "Findest du eine Frage spannend? Dann markiere sie als interessant und du wirst in deinem Feed informiert, wenn jemand eine neue Antwort erstellt."
+        "text1": "Bei Elyoos dreht sich alles um das Beantworten von Fragen. Du kannst auf vielfältige Weise zu diesem Prozess beitragen:",
+        "text2": "Erstelle selber Fragen welche dich interessieren und die noch nicht auf Elyoos gestellt wurden",
+        "text3": "Beantworte Fragen mit deinen eigenen Worten, einem Video, einem Buch, einem Link oder einem Engagement.",
+        "text4": "Stimme Antworten zu. So trägst du dazu bei, dass die relevantesten Antworten zuerst angezeigt werden.",
+        "text5": "Markiere Fragen als interessant. So sieht dein Trust Circle welche Fragen dich interessieren und du bleibst auf dem laufenden wenn neue Antworten hinzugefügt werden."
       },
       "commitment": {
         "title": "Engagement",
-        "description": "Wie die Fragen kannst du auch ein Engagement als interessant markieren und bleibst so über dessen Aktivitäten informiert."
+        "text1": "Ein Engagement ist bei Elyoos ein Verein, ein Projekt, eine Organisation oder aber dein persönliches Engagement für eine bessere Welt. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
+        "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen."
       }
     }
   },
