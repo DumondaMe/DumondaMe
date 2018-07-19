@@ -22,6 +22,9 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -29,7 +32,7 @@
     export default {
         props: ['answer', 'answerId'],
         data() {
-            return {dialog: true, running: false}
+            return {dialog: true, running: false, showError: false}
         },
         methods: {
             async deleteAnswer() {
@@ -38,6 +41,8 @@
                     await this.$store.dispatch('question/deleteAnswer', this.answerId);
                     this.$emit('close-dialog');
                 } catch (error) {
+                    this.showError = true;
+                } finally {
                     this.running = false;
                 }
             }
