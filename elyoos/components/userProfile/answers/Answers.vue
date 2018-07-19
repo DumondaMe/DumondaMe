@@ -30,6 +30,9 @@
                v-if="answers.length < numberOfAnswers">
             {{$t("common:button.showMore")}}
         </v-btn>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -41,7 +44,7 @@
         data() {
             return {
                 showCreatedAnswers: !(this.$store.state.userProfile.user.numberOfAnswers === 0 &&
-                    this.$store.state.userProfile.user.numberOfUpVotedAnswers > 0), loading: false
+                    this.$store.state.userProfile.user.numberOfUpVotedAnswers > 0), loading: false, showError: false
             }
         },
         computed: {
@@ -74,7 +77,7 @@
                         await this.$store.dispatch('userProfile/loadNextUpVotedAnswers');
                     }
                 } catch (error) {
-
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

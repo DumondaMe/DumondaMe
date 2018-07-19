@@ -50,6 +50,9 @@
                 {{$t('pages:notifications.showQuestionRequest.postNotificationDeny3')}}
             </div>
         </div>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -58,7 +61,10 @@
         name: "ShowQuestionRequest",
         props: ['notification'],
         data() {
-            return {requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: ''}
+            return {
+                requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: '',
+                showError: false
+            }
         },
         methods: {
             async setShowQuestionOnCommitment(showQuestion, requestRunning) {
@@ -67,9 +73,10 @@
                     await this.$axios.$put(`user/commitment/showQuestionRequest/${this.notification.commitmentId}`,
                         {questionId: this.notification.questionId, showQuestion: showQuestion});
                     this.$store.commit('notification/REMOVE_NOTIFICATION', this.notification);
-                    this[requestRunning] = false;
                     this.uploaded = requestRunning;
                 } catch (error) {
+                    this.showError = true;
+                } finally {
                     this[requestRunning] = false;
                 }
             }

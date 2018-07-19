@@ -22,6 +22,9 @@
                 {{$t('common:button.no')}}
             </v-btn>
         </div>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -30,7 +33,10 @@
         name: "ShowQuestionRequest",
         props: ['notification'],
         data() {
-            return {requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: ''}
+            return {
+                requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: '',
+                showError: false
+            }
         },
         methods: {
             async setShowQuestionOnCommitment(showQuestion, requestRunning) {
@@ -47,9 +53,10 @@
                     this.uploaded = requestRunning;
                 } catch (error) {
                     this[requestRunning] = false;
+                    this.showError = true;
                 }
             }
-        },
+        }
     }
 </script>
 

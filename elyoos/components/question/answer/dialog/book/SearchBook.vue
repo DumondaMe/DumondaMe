@@ -43,6 +43,9 @@
                 {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-card>
 </template>
 
@@ -58,7 +61,7 @@
             return {
                 searchBookRunning: false,
                 title: '', lastTitleSearch: '', skip: 0,
-                searchResult: {}
+                searchResult: {}, showError: false
             }
         },
         mixins: [validationRules, languages],
@@ -117,7 +120,7 @@
                         }
                     }
                 } catch (err) {
-                    console.error(err);
+                    this.showError = true;
                 }
             }
 

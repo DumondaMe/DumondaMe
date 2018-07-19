@@ -36,6 +36,9 @@
                              :init-topic="$store.state.commitment.commitment.topics"
                              :commitment-id="$route.params.commitmentId">
         </create-event-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -47,7 +50,10 @@
         name: "commitmentEvents",
         components: {CreateEventDialog, Event},
         data() {
-            return {showCreateEventDialog: false, selectUpComing: true, loading: false, loadingNextEvents: false}
+            return {
+                showCreateEventDialog: false, selectUpComing: true, loading: false, loadingNextEvents: false,
+                showError: false
+            }
         },
         computed: {
             events() {
@@ -69,7 +75,7 @@
                         commitmentId: this.$route.params.commitmentId
                     });
                 } catch (error) {
-                    console.log(error);
+                    this.showError = true;
                 } finally {
                     this.loadingNextEvents = false;
                 }
@@ -83,7 +89,7 @@
                         commitmentId: this.$route.params.commitmentId
                     });
                 } catch (error) {
-                    console.log(error);
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

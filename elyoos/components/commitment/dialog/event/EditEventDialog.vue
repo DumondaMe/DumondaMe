@@ -12,6 +12,9 @@
                 </div>
             </event-content>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -21,7 +24,7 @@
     export default {
         props: ['initEvent'],
         data() {
-            return {dialog: true, loading: false}
+            return {dialog: true, loading: false, showError: false}
         },
         components: {EventContent},
         computed: {
@@ -37,6 +40,7 @@
                     this.$emit('finish');
                 }
                 catch (e) {
+                    this.showError = true;
                     this.loading = false;
                 }
             }

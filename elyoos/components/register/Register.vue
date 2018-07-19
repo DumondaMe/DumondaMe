@@ -76,6 +76,9 @@
                 </div>
             </div>
         </div>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -89,6 +92,7 @@
             return {
                 valid: false,
                 loading: false,
+                showError: false,
                 successfullyRegistered: false,
                 formEmail: '',
                 formPassword: '',
@@ -123,6 +127,7 @@
                     this.loading = false;
                     this.successfullyRegistered = true;
                 } catch (error) {
+                    this.showError = true;
                     this.loading = false;
                 }
             }

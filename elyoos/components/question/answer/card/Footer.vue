@@ -31,6 +31,9 @@
                             @finish="noteAdded"
                             :answer-id="answer.answerId" :answer-title="getAnswerTitle">
         </create-note-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -45,7 +48,7 @@
         data() {
             return {
                 showLoginRequired: false, showCreateNoteDialog: false, showNotes: false, upVoteRunning: false,
-                sortNotes: null
+                sortNotes: null, showError: false
             }
         },
         computed: {
@@ -65,8 +68,9 @@
                     try {
                         this.upVoteRunning = true;
                         await this.$store.dispatch(command, this.answer.answerId);
-                        this.upVoteRunning = false;
                     } catch (error) {
+                        this.showError = true;
+                    } finally {
                         this.upVoteRunning = false;
                     }
                 } else {

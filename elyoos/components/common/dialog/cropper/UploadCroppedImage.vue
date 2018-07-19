@@ -2,10 +2,13 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="500px">
             <crop-image :initial-image="initialImage" :action-label="$t('common:button.upload')"
-                           :upload-running="uploadRunning"
-            @close="$emit('close-dialog')" @action="uploadImage">
+                        :upload-running="uploadRunning"
+                        @close="$emit('close-dialog')" @action="uploadImage">
             </crop-image>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -17,7 +20,7 @@
     export default {
         props: ['initialImage'],
         data() {
-            return {dialog: true, uploadRunning: false}
+            return {dialog: true, uploadRunning: false, showError: false}
         },
         components: {CropImage},
         methods: {
@@ -33,7 +36,7 @@
                             await postWithFile(this.$axios, blob, 'user/settings/uploadProfileImage');
                             this.$emit('update-image', dataUrl);
                         } catch (e) {
-
+                            this.showError = true;
                         } finally {
                             imageCropper.enable();
                             this.uploadRunning = false;

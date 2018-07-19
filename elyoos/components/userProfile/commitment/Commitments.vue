@@ -33,6 +33,9 @@
                v-if="commitments.length < numberOfCommitments">
             {{$t("common:button.showMore")}}
         </v-btn>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -42,8 +45,11 @@
     export default {
         components: {Commitment},
         data() {
-            return {showAdminCommitments: !(this.$store.state.userProfile.user.numberOfCommitments === 0 &&
-                    this.$store.state.userProfile.user.numberOfWatchingCommitments > 0), loading: false}
+            return {
+                showAdminCommitments: !(this.$store.state.userProfile.user.numberOfCommitments === 0 &&
+                    this.$store.state.userProfile.user.numberOfWatchingCommitments > 0), loading: false,
+                showError: false
+            }
         },
         computed: {
             numberOfCommitments() {
@@ -75,7 +81,7 @@
                         await this.$store.dispatch('userProfile/loadNextWatchedCommitments');
                     }
                 } catch (error) {
-
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

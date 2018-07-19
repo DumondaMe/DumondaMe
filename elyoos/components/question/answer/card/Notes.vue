@@ -17,6 +17,9 @@
                             @finish="showCreateNoteDialog = false"
                             :answer-id="answer.answerId" :answer-title="answerTitle">
         </create-note-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -28,7 +31,7 @@
         props: ['answer', 'answerTitle'],
         components: {CreateNoteDialog, Note},
         data() {
-            return {showCreateNoteDialog: false}
+            return {showCreateNoteDialog: false, showError: false}
         },
         computed: {
             noteSort() {
@@ -41,6 +44,7 @@
                     await this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
                 }
                 catch (error) {
+                    this.showError = true;
                 }
             }
         },
@@ -52,10 +56,11 @@
                         await this.$store.dispatch('question/loadAnswerNote', this.answer.answerId);
                     }
                     catch (error) {
+                        this.showError = true;
                     }
                 }
             }
-        },
+        }
     }
 </script>
 

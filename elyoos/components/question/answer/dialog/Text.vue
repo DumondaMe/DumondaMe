@@ -30,6 +30,9 @@
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-card>
 </template>
 
@@ -39,7 +42,7 @@
     export default {
         props: ['initAnswer', 'answerId', 'actionButtonText'],
         data() {
-            return {valid: false, answer: this.initAnswer, loading: false}
+            return {valid: false, answer: this.initAnswer, loading: false, showError: false}
         },
         mixins: [validationRules],
         computed: {
@@ -64,7 +67,7 @@
                     }
                     this.$emit('close-dialog', answerId);
                 } catch (e) {
-
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

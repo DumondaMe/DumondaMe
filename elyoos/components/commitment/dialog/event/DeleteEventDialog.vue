@@ -22,6 +22,9 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -29,7 +32,7 @@
     export default {
         props: ['event', 'eventId'],
         data() {
-            return {dialog: true, running: false}
+            return {dialog: true, running: false, showError: false}
         },
         computed: {
             eventToDelete() {
@@ -43,6 +46,7 @@
                     await this.$store.dispatch('commitment/deleteEvent', this.eventId);
                     this.$emit('close-dialog');
                 } catch (error) {
+                    this.showError = true;
                     this.running = false;
                 }
             }

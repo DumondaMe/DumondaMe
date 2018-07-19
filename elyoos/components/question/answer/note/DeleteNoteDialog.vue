@@ -22,6 +22,9 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -29,7 +32,7 @@
     export default {
         props: ['noteId', 'answerId', 'noteText'],
         data() {
-            return {dialog: true, running: false}
+            return {dialog: true, running: false, showError: false}
         },
         computed: {
             question() {
@@ -44,6 +47,7 @@
                         {noteId: this.noteId, answerId: this.answerId});
                     this.$emit('finish');
                 } catch (error) {
+                    this.showError = true;
                     this.running = false;
                 }
             }

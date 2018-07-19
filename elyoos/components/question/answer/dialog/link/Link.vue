@@ -60,6 +60,9 @@
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-card>
 </template>
 
@@ -82,7 +85,7 @@
                 valid: false, checkLink: false, uploadRunning: false, showErrorMessage: false,
                 showWarningMessage: false, link: this.initLink, linkData: JSON.parse(JSON.stringify(this.initLinkData)),
                 isVideo: this.initIsVideo, hasChanged: !this.answerId, uploadCommand: function () {
-                }
+                }, showError: false
             }
         },
         components: {WebsiteLink, Youtube},
@@ -123,6 +126,7 @@
                     await this.uploadCommand();
                     this.$emit('close-dialog');
                 } catch (error) {
+                    this.showError = true;
                     this.uploadRunning = false;
                 }
             }

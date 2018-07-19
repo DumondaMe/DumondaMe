@@ -16,6 +16,7 @@ import {
     VCheckbox,
     VGrid,
     VSelect,
+    VSnackbar,
     VChip,
     VRadioGroup,
     VProgressCircular,
@@ -30,7 +31,7 @@ Vue.use(Vuetify, {
         secondary: '#D81B60',
         info: '#0D47A1',
         warning: '#ffb300',
-        error: '#B71C1C',
+        error: '#ff5252',
         success: '#2E7D32'
     },
     components: {
@@ -49,6 +50,7 @@ Vue.use(Vuetify, {
         VCheckbox,
         VGrid,
         VSelect,
+        VSnackbar,
         VChip,
         VRadioGroup,
         VProgressCircular,

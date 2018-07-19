@@ -34,6 +34,9 @@
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-card>
 </template>
 
@@ -44,7 +47,10 @@
     export default {
         props: ['initCommitment', 'answerId', 'actionButtonText'],
         data() {
-            return {valid: false, uploadRunning: false, commitment: JSON.parse(JSON.stringify(this.initCommitment))}
+            return {
+                valid: false, uploadRunning: false, commitment: JSON.parse(JSON.stringify(this.initCommitment)),
+                showError: false
+            }
         },
         mixins: [validationRules, languages],
         computed: {
@@ -75,6 +81,7 @@
                     }
                     this.$emit('close-dialog', answerId);
                 } catch (error) {
+                    this.showError = true;
                     this.uploadRunning = false;
                 }
             }

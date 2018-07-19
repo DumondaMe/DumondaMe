@@ -40,6 +40,9 @@
                             @finish="showDeleteNoteDialog = false" :note-id="note.noteId" :answer-id="answerId"
                             :note-text="note.text">
         </delete-note-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -51,7 +54,7 @@
         props: ['note', 'answerId', 'answerTitle'],
         components: {EditNoteDialog, DeleteNoteDialog},
         data() {
-            return {upVoteRunning: false, showEditNoteDialog: false, showDeleteNoteDialog: false}
+            return {upVoteRunning: false, showEditNoteDialog: false, showDeleteNoteDialog: false, showError: false}
         },
         methods: {
             async upVoteNote(noteId) {
@@ -65,6 +68,7 @@
                     this.upVoteRunning = true;
                     await this.$store.dispatch(command, {answerId: this.answerId, noteId});
                 } catch (error) {
+                    this.showError = true;
                 } finally {
                     this.upVoteRunning = false;
                 }

@@ -49,6 +49,9 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -63,6 +66,7 @@
                 formForename: this.$store.state.userProfile.user.forename,
                 formSurname: this.$store.state.userProfile.user.surname,
                 formUserDescription: this.$store.state.userProfile.user.userDescription,
+                showError: false
             }
         },
         computed: {
@@ -85,6 +89,7 @@
                         });
                         this.$emit('close-dialog');
                     } catch (e) {
+                        this.showError = true;
                         this.uploadRunning = false;
                     }
                 }

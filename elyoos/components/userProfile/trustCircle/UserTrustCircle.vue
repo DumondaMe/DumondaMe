@@ -33,6 +33,9 @@
                v-if="people.length < numberOfPeople">
             {{$t("common:button.showMore")}}
         </v-btn>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -42,7 +45,7 @@
     export default {
         components: {TrustCircleUser},
         data() {
-            return {showTrustCircle: true, loading: false}
+            return {showTrustCircle: true, loading: false, showError: false}
         },
         computed: {
             numberOfPeople() {
@@ -74,7 +77,7 @@
                         await this.$store.dispatch('userProfile/loadNextPeopleTrustUser');
                     }
                 } catch (error) {
-
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

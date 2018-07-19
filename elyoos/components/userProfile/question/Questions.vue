@@ -33,6 +33,9 @@
                v-if="questions.length < numberOfQuestions">
             {{$t("common:button.showMore")}}
         </v-btn>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -42,8 +45,10 @@
     export default {
         components: {Question},
         data() {
-            return {showCreatedQuestions: !(this.$store.state.userProfile.user.numberOfCreatedQuestions === 0 &&
-                    this.$store.state.userProfile.user.numberOfWatchingQuestions > 0), loading: false}
+            return {
+                showCreatedQuestions: !(this.$store.state.userProfile.user.numberOfCreatedQuestions === 0 &&
+                    this.$store.state.userProfile.user.numberOfWatchingQuestions > 0), loading: false, showError: false
+            }
         },
         computed: {
             numberOfQuestions() {
@@ -75,7 +80,7 @@
                         await this.$store.dispatch('userProfile/loadNextWatchedQuestions');
                     }
                 } catch (error) {
-
+                    this.showError = true;
                 } finally {
                     this.loading = false;
                 }

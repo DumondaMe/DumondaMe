@@ -53,6 +53,8 @@
                     } catch (e) {
                         if (e.statusCode = 429) {
                             this.errorMessage = this.$t('pages:passwordResetRequest.errorToManyRequest')
+                        } else {
+                            this.errorMessage = this.$t('common:error.unknown')
                         }
                     } finally {
                         this.loading = false;

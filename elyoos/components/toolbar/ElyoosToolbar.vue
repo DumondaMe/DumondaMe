@@ -66,6 +66,9 @@
         </create-commitment-dialog>
         <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
         </create-question-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -76,7 +79,7 @@
 
     export default {
         data() {
-            return {showCreateCommitment: false, showCreateQuestion: false}
+            return {showCreateCommitment: false, showCreateQuestion: false, showError: false}
         },
         components: {CreateCommitmentDialog, CreateQuestionDialog},
         mounted: function () {
@@ -114,7 +117,7 @@
                     await this.$store.dispatch('feed/getFeed', {isAuthenticated: false});
                     this.$router.push({name: 'index'});
                 } catch (e) {
-                    //Show Error message
+                    this.showError = true;
                 }
             },
             changeLanguage(lang) {

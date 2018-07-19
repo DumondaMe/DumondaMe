@@ -12,6 +12,9 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </location>
         </v-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -23,7 +26,7 @@
     export default {
         props: ['commitmentId'],
         data() {
-            return {dialog: true, showPage: 1, loading: false}
+            return {dialog: true, showPage: 1, loading: false, showError: false}
         },
         components: {EventContent, Location, Stepper},
         created() {
@@ -43,6 +46,8 @@
                     this.$emit('finish', event);
                 }
                 catch (e) {
+                    this.showError = true;
+                } finally {
                     this.loading = false;
                 }
             }

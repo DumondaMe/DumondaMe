@@ -42,6 +42,9 @@
                 {{$t("pages:detailQuestion.createAnswerButton")}}
             </v-btn>
         </v-card-actions>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-card>
 </template>
 
@@ -53,7 +56,7 @@
         data() {
             return {
                 titleCommitment: '', commitments: [], searchCommitmentRunning: false,
-                showNotFoundMessage: false, lastSearch: ''
+                showNotFoundMessage: false, lastSearch: '', showError: false
             }
         },
         mixins: [validationRules],
@@ -86,6 +89,7 @@
                         this.lastSearch = newTitle;
                         this.searchCommitmentRunning = false;
                     } catch (error) {
+                        this.showError = true;
                         this.searchCommitmentRunning = false;
                     }
                 }
