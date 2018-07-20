@@ -97,6 +97,7 @@ module.exports = {
     stopExportOrganisationToTransitionConnect: tc.stopExportOrganisation,
 
     createTopic: topic.createTopic,
+    createTopicSuggestion: topic.createTopicSuggestion,
 
     createRegion: region.createRegion,
 
