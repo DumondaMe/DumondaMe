@@ -1,7 +1,8 @@
 {
   "login": {
     "titleLogin": "Login",
-    "loginButton": "Login"
+    "loginButton": "Login",
+    "invalidLoginData": "Die eingegebenen Benutzerdaten sind nicht korrekt."
   },
   "home": {
     "users": {

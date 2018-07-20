@@ -1,11 +1,16 @@
 {
   "login": {
     "titleLogin": "Login",
-    "loginButton": "Login"
+    "loginButton": "Login",
+    "invalidLoginData": "The user data are not correct."
   },
   "home": {
     "users": {
       "numberOfUsers": "registered users"
+    },
+    "topic": {
+      "numberOfTopicSuggestions": "suggested topic",
+      "numberOfTopicSuggestions_plural": "suggested topics"
     }
   }
 }

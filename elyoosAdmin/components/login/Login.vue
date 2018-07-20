@@ -4,7 +4,7 @@
             <h2>{{$t("pages:login.titleLogin")}}</h2>
             <div id="login-content-container">
                 <v-form @submit.prevent="login" v-model="valid" ref="form">
-                    <p class="error" v-if="formError">{{ formError }}</p>
+                    <p class="login-error" v-if="formError && !loading">{{$t('pages:login.invalidLoginData')}}</p>
                     <v-text-field type="text" v-model="formUsername" name="username"
                                   :label="$t('common:email')"
                                   :rules="[ruleFieldRequired($t('validation:fieldRequired')),
@@ -51,9 +51,11 @@
                         username: this.formUsername,
                         password: this.formPassword
                     });
+                    await this.$store.dispatch(`home/getHome`);
                 } catch (e) {
-                    this.loading = false;
                     this.formError = e.message;
+                } finally {
+                    this.loading = false;
                 }
             }
         }
@@ -80,6 +82,11 @@
             }
             #login-content-container {
                 margin-top: 24px;
+                .login-error {
+                    color: #d84021;
+                    border-left: 2px solid #d84021;
+                    padding-left: 12px;
+                }
                 #login-button {
                     margin-left: 0;
                     margin-right: 0;
