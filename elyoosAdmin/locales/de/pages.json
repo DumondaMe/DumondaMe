@@ -6,6 +6,10 @@
   "home": {
     "users": {
       "numberOfUsers": "registrierte Benutzer"
+    },
+    "topic": {
+      "numberOfTopicSuggestions": "vorgeschlagenes Themengebiet",
+      "numberOfTopicSuggestions_plural": "vorgeschlagene Themengebiete"
     }
   }
 }

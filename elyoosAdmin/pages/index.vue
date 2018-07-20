@@ -4,6 +4,7 @@
             <login v-if="!isAuthenticated"></login>
             <div v-else>
                 <registered-users></registered-users>
+                <topic-suggestion></topic-suggestion>
                 <news></news>
             </div>
         </div>
@@ -14,6 +15,7 @@
     import SingleView from '~/components/layouts/SingleView';
     import Login from '~/components/login/Login';
     import RegisteredUsers from '~/components/home/RegisteredUsers';
+    import TopicSuggestion from '~/components/home/TopicSuggestion';
     import News from '~/components/home/News';
 
     export default {
@@ -26,7 +28,7 @@
                 }
             }
         },
-        components: {Login, SingleView, RegisteredUsers, News},
+        components: {Login, SingleView, RegisteredUsers, TopicSuggestion, News},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

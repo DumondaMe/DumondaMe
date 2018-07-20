@@ -20,6 +20,10 @@ describe('Getting initial home screen', function () {
         dbDsl.createNews('1', {created: 500, modified: 602});
         dbDsl.createNews('2', {created: 502, modified: 601, isSent: true});
         dbDsl.createNews('3', {created: 501, modified: 600});
+
+        dbDsl.createTopicSuggestion({userId: '2', topic: 'spirituality', created: 666});
+        dbDsl.createTopicSuggestion({userId: '3', topic: 'environment', created: 777});
+
         await dbDsl.sendToDb();
     });
 
@@ -66,5 +70,19 @@ describe('Getting initial home screen', function () {
         res.body.users[2].registerDate.should.equals(startTime - 600);
         res.body.users[2].userId.should.equals("1");
         res.body.users[2].url.should.equals("profileImage/1/thumbnail.jpg");
+
+        res.body.numberOfTopicSuggestions.should.equals(2);
+        res.body.topicSuggestions.length.should.equals(2);
+        res.body.topicSuggestions[0].topic.should.equals("environment");
+        res.body.topicSuggestions[0].name.should.equals("user Meier3");
+        res.body.topicSuggestions[0].created.should.equals(777);
+        res.body.topicSuggestions[0].userId.should.equals("3");
+        res.body.topicSuggestions[0].url.should.equals("profileImage/3/thumbnail.jpg");
+
+        res.body.topicSuggestions[1].topic.should.equals("spirituality");
+        res.body.topicSuggestions[1].name.should.equals("user Meier2");
+        res.body.topicSuggestions[1].created.should.equals(666);
+        res.body.topicSuggestions[1].userId.should.equals("2");
+        res.body.topicSuggestions[1].url.should.equals("profileImage/2/thumbnail.jpg");
     });
 });
