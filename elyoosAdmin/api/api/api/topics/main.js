@@ -8,7 +8,7 @@ const validation = require('elyoos-server-lib').jsonValidation;
 
 
 const schemaCreateMainTopic = {
-    name: 'createNews',
+    name: 'createMainTopic',
     type: 'object',
     additionalProperties: false,
     required: ['de', 'en'],
