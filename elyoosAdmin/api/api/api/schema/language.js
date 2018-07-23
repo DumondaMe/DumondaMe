@@ -1,10 +1,8 @@
 'use strict';
 
 let language = ['de', //German
-        'en', //English
-        'fr', //French
-        'it', //Italian
-        'es']; //Spanish
+    'en', //English
+];
 
 module.exports = {
     language: {

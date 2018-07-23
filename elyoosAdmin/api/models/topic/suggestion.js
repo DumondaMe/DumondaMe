@@ -8,11 +8,11 @@ const getNumberOfTopicSuggestions = function () {
         .return("count(*) AS numberOfSuggestion").end();
 };
 
-const getTopicSuggestions = function (params) {
+const getTopicSuggestions = function (skip, maxItems) {
     return db.cypher().match(`(user:User)-[:SUGGEST]->(suggestion:TopicSuggestion)`)
         .return("user.userId AS userId, user.name AS name, suggestion.created AS created, suggestion.topic AS topic")
-        .orderBy("user.registerDate DESC")
-        .skip("{skip}").limit("{maxItems}").end(params);
+        .orderBy("created DESC")
+        .skip("{skip}").limit("{maxItems}").end({skip, maxItems});
 };
 
 const getTopicSuggestionResponse = async function (suggestions) {

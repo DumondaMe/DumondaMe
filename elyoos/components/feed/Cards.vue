@@ -37,6 +37,7 @@
         .feed-card {
             margin-bottom: 18px;
             padding-bottom: 12px;
+            max-width: 500px;
             h2 {
                 font-size: 18px;
                 font-weight: 400;
@@ -52,6 +53,31 @@
                     font-size: 16px;
                     font-weight: 300;
                     color: $primary-text;
+                }
+            }
+            .feed-card-header {
+                margin-bottom: 12px;
+                .answer-type {
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 16px;
+                }
+                .card-header-link {
+                    a {
+                        font-size: 14px;
+                        font-weight: 300;
+                        line-height: 16px;
+                        text-decoration: none;
+                    }
+                    a:hover {
+                        text-decoration: underline;
+                    }
+                }
+                .secondary-text {
+                    font-size: 14px;
+                    line-height: 16px;
+                    font-weight: 300;
+                    color: $secondary-text
                 }
             }
             .title-container {
@@ -102,7 +128,7 @@
                 color: #009688;
             }
             .action-icon.icon {
-                font-size: 20px;
+                font-size: 24px;
             }
         }
     }

@@ -1,19 +1,16 @@
 <template>
     <div class="youtube-answer-feed-card">
         <div class="youtube-answer-content" ref="answerContent" :class="{'show-embed': showEmbed}">
+            <div class="feed-card-header">
+                <span class="answer-type">Video </span><span class="card-header-link">
+                <a :href="getQuestionLink">{{answer.title}}</a></span>
+            </div>
             <div class="youtube-embed">
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
                         v-if="showEmbed"></iframe>
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
             <div class="answer-description">
-                <div class="title-container">
-                    <v-icon class="card-type-icon">mdi-video</v-icon>
-                    <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
-                </div>
-                <question-to-answer :question-id="answer.questionId" :question-slug="answer.questionSlug"
-                                    :question="answer.question">
-                </question-to-answer>
                 <expand-text :expand-text="answer.description"
                              itemprop="text">
                 </expand-text>
@@ -42,7 +39,7 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             youtubeImage() {
-                return `https://img.youtube.com/vi/${this.answer.idOnYoutube}/1.jpg`;
+                return `https://img.youtube.com/vi/${this.answer.idOnYoutube}/0.jpg`;
             },
             youtubeEmbedAutoplay() {
                 let indexList = this.answer.linkEmbed.indexOf('?list=');
@@ -67,22 +64,17 @@
 <style lang="scss">
     .youtube-answer-feed-card {
         .youtube-answer-content {
-            display: flex;
             margin-bottom: 16px;
             .youtube-embed {
+                width: 100%;
                 img {
-                    margin-top: 5px;
-                    max-height: 90px;
-                    max-width: 120px;
+                    width: 100%;
                     cursor: pointer;
-                    border-radius: 2px;
+                    border-radius: 4px;
                 }
             }
             .youtube-embed.show-embed {
                 margin: 12px auto 0 auto;
-            }
-            .answer-description {
-                margin-left: 18px;
             }
         }
         .youtube-answer-content.show-embed {

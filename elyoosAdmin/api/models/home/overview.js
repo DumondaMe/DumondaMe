@@ -12,7 +12,7 @@ const getOverview = async function () {
     commands.push(user.getOverviewOfUser(params).getCommand());
     commands.push(user.getNumberOfUser().getCommand());
     commands.push(topicSuggestion.getNumberOfTopicSuggestions().getCommand());
-    commands.push(topicSuggestion.getTopicSuggestions(params).getCommand());
+    commands.push(topicSuggestion.getTopicSuggestions(params.skip, params.maxItems).getCommand());
 
     let resp = await news.getOverviewCommand(params).send(commands);
     return {
