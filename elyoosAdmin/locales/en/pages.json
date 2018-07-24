@@ -12,5 +12,19 @@
       "numberOfTopicSuggestions": "suggested topic",
       "numberOfTopicSuggestions_plural": "suggested topics"
     }
+  },
+  "topics": {
+    "createMainTopicDialog": "Main Topic",
+    "dialog": {
+      "similarWordUsed": "Description is already in use",
+      "addTopicButton": "Add",
+      "mainTopic": {
+        "topic": "Topic",
+        "similarDescription": "Similar description"
+      },
+      "createMainTopic": {
+        "title": "Create Main Topic"
+      }
+    }
   }
 }

@@ -5,7 +5,17 @@
     "login": "Anmelden",
     "logout": "Abmelden"
   },
+  "language": {
+    "de": "German",
+    "en": "English"
+  },
   "button": {
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "create": "Create",
+    "abort": "Abort",
+    "close": "Close"
+  },
+  "error": {
+    "unknown": "An error has occurred."
   }
 }

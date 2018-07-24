@@ -12,5 +12,19 @@
       "numberOfTopicSuggestions": "vorgeschlagenes Themengebiet",
       "numberOfTopicSuggestions_plural": "vorgeschlagene Themengebiete"
     }
+  },
+  "topics": {
+    "createMainTopicDialog": "Hauptthemengebiet",
+    "dialog": {
+      "similarWordUsed": "Bezeichnung wird bereits verwendet",
+      "addTopicButton": "Hinzufügen",
+      "mainTopic": {
+        "topic": "Themenbereich",
+        "similarDescription": "Ähnliche Bezeichnung"
+      },
+      "createMainTopic": {
+        "title": "Hauptthemengebiet erstellen"
+      }
+    }
   }
 }
