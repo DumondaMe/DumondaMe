@@ -20,7 +20,7 @@ export const mutations = {
 export const actions = {
     async setLanguage({commit}, {language}) {
         try {
-            await this.$axios.$put(`/admin/language/${language}`);
+            await this.$axios.$put(`/language/${language}`);
             location.reload(true);
         } catch (error) {
 
