@@ -39,4 +39,22 @@ describe('Integration Tests for creating new main topics', function () {
         topics[0].topic.similarEn.length.should.equals(1);
         topics[0].topic.similarEn.should.includes('Ecological');
     });
+
+    it('Create a new main topics only mandatory fields', async function () {
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/topics/main', {
+            de: 'Umwelt', en: 'Environment'
+        });
+        res.status.should.equal(200);
+
+        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: {topicId}})`)
+            .return('topic')
+            .end({topicId: res.body.topicId}).send();
+
+        topics.length.should.equals(1);
+        topics[0].topic.de.should.equals('Umwelt');
+        topics[0].topic.en.should.equals('Environment');
+    });
 });
