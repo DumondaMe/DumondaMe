@@ -42,7 +42,7 @@ describe('Integration Tests to get an overview of the topics', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/topics', {language: 'de', skip: 0, maxItems: 20});
+        let res = await requestHandler.get('/api/topics', {language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfTopicSuggestions.should.equals(2);

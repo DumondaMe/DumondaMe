@@ -13,10 +13,8 @@ const schemaGetTopicsOverview = {
     name: 'getTopicOverview',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems'],
+    required: ['language'],
     properties: {
-        skip: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         language: schemaLanguage.language
     }
 };

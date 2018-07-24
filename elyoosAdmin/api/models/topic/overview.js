@@ -7,10 +7,10 @@ const getOverview = async function (params) {
 
     let commands = [];
 
-    commands.push(topicSuggestion.getTopicSuggestions(params.skip, params.maxItems).getCommand());
+    commands.push(topicSuggestion.getTopicSuggestions(0, 20).getCommand());
     commands.push(topicSuggestion.getNumberOfTopicSuggestions().getCommand());
 
-    commands.push(topic.getMainTopics(params.skip, params.maxItems, params.language).getCommand());
+    commands.push(topic.getMainTopics(0, 20, params.language).getCommand());
 
     let resp = await topic.numberOfMainTopics().send(commands);
     return {
