@@ -1,6 +1,8 @@
 {
   "email": "Email",
   "password": "Password",
+  "similar": "Similar",
+  "none": "None",
   "toolbar": {
     "login": "Anmelden",
     "logout": "Abmelden"

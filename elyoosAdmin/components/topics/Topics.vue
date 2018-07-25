@@ -1,12 +1,10 @@
 <template>
     <div id="elyoos-topics-overview">
-        <v-btn color="primary" @click="showCreateMainTopicDialog = true">
+        <v-btn color="primary" @click="showCreateMainTopicDialog = true" id="create-main-topic-button">
             <v-icon left>mdi-plus-box-outline</v-icon>
             {{$t('pages:topics.createMainTopicDialog')}}
         </v-btn>
-        <div v-for="mainTopic in mainTopics">
-            {{mainTopic.de}}
-        </div>
+        <topic :topic="mainTopic" v-for="mainTopic in mainTopics" :key="mainTopic.de"></topic>
         <create-main-topic-dialog v-if="showCreateMainTopicDialog" @close-dialog="showCreateMainTopicDialog = false">
         </create-main-topic-dialog>
     </div>
@@ -14,12 +12,13 @@
 
 <script>
     import CreateMainTopicDialog from '~/components/topics/dialog/CreateMainTopic'
+    import Topic from './Topic';
 
     export default {
         data() {
             return {showCreateMainTopicDialog: false}
         },
-        components: {CreateMainTopicDialog},
+        components: {CreateMainTopicDialog, Topic},
         computed: {
             mainTopics() {
                 return this.$store.state.topics.topics;
@@ -34,6 +33,9 @@
 
 <style lang="scss">
     #elyoos-topics-overview {
-
+        #create-main-topic-button {
+            margin-left: 0;
+            margin-bottom: 18px;
+        }
     }
 </style>

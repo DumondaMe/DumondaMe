@@ -14,7 +14,10 @@
     }
   },
   "topics": {
+    "numberOfSubTopics": "Unterthemen: {{count}}",
     "createMainTopicDialog": "Hauptthemengebiet",
+    "editMainTopicDialog": "Bearbeiten",
+    "addMainTopicDialog": "Unterthema hinzufügen",
     "dialog": {
       "similarWordUsed": "Bezeichnung wird bereits verwendet",
       "addTopicButton": "Hinzufügen",

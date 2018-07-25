@@ -14,7 +14,10 @@
     }
   },
   "topics": {
+    "numberOfSubTopics": "Subtopics: {{count}}",
     "createMainTopicDialog": "Main Topic",
+    "editMainTopicDialog": "Edit",
+    "addMainTopicDialog": "Add Subtopic",
     "dialog": {
       "similarWordUsed": "Description is already in use",
       "addTopicButton": "Add",
