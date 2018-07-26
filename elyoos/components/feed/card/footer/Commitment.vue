@@ -1,47 +1,36 @@
 <template>
     <div class="card-footer-feed">
         <div class="footer-icon" v-if="creator">
-            <v-tooltip bottom>
-                <v-icon v-if="action === 'watch'" slot="activator" class="action-icon">mdi-star</v-icon>
-                <span v-if="action === 'watch'">{{creator}} findet dieses Engagement interessant</span>
+            <div class="user-icon">
+                <img :src="creatorImage">
+            </div>
+        </div>
+        <div class="footer-icon" v-if="creator">
+            <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
 
-                <v-icon v-if="action === 'created' && cardType === 'Commitment'"
-                        slot="activator" class="action-icon">
-                    mdi-pencil
-                </v-icon>
-                <span v-if="action === 'created' && cardType === 'Commitment'">
-                    Erstellt von {{creator}}</span>
+            <v-icon medium v-if="action === 'created' && cardType === 'Commitment'"
+                    class="action-icon">
+                mdi-plus-circle-outline
+            </v-icon>
 
-                <v-icon v-if="action === 'created' && cardType === 'CommitmentAnswer'"
-                        slot="activator" class="action-icon">
-                    mdi-forum
-                </v-icon>
-                <span v-if="action === 'created' && cardType === 'CommitmentAnswer'">
-                    Antwort von {{creator}}</span>
+            <v-icon medium v-if="action === 'created' && cardType === 'CommitmentAnswer'"
+                    class="action-icon">
+                mdi-comment-plus
+            </v-icon>
 
-                <v-icon v-if="action === 'upVote'" slot="activator" class="action-icon">
-                    mdi-arrow-up-bold-circle-outline
-                </v-icon>
-                <span v-if="action === 'upVote'">Zustimmung von {{creator}}</span>
-            </v-tooltip>
-            <span class="footer-text"><span class="footer-link" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: creatorId, slug: creatorSlug}})">{{creator}}</span></span>
+            <v-icon medium v-if="action === 'upVote'" class="action-icon">
+                mdi-arrow-up-bold-circle
+            </v-icon>
         </div>
         <div class="footer-icon">
-            <v-icon>mdi-clock-outline</v-icon>
-            <span class="footer-text">{{created | formatRelativeTimesAgo}}</span>
-        </div>
-        <div class="footer-icon">
-            <v-icon>mdi-map-marker</v-icon>
-            <span class="footer-text">
-                <span v-for="region in regions">{{$t("regions:" + region)}}</span></span>
+            <v-icon medium class="action-icon">mdi-map-marker</v-icon>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['creator', 'creatorId', 'creatorSlug', 'created', 'action', 'regions', 'cardType']
+        props: ['creator', 'creatorId', 'creatorSlug', 'creatorImage', 'created', 'action', 'regions', 'cardType']
     }
 </script>
 

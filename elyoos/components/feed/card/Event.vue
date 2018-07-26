@@ -1,8 +1,8 @@
 <template>
     <div class="event-feed-card">
-        <div class="title-container">
-            <v-icon class="card-type-icon">mdi-calendar</v-icon>
-            <span class="card-title"><a :href="getEventLink">{{event.title}}</a></span>
+        <div class="feed-card-header">
+            <span class="answer-type">Veranstaltung </span><span class="card-header-link">
+                <a :href="getEventLink">{{event.title}}</a></span>
         </div>
         <expand-text :expand-text="event.description" class="event-description" itemprop="text"
                      v-if="event.description">

@@ -1,16 +1,15 @@
 <template>
     <div class="question-feed-card">
-        <div class="question-header">
-            <v-icon class="question-icon">mdi-help-circle-outline</v-icon>
-            <span class="question-title"
-                  @click="$router.push({name: 'question-questionId-slug',
-                              params: {questionId: question.questionId, slug: question.questionSlug}})">{{question.question}}
-                </span>
+        <div class="feed-card-header">
+            <span class="answer-type">Frage </span><span class="card-header-link">
+                <a :href="getQuestionLink">{{question.question}}</a></span>
+            <div class="secondary-text">{{question.created | formatRelativeTimesAgo}}</div>
         </div>
         <expand-text :expand-text="question.descriptionHtml" class="question-description" itemprop="text">
         </expand-text>
         <card-footer :creator="question.creator.name" :creator-id="question.creator.userId"
                      :creator-slug="question.creator.slug" :created="question.created"
+                     :creator-image="question.creator.userImage"
                      :number-of-answers="question.numberOfAnswers" :action="question.action" :card-type="question.type">
         </card-footer>
     </div>
@@ -26,7 +25,11 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            getQuestionLink() {
+                return `/question/${this.question.questionId}/${this.question.questionSlug}?answerId=${this.question.answerId}`;
             }
+
         },
     }
 </script>

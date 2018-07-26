@@ -4,6 +4,7 @@
             <div class="feed-card-header">
                 <span class="answer-type">Video </span><span class="card-header-link">
                 <a :href="getQuestionLink">{{answer.title}}</a></span>
+                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <div class="youtube-embed">
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
@@ -17,20 +18,19 @@
             </div>
         </div>
         <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-slug="answer.creator.slug" :created="answer.created" :action="answer.action"
-                     :card-type="answer.type">
+                     :creator-image="answer.creator.userImage" :creator-slug="answer.creator.slug"
+                     :action="answer.action" :card-type="answer.type">
         </card-footer>
     </div>
 </template>
 
 <script>
     import CardFooter from './footer/CommonAnswer';
-    import QuestionToAnswer from './QuestionToAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {CardFooter, QuestionToAnswer, ExpandText},
+        components: {CardFooter, ExpandText},
         data() {
             return {showEmbed: false}
         },

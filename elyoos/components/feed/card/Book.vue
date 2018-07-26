@@ -1,36 +1,34 @@
 <template>
     <div class="book-answer-feed-card">
+        <div class="feed-card-header">
+            <span class="answer-type">Buch </span><span class="card-header-link">
+                <a :href="getQuestionLink">{{answer.title}}</a></span>
+            <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+        </div>
         <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
             <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
             <div class="answer-description">
-                <div class="title-container">
-                    <v-icon class="card-type-icon">mdi-book-open-page-variant</v-icon>
-                    <span class="card-title"><a :href="getQuestionLink">{{answer.title}}</a></span>
-                </div>
-                <question-to-answer :question-id="answer.questionId" :question-slug="answer.questionSlug"
-                                    :question="answer.question">
-                </question-to-answer>
                 <expand-text :expand-text="answer.description"
                              :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
                 </expand-text>
             </div>
         </div>
         <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-slug="answer.creator.slug" :created="answer.created" :action="answer.action">
+                     :creator-image="answer.creator.userImage" :creator-slug="answer.creator.slug"
+                     :created="answer.created" :action="answer.action">
         </card-footer>
     </div>
 </template>
 
 <script>
     import CardFooter from './footer/CommonAnswer';
-    import QuestionToAnswer from './QuestionToAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {CardFooter, QuestionToAnswer, ExpandText},
+        components: {CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
         },
@@ -57,7 +55,12 @@
                 }
             }
             .answer-description {
-                margin-left: 18px
+                margin-left: 18px;
+                .expand-text-container {
+                    p {
+                        max-height: 11.2em;
+                    }
+                }
             }
             .answer-description.no-book-image {
                 margin-left: 0;
