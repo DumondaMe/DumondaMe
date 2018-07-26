@@ -75,7 +75,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[1].commitmentSlug.should.equals('das-ist-ein-commitment');
         res.body.answers[1].title.should.equals('Das ist ein Commitment');
         res.body.answers[1].description.should.equals('commitmentDescription');
-        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/120x120/title.jpg?v=606`);
+        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/460x460/title.jpg?v=606`);
         res.body.answers[1].questionId.should.equals('100');
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
@@ -90,7 +90,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[2].title.should.equals('link3Title');
         res.body.answers[2].description.should.equals('link3Description');
         res.body.answers[2].link.should.equals('https://example.com');
-        res.body.answers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/120x120/preview.jpg`);
+        res.body.answers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/460x460/preview.jpg`);
         res.body.answers[2].questionId.should.equals('100');
         res.body.answers[2].question.should.equals('Das ist eine Frage');
         res.body.answers[2].questionSlug.should.equals('das-ist-eine-frage');
@@ -155,7 +155,7 @@ describe('Getting user profile with answers', function () {
         res.body.upVotedAnswers[1].commitmentSlug.should.equals('das-ist-ein-commitment');
         res.body.upVotedAnswers[1].title.should.equals('Das ist ein Commitment');
         res.body.upVotedAnswers[1].description.should.equals('commitmentDescription');
-        res.body.upVotedAnswers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/120x120/title.jpg?v=606`);
+        res.body.upVotedAnswers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/460x460/title.jpg?v=606`);
         res.body.upVotedAnswers[1].questionId.should.equals('100');
         res.body.upVotedAnswers[1].question.should.equals('Das ist eine Frage');
         res.body.upVotedAnswers[1].questionSlug.should.equals('das-ist-eine-frage');
@@ -170,7 +170,7 @@ describe('Getting user profile with answers', function () {
         res.body.upVotedAnswers[2].title.should.equals('link3Title');
         res.body.upVotedAnswers[2].description.should.equals('link3Description');
         res.body.upVotedAnswers[2].link.should.equals('https://example.com');
-        res.body.upVotedAnswers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/120x120/preview.jpg`);
+        res.body.upVotedAnswers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/460x460/preview.jpg`);
         res.body.upVotedAnswers[2].questionId.should.equals('100');
         res.body.upVotedAnswers[2].question.should.equals('Das ist eine Frage');
         res.body.upVotedAnswers[2].questionSlug.should.equals('das-ist-eine-frage');
@@ -228,7 +228,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[1].commitmentSlug.should.equals('das-ist-ein-commitment');
         res.body.answers[1].title.should.equals('Das ist ein Commitment');
         res.body.answers[1].description.should.equals('commitmentDescription');
-        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/120x120/title.jpg?v=606`);
+        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/20/460x460/title.jpg?v=606`);
         res.body.answers[1].questionId.should.equals('100');
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
@@ -243,7 +243,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[2].title.should.equals('link3Title');
         res.body.answers[2].description.should.equals('link3Description');
         res.body.answers[2].link.should.equals('https://example.com');
-        res.body.answers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/120x120/preview.jpg`);
+        res.body.answers[2].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/3/460x460/preview.jpg`);
         res.body.answers[2].questionId.should.equals('100');
         res.body.answers[2].question.should.equals('Das ist eine Frage');
         res.body.answers[2].questionSlug.should.equals('das-ist-eine-frage');

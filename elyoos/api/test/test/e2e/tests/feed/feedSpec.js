@@ -113,7 +113,7 @@ describe('Get the public feed', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitment100Description');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].created.should.equals(400);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('region-1');
