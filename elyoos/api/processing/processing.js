@@ -2,14 +2,14 @@ require('elyoos-server-lib').init('elyoos');
 
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 require('fs-extra');
-const copyCommitments = require('./script/copyCommitments');
+const process = require('./script/createCommitmentImages');
 const bluebird = require('bluebird');
 bluebird.promisifyAll(require('gm').prototype);
 
 const dbConfig = require('elyoos-server-lib').databaseConfig;
 
 const runProcess = async function () {
-    await copyCommitments.processCommitment();
+    await process.processAddImageCommitment();
 };
 
 try {
@@ -18,7 +18,7 @@ try {
         await runProcess();
         process.exit(0);
     });
-} catch(error) {
+} catch (error) {
     logger.error(error);
     process.exit(1);
 }

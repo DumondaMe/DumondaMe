@@ -6,10 +6,10 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const copyPagesToCommitment = async function (pages) {
     for (let result of pages) {
         try {
-            await cdn.copyFile(`pages/${result.answerId}/normal.jpg`, `commitment/${result.answerId}/title.jpg`,
+            await cdn.copyFile(`pages/${result.commitmentId}/normal.jpg`, `commitment/${result.commitmentId}/title.jpg`,
                 process.env.BUCKET_PUBLIC)
         } catch(error) {
-            logger.error(`Error copy page ${result.answerId}`);
+            logger.error(`Error copy page ${result.commitmentId}`);
         }
     }
 };
@@ -17,7 +17,7 @@ const copyPagesToCommitment = async function (pages) {
 const resizeTitleImage = async function (pages) {
     for (let result of pages) {
         try {
-            let titleImage = await cdn.getObject(`commitment/${result.answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
+            let titleImage = await cdn.getObject(`commitment/${result.commitmentId}/title.jpg`, process.env.BUCKET_PUBLIC);
             let newTitleImage = await sharp(titleImage.Body).resize(300, 300)
                 .crop(sharp.strategy.entropy).jpeg({quality: 93})
                 .toBuffer();
@@ -25,18 +25,21 @@ const resizeTitleImage = async function (pages) {
                 .toBuffer();
             let newTitleImage148x148 = await sharp(newTitleImage).resize(148, 148).jpeg({quality: 93})
                 .toBuffer();
-            await cdn.uploadBuffer(newTitleImage, `commitment/${result.answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
-            await cdn.uploadBuffer(newTitleImage120x120, `commitment/${result.answerId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
-            await cdn.uploadBuffer(newTitleImage148x148, `commitment/${result.answerId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
+            let newTitleImage460x460 = await sharp(newTitleImage).resize(460, 460).jpeg({quality: 93})
+                .toBuffer();
+            await cdn.uploadBuffer(newTitleImage, `commitment/${result.commitmentId}/title.jpg`, process.env.BUCKET_PUBLIC);
+            await cdn.uploadBuffer(newTitleImage120x120, `commitment/${result.commitmentId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
+            await cdn.uploadBuffer(newTitleImage148x148, `commitment/${result.commitmentId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
+            await cdn.uploadBuffer(newTitleImage460x460, `commitment/${result.commitmentId}/460x460/title.jpg`, process.env.BUCKET_PUBLIC);
         } catch(error) {
-            logger.error(`Error resize title image for commitment ${result.answerId}`);
+            logger.error(`Error resize title image for commitment ${result.commitmentId}`);
         }
     }
 };
 
 const processCommitment = async function () {
     let pages = await db.cypher().match(`(commitment:Commitment)`)
-        .return(`commitment.answerId AS answerId`)
+        .return(`commitment.commitmentId AS commitmentId`)
         .end().send();
     await copyPagesToCommitment(pages);
     await resizeTitleImage(pages);
