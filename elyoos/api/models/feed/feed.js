@@ -28,7 +28,7 @@ const getFeed = async function (page, timestamp, typeFilter, language) {
         .send([feedElementCounter.getTotalNumberOfFeedElements(timestamp, typeFilter, language)]);
 
     return {
-        feed: responseHandler.getFeed(response[1]), totalNumberOfElements: response[0][0].numberOfElements,
+        feed: await responseHandler.getFeed(response[1]), totalNumberOfElements: response[0][0].numberOfElements,
         timestamp
     };
 };

@@ -67,7 +67,7 @@ const createCommitmentAnswer = async function (userId, params) {
         answerId: params.answerId,
         created: params.created,
         slug: dashify(commitment[0][0].commitmentTitle),
-        imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/120x120/title.jpg`),
+        imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/460x460/title.jpg`),
         regions: commitment[0][0].regions,
         creator: {
             name: commitment[0][0].userName,

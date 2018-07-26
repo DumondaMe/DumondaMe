@@ -46,7 +46,7 @@ describe('Creating a commitment answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.isAdminOfCommitment.should.equals(false);
@@ -86,7 +86,7 @@ describe('Creating a commitment answer', function () {
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/120x120/title.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.isAdminOfCommitment.should.equals(true);

@@ -21,7 +21,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
 const addCommitmentAnswerProperties = function (result, feedElement) {
     if (result.type === 'CommitmentAnswer') {
         result.commitmentId = feedElement.commitment.commitmentId;
-        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
+        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/460x460/title.jpg`);
         if (feedElement.commitment.modified) {
             result.imageUrl += `?v=${feedElement.commitment.modified}`;
         }
@@ -40,7 +40,7 @@ const addCommitmentProperties = function (result, feedElement) {
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
-        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
+        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/460x460/title.jpg`);
         if (feedElement.feedElement.modified) {
             result.imageUrl += `?v=${feedElement.feedElement.modified}`;
         }
@@ -53,7 +53,7 @@ const addLinkProperties = function (result, feedElement) {
         result.pageType = feedElement.feedElement.pageType;
         result.link = feedElement.feedElement.link;
         if (feedElement.feedElement.hasPreviewImage) {
-            result.imageUrl = cdn.getPublicUrl(`link/${result.answerId}/120x120/preview.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`link/${result.answerId}/460x460/preview.jpg`);
         }
     }
 };
@@ -117,22 +117,24 @@ const getAction = function (relAction) {
     }
 };
 
-const getCreator = function (feedElement) {
+const getCreator = async function (feedElement) {
     if (feedElement.relWatch === 'WATCH') {
         return {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
-            slug: dashify(feedElement.creator.name)
+            slug: dashify(feedElement.creator.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
         }
     }
     return {
         userId: feedElement.watch.userId,
         name: feedElement.watch.name,
-        slug: dashify(feedElement.watch.name)
+        slug: dashify(feedElement.watch.name),
+        userImage: await cdn.getSignedUrl(`profileImage/${feedElement.watch.userId}/thumbnail.jpg`)
     }
 };
 
-const getFeed = function (feedElements) {
+const getFeed = async function (feedElements) {
     let results = [];
     for (let feedElement of feedElements) {
         let result = {
@@ -143,7 +145,7 @@ const getFeed = function (feedElements) {
             created: feedElement.created
         };
         if (result.type !== 'Event') {
-            result.creator = getCreator(feedElement)
+            result.creator = await getCreator(feedElement)
         }
         addDefaultAnswerProperties(result, feedElement);
         addCommitmentAnswerProperties(result, feedElement);

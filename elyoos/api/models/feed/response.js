@@ -5,7 +5,7 @@ const linkifyHtml = require('linkifyjs/html');
 const cdn = require('elyoos-server-lib').cdn;
 
 
-const addQuestionProperties = function (result, feedElement) {
+const addQuestionProperties = async function (result, feedElement) {
     if (result.type === 'Question') {
         result.questionId = feedElement.feedElement.questionId;
         result.question = feedElement.feedElement.question;
@@ -19,12 +19,13 @@ const addQuestionProperties = function (result, feedElement) {
         result.creator = {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
-            slug: dashify(feedElement.creator.name)
+            slug: dashify(feedElement.creator.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
         };
     }
 };
 
-const addCommitmentProperties = function (result, feedElement) {
+const addCommitmentProperties = async function (result, feedElement) {
     if (result.type === 'Commitment') {
         result.commitmentId = feedElement.feedElement.commitmentId;
         result.commitmentSlug = dashify(feedElement.feedElement.title);
@@ -33,7 +34,7 @@ const addCommitmentProperties = function (result, feedElement) {
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
-        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/120x120/title.jpg`);
+        result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/460x460/title.jpg`);
         if (feedElement.feedElement.modified) {
             result.imageUrl += `?v=${feedElement.feedElement.modified}`;
         }
@@ -42,7 +43,8 @@ const addCommitmentProperties = function (result, feedElement) {
         result.creator = {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
-            slug: dashify(feedElement.creator.name)
+            slug: dashify(feedElement.creator.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
         };
     }
 };
@@ -62,15 +64,15 @@ const addEventProperties = function (result, feedElement) {
     }
 };
 
-const getFeed = function (feedElements) {
+const getFeed = async function (feedElements) {
     let results = [];
     for (let feedElement of feedElements) {
         let result = {
             type: feedElement.type.filter((l) => ['Commitment', 'Question', 'Event'].some(v => v === l))[0],
             action: 'created',
         };
-        addQuestionProperties(result, feedElement);
-        addCommitmentProperties(result, feedElement);
+        await addQuestionProperties(result, feedElement);
+        await addCommitmentProperties(result, feedElement);
         addEventProperties(result, feedElement);
 
         results.push(result);

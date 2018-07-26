@@ -37,8 +37,8 @@ const uploadImages = async function (params) {
     let buffer = await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
     if (buffer) {
         let resizeBuffer = await sharp(buffer).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(120, 120).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
-        await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/120x120/preview.jpg`,
+            .resize(460, 460).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
+        await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/460x460/preview.jpg`,
             process.env.BUCKET_PUBLIC);
     }
 };
@@ -62,7 +62,7 @@ const createLinkAnswer = async function (userId, params) {
             }
         };
         if (params.imageUrl) {
-            result.imageUrl = cdn.getPublicUrl(`link/${params.answerId}/120x120/preview.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`link/${params.answerId}/460x460/preview.jpg`);
         }
         return result;
     }

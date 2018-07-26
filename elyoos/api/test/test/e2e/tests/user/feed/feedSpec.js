@@ -85,7 +85,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitmentDescription');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
@@ -96,6 +96,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('2');
         res.body.feed[0].creator.name.should.equals('user Meier2');
         res.body.feed[0].creator.slug.should.equals('user-meier2');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.feed[1].type.should.equals('Link');
         res.body.feed[1].pageType.should.equals('article');
@@ -104,7 +105,7 @@ describe('Get feed of the user', function () {
         res.body.feed[1].title.should.equals('link8Title');
         res.body.feed[1].description.should.equals('link8Description');
         res.body.feed[1].link.should.equals('https://www.example.org/blog/1224');
-        res.body.feed[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
+        res.body.feed[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].question.should.equals('Das ist eine Frage2');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage2');
@@ -112,6 +113,7 @@ describe('Get feed of the user', function () {
         res.body.feed[1].creator.userId.should.equals('2');
         res.body.feed[1].creator.name.should.equals('user Meier2');
         res.body.feed[1].creator.slug.should.equals('user-meier2');
+        res.body.feed[1].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
 
         res.body.feed[2].type.should.equals('Youtube');
         res.body.feed[2].action.should.equals('created');
@@ -128,6 +130,7 @@ describe('Get feed of the user', function () {
         res.body.feed[2].creator.userId.should.equals('2');
         res.body.feed[2].creator.name.should.equals('user Meier2');
         res.body.feed[2].creator.slug.should.equals('user-meier2');
+        res.body.feed[2].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Upcoming event of an commitment the user watches', async function () {
@@ -240,6 +243,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('7');
         res.body.feed[0].creator.name.should.equals('user Meier7');
         res.body.feed[0].creator.slug.should.equals('user-meier7');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/7/thumbnail.jpg');
 
         res.body.feed[1].type.should.equals('Text');
         res.body.feed[1].action.should.equals('created');
@@ -252,6 +256,7 @@ describe('Get feed of the user', function () {
         res.body.feed[1].creator.userId.should.equals('6');
         res.body.feed[1].creator.name.should.equals('user Meier6');
         res.body.feed[1].creator.slug.should.equals('user-meier6');
+        res.body.feed[1].creator.userImage.should.equals('profileImage/6/thumbnail.jpg');
     });
 
     it('Newly created questions by users from the Trust Circle', async function () {
@@ -276,6 +281,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('3');
         res.body.feed[0].creator.name.should.equals('user Meier3');
         res.body.feed[0].creator.slug.should.equals('user-meier3');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
     });
 
     it('A user from the Trust Circle watches a question', async function () {
@@ -300,6 +306,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
     });
 
     it('A user from the Trust Circle watches a commitment', async function () {
@@ -319,7 +326,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitment100Description');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/120x120/title.jpg?v=606`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].regions.length.should.equals(2);
         res.body.feed[0].regions.should.include('region-1');
         res.body.feed[0].regions.should.include('region-2');
@@ -327,6 +334,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
     });
 
     it('A user from the Trust Circle created a commitment', async function () {
@@ -355,13 +363,14 @@ describe('Get feed of the user', function () {
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
         res.body.feed[0].description.should.equals('commitment101Description');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/120x120/title.jpg?v=607`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/460x460/title.jpg?v=607`);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('region-1');
         res.body.feed[0].created.should.equals(555);
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
     });
 
     it('Up vote of an answer by users from the Trust Circle', async function () {
@@ -382,7 +391,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].title.should.equals('link8Title');
         res.body.feed[0].description.should.equals('link8Description');
         res.body.feed[0].link.should.equals('https://www.example.org/blog/1224');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
@@ -390,6 +399,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
     });
 
     it('Hide answers created by the user', async function () {

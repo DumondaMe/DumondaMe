@@ -65,6 +65,7 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].creator.userId.should.equals('5');
         res.body.feed[0].creator.name.should.equals('user Meier5');
         res.body.feed[0].creator.slug.should.equals('user-meier5');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/5/thumbnail.jpg');
     });
 
     it('Newly created answers by users from the Trust Circle', async function () {
@@ -88,6 +89,7 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].creator.userId.should.equals('5');
         res.body.feed[0].creator.name.should.equals('user Meier5');
         res.body.feed[0].creator.slug.should.equals('user-meier5');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/5/thumbnail.jpg');
     });
 
     it('Newly created questions by users from the Trust Circle', async function () {
@@ -112,6 +114,7 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].creator.userId.should.equals('6');
         res.body.feed[0].creator.name.should.equals('user Meier6');
         res.body.feed[0].creator.slug.should.equals('user-meier6');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/6/thumbnail.jpg');
     });
 
     it('A user from the Trust Circle watches a question', async function () {
@@ -136,6 +139,7 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
     });
 
     it('Up vote of an answer by users from the Trust Circle', async function () {
@@ -160,6 +164,7 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].creator.userId.should.equals('9');
         res.body.feed[0].creator.name.should.equals('user Meier9');
         res.body.feed[0].creator.slug.should.equals('user-meier9');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
 
     });
 

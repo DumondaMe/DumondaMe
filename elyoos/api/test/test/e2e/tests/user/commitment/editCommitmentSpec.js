@@ -54,6 +54,7 @@ describe('Modify a commitment', function () {
         stubCDN.copyFile.calledWith('default/commitment/title.jpg', `commitment/1/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/120x120/title.jpg', `commitment/1/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/148x148/title.jpg', `commitment/1/148x148/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.copyFile.calledWith('default/commitment/460x460/title.jpg', `commitment/1/460x460/title.jpg`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match("(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .return(`commitment`).end().send();
@@ -95,6 +96,7 @@ describe('Modify a commitment', function () {
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/1/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/1/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/1/148x148/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/1/460x460/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.called.should.be.false;
 
         let resp = await db.cypher().match("(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
