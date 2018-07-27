@@ -23,7 +23,7 @@
     #ely-footer {
         clear: both;
         position: relative;
-        z-index: 10;
+        z-index: 7;
         height: 48px;
         margin-top: -48px;
         background-color: #757575;
