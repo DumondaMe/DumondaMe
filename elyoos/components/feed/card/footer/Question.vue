@@ -7,14 +7,6 @@
         </div>
         <div class="footer-icon">
             <v-icon v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
-
-            <v-icon v-if="action === 'created'" class="action-icon">
-                mdi-plus-circle
-            </v-icon>
-
-            <v-icon v-if="action === 'upVote'" class="action-icon">
-                mdi-arrow-up-bold-circle
-            </v-icon>
         </div>
         <div class="footer-icon">
             <v-icon class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>

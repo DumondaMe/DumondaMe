@@ -8,11 +8,6 @@
         <div class="footer-icon" v-if="creator">
             <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
 
-            <v-icon medium v-if="action === 'created' && cardType === 'Commitment'"
-                    class="action-icon">
-                mdi-plus-circle-outline
-            </v-icon>
-
             <v-icon medium v-if="action === 'created' && cardType === 'CommitmentAnswer'"
                     class="action-icon">
                 mdi-comment-plus
