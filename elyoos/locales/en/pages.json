@@ -81,6 +81,32 @@
         "text1": "A commitment at Elyoos is an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
         "text2": "Alice, for example, is interested in the question 'How can zero waste be implemented in everyday life?'. In answer to this question, Bob captured a Zero Waste store near where Alice lives. She now knows where she can shop in order to use less packaging material."
       }
+    },
+    "menu": {
+      "creatorAnswer": {
+        "title": "created this answer",
+        "titleIsLoggedInUser": "created this answer"
+      },
+      "creatorQuestion": {
+        "title": "created this question",
+        "titleIsLoggedInUser": "created this question"
+      },
+      "creatorCommitment": {
+        "title": "created this commitment",
+        "titleIsLoggedInUser": "created this commitment"
+      },
+      "userUpVote": {
+        "title": "has up voted this answer",
+        "titleIsLoggedInUser": "have up voted this answer"
+      },
+      "userInterestedInQuestion": {
+        "title": "finds this question interesting",
+        "titleIsLoggedInUser": "find this question interesting"
+      },
+      "userInterestedInCommitment": {
+        "title": "finds this commitment interesting",
+        "titleIsLoggedInUser": "find this commitment interesting"
+      }
     }
   },
   "commitment": {
