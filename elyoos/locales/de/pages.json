@@ -81,6 +81,32 @@
         "text1": "Ein Engagement ist bei Elyoos ein Verein, ein Projekt, eine Organisation oder aber dein persönliches Engagement für eine bessere Welt. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
         "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen."
       }
+    },
+    "menu": {
+      "creatorAnswer": {
+        "title": "hat diese Antwort erstellt",
+        "titleIsLoggedInUser": "hast diese Antwort erstellt"
+      },
+      "creatorQuestion": {
+        "title": "hat diese Frage erstellt",
+        "titleIsLoggedInUser": "hast diese Frage erstellt"
+      },
+      "creatorCommitment": {
+        "title": "hat dieses Engagement erstellt",
+        "titleIsLoggedInUser": "hast dieses Engagement erstellt"
+      },
+      "userUpVote": {
+        "title": "hat dieser Antwort zugestimmt",
+        "titleIsLoggedInUser": "hast dieser Antwort zugestimmt"
+      },
+      "userInterestedInQuestion": {
+        "title": "findet diese Frage interessant",
+        "titleIsLoggedInUser": "findest diese Frage interessant"
+      },
+      "userInterestedInCommitment": {
+        "title": "findet dieses Engagement interessant",
+        "titleIsLoggedInUser": "findest dieses Engagement interessant"
+      }
     }
   },
   "commitment": {

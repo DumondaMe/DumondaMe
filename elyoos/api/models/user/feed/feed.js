@@ -23,6 +23,7 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
         .return(`DISTINCT feedElement, watch, creator, question, commitment, COUNT(DISTINCT answer) AS numberOfAnswers, 
                  collect(DISTINCT region.code) AS regions, labels(feedElement) AS type, 
                  collect(DISTINCT rca.code) AS commitmentAnswerRegions,
+                 exists((creator)<-[:IS_CONTACT]-(user)) AS creatorIsInTrustCircle,
                  max(tempCreated) AS created, type(relAction) AS relAction, type(relWatch) AS relWatch`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
@@ -30,7 +31,7 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
         .send([feedElementCounter.getTotalNumberOfFeedElements(userId, timestamp, typeFilter)]);
 
     return {
-        feed: await responseHandler.getFeed(response[1]), totalNumberOfElements: response[0][0].numberOfElements,
+        feed: await responseHandler.getFeed(response[1], userId), totalNumberOfElements: response[0][0].numberOfElements,
         timestamp
     };
 };

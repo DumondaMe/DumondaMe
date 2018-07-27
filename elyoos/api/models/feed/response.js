@@ -20,7 +20,8 @@ const addQuestionProperties = async function (result, feedElement) {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
             slug: dashify(feedElement.creator.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
+            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/profilePreview.jpg`)
         };
     }
 };
@@ -44,7 +45,8 @@ const addCommitmentProperties = async function (result, feedElement) {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
             slug: dashify(feedElement.creator.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
+            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/profilePreview.jpg`)
         };
     }
 };

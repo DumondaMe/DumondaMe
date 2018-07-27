@@ -47,3 +47,29 @@ body {
   margin-top: 12px;
   text-align: center
 }
+
+.ely-menu-container {
+  max-width: 460px;
+  @media screen and (max-width: 400px) {
+    max-width: 300px;
+  }
+  .menu-title {
+    font-weight: 400;
+    font-size: 16px;
+    padding: 16px;
+    .primary-title {
+      font-size: 16px;
+      color: #1E88E5;
+    }
+  }
+  .menu-content {
+    padding: 8px 16px 24px 16px;
+
+  }
+  .menu-commands {
+    display: flex;
+    button {
+      margin-right: 16px;
+    }
+  }
+}

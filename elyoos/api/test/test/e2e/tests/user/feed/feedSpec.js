@@ -47,7 +47,7 @@ describe('Get feed of the user', function () {
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
         });
         dbDsl.createLinkAnswer('8', {
-            creatorId: '2', questionId: '2', created: 604, pageType: 'article', hasPreviewImage: true,
+            creatorId: '1', questionId: '2', created: 604, pageType: 'article', hasPreviewImage: true,
             link: 'https://www.example.org/blog/1224'
         });
         dbDsl.createCommitmentAnswer('9', {
@@ -98,6 +98,9 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
         res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('Link');
@@ -112,10 +115,13 @@ describe('Get feed of the user', function () {
         res.body.feed[1].question.should.equals('Das ist eine Frage2');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage2');
         res.body.feed[1].created.should.equals(604);
-        res.body.feed[1].user.userId.should.equals('2');
-        res.body.feed[1].user.name.should.equals('user Meier2');
-        res.body.feed[1].user.slug.should.equals('user-meier2');
-        res.body.feed[1].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[1].user.userId.should.equals('1');
+        res.body.feed[1].user.name.should.equals('user Meier');
+        res.body.feed[1].user.slug.should.equals('user-meier');
+        res.body.feed[1].user.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.feed[1].user.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.feed[1].user.isLoggedInUser.should.equals(true);
+        res.body.feed[1].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[1].creator);
 
         res.body.feed[2].type.should.equals('Youtube');
@@ -134,6 +140,9 @@ describe('Get feed of the user', function () {
         res.body.feed[2].user.name.should.equals('user Meier2');
         res.body.feed[2].user.slug.should.equals('user-meier2');
         res.body.feed[2].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[2].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.feed[2].user.isLoggedInUser.should.equals(false);
+        res.body.feed[2].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[2].creator);
     });
 
@@ -248,6 +257,9 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier7');
         res.body.feed[0].user.slug.should.equals('user-meier7');
         res.body.feed[0].user.userImage.should.equals('profileImage/7/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/7/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('Text');
@@ -262,6 +274,9 @@ describe('Get feed of the user', function () {
         res.body.feed[1].user.name.should.equals('user Meier6');
         res.body.feed[1].user.slug.should.equals('user-meier6');
         res.body.feed[1].user.userImage.should.equals('profileImage/6/thumbnail.jpg');
+        res.body.feed[1].user.userImagePreview.should.equals('profileImage/6/profilePreview.jpg');
+        res.body.feed[1].user.isLoggedInUser.should.equals(false);
+        res.body.feed[1].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[1].creator);
     });
 
@@ -288,6 +303,9 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');
         res.body.feed[0].user.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[0].creator);
     });
 
@@ -314,10 +332,16 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier9');
         res.body.feed[0].user.slug.should.equals('user-meier9');
         res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/9/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
         res.body.feed[0].creator.userId.should.equals('3');
         res.body.feed[0].creator.name.should.equals('user Meier3');
         res.body.feed[0].creator.slug.should.equals('user-meier3');
         res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
+        res.body.feed[0].creator.isTrustUser.should.equals(false);
     });
 
     it('A user from the Trust Circle watches a commitment', async function () {
@@ -346,6 +370,9 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier9');
         res.body.feed[0].user.slug.should.equals('user-meier9');
         res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/9/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[0].creator);
     });
 
@@ -383,6 +410,9 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier9');
         res.body.feed[0].user.slug.should.equals('user-meier9');
         res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/9/profilePreview.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[0].creator);
     });
 
@@ -413,10 +443,15 @@ describe('Get feed of the user', function () {
         res.body.feed[0].user.name.should.equals('user Meier9');
         res.body.feed[0].user.slug.should.equals('user-meier9');
         res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
-        res.body.feed[0].creator.userId.should.equals('2');
-        res.body.feed[0].creator.name.should.equals('user Meier2');
-        res.body.feed[0].creator.slug.should.equals('user-meier2');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(true);
+        res.body.feed[0].creator.userId.should.equals('1');
+        res.body.feed[0].creator.name.should.equals('user Meier');
+        res.body.feed[0].creator.slug.should.equals('user-meier');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.feed[0].creator.isLoggedInUser.should.equals(true);
+        res.body.feed[0].creator.isTrustUser.should.equals(false);
     });
 
     it('Hide answers created by the user', async function () {

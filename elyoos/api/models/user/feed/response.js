@@ -117,29 +117,32 @@ const getAction = function (relAction) {
     }
 };
 
-const getUserResponse = async function (user) {
+const getUserResponse = async function (user, userId, isTrustUser) {
     return {
         userId: user.userId,
+        isLoggedInUser: user.userId === userId,
+        isTrustUser: isTrustUser,
         name: user.name,
         slug: dashify(user.name),
-        userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
+        userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
+        userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`)
     }
 };
 
-const getUser = async function (feedElement) {
+const getUser = async function (feedElement, userId) {
     if (feedElement.relWatch === 'WATCH') {
-        return await getUserResponse(feedElement.creator);
+        return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
     }
-    return await getUserResponse(feedElement.watch);
+    return await getUserResponse(feedElement.watch, userId, true);
 };
 
-const getCreator = async function (feedElement, resultType, action) {
+const getCreator = async function (feedElement, resultType, action, userId) {
     if (resultType !== 'Commitment' && (action === 'upVote' || action === 'watch')) {
-        return await getUserResponse(feedElement.creator);
+        return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
     }
 };
 
-const getFeed = async function (feedElements) {
+const getFeed = async function (feedElements, userId) {
     let results = [];
     for (let feedElement of feedElements) {
         let result = {
@@ -150,8 +153,8 @@ const getFeed = async function (feedElements) {
             created: feedElement.created
         };
         if (result.type !== 'Event') {
-            result.user = await getUser(feedElement);
-            result.creator = await getCreator(feedElement, result.type, result.action);
+            result.user = await getUser(feedElement, userId);
+            result.creator = await getCreator(feedElement, result.type, result.action, userId);
         }
         addDefaultAnswerProperties(result, feedElement);
         addCommitmentAnswerProperties(result, feedElement);

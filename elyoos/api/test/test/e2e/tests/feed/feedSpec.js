@@ -83,6 +83,7 @@ describe('Get the public feed', function () {
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');
         res.body.feed[0].user.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
 
         res.body.feed[1].type.should.equals('Question');
         res.body.feed[1].action.should.equals('created');
@@ -121,6 +122,7 @@ describe('Get the public feed', function () {
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
         res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
     });
 
     it('Get question feed (only events)', async function () {
