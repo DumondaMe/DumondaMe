@@ -16,14 +16,14 @@
             </div>
         </div>
         <div class="footer-icon">
-            <v-icon v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
+            <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
         </div>
         <div class="footer-icon">
-            <v-icon class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
-            <v-icon class="action-icon only-few-answers" v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 4">
+            <v-icon medium class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
+            <v-icon medium class="action-icon only-few-answers" v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 4">
                 mdi-comment-alert
             </v-icon>
-            <v-icon class="action-icon" v-else>mdi-comment-multiple</v-icon>
+            <v-icon medium class="action-icon" v-else>mdi-comment-multiple</v-icon>
         </div>
     </div>
 </template>
