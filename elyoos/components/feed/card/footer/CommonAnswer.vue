@@ -1,11 +1,21 @@
 <template>
     <div class="card-footer-feed">
         <div class="footer-icon" v-if="creator">
-            <div class="user-icon">
-                <img :src="creatorImage">
+            <div class="user-icon creator-icon">
+                <img :src="creator.userImage">
             </div>
         </div>
-        <div class="footer-icon" v-if="creator">
+        <div class="separator-icon" v-if="creator">
+            <v-icon medium>
+                mdi-menu-right
+            </v-icon>
+        </div>
+        <div class="footer-icon" v-if="user">
+            <div class="user-icon">
+                <img :src="user.userImage">
+            </div>
+        </div>
+        <div class="footer-icon" v-if="user">
             <v-icon medium v-if="action === 'created'" class="action-icon">
                 mdi-comment-plus
             </v-icon>
@@ -19,7 +29,7 @@
 
 <script>
     export default {
-        props: ['creator', 'creatorId', 'creatorSlug', 'creatorImage', 'created', 'action']
+        props: ['creator', 'user', 'created', 'action']
     }
 </script>
 

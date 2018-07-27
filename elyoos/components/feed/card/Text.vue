@@ -7,9 +7,7 @@
         </div>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
-        <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-image="answer.creator.userImage" :creator-slug="answer.creator.slug"
-                     :created="answer.created" :action="answer.action" :card-type="answer.type">
+        <card-footer :creator="answer.creator" :user="answer.user" :created="answer.created" :action="answer.action">
         </card-footer>
     </div>
 </template>

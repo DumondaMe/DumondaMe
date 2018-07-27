@@ -25,9 +25,7 @@
     export default {
         props: ['feed'],
         components: {CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard},
-        computed: {
-
-        }
+        computed: {}
     }
 </script>
 
@@ -103,10 +101,10 @@
             }
         }
     }
+
     .card-footer-feed {
         .footer-icon {
             vertical-align: middle;
-            margin-right: 12px;
             display: inline-block;
             .footer-text {
                 margin-left: 4px;
@@ -124,14 +122,17 @@
                 cursor: pointer;
                 height: 40px;
                 width: 40px;
-                margin-right: 6px;
                 img {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                 }
             }
+            .user-icon.creator-icon {
+                margin-right: 0;
+            }
             .action-icon {
+                margin-left: 16px;
                 margin-top: 2px;
                 cursor: pointer;
                 color: #009688;
@@ -142,6 +143,10 @@
             .badge__badge {
                 right: -14px;
             }
+        }
+        .separator-icon {
+            display: inline-block;
+            margin-right: 12px;
         }
     }
 </style>

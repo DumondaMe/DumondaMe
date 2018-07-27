@@ -1,8 +1,18 @@
 <template>
     <div class="card-footer-feed">
         <div class="footer-icon" v-if="creator">
+            <div class="user-icon creator-icon">
+                <img :src="creator.userImage">
+            </div>
+        </div>
+        <div class="separator-icon" v-if="creator && user">
+            <v-icon medium>
+                mdi-menu-right
+            </v-icon>
+        </div>
+        <div class="footer-icon" v-if="user">
             <div class="user-icon">
-                <img :src="creatorImage">
+                <img :src="user.userImage">
             </div>
         </div>
         <div class="footer-icon">
@@ -20,7 +30,7 @@
 
 <script>
     export default {
-        props: ['creator', 'creatorId', 'creatorSlug', 'creatorImage', 'created', 'numberOfAnswers', 'action']
+        props: ['creator', 'user', 'created', 'numberOfAnswers', 'action']
     }
 </script>
 

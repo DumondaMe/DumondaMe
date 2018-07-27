@@ -117,20 +117,25 @@ const getAction = function (relAction) {
     }
 };
 
-const getCreator = async function (feedElement) {
-    if (feedElement.relWatch === 'WATCH') {
-        return {
-            userId: feedElement.creator.userId,
-            name: feedElement.creator.name,
-            slug: dashify(feedElement.creator.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${feedElement.creator.userId}/thumbnail.jpg`)
-        }
-    }
+const getUserResponse = async function (user) {
     return {
-        userId: feedElement.watch.userId,
-        name: feedElement.watch.name,
-        slug: dashify(feedElement.watch.name),
-        userImage: await cdn.getSignedUrl(`profileImage/${feedElement.watch.userId}/thumbnail.jpg`)
+        userId: user.userId,
+        name: user.name,
+        slug: dashify(user.name),
+        userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
+    }
+};
+
+const getUser = async function (feedElement) {
+    if (feedElement.relWatch === 'WATCH') {
+        return await getUserResponse(feedElement.creator);
+    }
+    return await getUserResponse(feedElement.watch);
+};
+
+const getCreator = async function (feedElement, resultType, action) {
+    if (resultType !== 'Commitment' && (action === 'upVote' || action === 'watch')) {
+        return await getUserResponse(feedElement.creator);
     }
 };
 
@@ -145,7 +150,8 @@ const getFeed = async function (feedElements) {
             created: feedElement.created
         };
         if (result.type !== 'Event') {
-            result.creator = await getCreator(feedElement)
+            result.user = await getUser(feedElement);
+            result.creator = await getCreator(feedElement, result.type, result.action);
         }
         addDefaultAnswerProperties(result, feedElement);
         addCommitmentAnswerProperties(result, feedElement);

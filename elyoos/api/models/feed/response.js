@@ -16,7 +16,7 @@ const addQuestionProperties = async function (result, feedElement) {
         }
         result.numberOfAnswers = feedElement.numberOfAnswers;
         result.created = feedElement.feedElement.created;
-        result.creator = {
+        result.user = {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
             slug: dashify(feedElement.creator.name),
@@ -40,7 +40,7 @@ const addCommitmentProperties = async function (result, feedElement) {
         }
         result.regions = feedElement.regions;
         result.created = feedElement.feedElement.created;
-        result.creator = {
+        result.user = {
             userId: feedElement.creator.userId,
             name: feedElement.creator.name,
             slug: dashify(feedElement.creator.name),

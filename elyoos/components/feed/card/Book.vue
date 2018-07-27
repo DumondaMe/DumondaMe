@@ -15,8 +15,7 @@
                 </expand-text>
             </div>
         </div>
-        <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-image="answer.creator.userImage" :creator-slug="answer.creator.slug"
+        <card-footer :creator="answer.creator" :user="answer.user"
                      :created="answer.created" :action="answer.action">
         </card-footer>
     </div>
@@ -56,10 +55,8 @@
             }
             .answer-description {
                 margin-left: 18px;
-                .expand-text-container {
-                    p {
-                        max-height: 11.2em;
-                    }
+                p {
+                    max-height: 11.2em;
                 }
             }
             .answer-description.no-book-image {

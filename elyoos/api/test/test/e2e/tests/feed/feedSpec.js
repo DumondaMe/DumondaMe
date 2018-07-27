@@ -79,10 +79,10 @@ describe('Get the public feed', function () {
         res.body.feed[0].descriptionHtml.should.equals('description2');
         res.body.feed[0].created.should.equals(602);
         res.body.feed[0].numberOfAnswers.should.equals(3);
-        res.body.feed[0].creator.userId.should.equals('3');
-        res.body.feed[0].creator.name.should.equals('user Meier3');
-        res.body.feed[0].creator.slug.should.equals('user-meier3');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('3');
+        res.body.feed[0].user.name.should.equals('user Meier3');
+        res.body.feed[0].user.slug.should.equals('user-meier3');
+        res.body.feed[0].user.userImage.should.equals('profileImage/3/thumbnail.jpg');
 
         res.body.feed[1].type.should.equals('Question');
         res.body.feed[1].action.should.equals('created');
@@ -93,10 +93,10 @@ describe('Get the public feed', function () {
         res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.feed[1].created.should.equals(500);
         res.body.feed[1].numberOfAnswers.should.equals(2);
-        res.body.feed[1].creator.userId.should.equals('3');
-        res.body.feed[1].creator.name.should.equals('user Meier3');
-        res.body.feed[1].creator.slug.should.equals('user-meier3');
-        res.body.feed[1].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[1].user.userId.should.equals('3');
+        res.body.feed[1].user.name.should.equals('user Meier3');
+        res.body.feed[1].user.slug.should.equals('user-meier3');
+        res.body.feed[1].user.userImage.should.equals('profileImage/3/thumbnail.jpg');
     });
 
     it('Get question feed (only commitment)', async function () {
@@ -117,10 +117,10 @@ describe('Get the public feed', function () {
         res.body.feed[0].created.should.equals(400);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('region-1');
-        res.body.feed[0].creator.userId.should.equals('2');
-        res.body.feed[0].creator.name.should.equals('user Meier2');
-        res.body.feed[0].creator.slug.should.equals('user-meier2');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('2');
+        res.body.feed[0].user.name.should.equals('user Meier2');
+        res.body.feed[0].user.slug.should.equals('user-meier2');
+        res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
     });
 
     it('Get question feed (only events)', async function () {

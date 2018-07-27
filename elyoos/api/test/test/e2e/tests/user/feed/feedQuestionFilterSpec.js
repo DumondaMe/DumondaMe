@@ -4,6 +4,7 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const users = require('elyoos-server-test-util').user;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 describe('Get feed of the user with question filter', function () {
 
@@ -62,10 +63,11 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(600);
-        res.body.feed[0].creator.userId.should.equals('5');
-        res.body.feed[0].creator.name.should.equals('user Meier5');
-        res.body.feed[0].creator.slug.should.equals('user-meier5');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/5/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('5');
+        res.body.feed[0].user.name.should.equals('user Meier5');
+        res.body.feed[0].user.slug.should.equals('user-meier5');
+        res.body.feed[0].user.userImage.should.equals('profileImage/5/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('Newly created answers by users from the Trust Circle', async function () {
@@ -86,10 +88,11 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(600);
-        res.body.feed[0].creator.userId.should.equals('5');
-        res.body.feed[0].creator.name.should.equals('user Meier5');
-        res.body.feed[0].creator.slug.should.equals('user-meier5');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/5/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('5');
+        res.body.feed[0].user.name.should.equals('user Meier5');
+        res.body.feed[0].user.slug.should.equals('user-meier5');
+        res.body.feed[0].user.userImage.should.equals('profileImage/5/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('Newly created questions by users from the Trust Circle', async function () {
@@ -111,10 +114,11 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.feed[0].created.should.equals(602);
         res.body.feed[0].numberOfAnswers.should.equals(0);
-        res.body.feed[0].creator.userId.should.equals('6');
-        res.body.feed[0].creator.name.should.equals('user Meier6');
-        res.body.feed[0].creator.slug.should.equals('user-meier6');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/6/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('6');
+        res.body.feed[0].user.name.should.equals('user Meier6');
+        res.body.feed[0].user.slug.should.equals('user-meier6');
+        res.body.feed[0].user.userImage.should.equals('profileImage/6/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('A user from the Trust Circle watches a question', async function () {
@@ -136,10 +140,14 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].numberOfAnswers.should.equals(0);
-        res.body.feed[0].creator.userId.should.equals('9');
-        res.body.feed[0].creator.name.should.equals('user Meier9');
-        res.body.feed[0].creator.slug.should.equals('user-meier9');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('9');
+        res.body.feed[0].user.name.should.equals('user Meier9');
+        res.body.feed[0].user.slug.should.equals('user-meier9');
+        res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].creator.userId.should.equals('6');
+        res.body.feed[0].creator.name.should.equals('user Meier6');
+        res.body.feed[0].creator.slug.should.equals('user-meier6');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/6/thumbnail.jpg');
     });
 
     it('Up vote of an answer by users from the Trust Circle', async function () {
@@ -161,10 +169,14 @@ describe('Get feed of the user with question filter', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(999);
-        res.body.feed[0].creator.userId.should.equals('9');
-        res.body.feed[0].creator.name.should.equals('user Meier9');
-        res.body.feed[0].creator.slug.should.equals('user-meier9');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('9');
+        res.body.feed[0].user.name.should.equals('user Meier9');
+        res.body.feed[0].user.slug.should.equals('user-meier9');
+        res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].creator.userId.should.equals('5');
+        res.body.feed[0].creator.name.should.equals('user Meier5');
+        res.body.feed[0].creator.slug.should.equals('user-meier5');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/5/thumbnail.jpg');
 
     });
 

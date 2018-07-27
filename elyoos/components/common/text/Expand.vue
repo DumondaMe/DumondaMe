@@ -42,7 +42,7 @@
             margin-bottom: 0;
         }
         p.expand {
-            max-height: none;
+            max-height: none !important;
             white-space: pre-wrap;
         }
         .expanse-button {

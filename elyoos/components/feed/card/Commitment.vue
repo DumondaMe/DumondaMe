@@ -15,8 +15,7 @@
                 </expand-text>
             </div>
         </div>
-        <card-footer :creator="answer.creator.name" :creator-id="answer.creator.userId"
-                     :creator-image="answer.creator.userImage" :creator-slug="answer.creator.slug"
+        <card-footer :user="answer.user" :creator="answer.creator"
                      :created="answer.created" :action="answer.action"
                      :regions="answer.regions" :card-type="answer.type">
         </card-footer>

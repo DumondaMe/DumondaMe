@@ -4,6 +4,7 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const users = require('elyoos-server-test-util').user;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 describe('Get feed of the user with commitment filter', function () {
 
@@ -123,10 +124,11 @@ describe('Get feed of the user with commitment filter', function () {
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('region-1');
         res.body.feed[0].created.should.equals(999);
-        res.body.feed[0].creator.userId.should.equals('9');
-        res.body.feed[0].creator.name.should.equals('user Meier9');
-        res.body.feed[0].creator.slug.should.equals('user-meier9');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('9');
+        res.body.feed[0].user.name.should.equals('user Meier9');
+        res.body.feed[0].user.slug.should.equals('user-meier9');
+        res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('A user from the Trust Circle created a commitment', async function () {
@@ -159,9 +161,10 @@ describe('Get feed of the user with commitment filter', function () {
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('region-1');
         res.body.feed[0].created.should.equals(555);
-        res.body.feed[0].creator.userId.should.equals('9');
-        res.body.feed[0].creator.name.should.equals('user Meier9');
-        res.body.feed[0].creator.slug.should.equals('user-meier9');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        res.body.feed[0].user.userId.should.equals('9');
+        res.body.feed[0].user.name.should.equals('user Meier9');
+        res.body.feed[0].user.slug.should.equals('user-meier9');
+        res.body.feed[0].user.userImage.should.equals('profileImage/9/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].creator);
     });
 });
