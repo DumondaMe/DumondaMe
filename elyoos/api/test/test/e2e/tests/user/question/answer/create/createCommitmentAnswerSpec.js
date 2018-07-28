@@ -131,6 +131,27 @@ describe('Creating a commitment answer', function () {
         res.status.should.equal(400);
     });
 
+    it('Prevent xss attack when creating a commitment answer', async function () {
+        dbDsl.createCommitment('10', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
+            commitmentId: '10', description: 'This is a commitment<script>alert()</script>'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher()
+            .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)
+                     -[:COMMITMENT]->(c:Commitment {commitmentId: '10'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.description.should.equals('This is a commitment');
+    });
+
     it('Allow only to link commitment and question with same language', async function () {
         dbDsl.createCommitment('10', {
             adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'en', created: 700,

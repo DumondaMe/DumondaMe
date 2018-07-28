@@ -1,10 +1,15 @@
 'use strict';
 
-let tv4 = require('tv4');
-let exceptions = require('./error/exceptions');
-let formats = require('tv4-formats');
-let Promise = require('bluebird');
-let _ = require('lodash');
+const tv4 = require('tv4');
+const exceptions = require('./error/exceptions');
+const formats = require('tv4-formats');
+const Promise = require('bluebird');
+const _ = require('lodash');
+
+const createDOMPurify = require('dompurify');
+const {JSDOM} = require('jsdom');
+const window = (new JSDOM('')).window;
+const DOMPurify = createDOMPurify(window);
 
 tv4.addFormat(formats);
 
@@ -64,7 +69,7 @@ tv4.addFormat('id', function (data) {
     return 'String is empty';
 });
 
-let validate = function (req, data, requestSchema, logger) {
+const validate = function (req, data, requestSchema, logger) {
     let errors = tv4.validateMultiple(data, requestSchema),
         invalidJsonException;
     if (errors.valid) {
@@ -75,7 +80,7 @@ let validate = function (req, data, requestSchema, logger) {
     return Promise.reject(invalidJsonException);
 };
 
-let convertValues = function (data, requestSchema) {
+const convertValues = function (data, requestSchema) {
     let key;
     for (key in requestSchema.properties) {
         if (requestSchema.properties.hasOwnProperty(key) && requestSchema.properties[key].type && data[key]) {
@@ -88,6 +93,15 @@ let convertValues = function (data, requestSchema) {
             } else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
                 data[key] = [data[key]];
             }
+        }
+    }
+};
+
+//To prevent xss attacks
+const sanitize = function (body) {
+    for (let param in body) {
+        if (body.hasOwnProperty(param) && typeof body[param] === 'string') {
+            body[param] = DOMPurify.sanitize(body[param]);
         }
     }
 };
@@ -107,7 +121,7 @@ module.exports = {
             convertValues(req.query, requestSchema);
             req.body = Object.assign(req.body, req.query);
         }
-
+        sanitize(req.body);
         return validate(req, req.body, requestSchema, logger);
     },
     validateQueryRequest: function (req, requestSchema, logger) {

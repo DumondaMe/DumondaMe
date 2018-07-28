@@ -167,6 +167,23 @@ describe('Creating youtube answer', function () {
         resp.length.should.equals(0);
     });
 
+    it('Prevent xss attack when creating a youtube answer', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube<script>alert()</script>', description: 'descriptionYoutube<script>alert()</script>'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.title.should.equals('titleYoutube');
+        resp[0].answer.description.should.equals('descriptionYoutube');
+        should.not.exist(resp[0].original);
+    });
+
     it('Deny invalid youtube link', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

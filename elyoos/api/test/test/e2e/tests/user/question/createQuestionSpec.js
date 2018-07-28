@@ -95,6 +95,25 @@ describe('Creating a new question', function () {
         resp[0].question.language.should.equals('de');
     });
 
+    it('Prevent xss attack when uploading question', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question', {
+            question: 'Das ist eine FragöÖÄäÜü<script>alert()</script>',
+            description: 'Test elyoos.org change the world<script>alert()</script>',
+            topics: ['spiritual', 'education'], lang: 'de'
+        });
+        res.status.should.equal(200);
+        res.body.slug.should.equals('das-ist-eine-fragööääüü');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
+            .return(`question, collect(topic.name) AS topics`).end().send();
+        resp.length.should.equals(1);
+        resp[0].question.question.should.equals('Das ist eine FragöÖÄäÜü');
+        resp[0].question.description.should.equals('Test elyoos.org change the world');
+    });
+
     it('Only allowed to add a question as logged in user', async function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/user/question', {

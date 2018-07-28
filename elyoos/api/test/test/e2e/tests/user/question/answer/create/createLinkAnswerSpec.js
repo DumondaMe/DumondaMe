@@ -171,6 +171,25 @@ describe('Creating link answer', function () {
         resp.length.should.equals(0);
     });
 
+    it('Prevent xss attack when creating a link answer', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.returns(fs.createReadStream(`${__dirname}/test.jpg`));
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/link/1', {
+            link: 'https://example.com/blog', imageUrl: 'https://example.com/example.jpg',
+            title: 'titleLink<script>alert()</script>', description: 'descriptionLink<script>alert()</script>', type: 'blog'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Link:Answer)<-[:IS_CREATOR]-(user:User {userId: '1'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.title.should.equals('titleLink');
+        resp[0].answer.description.should.equals('descriptionLink');
+    });
+
     it('Only allowed to add a link answer as logged in user', async function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/user/question/answer/link/1', {

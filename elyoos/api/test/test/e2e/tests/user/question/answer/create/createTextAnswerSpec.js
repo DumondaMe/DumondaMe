@@ -47,6 +47,19 @@ describe('Creating new text answer', function () {
         resp[0].user.userId.should.equals('1');
     });
 
+    it('Prevent xss attack when creating a text answer', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/text/1', {
+            answer: 'answer<script>alert()</script>'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Text:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answer.should.equals('answer');
+    });
+
     it('Only allowed to add an text answer as logged in user', async function () {
         let res = await requestHandler.post('/api/user/question/answer/text/1', {
             answer: 'answer'

@@ -96,6 +96,28 @@ describe('Edit a question', function () {
         resp[0].question.language.should.equals('en');
     });
 
+    it('Prevent xss attack when edit question', async function () {
+
+        dbDsl.createQuestion('1', {
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topics: ['Spiritual'],
+            language: 'de'
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/1', {
+            question: 'Andere Frage<script>alert()</script>',
+            description: 'Test elyoos.org change the world<script>alert()</script>', lang: 'en'
+        });
+        res.status.should.equal(200);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
+            .return(`question, collect(topic.name) AS topics`).end().send();
+        resp.length.should.equals(1);
+        resp[0].question.question.should.equals('Andere Frage');
+        resp[0].question.description.should.equals('Test elyoos.org change the world');
+    });
+
     it('Only admin is allowed to edit question', async function () {
 
         dbDsl.createQuestion('1', {
