@@ -24,7 +24,7 @@
     export default {
         props: ['existingTopics', 'titleText', 'api', 'apiParam'],
         data() {
-            return {dialog: true, loading: false, showError: true}
+            return {dialog: true, loading: false, showError: false}
         },
         components: {Topics},
         methods: {
