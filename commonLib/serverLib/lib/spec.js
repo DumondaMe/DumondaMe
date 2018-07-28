@@ -2,6 +2,7 @@
 
 let passport = require('passport');
 let auth = require('./auth');
+let csrf = require('csurf');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
 let email = require('./eMail/eMailQueue');
@@ -41,6 +42,23 @@ module.exports = function (app, nuxt) {
         //Give passport a way to serialize and deserialize a user. In this case, by the user's id.
         passport.serializeUser(userLib.serialize);
         passport.deserializeUser(userLib.deserialize);
+
+        if ('testing' !== process.env.NODE_ENV) {
+            if ('production' === process.env.NODE_ENV) {
+                app.use(csrf({
+                    cookie: {
+                        httpOnly: true,
+                        secure: true
+                    }
+                }));
+            } else {
+                app.use(csrf());
+            }
+            app.use(function (req, res, next) {
+                res.cookie('XSRF-TOKEN', req.csrfToken());
+                next();
+            });
+        }
     });
 
     app.on('middleware:after:appsec', function () {
