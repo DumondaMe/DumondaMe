@@ -126,10 +126,12 @@ module.exports = {
     },
     validateQueryRequest: function (req, requestSchema, logger) {
         convertValues(req.query, requestSchema);
+        sanitize(req.query);
         return validate(req, req.query, requestSchema, logger);
     },
     validateParams: function (req, requestSchema, logger) {
         convertValues(req.params, requestSchema);
+        sanitize(req.params);
         return validate(req, req.params, requestSchema, logger);
     }
 };
