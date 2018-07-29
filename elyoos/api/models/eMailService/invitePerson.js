@@ -1,3 +1,4 @@
+/*
 "use strict";
 
 let db = requireDb();
@@ -102,3 +103,4 @@ let sendInvitation = function (userId, emails, message) {
 module.exports = {
     sendInvitation: sendInvitation
 };
+*/

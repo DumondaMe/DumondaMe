@@ -1,3 +1,4 @@
+/*
 "use strict";
 
 let email = require('elyoos-server-lib').eMail;
@@ -11,3 +12,4 @@ let processDefinition = async function (data, done) {
 module.exports = {
     processDefinition
 };
+*/

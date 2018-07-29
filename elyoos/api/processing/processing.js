@@ -2,14 +2,12 @@ require('elyoos-server-lib').init('elyoos');
 
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 require('fs-extra');
-const process = require('./script/createCommitmentImages');
-const bluebird = require('bluebird');
-bluebird.promisifyAll(require('gm').prototype);
+const process = require('./script/sendEmail');
 
 const dbConfig = require('elyoos-server-lib').databaseConfig;
 
 const runProcess = async function () {
-    await process.processAddImageCommitment();
+    await process.sendEmail();
 };
 
 try {

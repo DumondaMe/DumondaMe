@@ -1,3 +1,4 @@
+/*
 "use strict";
 
 let db = requireDb();
@@ -40,3 +41,4 @@ let sendReset = async function (email) {
 module.exports = {
     sendReset: sendReset
 };
+*/

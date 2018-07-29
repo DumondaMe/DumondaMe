@@ -67,7 +67,9 @@ let verify = async function (linkId, req) {
     commands.push(db.cypher().match(`(invitedUser:InvitedUser)<-[rel:HAS_INVITED]-(:User)`)
         .where(`invitedUser.emailNormalized = {email}`).delete(`invitedUser, rel`)
         .end({email: user.emailNormalized}).getCommand());
-    let resp = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").delete("user").end({linkId: linkId}).send(commands);
+
+    let resp = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
+        .delete("user").end({linkId: linkId}).send(commands);
 
     email = resp[0][0].user.email;
     await cdn.createFolderRegisterUser(userId);

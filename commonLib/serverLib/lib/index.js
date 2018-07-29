@@ -18,8 +18,6 @@ module.exports.init = function (type) {
         module.exports.uuid = require('./uuid');
     } else  {
         module.exports.eMail = require('./eMail/eMail');
-        module.exports.eMailService = require('./eMail/eMailService/eMail');
-        module.exports.eMailQueue = require('./eMail/eMailQueue');
 
         module.exports.apiHelper = require('./apiHelper');
         module.exports.asyncMiddleware = require('./asyncMiddleware');

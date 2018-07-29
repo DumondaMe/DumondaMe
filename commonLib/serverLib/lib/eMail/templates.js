@@ -1,50 +1,42 @@
 'use strict';
 
 let path = require('path');
-let EmailTemplate = require('email-templates').EmailTemplate;
-let templatesDir = path.resolve(__dirname, 'templates');
-let preProcessingInvitePerson = require('./templates/invitePerson/preProcessing');
-let preProcessingFeedbackNewComment = require('./templates/feedbackNewComment/preProcessing');
-let preProcessingFeedbackStatusChanged = require('./templates/feedbackStatusChanged/preProcessing');
-let preProcessingNews = require('./templates/sendNews/preProcessing');
-let emailTemplates = {
-    newMessages: {
-        template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
-        subject: 'Du hast neue Nachrichten',
-        attachments: []
-    },
-    resetPassword: {
-        template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
-        subject: 'Passwort zurücksetzen',
-        attachments: []
-    },
-    registerUserRequest: {
-        template: new EmailTemplate(path.join(templatesDir, 'registerUserRequest')),
-        subject: 'Willkommen auf Elyoos',
-        attachments: []
-    },
-    invitePerson: {
-        template: new EmailTemplate(path.join(templatesDir, 'invitePerson')),
-        preProcessing: preProcessingInvitePerson.preProcessing,
-        attachments: []
-    },
-    feedbackNewComment: {
-        template: new EmailTemplate(path.join(templatesDir, 'feedbackNewComment')),
-        preProcessing: preProcessingFeedbackNewComment.preProcessing,
-        attachments: []
-    },
-    feedbackStatusChanged: {
-        template: new EmailTemplate(path.join(templatesDir, 'feedbackStatusChanged')),
-        preProcessing: preProcessingFeedbackStatusChanged.preProcessing,
-        attachments: []
-    },
-    sendNews: {
-        template: new EmailTemplate(path.join(templatesDir, 'sendNews')),
-        preProcessing: preProcessingNews.preProcessing,
-        attachments: []
+let fs = require('fs');
+let EmailTemplate = require('email-templates');
+
+let emailTemplate = new EmailTemplate({
+    views: {
+        root: path.resolve(__dirname, 'templates'),
+        options: {
+            extension: 'nunjucks'
+        }
+    }
+});
+
+const addSubject = function (result, template, templateData, language) {
+    let subjectPath = path.join(__dirname, 'templates', template, language, 'subject.js');
+    if (fs.existsSync(subjectPath)) {
+        let subject = require(subjectPath);
+        result.subject = subject.getSubject(templateData);
     }
 };
 
+const addAttachments = function (result, template, templateData) {
+    let attachmentsPath = path.join(__dirname, 'templates', template, 'attachments.js');
+    if (fs.existsSync(attachmentsPath)) {
+        let attachments = require(attachmentsPath).getAttachments(templateData);
+        result.attachments = attachments.attachments;
+        result.tempFiles = attachments.tempFiles;
+    }
+};
+
+const renderTemplate = async function (template, templateData, language) {
+    let result = {html: await emailTemplate.render(`${template}/${language}/html`, templateData)};
+    addSubject(result, template, templateData, language);
+    addAttachments(result, template, templateData);
+    return result;
+};
+
 module.exports = {
-    emailTemplates: emailTemplates
+    renderTemplate
 };

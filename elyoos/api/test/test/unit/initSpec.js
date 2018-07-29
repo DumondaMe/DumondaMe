@@ -16,7 +16,6 @@ require('elyoos-server-lib').jsonValidation;
 
 require('elyoos-server-test-util').init(require('elyoos-server-lib'));
 
-let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 
 let chai = require('chai');
@@ -24,10 +23,6 @@ let chaiSubset = require('chai-subset');
 chai.use(chaiSubset);
 
 describe('Initialize Server Unit Test', function () {
-
-    before(function () {
-        stubEmailQueue.clear();
-    });
 
     it('dummy Test', function () {
         return dbConfig.config({host: 'bolt://localhost:7688'});

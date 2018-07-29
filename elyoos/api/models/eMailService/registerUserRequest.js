@@ -1,17 +1,12 @@
 "use strict";
 
-let db = requireDb();
-let eMailQueue = require('elyoos-server-lib').eMailQueue;
+const eMail = require('elyoos-server-lib').eMail;
 
-let sendRegisterUserVerification = function (email, linkId) {
-    return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").return("user").end({linkId: linkId}).send()
-        .then(function (resp) {
-            if (resp.length === 1) {
-                eMailQueue.createImmediatelyJob('registerUserRequest', {email: email, linkId: linkId});
-            }
-        });
+const sendRegisterUserVerification = async function (linkId, language, sendTo) {
+    await eMail.sendEMail('registerUserRequest',
+        {link: `${process.env.ELYOOS_DOMAIN}register/verify/${linkId}`}, language, sendTo);
 };
 
 module.exports = {
-    sendRegisterUserVerification: sendRegisterUserVerification
+    sendRegisterUserVerification
 };

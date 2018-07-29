@@ -118,6 +118,7 @@
                 try {
                     this.loading = true;
                     await this.$axios.$post('/register', {
+                        language: this.$store.state.i18n.language,
                         forename: this.formForename,
                         surname: this.formSurname,
                         email: this.formEmail,

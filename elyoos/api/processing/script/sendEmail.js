@@ -1,14 +1,24 @@
 'use strict';
 
 let email = require('elyoos-server-lib').eMail;
+let tmp = require('tmp');
+let cdn = require('elyoos-server-lib').cdn;
+let fs = require('fs');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let sendEmail = function () {
-    email.sendEMail("invitePerson", {name: 'Roger Waldvogel', userId: '0'},
-        'climberwoodi@gmx.ch');
+let getUserImage = async function (userId) {
+    let imageData, userImage = tmp.fileSync({postfix: '.jpg'});
+    imageData = await cdn.getObject(`profileImage/${userId}/profile.jpg`, process.env.BUCKET_PRIVATE);
+    fs.writeFileSync(userImage.name, imageData.Body);
+    return userImage;
+};
+
+let sendEmail = async function () {
+    await email.sendEMail("invitePerson", {name: 'Roger Waldvogel', userId: '0', userImage: await getUserImage('0')},
+        'de', 'climberwoodi@gmx.ch');
     logger.info('Sent email');
 };
 
 module.exports = {
-    sendEmail: sendEmail
+    sendEmail
 };

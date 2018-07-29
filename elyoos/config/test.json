@@ -9,12 +9,6 @@
   "cdnStore": {
     "bucket": "notExisting"
   },
-  "emailConfig": {
-    "host": "localhost",
-    "port": 6379,
-    "prefix": "q",
-    "delay": 1800
-  },
   "bcrypt": {
     "difficulty": 8
   },

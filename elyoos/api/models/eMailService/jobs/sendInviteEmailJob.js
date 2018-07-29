@@ -1,3 +1,4 @@
+/*
 "use strict";
 
 let db = requireDb();
@@ -60,3 +61,4 @@ let processDefinition = function (data, done) {
 module.exports = {
     processDefinition: processDefinition
 };
+*/

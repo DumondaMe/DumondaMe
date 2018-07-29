@@ -22,6 +22,7 @@ describe('Integration Tests for verify registering a new user', function () {
             linkId: randomstring.generate(64)
         }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),
         registerRequestUserValidWithInvitation, registerRequestUserValidCaseSensitiveEmail;
+
     beforeEach(async function () {
         await dbDsl.init(4);
         registerRequestUserExpired = _.cloneDeep(registerRequestUserValid);
