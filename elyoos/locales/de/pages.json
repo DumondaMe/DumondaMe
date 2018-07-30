@@ -34,7 +34,8 @@
     "acceptTerms": "Ich akzeptiere die",
     "acceptTerms2": "und die",
     "registerButton": "Erstellen",
-    "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an {{email}} versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt."
+    "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an {{email}} versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt.",
+    "errorAccountExist": "Für diese E-Mail Adresse existiert bereits ein Benutzerkonto"
   },
   "feeds": {
     "yourQuestion": "Wie lautet deine Frage?",

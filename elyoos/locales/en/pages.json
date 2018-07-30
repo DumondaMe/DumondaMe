@@ -34,7 +34,8 @@
     "acceptTerms": "Accept",
     "acceptTerms2": "and the",
     "registerButton": "Create",
-    "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account."
+    "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account.",
+    "errorAccountExist": "For this e-mail address already exists a user account"
   },
   "feeds": {
     "yourQuestion": "What is your question?",

@@ -59,6 +59,7 @@
                     </v-flex>
                 </v-layout>
                 <recaptcha class="elyoos-recaptcha" @response="setResponse"></recaptcha>
+                <p class="register-error" v-if="showErrorAccountExist">{{$t('pages:register.errorAccountExist')}}</p>
                 <div id="register-commands">
                     <v-btn color="primary" type="submit" id="register-button"
                            :loading="loading"
@@ -86,6 +87,8 @@
     import Recaptcha from '~/components/common/recaptcha/Recaptcha.vue';
     import validationRules from '~/mixins/validationRules.js';
 
+    const ERROR_ACCOUNT_EXISTS = 2;
+
     export default {
         components: {Recaptcha},
         data() {
@@ -93,6 +96,7 @@
                 valid: false,
                 loading: false,
                 showError: false,
+                showErrorAccountExist: false,
                 successfullyRegistered: false,
                 formEmail: '',
                 formPassword: '',
@@ -117,6 +121,7 @@
             async register() {
                 try {
                     this.loading = true;
+                    this.showErrorAccountExist = false;
                     await this.$axios.$post('/register', {
                         language: this.$store.state.i18n.language,
                         forename: this.formForename,
@@ -125,10 +130,14 @@
                         password: this.formPassword,
                         response: this.rcaptResponse,
                     });
-                    this.loading = false;
                     this.successfullyRegistered = true;
                 } catch (error) {
-                    this.showError = true;
+                    if (error.response.data.errorCode === ERROR_ACCOUNT_EXISTS) {
+                        this.showErrorAccountExist = true;
+                    } else {
+                        this.showError = true;
+                    }
+                } finally {
                     this.loading = false;
                 }
             }
@@ -145,6 +154,11 @@
         padding: 16px;
         #register-content-container {
             margin-top: 24px;
+            .register-error {
+                color: #d84021;
+                border-left: 2px solid #d84021;
+                padding-left: 12px;
+            }
             .accept-terms {
                 margin-left: -4px;
                 margin-top: 12px;
