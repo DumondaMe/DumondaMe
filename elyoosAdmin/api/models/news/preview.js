@@ -9,9 +9,9 @@ const preview = async function (userId, params, req) {
 
     let res = await db.cypher().match(`(user:User {userId: {userId}})`)
         .return(`user.email AS email, user.forename AS forename`)
-        .end({userId: userId}).send()
+        .end({userId: userId}).send();
     if (res.length === 1) {
-        sendNews.sendPreviewNews(res[0].email, res[0].forename, params.title, params.text);
+        await sendNews.sendPreviewNews(res[0].email, res[0].forename, params.title, params.text);
     } else {
         return exceptions.getInvalidOperation(`User not found ${userId}`, logger, req);
     }

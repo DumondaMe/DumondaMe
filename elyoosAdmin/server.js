@@ -27,7 +27,6 @@ if (!isTesting) {
 }
 
 const kraken = require('kraken-js');
-const emailService = require('./api/models/eMailService/eMail');
 const dbConfig = require('elyoos-server-lib').databaseConfig;
 const app = require('express')();
 const options = require('elyoos-server-lib').spec(app, nuxt);
@@ -43,7 +42,6 @@ app.use(kraken(options));
 
 app.on('start', function () {
     dbConfig.connected.then(function () {
-        emailService.start();
         logger.info('Admin Server started');
     });
 });

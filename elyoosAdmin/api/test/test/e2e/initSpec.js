@@ -8,7 +8,6 @@ require('chai').should();
 elyoosTestUtil.init(require('elyoos-server-lib'), app);
 
 elyoosTestUtil.stubCDN().stub(require('elyoos-server-lib').cdn);
-elyoosTestUtil.stubEmailQueue();
 elyoosTestUtil.stubLimitRate();
 
 describe('Initialize Server for all integration tests', function () {

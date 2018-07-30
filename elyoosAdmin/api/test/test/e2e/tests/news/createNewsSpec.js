@@ -2,23 +2,27 @@
 
 const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
-const stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+const eMail = require('elyoos-server-lib').eMail;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const db = require('elyoos-server-test-util').db;
 const moment = require('moment');
+const sinon = require('sinon');
 
 describe('Integration Tests creating news', function () {
 
-    let startTime;
+    let startTime, sandbox, stubSendEMail;
 
     beforeEach(async function () {
-        stubEmailQueue.createImmediatelyJob.reset();
+        sandbox = sinon.sandbox.create();
+        stubSendEMail = sandbox.stub(eMail, 'sendEMail');
+        stubSendEMail.resolves({});
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         await dbDsl.init(4, true);
         await dbDsl.sendToDb();
     });
 
     afterEach(function () {
+        sandbox.restore();
         return requestHandler.logout();
     });
 
@@ -30,9 +34,7 @@ describe('Integration Tests creating news', function () {
         res.status.should.equal(200);
         res.body.created.should.be.at.least(startTime);
 
-        stubEmailQueue.createImmediatelyJob.calledWith("sendNews", {
-            newsId: res.body.newsId
-        }).should.be.true;
+        stubSendEMail.callCount.should.equals(4);
 
         let news = await db.cypher().match(`(news:News {newsId: {newsId}})`)
             .return('news')
