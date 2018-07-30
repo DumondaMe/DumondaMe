@@ -9,9 +9,10 @@
         components: {Register},
         head() {
             return {
-                script: [
-                    {src: 'https://www.google.com/recaptcha/api.js?onload=onloadRecaptchaCallback&render=explicit'}
-                ],
+                script: [{
+                    src: `https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${this.$store.state.i18n.language}`,
+                    defer: true
+                }],
             }
         }
     }

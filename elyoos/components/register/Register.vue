@@ -58,7 +58,9 @@
                         </v-checkbox>
                     </v-flex>
                 </v-layout>
-                <recaptcha class="elyoos-recaptcha" @response="setResponse"></recaptcha>
+                <vue-recaptcha class="elyoos-recaptcha" sitekey="6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ"
+                               @verify="setResponse">
+                </vue-recaptcha>
                 <p class="register-error" v-if="showErrorAccountExist">{{$t('pages:register.errorAccountExist')}}</p>
                 <div id="register-commands">
                     <v-btn color="primary" type="submit" id="register-button"
@@ -84,13 +86,13 @@
 </template>
 
 <script>
-    import Recaptcha from '~/components/common/recaptcha/Recaptcha.vue';
+    import VueRecaptcha from 'vue-recaptcha/dist/vue-recaptcha.min.js';
     import validationRules from '~/mixins/validationRules.js';
 
     const ERROR_ACCOUNT_EXISTS = 2;
 
     export default {
-        components: {Recaptcha},
+        components: {VueRecaptcha},
         data() {
             return {
                 valid: false,
@@ -172,6 +174,7 @@
                 }
             }
             .elyoos-recaptcha {
+                margin-top: 18px;
                 margin-right: auto;
                 margin-bottom: 36px;
             }

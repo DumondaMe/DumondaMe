@@ -53,6 +53,7 @@ module.exports = {
             'moment/locale/de',
             'moment/locale/en-gb',
             'debounce',
+            'vue-recaptcha/dist/vue-recaptcha.min.js',
             '~/plugins/vuetify.js'],
 
         extend(config, ctx) {
