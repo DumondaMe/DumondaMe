@@ -39,7 +39,7 @@ describe('Integration Tests for request to register a new user', function () {
         res.status.should.equal(200);
         let user = await db.cypher().match("(user:UserRegisterRequest {email: 'Climberwoodi@Gmx.ch'})")
             .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, 
-                user.registerDate AS registerDate, user.latitude AS latitude, user.longitude AS longitude,
+                user.registerDate AS registerDate,
                 user.emailNormalized AS emailNormalized, user.linkId AS linkId`)
             .end().send();
         user.length.should.equals(1);

@@ -3,13 +3,13 @@
 const db = requireDb();
 const time = require('elyoos-server-lib').time;
 const eMail = require('elyoos-server-lib').eMail;
-const randomstring = require("randomstring");
+const uuidv4 = require('uuid/v4');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const timeValid = 60 * 20;  //20 Minutes
 
 const setPasswordIsRequested = async function (userId) {
-    let linkId = randomstring.generate(64);
+    let linkId = uuidv4();
     await db.cypher().match("(user:User {userId: {userId}})").set("user", {
         resetPasswordRequestTimeout: time.getNowUtcTimestamp() + timeValid,
         resetPasswordLinkId: linkId

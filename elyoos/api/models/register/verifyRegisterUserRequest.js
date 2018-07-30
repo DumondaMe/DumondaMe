@@ -3,17 +3,8 @@
 const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-
-const EXPIRED = 60 * 60 * 12; // 12h
-
-let deleteInvalidLinkIdRequest = async function (linkId, req) {
-    await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").delete("user")
-        .end({linkId: linkId}).send();
-    return exceptions.getInvalidOperation(`linkId is expired ${linkId}`, logger, req);
-};
 
 let deleteRegisterRequest = async function (emailNormalized, req) {
     await db.cypher().match("(user:UserRegisterRequest {emailNormalized: {emailNormalized}})")
@@ -26,14 +17,10 @@ let checkValidLinkId = async function (linkId, req) {
         .return("user")
         .end({linkId: linkId}).send();
     if (resp.length === 1) {
-        if (resp[0].user.registerDate > time.getNowUtcTimestamp() - EXPIRED) {
-            return resp[0].user;
-        } else {
-            return await deleteInvalidLinkIdRequest(linkId, req);
-        }
-    } else {
-        return exceptions.getInvalidOperation(`Not found or more then one linkId ${linkId}`, logger, req);
+        return resp[0].user;
     }
+    return exceptions.getInvalidOperation(`Not found or more then one linkId ${linkId}`, logger, req);
+
 };
 
 let checkUserExistsAlready = async function (user, req) {

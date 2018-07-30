@@ -12,7 +12,7 @@ const schemaRequestPasswordReset = {
     additionalProperties: false,
     required: ['linkId', 'newPassword'],
     properties: {
-        linkId: {type: 'string', format: 'notEmptyString', minLength: 64, maxLength: 64},
+        linkId: {type: 'string', format: 'notEmptyString', maxLength: 200},
         newPassword: {type: 'string', format: 'passwordString', maxLength: 55, minLength: 8}
     }
 };

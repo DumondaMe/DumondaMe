@@ -2,7 +2,7 @@
 
 const db = requireDb();
 const registerUserRequest = require('./../eMailService/registerUserRequest');
-const randomstring = require("randomstring");
+const uuidv4 = require('uuid/v4');
 const recaptcha = require('./../util/recaptcha');
 const passwordEncryption = require('elyoos-server-lib').passwordEncryption;
 const exceptions = require('elyoos-server-lib').exceptions;
@@ -36,7 +36,7 @@ const registerUser = async function (params, req) {
             registerDate: time.getNowUtcTimestamp()
         }
     };
-    linkId = randomstring.generate(64);
+    linkId = uuidv4();
     paramsCypher.userData.linkId = linkId;
     await db.cypher().create("(:UserRegisterRequest {userData})").end(paramsCypher).send();
     await registerUserRequest.sendRegisterUserVerification(linkId, params.language, params.email);

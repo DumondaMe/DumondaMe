@@ -5,7 +5,7 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const should = require('chai').should();
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
-const randomstring = require("randomstring");
+const uuidv4 = require('uuid/v4');
 const _ = require('lodash');
 
 describe('Integration Tests for verify registering a new user', function () {
@@ -19,7 +19,7 @@ describe('Integration Tests for verify registering a new user', function () {
             surname: 'Waldvogel',
             latitude: 0,
             longitude: 0,
-            linkId: randomstring.generate(64)
+            linkId: uuidv4()
         }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),
         registerRequestUserValidWithInvitation, registerRequestUserValidCaseSensitiveEmail;
 
@@ -30,16 +30,16 @@ describe('Integration Tests for verify registering a new user', function () {
         registerRequestUserValidCaseSensitiveEmail = _.cloneDeep(registerRequestUserValid);
         registerRequestUserValid.registerDate = startTime;
         registerRequestUserValidCaseSensitiveEmail.registerDate = startTime;
-        registerRequestUserValidCaseSensitiveEmail.linkId = randomstring.generate(64);
+        registerRequestUserValidCaseSensitiveEmail.linkId = uuidv4();
         registerRequestUserValidCaseSensitiveEmail.email = 'info@elyoos.org';
         registerRequestUserExpired.registerDate = startTime - (60 * 60 * 12) - 1;
-        registerRequestUserExpired.linkId = randomstring.generate(64);
+        registerRequestUserExpired.linkId = uuidv4();
         registerRequestUserExpired.email = 'INFO2@elyoos.org';
         registerRequestUserExpired.emailNormalized = 'info2@elyoos.org';
         registerRequestUserValidWithInvitation.email = 'info3@ELYOOS.org';
         registerRequestUserValidWithInvitation.emailNormalized = 'info3@elyoos.org';
         registerRequestUserValidWithInvitation.registerDate = startTime;
-        registerRequestUserValidWithInvitation.linkId = randomstring.generate(64);
+        registerRequestUserValidWithInvitation.linkId = uuidv4();
         dbDsl.createUserRegisterRequest(registerRequestUserValid);
         dbDsl.createUserRegisterRequest(registerRequestUserValidCaseSensitiveEmail);
         dbDsl.createUserRegisterRequest(registerRequestUserExpired);
@@ -152,19 +152,9 @@ describe('Integration Tests for verify registering a new user', function () {
         });
     });
 
-    it('Send Error when linkId has expired', async function () {
-
-        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserExpired.linkId});
-        res.status.should.equal(400);
-
-        let user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
-            .return('user').end({linkId: registerRequestUserExpired.linkId}).send();
-        user.length.should.equals(0);
-    });
-
     it('Send Error when linkId does not exist', async function () {
 
-        let res = await requestHandler.post('/api/register/verify', {linkId: randomstring.generate(64)});
+        let res = await requestHandler.post('/api/register/verify', {linkId: uuidv4()});
         res.status.should.equal(400);
 
         let user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
