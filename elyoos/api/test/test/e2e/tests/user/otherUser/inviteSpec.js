@@ -2,73 +2,92 @@
 'use strict';
 
 let users = require('elyoos-server-test-util').user;
-let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+let eMail = require('elyoos-server-lib').eMail;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
+let sinon = require('sinon');
 let expect = require('chai').expect;
 
 describe('Integration Tests for inviting other users to elyoos', function () {
 
-    beforeEach(function () {
+    let sandbox, stubSendEMail;
 
-        return dbDsl.init(6).then(function () {
-            stubEmailQueue.createImmediatelyJob.reset();
-            dbDsl.invitationSentBeforeRegistration('4', [{email: 'user10@IRGENDWO.ch', emailNormalized: 'user10@irgendwo.ch', invitationSent: 500}]);
-            dbDsl.createContactConnection('1', '5');
+    beforeEach(async function () {
 
-            dbDsl.invitationSentBeforeRegistration('3', [{email: 'USER10@irgendwo.ch', emailNormalized: 'user10@irgendwo.ch', invitationSent: 500}]);
-            dbDsl.invitationSentBeforeRegistration('1', [{email: 'USER11@irgendwo.ch', emailNormalized: 'user11@irgendwo.ch', invitationSent: 500}]);
-            dbDsl.unsubscribeInvitation('user30@irgendwo.ch');
-            return dbDsl.sendToDb();
-        });
+        await dbDsl.init(6);
+
+        sandbox = sinon.sandbox.create();
+        stubSendEMail = sandbox.stub(eMail, 'sendEMail');
+        stubSendEMail.resolves({});
+
+        dbDsl.invitationSentBeforeRegistration('4', [{
+            email: 'user10@IRGENDWO.ch',
+            emailNormalized: 'user10@irgendwo.ch',
+            invitationSent: 500
+        }]);
+        dbDsl.createContactConnection('1', '5');
+
+        dbDsl.invitationSentBeforeRegistration('3', [{
+            email: 'USER10@irgendwo.ch',
+            emailNormalized: 'user10@irgendwo.ch',
+            invitationSent: 500
+        }]);
+        dbDsl.invitationSentBeforeRegistration('1', [{
+            email: 'USER11@irgendwo.ch',
+            emailNormalized: 'user11@irgendwo.ch',
+            invitationSent: 500
+        }]);
+        dbDsl.unsubscribeInvitation('user30@irgendwo.ch');
+        await dbDsl.sendToDb();
     });
 
     afterEach(function () {
+        sandbox.restore();
         return requestHandler.logout();
     });
 
-    it('Invite only user without a profile on elyoos or without a contact connection', function () {
-        return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.put('/api/user/otherUser/invite',
-                {
-                    emails: ['user2@irgendwo.ch',
-                        'user5@irgendwo.ch',
-                        'useR8@irgendwo.ch',
-                        'user9@IRGENDWO.ch',
-                        'user10@irgendwo.ch',
-                        'user11@IRGENDWO.ch',
-                        'user30@irgendwo.ch'],
-                    message: "Elyoos ist super!"
-                });
-        }).then(function (res) {
-            res.status.should.equal(200);
+    it('Invite only user without a profile on elyoos or without a contact connection', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/otherUser/invite',
+            {
+                emails: ['user2@irgendwo.ch',
+                    'user5@irgendwo.ch',
+                    'useR8@irgendwo.ch',
+                    'user9@IRGENDWO.ch',
+                    'user10@irgendwo.ch',
+                    'user11@IRGENDWO.ch',
+                    'user30@irgendwo.ch'],
+                message: "Elyoos ist super!"
+            });
+        res.status.should.equal(200);
 
-            let argument = stubEmailQueue.createImmediatelyJob.getCall(0).args[1],
-                sendCommand = stubEmailQueue.createImmediatelyJob.getCall(0).args[0];
-            expect(sendCommand).to.equal('sendInviteEmail');
-            expect(argument.userId).to.equal('1');
+        stubSendEMail.calledWith("invitePerson",
+            {},
+            'de', 'USER@irgendwo.ch').should.be.true;
 
-            return db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
-                .where("NOT EXISTS(user.invitationSent)")
-                .return("user.email AS email, user.emailNormalized AS emailNormalized, user.message AS message")
-                .orderBy("user.email DESC").end().send();
-        }).then(function (resp) {
-            expect(resp.length).to.equal(3);
-            expect(resp[0].email).to.equal('user9@IRGENDWO.ch');
-            expect(resp[0].emailNormalized).to.equal('user9@irgendwo.ch');
-            expect(resp[0].message).to.equal('Elyoos ist super!');
-            expect(resp[1].email).to.equal('user10@irgendwo.ch');
-            expect(resp[1].emailNormalized).to.equal('user10@irgendwo.ch');
-            expect(resp[1].message).to.equal('Elyoos ist super!');
-            expect(resp[2].email).to.equal('useR8@irgendwo.ch');
-            expect(resp[2].emailNormalized).to.equal('user8@irgendwo.ch');
-            expect(resp[2].message).to.equal('Elyoos ist super!');
-            return db.cypher().match(`(user:User {userId: '2'})<-[:HAS_INVITED]-(:User {userId: '1'})`).return("user")
-                .orderBy("user.email DESC").end().send();
-        }).then(function (resp) {
-            expect(resp.length).to.equal(1);
-        });
+        let argument = stubEmailQueue.createImmediatelyJob.getCall(0).args[1],
+            sendCommand = stubEmailQueue.createImmediatelyJob.getCall(0).args[0];
+        expect(sendCommand).to.equal('sendInviteEmail');
+        expect(argument.userId).to.equal('1');
+
+        let resp = await db.cypher().match(`(user:InvitedUser)<-[:HAS_INVITED]-(:User {userId: '1'})`)
+            .return("user.email AS email, user.emailNormalized AS emailNormalized, user.message AS message")
+            .orderBy("user.email DESC").end().send();
+        expect(resp.length).to.equal(3);
+        expect(resp[0].email).to.equal('user9@IRGENDWO.ch');
+        expect(resp[0].emailNormalized).to.equal('user9@irgendwo.ch');
+        expect(resp[0].message).to.equal('Elyoos ist super!');
+        expect(resp[1].email).to.equal('user10@irgendwo.ch');
+        expect(resp[1].emailNormalized).to.equal('user10@irgendwo.ch');
+        expect(resp[1].message).to.equal('Elyoos ist super!');
+        expect(resp[2].email).to.equal('useR8@irgendwo.ch');
+        expect(resp[2].emailNormalized).to.equal('user8@irgendwo.ch');
+        expect(resp[2].message).to.equal('Elyoos ist super!');
+
+        resp = await db.cypher().match(`(user:User {userId: '2'})<-[:HAS_INVITED]-(:User {userId: '1'})`).return("user")
+            .orderBy("user.email DESC").end().send();
+        expect(resp.length).to.equal(1);
     });
 
     it('Invite only user with existing account on elyoos', function () {
