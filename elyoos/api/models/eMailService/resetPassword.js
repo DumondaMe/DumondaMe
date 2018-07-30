@@ -1,15 +1,14 @@
-/*
 "use strict";
 
-let db = requireDb();
-let time = require('elyoos-server-lib').time;
-let eMailQueue = require('elyoos-server-lib').eMailQueue;
-let randomstring = require("randomstring");
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const db = requireDb();
+const time = require('elyoos-server-lib').time;
+const eMail = require('elyoos-server-lib').eMail;
+const randomstring = require("randomstring");
+const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let timeValid = 60 * 20;  //20 Minutes
+const timeValid = 60 * 20;  //20 Minutes
 
-let setPasswordIsRequested = async function (userId) {
+const setPasswordIsRequested = async function (userId) {
     let linkId = randomstring.generate(64);
     await db.cypher().match("(user:User {userId: {userId}})").set("user", {
         resetPasswordRequestTimeout: time.getNowUtcTimestamp() + timeValid,
@@ -18,7 +17,7 @@ let setPasswordIsRequested = async function (userId) {
     return linkId;
 };
 
-let sendReset = async function (email) {
+const sendReset = async function (email, language) {
     let originalEmailAddress;
     email = email.toLowerCase();
     let resp = await db.cypher().match("(user:User {emailNormalized: {email}})")
@@ -29,7 +28,10 @@ let sendReset = async function (email) {
             resp[0].user.resetPasswordRequestTimeout < time.getNowUtcTimestamp()) ||
             !resp[0].user.hasOwnProperty('resetPasswordRequestTimeout')) {
             let linkId = await setPasswordIsRequested(resp[0].user.userId);
-            eMailQueue.createImmediatelyJob('resetPassword', {email: originalEmailAddress, linkId: linkId});
+
+            await eMail.sendEMail('resetPassword',
+                {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${linkId}`},
+                language, originalEmailAddress);
         } else {
             logger.info(`Reset password email is not sent to ${originalEmailAddress}`);
         }
@@ -39,6 +41,5 @@ let sendReset = async function (email) {
 };
 
 module.exports = {
-    sendReset: sendReset
+    sendReset
 };
-*/

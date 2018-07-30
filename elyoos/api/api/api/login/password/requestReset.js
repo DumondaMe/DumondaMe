@@ -1,6 +1,7 @@
 'use strict';
 
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const schemaLanguage = require("../../../schema/language");
 const rateLimit = require('elyoos-server-lib').limiteRate;
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const validation = require('elyoos-server-lib').jsonValidation;
@@ -10,9 +11,10 @@ const schemaRequestPasswordReset = {
     name: 'requestPasswordReset',
     type: 'object',
     additionalProperties: false,
-    required: ['email'],
+    required: ['email', 'language'],
     properties: {
-        email: {type: 'string', format: 'email', minLength: 1, maxLength: 255}
+        email: {type: 'string', format: 'email', minLength: 1, maxLength: 255},
+        language: schemaLanguage.language,
     }
 };
 
@@ -28,7 +30,7 @@ module.exports = function (router) {
     router.post('/', apiLimiter, asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaRequestPasswordReset, logger);
         logger.info(`Password reset request for email address ${request.email}`);
-        await resetPassword.sendReset(request.email);
+        await resetPassword.sendReset(request.email, request.language);
         res.status(200).end();
     }));
 };

@@ -1,7 +1,6 @@
 'use strict';
 
 let requestHandler = require('elyoos-server-test-util').requestHandler;
-let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
 let db = require('elyoos-server-test-util').db;
 let moment = require('moment');
 let should = require('chai').should();
@@ -10,7 +9,6 @@ describe('Integration Tests for reset a password with email link', function () {
 
     beforeEach(async function () {
         await db.clearDatabase();
-        stubEmailQueue.createImmediatelyJob.reset();
         await db.cypher().create("(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', " +
             "lastLogin: 100, userId:'1'})")
             .end().send();

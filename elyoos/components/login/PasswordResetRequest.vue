@@ -48,7 +48,10 @@
                     try {
                         this.errorMessage = null;
                         this.loading = true;
-                        await this.$axios.$post(`login/password/requestReset`, {email: this.formEmail});
+                        await this.$axios.$post(`login/password/requestReset`, {
+                            email: this.formEmail,
+                            language: this.$store.state.i18n.language,
+                        });
                         this.successfullyReset = true;
                     } catch (e) {
                         if (e.statusCode = 429) {
