@@ -1,15 +1,11 @@
 <template>
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="600px">
-            <create-topic-dialog-content @close-dialog="$emit('close-dialog')" @finish="createSubTopic"
+            <create-topic-dialog-content @close-dialog="$emit('close-dialog')" @finish="createTopic"
                                          :init-topic="{de: '', en: ''}"
+                                         :init-parent-topic-id="initParentTopicId"
                                          :has-changed="() => {return true}"
                                          :action-button-text="$t('common:button.create')">
-                <div slot="parentTopic">
-                    <parent-topic-id :init-parent-topic-id="initParentTopicId"
-                                     @topic-id-changed="parentTopicIdChanged">
-                    </parent-topic-id>
-                </div>
             </create-topic-dialog-content>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -20,28 +16,27 @@
 
 <script>
     import CreateTopicDialogContent from './Topic';
-    import ParentTopicId from './ParentTopicId';
 
     export default {
         props: ['initParentTopicId'],
         data() {
-            return {dialog: true, running: false, showError: false, parentTopicId: this.initParentTopicId}
+            return {dialog: true, running: false, showError: false}
         },
-        components: {ParentTopicId, CreateTopicDialogContent},
+        components: {CreateTopicDialogContent},
         methods: {
-            async createSubTopic(subTopic) {
+            async createTopic(topic) {
                 try {
                     this.running = true;
-                    subTopic.parentTopicId = this.parentTopicId;
-                    await this.$store.dispatch('topics/createSubTopic', subTopic);
+                    if (topic.parentTopicId) {
+                        await this.$store.dispatch('topics/createSubTopic', topic);
+                    } else {
+                        await this.$store.dispatch('topics/createMainTopic', topic);
+                    }
                     this.$emit('close-dialog');
                 } catch (error) {
                     this.showError = true;
                     this.running = false;
                 }
-            },
-            parentTopicIdChanged(topicId) {
-                this.parentTopicId = topicId;
             }
         }
     }

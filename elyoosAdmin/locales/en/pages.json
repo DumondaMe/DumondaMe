@@ -15,7 +15,7 @@
   },
   "topics": {
     "numberOfSubTopics": "Subtopics: {{count}}",
-    "createMainTopicDialog": "Main Topic",
+    "createTopicDialog": "Topic",
     "editMainTopicDialog": "Edit",
     "addSubTopicDialog": "Add Subtopic",
     "showSubTopic": "Show Subtopic",

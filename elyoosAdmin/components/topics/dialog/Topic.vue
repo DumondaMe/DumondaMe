@@ -5,9 +5,9 @@
         </div>
         <v-card-text>
             <v-form v-model="valid">
-                <div>
-                    <slot name="parentTopic"></slot>
-                </div>
+                <v-select :items="mainTopics" v-model="parentTopicId" class="select-parent-topic-container"
+                          item-value="topicId" item-text="description" clearable>
+                </v-select>
                 <div class="topic-container">
                     <h2>{{$t("common:language.de")}}</h2>
                     <v-text-field type="text" v-model="topic.de"
@@ -30,7 +30,7 @@
                         </v-btn>
                     </div>
                     <div class="similar-topics">
-                        <div class="topic" v-for="similarTopic in topic.similarDe" :key="topic">
+                        <div class="topic" v-for="similarTopic in topic.similarDe" :key="similarTopic">
                             <v-chip @input="onTopicRemove(similarTopic, 'De')" close>
                                 {{similarTopic}}
                             </v-chip>
@@ -59,7 +59,7 @@
                         </v-btn>
                     </div>
                     <div class="similar-topics">
-                        <div class="topic" v-for="similarTopic in topic.similarEn" :key="topic">
+                        <div class="topic" v-for="similarTopic in topic.similarEn" :key="similarTopic">
                             <v-chip @input="onTopicRemove(similarTopic, 'En')" close>
                                 {{similarTopic}}
                             </v-chip>
@@ -74,7 +74,7 @@
             <v-btn color="primary" flat :disabled="loading"
                    @click.native="$emit('close-dialog')">{{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('finish', topic)" :loading="loading"
+            <v-btn color="primary" @click.native="actionStarted" :loading="loading"
                    :disabled="!valid || loading || !changed">
                 {{actionButtonText}}
             </v-btn>
@@ -87,17 +87,20 @@
     import Vue from 'vue';
 
     export default {
-        props: ['initTopic', 'actionButtonText', 'loading', 'hasChanged'],
+        props: ['initTopic', 'initParentTopicId', 'actionButtonText', 'loading', 'hasChanged'],
         data: function () {
             return {
                 topic: JSON.parse(JSON.stringify(this.initTopic)),
                 topicCompare: JSON.parse(JSON.stringify(this.initTopic)), valid: false,
-                similarDe: '', similarEn: ''
+                similarDe: '', similarEn: '',
+                mainTopics: this.$store.getters['topics/getMainTopics'],
+                parentTopicId: this.initParentTopicId,
+                parentTopicIdCompare: this.initParentTopicId
             };
         },
         computed: {
             changed() {
-                return this.hasChanged(this.topic, this.topicCompare);
+                return this.hasChanged(this.topic, this.parentTopicId);
             }
         },
         methods: {
@@ -119,6 +122,19 @@
                     return this.$t("pages:topics.dialog.similarWordUsed");
                 }
                 return true;
+            },
+            actionStarted() {
+                let uploadData = JSON.parse(JSON.stringify(this.topic));
+                if (this.parentTopicId) {
+                    uploadData.parentTopicId = this.parentTopicId;
+                }
+                if (uploadData.similarDe && uploadData.similarDe.length === 0) {
+                    delete uploadData.similarDe;
+                }
+                if (uploadData.similarEn && uploadData.similarEn.length === 0) {
+                    delete uploadData.similarEn;
+                }
+                this.$emit('finish', uploadData)
             }
         },
         mixins: [validationRules]
@@ -127,6 +143,9 @@
 
 <style lang="scss">
     #main-topic-dialog-container {
+        .select-parent-topic-container {
+            margin-bottom: 24px;
+        }
         .topic-container {
             h2 {
                 font-weight: 500;

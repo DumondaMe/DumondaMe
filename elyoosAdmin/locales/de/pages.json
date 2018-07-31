@@ -15,7 +15,7 @@
   },
   "topics": {
     "numberOfSubTopics": "Unterthemen: {{count}}",
-    "createMainTopicDialog": "Hauptthemengebiet",
+    "createTopicDialog": "Themengebiet",
     "editMainTopicDialog": "Bearbeiten",
     "addSubTopicDialog": "Unterthema hinzufügen",
     "showSubTopic": "Unterthemen anzeigen",

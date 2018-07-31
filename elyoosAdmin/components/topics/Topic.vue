@@ -28,10 +28,10 @@
                 </div>
             </div>
             <div class="topic-commands">
-                <v-btn outline color="primary" @click="showEditMainTopicDialog = true">
+                <v-btn outline color="primary" @click="showEditTopicDialog = true">
                     {{$t('pages:topics.editMainTopicDialog')}}
                 </v-btn>
-                <v-btn outline color="primary" @click="showAddSubTopicDialog = true">
+                <v-btn outline color="primary" @click="showAddTopicDialog = true">
                     {{$t('pages:topics.addSubTopicDialog')}}
                 </v-btn>
                 <v-btn outline color="primary" @click="getSubTopics"
@@ -39,9 +39,12 @@
                     {{$t('pages:topics.showSubTopic')}}
                 </v-btn>
             </div>
-            <create-sub-topic-dialog v-if="showAddSubTopicDialog" @close-dialog="showAddSubTopicDialog = false"
+            <edit-topic-dialog v-if="showEditTopicDialog" @close-dialog="showEditTopicDialog = false"
+                                 :init-topic="topic" :init-parent-topic-id="topic.parentTopicId">
+            </edit-topic-dialog>
+            <create-topic-dialog v-if="showAddTopicDialog" @close-dialog="showAddTopicDialog = false"
                                      :init-parent-topic-id="topic.topicId">
-            </create-sub-topic-dialog>
+            </create-topic-dialog>
         </div>
         <div v-if="showSubTopics" class="sub-topics-container">
             <div v-for="subTopic in topic.topics" :key="subTopic.topicId">
@@ -52,15 +55,16 @@
 </template>
 
 <script>
-    import CreateSubTopicDialog from '~/components/topics/dialog/CreateSubTopic'
+    import EditTopicDialog from '~/components/topics/dialog/EditTopic'
+    import CreateTopicDialog from '~/components/topics/dialog/CreateTopic'
     import Topic from './Topic';
 
     export default {
         name: 'topic',
         props: ['topic', 'isMainTopic'],
-        components: {CreateSubTopicDialog, Topic},
+        components: {EditTopicDialog, CreateTopicDialog, Topic},
         data() {
-            return {showEditMainTopicDialog: false, showAddSubTopicDialog: false, showSubTopics: false}
+            return {showEditTopicDialog: false, showAddTopicDialog: false, showSubTopics: false}
         },
         computed: {
             getLanguage() {

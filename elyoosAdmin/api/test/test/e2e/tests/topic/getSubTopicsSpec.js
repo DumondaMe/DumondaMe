@@ -45,6 +45,7 @@ describe('Integration Tests to get all subtopics of an topic', function () {
         res.body.topics.length.should.equals(2);
 
         res.body.topics[0].topicId.should.equals('3');
+        res.body.topics[0].parentTopicId.should.equals('1');
         res.body.topics[0].de.should.equals('Währungen');
         res.body.topics[0].similarDe.length.should.equals(1);
         res.body.topics[0].similarDe.should.include('Währungen1');
@@ -55,6 +56,7 @@ describe('Integration Tests to get all subtopics of an topic', function () {
         res.body.topics[0].numberOfSubTopics.should.equals(0);
 
         res.body.topics[1].topicId.should.equals('2');
+        res.body.topics[1].parentTopicId.should.equals('1');
         res.body.topics[1].de.should.equals('Zero Waste');
         res.body.topics[1].similarDe.length.should.equals(2);
         res.body.topics[1].similarDe.should.include('Zero Waste1');

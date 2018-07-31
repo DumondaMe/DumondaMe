@@ -14,6 +14,7 @@
   "button": {
     "showMore": "Mehr Anzeigen",
     "create": "Erstellen",
+    "edit": "Bearbeiten",
     "abort": "Abbrechen",
     "close": "Schliessen"
   },

@@ -14,6 +14,7 @@
   "button": {
     "showMore": "Show More",
     "create": "Create",
+    "edit": "Edit",
     "abort": "Abort",
     "close": "Close"
   },

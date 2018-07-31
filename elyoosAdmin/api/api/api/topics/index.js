@@ -25,6 +25,7 @@ const schemaEditTopic = {
     additionalProperties: false,
     required: ['topicId', 'de', 'en'],
     properties: {
+        parentTopicId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         topicId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         de: {type: 'string', format: 'notEmptyString', maxLength: 80},
         en: {type: 'string', format: 'notEmptyString', maxLength: 80},

@@ -47,6 +47,16 @@ export const mutations = {
         parentTopic.topics.unshift(topic);
         parentTopic.numberOfSubTopics++;
     },
+    EDIT_TOPIC: function (state, topic) {
+        let topicToEdit = getTopic(state.topics, topic.topicId);
+        if (topicToEdit.parentTopicId === topic.parentTopicId) {
+            topicToEdit.de = topic.de;
+            topicToEdit.en = topic.en;
+            topicToEdit.similarDe = topic.similarDe;
+            topicToEdit.similarEn = topic.similarEn;
+        }
+
+    },
     SET_NUMBER_MAIN_TOPICS: function (state, numberOfTopics) {
         state.numberOfMainTopics = numberOfTopics;
     }
@@ -71,5 +81,9 @@ export const actions = {
         let response = await this.$axios.$post('topics/sub', {de, similarDe, en, similarEn, parentTopicId});
         commit('ADD_SUB_TOPIC', {de, similarDe, en, similarEn, parentTopicId, topicId: response.topicId});
         commit('SET_NUMBER_MAIN_TOPICS', state.numberOfMainTopics + 1);
+    },
+    async editTopic({commit}, {de, similarDe, en, similarEn, parentTopicId, topicId}) {
+        await this.$axios.$put('topics', {de, similarDe, en, similarEn, parentTopicId, topicId});
+        commit('EDIT_TOPIC', {de, similarDe, en, similarEn, parentTopicId, topicId});
     }
 };
