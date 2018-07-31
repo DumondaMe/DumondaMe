@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="600px">
             <create-main-topic-dialog-content @close-dialog="$emit('close-dialog')" @finish="createMainTopic"
-                                              :init-main-topic="{de: '', en: ''}"
+                                              :init-topic="{de: '', en: ''}" :has-changed="() => {return true}"
                                               :action-button-text="$t('common:button.create')">
             </create-main-topic-dialog-content>
         </v-dialog>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import CreateMainTopicDialogContent from './MainTopic';
+    import CreateMainTopicDialogContent from './Topic';
 
     export default {
         data() {

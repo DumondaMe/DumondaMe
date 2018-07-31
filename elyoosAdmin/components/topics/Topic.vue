@@ -34,12 +34,18 @@
                 {{$t('pages:topics.addMainTopicDialog')}}
             </v-btn>
         </div>
+        <create-sub-topic-dialog v-if="showAddSubTopicDialog" @close-dialog="showAddSubTopicDialog = false"
+                                 :init-parent-topic-id="topic.topicId">
+        </create-sub-topic-dialog>
     </div>
 </template>
 
 <script>
+    import CreateSubTopicDialog from '~/components/topics/dialog/CreateSubTopic'
+
     export default {
         props: ['topic'],
+        components: {CreateSubTopicDialog},
         data() {
             return {showEditMainTopicDialog: false, showAddSubTopicDialog: false}
         },

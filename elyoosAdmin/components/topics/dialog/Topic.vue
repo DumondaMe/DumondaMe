@@ -5,60 +5,63 @@
         </div>
         <v-card-text>
             <v-form v-model="valid">
+                <div>
+                    <slot name="parentTopic"></slot>
+                </div>
                 <div class="topic-container">
                     <h2>{{$t("common:language.de")}}</h2>
-                    <v-text-field type="text" v-model="mainTopic.de"
-                                  :label="$t('pages:topics.dialog.mainTopic.topic')"
+                    <v-text-field type="text" v-model="topic.de"
+                                  :label="$t('pages:topics.dialog.topic.topic')"
                                   :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                        ruleToManyChars($t('validation:toManyChars'), 80)]"
                                   :counter="80">
                     </v-text-field>
                     <div class="add-similar-topic-container">
                         <v-text-field type="text" v-model="similarDe"
-                                      :label="$t('pages:topics.dialog.mainTopic.similarDescription')"
+                                      :label="$t('pages:topics.dialog.topic.similarDescription')"
                                       :rules="[ruleToManyChars($t('validation:toManyChars'), 80),
                                                notAlreadyUsed('De')]"
                                       :counter="80">
                         </v-text-field>
                         <v-btn color="primary" @click="addSimilarTopic('De')"
-                               :disabled="similarDe.trim() === '' || (mainTopic.similarDe && !!mainTopic.similarDe.find((v) =>
+                               :disabled="similarDe.trim() === '' || (topic.similarDe && !!topic.similarDe.find((v) =>
                                           v.toLowerCase() === similarDe.toLowerCase()))">
                             {{$t('pages:topics.dialog.addTopicButton')}}
                         </v-btn>
                     </div>
                     <div class="similar-topics">
-                        <div class="topic" v-for="topic in mainTopic.similarDe" :key="topic">
-                            <v-chip @input="onTopicRemove(topic, 'De')" close>
-                                {{topic}}
+                        <div class="topic" v-for="similarTopic in topic.similarDe" :key="topic">
+                            <v-chip @input="onTopicRemove(similarTopic, 'De')" close>
+                                {{similarTopic}}
                             </v-chip>
                         </div>
                     </div>
                 </div>
                 <div class="topic-container">
                     <h2>{{$t("common:language.en")}}</h2>
-                    <v-text-field type="text" v-model="mainTopic.en"
-                                  :label="$t('pages:topics.dialog.mainTopic.topic')"
+                    <v-text-field type="text" v-model="topic.en"
+                                  :label="$t('pages:topics.dialog.topic.topic')"
                                   :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                        ruleToManyChars($t('validation:toManyChars'), 80)]"
                                   :counter="80">
                     </v-text-field>
                     <div class="add-similar-topic-container">
                         <v-text-field type="text" v-model="similarEn"
-                                      :label="$t('pages:topics.dialog.mainTopic.similarDescription')"
+                                      :label="$t('pages:topics.dialog.topic.similarDescription')"
                                       :rules="[ruleToManyChars($t('validation:toManyChars'), 80),
                                                notAlreadyUsed('En')]"
                                       :counter="80">
                         </v-text-field>
                         <v-btn color="primary" @click="addSimilarTopic('En')"
-                               :disabled="similarEn.trim() === '' || (mainTopic.similarEn && !!mainTopic.similarEn.find((v) =>
+                               :disabled="similarEn.trim() === '' || (topic.similarEn && !!topic.similarEn.find((v) =>
                                           v.toLowerCase() === similarEn.toLowerCase()))">
                             {{$t('pages:topics.dialog.addTopicButton')}}
                         </v-btn>
                     </div>
                     <div class="similar-topics">
-                        <div class="topic" v-for="topic in mainTopic.similarEn" :key="topic">
-                            <v-chip @input="onTopicRemove(topic, 'En')" close>
-                                {{topic}}
+                        <div class="topic" v-for="similarTopic in topic.similarEn" :key="topic">
+                            <v-chip @input="onTopicRemove(similarTopic, 'En')" close>
+                                {{similarTopic}}
                             </v-chip>
                         </div>
                     </div>
@@ -71,8 +74,8 @@
             <v-btn color="primary" flat :disabled="loading"
                    @click.native="$emit('close-dialog')">{{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('finish', mainTopic)" :loading="loading"
-                   :disabled="!valid || loading || !hasChanged">
+            <v-btn color="primary" @click.native="$emit('finish', topic)" :loading="loading"
+                   :disabled="!valid || loading || !changed">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -84,39 +87,34 @@
     import Vue from 'vue';
 
     export default {
-        props: ['initMainTopic', 'actionButtonText', 'loading', 'isEditMode'],
+        props: ['initTopic', 'actionButtonText', 'loading', 'hasChanged'],
         data: function () {
             return {
-                mainTopic: JSON.parse(JSON.stringify(this.initMainTopic)),
-                mainTopicCompare: JSON.parse(JSON.stringify(this.initMainTopic)), valid: false,
+                topic: JSON.parse(JSON.stringify(this.initTopic)),
+                topicCompare: JSON.parse(JSON.stringify(this.initTopic)), valid: false,
                 similarDe: '', similarEn: ''
             };
         },
         computed: {
-            hasChanged() {
-                if (this.isEditMode) {
-                    return (this.question.question !== this.questionCompare.question ||
-                        this.question.description !== this.questionCompare.description ||
-                        this.question.lang !== this.questionCompare.lang);
-                }
-                return true;
+            changed() {
+                return this.hasChanged(this.topic, this.topicCompare);
             }
         },
         methods: {
             addSimilarTopic(language) {
-                if (!this.mainTopic[`similar${language}`]) {
-                    Vue.set(this.mainTopic, `similar${language}`, []);
+                if (!this.topic[`similar${language}`]) {
+                    Vue.set(this.topic, `similar${language}`, []);
                 }
-                this.mainTopic[`similar${language}`].push(this[`similar${language}`]);
+                this.topic[`similar${language}`].push(this[`similar${language}`]);
                 this[`similar${language}`] = '';
             },
             onTopicRemove(topicToRemove, language) {
-                this.mainTopic[`similar${language}`] = this.mainTopic[`similar${language}`].filter(
+                this.topic[`similar${language}`] = this.topic[`similar${language}`].filter(
                     (topic) => topicToRemove !== topic);
             },
             notAlreadyUsed(language) {
-                if (this.mainTopic[`similar${language}`] &&
-                    this.mainTopic[`similar${language}`].find((v) =>
+                if (this.topic[`similar${language}`] &&
+                    this.topic[`similar${language}`].find((v) =>
                         v.toLowerCase() === this[`similar${language}`].toLowerCase())) {
                     return this.$t("pages:topics.dialog.similarWordUsed");
                 }

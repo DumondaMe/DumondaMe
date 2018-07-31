@@ -21,7 +21,7 @@
     "dialog": {
       "similarWordUsed": "Description is already in use",
       "addTopicButton": "Add",
-      "mainTopic": {
+      "topic": {
         "topic": "Topic",
         "similarDescription": "Similar description"
       },

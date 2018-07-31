@@ -21,7 +21,7 @@
     "dialog": {
       "similarWordUsed": "Bezeichnung wird bereits verwendet",
       "addTopicButton": "Hinzufügen",
-      "mainTopic": {
+      "topic": {
         "topic": "Themenbereich",
         "similarDescription": "Ähnliche Bezeichnung"
       },
