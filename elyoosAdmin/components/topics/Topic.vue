@@ -1,6 +1,6 @@
 <template>
     <div class="elyoos-topic-container">
-        <div class="elyoos-topic ely-card">
+        <div class="elyoos-topic ely-card" :class="{'is-main-topic': isMainTopic}">
             <h2>{{topic[getLanguage]}}</h2>
             <div class="topic-content">
                 <div class="topic-info">TopicId: {{topic.topicId}}
@@ -57,7 +57,7 @@
 
     export default {
         name: 'topic',
-        props: ['topic'],
+        props: ['topic', 'isMainTopic'],
         components: {CreateSubTopicDialog, Topic},
         data() {
             return {showEditMainTopicDialog: false, showAddSubTopicDialog: false, showSubTopics: false}
@@ -119,6 +119,9 @@
         }
         .sub-topics-container {
             margin-left: 42px;
+        }
+        .ely-card.is-main-topic {
+            border: 1px solid green;
         }
     }
 </style>

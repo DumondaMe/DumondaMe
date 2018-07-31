@@ -4,7 +4,7 @@
             <v-icon left>mdi-plus-box-outline</v-icon>
             {{$t('pages:topics.createMainTopicDialog')}}
         </v-btn>
-        <topic :topic="mainTopic" v-for="mainTopic in mainTopics" :key="mainTopic.topicId"
+        <topic :topic="mainTopic" v-for="mainTopic in mainTopics" :key="mainTopic.topicId" :is-main-topic="true"
                :class="{'is-sub-topic-expanded': mainTopic.topics && mainTopic.topics.length > 0}"></topic>
         <create-main-topic-dialog v-if="showCreateMainTopicDialog" @close-dialog="showCreateMainTopicDialog = false">
         </create-main-topic-dialog>
