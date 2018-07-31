@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export const state = () => ({
     numberOfMainTopics: 0,
     topics: []
@@ -13,17 +15,36 @@ export const getters = {
     }
 };
 
+const getTopic = function (topics, topicId) {
+    for (let topic of topics) {
+        if (topic.topicId === topicId) {
+            return topic;
+        } else if (topic.topics && topic.topics.length > 0) {
+            return getTopic(topic.topics, topicId);
+        }
+    }
+    return null;
+};
+
 export const mutations = {
     SET_MAIN_TOPICS: function (state, topics) {
         state.topics = topics;
     },
+    SET_SUB_TOPICS: function (state, {topics, topicId}) {
+        let parentTopic = getTopic(state.topics, topicId);
+        Vue.set(parentTopic, 'topics', topics);
+    },
     ADD_MAIN_TOPIC: function (state, topic) {
-        state.topics.push(topic);
+        state.topics.unshift(topic);
     },
     ADD_SUB_TOPIC: function (state, topic) {
-        let parentTopic = state.topics.find(mainTopic => mainTopic.topicId === topic.parentTopicId);
-        parentTopic.topics = parentTopic.topics || [];
-        parentTopic.topics.push(topic);
+        let parentTopic = getTopic(state.topics, topic.parentTopicId);
+        if (!parentTopic.topics) {
+            Vue.set(parentTopic, 'topics', []);
+        }
+        topic.numberOfSubTopics = 0;
+        topic.topics = [];
+        parentTopic.topics.unshift(topic);
         parentTopic.numberOfSubTopics++;
     },
     SET_NUMBER_MAIN_TOPICS: function (state, numberOfTopics) {
@@ -36,6 +57,10 @@ export const actions = {
         let response = await this.$axios.$get('topics', {params: {language: rootState.i18n.language}});
         commit('SET_MAIN_TOPICS', response.topics);
         commit('SET_NUMBER_MAIN_TOPICS', response.numberOfTopics);
+    },
+    async getSubTopics({rootState, commit}, topicId) {
+        let response = await this.$axios.$get('topics/sub', {params: {language: rootState.i18n.language, topicId}});
+        commit('SET_SUB_TOPICS', {topics: response.topics, topicId});
     },
     async createMainTopic({commit, state}, {de, similarDe, en, similarEn}) {
         let response = await this.$axios.$post('topics/main', {de, similarDe, en, similarEn});

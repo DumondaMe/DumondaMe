@@ -17,7 +17,8 @@
     "numberOfSubTopics": "Unterthemen: {{count}}",
     "createMainTopicDialog": "Hauptthemengebiet",
     "editMainTopicDialog": "Bearbeiten",
-    "addMainTopicDialog": "Unterthema hinzufügen",
+    "addSubTopicDialog": "Unterthema hinzufügen",
+    "showSubTopic": "Unterthemen anzeigen",
     "dialog": {
       "similarWordUsed": "Bezeichnung wird bereits verwendet",
       "addTopicButton": "Hinzufügen",

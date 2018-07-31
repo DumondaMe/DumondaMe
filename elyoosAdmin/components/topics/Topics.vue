@@ -4,7 +4,8 @@
             <v-icon left>mdi-plus-box-outline</v-icon>
             {{$t('pages:topics.createMainTopicDialog')}}
         </v-btn>
-        <topic :topic="mainTopic" v-for="mainTopic in mainTopics" :key="mainTopic.de"></topic>
+        <topic :topic="mainTopic" v-for="mainTopic in mainTopics" :key="mainTopic.topicId"
+               :class="{'is-sub-topic-expanded': mainTopic.topics && mainTopic.topics.length > 0}"></topic>
         <create-main-topic-dialog v-if="showCreateMainTopicDialog" @close-dialog="showCreateMainTopicDialog = false">
         </create-main-topic-dialog>
     </div>
@@ -15,6 +16,7 @@
     import Topic from './Topic';
 
     export default {
+        name: 'main-topic-element',
         data() {
             return {showCreateMainTopicDialog: false}
         },
@@ -36,6 +38,9 @@
         #create-main-topic-button {
             margin-left: 0;
             margin-bottom: 18px;
+        }
+        .is-sub-topic-expanded {
+            margin-bottom: 50px;
         }
     }
 </style>
