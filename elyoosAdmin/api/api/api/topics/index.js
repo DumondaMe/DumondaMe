@@ -58,7 +58,7 @@ module.exports = function (router) {
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditTopic, logger);
         logger.info(`Edit of topic`, req);
-        let response = await editTopic.edit(params, req);
-        res.status(200).json(response);
+        await editTopic.edit(params, req);
+        res.status(200).end();
     }));
 };

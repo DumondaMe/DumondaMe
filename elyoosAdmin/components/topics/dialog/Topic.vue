@@ -127,6 +127,8 @@
                 let uploadData = JSON.parse(JSON.stringify(this.topic));
                 if (this.parentTopicId) {
                     uploadData.parentTopicId = this.parentTopicId;
+                } else {
+                    delete uploadData.parentTopicId;
                 }
                 if (uploadData.similarDe && uploadData.similarDe.length === 0) {
                     delete uploadData.similarDe;
