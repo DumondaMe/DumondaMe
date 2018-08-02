@@ -13,7 +13,7 @@ let createMainTopic = function ({topicId, descriptionDe, descriptionEn, similarD
     similarDe = similarDe || [];
     similarEn = similarEn || [];
     dbConnectionHandling.getCommands().push(db.cypher()
-        .create(`(:MainTopic:Topic {topicId: {topicId}, de: {descriptionDe}, en: {descriptionEn}, similarDe: {similarDe}, similarEn: {similarEn}})`)
+        .create(`(:Topic {topicId: {topicId}, de: {descriptionDe}, en: {descriptionEn}, similarDe: {similarDe}, similarEn: {similarEn}})`)
         .end({topicId, descriptionDe, descriptionEn, similarDe, similarEn}).getCommand());
 };
 
@@ -21,9 +21,9 @@ let createSubTopic = function ({parentTopicId, topicId, descriptionDe, descripti
     similarDe = similarDe || [];
     similarEn = similarEn || [];
     dbConnectionHandling.getCommands().push(db.cypher()
-        .match(`(mainTopic:MainTopic {topicId: {parentTopicId}})`)
+        .match(`(parentTopic:Topic {topicId: {parentTopicId}})`)
         .create(`(topic:Topic {topicId: {topicId}, de: {descriptionDe}, en: {descriptionEn}, similarDe: {similarDe}, similarEn: {similarEn}})`)
-        .merge(`(mainTopic)-[:SUB_TOPIC]->(topic)`)
+        .merge(`(parentTopic)-[:SUB_TOPIC]->(topic)`)
         .end({parentTopicId, topicId, descriptionDe, descriptionEn, similarDe, similarEn}).getCommand());
 };
 

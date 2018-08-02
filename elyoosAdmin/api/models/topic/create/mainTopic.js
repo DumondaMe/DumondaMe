@@ -8,7 +8,7 @@ const create = async function (params) {
     params.similarDe = params.similarDe || null;
     params.similarEn = params.similarEn || null;
 
-    await db.cypher().create(`(:MainTopic:Topic {topicId: {topicId}, de: {de}, en: {en}, similarDe: {similarDe}, 
+    await db.cypher().create(`(:Topic {topicId: {topicId}, de: {de}, en: {en}, similarDe: {similarDe}, 
                                 similarEn: {similarEn}})`)
         .end(params).send();
 

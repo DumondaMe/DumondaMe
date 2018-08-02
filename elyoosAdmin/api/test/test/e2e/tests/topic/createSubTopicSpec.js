@@ -32,7 +32,7 @@ describe('Integration Tests for creating new sub topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:MainTopic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:Topic {topicId: '1'})`)
             .return('topic')
             .end({topicId: res.body.topicId}).send();
 
@@ -60,7 +60,7 @@ describe('Integration Tests for creating new sub topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:MainTopic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:Topic {topicId: '1'})`)
             .return('topic')
             .end({topicId: res.body.topicId}).send();
 
@@ -87,7 +87,7 @@ describe('Integration Tests for creating new sub topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:MainTopic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})<-[:SUB_TOPIC]-(:Topic {topicId: '1'})`)
             .return('topic')
             .end({topicId: res.body.topicId}).send();
 

@@ -31,7 +31,8 @@ describe('Integration Tests for edit topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: '1'})`)
+            .where(`NOT (topic)<-[:SUB_TOPIC]-(:Topic)`)
             .return('topic').end().send();
 
         topics.length.should.equals(1);
@@ -58,7 +59,8 @@ describe('Integration Tests for edit topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: '1'})`)
+            .where(`NOT (topic)<-[:SUB_TOPIC]-(:Topic)`)
             .return('topic').end().send();
 
         topics.length.should.equals(1);
@@ -193,7 +195,8 @@ describe('Integration Tests for edit topics', function () {
             .return('mainTopic, topic').end().send();
         topics.length.should.equals(0);
 
-        topics = await db.cypher().match(`(topic:Topic:MainTopic {topicId: '2'})`)
+        topics = await db.cypher().match(`(topic:Topic {topicId: '2'})`)
+            .where(`NOT (topic)<-[:SUB_TOPIC]-(:Topic)`)
             .return('topic').end().send();
         topics.length.should.equals(1);
 
@@ -223,7 +226,6 @@ describe('Integration Tests for edit topics', function () {
         res.status.should.equal(200);
 
         let topics = await db.cypher().match(`(mainTopic:Topic)-[:SUB_TOPIC]->(topic:Topic {topicId: '2'})`)
-            .where(`NOT topic:MainTopic`)
             .return('mainTopic, topic').end().send();
 
         topics.length.should.equals(1);
@@ -250,7 +252,7 @@ describe('Integration Tests for edit topics', function () {
         });
         res.status.should.equal(400);
 
-        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: '1'})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: '1'})`)
             .return('topic').end().send();
 
         topics.length.should.equals(1);

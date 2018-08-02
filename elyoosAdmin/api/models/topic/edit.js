@@ -27,7 +27,6 @@ const edit = async function (params, req) {
     if (params.parentTopicId) {
         await db.cypher().match(`(topic:Topic {topicId: {topicId}})`)
             .set(`topic`, {de: params.de, en: params.en, similarDe: params.similarDe, similarEn: params.similarEn})
-            .remove(`topic:MainTopic`)
             .with(`topic`)
             .optionalMatch(`(topic)<-[relSubTopic:SUB_TOPIC]-(:Topic)`)
             .delete(`relSubTopic`)
@@ -39,7 +38,6 @@ const edit = async function (params, req) {
         await db.cypher().match(`(topic:Topic {topicId: {topicId}})`)
             .optionalMatch(`(topic)<-[relSubTopic:SUB_TOPIC]-(:Topic)`)
             .set(`topic`, {de: params.de, en: params.en, similarDe: params.similarDe, similarEn: params.similarEn})
-            .addCommand(` SET topic :MainTopic`)
             .delete(`relSubTopic`)
             .end({topicId: params.topicId}).send();
     }

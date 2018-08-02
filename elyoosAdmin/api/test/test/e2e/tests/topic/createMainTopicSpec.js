@@ -26,7 +26,8 @@ describe('Integration Tests for creating new main topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: {topicId}})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})`)
+            .where(`NOT (topic)<-[:SUB_TOPIC]-(:Topic)`)
             .return('topic')
             .end({topicId: res.body.topicId}).send();
 
@@ -49,7 +50,8 @@ describe('Integration Tests for creating new main topics', function () {
         });
         res.status.should.equal(200);
 
-        let topics = await db.cypher().match(`(topic:MainTopic:Topic {topicId: {topicId}})`)
+        let topics = await db.cypher().match(`(topic:Topic {topicId: {topicId}})`)
+            .where(`NOT (topic)<-[:SUB_TOPIC]-(:Topic)`)
             .return('topic')
             .end({topicId: res.body.topicId}).send();
 

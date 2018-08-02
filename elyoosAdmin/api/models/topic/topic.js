@@ -3,7 +3,8 @@
 const db = requireDb();
 
 const numberOfMainTopics = function () {
-    return db.cypher().match(`(mainTopic:MainTopic)`)
+    return db.cypher().match(`(mainTopic:Topic)`)
+        .where(`NOT (mainTopic)<-[:SUB_TOPIC]-(:Topic)`)
         .return(`count(*) AS numberOfMainTopics`);
 };
 
@@ -15,7 +16,8 @@ const getOrder = function (language) {
 };
 
 const getMainTopics = function (skip, maxItems, language) {
-    return db.cypher().match(`(mainTopic:MainTopic)`)
+    return db.cypher().match(`(mainTopic:Topic)`)
+        .where(`NOT (mainTopic)<-[:SUB_TOPIC]-(:Topic)`)
         .optionalMatch(`(mainTopic)-[:SUB_TOPIC]->(topic:Topic)`)
         .return(`mainTopic.topicId AS topicId, count(topic) AS numberOfSubTopics,
                  mainTopic.de AS de, mainTopic.similarDe AS similarDe,
