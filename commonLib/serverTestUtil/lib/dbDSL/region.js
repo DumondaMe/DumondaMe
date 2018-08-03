@@ -3,15 +3,15 @@
 const db = require('../db');
 const dbConnectionHandling = require('./dbConnectionHandling');
 
-const createRegion = function (code, data) {
-    data.upperRegionLayerCode = data.upperRegionLayerCode || null;
+const createRegion = function (regionId, data) {
+    data.parentRegionId = data.parentRegionId || null;
     dbConnectionHandling.getCommands().push(db.cypher()
-        .create(`(region:Region {code: {code}})`)
+        .create(`(region:Region {regionId: {regionId}, de: {de}, en: {en}})`)
         .with(`region`)
-        .match(`(upperRegionLayer:Region {code: {upperRegionLayerCode}})`)
-        .merge(`(region)<-[:SUB_REGION]-(upperRegionLayer)`)
+        .match(`(parentRegion:Region {regionId: {parentRegionId}})`)
+        .merge(`(region)<-[:SUB_REGION]-(parentRegion)`)
         .end({
-            code, upperRegionLayerCode: data.upperRegionLayerCode
+            regionId, parentRegionId: data.parentRegionId, de: data.de, en: data.en
         }).getCommand());
 };
 

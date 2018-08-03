@@ -5,6 +5,7 @@
             <div v-else>
                 <registered-users></registered-users>
                 <topic-suggestion></topic-suggestion>
+                <regions></regions>
                 <news></news>
             </div>
         </div>
@@ -16,6 +17,7 @@
     import Login from '~/components/login/Login';
     import RegisteredUsers from '~/components/home/RegisteredUsers';
     import TopicSuggestion from '~/components/home/TopicSuggestion';
+    import Regions from '~/components/home/Regions';
     import News from '~/components/home/News';
 
     export default {
@@ -28,7 +30,7 @@
                 }
             }
         },
-        components: {Login, SingleView, RegisteredUsers, TopicSuggestion, News},
+        components: {Login, SingleView, RegisteredUsers, TopicSuggestion, Regions, News},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

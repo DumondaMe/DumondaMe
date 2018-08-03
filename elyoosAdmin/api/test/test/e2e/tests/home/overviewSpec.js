@@ -24,6 +24,12 @@ describe('Getting initial home screen', function () {
         dbDsl.createTopicSuggestion({userId: '2', topic: 'spirituality', created: 666});
         dbDsl.createTopicSuggestion({userId: '3', topic: 'environment', created: 777});
 
+        dbDsl.createRegion('international', {de: 'DeRegion1', en: 'EnRegion1'});
+        dbDsl.createRegion('11', {parentRegionId: 'international', de: 'Schweiz', en: 'Switzerland'});
+        dbDsl.createRegion('111', {parentRegionId: '11', de: 'Bern', en: 'Bern'});
+        dbDsl.createRegion('12', {parentRegionId: 'international', de: 'Deutschland', en: 'Germany'});
+        dbDsl.createRegion('121', {parentRegionId: '12', de: 'Berlin', en: 'Berlin'});
+
         await dbDsl.sendToDb();
     });
 
@@ -84,5 +90,9 @@ describe('Getting initial home screen', function () {
         res.body.topicSuggestions[1].created.should.equals(666);
         res.body.topicSuggestions[1].userId.should.equals("2");
         res.body.topicSuggestions[1].url.should.equals("profileImage/2/thumbnail.jpg");
+
+        res.body.regions.length.should.equals(2);
+        res.body.regions[0].region.should.equals("Deutschland");
+        res.body.regions[1].region.should.equals("Schweiz");
     });
 });

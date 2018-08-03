@@ -11,6 +11,10 @@
     "topic": {
       "numberOfTopicSuggestions": "suggested topic",
       "numberOfTopicSuggestions_plural": "suggested topics"
+    },
+    "region": {
+      "numberOfRegions": "Country",
+      "numberOfRegions_plural": "Countries"
     }
   },
   "topics": {

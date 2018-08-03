@@ -20,18 +20,6 @@
 
 <script>
     export default {
-        data() {
-            return {}
-        },
-        methods: {
-            async loadNextUsers() {
-                try {
-                    await this.$store.dispatch(`home/loadNextUsers`);
-                } catch (error) {
-
-                }
-            }
-        },
         computed: {
             numberOfTopicSuggestions() {
                 return this.$store.state.home.numberOfTopicSuggestions;

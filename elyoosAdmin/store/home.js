@@ -3,6 +3,7 @@ export const state = () => ({
     users: [],
     numberOfTopicSuggestions: 0,
     topicSuggestions: [],
+    regions: [],
     nextUsers: 0,
     news: []
 });
@@ -27,6 +28,9 @@ export const mutations = {
     },
     SET_NUMBER_OF_TOPIC_SUGGESTIONS: function (state, numberOfTopicSuggestions) {
         state.numberOfTopicSuggestions = numberOfTopicSuggestions;
+    },
+    SET_REGIONS: function (state, regions) {
+        state.regions = regions;
     }
 };
 
@@ -38,6 +42,7 @@ export const actions = {
         commit('SET_NUMBER_OF_TOPIC_SUGGESTIONS', response.numberOfTopicSuggestions);
         commit('SET_TOPIC_SUGGESTIONS', response.topicSuggestions);
         commit('SET_NEWS', response.news);
+        commit('SET_REGIONS', response.regions);
     },
     async loadNextUsers({state, commit}) {
         let response = await this.$axios.$get('register/overview',
