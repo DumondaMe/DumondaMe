@@ -3,7 +3,7 @@
 const user = require('../register/overview');
 const news = require('../news/overview');
 const topicSuggestion = require('../topic/suggestion');
-const region = require('../region/topRegions');
+const region = require('../region/regions');
 
 const getRegionsResponse = function (regions) {
     let response = [];
@@ -22,7 +22,7 @@ const getOverview = async function () {
     commands.push(user.getNumberOfUser().getCommand());
     commands.push(topicSuggestion.getNumberOfTopicSuggestions().getCommand());
     commands.push(topicSuggestion.getTopicSuggestions(params.skip, params.maxItems).getCommand());
-    commands.push(region.getTopRegions('de').getCommand());
+    commands.push(region.getRegionsCommand('de', 'international').getCommand());
 
     let resp = await news.getOverviewCommand(params).send(commands);
     return {

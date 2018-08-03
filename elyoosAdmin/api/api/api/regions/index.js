@@ -2,7 +2,7 @@
 
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-const overview = requireModel('region/overview');
+const overview = requireModel('region/regions');
 //const editRegion = requireModel('region/edit');
 const createRegion = requireModel('region/create');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
@@ -14,8 +14,9 @@ const schemaGetRegionsOverview = {
     name: 'getRegionsOverview',
     type: 'object',
     additionalProperties: false,
-    required: ['language'],
+    required: ['parentRegionId', 'language'],
     properties: {
+        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         language: schemaLanguage.language
     }
 };
@@ -50,7 +51,7 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetRegionsOverview, logger);
         logger.info(`User requests region overview`, req);
-        const response = await overview.getOverview(params.language);
+        const response = await overview.getRegions(params.language, params.parentRegionId);
         res.status(200).json(response);
     }));
 

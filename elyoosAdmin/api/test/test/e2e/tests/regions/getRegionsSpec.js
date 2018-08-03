@@ -4,7 +4,7 @@ const users = require('elyoos-server-test-util').user;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 
-describe('Integration Tests to get an overview of the regions', function () {
+describe('Integration Tests to get regions', function () {
 
     beforeEach(async function () {
         await dbDsl.init(4, true);
@@ -15,7 +15,7 @@ describe('Integration Tests to get an overview of the regions', function () {
     });
 
 
-    it('Get the regions overview', async function () {
+    it('Get all regions for a parent region', async function () {
 
         dbDsl.createRegion('international', {de: 'DeRegion1', en: 'EnRegion1'});
         dbDsl.createRegion('11', {parentRegionId: 'international', de: 'Schweiz', en: 'Switzerland'});
@@ -25,7 +25,7 @@ describe('Integration Tests to get an overview of the regions', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/regions', {language: 'de'});
+        let res = await requestHandler.get('/api/regions', {language: 'de', parentRegionId: 'international'});
         res.status.should.equal(200);
 
         res.body.regions.length.should.equals(2);
