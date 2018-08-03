@@ -91,7 +91,7 @@
         data: function () {
             return {
                 topic: JSON.parse(JSON.stringify(this.initTopic)),
-                topicCompare: JSON.parse(JSON.stringify(this.initTopic)), valid: false,
+                valid: false,
                 similarDe: '', similarEn: '',
                 mainTopics: this.$store.getters['topics/getMainTopics'],
                 parentTopicId: this.initParentTopicId,

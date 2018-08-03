@@ -34,5 +34,15 @@
         "title": "Hauptthemengebiet erstellen"
       }
     }
+  },
+  "regions": {
+    "numberOfSubRegions": "Unterregion: {{count}}",
+    "createRegionDialog": "Region",
+    "editRegionDialog": "Bearbeiten",
+    "addSubRegionDialog": "Unterregion hinzufügen",
+    "showSubRegions": "Unterregion anzeigen",
+    "dialog": {
+      "region": "Bezeichnung der Region"
+    }
   }
 }

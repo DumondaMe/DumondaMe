@@ -34,5 +34,15 @@
         "title": "Create Main Topic"
       }
     }
+  },
+  "regions": {
+    "numberOfSubRegions": "Sub Regions: {{count}}",
+    "createRegionDialog": "Region",
+    "editRegionDialog": "Edit",
+    "addSubRegionDialog": "Add Sub Region",
+    "showSubRegions": "Show Sub Region",
+    "dialog": {
+      "region": "Region"
+    }
   }
 }
