@@ -5,6 +5,14 @@ const news = require('../news/overview');
 const topicSuggestion = require('../topic/suggestion');
 const region = require('../region/topRegions');
 
+const getRegionsResponse = function (regions) {
+    let response = [];
+    for (let region of regions) {
+        response.push({region: region.region.de});
+    }
+    return response;
+};
+
 const getOverview = async function () {
 
     let commands = [];
@@ -14,14 +22,14 @@ const getOverview = async function () {
     commands.push(user.getNumberOfUser().getCommand());
     commands.push(topicSuggestion.getNumberOfTopicSuggestions().getCommand());
     commands.push(topicSuggestion.getTopicSuggestions(params.skip, params.maxItems).getCommand());
-    commands.push(region.getTopRegions().getCommand());
+    commands.push(region.getTopRegions('de').getCommand());
 
     let resp = await news.getOverviewCommand(params).send(commands);
     return {
         numberOfUsers: resp[1][0].numberOfUser, users: await user.getUserResponse(resp[0]),
         numberOfTopicSuggestions: resp[2][0].numberOfSuggestion,
         topicSuggestions: await topicSuggestion.getTopicSuggestionResponse(resp[3]),
-        regions: resp[4],
+        regions: getRegionsResponse(resp[4]),
         news: resp[5]
     };
 };
