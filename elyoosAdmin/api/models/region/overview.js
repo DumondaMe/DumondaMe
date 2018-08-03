@@ -7,7 +7,7 @@ const getResponse = function (regions) {
     for (let region of regions) {
         response.push({
             regionId: region.region.regionId,
-            regionParentId: 'international',
+            parentRegionId: 'international',
             de: region.region.de,
             en: region.region.en,
             numberOfSubRegions: region.numberOfSubRegions

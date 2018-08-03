@@ -30,13 +30,13 @@ describe('Integration Tests to get regions', function () {
 
         res.body.regions.length.should.equals(2);
         res.body.regions[0].regionId.should.equals('12');
-        res.body.regions[0].regionParentId.should.equals('international');
+        res.body.regions[0].parentRegionId.should.equals('international');
         res.body.regions[0].de.should.equals('Deutschland');
         res.body.regions[0].en.should.equals('Germany');
         res.body.regions[0].numberOfSubRegions.should.equals(0);
 
         res.body.regions[1].regionId.should.equals('11');
-        res.body.regions[1].regionParentId.should.equals('international');
+        res.body.regions[1].parentRegionId.should.equals('international');
         res.body.regions[1].de.should.equals('Schweiz');
         res.body.regions[1].en.should.equals('Switzerland');
         res.body.regions[1].numberOfSubRegions.should.equals(2);

@@ -14,7 +14,7 @@ const getResponse = function (regions) {
     for (let region of regions) {
         response.push({
             regionId: region.region.regionId,
-            regionParentId: 'international',
+            parentRegionId: region.parentRegion.regionId,
             de: region.region.de,
             en: region.region.en,
             numberOfSubRegions: region.numberOfSubRegions
@@ -24,9 +24,9 @@ const getResponse = function (regions) {
 };
 
 const getRegionsCommand = function (language, parentRegionId) {
-    return db.cypher().match(`(region:Region)<-[:SUB_REGION]-(:Region {regionId: {parentRegionId}})`)
+    return db.cypher().match(`(region:Region)<-[:SUB_REGION]-(parentRegion:Region {regionId: {parentRegionId}})`)
         .optionalMatch(`(region)-[:SUB_REGION]->(subRegion:Region)`)
-        .return("region, count(subRegion) AS numberOfSubRegions")
+        .return("region, parentRegion, count(subRegion) AS numberOfSubRegions")
         .orderBy(getOrder(language))
         .end({parentRegionId});
 };
