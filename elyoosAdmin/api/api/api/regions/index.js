@@ -3,7 +3,7 @@
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const overview = requireModel('region/regions');
-//const editRegion = requireModel('region/edit');
+const editRegion = requireModel('region/edit');
 const createRegion = requireModel('region/create');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const validation = require('elyoos-server-lib').jsonValidation;
@@ -62,10 +62,10 @@ module.exports = function (router) {
         res.status(200).json(response);
     }));
 
-    /*router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditRegions, logger);
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaEditRegion, logger);
         logger.info(`Edit of region`, req);
-        await editRegions.edit(params, req);
+        await editRegion.edit(params, req);
         res.status(200).end();
-    }));*/
+    }));
 };
