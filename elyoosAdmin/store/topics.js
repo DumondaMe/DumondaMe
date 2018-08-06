@@ -20,7 +20,10 @@ const getTopic = function (topics, topicId) {
         if (topic.topicId === topicId) {
             return topic;
         } else if (topic.topics && topic.topics.length > 0) {
-            return getTopic(topic.topics, topicId);
+            let topicFound = getTopic(topic.topics, topicId);
+            if (topicFound) {
+                return topicFound;
+            }
         }
     }
     return null;

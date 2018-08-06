@@ -19,7 +19,10 @@ const getRegion = function (regions, regionId) {
         if (region.regionId === regionId) {
             return region;
         } else if (region.regions && region.regions.length > 0) {
-            return getRegion(region.regions, regionId);
+            let regionFound = getRegion(region.regions, regionId);
+            if (regionFound) {
+                return regionFound;
+            }
         }
     }
     return null;
