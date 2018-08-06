@@ -4,13 +4,13 @@
              :class="{'region-selected': region.isSelected, 'sub-region-selected': region.subRegionIsSelected}">
             <v-icon class="region-icon" v-show="region.isSelected">done</v-icon>
             <div class="region" :class="{'main-bold': isTopRegion}">
-                {{$t("regions:" + region.code)}}
+                {{region.description}}
             </div>
         </div>
         <div class="sub-regions" v-if="(region.isSelected || (region.subRegionIsSelected)) &&
                                         region.subRegions.length > 0">
             <select-region-element :region="subRegion" v-for="subRegion in region.subRegions"
-                                   :key="subRegion.code" :is-top-region="false" :select-multiple="selectMultiple">
+                                   :key="subRegion.regionId" :is-top-region="false" :select-multiple="selectMultiple">
             </select-region-element>
         </div>
     </div>
@@ -26,9 +26,9 @@
         methods: {
             select() {
                 if (this.selectMultiple) {
-                    this.$store.commit('selectRegions/SELECT_CHANGED', this.region.code);
+                    this.$store.commit('selectRegions/SELECT_CHANGED', this.region.regionId);
                 } else {
-                    this.$store.commit('selectRegion/SELECT_CHANGED', this.region.code);
+                    this.$store.commit('selectRegion/SELECT_CHANGED', this.region.regionId);
                 }
             }
         }

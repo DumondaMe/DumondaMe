@@ -98,8 +98,8 @@ const getEditEvent = function (event) {
 };
 
 export const actions = {
-    async getCommitment({commit, state}, commitmentId) {
-        let resp = await this.$axios.$get(`commitment`, {params: {commitmentId}});
+    async getCommitment({commit, state, rootState}, commitmentId) {
+        let resp = await this.$axios.$get(`commitment`, {params: {commitmentId, language: rootState.i18n.language}});
         commit('SET_COMMITMENT', resp);
         commit('SET_IS_UP_COMING_EVENTS', true);
     },

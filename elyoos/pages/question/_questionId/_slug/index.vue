@@ -20,9 +20,10 @@
     import GeneralInformation from '~/components/question/GeneralInformation';
 
     export default {
-        async asyncData({params, app, error}) {
+        async asyncData({params, app, error, store}) {
             try {
-                let resp = await app.$axios.$get(`question/detail/${params.questionId}`);
+                let resp = await app.$axios.$get(`question/detail/${params.questionId}`,
+                    {params: {language: store.state.i18n.language}});
                 return {question: resp};
             } catch (e) {
                 error({statusCode: e.statusCode})

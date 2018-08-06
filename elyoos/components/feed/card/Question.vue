@@ -25,10 +25,9 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             getQuestionLink() {
-                return `/question/${this.question.questionId}/${this.question.questionSlug}?answerId=${this.question.answerId}`;
+                return `/question/${this.question.questionId}/${this.question.questionSlug}`;
             }
-
-        },
+        }
     }
 </script>
 

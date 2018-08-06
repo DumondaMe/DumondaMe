@@ -35,7 +35,6 @@ export default ({app, store, req}) => {
     resources[lang] = {
         common: require(`~/locales/${lang}/common.json`),
         pages: require(`~/locales/${lang}/pages.json`),
-        regions: require(`~/locales/${lang}/regions.json`),
         validation: require(`~/locales/${lang}/validation.json`)
     };
 

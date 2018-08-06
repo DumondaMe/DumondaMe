@@ -23,7 +23,7 @@ const disableSubRegions = function (subRegions) {
 
 const changeSelectOfRegion = function (regions, selectedRegion) {
     for (let region of regions) {
-        if (region.code === selectedRegion) {
+        if (region.regionId === selectedRegion) {
             region.isSelected = !region.isSelected;
             if (!region.isSelected) {
                 region.subRegionIsSelected = false;
@@ -43,10 +43,10 @@ const changeSelectOfRegion = function (regions, selectedRegion) {
 const changeSelection = function (state, selectedRegion) {
     if (selectedRegion === 'international') {
         disableSubRegions(state.regions);
-        let international = state.regions.find((topRegion) => topRegion.code === 'international');
+        let international = state.regions.find((topRegion) => topRegion.regionId === 'international');
         international.isSelected = true;
     } else {
-        state.regions.find((topRegion) => topRegion.code === 'international').isSelected = false;
+        state.regions.find((topRegion) => topRegion.regionId === 'international').isSelected = false;
         changeSelectOfRegion(state.regions, selectedRegion);
     }
 };
@@ -74,7 +74,7 @@ const getSelectedRegions = function (regions) {
     let selectedRegion = [];
     for (let region of regions) {
         if (region.isSelected) {
-            selectedRegion.push(region.code);
+            selectedRegion.push(region.regionId);
         }
         selectedRegion = selectedRegion.concat(getSelectedRegions(region.subRegions));
     }
@@ -99,9 +99,9 @@ const setAllProperties = function (regions) {
 };
 
 export const actions = {
-    async getRegions({commit}) {
+    async getRegions({commit, rootState}) {
         commit('RESET');
-        let region = await this.$axios.$get(`/region`);
+        let region = await this.$axios.$get(`/region`, {params: {language: rootState.i18n.language}});
         setAllProperties(region.regions);
         commit('SET_REGIONS', region.regions);
     }

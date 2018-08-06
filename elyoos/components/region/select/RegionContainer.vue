@@ -1,7 +1,7 @@
 <template>
     <div id="select-region-container">
-        <select-region-element :region="region" v-for="region in regions" :key="region.code"
-                               :is-top-region="true" :top-region="region.code"
+        <select-region-element :region="region" v-for="region in regions" :key="region.regionId"
+                               :is-top-region="true" :top-region="region.regionId"
                                :select-multiple="selectMultiple">
         </select-region-element>
     </div>

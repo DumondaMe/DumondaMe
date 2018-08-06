@@ -112,12 +112,12 @@ export const getters = {
 };
 
 export const actions = {
-    async getProfile({commit}) {
-        let user = await this.$axios.$get(`user/profile`);
+    async getProfile({commit, rootState}) {
+        let user = await this.$axios.$get(`user/profile`, {params: {language: rootState.i18n.language}});
         commit('SET_USER_PROFILE', user);
     },
-    async getProfileOtherUser({commit}, userId) {
-        let user = await this.$axios.$get(`user/profile/`, {params: {userId}});
+    async getProfileOtherUser({commit, rootState}, userId) {
+        let user = await this.$axios.$get(`user/profile/`, {params: {userId, language: rootState.i18n.language}});
         commit('SET_USER_PROFILE', user);
     },
     async addUserToTrustCircle({commit}, userId) {
