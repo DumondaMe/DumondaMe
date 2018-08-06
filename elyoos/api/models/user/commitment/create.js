@@ -24,7 +24,7 @@ const createCommitment = async function (userId, params, titlePath) {
         .merge(`(user)-[:IS_CREATOR]->(commitment)`)
         .with(`commitment`)
         .match(`(region:Region)`)
-        .where(`region.code IN {regions}`)
+        .where(`region.regionId IN {regions}`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(commitment)`)
         .with(`commitment`)
         .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)

@@ -10,7 +10,7 @@ const editEvent = async function (userId, params) {
     params.userId = userId;
     params.linkDescription = params.linkDescription || null;
     params.description = params.description || null;
-    await regionSecurity.checkRegionsExists([params.region]);
+    await regionSecurity.checkRegionsExists([params.regionId]);
     await eventSecurity.isAdmin(userId, params.eventId);
     await db.cypher()
         .match(`(event:Event {eventId: {eventId}})<-[:EVENT]-(:Commitment)<-[:IS_ADMIN]-(:User {userId: {userId}})`)
@@ -21,7 +21,7 @@ const editEvent = async function (userId, params) {
         .match(`(event)-[relRegion:BELONGS_TO_REGION]->(:Region)`)
         .delete(`relRegion`)
         .with(`event`)
-        .match(`(region:Region {code: {region}})`)
+        .match(`(region:Region {regionId: {regionId}})`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(event)`)
         .end(params).send();
 

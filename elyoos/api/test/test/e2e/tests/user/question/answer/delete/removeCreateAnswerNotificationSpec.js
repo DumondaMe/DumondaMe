@@ -44,7 +44,7 @@ describe('Remove notification when user deletes an answers for a question', func
     });
 
     it('Remove notification when commitment answer has been deleted', async function () {
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('10', {
             adminId: '3', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'

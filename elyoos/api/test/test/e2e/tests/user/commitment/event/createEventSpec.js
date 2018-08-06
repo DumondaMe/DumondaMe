@@ -15,11 +15,11 @@ describe('Create a new event for a commitment', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2-1', {upperRegionLayerCode: 'region-2'});
-        dbDsl.createRegion('region-2-2', {upperRegionLayerCode: 'region-2'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-2-1', {parentRegionId: 'region-2', de: 'Region21De', en: 'Region21En'});
+        dbDsl.createRegion('region-2-2', {parentRegionId: 'region-2', de: 'Region22De', en: 'Region22En'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
@@ -42,7 +42,7 @@ describe('Create a new event for a commitment', function () {
             commitmentId: '1',
             title: 'Event Example',
             location: 'Some where',
-            region: 'region-2',
+            regionId: 'region-2',
             startDate: startTime + 100,
             endDate: startTime + 200
         });
@@ -51,7 +51,7 @@ describe('Create a new event for a commitment', function () {
         let resp = await db.cypher()
             .match(`(commitment:Commitment {commitmentId: '1'})-[:EVENT]->(event:Event)`)
             .optionalMatch(`(event)-[:BELONGS_TO_REGION]->(r:Region)`)
-            .return(`event, collect(DISTINCT r.code) AS regions`).end().send();
+            .return(`event, collect(DISTINCT r.regionId) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].event.title.should.equals('Event Example');
         resp[0].event.location.should.equals('Some where');
@@ -72,7 +72,7 @@ describe('Create a new event for a commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2',
+            regionId: 'region-2',
             linkDescription: 'https://www.example.org/description/link',
             startDate: startTime + 100,
             endDate: startTime + 200
@@ -82,7 +82,7 @@ describe('Create a new event for a commitment', function () {
         let resp = await db.cypher()
             .match(`(commitment:Commitment {commitmentId: '1'})-[:EVENT]->(event:Event)`)
             .optionalMatch(`(event)-[:BELONGS_TO_REGION]->(r:Region)`)
-            .return(`event, collect(DISTINCT r.code) AS regions`).end().send();
+            .return(`event, collect(DISTINCT r.regionId) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].event.title.should.equals('Event Example');
         resp[0].event.description.should.equals('Event Example Description');
@@ -103,7 +103,7 @@ describe('Create a new event for a commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2-2-2',
+            regionId: 'region-2-2-2',
             linkDescription: 'https://www.example.org/description/link',
             startDate: startTime + 100,
             endDate: startTime + 200
@@ -119,7 +119,7 @@ describe('Create a new event for a commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2',
+            regionId: 'region-2',
             linkDescription: 'https://www.example.org/description/link',
             startDate: startTime + 100,
             endDate: startTime + 200
@@ -134,7 +134,7 @@ describe('Create a new event for a commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2',
+            regionId: 'region-2',
             linkDescription: 'https://www.example.org/description/link',
             startDate: startTime + 100,
             endDate: startTime + 200

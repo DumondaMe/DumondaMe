@@ -12,13 +12,13 @@ const schemaCreateEvent = {
     name: 'createEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'title', 'location', 'region', 'startDate', 'endDate'],
+    required: ['commitmentId', 'title', 'location', 'regionId', 'startDate', 'endDate'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        region: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        regionId: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         startDate: {type: 'integer'},
         endDate: {type: 'integer'},
         linkDescription: {type: 'string', format: 'urlWithProtocol', maxLength: 2000}
@@ -29,13 +29,13 @@ const schemaEditEvent = {
     name: 'editEvent',
     type: 'object',
     additionalProperties: false,
-    required: ['eventId', 'title', 'location', 'region', 'startDate', 'endDate'],
+    required: ['eventId', 'title', 'location', 'regionId', 'startDate', 'endDate'],
     properties: {
         eventId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        region: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        regionId: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         startDate: {type: 'integer'},
         endDate: {type: 'integer'},
         linkDescription: {type: 'string', format: 'urlWithProtocol', maxLength: 2000}

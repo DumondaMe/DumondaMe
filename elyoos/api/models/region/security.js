@@ -6,7 +6,7 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const checkRegionsExists = async function (regions) {
 
     let resp = await db.cypher().match(`(r:Region)`)
-        .where(`r.code IN {regions}`)
+        .where(`r.regionId IN {regions}`)
         .return(`COUNT(*) AS numberOfRegions`)
         .end({regions}).send();
 

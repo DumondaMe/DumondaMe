@@ -10,7 +10,7 @@ describe('Show question on commitment activation', function () {
     beforeEach(async function () {
         await dbDsl.init(4);
 
-        dbDsl.createRegion('region', {});
+        dbDsl.createRegion('region', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,

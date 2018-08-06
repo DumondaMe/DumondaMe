@@ -14,7 +14,7 @@ describe('Handling watch commitment requests from a user', function () {
         await dbDsl.init(4);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region', {});
+        dbDsl.createRegion('region', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('1', {
             adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,

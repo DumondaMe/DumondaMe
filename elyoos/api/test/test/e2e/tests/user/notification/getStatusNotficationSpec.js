@@ -10,7 +10,7 @@ describe('Get number of notifications for a user', function () {
     beforeEach(async function () {
         await dbDsl.init(5);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
     });
 
     afterEach(function () {

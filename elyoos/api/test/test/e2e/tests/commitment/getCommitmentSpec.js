@@ -13,10 +13,10 @@ describe('Get details of a commitment', function () {
         await dbDsl.init(8);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
-        dbDsl.createRegion('region-2', {});
-        dbDsl.createRegion('region-1-1', {upperRegionLayerCode: 'region-1'});
-        dbDsl.createRegion('region-1-2', {upperRegionLayerCode: 'region-1'});
+        dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-1-1', {parentRegionId: 'region-1', de: 'Region11De', en: 'Region11En'});
+        dbDsl.createRegion('region-1-2', {parentRegionId: 'region-1', de: 'Region12De', en: 'Region12En'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, modified: 701,
@@ -47,10 +47,10 @@ describe('Get details of a commitment', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-2'});
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '23',
-            startDate: startTime - 300, endDate: startTime - 200, region: 'region-2'});
+            startDate: startTime - 300, endDate: startTime - 200, regionId: 'region-2'});
     });
 
     afterEach(function () {
@@ -67,7 +67,7 @@ describe('Get details of a commitment', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'de'});
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
@@ -78,8 +78,8 @@ describe('Get details of a commitment', function () {
         res.body.numberOfWatches.should.equals(2);
         res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
-        res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-2');
+        res.body.regions.should.include('Region11De');
+        res.body.regions.should.include('Region12De');
         res.body.isAdmin.should.equals(true);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -104,7 +104,7 @@ describe('Get details of a commitment', function () {
         res.body.events[0].startDate.should.equals(startTime - 100);
         res.body.events[0].endDate.should.equals(startTime + 200);
         res.body.events[0].linkDescription.should.equals('https://example.org/22');
-        res.body.events[0].region.should.equals('region-2');
+        res.body.events[0].region.should.equals('Region2De');
         res.body.events[0].location.should.equals('event22Location');
     });
 
@@ -112,7 +112,7 @@ describe('Get details of a commitment', function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '2'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'en'});
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
@@ -123,8 +123,8 @@ describe('Get details of a commitment', function () {
         res.body.numberOfWatches.should.equals(1);
         res.body.userWatchesCommitment.should.equals(true);
         res.body.regions.length.should.equals(2);
-        res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-2');
+        res.body.regions.should.include('Region11En');
+        res.body.regions.should.include('Region12En');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -143,7 +143,7 @@ describe('Get details of a commitment', function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '6'});
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/commitment', {commitmentId: '1'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'de'});
         res.status.should.equal(200);
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
@@ -154,8 +154,8 @@ describe('Get details of a commitment', function () {
         res.body.numberOfWatches.should.equals(2);
         res.body.userWatchesCommitment.should.equals(false);
         res.body.regions.length.should.equals(2);
-        res.body.regions.should.include('region-1-1');
-        res.body.regions.should.include('region-1-2');
+        res.body.regions.should.include('Region11De');
+        res.body.regions.should.include('Region12De');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.include('Spiritual');
@@ -176,7 +176,7 @@ describe('Get details of a commitment', function () {
     });
 
     it('Get non existing commitment', async function () {
-        let res = await requestHandler.get('/api/commitment', {commitmentId: '2'});
+        let res = await requestHandler.get('/api/commitment', {commitmentId: '2', language: 'de'});
         res.status.should.equal(404);
     });
 

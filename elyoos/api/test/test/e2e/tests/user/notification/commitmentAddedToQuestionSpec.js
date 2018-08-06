@@ -9,7 +9,7 @@ describe('Notification when commitment has been added as answer to a question', 
     beforeEach(async function () {
         await dbDsl.init(5);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],

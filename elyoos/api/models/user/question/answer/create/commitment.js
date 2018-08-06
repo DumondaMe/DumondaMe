@@ -19,7 +19,7 @@ const createCommitmentCommand = function (params) {
         .with(`u, c`)
         .optionalMatch(`(c)-[:BELONGS_TO_REGION]->(region:Region)`)
         .return(`u.name AS userName, c.title AS commitmentTitle, EXISTS((c)<-[:IS_ADMIN]-(u)) AS isAdminOfCommitment,
-                 collect(region.code) AS regions`)
+                 collect(region.${params.language}) AS regions`)
         .end(params).getCommand();
 };
 

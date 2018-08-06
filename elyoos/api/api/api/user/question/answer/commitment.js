@@ -1,6 +1,7 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
+const schemaLanguage = require('../../../../schema/language');
 const answerCreate = requireModel('user/question/answer/create/commitment');
 const answerEdit = requireModel('user/question/answer/edit/commitment');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
@@ -11,11 +12,12 @@ const schemaCreateCommitmentAnswer = {
     name: 'createCommitmentAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'questionId', 'description'],
+    required: ['commitmentId', 'questionId', 'description', 'language'],
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700}
+        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        language: schemaLanguage.language
     }
 };
 

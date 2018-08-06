@@ -14,7 +14,7 @@ const changeRegions = async function (userId, commitmentId, regions) {
         .delete(`rel`)
         .with(`c`)
         .match(`(r:Region)`)
-        .where(`r.code IN {regions}`)
+        .where(`r.regionId IN {regions}`)
         .merge(`(c)-[:BELONGS_TO_REGION]->(r)`)
         .end({userId, commitmentId, regions}).send();
     logger.info(`Regions changed for commitment ${commitmentId}`);

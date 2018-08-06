@@ -13,16 +13,16 @@ describe('Get regions', function () {
         await dbDsl.init(3);
         sandbox = sinon.sandbox.create();
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('ch', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('ch-fr', {upperRegionLayerCode: 'ch'});
-        dbDsl.createRegion('ch-zg', {upperRegionLayerCode: 'ch'});
-        dbDsl.createRegion('ch-zh', {upperRegionLayerCode: 'ch'});
-        dbDsl.createRegion('ch-zh-1', {upperRegionLayerCode: 'ch-zh'});
-        dbDsl.createRegion('ch-zh-2', {upperRegionLayerCode: 'ch-zh'});
-        dbDsl.createRegion('de', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('de-by', {upperRegionLayerCode: 'de'});
-        dbDsl.createRegion('de-bw', {upperRegionLayerCode: 'de'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('ch', {parentRegionId: 'international', de:'chDe', en:'chEn'});
+        dbDsl.createRegion('ch-fr', {parentRegionId: 'ch', de:'chFrDe', en:'chFrEn'});
+        dbDsl.createRegion('ch-zg', {parentRegionId: 'ch', de:'chZgDe', en:'chZgEn'});
+        dbDsl.createRegion('ch-zh', {parentRegionId: 'ch', de:'chZhDe', en:'chZhEn'});
+        dbDsl.createRegion('ch-zh-1', {parentRegionId: 'ch-zh', de:'chZh1De', en:'chZh1En'});
+        dbDsl.createRegion('ch-zh-2', {parentRegionId: 'ch-zh', de:'chZh2De', en:'chZh2En'});
+        dbDsl.createRegion('de', {parentRegionId: 'international', de:'deDe', en:'deEn'});
+        dbDsl.createRegion('de-by', {parentRegionId: 'de', de:'deByDe', en:'deByEn'});
+        dbDsl.createRegion('de-bw', {parentRegionId: 'de', de:'deBwDe', en:'deBwEn'});
         await dbDsl.sendToDb();
     });
 
@@ -31,30 +31,40 @@ describe('Get regions', function () {
         return requestHandler.logout();
     });
 
-    it('Get regions', async function () {
+    it('Get regions in english', async function () {
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/region');
+        let res = await requestHandler.get('/api/region', {language: 'de'});
         res.status.should.equal(200);
         res.body.regions.length.should.equals(3);
-        res.body.regions[0].code.should.equals('international');
+        res.body.regions[0].regionId.should.equals('international');
+        res.body.regions[0].description.should.equals('InternationalDe');
         res.body.regions[0].subRegions.length.should.equals(0);
 
-        res.body.regions[1].code.should.equals('ch');
+        res.body.regions[1].regionId.should.equals('ch');
+        res.body.regions[1].description.should.equals('chDe');
         res.body.regions[1].subRegions.length.should.equals(3);
-        res.body.regions[1].subRegions[0].code.should.equals('ch-fr');
+        res.body.regions[1].subRegions[0].regionId.should.equals('ch-fr');
+        res.body.regions[1].subRegions[0].description.should.equals('chFrDe');
         res.body.regions[1].subRegions[0].subRegions.length.should.equals(0);
-        res.body.regions[1].subRegions[1].code.should.equals('ch-zg');
+        res.body.regions[1].subRegions[1].regionId.should.equals('ch-zg');
+        res.body.regions[1].subRegions[1].description.should.equals('chZgDe');
         res.body.regions[1].subRegions[1].subRegions.length.should.equals(0);
-        res.body.regions[1].subRegions[2].code.should.equals('ch-zh');
+        res.body.regions[1].subRegions[2].regionId.should.equals('ch-zh');
+        res.body.regions[1].subRegions[2].description.should.equals('chZhDe');
         res.body.regions[1].subRegions[2].subRegions.length.should.equals(2);
-        res.body.regions[1].subRegions[2].subRegions[0].code.should.equals('ch-zh-1');
-        res.body.regions[1].subRegions[2].subRegions[1].code.should.equals('ch-zh-2');
+        res.body.regions[1].subRegions[2].subRegions[0].regionId.should.equals('ch-zh-1');
+        res.body.regions[1].subRegions[2].subRegions[0].description.should.equals('chZh1De');
+        res.body.regions[1].subRegions[2].subRegions[1].regionId.should.equals('ch-zh-2');
+        res.body.regions[1].subRegions[2].subRegions[1].description.should.equals('chZh2De');
 
-        res.body.regions[2].code.should.equals('de');
+        res.body.regions[2].regionId.should.equals('de');
+        res.body.regions[2].description.should.equals('deDe');
         res.body.regions[2].subRegions.length.should.equals(2);
-        res.body.regions[2].subRegions[0].code.should.equals('de-bw');
+        res.body.regions[2].subRegions[0].regionId.should.equals('de-bw');
+        res.body.regions[2].subRegions[0].description.should.equals('deBwDe');
         res.body.regions[2].subRegions[0].subRegions.length.should.equals(0);
-        res.body.regions[2].subRegions[1].code.should.equals('de-by');
+        res.body.regions[2].subRegions[1].regionId.should.equals('de-by');
+        res.body.regions[2].subRegions[1].description.should.equals('deByDe');
         res.body.regions[2].subRegions[1].subRegions.length.should.equals(0);
     });
 });

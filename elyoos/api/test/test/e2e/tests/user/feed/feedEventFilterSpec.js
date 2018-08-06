@@ -13,7 +13,7 @@ describe('Get feed of the user with event filter', function () {
         await dbDsl.init(10);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('100', {
             adminId: '2',
             topics: ['Spiritual', 'Education'],
@@ -26,9 +26,9 @@ describe('Get feed of the user with event filter', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'});
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '23', created: 778,
-            startDate: startTime - 200, endDate: startTime - 100, region: 'region-1'});
+            startDate: startTime - 200, endDate: startTime - 100, regionId: 'region-1'});
 
         dbDsl.createContactConnection('1', '4');
 
@@ -55,7 +55,7 @@ describe('Get feed of the user with event filter', function () {
     it('Newly created events of an commitment the user watches', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'event'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'event', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -70,7 +70,7 @@ describe('Get feed of the user with event filter', function () {
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].title.should.equals('event22Title');
         res.body.feed[0].description.should.equals('event22Description');
-        res.body.feed[0].region.should.equals('region-1');
+        res.body.feed[0].region.should.equals('regionDe');
         res.body.feed[0].location.should.equals('event22Location');
         res.body.feed[0].startDate.should.equals(startTime - 100);
         res.body.feed[0].endDate.should.equals(startTime + 200);

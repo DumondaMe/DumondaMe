@@ -14,7 +14,7 @@ describe('Handling watch question requests from a user', function () {
         await dbDsl.init(4);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topics: ['Spiritual'],

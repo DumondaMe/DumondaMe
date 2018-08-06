@@ -10,10 +10,10 @@ describe('Change regions of a commitment', function () {
     beforeEach(async function () {
         await dbDsl.init(3);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-3', {upperRegionLayerCode: 'international'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-3', {parentRegionId: 'international', de: 'Region3De', en: 'Region3En'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
@@ -41,7 +41,7 @@ describe('Change regions of a commitment', function () {
 
         let resp = await db.cypher().match("(commitment:Commitment {commitmentId: '1'})")
             .optionalMatch("(commitment)-[:BELONGS_TO_REGION]->(region:Region)")
-            .return(`DISTINCT region.code AS region`).orderBy(`region`).end().send();
+            .return(`DISTINCT region.regionId AS region`).orderBy(`region`).end().send();
         resp.length.should.equals(2);
         resp[0].region.should.equals('region-2');
         resp[1].region.should.equals('region-3');
@@ -56,7 +56,7 @@ describe('Change regions of a commitment', function () {
 
         let resp = await db.cypher().match("(commitment:Commitment {commitmentId: '1'})")
             .optionalMatch("(commitment)-[:BELONGS_TO_REGION]->(region:Region)")
-            .return(`DISTINCT region.code AS region`).orderBy(`region`).end().send();
+            .return(`DISTINCT region.regionId AS region`).orderBy(`region`).end().send();
         resp.length.should.equals(1);
         resp[0].region.should.equals('international');
     });

@@ -14,7 +14,7 @@ describe('Get commitments created by the requested user', function () {
             topics: ['Spiritual'], language: 'de', created: 666
         });
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('10', {
             adminId: '1', topics: ['Spiritual'], language: 'de', created: 888, modified: 1110,

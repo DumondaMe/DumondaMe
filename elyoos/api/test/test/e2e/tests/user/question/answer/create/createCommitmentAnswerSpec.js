@@ -15,9 +15,9 @@ describe('Creating a commitment answer', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
+        dbDsl.createRegion('international', {de: 'internationalDe', en: 'internationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],
@@ -42,7 +42,7 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
@@ -52,7 +52,7 @@ describe('Creating a commitment answer', function () {
         res.body.creator.isAdminOfCommitment.should.equals(false);
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.regions.length.should.equals(1);
-        res.body.regions.should.include('region-1');
+        res.body.regions.should.include('Region1De');
 
         let resp = await db.cypher()
             .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)
@@ -82,7 +82,7 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
@@ -92,7 +92,7 @@ describe('Creating a commitment answer', function () {
         res.body.creator.isAdminOfCommitment.should.equals(true);
         res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.regions.length.should.equals(1);
-        res.body.regions.should.include('region-1');
+        res.body.regions.should.include('Region1De');
 
         let resp = await db.cypher()
             .match(`(q:Question {questionId: '1'})-[:ANSWER]->(answer:CommitmentAnswer:Answer)
@@ -126,7 +126,7 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(400);
     });
@@ -140,7 +140,7 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment<script>alert()</script>'
+            commitmentId: '10', description: 'This is a commitment<script>alert()</script>', language: 'de'
         });
         res.status.should.equal(200);
 
@@ -161,7 +161,7 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(400);
     });

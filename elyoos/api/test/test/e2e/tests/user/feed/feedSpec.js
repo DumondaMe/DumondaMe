@@ -14,8 +14,8 @@ describe('Get feed of the user', function () {
         await dbDsl.init(11);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
-        dbDsl.createRegion('region-2', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
+        dbDsl.createRegion('region-2', {de: 'region2De', en: 'region2En'});
         dbDsl.createCommitment('100', {
             adminId: '2',
             topics: ['Spiritual', 'Education'],
@@ -62,7 +62,7 @@ describe('Get feed of the user', function () {
     it('Get empty feed (no filter)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -73,7 +73,7 @@ describe('Get feed of the user', function () {
         dbDsl.watchQuestion({questionId: '2', userId: '1'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(3);
@@ -91,8 +91,8 @@ describe('Get feed of the user', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
         res.body.feed[0].regions.length.should.equals(2);
-        res.body.feed[0].regions.should.includes('region-1');
-        res.body.feed[0].regions.should.includes('region-2');
+        res.body.feed[0].regions.should.includes('regionDe');
+        res.body.feed[0].regions.should.includes('region2De');
         res.body.feed[0].created.should.equals(605);
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
@@ -148,13 +148,17 @@ describe('Get feed of the user', function () {
 
     it('Upcoming event of an commitment the user watches', async function () {
         dbDsl.watchCommitment({commitmentId: '100', userId: '1'});
-        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
-        dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '23', created: 778,
-            startDate: startTime - 200, endDate: startTime - 100, region: 'region-1'});
+        dbDsl.createCommitmentEvent({
+            commitmentId: '100', eventId: '22', created: 777,
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'
+        });
+        dbDsl.createCommitmentEvent({
+            commitmentId: '100', eventId: '23', created: 778,
+            startDate: startTime - 200, endDate: startTime - 100, regionId: 'region-1'
+        });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -169,7 +173,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].title.should.equals('event22Title');
         res.body.feed[0].description.should.equals('event22Description');
-        res.body.feed[0].region.should.equals('region-1');
+        res.body.feed[0].region.should.equals('regionDe');
         res.body.feed[0].location.should.equals('event22Location');
         res.body.feed[0].startDate.should.equals(startTime - 100);
         res.body.feed[0].endDate.should.equals(startTime + 200);
@@ -190,7 +194,7 @@ describe('Get feed of the user', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -216,7 +220,7 @@ describe('Get feed of the user', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(2);
@@ -237,7 +241,7 @@ describe('Get feed of the user', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(2);
@@ -284,7 +288,7 @@ describe('Get feed of the user', function () {
         dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -314,7 +318,7 @@ describe('Get feed of the user', function () {
         dbDsl.watchQuestion({questionId: '2', userId: '9', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -349,7 +353,7 @@ describe('Get feed of the user', function () {
         dbDsl.watchCommitment({commitmentId: '100', userId: '9', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -363,8 +367,8 @@ describe('Get feed of the user', function () {
         res.body.feed[0].description.should.equals('commitment100Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].regions.length.should.equals(2);
-        res.body.feed[0].regions.should.include('region-1');
-        res.body.feed[0].regions.should.include('region-2');
+        res.body.feed[0].regions.should.include('regionDe');
+        res.body.feed[0].regions.should.include('region2De');
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].user.userId.should.equals('9');
         res.body.feed[0].user.name.should.equals('user Meier9');
@@ -390,7 +394,7 @@ describe('Get feed of the user', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -404,7 +408,7 @@ describe('Get feed of the user', function () {
         res.body.feed[0].description.should.equals('commitment101Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/460x460/title.jpg?v=607`);
         res.body.feed[0].regions.length.should.equals(1);
-        res.body.feed[0].regions.should.include('region-1');
+        res.body.feed[0].regions.should.include('regionDe');
         res.body.feed[0].created.should.equals(555);
         res.body.feed[0].user.userId.should.equals('9');
         res.body.feed[0].user.name.should.equals('user Meier9');
@@ -421,7 +425,7 @@ describe('Get feed of the user', function () {
         dbDsl.upVoteAnswer({userId: '9', answerId: '8', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -460,7 +464,7 @@ describe('Get feed of the user', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -474,7 +478,7 @@ describe('Get feed of the user', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -494,7 +498,7 @@ describe('Get feed of the user', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed');
+        let res = await requestHandler.get('/api/user/feed', {language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);

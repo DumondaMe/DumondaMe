@@ -15,9 +15,9 @@ describe('Getting details of a question', function () {
         await requestHandler.logout();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
-        dbDsl.createRegion('region-2', {});
-        dbDsl.createRegion('region-3', {});
+        dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-3', {de: 'Region3De', en: 'Region3En'});
 
         dbDsl.createCommitment('2', {
             title: 'Das ist ein Engagement',
@@ -56,11 +56,11 @@ describe('Getting details of a question', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '22',
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-2'});
         dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '23',
-            startDate: startTime - 101, endDate: startTime + 201, region: 'region-3'});
+            startDate: startTime - 101, endDate: startTime + 201, regionId: 'region-3'});
         dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '24',
-            startDate: startTime - 100, endDate: startTime - 10, region: 'region-2'});
+            startDate: startTime - 100, endDate: startTime - 10, regionId: 'region-2'});
     });
 
     afterEach(function () {
@@ -74,7 +74,7 @@ describe('Getting details of a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/detail/2');
+        let res = await requestHandler.get('/api/question/detail/2', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
@@ -103,7 +103,7 @@ describe('Getting details of a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/detail/2');
+        let res = await requestHandler.get('/api/question/detail/2', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
@@ -139,7 +139,7 @@ describe('Getting details of a question', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/detail/1');
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
@@ -243,8 +243,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
         res.body.answers[5].regions.length.should.equals(2);
-        res.body.answers[5].regions.should.include('region-1');
-        res.body.answers[5].regions.should.include('region-2');
+        res.body.answers[5].regions.should.include('Region1De');
+        res.body.answers[5].regions.should.include('Region2De');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
@@ -254,13 +254,13 @@ describe('Getting details of a question', function () {
         res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
         res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
         res.body.answers[5].events[0].location.should.equals('event23Location');
-        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[0].region.should.equals('Region3De');
         res.body.answers[5].events[1].eventId.should.equals('22');
         res.body.answers[5].events[1].title.should.equals('event22Title');
         res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
         res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
         res.body.answers[5].events[1].location.should.equals('event22Location');
-        res.body.answers[5].events[1].region.should.equals('region-2');
+        res.body.answers[5].events[1].region.should.equals('Region2De');
     });
 
     it('Getting details of a question (answers sorted by up votes)', async function () {
@@ -269,7 +269,7 @@ describe('Getting details of a question', function () {
         dbDsl.upVoteAnswer({userId: '5', answerId: '7'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/detail/1');
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
@@ -368,8 +368,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
         res.body.answers[5].regions.length.should.equals(2);
-        res.body.answers[5].regions.should.include('region-1');
-        res.body.answers[5].regions.should.include('region-2');
+        res.body.answers[5].regions.should.include('Region1De');
+        res.body.answers[5].regions.should.include('Region2De');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
@@ -379,20 +379,20 @@ describe('Getting details of a question', function () {
         res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
         res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
         res.body.answers[5].events[0].location.should.equals('event23Location');
-        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[0].region.should.equals('Region3De');
         res.body.answers[5].events[1].eventId.should.equals('22');
         res.body.answers[5].events[1].title.should.equals('event22Title');
         res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
         res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
         res.body.answers[5].events[1].location.should.equals('event22Location');
-        res.body.answers[5].events[1].region.should.equals('region-2');
+        res.body.answers[5].events[1].region.should.equals('Region2De');
     });
 
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1'});
         dbDsl.watchQuestion({questionId: '1', userId: '4'});
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/question/detail/1');
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
@@ -491,8 +491,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].hasVoted.should.equals(false);
         res.body.answers[5].created.should.equals(496);
         res.body.answers[5].regions.length.should.equals(2);
-        res.body.answers[5].regions.should.include('region-1');
-        res.body.answers[5].regions.should.include('region-2');
+        res.body.answers[5].regions.should.include('Region1De');
+        res.body.answers[5].regions.should.include('Region2De');
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
@@ -502,12 +502,12 @@ describe('Getting details of a question', function () {
         res.body.answers[5].events[0].startDate.should.equals(startTime - 101);
         res.body.answers[5].events[0].endDate.should.equals(startTime + 201);
         res.body.answers[5].events[0].location.should.equals('event23Location');
-        res.body.answers[5].events[0].region.should.equals('region-3');
+        res.body.answers[5].events[0].region.should.equals('Region3De');
         res.body.answers[5].events[1].eventId.should.equals('22');
         res.body.answers[5].events[1].title.should.equals('event22Title');
         res.body.answers[5].events[1].startDate.should.equals(startTime - 100);
         res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
         res.body.answers[5].events[1].location.should.equals('event22Location');
-        res.body.answers[5].events[1].region.should.equals('region-2');
+        res.body.answers[5].events[1].region.should.equals('Region2De');
     });
 });

@@ -9,7 +9,7 @@ describe('Getting user profile with answers', function () {
     beforeEach(async function () {
         await dbDsl.init(4);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('20', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 444, modified: 606,
@@ -17,8 +17,12 @@ describe('Getting user profile with answers', function () {
         });
 
         dbDsl.createQuestion('100', {
-            creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world', topics: ['Spiritual'],
-            language: 'de', created: 666
+            creatorId: '3',
+            question: 'Das ist eine Frage',
+            description: 'Test elyoos.org change the world',
+            topics: ['Spiritual'],
+            language: 'de',
+            created: 666
         });
 
         dbDsl.createBookAnswer('1', {
@@ -29,10 +33,15 @@ describe('Getting user profile with answers', function () {
             creatorId: '1', questionId: '100', commitmentId: '20', created: 554, description: 'commitmentDescription'
         });
         dbDsl.createLinkAnswer('3', {
-            creatorId: '1', questionId: '100', created: 553, link: 'https://example.com', pageType: 'blog', hasPreviewImage: true
+            creatorId: '1',
+            questionId: '100',
+            created: 553,
+            link: 'https://example.com',
+            pageType: 'blog',
+            hasPreviewImage: true
         });
         dbDsl.createTextAnswer('4', {
-            creatorId: '1', questionId:'100', answer: 'Answer', created: 552
+            creatorId: '1', questionId: '100', answer: 'Answer', created: 552
         });
         dbDsl.createYoutubeAnswer('5', {
             creatorId: '1', questionId: '100', created: 551, idOnYoutube: 'Lhku7ZBWEK8',
@@ -49,7 +58,7 @@ describe('Getting user profile with answers', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile');
+        let res = await requestHandler.get('/api/user/profile', {language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfAnswers.should.equal(5);
@@ -80,7 +89,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
         res.body.answers[1].regions.length.should.equals(1);
-        res.body.answers[1].regions.should.includes('region-1');
+        res.body.answers[1].regions.should.includes('regionDe');
         res.body.answers[1].created.should.equals(554);
 
         res.body.answers[2].type.should.equals('Link');
@@ -129,7 +138,7 @@ describe('Getting user profile with answers', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.get('/api/user/profile', {userId: '2'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '2', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfAnswers.should.equal(0);
@@ -160,7 +169,7 @@ describe('Getting user profile with answers', function () {
         res.body.upVotedAnswers[1].question.should.equals('Das ist eine Frage');
         res.body.upVotedAnswers[1].questionSlug.should.equals('das-ist-eine-frage');
         res.body.upVotedAnswers[1].regions.length.should.equals(1);
-        res.body.upVotedAnswers[1].regions.should.includes('region-1');
+        res.body.upVotedAnswers[1].regions.should.includes('regionDe');
         res.body.upVotedAnswers[1].created.should.equals(665);
 
         res.body.upVotedAnswers[2].type.should.equals('Link');
@@ -202,7 +211,7 @@ describe('Getting user profile with answers', function () {
     it('Get profile data of a user (Not logged in)', async function () {
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '1'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '1', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfAnswers.should.equal(5);
@@ -233,7 +242,7 @@ describe('Getting user profile with answers', function () {
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
         res.body.answers[1].regions.length.should.equals(1);
-        res.body.answers[1].regions.should.includes('region-1');
+        res.body.answers[1].regions.should.includes('regionDe');
         res.body.answers[1].created.should.equals(554);
 
         res.body.answers[2].type.should.equals('Link');

@@ -15,10 +15,10 @@ describe('Edit an event of an commitment', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2-1', {upperRegionLayerCode: 'region-2'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-2-1', {parentRegionId: 'region-2', de: 'Region21De', en: 'Region21En'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
@@ -30,10 +30,10 @@ describe('Edit an event of an commitment', function () {
         });
 
         dbDsl.createCommitmentEvent({commitmentId: '1', eventId: '22', created: 666,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-2'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-2'});
 
         dbDsl.createCommitmentEvent({commitmentId: '2', eventId: '23', created: 777,
-            startDate: startTime - 101, endDate: startTime + 201, region: 'region-2-1'});
+            startDate: startTime - 101, endDate: startTime + 201, regionId: 'region-2-1'});
     });
 
     afterEach(function () {
@@ -47,7 +47,7 @@ describe('Edit an event of an commitment', function () {
             eventId: '22',
             title: 'Event Example',
             location: 'Some where',
-            region: 'region-2-1',
+            regionId: 'region-2-1',
             startDate: startTime + 200,
             endDate: startTime + 300
         });
@@ -55,7 +55,7 @@ describe('Edit an event of an commitment', function () {
 
         let resp = await db.cypher()
             .match(`(event:Event {eventId: '22'})-[:BELONGS_TO_REGION]->(region:Region)`)
-            .return(`event, region.code AS region`).end().send();
+            .return(`event, region.regionId AS region`).end().send();
         resp.length.should.equals(1);
         resp[0].event.title.should.equals('Event Example');
         resp[0].event.location.should.equals('Some where');
@@ -76,7 +76,7 @@ describe('Edit an event of an commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2-1',
+            regionId: 'region-2-1',
             startDate: startTime + 200,
             endDate: startTime + 300,
             linkDescription: 'https://www.example.org/description/link',
@@ -85,7 +85,7 @@ describe('Edit an event of an commitment', function () {
 
         let resp = await db.cypher()
             .match(`(event:Event {eventId: '22'})-[:BELONGS_TO_REGION]->(region:Region)`)
-            .return(`event, region.code AS region`).end().send();
+            .return(`event, region.regionId AS region`).end().send();
         resp.length.should.equals(1);
         resp[0].event.title.should.equals('Event Example');
         resp[0].event.description.should.equals('Event Example Description');
@@ -106,7 +106,7 @@ describe('Edit an event of an commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2-2-2',
+            regionId: 'region-2-2-2',
             startDate: startTime + 200,
             endDate: startTime + 300,
             linkDescription: 'https://www.example.org/description/link',
@@ -122,7 +122,7 @@ describe('Edit an event of an commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2-1',
+            regionId: 'region-2-1',
             startDate: startTime + 200,
             endDate: startTime + 300,
             linkDescription: 'https://www.example.org/description/link',
@@ -137,7 +137,7 @@ describe('Edit an event of an commitment', function () {
             title: 'Event Example',
             description: 'Event Example Description',
             location: 'Some where',
-            region: 'region-2-1',
+            regionId: 'region-2-1',
             startDate: startTime + 200,
             endDate: startTime + 300,
             linkDescription: 'https://www.example.org/description/link',

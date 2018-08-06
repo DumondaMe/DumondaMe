@@ -8,7 +8,7 @@ describe('Search a commitment with fuzzy match', function () {
 
     beforeEach(async function () {
         await dbDsl.init(3);
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
 
         dbDsl.createCommitment('1', {
             title: 'Das ist ein Engagement', regions: ['region-1'],

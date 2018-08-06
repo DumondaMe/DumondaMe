@@ -61,7 +61,7 @@ describe('Notification when user creates answers for a question', function () {
     });
 
     it('Create notification when commitment answer has been created', async function () {
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('10', {
             adminId: '3', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
@@ -75,7 +75,7 @@ describe('Notification when user creates answers for a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(200);
 
@@ -187,7 +187,7 @@ describe('Notification when user creates answers for a question', function () {
     });
 
     it('Create no notification when commitment answer has been created by creator of question', async function () {
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('10', {
             adminId: '3', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
@@ -201,7 +201,7 @@ describe('Notification when user creates answers for a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment'
+            commitmentId: '10', description: 'This is a commitment', language: 'de'
         });
         res.status.should.equal(200);
 

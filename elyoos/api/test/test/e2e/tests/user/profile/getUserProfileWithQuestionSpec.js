@@ -39,7 +39,7 @@ describe('Getting user profile with questions', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile');
+        let res = await requestHandler.get('/api/user/profile', {language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCreatedQuestions.should.equal(2);
@@ -76,7 +76,7 @@ describe('Getting user profile with questions', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.get('/api/user/profile', {userId: '1'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '1', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCreatedQuestions.should.equal(2);
@@ -113,7 +113,7 @@ describe('Getting user profile with questions', function () {
 
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '1'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '1', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCreatedQuestions.should.equal(2);

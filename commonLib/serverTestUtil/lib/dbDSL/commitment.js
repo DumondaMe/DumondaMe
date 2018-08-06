@@ -24,7 +24,7 @@ const createCommitment = function (commitmentId, data) {
         .merge(`(topic)-[:TOPIC]->(commitment)`)
         .with(`commitment`)
         .match(`(region:Region)`)
-        .where(`region.code IN {regions}`)
+        .where(`region.regionId IN {regions}`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(commitment)`)
         .end({
             commitmentId: commitmentId,
@@ -55,12 +55,12 @@ const createEvent = function (data) {
                  location: {location}, startDate: {startDate}, endDate: {endDate}, created: {created}, modified: {modified},
                  linkDescription: {linkDescription}})`)
         .with(`event`)
-        .match(`(region:Region {code: {region}})`)
+        .match(`(region:Region {regionId: {regionId}})`)
         .merge(`(event)-[:BELONGS_TO_REGION]->(region)`)
         .end({
             commitmentId: data.commitmentId, eventId: data.eventId, uid: data.uid, title: data.title,
             description: data.description, startDate: data.startDate, endDate: data.endDate, created: data.created,
-            modified: data.modified, region: data.region, location: data.location, linkDescription: data.linkDescription
+            modified: data.modified, regionId: data.regionId, location: data.location, linkDescription: data.linkDescription
         }).getCommand());
 };
 

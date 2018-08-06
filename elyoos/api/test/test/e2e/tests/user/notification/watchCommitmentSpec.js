@@ -9,7 +9,7 @@ describe('Notification when commitment of user has new watches', function () {
     beforeEach(async function () {
         await dbDsl.init(5);
 
-        dbDsl.createRegion('region', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('50', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, title: 'Das ist ein Engagement',

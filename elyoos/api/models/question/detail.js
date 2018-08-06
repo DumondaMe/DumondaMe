@@ -7,7 +7,7 @@ const time = require('elyoos-server-lib').time;
 const dashify = require('dashify');
 const linkifyHtml = require('linkifyjs/html');
 
-const getEvents = function (events) {
+const getEvents = function (events, language) {
     let result = [];
     for (let index = 0; index < events.length && index < 2; index++) {
         let event = events[index];
@@ -18,14 +18,14 @@ const getEvents = function (events) {
                 startDate: event.event.startDate,
                 endDate: event.event.endDate,
                 location: event.event.location,
-                region: event.region.code
+                region: event.region[language]
             })
         }
     }
     return result;
 };
 
-const getAnswers = function (answers) {
+const getAnswers = function (answers, language) {
     let result = [];
     for (let answer of answers) {
         if (answer.answer) {
@@ -54,8 +54,8 @@ const getAnswers = function (answers) {
                 if (answer.commitment.modified) {
                     formattedAnswer.imageUrl += `?v=${answer.commitment.modified}`;
                 }
-                formattedAnswer.regions = answer.regions.map((region) => region.code);
-                formattedAnswer.events = getEvents(answer.events)
+                formattedAnswer.regions = answer.regions.map((region) => region[language]);
+                formattedAnswer.events = getEvents(answer.events, language)
             }
             result.push(formattedAnswer);
         }
@@ -88,7 +88,7 @@ const getAnswersCommand = function (questionId, userId) {
         .end({questionId, userId, now: time.getNowUtcTimestamp()}).getCommand();
 };
 
-const getQuestion = async function (questionId, userId) {
+const getQuestion = async function (questionId, language, userId) {
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
         .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
@@ -114,7 +114,7 @@ const getQuestion = async function (questionId, userId) {
             userId: questionResponse.user.userId,
             slug: dashify(questionResponse.user.name)
         };
-        question.answers = getAnswers(response[0]);
+        question.answers = getAnswers(response[0], language);
         return question;
     }
     throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);

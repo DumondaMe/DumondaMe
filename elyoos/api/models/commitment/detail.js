@@ -29,7 +29,7 @@ const getLinkedQuestions = function (commitmentId) {
         .end({commitmentId}).getCommand();
 };
 
-const getDetail = async function (userId, commitmentId) {
+const getDetail = async function (userId, commitmentId, language) {
     let resp = await db.cypher().match("(c:Commitment {commitmentId: {commitmentId}})<-[:IS_ADMIN]-(user:User)")
         .optionalMatch(`(t:Topic)-[:TOPIC]->(c)`)
         .optionalMatch(`(r:Region)<-[:BELONGS_TO_REGION]-(c)`)
@@ -38,9 +38,9 @@ const getDetail = async function (userId, commitmentId) {
                  c.modified AS modified, c.language AS lang, count(DISTINCT w) AS numberOfWatches,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
-                 collect(DISTINCT t.name) AS topics, collect(DISTINCT r.code) AS regions`)
+                 collect(DISTINCT t.name) AS topics, collect(DISTINCT r.${language}) AS regions`)
         .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId),
-            events.getEventsCommand(commitmentId, true, 0).getCommand(),
+            events.getEventsCommand(commitmentId, true, 0, language).getCommand(),
             events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand()]);
     if (resp[3].length !== 1) {
         logger.warn(`Commitment ${commitmentId} had ${resp.length} results`);

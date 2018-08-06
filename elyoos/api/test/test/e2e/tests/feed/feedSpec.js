@@ -12,7 +12,7 @@ describe('Get the public feed', function () {
         await dbDsl.init(6);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
         dbDsl.createCommitment('100', {
             adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',
             website: 'https://www.example.org/', regions: ['region-1']
@@ -22,13 +22,13 @@ describe('Get the public feed', function () {
             website: 'https://www.example2.org/', regions: ['region-1']
         });
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'});
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '23', created: 778,
-            startDate: startTime - 101, endDate: startTime + 199, region: 'region-1'});
+            startDate: startTime - 101, endDate: startTime + 199, regionId: 'region-1'});
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '24',created: 888,
-            startDate: startTime - 300, endDate: startTime - 200, region: 'region-1'});
+            startDate: startTime - 300, endDate: startTime - 200, regionId: 'region-1'});
         dbDsl.createCommitmentEvent({commitmentId: '101', eventId: '25',created: 999,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'});
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'});
 
         dbDsl.createQuestion('1', {
             creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
@@ -117,7 +117,7 @@ describe('Get the public feed', function () {
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].created.should.equals(400);
         res.body.feed[0].regions.length.should.equals(1);
-        res.body.feed[0].regions.should.include('region-1');
+        res.body.feed[0].regions.should.include('Region1De');
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
@@ -141,7 +141,7 @@ describe('Get the public feed', function () {
         res.body.feed[0].eventId.should.equals('23');
         res.body.feed[0].title.should.equals('event23Title');
         res.body.feed[0].description.should.equals('event23Description');
-        res.body.feed[0].region.should.equals('region-1');
+        res.body.feed[0].region.should.equals('Region1De');
         res.body.feed[0].location.should.equals('event23Location');
         res.body.feed[0].startDate.should.equals(startTime - 101);
         res.body.feed[0].endDate.should.equals(startTime + 199);
@@ -154,7 +154,7 @@ describe('Get the public feed', function () {
         res.body.feed[1].eventId.should.equals('22');
         res.body.feed[1].title.should.equals('event22Title');
         res.body.feed[1].description.should.equals('event22Description');
-        res.body.feed[1].region.should.equals('region-1');
+        res.body.feed[1].region.should.equals('Region1De');
         res.body.feed[1].location.should.equals('event22Location');
         res.body.feed[1].startDate.should.equals(startTime - 100);
         res.body.feed[1].endDate.should.equals(startTime + 200);

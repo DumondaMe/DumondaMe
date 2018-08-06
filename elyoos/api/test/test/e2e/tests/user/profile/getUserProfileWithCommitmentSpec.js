@@ -19,7 +19,7 @@ describe('Getting user profile with commitments', function () {
             language: 'de', created: 888
         });
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('10', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 888, modified: 1111,
@@ -56,7 +56,7 @@ describe('Getting user profile with commitments', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/profile');
+        let res = await requestHandler.get('/api/user/profile', {language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCommitments.should.equal(2);
@@ -105,7 +105,7 @@ describe('Getting user profile with commitments', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.get('/api/user/profile', {userId: '1'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '1', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCommitments.should.equal(2);
@@ -153,7 +153,7 @@ describe('Getting user profile with commitments', function () {
     it('Get profile data of a user (Not logged in)', async function () {
 
         await dbDsl.sendToDb();
-        let res = await requestHandler.get('/api/user/profile', {userId: '1'});
+        let res = await requestHandler.get('/api/user/profile', {userId: '1', language: 'de'});
         res.status.should.equal(200);
 
         res.body.numberOfCommitments.should.equal(2);

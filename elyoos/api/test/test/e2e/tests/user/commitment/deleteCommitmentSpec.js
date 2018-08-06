@@ -15,9 +15,9 @@ describe('Delete a commitment', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
 
         dbDsl.createCommitment('1', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
@@ -47,7 +47,7 @@ describe('Delete a commitment', function () {
     it('Delete commitment (with events)', async function () {
         dbDsl.createCommitmentEvent({
             commitmentId: '1', eventId: '22', created: 777,
-            startDate: startTime - 100, endDate: startTime + 200, region: 'region-1'
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

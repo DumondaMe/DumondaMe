@@ -6,7 +6,7 @@ const filter = require('./filter');
 const db = requireDb();
 const PAGE_SIZE = 20;
 
-const getFeed = async function (userId, page, timestamp, typeFilter) {
+const getFeed = async function (userId, page, timestamp, typeFilter, language) {
     page = page * PAGE_SIZE;
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch:WATCH|IS_CONTACT]->(watch)
@@ -21,8 +21,8 @@ const getFeed = async function (userId, page, timestamp, typeFilter) {
         .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)-[:BELONGS_TO_REGION]->(rca:Region)`)
         .unwind(`[relAction.created, feedElement.created] AS tempCreated`)
         .return(`DISTINCT feedElement, watch, creator, question, commitment, COUNT(DISTINCT answer) AS numberOfAnswers, 
-                 collect(DISTINCT region.code) AS regions, labels(feedElement) AS type, 
-                 collect(DISTINCT rca.code) AS commitmentAnswerRegions,
+                 collect(DISTINCT region.${language}) AS regions, labels(feedElement) AS type, 
+                 collect(DISTINCT rca.${language}) AS commitmentAnswerRegions,
                  exists((creator)<-[:IS_CONTACT]-(user)) AS creatorIsInTrustCircle,
                  max(tempCreated) AS created, type(relAction) AS relAction, type(relWatch) AS relWatch`)
         .orderBy(`created DESC`)

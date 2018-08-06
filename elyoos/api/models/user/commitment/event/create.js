@@ -13,7 +13,7 @@ const createEvent = async function (userId, params) {
     params.userId = userId;
     params.linkDescription = params.linkDescription || null;
     params.description = params.description || null;
-    await regionSecurity.checkRegionsExists([params.region]);
+    await regionSecurity.checkRegionsExists([params.regionId]);
     await commitmentSecurity.isAdmin(userId, params.commitmentId);
     await db.cypher()
         .match("(:User {userId: {userId}})-[:IS_ADMIN]->(commitment:Commitment {commitmentId: {commitmentId}})")
@@ -22,7 +22,7 @@ const createEvent = async function (userId, params) {
                   created: {created}})`)
         .merge(`(commitment)-[:EVENT]->(event)`)
         .with(`event`)
-        .match(`(region:Region {code: {region}})`)
+        .match(`(region:Region {regionId: {regionId}})`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(event)`)
         .end(params).send();
 

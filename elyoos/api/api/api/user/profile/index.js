@@ -1,6 +1,7 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
+const schemaLanguage = require('../../../schema/language');
 const profile = requireModel('user/profile/profile');
 const auth = require('elyoos-server-lib').auth;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -10,9 +11,10 @@ const schemaRequestGetUserDetails = {
     name: 'getUserDetails',
     type: 'object',
     additionalProperties: false,
-    required: [],
+    required: ['language'],
     properties: {
-        userId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        language: schemaLanguage.language
     }
 };
 
@@ -31,8 +33,8 @@ const schemaPostNewProfileData = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        let response = await validation.validateRequest(req, schemaRequestGetUserDetails, logger);
-        let userProfile = await profile.getUserProfile(req.user.id, response.userId);
+        let params = await validation.validateRequest(req, schemaRequestGetUserDetails, logger);
+        let userProfile = await profile.getUserProfile(req.user.id, params.userId, params.language);
         logger.info("Requests of user profile", req);
         res.status(200).json(userProfile);
     }));

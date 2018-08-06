@@ -24,7 +24,7 @@ let numberOfAnswers = function (userId, hasUpVoted) {
         .end({userId});
 };
 
-let getAnswerCommand = function (userId, answersPerPage, skipAnswer, hasUpVoted) {
+let getAnswerCommand = function (userId, answersPerPage, skipAnswer, hasUpVoted, language) {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[${getRelation(hasUpVoted)}]->(feedElement:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
@@ -33,8 +33,8 @@ let getAnswerCommand = function (userId, answersPerPage, skipAnswer, hasUpVoted)
         .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)-[:BELONGS_TO_REGION]->(rca:Region)`)
         .unwind(`[relAction.created, feedElement.created] AS tempCreated`)
         .return(`DISTINCT feedElement, creator, question, commitment,
-                 collect(DISTINCT region.code) AS regions, labels(feedElement) AS type, 
-                 collect(DISTINCT rca.code) AS commitmentAnswerRegions,
+                 collect(DISTINCT region.${language}) AS regions, labels(feedElement) AS type, 
+                 collect(DISTINCT rca.${language}) AS commitmentAnswerRegions,
                  ${getCreated(hasUpVoted)}, type(relAction) AS relAction`)
         .orderBy(`created DESC`)
         .skip(`{skipAnswer}`)
@@ -42,10 +42,10 @@ let getAnswerCommand = function (userId, answersPerPage, skipAnswer, hasUpVoted)
         .end({userId, answersPerPage, skipAnswer});
 };
 
-let getAnswer = async function (userId, userDetailId, answersPerPage, skipAnswers, upVoted, req) {
+let getAnswer = async function (userId, userDetailId, answersPerPage, skipAnswers, upVoted, language, req) {
     await security.checkAllowedToGetProfile(userId, userDetailId, req);
 
-    let response = await getAnswerCommand(userDetailId, answersPerPage, skipAnswers, upVoted)
+    let response = await getAnswerCommand(userDetailId, answersPerPage, skipAnswers, upVoted, language)
         .send([numberOfAnswers(userDetailId, upVoted).getCommand()]);
     return {
         answers: answerResponseHandler.getAnswersWithoutCreator(response[1]),

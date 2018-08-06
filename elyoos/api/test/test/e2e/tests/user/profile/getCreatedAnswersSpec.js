@@ -9,7 +9,7 @@ describe('Get answers created by the requested user', function () {
     beforeEach(async function () {
         await dbDsl.init(9);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('20', {
             adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 444, modified: 606,
@@ -60,7 +60,7 @@ describe('Get answers created by the requested user', function () {
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 5, skip: 1, upVoted: false
+            userId: '1', maxItems: 5, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(200);
         res.body.numberOfAnswers.should.equal(7);
@@ -89,7 +89,7 @@ describe('Get answers created by the requested user', function () {
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
         res.body.answers[1].regions.length.should.equals(1);
-        res.body.answers[1].regions.should.includes('region-1');
+        res.body.answers[1].regions.should.includes('regionDe');
         res.body.answers[1].created.should.equals(554);
 
         res.body.answers[2].type.should.equals('Link');
@@ -134,7 +134,7 @@ describe('Get answers created by the requested user', function () {
 
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 5, skip: 1, upVoted: false
+            userId: '1', maxItems: 5, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(200);
         res.body.numberOfAnswers.should.equal(7);
@@ -163,7 +163,7 @@ describe('Get answers created by the requested user', function () {
         res.body.answers[1].question.should.equals('Das ist eine Frage');
         res.body.answers[1].questionSlug.should.equals('das-ist-eine-frage');
         res.body.answers[1].regions.length.should.equals(1);
-        res.body.answers[1].regions.should.includes('region-1');
+        res.body.answers[1].regions.should.includes('regionDe');
         res.body.answers[1].created.should.equals(554);
 
         res.body.answers[2].type.should.equals('Link');
@@ -209,7 +209,7 @@ describe('Get answers created by the requested user', function () {
 
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 2, skip: 1, upVoted: false
+            userId: '1', maxItems: 2, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(200);
         res.body.numberOfAnswers.should.equal(7);
@@ -222,7 +222,7 @@ describe('Get answers created by the requested user', function () {
         await dbDsl.sendToDb();
 
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 2, skip: 1, upVoted: false
+            userId: '1', maxItems: 2, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(401);
     });
@@ -235,7 +235,7 @@ describe('Get answers created by the requested user', function () {
 
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 2, skip: 1, upVoted: false
+            userId: '1', maxItems: 2, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(200);
         res.body.numberOfAnswers.should.equal(7);
@@ -249,7 +249,7 @@ describe('Get answers created by the requested user', function () {
 
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/profile/answer', {
-            userId: '1', maxItems: 2, skip: 1, upVoted: false
+            userId: '1', maxItems: 2, skip: 1, upVoted: false, language: 'de'
         });
         res.status.should.equal(401);
     });

@@ -15,7 +15,7 @@ describe('Notification when user watches a commitment', function () {
         await dbDsl.init(5);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region', {});
+        dbDsl.createRegion('region', {de: 'regionDe', en: 'regionEn'});
 
         dbDsl.createCommitment('1', {
             adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,

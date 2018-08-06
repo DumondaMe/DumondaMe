@@ -26,7 +26,7 @@ let addSlugToPeople = function (peopleOfTrust) {
     }
 };
 
-let getUserProfile = async function (userId, userIdOfProfile) {
+let getUserProfile = async function (userId, userIdOfProfile, language) {
 
     checkAllowedToGetProfile(userId, userIdOfProfile);
     userId = userId || null;
@@ -47,9 +47,9 @@ let getUserProfile = async function (userId, userIdOfProfile) {
     commands.push(commitment.numberOfCommitments(userIdOfProfile, true).getCommand());
     commands.push(commitment.getCommitmentCommand(userIdOfProfile, 4, 0, true).getCommand());
     commands.push(answer.numberOfAnswers(userIdOfProfile, false).getCommand());
-    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, false).getCommand());
+    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, false, language).getCommand());
     commands.push(answer.numberOfAnswers(userIdOfProfile, true).getCommand());
-    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, true).getCommand());
+    commands.push(answer.getAnswerCommand(userIdOfProfile, 5, 0, true, language).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 

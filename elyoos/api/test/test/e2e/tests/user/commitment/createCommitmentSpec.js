@@ -20,10 +20,10 @@ describe('Creating a new commitment', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('international', {});
-        dbDsl.createRegion('region-1', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-2', {upperRegionLayerCode: 'international'});
-        dbDsl.createRegion('region-1-1', {upperRegionLayerCode: 'region-1'});
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+        dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
+        dbDsl.createRegion('region-1-1', {parentRegionId: 'region-1', de: 'Region11De', en: 'Region11En'});
     });
 
     afterEach(function () {
@@ -53,7 +53,7 @@ describe('Creating a new commitment', function () {
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
             .match("(commitment)<-[:IS_CREATOR]->(user)")
-            .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
+            .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.regionId) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].commitment.commitmentId.should.equals(res.body.commitmentId);
         resp[0].commitment.title.should.equals('Commitment Example');
@@ -89,7 +89,7 @@ describe('Creating a new commitment', function () {
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
             .match("(commitment)-[:BELONGS_TO_REGION]->(r:Region)")
             .match("(commitment)<-[:IS_CREATOR]->(user)")
-            .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.code) AS regions`).end().send();
+            .return(`commitment, collect(DISTINCT topic.name) AS topics, collect(DISTINCT r.regionId) AS regions`).end().send();
         resp.length.should.equals(1);
         resp[0].commitment.commitmentId.should.equals(res.body.commitmentId);
         resp[0].commitment.title.should.equals('Commitment Example');
@@ -151,7 +151,7 @@ describe('Creating a new commitment', function () {
         }, `${__dirname}/test.jpg`);
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match("(commitment:Commitment)-[:BELONGS_TO_REGION]->(:Region {code: 'international'})")
+        let resp = await db.cypher().match("(commitment:Commitment)-[:BELONGS_TO_REGION]->(:Region {regionId: 'international'})")
             .match("(commitment)<-[:IS_CREATOR]->(user)")
             .return(`commitment`).end().send();
         resp.length.should.equals(1);

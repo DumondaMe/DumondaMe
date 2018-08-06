@@ -14,7 +14,7 @@ describe('Get feed of the user with commitment filter', function () {
         await dbDsl.init(10);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createRegion('region-1', {});
+        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('100', {
             adminId: '2',
             topics: ['Spiritual', 'Education'],
@@ -49,7 +49,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -60,7 +60,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.createContactConnection('1', '5');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -72,7 +72,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.createContactConnection('1', '6');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -84,7 +84,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.watchQuestion({questionId: '2', userId: '9', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -96,7 +96,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.upVoteAnswer({userId: '9', answerId: '5', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(0);
@@ -108,7 +108,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.watchCommitment({commitmentId: '100', userId: '9', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -122,7 +122,7 @@ describe('Get feed of the user with commitment filter', function () {
         res.body.feed[0].description.should.equals('commitment100Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].regions.length.should.equals(1);
-        res.body.feed[0].regions.should.include('region-1');
+        res.body.feed[0].regions.should.include('regionDe');
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].user.userId.should.equals('9');
         res.body.feed[0].user.name.should.equals('user Meier9');
@@ -145,7 +145,7 @@ describe('Get feed of the user with commitment filter', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment'});
+        let res = await requestHandler.get('/api/user/feed', {typeFilter: 'commitment', language: 'de'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.totalNumberOfElements.should.equals(1);
@@ -159,7 +159,7 @@ describe('Get feed of the user with commitment filter', function () {
         res.body.feed[0].description.should.equals('commitment101Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/460x460/title.jpg?v=607`);
         res.body.feed[0].regions.length.should.equals(1);
-        res.body.feed[0].regions.should.include('region-1');
+        res.body.feed[0].regions.should.include('regionDe');
         res.body.feed[0].created.should.equals(555);
         res.body.feed[0].user.userId.should.equals('9');
         res.body.feed[0].user.name.should.equals('user Meier9');
