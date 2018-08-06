@@ -34,8 +34,10 @@
         margin-top: 32px;
         .feed-card {
             margin-bottom: 18px;
-            padding-bottom: 12px;
-            max-width: 500px;
+            padding-bottom: 24px;
+            padding-left: 22px;
+            padding-right: 22px;
+            max-width: 550px;
             h2 {
                 font-size: 18px;
                 font-weight: 400;
