@@ -2,7 +2,7 @@
 
 const dashify = require('dashify');
 const db = requireDb();
-const topics = require('./../../util/topics');
+const topicsSecurity = require('./../../topic/security');
 const regionSecurity = require('./../../region/security');
 const image = require(`./image`);
 const uuid = require('elyoos-server-lib').uuid;
@@ -14,8 +14,8 @@ const createCommitment = async function (userId, params, titlePath) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.website = params.website || null;
-    topics.normalizeTopics(params.topics);
     regionSecurity.checkOnlyInternational(params.regions);
+    await topicsSecurity.checkTopicsExists(params.topics);
     await regionSecurity.checkRegionsExists(params.regions);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(commitment:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
@@ -27,10 +27,8 @@ const createCommitment = async function (userId, params, titlePath) {
         .where(`region.regionId IN {regions}`)
         .merge(`(region)<-[:BELONGS_TO_REGION]-(commitment)`)
         .with(`commitment`)
-        .foreach(`(topic IN {topics} | MERGE (:Topic {name: topic}))`)
-        .with(`commitment`)
         .match(`(topic:Topic)`)
-        .where(`topic.name IN {topics}`)
+        .where(`topic.topicId IN {topics}`)
         .merge(`(topic)-[:TOPIC]->(commitment)`)
         .end(params).send();
     logger.info(`Created commitment with id ${params.commitmentId}`);

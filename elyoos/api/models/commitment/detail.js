@@ -38,7 +38,7 @@ const getDetail = async function (userId, commitmentId, language) {
                  c.modified AS modified, c.language AS lang, count(DISTINCT w) AS numberOfWatches,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
-                 collect(DISTINCT t.name) AS topics, collect(DISTINCT r.${language}) AS regions`)
+                 collect(DISTINCT t.${language}) AS topics, collect(DISTINCT r.${language}) AS regions`)
         .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId),
             events.getEventsCommand(commitmentId, true, 0, language).getCommand(),
             events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand()]);

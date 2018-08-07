@@ -28,9 +28,6 @@ const deleteQuestion = async function (userId, questionId) {
         await db.cypher().match(`(question:Question {questionId: {questionId}})<-[isAdmin:IS_CREATOR]-(:User)`)
             .optionalMatch(`(question)<-[relTopic:TOPIC]-(topic:Topic)`)
             .delete(`question, isAdmin, relTopic`)
-            .with(`topic`)
-            .where(`NOT (topic)-[:TOPIC]->()`)
-            .delete(`topic`)
             .end({questionId: questionId}).send();
         logger.info(`Deleted question with id ${questionId}`);
     }

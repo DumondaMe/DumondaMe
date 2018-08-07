@@ -6,7 +6,7 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const checkTopicsExists = async function (topics) {
 
     let resp = await db.cypher().match(`(r:Topic)`)
-        .where(`r.name IN {topics}`)
+        .where(`r.topicId IN {topics}`)
         .return(`COUNT(*) AS numberOfTopics`)
         .end({topics}).send();
 

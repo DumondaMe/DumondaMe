@@ -11,10 +11,9 @@ let createQuestion = function (questionId, data) {
         .create(`(question:Question {questionId: {questionId}, question: {question}, description: {description}, 
                   created: {created}, modified: {modified}, language: {language}})`)
         .merge(`(question)<-[:IS_CREATOR]-(user)`)
-        .foreach(`(topic in {topics} | MERGE (:Topic {name: topic}))`)
         .with(`question`)
         .match(`(topic:Topic)`)
-        .where(`topic.name IN {topics}`)
+        .where(`topic.topicId IN {topics}`)
         .merge(`(topic)-[:TOPIC]->(question)`)
         .end({
             question: data.question, description: data.description, topics: data.topics, created: data.created,

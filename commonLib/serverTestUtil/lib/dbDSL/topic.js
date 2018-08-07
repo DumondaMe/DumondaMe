@@ -3,12 +3,6 @@
 let db = require('../db');
 let dbConnectionHandling = require('./dbConnectionHandling');
 
-let createTopic = function (name) {
-    dbConnectionHandling.getCommands().push(db.cypher()
-        .create(`(:Topic {name: {name}})`)
-        .end({name}).getCommand());
-};
-
 let createMainTopic = function ({topicId, descriptionDe, descriptionEn, similarDe, similarEn}) {
     similarDe = similarDe || [];
     similarEn = similarEn || [];
@@ -36,7 +30,6 @@ let createTopicSuggestion = function ({topic, created, userId}) {
 };
 
 module.exports = {
-    createTopic,
     createMainTopic,
     createSubTopic,
     createTopicSuggestion

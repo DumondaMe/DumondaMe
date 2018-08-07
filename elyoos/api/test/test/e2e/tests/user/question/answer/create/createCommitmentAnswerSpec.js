@@ -19,12 +19,15 @@ describe('Creating a commitment answer', function () {
         dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
         dbDsl.createRegion('region-2', {parentRegionId: 'international', de: 'Region2De', en: 'Region2En'});
 
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
+
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],
+            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['topic1'],
             language: 'de'
         });
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['Health'],
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['topic2'],
             language: 'en'
         });
     });
@@ -35,7 +38,7 @@ describe('Creating a commitment answer', function () {
 
     it('Answer a question with a commitment (Not admin of commitment)', async function () {
         dbDsl.createCommitment('10', {
-            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
         });
 
@@ -75,7 +78,7 @@ describe('Creating a commitment answer', function () {
 
     it('Answer a question with a commitment (Admin of commitment)', async function () {
         dbDsl.createCommitment('10', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
         });
 
@@ -115,7 +118,7 @@ describe('Creating a commitment answer', function () {
 
     it('Answer a question with an already linked commitment fails', async function () {
         dbDsl.createCommitment('10', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1']
         });
 
@@ -133,7 +136,7 @@ describe('Creating a commitment answer', function () {
 
     it('Prevent xss attack when creating a commitment answer', async function () {
         dbDsl.createCommitment('10', {
-            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'de', created: 700,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Engagement'
         });
 
@@ -154,7 +157,7 @@ describe('Creating a commitment answer', function () {
 
     it('Allow only to link commitment and question with same language', async function () {
         dbDsl.createCommitment('10', {
-            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'en', created: 700,
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'en', created: 700,
             website: 'https://www.example.org/', regions: ['region-1']
         });
 

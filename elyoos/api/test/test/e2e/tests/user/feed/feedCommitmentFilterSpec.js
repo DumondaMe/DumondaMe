@@ -15,9 +15,11 @@ describe('Get feed of the user with commitment filter', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
         dbDsl.createCommitment('100', {
             adminId: '2',
-            topics: ['Spiritual', 'Education'],
+            topics: ['topic1', 'topic2'],
             language: 'de',
             created: 400,
             modified: 606,
@@ -29,14 +31,14 @@ describe('Get feed of the user with commitment filter', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '4', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
-            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '5', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createQuestion('2', {
             creatorId: '6', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
-            topics: ['Health'], language: 'de', created: 602,
+            topics: ['topic2'], language: 'de', created: 602,
         });
 
     });
@@ -135,7 +137,7 @@ describe('Get feed of the user with commitment filter', function () {
         dbDsl.createContactConnection('1', '9');
         dbDsl.createCommitment('101', {
             adminId: '9',
-            topics: ['Spiritual'],
+            topics: ['topic1'],
             language: 'de',
             created: 555,
             modified: 607,

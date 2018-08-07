@@ -19,11 +19,14 @@ describe('Getting details of a question', function () {
         dbDsl.createRegion('region-2', {de: 'Region2De', en: 'Region2En'});
         dbDsl.createRegion('region-3', {de: 'Region3De', en: 'Region3En'});
 
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
+
         dbDsl.createCommitment('2', {
             title: 'Das ist ein Engagement',
             regions: ['region-1', 'region-2'],
             adminId: '2',
-            topics: ['Spiritual', 'Test2'],
+            topics: ['topic1', 'topic2'],
             language: 'de',
             created: 700, modified: 701,
             website: 'https://www.example.org/'
@@ -31,7 +34,7 @@ describe('Getting details of a question', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
-            topics: ['Spiritual', 'Education'], language: 'de', modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
@@ -70,7 +73,7 @@ describe('Getting details of a question', function () {
     it('Getting details of a question without answers', async function () {
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
-            topics: ['Health'], language: 'en', modified: 701
+            topics: ['topic2'], language: 'en', modified: 701
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -91,7 +94,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
         res.body.topics.length.should.equals(1);
-        res.body.topics[0].should.equals('Health');
+        res.body.topics[0].should.equals('topic2De');
 
         res.body.answers.length.should.equals(0);
     });
@@ -99,7 +102,7 @@ describe('Getting details of a question', function () {
     it('Getting details of a question without answers and description', async function () {
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2',
-            topics: ['Health'], language: 'en', modified: 701
+            topics: ['topic2'], language: 'en', modified: 701
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -120,7 +123,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
         res.body.topics.length.should.equals(1);
-        res.body.topics[0].should.equals('Health');
+        res.body.topics[0].should.equals('topic2De');
 
         res.body.answers.length.should.equals(0);
     });
@@ -156,8 +159,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Education');
+        res.body.topics.should.include('topic1De');
+        res.body.topics.should.include('topic2De');
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
@@ -286,8 +289,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Education');
+        res.body.topics.should.include('topic1De');
+        res.body.topics.should.include('topic2De');
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('7');
@@ -409,8 +412,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Education');
+        res.body.topics.should.include('topic1De');
+        res.body.topics.should.include('topic2De');
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');

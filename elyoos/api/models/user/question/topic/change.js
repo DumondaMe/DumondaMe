@@ -2,12 +2,13 @@
 
 const db = requireDb();
 const security = require('./../security');
+const topicSecurity = require('./../../../topic/security');
 const topicsUtil = require('./../../../util/topics');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const changeTopics = async function (userId, questionId, topics) {
     await security.isAdmin(userId, questionId);
-    topicsUtil.normalizeTopics(topics);
+    await topicSecurity.checkTopicsExists(topics);
     await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
         .addCommand(topicsUtil.changeTopicsCommand('question'))
         .end({userId, questionId, topics}).send();

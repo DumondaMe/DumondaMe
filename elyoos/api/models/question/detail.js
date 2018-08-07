@@ -94,7 +94,7 @@ const getQuestion = async function (questionId, language, userId) {
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
         .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
         .return(`question, user, count(DISTINCT answer) AS numberOfAnswers, count(DISTINCT watch) AS numberOfWatches,
-                 collect(DISTINCT topic.name) AS topics,
+                 collect(DISTINCT topic.${language}) AS topics,
                  EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion`)
         .end({questionId, userId}).send([getAnswersCommand(questionId, userId)]);

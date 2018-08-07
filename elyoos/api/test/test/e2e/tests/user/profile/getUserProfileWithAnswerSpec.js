@@ -10,9 +10,11 @@ describe('Getting user profile with answers', function () {
         await dbDsl.init(4);
 
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
 
         dbDsl.createCommitment('20', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 444, modified: 606,
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 444, modified: 606,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Commitment'
         });
 
@@ -20,7 +22,7 @@ describe('Getting user profile with answers', function () {
             creatorId: '3',
             question: 'Das ist eine Frage',
             description: 'Test elyoos.org change the world',
-            topics: ['Spiritual'],
+            topics: ['topic2'],
             language: 'de',
             created: 666
         });

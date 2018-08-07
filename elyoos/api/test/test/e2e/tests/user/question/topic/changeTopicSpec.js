@@ -17,57 +17,65 @@ describe('Change topic of a question', function () {
 
     it('Change topic of a question', async function () {
 
-        dbDsl.createTopic('Test3');
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic1',
+            topicId: 'topic11',
+            descriptionDe: 'topic11De',
+            descriptionEn: 'topic11En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic1',
+            topicId: 'topic12',
+            descriptionDe: 'topic12De',
+            descriptionEn: 'topic12En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic1',
+            topicId: 'topic13',
+            descriptionDe: 'topic13De',
+            descriptionEn: 'topic13En'
+        });
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'description', topics: ['Test1', 'Test2'],
+            creatorId: '1', question: 'Das ist eine Frage', description: 'description', topics: ['topic1', 'topic11'],
             language: 'de'
         });
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/topic/1', {
-            topics: ['test1', 'Test3', 'Test4'],
+            topics: ['topic12', 'topic13'],
         });
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match("(topic:Topic)")
-            .optionalMatch("(topic)-[:TOPIC]->(question:Question)")
-            .return(`DISTINCT topic.name AS topic, question.questionId AS questionId`).orderBy(`topic.name`).end().send();
-        resp.length.should.equals(3);
-        resp[0].topic.should.equals('Test1');
-        resp[0].questionId.should.equals('1');
-        resp[1].topic.should.equals('Test3');
-        resp[1].questionId.should.equals('1');
-        resp[2].topic.should.equals('Test4');
-        resp[2].questionId.should.equals('1');
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
+            .return(`DISTINCT topic.topicId AS topic`)
+            .orderBy(`topic.topicId`).end().send();
+        resp.length.should.equals(2);
+        resp[0].topic.should.equals('topic12');
+        resp[1].topic.should.equals('topic13');
     });
 
-    it('Change topic of a question (other question references same previous topic)', async function () {
+    it('Change of topic fails because topic does not exist', async function () {
 
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'description', topics: ['Test1'],
-            language: 'de'
-        });
-        dbDsl.createQuestion('2', {
-            creatorId: '2', question: 'Das ist eine Frage2', description: 'description1', topics: ['Test1'],
+            creatorId: '1', question: 'Das ist eine Frage', description: 'description', topics: ['topic1'],
             language: 'de'
         });
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/topic/1', {
-            topics: ['Test3'],
+            topics: ['topic12'],
         });
-        res.status.should.equal(200);
+        res.status.should.equal(401);
 
-        let resp = await db.cypher().match("(topic:Topic)")
-            .optionalMatch("(topic)-[:TOPIC]->(question:Question)")
-            .return(`DISTINCT topic.name AS topic, question.questionId AS questionId`).orderBy(`topic.name`).end().send();
-        resp.length.should.equals(2);
-        resp[0].topic.should.equals('Test1');
-        resp[0].questionId.should.equals('2');
-        resp[1].topic.should.equals('Test3');
-        resp[1].questionId.should.equals('1');
+        let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
+            .return(`DISTINCT topic.topicId AS topic`)
+            .orderBy(`topic.topicId`).end().send();
+        resp.length.should.equals(1);
+        resp[0].topic.should.equals('topic1');
     });
 
     it('Not allowed to change topic of a question where user is not admin', async function () {

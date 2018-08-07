@@ -14,6 +14,9 @@ describe('Creating a new question', function () {
     beforeEach(async function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
     });
 
     afterEach(function () {
@@ -26,7 +29,7 @@ describe('Creating a new question', function () {
         let res = await requestHandler.post('/api/user/question', {
             question: 'Das ist eine FragöÖÄäÜü',
             description: 'description',
-            topics: ['spiritual', 'education'],
+            topics: ['topic1', 'topic2'],
             lang: 'de'
         });
         res.status.should.equal(200);
@@ -34,15 +37,15 @@ describe('Creating a new question', function () {
         res.body.descriptionHtml.should.equals('description');
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
-            .return(`question, collect(topic.name) AS topics`).end().send();
+            .return(`question, collect(topic.topicId) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals(res.body.questionId);
         resp[0].question.question.should.equals('Das ist eine FragöÖÄäÜü');
         resp[0].question.description.should.equals('description');
         resp[0].question.created.should.least(startTime);
         resp[0].topics.length.should.equals(2);
-        resp[0].topics.should.include('Spiritual');
-        resp[0].topics.should.include('Education');
+        resp[0].topics.should.include('topic1');
+        resp[0].topics.should.include('topic2');
         resp[0].question.language.should.equals('de');
     });
 
@@ -52,7 +55,7 @@ describe('Creating a new question', function () {
         let res = await requestHandler.post('/api/user/question', {
             question: 'Das ist eine FragöÖÄäÜü',
             description: 'Test elyoos.org change the world',
-            topics: ['spiritual', 'education'],
+            topics: ['topic1', 'topic2'],
             lang: 'de'
         });
         res.status.should.equal(200);
@@ -60,15 +63,15 @@ describe('Creating a new question', function () {
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
-            .return(`question, collect(topic.name) AS topics`).end().send();
+            .return(`question, collect(topic.topicId) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals(res.body.questionId);
         resp[0].question.question.should.equals('Das ist eine FragöÖÄäÜü');
         resp[0].question.description.should.equals(`Test elyoos.org change the world`);
         resp[0].question.created.should.least(startTime);
         resp[0].topics.length.should.equals(2);
-        resp[0].topics.should.include('Spiritual');
-        resp[0].topics.should.include('Education');
+        resp[0].topics.should.include('topic1');
+        resp[0].topics.should.include('topic2');
         resp[0].question.language.should.equals('de');
     });
 
@@ -76,22 +79,22 @@ describe('Creating a new question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question', {
-            question: 'Das ist eine FragöÖÄäÜü', topics: ['spiritual', 'education'], lang: 'de'
+            question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1', 'topic2'], lang: 'de'
         });
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragööääüü');
         should.not.exist(res.body.descriptionHtml);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
-            .return(`question, collect(topic.name) AS topics`).end().send();
+            .return(`question, collect(topic.topicId) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals(res.body.questionId);
         resp[0].question.question.should.equals('Das ist eine FragöÖÄäÜü');
         should.not.exist(resp[0].question.description);
         resp[0].question.created.should.least(startTime);
         resp[0].topics.length.should.equals(2);
-        resp[0].topics.should.include('Spiritual');
-        resp[0].topics.should.include('Education');
+        resp[0].topics.should.include('topic1');
+        resp[0].topics.should.include('topic2');
         resp[0].question.language.should.equals('de');
     });
 
@@ -101,7 +104,7 @@ describe('Creating a new question', function () {
         let res = await requestHandler.post('/api/user/question', {
             question: 'Das ist eine FragöÖÄäÜü<script>alert()</script>',
             description: 'Test elyoos.org change the world<script>alert()</script>',
-            topics: ['spiritual', 'education'], lang: 'de'
+            topics: ['topic1', 'topic2'], lang: 'de'
         });
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragööääüü');
@@ -114,10 +117,22 @@ describe('Creating a new question', function () {
         resp[0].question.description.should.equals('Test elyoos.org change the world');
     });
 
+    it('Adding a new question fails because topic does not exist', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question', {
+            question: 'Das ist eine FragöÖÄäÜü',
+            description: 'description',
+            topics: ['topic3', 'topic2'],
+            lang: 'de'
+        });
+        res.status.should.equal(401);
+    });
+
     it('Only allowed to add a question as logged in user', async function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/user/question', {
-            question: 'Das ist eine FragöÖÄäÜü', topic: ['spiritual', 'education'], lang: 'de'
+            question: 'Das ist eine FragöÖÄäÜü', topic: ['topic1', 'topic2'], lang: 'de'
         });
         res.status.should.equal(401);
     });

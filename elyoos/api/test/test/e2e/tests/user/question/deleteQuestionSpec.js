@@ -14,6 +14,8 @@ describe('Delete a question', function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
     });
 
     afterEach(function () {
@@ -23,7 +25,7 @@ describe('Delete a question', function () {
     it('Delete a question without answers and delete topic', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -36,19 +38,15 @@ describe('Delete a question', function () {
         let resp = await db.cypher().match("(question:Question)")
             .return(`question`).end().send();
         resp.length.should.equals(0);
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`topic`).end().send();
-        resp.length.should.equals(0);
     });
 
     it('Delete a question without answers do not delete topic used by other question', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1'], language: 'de'
         });
         dbDsl.createQuestion('2', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü2', topics: ['Spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü2', topics: ['topic1'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -62,17 +60,12 @@ describe('Delete a question', function () {
             .return(`question`).end().send();
         resp.length.should.equals(1);
         resp[0].question.questionId.should.equals('2');
-
-        resp = await db.cypher().match("(topic:Topic)")
-            .return(`topic`).end().send();
-        resp.length.should.equals(1);
-        resp[0].topic.name.should.equals('Spiritual');
     });
 
     it('Mark a question to delete when answers exist', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
+            creatorId: '1', question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1'], language: 'de'
         });
         dbDsl.createTextAnswer('1', {creatorId: '2', questionId: '1', answer: 'Das ist eine Antwort'});
         await dbDsl.sendToDb();
@@ -92,7 +85,7 @@ describe('Delete a question', function () {
     it('Only admin is allowed to delete question', async function () {
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', topics: ['Spiritual'], language: 'de'
+            creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1'], language: 'de'
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

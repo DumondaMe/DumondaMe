@@ -18,22 +18,26 @@ describe('Get details of a commitment', function () {
         dbDsl.createRegion('region-1-1', {parentRegionId: 'region-1', de: 'Region11De', en: 'Region11En'});
         dbDsl.createRegion('region-1-2', {parentRegionId: 'region-1', de: 'Region12De', en: 'Region12En'});
 
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
+        dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
+
         dbDsl.createCommitment('1', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, modified: 701,
+            adminId: '1', topics: ['topic1', 'topic3'], language: 'de', created: 700, modified: 701,
             website: 'https://www.example.org/', regions: ['region-1-1', 'region-1-2']
         });
 
         dbDsl.createQuestion('10', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description',
-            topics: ['Spiritual', 'Education'], language: 'de', created: 533, modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', created: 533, modified: 700
         });
         dbDsl.createQuestion('11', {
             creatorId: '2', question: 'Das ist eine Frage2', description: 'description2',
-            topics: ['Spiritual'], language: 'de', created: 544
+            topics: ['topic1'], language: 'de', created: 544
         });
         dbDsl.createQuestion('12', {
             creatorId: '2', question: 'Das ist eine Frage3', description: 'description3',
-            topics: ['Spiritual'], language: 'de', created: 555
+            topics: ['topic1'], language: 'de', created: 555
         });
 
         dbDsl.createCommitmentAnswer('100', {
@@ -82,8 +86,8 @@ describe('Get details of a commitment', function () {
         res.body.regions.should.include('Region12De');
         res.body.isAdmin.should.equals(true);
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Meditation');
+        res.body.topics.should.include('topic1De');
+        res.body.topics.should.include('topic3De');
         res.body.linkedWithQuestions.length.should.equals(2);
         res.body.linkedWithQuestions[0].questionId.should.equals('10');
         res.body.linkedWithQuestions[0].question.should.equals('Das ist eine Frage');
@@ -127,8 +131,8 @@ describe('Get details of a commitment', function () {
         res.body.regions.should.include('Region12En');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Meditation');
+        res.body.topics.should.include('topic1En');
+        res.body.topics.should.include('topic3En');
         res.body.linkedWithQuestions.length.should.equals(0);
         res.body.events.length.should.equals(1);
         res.body.totalNumberOfEvents.should.equals(1);
@@ -158,8 +162,8 @@ describe('Get details of a commitment', function () {
         res.body.regions.should.include('Region12De');
         res.body.isAdmin.should.equals(false);
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('Spiritual');
-        res.body.topics.should.include('Meditation');
+        res.body.topics.should.include('topic1De');
+        res.body.topics.should.include('topic3De');
         res.body.linkedWithQuestions.length.should.equals(2);
         res.body.linkedWithQuestions[0].questionId.should.equals('10');
         res.body.linkedWithQuestions[0].question.should.equals('Das ist eine Frage');

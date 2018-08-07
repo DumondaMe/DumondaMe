@@ -10,15 +10,17 @@ describe('Get answers created by the requested user', function () {
         await dbDsl.init(9);
 
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
 
         dbDsl.createCommitment('20', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 444, modified: 606,
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 444, modified: 606,
             website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Commitment'
         });
 
         dbDsl.createQuestion('100', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
-            topics: ['Spiritual'], language: 'de', created: 666
+            topics: ['topic2'], language: 'de', created: 666
         });
         dbDsl.createBookAnswer('10', {
             creatorId: '1', questionId: '100', created: 1000, authors: 'Hans Wurst', googleBookId: '1234',

@@ -16,9 +16,12 @@ describe('Get feed of the user', function () {
 
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createRegion('region-2', {de: 'region2De', en: 'region2En'});
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
+
         dbDsl.createCommitment('100', {
             adminId: '2',
-            topics: ['Spiritual', 'Education'],
+            topics: ['topic1', 'topic2'],
             language: 'de',
             created: 400,
             modified: 606,
@@ -29,7 +32,7 @@ describe('Get feed of the user', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
-            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
@@ -40,7 +43,7 @@ describe('Get feed of the user', function () {
         });
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
-            topics: ['Health'], language: 'de', created: 602,
+            topics: ['topic2'], language: 'de', created: 602,
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '2', questionId: '2', created: 603, idOnYoutube: '00zxopGPYW4',
@@ -184,7 +187,7 @@ describe('Get feed of the user', function () {
         dbDsl.createContactConnection('1', '9');
         dbDsl.createQuestion('3', {
             creatorId: '8', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
-            topics: ['Health'], language: 'de', created: 602,
+            topics: ['topic2'], language: 'de', created: 602,
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '9', questionId: '3', created: 603, idOnYoutube: '00zxopGPYW4',
@@ -209,7 +212,7 @@ describe('Get feed of the user', function () {
         dbDsl.createContactConnection('1', '9');
         dbDsl.createQuestion('3', {
             creatorId: '8', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
-            topics: ['Health'], language: 'de', created: 602,
+            topics: ['topic2'], language: 'de', created: 602,
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '8', questionId: '3', created: 603, idOnYoutube: '00zxopGPYW4',
@@ -384,7 +387,7 @@ describe('Get feed of the user', function () {
         dbDsl.createContactConnection('1', '9');
         dbDsl.createCommitment('101', {
             adminId: '9',
-            topics: ['Spiritual'],
+            topics: ['topic2'],
             language: 'de',
             created: 555,
             modified: 607,
@@ -474,7 +477,7 @@ describe('Get feed of the user', function () {
     it('Hide question created by the user', async function () {
         dbDsl.createQuestion('21', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
-            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -488,7 +491,7 @@ describe('Get feed of the user', function () {
     it('Hide commitment created by the user', async function () {
         dbDsl.createCommitment('101', {
             adminId: '1',
-            topics: ['Spiritual', 'Education'],
+            topics: ['topic1', 'topic2'],
             language: 'de',
             created: 400,
             modified: 606,

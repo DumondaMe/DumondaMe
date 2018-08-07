@@ -13,12 +13,14 @@ describe('Get the public feed', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
         dbDsl.createCommitment('100', {
-            adminId: '2', topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',
             website: 'https://www.example.org/', regions: ['region-1']
         });
         dbDsl.createCommitment('101', {
-            adminId: '2', topics: ['Spiritual', 'Education'], language: 'en', created: 400, modified: 606, title: 'Test Commitment2',
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'en', created: 400, modified: 606, title: 'Test Commitment2',
             website: 'https://www.example2.org/', regions: ['region-1']
         });
         dbDsl.createCommitmentEvent({commitmentId: '100', eventId: '22', created: 777,
@@ -32,7 +34,7 @@ describe('Get the public feed', function () {
 
         dbDsl.createQuestion('1', {
             creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
-            topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
+            topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer', created: 600,
@@ -43,7 +45,7 @@ describe('Get the public feed', function () {
         });
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'description2',
-            topics: ['Health'], language: 'de', created: 602,
+            topics: ['topic1'], language: 'de', created: 602,
         });
         dbDsl.createYoutubeAnswer('7', {creatorId: '2', questionId: '2', created: 603, idOnYoutube: '00zxopGPYW4',
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
@@ -54,7 +56,7 @@ describe('Get the public feed', function () {
         });
         dbDsl.createQuestion('3', {
             creatorId: '3', question: 'Das ist eine Frage3', description: 'description3',
-            topics: ['Health'], language: 'en', created: 602,
+            topics: ['topic1'], language: 'en', created: 602,
         });
     });
 
