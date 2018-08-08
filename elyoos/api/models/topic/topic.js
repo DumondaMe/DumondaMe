@@ -6,15 +6,15 @@ const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 const getTopicResponse = function (topics) {
     let map = {}, node, roots = [];
     for (let i = 0; i < topics.length; i++) {
-        map[topics[i].topicId] = i;
-        topics[i].subTopics = [];
-        delete topics[i].isSubTopic;
+        map[topics[i].id] = i;
+        topics[i].subItems = [];
+        delete topics[i].isSubItem;
     }
 
     for (let i = 0; i < topics.length; i++) {
         node = topics[i];
-        if (node.parentTopicId) {
-            topics[map[node.parentTopicId]].subTopics.push(node);
+        if (node.parentId) {
+            topics[map[node.parentId]].subItems.push(node);
         } else {
             roots.push(node);
         }
@@ -27,14 +27,14 @@ const getTopics = async function (language) {
 
     let resp = await db.cypher().match(`(t:Topic)`)
         .optionalMatch(`(t)<-[:SUB_TOPIC]-(parentTopic:Topic)`)
-        .return(`t.topicId AS topicId, t.${language} AS description, parentTopic.topicId AS parentTopicId,
-                 exists(parentTopic.topicId) AS isSubTopic`)
-        .orderBy(`isSubTopic DESC, description`)
+        .return(`t.topicId AS id, t.${language} AS description, parentTopic.topicId AS parentId,
+                 exists(parentTopic.topicId) AS isSubItem`)
+        .orderBy(`isSubItem DESC, description`)
         .end().send();
 
     logger.info(`Get all topics`);
 
-    return {topics: getTopicResponse(resp)};
+    return getTopicResponse(resp);
 };
 
 module.exports = {
