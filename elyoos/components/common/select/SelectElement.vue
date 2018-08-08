@@ -11,7 +11,8 @@
                                         item.subItems.length > 0">
             <select-element :item="subItem" v-for="subItem in item.subItems"
                             :key="subItem.id" :is-root="false" :select-multiple="selectMultiple"
-                            @select-changed="$emit('select-changed')">
+                            :dis-select-parent-items="disSelectParentItems"
+                            @select-changed="childSelectChanged">
             </select-element>
         </div>
     </div>
@@ -22,13 +23,16 @@
 
     export default {
         name: 'select-element',
-        props: ['item', 'isRoot', 'selectMultiple'],
+        props: ['item', 'isRoot', 'selectMultiple', 'disSelectParentItems'],
         components: {SelectElement},
         methods: {
             select() {
                 this.item.isSelected = !this.item.isSelected;
-                this.disSelectSubItems(this.item.subItems);
-                this.$emit('select-changed');
+                if (this.item.isSelected) {
+                    this.disSelectSubItems(this.item.subItems);
+                    this.item.subItemIsSelected = false;
+                }
+                this.$emit('select-changed', {isSelected: this.item.isSelected, id: this.item.id});
             },
             disSelectSubItems(subItems) {
                 for (let item of subItems) {
@@ -38,6 +42,22 @@
                     }
                 }
             },
+            isSubItemSelected(subItems) {
+                for (let subItem of subItems) {
+                    if (subItem.isSelected || (subItem.subItems && subItem.subItems.length > 0 &&
+                        this.isSubItemSelected(subItem.subItems))) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            childSelectChanged(item) {
+                if (this.disSelectParentItems) {
+                    this.item.subItemIsSelected = this.isSubItemSelected(this.item.subItems);
+                    this.item.isSelected = !this.item.subItemIsSelected;
+                }
+                this.$emit('select-changed', item)
+            }
         }
     }
 </script>
@@ -51,20 +71,19 @@
             .item-icon {
                 float: right;
                 color: $success-text;
+                user-select: none;
             }
             .item {
                 user-select: none;
             }
             .item.main-bold {
-                color: $primary-color;
-                //font-weight: 500;
+                font-weight: 500;
             }
         }
         :hover.item-container {
             background-color: #EEEEEE;
         }
         .item-container.item-selected {
-            font-weight: 500;
             color: $success-text;
             background-color: #EEEEEE;
             .item {
@@ -74,6 +93,13 @@
         .sub-item-selected {
             font-weight: 500;
             background-color: #EEEEEE;
+        }
+        .sub-items {
+            .select-item {
+                .item-container {
+                    padding-left: 22px;
+                }
+            }
         }
     }
 </style>

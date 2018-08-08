@@ -2,6 +2,7 @@
     <div id="select-container">
         <select-element :item="item" v-for="item in localItems" :key="item.id"
                         :is-root="true" :select-multiple="selectMultiple"
+                        :dis-select-parent-items="disSelectParentItems"
                         @select-changed="selectChanged">
         </select-element>
     </div>
@@ -12,7 +13,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['items', 'existingItems', 'selectMultiple'],
+        props: ['items', 'existingItems', 'selectMultiple', 'singleSelectedItemId', 'disSelectParentItems'],
         components: {SelectElement},
         data() {
             return {localItems: JSON.parse(JSON.stringify(this.items))}
@@ -25,16 +26,21 @@
         },
         methods: {
             setIsSelectedState(items, existingItems) {
+                let hasSelected = false;
                 for (let item of items) {
                     if (existingItems && existingItems.find(existingItem => existingItem.id === item.id)) {
                         Vue.set(item, 'isSelected', true);
+                        hasSelected = true;
                     } else {
                         Vue.set(item, 'isSelected', false);
                     }
                     if (item.subItems && item.subItems.length > 0) {
-                        this.setIsSelectedState(item.subItems, existingItems);
+                        Vue.set(item, 'subItemIsSelected', this.setIsSelectedState(item.subItems, existingItems));
+                    } else {
+                        Vue.set(item, 'subItemIsSelected', false);
                     }
                 }
+                return hasSelected;
             },
             getSelected(items, selected) {
                 for (let item of items) {
@@ -47,9 +53,45 @@
                 }
                 return selected;
             },
-            selectChanged() {
+            setNotSelectedExceptOneItem(items, exceptItem) {
+                for (let item of items) {
+                    if (item.id !== exceptItem) {
+                        item.isSelected = false;
+                        item.subItemIsSelected = false;
+                    }
+                    if (item.subItems && item.subItems.length > 0) {
+                        this.setNotSelectedExceptOneItem(item.subItems, exceptItem);
+                    }
+                }
+            },
+            disableSingleSelectedItem(items, itemToDisable) {
+                for (let item of items) {
+                    if (item.id === itemToDisable) {
+                        item.isSelected = false;
+                        return;
+                    }
+                    if (item.subItems && item.subItems.length > 0) {
+                        this.disableSingleSelectedItem(item.subItems, itemToDisable);
+                    }
+                }
+            },
+            selectChanged(item) {
                 let selected = [];
+                if (this.singleSelectedItemId && item.isSelected && item.id === this.singleSelectedItemId) {
+                    this.setNotSelectedExceptOneItem(this.localItems, this.singleSelectedItemId)
+                }
+
                 this.getSelected(this.localItems, selected);
+
+                if (this.singleSelectedItemId && item.id !== this.singleSelectedItemId) {
+
+                    let singleSelectedSelected = selected.findIndex(selectedItem =>
+                        selectedItem.id === this.singleSelectedItemId);
+                    if (singleSelectedSelected !== -1) {
+                        this.disableSingleSelectedItem(this.localItems, this.singleSelectedItemId);
+                        selected.slice(singleSelectedSelected, 1);
+                    }
+                }
                 this.$emit('select-changed', selected);
             }
         }
