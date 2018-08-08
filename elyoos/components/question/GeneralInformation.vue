@@ -32,7 +32,7 @@
             <v-icon class="info-icon">mdi-key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in question.topics">
-                    {{topic}}<span v-if="index < question.topics.length - 1">, </span></span>
+                    {{topic.description}}<span v-if="index < question.topics.length - 1">, </span></span>
             </div>
         </div>
         <div class="question-info">

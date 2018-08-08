@@ -37,7 +37,7 @@
             getSelected(items, selected) {
                 for (let item of items) {
                     if (item.isSelected) {
-                        selected.push(item.id);
+                        selected.push({id: item.id, description: item.description});
                     }
                     if (item.subItems && item.subItems.length > 0) {
                         this.getSelected(item.subItems, selected);

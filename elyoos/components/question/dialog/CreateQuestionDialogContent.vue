@@ -29,7 +29,7 @@
             },
             async finishTopics(topics) {
                 try {
-                    this.$store.commit('createQuestion/SET_TOPICS', topics);
+                    this.$store.commit('createQuestion/SET_TOPICS', topics.map(topic => topic.id));
                     this.loading = true;
                     let response = await this.$store.dispatch('createQuestion/createNewQuestion');
                     this.loading = false;

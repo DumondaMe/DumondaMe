@@ -94,7 +94,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
         res.body.topics.length.should.equals(1);
-        res.body.topics[0].should.equals('topic2De');
+        res.body.topics[0].id.should.equals('topic2');
+        res.body.topics[0].description.should.equals('topic2De');
 
         res.body.answers.length.should.equals(0);
     });
@@ -123,7 +124,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
         res.body.topics.length.should.equals(1);
-        res.body.topics[0].should.equals('topic2De');
+        res.body.topics[0].id.should.equals('topic2');
+        res.body.topics[0].description.should.equals('topic2De');
 
         res.body.answers.length.should.equals(0);
     });
@@ -159,8 +161,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('topic1De');
-        res.body.topics.should.include('topic2De');
+        res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
+        res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
@@ -289,8 +291,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('topic1De');
-        res.body.topics.should.include('topic2De');
+        res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
+        res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('7');
@@ -412,8 +414,8 @@ describe('Getting details of a question', function () {
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
         res.body.topics.length.should.equals(2);
-        res.body.topics.should.include('topic1De');
-        res.body.topics.should.include('topic2De');
+        res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
+        res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
