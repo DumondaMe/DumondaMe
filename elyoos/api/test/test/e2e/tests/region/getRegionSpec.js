@@ -31,40 +31,77 @@ describe('Get regions', function () {
         return requestHandler.logout();
     });
 
-    it('Get regions in english', async function () {
+    it('Get regions in german', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/region', {language: 'de'});
         res.status.should.equal(200);
         res.body.regions.length.should.equals(3);
-        res.body.regions[0].regionId.should.equals('international');
+        res.body.regions[0].id.should.equals('international');
         res.body.regions[0].description.should.equals('InternationalDe');
-        res.body.regions[0].subRegions.length.should.equals(0);
+        res.body.regions[0].subItems.length.should.equals(0);
 
-        res.body.regions[1].regionId.should.equals('ch');
+        res.body.regions[1].id.should.equals('ch');
         res.body.regions[1].description.should.equals('chDe');
-        res.body.regions[1].subRegions.length.should.equals(3);
-        res.body.regions[1].subRegions[0].regionId.should.equals('ch-fr');
-        res.body.regions[1].subRegions[0].description.should.equals('chFrDe');
-        res.body.regions[1].subRegions[0].subRegions.length.should.equals(0);
-        res.body.regions[1].subRegions[1].regionId.should.equals('ch-zg');
-        res.body.regions[1].subRegions[1].description.should.equals('chZgDe');
-        res.body.regions[1].subRegions[1].subRegions.length.should.equals(0);
-        res.body.regions[1].subRegions[2].regionId.should.equals('ch-zh');
-        res.body.regions[1].subRegions[2].description.should.equals('chZhDe');
-        res.body.regions[1].subRegions[2].subRegions.length.should.equals(2);
-        res.body.regions[1].subRegions[2].subRegions[0].regionId.should.equals('ch-zh-1');
-        res.body.regions[1].subRegions[2].subRegions[0].description.should.equals('chZh1De');
-        res.body.regions[1].subRegions[2].subRegions[1].regionId.should.equals('ch-zh-2');
-        res.body.regions[1].subRegions[2].subRegions[1].description.should.equals('chZh2De');
+        res.body.regions[1].subItems.length.should.equals(3);
+        res.body.regions[1].subItems[0].id.should.equals('ch-fr');
+        res.body.regions[1].subItems[0].description.should.equals('chFrDe');
+        res.body.regions[1].subItems[0].subItems.length.should.equals(0);
+        res.body.regions[1].subItems[1].id.should.equals('ch-zg');
+        res.body.regions[1].subItems[1].description.should.equals('chZgDe');
+        res.body.regions[1].subItems[1].subItems.length.should.equals(0);
+        res.body.regions[1].subItems[2].id.should.equals('ch-zh');
+        res.body.regions[1].subItems[2].description.should.equals('chZhDe');
+        res.body.regions[1].subItems[2].subItems.length.should.equals(2);
+        res.body.regions[1].subItems[2].subItems[0].id.should.equals('ch-zh-1');
+        res.body.regions[1].subItems[2].subItems[0].description.should.equals('chZh1De');
+        res.body.regions[1].subItems[2].subItems[1].id.should.equals('ch-zh-2');
+        res.body.regions[1].subItems[2].subItems[1].description.should.equals('chZh2De');
 
-        res.body.regions[2].regionId.should.equals('de');
+        res.body.regions[2].id.should.equals('de');
         res.body.regions[2].description.should.equals('deDe');
-        res.body.regions[2].subRegions.length.should.equals(2);
-        res.body.regions[2].subRegions[0].regionId.should.equals('de-bw');
-        res.body.regions[2].subRegions[0].description.should.equals('deBwDe');
-        res.body.regions[2].subRegions[0].subRegions.length.should.equals(0);
-        res.body.regions[2].subRegions[1].regionId.should.equals('de-by');
-        res.body.regions[2].subRegions[1].description.should.equals('deByDe');
-        res.body.regions[2].subRegions[1].subRegions.length.should.equals(0);
+        res.body.regions[2].subItems.length.should.equals(2);
+        res.body.regions[2].subItems[0].id.should.equals('de-bw');
+        res.body.regions[2].subItems[0].description.should.equals('deBwDe');
+        res.body.regions[2].subItems[0].subItems.length.should.equals(0);
+        res.body.regions[2].subItems[1].id.should.equals('de-by');
+        res.body.regions[2].subItems[1].description.should.equals('deByDe');
+        res.body.regions[2].subItems[1].subItems.length.should.equals(0);
+    });
+
+    it('Get regions in english', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/region', {language: 'en'});
+        res.status.should.equal(200);
+        res.body.regions.length.should.equals(3);
+        res.body.regions[0].id.should.equals('international');
+        res.body.regions[0].description.should.equals('InternationalEn');
+        res.body.regions[0].subItems.length.should.equals(0);
+
+        res.body.regions[1].id.should.equals('ch');
+        res.body.regions[1].description.should.equals('chEn');
+        res.body.regions[1].subItems.length.should.equals(3);
+        res.body.regions[1].subItems[0].id.should.equals('ch-fr');
+        res.body.regions[1].subItems[0].description.should.equals('chFrEn');
+        res.body.regions[1].subItems[0].subItems.length.should.equals(0);
+        res.body.regions[1].subItems[1].id.should.equals('ch-zg');
+        res.body.regions[1].subItems[1].description.should.equals('chZgEn');
+        res.body.regions[1].subItems[1].subItems.length.should.equals(0);
+        res.body.regions[1].subItems[2].id.should.equals('ch-zh');
+        res.body.regions[1].subItems[2].description.should.equals('chZhEn');
+        res.body.regions[1].subItems[2].subItems.length.should.equals(2);
+        res.body.regions[1].subItems[2].subItems[0].id.should.equals('ch-zh-1');
+        res.body.regions[1].subItems[2].subItems[0].description.should.equals('chZh1En');
+        res.body.regions[1].subItems[2].subItems[1].id.should.equals('ch-zh-2');
+        res.body.regions[1].subItems[2].subItems[1].description.should.equals('chZh2En');
+
+        res.body.regions[2].id.should.equals('de');
+        res.body.regions[2].description.should.equals('deEn');
+        res.body.regions[2].subItems.length.should.equals(2);
+        res.body.regions[2].subItems[0].id.should.equals('de-bw');
+        res.body.regions[2].subItems[0].description.should.equals('deBwEn');
+        res.body.regions[2].subItems[0].subItems.length.should.equals(0);
+        res.body.regions[2].subItems[1].id.should.equals('de-by');
+        res.body.regions[2].subItems[1].description.should.equals('deByEn');
+        res.body.regions[2].subItems[1].subItems.length.should.equals(0);
     });
 });

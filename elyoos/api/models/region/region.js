@@ -4,15 +4,19 @@ const db = requireDb();
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const parseRegionsQueryResult = function (allRegions, parsedRegions, language) {
-    let subRegions = allRegions.find((r) => r.upperRegion === parsedRegions.regionId);
+    let subRegions = allRegions.find((r) => r.upperRegion === parsedRegions.id);
     if (subRegions && subRegions.regions && subRegions.regions.length > 0) {
         for (let region of subRegions.regions) {
-            let parsedSubRegion = {regionId: region.regionId, description: region[language], subRegions: []};
+            let parsedSubRegion = {id: region.regionId, description: region[language], subItems: []};
             parseRegionsQueryResult(allRegions, parsedSubRegion, language);
-            parsedRegions.subRegions.push(parsedSubRegion)
+            parsedRegions.subItems.push(parsedSubRegion)
         }
     }
     return parsedRegions;
+};
+
+const getInternational = function (regions, language) {
+    return {id: 'international', description: regions[0].regions[0][language], subItems: []};
 };
 
 const getRegions = async function (language) {
@@ -21,14 +25,15 @@ const getRegions = async function (language) {
         .optionalMatch(`(r)<-[:SUB_REGION]-(upperRegion:Region)`)
         .with(`r, upperRegion`)
         .orderBy(`r.${language}`)
-        .return(`collect(r) AS regions, upperRegion.regionId AS upperRegion`)
+        .return(`collect(r) AS regions, upperRegion.regionId AS upperRegion, 
+                 exists(upperRegion.regionId) AS upperRegionExists`)
+        .orderBy(`upperRegionExists DESC`)
         .end().send();
 
-    let regions = parseRegionsQueryResult(resp, {regionId: 'international', subRegions: []}, language);
+    let regions = parseRegionsQueryResult(resp, {id: 'international', subItems: []}, language);
     logger.info(`Get all regions`);
     return {
-        regions: [{regionId: 'international', description: 'InternationalDe', subRegions: []}]
-            .concat(regions.subRegions)
+        regions: [getInternational(resp, language)].concat(regions.subItems)
     };
 };
 
