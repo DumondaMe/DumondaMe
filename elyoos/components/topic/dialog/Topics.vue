@@ -7,7 +7,8 @@
             <div id="topic-description">
                 {{description}}
             </div>
-            <ely-select :items="topics" @select-changed="selectChanged"></ely-select>
+            <ely-select :items="topics" :existing-items="existingTopics" @select-changed="selectChanged">
+            </ely-select>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -16,7 +17,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="$emit('finish', selectedTopics)" :loading="loading"
-                   :disabled="loading || selectedTopics.length === 0">
+                   :disabled="loading || selectedTopics.length === 0 || !hasChanged">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -29,19 +30,31 @@
     const MAX_NUMBER_OF_TOPICS = 10;
 
     export default {
-        props: ['actionButtonText', 'description', 'loading'],
+        props: ['actionButtonText', 'description', 'loading', 'existingTopics'],
         data() {
-            return {topics: [], selectedTopics: []}
+            return {topics: [], selectedTopics: [], hasChanged: true}
         },
         async mounted() {
             this.topics = await this.$axios.$get(`/topic`, {params: {language: this.$store.state.i18n.language}});
+            if(this.existingTopics) {
+                this.selectedTopics = JSON.parse(JSON.stringify(this.existingTopics));
+            }
+            this.hasChanged = this.checkHasChanged();
         },
         components: {ElySelect},
         methods: {
+            checkHasChanged() {
+                if (this.existingTopics) {
+                    return this.existingTopics.length !== this.selectedTopics.length &&
+                        !this.existingTopics.every(existingTopic => this.selectedTopics.includes(existingTopic));
+                }
+                return true;
+            },
             selectChanged(selectedTopics) {
                 this.selectedTopics = selectedTopics;
+                this.hasChanged = this.checkHasChanged();
             }
-        }
+        },
     }
 </script>
 

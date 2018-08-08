@@ -31,7 +31,7 @@
             async changeTopics(topics) {
                 try {
                     this.loading = true;
-                    await this.$axios.$put(`${this.api}${this.apiParam}`, {topics});
+                    await this.$axios.$put(`${this.api}${this.apiParam}`, {topics: topics.map(topic => topic.id)});
                     this.loading = false;
                     this.$emit('finish', topics);
                 }

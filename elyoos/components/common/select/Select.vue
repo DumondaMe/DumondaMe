@@ -12,7 +12,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['items', 'selectMultiple'],
+        props: ['items', 'existingItems', 'selectMultiple'],
         components: {SelectElement},
         data() {
             return {localItems: JSON.parse(JSON.stringify(this.items))}
@@ -20,17 +20,19 @@
         watch: {
             items(newItems) {
                 this.localItems = JSON.parse(JSON.stringify(newItems));
-                this.setIsSelected(this.localItems);
+                this.setIsSelectedState(this.localItems, this.existingItems);
             }
         },
         methods: {
-            setIsSelected(items) {
+            setIsSelectedState(items, existingItems) {
                 for (let item of items) {
-                    if (!item.isSelected) {
+                    if (existingItems && existingItems.find(existingItem => existingItem.id === item.id)) {
+                        Vue.set(item, 'isSelected', true);
+                    } else {
                         Vue.set(item, 'isSelected', false);
                     }
                     if (item.subItems && item.subItems.length > 0) {
-                        this.setIsSelected(item.subItems);
+                        this.setIsSelectedState(item.subItems, existingItems);
                     }
                 }
             },

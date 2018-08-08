@@ -10,7 +10,8 @@
         <div class="sub-items" v-if="(item.isSelected || (item.subItemIsSelected)) && item.subItems &&
                                         item.subItems.length > 0">
             <select-element :item="subItem" v-for="subItem in item.subItems"
-                            :key="subItem.id" :is-root="false" :select-multiple="selectMultiple">
+                            :key="subItem.id" :is-root="false" :select-multiple="selectMultiple"
+                            @select-changed="$emit('select-changed')">
             </select-element>
         </div>
     </div>
