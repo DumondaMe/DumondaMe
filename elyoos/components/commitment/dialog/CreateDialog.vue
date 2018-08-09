@@ -47,12 +47,12 @@
                 this.showPage = 3;
             },
             finishRegion(regions) {
-                this.$store.commit('createCommitment/SET_REGIONS', regions);
+                this.$store.commit('createCommitment/SET_REGIONS', regions.map(region => region.id));
                 this.showPage = 4;
             },
             async finishTopics(topics) {
                 try {
-                    this.$store.commit('createCommitment/SET_TOPICS', topics);
+                    this.$store.commit('createCommitment/SET_TOPICS', topics.map(topic => topic.id));
                     this.loading = true;
                     let response = await this.$store.dispatch('createCommitment/createCommitment');
                     this.$emit('close-dialog');
