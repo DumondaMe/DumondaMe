@@ -7,7 +7,8 @@
             <div id="topic-description">
                 {{description}}
             </div>
-            <ely-select :items="topics" :existing-items="existingTopics" @select-changed="selectChanged">
+            <ely-select :items="topics" :existing-items="existingTopics" :select-multiple="true"
+                        @select-changed="selectChanged">
             </ely-select>
         </v-card-text>
         <v-divider></v-divider>
@@ -36,7 +37,7 @@
         },
         async mounted() {
             this.topics = await this.$axios.$get(`/topic`, {params: {language: this.$store.state.i18n.language}});
-            if(this.existingTopics) {
+            if (this.existingTopics) {
                 this.selectedTopics = JSON.parse(JSON.stringify(this.existingTopics));
             }
             this.hasChanged = this.checkHasChanged();
