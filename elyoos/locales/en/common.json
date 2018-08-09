@@ -20,6 +20,7 @@
   "profile": "Profile",
   "region": "Region",
   "topic": "Topic",
+  "topic_plural": "Topics",
   "trustCircle": "Trust Circle",
   "inYourTrustCircle": "In your Trust Circle",
   "selectAll": "Select All",
