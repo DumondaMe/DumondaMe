@@ -32,9 +32,7 @@ const getRegions = async function (language) {
 
     let regions = parseRegionsQueryResult(resp, {id: 'international', subItems: []}, language);
     logger.info(`Get all regions`);
-    return {
-        regions: [getInternational(resp, language)].concat(regions.subItems)
-    };
+    return [getInternational(resp, language)].concat(regions.subItems);
 };
 
 module.exports = {
