@@ -30,7 +30,7 @@
             </div>
             <div class="footer-icon">
                 <v-icon>mdi-map-marker</v-icon>
-                <span class="footer-text">{{event.location}} ({{$t("regions:" + event.region)}})</span>
+                <span class="footer-text">{{event.location}} ({{event.region.description}})</span>
             </div>
             <div class="footer-icon" v-if="event.linkDescription">
                 <v-icon>mdi-calendar-text</v-icon>

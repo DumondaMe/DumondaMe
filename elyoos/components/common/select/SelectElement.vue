@@ -37,6 +37,7 @@
             disSelectSubItems(subItems) {
                 for (let item of subItems) {
                     item.isSelected = false;
+                    item.subItemIsSelected = false;
                     if (item.subItems && item.subItems.length > 0) {
                         this.disSelectSubItems(item.subItems);
                     }

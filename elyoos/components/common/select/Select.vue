@@ -35,7 +35,12 @@
                         Vue.set(item, 'isSelected', false);
                     }
                     if (item.subItems && item.subItems.length > 0) {
-                        Vue.set(item, 'subItemIsSelected', this.setIsSelectedState(item.subItems, existingItems));
+                        if (this.setIsSelectedState(item.subItems, existingItems)) {
+                            Vue.set(item, 'subItemIsSelected', true);
+                            hasSelected = true;
+                        } else {
+                            Vue.set(item, 'subItemIsSelected', false);
+                        }
                     } else {
                         Vue.set(item, 'subItemIsSelected', false);
                     }
@@ -53,32 +58,34 @@
                 }
                 return selected;
             },
-            setNotSelectedExceptOneItem(items, exceptItem) {
+            onlyOneItemIsSelected(items, exceptItem) {
                 for (let item of items) {
                     if (item.id !== exceptItem) {
                         item.isSelected = false;
                         item.subItemIsSelected = false;
                     }
                     if (item.subItems && item.subItems.length > 0) {
-                        this.setNotSelectedExceptOneItem(item.subItems, exceptItem);
+                        this.onlyOneItemIsSelected(item.subItems, exceptItem);
                     }
                 }
             },
-            disableSingleSelectedItem(items, itemToDisable) {
+            disableOneItem(items, itemToDisable) {
                 for (let item of items) {
                     if (item.id === itemToDisable) {
                         item.isSelected = false;
                         return;
                     }
                     if (item.subItems && item.subItems.length > 0) {
-                        this.disableSingleSelectedItem(item.subItems, itemToDisable);
+                        this.disableOneItem(item.subItems, itemToDisable);
                     }
                 }
             },
             selectChanged(item) {
                 let selected = [];
                 if (this.singleSelectedItemId && item.isSelected && item.id === this.singleSelectedItemId) {
-                    this.setNotSelectedExceptOneItem(this.localItems, this.singleSelectedItemId)
+                    this.onlyOneItemIsSelected(this.localItems, this.singleSelectedItemId);
+                } else if (!this.selectMultiple && item.isSelected) {
+                    this.setIsSelectedState(this.localItems, [{id: item.id}]);
                 }
 
                 this.getSelected(this.localItems, selected);
@@ -88,7 +95,7 @@
                     let singleSelectedSelected = selected.findIndex(selectedItem =>
                         selectedItem.id === this.singleSelectedItemId);
                     if (singleSelectedSelected !== -1) {
-                        this.disableSingleSelectedItem(this.localItems, this.singleSelectedItemId);
+                        this.disableOneItem(this.localItems, this.singleSelectedItemId);
                         selected.slice(singleSelectedSelected, 1);
                     }
                 }

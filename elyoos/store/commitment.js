@@ -84,7 +84,7 @@ const getEditEvent = function (event) {
         eventId: event.eventId,
         title: event.title,
         location: event.location,
-        region: event.region,
+        regionId: event.region.id,
         startDate: event.startDate,
         endDate: event.endDate
     };

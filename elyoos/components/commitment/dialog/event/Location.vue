@@ -1,12 +1,12 @@
 <template>
-    <v-card id="dialog-topic-event">
+    <v-card id="dialog-location-event">
         <div>
             <slot name="header"></slot>
         </div>
         <div id="location-description">
-            {{location}} <span v-if="selectedRegion">({{$t("regions:" + selectedRegion.code)}})</span>
+            {{location}} <span v-if="selectedRegion">({{selectedRegion.description}})</span>
         </div>
-        <v-card-text id="dialog-create-content-commitment-content">
+        <v-card-text>
             <v-form v-model="valid" ref="form" class="input-location">
                 <v-text-field v-model="location"
                               :label="$t('pages:commitment.createEventDialog.location')"
@@ -15,8 +15,9 @@
                 </v-text-field>
             </v-form>
             <div class="description-region">{{$t('pages:commitment.createEventDialog.regionDescription')}}</div>
-            <select-region-container :select-multiple="false" :regions="regions">
-            </select-region-container>
+            <ely-select :items="regions" :existing-items="initRegion" :select-multiple="false"
+                        @select-changed="selectChanged">
+            </ely-select>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -33,23 +34,28 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
     import validationRules from '~/mixins/validationRules.js';
-    import SelectRegionContainer from '~/components/region/select/RegionContainer';
+    import ElySelect from '~/components/common/select/Select';
 
     export default {
         props: ['actionButtonText', 'loading', 'initLocation', 'initRegion'],
-        components: {SelectRegionContainer},
+        components: {ElySelect},
         data() {
+            let region = this.initRegion || null;
+            if (region && region.length === 1) {
+                region = region[0];
+            }
             return {
-                valid: false, location: this.initLocation, loadingRegions: false
+                valid: false, location: this.initLocation, loadingRegions: false, regions: [], hasChanged: false,
+                selectedRegion: JSON.parse(JSON.stringify(region))
             }
         },
-        async created() {
+        async mounted() {
             this.loadingRegions = true;
-            await this.$store.dispatch('selectRegion/getRegions');
-            if (this.initRegion) {
-                this.$store.commit('selectRegion/SELECT_CHANGED', this.initRegion)
+            this.regions = await this.$axios.$get(`/region`, {params: {language: this.$store.state.i18n.language}});
+            let indexInternational = this.regions.findIndex((region) => region.id === 'international');
+            if (indexInternational !== -1) {
+                this.regions.splice(indexInternational, 1);
             }
             this.loadingRegions = false;
         },
@@ -57,23 +63,30 @@
             finish(event) {
                 event.preventDefault();
                 if (this.$refs.form.validate() && this.selectedRegion) {
-                    this.$emit('finish', {location: this.location, region: this.selectedRegion.code});
+                    this.$emit('finish', {location: this.location, region: this.selectedRegion});
                 }
-            }
-        },
-        computed: {
-            hasChanged() {
-                return this.initLocation !== this.location ||
-                    (this.selectedRegion && this.initRegion !== this.selectedRegion.code);
             },
-            ...mapGetters({regions: 'selectRegion/getRegions', selectedRegion: 'selectRegion/getSelectedRegion'})
+            checkHasChanged() {
+                if (this.initRegion) {
+                    return this.selectedRegion && this.initRegion.id !== this.selectedRegion.id;
+                }
+                return true;
+            },
+            selectChanged(selectedRegion) {
+                if (selectedRegion && selectedRegion.length === 1) {
+                    this.selectedRegion = selectedRegion[0];
+                } else {
+                    this.selectedRegion = null;
+                }
+                this.hasChanged = this.checkHasChanged();
+            }
         },
         mixins: [validationRules]
     }
 </script>
 
 <style lang="scss">
-    #dialog-topic-event {
+    #dialog-location-event {
         max-width: 650px;
         #location-description {
             text-align: center;

@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px">
             <location @close-dialog="$emit('close-dialog')" @finish="finish"
                       :action-button-text="$t('common:button.change')"
-                      :loading="loading" :init-location="initEvent.location" :init-region="initEvent.region">
+                      :loading="loading" :init-location="initEvent.location" :init-region="[initEvent.region]">
                 <div slot="header">
                     <div id="elyoos-dialog-header"
                          v-html="$t('pages:detailCommitment.events.editLocationDialog.title', {title})">

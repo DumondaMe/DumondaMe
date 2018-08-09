@@ -40,7 +40,7 @@ const getEventForUpload = function (event) {
     let eventForUpload = {
         title: event.title,
         location: event.location,
-        region: event.region,
+        regionId: event.region.id,
         startDate: event.startDate,
         endDate: event.endDate,
     };
@@ -59,6 +59,7 @@ export const actions = {
         event.commitmentId = commitmentId;
         let response = await this.$axios.$post('/user/commitment/event', event);
         event.eventId = response.eventId;
+        event.region = state.event.region;
         return event;
     }
 };
