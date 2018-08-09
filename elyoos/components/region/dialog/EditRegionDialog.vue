@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px">
             <region @close-dialog="$emit('close-dialog')" @finish="changeRegions"
-                    :init-selected-regions="existingRegions" :action-button-text="$t('common:button.change')"
+                    :existing-regions="existingRegions" :action-button-text="$t('common:button.change')"
                     :description="$t('pages:commitment.createDialog.regionDescription')" :loading="loading">
                 <div slot="header">
                     <div id="elyoos-dialog-header">
@@ -31,7 +31,7 @@
             async changeRegions(regions) {
                 try {
                     this.loading = true;
-                    await this.$axios.$put(`${this.api}${this.apiParam}`, {regions});
+                    await this.$axios.$put(`${this.api}${this.apiParam}`, {regions: regions.map(region => region.id)});
                     this.loading = false;
                     this.$emit('finish', regions);
                 }

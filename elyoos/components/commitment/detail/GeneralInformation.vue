@@ -19,13 +19,13 @@
             <v-icon class="info-icon">mdi-key</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in commitment.topics">
-                    {{topic}}<span v-if="index < commitment.topics.length - 1">, </span></span>
+                    {{topic.description}}<span v-if="index < commitment.topics.length - 1">, </span></span>
             </div>
         </div>
         <div class="commitment-info regions">
             <v-icon class="info-icon">mdi-map-marker</v-icon>
             <div id="region-container">
-                <div v-for="region in commitment.regions">{{$t("regions:" + region)}}</div>
+                <div v-for="region in commitment.regions">{{region.description}}</div>
             </div>
         </div>
     </div>
