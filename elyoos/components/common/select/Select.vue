@@ -3,6 +3,7 @@
         <select-element :item="item" v-for="item in localItems" :key="item.id"
                         :is-root="true" :select-multiple="selectMultiple"
                         :dis-select-parent-items="disSelectParentItems"
+                        :disabled="maxItems && maxItems <= selected.length"
                         @select-changed="selectChanged">
         </select-element>
     </div>
@@ -13,10 +14,11 @@
     import Vue from 'vue';
 
     export default {
-        props: ['items', 'existingItems', 'selectMultiple', 'singleSelectedItemId', 'disSelectParentItems'],
+        props: ['items', 'existingItems', 'selectMultiple', 'singleSelectedItemId', 'disSelectParentItems',
+            'maxItems'],
         components: {SelectElement},
         data() {
-            return {localItems: JSON.parse(JSON.stringify(this.items))}
+            return {localItems: JSON.parse(JSON.stringify(this.items)), selected: []}
         },
         watch: {
             items(newItems) {
@@ -81,25 +83,25 @@
                 }
             },
             selectChanged(item) {
-                let selected = [];
+                this.selected = [];
                 if (this.singleSelectedItemId && item.isSelected && item.id === this.singleSelectedItemId) {
                     this.onlyOneItemIsSelected(this.localItems, this.singleSelectedItemId);
                 } else if (!this.selectMultiple && item.isSelected) {
                     this.setIsSelectedState(this.localItems, [{id: item.id}]);
                 }
 
-                this.getSelected(this.localItems, selected);
+                this.getSelected(this.localItems, this.selected);
 
                 if (this.singleSelectedItemId && item.id !== this.singleSelectedItemId) {
 
-                    let singleSelectedSelected = selected.findIndex(selectedItem =>
+                    let singleSelectedSelected = this.selected.findIndex(selectedItem =>
                         selectedItem.id === this.singleSelectedItemId);
                     if (singleSelectedSelected !== -1) {
                         this.disableOneItem(this.localItems, this.singleSelectedItemId);
-                        selected.slice(singleSelectedSelected, 1);
+                        this.selected.slice(singleSelectedSelected, 1);
                     }
                 }
-                this.$emit('select-changed', selected);
+                this.$emit('select-changed', this.selected);
             }
         }
     }

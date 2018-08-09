@@ -1,7 +1,8 @@
 <template>
     <div class="select-item">
         <div class="item-container" @click="select()"
-             :class="{'item-selected': item.isSelected, 'sub-item-selected': item.subItemIsSelected}">
+             :class="{'item-selected': item.isSelected, 'sub-item-selected': item.subItemIsSelected,
+             'disabled-item': disabled && !item.isSelected}">
             <v-icon class="item-icon" v-show="item.isSelected">done</v-icon>
             <div class="item" :class="{'main-bold': isRoot}">
                 {{item.description}}
@@ -11,7 +12,7 @@
                                         item.subItems.length > 0">
             <select-element :item="subItem" v-for="subItem in item.subItems"
                             :key="subItem.id" :is-root="false" :select-multiple="selectMultiple"
-                            :dis-select-parent-items="disSelectParentItems"
+                            :dis-select-parent-items="disSelectParentItems" :disabled="disabled"
                             @select-changed="childSelectChanged">
             </select-element>
         </div>
@@ -23,16 +24,18 @@
 
     export default {
         name: 'select-element',
-        props: ['item', 'isRoot', 'selectMultiple', 'disSelectParentItems'],
+        props: ['item', 'isRoot', 'selectMultiple', 'disSelectParentItems', 'disabled'],
         components: {SelectElement},
         methods: {
             select() {
-                this.item.isSelected = !this.item.isSelected;
-                if (this.item.isSelected) {
-                    this.disSelectSubItems(this.item.subItems);
-                    this.item.subItemIsSelected = false;
+                if (!(this.disabled && !this.item.isSelected)) {
+                    this.item.isSelected = !this.item.isSelected;
+                    if (this.item.isSelected) {
+                        this.disSelectSubItems(this.item.subItems);
+                        this.item.subItemIsSelected = false;
+                    }
+                    this.$emit('select-changed', {isSelected: this.item.isSelected, id: this.item.id});
                 }
-                this.$emit('select-changed', {isSelected: this.item.isSelected, id: this.item.id});
             },
             disSelectSubItems(subItems) {
                 for (let item of subItems) {
@@ -90,6 +93,10 @@
             .item {
                 color: $success-text;
             }
+        }
+        .item-container.disabled-item {
+            cursor: not-allowed;
+            background-color: #EEEEEE;
         }
         .sub-item-selected {
             font-weight: 500;

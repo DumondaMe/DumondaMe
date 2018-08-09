@@ -7,12 +7,15 @@
             <div id="topic-description">
                 {{description}}
             </div>
-            <ely-select :items="topics" :existing-items="existingTopics" :select-multiple="true"
+            <ely-select :items="topics" :existing-items="existingTopics" :select-multiple="true" :max-items="10"
                         @select-changed="selectChanged">
             </ely-select>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
+            <div id="number-of-topics" :class="{'max-number-of-topics': selectedTopics.length === 10}">
+                {{$t("common:topic", {count: selectedTopics.length})}} {{selectedTopics.length}}/10
+            </div>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
@@ -27,8 +30,6 @@
 
 <script>
     import ElySelect from '~/components/common/select/Select';
-
-    const MAX_NUMBER_OF_TOPICS = 10;
 
     export default {
         props: ['actionButtonText', 'description', 'loading', 'existingTopics'],
@@ -69,6 +70,13 @@
                 max-width: 400px;
                 margin: 0 auto 12px auto;
             }
+        }
+        #number-of-topics {
+            padding-left: 16px;
+            font-size: 14px;
+        }
+        .max-number-of-topics {
+            color: $error-text;
         }
     }
 </style>
