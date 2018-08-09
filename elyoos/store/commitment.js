@@ -117,11 +117,12 @@ export const actions = {
         }
         commit('SET_COMMITMENT', commitment);
     },
-    async getEvents({commit, state}, {commitmentId, isUpComingEvents}) {
+    async getEvents({commit, state, rootState}, {commitmentId, isUpComingEvents}) {
         if (isUpComingEvents !== state.isUpComingEvents) {
             commit('SET_EVENTS_PAGE', 0);
             let events = await this.$axios.$get(`commitment/event`, {
-                params: {commitmentId, upComing: isUpComingEvents, page: state.eventPage}
+                params: {commitmentId, upComing: isUpComingEvents, page: state.eventPage,
+                    language: rootState.i18n.language}
             });
             commit('SET_EVENTS', events.events);
             commit('SET_TOTAL_NUMBER_OF_EVENTS', events.totalNumberOfEvents);
@@ -129,9 +130,12 @@ export const actions = {
             commit('SET_EVENTS_PAGE', state.eventPage + 1);
         }
     },
-    async getNextEvents({commit, state}, {commitmentId}) {
+    async getNextEvents({commit, state, rootState}, {commitmentId}) {
         let events = await this.$axios.$get(`commitment/event`, {
-            params: {commitmentId, upComing: state.isUpComingEvents, page: state.eventPage}
+            params: {
+                commitmentId, upComing: state.isUpComingEvents, page: state.eventPage,
+                language: rootState.i18n.language
+            }
         });
         commit('ADD_EVENTS', events.events);
         commit('SET_EVENTS_PAGE', state.eventPage + 1);
