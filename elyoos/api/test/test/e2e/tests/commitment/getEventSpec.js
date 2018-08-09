@@ -51,7 +51,8 @@ describe('Get events of a commitment', function () {
         res.body.events[0].description.should.equals('event22Description');
         res.body.events[0].startDate.should.equals(startTime - 100);
         res.body.events[0].endDate.should.equals(startTime + 200);
-        res.body.events[0].region.should.equals('Region2De');
+        res.body.events[0].region.id.should.equals('region-2');
+        res.body.events[0].region.description.should.equals('Region2De');
         res.body.events[0].location.should.equals('event22Location');
     });
 
@@ -68,7 +69,8 @@ describe('Get events of a commitment', function () {
         res.body.events[0].description.should.equals('event23Description');
         res.body.events[0].startDate.should.equals(startTime - 300);
         res.body.events[0].endDate.should.equals(startTime - 200);
-        res.body.events[0].region.should.equals('Region2De');
+        res.body.events[0].region.id.should.equals('region-2');
+        res.body.events[0].region.description.should.equals('Region2De');
         res.body.events[0].location.should.equals('event23Location');
     });
 

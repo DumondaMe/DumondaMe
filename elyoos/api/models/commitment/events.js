@@ -19,7 +19,8 @@ const getEventsCommand = function (commitmentId, upComing, page, language) {
         .where(getUpcomingFilter(upComing))
         .return(`event.eventId AS eventId, event.title AS title, event.description AS description, 
                  event.startDate AS startDate, event.endDate AS endDate, event.created AS created, 
-                 event.modified AS modified, event.location AS location, r.${language} AS region,
+                 event.modified AS modified, event.location AS location, 
+                 {description: r.${language}, id: r.regionId} AS region,
                  event.linkDescription AS linkDescription`)
         .orderBy(`startDate`)
         .skip(`{skip}`)
