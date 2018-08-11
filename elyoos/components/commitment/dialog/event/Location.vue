@@ -68,7 +68,7 @@
             },
             checkHasChanged() {
                 if (this.initRegion) {
-                    return this.selectedRegion && this.initRegion.id !== this.selectedRegion.id;
+                    return this.selectedRegion && this.initRegion[0].id !== this.selectedRegion.id;
                 }
                 return true;
             },
