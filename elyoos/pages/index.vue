@@ -21,7 +21,7 @@
 
 <script>
     import FeedLayout from '~/components/layouts/Feed';
-    import FeedFilter from '~/components/feed/Filter';
+    import FeedFilter from '~/components/feed/filter/Filter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import FeedCreateQuestion from '~/components/feed/CreateQuestion';
     import Cards from '~/components/feed/Cards';

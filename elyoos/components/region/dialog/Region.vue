@@ -5,7 +5,7 @@
         </div>
         <v-card-text id="dialog-create-region-commitment-content">
             <div class="user-description">{{description}}</div>
-            <ely-select :items="regions" :existing-items="existingRegions" :select-multiple="true"
+            <ely-select :items="regions" :existing-items="existingRegions" :select-multiple="selectMultiple"
                         :single-selected-item-id="'international'" :dis-select-parent-items="true"
                         @select-changed="selectChanged">
             </ely-select>
@@ -28,7 +28,7 @@
     import ElySelect from '~/components/common/select/Select';
 
     export default {
-        props: ['actionButtonText', 'description', 'loading', 'existingRegions'],
+        props: ['actionButtonText', 'description', 'loading', 'existingRegions', 'selectMultiple'],
         components: {ElySelect},
         data() {
             return {regions: [], selectedRegions: [], loadingRegions: false, hasChanged: true}
@@ -49,8 +49,9 @@
         methods: {
             checkHasChanged() {
                 if (this.existingRegions) {
-                    return this.existingRegions.length !== this.selectedRegions.length &&
-                        !this.existingRegions.every(existingRegion => this.selectedRegions.includes(existingRegion));
+                    return this.existingRegions.length !== this.selectedRegions.length ||
+                        !this.existingRegions.every(existingRegion => this.selectedRegions
+                            .some(selectedRegion => selectedRegion.id === existingRegion.id));
                 }
                 return true;
             },

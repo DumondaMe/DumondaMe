@@ -47,9 +47,46 @@
       "event": "Veranstaltungen"
     },
     "filter": {
-      "all": "Alle",
-      "publicFeed": "Public Feed",
-      "yourFeed": "Dein Feed"
+      "moreFilter": "Weitere Filter",
+      "tooltip": {
+        "activity": "Aktivitäten",
+        "question": "Fragen",
+        "commitment": "Engagements",
+        "event": "Veranstaltungen"
+      },
+      "post": {
+        "all": "Alle Beiträge",
+        "onlyVideo": "Nur Videos",
+        "onlyText": "Nur Text Antworten",
+        "onlyBook": "Nur Bücher",
+        "onlyLink": "Nur Links",
+        "onlyCommitment": "Nur Engagements",
+        "onlyEvent": "Nur Veranstaltungen"
+      },
+      "question": {
+        "onlyQuestion": "Nur Fragen",
+        "onlyAnswer": "Nur Antworten"
+      },
+      "answer": {
+        "all": "Alle Antworten"
+      },
+      "region": {
+        "selectDialogDescription": "Nach welcher Region soll gefiltert werden"
+      },
+      "order": {
+        "popular": "Beliebteste",
+        "newest": "Neuste",
+        "notAnswered": "Nicht beantwortet",
+        "onlyFewAnswer": "Nur wenige Antworten"
+      },
+      "time": {
+        "anyTime": "Beliebige Zeit",
+        "week": "Letzte Woche",
+        "month": "Letzter Monat"
+      },
+      "language": {
+        "all": "Beliebige Sprache"
+      }
     },
     "card": {
       "answer": "{{count}} Antwort",

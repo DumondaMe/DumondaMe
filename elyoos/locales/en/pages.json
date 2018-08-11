@@ -47,9 +47,46 @@
       "event": "Events"
     },
     "filter": {
-      "all": "All",
-      "publicFeed": "Public Feed",
-      "yourFeed": "Your Feed"
+      "moreFilter": "More Filters",
+      "tooltip": {
+        "activity": "Activities",
+        "question": "Questions",
+        "commitment": "Commitments",
+        "event": "Events"
+      },
+      "post": {
+        "all": "All posts",
+        "onlyVideo": "Only videos",
+        "onlyText": "Only text answers",
+        "onlyBook": "Only books",
+        "onlyLink": "Only links",
+        "onlyCommitment": "Only commitments",
+        "onlyEvent": "Only events"
+      },
+      "question": {
+        "onlyQuestion": "Only questions",
+        "onlyAnswer": "Only answers"
+      },
+      "answer": {
+        "all": "All answers"
+      },
+      "region": {
+        "selectDialogDescription": "Which region should be filtered for."
+      },
+      "order": {
+        "popular": "Most popular",
+        "newest": "Latest",
+        "notAnswered": "Not answered",
+        "onlyFewAnswer": "Only few Answers"
+      },
+      "time": {
+        "anyTime": "Any time",
+        "week": "Last week",
+        "month": "Last month"
+      },
+      "language": {
+        "all": "Any Language"
+      }
     },
     "card": {
       "answer": "{{count}} Answer",
