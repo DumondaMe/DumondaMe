@@ -38,21 +38,14 @@
     "errorAccountExist": "Für diese E-Mail Adresse existiert bereits ein Benutzerkonto"
   },
   "feeds": {
-    "yourQuestion": "Wie lautet deine Frage?",
-    "selectLanguage": "Sprache der Frage",
-    "sidebar": {
-      "feedTitle": "Feeds",
-      "question": "Fragen",
-      "commitment": "Engagements",
-      "event": "Veranstaltungen"
-    },
     "filter": {
-      "moreFilter": "Weitere Filter",
       "tooltip": {
         "activity": "Aktivitäten",
         "question": "Fragen",
         "commitment": "Engagements",
-        "event": "Veranstaltungen"
+        "event": "Veranstaltungen",
+        "trustCircle": "Trust Circle",
+        "topic": "Themenbereiche"
       },
       "post": {
         "all": "Alle Beiträge",

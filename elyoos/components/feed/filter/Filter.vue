@@ -30,10 +30,31 @@
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <div class="more-filter-container">
-                <div class="more-filter">{{$t("pages:feeds.filter.moreFilter")}}</div>
-                <v-icon>mdi-filter-variant</v-icon>
-            </div>
+            <v-tooltip top class="right-filter-container">
+                <div class="right-filter" slot="activator" @click="showTrustCircleFilter = true">
+                    <v-icon slot="activator">mdi-checkbox-blank-circle-outline</v-icon>
+                </div>
+                <span>{{$t("pages:feeds.filter.tooltip.trustCircle")}}</span>
+            </v-tooltip>
+            <v-tooltip top class="right-filter-container">
+                <div class="right-filter" slot="activator">
+                    <v-icon slot="activator">mdi-bookmark-outline</v-icon>
+                </div>
+                <span>{{$t("pages:feeds.filter.tooltip.topic")}}</span>
+            </v-tooltip>
+            <v-menu bottom offset-y class="right-filter-container">
+                <div class="right-filter" slot="activator">
+                    <v-icon slot="activator">mdi-settings</v-icon>
+                </div>
+                <v-list>
+                    <v-list-tile>
+                        <v-list-tile-title>Sprachfilter</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-title>Reset Filter</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
         </div>
         <div id="feed-sub-filters">
             <sub-filter-activity v-if="activeTypeFilter === null"></sub-filter-activity>
@@ -41,6 +62,9 @@
             <sub-filter-commitment v-else-if="activeTypeFilter === 'commitment'"></sub-filter-commitment>
             <sub-filter-event v-else-if="activeTypeFilter === 'event'"></sub-filter-event>
         </div>
+        <edit-trust-circle-filter-dialog v-if="showTrustCircleFilter"
+                                         @close-dialog="showTrustCircleFilter = false">
+        </edit-trust-circle-filter-dialog>
     </div>
 </template>
 
@@ -49,9 +73,13 @@
     import SubFilterQuestion from './subFilter/Question';
     import SubFilterCommitment from './subFilter/Commitment';
     import SubFilterEvent from './subFilter/Event';
+    import EditTrustCircleFilterDialog from './dialog/EditTrustCircleFilter';
 
     export default {
-        components: {SubFilterActivity, SubFilterQuestion, SubFilterCommitment, SubFilterEvent},
+        components: {
+            SubFilterActivity, SubFilterQuestion, SubFilterCommitment, SubFilterEvent,
+            EditTrustCircleFilterDialog
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -62,7 +90,7 @@
         },
         data: function () {
             return {
-                dialog: false, searchQuestion: true, personalizationActivated: false
+                showTrustCircleFilter: false
             }
         },
         methods: {
@@ -92,7 +120,7 @@
                     padding: 2px 12px 4px 12px;
                     color: $secondary-text;
                     i.icon {
-                        font-size: 18px;
+                        font-size: 20px;
                     }
                 }
                 .filter-element.active-filter {
@@ -104,27 +132,23 @@
                     }
                 }
             }
-            .more-filter-container {
-                height: 30px;
-                line-height: 30px;
-                cursor: pointer;
-                .more-filter {
-                    color: $secondary-text;
-                    font-size: 14px;
+            .right-filter-container {
+                .right-filter {
+                    cursor: pointer;
                     display: inline-block;
-                    margin-right: 8px;
+                    margin-left: 16px;
+                    padding: 2px 0 4px 0;
+                    i.icon {
+                        font-size: 20px;
+                    }
                 }
-                i.icon {
-                    padding-bottom: 2px;
-                }
+
             }
-            :hover.more-filter-container {
+            :hover.right-filter-container {
                 .more-filter {
                     color: $primary-text;
                 }
-                i.icon {
-                    color: $primary-text;
-                }
+
             }
         }
         #feed-sub-filters {
