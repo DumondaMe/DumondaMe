@@ -93,9 +93,9 @@ const addQuestionProperties = function (result, feedElement) {
 
 const addEventProperties = function (result, feedElement) {
     if (result.type === 'Event') {
-        result.commitmentId = feedElement.watch.commitmentId;
-        result.commitmentSlug = dashify(feedElement.watch.title);
-        result.commitmentTitle = feedElement.watch.title;
+        result.commitmentId = feedElement.activityElement.commitmentId;
+        result.commitmentSlug = dashify(feedElement.activityElement.title);
+        result.commitmentTitle = feedElement.activityElement.title;
 
         result.eventId = feedElement.feedElement.eventId;
         result.title = feedElement.feedElement.title;
@@ -107,12 +107,12 @@ const addEventProperties = function (result, feedElement) {
     }
 };
 
-const getAction = function (relAction) {
-    if (relAction === 'UP_VOTE') {
+const getActivity = function (relActivity) {
+    if (relActivity === 'UP_VOTE') {
         return 'upVote'
-    } else if (relAction === 'WATCH') {
+    } else if (relActivity === 'WATCH') {
         return 'watch'
-    } else if (relAction === 'IS_CREATOR' || relAction === 'ANSWER' || relAction === 'EVENT') {
+    } else if (relActivity === 'IS_CREATOR' || relActivity === 'ANSWER' || relActivity === 'EVENT') {
         return 'created'
     }
 };
@@ -130,10 +130,7 @@ const getUserResponse = async function (user, userId, isTrustUser) {
 };
 
 const getUser = async function (feedElement, userId) {
-    if (feedElement.relWatch === 'WATCH') {
-        return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
-    }
-    return await getUserResponse(feedElement.watch, userId, true);
+    return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
 };
 
 const getCreator = async function (feedElement, resultType, action, userId) {
@@ -149,7 +146,7 @@ const getFeed = async function (feedElements, userId) {
             type: feedElement.type.filter(
                 (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question', 'Event']
                     .some(v => v === l))[0],
-            action: getAction(feedElement.relAction),
+            action: getActivity(feedElement.relActivity),
             created: feedElement.created
         };
         if (result.type !== 'Event') {
@@ -178,7 +175,7 @@ const getAnswersWithoutCreator = function (feedElements) {
             type: feedElement.type.filter(
                 (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer']
                     .some(v => v === l))[0],
-            action: getAction(feedElement.relAction),
+            action: getActivity(feedElement.relActivity),
             created: feedElement.created,
             creator: {}
         };

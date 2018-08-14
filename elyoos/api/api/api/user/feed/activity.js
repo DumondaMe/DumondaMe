@@ -3,7 +3,7 @@
 const validation = require('elyoos-server-lib').jsonValidation;
 const auth = require('elyoos-server-lib').auth;
 const schemaLanguage = require('../../../schema/language');
-const feed = requireModel('user/feed/feed');
+const feed = requireModel('user/feed/activity');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const time = require('elyoos-server-lib').time;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -12,12 +12,29 @@ const schemaGetQuestionFeed = {
     name: 'getQuestionFeed',
     type: 'object',
     additionalProperties: false,
-    required: ['language'],
+    required: ['guiLanguage', 'languages'],
     properties: {
-        language: schemaLanguage.language,
+        guiLanguage: schemaLanguage.language,
+        languages: schemaLanguage.languageMultiple,
         page: {type: 'integer', minimum: 0},
         timestamp: {type: 'integer', minimum: 0},
-        typeFilter: {enum: ['question', 'commitment', 'event']}
+        typeFilter: {enum: ['book', 'text', 'book', 'link', 'commitment', 'event']},
+        trustCircle: {type: 'integer', minimum: 1, maximum: 3},
+        topics: {
+            type: 'array',
+            items: {type: 'string', format: 'notEmptyString', maxLength: 255},
+            minItems: 1,
+            maxItems: 100,
+            uniqueItems: true
+        },
+        regions: {
+            type: 'array',
+            items: {type: 'string', format: 'notEmptyString', maxLength: 255},
+            minItems: 1,
+            maxItems: 1000,
+            uniqueItems: true
+        },
+        showInterested: {type: 'boolean'}
     }
 };
 
@@ -28,7 +45,8 @@ module.exports = function (router) {
         params.page = params.page || 0;
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();
         let response = await feed.getFeed(req.user.id, params.page, params.timestamp, params.typeFilter,
-            params.language);
+            params.guiLanguage, params.languages, params.trustCircle, params.topics, params.regions,
+            params.showInterested);
         res.status(200).json(response);
     }));
 };
