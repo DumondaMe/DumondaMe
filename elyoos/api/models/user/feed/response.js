@@ -130,6 +130,10 @@ const getUserResponse = async function (user, userId, isTrustUser) {
 };
 
 const getUser = async function (feedElement, userId) {
+    //return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
+    if (feedElement.relActivity === 'WATCH') {
+        return await getUserResponse(feedElement.activityElement, userId, feedElement.activityIsInTrustCircle);
+    }
     return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
 };
 

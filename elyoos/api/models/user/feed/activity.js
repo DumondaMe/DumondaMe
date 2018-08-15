@@ -6,10 +6,21 @@ const filter = require('./filter');
 const db = requireDb();
 const PAGE_SIZE = 20;
 
+const onlyLatestUpVoteOrWatch = function () {
+    return db.cypher().unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
+        .with(`type(relActivity) AS activity, feedElement, max(tempCreated) AS created`)
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
+        .where(`type(relActivity) = activity AND 
+               (((activity = 'UP_VOTE' OR activity = 'WATCH') AND relActivity.created = created) OR 
+               ((activity = 'IS_CREATOR' OR activity = 'EVENT') AND feedElement.created = created))`)
+        .getCommandString();
+};
+
 const getTrustCircleAndTopicFilterDeactivated = function () {
     return db.cypher()
         .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
         .where(`feedElement.created <= {timestamp}`)
+        .addCommand(onlyLatestUpVoteOrWatch())
 };
 
 const getTrustCircleFilterWithDeactivatedTopicFilter = function (showInterested) {
@@ -19,6 +30,7 @@ const getTrustCircleFilterWithDeactivatedTopicFilter = function (showInterested)
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
                 (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
+        .addCommand(onlyLatestUpVoteOrWatch())
 };
 
 const getTopicFilterWithDeactivatedTrustCircleFilter = function (showInterested) {
@@ -27,11 +39,12 @@ const getTopicFilterWithDeactivatedTrustCircleFilter = function (showInterested)
         .where(`feedElement.created <= {timestamp} AND NOT 
         ((type(relActivity) = 'UP_VOTE' OR type(relActivity) = 'WATCH') AND 
         (:User {userId: {userId}})-[relActivity]->(feedElement))`)
+        .addCommand(onlyLatestUpVoteOrWatch())
         .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
         .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
         .with(`activityElement, relActivity, feedElement, parent, topic, parentTopic`)
         .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
-               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)': ''}`)
+               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
         .with(`DISTINCT activityElement, relActivity, feedElement`)
 };
 
@@ -42,11 +55,12 @@ const getTrustCircleAndTopicFilterActivated = function (showInterested) {
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
                 (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
+        .addCommand(onlyLatestUpVoteOrWatch())
         .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
         .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
-        .with(`activityElement, relActivity, feedElement, parent, topic, parentTopic`)
+        .with(`DISTINCT activityElement, relActivity, feedElement, parent, topic, parentTopic`)
         .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
-               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)': ''}`)
+               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
         .with(`DISTINCT activityElement, relActivity, feedElement`)
 };
 
@@ -76,6 +90,7 @@ const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage
                  COUNT(DISTINCT answer) AS numberOfAnswers, collect(DISTINCT region.${guiLanguage}) AS regions, 
                  labels(feedElement) AS type, collect(DISTINCT rca.${guiLanguage}) AS commitmentAnswerRegions,
                  exists((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS creatorIsInTrustCircle,
+                 exists((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,
                  max(tempCreated) AS created, type(relActivity) AS relActivity`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
