@@ -130,7 +130,6 @@ const getUserResponse = async function (user, userId, isTrustUser) {
 };
 
 const getUser = async function (feedElement, userId) {
-    //return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
     if (feedElement.relActivity === 'WATCH' || feedElement.relActivity === 'UP_VOTE') {
         return await getUserResponse(feedElement.activityElement, userId, feedElement.activityIsInTrustCircle);
     }

@@ -26,10 +26,24 @@ const getTypeFilter = function (typeFilter) {
     return '';
 };
 
+const topicFilter = function (showInterested) {
+    return db.cypher().optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
+        .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
+        .with(`DISTINCT activityElement, relActivity, feedElement, parent, topic, parentTopic`)
+        .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
+               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
+        .with(`DISTINCT activityElement, relActivity, feedElement`)
+        .getCommandString();
+};
+
+const onlyUpcomingEvents = function () {
+    return `AND NOT (type(relActivity) = 'EVENT' AND feedElement:Event AND feedElement.endDate < {timestamp})`
+};
+
 const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
     return db.cypher()
         .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
-        .where(`feedElement.created <= {timestamp} ${getTypeFilter(typeFilter)}`)
+        .where(`feedElement.created <= {timestamp} ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
 
@@ -39,7 +53,8 @@ const getTrustCircleFilterWithDeactivatedTopicFilter = function (typeFilter, sho
                  -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
-                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${getTypeFilter(typeFilter)}`)
+                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${onlyUpcomingEvents()} 
+                ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
 
@@ -49,14 +64,9 @@ const getTopicFilterWithDeactivatedTrustCircleFilter = function (typeFilter, sho
                  ->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT 
         ((type(relActivity) = 'UP_VOTE' OR type(relActivity) = 'WATCH') AND 
-        (:User {userId: {userId}})-[relActivity]->(feedElement)) ${getTypeFilter(typeFilter)}`)
+        (:User {userId: {userId}})-[relActivity]->(feedElement)) ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
-        .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
-        .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
-        .with(`activityElement, relActivity, feedElement, parent, topic, parentTopic`)
-        .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
-               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
-        .with(`DISTINCT activityElement, relActivity, feedElement`)
+        .addCommand(topicFilter(showInterested))
 };
 
 const getTrustCircleAndTopicFilterActivated = function (typeFilter, showInterested) {
@@ -65,14 +75,10 @@ const getTrustCircleAndTopicFilterActivated = function (typeFilter, showInterest
                  -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
-                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${getTypeFilter(typeFilter)}`)
+                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${onlyUpcomingEvents()} 
+                ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
-        .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
-        .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
-        .with(`DISTINCT activityElement, relActivity, feedElement, parent, topic, parentTopic`)
-        .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
-               ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
-        .with(`DISTINCT activityElement, relActivity, feedElement`)
+        .addCommand(topicFilter(showInterested))
 };
 
 const getStartQuery = function (trustCircle, topics, typeFilter, showInterested) {
