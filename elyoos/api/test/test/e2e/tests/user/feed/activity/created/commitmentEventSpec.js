@@ -124,7 +124,7 @@ describe('Get activity feed for created events of a commitment', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity',
-            {guiLanguage: 'de', languages: ['de'], trustCircle: 1, showInterested: true, topics: ['topic1']});
+            {guiLanguage: 'de', languages: ['de'], trustCircle: 1, showInterested: true, topics: ['topic5']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
@@ -136,7 +136,7 @@ describe('Get activity feed for created events of a commitment', function () {
         res.body.feed[0].created.should.equals(777);
     });
 
-    it('Getting events of interesting commitment with sub topic', async function () {
+    it('Getting events of commitment with sub topic', async function () {
 
         dbDsl.createSubTopic({
             parentTopicId: 'topic3', topicId: 'topic11', descriptionDe: 'topic11De', descriptionEn: 'topic11En'
@@ -148,7 +148,14 @@ describe('Get activity feed for created events of a commitment', function () {
             adminId: '2', topics: ['topic111'], language: 'de', created: 400, modified: 606,
             title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
         });
-        dbDsl.watchCommitment({commitmentId: '101', userId: '8', created: 558});
+        dbDsl.createCommitmentEvent({
+            commitmentId: '101', eventId: '24', created: 777,
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'
+        });
+        dbDsl.createCommitmentEvent({
+            commitmentId: '101', eventId: '25', created: 778,
+            startDate: startTime - 200, endDate: startTime - 100, regionId: 'region-1'
+        });
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -157,10 +164,52 @@ describe('Get activity feed for created events of a commitment', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Event');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].commitmentId.should.equals('101');
+        res.body.feed[0].eventId.should.equals('24');
+
+        res.body.feed[1].type.should.equals('Commitment');
+        res.body.feed[1].action.should.equals('created');
+        res.body.feed[1].commitmentId.should.equals('101');
+        should.not.exist(res.body.feed[1].creator);
+    });
+
+    it('Not getting events of commitment with sub topic', async function () {
+
+        dbDsl.createContactConnection('1', '3');
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic3', topicId: 'topic11', descriptionDe: 'topic11De', descriptionEn: 'topic11En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
+        });
+        dbDsl.createCommitment('101', {
+            adminId: '3', topics: ['topic111'], language: 'de', created: 400, modified: 606,
+            title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
+        });
+        dbDsl.createCommitmentEvent({
+            commitmentId: '101', eventId: '24', created: 777,
+            startDate: startTime - 100, endDate: startTime + 200, regionId: 'region-1'
+        });
+        dbDsl.createCommitmentEvent({
+            commitmentId: '101', eventId: '25', created: 778,
+            startDate: startTime - 200, endDate: startTime - 100, regionId: 'region-1'
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {
+            guiLanguage: 'de', languages: ['de'], topics: ['topic3'], trustCircle: 1
+        });
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
-        res.body.feed[0].action.should.equals('watch');
+        res.body.feed[0].action.should.equals('created');
         res.body.feed[0].commitmentId.should.equals('101');
         should.not.exist(res.body.feed[0].creator);
     });

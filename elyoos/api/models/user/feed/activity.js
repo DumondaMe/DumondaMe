@@ -28,9 +28,14 @@ const getTypeFilter = function (typeFilter) {
 
 const topicFilter = function (showInterested) {
     return db.cypher().optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
+        .optionalMatch(`(topic)<-[:SUB_TOPIC*]-(nextTopic:Topic)`)
         .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
-        .with(`DISTINCT activityElement, relActivity, feedElement, parent, topic, parentTopic`)
-        .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} 
+        .optionalMatch(`(parentTopic)<-[:SUB_TOPIC*]-(nextParentTopic:Topic)`)
+        .with(`DISTINCT activityElement, relActivity, feedElement, parent, topic, collect(nextTopic) AS nextTopic, 
+               parentTopic, collect(nextParentTopic) AS nextParentTopic`)
+        .where(`topic.topicId IN {topics} OR parentTopic.topicId IN {topics} OR 
+                ANY (t IN nextTopic WHERE t.topicId IN {topics}) OR 
+                ANY (t IN nextParentTopic WHERE t.topicId IN {topics}) 
                ${showInterested ? 'OR (:User {userId: {userId}})-[:WATCH]->(parent)' : ''}`)
         .with(`DISTINCT activityElement, relActivity, feedElement`)
         .getCommandString();
