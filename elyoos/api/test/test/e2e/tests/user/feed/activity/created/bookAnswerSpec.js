@@ -251,4 +251,29 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[0].user.isTrustUser.should.equals(false);
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
     });
+
+    it('Get only created books', async function () {
+        dbDsl.createTextAnswer('5', {
+            creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '1', questionId: '1', created: 604, pageType: 'article', hasPreviewImage: true,
+            link: 'https://www.example.org/blog/1224'
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book'});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].answerId.should.equals('6');
+    });
 });

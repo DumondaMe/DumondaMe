@@ -4,7 +4,6 @@ const dbDsl = require('elyoos-server-test-util').dbDSL;
 const users = require('elyoos-server-test-util').user;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
-const should = require('chai').should();
 
 describe('Get activity feed for interested questions', function () {
 

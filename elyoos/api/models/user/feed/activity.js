@@ -16,7 +16,11 @@ const onlyLatestUpVoteOrWatch = function () {
 };
 
 const getTypeFilter = function (typeFilter) {
-    if (typeFilter) {
+    if (typeFilter && typeFilter === 'Video') {
+        return `AND feedElement:Youtube`;
+    } else if (typeFilter && typeFilter === 'Commitment') {
+        return `AND (feedElement:Commitment OR feedElement:CommitmentAnswer)`;
+    } else if (typeFilter && typeFilter !== 'Video') {
         return `AND feedElement:${typeFilter}`;
     }
     return '';
