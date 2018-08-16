@@ -40,7 +40,6 @@ describe('Get activity feed for created book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Book');
@@ -63,7 +62,7 @@ describe('Get activity feed for created book answers', function () {
         should.not.exist(res.body.feed[0].creator);
     });
 
-    it('Created book answer form user in trust circle', async function () {
+    it('Created book answer from user in trust circle', async function () {
         dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -71,7 +70,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -88,7 +86,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(0);
         res.body.feed.length.should.equals(0);
     });
 
@@ -99,7 +96,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Book');
@@ -120,7 +116,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic2']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(0);
         res.body.feed.length.should.equals(0);
     });
 
@@ -133,7 +128,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -152,7 +146,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic4'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(0);
     });
 
@@ -163,7 +156,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(0);
     });
 
@@ -177,7 +169,6 @@ describe('Get activity feed for created book answers', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -196,7 +187,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1, showInterested: true});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -216,7 +206,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1, showInterested: true});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -233,7 +222,6 @@ describe('Get activity feed for created book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1'], showInterested: true});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Book');
@@ -255,7 +243,6 @@ describe('Get activity feed for created book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(3);
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Book');

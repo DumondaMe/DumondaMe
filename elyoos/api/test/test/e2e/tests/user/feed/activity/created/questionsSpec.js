@@ -51,7 +51,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(500);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
@@ -82,7 +81,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
@@ -102,7 +100,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(0);
         res.body.feed.length.should.equals(0);
     });
 
@@ -114,7 +111,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
@@ -134,7 +130,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Question');
@@ -166,7 +161,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(401);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
@@ -190,7 +184,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(401);
-        //res.body.totalNumberOfElements.should.equals(1);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');

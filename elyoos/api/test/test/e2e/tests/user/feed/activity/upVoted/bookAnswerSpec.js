@@ -40,7 +40,6 @@ describe('Get activity feed for up voted book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Book');
@@ -83,7 +82,6 @@ describe('Get activity feed for up voted book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Book');
@@ -108,7 +106,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Book');
@@ -134,7 +131,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Book');
@@ -159,7 +155,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -182,7 +177,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -201,7 +195,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1, topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -224,7 +217,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1, topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
@@ -242,7 +234,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic4']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(0);
     });
 
@@ -255,7 +246,6 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(0);
     });
 
@@ -268,7 +258,130 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1, topics: ['topic4']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        //res.body.totalNumberOfElements.should.equals(2);
         res.body.feed.length.should.equals(0);
+    });
+
+    it('Get only up voted books', async function () {
+        dbDsl.createTextAnswer('5', {
+            creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '1', questionId: '1', created: 604, pageType: 'article', hasPreviewImage: true,
+            link: 'https://www.example.org/blog/1224'
+        });
+        dbDsl.upVoteAnswer({userId: '4', answerId: '5', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book'});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
+
+        res.body.feed[1].type.should.equals('Book');
+        res.body.feed[1].action.should.equals('created');
+    });
+
+    it('Get only up voted books (topics filter)', async function () {
+        dbDsl.createTextAnswer('5', {
+            creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '1', questionId: '1', created: 604, pageType: 'article', hasPreviewImage: true,
+            link: 'https://www.example.org/blog/1224'
+        });
+        dbDsl.upVoteAnswer({userId: '4', answerId: '5', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book', topics: ['topic1']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
+
+        res.body.feed[1].type.should.equals('Book');
+        res.body.feed[1].action.should.equals('created');
+    });
+
+    it('Get only up voted books (trust circle filter)', async function () {
+        dbDsl.createTextAnswer('5', {
+            creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '1', questionId: '1', created: 604, pageType: 'article', hasPreviewImage: true,
+            link: 'https://www.example.org/blog/1224'
+        });
+        dbDsl.upVoteAnswer({userId: '4', answerId: '5', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
+        dbDsl.createContactConnection('1', '4');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book', trustCircle: 1});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
+    });
+
+    it('Get only up voted books (trust circle and topic filter)', async function () {
+        dbDsl.createTextAnswer('5', {
+            creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
+        });
+        dbDsl.createYoutubeAnswer('7', {
+            creatorId: '2', questionId: '1', created: 603, idOnYoutube: '00zxopGPYW4',
+            link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'
+        });
+        dbDsl.createLinkAnswer('8', {
+            creatorId: '1', questionId: '1', created: 604, pageType: 'article', hasPreviewImage: true,
+            link: 'https://www.example.org/blog/1224'
+        });
+        dbDsl.upVoteAnswer({userId: '4', answerId: '5', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 999});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
+        dbDsl.createContactConnection('1', '4');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book', trustCircle: 1, topics: ['topic1', 'topic3']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
     });
 });

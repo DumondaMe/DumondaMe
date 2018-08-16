@@ -1,8 +1,6 @@
 'use strict';
 
 const responseHandler = require('./response');
-const feedElementCounter = require('./feedElementCounter');
-const filter = require('./filter');
 const db = requireDb();
 const PAGE_SIZE = 20;
 
@@ -16,29 +14,37 @@ const onlyLatestUpVoteOrWatch = function () {
         .getCommandString();
 };
 
-const getTrustCircleAndTopicFilterDeactivated = function () {
+const getTypeFilter = function (typeFilter) {
+    if (typeFilter) {
+        return `AND feedElement:${typeFilter}`;
+    }
+    return '';
+};
+
+const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
     return db.cypher()
         .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
-        .where(`feedElement.created <= {timestamp}`)
+        .where(`feedElement.created <= {timestamp} ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
 
-const getTrustCircleFilterWithDeactivatedTopicFilter = function (showInterested) {
+const getTrustCircleFilterWithDeactivatedTopicFilter = function (typeFilter, showInterested) {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch${showInterested ? ':WATCH|:' : ':'}IS_CONTACT]->(activityElement)
                  -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
-                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
+                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
 
-const getTopicFilterWithDeactivatedTrustCircleFilter = function (showInterested) {
+const getTopicFilterWithDeactivatedTrustCircleFilter = function (typeFilter, showInterested) {
     return db.cypher()
-        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]
+                 ->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT 
         ((type(relActivity) = 'UP_VOTE' OR type(relActivity) = 'WATCH') AND 
-        (:User {userId: {userId}})-[relActivity]->(feedElement))`)
+        (:User {userId: {userId}})-[relActivity]->(feedElement)) ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
         .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
         .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
@@ -48,13 +54,13 @@ const getTopicFilterWithDeactivatedTrustCircleFilter = function (showInterested)
         .with(`DISTINCT activityElement, relActivity, feedElement`)
 };
 
-const getTrustCircleAndTopicFilterActivated = function (showInterested) {
+const getTrustCircleAndTopicFilterActivated = function (typeFilter, showInterested) {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch${showInterested ? ':WATCH|:' : ':'}IS_CONTACT]->(activityElement)
                  -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
         .where(`feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 
-                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement))`)
+                (user)-[:WATCH]->(:Question)-[:ANSWER]->(feedElement)) ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
         .optionalMatch(`(feedElement)<-[:TOPIC]-(topic:Topic)`)
         .optionalMatch(`(feedElement)<-[:ANSWER|:EVENT]-(parent)<-[:TOPIC]-(parentTopic:Topic)`)
@@ -64,22 +70,22 @@ const getTrustCircleAndTopicFilterActivated = function (showInterested) {
         .with(`DISTINCT activityElement, relActivity, feedElement`)
 };
 
-const getStartQuery = function (trustCircle, topics, showInterested) {
+const getStartQuery = function (trustCircle, topics, typeFilter, showInterested) {
     if (!trustCircle && !topics) {
-        return getTrustCircleAndTopicFilterDeactivated();
+        return getTrustCircleAndTopicFilterDeactivated(typeFilter);
     } else if (trustCircle && !topics) {
-        return getTrustCircleFilterWithDeactivatedTopicFilter(showInterested);
+        return getTrustCircleFilterWithDeactivatedTopicFilter(typeFilter, showInterested);
     } else if (!trustCircle && topics) {
-        return getTopicFilterWithDeactivatedTrustCircleFilter(showInterested);
+        return getTopicFilterWithDeactivatedTrustCircleFilter(typeFilter, showInterested);
     } else {
-        return getTrustCircleAndTopicFilterActivated(showInterested);
+        return getTrustCircleAndTopicFilterActivated(typeFilter, showInterested);
     }
 };
 
 const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage, languages, trustCircle, topics, regions,
                                 showInterested) {
     page = page * PAGE_SIZE;
-    let response = await getStartQuery(trustCircle, topics, showInterested)
+    let response = await getStartQuery(trustCircle, topics, typeFilter, showInterested)
         .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
@@ -94,13 +100,10 @@ const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage
                  max(tempCreated) AS created, type(relActivity) AS relActivity`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
-        .end({userId, page, timestamp, topics})
-        .send([feedElementCounter.getTotalNumberOfFeedElements(userId, timestamp, typeFilter)]);
+        .end({userId, page, timestamp, topics}).send();
 
     return {
-        feed: await responseHandler.getFeed(response[1], userId),
-        totalNumberOfElements: response[0][0].numberOfElements,
-        timestamp
+        feed: await responseHandler.getFeed(response, userId), timestamp
     };
 };
 

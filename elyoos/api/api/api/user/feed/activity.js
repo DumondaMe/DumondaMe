@@ -18,7 +18,7 @@ const schemaGetQuestionFeed = {
         languages: schemaLanguage.languageMultiple,
         page: {type: 'integer', minimum: 0},
         timestamp: {type: 'integer', minimum: 0},
-        typeFilter: {enum: ['book', 'text', 'book', 'link', 'commitment', 'event']},
+        typeFilter: {enum: ['Book', 'Text', 'Video', 'Link', 'Commitment', 'Event']},
         trustCircle: {type: 'integer', minimum: 1, maximum: 3},
         topics: {
             type: 'array',
