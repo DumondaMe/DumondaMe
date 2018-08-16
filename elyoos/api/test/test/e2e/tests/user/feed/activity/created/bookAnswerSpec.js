@@ -107,6 +107,40 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[1].type.should.equals('Question');
     });
 
+    it('Sub topic of created book answer is within filter topics', async function () {
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic2', topicId: 'topic11', descriptionDe: 'topic11De', descriptionEn: 'topic11En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
+        });
+        dbDsl.createQuestion('2', {
+            creatorId: '2', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            topics: ['topic111'], language: 'de', created: 500, modified: 700
+        });
+        dbDsl.createBookAnswer('7', {
+            creatorId: '3', questionId: '2', created: 601, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], topics: ['topic2']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].answerId.should.equals('7');
+        res.body.feed[0].user.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
+
+        res.body.feed[1].type.should.equals('Question');
+        res.body.feed[1].questionId.should.equals('2');
+    });
+
     it('Created book answer is not within filter topics', async function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1', created: 999});
 
@@ -133,6 +167,39 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
+        res.body.feed[0].user.isTrustUser.should.equals(true);
+        should.not.exist(res.body.feed[0].creator);
+    });
+
+    it('Sub topic of created book answer is within filter topics and creator is in trust circle', async function () {
+        dbDsl.createContactConnection('1', '5');
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic2', topicId: 'topic11', descriptionDe: 'topic11De', descriptionEn: 'topic11En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
+        });
+        dbDsl.createQuestion('2', {
+            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            topics: ['topic111'], language: 'de', created: 500, modified: 700
+        });
+        dbDsl.createBookAnswer('7', {
+            creatorId: '5', questionId: '2', created: 601, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], topics: ['topic2'], trustCircle: 1});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].answerId.should.equals('7');
+        res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.isTrustUser.should.equals(true);
         should.not.exist(res.body.feed[0].creator);
     });

@@ -103,14 +103,44 @@ describe('Get activity feed for interested commitments', function () {
     it('Get interested commitment of a user filtered by topics', async function () {
 
         dbDsl.createCommitment('101', {
-            adminId: '2',
-            topics: ['topic3', 'topic4'],
-            language: 'de',
-            created: 400,
-            modified: 606,
-            title: 'Test Commitment',
-            website: 'https://www.example.org/',
-            regions: ['region-1', 'region-2']
+            adminId: '2', topics: ['topic3', 'topic4'], language: 'de', created: 400, modified: 606,
+            title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
+        });
+
+        dbDsl.watchCommitment({commitmentId: '100', userId: '5', created: 501});
+        dbDsl.watchCommitment({commitmentId: '101', userId: '5', created: 501});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {
+            guiLanguage: 'de', languages: ['de'], topics: ['topic3', 'topic5']
+        });
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Commitment');
+        res.body.feed[0].action.should.equals('watch');
+        res.body.feed[0].commitmentId.should.equals('101');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
+
+        res.body.feed[1].type.should.equals('Commitment');
+        res.body.feed[1].action.should.equals('created');
+        res.body.feed[1].commitmentId.should.equals('101');
+    });
+
+    it('Get interested commitment of a user filtered by sub topics', async function () {
+
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic3', topicId: 'topic11', descriptionDe: 'topic11De', descriptionEn: 'topic11En'
+        });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
+        });
+        dbDsl.createCommitment('101', {
+            adminId: '2', topics: ['topic111'], language: 'de', created: 400, modified: 606,
+            title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
         });
 
         dbDsl.watchCommitment({commitmentId: '100', userId: '5', created: 501});
