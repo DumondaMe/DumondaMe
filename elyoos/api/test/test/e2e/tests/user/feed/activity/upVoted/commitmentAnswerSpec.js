@@ -16,13 +16,18 @@ describe('Get activity feed for up voted commitment answers', function () {
 
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createRegion('region-2', {de: 'region2De', en: 'region2En'});
+        dbDsl.createRegion('region-2-1', {parentRegionId: 'region-2', de: 'region21De', en: 'region21En'});
+        dbDsl.createRegion('region-2-2', {parentRegionId: 'region-2', de: 'region22De', en: 'region22En'});
+        dbDsl.createRegion('region-2-1-1', {parentRegionId: 'region-2-1', de: 'region211De', en: 'region211En'});
+        dbDsl.createRegion('region-2-1-2', {parentRegionId: 'region-2-1', de: 'region212De', en: 'region212En'});
+
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
         dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createCommitment('100', {
             adminId: '2',
-            topics: ['topic1', 'topic2'],
+            topics: ['topic1', 'region-2-1-1'],
             language: 'de',
             created: 400,
             modified: 606,
@@ -93,7 +98,69 @@ describe('Get activity feed for up voted commitment answers', function () {
         res.body.feed[3].action.should.equals('created');
     });
 
-    it('Get only up commitment text', async function () {
+    it('Get up voted commitment answer within region', async function () {
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], regions: ['region-1', 'region-3']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(4);
+
+        res.body.feed[0].type.should.equals('CommitmentAnswer');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
+
+        res.body.feed[1].type.should.equals('CommitmentAnswer');
+        res.body.feed[1].action.should.equals('created');
+
+        res.body.feed[2].type.should.equals('Question');
+        res.body.feed[2].action.should.equals('created');
+
+        res.body.feed[3].type.should.equals('Commitment');
+        res.body.feed[3].action.should.equals('created');
+    });
+
+    it('Get up voted commitment answer within sub region', async function () {
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], regions: ['region-2', 'region-3']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(4);
+
+        res.body.feed[0].type.should.equals('CommitmentAnswer');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].answerId.should.equals('6');
+
+        res.body.feed[1].type.should.equals('CommitmentAnswer');
+        res.body.feed[1].action.should.equals('created');
+
+        res.body.feed[2].type.should.equals('Question');
+        res.body.feed[2].action.should.equals('created');
+
+        res.body.feed[3].type.should.equals('Commitment');
+        res.body.feed[3].action.should.equals('created');
+    });
+
+    it('Up voted commitment is not within region', async function () {
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], regions: ['region-3']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Question');
+        res.body.feed[0].action.should.equals('created');
+    });
+
+    it('Get only up voted commitment text', async function () {
         dbDsl.createLinkAnswer('5', {
             creatorId: '3', questionId: '1', created: 601, pageType: 'article', hasPreviewImage: true,
             link: 'https://www.example.org/blog/1224'
