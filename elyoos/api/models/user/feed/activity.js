@@ -7,10 +7,11 @@ const PAGE_SIZE = 20;
 const onlyLatestUpVoteOrWatch = function () {
     return db.cypher().unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
         .with(`type(relActivity) AS activity, feedElement, max(tempCreated) AS created`)
-        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
         .where(`type(relActivity) = activity AND 
                (((activity = 'UP_VOTE' OR activity = 'WATCH') AND relActivity.created = created) OR 
-               ((activity = 'IS_CREATOR' OR activity = 'EVENT') AND feedElement.created = created))`)
+               ((activity = 'IS_CREATOR' OR activity = 'EVENT' OR activity = 'ANSWER') 
+                 AND feedElement.created = created))`)
         .getCommandString();
 };
 
