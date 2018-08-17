@@ -3,16 +3,18 @@
         <div class="item-container" @click="select()"
              :class="{'item-selected': item.isSelected, 'sub-item-selected': item.subItemIsSelected,
              'disabled-item': disabled && !item.isSelected}">
-            <v-icon class="item-icon" v-show="item.isSelected">done</v-icon>
             <div class="item" :class="{'main-bold': isRoot}">
                 {{item.description}}
             </div>
+            <v-spacer></v-spacer>
+            <v-icon class="item-icon" v-show="item.isSelected">done</v-icon>
         </div>
         <div class="sub-items" v-if="(item.isSelected || (item.subItemIsSelected)) && item.subItems &&
                                         item.subItems.length > 0">
             <select-element :item="subItem" v-for="subItem in item.subItems"
                             :key="subItem.id" :is-root="false" :select-multiple="selectMultiple"
-                            :dis-select-parent-items="disSelectParentItems" :disabled="disabled"
+                            :dis-select-parent-items="disSelectParentItems" :disabled="disabled" :min-items="minItems"
+                            :number-of-selected-items="numberOfSelectedItems"
                             @select-changed="childSelectChanged">
             </select-element>
         </div>
@@ -24,11 +26,13 @@
 
     export default {
         name: 'select-element',
-        props: ['item', 'isRoot', 'selectMultiple', 'disSelectParentItems', 'disabled'],
+        props: ['item', 'isRoot', 'selectMultiple', 'disSelectParentItems', 'disabled', 'minItems',
+            'numberOfSelectedItems'],
         components: {SelectElement},
         methods: {
             select() {
-                if (!(this.disabled && !this.item.isSelected)) {
+                if (!(this.disabled && !this.item.isSelected) &&
+                    !(this.minItems && this.numberOfSelectedItems === this.minItems && this.item.isSelected)) {
                     this.item.isSelected = !this.item.isSelected;
                     if (this.item.isSelected) {
                         this.disSelectSubItems(this.item.subItems);
@@ -72,8 +76,9 @@
             padding: 12px;
             border-bottom: 1px solid $divider;
             cursor: pointer;
+            display: flex;
             .item-icon {
-                float: right;
+                margin-left: 18px;
                 color: $success-text;
                 user-select: none;
             }

@@ -1,9 +1,10 @@
 <template>
-    <div id="select-container">
+    <div class="select-container">
         <select-element :item="item" v-for="item in localItems" :key="item.id"
                         :is-root="true" :select-multiple="selectMultiple"
                         :dis-select-parent-items="disSelectParentItems"
-                        :disabled="maxItems && maxItems <= selected.length"
+                        :disabled="maxItems && maxItems <= selected.length" :min-items="minItems"
+                        :number-of-selected-items="selected.length"
                         @select-changed="selectChanged">
         </select-element>
     </div>
@@ -15,7 +16,7 @@
 
     export default {
         props: ['items', 'existingItems', 'selectMultiple', 'singleSelectedItemId', 'disSelectParentItems',
-            'maxItems'],
+            'maxItems', 'minItems'],
         components: {SelectElement},
         data() {
             return {localItems: JSON.parse(JSON.stringify(this.items)), selected: []}
@@ -108,7 +109,7 @@
 </script>
 
 <style lang="scss">
-    #select-container {
+    .select-container {
         border-top: 1px solid $divider;
         border-left: 1px solid $divider;
         border-right: 1px solid $divider;
