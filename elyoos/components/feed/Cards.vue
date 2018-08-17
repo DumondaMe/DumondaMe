@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="feed-cards-container" v-if="!isLoadingFeed">
+        <div class="feed-cards-container" v-if="!isLoadingFeed && feed.length > 0">
             <div class="feed-card ely-card" v-for="element in feed">
                 <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
                 <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
@@ -12,8 +12,11 @@
                 <question-card :question="element" v-if="element.type === 'Question'"></question-card>
             </div>
         </div>
-        <div v-else class="feed-loading-container text-xs-center">
+        <div v-else-if="isLoadingFeed" class="feed-loading-container text-xs-center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+        <div v-else-if="feed.length === 0" class="feed-no-content-message">
+            {{$t('pages:feeds.filter.noResults')}}
         </div>
     </div>
 </template>
@@ -115,6 +118,12 @@
 
     .feed-loading-container {
         margin-top: 48px;
+    }
+
+    .feed-no-content-message {
+        margin-top: 28px;
+        font-size: 22px;
+        font-weight: 300;
     }
 
     .card-footer-feed {

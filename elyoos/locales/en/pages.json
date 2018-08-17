@@ -79,7 +79,8 @@
       },
       "language": {
         "all": "Any Language"
-      }
+      },
+      "noResults": "No posts were found with these filter settings."
     },
     "card": {
       "answer": "{{count}} Answer",
