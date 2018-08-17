@@ -3,28 +3,28 @@
         <div class="type-filter-container">
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
-                     :class="{'active-filter': activeTypeFilter === null}" @click="setFilter(null)">
+                     :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
                     <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.activity")}}</span>
             </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
-                     :class="{'active-filter': activeTypeFilter === 'question'}" @click="setFilter('question')">
+                     :class="{'active-filter': mainFilter === 'question'}" @click="setFilter('question')">
                     <v-icon>mdi-help-circle-outline</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.question")}}</span>
             </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
-                     :class="{'active-filter': activeTypeFilter === 'commitment'}" @click="setFilter('commitment')">
+                     :class="{'active-filter': mainFilter === 'commitment'}" @click="setFilter('commitment')">
                     <v-icon>mdi-human-handsup</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.commitment")}}</span>
             </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
-                     :class="{'active-filter': activeTypeFilter === 'event'}" @click="setFilter('event')">
+                     :class="{'active-filter': mainFilter === 'event'}" @click="setFilter('event')">
                     <v-icon>mdi-calendar</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
@@ -57,10 +57,10 @@
             </v-menu>
         </div>
         <div id="feed-sub-filters">
-            <sub-filter-activity v-if="activeTypeFilter === null"></sub-filter-activity>
-            <sub-filter-question v-else-if="activeTypeFilter === 'question'"></sub-filter-question>
-            <sub-filter-commitment v-else-if="activeTypeFilter === 'commitment'"></sub-filter-commitment>
-            <sub-filter-event v-else-if="activeTypeFilter === 'event'"></sub-filter-event>
+            <sub-filter-activity v-if="mainFilter === 'activity'"></sub-filter-activity>
+            <sub-filter-question v-else-if="mainFilter === 'question'"></sub-filter-question>
+            <sub-filter-commitment v-else-if="mainFilter === 'commitment'"></sub-filter-commitment>
+            <sub-filter-event v-else-if="mainFilter === 'event'"></sub-filter-event>
         </div>
         <edit-trust-circle-filter-dialog v-if="showTrustCircleFilter"
                                          @close-dialog="showTrustCircleFilter = false">
@@ -81,11 +81,8 @@
             EditTrustCircleFilterDialog
         },
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
-            activeTypeFilter() {
-                return this.$store.state.feed.typeFilter;
+            mainFilter() {
+                return this.$store.state.feedFilter.mainFilter;
             }
         },
         data: function () {
@@ -95,13 +92,8 @@
         },
         methods: {
             async setFilter(filter) {
-                if (filter) {
-                    this.$router.push({query: Object.assign({}, this.$route.query, {typeFilter: filter})});
-                } else {
-                    this.$router.push({query: null});
-                }
-                await this.$store.dispatch('feed/setTypeFilter',
-                    {filter, isAuthenticated: this.isAuthenticated});
+                this.$store.commit('feedFilter/SET_MAIN_FILTER', filter);
+                await this.$store.dispatch('feed/getFeed');
             }
         }
     }

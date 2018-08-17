@@ -1,19 +1,13 @@
 export const state = () => ({
     feed: [],
-    popularQuestions: [],
     page: 0,
-    totalNumberOfElements: 0,
-    typeFilter: null,
-    publicFeed: true, //Is feed in public mode
-    timestamp: Number.MAX_SAFE_INTEGER
+    timestamp: Number.MAX_SAFE_INTEGER,
+    loading: false
 });
 
 export const mutations = {
     SET_FEED(state, feed) {
         state.feed = feed;
-    },
-    SET_POPULAR_QUESTIONS(state, popularQuestions) {
-        state.popularQuestions = popularQuestions;
     },
     ADD_TO_FEED(state, feed) {
         state.feed = state.feed.concat(feed);
@@ -21,61 +15,42 @@ export const mutations = {
     SET_PAGE(state, page) {
         state.page = page;
     },
-    SET_NUMBER_OF_ELEMENTS(state, totalNumberOfElements) {
-        state.totalNumberOfElements = totalNumberOfElements;
-    },
     SET_TIMESTAMP(state, timestamp) {
         state.timestamp = timestamp;
     },
-    SET_TYPE_FILTER(state, filter) {
-        state.typeFilter = filter;
-    },
-    SET_IS_PUBLIC_FEED(state, publicFeed) {
-        state.publicFeed = publicFeed;
+    SET_LOADING(state, loading) {
+        state.loading = loading;
     }
 };
 
-const getFeedRequest = async function (commit, isAuthenticated, params, commitCommand, isPublicFeed, $axios) {
-    let response;
-    if (isAuthenticated && !isPublicFeed) {
-        response = await $axios.$get(`/user/feed`, params);
-    } else {
-        response = await $axios.$get(`/feed`, params);
+const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {
+    try {
+        let response;
+        commit('SET_LOADING', true);
+        if (isAuthenticated) {
+            response = await $axios.$get(`/user/feed/${mainFilter}`, params);
+        } else {
+            response = await $axios.$get(`/feed/${mainFilter}`, params);
+        }
+        commit(commitCommand, response.feed);
+        commit('SET_PAGE', params.params.page);
+        return response;
+    } finally {
+        commit('SET_LOADING', false);
     }
-    commit(commitCommand, response.feed);
-    commit('SET_NUMBER_OF_ELEMENTS', response.totalNumberOfElements);
-    commit('SET_PAGE', params.params.page);
-    return response;
 };
 
 export const actions = {
-    async getFeed({commit, state, rootState}, {isAuthenticated, typeFilter}) {
-        let params = {params: {page: 0, language: rootState.i18n.language}};
-        if (typeFilter) {
-            params.params.typeFilter = typeFilter;
-        }
-        let response = await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
+    async getFeed({commit, rootState, rootGetters}) {
+        let params = {params: {page: 0, guiLanguage: rootState.i18n.language, languages: ['de', 'en']}};
+        params.params = Object.assign(params.params, rootGetters['feedFilter/getFilterParams']);
+        let response = await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params,
+            rootState.feedFilter.mainFilter, 'SET_FEED', this.$axios);
         commit('SET_TIMESTAMP', response.timestamp);
     },
-    async loadNextFeedElements({commit, state, rootState}, {isAuthenticated}) {
+    async loadNextFeedElements({commit, state, rootState}) {
         let params = {params: {page: state.page + 1, language: rootState.i18n.language}};
-        if (state.typeFilter) {
-            params.params.typeFilter = state.typeFilter;
-        }
-        await getFeedRequest(commit, isAuthenticated, params, 'ADD_TO_FEED', state.publicFeed, this.$axios);
-    },
-    async setTypeFilter({commit, state, rootState}, {filter, isAuthenticated}) {
-        if (filter !== state.typeFilter) {
-            commit('SET_TYPE_FILTER', filter);
-            let params = {params: {page: 0, language: rootState.i18n.language}};
-            if (filter) {
-                params.params.typeFilter = filter;
-            }
-            await getFeedRequest(commit, isAuthenticated, params, 'SET_FEED', state.publicFeed, this.$axios);
-        }
-    },
-    async getPopularQuestion({commit, state, rootState}) {
-        let response = await this.$axios.$get(`/question/popular`, {params: {language: rootState.i18n.language}});
-        commit('SET_POPULAR_QUESTIONS', response.popularQuestions);
-    },
+        await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params, rootState.feedFilter.mainFilter,
+            'ADD_TO_FEED', this.$axios);
+    }
 };

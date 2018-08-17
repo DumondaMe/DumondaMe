@@ -30,15 +30,9 @@
     export default {
         async fetch({query, app, error, store}) {
             try {
-                if (query.typeFilter) {
-                    store.commit(`feed/SET_TYPE_FILTER`, query.typeFilter);
-                } else {
-                    store.commit(`feed/SET_TYPE_FILTER`, null);
-                }
                 await Promise.all([store.dispatch(`feed/getFeed`, {
                     isAuthenticated: store.state.auth.userIsAuthenticated,
-                    typeFilter: query.typeFilter
-                }), store.dispatch(`feed/getPopularQuestion`)]);
+                })/*, store.dispatch(`feed/getPopularQuestion`)*/]);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }

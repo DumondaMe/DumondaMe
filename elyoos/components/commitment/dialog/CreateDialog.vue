@@ -10,7 +10,7 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment-content>
             <region v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
-                    :action-button-text="$t('common:button.next')"
+                    :action-button-text="$t('common:button.next')" :select-multiple="true"
                     :description="$t('pages:commitment.createDialog.regionDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </region>

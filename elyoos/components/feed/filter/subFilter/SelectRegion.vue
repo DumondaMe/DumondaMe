@@ -1,44 +1,53 @@
 <template>
     <div class="select-region-container">
-        <div class="select-region" @click="showDialog = true">
-            <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
-            <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
-        </div>
-        <v-layout row justify-center v-if="showDialog">
-            <v-dialog v-model="showDialog" scrollable persistent max-width="650px">
-                <region @close-dialog="showDialog = false" @finish="changeRegion" :select-multiple="false"
-                        :existing-regions="[localSelectedRegion]" :action-button-text="$t('common:button.change')"
-                        :description="$t('pages:feeds.filter.region.selectDialogDescription')" :loading="loading">
-                </region>
-            </v-dialog>
-            <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-                <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
-            </v-snackbar>
-        </v-layout>
+        <v-menu v-model="menu" :close-on-content-click="false" offset-y max-height="400">
+            <div class="select-region" slot="activator">
+                <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
+                <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
+            </div>
+            <v-card class="ely-menu-container">
+                <ely-select :items="regions" :select-multiple="false" :min-items='1'
+                            :single-selected-item-id="'international'" :existing-items="initRegion"
+                            @select-changed="changeRegion">
+                </ely-select>
+            </v-card>
+        </v-menu>
     </div>
 </template>
 
 <script>
-    import Region from '~/components/region/dialog/Region';
+    import ElySelect from '~/components/common/select/Select';
 
     export default {
-        props: ['selectedRegion'],
-        components: {Region},
+        props: ['initRegion'],
+        components: {ElySelect},
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
+            regions() {
+                return this.$store.state.region.regions
+            },
+            selectedRegion() {
+                return this.$store.state.region.regions
             }
         },
         data: function () {
             return {
-                showDialog: false, showError: false, loading: false,
-                localSelectedRegion: JSON.parse(JSON.stringify(this.selectedRegion))
+                showError: false, loadingRegions: false, menu: false,
+                localSelectedRegion: JSON.parse(JSON.stringify(this.initRegion[0]))
             }
         },
         methods: {
             changeRegion(selectedRegion) {
-                this.showDialog = false;
                 this.localSelectedRegion = selectedRegion[0];
+
+            }
+        },
+        watch: {
+            async menu(showMenu) {
+                if (showMenu) {
+                    await this.$store.dispatch('region/getRegions');
+                } else {
+                    this.$emit('region-changed', this.localSelectedRegion)
+                }
             }
         }
     }
@@ -56,9 +65,18 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         :hover.select-region {
             color: $primary-text;
+        }
+    }
+
+    .ely-menu-container {
+        .select-container {
+            .select-item {
+                .item-container {
+                    padding: 12px 22px;
+                }
+            }
         }
     }
 </style>

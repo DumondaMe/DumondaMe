@@ -1,14 +1,19 @@
 <template>
-    <div class="feed-cards-container">
-        <div class="feed-card ely-card" v-for="element in feed">
-            <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
-            <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
-            <book-card :answer="element" v-if="element.type === 'Book'"></book-card>
-            <text-card :answer="element" v-if="element.type === 'Text'"></text-card>
-            <event-card :event="element" v-if="element.type === 'Event'"></event-card>
-            <link-card :answer="element" v-if="element.type === 'Link'"></link-card>
-            <youtube-card :answer="element" v-if="element.type === 'Youtube'"></youtube-card>
-            <question-card :question="element" v-if="element.type === 'Question'"></question-card>
+    <div>
+        <div class="feed-cards-container" v-if="!isLoadingFeed">
+            <div class="feed-card ely-card" v-for="element in feed">
+                <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
+                <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
+                <book-card :answer="element" v-if="element.type === 'Book'"></book-card>
+                <text-card :answer="element" v-if="element.type === 'Text'"></text-card>
+                <event-card :event="element" v-if="element.type === 'Event'"></event-card>
+                <link-card :answer="element" v-if="element.type === 'Link'"></link-card>
+                <youtube-card :answer="element" v-if="element.type === 'Youtube'"></youtube-card>
+                <question-card :question="element" v-if="element.type === 'Question'"></question-card>
+            </div>
+        </div>
+        <div v-else class="feed-loading-container text-xs-center">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
     </div>
 </template>
@@ -25,7 +30,11 @@
     export default {
         props: ['feed'],
         components: {CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard},
-        computed: {}
+        computed: {
+            isLoadingFeed() {
+                return this.$store.state.feed.loading
+            }
+        }
     }
 </script>
 
@@ -102,6 +111,10 @@
                 }
             }
         }
+    }
+
+    .feed-loading-container {
+        margin-top: 48px;
     }
 
     .card-footer-feed {
