@@ -79,7 +79,7 @@
             display: flex;
             .item-icon {
                 margin-left: 18px;
-                color: $success-text;
+                color: $primary-color;
                 user-select: none;
             }
             .item {
@@ -93,10 +93,10 @@
             background-color: #EEEEEE;
         }
         .item-container.item-selected {
-            color: $success-text;
+            color: $primary-color;
             background-color: #EEEEEE;
             .item {
-                color: $success-text;
+                color: $primary-color;
             }
         }
         .item-container.disabled-item {
