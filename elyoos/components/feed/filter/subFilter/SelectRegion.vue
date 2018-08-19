@@ -4,6 +4,7 @@
             <div class="select-region" slot="activator">
                 <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
                 <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
+                <v-icon>mdi-menu-down</v-icon>
             </div>
             <v-card class="ely-menu-region-container">
                 <ely-select :items="regions" :select-multiple="false" :min-items='1'
@@ -62,6 +63,9 @@
             color: $secondary-text;
             font-size: 14px;
             cursor: pointer;
+            i.icon {
+                padding-bottom: 4px;
+            }
         }
         :hover.select-region {
             color: $primary-text;
