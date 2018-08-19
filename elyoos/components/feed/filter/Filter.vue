@@ -31,8 +31,10 @@
             </v-tooltip>
             <v-spacer></v-spacer>
             <v-tooltip top class="right-filter-container">
-                <div class="right-filter" slot="activator" @click="showTrustCircleFilter = true">
-                    <v-icon slot="activator">mdi-checkbox-blank-circle-outline</v-icon>
+                <div class="right-filter" slot="activator">
+                    <common-filter-trust-circle :trust-circle="$store.state.feedFilter.trustCircleFilter"
+                                                @trust-circle-changed="trustCircleChanged">
+                    </common-filter-trust-circle>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.trustCircle")}}</span>
             </v-tooltip>
@@ -64,9 +66,6 @@
             <sub-filter-commitment v-else-if="mainFilter === 'commitment'"></sub-filter-commitment>
             <sub-filter-event v-else-if="mainFilter === 'event'"></sub-filter-event>
         </div>
-        <edit-trust-circle-filter-dialog v-if="showTrustCircleFilter"
-                                         @close-dialog="showTrustCircleFilter = false">
-        </edit-trust-circle-filter-dialog>
     </div>
 </template>
 
@@ -76,12 +75,12 @@
     import SubFilterCommitment from './subFilter/Commitment';
     import SubFilterEvent from './subFilter/Event';
     import CommonFilterTopic from './commonFilter/SelectTopic';
-    import EditTrustCircleFilterDialog from './dialog/EditTrustCircleFilter';
+    import CommonFilterTrustCircle from './commonFilter/TrustCircle';
 
     export default {
         components: {
             SubFilterActivity, SubFilterQuestion, SubFilterCommitment, SubFilterEvent,
-            EditTrustCircleFilterDialog, CommonFilterTopic
+            CommonFilterTopic, CommonFilterTrustCircle
         },
         computed: {
             mainFilter() {
@@ -101,6 +100,9 @@
             async topicChanged(topics) {
                 this.$store.commit('feedFilter/SET_TOPIC_FILTER', topics);
                 await this.$store.dispatch('feed/getFeed')
+            },
+            async trustCircleChanged() {
+                await this.$store.dispatch('feed/getFeed');
             }
         }
     }

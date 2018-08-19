@@ -83,6 +83,12 @@
       "topic": {
         "all": "Alle Themen"
       },
+      "trustCircle": {
+        "descriptionFilterActivated": "Der Trust Circle Filter ist",
+        "activated": "aktiviert",
+        "deactivated": "deaktiviert",
+        "trustCircleHelp": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu."
+      },
       "noResults": "Mit diesen Filtereinstellungen wurden keine Beiträge gefunden."
     },
     "card": {

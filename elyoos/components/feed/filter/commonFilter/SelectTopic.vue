@@ -27,14 +27,13 @@
         },
         data: function () {
             return {
-                menu: false, hasChanged: false,
-                localSelectedTopics: JSON.parse(JSON.stringify(this.initTopics))
+                menu: false, localSelectedTopics: JSON.parse(JSON.stringify(this.initTopics))
             }
         },
         methods: {
             changeTopic(selectedTopics) {
                 this.localSelectedTopics = selectedTopics;
-                this.hasChanged = true;
+                this.$emit('topic-changed', this.localSelectedTopics)
             }
         },
         watch: {
@@ -42,8 +41,6 @@
                 if (showMenu) {
                     this.hasChanged = false;
                     await this.$store.dispatch('topic/getTopics');
-                } else if (this.hasChanged) {
-                    this.$emit('topic-changed', this.localSelectedTopics)
                 }
             }
         }

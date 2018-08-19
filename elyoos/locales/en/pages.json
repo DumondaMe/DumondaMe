@@ -83,6 +83,12 @@
       "topic": {
         "all": "All Topics"
       },
+      "trustCircle": {
+        "descriptionFilterActivated": "The Trust Circle Filter is",
+        "activated": "activated",
+        "deactivated": "deactivated",
+        "trustCircleHelp": "What information we believe has a lot to do with trust. Add people whose opinions you value to your Trust Circle."
+      },
       "noResults": "No posts were found with these filter settings."
     },
     "card": {

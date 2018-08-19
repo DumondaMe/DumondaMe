@@ -29,23 +29,19 @@
         },
         data: function () {
             return {
-                menu: false, hasChanged: false,
-                localSelectedRegion: JSON.parse(JSON.stringify(this.initRegion[0]))
+                menu: false, localSelectedRegion: JSON.parse(JSON.stringify(this.initRegion[0]))
             }
         },
         methods: {
             changeRegion(selectedRegion) {
                 this.localSelectedRegion = selectedRegion[0];
-                this.hasChanged = true;
+                this.$emit('region-changed', this.localSelectedRegion)
             }
         },
         watch: {
             async menu(showMenu) {
                 if (showMenu) {
-                    this.hasChanged = false;
                     await this.$store.dispatch('region/getRegions');
-                } else if (this.hasChanged) {
-                    this.$emit('region-changed', this.localSelectedRegion)
                 }
             }
         }
