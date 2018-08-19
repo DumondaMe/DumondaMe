@@ -92,14 +92,13 @@
                 }
 
                 this.getSelected(this.localItems, this.selected);
-
                 if (this.singleSelectedItemId && item.id !== this.singleSelectedItemId) {
 
                     let singleSelectedSelected = this.selected.findIndex(selectedItem =>
                         selectedItem.id === this.singleSelectedItemId);
                     if (singleSelectedSelected !== -1) {
                         this.disableOneItem(this.localItems, this.singleSelectedItemId);
-                        this.selected.slice(singleSelectedSelected, 1);
+                        this.selected.splice(singleSelectedSelected, 1);
                     }
                 }
                 this.$emit('select-changed', this.selected);
