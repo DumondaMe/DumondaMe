@@ -25,7 +25,8 @@
             }
         },
         data: function () {
-            return {localSelectedItem: JSON.parse(JSON.stringify(this.selectedItem))}
+            let selectedItem = this.items.find(item => item.id === this.selectedItem);
+            return {localSelectedItem: JSON.parse(JSON.stringify(selectedItem))}
         },
         methods: {
             itemSelected(item) {

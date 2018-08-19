@@ -6,11 +6,9 @@
             {id: 'Book', description: $t('pages:feeds.filter.post.onlyBook')},
             {id: 'Link', description: $t('pages:feeds.filter.post.onlyLink')},
             {id: 'Commitment', description: $t('pages:feeds.filter.post.onlyCommitment')}]"
-                     :selected-item="{id: 'selectAll', description: $t('pages:feeds.filter.post.all')}"
-                     @changed="activityChanged">
+                     :selected-item="'selectAll'" @changed="activityChanged">
         </select-menu>
-        <select-region :selected-region="{id: 'international', description: 'Alle Regionen'}"
-                       v-if="typeFilterWithRegion" :init-region="[$store.state.feedFilter.regionFilter]"
+        <select-region v-if="typeFilterWithRegion" :init-region="[$store.state.feedFilter.regionFilter]"
                        @region-changed="regionChanged">
         </select-region>
     </div>

@@ -5,7 +5,7 @@
                 <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
                 <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
             </div>
-            <v-card class="ely-menu-container">
+            <v-card class="ely-menu-region-container">
                 <ely-select :items="regions" :select-multiple="false" :min-items='1'
                             :single-selected-item-id="'international'" :existing-items="initRegion"
                             @select-changed="changeRegion">
@@ -24,28 +24,26 @@
         computed: {
             regions() {
                 return this.$store.state.region.regions
-            },
-            selectedRegion() {
-                return this.$store.state.region.regions
             }
         },
         data: function () {
             return {
-                showError: false, loadingRegions: false, menu: false,
+                menu: false, hasChanged: false,
                 localSelectedRegion: JSON.parse(JSON.stringify(this.initRegion[0]))
             }
         },
         methods: {
             changeRegion(selectedRegion) {
                 this.localSelectedRegion = selectedRegion[0];
-
+                this.hasChanged = true;
             }
         },
         watch: {
             async menu(showMenu) {
                 if (showMenu) {
+                    this.hasChanged = false;
                     await this.$store.dispatch('region/getRegions');
-                } else {
+                } else if (this.hasChanged) {
                     this.$emit('region-changed', this.localSelectedRegion)
                 }
             }
@@ -69,8 +67,7 @@
             color: $primary-text;
         }
     }
-
-    .ely-menu-container {
+    .ely-menu-region-container {
         .select-container {
             .select-item {
                 .item-container {

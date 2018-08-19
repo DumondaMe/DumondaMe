@@ -80,6 +80,9 @@
       "language": {
         "all": "Any Language"
       },
+      "topic": {
+        "all": "All Topics"
+      },
       "noResults": "No posts were found with these filter settings."
     },
     "card": {

@@ -38,7 +38,9 @@
             </v-tooltip>
             <v-tooltip top class="right-filter-container">
                 <div class="right-filter" slot="activator">
-                    <v-icon slot="activator">mdi-bookmark-outline</v-icon>
+                    <common-filter-topic :init-topics="$store.state.feedFilter.topicFilter"
+                                         @topic-changed="topicChanged">
+                    </common-filter-topic>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.topic")}}</span>
             </v-tooltip>
@@ -73,12 +75,13 @@
     import SubFilterQuestion from './subFilter/Question';
     import SubFilterCommitment from './subFilter/Commitment';
     import SubFilterEvent from './subFilter/Event';
+    import CommonFilterTopic from './commonFilter/SelectTopic';
     import EditTrustCircleFilterDialog from './dialog/EditTrustCircleFilter';
 
     export default {
         components: {
             SubFilterActivity, SubFilterQuestion, SubFilterCommitment, SubFilterEvent,
-            EditTrustCircleFilterDialog
+            EditTrustCircleFilterDialog, CommonFilterTopic
         },
         computed: {
             mainFilter() {
@@ -94,6 +97,10 @@
             async setFilter(filter) {
                 this.$store.commit('feedFilter/SET_MAIN_FILTER', filter);
                 await this.$store.dispatch('feed/getFeed');
+            },
+            async topicChanged(topics) {
+                this.$store.commit('feedFilter/SET_TOPIC_FILTER', topics);
+                await this.$store.dispatch('feed/getFeed')
             }
         }
     }

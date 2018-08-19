@@ -80,6 +80,9 @@
       "language": {
         "all": "Beliebige Sprache"
       },
+      "topic": {
+        "all": "Alle Themen"
+      },
       "noResults": "Mit diesen Filtereinstellungen wurden keine Beiträge gefunden."
     },
     "card": {
