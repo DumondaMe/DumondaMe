@@ -1,6 +1,6 @@
 <template>
     <div id="feed-sub-filter-activity">
-        <select-region :selected-region="{id: 'international', description: 'Alle Regionen'}"></select-region>
+        <select-region :init-region="[$store.state.feedFilter.regionFilter]"></select-region>
     </div>
 </template>
 

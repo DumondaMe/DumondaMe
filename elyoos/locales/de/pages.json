@@ -70,6 +70,7 @@
         "popular": "Beliebteste",
         "newest": "Neuste",
         "notAnswered": "Nicht beantwortet",
+        "noQuestionLink": "Beantwortet noch keine Frage",
         "onlyFewAnswer": "Nur wenige Antworten"
       },
       "time": {

@@ -70,6 +70,7 @@
         "popular": "Most popular",
         "newest": "Latest",
         "notAnswered": "Not answered",
+        "noQuestionLink": "Still not answered a question",
         "onlyFewAnswer": "Only few Answers"
       },
       "time": {

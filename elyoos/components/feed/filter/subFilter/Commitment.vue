@@ -1,17 +1,17 @@
 <template>
     <div id="feed-sub-filter-activity">
         <select-menu :items="[{id: 'popular', description: this.$t('pages:feeds.filter.order.popular')},
-                        {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')}]"
-                     :selected-item="{id: 'popular', description: $t('pages:feeds.filter.order.popular')}"
+                        {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
+                        {id: 'noQuestion', description: this.$t('pages:feeds.filter.order.noQuestionLink')}]"
+                     :selected-item="'popular'"
                      @changed="orderChanged">
         </select-menu>
         <select-menu :items="[{id: 'anyTime', description: this.$t('pages:feeds.filter.time.anyTime')},
                         {id: 'week', description: this.$t('pages:feeds.filter.time.week')},
                          {id: 'month', description: this.$t('pages:feeds.filter.time.month')}]"
-                     :selected-item="{id: 'anyTime', description: $t('pages:feeds.filter.time.anyTime')}"
-                     @changed="timeChanged" v-if="showTime">
+                     :selected-item="'anyTime'" @changed="timeChanged" v-if="showTime">
         </select-menu>
-        <select-region :selected-region="{id: 'international', description: 'Alle Regionen'}"></select-region>
+        <select-region :init-region="[$store.state.feedFilter.regionFilter]"></select-region>
     </div>
 </template>
 
