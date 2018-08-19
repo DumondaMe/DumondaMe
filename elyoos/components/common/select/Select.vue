@@ -21,6 +21,9 @@
         data() {
             return {localItems: JSON.parse(JSON.stringify(this.items)), selected: []}
         },
+        mounted() {
+            this.setIsSelectedState(this.localItems, this.existingItems);
+        },
         watch: {
             items(newItems) {
                 this.localItems = JSON.parse(JSON.stringify(newItems));
