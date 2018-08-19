@@ -3,7 +3,10 @@
         <div class="youtube-answer-content" ref="answerContent" :class="{'show-embed': showEmbed}">
             <div class="feed-card-header">
                 <span class="answer-type">Video </span><span class="card-header-link">
-                <a :href="getQuestionLink">{{answer.title}}</a></span>
+                <nuxt-link :to="{name: 'question-questionId-slug',
+                            params: {questionId: answer.questionId, slug: answer.questionSlug},
+                            query: {answerId: answer.answerId}}"> {{answer.title}}
+                </nuxt-link></span>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <div class="youtube-embed">
@@ -51,9 +54,6 @@
             },
             youtubeHeight() {
                 return this.$refs.answerContent.clientWidth * 0.6;
-            },
-            getQuestionLink() {
-                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
             }
         }
     }

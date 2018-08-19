@@ -2,7 +2,10 @@
     <div class="text-answer-feed-card">
         <div class="feed-card-header">
             <span class="answer-type">Text Antwort auf die Frage </span><span class="card-header-link">
-                <a :href="getQuestionLink">{{answer.question}}</a></span>
+                <nuxt-link :to="{name: 'question-questionId-slug',
+                            params: {questionId: answer.questionId, slug: answer.questionSlug},
+                            query: {answerId: answer.answerId}}"> {{answer.question}}
+                </nuxt-link></span>
             <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
         </div>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
@@ -18,15 +21,7 @@
 
     export default {
         props: ['answer'],
-        components: {CardFooter, ExpandText},
-        computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
-            getQuestionLink() {
-                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
-            }
-        },
+        components: {CardFooter, ExpandText}
     }
 </script>
 

@@ -2,7 +2,10 @@
     <div class="book-answer-feed-card">
         <div class="feed-card-header">
             <span class="answer-type">Buch </span><span class="card-header-link">
-                <a :href="getQuestionLink">{{answer.title}}</a></span>
+            <nuxt-link :to="{name: 'question-questionId-slug',
+                        params: {questionId: answer.questionId, slug: answer.questionSlug},
+                        query: {answerId: answer.answerId}}"> {{answer.title}}
+            </nuxt-link></span>
             <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
         </div>
         <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
@@ -30,11 +33,6 @@
         components: {CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
-        },
-        computed: {
-            getQuestionLink() {
-                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
-            }
         }
     }
 </script>

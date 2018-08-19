@@ -2,7 +2,14 @@
     <div class="commitment-answer-feed-card">
         <div class="feed-card-header">
             <span class="answer-type">Engagement </span><span class="card-header-link">
-                <a :href="getLink">{{answer.title}}</a></span>
+                <nuxt-link v-if="answer.questionId" :to="{name: 'question-questionId-slug',
+                        params: {questionId: answer.questionId, slug: answer.questionSlug},
+                        query: {answerId: answer.answerId}}">{{answer.title}}
+                </nuxt-link>
+                <nuxt-link v-else :to="{name: 'commitment-commitmentId-slug',
+                        params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}}">{{answer.title}}
+                </nuxt-link>
+            </span>
             <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
         </div>
         <div class="commitment-answer-content">
@@ -31,14 +38,6 @@
         components: {CardFooter, ExpandText},
         data() {
             return {expandDescription: false}
-        },
-        computed: {
-            getLink() {
-                if (this.answer.questionId) {
-                    return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
-                }
-                return `/commitment/${this.answer.commitmentId}/${this.answer.commitmentSlug}`;
-            }
         }
     }
 </script>

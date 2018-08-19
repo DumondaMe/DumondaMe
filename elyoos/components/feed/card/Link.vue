@@ -2,7 +2,10 @@
     <div class="link-answer-feed-card">
         <div class="feed-card-header">
             <span class="answer-type">{{answerType}} </span><span class="card-header-link">
-                <a :href="getQuestionLink">{{answer.title}}</a></span>
+                <nuxt-link :to="{name: 'question-questionId-slug',
+                            params: {questionId: answer.questionId, slug: answer.questionSlug},
+                            query: {answerId: answer.answerId}}"> {{answer.title}}
+                </nuxt-link></span>
             <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
         </div>
         <div class="link-answer-content">
@@ -33,9 +36,6 @@
                     return this.$t(`pages:detailQuestion.answerType.link.${this.answer.pageType}`)
                 }
                 return this.$t(`pages:detailQuestion.answerType.link.link`)
-            },
-            getQuestionLink() {
-                return `/question/${this.answer.questionId}/${this.answer.questionSlug}?answerId=${this.answer.answerId}`;
             }
         }
     }
