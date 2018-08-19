@@ -33,7 +33,6 @@
         },
         methods: {
             changeTopic(selectedTopics) {
-                debugger
                 this.localSelectedTopics = selectedTopics;
                 this.hasChanged = true;
             }
