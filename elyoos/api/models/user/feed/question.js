@@ -95,6 +95,11 @@ const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
     } else if(order === 'notAnswered') {
         return getOrderByTimeQuery(trustCircle, topics)
             .where(`NOT (question)-[:ANSWER]->(:Answer)`);
+    } else if(order === 'onlyFewAnswers') {
+        return getOrderByTimeQuery(trustCircle, topics)
+            .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
+            .with(`creator, question, score, count(DISTINCT answer) AS tempNumberOfAnswers`)
+            .where(`tempNumberOfAnswers < 4`);
     }
     return getOrderByTimeQuery(trustCircle, topics);
 };
