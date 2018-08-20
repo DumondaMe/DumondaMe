@@ -1,7 +1,7 @@
 <template>
     <div id="feed-sub-filter-activity">
         <div class="select-filter-container">
-            <select-menu :items="getOrder" @changed="orderChanged" selected-item="popular">
+            <select-menu :items="getOrder" @changed="orderChanged" selected-item="mostPopular">
             </select-menu>
             <select-menu :items="[{id: 'anyTime', description: this.$t('pages:feeds.filter.time.anyTime')},
                         {id: 'week', description: this.$t('pages:feeds.filter.time.week')},
@@ -22,24 +22,24 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             getOrder() {
-                return [{id: 'popular', description: this.$t('pages:feeds.filter.order.popular')},
+                return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
                     {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
                     {id: 'notAnswered', description: this.$t('pages:feeds.filter.order.notAnswered')},
-                    {id: 'onlyFewAnswer', description: this.$t('pages:feeds.filter.order.onlyFewAnswer')}]
+                    {id: 'onlyFewAnswers', description: this.$t('pages:feeds.filter.order.onlyFewAnswer')}]
             }
         },
         data: function () {
             return {showTime: true}
         },
         methods: {
-            questionChanged(item) {
-
+            async orderChanged(item) {
+                this.showTime = item.id === 'mostPopular';
+                this.$store.commit('feedFilter/SET_QUESTION_ORDER_FILTER', item);
+                await this.$store.dispatch('feed/getFeed')
             },
-            orderChanged(item) {
-                this.showTime = item.id === 'popular'
-            },
-            timeChanged(item) {
-
+            async timeChanged(item) {
+                this.$store.commit('feedFilter/SET_PERIOD_OF_TIME_FILTER', item);
+                await this.$store.dispatch('feed/getFeed')
             }
         }
     }

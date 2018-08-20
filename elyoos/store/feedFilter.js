@@ -1,6 +1,8 @@
 export const state = () => ({
     mainFilter: 'question',
     activityTypeFilter: 'selectAll',
+    questionOrderFilter: {id: 'mostPopular'},
+    periodOfTimeFilter: {id: 'anyTime'},
     regionFilter: {id: 'international', description: 'Alle Regionen'},
     topicFilter: [{id: 'allTopics'}],
     trustCircleFilter: 0
@@ -15,6 +17,12 @@ export const getters = {
             }
             if (state.regionFilter.id !== 'international') {
                 params.regions = [state.regionFilter.id]
+            }
+        }
+        if (state.mainFilter === 'question') {
+            params.order = state.questionOrderFilter.id;
+            if (params.order === 'mostPopular' && state.periodOfTimeFilter.id !== 'anyTime') {
+                params.periodOfTime = state.periodOfTimeFilter.id;
             }
         }
         if (!(state.topicFilter.length === 1 && state.topicFilter[0].id === 'allTopics')) {
@@ -52,6 +60,12 @@ export const mutations = {
     },
     DEACTIVATE_TRUST_CIRCLE_FILTER(state) {
         state.trustCircleFilter = 0;
+    },
+    SET_QUESTION_ORDER_FILTER(state, questionOrder) {
+        state.questionOrderFilter = questionOrder;
+    },
+    SET_PERIOD_OF_TIME_FILTER(state, periodOfTimeFilter) {
+        state.periodOfTimeFilter = periodOfTimeFilter;
     }
 };
 
