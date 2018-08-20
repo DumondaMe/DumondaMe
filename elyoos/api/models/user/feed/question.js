@@ -35,11 +35,11 @@ const getTrustCircleFilter = function (trustCircle) {
     return '';
 };
 
-const getTopicFilter = function (topics) {
+const getTopicFilter = function (topics, hasAnswer) {
     if (topics) {
         return db.cypher().optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
             .optionalMatch(`(topic)<-[:SUB_TOPIC*]-(nextTopic:Topic)`)
-            .with(`creator, question, answer, topic, collect(nextTopic) AS nextTopic`)
+            .with(`creator, question, ${hasAnswer ? 'answer,' : ''} topic, collect(nextTopic) AS nextTopic`)
             .where(`topic.topicId IN {topics} OR ANY (t IN nextTopic WHERE t.topicId IN {topics})`)
             .getCommandString();
     }
@@ -61,19 +61,46 @@ const getPeriodOfTimeFilter = function (periodOfTime) {
     return '';
 };
 
-const getFeed = async function (userId, page, timestamp, order, periodOfTime, guiLanguage, languages, trustCircle,
-                                topics) {
-    page = page * PAGE_SIZE;
-
-    let response = await db.cypher().match(`(creator)-[:IS_CREATOR]->(question:Question)-[:ANSWER]->(answer:Answer)`)
+const getMostPopularQuery = function (trustCircle, topics, periodOfTime) {
+    return db.cypher()
+        .match(`(creator:User)-[:IS_CREATOR]->(question:Question)-[:ANSWER]->(answer:Answer)`)
         .where(`question.language IN {languages}`)
-        .addCommand(getTopicFilter(topics))
+        .addCommand(getTopicFilter(topics, true))
         .optionalMatch(`(answer)<-[upVotes:UP_VOTE]-(:User)${getTrustCircleFilter(trustCircle)}`)
         .optionalMatch(`(question)<-[watches:WATCH]-(:User)${getTrustCircleFilter(trustCircle)}`)
         .addCommand(getPeriodOfTimeFilter(periodOfTime))
         .with(`creator, question, [count(DISTINCT upVotes), count(DISTINCT watches)] AS scoreList`)
         .with(`creator, question, reduce(totalScore = 0, n IN scoreList | totalScore + n) AS score`)
-        .where(`score > 0`)
+        .where(`score > 0`);
+};
+
+const getTrustCircleFilterForNewest = function (trustCircle) {
+    if (trustCircle) {
+        return `AND (creator)<-[:IS_CONTACT]-(:User {userId: {userId}})`
+    }
+    return '';
+};
+
+const getOrderByTimeQuery = function (trustCircle, topics) {
+    return db.cypher()
+        .match(`(creator:User)-[:IS_CREATOR]->(question:Question)`)
+        .where(`question.language IN {languages}${getTrustCircleFilterForNewest(trustCircle)}`)
+        .addCommand(getTopicFilter(topics, false))
+        .with(`creator, question, 0 AS score`)
+};
+
+const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
+    if (order === 'mostPopular') {
+        return getMostPopularQuery(trustCircle, topics, periodOfTime);
+    }
+    return getOrderByTimeQuery(trustCircle, topics);
+};
+
+const getFeed = async function (userId, page, timestamp, order, periodOfTime, guiLanguage, languages, trustCircle,
+                                topics) {
+    page = page * PAGE_SIZE;
+
+    let response = await getStartQuery(order, trustCircle, topics, periodOfTime)
         .optionalMatch(`(question)<-[watches:WATCH]-(:User)`)
         .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
         .return(`creator, question.questionId AS questionId, question.question AS question, question.created AS created,
