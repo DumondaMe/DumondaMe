@@ -8,8 +8,8 @@ const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const time = require('elyoos-server-lib').time;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaGetQuestionFeed = {
-    name: 'getQuestionFeed',
+const schemaGetActivityFeed = {
+    name: 'getActivityFeed',
     type: 'object',
     additionalProperties: false,
     required: ['guiLanguage', 'languages'],
@@ -41,7 +41,7 @@ const schemaGetQuestionFeed = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateQueryRequest(req, schemaGetQuestionFeed, logger);
+        const params = await validation.validateQueryRequest(req, schemaGetActivityFeed, logger);
         params.page = params.page || 0;
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();
         let response = await feed.getFeed(req.user.id, params.page, params.timestamp, params.typeFilter,
