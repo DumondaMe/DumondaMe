@@ -92,6 +92,9 @@ const getOrderByTimeQuery = function (trustCircle, topics) {
 const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
     if (order === 'mostPopular') {
         return getMostPopularQuery(trustCircle, topics, periodOfTime);
+    } else if(order === 'notAnswered') {
+        return getOrderByTimeQuery(trustCircle, topics)
+            .where(`NOT (question)-[:ANSWER]->(:Answer)`);
     }
     return getOrderByTimeQuery(trustCircle, topics);
 };
