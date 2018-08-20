@@ -13,7 +13,9 @@ const WEEK = 604800;
 const getFeedResponse = async function (questions) {
     for (let question of questions) {
         question.questionSlug = dashify(question.question);
-        question.descriptionHtml = linkifyHtml(question.description);
+        if (question.description) {
+            question.descriptionHtml = linkifyHtml(question.description);
+        }
         question.user = {
             userId: question.creator.userId,
             name: question.creator.name,
@@ -92,10 +94,10 @@ const getOrderByTimeQuery = function (trustCircle, topics) {
 const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
     if (order === 'mostPopular') {
         return getMostPopularQuery(trustCircle, topics, periodOfTime);
-    } else if(order === 'notAnswered') {
+    } else if (order === 'notAnswered') {
         return getOrderByTimeQuery(trustCircle, topics)
             .where(`NOT (question)-[:ANSWER]->(:Answer)`);
-    } else if(order === 'onlyFewAnswers') {
+    } else if (order === 'onlyFewAnswers') {
         return getOrderByTimeQuery(trustCircle, topics)
             .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
             .with(`creator, question, score, count(DISTINCT answer) AS tempNumberOfAnswers`)
@@ -112,7 +114,7 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
         .optionalMatch(`(question)<-[watches:WATCH]-(:User)`)
         .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
         .return(`creator, question.questionId AS questionId, question.question AS question, question.created AS created,
-                 question.description AS description, count(DISTINCT answer) AS numberOfAnswers,
+                 question.description AS description, count(DISTINCT answer) AS numberOfAnswers, 'Question' AS type,
                  count(DISTINCT watches) AS numberOfWatches, score,
                  creator.userId = {userId} AS isLoggedInUser, 
                  EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser`)
