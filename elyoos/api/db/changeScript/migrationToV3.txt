@@ -20,11 +20,18 @@ REMOVE b:Page, b.label;
 MATCH (a:Address)-[rel]-()
 DELETE a, rel;
 
-//Set Answer label
+//Remove books, links, youtube,
 MATCH (b:Page)
-SET b:Answer
-SET b.answerId = b.pageId
-REMOVE b.pageId;
+WHERE b.label = 'Book' OR b.label = 'Youtube' OR b.label = 'Link'
+OPTIONAL MATCH (b)-[rel]-()
+DELETE b, rel;
+
+//Remove all Messages, Threads, Bug Feedback, Comment, DiscussionIdea, Keyword
+MATCH (b)
+WHERE b:Message OR b:Thread OR b:Bug OR b:Feedback OR b:Comment OR b:DiscussionIdea OR b:Keyword
+OPTIONAL MATCH (b)-[rel]-()
+DELETE b, rel;
+
 
 //Crate Topics
 MERGE (:Topic {name: 'Gesellschaftliche Entwicklung'});
@@ -77,24 +84,6 @@ REMOVE b.language, b.topic;
 
 MATCH (b:Commitment)
 REMOVE b.topic;
-
-//Set book label
-MATCH (b:Page)
-WHERE b.label = 'Book'
-SET b:Book
-REMOVE b:Page, b:label, b.publishDate;
-
-//Set youtube label
-MATCH (b:Page)
-WHERE b.label = 'Youtube'
-SET b:Youtube
-REMOVE b:Page, b:label, b.linkHistory, b.linkHistoryDate
-
-//Set link label
-MATCH (b:Page)
-WHERE b.label = 'Link'
-SET b:Link
-REMOVE b:Page, b:label;
 
 //Set new privacy settings
 MATCH (u:User)
