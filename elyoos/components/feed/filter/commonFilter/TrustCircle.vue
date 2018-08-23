@@ -55,16 +55,12 @@
         },
         methods: {
             activateTrustCircleFilter() {
-                if (this.isAuthenticated()) {
-                    this.$store.commit('feedFilter/INCREASE_TRUST_CIRCLE_FILTER');
-                    this.$emit('trust-circle-changed');
-                }
+                this.$store.commit('feedFilter/INCREASE_TRUST_CIRCLE_FILTER');
+                this.$emit('trust-circle-changed');
             },
             deactivateTrustCircleFilter() {
-                if (this.isAuthenticated()) {
-                    this.$store.commit('feedFilter/DEACTIVATE_TRUST_CIRCLE_FILTER');
-                    this.$emit('trust-circle-changed');
-                }
+                this.$store.commit('feedFilter/DEACTIVATE_TRUST_CIRCLE_FILTER');
+                this.$emit('trust-circle-changed');
             }
         },
         watch: {

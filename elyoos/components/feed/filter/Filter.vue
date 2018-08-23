@@ -106,9 +106,7 @@
                 await this.$store.dispatch('feed/getFeed')
             },
             async trustCircleChanged() {
-                if (this.isAuthenticated()) {
-                    await this.$store.dispatch('feed/getFeed');
-                }
+                await this.$store.dispatch('feed/getFeed');
             }
         }
     }
