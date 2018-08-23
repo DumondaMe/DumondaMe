@@ -100,23 +100,18 @@ const getTrustCircleFilterForNewest = function (trustCircle) {
 
 const getOrderByTimeQuery = function (trustCircle, topics) {
     return db.cypher()
-        .match(`(creator:User)-[:IS_CREATOR]->(question:Question)`)
-        .where(`question.language IN {languages}${getTrustCircleFilterForNewest(trustCircle)}`)
+        .match(`(creator:User)-[:IS_CREATOR]->(commitment:Commitment)`)
+        .where(`commitment.language IN {languages}${getTrustCircleFilterForNewest(trustCircle)}`)
         .addCommand(getTopicFilter(topics))
-        .with(`creator, question`)
+        .with(`creator, commitment, 0 AS score`)
 };
 
 const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
     if (order === 'mostPopular') {
         return getMostPopularQuery(trustCircle, topics, periodOfTime);
-    } else if (order === 'notAnswered') {
+    } else if (order === 'noQuestionLink') {
         return getOrderByTimeQuery(trustCircle, topics)
             .where(`NOT (question)-[:ANSWER]->(:Answer)`);
-    } else if (order === 'onlyFewAnswers') {
-        return getOrderByTimeQuery(trustCircle, topics)
-            .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
-            .with(`creator, question, score, count(DISTINCT answer) AS tempNumberOfAnswers`)
-            .where(`tempNumberOfAnswers < 4`);
     }
     return getOrderByTimeQuery(trustCircle, topics);
 };
