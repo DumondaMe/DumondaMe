@@ -12,7 +12,7 @@ const schemaUpVoteNote = {
     additionalProperties: false,
     required: ['noteId'],
     properties: {
-        noteId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        noteId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

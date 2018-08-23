@@ -13,7 +13,7 @@ const schemaCommitmentDetail = {
     additionalProperties: false,
     required: ['commitmentId', 'language'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };

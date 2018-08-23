@@ -12,7 +12,7 @@ const schemaSearchLink = {
     additionalProperties: false,
     required: ['questionId', 'link'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         link: {type: 'string', format: 'notEmptyString', maxLength: 2000}
     }
 };

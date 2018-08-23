@@ -13,7 +13,7 @@ const schemaCreateBookAnswer = {
     additionalProperties: false,
     required: ['questionId', 'title', 'description'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         imageUrl: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
@@ -28,7 +28,7 @@ const schemaEditBookAnswer = {
     additionalProperties: false,
     required: ['answerId', 'description'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         authors: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }

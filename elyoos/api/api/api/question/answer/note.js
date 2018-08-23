@@ -12,7 +12,7 @@ const schemaGetNotesOfAnswer = {
     additionalProperties: false,
     required: ['answerId', 'page', 'sort'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         page: {type: 'integer', minimum: 0},
         sort: {enum: ['newest', 'upVotes']}
     }

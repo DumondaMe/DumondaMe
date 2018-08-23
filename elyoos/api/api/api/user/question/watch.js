@@ -12,7 +12,7 @@ const schemaWatchQuestion = {
     additionalProperties: false,
     required: ['questionId'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

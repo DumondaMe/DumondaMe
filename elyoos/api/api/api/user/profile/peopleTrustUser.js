@@ -11,7 +11,7 @@ const schemaRequestGetPeopleTrustUser = {
     additionalProperties: false,
     required: ['userId', 'skip', 'maxItems'],
     properties: {
-        userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        userId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50}
     }

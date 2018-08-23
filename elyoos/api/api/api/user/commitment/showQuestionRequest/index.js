@@ -12,8 +12,8 @@ const schemaShowQuestionRequest = {
     additionalProperties: false,
     required: ['commitmentId', 'questionId', 'showQuestion'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         showQuestion: {type: 'boolean'}
     }
 };

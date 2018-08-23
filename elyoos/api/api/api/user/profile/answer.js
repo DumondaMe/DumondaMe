@@ -12,7 +12,7 @@ const schemaRequestGetAnswer = {
     additionalProperties: false,
     required: ['userId', 'skip', 'maxItems', 'upVoted', 'language'],
     properties: {
-        userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        userId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         upVoted: {type: 'boolean'},

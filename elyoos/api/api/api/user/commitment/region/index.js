@@ -12,10 +12,10 @@ const schemaChangeRegion = {
     additionalProperties: false,
     required: ['commitmentId', 'regions'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         regions: {
             type: 'array',
-            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
+            items: {type: 'string', format: 'notEmptyString', maxLength: 60},
             minItems: 1,
             uniqueItems: true
         }

@@ -14,7 +14,7 @@ const schemaCreateEvent = {
     additionalProperties: false,
     required: ['commitmentId', 'title', 'location', 'regionId', 'startDate', 'endDate'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
@@ -31,7 +31,7 @@ const schemaEditEvent = {
     additionalProperties: false,
     required: ['eventId', 'title', 'location', 'regionId', 'startDate', 'endDate'],
     properties: {
-        eventId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        eventId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         location: {type: 'string', format: 'notEmptyString', maxLength: 1000},
@@ -48,7 +48,7 @@ const schemaDeleteEvent = {
     additionalProperties: false,
     required: ['eventId'],
     properties: {
-        eventId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        eventId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

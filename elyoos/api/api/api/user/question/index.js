@@ -29,7 +29,7 @@ const schemaEditQuestion = {
     additionalProperties: false,
     required: ['questionId', 'question', 'lang'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         question: {type: 'string', format: 'notEmptyString', maxLength: 80},
         description: {type: 'string', format: 'notEmptyString', maxLength: 700},
         lang: language.language
@@ -42,7 +42,7 @@ const schemaDeleteContact = {
     additionalProperties: false,
     required: ['questionId'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

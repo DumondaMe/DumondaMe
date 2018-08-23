@@ -13,7 +13,7 @@ const schemaRequestGetUserDetails = {
     additionalProperties: false,
     required: ['language'],
     properties: {
-        userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        userId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };

@@ -14,7 +14,7 @@ const schemaSearchCommitment = {
     required: ['query'],
     properties: {
         query: {type: 'string', format: 'notEmptyString', maxLength: 255},
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         lang: schemaLanguage.language
     }
 };

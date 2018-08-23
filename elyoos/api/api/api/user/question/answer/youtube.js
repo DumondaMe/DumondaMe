@@ -13,7 +13,7 @@ const schemaCreateYoutubeAnswer = {
     additionalProperties: false,
     required: ['questionId', 'link', 'title', 'description'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         link: {type: 'string', format: 'youtubeLink', maxLength: 2000},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
@@ -26,7 +26,7 @@ const schemaEditYoutubeAnswer = {
     additionalProperties: false,
     required: ['answerId', 'title', 'description'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
     }

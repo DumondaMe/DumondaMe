@@ -14,7 +14,7 @@ const schemaCreateNote = {
     additionalProperties: false,
     required: ['answerId', 'text'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         text: {type: 'string', format: 'notEmptyString', maxLength: 240}
     }
 };
@@ -25,7 +25,7 @@ const schemaEditNote = {
     additionalProperties: false,
     required: ['noteId', 'text'],
     properties: {
-        noteId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        noteId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         text: {type: 'string', format: 'notEmptyString', maxLength: 240}
     }
 };
@@ -36,7 +36,7 @@ const schemaDeleteNote = {
     additionalProperties: false,
     required: ['noteId'],
     properties: {
-        noteId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        noteId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

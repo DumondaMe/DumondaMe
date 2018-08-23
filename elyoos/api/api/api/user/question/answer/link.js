@@ -13,7 +13,7 @@ const schemaCreateLinkAnswer = {
     additionalProperties: false,
     required: ['questionId', 'link', 'title', 'description', 'type'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         link: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         imageUrl: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         title: {type: 'string', format: 'notEmptyString', maxLength: 140},
@@ -28,7 +28,7 @@ const schemaEditLinkAnswer = {
     additionalProperties: false,
     required: ['answerId', 'title', 'description', 'type'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 140},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         type: {enum: ['article', 'blog', 'website']}

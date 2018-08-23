@@ -12,7 +12,7 @@ const schemaWatchCommitment = {
     additionalProperties: false,
     required: ['commitmentId'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

@@ -13,7 +13,7 @@ const schemaCreateTextAnswer = {
     additionalProperties: false,
     required: ['questionId', 'answer'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };
@@ -24,7 +24,7 @@ const schemaEditTextAnswer = {
     additionalProperties: false,
     required: ['answerId', 'answer'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };

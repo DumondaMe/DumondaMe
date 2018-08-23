@@ -12,7 +12,7 @@ const schemaEventsOfCommitment = {
     additionalProperties: false,
     required: ['commitmentId', 'upComing', 'page', 'language'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         upComing: {type: 'boolean'},
         page: {type: 'integer'},
         language: schemaLanguage.language

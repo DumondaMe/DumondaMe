@@ -12,7 +12,7 @@ const schemaNotificationRead = {
     additionalProperties: false,
     required: ['notificationId'],
     properties: {
-        notificationId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        notificationId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

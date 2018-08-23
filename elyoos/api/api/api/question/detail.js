@@ -13,7 +13,7 @@ const schemaGetQuestionDetail = {
     additionalProperties: false,
     required: ['questionId', 'language'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };

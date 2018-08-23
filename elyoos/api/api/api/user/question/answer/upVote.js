@@ -12,7 +12,7 @@ const schemaUpVote = {
     additionalProperties: false,
     required: ['answerId'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

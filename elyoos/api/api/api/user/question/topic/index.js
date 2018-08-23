@@ -13,7 +13,7 @@ const schemaChangeTopic = {
     additionalProperties: false,
     required: ['questionId', 'topics'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         topics: topic.topics
     }
 };

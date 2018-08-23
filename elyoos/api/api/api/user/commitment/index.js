@@ -22,7 +22,7 @@ const schemaCreateCommitment = {
         topics: topic.topics,
         regions: {
             type: 'array',
-            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
+            items: {type: 'string', format: 'notEmptyString', maxLength: 60},
             minItems: 1,
             maxItems: 50,
             uniqueItems: true
@@ -38,7 +38,7 @@ const schemaEditCommitment = {
     additionalProperties: false,
     required: ['commitmentId', 'title', 'description', 'lang'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
         description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         lang: language.language,
@@ -53,7 +53,7 @@ const schemaDeleteCommitment = {
     additionalProperties: false,
     required: ['commitmentId'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 

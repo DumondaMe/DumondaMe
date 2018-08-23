@@ -12,7 +12,7 @@ const schemaSearchTopic = {
     additionalProperties: false,
     required: ['query'],
     properties: {
-        query: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        query: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
 };
 
