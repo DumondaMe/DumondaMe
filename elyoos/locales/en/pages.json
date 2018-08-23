@@ -90,6 +90,10 @@
         "deactivated": "deactivated",
         "trustCircleHelp": "What information we believe has a lot to do with trust. Add people whose opinions you value to your Trust Circle."
       },
+      "onlyInterestedEvent": {
+        "activated": "Show only events of engagements you are interested in (Enabled)",
+        "deactivated": "Show only events of engagements you are interested in (Disabled)"
+      },
       "noResults": "No posts were found with these filter settings."
     },
     "card": {

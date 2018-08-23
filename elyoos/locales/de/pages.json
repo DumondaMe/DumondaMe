@@ -90,6 +90,10 @@
         "deactivated": "deaktiviert",
         "trustCircleHelp": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu."
       },
+      "onlyInterestedEvent": {
+        "activated": "Nur Veranstaltungen von Engagements anzeigen welche dich interessieren (Aktiviert)",
+        "deactivated": "Nur Veranstaltungen von Engagements anzeigen welche dich interessieren (Deaktiviert)"
+      },
       "noResults": "Mit diesen Filtereinstellungen wurden keine Beiträge gefunden."
     },
     "card": {

@@ -3,6 +3,7 @@ export const state = () => ({
     activityTypeFilter: 'selectAll',
     questionOrderFilter: {id: 'mostPopular'},
     commitmentOrderFilter: {id: 'mostPopular'},
+    eventInterestedOnly: false,
     periodOfTimeFilter: {id: 'anyTime'},
     regionFilter: {id: 'international', description: 'Alle Regionen'},
     topicFilter: [{id: 'allTopics'}],
@@ -27,6 +28,11 @@ export const getters = {
             params.order = state.commitmentOrderFilter.id;
             if (params.order === 'mostPopular' && state.periodOfTimeFilter.id !== 'anyTime') {
                 params.periodOfTime = state.periodOfTimeFilter.id;
+            }
+        }
+        if (state.mainFilter === 'event') {
+            if (state.eventInterestedOnly) {
+                params.interestedOnly = true;
             }
         }
         if (state.regionFilter.id !== 'international') {
@@ -76,6 +82,9 @@ export const mutations = {
     },
     SET_PERIOD_OF_TIME_FILTER(state, periodOfTimeFilter) {
         state.periodOfTimeFilter = periodOfTimeFilter;
+    },
+    SET_EVENT_INTERESTED_ONLY_FILTER(state, eventInterestedOnly) {
+        state.eventInterestedOnly = eventInterestedOnly;
     }
 };
 

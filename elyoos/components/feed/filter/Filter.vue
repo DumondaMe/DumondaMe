@@ -30,7 +30,7 @@
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <v-tooltip top class="right-filter-container">
+            <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'">
                 <div class="right-filter" slot="activator">
                     <common-filter-trust-circle :trust-circle="$store.state.feedFilter.trustCircleFilter"
                                                 @trust-circle-changed="trustCircleChanged">
