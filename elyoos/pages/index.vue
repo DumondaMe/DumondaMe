@@ -56,8 +56,7 @@
                 return this.$store.state.feed.totalNumberOfElements === 0 && !this.$store.state.feed.publicFeed;
             },
             showLoadNextButton() {
-                return this.$store.state.feed.totalNumberOfElements >
-                    this.$store.state.feed.feed.length;
+                return this.$store.state.feed.loadingNext;
             },
             feed() {
                 return this.$store.state.feed.feed
