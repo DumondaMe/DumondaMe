@@ -36,7 +36,7 @@ const schemaEditNews = {
     additionalProperties: false,
     required: ['newsId', 'title', 'text'],
     properties: {
-        newsId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        newsId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 160},
         text: {type: 'string', format: 'notEmptyString', maxLength: 5000},
     }

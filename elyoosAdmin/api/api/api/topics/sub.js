@@ -14,7 +14,7 @@ const schemaGetSubTopics = {
     additionalProperties: false,
     required: ['language'],
     properties: {
-        topicId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        topicId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };
@@ -25,7 +25,7 @@ const schemaCreateSubTopic = {
     additionalProperties: false,
     required: ['parentTopicId', 'de', 'en'],
     properties: {
-        parentTopicId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        parentTopicId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         de: {type: 'string', format: 'notEmptyString', maxLength: 80},
         en: {type: 'string', format: 'notEmptyString', maxLength: 80},
         similarDe: {

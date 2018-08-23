@@ -16,7 +16,7 @@ const schemaGetRegionsOverview = {
     additionalProperties: false,
     required: ['parentRegionId', 'language'],
     properties: {
-        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };
@@ -27,7 +27,7 @@ const schemaCreateRegion = {
     additionalProperties: false,
     required: ['parentRegionId', 'de', 'en'],
     properties: {
-        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         de: {type: 'string', format: 'notEmptyString', maxLength: 80},
         en: {type: 'string', format: 'notEmptyString', maxLength: 80}
     }
@@ -39,8 +39,8 @@ const schemaEditRegion = {
     additionalProperties: false,
     required: ['parentRegionId', 'regionId', 'de', 'en'],
     properties: {
-        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        regionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+        parentRegionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        regionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         de: {type: 'string', format: 'notEmptyString', maxLength: 80},
         en: {type: 'string', format: 'notEmptyString', maxLength: 80}
     }
