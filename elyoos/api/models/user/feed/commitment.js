@@ -111,7 +111,7 @@ const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
         return getMostPopularQuery(trustCircle, topics, periodOfTime);
     } else if (order === 'noQuestionLink') {
         return getOrderByTimeQuery(trustCircle, topics)
-            .where(`NOT (question)-[:ANSWER]->(:Answer)`);
+            .where(`NOT (commitment)<-[:COMMITMENT]->(:CommitmentAnswer)<-[:ANSWER]-(:Question)`);
     }
     return getOrderByTimeQuery(trustCircle, topics);
 };

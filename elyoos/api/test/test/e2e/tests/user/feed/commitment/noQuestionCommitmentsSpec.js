@@ -6,7 +6,7 @@ const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
 const should = require('chai').should();
 
-describe('Get feed for the newest commitments', function () {
+describe('Get feed for commitments without any link to a question', function () {
 
     let startTime;
 
@@ -35,34 +35,38 @@ describe('Get feed for the newest commitments', function () {
         });
         dbDsl.createCommitment('101', {
             adminId: '3', topics: ['topic1'], language: 'de', created: 666,
-            modified: 606, website: 'https://www.example1.org/', regions: ['region-2']
-        });
-        dbDsl.createCommitment('102', {
-            adminId: '4', topics: ['topic3'], language: 'de', created: 555, title: 'Test Commitment',
-            modified: 606, website: 'https://www.example2.org/', regions: ['region-1']
+            modified: 606, website: 'https://www.example1.org/', regions: ['region-1']
         });
         dbDsl.createCommitment('103', {
             adminId: '5', topics: ['topic3'], language: 'en', created: 444,
-            modified: 606, website: 'https://www.example3.org/', regions: ['region-2']
+            modified: 606, website: 'https://www.example3.org/', regions: ['region-1']
         });
 
         dbDsl.watchCommitment({commitmentId: '100', userId: '6', created: 999});
         dbDsl.watchCommitment({commitmentId: '100', userId: '7', created: 999});
+
+        dbDsl.createQuestion('1', {
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
+        });
     });
 
     afterEach(function () {
         return requestHandler.logout();
     });
 
-    it('Show commitments (languages)', async function () {
+    it('Show commitments with no question link', async function () {
+        dbDsl.createCommitmentAnswer('11', {
+            creatorId: '2', questionId: '1', commitmentId: '101', created: 496, description: 'test'
+        });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de'], order: 'newest'
+            guiLanguage: 'de', languages: ['de'], order: 'noQuestionLink'
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('100');
@@ -79,34 +83,28 @@ describe('Get feed for the newest commitments', function () {
         res.body.feed[0].user.slug.should.equals('user-meier2');
         res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].commitmentId.should.equals('101');
-
-        res.body.feed[2].type.should.equals('Commitment');
-        res.body.feed[2].commitmentId.should.equals('102');
     });
 
     it('Filter by user of trust who created commitment', async function () {
-        dbDsl.createContactConnection('1', '4');
+        dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de', 'en'], order: 'newest', trustCircle: 1
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'noQuestionLink', trustCircle: 1
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
-        res.body.feed[0].commitmentId.should.equals('102');
+        res.body.feed[0].commitmentId.should.equals('101');
     });
 
     it('Filter by topic', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de', 'en'], order: 'newest', topics: ['topic1']
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'noQuestionLink', topics: ['topic1']
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
@@ -120,7 +118,7 @@ describe('Get feed for the newest commitments', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de', 'en'], order: 'newest', topics: ['topic2', 'topic4']
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'noQuestionLink', topics: ['topic2', 'topic4']
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
@@ -134,30 +132,27 @@ describe('Get feed for the newest commitments', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de', 'en'], order: 'newest', regions: ['region-1']
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'noQuestionLink', regions: ['region-2-1']
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
-        res.body.feed[0].commitmentId.should.equals('102');
+        res.body.feed[0].commitmentId.should.equals('100');
     });
 
     it('Filter by sub region', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/commitment', {
-            guiLanguage: 'de', languages: ['de'], order: 'newest', regions: ['region-2', 'region-4']
+            guiLanguage: 'de', languages: ['de'], order: 'noQuestionLink', regions: ['region-2', 'region-4']
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('100');
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].commitmentId.should.equals('101');
     });
 });

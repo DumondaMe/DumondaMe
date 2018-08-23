@@ -2,7 +2,7 @@
     <div id="feed-sub-filter-activity">
         <select-menu :items="[{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
                         {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
-                        {id: 'noQuestion', description: this.$t('pages:feeds.filter.order.noQuestionLink')}]"
+                        {id: 'noQuestionLink', description: this.$t('pages:feeds.filter.order.noQuestionLink')}]"
                      :selected-item="'mostPopular'"
                      @changed="orderChanged">
         </select-menu>
