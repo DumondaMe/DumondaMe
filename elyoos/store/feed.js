@@ -31,6 +31,7 @@ export const mutations = {
 const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {
     let response;
 
+    console.log(isAuthenticated);
     if (isAuthenticated) {
         response = await $axios.$get(`/user/feed/${mainFilter}`, params);
     } else {

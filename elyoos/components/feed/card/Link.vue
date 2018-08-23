@@ -5,6 +5,9 @@
                 <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
+                </nuxt-link></span> <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
+                <nuxt-link :to="{name: 'question-questionId-slug',
+                        params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
                 </nuxt-link></span>
             <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
         </div>

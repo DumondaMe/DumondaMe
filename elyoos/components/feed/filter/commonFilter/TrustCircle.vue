@@ -5,14 +5,18 @@
             mdi-checkbox-blank-circle-outline
         </v-icon>
         <v-card class="select-trust-circle-filter-content" v-if="!showHelpTrustCircle">
-            <div class="trust-circle-description">
+            <div class="trust-circle-description" v-if="isAuthenticated">
                 {{$t('pages:feeds.filter.trustCircle.descriptionFilterActivated')}}
                 <span class="trust-circle-state" v-if="trustCircle === 0">{{$t('pages:feeds.filter.trustCircle.deactivated')}}</span>
                 <span class="trust-circle-state" v-else>{{$t('pages:feeds.filter.trustCircle.activated')}}</span>
             </div>
+            <div class="trust-circle-description" v-else>
+                {{$t('pages:feeds.filter.trustCircle.descriptionNotLoggedIn')}}
+            </div>
             <div class="trust-circle-commands">
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="activateTrustCircleFilter" v-if="trustCircle === 0">
+                <v-btn color="primary" @click="activateTrustCircleFilter" v-if="trustCircle === 0 || !isAuthenticated"
+                       :disabled="!isAuthenticated">
                     {{$t('common:button.activate')}}
                 </v-btn>
                 <v-btn color="primary" @click="deactivateTrustCircleFilter" v-else>
@@ -28,7 +32,7 @@
             </div>
             <div class="trust-circle-commands">
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="showHelpTrustCircle = false" >
+                <v-btn color="primary" @click="showHelpTrustCircle = false">
                     {{$t('common:button.ok')}}
                 </v-btn>
             </div>
@@ -39,20 +43,28 @@
 <script>
     export default {
         props: ['trustCircle'],
-        computed: {},
         data: function () {
             return {
                 menu: false, showHelpTrustCircle: false
             }
         },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
+        },
         methods: {
             activateTrustCircleFilter() {
-                this.$store.commit('feedFilter/INCREASE_TRUST_CIRCLE_FILTER');
-                this.$emit('trust-circle-changed');
+                if (this.isAuthenticated()) {
+                    this.$store.commit('feedFilter/INCREASE_TRUST_CIRCLE_FILTER');
+                    this.$emit('trust-circle-changed');
+                }
             },
             deactivateTrustCircleFilter() {
-                this.$store.commit('feedFilter/DEACTIVATE_TRUST_CIRCLE_FILTER');
-                this.$emit('trust-circle-changed');
+                if (this.isAuthenticated()) {
+                    this.$store.commit('feedFilter/DEACTIVATE_TRUST_CIRCLE_FILTER');
+                    this.$emit('trust-circle-changed');
+                }
             }
         },
         watch: {

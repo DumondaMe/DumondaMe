@@ -18,14 +18,15 @@
     export default {
         components: {SelectMenu},
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            },
             getOrder() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
+                        {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
+                        {id: 'notAnswered', description: this.$t('pages:feeds.filter.order.notAnswered')},
+                        {id: 'onlyFewAnswers', description: this.$t('pages:feeds.filter.order.onlyFewAnswer')}]
+                }
                 return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
-                    {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
-                    {id: 'notAnswered', description: this.$t('pages:feeds.filter.order.notAnswered')},
-                    {id: 'onlyFewAnswers', description: this.$t('pages:feeds.filter.order.onlyFewAnswer')}]
+                    {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')}]
             }
         },
         data: function () {

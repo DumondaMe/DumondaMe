@@ -3,7 +3,7 @@
         <select-region :init-region="[$store.state.feedFilter.regionFilter]"
                        @region-changed="regionChanged"></select-region>
         <v-spacer></v-spacer>
-        <div class="interested-only-command">
+        <div class="interested-only-command" v-if="isAuthenticated">
             <v-tooltip bottom v-if="!$store.state.feedFilter.eventInterestedOnly">
                 <v-icon slot="activator" @click="interestedChanged(true)">
                     mdi-star
@@ -26,6 +26,11 @@
 
     export default {
         components: {SelectRegion},
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
+        },
         methods: {
             async regionChanged(region) {
                 this.$store.commit('feedFilter/SET_REGION_FILTER', region);

@@ -113,8 +113,7 @@
                     await this.$store.dispatch('auth/logout');
                     this.$store.dispatch('notification/stopCheckNotificationChanged');
                     this.$store.commit('notification/RESET_NOTIFICATION');
-                    this.$store.commit('feed/SET_IS_PUBLIC_FEED', true);
-                    await this.$store.dispatch('feed/getFeed', {isAuthenticated: false});
+                    await this.$store.dispatch('feed/getFeed');
                     this.$router.push({name: 'index'});
                 } catch (e) {
                     this.showError = true;

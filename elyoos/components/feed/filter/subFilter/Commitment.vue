@@ -1,8 +1,6 @@
 <template>
     <div id="feed-sub-filter-activity">
-        <select-menu :items="[{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
-                        {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
-                        {id: 'noQuestionLink', description: this.$t('pages:feeds.filter.order.noQuestionLink')}]"
+        <select-menu :items="getOrder"
                      :selected-item="'mostPopular'"
                      @changed="orderChanged">
         </select-menu>
@@ -23,8 +21,14 @@
     export default {
         components: {SelectMenu, SelectRegion},
         computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
+            getOrder() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
+                        {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
+                        {id: 'noQuestionLink', description: this.$t('pages:feeds.filter.order.noQuestionLink')}]
+                }
+                return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
+                    {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')}]
             }
         },
         data: function () {

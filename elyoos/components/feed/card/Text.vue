@@ -1,7 +1,7 @@
 <template>
     <div class="text-answer-feed-card">
         <div class="feed-card-header">
-            <span class="answer-type">Text Antwort auf die Frage </span><span class="card-header-link">
+            <span class="answer-type">Antwort zur Frage </span><span class="card-header-link">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.question}}

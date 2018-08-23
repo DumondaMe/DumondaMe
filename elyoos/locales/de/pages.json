@@ -86,6 +86,7 @@
       },
       "trustCircle": {
         "descriptionFilterActivated": "Der Trust Circle Filter ist",
+        "descriptionNotLoggedIn": "Der Trust Circle Filter kann nur aktiviert werden wenn du eingeloggt bist",
         "activated": "aktiviert",
         "deactivated": "deaktiviert",
         "trustCircleHelp": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu."

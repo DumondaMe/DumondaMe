@@ -86,6 +86,7 @@
       },
       "trustCircle": {
         "descriptionFilterActivated": "The Trust Circle Filter is",
+        "descriptionNotLoggedIn": "The Trust Circle Filter can only be activated when you are logged in",
         "activated": "activated",
         "deactivated": "deactivated",
         "trustCircleHelp": "What information we believe has a lot to do with trust. Add people whose opinions you value to your Trust Circle."

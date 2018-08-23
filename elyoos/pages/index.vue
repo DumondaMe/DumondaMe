@@ -30,9 +30,10 @@
     export default {
         async fetch({query, app, error, store}) {
             try {
-                await Promise.all([store.dispatch(`feed/getFeed`, {
-                    isAuthenticated: store.state.auth.userIsAuthenticated,
-                })/*, store.dispatch(`feed/getPopularQuestion`)*/]);
+                if (store.state.auth.userIsAuthenticated && store.state.feedFilter.mainFilter === 'activity') {
+                    store.commit('feedFilter/SET_MAIN_FILTER', 'question')
+                }
+                await Promise.all([store.dispatch(`feed/getFeed`)/*, store.dispatch(`feed/getPopularQuestion`)*/]);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }

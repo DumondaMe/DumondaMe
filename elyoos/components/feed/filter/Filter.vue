@@ -1,7 +1,7 @@
 <template>
     <div id="feed-filter">
         <div class="type-filter-container">
-            <v-tooltip top class="filter-element-container">
+            <v-tooltip top class="filter-element-container" v-if="isAuthenticated">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
                     <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
@@ -30,7 +30,8 @@
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'">
+            <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
+                       :class="{'is-public': !isAuthenticated}">
                 <div class="right-filter" slot="activator">
                     <common-filter-trust-circle :trust-circle="$store.state.feedFilter.trustCircleFilter"
                                                 @trust-circle-changed="trustCircleChanged">
@@ -83,6 +84,9 @@
             CommonFilterTopic, CommonFilterTrustCircle
         },
         computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            },
             mainFilter() {
                 return this.$store.state.feedFilter.mainFilter;
             }
@@ -102,7 +106,9 @@
                 await this.$store.dispatch('feed/getFeed')
             },
             async trustCircleChanged() {
-                await this.$store.dispatch('feed/getFeed');
+                if (this.isAuthenticated()) {
+                    await this.$store.dispatch('feed/getFeed');
+                }
             }
         }
     }
@@ -143,7 +149,13 @@
                         font-size: 20px;
                     }
                 }
-
+            }
+            .right-filter-container.is-public {
+                .right-filter {
+                    i.icon {
+                        color: $disabled-text;
+                    }
+                }
             }
             :hover.right-filter-container {
                 .more-filter {
