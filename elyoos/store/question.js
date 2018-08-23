@@ -187,9 +187,10 @@ export const actions = {
         await this.$axios.$put(`/user/question/answer/book/${answerId}`, {description});
         commit('EDIT_ANSWER', {answerId, answer: {description}});
     },
-    async createCommitmentAnswer({commit, state}, commitmentData) {
+    async createCommitmentAnswer({commit, state, rootState}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
-            {commitmentId: commitmentData.commitmentId, description: commitmentData.description});
+            {commitmentId: commitmentData.commitmentId, description: commitmentData.description,
+                language: rootState.i18n.language});
         addDefaultProperties(commitmentData, 'Commitment', response);
         commitmentData.commitmentSlug = response.slug;
         commitmentData.imageUrl = response.imageUrl;
