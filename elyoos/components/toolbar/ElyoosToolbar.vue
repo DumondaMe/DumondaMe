@@ -113,6 +113,7 @@
                     await this.$store.dispatch('auth/logout');
                     this.$store.dispatch('notification/stopCheckNotificationChanged');
                     this.$store.commit('notification/RESET_NOTIFICATION');
+                    this.$store.commit('feedFilter/SET_FILTER_TO_PUBLIC_STATE');
                     await this.$store.dispatch('feed/getFeed');
                     this.$router.push({name: 'index'});
                 } catch (e) {

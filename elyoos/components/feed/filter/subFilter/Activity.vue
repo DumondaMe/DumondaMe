@@ -31,7 +31,7 @@
         },
         methods: {
             async activityChanged(item) {
-                this.$store.commit('feedFilter/SET_ACTIVITY_TYPE_FILTER', item.id);
+                this.$store.commit('feedFilter/SET_ACTIVITY_TYPE_FILTER', item);
                 await this.$store.dispatch('feed/getFeed')
             },
             async regionChanged(region) {

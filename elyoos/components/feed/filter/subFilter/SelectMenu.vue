@@ -18,20 +18,20 @@
 <script>
     export default {
         props: ['items', 'selectedItem'],
-        components: {},
-        computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            }
-        },
         data: function () {
             let selectedItem = this.items.find(item => item.id === this.selectedItem);
             return {localSelectedItem: JSON.parse(JSON.stringify(selectedItem))}
         },
+        watch: {
+            selectedItem(newItem) {
+                let selectedItem = this.items.find(item => item.id === newItem);
+                this.localSelectedItem = JSON.parse(JSON.stringify(selectedItem));
+            }
+        },
         methods: {
             itemSelected(item) {
                 this.localSelectedItem = item;
-                this.$emit('changed', item)
+                this.$emit('changed', item.id)
             }
         }
     }
