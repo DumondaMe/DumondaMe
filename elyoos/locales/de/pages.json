@@ -153,6 +153,9 @@
       "userInterestedInCommitment": {
         "title": "findet dieses Engagement interessant",
         "titleIsLoggedInUser": "findest dieses Engagement interessant"
+      },
+      "eventCreateByCommitment": {
+        "title": "hat diesen Event erfasst"
       }
     }
   },

@@ -24,7 +24,9 @@
                                        :commitment-id="element.commitmentId" :commitment-slug="element.commitmentSlug"
                                        :location="element.location" :region="element.region"
                                        :start-date="element.startDate" :end-date="element.endDate"
-                                       :commitment-image="element.commitmentImageUrl">
+                                       :commitment-image="element.commitmentImageUrl"
+                                       :commitment-image-preview="element.commitmentImageUrlPreview"
+                                       :commitment-description="element.commitmentDescription">
                     </event-card-footer>
                 </event-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">

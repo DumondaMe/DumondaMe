@@ -153,6 +153,9 @@
       "userInterestedInCommitment": {
         "title": "finds this commitment interesting",
         "titleIsLoggedInUser": "find this commitment interesting"
+      },
+      "eventCreateByCommitment": {
+        "title": "has created this event"
       }
     }
   },

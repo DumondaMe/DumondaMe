@@ -96,6 +96,7 @@ const addEventProperties = function (result, feedElement) {
         result.commitmentId = feedElement.activityElement.commitmentId;
         result.commitmentSlug = dashify(feedElement.activityElement.title);
         result.commitmentTitle = feedElement.activityElement.title;
+        result.commitmentDescription = feedElement.activityElement.description;
         result.commitmentImageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/40x40/title.jpg`);
         result.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${result.commitmentId}/148x148/title.jpg`);
         if (feedElement.feedElement.modified) {

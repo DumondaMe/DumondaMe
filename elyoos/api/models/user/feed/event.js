@@ -10,8 +10,10 @@ const getFeedResponse = async function (commitments) {
     for (let commitment of commitments) {
         commitment.commitmentSlug = dashify(commitment.commitmentTitle);
         commitment.commitmentImageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/40x40/title.jpg`);
+        commitment.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/148x148/title.jpg`);
         if (commitment.modified) {
-            commitment.commitmentImageUrl = commitment.commitmentImageUrl + `?v=${commitment.modified}`
+            commitment.commitmentImageUrl = commitment.commitmentImageUrl + `?v=${commitment.modified}`;
+            commitment.commitmentImageUrlPreview = commitment.commitmentImageUrlPreview + `?v=${commitment.modified}`;
         }
     }
     return commitments;
@@ -57,7 +59,8 @@ const getFeed = async function (userId, page, timestamp, guiLanguage, languages,
         .addCommand(getRegionFilter(regions))
         .optionalMatch(`(event)-[:BELONGS_TO_REGION]->(region:Region)`)
         .return(`commitment.commitmentId AS commitmentId, commitment.title AS commitmentTitle, 
-                 commitment.modified AS modified, event.title AS title, event.eventId AS eventId, 
+                 commitment.description AS commitmentDescription, commitment.modified AS modified, 
+                 event.title AS title, event.eventId AS eventId, 
                  event.description AS description, region.${guiLanguage} AS region, event.location AS location,
                  event.startDate AS startDate, event.endDate AS endDate, 'Event' AS type`)
         .orderBy(`startDate`)

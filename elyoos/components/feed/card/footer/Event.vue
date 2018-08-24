@@ -1,9 +1,14 @@
 <template>
     <div class="card-footer-feed">
         <div class="footer-icon">
-            <div class="user-icon creator-icon">
-                <img :src="commitmentImage">
-            </div>
+            <commitment-menu :menu-title="$t('pages:feeds.menu.eventCreateByCommitment.title')"
+                             :commitment-image="commitmentImagePreview" :commitment="commitment"
+                             :commitment-id="commitmentId" :commitment-slug="commitmentSlug"
+                             :description="commitmentDescription">
+                <div class="user-icon creator-icon" slot="icon">
+                    <img :src="commitmentImage">
+                </div>
+            </commitment-menu>
         </div>
         <div class="footer-icon">
             <v-icon medium class="action-icon">
@@ -15,8 +20,12 @@
 </template>
 
 <script>
+    import CommitmentMenu from './menu/Commitment';
+
     export default {
-        props: ['commitment', 'commitmentId', 'commitmentSlug', 'commitmentImage', 'location', 'region']
+        props: ['commitment', 'commitmentId', 'commitmentSlug', 'commitmentImage', 'commitmentImagePreview', 'location',
+            'region', 'commitmentDescription'],
+        components: {CommitmentMenu},
     }
 </script>
 
