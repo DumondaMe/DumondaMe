@@ -20,9 +20,11 @@
                     </common-card-footer>
                 </text-card>
                 <event-card :event="element" v-if="element.type === 'Event'">
-                    <event-card-footer slot="footer" :creator="element.commitmentTitle" :creatorId="element.commitmentId"
-                                 :creatorSlug="element.commitmentSlug" :location="element.location" :region="element.region"
-                                 :start-date="element.startDate" :end-date="element.endDate">
+                    <event-card-footer slot="footer" :commitment="element.commitmentTitle"
+                                       :commitment-id="element.commitmentId" :commitment-slug="element.commitmentSlug"
+                                       :location="element.location" :region="element.region"
+                                       :start-date="element.startDate" :end-date="element.endDate"
+                                       :commitment-image="element.commitmentImageUrl">
                     </event-card-footer>
                 </event-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
@@ -36,8 +38,9 @@
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'">
-                    <question-card-footer slot="footer" :creator="element.creator" :user="element.user" :created="element.created"
-                                 :number-of-answers="element.numberOfAnswers" :action="element.action">
+                    <question-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                          :created="element.created"
+                                          :number-of-answers="element.numberOfAnswers" :action="element.action">
                     </question-card-footer>
                 </question-card>
             </div>
@@ -167,10 +170,11 @@
         .footer-icon {
             vertical-align: middle;
             display: inline-block;
-            .footer-text {
+            .footer-description {
                 margin-left: 4px;
+                margin-right: 8px;
                 font-size: 12px;
-                font-weight: 400;
+                font-weight: 500;
                 color: $secondary-text;
                 .footer-link {
                     cursor: pointer;
