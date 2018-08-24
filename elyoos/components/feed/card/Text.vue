@@ -10,18 +10,16 @@
         </div>
         <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
         </expand-text>
-        <card-footer :creator="answer.creator" :user="answer.user" :created="answer.created" :action="answer.action">
-        </card-footer>
+        <slot name="footer"></slot>
     </div>
 </template>
 
 <script>
-    import CardFooter from './footer/CommonAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {CardFooter, ExpandText}
+        components: {ExpandText}
     }
 </script>
 

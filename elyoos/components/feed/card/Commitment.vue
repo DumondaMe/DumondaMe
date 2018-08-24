@@ -31,20 +31,16 @@
                 </expand-text>
             </div>
         </div>
-        <card-footer :user="answer.user" :creator="answer.creator"
-                     :created="answer.created" :action="answer.action"
-                     :regions="answer.regions" :card-type="answer.type">
-        </card-footer>
+        <slot name="footer"></slot>
     </div>
 </template>
 
 <script>
-    import CardFooter from './footer/Commitment';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {CardFooter, ExpandText},
+        components: {ExpandText},
         data() {
             return {expandDescription: false}
         }

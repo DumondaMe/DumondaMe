@@ -9,9 +9,7 @@
         </div>
         <expand-text :expand-text="question.descriptionHtml" class="question-description" itemprop="text">
         </expand-text>
-        <card-footer :creator="question.creator" :user="question.user" :created="question.created"
-                     :number-of-answers="question.numberOfAnswers" :action="question.action">
-        </card-footer>
+        <slot name="footer"></slot>
     </div>
 </template>
 

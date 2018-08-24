@@ -2,14 +2,44 @@
     <div>
         <div class="feed-cards-container" v-if="!isLoadingFeed && feed.length > 0">
             <div class="feed-card ely-card" v-for="element in feed">
-                <commitment-card :answer="element" v-if="element.type === 'CommitmentAnswer'"></commitment-card>
-                <commitment-card :answer="element" v-if="element.type === 'Commitment'"></commitment-card>
-                <book-card :answer="element" v-if="element.type === 'Book'"></book-card>
-                <text-card :answer="element" v-if="element.type === 'Text'"></text-card>
-                <event-card :event="element" v-if="element.type === 'Event'"></event-card>
-                <link-card :answer="element" v-if="element.type === 'Link'"></link-card>
-                <youtube-card :answer="element" v-if="element.type === 'Youtube'"></youtube-card>
-                <question-card :question="element" v-if="element.type === 'Question'"></question-card>
+                <commitment-card :answer="element"
+                                 v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
+                    <commitment-card-footer slot="footer" :user="element.user" :creator="element.creator"
+                                            :created="element.created" :action="element.action"
+                                            :regions="element.regions" :card-type="element.type">
+                    </commitment-card-footer>
+                </commitment-card>
+                <book-card :answer="element" v-if="element.type === 'Book'">
+                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :created="element.created" :action="element.action">
+                    </common-card-footer>
+                </book-card>
+                <text-card :answer="element" v-if="element.type === 'Text'">
+                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :created="element.created" :action="element.action">
+                    </common-card-footer>
+                </text-card>
+                <event-card :event="element" v-if="element.type === 'Event'">
+                    <event-card-footer slot="footer" :creator="element.commitmentTitle" :creatorId="element.commitmentId"
+                                 :creatorSlug="element.commitmentSlug" :location="element.location" :region="element.region"
+                                 :start-date="element.startDate" :end-date="element.endDate">
+                    </event-card-footer>
+                </event-card>
+                <link-card :answer="element" v-if="element.type === 'Link'">
+                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :created="element.created" :action="element.action">
+                    </common-card-footer>
+                </link-card>
+                <youtube-card :answer="element" v-if="element.type === 'Youtube'">
+                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :created="element.created" :action="element.action">
+                    </common-card-footer>
+                </youtube-card>
+                <question-card :question="element" v-if="element.type === 'Question'">
+                    <question-card-footer slot="footer" :creator="element.creator" :user="element.user" :created="element.created"
+                                 :number-of-answers="element.numberOfAnswers" :action="element.action">
+                    </question-card-footer>
+                </question-card>
             </div>
         </div>
         <div v-else-if="isLoadingFeed" class="feed-loading-container text-xs-center">
@@ -29,10 +59,17 @@
     import LinkCard from './card/Link'
     import YoutubeCard from './card/Youtube'
     import QuestionCard from './card/Question'
+    import CommonCardFooter from './card/footer/CommonAnswer';
+    import CommitmentCardFooter from './card/footer/Commitment';
+    import QuestionCardFooter from './card/footer/Question';
+    import EventCardFooter from './card/footer/Event';
 
     export default {
         props: ['feed'],
-        components: {CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard},
+        components: {
+            CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard,
+            CommonCardFooter, CommitmentCardFooter, QuestionCardFooter, EventCardFooter
+        },
         computed: {
             isLoadingFeed() {
                 return this.$store.state.feed.loading

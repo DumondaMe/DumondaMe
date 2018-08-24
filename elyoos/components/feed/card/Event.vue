@@ -10,20 +10,16 @@
         <expand-text :expand-text="event.description" class="event-description" itemprop="text"
                      v-if="event.description">
         </expand-text>
-        <card-footer :creator="event.commitmentTitle" :creatorId="event.commitmentId"
-                     :creatorSlug="event.commitmentSlug" :location="event.location" :region="event.region"
-                     :start-date="event.startDate" :end-date="event.endDate">
-        </card-footer>
+        <slot name="footer"></slot>
     </div>
 </template>
 
 <script>
-    import CardFooter from './footer/Event';
     import ExpandText from '~/components/common/text/Expand'
 
     export default {
         props: ['event'],
-        components: {CardFooter, ExpandText}
+        components: {ExpandText}
     }
 </script>
 

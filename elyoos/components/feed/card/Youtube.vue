@@ -23,18 +23,16 @@
                 </expand-text>
             </div>
         </div>
-        <card-footer :creator="answer.creator" :user="answer.user" :action="answer.action" :card-type="answer.type">
-        </card-footer>
+        <slot name="footer"></slot>
     </div>
 </template>
 
 <script>
-    import CardFooter from './footer/CommonAnswer';
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
         props: ['answer'],
-        components: {CardFooter, ExpandText},
+        components: { ExpandText},
         data() {
             return {showEmbed: false}
         },
