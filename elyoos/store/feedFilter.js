@@ -41,7 +41,7 @@ export const getters = {
         if (!(state.topicFilter.length === 1 && state.topicFilter[0].id === 'allTopics')) {
             params.topics = state.topicFilter.map(topic => topic.id);
         }
-        if (state.trustCircleFilter > 0) {
+        if (state.trustCircleFilter > 0 && state.mainFilter !== 'event') {
             params.trustCircle = state.trustCircleFilter
         }
         return params;
