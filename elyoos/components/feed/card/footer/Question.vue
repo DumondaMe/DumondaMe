@@ -65,10 +65,10 @@
 <style lang="scss">
     .card-footer-feed {
         .footer-icon {
-            .action-icon.no-answers {
+            .action-icon.no-answers.v-icon {
                 color: $warning
             }
-            .action-icon.only-few-answers {
+            .action-icon.only-few-answers.v-icon {
                 color: #bfbc12
             }
         }
