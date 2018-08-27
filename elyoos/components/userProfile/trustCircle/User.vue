@@ -125,7 +125,7 @@
 
             button {
                 margin-right: 0;
-                i.icon {
+                i.v-icon {
                     color: #666666;
                 }
             }

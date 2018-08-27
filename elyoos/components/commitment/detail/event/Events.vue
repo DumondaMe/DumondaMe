@@ -121,7 +121,7 @@
             margin-bottom: 12px;
             button {
                 margin-left: 0;
-                i.icon {
+                i.v-icon {
                     margin-right: 8px;
                     font-size: 20px;
                 }

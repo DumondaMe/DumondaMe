@@ -75,7 +75,7 @@
         #commands-container {
             .button-watch {
                 margin-left: 0;
-                i.icon {
+                i.v-icon {
                     font-size: 20px;
                     margin-right: 8px;
                 }

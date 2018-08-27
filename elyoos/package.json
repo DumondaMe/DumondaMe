@@ -57,7 +57,7 @@
     "url-regex": "4.1.1",
     "uuid": "3.3.2",
     "vcard": "0.1.0",
-    "vuetify": "1.0.13",
+    "vuetify": "1.1.14",
     "vue-recaptcha": "1.1.1",
     "winston": "2.3.1",
     "winston-cloudwatch": "1.11.3",

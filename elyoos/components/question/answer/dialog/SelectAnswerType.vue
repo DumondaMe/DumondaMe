@@ -82,7 +82,7 @@
                 @media screen and (max-width: 350px) {
                     margin-top: 0px;
                 }
-                i.icon {
+                i.v-icon {
                     color: $primary-color;
                     font-size: 28px;
                 }

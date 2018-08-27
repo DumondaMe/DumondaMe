@@ -96,7 +96,7 @@
             .watch-question-button-container {
                 display: inline-block;
                 .watch-question-button {
-                    i.icon {
+                    i.v-icon {
                         font-size: 20px;
                         margin-right: 6px;
                     }

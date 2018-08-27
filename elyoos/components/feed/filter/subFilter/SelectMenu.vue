@@ -2,8 +2,10 @@
     <div class="select-filter">
         <v-menu bottom offset-y>
             <div class="select-filter-content" slot="activator">
-                <span>{{this.localSelectedItem.description}}</span>
-                <v-icon>mdi-menu-down</v-icon>
+                <div>
+                    <span>{{this.localSelectedItem.description}}</span>
+                    <v-icon>mdi-menu-down</v-icon>
+                </div>
             </div>
             <v-list>
                 <v-list-tile @click="itemSelected(item)" v-for="item in items" :key="item.id"
@@ -42,13 +44,15 @@
         display: inline-block;
         margin-right: 18px;
         .select-filter-content {
+            vertical-align: top;
             color: $secondary-text;
             font-size: 14px;
             display: inline-block;
             height: 26px;
             line-height: 26px;
-            i.icon {
-                padding-bottom: 4px;
+            i.v-icon {
+                vertical-align: top;
+                //padding-bottom: 4px;
             }
         }
     }
@@ -56,7 +60,7 @@
     :hover.select-filter {
         .select-filter-content {
             color: $primary-text;
-            i.icon {
+            i.v-icon {
                 color: $primary-text;
             }
         }

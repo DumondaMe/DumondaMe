@@ -170,11 +170,17 @@
 
     .card-footer-feed {
         .footer-icon {
-            vertical-align: middle;
+            vertical-align: top;
             display: inline-block;
+            height: 40px;
             .footer-description {
+                display: inline-block;
+                vertical-align: top;
+                line-height: 28px;
+                height: 28px;
                 margin-left: 4px;
                 margin-right: 8px;
+                margin-top: 6px;
                 font-size: 12px;
                 font-weight: 500;
                 color: $secondary-text;
@@ -186,6 +192,7 @@
                 }
             }
             .user-icon {
+                vertical-align: top;
                 cursor: pointer;
                 height: 40px;
                 width: 40px;
@@ -200,7 +207,7 @@
             }
             .action-icon {
                 margin-left: 16px;
-                margin-top: 2px;
+                margin-top: 6px;
                 cursor: pointer;
                 color: #009688;
             }
@@ -213,6 +220,9 @@
         }
         .separator-icon {
             display: inline-block;
+            vertical-align: top;
+            padding-top: 6px;
+            padding-bottom: 6px;
             margin-right: 12px;
         }
     }

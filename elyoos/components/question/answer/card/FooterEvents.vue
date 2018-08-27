@@ -41,7 +41,7 @@
             .event-infos {
                 .footer-icon {
                     margin-left: -1px;
-                    i.icon {
+                    i.v-icon {
                         font-size: 16px;
                     }
                     .footer-text {

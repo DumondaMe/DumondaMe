@@ -109,7 +109,7 @@
         margin-top: 6px;
         .note-icon-container {
             padding-top: 2px;
-            i.icon {
+            i.v-icon {
                 font-size: 20px;
                 color: $primary-color;
             }
@@ -161,7 +161,7 @@
                 .btn__content {
                     height: 100%;
                     width: 100%;
-                    i.icon {
+                    i.v-icon {
                         font-size: 20px;
                         font-weight: 400;
                     }

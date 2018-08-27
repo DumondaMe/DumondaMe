@@ -98,7 +98,7 @@
         }
         .warning-date-icon {
             margin-left: 8px;
-            i.icon {
+            i.v-icon {
                 padding-top: 22px;
                 color: $warning;
             }

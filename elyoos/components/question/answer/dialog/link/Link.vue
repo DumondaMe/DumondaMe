@@ -182,7 +182,7 @@
                 button {
                     margin-left: 0;
                 }
-                i.icon {
+                i.v-icon {
                     margin-right: 8px;
                 }
             }

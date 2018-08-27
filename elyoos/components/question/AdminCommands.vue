@@ -65,7 +65,7 @@
         height: 49px;
         display: inline-block;
         #admin-commands {
-            i.icon {
+            i.v-icon {
                 margin-right: 8px;
             }
             button {

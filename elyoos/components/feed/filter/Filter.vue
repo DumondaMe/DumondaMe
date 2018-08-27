@@ -124,7 +124,7 @@
                     font-size: 14px;
                     padding: 2px 12px 4px 12px;
                     color: $secondary-text;
-                    i.icon {
+                    i.v-icon {
                         font-size: 20px;
                     }
                 }
@@ -132,7 +132,7 @@
                     color: $primary-color;
                     font-weight: 500;
                     border-bottom: 3px solid $primary-color;
-                    i.icon {
+                    i.v-icon {
                         color: $primary-color;
                     }
                 }
@@ -143,14 +143,14 @@
                     display: inline-block;
                     margin-left: 16px;
                     padding: 2px 0 4px 0;
-                    i.icon {
+                    i.v-icon {
                         font-size: 20px;
                     }
                 }
             }
             .right-filter-container.is-public {
                 .right-filter {
-                    i.icon {
+                    i.v-icon {
                         color: $disabled-text;
                     }
                 }

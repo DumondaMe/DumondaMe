@@ -166,12 +166,12 @@
                 button {
                     color: #666666;
                     border-bottom-color: #666666;
-                    i.icon {
+                    i.v-icon {
                         color: #666666;
                     }
                 }
                 .active {
-                    i.icon {
+                    i.v-icon {
                         color: $primary-color;
                     }
                 }

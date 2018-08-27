@@ -48,7 +48,7 @@
     #feed-sub-filter-event {
         display: flex;
         .interested-only-command {
-            i.icon {
+            i.v-icon {
                 cursor: pointer;
                 height: 20px;
                 width: 20px;

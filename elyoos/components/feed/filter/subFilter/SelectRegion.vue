@@ -52,14 +52,16 @@
     .select-region-container {
         display: inline-block;
         .select-region {
+            display: inline-block;
+            vertical-align: top;
             height: 26px;
             line-height: 26px;
-            display: inline-block;
             margin-right: 12px;
             color: $secondary-text;
             font-size: 14px;
             cursor: pointer;
-            i.icon {
+            i.v-icon {
+                vertical-align: top;
                 padding-bottom: 4px;
             }
         }

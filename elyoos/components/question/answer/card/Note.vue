@@ -113,7 +113,7 @@
                     .btn__content {
                         height: 100%;
                         width: 100%;
-                        i.icon {
+                        i.v-icon {
                             color: $primary-color;
                             font-size: 16px;
                             font-weight: 400;

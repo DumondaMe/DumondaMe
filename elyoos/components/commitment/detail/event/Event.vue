@@ -98,7 +98,7 @@
                     margin: 0;
                     width: 24px;
                     height: 24px;
-                    i.icon {
+                    i.v-icon {
                         font-size: 20px;
                     }
                 }
@@ -118,7 +118,7 @@
             margin-top: 12px;
             margin-left: -2px;
             .footer-icon {
-                i.icon {
+                i.v-icon {
                     font-size: 18px;
                 }
                 .footer-text {
