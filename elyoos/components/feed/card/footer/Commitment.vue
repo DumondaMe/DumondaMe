@@ -33,7 +33,7 @@
             </v-icon>
 
             <v-icon medium v-if="action === 'upVote'" class="action-icon">
-                mdi-arrow-up-bold-circle
+                mdi-thumb-up
             </v-icon>
             <span class="footer-description number" v-if="action === 'upVote'">{{numberOfUpVotes}}</span>
         </div>
