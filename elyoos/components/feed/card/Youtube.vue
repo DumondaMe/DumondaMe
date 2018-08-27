@@ -6,10 +6,12 @@
                 <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
-                </nuxt-link></span> <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
+                </nuxt-link></span>
+                <span v-if="!hideQuestion">
+                    <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                </nuxt-link></span>
+                </nuxt-link></span></span>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <div class="youtube-embed">
@@ -31,7 +33,7 @@
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
-        props: ['answer'],
+        props: ['answer', 'hideQuestion'],
         components: { ExpandText},
         data() {
             return {showEmbed: false}

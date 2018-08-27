@@ -9,10 +9,11 @@
                                 query: {answerId: answer.answerId}}">{{answer.title}}
                         </nuxt-link>
                     </span>
+                    <span v-if="!hideQuestion">
                     <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
                          <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                         </nuxt-link></span>
+                         </nuxt-link></span></span>
                 </span>
                 <span class="card-header-link" v-else>
                     <nuxt-link :to="{name: 'commitment-commitmentId-slug',
@@ -39,7 +40,7 @@
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
-        props: ['answer'],
+        props: ['answer', 'hideQuestion'],
         components: {ExpandText},
         data() {
             return {expandDescription: false}

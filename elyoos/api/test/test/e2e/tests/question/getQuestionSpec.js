@@ -175,6 +175,10 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.userId.should.equals('1');
         res.body.answers[0].creator.slug.should.equals('user-meier');
+        res.body.answers[0].creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.answers[0].creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.answers[0].creator.isLoggedInUser.should.equals(true);
+        res.body.answers[0].creator.isTrustUser.should.equals(false);
         res.body.answers[0].numberOfNotes.should.equals(0);
 
         res.body.answers[1].answerId.should.equals('6');
@@ -187,6 +191,10 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.userId.should.equals('3');
         res.body.answers[1].creator.slug.should.equals('user-meier3');
+        res.body.answers[1].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[1].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.answers[1].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[1].creator.isTrustUser.should.equals(false);
         res.body.answers[1].numberOfNotes.should.equals(2);
 
         res.body.answers[2].answerId.should.equals('7');
@@ -203,12 +211,16 @@ describe('Getting details of a question', function () {
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.userId.should.equals('2');
         res.body.answers[2].creator.slug.should.equals('user-meier2');
+        res.body.answers[2].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[2].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[2].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[2].creator.isTrustUser.should.equals(false);
         res.body.answers[2].numberOfNotes.should.equals(2);
 
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -219,6 +231,10 @@ describe('Getting details of a question', function () {
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.userId.should.equals('2');
         res.body.answers[3].creator.slug.should.equals('user-meier2');
+        res.body.answers[3].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[3].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[3].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[3].creator.isTrustUser.should.equals(false);
         res.body.answers[3].numberOfNotes.should.equals(0);
 
         res.body.answers[4].answerId.should.equals('9');
@@ -234,12 +250,16 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.name.should.equals('user Meier3');
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
+        res.body.answers[4].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[4].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.answers[4].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[4].creator.isTrustUser.should.equals(false);
         res.body.answers[4].numberOfNotes.should.equals(0);
 
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
@@ -253,6 +273,10 @@ describe('Getting details of a question', function () {
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[5].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[5].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[5].creator.isTrustUser.should.equals(false);
         res.body.answers[5].events.length.should.equals(2);
         res.body.answers[5].events[0].eventId.should.equals('23');
         res.body.answers[5].events[0].title.should.equals('event23Title');
@@ -320,6 +344,10 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.name.should.equals('user Meier3');
         res.body.answers[1].creator.userId.should.equals('3');
         res.body.answers[1].creator.slug.should.equals('user-meier3');
+        res.body.answers[1].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[1].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.answers[1].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[1].creator.isTrustUser.should.equals(false);
 
         res.body.answers[2].answerId.should.equals('5');
         res.body.answers[2].answerType.should.equals('Text');
@@ -335,7 +363,7 @@ describe('Getting details of a question', function () {
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -364,7 +392,7 @@ describe('Getting details of a question', function () {
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
@@ -428,6 +456,10 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.name.should.equals('user Meier');
         res.body.answers[0].creator.userId.should.equals('1');
         res.body.answers[0].creator.slug.should.equals('user-meier');
+        res.body.answers[0].creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.answers[0].creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.answers[0].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[0].creator.isTrustUser.should.equals(false);
 
         res.body.answers[1].answerId.should.equals('6');
         res.body.answers[1].answerType.should.equals('Text');
@@ -454,11 +486,15 @@ describe('Getting details of a question', function () {
         res.body.answers[2].creator.name.should.equals('user Meier2');
         res.body.answers[2].creator.userId.should.equals('2');
         res.body.answers[2].creator.slug.should.equals('user-meier2');
+        res.body.answers[2].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[2].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[2].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[2].creator.isTrustUser.should.equals(false);
 
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
         res.body.answers[3].link.should.equals('https://example.com');
-        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/120x120/preview.jpg`);
+        res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
         res.body.answers[3].description.should.equals('link8Description');
         res.body.answers[3].pageType.should.equals('blog');
@@ -469,6 +505,10 @@ describe('Getting details of a question', function () {
         res.body.answers[3].creator.name.should.equals('user Meier2');
         res.body.answers[3].creator.userId.should.equals('2');
         res.body.answers[3].creator.slug.should.equals('user-meier2');
+        res.body.answers[3].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[3].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[3].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[3].creator.isTrustUser.should.equals(false);
 
         res.body.answers[4].answerId.should.equals('9');
         res.body.answers[4].answerType.should.equals('Book');
@@ -483,11 +523,15 @@ describe('Getting details of a question', function () {
         res.body.answers[4].creator.name.should.equals('user Meier3');
         res.body.answers[4].creator.userId.should.equals('3');
         res.body.answers[4].creator.slug.should.equals('user-meier3');
+        res.body.answers[4].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.answers[4].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.answers[4].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[4].creator.isTrustUser.should.equals(false);
 
         res.body.answers[5].answerId.should.equals('11');
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
-        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/120x120/title.jpg?v=701`);
+        res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
         res.body.answers[5].description.should.equals('test');
@@ -501,6 +545,10 @@ describe('Getting details of a question', function () {
         res.body.answers[5].creator.name.should.equals('user Meier2');
         res.body.answers[5].creator.userId.should.equals('2');
         res.body.answers[5].creator.slug.should.equals('user-meier2');
+        res.body.answers[5].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.answers[5].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.answers[5].creator.isLoggedInUser.should.equals(false);
+        res.body.answers[5].creator.isTrustUser.should.equals(false);
         res.body.answers[5].events.length.should.equals(2);
         res.body.answers[5].events[0].eventId.should.equals('23');
         res.body.answers[5].events[0].title.should.equals('event23Title');

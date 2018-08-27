@@ -25,7 +25,7 @@ const getEvents = function (events, language) {
     return result;
 };
 
-const getAnswers = function (answers, language) {
+const getAnswers = async function (answers, language, userId) {
     let result = [];
     for (let answer of answers) {
         if (answer.answer) {
@@ -39,10 +39,14 @@ const getAnswers = function (answers, language) {
             formattedAnswer.creator = {
                 name: answer.creator.name,
                 userId: answer.creator.userId,
-                slug: dashify(answer.creator.name)
+                slug: dashify(answer.creator.name),
+                userImage: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/profilePreview.jpg`),
+                isLoggedInUser: answer.creator.userId === userId,
+                isTrustUser: answer.isTrustUser,
             };
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
-                formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/120x120/preview.jpg`);
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/460x460/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`book/${formattedAnswer.answerId}/120x250/preview.jpg`);
             } else if (formattedAnswer.answerType === 'CommitmentAnswer') {
@@ -50,7 +54,7 @@ const getAnswers = function (answers, language) {
                 formattedAnswer.commitmentId = answer.commitment.commitmentId;
                 formattedAnswer.commitmentSlug = dashify(answer.commitment.title);
                 formattedAnswer.title = answer.commitment.title;
-                formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/120x120/title.jpg`);
+                formattedAnswer.imageUrl = cdn.getPublicUrl(`commitment/${formattedAnswer.commitmentId}/460x460/title.jpg`);
                 if (answer.commitment.modified) {
                     formattedAnswer.imageUrl += `?v=${answer.commitment.modified}`;
                 }
@@ -83,7 +87,8 @@ const getAnswersCommand = function (questionId, userId) {
         .orderBy(`upVotes DESC, answer.created DESC, event.startDate`)
         .return(`DISTINCT answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, 
                  collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes,
-                 collect(DISTINCT {event: event, region: eventRegion}) AS events`)
+                 collect(DISTINCT {event: event, region: eventRegion}) AS events,
+                 EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(creator)) AS isTrustUser`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .end({questionId, userId, now: time.getNowUtcTimestamp()}).getCommand();
 };
@@ -114,7 +119,7 @@ const getQuestion = async function (questionId, language, userId) {
             userId: questionResponse.user.userId,
             slug: dashify(questionResponse.user.name)
         };
-        question.answers = getAnswers(response[0], language);
+        question.answers = await getAnswers(response[0], language, userId);
         return question;
     }
     throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
