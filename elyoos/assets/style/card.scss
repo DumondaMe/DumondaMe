@@ -1,0 +1,106 @@
+.ely-card {
+  padding: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.feed-card {
+  margin-bottom: 18px;
+  padding-bottom: 24px;
+  padding-left: 22px;
+  padding-right: 22px;
+  max-width: 550px;
+  .description {
+    margin-top: 12px;
+    a {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 300;
+      color: $primary-text;
+    }
+  }
+  .feed-card-header {
+    margin-bottom: 12px;
+    .answer-type {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 16px;
+    }
+    .card-header-link {
+      a {
+        font-size: 16px;
+        line-height: 16px;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+    .secondary-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: $secondary-text
+    }
+  }
+
+  .card-footer-feed {
+    .footer-icon {
+      vertical-align: top;
+      display: inline-block;
+      height: 40px;
+      .footer-description {
+        display: inline-block;
+        vertical-align: top;
+        line-height: 28px;
+        height: 28px;
+        margin-left: 4px;
+        margin-right: 8px;
+        margin-top: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: $secondary-text;
+        .footer-link {
+          cursor: pointer;
+        }
+        :hover.footer-link {
+          text-decoration: underline;
+        }
+      }
+      .user-icon {
+        vertical-align: top;
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .user-icon.creator-icon {
+        margin-right: 0;
+      }
+      .action-icon {
+        margin-left: 16px;
+        margin-top: 6px;
+        cursor: pointer;
+        color: #009688;
+      }
+      .action-icon:hover {
+        color: $primary-color;
+      }
+      .badge__badge {
+        right: -14px;
+      }
+    }
+    .separator-icon {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      margin-right: 12px;
+    }
+  }
+}

@@ -24,6 +24,7 @@ module.exports = {
     ],
     sassResources: [
         path.resolve(__dirname, 'assets/style/variables.scss'),
+        path.resolve(__dirname, 'assets/style/card.scss'),
         path.resolve(__dirname, 'assets/style/layout.scss')
     ],
     loading: false,
