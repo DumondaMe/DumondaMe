@@ -46,6 +46,7 @@
   }
 
   .card-footer-feed {
+    display: flex;
     .footer-icon {
       vertical-align: top;
       display: inline-block;
@@ -68,6 +69,7 @@
         }
       }
       .footer-description.number {
+        font-weight: 700;
         cursor: pointer;
       }
       .user-icon {
