@@ -19,7 +19,7 @@
         -webkit-box-pack: justify;
         justify-content: space-between;
         height: 72px;
-        .divider {
+        .v-divider {
             align-self: center;
             margin: 0 -16px;
         }
