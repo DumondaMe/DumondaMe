@@ -12,6 +12,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
+        result.numberOfUpVotes = feedElement.numberOfUpVotes;
         result.questionId = feedElement.question.questionId;
         result.question = feedElement.question.question;
         result.questionSlug = dashify(feedElement.question.question);
@@ -45,6 +46,7 @@ const addCommitmentProperties = function (result, feedElement) {
             result.imageUrl += `?v=${feedElement.feedElement.modified}`;
         }
         result.regions = feedElement.regions;
+        result.numberOfWatches = feedElement.numberOfWatches;
     }
 };
 
@@ -87,6 +89,7 @@ const addQuestionProperties = function (result, feedElement) {
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
+        result.numberOfWatches = feedElement.numberOfWatches;
         result.numberOfAnswers = feedElement.numberOfAnswers;
     }
 };

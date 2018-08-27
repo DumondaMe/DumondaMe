@@ -31,6 +31,7 @@
             <v-icon medium v-if="action === 'upVote'" class="action-icon">
                 mdi-arrow-up-bold-circle
             </v-icon>
+            <span class="footer-description number" v-if="action === 'upVote'">{{numberOfUpVotes}}</span>
         </div>
     </div>
 </template>
@@ -39,7 +40,7 @@
     import UserMenu from './menu/User';
 
     export default {
-        props: ['creator', 'user', 'created', 'action'],
+        props: ['creator', 'user', 'created', 'action', 'numberOfUpVotes'],
         components: {UserMenu},
         computed: {
             userTitle() {

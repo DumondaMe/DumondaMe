@@ -25,6 +25,7 @@
         </div>
         <div class="footer-icon" v-if="user">
             <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
+            <span class="footer-description number" v-if="action === 'watch'">{{numberOfWatches}}</span>
 
             <v-icon medium v-if="action === 'created' && cardType === 'CommitmentAnswer'"
                     class="action-icon">
@@ -34,9 +35,11 @@
             <v-icon medium v-if="action === 'upVote'" class="action-icon">
                 mdi-arrow-up-bold-circle
             </v-icon>
+            <span class="footer-description number" v-if="action === 'upVote'">{{numberOfUpVotes}}</span>
         </div>
         <div class="footer-icon">
             <v-icon medium class="action-icon">mdi-map-marker</v-icon>
+            <span class="footer-description number">{{regions.length}}</span>
         </div>
     </div>
 </template>
@@ -45,7 +48,7 @@
     import UserMenu from './menu/User';
 
     export default {
-        props: ['user', 'creator', 'created', 'action', 'regions', 'cardType'],
+        props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'numberOfWatches'],
         components: {UserMenu},
         computed: {
             userTitle() {

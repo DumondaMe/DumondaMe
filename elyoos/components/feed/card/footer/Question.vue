@@ -25,13 +25,15 @@
         </div>
         <div class="footer-icon">
             <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
+            <span class="footer-description number" v-if="action === 'watch'">{{numberOfWatches}}</span>
         </div>
         <div class="footer-icon">
             <v-icon medium class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
             <v-icon medium class="action-icon only-few-answers" v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 4">
                 mdi-comment-alert
             </v-icon>
-            <v-icon medium class="action-icon" v-else>mdi-comment-multiple</v-icon>
+            <v-icon medium class="action-icon" v-else>mdi-comment</v-icon>
+            <span class="footer-description number">{{numberOfAnswers}}</span>
         </div>
     </div>
 </template>
@@ -40,7 +42,7 @@
     import UserMenu from './menu/User';
 
     export default {
-        props: ['creator', 'user', 'created', 'numberOfAnswers', 'action'],
+        props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'action'],
         components: {UserMenu},
         computed: {
             userTitle() {

@@ -41,7 +41,7 @@
     .secondary-text {
       font-size: 12px;
       font-weight: 300;
-      color: $secondary-text
+      color: $secondary-text;
     }
   }
 
@@ -53,12 +53,11 @@
       .footer-description {
         display: inline-block;
         vertical-align: top;
-        line-height: 28px;
-        height: 28px;
-        margin-left: 4px;
-        margin-right: 8px;
-        margin-top: 6px;
-        font-size: 12px;
+        line-height: 14px;
+        height: 14px;
+        margin: 14px 0 12px 0;
+        padding-left: 4px;
+        font-size: 14px;
         font-weight: 500;
         color: $secondary-text;
         .footer-link {
@@ -67,6 +66,9 @@
         :hover.footer-link {
           text-decoration: underline;
         }
+      }
+      .footer-description.number {
+        cursor: pointer;
       }
       .user-icon {
         vertical-align: top;

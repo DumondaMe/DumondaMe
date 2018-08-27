@@ -134,10 +134,13 @@ const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(feedElement)<-[:ANSWER]-(question:Question)`)
+        .optionalMatch(`(feedElement)<-[:UP_VOTE]-(upVote:User)`)
+        .optionalMatch(`(feedElement)<-[:WATCH]-(watch:User)`)
         .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)-[:BELONGS_TO_REGION]->(rca:Region)`)
         .unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
         .return(`DISTINCT feedElement, activityElement, creator, question, commitment, 
-                 COUNT(DISTINCT answer) AS numberOfAnswers, collect(DISTINCT region.${guiLanguage}) AS regions, 
+                 COUNT(DISTINCT answer) AS numberOfAnswers, COUNT(DISTINCT upVote) AS numberOfUpVotes, 
+                 COUNT(DISTINCT watch) AS numberOfWatches, collect(DISTINCT region.${guiLanguage}) AS regions, 
                  labels(feedElement) AS type, collect(DISTINCT rca.${guiLanguage}) AS commitmentAnswerRegions,
                  exists((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS creatorIsInTrustCircle,
                  exists((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,

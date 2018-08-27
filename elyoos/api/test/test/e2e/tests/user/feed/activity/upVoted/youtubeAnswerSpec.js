@@ -45,6 +45,7 @@ describe('Get activity feed for up voted youtube answers', function () {
 
         res.body.feed[0].type.should.equals('Youtube');
         res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].title.should.equals('youtube6Title');
         res.body.feed[0].description.should.equals('youtube6Description');

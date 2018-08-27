@@ -5,17 +5,21 @@
                 <commitment-card :answer="element"
                                  v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
                     <commitment-card-footer slot="footer" :user="element.user" :creator="element.creator"
+                                            :number-of-up-votes="element.numberOfUpVotes"
+                                            :number-of-watches="element.numberOfWatches"
                                             :created="element.created" :action="element.action"
                                             :regions="element.regions" :card-type="element.type">
                     </commitment-card-footer>
                 </commitment-card>
                 <book-card :answer="element" v-if="element.type === 'Book'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :number-of-up-votes="element.numberOfUpVotes"
                                         :created="element.created" :action="element.action">
                     </common-card-footer>
                 </book-card>
                 <text-card :answer="element" v-if="element.type === 'Text'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :number-of-up-votes="element.numberOfUpVotes"
                                         :created="element.created" :action="element.action">
                     </common-card-footer>
                 </text-card>
@@ -31,17 +35,19 @@
                 </event-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :number-of-up-votes="element.numberOfUpVotes"
                                         :created="element.created" :action="element.action">
                     </common-card-footer>
                 </link-card>
                 <youtube-card :answer="element" v-if="element.type === 'Youtube'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                                        :number-of-up-votes="element.numberOfUpVotes"
                                         :created="element.created" :action="element.action">
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'">
                     <question-card-footer slot="footer" :creator="element.creator" :user="element.user"
-                                          :created="element.created"
+                                          :created="element.created" :number-of-watches="element.numberOfWatches"
                                           :number-of-answers="element.numberOfAnswers" :action="element.action">
                     </question-card-footer>
                 </question-card>

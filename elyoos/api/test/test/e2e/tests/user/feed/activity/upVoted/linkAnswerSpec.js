@@ -46,6 +46,7 @@ describe('Get activity feed for up voted link answers', function () {
         res.body.feed[0].type.should.equals('Link');
         res.body.feed[0].pageType.should.equals('article');
         res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].title.should.equals('link6Title');
         res.body.feed[0].description.should.equals('link6Description');
