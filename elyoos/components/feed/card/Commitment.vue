@@ -1,7 +1,7 @@
 <template>
     <div class="commitment-answer-feed-card">
         <div class="feed-card-header">
-            <span class="answer-type">Engagement </span>
+            <span class="answer-type">{{$t('common:feedCard.answerType.commitment')}} </span>
                 <span v-if="answer.questionId">
                     <span class="card-header-link">
                         <nuxt-link :to="{name: 'question-questionId-slug',
@@ -10,7 +10,7 @@
                         </nuxt-link>
                     </span>
                     <span v-if="!hideQuestion">
-                    <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
+                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span class="card-header-link">
                          <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
                          </nuxt-link></span></span>

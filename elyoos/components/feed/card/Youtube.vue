@@ -2,13 +2,13 @@
     <div class="youtube-answer-feed-card">
         <div class="youtube-answer-content" ref="answerContent" :class="{'show-embed': showEmbed}">
             <div class="feed-card-header">
-                <span class="answer-type">Video </span><span class="card-header-link">
+                <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span><span class="card-header-link">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
                 </nuxt-link></span>
                 <span v-if="!hideQuestion">
-                    <span class="answer-type">beantwortet die Frage </span><span class="card-header-link">
+                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span class="card-header-link">
                 <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
                 </nuxt-link></span></span>

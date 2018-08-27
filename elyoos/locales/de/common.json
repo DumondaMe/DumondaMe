@@ -66,6 +66,33 @@
     "Link": "Link",
     "Youtube": "Youtube Video"
   },
+  "feedCard": {
+    "answersQuestion": "beantwortet die Frage",
+    "answerType": {
+      "textWithQuestion": "Antwort zur Frage",
+      "text": "Antwort",
+      "video": "Video",
+      "book": "Buch",
+      "commitment": "Engagement",
+      "link": {
+        "link": "Link",
+        "blog": "Link zum Blog",
+        "article": "Link zum Artikel",
+        "website": "Link zur Webseite"
+      }
+    },
+    "upVote": {
+      "descriptionUserHasUpVoted": "Du findest diese Antwort passend",
+      "descriptionUserHasNotUpVoted": "Ist dies eine passende Antwort?",
+      "descriptionUserIsAdmin": "Als Ersteller kannst du dieser Antwort nicht zustimmen"
+    },
+    "note": {
+      "tooltipDescription": "Anmerkungen zur Antwort"
+    },
+    "region": {
+      "tooltipDescription": "Regionen in denen das Engagment aktiv ist"
+    }
+  },
   "error": {
     "unknown": "Es ist ein Fehler aufgetreten.",
     "startDateAfterEndDate": "Start ist nach dem Ende"

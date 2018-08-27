@@ -66,6 +66,33 @@
     "Link": "Link",
     "Youtube": "Youtube Video"
   },
+  "feedCard": {
+    "answersQuestion": "answers the question",
+    "answerType": {
+      "textWithQuestion": "Answer to question",
+      "text": "Answer",
+      "video": "Video",
+      "book": "Book",
+      "commitment": "Commitment",
+      "link": {
+        "link": "Link",
+        "blog": "Link to blog",
+        "article": "Link to article",
+        "website": "Link to website"
+      }
+    },
+    "upVote": {
+      "descriptionUserHasUpVoted": "You find this answer appropriate",
+      "descriptionUserHasNotUpVoted": "Is this an appropriate answer?",
+      "descriptionUserIsAdmin": "As the creator, you cannot agree to this answer"
+    },
+    "note": {
+      "tooltipDescription": "Notes on the answer"
+    },
+    "region": {
+      "tooltipDescription": "Regions in which the commitment is active"
+    }
+  },
   "error": {
     "unknown": "An error has occurred.",
     "startDateAfterEndDate": "Start is after the end"
