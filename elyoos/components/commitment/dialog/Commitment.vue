@@ -24,11 +24,11 @@
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 100)]" :counter="100">
                         </v-text-field>
-                        <v-text-field v-model="commitment.description" multi-line auto-grow rows="1"
+                        <v-textarea v-model="commitment.description" auto-grow rows="1"
                                       :label="$t('common:description')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
-                        </v-text-field>
+                        </v-textarea>
                         <v-text-field v-model="commitment.website"
                                       :label="$t('common:website')"
                                       :rules="[isValidLink(),

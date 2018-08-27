@@ -8,13 +8,12 @@
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>
-                        <v-text-field type="text" v-model="answer" name="answer"
-                                      multi-line auto-grow rows="1"
+                        <v-textarea type="text" v-model="answer" name="answer" auto-grow rows="1"
                                       :label="$t('pages:detailQuestion.yourAnswer')"
                                       :rules="[ruleMinLength($t('validation:minLength', {length: 10}), 10),
                                                ruleToManyChars($t('validation:toManyChars'), 500)]"
                                       :counter="500">
-                        </v-text-field>
+                        </v-textarea>
                     </v-flex>
                 </v-layout>
             </v-form>

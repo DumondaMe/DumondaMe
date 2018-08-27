@@ -10,11 +10,11 @@
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 140)]" :counter="140">
                 </v-text-field>
-                <v-text-field v-model="linkData.description" multi-line rows="4"
+                <v-textarea v-model="linkData.description" rows="4"
                               :label="$t('pages:question.answerDialog.answerDescriptionLink')"
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
-                </v-text-field>
+                </v-textarea>
                 <div id="page-type-title">{{$t('pages:question.answerLinkDialog.typeOfWebsiteDescription')}}</div>
                 <v-radio-group v-model="linkData.pageType" column id="page-type-container"
                                :rules="[ruleSelectRequired($t('validation:fieldRequired'))]">

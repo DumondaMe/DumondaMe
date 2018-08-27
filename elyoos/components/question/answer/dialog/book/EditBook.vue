@@ -12,11 +12,11 @@
                     <div id="book-content" :class="{'image-missing': !book.thumbnail}">
                         <div class="book-title">{{book.title}}</div>
                         <div class="book-authors">{{book.authors}}</div>
-                        <v-text-field v-model="book.description" multi-line rows="5"
+                        <v-textarea v-model="book.description" rows="5"
                                       :label="$t('pages:question.answerDialog.answerDescriptionBook')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
-                        </v-text-field>
+                        </v-textarea>
 
                     </div>
                 </div>

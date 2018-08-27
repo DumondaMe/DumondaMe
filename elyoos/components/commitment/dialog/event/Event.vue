@@ -10,10 +10,10 @@
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                        ruleToManyChars($t('validation:toManyChars'), 100)]" :counter="100">
                 </v-text-field>
-                <v-text-field v-model="event.description" multi-line
+                <v-textarea v-model="event.description"
                               :label="$t('common:description')"
                               :rules="[ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
-                </v-text-field>
+                </v-textarea>
                 <v-text-field v-model="event.linkDescription"
                               :label="$t('pages:commitment.createEventDialog.linkDescription')"
                               :rules="[isValidLink(),

@@ -9,11 +9,11 @@
                           :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                    ruleToManyChars($t('validation:toManyChars'), 100)]" :counter="100">
             </v-text-field>
-            <v-text-field v-model="linkData.description" multi-line rows="4" ref="description"
+            <v-textarea v-model="linkData.description" rows="4" ref="description"
                           :label="$t('pages:question.answerDialog.answerDescriptionVideo')"
                           :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                    ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
-            </v-text-field>
+            </v-textarea>
         </v-flex>
     </v-layout>
 </template>

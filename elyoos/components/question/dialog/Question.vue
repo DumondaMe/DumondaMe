@@ -15,12 +15,12 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12>
-                        <v-text-field type="text" v-model="question.description" name="description" multi-line auto-grow
+                        <v-textarea type="text" v-model="question.description" name="description" auto-grow
                                       rows="1"
                                       :label="$t('common:description')"
                                       :rules="[ruleToManyChars($t('validation:toManyChars'), 700)]"
                                       :counter="700">
-                        </v-text-field>
+                        </v-textarea>
                     </v-flex>
                     <v-flex xs12>
                         <v-select v-model="question.lang" id="select-language"
