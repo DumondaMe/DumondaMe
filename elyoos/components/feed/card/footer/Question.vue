@@ -23,9 +23,9 @@
                 </div>
             </user-menu>
         </div>
-        <div class="footer-icon">
-            <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
-            <span class="footer-description number" v-if="action === 'watch'">{{numberOfWatches}}</span>
+        <div class="footer-icon" v-if="action === 'watch'">
+            <v-icon medium class="action-icon">mdi-star</v-icon>
+            <span class="footer-description number">{{numberOfWatches}}</span>
         </div>
         <div class="footer-icon">
             <v-icon medium class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
@@ -34,6 +34,10 @@
             </v-icon>
             <v-icon medium class="action-icon" v-else>mdi-comment</v-icon>
             <span class="footer-description number">{{numberOfAnswers}}</span>
+        </div>
+        <div class="footer-icon" v-if="action !== 'watch'">
+            <v-icon medium class="action-icon">mdi-star</v-icon>
+            <span class="footer-description number">{{numberOfWatches}}</span>
         </div>
     </div>
 </template>
