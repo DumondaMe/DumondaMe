@@ -3,9 +3,7 @@
         <detail-layout>
             <div slot="content">
                 <user-profile></user-profile>
-                <commitments></commitments>
-                <questions></questions>
-                <answers></answers>
+                <feed :feed="feed"></feed>
             </div>
             <div slot="sidebar">
                 <profile-image></profile-image>
@@ -21,9 +19,7 @@
     import UserProfile from '~/components/userProfile/UserProfile.vue';
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
-    import Questions from '~/components/userProfile/question/Questions.vue';
-    import Answers from '~/components/userProfile/answers/Answers.vue';
-    import Commitments from '~/components/userProfile/commitment/Commitments.vue';
+    import Feed from '~/components/userProfile/Feed.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
 
     export default {
@@ -35,8 +31,12 @@
             }
         },
         components: {
-            DetailLayout, UserProfile, ProfileImage, GeneralInformation, Questions, Answers, Commitments,
-            TrustCircle
+            DetailLayout, UserProfile, ProfileImage, GeneralInformation, Feed, TrustCircle
+        },
+        computed: {
+            feed() {
+                return this.$store.state.userProfile.user.feed
+            }
         }
     }
 </script>

@@ -11,7 +11,8 @@ let getFeedCommand = function (userId, userDetailId, page, timestamp, languages,
     page = page * PAGE_SIZE;
     return db.cypher()
         .match(`(activityElement:User {userId: {userDetailId}})-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR]->(feedElement)`)
-        .where(`feedElement.created <= {timestamp}`)
+        .where(`feedElement.created <= {timestamp} AND (feedElement:Answer OR feedElement:AnswerCommitment OR 
+                feedElement:Commitment OR feedElement:Question)`)
         .addCommand(activity.getFeedCommandString(guiLanguage, PAGE_SIZE))
         .end({userId, userDetailId, page, timestamp, topics, regions})
 };
