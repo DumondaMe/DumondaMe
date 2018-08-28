@@ -181,30 +181,6 @@ const getFeed = async function (feedElements, userId) {
     return results;
 };
 
-const getAnswersWithoutCreator = function (feedElements) {
-    let results = [];
-    for (let feedElement of feedElements) {
-        let result = {
-            type: feedElement.type.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer']
-                    .some(v => v === l))[0],
-            action: getActivity(feedElement.relActivity),
-            created: feedElement.created,
-            creator: {}
-        };
-        addDefaultAnswerProperties(result, feedElement);
-        addCommitmentAnswerProperties(result, feedElement);
-        addLinkProperties(result, feedElement);
-        addYoutubeProperties(result, feedElement);
-        addBookProperties(result, feedElement);
-        addTextProperties(result, feedElement);
-
-        results.push(result);
-    }
-    return results;
-};
-
 module.exports = {
-    getFeed,
-    getAnswersWithoutCreator
+    getFeed
 };
