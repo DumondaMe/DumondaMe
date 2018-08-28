@@ -124,13 +124,8 @@ const getStartQuery = function (trustCircle, topics, typeFilter, showInterested)
     }
 };
 
-const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage, languages, trustCircle, topics,
-                                regions, showInterested) {
-    page = page * PAGE_SIZE;
-    regions = regions || null;
-    let response = await getStartQuery(trustCircle, topics, typeFilter, showInterested)
-        .addCommand(regionFilter(regions))
-        .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
+const getFeedCommandString = function (guiLanguage, pageSize) {
+    return db.cypher().optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(feedElement)<-[:ANSWER]-(question:Question)`)
@@ -146,7 +141,16 @@ const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage
                  exists((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,
                  max(tempCreated) AS created, type(relActivity) AS relActivity`)
         .orderBy(`created DESC`)
-        .skip(`{page}`).limit(`${PAGE_SIZE}`)
+        .skip(`{page}`).limit(`${pageSize}`).getCommandString()
+};
+
+const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage, languages, trustCircle, topics,
+                                regions, showInterested) {
+    page = page * PAGE_SIZE;
+    regions = regions || null;
+    let response = await getStartQuery(trustCircle, topics, typeFilter, showInterested)
+        .addCommand(regionFilter(regions))
+        .addCommand(getFeedCommandString(guiLanguage, PAGE_SIZE))
         .end({userId, page, timestamp, topics, regions}).send();
 
     return {
@@ -155,5 +159,8 @@ const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage
 };
 
 module.exports = {
-    getFeed
+    getFeed,
+    getFeedCommandString,
+    regionFilter,
+    topicFilter
 };
