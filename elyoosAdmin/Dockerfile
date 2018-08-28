@@ -1,7 +1,7 @@
 FROM node:8.9.4
 
 ENV NODE_ENV 'production'
-ENV PORT 3000
+ENV PORT 3001
 
 RUN mkdir -p /usr/src/app/server/.nuxt
 RUN mkdir -p /usr/src/app/server/api/api
@@ -25,5 +25,5 @@ COPY originalPackage.json /usr/src/app/server/package.json
 
 USER node
 
-EXPOSE 3000
+EXPOSE 3001
 CMD [ "npm", "start" ]
