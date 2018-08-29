@@ -448,6 +448,9 @@
       "loggedInUserInfo_plural": "Du hast {{count}} Antworten zugestimmt.",
       "otherUserInfo": "Hat einer Antwort zugestimmt.",
       "otherUserInfo_plural": "Hat {{count}} Antworten zugestimmt."
+    },
+    "feed": {
+      "noResults": "Hat noch keine Aktivitäten."
     }
   },
   "settings": {

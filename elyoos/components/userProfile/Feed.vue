@@ -44,7 +44,7 @@
             </div>
         </div>
         <div v-else class="user-feed-no-content-message">
-            {{$t('pages:feeds.filter.noResults')}}
+            {{$t('pages:detailUser.feed.noResults')}}
         </div>
     </div>
 </template>

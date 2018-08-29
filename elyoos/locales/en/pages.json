@@ -449,6 +449,9 @@
       "loggedInUserInfo_plural": "You up voted {{count}} answers.",
       "otherUserInfo": "Voted for an answer.",
       "otherUserInfo_plural": "Voted for {{count}} answers."
+    },
+    "feed": {
+      "noResults": "Has no activities yet."
     }
   },
   "settings": {
