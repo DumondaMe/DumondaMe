@@ -8,7 +8,7 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field type="text" v-model="question.question" name="question"
-                                      :label="$t('pages:feeds.yourQuestion')"
+                                      :label="$t('common:question')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                                ruleToManyChars($t('validation:toManyChars'), 80)]"
                                       :counter="80">
