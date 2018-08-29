@@ -67,13 +67,13 @@
         .card-footer-feed {
             .footer-up-vote-button {
                 .not-up-voted {
-                    background-color: #607D8B;
+                    background-color: #009688;
                     i.v-icon {
                         color: white;
                     }
                 }
                 .up-voted {
-                    background-color: #009688;
+                    background-color: #607D8B;
                     i.v-icon {
                         color: white;
                     }
