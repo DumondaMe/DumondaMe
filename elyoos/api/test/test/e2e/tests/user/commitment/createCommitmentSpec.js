@@ -64,6 +64,7 @@ describe('Creating a new commitment', function () {
         res.status.should.equal(200);
         res.body.slug.should.equals('commitment-example');
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/40x40/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/460x460/title.jpg`, sinon.match.any).should.be.true;
@@ -122,6 +123,7 @@ describe('Creating a new commitment', function () {
         res.body.slug.should.equals('commitment-example');
         stubCDN.uploadBuffer.called.should.be.false;
         stubCDN.copyFile.calledWith('default/commitment/title.jpg', `commitment/${res.body.commitmentId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.copyFile.calledWith('default/commitment/40x40/title.jpg', `commitment/${res.body.commitmentId}/40x40/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/120x120/title.jpg', `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/148x148/title.jpg', `commitment/${res.body.commitmentId}/148x148/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/460x460/title.jpg', `commitment/${res.body.commitmentId}/460x460/title.jpg`, sinon.match.any).should.be.true;

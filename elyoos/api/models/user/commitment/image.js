@@ -14,10 +14,13 @@ const uploadTitleImage = async function (titlePath, answerId, resetImage) {
             .resize(148, 148).jpeg({quality: 80}).toBuffer();
         let title120x120 = await sharp(original)
             .resize(120, 120).jpeg({quality: 80}).toBuffer();
+        let title40x40 = await sharp(original)
+            .resize(40, 40).jpeg({quality: 80}).toBuffer();
         await cdn.uploadBuffer(original, `commitment/${answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title460x460, `commitment/${answerId}/460x460/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title148x148, `commitment/${answerId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title120x120, `commitment/${answerId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
+        await cdn.uploadBuffer(title40x40, `commitment/${answerId}/40x40/title.jpg`, process.env.BUCKET_PUBLIC);
         logger.info(`Uploaded title image for commitment ${answerId}`);
     } else if (resetImage) {
         await cdn.copyFile(`default/commitment/title.jpg`, `commitment/${answerId}/title.jpg`,
@@ -27,6 +30,8 @@ const uploadTitleImage = async function (titlePath, answerId, resetImage) {
         await cdn.copyFile(`default/commitment/148x148/title.jpg`, `commitment/${answerId}/148x148/title.jpg`,
             process.env.BUCKET_PUBLIC);
         await cdn.copyFile(`default/commitment/120x120/title.jpg`, `commitment/${answerId}/120x120/title.jpg`,
+            process.env.BUCKET_PUBLIC);
+        await cdn.copyFile(`default/commitment/40x40/title.jpg`, `commitment/${answerId}/40x40/title.jpg`,
             process.env.BUCKET_PUBLIC);
     }
 };
