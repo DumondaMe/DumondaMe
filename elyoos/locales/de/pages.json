@@ -374,8 +374,8 @@
   "detailUser": {
     "trustCircle": {
       "title": "Trust Circle",
-      "loggedInUserInfo": "Du hast eine Person in deinem Trust Circle.",
-      "loggedInUserInfo_plural": "Du hast {{count}} Personen in deinem Trust Circle.",
+      "loggedInUserInfo": "Du hast eine Person deinem Trust Circle hinzugefügt.",
+      "loggedInUserInfo_plural": "Du hast {{count}} Personen deinem Trust Circle hinzugefügt.",
       "otherUserInfo": "Hat eine Person im Trust Circle.",
       "otherUserInfo_plural": "Hat {{count}} Personen im Trust Circle.",
       "inYourCircle": "In deinem Trust Circle",
@@ -400,9 +400,9 @@
       "noTrustCircle": "Noch Niemand im Trust Circle",
       "trustCircle": "Eine Person im Trust Circle",
       "trustCircle_plural": "{{count}} Personen im Trust Circle",
-      "noTrustCircleOtherUser": "Noch keine Reichweite",
-      "trustCircleOtherUser": "Erreicht eine Person",
-      "trustCircleOtherUser_plural": "Reichweite von {{count}} Personen"
+      "noTrustCircleOtherUser": "Noch in keinem Trust Circle",
+      "trustCircleOtherUser": "Im Trust Circle von einer Person",
+      "trustCircleOtherUser_plural": "Im Trust Circle von {{count}} Personen"
     },
     "question": {
       "title": "Fragen"

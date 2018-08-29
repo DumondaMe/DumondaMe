@@ -59,7 +59,7 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
-            i.icon.in-circle {
+            i.v-icon.in-circle {
                 color: $success-text;
             }
         }

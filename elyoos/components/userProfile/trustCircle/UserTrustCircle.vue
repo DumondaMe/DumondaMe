@@ -1,13 +1,13 @@
 <template>
-    <div class="user-trust-circle-container">
-        <h3>{{$t("pages:detailUser.trustCircle.title")}}
-            <span class="filter-icon-container"> (
+    <div class="user-trust-circle-container ely-card">
+        <h3><span class="trust-circle-title">{{$t("pages:detailUser.trustCircle.title")}} </span>
+            <span class="filter-icon-container">
             <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showTrustCircle}"
                     @click="showTrustCircle = true">mdi-circle-outline
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showTrustCircle}"
                     @click="showTrustCircle = false">mdi-google-circles-group
-            </v-icon> )</span>
+            </v-icon></span>
         </h3>
         <div class="general-user-info" v-if="showTrustCircle">
             <span v-if="isLoggedInUser">
@@ -88,18 +88,20 @@
 
 <style lang="scss">
     .user-trust-circle-container {
-        margin-top: 48px;
+        margin-top: 24px;
         h3 {
             font-size: 16px;
-            font-weight: 400;
-            margin-top: 18px;
+            font-weight: 500;
             line-height: 24px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid $divider;
+            margin-bottom: 4px;
+            display: flex;
+            .trust-circle-title {
+                margin-right: 8px;
+            }
             .filter-icon-container {
                 display: inline-block;
-                vertical-align: middle;
-                line-height: normal;
+                vertical-align: top;
+                line-height: 24px;
                 font-size: 12px;
                 padding-bottom: 2px;
                 .filter-icon-left {
@@ -108,11 +110,12 @@
                 .filter-icon-right {
                     padding-left: 4px;
                 }
-                .filter-icon.icon {
+                .filter-icon.v-icon {
+                    padding-top: 4px;
                     font-size: 16px;
                     cursor: pointer;
                 }
-                .active-filter.filter-icon.icon {
+                .active-filter.filter-icon.v-icon {
                     color: $primary-color;
                 }
             }
@@ -120,7 +123,7 @@
         .general-user-info {
             font-size: 14px;
             color: $secondary-text;
-            margin-bottom: 12px;
+            margin-bottom: 18px;
         }
 
         button {

@@ -401,9 +401,9 @@
       "noTrustCircle": "Nobody in Trust Circle yet",
       "trustCircle": "One person in Trust Circle",
       "trustCircle_plural": "{{count}} people in Trust Circle",
-      "noTrustCircleOtherUser": "No reach yet",
-      "trustCircleOtherUser": "Reach of one person",
-      "trustCircleOtherUser_plural": "Reach of {{count}} people"
+      "noTrustCircleOtherUser": "Not in any Trust Circle yet",
+      "trustCircleOtherUser": "In Trust Circle of one person",
+      "trustCircleOtherUser_plural": "In Trust Circle of {{count}} people"
     },
     "question": {
       "title": "Questions"
