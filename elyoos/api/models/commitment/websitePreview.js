@@ -16,7 +16,7 @@ const searchDatabase = async function (link) {
         .limit(`1`).end({link}).send();
     if (result.length === 1) {
         result[0].slug = dashify(result[0].title);
-        result[0].imageUrl = cdn.getPublicUrl(`commitment/${result[0].commitmentId}/148x148/title.jpg`);
+        result[0].imageUrl = cdn.getPublicUrl(`commitment/${result[0].commitmentId}/210x210/title.jpg`);
         if(result[0].modified) {
             result[0].imageUrl = `${result[0].imageUrl}?v=${result[0].modified}`
         }

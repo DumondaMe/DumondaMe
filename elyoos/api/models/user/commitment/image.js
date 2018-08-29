@@ -10,15 +10,15 @@ const uploadTitleImage = async function (titlePath, answerId, resetImage) {
             .crop(sharp.strategy.entropy).jpeg({quality: 93}).toBuffer();
         let title460x460 = await sharp(original)
             .resize(460, 460).jpeg({quality: 80}).toBuffer();
-        let title148x148 = await sharp(original)
-            .resize(148, 148).jpeg({quality: 80}).toBuffer();
+        let title210x210 = await sharp(original)
+            .resize(210, 210).jpeg({quality: 80}).toBuffer();
         let title120x120 = await sharp(original)
             .resize(120, 120).jpeg({quality: 80}).toBuffer();
         let title40x40 = await sharp(original)
             .resize(40, 40).jpeg({quality: 80}).toBuffer();
         await cdn.uploadBuffer(original, `commitment/${answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title460x460, `commitment/${answerId}/460x460/title.jpg`, process.env.BUCKET_PUBLIC);
-        await cdn.uploadBuffer(title148x148, `commitment/${answerId}/148x148/title.jpg`, process.env.BUCKET_PUBLIC);
+        await cdn.uploadBuffer(title210x210, `commitment/${answerId}/210x210/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title120x120, `commitment/${answerId}/120x120/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title40x40, `commitment/${answerId}/40x40/title.jpg`, process.env.BUCKET_PUBLIC);
         logger.info(`Uploaded title image for commitment ${answerId}`);
@@ -27,7 +27,7 @@ const uploadTitleImage = async function (titlePath, answerId, resetImage) {
             process.env.BUCKET_PUBLIC);
         await cdn.copyFile(`default/commitment/460x460/title.jpg`, `commitment/${answerId}/460x460/title.jpg`,
             process.env.BUCKET_PUBLIC);
-        await cdn.copyFile(`default/commitment/148x148/title.jpg`, `commitment/${answerId}/148x148/title.jpg`,
+        await cdn.copyFile(`default/commitment/210x210/title.jpg`, `commitment/${answerId}/210x210/title.jpg`,
             process.env.BUCKET_PUBLIC);
         await cdn.copyFile(`default/commitment/120x120/title.jpg`, `commitment/${answerId}/120x120/title.jpg`,
             process.env.BUCKET_PUBLIC);

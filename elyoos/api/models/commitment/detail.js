@@ -48,7 +48,7 @@ const getDetail = async function (userId, commitmentId, language) {
         throw new Error('404');
     }
     let response = resp[3][0];
-    response.imageUrl = cdn.getPublicUrl(`commitment/${commitmentId}/148x148/title.jpg`, response.modified);
+    response.imageUrl = cdn.getPublicUrl(`commitment/${commitmentId}/210x210/title.jpg`, response.modified);
     response.linkedWithQuestions = getLinkedQuestionResponse(resp[0]);
     response.events = resp[1];
     response.totalNumberOfEvents = resp[2][0].numberOfEvents;

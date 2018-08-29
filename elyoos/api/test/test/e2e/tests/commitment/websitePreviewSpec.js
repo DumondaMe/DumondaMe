@@ -130,7 +130,7 @@ describe('Get a preview from the website for a commitment', function () {
         res.body.title.should.equals('titleWebsite');
         res.body.link.should.equals('https://www.example.org/');
         res.body.existingCommitment.commitmentId.should.equals('1');
-        res.body.existingCommitment.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/148x148/title.jpg?v=701`);
+        res.body.existingCommitment.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
         res.body.existingCommitment.title.should.equals('Commitment does exist');
         res.body.existingCommitment.slug.should.equals('commitment-does-exist');
         res.body.existingCommitment.description.should.equals('commitment1Description');
