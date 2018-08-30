@@ -1,24 +1,29 @@
 <template>
     <div class="link-answer-feed-card">
         <div class="feed-card-header">
-            <div v-if="!hideQuestion">
-                <span class="answer-type">{{answerType}} </span><span class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
+            <div>
+                <div v-if="!hideQuestion">
+                    <span class="answer-type">{{answerType}} </span><span class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
-                </nuxt-link></span>
-                <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
-                    class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
+                    </nuxt-link></span>
+                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                        class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                </nuxt-link></span>
+                    </nuxt-link></span>
+                </div>
+                <div v-else>
+                    <span class="answer-type">{{answerType}} </span>
+                    <span class="card-header-link"><a target="_blank" :href="answer.link"
+                                                      class="link">{{answer.title}} </a>
+                    </span>
+                </div>
+                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
-            <div v-else>
-                <span class="answer-type">{{answerType}} </span>
-                <span class="card-header-link"><a target="_blank" :href="answer.link" class="link">{{answer.title}} </a>
-                </span>
-            </div>
-            <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+            <v-spacer></v-spacer>
+            <slot name="feedMenu"></slot>
         </div>
         <div class="link-answer-content">
             <div class="link-preview-image" v-if="answer.imageUrl">

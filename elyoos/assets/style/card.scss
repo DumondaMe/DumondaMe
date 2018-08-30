@@ -23,6 +23,7 @@
   }
   .feed-card-header {
     margin-bottom: 12px;
+    display: flex;
     .answer-type {
       font-weight: 500;
       font-size: 16px;
@@ -42,6 +43,15 @@
       font-size: 12px;
       font-weight: 300;
       color: rgba(0, 0, 0, 0.54);
+    }
+    .v-menu {
+      margin-left: 8px;
+      .v-menu__activator {
+        align-items: flex-start;
+        .v-btn {
+          margin: 0;
+        }
+      }
     }
   }
 
