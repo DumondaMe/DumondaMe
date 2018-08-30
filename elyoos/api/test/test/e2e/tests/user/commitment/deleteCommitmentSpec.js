@@ -5,6 +5,7 @@ const db = require('elyoos-server-test-util').db;
 const dbDsl = require('elyoos-server-test-util').dbDSL;
 const requestHandler = require('elyoos-server-test-util').requestHandler;
 const moment = require('moment');
+const sinon = require('sinon');
 const stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Delete a commitment', function () {
@@ -40,7 +41,7 @@ describe('Delete a commitment', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/commitment', {commitmentId: '1'});
         res.status.should.equal(200);
-        stubCDN.deleteFolder.calledWith(`commitment/1/`).should.be.true;
+        stubCDN.deleteFolder.calledWith(`commitment/1/`, sinon.match.any).should.be.true;
 
 
         let resp = await db.cypher().match("(commitment:Commitment {commitmentId :'1'})")
@@ -57,7 +58,7 @@ describe('Delete a commitment', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/commitment', {commitmentId: '1'});
         res.status.should.equal(200);
-        stubCDN.deleteFolder.calledWith(`commitment/1/`).should.be.true;
+        stubCDN.deleteFolder.calledWith(`commitment/1/`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match("(commitment:Commitment {commitmentId :'1'})")
             .return(`commitment`).end().send();
@@ -73,7 +74,7 @@ describe('Delete a commitment', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/commitment', {commitmentId: '2'});
         res.status.should.equal(400);
-        stubCDN.deleteFolder.calledWith(`commitment/1/`).should.be.false;
+        stubCDN.deleteFolder.calledWith(`commitment/1/`, sinon.match.any).should.be.false;
     });
 
 
@@ -81,6 +82,6 @@ describe('Delete a commitment', function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.del('/api/user/commitment', {commitmentId: '1'});
         res.status.should.equal(401);
-        stubCDN.deleteFolder.calledWith(`commitment/1/`).should.be.false;
+        stubCDN.deleteFolder.calledWith(`commitment/1/`, sinon.match.any).should.be.false;
     });
 });

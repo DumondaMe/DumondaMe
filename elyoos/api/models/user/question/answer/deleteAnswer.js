@@ -40,9 +40,9 @@ const getAnswerType = function (answerId) {
 
 const deleteCdnFolder = async function (labels, answerId) {
     if (labels.includes('Link')) {
-        await cdn.deleteFolder(`link/${answerId}/`);
+        await cdn.deleteFolder(`link/${answerId}/`, process.env.BUCKET_PUBLIC);
     } else if (labels.includes('Book')) {
-        await cdn.deleteFolder(`book/${answerId}/`);
+        await cdn.deleteFolder(`book/${answerId}/`, process.env.BUCKET_PUBLIC);
     }
 };
 

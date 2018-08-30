@@ -13,7 +13,7 @@ const deleteCommitment = async function (userId, commitmentId) {
         .delete(`commitment, rel, event, relEvent`)
         .end({commitmentId}).send();
 
-    await cdn.deleteFolder(`commitment/${commitmentId}/`);
+    await cdn.deleteFolder(`commitment/${commitmentId}/`, process.env.BUCKET_PUBLIC);
 
     logger.info(`Admin ${userId} deleted commitment ${commitmentId}`);
 };
