@@ -4,7 +4,6 @@ const Promise = require('bluebird');
 const AWS = require('aws-sdk');
 const expiresAfterADay = 60 * 60 * 12;
 const fs = require('fs');
-const _ = require('underscore');
 const logger = require('./logging').getLogger(__filename);
 
 if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
@@ -77,31 +76,18 @@ const getPublicUrl = function (path, version) {
     return publicUrl;
 };
 
-const deleteFolder = function (folderName, bucket) {
-    return new Promise(function (resolve, reject) {
-        let params = {Bucket: bucket, Prefix: folderName};
-        s3.listObjects(params, function (err, data) {
-            if (err) {
-                return reject(err);
-            }
-            if (data.Contents.length > 0) {
-                params = {Bucket: bucket};
-                params.Delete = {};
-                params.Delete.Objects = [];
-                _.each(data.Contents, function (content) {
-                    params.Delete.Objects.push({Key: content.Key});
-                });
-                s3.deleteObjects(params, function (errDelete) {
-                    if (errDelete) {
-                        return reject(errDelete);
-                    }
-                    return resolve();
-                });
-            } else {
-                return resolve();
-            }
-        });
-    });
+const deleteFolder = async function (folderName, bucket) {
+
+    let params = {Bucket: bucket, Prefix: folderName};
+    const listedObjects = await s3.listObjectsV2(params).promise();
+
+    if (listedObjects.Contents.length > 0) {
+        const deleteParams = {Bucket: bucket, Delete: {Objects: []}};
+        for (let content of listedObjects.Contents) {
+            deleteParams.Delete.Objects.push({Key: content.Key});
+        }
+        await s3.deleteObjects(deleteParams).promise();
+    }
 };
 
 const createFolderRegisterUser = async function (userId) {
