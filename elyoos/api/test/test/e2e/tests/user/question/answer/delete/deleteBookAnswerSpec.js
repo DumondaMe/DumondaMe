@@ -1,10 +1,11 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('elyoos-server-test-util').user;
+const db = require('elyoos-server-test-util').db;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
+const requestHandler = require('elyoos-server-test-util').requestHandler;
+const stubCDN = require('elyoos-server-test-util').stubCDN();
+const moment = require('moment');
 
 describe('Delete book answer', function () {
 
@@ -13,6 +14,7 @@ describe('Delete book answer', function () {
     beforeEach(async function () {
         await dbDsl.init(3);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
+        stubCDN.deleteFolder.reset();
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
@@ -36,6 +38,7 @@ describe('Delete book answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
+        stubCDN.deleteFolder.calledWith(`book/5/`).should.be.true;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
@@ -50,6 +53,7 @@ describe('Delete book answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
+        stubCDN.deleteFolder.calledWith(`book/5/`).should.be.true;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
@@ -62,6 +66,7 @@ describe('Delete book answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});
         res.status.should.equal(400);
+        stubCDN.deleteFolder.calledWith(`book/6/`).should.be.false;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '6'})`)

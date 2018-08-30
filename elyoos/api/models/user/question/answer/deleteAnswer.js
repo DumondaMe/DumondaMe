@@ -2,6 +2,7 @@
 
 const db = requireDb();
 const security = require('./security');
+const cdn = require('elyoos-server-lib').cdn;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const deleteShowQuestionRequestNotifications = function (answerId) {
@@ -31,16 +32,31 @@ const deleteCreatedAnswerNotification = function (userId, answerId) {
         .end({userId, answerId}).getCommand();
 };
 
+const getAnswerType = function (answerId) {
+    return db.cypher().match(`(answer:Answer {answerId: {answerId}})`)
+        .return('labels(answer) AS labels, answer.answerId AS answerId')
+        .end({answerId}).getCommand();
+};
+
+const deleteCdnFolder = async function (labels, answerId) {
+    if (labels.includes('Link')) {
+        await cdn.deleteFolder(`link/${answerId}/`);
+    } else if (labels.includes('Book')) {
+        await cdn.deleteFolder(`book/${answerId}/`);
+    }
+};
+
 const deleteAnswer = async function (userId, answerId) {
     await security.isAdmin(userId, answerId);
-    await db.cypher().match(`(:Question)-[relQuestion:ANSWER]->(answer:Answer {answerId: {answerId}})
+    let result = await db.cypher().match(`(:Question)-[relQuestion:ANSWER]->(answer:Answer {answerId: {answerId}})
                               <-[relCreator:IS_CREATOR]-(:User {userId: {userId}})`)
         .optionalMatch(`(answer)-[noteRel:NOTE]->(note:Note)-[relOfNote]-()`)
         .optionalMatch(`(answer)-[additionalRel]-()`)
         .delete(`answer, relCreator, relQuestion, note, noteRel, relOfNote, additionalRel`)
         .end({answerId: answerId, userId: userId})
-        .send([deleteShowQuestionRequestNotifications(answerId), deleteShowQuestionOnCommitment(answerId),
-            deleteCreatedAnswerNotification(userId, answerId)]);
+        .send([getAnswerType(answerId), deleteShowQuestionRequestNotifications(answerId),
+            deleteShowQuestionOnCommitment(answerId), deleteCreatedAnswerNotification(userId, answerId)]);
+    await deleteCdnFolder(result[0][0].labels, result[0][0].answerId);
     logger.info(`Delete answer with id ${answerId}`)
 };
 
