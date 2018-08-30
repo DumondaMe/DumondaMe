@@ -45,7 +45,7 @@
                     this.running = true;
                     await this.$store.dispatch('commitment/deleteCommitment', this.commitmentId);
                     this.$emit('close-dialog');
-                    this.$router.push({name: 'index'});
+                    this.$router.replace({name: 'index'});
                 } catch (error) {
                     this.showError = true;
                 } finally {
