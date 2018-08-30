@@ -2,21 +2,29 @@
     <div class="youtube-answer-feed-card">
         <div class="youtube-answer-content" ref="answerContent" :class="{'show-embed': showEmbed}">
             <div class="feed-card-header">
-                <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span><span class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
-                            params: {questionId: answer.questionId, slug: answer.questionSlug},
-                            query: {answerId: answer.answerId}}"> {{answer.title}}
-                </nuxt-link></span>
-                <span v-if="!hideQuestion">
-                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
-                        params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                </nuxt-link></span></span>
+                <div v-if="!hideQuestion">
+                    <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span><span
+                        class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
+                                params: {questionId: answer.questionId, slug: answer.questionSlug},
+                                query: {answerId: answer.answerId}}"> {{answer.title}}
+                    </nuxt-link></span>
+                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                        class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
+                            params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
+                    </nuxt-link></span>
+                </div>
+                <div>
+                    <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span>
+                    <span class="card-header-link"><a target="_blank" :href="answer.link"
+                                                      class="link">{{answer.title}} </a></span>
+                </div>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <div class="youtube-embed">
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
-                        v-if="showEmbed"></iframe>
+                        allow="autoplay" v-if="showEmbed"></iframe>
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
             <div class="answer-description">
@@ -34,7 +42,7 @@
 
     export default {
         props: ['answer', 'hideQuestion'],
-        components: { ExpandText},
+        components: {ExpandText},
         data() {
             return {showEmbed: false}
         },
@@ -46,7 +54,7 @@
                 return `https://img.youtube.com/vi/${this.answer.idOnYoutube}/0.jpg`;
             },
             youtubeEmbedAutoplay() {
-                let indexList = this.answer.linkEmbed.indexOf('?list=');
+                let indexList = this.answer.linkEmbed.indexOf('embed?');
                 if (indexList !== -1) {
                     return this.answer.linkEmbed + '&autoplay=1';
                 }

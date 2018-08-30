@@ -242,6 +242,7 @@ describe('Getting details of a question', function () {
         res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].googleBookId.should.equals('1234');
         res.body.answers[4].authors.should.equals('Hans Wurst');
         res.body.answers[4].upVotes.should.equals(0);
         res.body.answers[4].isAdmin.should.equals(false);
@@ -380,6 +381,7 @@ describe('Getting details of a question', function () {
         res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].googleBookId.should.equals('1234');
         res.body.answers[4].authors.should.equals('Hans Wurst');
         res.body.answers[4].upVotes.should.equals(0);
         res.body.answers[4].isAdmin.should.equals(false);
@@ -515,6 +517,7 @@ describe('Getting details of a question', function () {
         res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
         res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].googleBookId.should.equals('1234');
         res.body.answers[4].authors.should.equals('Hans Wurst');
         res.body.answers[4].upVotes.should.equals(0);
         res.body.answers[4].isAdmin.should.equals(false);
