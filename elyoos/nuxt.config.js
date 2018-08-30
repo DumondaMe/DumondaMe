@@ -17,6 +17,11 @@ module.exports = {
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL
     },
+    router: {
+        scrollBehavior: function () {
+            return { x: 0, y: 0 }
+        }
+    },
     modules: [
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
