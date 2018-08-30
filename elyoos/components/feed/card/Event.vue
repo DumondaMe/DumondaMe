@@ -1,12 +1,14 @@
 <template>
     <div class="event-feed-card">
         <div class="feed-card-header">
-            <span class="answer-type">Veranstaltung </span><span class="card-header-link">
+            <div>
+                <span class="answer-type">Veranstaltung </span><span class="card-header-link">
                 <nuxt-link :to="{name: 'commitment-commitmentId-slug',
                         params: {commitmentId: event.commitmentId, slug: event.commitmentSlug},
                         query: {eventId: event.eventId}}">{{event.title}}
                 </nuxt-link></span>
-            <div class="secondary-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
+                <div class="secondary-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
+            </div>
         </div>
         <expand-text :expand-text="event.description" class="event-description" itemprop="text">
         </expand-text>
