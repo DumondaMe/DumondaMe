@@ -16,7 +16,7 @@
                             params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
                     </nuxt-link></span>
                     </div>
-                    <div>
+                    <div v-else>
                         <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span>
                         <span class="card-header-link"><a target="_blank" :href="answer.link"
                                                           class="link">{{answer.title}} </a></span>
