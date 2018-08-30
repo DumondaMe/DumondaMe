@@ -50,7 +50,7 @@
         },
         methods: {
             deleteQuestion() {
-                this.$router.push({name: 'index'});
+                this.$router.replace({name: 'index'});
             },
             topicsChanged(topics) {
                 this.showModifyTopicDialog = false;
