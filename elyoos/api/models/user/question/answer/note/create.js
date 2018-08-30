@@ -3,7 +3,7 @@ const time = require('elyoos-server-lib').time;
 const uuid = require('elyoos-server-lib').uuid;
 const exceptions = require('elyoos-server-lib').exceptions;
 const linkifyHtml = require('linkifyjs/html');
-const dashify = require('dashify');
+const slug = require('limax');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const createNote = async function (userId, answerId, text) {
@@ -25,7 +25,7 @@ const createNote = async function (userId, answerId, text) {
     response.creator = {
         userId,
         name: res[0].user.name,
-        slug: dashify(res[0].user.name)
+        slug: slug(res[0].user.name)
     };
     return response;
 };

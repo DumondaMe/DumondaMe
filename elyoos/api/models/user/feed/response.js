@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const cdn = require('elyoos-server-lib').cdn;
 
@@ -15,7 +15,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
         result.numberOfUpVotes = feedElement.numberOfUpVotes;
         result.questionId = feedElement.question.questionId;
         result.question = feedElement.question.question;
-        result.questionSlug = dashify(feedElement.question.question);
+        result.questionSlug = slug(feedElement.question.question);
     }
 };
 
@@ -27,7 +27,7 @@ const addCommitmentAnswerProperties = function (result, feedElement) {
             result.imageUrl += `?v=${feedElement.commitment.modified}`;
         }
         result.title = feedElement.commitment.title;
-        result.commitmentSlug = dashify(feedElement.commitment.title);
+        result.commitmentSlug = slug(feedElement.commitment.title);
         result.regions = feedElement.commitmentAnswerRegions;
     }
 };
@@ -35,7 +35,7 @@ const addCommitmentAnswerProperties = function (result, feedElement) {
 const addCommitmentProperties = function (result, feedElement) {
     if (result.type === 'Commitment') {
         result.commitmentId = feedElement.feedElement.commitmentId;
-        result.commitmentSlug = dashify(feedElement.feedElement.title);
+        result.commitmentSlug = slug(feedElement.feedElement.title);
         result.title = feedElement.feedElement.title;
         result.description = feedElement.feedElement.description;
         if (result.description) {
@@ -84,7 +84,7 @@ const addQuestionProperties = function (result, feedElement) {
     if (result.type === 'Question') {
         result.questionId = feedElement.feedElement.questionId;
         result.question = feedElement.feedElement.question;
-        result.questionSlug = dashify(feedElement.feedElement.question);
+        result.questionSlug = slug(feedElement.feedElement.question);
         result.description = feedElement.feedElement.description;
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
@@ -97,7 +97,7 @@ const addQuestionProperties = function (result, feedElement) {
 const addEventProperties = function (result, feedElement) {
     if (result.type === 'Event') {
         result.commitmentId = feedElement.activityElement.commitmentId;
-        result.commitmentSlug = dashify(feedElement.activityElement.title);
+        result.commitmentSlug = slug(feedElement.activityElement.title);
         result.commitmentTitle = feedElement.activityElement.title;
         result.commitmentDescription = feedElement.activityElement.description;
         result.commitmentImageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/40x40/title.jpg`);
@@ -133,7 +133,7 @@ const getUserResponse = async function (user, userId, isTrustUser) {
         isLoggedInUser: user.userId === userId,
         isTrustUser: isTrustUser,
         name: user.name,
-        slug: dashify(user.name),
+        slug: slug(user.name),
         userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
         userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`)
     }

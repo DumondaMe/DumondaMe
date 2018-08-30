@@ -36,7 +36,7 @@ describe('Notification when question of user has new watches', function () {
         res.body.notifications[0].type.should.equals('watchingQuestion');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].numberOfUsers.should.equals(2);
         res.body.notifications[0].users.length.should.equals(2);
         res.body.notifications[0].users[0].userId.should.equals('4');

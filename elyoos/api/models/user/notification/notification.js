@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const cdn = require('elyoos-server-lib').cdn;
 const db = requireDb();
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -14,10 +14,10 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
         type: notification.notification.type,
         commitmentId: commitment.commitmentId,
         commitmentTitle: commitment.title,
-        commitmentSlug: dashify(commitment.title),
+        commitmentSlug: slug(commitment.title),
         questionId: question.questionId,
         question: question.question,
-        questionSlug: dashify(question.question),
+        questionSlug: slug(question.question),
     }
 };
 
@@ -29,7 +29,7 @@ const getNotificationWithOriginators = async function (notification) {
         users.push({
             userId: user.userId,
             name: user.name,
-            slug: dashify(user.name),
+            slug: slug(user.name),
             added: created,
             thumbnailUrl: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
         });
@@ -47,7 +47,7 @@ const addWatchingCommitmentProperties = function (notificationResponse, notifica
     if (notificationResponse.type === 'watchingCommitment' && notification.infos.length === 1) {
         notificationResponse.commitmentId = notification.infos[0].info.commitmentId;
         notificationResponse.commitmentTitle = notification.infos[0].info.title;
-        notificationResponse.commitmentSlug = dashify(notification.infos[0].info.title);
+        notificationResponse.commitmentSlug = slug(notification.infos[0].info.title);
     }
 };
 
@@ -55,7 +55,7 @@ const addWatchingQuestionProperties = function (notificationResponse, notificati
     if (notificationResponse.type === 'watchingQuestion' && notification.infos.length === 1) {
         notificationResponse.questionId = notification.infos[0].info.questionId;
         notificationResponse.questionTitle = notification.infos[0].info.question;
-        notificationResponse.questionSlug = dashify(notification.infos[0].info.question);
+        notificationResponse.questionSlug = slug(notification.infos[0].info.question);
     }
 };
 
@@ -65,7 +65,7 @@ const addCreatedAnswerProperties = function (notificationResponse, notification)
         let question = notification.infos.find((info) => typeof info.info.questionId === 'string').info;
         notificationResponse.questionId = question.questionId;
         notificationResponse.questionTitle = question.question;
-        notificationResponse.questionSlug = dashify(question.question);
+        notificationResponse.questionSlug = slug(question.question);
         notificationResponse.answerId = answer.info.answerId;
         notificationResponse.answerType = answer.type.filter(
             (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];

@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const db = requireDb();
 const security = require('./security');
 
@@ -33,7 +33,7 @@ const showQuestion = async function (userId, commitmentId, questionId, showQuest
     let resp = await removeNotification(userId, commitmentId, questionId).send(commands);
     if (showQuestion && resp[0].length === 1) {
         let question = resp[0][0];
-        question.slug = dashify(question.question);
+        question.slug = slug(question.question);
         return question;
     }
     return {};

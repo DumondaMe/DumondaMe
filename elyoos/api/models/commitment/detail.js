@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const db = requireDb();
 const events = require('./events');
 const cdn = require('elyoos-server-lib').cdn;
@@ -13,7 +13,7 @@ const getLinkedQuestionResponse = function (questions) {
             questionId: question.question.questionId,
             question: question.question.question,
             description: question.question.description,
-            slug: dashify(question.question.question),
+            slug: slug(question.question.question),
             upVotes: question.upVotes
         })
     }

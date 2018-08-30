@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const cdn = require('elyoos-server-lib').cdn;
 const time = require('elyoos-server-lib').time;
@@ -12,7 +12,7 @@ const WEEK = 604800;
 
 const getFeedResponse = async function (commitments) {
     for (let commitment of commitments) {
-        commitment.commitmentSlug = dashify(commitment.title);
+        commitment.commitmentSlug = slug(commitment.title);
         commitment.imageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/460x460/title.jpg`);
         if (commitment.modified) {
             commitment.imageUrl = commitment.imageUrl + `?v=${commitment.modified}`
@@ -23,7 +23,7 @@ const getFeedResponse = async function (commitments) {
         commitment.user = {
             userId: commitment.creator.userId,
             name: commitment.creator.name,
-            slug: dashify(commitment.creator.name),
+            slug: slug(commitment.creator.name),
             userImage: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/thumbnail.jpg`),
             userImagePreview: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/profilePreview.jpg`),
             isLoggedInUser: commitment.isLoggedInUser,

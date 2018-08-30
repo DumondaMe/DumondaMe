@@ -23,7 +23,7 @@ describe('Getting details of a question', function () {
         dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
 
         dbDsl.createCommitment('2', {
-            title: 'Das ist ein Engagement',
+            title: 'Das ist ein Engagement ♥',
             regions: ['region-1', 'region-2'],
             adminId: '2',
             topics: ['topic1', 'topic2'],
@@ -261,8 +261,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
-        res.body.answers[5].title.should.equals('Das ist ein Engagement');
-        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
+        res.body.answers[5].title.should.equals('Das ist ein Engagement ♥');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement-love');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
@@ -395,8 +395,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
-        res.body.answers[5].title.should.equals('Das ist ein Engagement');
-        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
+        res.body.answers[5].title.should.equals('Das ist ein Engagement ♥');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement-love');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
@@ -535,8 +535,8 @@ describe('Getting details of a question', function () {
         res.body.answers[5].commitmentId.should.equals('2');
         res.body.answers[5].answerType.should.equals('Commitment');
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
-        res.body.answers[5].title.should.equals('Das ist ein Engagement');
-        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement');
+        res.body.answers[5].title.should.equals('Das ist ein Engagement ♥');
+        res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement-love');
         res.body.answers[5].description.should.equals('test');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);

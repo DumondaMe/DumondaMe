@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const topicsSecurity = require('./../../topic/security');
 const db = requireDb();
@@ -24,7 +24,7 @@ const createQuestion = async function (userId, params) {
         .merge(`(topic)-[:TOPIC]->(question)`)
         .end(params).send();
     logger.info(`Created question with id ${params.questionId}`);
-    let response = {questionId: params.questionId, slug: dashify(params.question)};
+    let response = {questionId: params.questionId, slug: slug(params.question)};
     if(params.description) {
         response.descriptionHtml = linkifyHtml(params.description);
     }

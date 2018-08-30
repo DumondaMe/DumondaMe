@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const db = requireDb();
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
@@ -66,7 +66,7 @@ const createCommitmentAnswer = async function (userId, params) {
     return {
         answerId: params.answerId,
         created: params.created,
-        slug: dashify(commitment[0][0].commitmentTitle),
+        slug: slug(commitment[0][0].commitmentTitle),
         imageUrl: cdn.getPublicUrl(`commitment/${params.commitmentId}/460x460/title.jpg`),
         regions: commitment[0][0].regions,
         creator: {

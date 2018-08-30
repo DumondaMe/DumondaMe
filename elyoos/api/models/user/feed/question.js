@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const cdn = require('elyoos-server-lib').cdn;
 const time = require('elyoos-server-lib').time;
@@ -12,14 +12,14 @@ const WEEK = 604800;
 
 const getFeedResponse = async function (questions) {
     for (let question of questions) {
-        question.questionSlug = dashify(question.question);
+        question.questionSlug = slug(question.question);
         if (question.description) {
             question.descriptionHtml = linkifyHtml(question.description);
         }
         question.user = {
             userId: question.creator.userId,
             name: question.creator.name,
-            slug: dashify(question.creator.name),
+            slug: slug(question.creator.name),
             userImage: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/thumbnail.jpg`),
             userImagePreview: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/profilePreview.jpg`),
             isLoggedInUser: question.isLoggedInUser,

@@ -1,14 +1,14 @@
 'use strict';
 
 const db = requireDb();
-const dashify = require('dashify');
+const slug = require('limax');
 const time = require('elyoos-server-lib').time;
 
 const FOUR_WEEKS = 2419200;
 
 const addQuestionSlug = function (popularQuestions) {
     for (let popularQuestion of popularQuestions) {
-        popularQuestion.questionSlug = dashify(popularQuestion.question);
+        popularQuestion.questionSlug = slug(popularQuestion.question);
     }
     return popularQuestions;
 };

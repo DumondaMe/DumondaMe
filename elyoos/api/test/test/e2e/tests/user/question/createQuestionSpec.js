@@ -33,7 +33,7 @@ describe('Creating a new question', function () {
             lang: 'de'
         });
         res.status.should.equal(200);
-        res.body.slug.should.equals('das-ist-eine-fragööääüü');
+        res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.descriptionHtml.should.equals('description');
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -59,7 +59,7 @@ describe('Creating a new question', function () {
             lang: 'de'
         });
         res.status.should.equal(200);
-        res.body.slug.should.equals('das-ist-eine-fragööääüü');
+        res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -82,7 +82,7 @@ describe('Creating a new question', function () {
             question: 'Das ist eine FragöÖÄäÜü', topics: ['topic1', 'topic2'], lang: 'de'
         });
         res.status.should.equal(200);
-        res.body.slug.should.equals('das-ist-eine-fragööääüü');
+        res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         should.not.exist(res.body.descriptionHtml);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
@@ -107,7 +107,7 @@ describe('Creating a new question', function () {
             topics: ['topic1', 'topic2'], lang: 'de'
         });
         res.status.should.equal(200);
-        res.body.slug.should.equals('das-ist-eine-fragööääüü');
+        res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")

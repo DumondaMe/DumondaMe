@@ -1,6 +1,6 @@
 'use strict';
 
-const dashify = require('dashify');
+const slug = require('limax');
 const db = requireDb();
 const image = require(`./image`);
 const security = require('./security');
@@ -23,7 +23,7 @@ const editCommitment = async function (userId, params, titlePath) {
     await image.uploadTitleImage(titlePath, params.commitmentId, params.resetImage);
     logger.info(`Updated commitment ${params.commitmentId}`);
 
-    return {slug: dashify(params.title)};
+    return {slug: slug(params.title)};
 };
 
 module.exports = {

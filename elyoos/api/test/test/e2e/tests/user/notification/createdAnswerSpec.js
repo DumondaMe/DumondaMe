@@ -38,7 +38,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].answerType.should.equals('Book');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].answerId.should.equals('5');
         res.body.notifications[0].answerTitle.should.equals('book5Title');
         res.body.notifications[0].users.length.should.equals(1);
@@ -71,7 +71,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].answerType.should.equals('CommitmentAnswer');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].answerId.should.equals('5');
         res.body.notifications[0].answerTitle.should.equals('Das ist ein Engagement');
         res.body.notifications[0].users.length.should.equals(1);
@@ -99,7 +99,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].answerType.should.equals('Link');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].answerId.should.equals('5');
         res.body.notifications[0].answerTitle.should.equals('link5Title');
         res.body.notifications[0].users.length.should.equals(1);
@@ -125,7 +125,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].answerType.should.equals('Text');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].answerId.should.equals('5');
         res.body.notifications[0].answerTitle.should.equals('Answer');
         res.body.notifications[0].users.length.should.equals(1);
@@ -154,7 +154,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].answerType.should.equals('Youtube');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
-        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragööääüü');
+        res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');
         res.body.notifications[0].answerId.should.equals('5');
         res.body.notifications[0].answerTitle.should.equals('youtube5Title');
         res.body.notifications[0].users.length.should.equals(1);

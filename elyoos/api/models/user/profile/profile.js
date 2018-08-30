@@ -4,7 +4,7 @@
 'use strict';
 
 const db = requireDb();
-const dashify = require('dashify');
+const slug = require('limax');
 const cdn = require('elyoos-server-lib').cdn;
 const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
@@ -20,7 +20,7 @@ let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
 
 let addSlugToPeople = function (peopleOfTrust) {
     for (let person of peopleOfTrust) {
-        person.slug = dashify(person.name);
+        person.slug = slug(person.name);
     }
 };
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const dashify = require('dashify');
+const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 
 const PAGE_SIZE = 20;
@@ -20,7 +20,7 @@ const getNotesResponse = function (notes) {
             creator: {
                 userId: note.creator.userId,
                 name: note.creator.name,
-                slug: dashify(note.creator.name)
+                slug: slug(note.creator.name)
             }
         })
     }
