@@ -129,6 +129,14 @@
         "text2": "Alice, for example, is interested in the question 'How can zero waste be implemented in everyday life?'. In answer to this question, Bob captured a Zero Waste store near where Alice lives. She now knows where she can shop in order to use less packaging material."
       }
     },
+    "createContribution": {
+      "button": "Create a Post"
+    },
+    "support": {
+      "title": "Support us",
+      "description": "Elyoos is still in its very beginning. Find out here how you can support us.",
+      "moreLink": "Learn more..."
+    },
     "menu": {
       "creatorAnswer": {
         "title": "created this answer",

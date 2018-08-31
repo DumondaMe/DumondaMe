@@ -1,7 +1,8 @@
 <template>
     <feed-layout>
         <div slot="sidebar">
-            <feed-create-question></feed-create-question>
+            <feed-create-contribution></feed-create-contribution>
+            <feed-support></feed-support>
             <feed-popular-question></feed-popular-question>
         </div>
         <div slot="content">
@@ -23,7 +24,8 @@
     import FeedLayout from '~/components/layouts/Feed';
     import FeedFilter from '~/components/feed/filter/Filter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
-    import FeedCreateQuestion from '~/components/feed/CreateQuestion';
+    import FeedCreateContribution from '~/components/feed/CreateContribution';
+    import FeedSupport from '~/components/feed/Support';
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
 
@@ -38,7 +40,10 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateQuestion, Cards, FeedEmpty},
+        components: {
+            FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport, Cards,
+            FeedEmpty
+        },
         head() {
             return {
                 htmlAttrs: {

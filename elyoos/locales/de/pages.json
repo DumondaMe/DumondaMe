@@ -129,6 +129,14 @@
         "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen."
       }
     },
+    "createContribution": {
+      "button": "Beitrag erstellen"
+    },
+    "support": {
+      "title": "Unterstütze uns",
+      "description": "Elyoos steht noch ganz am Anfang. Erfahre hier wie wie du uns Unterstützen kannst.",
+      "moreLink": "Mehr erfahren..."
+    },
     "menu": {
       "creatorAnswer": {
         "title": "hat diese Antwort erstellt",

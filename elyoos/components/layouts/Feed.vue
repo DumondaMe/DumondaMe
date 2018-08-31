@@ -13,7 +13,7 @@
     #feed-layout {
         #feed-sidebar {
             float: left;
-            width: 280px;
+            width: 340px;
             @media screen and (max-width: $sm) {
                 display: none;
             }
