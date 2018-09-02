@@ -152,7 +152,8 @@
       },
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
-        "titleIsLoggedInUser": "hast dieser Antwort zugestimmt"
+        "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
+        "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt"
       },
       "userInterestedInQuestion": {
         "title": "findet diese Frage interessant",

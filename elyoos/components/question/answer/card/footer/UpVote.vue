@@ -7,14 +7,14 @@
                        :disabled="isAdmin || upVoteRunning" @click="upVote()">
                     <v-icon>mdi-thumb-up-outline</v-icon>
                 </v-btn>
-                <span>{{$t("common:feedCard.upVote.descriptionUserHasNotUpVoted")}}</span>
+                <span>{{$t("common:feedCard.upVote.userHasNotUpVoted")}}</span>
             </v-tooltip>
             <v-tooltip bottom v-else>
                 <v-btn slot="activator" fab small color="up-voted" :disabled="isAdmin || upVoteRunning"
                        @click="downVote()">
                     <v-icon>mdi-thumb-up</v-icon>
                 </v-btn>
-                <span>{{$t("common:feedCard.upVote.descriptionUserHasUpVoted")}}</span>
+                <span>{{$t("common:feedCard.upVote.userHasUpVoted")}}</span>
             </v-tooltip>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">

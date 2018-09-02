@@ -25,6 +25,20 @@ export const mutations = {
     },
     SET_LOADING(state, loading) {
         state.loading = loading;
+    },
+    UP_VOTE_ANSWER(state, answerId) {
+        let upVoteAnswer = state.feed.find((element) => element.answerId === answerId);
+        upVoteAnswer.numberOfUpVotes++;
+    },
+    DOWN_VOTE_ANSWER(state, answerId) {
+        let downVoteAnswer = state.feed.find((answer) => answer.answerId === answerId);
+        downVoteAnswer.numberOfUpVotes--;
+    },
+    REMOVE_ANSWER(state, answerId) {
+        let answerToRemove = state.feed.findIndex((answer) => answer.answerId === answerId);
+        if (answerToRemove > -1) {
+            state.feed.splice(answerToRemove, 1);
+        }
     }
 };
 

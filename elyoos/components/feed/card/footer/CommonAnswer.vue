@@ -28,20 +28,27 @@
                 mdi-comment-plus
             </v-icon>
 
-            <v-icon medium v-if="action === 'upVote'" class="action-icon">
-                mdi-thumb-up
-            </v-icon>
-            <span class="footer-description number" v-if="action === 'upVote'">{{numberOfUpVotes}}</span>
+            <up-vote-menu v-if="action === 'upVote'" :user-name="user.name" :user-id="user.userId" :answer-id="answerId"
+                          :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser" :is-admin="false"
+                          :up-voted-by-user="true" @up-voted="(answerId) => $emit('up-voted', answerId)"
+                          @down-voted="(answerId) => $emit('down-voted', answerId)"
+                          @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
+                <div slot="icon">
+                    <v-icon medium class="action-icon">mdi-thumb-up</v-icon>
+                    <span class="footer-description number">{{numberOfUpVotes}}</span>
+                </div>
+            </up-vote-menu>
         </div>
     </div>
 </template>
 
 <script>
     import UserMenu from './menu/User';
+    import UpVoteMenu from './menu/UpVote';
 
     export default {
-        props: ['creator', 'user', 'created', 'action', 'numberOfUpVotes'],
-        components: {UserMenu},
+        props: ['creator', 'user', 'action', 'numberOfUpVotes', 'answerId'],
+        components: {UserMenu, UpVoteMenu},
         computed: {
             userTitle() {
                 if (this.action === 'created') {

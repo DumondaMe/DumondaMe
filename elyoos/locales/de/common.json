@@ -53,6 +53,7 @@
     "changeImage": "Bild Ändern",
     "upload": "Hochladen",
     "uploadImage": "Bild Hochladen",
+    "upVote": "Up Vote",
     "interested": "Interessiert",
     "login": "Anmelden",
     "readNotification": "Benachrichtigung Gelesen"
@@ -83,9 +84,11 @@
       }
     },
     "upVote": {
-      "descriptionUserHasUpVoted": "Du findest diese Antwort passend",
-      "descriptionUserHasNotUpVoted": "Ist dies eine passende Antwort?",
-      "descriptionUserIsAdmin": "Als Ersteller kannst du dieser Antwort nicht zustimmen"
+      "userHasUpVoted": "Du findest diese Antwort passend",
+      "userHasNotUpVoted": "Ist dies eine passende Antwort?",
+      "removeUpVote": "Der Antwort nicht mehr zustimmen",
+      "addUpVote": "Der Antwort zustimmen",
+      "userIsAdmin": "Als Ersteller kannst du dieser Antwort nicht zustimmen"
     },
     "note": {
       "menuDescription": "Anmerkungen zur Antwort",

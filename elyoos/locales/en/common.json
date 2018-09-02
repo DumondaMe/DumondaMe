@@ -53,6 +53,7 @@
     "changeImage": "Change Image",
     "upload": "Upload",
     "uploadImage": "Upload Image",
+    "upVote": "Up Vote",
     "interested": "Interested",
     "login": "Login",
     "readNotification": "Notification Read"
@@ -83,9 +84,11 @@
       }
     },
     "upVote": {
-      "descriptionUserHasUpVoted": "You find this answer appropriate",
-      "descriptionUserHasNotUpVoted": "Is this an appropriate answer?",
-      "descriptionUserIsAdmin": "As the creator, you cannot agree to this answer"
+      "userHasUpVoted": "You find this answer appropriate",
+      "userHasNotUpVoted": "Is this an appropriate answer?",
+      "removeUpVote": "No longer up vote the answer",
+      "addUpVote": "Up vote the answer",
+      "userIsAdmin": "As the creator, you cannot agree to this answer"
     },
     "note": {
       "menuDescription": "Notes on the answer",
