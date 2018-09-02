@@ -17,7 +17,8 @@
             </v-menu>
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
                            :has-voted="answer.hasVoted" :is-admin="answer.isAdmin" :answer-id="answer.answerId"
-                           :number-of-notes="answer.numberOfNotes">
+                           :number-of-notes="answer.numberOfNotes" :answer-title="answer.title"
+                           :notes="answer.notes">
             </answer-footer>
         </book-card>
         <edit-book-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"

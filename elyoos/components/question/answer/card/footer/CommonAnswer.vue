@@ -1,43 +1,45 @@
 <template>
-    <div class="card-footer-feed">
-        <div class="footer-icon">
-            <user-menu :menu-title="creatorTitle" :user-image="creator.userImagePreview"
-                       :user-name="creator.name" :user-id="creator.userId" :user-slug="creator.slug"
-                       :is-trust-user="creator.isTrustUser" :is-logged-in-user="creator.isLoggedInUser">
-                <div class="user-icon creator-icon" slot="icon">
-                    <img :src="creator.userImage">
-                </div>
-            </user-menu>
+    <div>
+        <div class="card-footer-feed card-common-answer-footer">
+            <div class="footer-icon common-answer-footer-user-icon">
+                <user-menu :menu-title="creatorTitle" :user-image="creator.userImagePreview"
+                           :user-name="creator.name" :user-id="creator.userId" :user-slug="creator.slug"
+                           :is-trust-user="creator.isTrustUser" :is-logged-in-user="creator.isLoggedInUser">
+                    <div class="user-icon creator-icon" slot="icon">
+                        <img :src="creator.userImage">
+                    </div>
+                </user-menu>
+            </div>
+            <div class="footer-icon">
+                <note-menu :title="answerTitle" :number-of-notes="numberOfNotes" :answer-id="answerId" :notes="notes">
+                    <div slot="icon">
+                        <v-icon medium class="action-icon">
+                            mdi-note
+                        </v-icon>
+                        <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
+                    </div>
+                </note-menu>
+            </div>
+            <v-spacer></v-spacer>
+            <up-vote-button :number-of-up-votes="numberOfUpVotes" :has-voted="hasVoted"
+                            :is-admin="isAdmin" :answer-id="answerId">
+            </up-vote-button>
         </div>
-        <div class="footer-icon">
-            <v-tooltip bottom>
-                <div slot="activator">
-                    <v-icon medium class="action-icon">
-                        mdi-message-reply-text
-                    </v-icon>
-                    <span class="footer-description number">{{numberOfNotes}}</span>
-                </div>
-                <span>{{$t("common:feedCard.note.tooltipDescription")}}</span>
-            </v-tooltip>
-        </div>
-        <v-spacer></v-spacer>
-        <up-vote-button :number-of-up-votes="numberOfUpVotes" :has-voted="hasVoted"
-                        :is-admin="isAdmin" :answer-id="answerId">
-        </up-vote-button>
     </div>
 </template>
 
 <script>
     import UserMenu from '~/components/feed/card/footer/menu/User';
+    import NoteMenu from './menu/NoteMenu';
     import UpVoteButton from './UpVote';
 
     export default {
-        props: ['creator', 'numberOfNotes', 'numberOfUpVotes', 'hasVoted', 'isAdmin', 'answerId'],
-        components: {UserMenu, UpVoteButton},
+        props: ['creator', 'numberOfNotes', 'numberOfUpVotes', 'hasVoted', 'isAdmin', 'answerId', 'answerTitle',
+            'notes'],
+        components: {NoteMenu, UserMenu, UpVoteButton},
         data() {
             return {
-                showLoginRequired: false, showCreateNoteDialog: false, showNotes: false, upVoteRunning: false,
-                sortNotes: null, showError: false
+                showLoginRequired: false, showNoteDialog: false, upVoteRunning: false, showError: false
             }
         },
         computed: {
@@ -71,5 +73,9 @@
 </script>
 
 <style lang="scss">
-
+    .card-common-answer-footer {
+        .footer-icon.common-answer-footer-user-icon {
+            margin-right: 12px;
+        }
+    }
 </style>

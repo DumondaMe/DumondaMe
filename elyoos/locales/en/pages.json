@@ -274,6 +274,7 @@
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "commitmentNotFound": "No commitment was found for the search '{{search}}'.",
     "note": {
+      "title": "Note for answer '{{answer}}'",
       "numberOfNotes": "{{count}} Note",
       "numberOfNotes_plural": "{{count}} Notes",
       "sort": {

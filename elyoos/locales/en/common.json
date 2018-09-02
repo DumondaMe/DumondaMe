@@ -42,6 +42,7 @@
     "next": "Next",
     "showMore": "Show More",
     "create": "Create",
+    "createNote": "Create Note",
     "askQuestion": "Ask Question",
     "answer": "Answer",
     "filter": "Filters",
@@ -87,7 +88,8 @@
       "descriptionUserIsAdmin": "As the creator, you cannot agree to this answer"
     },
     "note": {
-      "tooltipDescription": "Notes on the answer"
+      "menuDescription": "Notes on the answer",
+      "noAnswerNote": "No notes have yet been made on this answer. Notes supplement the answer with further information that may be helpful for other users."
     },
     "region": {
       "tooltipDescription": "Regions in which the commitment is active"

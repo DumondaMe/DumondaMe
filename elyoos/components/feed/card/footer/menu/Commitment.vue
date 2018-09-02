@@ -4,7 +4,7 @@
         <v-card class="ely-menu-container">
             <div class="menu-title"><span class="primary-title">{{commitment}}</span> {{menuTitle}}
             </div>
-            <div class="menu-content">
+            <div class="menu-content menu-commitment-content">
                 <div class="commitment-image">
                     <img :src="commitmentImage" @click="goToCommitment()">
                 </div>
@@ -40,7 +40,7 @@
 
 <style lang="scss">
     .ely-menu-container {
-        .menu-content {
+        .menu-commitment-content {
             display: flex;
             .commitment-image {
                 position: relative;

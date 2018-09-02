@@ -42,6 +42,7 @@
     "next": "Weiter",
     "showMore": "Mehr Anzeigen",
     "create": "Erstellen",
+    "createNote": "Anmerkung Erstellen",
     "askQuestion": "Frage stellen",
     "answer": "Beantworten",
     "filter": "Filter",
@@ -87,7 +88,8 @@
       "descriptionUserIsAdmin": "Als Ersteller kannst du dieser Antwort nicht zustimmen"
     },
     "note": {
-      "tooltipDescription": "Anmerkungen zur Antwort"
+      "menuDescription": "Anmerkungen zur Antwort",
+      "noAnswerNote": "Zu dieser Antwort wurden noch keine Anmerkungen erfasst. Anmerkungen ergänzen die Antwort mit weiteren Informationen, welche für andere Benutzer_innen hilfreich sein können."
     },
     "region": {
       "tooltipDescription": "Regionen in denen das Engagment aktiv ist"

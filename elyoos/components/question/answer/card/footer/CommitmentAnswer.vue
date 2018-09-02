@@ -1,6 +1,6 @@
 <template>
-    <div class="card-footer-feed">
-        <div class="footer-icon">
+    <div class="card-footer-feed card-commitment-answer-footer">
+        <div class="footer-icon common-answer-footer-user-icon">
             <user-menu :menu-title="creatorTitle" :user-image="creator.userImagePreview"
                        :user-name="creator.name" :user-id="creator.userId" :user-slug="creator.slug"
                        :is-trust-user="creator.isTrustUser" :is-logged-in-user="creator.isLoggedInUser">
@@ -47,5 +47,9 @@
 </script>
 
 <style lang="scss">
-
+    .card-commitment-answer-footer {
+        .footer-icon.common-answer-footer-user-icon {
+            margin-right: 12px;
+        }
+    }
 </style>

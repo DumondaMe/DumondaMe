@@ -3,7 +3,7 @@
         <div slot="sidebar">
             <feed-create-contribution></feed-create-contribution>
             <feed-support></feed-support>
-            <feed-popular-question></feed-popular-question>
+            <!--<feed-popular-question></feed-popular-question>-->
         </div>
         <div slot="content">
             <feed-filter>

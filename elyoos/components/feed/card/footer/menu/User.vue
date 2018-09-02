@@ -5,7 +5,7 @@
             <div class="menu-title"><span class="primary-title" v-if="!isLoggedInUser">{{userName}}</span>
                 <span class="primary-title" v-else>{{$t('common:you')}}</span> {{menuTitle}}
             </div>
-            <div class="menu-content">
+            <div class="menu-content menu-user-content">
                 <div class="user-image">
                     <v-tooltip bottom debounce="300" class="trust-circle-icon" v-if="isTrustUser">
                         <v-icon slot="activator">mdi-account-circle</v-icon>
@@ -62,7 +62,7 @@
 
 <style lang="scss">
     .ely-menu-container {
-        .menu-content {
+        .menu-user-content {
             display: flex;
             .user-image {
                 position: relative;

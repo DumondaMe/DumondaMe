@@ -4,6 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text>
+            <slot name="description"></slot>
             <v-form v-model="valid">
                 <v-text-field type="text" v-model="noteText" name="note"
                               :label="$t('pages:detailQuestion.note.createNoteDialog.text')"
@@ -46,6 +47,8 @@
 
 <style lang="scss">
     #note-container {
-
+        .note-description {
+            margin-bottom: 12px;
+        }
     }
 </style>

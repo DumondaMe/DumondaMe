@@ -279,6 +279,7 @@
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {
+      "title": "Anmerkungen zur Antwort '{{answer}}'",
       "numberOfNotes": "{{count}} Anmerkung",
       "numberOfNotes_plural": "{{count}} Anmerkungen",
       "sort": {
