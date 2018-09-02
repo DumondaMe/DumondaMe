@@ -12,6 +12,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
         if (result.description) {
             result.descriptionHtml = linkifyHtml(result.description);
         }
+        result.isUpVotedByUser = feedElement.isUpVotedByUser;
         result.numberOfUpVotes = feedElement.numberOfUpVotes;
         result.questionId = feedElement.question.questionId;
         result.question = feedElement.question.question;
