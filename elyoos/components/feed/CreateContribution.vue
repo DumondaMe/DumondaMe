@@ -1,16 +1,16 @@
 <template>
     <div class="feed-create-question-container">
-        <v-menu bottom>
+        <v-menu bottom offset-y>
             <v-btn color="primary" slot="activator">
                 {{$t('pages:feeds.createContribution.button')}}
                 <v-icon right>mdi-menu-down</v-icon>
             </v-btn>
             <v-list>
                 <v-list-tile @click="openCreateDialog('showCreateQuestionDialog')">
-                    <v-list-tile-title>{{$t('common:button.askQuestion')}}</v-list-tile-title>
+                    <v-list-tile-title>{{$t('common:question')}}</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="openCreateDialog('showCreateCommitmentDialog')">
-                    <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
+                    <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
                 </v-list-tile>
             </v-list>
         </v-menu>
