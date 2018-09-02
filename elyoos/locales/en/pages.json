@@ -152,6 +152,7 @@
       },
       "userUpVote": {
         "title": "has up voted this answer",
+        "titleTwoNames": "have up voted this answer",
         "titleIsLoggedInUser": "have up voted this answer",
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer"
       },

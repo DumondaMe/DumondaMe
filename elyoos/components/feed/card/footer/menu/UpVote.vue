@@ -5,7 +5,9 @@
             <div class="menu-title">
                 <span v-if="!isLoggedInUser">
                     <span class="primary-title" v-if="!isLoggedInUser">{{userName}} </span>
-                    {{$t("pages:feeds.menu.userUpVote.title")}}
+                    <span v-if="localUpVotedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
+                    </span>{{$t("pages:feeds.menu.userUpVote.titleTwoNames")}}</span>
+                    <span v-else>{{$t("pages:feeds.menu.userUpVote.title")}}</span>
                 </span>
                 <span v-else>
                     <span class="primary-title">{{$t('common:you')}} </span>
@@ -34,7 +36,8 @@
                         <v-icon left>mdi-thumb-up</v-icon>
                         {{$t('common:button.upVote')}}
                     </v-btn>
-                    <span>{{$t('common:feedCard.upVote.addUpVote')}}</span>
+                    <span v-if="!isAdmin">{{$t('common:feedCard.upVote.addUpVote')}}</span>
+                    <span v-else>{{$t('common:feedCard.upVote.userIsAdmin')}}</span>
                 </v-tooltip>
             </div>
         </v-card>
@@ -79,7 +82,7 @@
         },
         watch: {
             menu(open) {
-                if (!open) {
+                if (!open && this.isUpVotedByUser) {
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });

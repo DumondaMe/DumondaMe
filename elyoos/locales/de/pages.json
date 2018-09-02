@@ -152,6 +152,7 @@
       },
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
+        "titleTwoNames": "haben dieser Antwort zugestimmt",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
         "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt"
       },

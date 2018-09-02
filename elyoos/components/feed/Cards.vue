@@ -9,6 +9,7 @@
                                             :number-of-watches="element.numberOfWatches" :answer-id="element.answerId"
                                             :created="element.created" :action="element.action"
                                             :regions="element.regions" :card-type="element.type"
+                                            :is-up-voted-by-user="element.isUpVotedByUser"
                                             @up-voted="upVoted" @down-voted="downVoted"
                                             @up-vote-menu-closed="upVoteMenuClosed">
                     </commitment-card-footer>
@@ -17,6 +18,7 @@
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
                                         @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
@@ -25,6 +27,7 @@
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
                                         @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
@@ -43,6 +46,7 @@
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
                                         @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
@@ -51,6 +55,7 @@
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
                                         @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>

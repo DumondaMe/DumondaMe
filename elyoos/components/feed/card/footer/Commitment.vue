@@ -33,8 +33,9 @@
             </v-icon>
 
             <up-vote-menu v-if="action === 'upVote'" :user-name="user.name" :user-id="user.userId" :answer-id="answerId"
-                          :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser" :is-admin="false"
-                          :up-voted-by-user="true" @up-voted="(answerId) => $emit('up-voted', answerId)"
+                          :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
+                          :is-admin="creator.isLoggedInUser" :up-voted-by-user="isUpVotedByUser"
+                          @up-voted="(answerId) => $emit('up-voted', answerId)"
                           @down-voted="(answerId) => $emit('down-voted', answerId)"
                           @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
                 <div slot="icon">
@@ -55,8 +56,8 @@
     import UpVoteMenu from './menu/UpVote';
 
     export default {
-        props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'numberOfWatches',
-        'answerId'],
+        props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
+            'numberOfWatches', 'answerId'],
         components: {UserMenu, UpVoteMenu},
         computed: {
             userTitle() {
