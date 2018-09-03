@@ -65,6 +65,20 @@ export const mutations = {
     },
     ADD_FEED: function (state, {feed}) {
         state.user.feed = state.user.feed.concat(feed);
+    },
+    UP_VOTE_ANSWER(state, answerId) {
+        let upVoteAnswer = state.user.feed.find((element) => element.answerId === answerId);
+        upVoteAnswer.numberOfUpVotes++;
+    },
+    DOWN_VOTE_ANSWER(state, answerId) {
+        let downVoteAnswer = state.user.feed.find((answer) => answer.answerId === answerId);
+        downVoteAnswer.numberOfUpVotes--;
+    },
+    REMOVE_ANSWER(state, answerId) {
+        let answerToRemove = state.user.feed.findIndex((answer) => answer.answerId === answerId);
+        if (answerToRemove > -1) {
+            state.user.feed.splice(answerToRemove, 1);
+        }
     }
 };
 

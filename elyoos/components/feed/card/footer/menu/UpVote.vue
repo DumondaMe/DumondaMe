@@ -15,12 +15,9 @@
                     <span v-else>{{$t("pages:feeds.menu.userUpVote.titleIsLoggedInUserAndNotUpVoted")}}</span>
                 </span>
             </div>
-            <div class="menu-content menu-up-vote-content" v-if="users">
-                <div class="more-user-description" v-if="numberOfShowedUsers > 0 || users.numberOfInvisibleUsers > 0">
-                    <span v-if="users.numberOfInvisibleUsers > 0">
-                        {{$t("pages:feeds.menu.userUpVote.invisibleUpVotes", {count: users.numberOfInvisibleUsers})}}
-                    </span> <span v-if="numberOfShowedUsers > 0">
-                        {{$t("pages:feeds.menu.userUpVote.moreUpVotes", {count: numberOfShowedUsers})}}</span>
+            <div class="menu-content menu-up-vote-content" v-if="numberOfShowedUsers > 0">
+                <div class="more-user-description">
+                    {{$t("pages:feeds.menu.userUpVote.moreUpVotes", {count: numberOfShowedUsers})}}
                 </div>
                 <div class="user-container">
                     <user :user="user" :show-date-relative="true" v-for="user in users.users" :key="user.userId"

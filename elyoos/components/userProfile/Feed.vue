@@ -6,33 +6,48 @@
                                  v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
                     <commitment-card-footer slot="footer" :user="element.user" :creator="element.creator"
                                             :number-of-up-votes="element.numberOfUpVotes"
-                                            :number-of-watches="element.numberOfWatches"
+                                            :number-of-watches="element.numberOfWatches" :answer-id="element.answerId"
                                             :created="element.created" :action="element.action"
-                                            :regions="element.regions" :card-type="element.type">
+                                            :regions="element.regions" :card-type="element.type"
+                                            :is-up-voted-by-user="element.isUpVotedByUser"
+                                            @up-voted="upVoted" @down-voted="downVoted"
+                                            @up-vote-menu-closed="upVoteMenuClosed">
                     </commitment-card-footer>
                 </commitment-card>
                 <book-card :answer="element" v-if="element.type === 'Book'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
-                                        :number-of-up-votes="element.numberOfUpVotes"
-                                        :created="element.created" :action="element.action">
+                                        :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
+                                        :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
+                                        @up-voted="upVoted" @down-voted="downVoted"
+                                        @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
                 </book-card>
                 <text-card :answer="element" v-if="element.type === 'Text'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
-                                        :number-of-up-votes="element.numberOfUpVotes"
-                                        :created="element.created" :action="element.action">
+                                        :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
+                                        :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
+                                        @up-voted="upVoted" @down-voted="downVoted"
+                                        @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
                 </text-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
-                                        :number-of-up-votes="element.numberOfUpVotes"
-                                        :created="element.created" :action="element.action">
+                                        :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
+                                        :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
+                                        @up-voted="upVoted" @down-voted="downVoted"
+                                        @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
                 </link-card>
                 <youtube-card :answer="element" v-if="element.type === 'Youtube'">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
-                                        :number-of-up-votes="element.numberOfUpVotes"
-                                        :created="element.created" :action="element.action">
+                                        :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
+                                        :created="element.created" :action="element.action"
+                                        :is-up-voted-by-user="element.isUpVotedByUser"
+                                        @up-voted="upVoted" @down-voted="downVoted"
+                                        @up-vote-menu-closed="upVoteMenuClosed">
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'">
@@ -65,6 +80,19 @@
         components: {
             CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter
+        },
+        methods: {
+            upVoted(answerId) {
+                this.$store.commit('userProfile/UP_VOTE_ANSWER', answerId);
+            },
+            downVoted(answerId) {
+                this.$store.commit('userProfile/DOWN_VOTE_ANSWER', answerId);
+            },
+            upVoteMenuClosed({answerId, isUpVotedByUser}) {
+                if (!isUpVotedByUser && this.$store.state.userProfile.user.isLoggedInUser) {
+                    this.$store.commit('userProfile/REMOVE_ANSWER', answerId);
+                }
+            }
         }
     }
 </script>
