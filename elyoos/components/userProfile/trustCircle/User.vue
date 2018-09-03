@@ -18,8 +18,9 @@
                     <span v-if="user.isPersonOfTrust">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
                     <span v-else>{{$t("pages:detailUser.trustCircle.notInYourCircle")}}</span>
                 </v-tooltip>
-                <span v-if="isLoggedInUser && user.personOfTrustSince">
+                <span v-if="isLoggedInUser && user.personOfTrustSince && !showDateRelative">
                         {{$t("pages:detailUser.trustCircle.since", {date: getDate(user.personOfTrustSince)})}}</span>
+                <span v-else-if="showDateRelative && user.date"> {{user.date | formatRelativeTimesAgo}}</span>
             </div>
         </div>
         <div class="user-settings-menu" v-if="isAuthenticated && !user.isLoggedInUser">
@@ -48,7 +49,7 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['user', 'showDateRelative'],
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -85,7 +86,7 @@
             img {
                 width: 100%;
                 height: 100%;
-                border-radius: 2px;
+                border-radius: 50%;
             }
         }
         .user-info-container {
@@ -112,6 +113,7 @@
                 }
                 span {
                     vertical-align: top;
+                    line-height: 19px;
                 }
                 .in-trust-circle {
                     color: $success-text;
