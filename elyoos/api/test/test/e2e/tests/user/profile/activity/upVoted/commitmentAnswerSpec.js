@@ -64,6 +64,7 @@ describe('Get activity feed with up voted commitment answers for a user', functi
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(1);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');

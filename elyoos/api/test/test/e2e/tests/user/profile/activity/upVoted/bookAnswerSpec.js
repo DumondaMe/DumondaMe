@@ -59,6 +59,7 @@ describe('Get activity feed with up voted book answers for a user', function () 
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].numberOfUpVotes.should.equals(1);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
