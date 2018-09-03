@@ -1,5 +1,5 @@
 <template>
-    <div class="trust-circle-user-info">
+    <div class="user-list-info">
         <div class="image-container" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: user.userId, slug: user.slug}})">
             <img :src="user.profileUrl">
@@ -30,11 +30,11 @@
                 </v-btn>
                 <v-list>
                     <v-list-tile v-if="user.isPersonOfTrust"
-                                 @click="removeUserFromTrustCircle(user.userId)">
+                                 @click="$emit('remove-from-trust-circle',(user.userId))">
                         <v-list-tile-title>{{$t("pages:detailUser.trustCircle.removeFromYourCircle")}}
                         </v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile v-else @click="addUserToTrustCircle(user.userId)">
+                    <v-list-tile v-else @click="$emit('add-to-trust-circle',(user.userId))">
                         <v-list-tile-title>{{$t("pages:detailUser.trustCircle.addToYourCircle")}}
                         </v-list-tile-title>
                     </v-list-tile>
@@ -73,7 +73,7 @@
 </script>
 
 <style lang="scss">
-    .trust-circle-user-info {
+    .user-list-info {
         width: 100%;
         display: flex;
         margin-bottom: 8px;

@@ -26,7 +26,8 @@
             </span>
         </div>
         <div class="user-info" v-for="user in people">
-            <trust-circle-user :user="user">
+            <trust-circle-user :user="user" @remove-from-trust-circle="removeUserFromTrustCircle"
+                               @add-to-trust-circle="addUserToTrustCircle">
             </trust-circle-user>
         </div>
         <v-btn outline color="primary" @click="loadNextPeople()" :loading="loading" :disabled="loading"
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-    import TrustCircleUser from './User';
+    import TrustCircleUser from '~/components/common/user/User';
 
     export default {
         components: {TrustCircleUser},
@@ -81,6 +82,12 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            addUserToTrustCircle(userId) {
+                this.$store.dispatch('userProfile/addUserToTrustCircle', userId);
+            },
+            removeUserFromTrustCircle(userId) {
+                this.$store.dispatch(`userProfile/removeUserFromTrustCircle`, userId);
             }
         }
     }
