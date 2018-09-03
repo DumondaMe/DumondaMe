@@ -52,25 +52,25 @@ describe('Getting users who up voted an answer', function () {
         res.body.numberOfUsers.should.equals(3);
         res.body.users.length.should.equals(3);
         res.body.users[0].userId.should.equals('3');
-        res.body.users[0].upVoteCreated.should.equals(999);
+        res.body.users[0].date.should.equals(999);
         res.body.users[0].name.should.equals('user Meier3');
         res.body.users[0].slug.should.equals('user-meier3');
-        res.body.users[0].userImage.should.equals('profileImage/3/thumbnail.jpg');
-        res.body.users[0].isTrustUser.should.equals(false);
+        res.body.users[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.users[0].isPersonOfTrust.should.equals(false);
 
         res.body.users[1].userId.should.equals('4');
-        res.body.users[1].upVoteCreated.should.equals(998);
+        res.body.users[1].date.should.equals(998);
         res.body.users[1].name.should.equals('user Meier4');
         res.body.users[1].slug.should.equals('user-meier4');
-        res.body.users[1].userImage.should.equals('profileImage/4/thumbnail.jpg');
-        res.body.users[1].isTrustUser.should.equals(false);
+        res.body.users[1].profileUrl.should.equals('profileImage/4/thumbnail.jpg');
+        res.body.users[1].isPersonOfTrust.should.equals(false);
 
         res.body.users[2].userId.should.equals('5');
-        res.body.users[2].upVoteCreated.should.equals(997);
+        res.body.users[2].date.should.equals(997);
         res.body.users[2].name.should.equals('user Meier5');
         res.body.users[2].slug.should.equals('user-meier5');
-        res.body.users[2].userImage.should.equals('profileImage/5/thumbnail.jpg');
-        res.body.users[2].isTrustUser.should.equals(false);
+        res.body.users[2].profileUrl.should.equals('profileImage/5/thumbnail.jpg');
+        res.body.users[2].isPersonOfTrust.should.equals(false);
     });
 
     it('When logged in and users in trust circle', async function () {
@@ -92,16 +92,16 @@ describe('Getting users who up voted an answer', function () {
         res.body.users.length.should.equals(3);
 
         res.body.users[0].userId.should.equals('4');
-        res.body.users[0].upVoteCreated.should.equals(998);
-        res.body.users[0].isTrustUser.should.equals(true);
+        res.body.users[0].date.should.equals(998);
+        res.body.users[0].isPersonOfTrust.should.equals(true);
 
         res.body.users[1].userId.should.equals('5');
-        res.body.users[1].upVoteCreated.should.equals(997);
-        res.body.users[1].isTrustUser.should.equals(true);
+        res.body.users[1].date.should.equals(997);
+        res.body.users[1].isPersonOfTrust.should.equals(true);
 
         res.body.users[2].userId.should.equals('3');
-        res.body.users[2].upVoteCreated.should.equals(999);
-        res.body.users[2].isTrustUser.should.equals(false);
+        res.body.users[2].date.should.equals(999);
+        res.body.users[2].isPersonOfTrust.should.equals(false);
     });
 
     it('When public', async function () {
@@ -118,16 +118,16 @@ describe('Getting users who up voted an answer', function () {
         res.body.users.length.should.equals(3);
 
         res.body.users[0].userId.should.equals('1');
-        res.body.users[0].upVoteCreated.should.equals(999);
-        res.body.users[0].isTrustUser.should.equals(false);
+        res.body.users[0].date.should.equals(999);
+        res.body.users[0].isPersonOfTrust.should.equals(false);
 
         res.body.users[1].userId.should.equals('4');
-        res.body.users[1].upVoteCreated.should.equals(998);
-        res.body.users[1].isTrustUser.should.equals(false);
+        res.body.users[1].date.should.equals(998);
+        res.body.users[1].isPersonOfTrust.should.equals(false);
 
         res.body.users[2].userId.should.equals('5');
-        res.body.users[2].upVoteCreated.should.equals(997);
-        res.body.users[2].isTrustUser.should.equals(false);
+        res.body.users[2].date.should.equals(997);
+        res.body.users[2].isPersonOfTrust.should.equals(false);
     });
 
     it('Show not user when privacy to contact only and no contact relationship exists', async function () {
@@ -159,8 +159,8 @@ describe('Getting users who up voted an answer', function () {
         res.body.users.length.should.equals(1);
 
         res.body.users[0].userId.should.equals('3');
-        res.body.users[0].upVoteCreated.should.equals(999);
-        res.body.users[0].isTrustUser.should.equals(false);
+        res.body.users[0].date.should.equals(999);
+        res.body.users[0].isPersonOfTrust.should.equals(false);
     });
 
     it('Show not user when privacy to elyoos only and user is not logged in', async function () {
@@ -190,8 +190,8 @@ describe('Getting users who up voted an answer', function () {
         res.body.users.length.should.equals(1);
 
         res.body.users[0].userId.should.equals('3');
-        res.body.users[0].upVoteCreated.should.equals(999);
-        res.body.users[0].isTrustUser.should.equals(false);
+        res.body.users[0].date.should.equals(999);
+        res.body.users[0].isPersonOfTrust.should.equals(false);
     });
 
     it('Do not show the up votes of the logged in user', async function () {

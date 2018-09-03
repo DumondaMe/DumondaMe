@@ -9,7 +9,7 @@ const PAGE_SIZE = 20;
 const getUserResponse = async function (users) {
     for (let user of users) {
         user.slug = slug(user.name);
-        user.userImage = await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
+        user.profileUrl = await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
     }
     return users;
 };
@@ -38,9 +38,9 @@ const getUpVotes = async function (userId, answerId, page) {
         .where(`(user.privacyMode = 'public' OR (user.privacyMode = 'publicEl' AND {userId} IS NOT null) OR 
                 (user.privacyMode = 'contactOnly' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))) AND
                 (NOT user.userId = {userId} OR {userId} IS null)`)
-        .return(`user.userId AS userId, user.name AS name, upVote.created AS upVoteCreated,
-                 exists((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser`)
-        .orderBy(`isTrustUser DESC, upVoteCreated DESC`)
+        .return(`user.userId AS userId, user.name AS name, upVote.created AS date,
+                 exists((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isPersonOfTrust`)
+        .orderBy(`isPersonOfTrust DESC, date DESC`)
         .skip(`{page}`)
         .limit(`${PAGE_SIZE}`)
         .end({answerId, page, userId})
