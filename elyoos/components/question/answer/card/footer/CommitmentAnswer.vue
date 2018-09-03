@@ -21,7 +21,7 @@
             </v-tooltip>
         </div>
         <v-spacer></v-spacer>
-        <up-vote-button :number-of-up-votes="numberOfUpVotes" :has-voted="hasVoted"
+        <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
                         :is-admin="isAdmin" :answer-id="answerId">
         </up-vote-button>
     </div>
@@ -32,7 +32,7 @@
     import UpVoteButton from './UpVote';
 
     export default {
-        props: ['creator', 'regions', 'numberOfUpVotes', 'hasVoted', 'isAdmin', 'answerId'],
+        props: ['creator', 'regions', 'numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
         components: {UserMenu, UpVoteButton},
         computed: {
             creatorTitle() {

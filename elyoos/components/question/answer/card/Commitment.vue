@@ -16,7 +16,7 @@
                 </v-list>
             </v-menu>
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
-                           :has-voted="answer.hasVoted" :is-admin="answer.isAdmin"
+                           :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin"
                            :answer-id="answer.answerId" :regions="answer.regions">
             </answer-footer>
         </commitment-card>

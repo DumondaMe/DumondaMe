@@ -21,7 +21,7 @@
                 </note-menu>
             </div>
             <v-spacer></v-spacer>
-            <up-vote-button :number-of-up-votes="numberOfUpVotes" :has-voted="hasVoted"
+            <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
                             :is-admin="isAdmin" :answer-id="answerId">
             </up-vote-button>
         </div>
@@ -34,7 +34,7 @@
     import UpVoteButton from './UpVote';
 
     export default {
-        props: ['creator', 'numberOfNotes', 'numberOfUpVotes', 'hasVoted', 'isAdmin', 'answerId', 'answerTitle',
+        props: ['creator', 'numberOfNotes', 'numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId', 'answerTitle',
             'notes'],
         components: {NoteMenu, UserMenu, UpVoteButton},
         data() {

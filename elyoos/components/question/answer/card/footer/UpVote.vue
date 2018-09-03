@@ -1,21 +1,29 @@
 <template>
     <div>
         <div class="footer-up-vote-button">
-            <span class="description left-side">{{numberOfUpVotes}}</span>
-            <v-tooltip bottom v-if="!hasVoted || isAdmin">
-                <v-btn slot="activator" small fab color="not-up-voted"
-                       :disabled="isAdmin || upVoteRunning" @click="upVote()">
-                    <v-icon>mdi-thumb-up-outline</v-icon>
-                </v-btn>
-                <span>{{$t("common:feedCard.upVote.userHasNotUpVoted")}}</span>
-            </v-tooltip>
-            <v-tooltip bottom v-else>
-                <v-btn slot="activator" fab small color="up-voted" :disabled="isAdmin || upVoteRunning"
-                       @click="downVote()">
-                    <v-icon>mdi-thumb-up</v-icon>
-                </v-btn>
-                <span>{{$t("common:feedCard.upVote.userHasUpVoted")}}</span>
-            </v-tooltip>
+            <up-vote-menu :answer-id="answerId" :is-logged-in-user="true"
+                          :is-admin="isAdmin" :up-voted-by-user="isUpVotedByUser"
+                          :number-of-up-votes="numberOfUpVotes"
+                          @up-voted="upVote"
+                          @down-voted="downVote"
+                          @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
+                <div slot="icon">
+                    <span class="description left-side">{{numberOfUpVotes}}</span>
+                    <v-tooltip bottom v-if="!isUpVotedByUser || isAdmin">
+                        <v-btn slot="activator" small fab color="not-up-voted"
+                               :disabled="isAdmin">
+                            <v-icon>mdi-thumb-up-outline</v-icon>
+                        </v-btn>
+                        <span>{{$t("common:feedCard.upVote.userHasNotUpVoted")}}</span>
+                    </v-tooltip>
+                    <v-tooltip bottom v-else>
+                        <v-btn slot="activator" fab small color="up-voted" :disabled="isAdmin">
+                            <v-icon>mdi-thumb-up</v-icon>
+                        </v-btn>
+                        <span>{{$t("common:feedCard.upVote.userHasUpVoted")}}</span>
+                    </v-tooltip>
+                </div>
+            </up-vote-menu>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
@@ -27,36 +35,23 @@
 
 <script>
     import UserMenu from '~/components/feed/card/footer/menu/User';
+    import UpVoteMenu from '~/components/feed/card/footer/menu/UpVote';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
-        props: ['numberOfUpVotes', 'hasVoted', 'isAdmin', 'answerId'],
-        components: {UserMenu, LoginRequiredDialog},
+        props: ['numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
+        components: {UserMenu, UpVoteMenu, LoginRequiredDialog},
         data() {
             return {
                 showLoginRequired: false, upVoteRunning: false, showError: false
             }
         },
         methods: {
-            async voteCommand(command) {
-                if (this.$store.state.auth.userIsAuthenticated) {
-                    try {
-                        this.upVoteRunning = true;
-                        await this.$store.dispatch(command, this.answerId);
-                    } catch (error) {
-                        this.showError = true;
-                    } finally {
-                        this.upVoteRunning = false;
-                    }
-                } else {
-                    this.showLoginRequired = true;
-                }
+            upVote() {
+                this.$store.commit('question/UP_VOTE_ANSWER', this.answerId)
             },
-            async upVote() {
-                this.voteCommand('question/upVoteAnswer');
-            },
-            async downVote() {
-                this.voteCommand('question/downVoteAnswer');
+            downVote() {
+                this.$store.commit('question/DOWN_VOTE_ANSWER', this.answerId)
             }
         }
     }

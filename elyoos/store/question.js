@@ -128,14 +128,6 @@ export const actions = {
     async deleteQuestion({commit, state}) {
         await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
     },
-    async upVoteAnswer({commit, state}, answerId) {
-        await this.$axios.$post(`/user/question/answer/upVote/${answerId}`);
-        commit('UP_VOTE_ANSWER', answerId);
-    },
-    async downVoteAnswer({commit, state}, answerId) {
-        await this.$axios.$delete(`/user/question/answer/upVote/${answerId}`);
-        commit('DOWN_VOTE_ANSWER', answerId);
-    },
     async createTextAnswer({commit, state}, {answer}) {
         let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`, {answer});
         commit('ADD_ANSWER', {
