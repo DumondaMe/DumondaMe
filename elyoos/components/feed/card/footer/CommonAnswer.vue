@@ -31,6 +31,7 @@
             <up-vote-menu v-if="action === 'upVote'" :user-name="user.name" :user-id="user.userId" :answer-id="answerId"
                           :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
                           :is-admin="creator.isLoggedInUser" :up-voted-by-user="isUpVotedByUser"
+                          :number-of-up-votes="numberOfUpVotes"
                           @up-voted="(answerId) => $emit('up-voted', answerId)"
                           @down-voted="(answerId) => $emit('down-voted', answerId)"
                           @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">

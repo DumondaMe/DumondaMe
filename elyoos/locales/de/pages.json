@@ -153,6 +153,10 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleTwoNames": "haben dieser Antwort zugestimmt",
+        "moreUpVotes": "Weitere Zustimmung von:",
+        "moreUpVotes_plural": "Weitere Zustimmungen von:",
+        "invisibleUpVotes": "Das Profil von einer Person kannst du nicht sehen.",
+        "invisibleUpVotes_plural": "Das Profil von {{count}} Personen kannst du nicht sehen.",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
         "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt"
       },

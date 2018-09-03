@@ -4,7 +4,7 @@
         <v-card class="ely-menu-container">
             <div class="menu-title">
                 <span v-if="!isLoggedInUser">
-                    <span class="primary-title" v-if="!isLoggedInUser">{{userName}} </span>
+                    <span class="primary-title">{{userName}} </span>
                     <span v-if="localUpVotedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
                     </span>{{$t("pages:feeds.menu.userUpVote.titleTwoNames")}}</span>
                     <span v-else>{{$t("pages:feeds.menu.userUpVote.title")}}</span>
@@ -15,14 +15,24 @@
                     <span v-else>{{$t("pages:feeds.menu.userUpVote.titleIsLoggedInUserAndNotUpVoted")}}</span>
                 </span>
             </div>
-            <div class="menu-content menu-up-vote-content">
-
+            <div class="menu-content menu-up-vote-content" v-if="users">
+                <div class="more-user-description" v-if="numberOfShowedUsers > 0 || users.numberOfInvisibleUsers > 0">
+                    <span v-if="users.numberOfInvisibleUsers > 0">
+                        {{$t("pages:feeds.menu.userUpVote.invisibleUpVotes", {count: users.numberOfInvisibleUsers})}}
+                    </span> <span v-if="numberOfShowedUsers > 0">
+                        {{$t("pages:feeds.menu.userUpVote.moreUpVotes", {count: numberOfShowedUsers})}}</span>
+                </div>
+                <div class="user-container">
+                    <user :user="user" :show-date-relative="true" v-for="user in users.users" :key="user.userId"
+                          v-if="user.userId !== userId">
+                    </user>
+                </div>
             </div>
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-                <v-tooltip bottom debounce="300" v-if="localUpVotedByUser">
+                <v-tooltip top debounce="300" v-if="localUpVotedByUser">
                     <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="downVote()" slot="activator"
                            :loading="upVoteRunning">
                         <v-icon left>mdi-check</v-icon>
@@ -30,7 +40,7 @@
                     </v-btn>
                     <span>{{$t('common:feedCard.upVote.removeUpVote')}}</span>
                 </v-tooltip>
-                <v-tooltip bottom debounce="300" v-else>
+                <v-tooltip top debounce="300" v-else>
                     <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="upVote()" slot="activator"
                            :loading="upVoteRunning">
                         <v-icon left>mdi-thumb-up</v-icon>
@@ -45,10 +55,22 @@
 </template>
 
 <script>
+    import User from '~/components/userProfile/trustCircle/User';
+
     export default {
-        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId'],
+        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
+            'numberOfUpVotes'],
+        components: {User},
         data() {
-            return {menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser}
+            return {
+                menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser,
+                users: null
+            }
+        },
+        computed: {
+            numberOfShowedUsers() {
+                return this.users && this.users.users.filter((user) => user.userId !== this.userId).length > 0
+            }
         },
         methods: {
             async voteCommand(upVote) {
@@ -81,11 +103,14 @@
             }
         },
         watch: {
-            menu(open) {
-                if (!open && this.isUpVotedByUser) {
+            async menu(open) {
+                if (!open && this.isLoggedInUser) {
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
+                } else if (open && this.numberOfUpVotes > 0 && this.users === null) {
+                    this.users = await this.$axios.$get(`/question/answer/upVotes`,
+                        {params: {answerId: this.answerId, page: 0}});
                 }
             }
         }
@@ -95,7 +120,13 @@
 <style lang="scss">
     .ely-menu-container {
         .menu-up-vote-content {
+            .more-user-description {
+                font-size: 14px;
+                margin-bottom: 18px;
+            }
+            .user-container {
 
+            }
         }
     }
 </style>
