@@ -10,7 +10,7 @@ describe('Getting users who up voted an answer', function () {
     let startTime;
 
     beforeEach(async function () {
-        await dbDsl.init(6);
+        await dbDsl.init(28);
         await requestHandler.logout();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
@@ -32,9 +32,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(0);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
     });
 
@@ -47,9 +45,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(3);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
         res.body.users[0].userId.should.equals('3');
         res.body.users[0].date.should.equals(999);
@@ -86,9 +82,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(2);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(3);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
 
         res.body.users[0].userId.should.equals('4');
@@ -112,9 +106,7 @@ describe('Getting users who up voted an answer', function () {
 
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(3);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
 
         res.body.users[0].userId.should.equals('1');
@@ -138,9 +130,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(1);
-        res.body.numberOfUsers.should.equals(1);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
     });
 
@@ -153,9 +143,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(1);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
 
         res.body.users[0].userId.should.equals('3');
@@ -170,9 +158,7 @@ describe('Getting users who up voted an answer', function () {
 
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(1);
-        res.body.numberOfUsers.should.equals(1);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
     });
 
@@ -184,9 +170,7 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(1);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
 
         res.body.users[0].userId.should.equals('3');
@@ -201,9 +185,20 @@ describe('Getting users who up voted an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
         res.status.should.equal(200);
-        res.body.numberOfTrustUsers.should.equals(0);
-        res.body.numberOfInvisibleUsers.should.equals(0);
-        res.body.numberOfUsers.should.equals(1);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
+    });
+
+    it('Has more is true', async function () {
+        for (let index = 3; index < 25; index++) {
+            dbDsl.upVoteAnswer({userId: `${index}`, answerId: '6', created: 999 + index});
+        }
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/answer/upVotes', {answerId: '6', page: 0});
+        res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(true);
+        res.body.users.length.should.equals(20);
     });
 });

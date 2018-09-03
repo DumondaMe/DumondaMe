@@ -26,6 +26,10 @@
                     <user :user="user" :show-date-relative="true" v-for="user in users.users" :key="user.userId"
                           v-if="user.userId !== userId">
                     </user>
+                    <v-btn color="primary" outline class="show-more-users-button" @click="getNextUsers()"
+                           v-if="users.hasMoreUsers" :loading="loadingNextUsers" :disabled="loadingNextUsers">
+                        {{$t('common:button.showMore')}}
+                    </v-btn>
                 </div>
             </div>
             <v-divider></v-divider>
@@ -64,12 +68,15 @@
         data() {
             return {
                 menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser,
-                users: null
+                users: null, usersPage: 0, loadingNextUsers: false
             }
         },
         computed: {
             numberOfShowedUsers() {
-                return this.users && this.users.users.filter((user) => user.userId !== this.userId).length > 0
+                if (this.users) {
+                    return this.users.users.filter((user) => user.userId !== this.userId).length;
+                }
+                return 0;
             }
         },
         methods: {
@@ -100,6 +107,20 @@
             },
             async downVote() {
                 this.voteCommand(false);
+            },
+            async getNextUsers() {
+                try {
+                    this.loadingNextUsers = true;
+                    let nextUsers = await this.$axios.$get(`/question/answer/upVotes`,
+                        {params: {answerId: this.answerId, page: this.usersPage}});
+                    this.users.users = this.users.users.concat(nextUsers.users);
+                    this.users.hasMoreUsers = nextUsers.hasMoreUsers;
+                    this.usersPage++;
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loadingNextUsers = false;
+                }
             }
         },
         watch: {
@@ -110,7 +131,8 @@
                     });
                 } else if (open && this.numberOfUpVotes > 0 && this.users === null) {
                     this.users = await this.$axios.$get(`/question/answer/upVotes`,
-                        {params: {answerId: this.answerId, page: 0}});
+                        {params: {answerId: this.answerId, page: this.usersPage}});
+                    this.usersPage++;
                 }
             }
         }
@@ -125,7 +147,11 @@
                 margin-bottom: 18px;
             }
             .user-container {
-
+                max-height: 336px;
+                overflow-y: scroll;
+                .show-more-users-button {
+                    margin-left: 0;
+                }
             }
         }
     }

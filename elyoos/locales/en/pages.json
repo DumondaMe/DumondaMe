@@ -155,8 +155,6 @@
         "titleTwoNames": "have up voted this answer",
         "moreUpVotes": "Further up vote by:",
         "moreUpVotes_plural": "Further up votes by:",
-        "invisibleUpVotes": "You can't see a person's profile.",
-        "invisibleUpVotes_plural": "You cannot see the profile of {count}} people.",
         "titleIsLoggedInUser": "have up voted this answer",
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer"
       },
