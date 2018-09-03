@@ -49,25 +49,6 @@
                 }
                 return this.$t("pages:feeds.menu.creatorAnswer.title");
             }
-        },
-        methods: {
-            toggleNotes() {
-                if (!this.showNotes) {
-                    if (this.$store.state.auth.userIsAuthenticated && this.answer.numberOfNotes === 0) {
-                        this.showCreateNoteDialog = true;
-                    } else if (this.answer.numberOfNotes === 0) {
-                        this.showLoginRequired = true;
-                    } else {
-                        this.showNotes = true;
-                    }
-                } else {
-                    this.showNotes = false;
-                }
-            },
-            noteAdded() {
-                this.showCreateNoteDialog = false;
-                this.showNotes = true;
-            }
         }
     }
 </script>
