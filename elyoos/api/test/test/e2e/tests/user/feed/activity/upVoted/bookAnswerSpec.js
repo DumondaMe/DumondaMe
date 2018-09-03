@@ -172,10 +172,9 @@ describe('Get activity feed for up voted book answers', function () {
 
     it('Only latest up voted book answer (trust circle filter)', async function () {
         dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '6', created: 998});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '6', created: 998});
         dbDsl.upVoteAnswer({userId: '6', answerId: '6', created: 997});
         dbDsl.createContactConnection('1', '4');
-        dbDsl.createContactConnection('1', '5');
         dbDsl.createContactConnection('1', '6');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -188,6 +187,7 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(3);
+        res.body.feed[0].isUpVotedByUser.should.equals(true);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
         res.body.feed[0].creator.userId.should.equals('3');
