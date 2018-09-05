@@ -48,7 +48,7 @@ describe('Get feed for the most popular commitments', function () {
             modified: 606, website: 'https://www.example3.org/', regions: ['region-2']
         });
 
-        dbDsl.watchCommitment({commitmentId: '102', userId: '6', created: 999});
+        dbDsl.watchCommitment({commitmentId: '102', userId: '1', created: 999});
         dbDsl.watchCommitment({commitmentId: '102', userId: '7', created: 999});
     });
 
@@ -73,6 +73,7 @@ describe('Get feed for the most popular commitments', function () {
         res.body.feed[0].description.should.equals('commitment102Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/102/460x460/title.jpg?v=606`);
         res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('Region1De');
         res.body.feed[0].created.should.equals(555);
@@ -102,6 +103,7 @@ describe('Get feed for the most popular commitments', function () {
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('102');
+        res.body.feed[0].isWatchedByUser.should.equals(true);
     });
 
     it('Filter by user of trust who watches commitment', async function () {
@@ -118,6 +120,7 @@ describe('Get feed for the most popular commitments', function () {
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('101');
+        res.body.feed[0].isWatchedByUser.should.equals(false);
     });
 
     it('Filter by topic', async function () {

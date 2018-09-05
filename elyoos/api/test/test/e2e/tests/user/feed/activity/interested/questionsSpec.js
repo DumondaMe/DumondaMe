@@ -64,6 +64,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(501);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -101,6 +102,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(501);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -150,6 +152,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(556);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -168,7 +171,7 @@ describe('Get activity feed for interested questions', function () {
 
     it('Get a question which is multiple times marked as interested only once', async function () {
         dbDsl.watchQuestion({questionId: '3', userId: '5', created: 558});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: 557});
+        dbDsl.watchQuestion({questionId: '3', userId: '1', created: 557});
         dbDsl.watchQuestion({questionId: '3', userId: '7', created: 556});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -188,6 +191,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -234,6 +238,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -275,6 +280,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('8');
         res.body.feed[0].user.name.should.equals('user Meier8');
         res.body.feed[0].user.slug.should.equals('user-meier8');
@@ -316,6 +322,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('8');
         res.body.feed[0].user.name.should.equals('user Meier8');
         res.body.feed[0].user.slug.should.equals('user-meier8');

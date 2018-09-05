@@ -70,6 +70,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].created.should.equals(500);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(0);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
@@ -95,7 +96,7 @@ describe('Get question feed for the most popular questions', function () {
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: 994});
-        dbDsl.watchQuestion({questionId: '2', userId: '5', created: 993});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: 993});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: 995});
 
@@ -113,6 +114,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -120,6 +122,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].numberOfAnswers.should.equals(1);
         res.body.feed[1].numberOfWatches.should.equals(1);
+        res.body.feed[1].isWatchedByUser.should.equals(true);
         res.body.feed[1].user.userId.should.equals('3');
         res.body.feed[1].user.isLoggedInUser.should.equals(false);
         res.body.feed[1].user.isTrustUser.should.equals(true);
@@ -167,6 +170,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -174,6 +178,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(1);
         res.body.feed[1].numberOfWatches.should.equals(2);
+        res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
@@ -194,7 +199,7 @@ describe('Get question feed for the most popular questions', function () {
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: 994});
-        dbDsl.watchQuestion({questionId: '2', userId: '5', created: 993});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: 993});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: 995});
 
@@ -212,6 +217,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -219,6 +225,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].numberOfAnswers.should.equals(1);
         res.body.feed[1].numberOfWatches.should.equals(1);
+        res.body.feed[1].isWatchedByUser.should.equals(true);
         res.body.feed[1].user.userId.should.equals('3');
         res.body.feed[1].user.isLoggedInUser.should.equals(false);
         res.body.feed[1].user.isTrustUser.should.equals(true);
@@ -259,6 +266,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -290,6 +298,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(0);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -310,7 +319,7 @@ describe('Get question feed for the most popular questions', function () {
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - (WEEK + 10)});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - (WEEK - 10)});
-        dbDsl.watchQuestion({questionId: '2', userId: '5', created: startTime - (WEEK - 11)});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - (WEEK - 11)});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: startTime - (WEEK + 11)});
 
@@ -328,6 +337,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
@@ -335,6 +345,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(1);
         res.body.feed[1].numberOfWatches.should.equals(2);
+        res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
@@ -355,7 +366,7 @@ describe('Get question feed for the most popular questions', function () {
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - (FOUR_WEEKS + 10)});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - (FOUR_WEEKS - 10)});
-        dbDsl.watchQuestion({questionId: '2', userId: '5', created: startTime - (FOUR_WEEKS - 11)});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - (FOUR_WEEKS - 11)});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: startTime - (FOUR_WEEKS + 11)});
 
@@ -373,6 +384,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].numberOfAnswers.should.equals(1);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
@@ -380,6 +392,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(1);
         res.body.feed[1].numberOfWatches.should.equals(2);
+        res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);

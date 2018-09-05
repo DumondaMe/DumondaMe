@@ -46,7 +46,7 @@ describe('Get feed for the newest commitments', function () {
             modified: 606, website: 'https://www.example3.org/', regions: ['region-2']
         });
 
-        dbDsl.watchCommitment({commitmentId: '100', userId: '6', created: 999});
+        dbDsl.watchCommitment({commitmentId: '100', userId: '1', created: 999});
         dbDsl.watchCommitment({commitmentId: '100', userId: '7', created: 999});
     });
 
@@ -71,6 +71,7 @@ describe('Get feed for the newest commitments', function () {
         res.body.feed[0].description.should.equals('commitment100Description');
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
         res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('Region21De');
         res.body.feed[0].created.should.equals(777);

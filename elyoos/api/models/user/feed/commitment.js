@@ -128,7 +128,8 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
                  commitment.created AS created, commitment.modified AS modified, commitment.description AS description, 
                  'Commitment' AS type, count(DISTINCT watches) AS numberOfWatches, score,
                  creator.userId = {userId} AS isLoggedInUser, collect(DISTINCT region.${guiLanguage}) AS regions,
-                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser`)
+                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
+                 EXISTS((commitment)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)
         .orderBy(`score DESC, created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({

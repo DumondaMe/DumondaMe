@@ -45,6 +45,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
@@ -83,6 +84,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
@@ -123,6 +125,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -160,6 +163,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -172,7 +176,7 @@ describe('Get activity feed for interested commitments', function () {
 
     it('Get a commitment which is multiple times marked as interested only once', async function () {
         dbDsl.watchCommitment({commitmentId: '100', userId: '5', created: 558});
-        dbDsl.watchCommitment({commitmentId: '100', userId: '6', created: 557});
+        dbDsl.watchCommitment({commitmentId: '100', userId: '1', created: 557});
         dbDsl.watchCommitment({commitmentId: '100', userId: '7', created: 556});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -186,6 +190,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('5');
@@ -214,6 +219,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('5');
@@ -245,6 +251,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('8');
@@ -272,6 +279,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('8');

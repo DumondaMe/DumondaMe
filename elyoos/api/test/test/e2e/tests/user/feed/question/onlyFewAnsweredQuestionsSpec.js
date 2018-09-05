@@ -57,6 +57,8 @@ describe('Get question feed for questions with only a few answers', function () 
             creatorId: '4', question: 'Das ist eine Frage3', description: 'Test elyoos.org change the world3',
             topics: ['topic2'], language: 'en', created: 666,
         });
+
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: 993});
     });
 
     afterEach(function () {
@@ -80,7 +82,8 @@ describe('Get question feed for questions with only a few answers', function () 
         res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world2`);
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].numberOfAnswers.should.equals(3);
-        res.body.feed[0].numberOfWatches.should.equals(0);
+        res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');
@@ -98,6 +101,7 @@ describe('Get question feed for questions with only a few answers', function () 
         res.body.feed[1].created.should.equals(666);
         res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(0);
+        res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('4');
         res.body.feed[1].user.name.should.equals('user Meier4');
         res.body.feed[1].user.slug.should.equals('user-meier4');

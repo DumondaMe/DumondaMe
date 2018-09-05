@@ -48,6 +48,7 @@ const addCommitmentProperties = function (result, feedElement) {
         }
         result.regions = feedElement.regions;
         result.numberOfWatches = feedElement.numberOfWatches;
+        result.isWatchedByUser = feedElement.isWatchedByUser;
     }
 };
 
@@ -92,6 +93,7 @@ const addQuestionProperties = function (result, feedElement) {
         }
         result.numberOfWatches = feedElement.numberOfWatches;
         result.numberOfAnswers = feedElement.numberOfAnswers;
+        result.isWatchedByUser = feedElement.isWatchedByUser;
     }
 };
 

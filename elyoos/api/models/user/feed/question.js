@@ -117,7 +117,8 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
                  question.description AS description, count(DISTINCT answer) AS numberOfAnswers, 'Question' AS type,
                  count(DISTINCT watches) AS numberOfWatches, score,
                  creator.userId = {userId} AS isLoggedInUser, 
-                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser`)
+                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
+                 EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)
         .orderBy(`score DESC, created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({

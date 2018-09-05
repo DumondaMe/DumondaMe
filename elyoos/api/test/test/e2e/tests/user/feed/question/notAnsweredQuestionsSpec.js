@@ -44,7 +44,7 @@ describe('Get question feed for questions without answers', function () {
         dbDsl.watchQuestion({questionId: '3', userId: '5', created: 997});
         dbDsl.watchQuestion({questionId: '3', userId: '6', created: 996});
         //Score for question 2
-        dbDsl.watchQuestion({questionId: '2', userId: '5', created: 993});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: 993});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: 995});
     });
@@ -71,6 +71,7 @@ describe('Get question feed for questions without answers', function () {
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');
@@ -88,6 +89,7 @@ describe('Get question feed for questions without answers', function () {
         res.body.feed[1].created.should.equals(666);
         res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(2);
+        res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.name.should.equals('user Meier');
         res.body.feed[1].user.slug.should.equals('user-meier');
