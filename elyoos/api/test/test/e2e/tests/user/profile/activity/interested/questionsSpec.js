@@ -64,6 +64,7 @@ describe('Get activity feed for interested questions for a user', function () {
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -95,6 +96,7 @@ describe('Get activity feed for interested questions for a user', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].user.userId.should.equals('1');
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         res.body.feed[0].creator.userId.should.equals('2');

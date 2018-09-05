@@ -50,6 +50,7 @@ describe('Get activity feed for interested commitments for a user', function () 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
@@ -84,6 +85,7 @@ describe('Get activity feed for interested commitments for a user', function () 
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].user.userId.should.equals('1');
+        res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
