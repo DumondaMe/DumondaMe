@@ -3,18 +3,18 @@
         <v-menu v-model="menu" :close-on-content-click="false" offset-y>
             <slot name="icon" slot="activator"></slot>
             <v-card class="ely-menu-container">
-                <div class="menu-title" v-if="(!isLoggedInUser || !isAdmin) && isAuthenticated">
-                <span v-if="!isLoggedInUser">
-                    <span class="primary-title">{{userName}} </span>
-                    <span v-if="localWatchedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
-                    </span>{{$t("pages:feeds.menu." + menuTranslation + ".titleTwoNames")}}</span>
-                    <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".title")}}</span>
-                </span>
+                <div class="menu-title" v-if="!isAdmin && isAuthenticated">
+                    <span v-if="!isLoggedInUser">
+                        <span class="primary-title">{{userName}} </span>
+                        <span v-if="localWatchedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
+                        </span>{{$t("pages:feeds.menu." + menuTranslation + ".titleTwoNames")}}</span>
+                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".title")}}</span>
+                    </span>
                     <span v-else-if="isLoggedInUser">
-                    <span class="primary-title">{{$t('common:you')}} </span>
-                    <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
-                    <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
-                </span>
+                        <span class="primary-title">{{$t('common:you')}} </span>
+                        <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
+                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
+                    </span>
                 </div>
                 <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
                               :api-get-user="apiGetUserCommand" :init-has-more-users="users.hasMoreUsers"
@@ -28,8 +28,7 @@
                     <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-tooltip top debounce="300" v-if="localWatchedByUser">
                         <v-btn color="primary" :disabled="isAdmin || watchingRunning" @click="removeWatch()"
-                               slot="activator"
-                               :loading="watchingRunning">
+                               slot="activator" :loading="watchingRunning">
                             <v-icon left>mdi-check</v-icon>
                             {{$t('common:button.interested')}}
                         </v-btn>
@@ -37,8 +36,7 @@
                     </v-tooltip>
                     <v-tooltip top debounce="300" v-else>
                         <v-btn color="primary" :disabled="isAdmin || watchingRunning" @click="addWatch()"
-                               slot="activator"
-                               :loading="watchingRunning">
+                               slot="activator" :loading="watchingRunning">
                             <v-icon left>mdi-star</v-icon>
                             {{$t('common:button.interested')}}
                         </v-btn>

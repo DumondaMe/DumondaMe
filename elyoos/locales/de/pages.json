@@ -166,6 +166,14 @@
         "titleIsLoggedInUser": "findest diese Frage interessant",
         "titleIsLoggedInUserAndNotWatched": "findest diese Frage nicht interessant"
       },
+      "watchesCommitment": {
+        "title": "findet dieses Engagement interessant",
+        "titleTwoNames": "finden dieses Engagement interessant",
+        "moreWatches": "Findet dieses Engagement interessant:",
+        "moreWatches_plural": "Finden dieses Engagement interessant:",
+        "titleIsLoggedInUser": "findest dieses Engagement interessant",
+        "titleIsLoggedInUserAndNotWatched": "findest dieses Engagement nicht interessant"
+      },
       "eventCreateByCommitment": {
         "title": "hat diesen Event erfasst"
       }

@@ -24,8 +24,22 @@
             </user-menu>
         </div>
         <div class="footer-icon" v-if="user">
-            <v-icon medium v-if="action === 'watch'" class="action-icon">mdi-star</v-icon>
-            <span class="footer-description number" v-if="action === 'watch'">{{numberOfWatches}}</span>
+            <div v-if="action === 'watch' && cardType === 'Commitment'">
+                <watches-menu :user-id="user.userId" :watched-id="commitmentId" watched-id-name="questionId"
+                              :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
+                              :is-admin="isAdmin"
+                              :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
+                              menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
+                              api-watch="user/commitment/watch"
+                              @add-watch="(id) => $emit('add-watch', id)"
+                              @remove-watch="(id) => $emit('remove-watch', id)"
+                              @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                    <div slot="icon">
+                        <v-icon medium class="action-icon">mdi-star</v-icon>
+                        <span class="footer-description number">{{numberOfWatches}}</span>
+                    </div>
+                </watches-menu>
+            </div>
 
             <v-icon medium v-if="action === 'created' && cardType === 'CommitmentAnswer'"
                     class="action-icon">
@@ -55,11 +69,12 @@
 <script>
     import UserMenu from './menu/User';
     import UpVoteMenu from './menu/UpVote';
+    import WatchesMenu from './menu/Watches'
 
     export default {
         props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
-            'numberOfWatches', 'answerId'],
-        components: {UserMenu, UpVoteMenu},
+            'numberOfWatches', 'isWatchedByUser', 'isAdmin', 'answerId', 'commitmentId'],
+        components: {UserMenu, WatchesMenu, UpVoteMenu},
         computed: {
             userTitle() {
                 if (this.action === 'created' && this.cardType === 'CommitmentAnswer') {
@@ -69,7 +84,7 @@
                 } else if (this.action === 'upVote') {
                     return this.$t("pages:feeds.menu.userUpVote.title");
                 } else if (this.action === 'watch') {
-                    return this.$t("pages:feeds.menu.userInterestedInCommitment.title");
+                    return this.$t("pages:feeds.menu.watchesCommitment.title");
                 }
             },
             creatorTitle() {

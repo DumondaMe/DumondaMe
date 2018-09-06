@@ -10,6 +10,8 @@
                                             :created="element.created" :action="element.action"
                                             :regions="element.regions" :card-type="element.type"
                                             :is-up-voted-by-user="element.isUpVotedByUser"
+                                            :commitment-id="element.commitmentId"
+                                            :is-watched-by-user="element.isWatchedByUser" :is-admin="element.isAdmin"
                                             @up-voted="upVoted" @down-voted="downVoted"
                                             @up-vote-menu-closed="upVoteMenuClosed">
                     </commitment-card-footer>

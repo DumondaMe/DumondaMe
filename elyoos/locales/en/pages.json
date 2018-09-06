@@ -159,12 +159,20 @@
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer"
       },
       "watchesQuestion": {
-        "title": "finds this question interestin",
+        "title": "finds this question interesting",
         "titleTwoNames": "find this question interesting",
         "moreWatches": "The question is of interest to:",
         "moreWatches_plural": "The question is of interest to:",
         "titleIsLoggedInUser": "find this question interesting",
         "titleIsLoggedInUserAndNotWatched": "don't find this question interesting"
+      },
+      "watchesCommitment": {
+        "title": "finds this commitment interesting",
+        "titleTwoNames": "finds this question interesting",
+        "moreWatches": "The commitment is of interest to:",
+        "moreWatches_plural": "The commitment is of interest to:",
+        "titleIsLoggedInUser": "find this commitment interesting",
+        "titleIsLoggedInUserAndNotWatched": "don't find this commitment interesting"
       },
       "eventCreateByCommitment": {
         "title": "has created this event"
