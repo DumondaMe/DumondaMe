@@ -32,7 +32,12 @@ describe('Get activity feed for interested commitments', function () {
     });
 
     it('Get interested commitment when only timestamp filter is active', async function () {
-        dbDsl.watchCommitment({commitmentId: '100', userId: '5', created: 501});
+        dbDsl.createCommitment('101', {
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 606,
+            title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
+        });
+
+        dbDsl.watchCommitment({commitmentId: '101', userId: '5', created: 501});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {
@@ -40,17 +45,18 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(505);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(3);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
-        res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed[0].isAdmin.should.equals(true);
+        res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');
-        res.body.feed[0].description.should.equals('commitment100Description');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/460x460/title.jpg?v=606`);
+        res.body.feed[0].description.should.equals('commitment101Description');
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/460x460/title.jpg?v=606`);
         res.body.feed[0].regions.length.should.equals(2);
         res.body.feed[0].regions.should.includes('regionDe');
         res.body.feed[0].regions.should.includes('region2De');
@@ -85,6 +91,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
@@ -126,6 +133,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -164,6 +172,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
@@ -191,6 +200,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
         res.body.feed[0].isWatchedByUser.should.equals(true);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('5');
@@ -252,6 +262,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('8');
@@ -280,6 +291,7 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(3);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].user.userId.should.equals('8');

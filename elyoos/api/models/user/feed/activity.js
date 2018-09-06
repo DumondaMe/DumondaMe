@@ -141,6 +141,7 @@ const getFeedCommandString = function (guiLanguage, pageSize) {
                  exists((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,
                  exists((feedElement)<-[:UP_VOTE]-(:User {userId: {userId}})) AS isUpVotedByUser,
                  exists((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
+                 exists((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
                  max(tempCreated) AS created, type(relActivity) AS relActivity`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${pageSize}`).getCommandString()

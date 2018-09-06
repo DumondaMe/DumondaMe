@@ -32,7 +32,7 @@ describe('Get feed for the most popular commitments', function () {
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createCommitment('100', {
-            adminId: '2', topics: ['topic221'], language: 'de', created: 777,
+            adminId: '1', topics: ['topic221'], language: 'de', created: 777,
             modified: 606, website: 'https://www.example.org/', regions: ['region-2-1']
         });
         dbDsl.createCommitment('101', {
@@ -74,6 +74,7 @@ describe('Get feed for the most popular commitments', function () {
         res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/102/460x460/title.jpg?v=606`);
         res.body.feed[0].numberOfWatches.should.equals(2);
         res.body.feed[0].isWatchedByUser.should.equals(true);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('Region1De');
         res.body.feed[0].created.should.equals(555);
@@ -149,6 +150,7 @@ describe('Get feed for the most popular commitments', function () {
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed[0].isAdmin.should.equals(true);
     });
 
     it('Filter by region', async function () {
@@ -177,6 +179,7 @@ describe('Get feed for the most popular commitments', function () {
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed[0].isAdmin.should.equals(true);
 
         res.body.feed[1].type.should.equals('Commitment');
         res.body.feed[1].commitmentId.should.equals('101');
