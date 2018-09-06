@@ -39,7 +39,17 @@ export const mutations = {
         if (answerToRemove > -1) {
             state.feed.splice(answerToRemove, 1);
         }
-    }
+    },
+    ADD_QUESTION_WATCH(state, questionId) {
+        let question = state.feed.find(
+            (element) => element.questionId === questionId && element.type === 'Question');
+        question.numberOfWatches++;
+    },
+    REMOVE_QUESTION_WATCH(state, questionId) {
+        let question = state.feed.find(
+            (element) => element.questionId === questionId && element.type === 'Question');
+        question.numberOfWatches--;
+    },
 };
 
 const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {

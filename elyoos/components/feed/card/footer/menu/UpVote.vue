@@ -1,7 +1,7 @@
 <template>
-    <v-menu v-model="menu" :close-on-content-click="false" offset-y>
+    <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy>
         <slot name="icon" slot="activator"></slot>
-        <v-card class="ely-menu-container">
+        <v-card class="ely-menu-container up-vote-menu-container">
             <div class="menu-title">
                 <span v-if="!isLoggedInUser">
                     <span class="primary-title">{{userName}} </span>
@@ -15,22 +15,12 @@
                     <span v-else>{{$t("pages:feeds.menu.userUpVote.titleIsLoggedInUserAndNotUpVoted")}}</span>
                 </span>
             </div>
-            <div class="menu-content menu-up-vote-content" v-if="numberOfShowedUsers > 0">
-                <div class="more-user-description">
-                    {{$t("pages:feeds.menu.userUpVote.moreUpVotes", {count: numberOfShowedUsers})}}
-                </div>
-                <div class="user-container">
-                    <user :user="user" :show-date-relative="true" v-for="user in users.users" :key="user.userId"
-                          v-if="user.userId !== userId"
-                          @remove-from-trust-circle="removeUserFromTrustCircle"
-                          @add-to-trust-circle="addUserToTrustCircle">
-                    </user>
-                    <v-btn color="primary" outline class="show-more-users-button" @click="getNextUsers()"
-                           v-if="users.hasMoreUsers" :loading="loadingNextUsers" :disabled="loadingNextUsers">
-                        {{$t('common:button.showMore')}}
-                    </v-btn>
-                </div>
-            </div>
+            <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
+                          api-get-user="/question/answer/upVotes" :init-has-more-users="users.hasMoreUsers"
+                          :id="answerId" :user-id="userId"
+                          :user-description="$t('pages:feeds.menu.userUpVote.moreUpVotes',
+                          {count: numberOfShowedUsers})">
+            </user-content>
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
@@ -58,16 +48,16 @@
 </template>
 
 <script>
-    import User from '~/components/common/user/User';
+    import UserContent from './UsersContainer';
 
     export default {
         props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
             'numberOfUpVotes'],
-        components: {User},
+        components: {UserContent},
         data() {
             return {
                 menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser,
-                users: null, usersPage: 0, loadingNextUsers: false
+                users: null
             }
         },
         computed: {
@@ -106,32 +96,6 @@
             },
             async downVote() {
                 this.voteCommand(false);
-            },
-            async getNextUsers() {
-                try {
-                    this.loadingNextUsers = true;
-                    let nextUsers = await this.$axios.$get(`/question/answer/upVotes`,
-                        {params: {answerId: this.answerId, page: this.usersPage}});
-                    this.users.users = this.users.users.concat(nextUsers.users);
-                    this.users.hasMoreUsers = nextUsers.hasMoreUsers;
-                    this.usersPage++;
-                } catch (error) {
-                    this.showError = true;
-                } finally {
-                    this.loadingNextUsers = false;
-                }
-            },
-            async addUserToTrustCircle(userId) {
-                let response = await this.$axios.$post(`user/trustCircle/${userId}`);
-                let user = this.users.users.find(user => user.userId === userId);
-                user.personOfTrustSince = response.personOfTrustSince;
-                user.isPersonOfTrust = true;
-            },
-            async removeUserFromTrustCircle(userId) {
-                await this.$axios.$delete(`user/trustCircle/${userId}`);
-                let user = this.users.users.find(user => user.userId === userId);
-                delete user.personOfTrustSince;
-                user.isPersonOfTrust = false;
             }
         },
         watch: {
@@ -140,10 +104,10 @@
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
-                } else if (open && this.numberOfUpVotes > 0 && this.users === null) {
+                }
+                else if (open && this.numberOfUpVotes > 0 && this.users === null) {
                     this.users = await this.$axios.$get(`/question/answer/upVotes`,
-                        {params: {answerId: this.answerId, page: this.usersPage}});
-                    this.usersPage++;
+                        {params: {id: this.answerId, page: 0}});
                 }
             }
         }
@@ -151,19 +115,5 @@
 </script>
 
 <style lang="scss">
-    .ely-menu-container {
-        .menu-up-vote-content {
-            .more-user-description {
-                font-size: 14px;
-                margin-bottom: 18px;
-            }
-            .user-container {
-                max-height: 336px;
-                overflow-y: scroll;
-                .show-more-users-button {
-                    margin-left: 0;
-                }
-            }
-        }
-    }
+
 </style>

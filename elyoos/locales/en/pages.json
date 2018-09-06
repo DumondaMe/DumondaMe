@@ -158,13 +158,13 @@
         "titleIsLoggedInUser": "have up voted this answer",
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer"
       },
-      "userInterestedInQuestion": {
-        "title": "finds this question interesting",
-        "titleIsLoggedInUser": "find this question interesting"
-      },
-      "userInterestedInCommitment": {
-        "title": "finds this commitment interesting",
-        "titleIsLoggedInUser": "find this commitment interesting"
+      "watchesQuestion": {
+        "title": "finds this question interestin",
+        "titleTwoNames": "find this question interesting",
+        "moreWatches": "The question is of interest to:",
+        "moreWatches_plural": "The question is of interest to:",
+        "titleIsLoggedInUser": "find this question interesting",
+        "titleIsLoggedInUserAndNotWatched": "don't find this question interesting"
       },
       "eventCreateByCommitment": {
         "title": "has created this event"

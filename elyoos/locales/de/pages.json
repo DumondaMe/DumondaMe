@@ -153,18 +153,18 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleTwoNames": "haben dieser Antwort zugestimmt",
-        "moreUpVotes": "Weitere für dich sichtbare Up Vote von:",
+        "moreUpVotes": "Weiterer für dich sichtbarer Up Vote von:",
         "moreUpVotes_plural": "Weitere für dich sichtbare Up Votes von:",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
         "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt"
       },
-      "userInterestedInQuestion": {
+      "watchesQuestion": {
         "title": "findet diese Frage interessant",
-        "titleIsLoggedInUser": "findest diese Frage interessant"
-      },
-      "userInterestedInCommitment": {
-        "title": "findet dieses Engagement interessant",
-        "titleIsLoggedInUser": "findest dieses Engagement interessant"
+        "titleTwoNames": "finden diese Frage interessant",
+        "moreWatches": "Für die Frage interessiert sich:",
+        "moreWatches_plural": "Für die Frage interessieren sich:",
+        "titleIsLoggedInUser": "findest diese Frage interessant",
+        "titleIsLoggedInUserAndNotWatched": "findest diese Frage nicht interessant"
       },
       "eventCreateByCommitment": {
         "title": "hat diesen Event erfasst"

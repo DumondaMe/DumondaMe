@@ -63,7 +63,10 @@
                 <question-card :question="element" v-if="element.type === 'Question'">
                     <question-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
-                                          :number-of-answers="element.numberOfAnswers" :action="element.action">
+                                          :number-of-answers="element.numberOfAnswers" :action="element.action"
+                                          :question-id="element.questionId"
+                                          :is-watched-by-user="element.isWatchedByUser"
+                                          @add-watch="addQuestionWatch" @remove-watch="removeQuestionWatch">
                     </question-card-footer>
                 </question-card>
             </div>
@@ -112,7 +115,13 @@
                 if (!isUpVotedByUser) {
                     this.$store.commit('feed/REMOVE_ANSWER', answerId);
                 }
-            }
+            },
+            addQuestionWatch(questionId) {
+                this.$store.commit('feed/ADD_QUESTION_WATCH', questionId);
+            },
+            removeQuestionWatch(questionId) {
+                this.$store.commit('feed/REMOVE_QUESTION_WATCH', questionId);
+            },
         }
     }
 </script>

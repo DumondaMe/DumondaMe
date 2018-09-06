@@ -24,8 +24,19 @@
             </user-menu>
         </div>
         <div class="footer-icon" v-if="action === 'watch'">
-            <v-icon medium class="action-icon">mdi-star</v-icon>
-            <span class="footer-description number">{{numberOfWatches}}</span>
+            <watches-menu :user-name="user.name" :user-id="user.userId" :watched-id="questionId"
+                          watched-id-name="questionId" :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
+                          :is-admin="creator.isLoggedInUser" :watched-by-user="isWatchedByUser"
+                          :number-of-watches="numberOfWatches" menu-translation="watchesQuestion"
+                          api-get-user-command="question/watches" api-watch="user/question/watch"
+                          @add-watch="(id) => $emit('add-watch', id)"
+                          @remove-watch="(id) => $emit('remove-watch', id)"
+                          @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                <div slot="icon">
+                    <v-icon medium class="action-icon">mdi-star</v-icon>
+                    <span class="footer-description number">{{numberOfWatches}}</span>
+                </div>
+            </watches-menu>
         </div>
         <div class="footer-icon">
             <v-icon medium class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
@@ -36,18 +47,31 @@
             <span class="footer-description number">{{numberOfAnswers}}</span>
         </div>
         <div class="footer-icon" v-if="action !== 'watch'">
-            <v-icon medium class="action-icon">mdi-star</v-icon>
-            <span class="footer-description number">{{numberOfWatches}}</span>
+            <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"
+                          :user-slug="user.slug" :is-logged-in-user="true" :is-admin="user.isLoggedInUser"
+                          :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
+                          menu-translation="watchesQuestion" api-get-user-command="question/watches"
+                          api-watch="user/question/watch"
+                          @add-watch="(id) => $emit('add-watch', id)"
+                          @remove-watch="(id) => $emit('remove-watch', id)"
+                          @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                <div slot="icon">
+                    <v-icon medium class="action-icon">mdi-star</v-icon>
+                    <span class="footer-description number">{{numberOfWatches}}</span>
+                </div>
+            </watches-menu>
         </div>
     </div>
 </template>
 
 <script>
     import UserMenu from './menu/User';
+    import WatchesMenu from './menu/Watches'
 
     export default {
-        props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'action'],
-        components: {UserMenu},
+        props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'isWatchedByUser', 'action',
+            'questionId'],
+        components: {UserMenu, WatchesMenu},
         computed: {
             userTitle() {
                 if (this.action === 'created') {

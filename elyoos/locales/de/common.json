@@ -89,7 +89,14 @@
       "userHasNotUpVoted": "Ist dies eine passende Antwort?",
       "removeUpVote": "Der Antwort nicht mehr zustimmen",
       "addUpVote": "Der Antwort zustimmen",
-      "userIsAdmin": "Als Ersteller kannst du dieser Antwort nicht zustimmen"
+      "userIsAdmin": "Als Ersteller kannst du die Antwort nicht zustimmen"
+    },
+    "watch": {
+      "userHasWatched": "Du findest dies interessant",
+      "userHasNotWatched": "Findest du dies interessant?",
+      "removeWatch": "Interessant entfernen",
+      "addWatch": "Als Interessant markieren",
+      "userIsAdmin": "Als Ersteller kannst du dies nicht als interessant markieren"
     },
     "note": {
       "menuDescription": "Anmerkungen zur Antwort",
