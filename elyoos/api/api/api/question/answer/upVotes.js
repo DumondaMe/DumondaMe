@@ -10,9 +10,9 @@ const schemaGetUpVotesOfAnswer = {
     name: 'getUpVotesOfAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'page'],
+    required: ['id', 'page'],
     properties: {
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        id: {type: 'string', format: 'notEmptyString', maxLength: 60},
         page: {type: 'integer', minimum: 0}
     }
 };
@@ -22,7 +22,7 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetUpVotesOfAnswer, logger);
         let userId = apiHelper.getUserId(req);
-        let response = await upVotes.getUpVotes(userId, params.answerId, params.page);
+        let response = await upVotes.getUpVotes(userId, params.id, params.page);
         res.status(200).json(response);
     }));
 };

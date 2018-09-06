@@ -27,7 +27,7 @@ describe('Getting users who watches a question', function () {
     it('When logged in and no watches', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
@@ -40,7 +40,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
@@ -77,7 +77,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
@@ -101,7 +101,7 @@ describe('Getting users who watches a question', function () {
         dbDsl.watchQuestion({questionId: '1', userId: '5', created: 997});
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
@@ -125,7 +125,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
@@ -138,7 +138,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
@@ -153,7 +153,7 @@ describe('Getting users who watches a question', function () {
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
 
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
@@ -165,7 +165,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
@@ -180,7 +180,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
@@ -193,7 +193,7 @@ describe('Getting users who watches a question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/question/watches', {questionId: '1', page: 0});
+        let res = await requestHandler.get('/api/question/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(true);
         res.body.users.length.should.equals(20);

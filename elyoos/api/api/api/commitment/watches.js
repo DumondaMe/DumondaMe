@@ -10,9 +10,9 @@ const schemaGetWatchesOfCommitment = {
     name: 'getWatchesOfCommitment',
     type: 'object',
     additionalProperties: false,
-    required: ['commitmentId', 'page'],
+    required: ['id', 'page'],
     properties: {
-        commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        id: {type: 'string', format: 'notEmptyString', maxLength: 60},
         page: {type: 'integer', minimum: 0}
     }
 };
@@ -22,7 +22,7 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetWatchesOfCommitment, logger);
         let userId = apiHelper.getUserId(req);
-        let response = await watches.getUserWatchesCommitment(userId, params.commitmentId, params.page);
+        let response = await watches.getUserWatchesCommitment(userId, params.id, params.page);
         res.status(200).json(response);
     }));
 };
