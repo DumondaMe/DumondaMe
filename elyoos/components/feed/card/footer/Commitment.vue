@@ -24,9 +24,10 @@
             </user-menu>
         </div>
         <div class="footer-icon" v-if="user">
-            <div v-if="action === 'watch' && cardType === 'Commitment'">
-                <watches-menu :user-id="user.userId" :watched-id="commitmentId" watched-id-name="questionId"
-                              :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
+            <div v-if="cardType === 'Commitment'">
+                <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
+                              watched-id-name="commitmentId" :user-slug="user.slug"
+                              :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
                               :is-admin="isAdmin"
                               :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
                               menu-translation="watchesCommitment" api-get-user-command="commitment/watches"

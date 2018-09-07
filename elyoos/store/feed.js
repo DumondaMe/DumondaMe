@@ -50,6 +50,16 @@ export const mutations = {
             (element) => element.questionId === questionId && element.type === 'Question');
         question.numberOfWatches--;
     },
+    ADD_COMMITMENT_WATCH(state, commitmentId) {
+        let commitment = state.feed.find(
+            (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
+        commitment.numberOfWatches++;
+    },
+    REMOVE_COMMITMENT_WATCH(state, commitmentId) {
+        let commitment = state.feed.find(
+            (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
+        commitment.numberOfWatches--;
+    }
 };
 
 const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {

@@ -3,18 +3,24 @@
         <v-menu v-model="menu" :close-on-content-click="false" offset-y>
             <slot name="icon" slot="activator"></slot>
             <v-card class="ely-menu-container">
-                <div class="menu-title" v-if="!isAdmin && isAuthenticated">
-                    <span v-if="!isLoggedInUser">
-                        <span class="primary-title">{{userName}} </span>
-                        <span v-if="localWatchedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
-                        </span>{{$t("pages:feeds.menu." + menuTranslation + ".titleTwoNames")}}</span>
-                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".title")}}</span>
-                    </span>
-                    <span v-else-if="isLoggedInUser">
+                <div v-if="isAuthenticated">
+                    <div class="menu-title" v-if="isLoggedInUser && isWatchingAction">
                         <span class="primary-title">{{$t('common:you')}} </span>
                         <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
                         <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
-                    </span>
+                    </div>
+                    <div class="menu-title" v-else-if="!isLoggedInUser && isWatchingAction">
+                        <span class="primary-title">{{userName}} </span>
+                        <span v-if="localWatchedByUser">{{$t('common:and')}}
+                            <span class="primary-title">{{$t('common:you')}}
+                        </span>{{$t("pages:feeds.menu." + menuTranslation + ".titleTwoNames")}}</span>
+                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".title")}}</span>
+                    </div>
+                    <div class="menu-title" v-else-if="!isWatchingAction && !isAdmin">
+                        <span class="primary-title">{{$t('common:you')}} </span>
+                        <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
+                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
+                    </div>
                 </div>
                 <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
                               :api-get-user="apiGetUserCommand" :init-has-more-users="users.hasMoreUsers"
@@ -56,8 +62,8 @@
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
-        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'watchedByUser', 'watchedId',
-            'watchedIdName', 'numberOfWatches', 'apiWatch', 'apiGetUserCommand', 'menuTranslation'],
+        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isWatchingAction', 'isAdmin', 'watchedByUser',
+            'watchedId', 'watchedIdName', 'numberOfWatches', 'apiWatch', 'apiGetUserCommand', 'menuTranslation'],
         components: {UserContent, LoginRequiredDialog},
         data() {
             return {
@@ -71,7 +77,8 @@
                     return this.users.users.filter((user) => user.userId !== this.userId).length;
                 }
                 return 0;
-            }, isAuthenticated() {
+            },
+            isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
             }
         },

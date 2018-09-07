@@ -13,6 +13,7 @@
                                             :commitment-id="element.commitmentId"
                                             :is-watched-by-user="element.isWatchedByUser" :is-admin="element.isAdmin"
                                             @up-voted="upVoted" @down-voted="downVoted"
+                                            @add-watch="addCommitmentWatch" @remove-watch="removeCommitmentWatch"
                                             @up-vote-menu-closed="upVoteMenuClosed">
                     </commitment-card-footer>
                 </commitment-card>
@@ -124,6 +125,12 @@
             removeQuestionWatch(questionId) {
                 this.$store.commit('feed/REMOVE_QUESTION_WATCH', questionId);
             },
+            addCommitmentWatch(commitmentId) {
+                this.$store.commit('feed/ADD_COMMITMENT_WATCH', commitmentId);
+            },
+            removeCommitmentWatch(commitmentId) {
+                this.$store.commit('feed/REMOVE_COMMITMENT_WATCH', commitmentId);
+            }
         }
     }
 </script>

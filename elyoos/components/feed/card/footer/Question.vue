@@ -25,6 +25,7 @@
         </div>
         <div class="footer-icon" v-if="action === 'watch'">
             <watches-menu :user-name="user.name" :user-id="user.userId" :watched-id="questionId"
+                          :is-watching-action="true"
                           watched-id-name="questionId" :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
                           :is-admin="creator.isLoggedInUser" :watched-by-user="isWatchedByUser"
                           :number-of-watches="numberOfWatches" menu-translation="watchesQuestion"
@@ -48,6 +49,7 @@
         </div>
         <div class="footer-icon" v-if="action !== 'watch'">
             <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"
+                          :is-watching-action="false"
                           :user-slug="user.slug" :is-logged-in-user="true" :is-admin="user.isLoggedInUser"
                           :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
                           menu-translation="watchesQuestion" api-get-user-command="question/watches"
