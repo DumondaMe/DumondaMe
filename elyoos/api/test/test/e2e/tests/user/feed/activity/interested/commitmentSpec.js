@@ -72,7 +72,7 @@ describe('Get activity feed for interested commitments', function () {
 
         res.body.feed[1].type.should.equals('Commitment');
         res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
+        res.body.feed[1].commitmentId.should.equals('101');
     });
 
     it('Get interested commitments of a user from the trust circle', async function () {
