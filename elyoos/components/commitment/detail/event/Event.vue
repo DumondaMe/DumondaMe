@@ -1,9 +1,12 @@
 <template>
     <div class="commitment-event ely-card">
         <div class="event-header-container">
-            <div class="event-title" v-if="event.linkDescription"><a target="_blank" :href="event.linkDescription"
-                                                                     class="link">{{event.title}} </a></div>
-            <div class="event-title" v-else>{{event.title}}</div>
+            <div>
+                <div class="event-title" v-if="event.linkDescription"><a target="_blank" :href="event.linkDescription"
+                                                                         class="link">{{event.title}} </a></div>
+                <div class="event-title" v-else>{{event.title}}</div>
+                <div class="event-date">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
+            </div>
             <v-spacer v-if="isAdmin"></v-spacer>
             <v-menu bottom left v-if="isAdmin">
                 <v-btn icon slot="activator">
@@ -25,15 +28,11 @@
         <div class="event-description">{{event.description}}</div>
         <div class="event-footer">
             <div class="footer-icon">
-                <v-icon>mdi-clock-outline</v-icon>
-                <span class="footer-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</span>
-            </div>
-            <div class="footer-icon">
                 <v-icon>mdi-map-marker</v-icon>
                 <span class="footer-text">{{event.location}} ({{event.region.description}})</span>
             </div>
             <div class="footer-icon" v-if="event.linkDescription">
-                <v-icon>mdi-calendar-text</v-icon>
+                <v-icon medium>mdi-calendar-text</v-icon>
                 <span class="footer-text">
                     <a target="_blank" :href="event.linkDescription" class="link">{{linkDescriptionWithoutProtocol}}</a>
                 </span>
@@ -93,6 +92,20 @@
                     text-decoration: underline;
                 }
             }
+            .event-date {
+                font-size: 14px;
+                font-weight: 300;
+                color: $secondary-text;
+            }
+            .v-menu {
+                margin-left: 8px;
+                .v-menu__activator {
+                    align-items: flex-start;
+                    .v-btn {
+                        margin: 0;
+                    }
+                }
+            }
             .menu {
                 button {
                     margin: 0;
@@ -104,11 +117,6 @@
                 }
             }
         }
-        .event-date {
-            font-weight: 300;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
         .event-description {
             margin-top: 12px;
             font-weight: 300;
@@ -116,16 +124,25 @@
         }
         .event-footer {
             margin-top: 12px;
-            margin-left: -2px;
             .footer-icon {
-                i.v-icon {
-                    font-size: 18px;
+                vertical-align: top;
+                display: inline-block;
+                height: 40px;
+                .v-icon {
+                    display: inline-block;
+                    height: 24px;
+                    width: 24px;
+                    color: #009688;
                 }
                 .footer-text {
+                    display: inline-block;
                     margin-left: 4px;
-                    font-size: 12px;
+                    font-size: 14px;
                     font-weight: 400;
                     color: $secondary-text;
+                    line-height: 24px;
+                    height: 24px;
+                    vertical-align: middle;
                     .footer-link {
                         cursor: pointer;
                     }

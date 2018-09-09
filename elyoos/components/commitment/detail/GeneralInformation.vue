@@ -1,15 +1,8 @@
 <template>
-    <div class="general-info-container">
+    <div class="general-info-container ely-card">
         <div class="commitment-info" v-if="commitment.isAdmin">
             <v-icon class="info-icon icon-admin">mdi-account</v-icon>
             {{$t('common:youAreAdmin')}}
-        </div>
-        <div class="commitment-info">
-            <v-icon class="info-icon">mdi-star</v-icon>
-            <div v-if="commitment.numberOfWatches > 0">
-                {{$t('pages:detailCommitment.generalInfo.watchers', {count: commitment.numberOfWatches})}}
-            </div>
-            <div v-else>{{$t('pages:detailCommitment.generalInfo.watchersNotExisting')}}</div>
         </div>
         <div class="commitment-info" v-if="commitment.website">
             <v-icon class="info-icon">mdi-link</v-icon>
@@ -68,7 +61,7 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
-            i.icon-admin.icon {
+            i.icon-admin.v-icon {
                 color: $success-text;
             }
             #region-container {

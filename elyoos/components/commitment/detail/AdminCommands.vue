@@ -2,9 +2,8 @@
     <div id="commitment-admin-commands-container">
         <div id="admin-commands">
             <v-menu offset-y>
-                <v-btn outline color="primary" slot="activator">
+                <v-btn small fab color="secondary" slot="activator">
                     <v-icon>mdi-pencil</v-icon>
-                    {{$t('common:button.edit')}}
                 </v-btn>
                 <v-list>
                     <v-list-tile @click="showModifyCommitmentDialog = true">
@@ -80,13 +79,6 @@
 
 <style lang="scss">
     #commitment-admin-commands-container {
-        #admin-commands {
-            button {
-                margin-left: 0;
-                i.v-icon {
-                    margin-right: 8px;
-                }
-            }
-        }
+        display: inline-block;
     }
 </style>

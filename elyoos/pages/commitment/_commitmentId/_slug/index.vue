@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import DetailLayout from '~/components/layouts/Detail';
+    import DetailLayout from '~/components/layouts/DetailQuestion';
     import CommitmentHeader from '~/components/commitment/detail/Header';
     import ProfileImage from '~/components/commitment/detail/ProfileImage';
     import Notifications from '~/components/commitment/detail/notifications/Notifications';

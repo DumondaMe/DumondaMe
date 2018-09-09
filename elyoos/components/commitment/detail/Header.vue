@@ -2,17 +2,16 @@
     <div id="elyoos-commitment-header">
         <h1>{{commitment.title}}</h1>
         <p id="commitment-description">{{commitment.description}}</p>
-        <admin-commands v-if="isAdmin"></admin-commands>
-        <div id="commands-container" v-else>
-            <v-btn class="button-watch" color="primary" outline @click="addWatch"
-                   v-if="!commitment.userWatchesCommitment">
+        <div id="commands-container">
+            <v-btn class="button-watch" color="primary" small fab @click="addWatch"
+                   v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
+                <v-icon>mdi-star-outline</v-icon>
+            </v-btn>
+            <v-btn class="button-watch" color="primary" small fab @click="removeWatch" :disabled="isAdmin" v-else>
                 <v-icon>mdi-star</v-icon>
-                {{$t("common:button.interested")}}
             </v-btn>
-            <v-btn class="button-watch" color="primary" outline @click="removeWatch" v-else>
-                <v-icon>mdi-check</v-icon>
-                {{$t("common:button.interested")}}
-            </v-btn>
+            <span class="description">{{commitment.numberOfWatches}}</span>
+            <admin-commands v-if="isAdmin"></admin-commands>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
@@ -74,11 +73,19 @@
         }
         #commands-container {
             .button-watch {
+                display: inline-block;
                 margin-left: 0;
-                i.v-icon {
-                    font-size: 20px;
-                    margin-right: 8px;
-                }
+            }
+            .description {
+                height: 40px;
+                line-height: 40px;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 500;
+                color: $secondary-text;
+                margin-left: 4px;
+                margin-right: 20px;
+                vertical-align: middle;
             }
         }
     }

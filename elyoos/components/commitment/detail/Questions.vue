@@ -1,10 +1,11 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <div id="questions-container" v-if="questions.length > 0">
         <h2>{{$t('pages:detailCommitment.questions.title')}}</h2>
         <div class="question ely-card" :class="{'last-question': index === questions.length - 1}"
-             v-for="(question, index) in questions" @click="$router.push({name: 'question-questionId-slug',
-                     params: {questionId: question.questionId, slug: question.slug}})">
-            <div class="question-title">{{question.question}}</div>
+             v-for="(question, index) in questions">
+            <div class="question-title"><span class="question-type">{{$t('common:question')}} </span>
+                <span class="question" @click="$router.push({name: 'question-questionId-slug',
+                     params: {questionId: question.questionId, slug: question.slug}})">{{question.question}}</span></div>
             <div class="description">{{question.description}}</div>
             <div class="info-container">
                 <div class="info-icon-element">
@@ -31,11 +32,19 @@
 <style lang="scss">
     #questions-container {
         .question {
-            cursor: pointer;
             margin-bottom: 12px;
             .question-title {
                 color: $primary-color;
                 font-size: 16px;
+                margin-bottom: 12px;
+                .question-type {
+                    color: $primary-text;
+                    font-weight: 500;
+                }
+                :hover.question {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
             .description {
                 font-size: 16px;

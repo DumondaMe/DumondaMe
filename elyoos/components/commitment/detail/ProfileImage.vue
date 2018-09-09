@@ -22,8 +22,8 @@
 <style lang="scss">
     #elyoos-commitment-image {
         #commitment-image {
-            width: 210px;
-            height: 210px;
+            width: 320px;
+            height: 320px;
             img {
                 width: 100%;
                 height: 100%;
