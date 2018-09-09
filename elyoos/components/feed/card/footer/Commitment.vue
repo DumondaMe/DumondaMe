@@ -3,7 +3,9 @@
         <div class="footer-icon" v-if="creator && cardType === 'CommitmentAnswer'">
             <user-menu :menu-title="creatorTitle" :user-image="creator.userImagePreview"
                        :user-name="creator.name" :user-id="creator.userId" :user-slug="creator.slug"
-                       :is-trust-user="creator.isTrustUser" :is-logged-in-user="creator.isLoggedInUser">
+                       :is-trust-user="creator.isTrustUser" :is-logged-in-user="creator.isLoggedInUser"
+                       @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
+                       @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
                 <div class="user-icon creator-icon" slot="icon">
                     <img :src="creator.userImage">
                 </div>
@@ -17,7 +19,9 @@
         <div class="footer-icon" v-if="user">
             <user-menu :menu-title="userTitle" :user-image="user.userImagePreview"
                        :user-name="user.name" :user-id="user.userId" :user-slug="user.slug"
-                       :is-trust-user="user.isTrustUser" :is-logged-in-user="user.isLoggedInUser">
+                       :is-trust-user="user.isTrustUser" :is-logged-in-user="user.isLoggedInUser"
+                       @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
+                       @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
                 <div class="user-icon creator-icon" slot="icon">
                     <img :src="user.userImage">
                 </div>

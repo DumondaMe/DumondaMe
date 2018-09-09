@@ -59,6 +59,26 @@ export const mutations = {
         let commitment = state.feed.find(
             (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
         commitment.numberOfWatches--;
+    },
+    ADD_USER_TO_TRUST_CIRCLE(state, userId) {
+        for (let element of state.feed) {
+            if (element.user && element.user.userId === userId) {
+                element.user.isTrustUser = true;
+            }
+            if (element.creator && element.creator.userId === userId) {
+                element.creator.isTrustUser = true;
+            }
+        }
+    },
+    REMOVE_USER_TO_TRUST_CIRCLE(state, userId) {
+        for (let element of state.feed) {
+            if (element.user && element.user.userId === userId) {
+                element.user.isTrustUser = false;
+            }
+            if (element.creator && element.creator.userId === userId) {
+                element.creator.isTrustUser = false;
+            }
+        }
     }
 };
 

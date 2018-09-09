@@ -14,7 +14,9 @@
                                             :is-watched-by-user="element.isWatchedByUser" :is-admin="element.isAdmin"
                                             @up-voted="upVoted" @down-voted="downVoted"
                                             @add-watch="addCommitmentWatch" @remove-watch="removeCommitmentWatch"
-                                            @up-vote-menu-closed="upVoteMenuClosed">
+                                            @up-vote-menu-closed="upVoteMenuClosed"
+                                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </commitment-card-footer>
                 </commitment-card>
                 <book-card :answer="element" v-if="element.type === 'Book'">
@@ -23,7 +25,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
                 <text-card :answer="element" v-if="element.type === 'Text'">
@@ -32,7 +36,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </text-card>
                 <event-card :event="element" v-if="element.type === 'Event'">
@@ -51,7 +57,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </link-card>
                 <youtube-card :answer="element" v-if="element.type === 'Youtube'">
@@ -60,7 +68,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'">
@@ -69,7 +79,9 @@
                                           :number-of-answers="element.numberOfAnswers" :action="element.action"
                                           :question-id="element.questionId"
                                           :is-watched-by-user="element.isWatchedByUser"
-                                          @add-watch="addQuestionWatch" @remove-watch="removeQuestionWatch">
+                                          @add-watch="addQuestionWatch" @remove-watch="removeQuestionWatch"
+                                          @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                                          @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </question-card-footer>
                 </question-card>
             </div>
@@ -130,6 +142,12 @@
             },
             removeCommitmentWatch(commitmentId) {
                 this.$store.commit('feed/REMOVE_COMMITMENT_WATCH', commitmentId);
+            },
+            async addUserToTrustCircle(userId) {
+                this.$store.commit('feed/ADD_USER_TO_TRUST_CIRCLE', userId);
+            },
+            async removeUserFromTrustCircle(userId) {
+                this.$store.commit('feed/REMOVE_USER_TO_TRUST_CIRCLE', userId);
             }
         }
     }
