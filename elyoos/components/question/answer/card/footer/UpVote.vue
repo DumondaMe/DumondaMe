@@ -77,7 +77,7 @@
                     margin: 0;
                 }
                 .description.left-side {
-                    font-size: 14px;
+                    font-size: 16px;
                     font-weight: 500;
                     color: $secondary-text;
                     margin-right: 8px;
