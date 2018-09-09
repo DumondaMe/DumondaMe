@@ -1,22 +1,21 @@
 <template>
     <detail-layout itemscope itemtype="http://schema.org/Question">
-        <div slot="content" id="question-detail">
-            <question-header>
-            </question-header>
-            <answers>
-            </answers>
-        </div>
         <div slot="sidebar">
-            <general-information>
-            </general-information>
+            <create-answer></create-answer>
+            <general-information></general-information>
+        </div>
+        <div slot="content" id="question-detail">
+            <question-header></question-header>
+            <answers></answers>
         </div>
     </detail-layout>
 </template>
 
 <script>
-    import DetailLayout from '~/components/layouts/Detail';
+    import DetailLayout from '~/components/layouts/DetailQuestion';
     import QuestionHeader from '~/components/question/Header';
     import Answers from '~/components/question/answer/Answers';
+    import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
 
     export default {
@@ -40,7 +39,7 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader, Answers, GeneralInformation},
+        components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation},
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);

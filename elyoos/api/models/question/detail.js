@@ -101,6 +101,7 @@ const getQuestion = async function (questionId, language, userId) {
         .return(`question, user, count(DISTINCT answer) AS numberOfAnswers, count(DISTINCT watch) AS numberOfWatches,
                  collect(DISTINCT {description: topic.${language}, id: topic.topicId}) AS topics,
                  EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
+                 EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion`)
         .end({questionId, userId}).send([getAnswersCommand(questionId, userId)]);
     if (response[1].length === 1) {
@@ -117,7 +118,10 @@ const getQuestion = async function (questionId, language, userId) {
         question.creator = {
             name: questionResponse.user.name,
             userId: questionResponse.user.userId,
-            slug: slug(questionResponse.user.name)
+            slug: slug(questionResponse.user.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${questionResponse.user.userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${questionResponse.user.userId}/profilePreview.jpg`),
+            isTrustUser: questionResponse.isTrustUser,
         };
         question.answers = await getAnswers(response[0], language, userId);
         return question;

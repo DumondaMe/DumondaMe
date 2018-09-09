@@ -93,6 +93,9 @@ describe('Getting details of a question', function () {
         res.body.creator.name.should.equals('user Meier3');
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
+        res.body.creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.creator.isTrustUser.should.equals(false);
         res.body.topics.length.should.equals(1);
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
@@ -105,6 +108,7 @@ describe('Getting details of a question', function () {
             creatorId: '3', question: 'Das ist eine Frage2',
             topics: ['topic2'], language: 'en', modified: 701
         });
+        dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/2', {language: 'de'});
@@ -123,6 +127,9 @@ describe('Getting details of a question', function () {
         res.body.creator.name.should.equals('user Meier3');
         res.body.creator.userId.should.equals('3');
         res.body.creator.slug.should.equals('user-meier3');
+        res.body.creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.creator.isTrustUser.should.equals(true);
         res.body.topics.length.should.equals(1);
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
@@ -160,6 +167,9 @@ describe('Getting details of a question', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.creator.isTrustUser.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
@@ -315,6 +325,9 @@ describe('Getting details of a question', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.creator.isTrustUser.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
@@ -443,6 +456,9 @@ describe('Getting details of a question', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.creator.isTrustUser.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});

@@ -1,9 +1,8 @@
 <template>
     <div id="question-admin-commands-container">
         <v-menu bottom left offset-y id="admin-commands">
-            <v-btn outline color="primary" slot="activator">
+            <v-btn small fab color="secondary" slot="activator">
                 <v-icon>mdi-pencil</v-icon>
-                {{$t('common:button.edit')}}
             </v-btn>
             <v-list>
                 <v-list-tile @click="showModifyQuestionDialog = true">
@@ -62,15 +61,11 @@
 
 <style lang="scss">
     #question-admin-commands-container {
-        height: 49px;
+        margin-left: 4px;
+        height: 40px;
         display: inline-block;
         #admin-commands {
-            i.v-icon {
-                margin-right: 8px;
-            }
-            button {
-                margin-top: 7px;
-            }
+
         }
     }
 </style>

@@ -1,22 +1,49 @@
 <template>
     <div id="elyoos-question-header">
-        <h1 itemprop="name">{{question.question}}</h1>
-        <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
-        <div id="question-commands">
-            <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()">
-                {{$t("common:button.answer")}}
-            </v-btn>
-            <admin-commands v-if="question.isAdmin"></admin-commands>
-            <div class="watch-question-button-container" v-else>
-                <v-btn color="primary" outline class="watch-question-button" @click="addWatch()"
-                       v-if="!question.userWatchesQuestion" :disabled="question.isAdmin">
-                    <v-icon>mdi-star</v-icon>
-                    {{$t("common:button.interested")}}
-                </v-btn>
-                <v-btn color="primary" outline class="watch-question-button" @click="removeWatch()" v-else>
-                    <v-icon>mdi-check</v-icon>
-                    {{$t("common:button.interested")}}
-                </v-btn>
+        <div id="elyoos-question-header-content">
+            <div id="question-header-main">
+                <h1 itemprop="name">{{question.question}}</h1>
+                <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
+                <div id="question-commands">
+                    <user-menu :menu-title="creatorTitle" :user-image="question.creator.userImagePreview"
+                               :user-name="question.creator.name" :user-id="question.creator.userId"
+                               :user-slug="question.creator.slug"
+                               :is-trust-user="question.creator.isTrustUser" :is-logged-in-user="question.isAdmin">
+                        <div class="user-icon" slot="icon">
+                            <img :src="question.creator.userImage">
+                        </div>
+                    </user-menu>
+                    <div>
+                        <watches-menu :user-id="question.creator.userId" :user-name="question.creator.name"
+                                      :watched-id="question.questionId"
+                                      watched-id-name="questionId" :user-slug="question.creator.slug"
+                                      :is-logged-in-user="question.isLoggedInUser" :is-watching-action="false"
+                                      :is-admin="question.isAdmin"
+                                      :watched-by-user="question.userWatchesQuestion"
+                                      :number-of-watches="question.numberOfWatches"
+                                      menu-translation="watchesQuestion" api-get-user-command="question/watches"
+                                      api-watch="user/question/watch"
+                                      @add-watch="addWatch" @remove-watch="removeWatch">
+                            <div slot="icon">
+                                <v-btn slot="activator" small fab color="primary" v-if="!question.userWatchesQuestion">
+                                    <v-icon>mdi-lightbulb-outline</v-icon>
+                                </v-btn>
+                                <v-btn slot="activator" small fab color="user-watches-question"
+                                       v-else>
+                                    <v-icon>mdi-lightbulb</v-icon>
+                                </v-btn>
+                                <span class="description">{{question.numberOfWatches}}</span>
+                            </div>
+                        </watches-menu>
+                    </div>
+                    <div>
+                        <v-btn slot="activator" small fab color="primary" @click="openCreateAnswerDialog()">
+                            <v-icon>mdi-forum</v-icon>
+                        </v-btn>
+                        <span class="description">{{question.numberOfAnswers}}</span>
+                    </div>
+                    <admin-commands v-if="question.isAdmin"></admin-commands>
+                </div>
             </div>
         </div>
 
@@ -33,19 +60,26 @@
 </template>
 
 <script>
-    import UserInfo from '~/components/common/user/Info.vue';
+    import UserMenu from '~/components/feed/card/footer/menu/User';
+    import WatchesMenu from '~/components/feed/card/footer/menu/Watches';
     import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
     import AdminCommands from './AdminCommands';
 
     export default {
-        components: {UserInfo, CreateDialog, LoginRequiredDialog, AdminCommands},
+        components: {UserMenu, WatchesMenu, CreateDialog, LoginRequiredDialog, AdminCommands},
         data() {
             return {dialog: false, showLoginRequired: false}
         },
         computed: {
             question() {
                 return this.$store.state.question.question;
+            },
+            creatorTitle() {
+                if (this.question.isAdmin) {
+                    return this.$t("pages:feeds.menu.creatorQuestion.titleIsLoggedInUser");
+                }
+                return this.$t("pages:feeds.menu.creatorQuestion.title");
             }
         },
         methods: {
@@ -57,21 +91,10 @@
                 }
             },
             async addWatch() {
-                if (this.$store.state.auth.userIsAuthenticated) {
-                    await this.$axios.$put(`user/question/watch/${this.question.questionId}`);
-                    this.$store.commit('question/SET_WATCH')
-                } else {
-                    this.showLoginRequired = true;
-                }
+                this.$store.commit('question/SET_WATCH');
             },
             async removeWatch() {
-                if (this.$store.state.auth.userIsAuthenticated) {
-                    await this.$axios.$delete(`user/question/watch`,
-                        {params: {questionId: this.question.questionId}});
-                    this.$store.commit('question/REMOVE_WATCH')
-                } else {
-                    this.showLoginRequired = true;
-                }
+                this.$store.commit('question/REMOVE_WATCH');
             }
         },
     }
@@ -80,26 +103,50 @@
 <style lang="scss">
     #elyoos-question-header {
         margin-bottom: 48px;
-        h1 {
-            margin-bottom: 4px;
-            font-size: 28px;
-        }
-        #question-description {
-            margin-top: 12px;
-            font-size: 16px;
-            font-weight: 300;
-        }
-        #question-commands {
-            #answer-question-button {
-                margin-left: 0;
+        #elyoos-question-header-content {
+            display: flex;
+            #question-header-main {
+                max-width: 550px;
             }
-            .watch-question-button-container {
-                display: inline-block;
-                .watch-question-button {
-                    i.v-icon {
-                        font-size: 20px;
-                        margin-right: 6px;
+            h1 {
+                margin-bottom: 4px;
+                font-size: 28px;
+            }
+            #question-description {
+                margin-top: 12px;
+                font-size: 16px;
+                font-weight: 300;
+            }
+            #question-commands {
+                margin-top: 24px;
+                display: flex;
+                .user-icon {
+                    height: 40px;
+                    width: 40px;
+                    margin-right: 24px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
                     }
+                }
+                .user-watches-question {
+                    background-color: #607D8B;
+                    i.v-icon {
+                        color: white;
+                    }
+                }
+                .description {
+                    display: inline-block;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: $secondary-text;
+                    margin-left: 10px;
+                    margin-right: 20px;
+                    vertical-align: middle;
+                }
+                button {
+                    margin: 0;
                 }
             }
         }

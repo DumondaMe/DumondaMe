@@ -1,31 +1,13 @@
 <template>
-    <div class="general-info-container">
-        <h3>{{$t("pages:detailQuestion.generalInfo.title")}}</h3>
+    <div class="general-info-container ely-card">
         <div class="question-info" v-if="question.isAdmin">
             <v-icon class="info-icon icon-admin">mdi-account</v-icon>
             {{$t('common:youAreAdmin')}}
         </div>
         <div class="question-info">
-            <v-icon class="info-icon">mdi-star</v-icon>
-            <div v-if="question.numberOfWatches > 0" class="visibility-container">
-                {{$t('pages:detailQuestion.generalInfo.watchers', {count: question.numberOfWatches})}}
-            </div>
-            <div class="visibility-container" v-else>
-                {{$t('pages:detailQuestion.generalInfo.watchersNotExisting')}}
-            </div>
-        </div>
-        <div class="question-info">
-            <v-icon class="info-icon">mdi-forum</v-icon>
-            <div class="visibility-container">
-                {{$t('pages:detailQuestion.generalInfo.answer', {count: question.numberOfAnswers})}}
-            </div>
-        </div>
-        <div class="question-info" v-if="!question.isAdmin">
-            <v-icon class="info-icon">mdi-account-box</v-icon>
+            <v-icon class="info-icon">mdi-clock-outline</v-icon>
             <div class="question-info-content">
-                <span class="user-name" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: question.creator.userId, slug: question.creator.slug}})">
-                {{question.creator.name}}</span>
+                {{question.created | formatRelativeTimesAgo}}
             </div>
         </div>
         <div class="question-info">
@@ -33,12 +15,6 @@
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in question.topics">
                     {{topic.description}}<span v-if="index < question.topics.length - 1">, </span></span>
-            </div>
-        </div>
-        <div class="question-info">
-            <v-icon class="info-icon">mdi-clock-outline</v-icon>
-            <div class="question-info-content">
-                {{question.created | formatRelativeTimesAgo}}
             </div>
         </div>
         <div class="question-info" v-if="question.isAdmin">
@@ -102,7 +78,7 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
-            i.icon-admin.icon {
+            i.icon-admin.v-icon {
                 color: $success-text;
             }
         }
