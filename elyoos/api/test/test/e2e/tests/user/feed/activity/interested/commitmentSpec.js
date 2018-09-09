@@ -33,7 +33,7 @@ describe('Get activity feed for interested commitments', function () {
 
     it('Get interested commitment when only timestamp filter is active', async function () {
         dbDsl.createCommitment('101', {
-            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 606,
+            adminId: '1', topics: ['topic1', 'topic2'], language: 'de', created: 401, modified: 606,
             title: 'Test Commitment', website: 'https://www.example.org/', regions: ['region-1', 'region-2']
         });
 
