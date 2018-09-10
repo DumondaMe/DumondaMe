@@ -34,8 +34,8 @@ const getDetail = async function (userId, commitmentId, language) {
         .optionalMatch(`(t:Topic)-[:TOPIC]->(c)`)
         .optionalMatch(`(r:Region)<-[:BELONGS_TO_REGION]-(c)`)
         .optionalMatch(`(:User)-[w:WATCH]->(c)`)
-        .return(`c.title AS title, c.description AS description, c.website AS website, c.created AS created,
-                 c.modified AS modified, c.language AS lang, count(DISTINCT w) AS numberOfWatches,
+        .return(`c.commitmentId AS commitmentId, c.title AS title, c.description AS description, c.website AS website, 
+                 c.created AS created, c.modified AS modified, c.language AS lang, count(DISTINCT w) AS numberOfWatches,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(c)) AS userWatchesCommitment,
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT {description: t.${language}, id: t.topicId}) AS topics, 

@@ -73,6 +73,7 @@ describe('Get details of a commitment', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'de'});
         res.status.should.equal(200);
+        res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
@@ -119,6 +120,7 @@ describe('Get details of a commitment', function () {
         await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'en'});
         res.status.should.equal(200);
+        res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
@@ -150,6 +152,7 @@ describe('Get details of a commitment', function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/commitment', {commitmentId: '1', language: 'de'});
         res.status.should.equal(200);
+        res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
