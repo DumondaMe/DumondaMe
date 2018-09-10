@@ -54,7 +54,7 @@ describe('Get activity feed for created events of a commitment', function () {
         res.body.feed[0].commitmentTitle.should.equals('Test Commitment');
         res.body.feed[0].commitmentDescription.should.equals('commitment100Description');
         res.body.feed[0].commitmentImageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/40x40/title.jpg?v=999`);
-        res.body.feed[0].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/210x210/title.jpg?v=999`);
+        res.body.feed[0].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/320x320/title.jpg?v=999`);
         res.body.feed[0].eventId.should.equals('22');
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].title.should.equals('event22Title');

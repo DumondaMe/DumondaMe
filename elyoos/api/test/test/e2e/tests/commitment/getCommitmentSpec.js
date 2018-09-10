@@ -76,7 +76,7 @@ describe('Get details of a commitment', function () {
         res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/320x320/title.jpg?v=701`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');
@@ -123,7 +123,7 @@ describe('Get details of a commitment', function () {
         res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/320x320/title.jpg?v=701`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');
@@ -155,7 +155,7 @@ describe('Get details of a commitment', function () {
         res.body.commitmentId.should.equals('1');
         res.body.title.should.equals('commitment1Title');
         res.body.description.should.equals('commitment1Description');
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/210x210/title.jpg?v=701`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/320x320/title.jpg?v=701`);
         res.body.created.should.equals(700);
         res.body.website.should.equals('https://www.example.org/');
         res.body.lang.should.equals('de');

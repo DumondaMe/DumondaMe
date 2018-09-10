@@ -106,7 +106,7 @@ const addEventProperties = function (result, feedElement) {
         result.commitmentTitle = feedElement.activityElement.title;
         result.commitmentDescription = feedElement.activityElement.description;
         result.commitmentImageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/40x40/title.jpg`);
-        result.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${result.commitmentId}/210x210/title.jpg`);
+        result.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${result.commitmentId}/320x320/title.jpg`);
         if (feedElement.feedElement.modified) {
             result.commitmentImageUrl += `?v=${feedElement.feedElement.modified}`;
             result.commitmentImageUrlPreview += `?v=${feedElement.feedElement.modified}`;

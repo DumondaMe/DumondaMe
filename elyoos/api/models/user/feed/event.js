@@ -10,7 +10,7 @@ const getFeedResponse = async function (commitments) {
     for (let commitment of commitments) {
         commitment.commitmentSlug = slug(commitment.commitmentTitle);
         commitment.commitmentImageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/40x40/title.jpg`);
-        commitment.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/210x210/title.jpg`);
+        commitment.commitmentImageUrlPreview = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/320x320/title.jpg`);
         if (commitment.modified) {
             commitment.commitmentImageUrl = commitment.commitmentImageUrl + `?v=${commitment.modified}`;
             commitment.commitmentImageUrlPreview = commitment.commitmentImageUrlPreview + `?v=${commitment.modified}`;

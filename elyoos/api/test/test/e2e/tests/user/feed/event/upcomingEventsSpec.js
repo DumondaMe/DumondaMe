@@ -76,7 +76,7 @@ describe('Get up coming events', function () {
         res.body.feed[0].commitmentDescription.should.equals('commitment101Description');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment2');
         res.body.feed[0].commitmentImageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/40x40/title.jpg?v=607`);
-        res.body.feed[0].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/210x210/title.jpg?v=607`);
+        res.body.feed[0].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/101/320x320/title.jpg?v=607`);
         res.body.feed[0].eventId.should.equals('24');
         res.body.feed[0].title.should.equals('event24Title');
         res.body.feed[0].description.should.equals('event24Description');
@@ -91,7 +91,7 @@ describe('Get up coming events', function () {
         res.body.feed[1].commitmentDescription.should.equals('commitment100Description');
         res.body.feed[1].commitmentSlug.should.equals('test-commitment');
         res.body.feed[1].commitmentImageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/40x40/title.jpg?v=606`);
-        res.body.feed[1].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/210x210/title.jpg?v=606`);
+        res.body.feed[1].commitmentImageUrlPreview.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/100/320x320/title.jpg?v=606`);
         res.body.feed[1].eventId.should.equals('22');
         res.body.feed[1].title.should.equals('event22Title');
         res.body.feed[1].description.should.equals('event22Description');
