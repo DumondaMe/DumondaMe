@@ -66,7 +66,7 @@ describe('Creating a new commitment', function () {
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/40x40/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/210x210/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/320x320/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `commitment/${res.body.commitmentId}/460x460/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.called.should.be.false;
 
@@ -125,7 +125,7 @@ describe('Creating a new commitment', function () {
         stubCDN.copyFile.calledWith('default/commitment/title.jpg', `commitment/${res.body.commitmentId}/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/40x40/title.jpg', `commitment/${res.body.commitmentId}/40x40/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/120x120/title.jpg', `commitment/${res.body.commitmentId}/120x120/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.copyFile.calledWith('default/commitment/210x210/title.jpg', `commitment/${res.body.commitmentId}/210x210/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.copyFile.calledWith('default/commitment/320x320/title.jpg', `commitment/${res.body.commitmentId}/320x320/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.copyFile.calledWith('default/commitment/460x460/title.jpg', `commitment/${res.body.commitmentId}/460x460/title.jpg`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(commitment:Commitment)<-[:IS_ADMIN]-(user:User {userId: '1'})")
