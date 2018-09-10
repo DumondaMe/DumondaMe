@@ -41,7 +41,7 @@ describe('Get details of a commitment', function () {
         });
 
         dbDsl.createCommitmentAnswer('100', {
-            creatorId: '2', questionId: '10', commitmentId: '1', created: 500, description: 'test'
+            creatorId: '1', questionId: '10', commitmentId: '1', created: 500, description: 'test'
         });
         dbDsl.createCommitmentAnswer('101', {
             creatorId: '2', questionId: '11', commitmentId: '1', created: 501, description: 'test2'
@@ -64,7 +64,7 @@ describe('Get details of a commitment', function () {
     it('Get a commitment (User is Admin and logged in)', async function () {
         dbDsl.showQuestionOnCommitment({questionId: '10', commitmentId: '1'});
         dbDsl.showQuestionOnCommitment({questionId: '11', commitmentId: '1'});
-        dbDsl.upVoteAnswer({userId: '3', answerId: '100'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '100'});
         dbDsl.upVoteAnswer({userId: '4', answerId: '100'});
         dbDsl.watchCommitment({commitmentId: '1', userId: '5'});
         dbDsl.watchCommitment({commitmentId: '1', userId: '6'});
@@ -91,11 +91,17 @@ describe('Get details of a commitment', function () {
         res.body.topics.should.deep.include({id: 'topic3', description: 'topic3De'});
         res.body.linkedWithQuestions.length.should.equals(2);
         res.body.linkedWithQuestions[0].questionId.should.equals('10');
+        res.body.linkedWithQuestions[0].commitmentAnswerId.should.equals('100');
+        res.body.linkedWithQuestions[0].isUpVotedByUser.should.equals(true);
+        res.body.linkedWithQuestions[0].isCreatedByUser.should.equals(true);
         res.body.linkedWithQuestions[0].question.should.equals('Das ist eine Frage');
         res.body.linkedWithQuestions[0].slug.should.equals('das-ist-eine-frage');
         res.body.linkedWithQuestions[0].description.should.equals('description');
         res.body.linkedWithQuestions[0].upVotes.should.equals(2);
         res.body.linkedWithQuestions[1].questionId.should.equals('11');
+        res.body.linkedWithQuestions[1].commitmentAnswerId.should.equals('101');
+        res.body.linkedWithQuestions[1].isUpVotedByUser.should.equals(false);
+        res.body.linkedWithQuestions[1].isCreatedByUser.should.equals(false);
         res.body.linkedWithQuestions[1].question.should.equals('Das ist eine Frage2');
         res.body.linkedWithQuestions[1].slug.should.equals('das-ist-eine-frage2');
         res.body.linkedWithQuestions[1].description.should.equals('description2');
@@ -170,11 +176,17 @@ describe('Get details of a commitment', function () {
         res.body.topics.should.deep.include({id: 'topic3', description: 'topic3De'});
         res.body.linkedWithQuestions.length.should.equals(2);
         res.body.linkedWithQuestions[0].questionId.should.equals('10');
+        res.body.linkedWithQuestions[0].commitmentAnswerId.should.equals('100');
+        res.body.linkedWithQuestions[0].isUpVotedByUser.should.equals(false);
+        res.body.linkedWithQuestions[0].isCreatedByUser.should.equals(false);
         res.body.linkedWithQuestions[0].question.should.equals('Das ist eine Frage');
         res.body.linkedWithQuestions[0].slug.should.equals('das-ist-eine-frage');
         res.body.linkedWithQuestions[0].description.should.equals('description');
         res.body.linkedWithQuestions[0].upVotes.should.equals(2);
         res.body.linkedWithQuestions[1].questionId.should.equals('11');
+        res.body.linkedWithQuestions[1].commitmentAnswerId.should.equals('101');
+        res.body.linkedWithQuestions[1].isUpVotedByUser.should.equals(false);
+        res.body.linkedWithQuestions[1].isCreatedByUser.should.equals(false);
         res.body.linkedWithQuestions[1].question.should.equals('Das ist eine Frage2');
         res.body.linkedWithQuestions[1].slug.should.equals('das-ist-eine-frage2');
         res.body.linkedWithQuestions[1].description.should.equals('description2');

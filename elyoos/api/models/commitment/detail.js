@@ -14,19 +14,24 @@ const getLinkedQuestionResponse = function (questions) {
             question: question.question.question,
             description: question.question.description,
             slug: slug(question.question.question),
-            upVotes: question.upVotes
+            upVotes: question.upVotes,
+            isCreatedByUser: question.isCreatedByUser,
+            isUpVotedByUser: question.isUpVotedByUser,
+            commitmentAnswerId: question.commitmentAnswerId
         })
     }
     return linkedQuestions;
 };
 
-const getLinkedQuestions = function (commitmentId) {
+const getLinkedQuestions = function (commitmentId, userId) {
     return db.cypher().match(`(c:Commitment {commitmentId: {commitmentId}})-[:SHOW_QUESTION]->(q:Question)
                                -[:ANSWER]->(a:CommitmentAnswer)-[:COMMITMENT]->(c)`)
         .optionalMatch(`(a)<-[:UP_VOTE]-(upVoteUser:User)`)
-        .return(`DISTINCT q AS question, count(upVoteUser) AS upVotes`)
+        .return(`DISTINCT q AS question, count(upVoteUser) AS upVotes, a.answerId AS commitmentAnswerId,
+                 EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(a)) AS isUpVotedByUser,
+                 EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(a)) AS isCreatedByUser`)
         .orderBy(`upVotes DESC`)
-        .end({commitmentId}).getCommand();
+        .end({commitmentId, userId}).getCommand();
 };
 
 const getDetail = async function (userId, commitmentId, language) {
@@ -40,7 +45,7 @@ const getDetail = async function (userId, commitmentId, language) {
                  EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(c)) AS isAdmin,
                  collect(DISTINCT {description: t.${language}, id: t.topicId}) AS topics, 
                  collect(DISTINCT {description: r.${language}, id: r.regionId}) AS regions`)
-        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId),
+        .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId, userId),
             events.getEventsCommand(commitmentId, true, 0, language).getCommand(),
             events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand()]);
     if (resp[3].length !== 1) {
