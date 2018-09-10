@@ -153,10 +153,11 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleTwoNames": "haben dieser Antwort zugestimmt",
-        "moreUpVotes": "Weiterer für dich sichtbarer Up Vote von:",
-        "moreUpVotes_plural": "Weitere für dich sichtbare Up Votes von:",
+        "moreUpVotes": "Zustimmung von einer für dich sichtbaren Person:",
+        "moreUpVotes_plural": "Zustimmung von für dich sichtbaren Personen:",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
-        "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt"
+        "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt",
+        "titleIsAdmin": "hast diese Antwort erstellt"
       },
       "watchesQuestion": {
         "title": "findet diese Frage interessant",
@@ -390,6 +391,13 @@
       "title": "Engagement löschen",
       "description": "Willst du das Engagement {{- commitment}} wirklich löschen?",
       "deleteCommitmentButton": "Ja, Engagement löschen"
+    },
+    "menu": {
+      "upVote": {
+        "isAdmin": "hast die Frage {{- question}} mit diesem Engagement beantwortet",
+        "hasUpVoted": "findest das dieses Engagement die Frage {{- question}} beantwortet",
+        "hasNotUpVoted": "findest nicht das dieses Engagement die Frage {{- question}} beantwortet"
+      }
     }
   },
   "detailUser": {

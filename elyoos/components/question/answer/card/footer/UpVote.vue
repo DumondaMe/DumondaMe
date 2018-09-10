@@ -58,30 +58,28 @@
 </script>
 
 <style lang="scss">
-    .feed-card {
-        .card-footer-feed {
-            .footer-up-vote-button {
-                .not-up-voted {
-                    background-color: #009688;
-                    i.v-icon {
-                        color: white;
-                    }
+    .card-footer-feed {
+        .footer-up-vote-button {
+            .not-up-voted.v-btn {
+                background-color: #009688;
+                i.v-icon {
+                    color: white;
                 }
-                .up-voted {
-                    background-color: #607D8B;
-                    i.v-icon {
-                        color: white;
-                    }
+            }
+            .up-voted.v-btn {
+                background-color: #607D8B;
+                i.v-icon {
+                    color: white;
                 }
-                button {
-                    margin: 0;
-                }
-                .description.left-side {
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: $secondary-text;
-                    margin-right: 8px;
-                }
+            }
+            button {
+                margin: 0;
+            }
+            .description.left-side {
+                font-size: 16px;
+                font-weight: 500;
+                color: $secondary-text;
+                margin-right: 8px;
             }
         }
     }

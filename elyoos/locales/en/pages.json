@@ -156,7 +156,8 @@
         "moreUpVotes": "Further up vote by:",
         "moreUpVotes_plural": "Further up votes by:",
         "titleIsLoggedInUser": "have up voted this answer",
-        "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer"
+        "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer",
+        "titleIsAdmin": "created this answer"
       },
       "watchesQuestion": {
         "title": "finds this question interesting",
@@ -391,6 +392,13 @@
       "title": "Delete Commitment",
       "description": "Do you really want to delete this commitment {{- commitment}}?",
       "deleteCommitmentButton": "Yes, Delete Commitment"
+    },
+    "menu": {
+      "upVote": {
+        "isAdmin": "answered the question {{- question}} with this engagement",
+        "hasUpVoted": "find that this engagement answers the question {{- question}}",
+        "hasNotUpVoted": "don't find that this engagement answers the question {{- question}}"
+      }
     }
   },
   "detailUser": {

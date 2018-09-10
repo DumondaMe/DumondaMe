@@ -64,6 +64,22 @@ export const mutations = {
     REMOVE_WATCH(state) {
         state.commitment.userWatchesCommitment = false;
         state.commitment.numberOfWatches--;
+    },
+    UP_VOTE_ANSWER(state, commitmentAnswerId) {
+        for (let question of state.commitment.linkedWithQuestions) {
+            if (question.commitmentAnswerId === commitmentAnswerId) {
+                question.upVotes++;
+                return;
+            }
+        }
+    },
+    DOWN_VOTE_ANSWER(state, commitmentAnswerId) {
+        for (let question of state.commitment.linkedWithQuestions) {
+            if (question.commitmentAnswerId === commitmentAnswerId) {
+                question.upVotes--;
+                return;
+            }
+        }
     }
 };
 
@@ -121,8 +137,10 @@ export const actions = {
         if (isUpComingEvents !== state.isUpComingEvents) {
             commit('SET_EVENTS_PAGE', 0);
             let events = await this.$axios.$get(`commitment/event`, {
-                params: {commitmentId, upComing: isUpComingEvents, page: state.eventPage,
-                    language: rootState.i18n.language}
+                params: {
+                    commitmentId, upComing: isUpComingEvents, page: state.eventPage,
+                    language: rootState.i18n.language
+                }
             });
             commit('SET_EVENTS', events.events);
             commit('SET_TOTAL_NUMBER_OF_EVENTS', events.totalNumberOfEvents);

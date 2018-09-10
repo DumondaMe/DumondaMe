@@ -58,9 +58,15 @@
         computed: {
             userTitle() {
                 if (this.action === 'created') {
+                    if (this.user && this.user.isLoggedInUser) {
+                        return this.$t("pages:feeds.menu.creatorAnswer.titleIsLoggedInUser");
+                    }
                     return this.$t("pages:feeds.menu.creatorAnswer.title");
                 } else if (this.action === 'upVote') {
-                    return this.$t("pages:feeds.menu.userUpVote.title");
+                    if (this.user && this.user.isLoggedInUser) {
+                        return this.$t("pages:feeds.menu.userUpVote.titleIsLoggedInUser");
+                    }
+                    return this.$t("pages:feeds.menu.userUpVote.title")
                 }
             },
             creatorTitle() {

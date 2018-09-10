@@ -82,14 +82,18 @@
         components: {UserMenu, WatchesMenu, UpVoteMenu},
         computed: {
             userTitle() {
+                let title = "title";
+                if (this.user && this.user.isLoggedInUser) {
+                    title = "titleIsLoggedInUser";
+                }
                 if (this.action === 'created' && this.cardType === 'CommitmentAnswer') {
-                    return this.$t("pages:feeds.menu.creatorAnswer.title");
+                    return this.$t(`pages:feeds.menu.creatorAnswer.${title}`);
                 } else if (this.action === 'created' && this.cardType === 'Commitment') {
-                    return this.$t("pages:feeds.menu.creatorCommitment.title");
+                    return this.$t(`pages:feeds.menu.creatorCommitment.${title}`);
                 } else if (this.action === 'upVote') {
-                    return this.$t("pages:feeds.menu.userUpVote.title");
+                    return this.$t(`pages:feeds.menu.userUpVote.${title}`);
                 } else if (this.action === 'watch') {
-                    return this.$t("pages:feeds.menu.watchesCommitment.title");
+                    return this.$t(`pages:feeds.menu.watchesCommitment.${title}`);
                 }
             },
             creatorTitle() {

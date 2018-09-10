@@ -2,12 +2,22 @@
     <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy>
         <slot name="icon" slot="activator"></slot>
         <v-card class="ely-menu-container up-vote-menu-container">
-            <div class="menu-title">
+            <div class="menu-title" v-if="customTextHasUpVoted && customTextHasNotUpVoted">
+                <span class="primary-title">{{$t('common:you')}} </span>
+                <span v-if="isAdmin" v-html="customTextIsAdmin"></span>
+                <span v-else-if="localUpVotedByUser" v-html="customTextHasUpVoted"></span>
+                <span v-else v-html="customTextHasNotUpVoted"></span>
+            </div>
+            <div class="menu-title" v-else>
                 <span v-if="!isLoggedInUser">
                     <span class="primary-title">{{userName}} </span>
                     <span v-if="localUpVotedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
                     </span>{{$t("pages:feeds.menu.userUpVote.titleTwoNames")}}</span>
                     <span v-else>{{$t("pages:feeds.menu.userUpVote.title")}}</span>
+                </span>
+                <span v-else-if="isAdmin">
+                    <span class="primary-title">{{$t('common:you')}} </span>
+                    <span>{{$t("pages:feeds.menu.userUpVote.titleIsAdmin")}}</span>
                 </span>
                 <span v-else>
                     <span class="primary-title">{{$t('common:you')}} </span>
@@ -52,7 +62,7 @@
 
     export default {
         props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
-            'numberOfUpVotes'],
+            'numberOfUpVotes', 'customTextHasUpVoted', 'customTextHasNotUpVoted', 'customTextIsAdmin'],
         components: {UserContent},
         data() {
             return {

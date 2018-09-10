@@ -89,7 +89,7 @@
       "userHasNotUpVoted": "Ist dies eine passende Antwort?",
       "removeUpVote": "Der Antwort nicht mehr zustimmen",
       "addUpVote": "Der Antwort zustimmen",
-      "userIsAdmin": "Als Ersteller kannst du die Antwort nicht zustimmen"
+      "userIsAdmin": "Als Ersteller kannst du der Antwort nicht zustimmen"
     },
     "watch": {
       "userHasWatched": "Du findest dies interessant",
