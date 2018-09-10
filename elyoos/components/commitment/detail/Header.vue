@@ -16,7 +16,7 @@
                            v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
                         <v-icon>mdi-star-outline</v-icon>
                     </v-btn>
-                    <v-btn class="button-watch" color="primary" small fab :disabled="isAdmin"
+                    <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
                            v-else slot="activator">
                         <v-icon>mdi-star</v-icon>
                     </v-btn>
@@ -74,6 +74,12 @@
             word-break: break-word;
         }
         #commands-container {
+            .user-watches-commitment {
+                background-color: #607D8B;
+                i.v-icon {
+                    color: white;
+                }
+            }
             .watches-menu {
                 display: inline-block;
             }
