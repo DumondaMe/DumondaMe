@@ -26,11 +26,11 @@
                                       @add-watch="addWatch" @remove-watch="removeWatch">
                             <div slot="icon">
                                 <v-btn slot="activator" small fab color="primary" v-if="!question.userWatchesQuestion">
-                                    <v-icon>mdi-lightbulb-outline</v-icon>
+                                    <v-icon>mdi-star-outline</v-icon>
                                 </v-btn>
                                 <v-btn slot="activator" small fab color="user-watches-question"
                                        v-else>
-                                    <v-icon>mdi-lightbulb</v-icon>
+                                    <v-icon>mdi-star</v-icon>
                                 </v-btn>
                                 <span class="description">{{question.numberOfWatches}}</span>
                             </div>
