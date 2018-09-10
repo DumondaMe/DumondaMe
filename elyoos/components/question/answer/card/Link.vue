@@ -18,7 +18,9 @@
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
                            :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin" :answer-id="answer.answerId"
                            :number-of-notes="answer.numberOfNotes" :answer-title="answer.title"
-                           :notes="answer.notes">
+                           :notes="answer.notes"
+                           @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
+                           @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
             </answer-footer>
         </link-card>
         <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"

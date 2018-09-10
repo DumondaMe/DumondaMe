@@ -18,6 +18,17 @@ export const getters = {
     }
 };
 
+const setIsTrustUser = function (state, userId, isTrustUser) {
+    if (state.question && state.question.creator && state.question.creator.userId === userId) {
+        state.question.creator.isTrustUser = isTrustUser
+    }
+    for (let answer of state.question.answers) {
+        if (answer.creator && answer.creator.userId === userId) {
+            answer.creator.isTrustUser = isTrustUser;
+        }
+    }
+};
+
 export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
@@ -111,6 +122,12 @@ export const mutations = {
         answer.notes.splice(noteToDelete, 1);
         answer.numberOfNotes--;
     },
+    ADD_USER_TO_TRUST_CIRCLE(state, userId) {
+        setIsTrustUser(state, userId, true);
+    },
+    REMOVE_USER_FROM_TRUST_CIRCLE(state, userId) {
+        setIsTrustUser(state, userId, false);
+    }
 };
 
 const addDefaultProperties = function (answer, type, response) {
@@ -181,8 +198,10 @@ export const actions = {
     },
     async createCommitmentAnswer({commit, state, rootState}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
-            {commitmentId: commitmentData.commitmentId, description: commitmentData.description,
-                language: rootState.i18n.language});
+            {
+                commitmentId: commitmentData.commitmentId, description: commitmentData.description,
+                language: rootState.i18n.language
+            });
         addDefaultProperties(commitmentData, 'Commitment', response);
         commitmentData.commitmentSlug = response.slug;
         commitmentData.imageUrl = response.imageUrl;

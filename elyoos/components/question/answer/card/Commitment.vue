@@ -17,7 +17,9 @@
             </v-menu>
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
                            :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin"
-                           :answer-id="answer.answerId" :regions="answer.regions">
+                           :answer-id="answer.answerId" :regions="answer.regions"
+                           @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
+                           @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
             </answer-footer>
         </commitment-card>
         <edit-commitment-dialog v-if="showEditCommitmentDialog" @close-dialog="showEditCommitmentDialog = false"

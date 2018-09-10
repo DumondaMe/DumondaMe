@@ -8,7 +8,9 @@
                     <user-menu :menu-title="creatorTitle" :user-image="question.creator.userImagePreview"
                                :user-name="question.creator.name" :user-id="question.creator.userId"
                                :user-slug="question.creator.slug"
-                               :is-trust-user="question.creator.isTrustUser" :is-logged-in-user="question.isAdmin">
+                               :is-trust-user="question.creator.isTrustUser" :is-logged-in-user="question.isAdmin"
+                               @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                               @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                         <div class="user-icon" slot="icon">
                             <img :src="question.creator.userImage">
                         </div>
@@ -95,8 +97,14 @@
             },
             async removeWatch() {
                 this.$store.commit('question/REMOVE_WATCH');
+            },
+            async addUserToTrustCircle(userId) {
+                this.$store.commit('question/ADD_USER_TO_TRUST_CIRCLE', userId);
+            },
+            async removeUserFromTrustCircle(userId) {
+                this.$store.commit('question/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
             }
-        },
+        }
     }
 </script>
 
