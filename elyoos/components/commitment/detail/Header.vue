@@ -3,14 +3,26 @@
         <h1>{{commitment.title}}</h1>
         <p id="commitment-description">{{commitment.description}}</p>
         <div id="commands-container">
-            <v-btn class="button-watch" color="primary" small fab @click="addWatch"
-                   v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                <v-icon>mdi-star-outline</v-icon>
-            </v-btn>
-            <v-btn class="button-watch" color="primary" small fab @click="removeWatch" :disabled="isAdmin" v-else>
-                <v-icon>mdi-star</v-icon>
-            </v-btn>
-            <span class="description">{{commitment.numberOfWatches}}</span>
+            <watches-menu :watched-id="commitment.commitmentId" watched-id-name="commitmentId" class="watches-menu"
+                          :is-logged-in-user="true" :is-watching-action="false"
+                          :is-admin="isAdmin"
+                          :watched-by-user="commitment.userWatchesCommitment"
+                          :number-of-watches="commitment.numberOfWatches"
+                          menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
+                          api-watch="user/commitment/watch"
+                          @add-watch="addWatch" @remove-watch="removeWatch">
+                <div slot="icon">
+                    <v-btn class="button-watch" color="primary" small fab slot="activator"
+                           v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
+                        <v-icon>mdi-star-outline</v-icon>
+                    </v-btn>
+                    <v-btn class="button-watch" color="primary" small fab :disabled="isAdmin"
+                           v-else slot="activator">
+                        <v-icon>mdi-star</v-icon>
+                    </v-btn>
+                    <span class="description">{{commitment.numberOfWatches}}</span>
+                </div>
+            </watches-menu>
             <admin-commands v-if="isAdmin"></admin-commands>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
@@ -20,11 +32,12 @@
 
 <script>
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import WatchesMenu from '~/components/feed/card/footer/menu/Watches';
     import AdminCommands from './AdminCommands';
     import {mapGetters} from 'vuex';
 
     export default {
-        components: {LoginRequiredDialog, AdminCommands},
+        components: {LoginRequiredDialog, WatchesMenu, AdminCommands},
         data() {
             return {showLoginRequired: false}
         },
@@ -36,21 +49,10 @@
         },
         methods: {
             async addWatch() {
-                if (this.$store.state.auth.userIsAuthenticated) {
-                    await this.$axios.$put(`user/commitment/watch/${this.$route.params.commitmentId}`);
-                    this.$store.commit('commitment/SET_WATCH')
-                } else {
-                    this.showLoginRequired = true;
-                }
+                this.$store.commit('commitment/SET_WATCH');
             },
             async removeWatch() {
-                if (this.$store.state.auth.userIsAuthenticated) {
-                    await this.$axios.$delete(`user/commitment/watch/`,
-                        {params: {commitmentId: this.$route.params.commitmentId}});
-                    this.$store.commit('commitment/REMOVE_WATCH')
-                } else {
-                    this.showLoginRequired = true;
-                }
+                this.$store.commit('commitment/REMOVE_WATCH');
             }
         }
     }
@@ -72,6 +74,9 @@
             word-break: break-word;
         }
         #commands-container {
+            .watches-menu {
+                display: inline-block;
+            }
             .button-watch {
                 display: inline-block;
                 margin-left: 0;
