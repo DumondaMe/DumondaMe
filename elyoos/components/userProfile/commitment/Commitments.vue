@@ -112,11 +112,11 @@
                 .filter-icon-right {
                     padding-left: 4px;
                 }
-                .filter-icon.icon {
+                .filter-icon.v-icon {
                     font-size: 16px;
                     cursor: pointer;
                 }
-                .active-filter.filter-icon.icon {
+                .active-filter.filter-icon.v-icon {
                     color: $primary-color;
                 }
             }

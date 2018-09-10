@@ -49,7 +49,7 @@
 
 <style lang="scss">
     .select-topic-container {
-        i.icon.topic-selected {
+        i.v-icon.topic-selected {
             color: $primary-color;
         }
     }

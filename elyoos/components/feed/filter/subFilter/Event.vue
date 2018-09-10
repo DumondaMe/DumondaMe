@@ -54,7 +54,7 @@
                 width: 20px;
                 font-size: 20px;
             }
-            i.icon.activated-interested-filter {
+            i.v-icon.activated-interested-filter {
                 color: $primary-color;
             }
         }

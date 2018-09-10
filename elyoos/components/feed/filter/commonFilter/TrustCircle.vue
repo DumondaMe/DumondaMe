@@ -75,7 +75,7 @@
 
 <style lang="scss">
     .select-trust-circle-filter-container {
-        i.icon.trust-circle-filter-active {
+        i.v-icon.trust-circle-filter-active {
             color: $primary-color;
         }
     }
