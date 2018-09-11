@@ -53,9 +53,6 @@
                 </div>
                 <v-list>
                     <v-list-tile>
-                        <v-list-tile-title>Sprachfilter</v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile>
                         <v-list-tile-title>Reset Filter</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
