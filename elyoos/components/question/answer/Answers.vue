@@ -25,6 +25,17 @@
                 </commitment-card>
             </div>
         </div>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
+        <v-btn outline color="primary" v-if="showAllAnswersButton" class="show-answer-button"
+               @click="showAllAnswers" :disabled="loading" :loading="loading">
+            {{$t('pages:detailQuestion.showAllAnswerButton')}}
+        </v-btn>
+        <v-btn outline color="primary" v-else-if="hasMoreAnswers" class="show-answer-button"
+               @click="showNextAnswers" :disabled="loading" :loading="loading">
+            {{$t('pages:detailQuestion.showNextAnswerButton')}}
+        </v-btn>
     </div>
 </template>
 
@@ -39,9 +50,20 @@
 
     export default {
         components: {TextCard, YoutubeCard, LinkCard, BookCard, CommitmentCard, AnswerFooter, CommitmentAnswerFooter},
+        data() {
+            return {loading: false, showError: false}
+        },
         computed: {
             answers() {
                 return this.$store.state.question.question.answers;
+            },
+            hasMoreAnswers() {
+                return this.$store.state.question.question.hasMoreAnswers;
+            },
+            showAllAnswersButton() {
+                return this.$store.state.question.question.answers.length <= 1 &&
+                    this.$store.state.question.question.numberOfAnswers > 1 &&
+                    this.$route.query && this.$route.query.answerId;
             }
         },
         methods: {
@@ -50,6 +72,32 @@
             },
             async removeUserFromTrustCircle(userId) {
                 this.$store.commit('question/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
+            },
+            async showAllAnswers() {
+                try {
+                    this.loading = true;
+                    this.showError = false;
+                    await this.$store.dispatch('question/showAllAnswers');
+                    this.$router.replace({
+                        name: 'question-questionId-slug',
+                        params: {questionId: this.$route.params.questionId, slug: this.$route.params.slug}
+                    });
+                } catch (err) {
+                    this.showError = true;
+                } finally {
+                    this.loading = false;
+                }
+            },
+            async showNextAnswers() {
+                try {
+                    this.loading = true;
+                    this.showError = false;
+                    await this.$store.dispatch('question/nextAnswers');
+                } catch (err) {
+                    this.showError = true;
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }
@@ -61,6 +109,9 @@
             .new-added-answer {
                 border: 1px solid $success-text;
             }
+        }
+        .show-answer-button {
+            margin-left: 0;
         }
     }
 </style>

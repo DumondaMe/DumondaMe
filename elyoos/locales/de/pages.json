@@ -289,6 +289,8 @@
     "deleteAnswerTitle": "Antwort löschen",
     "deleteAnswerDescription": "Willst du die Antwort '{{answer}}' wirklich löschen?",
     "deleteAnswerButton": "Ja, Antwort löschen",
+    "showAllAnswerButton": "Alle Antworten anzeigen",
+    "showNextAnswerButton": "Mehr Antworten anzeigen",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {

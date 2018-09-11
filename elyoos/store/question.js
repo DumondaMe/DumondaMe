@@ -5,7 +5,8 @@ export const state = () => ({
         question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0, isAdmin: false,
         numberOfAnswers: 0, userWatchesQuestion: false, answers: [], topics: [], regions: []
     },
-    sortNotes: 'newest'
+    sortNotes: 'newest',
+    nextAnswersPage: 1
 });
 
 export const getters = {
@@ -52,6 +53,16 @@ export const mutations = {
     REMOVE_WATCH(state) {
         state.question.userWatchesQuestion = false;
         state.question.numberOfWatches--;
+    },
+    SET_ANSWERS(state, answers) {
+        state.question.answers = answers.answers;
+        state.question.hasMoreAnswers = answers.hasMoreAnswers;
+        state.nextAnswersPage = 1;
+    },
+    ADD_ANSWERS(state, answers) {
+        state.question.answers = state.question.answers.concat(answers.answers);
+        state.question.hasMoreAnswers = answers.hasMoreAnswers;
+        state.nextAnswersPage++;
     },
     ADD_ANSWER(state, answer) {
         answer.newAddedAnswer = true;
@@ -142,6 +153,19 @@ const addDefaultProperties = function (answer, type, response) {
 };
 
 export const actions = {
+    async showAllAnswers({commit, state, rootState}) {
+        let response = await this.$axios.$get(`/question/answer`,
+            {params: {questionId: state.question.questionId, page: 0, language: rootState.i18n.language}});
+        commit('SET_ANSWERS', response);
+    },
+    async nextAnswers({commit, state, rootState}) {
+        let response = await this.$axios.$get(`/question/answer`, {
+            params: {
+                questionId: state.question.questionId, page: state.nextAnswersPage, language: rootState.i18n.language
+            }
+        });
+        commit('ADD_ANSWERS', response);
+    },
     async deleteQuestion({commit, state}) {
         await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
     },

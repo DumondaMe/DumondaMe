@@ -284,6 +284,8 @@
     "searchBook": "Search the book",
     "searchCommitment": "Search the commitment",
     "createAnswerButton": "Create Answer",
+    "showAllAnswerButton": "Show All Answers",
+    "showNextAnswerButton": "Show Next Answers",
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "commitmentNotFound": "No commitment was found for the search '{{search}}'.",
     "note": {
