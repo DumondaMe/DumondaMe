@@ -5,6 +5,7 @@ const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
 const notification = require(`./notification`);
+const slug = require('limax');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const createTextAnswerCommand = function (params) {
@@ -24,7 +25,14 @@ const createTextAnswer = async function (userId, params) {
     logger.info(`Created text answer ${params.answerId} for question ${params.questionId}`);
     return {
         answerId: params.answerId, created: params.created,
-        creator: {name: user[0][0].name, thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)}
+        creator: {
+            name: user[0][0].name,
+            slug: slug(user[0][0].name),
+            userImage: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${userId}/profilePreview.jpg`),
+            isLoggedInUser: true,
+            isTrustUser: false
+        }
     };
 };
 

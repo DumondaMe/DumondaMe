@@ -53,7 +53,11 @@ describe('Creating book answer', function () {
         res.body.created.should.least(startTime);
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/${res.body.answerId}/120x250/preview.jpg`);
         res.body.creator.name.should.equals('user Meier');
-        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `book/${res.body.answerId}/preview.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `book/${res.body.answerId}/120x250/preview.jpg`, sinon.match.any).should.be.true;
 
@@ -84,7 +88,11 @@ describe('Creating book answer', function () {
         res.body.created.should.least(startTime);
         should.not.exist(res.body.imageUrl);
         res.body.creator.name.should.equals('user Meier');
-        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         stubCDN.uploadBuffer.called.should.be.false;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Book:Answer)<-[:IS_CREATOR]-(user:User {userId: '1'})`)

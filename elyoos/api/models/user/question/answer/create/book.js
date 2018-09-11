@@ -8,6 +8,7 @@ const exceptions = require('elyoos-server-lib').exceptions;
 const image = require('./image');
 const notification = require(`./notification`);
 const sharp = require('sharp');
+const slug = require('limax');
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_BOOK_EXISTS_ALREADY = 2;
@@ -59,7 +60,11 @@ const createBookAnswer = async function (userId, params) {
             answerId: params.answerId, created: params.created,
             creator: {
                 name: user[0][0].name,
-                thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
+                slug: slug(user[0][0].name),
+                userImage: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/${userId}/profilePreview.jpg`),
+                isLoggedInUser: true,
+                isTrustUser: false
             }
         };
         if (params.imageUrl) {

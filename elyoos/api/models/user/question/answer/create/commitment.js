@@ -71,8 +71,12 @@ const createCommitmentAnswer = async function (userId, params) {
         regions: commitment[0][0].regions,
         creator: {
             name: commitment[0][0].userName,
+            slug: slug(commitment[0][0].userName),
+            userImage: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${userId}/profilePreview.jpg`),
+            isLoggedInUser: true,
+            isTrustUser: false,
             isAdminOfCommitment: commitment[0][0].isAdminOfCommitment,
-            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
         }
     }
 };

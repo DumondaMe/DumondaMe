@@ -52,8 +52,12 @@ describe('Creating a commitment answer', function () {
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.creator.isAdminOfCommitment.should.equals(false);
-        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.regions.length.should.equals(1);
         res.body.regions.should.include('Region1De');
 
@@ -92,8 +96,12 @@ describe('Creating a commitment answer', function () {
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.creator.isAdminOfCommitment.should.equals(true);
-        res.body.creator.thumbnailUrl.should.equals('profileImage/1/thumbnail.jpg');
         res.body.regions.length.should.equals(1);
         res.body.regions.should.include('Region1De');
 

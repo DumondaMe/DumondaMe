@@ -4,6 +4,7 @@ const db = requireDb();
 const uuid = require('elyoos-server-lib').uuid;
 const time = require('elyoos-server-lib').time;
 const cdn = require('elyoos-server-lib').cdn;
+const slug = require('limax');
 const youtube = require('../../../../util/youtube');
 const notification = require(`./notification`);
 const exceptions = require('elyoos-server-lib').exceptions;
@@ -51,7 +52,11 @@ const createYoutubeAnswer = async function (userId, params) {
                 answerId: params.answerId, created: params.created, idOnYoutube: params.idOnYoutube,
                 creator: {
                     name: user[0][0].name,
-                    thumbnailUrl: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`)
+                    slug: slug(user[0][0].name),
+                    userImage: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`),
+                    userImagePreview: await cdn.getSignedUrl(`profileImage/${userId}/profilePreview.jpg`),
+                    isLoggedInUser: true,
+                    isTrustUser: false
                 }
             };
         } else {
