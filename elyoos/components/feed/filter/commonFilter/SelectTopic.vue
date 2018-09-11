@@ -53,14 +53,4 @@
             color: $primary-color;
         }
     }
-
-    .ely-menu-topic-container {
-        .select-container {
-            .select-item {
-                .item-container {
-                    padding: 12px 22px;
-                }
-            }
-        }
-    }
 </style>
