@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-image-general-information">
+    <div class="profile-image-general-information ely-card">
         <div class="user-profile-info" v-if="!isLoggedInUser && isAuthenticated">
             <v-icon class="info-icon" :class="{'in-circle': user.isPersonOfTrustOfLoggedInUser}">mdi-account-circle
             </v-icon>
