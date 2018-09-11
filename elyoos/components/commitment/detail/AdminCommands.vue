@@ -35,6 +35,7 @@
                                   v-if="showDeleteCommitmentDialog" @close-dialog="showDeleteCommitmentDialog = false">
         </delete-commitment-dialog>
         <edit-region-dialog v-if="showEditRegionDialog" @close-dialog="showEditRegionDialog = false"
+                            :select-multiple="true"
                             :title-text="$t('pages:commitment.editRegionDialog.title', {commitment: commitmentTitle})"
                             :existing-regions="commitment.regions" api="user/commitment/region/"
                             :api-param="$route.params.commitmentId" @finish="regionsChanged">
