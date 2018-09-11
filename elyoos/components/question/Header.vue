@@ -27,7 +27,8 @@
                                       api-watch="user/question/watch"
                                       @add-watch="addWatch" @remove-watch="removeWatch">
                             <div slot="icon">
-                                <v-btn slot="activator" small fab color="primary" v-if="!question.userWatchesQuestion">
+                                <v-btn slot="activator" small fab color="primary" v-if="!question.userWatchesQuestion"
+                                       :disabled="question.isAdmin">
                                     <v-icon>mdi-star-outline</v-icon>
                                 </v-btn>
                                 <v-btn slot="activator" small fab color="user-watches-question"
