@@ -291,6 +291,7 @@
     "deleteAnswerButton": "Ja, Antwort löschen",
     "showAllAnswerButton": "Alle Antworten anzeigen",
     "showNextAnswerButton": "Mehr Antworten anzeigen",
+    "answerNotFound": "Diese Antwort wurde gelöscht",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {

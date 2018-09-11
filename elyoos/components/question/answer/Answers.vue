@@ -28,6 +28,9 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
+        <div class="show-answer-not-found" v-if="showAllAnswersButton && answers.length === 0">
+            {{$t('pages:detailQuestion.answerNotFound')}}
+        </div>
         <v-btn outline color="primary" v-if="showAllAnswersButton" class="show-answer-button"
                @click="showAllAnswers" :disabled="loading" :loading="loading">
             {{$t('pages:detailQuestion.showAllAnswerButton')}}
@@ -109,6 +112,11 @@
             .new-added-answer {
                 border: 1px solid $success-text;
             }
+        }
+        .show-answer-not-found {
+            font-size: 20px;
+            margin-bottom: 24px;
+            font-weight: 300;
         }
         .show-answer-button {
             margin-left: 0;
