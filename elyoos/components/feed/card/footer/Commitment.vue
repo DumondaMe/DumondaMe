@@ -46,10 +46,18 @@
                 </watches-menu>
             </div>
 
-            <v-icon medium v-if="action === 'created' && cardType === 'CommitmentAnswer'"
-                    class="action-icon">
-                mdi-comment-plus
-            </v-icon>
+            <v-tooltip bottom v-if="action === 'created' && cardType === 'CommitmentAnswer'">
+                <v-icon medium slot="activator"
+                        class="tooltip-icon">
+                    mdi-comment-plus
+                </v-icon>
+                <span v-if="user.isLoggedInUser">{{$t('common:you')}}
+                    {{$t('pages:feeds.menu.creatorAnswer.titleIsLoggedInUser')}}
+                </span>
+                <span v-else>{{user.name}}
+                    {{$t('pages:feeds.menu.creatorAnswer.titleIsLoggedInUser')}}
+                </span>
+            </v-tooltip>
 
             <up-vote-menu v-if="action === 'upVote'" :user-name="user.name" :user-id="user.userId" :answer-id="answerId"
                           :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser"
