@@ -286,7 +286,8 @@
     "createAnswerButton": "Create Answer",
     "showAllAnswerButton": "Show All Answers",
     "showNextAnswerButton": "Show Next Answers",
-    "answerNotFound": "Diese Antwort wurde gelöscht",
+    "answerNotFound": "This answer has been deleted",
+    "noAnswer": "This question has not yet been answered",
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "commitmentNotFound": "No commitment was found for the search '{{search}}'.",
     "note": {

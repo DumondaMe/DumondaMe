@@ -31,6 +31,9 @@
         <div class="show-answer-not-found" v-if="showAllAnswersButton && answers.length === 0">
             {{$t('pages:detailQuestion.answerNotFound')}}
         </div>
+        <div class="show-no-answers" v-else-if="totalNumberOfAnswers === 0">
+            {{$t('pages:detailQuestion.noAnswer')}}
+        </div>
         <v-btn outline color="primary" v-if="showAllAnswersButton" class="show-answer-button"
                @click="showAllAnswers" :disabled="loading" :loading="loading">
             {{$t('pages:detailQuestion.showAllAnswerButton')}}
@@ -52,13 +55,18 @@
     import CommitmentAnswerFooter from './card/footer/CommitmentAnswer';
 
     export default {
-        components: {TextCard, YoutubeCard, LinkCard, BookCard, CommitmentCard, AnswerFooter, CommitmentAnswerFooter},
+        components: {
+            TextCard, YoutubeCard, LinkCard, BookCard, CommitmentCard, AnswerFooter, CommitmentAnswerFooter
+        },
         data() {
             return {loading: false, showError: false}
         },
         computed: {
             answers() {
                 return this.$store.state.question.question.answers;
+            },
+            totalNumberOfAnswers() {
+                return this.$store.state.question.question.numberOfAnswers;
             },
             hasMoreAnswers() {
                 return this.$store.state.question.question.hasMoreAnswers;
@@ -120,6 +128,10 @@
         }
         .show-answer-button {
             margin-left: 0;
+        }
+        .show-no-answers {
+            font-size: 20px;
+            font-weight: 300;
         }
     }
 </style>
