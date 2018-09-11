@@ -65,8 +65,12 @@
             </up-vote-menu>
         </div>
         <div class="footer-icon">
-            <v-icon medium class="action-icon">mdi-map-marker</v-icon>
-            <span class="footer-description number">{{regions.length}}</span>
+            <region-menu :regions="regions">
+                <div slot="icon">
+                    <v-icon medium class="action-icon">mdi-map-marker</v-icon>
+                    <span class="footer-description number">{{regions.length}}</span>
+                </div>
+            </region-menu>
         </div>
     </div>
 </template>
@@ -75,11 +79,12 @@
     import UserMenu from './menu/User';
     import UpVoteMenu from './menu/UpVote';
     import WatchesMenu from './menu/Watches'
+    import RegionMenu from './menu/Regions'
 
     export default {
         props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
             'numberOfWatches', 'isWatchedByUser', 'isAdmin', 'answerId', 'commitmentId'],
-        components: {UserMenu, WatchesMenu, UpVoteMenu},
+        components: {UserMenu, WatchesMenu, UpVoteMenu, RegionMenu},
         computed: {
             userTitle() {
                 let title = "title";

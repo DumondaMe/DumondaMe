@@ -177,6 +177,9 @@
       },
       "eventCreateByCommitment": {
         "title": "has created this event"
+      },
+      "regions": {
+        "title": "This commitment is active in the following regions"
       }
     }
   },

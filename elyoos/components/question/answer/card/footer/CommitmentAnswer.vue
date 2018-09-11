@@ -12,15 +12,14 @@
             </user-menu>
         </div>
         <div class="footer-icon">
-            <v-tooltip bottom>
-                <div slot="activator">
+            <region-menu :regions="regions">
+                <div slot="icon">
                     <v-icon medium class="action-icon">
                         mdi-map-marker
                     </v-icon>
                     <span class="footer-description number">{{regions.length}}</span>
                 </div>
-                <span>{{$t("common:feedCard.region.tooltipDescription")}}</span>
-            </v-tooltip>
+            </region-menu>
         </div>
         <v-spacer></v-spacer>
         <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
@@ -31,11 +30,12 @@
 
 <script>
     import UserMenu from '~/components/feed/card/footer/menu/User';
+    import RegionMenu from '~/components/feed/card/footer/menu/Regions'
     import UpVoteButton from './UpVote';
 
     export default {
         props: ['creator', 'regions', 'numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
-        components: {UserMenu, UpVoteButton},
+        components: {UserMenu, RegionMenu, UpVoteButton},
         computed: {
             creatorTitle() {
                 if (this.creator && this.creator.isLoggedInUser) {

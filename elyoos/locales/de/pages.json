@@ -177,6 +177,9 @@
       },
       "eventCreateByCommitment": {
         "title": "hat diesen Event erfasst"
+      },
+      "regions": {
+        "title": "Dieses Engagement ist in den folgenden Regionen aktiv"
       }
     }
   },
