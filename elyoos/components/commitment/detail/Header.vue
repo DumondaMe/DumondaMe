@@ -74,6 +74,7 @@
             word-break: break-word;
         }
         #commands-container {
+            display: flex;
             .user-watches-commitment {
                 background-color: #607D8B;
                 i.v-icon {
