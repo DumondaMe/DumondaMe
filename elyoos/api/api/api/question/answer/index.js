@@ -1,31 +1,30 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const schemaLanguage = require('../../schema/language');
-const detail = requireModel('question/detail');
+const schemaLanguage = require('../../../schema/language');
+const answers = requireModel('question/answers');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const apiHelper = require('elyoos-server-lib').apiHelper;
 const logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-const schemaGetQuestionDetail = {
-    name: 'getQuestionDetail',
+const schemaGetQuestionAnswers = {
+    name: 'getQuestionAnswers',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'language'],
+    required: ['questionId', 'language', 'page'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        page: {type: 'integer'},
         language: schemaLanguage.language
     }
 };
 
 module.exports = function (router) {
 
-    router.get('/:questionId', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetQuestionDetail, logger);
+    router.get('/', asyncMiddleware(async (req, res) => {
+        const params = await validation.validateRequest(req, schemaGetQuestionAnswers, logger);
         let userId = apiHelper.getUserId(req);
-        params.answerId = params.answerId || null;
-        let response = await detail.getQuestion(params.questionId, params.answerId, params.language, userId);
+        let response = await answers.getAnswers(params.questionId, params.page, params.language, userId);
         res.status(200).json(response);
     }));
 };

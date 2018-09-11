@@ -100,6 +100,7 @@ describe('Getting details of a question', function () {
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
 
+        res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(0);
     });
 
@@ -134,6 +135,7 @@ describe('Getting details of a question', function () {
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
 
+        res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(0);
     });
 
@@ -174,6 +176,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
+        res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
@@ -303,6 +306,52 @@ describe('Getting details of a question', function () {
         res.body.answers[5].events[1].region.should.equals('Region2De');
     });
 
+    it('Getting details of a question with specific answer', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.watchQuestion({questionId: '1', userId: '4'});
+
+        dbDsl.createNote('50', {answerId: '6', creatorId: '1', created: 555});
+        dbDsl.createNote('51', {answerId: '6', creatorId: '2', created: 444});
+        dbDsl.createNote('52', {answerId: '7', creatorId: '3', created: 666});
+        dbDsl.createNote('53', {answerId: '7', creatorId: '1', created: 666});
+        dbDsl.upVoteNote({noteId: '52', userId: '1'});
+        dbDsl.upVoteNote({noteId: '52', userId: '2'});
+        dbDsl.upVoteNote({noteId: '53', userId: '3'});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de', answerId: '7'});
+        res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
+
+        res.body.hasMoreAnswers.should.equals(false);
+        res.body.answers.length.should.equals(1);
+        res.body.answers[0].answerId.should.equals('7');
+        res.body.answers[0].answerType.should.equals('Youtube');
+    });
+
+    it('Getting details of a question with specific answer who is not existing', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.watchQuestion({questionId: '1', userId: '4'});
+
+        dbDsl.createNote('50', {answerId: '6', creatorId: '1', created: 555});
+        dbDsl.createNote('51', {answerId: '6', creatorId: '2', created: 444});
+        dbDsl.createNote('52', {answerId: '7', creatorId: '3', created: 666});
+        dbDsl.createNote('53', {answerId: '7', creatorId: '1', created: 666});
+        dbDsl.upVoteNote({noteId: '52', userId: '1'});
+        dbDsl.upVoteNote({noteId: '52', userId: '2'});
+        dbDsl.upVoteNote({noteId: '53', userId: '3'});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de', answerId: '111'});
+        res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
+
+        res.body.hasMoreAnswers.should.equals(false);
+        res.body.answers.length.should.equals(0);
+    });
+
     it('Getting details of a question (answers sorted by up votes)', async function () {
         dbDsl.upVoteAnswer({userId: '1', answerId: '6'});
         dbDsl.upVoteAnswer({userId: '4', answerId: '7'});
@@ -332,6 +381,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
+        res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('7');
         res.body.answers[0].answerType.should.equals('Youtube');
@@ -463,6 +513,7 @@ describe('Getting details of a question', function () {
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
 
+        res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Text');
@@ -581,5 +632,19 @@ describe('Getting details of a question', function () {
         res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
         res.body.answers[5].events[1].location.should.equals('event22Location');
         res.body.answers[5].events[1].region.should.equals('Region2De');
+    });
+
+    it('Has next answers', async function () {
+        for (let index = 12; index < 27; index++) {
+            dbDsl.createTextAnswer(`${index}`, {
+                creatorId: '1', questionId: '1', answer: 'Answer', created: 600 + index,
+            });
+        }
+        await dbDsl.sendToDb();
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
+        res.status.should.equal(200);
+
+        res.body.answers.length.should.equals(20);
+        res.body.hasMoreAnswers.should.equals(true);
     });
 });
