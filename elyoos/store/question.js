@@ -65,9 +65,7 @@ export const mutations = {
         state.nextAnswersPage++;
     },
     ADD_ANSWER(state, answer) {
-        answer.newAddedAnswer = true;
-        state.question.answers.unshift(answer);
-        state.question.answers.sort((a, b) => b.upVotes - a.upVotes);
+        state.question.answers = [answer];
         state.question.numberOfAnswers++;
     },
     EDIT_ANSWER(state, {answerId, answer}) {
@@ -172,7 +170,7 @@ export const actions = {
     async createTextAnswer({commit, state}, {answer}) {
         let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`, {answer});
         commit('ADD_ANSWER', {
-            answerId: response.answerId, isAdmin: true, upVotes: 0,
+            answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [],
             answerType: 'Text', answer, created: response.created, creator: response.creator
         });
         return response.answerId;

@@ -42,12 +42,11 @@
             },
             async closeDialog(answerId) {
                 this.$emit('close-dialog');
-                await Vue.nextTick();
-                let e = window.document.getElementById(`card-${answerId}`);
-                if (!!e && e.scrollIntoView) {
-                    e.scrollIntoView(true);
-                    window.scrollBy(0, -62);
-                }
+                this.$router.replace({
+                    name: 'question-questionId-slug',
+                    params: {questionId: this.$route.params.questionId, slug: this.$route.params.slug},
+                    query: {answerId}
+                });
             }
         }
     }
