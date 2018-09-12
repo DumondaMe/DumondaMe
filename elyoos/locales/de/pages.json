@@ -254,9 +254,9 @@
       "answerDescriptionVideo": "Weshalb beantwortet dieses Video die Frage?",
       "answerInfoVideo": "Beantworte mit einem Youtube oder Vimeo Video die Frage.",
       "answerHintVideo": "Z.Bsp. https://www.youtube.com/watch?v=TEy6HPpXRAo",
-      "answerDescriptionBook": "Weshalb beantwortet dieses Buch die Frage?",
+      "answerDescriptionBook": "Beschreibung des Buches",
       "answerInfoBook": "Beantworte mit einem Hinweis zu einem Buch die Frage.",
-      "answerDescriptionCommitment": "Weshalb beantwortet dieses Engagement die Frage?",
+      "answerDescriptionCommitment": "Beschreibung des Engagmenents",
       "answerInfoCommitment": "Beantworte mit einem Engagement die Frage."
     },
     "answerLinkDialog": {

@@ -16,7 +16,7 @@ const schemaCreateCommitmentAnswer = {
     properties: {
         commitmentId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
         language: schemaLanguage.language
     }
 };
@@ -28,7 +28,7 @@ const schemaEditCommitmentAnswer = {
     required: ['answerId', 'description'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700}
+        description: {type: 'string', format: 'notEmptyString', maxLength: 2000}
     }
 };
 

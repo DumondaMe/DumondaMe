@@ -20,9 +20,6 @@
         methods: {
             setSelected(newSelectedBook) {
                 this.selectedBook = newSelectedBook;
-                if (this.selectedBook) {
-                    Vue.set(this.selectedBook, 'description', '');
-                }
             }
         }
     }

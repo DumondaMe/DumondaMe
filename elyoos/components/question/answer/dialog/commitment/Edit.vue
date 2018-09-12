@@ -11,10 +11,10 @@
                     </div>
                     <div id="commitment-content">
                         <div class="commitment-title">{{commitment.title}}</div>
-                        <v-textarea v-model="commitment.description" rows="5"
+                        <v-textarea v-model="commitment.description" rows="7"
                                       :label="$t('pages:question.answerDialog.answerDescriptionCommitment')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 700)]" :counter="700">
+                                               ruleToManyChars($t('validation:toManyChars'), 2000)]" :counter="2000">
                         </v-textarea>
                     </div>
                 </div>

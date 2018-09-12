@@ -254,9 +254,9 @@
       "answerDescriptionVideo": "Why does this video answer the question?",
       "answerInfoVideo": "Answer the question with a YouTube or Vimeo video.",
       "answerHintVideo": "E.g. https://www.youtube.com/watch?v=TEy6HPpXRAo",
-      "answerDescriptionBook": "Why does this book answer the question?",
+      "answerDescriptionBook": "Description of the book",
       "answerInfoBook": "Answer the question with a reference to a book.",
-      "answerDescriptionCommitment": "Why does this commitment answer the question?",
+      "answerDescriptionCommitment": "Description of the commitment",
       "answerInfoCommitment": "Answer the question with a commitment."
     },
     "answerLinkDialog": {

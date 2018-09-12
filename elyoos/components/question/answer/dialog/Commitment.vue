@@ -21,9 +21,6 @@
         methods: {
             setSelected(newSelectedCommitment) {
                 this.selectedCommitment = newSelectedCommitment;
-                if (this.selectedCommitment) {
-                    Vue.set(this.selectedCommitment, 'description', '');
-                }
             }
         }
     }

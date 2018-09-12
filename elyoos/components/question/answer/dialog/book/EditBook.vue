@@ -12,10 +12,10 @@
                     <div id="book-content" :class="{'image-missing': !book.thumbnail}">
                         <div class="book-title">{{book.title}}</div>
                         <div class="book-authors">{{book.authors}}</div>
-                        <v-textarea v-model="book.description" rows="5"
+                        <v-textarea v-model="book.description" rows="7"
                                       :label="$t('pages:question.answerDialog.answerDescriptionBook')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
+                                               ruleToManyChars($t('validation:toManyChars'), 3000)]" :counter="3000">
                         </v-textarea>
 
                     </div>
@@ -127,7 +127,7 @@
                     .book-authors {
                         font-size: 12px;
                         color: $secondary-text;
-                        margin-bottom: 18px;
+                        margin-bottom: 28px;
                     }
                 }
                 #book-content.image-missing {

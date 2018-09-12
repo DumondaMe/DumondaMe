@@ -16,7 +16,7 @@ const schemaCreateBookAnswer = {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         imageUrl: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
         title: {type: 'string', format: 'notEmptyString', maxLength: 100},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
         authors: {type: 'string', format: 'notEmptyString', maxLength: 500},
         googleBookId: {type: 'string', format: 'notEmptyString', maxLength: 60}
     }
@@ -29,7 +29,7 @@ const schemaEditBookAnswer = {
     required: ['answerId', 'description'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
         authors: {type: 'string', format: 'notEmptyString', maxLength: 500}
     }
 };
