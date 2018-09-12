@@ -16,7 +16,8 @@
                 </v-list>
             </v-menu>
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
-                           :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin" :answer-id="answer.answerId"
+                           :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin"
+                           :answer-id="answer.answerId"
                            :number-of-notes="answer.numberOfNotes" :answer-title="answer.title"
                            :notes="answer.notes"
                            @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
@@ -24,7 +25,8 @@
             </answer-footer>
         </link-card>
         <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false"
-                          :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId">
+                          :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId"
+                          init-type="Link">
         </edit-link-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
                               :answer="answer.title" :answer-id="answer.answerId">
@@ -46,7 +48,6 @@
         },
         methods: {
             openEditLinkDialog() {
-                this.answer.type = 'Link';
                 this.showEditAnswerDialog = true;
             }
         }

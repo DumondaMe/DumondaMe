@@ -180,6 +180,9 @@ export const actions = {
         commit('EDIT_ANSWER', {answerId, answer: {answer}});
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
+        if (youtubeData.hasOwnProperty('description') && youtubeData.description.trim() === '') {
+            delete youtubeData.description;
+        }
         let response = await this.$axios.$post(`/user/question/answer/youtube/${state.question.questionId}`,
             youtubeData);
         addDefaultProperties(youtubeData, 'Youtube', response);
@@ -190,12 +193,18 @@ export const actions = {
         return response.answerId;
     },
     async editYoutubeAnswer({commit, state}, {answerId, description, title}) {
-        await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, {description, title});
+        let params = {title};
+        if (description && description.trim() !== '') {
+            params.description = description;
+        }
+        await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, params);
         commit('EDIT_ANSWER', {answerId, answer: {description, title}});
     },
     async createLinkAnswer({commit, state}, linkData) {
-        let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`,
-            linkData);
+        if (linkData.hasOwnProperty('description') && linkData.description.trim() === '') {
+            delete linkData.description;
+        }
+        let response = await this.$axios.$post(`/user/question/answer/link/${state.question.questionId}`, linkData);
         addDefaultProperties(linkData, 'Link', response);
         linkData.pageType = linkData.type;
         linkData.imageUrl = response.imageUrl;
@@ -203,7 +212,11 @@ export const actions = {
         return response.answerId;
     },
     async editLinkAnswer({commit, state}, {answerId, description, title, type}) {
-        await this.$axios.$put(`/user/question/answer/link/${answerId}`, {description, title, type});
+        let params = {title, type};
+        if (description && description.trim() !== '') {
+            params.description = description;
+        }
+        await this.$axios.$put(`/user/question/answer/link/${answerId}`, params);
         commit('EDIT_ANSWER', {answerId, answer: {description, title, pageType: type}});
     },
     async createBookAnswer({commit, state}, bookData) {

@@ -11,7 +11,7 @@ const schemaCreateLinkAnswer = {
     name: 'createLinkAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'link', 'title', 'description', 'type'],
+    required: ['questionId', 'link', 'title', 'type'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         link: {type: 'string', format: 'urlWithProtocol', maxLength: 2000},
@@ -26,7 +26,7 @@ const schemaEditLinkAnswer = {
     name: 'editLinkAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'title', 'description', 'type'],
+    required: ['answerId', 'title', 'type'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 140},
@@ -39,12 +39,14 @@ module.exports = function (router) {
 
     router.post('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaCreateLinkAnswer, logger);
+        params.description = params.description || null;
         let response = await answerCreate.createLinkAnswer(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditLinkAnswer, logger);
+        params.description = params.description || null;
         let response = await answerEdit.editLinkAnswer(req.user.id, params);
         res.status(200).json(response);
     }));

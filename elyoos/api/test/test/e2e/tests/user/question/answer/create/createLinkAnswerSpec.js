@@ -75,14 +75,14 @@ describe('Creating link answer', function () {
         should.not.exist(resp[0].original);
     });
 
-    it('Create a link response that has not yet been created in elyoos (without url)', async function () {
+    it('Create a link response that has not yet been created in elyoos (without url and description)', async function () {
         sandbox.stub(rp, 'get');
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/link/1', {
             link: 'https://example.com/blog',
-            title: 'titleLink', description: 'descriptionLink', type: 'blog'
+            title: 'titleLink', type: 'blog'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
@@ -101,7 +101,7 @@ describe('Creating link answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.title.should.equals('titleLink');
-        resp[0].answer.description.should.equals('descriptionLink');
+        should.not.exist(resp[0].answer.description);
         resp[0].answer.link.should.equals('https://example.com/blog');
         resp[0].answer.pageType.should.equals('blog');
         resp[0].answer.hasPreviewImage.should.equals(false);

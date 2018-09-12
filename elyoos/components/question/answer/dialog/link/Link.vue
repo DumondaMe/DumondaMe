@@ -79,11 +79,15 @@
     const PAGE_NOT_FOUND = 404;
 
     export default {
-        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo'],
+        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo', 'initType'],
         data() {
+            let linkData = JSON.parse(JSON.stringify(this.initLinkData));
+            if (this.initType) {
+                linkData.type = this.initType;
+            }
             return {
                 valid: false, checkLink: false, uploadRunning: false, showErrorMessage: false,
-                showWarningMessage: false, link: this.initLink, linkData: JSON.parse(JSON.stringify(this.initLinkData)),
+                showWarningMessage: false, link: this.initLink, linkData: linkData,
                 isVideo: this.initIsVideo, hasChanged: !this.answerId, uploadCommand: function () {
                 }, showError: false
             }

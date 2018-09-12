@@ -1,10 +1,11 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('elyoos-server-test-util').user;
+const db = require('elyoos-server-test-util').db;
+const dbDsl = require('elyoos-server-test-util').dbDSL;
+const requestHandler = require('elyoos-server-test-util').requestHandler;
+const moment = require('moment');
+const should = require('chai').should();
 
 describe('Edit youtube answer', function () {
 
@@ -44,6 +45,25 @@ describe('Edit youtube answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.title.should.equals('titleYoutube');
         resp[0].answer.description.should.equals('descriptionYoutube');
+        resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
+        resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
+        resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
+        resp[0].answer.created.should.equals(555);
+        resp[0].answer.modified.should.least(startTime);
+    });
+
+    it('Edit youtube answer without description', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/answer/youtube/5', {
+            title: 'titleYoutube'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Answer {answerId: '5'})`)
+            .return(`answer`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.title.should.equals('titleYoutube');
+        should.not.exist(resp[0].answer.description);
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
         resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');

@@ -12,8 +12,7 @@
                 </v-text-field>
                 <v-textarea v-model="linkData.description" rows="4"
                               :label="$t('pages:question.answerDialog.answerDescriptionLink')"
-                              :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
+                              :rules="[ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                 </v-textarea>
                 <div id="page-type-title">{{$t('pages:question.answerLinkDialog.typeOfWebsiteDescription')}}</div>
                 <v-radio-group v-model="linkData.pageType" column id="page-type-container"

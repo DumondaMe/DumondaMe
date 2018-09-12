@@ -64,6 +64,29 @@ describe('Creating youtube answer', function () {
         should.not.exist(resp[0].original);
     });
 
+    it('Creating youtube answer without description', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', title: 'titleYoutube'
+        });
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Youtube:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .optionalMatch(`(answer)-[:ORIGINAL]->(original)`)
+            .return(`answer, user, original`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
+        resp[0].answer.title.should.equals('titleYoutube');
+        should.not.exist(resp[0].answer.description);
+        resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
+        resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
+        resp[0].answer.created.should.equals(res.body.created);
+        resp[0].user.userId.should.equals('1');
+        should.not.exist(resp[0].original);
+    });
+
     it('Create a youtube answer that was already used for another question', async function () {
         dbDsl.createYoutubeAnswer('10', {
             creatorId: '2', questionId: '2', created: 500, idOnYoutube: 'Lhku7ZBWEK8',

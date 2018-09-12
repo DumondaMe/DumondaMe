@@ -24,7 +24,8 @@
             </answer-footer>
         </youtube-card>
         <edit-link-dialog v-if="showEditAnswerDialog" @close-dialog="showEditAnswerDialog = false" :is-video="true"
-                          :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId">
+                          :init-link="answer.link" :init-link-data="answer" :answer-id="answer.answerId"
+                          init-type="Youtube">
         </edit-link-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
                               :answer="answer.title" :answer-id="answer.answerId">
@@ -46,7 +47,6 @@
         },
         methods: {
             openEditYoutubeDialog() {
-                this.answer.type = 'Youtube';
                 this.showEditAnswerDialog = true;
             }
         }
