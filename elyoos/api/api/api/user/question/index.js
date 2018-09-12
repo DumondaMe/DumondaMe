@@ -36,8 +36,8 @@ const schemaEditQuestion = {
     }
 };
 
-const schemaDeleteContact = {
-    name: 'deleteContact',
+const schemaDeleteQuestion = {
+    name: 'deleteQuestion',
     type: 'object',
     additionalProperties: false,
     required: ['questionId'],
@@ -61,7 +61,7 @@ module.exports = function (router) {
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteContact, logger);
+        const params = await validation.validateRequest(req, schemaDeleteQuestion, logger);
         let response = await questionDelete.deleteQuestion(req.user.id, params.questionId);
         res.status(200).json(response);
     }));
