@@ -54,20 +54,26 @@
                 </v-tooltip>
             </div>
         </v-card>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-menu>
 </template>
 
 <script>
     import UserContent from './UsersContainer';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
         props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
             'numberOfUpVotes', 'customTextHasUpVoted', 'customTextHasNotUpVoted', 'customTextIsAdmin'],
-        components: {UserContent},
+        components: {UserContent, LoginRequiredDialog},
         data() {
             return {
                 menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser,
-                users: null
+                users: null, showError: false
             }
         },
         computed: {

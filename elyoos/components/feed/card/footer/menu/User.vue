@@ -34,14 +34,22 @@
                 </div>
             </div>
         </v-card>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-menu>
 </template>
 
 <script>
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
+
     export default {
         props: ['menuTitle', 'user', 'userImage', 'userName', 'userId', 'userSlug', 'isTrustUser', 'isLoggedInUser'],
+        components: {LoginRequiredDialog},
         data() {
-            return {menu: false, loading: false}
+            return {menu: false, loading: false, showError: false, showLoginRequired: false}
         },
         methods: {
             goToProfile() {
@@ -51,13 +59,26 @@
                     this.$router.push({name: 'user-userId-slug', params: {userId: this.userId, slug: this.userSlug}})
                 }
             },
+            async sendUserToTrustCircleCommand(command, emit) {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    try {
+                        this.loading = true;
+                        await this.$axios[command](`user/trustCircle/${this.userId}`);
+                        this.$emit(emit, this.userId);
+                    } catch (error) {
+                        this.showError = true;
+                    } finally {
+                        this.loading = false;
+                    }
+                } else {
+                    this.showLoginRequired = true;
+                }
+            },
             async addUserToTrustCircle() {
-                await this.$axios.$post(`user/trustCircle/${this.userId}`);
-                this.$emit('add-trust-circle', this.userId);
+                await this.sendUserToTrustCircleCommand('$post', 'add-trust-circle');
             },
             async removeUserFromTrustCircle() {
-                await this.$axios.$delete(`user/trustCircle/${this.userId}`);
-                this.$emit('remove-trust-circle', this.userId);
+                await this.sendUserToTrustCircleCommand('$delete', 'remove-trust-circle');
             }
         }
     }

@@ -54,6 +54,9 @@
         </v-menu>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -68,7 +71,7 @@
         data() {
             return {
                 menu: false, watchingRunning: false, showLoginRequired: false, localWatchedByUser: this.watchedByUser,
-                users: null
+                users: null, showError: false
             }
         },
         computed: {

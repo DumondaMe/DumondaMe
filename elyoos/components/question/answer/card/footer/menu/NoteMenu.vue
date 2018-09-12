@@ -30,22 +30,28 @@
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-                    <v-btn color="primary" @click="showCreateNoteDialog = true; closeOnClickOutside = false">
+                    <v-btn color="primary" @click="openCreateNoteDialog()">
                         {{$t('common:button.createNote')}}
                     </v-btn>
                 </div>
             </v-card>
         </v-menu>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
         <create-note-dialog @close-dialog="showCreateNoteDialog = false; closeOnClickOutside = true"
                             :answer-id="answerId" :answer-title="title"
                             @finish="showCreateNoteDialog = false; closeOnClickOutside = true"
                             v-if="showCreateNoteDialog">
         </create-note-dialog>
+        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
 <script>
     import CreateNoteDialog from '~/components/question/answer/dialog/note/CreateDialog';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
     import Note from './Note';
 
     export default {
@@ -53,7 +59,7 @@
         data() {
             return {
                 menu: false, showCreateNoteDialog: false, loading: false, showError: false,
-                closeOnClickOutside: true
+                closeOnClickOutside: true, showLoginRequired: false
             };
         },
         computed: {
@@ -75,7 +81,7 @@
                 }
             }
         },
-        components: {CreateNoteDialog, Note},
+        components: {CreateNoteDialog, LoginRequiredDialog, Note},
         methods: {
             async toggleSort() {
                 if (this.notes.length > 2) {
@@ -86,6 +92,14 @@
                     catch (error) {
                         this.showError = true;
                     }
+                }
+            },
+            openCreateNoteDialog() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    this.showCreateNoteDialog = true;
+                    this.closeOnClickOutside = false
+                } else {
+                    this.showLoginRequired = true;
                 }
             }
         }
