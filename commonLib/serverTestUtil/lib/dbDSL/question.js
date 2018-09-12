@@ -29,7 +29,25 @@ const watchQuestion = function (data) {
         .end({questionId: data.questionId, userId: data.userId, created: data.created}).getCommand());
 };
 
+const addSuggestionToQuestion = function (data) {
+    data.created = data.created || 555;
+    data.modified = data.modified || data.created;
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}})`)
+        .addCommand(` SET u :SuperUser`)
+        .create(`(suggestion:QuestionSuggestion {suggestionId: {suggestionId}, 
+                  title: {title}, description: {description}, explanation: {explanation},
+                  created: {created}, modified: {modified}})`)
+        .merge(`(q)<-[:SUGGESTION]-(suggestion)`)
+        .merge(`(suggestion)<-[:IS_CREATOR]-(u)`)
+        .end({
+            questionId: data.questionId, suggestionId: data.suggestionId, userId: data.userId, created: data.created,
+            modified: data.modified, title: data.title, description: data.description, explanation: data.explanation
+        }).getCommand());
+};
+
 module.exports = {
     createQuestion,
-    watchQuestion
+    watchQuestion,
+    addSuggestionToQuestion
 };

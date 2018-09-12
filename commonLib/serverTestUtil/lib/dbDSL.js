@@ -71,6 +71,7 @@ module.exports = {
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
+    setUserIsSuperUser: user.setUserIsSuperUser,
     setUserLocation: user.setUserLocation,
     setUserEmail: user.setUserEmail,
     createUser: user.createUser,
@@ -89,6 +90,7 @@ module.exports = {
 
     createQuestion: question.createQuestion,
     watchQuestion: question.watchQuestion,
+    addSuggestionToQuestion: question.addSuggestionToQuestion,
 
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
 

@@ -18,6 +18,12 @@ let setUserIsElyoosAdmin = function (userId) {
         .end({userId: userId}).getCommand());
 };
 
+let setUserIsSuperUser = function (userId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .addCommand(` set u :SuperUser`)
+        .end({userId: userId}).getCommand());
+};
+
 let setUserLocation = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
         .set("u", {userLocationDescription: data.description, latitude: data.latitude, longitude: data.longitude})
@@ -119,17 +125,18 @@ let setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
 };
 
 module.exports = {
-    setUserRegisteredDate: setUserRegisteredDate,
-    setUserLastLoginTime: setUserLastLoginTime,
-    setUserIsElyoosAdmin: setUserIsElyoosAdmin,
-    setUserLocation: setUserLocation,
-    setUserEmail: setUserEmail,
-    createUser: createUser,
-    createUserRegisterRequest: createUserRegisterRequest,
-    blockUser: blockUser,
-    invitationSentBeforeRegistration: invitationSentBeforeRegistration,
-    inviteUser: inviteUser,
-    setUserPrivacy: setUserPrivacy,
-    createPrivacy: createPrivacy,
-    setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen
+    setUserRegisteredDate,
+    setUserLastLoginTime,
+    setUserIsElyoosAdmin,
+    setUserIsSuperUser,
+    setUserLocation,
+    setUserEmail,
+    createUser,
+    createUserRegisterRequest,
+    blockUser,
+    invitationSentBeforeRegistration,
+    inviteUser,
+    setUserPrivacy,
+    createPrivacy,
+    setRecommendedUserOnHomeScreen
 };
