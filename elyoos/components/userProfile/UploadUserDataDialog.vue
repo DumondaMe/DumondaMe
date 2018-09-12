@@ -7,7 +7,7 @@
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text id="dialog-upload-user-data-content">
-                    <v-form v-model="valid" @keyup.enter.native="uploadUserData">
+                    <v-form v-model="valid">
                         <v-layout row wrap>
                             <v-flex xs12 md5>
                                 <v-text-field type="text" v-model="formForename" name="forename"
@@ -26,11 +26,12 @@
                                 </v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field type="text" v-model="formUserDescription" name="userDescription"
+                                <v-textarea type="text" v-model="formUserDescription" name="userDescription"
+                                            class="user-description"
                                               :label="$t('pages:detailUser.profileData.userDescription')"
-                                              :rules="[ruleToManyChars($t('validation:toManyChars'), 200)]"
-                                              :counter="200">
-                                </v-text-field>
+                                              :rules="[ruleToManyChars($t('validation:toManyChars'), 3000)]"
+                                              :counter="3000" auto-grow>
+                                </v-textarea>
                             </v-flex>
                         </v-layout>
                     </v-form>
@@ -104,6 +105,9 @@
         max-width: 500px;
         #dialog-upload-user-data-content {
             max-width: 500px;
+            .user-description {
+                margin-top: 28px;
+            }
 
         }
     }

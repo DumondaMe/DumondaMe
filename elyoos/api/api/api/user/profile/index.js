@@ -29,7 +29,7 @@ const schemaPostNewProfileData = {
     properties: {
         forename: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 40},
         surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 60},
-        userDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 200}
+        userDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 3000}
     }
 };
 

@@ -11,8 +11,8 @@
                         <v-textarea type="text" v-model="answer" name="answer" auto-grow rows="1"
                                       :label="$t('pages:detailQuestion.yourAnswer')"
                                       :rules="[ruleMinLength($t('validation:minLength', {length: 10}), 10),
-                                               ruleToManyChars($t('validation:toManyChars'), 500)]"
-                                      :counter="500">
+                                               ruleToManyChars($t('validation:toManyChars'), 10000)]"
+                                      :counter="10000">
                         </v-textarea>
                     </v-flex>
                 </v-layout>

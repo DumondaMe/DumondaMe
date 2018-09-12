@@ -14,7 +14,7 @@ const schemaCreateTextAnswer = {
     required: ['questionId', 'answer'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
+        answer: {type: 'string', format: 'notEmptyString', maxLength: 10000}
     }
 };
 
@@ -25,7 +25,7 @@ const schemaEditTextAnswer = {
     required: ['answerId', 'answer'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        answer: {type: 'string', format: 'notEmptyString', maxLength: 500}
+        answer: {type: 'string', format: 'notEmptyString', maxLength: 10000}
     }
 };
 

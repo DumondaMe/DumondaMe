@@ -16,8 +16,8 @@ const schemaCreateQuestion = {
     additionalProperties: false,
     required: ['question', 'topics', 'lang'],
     properties: {
-        question: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        question: {type: 'string', format: 'notEmptyString', maxLength: 140},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
         topics: topic.topics,
         lang: language.language
     }
@@ -30,8 +30,8 @@ const schemaEditQuestion = {
     required: ['questionId', 'question', 'lang'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
-        question: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 700},
+        question: {type: 'string', format: 'notEmptyString', maxLength: 140},
+        description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
         lang: language.language
     }
 };

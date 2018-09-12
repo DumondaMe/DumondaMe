@@ -10,16 +10,16 @@
                         <v-text-field type="text" v-model="question.question" name="question"
                                       :label="$t('common:question')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 80)]"
-                                      :counter="80">
+                                               ruleToManyChars($t('validation:toManyChars'), 140)]"
+                                      :counter="140">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12>
                         <v-textarea type="text" v-model="question.description" name="description" auto-grow
                                       rows="1"
                                       :label="$t('common:description')"
-                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 700)]"
-                                      :counter="700">
+                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 2000)]"
+                                      :counter="2000">
                         </v-textarea>
                     </v-flex>
                     <v-flex xs12>
