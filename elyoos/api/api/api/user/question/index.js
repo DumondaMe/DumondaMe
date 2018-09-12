@@ -54,7 +54,7 @@ module.exports = function (router) {
         res.status(200).json(response);
     }));
 
-    router.put('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditQuestion, logger);
         let response = await questionEdit.editQuestion(req.user.id, params);
         res.status(200).json(response);

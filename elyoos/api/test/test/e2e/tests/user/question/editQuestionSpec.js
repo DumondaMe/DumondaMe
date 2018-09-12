@@ -31,8 +31,8 @@ describe('Edit a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', description: 'description2', lang: 'en'
+        let res = await requestHandler.put('/api/user/question', {
+            questionId: '1', question: 'Andere Frage', description: 'description2', lang: 'en'
         });
         res.status.should.equal(200);
         res.body.descriptionHtml.should.equals('description2');
@@ -56,8 +56,8 @@ describe('Edit a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', description: 'Test elyoos.org change the world', lang: 'en'
+        let res = await requestHandler.put('/api/user/question', {
+            questionId: '1', question: 'Andere Frage', description: 'Test elyoos.org change the world', lang: 'en'
         });
         res.status.should.equal(200);
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
@@ -81,8 +81,8 @@ describe('Edit a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', lang: 'en'
+        let res = await requestHandler.put('/api/user/question', {
+            questionId: '1', question: 'Andere Frage', lang: 'en'
         });
         res.status.should.equal(200);
         should.not.exist(res.body.descriptionHtml);
@@ -106,8 +106,8 @@ describe('Edit a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage<script>alert()</script>',
+        let res = await requestHandler.put('/api/user/question', {
+            questionId: '1', question: 'Andere Frage<script>alert()</script>',
             description: 'Test elyoos.org change the world<script>alert()</script>', lang: 'en'
         });
         res.status.should.equal(200);
@@ -128,8 +128,8 @@ describe('Edit a question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/1', {
-            question: 'Andere Frage', description: 'description2', lang: 'en'
+        let res = await requestHandler.put('/api/user/question', {
+            questionId: '1', question: 'Andere Frage', description: 'description2', lang: 'en'
         });
         res.status.should.equal(400);
 
