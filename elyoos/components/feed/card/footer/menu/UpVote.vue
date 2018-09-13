@@ -125,23 +125,24 @@
         },
         watch: {
             async menu(open) {
-                if (!open && this.isLoggedInUser && !this.loadUpVotedUserRunning) {
+                if (!open && this.isLoggedInUser && !this.loadUpVotedUserRunning && !this.showError) {
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
                 }
-                else if (open && this.numberOfUpVotes > 0 && this.users === null && !this.loadUpVotedUserRunning) {
+                else if (open && this.numberOfUpVotes > 0 && this.users === null && !this.loadUpVotedUserRunning &&
+                    !this.showError) {
                     try {
                         this.loadUpVotedUserRunning = true;
                         this.users = await this.$axios.$get(`/question/answer/upVotes`,
                             {params: {id: this.answerId, page: 0}});
-                    } catch (error) {
-                        this.showError = true;
-                    } finally {
                         //Workaround to show menu after load of user data on correct position
                         this.menu = false;
                         await Vue.nextTick();
                         this.menu = true;
+                    } catch (error) {
+                        this.showError = true;
+                    } finally {
                         this.loadUpVotedUserRunning = false;
                     }
                 }

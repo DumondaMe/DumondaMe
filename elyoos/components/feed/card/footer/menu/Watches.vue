@@ -128,22 +128,23 @@
         },
         watch: {
             async menu(open) {
-                if (!open && this.isLoggedInUser && !this.loadWatchingUserRunning) {
+                if (!open && this.isLoggedInUser && !this.loadWatchingUserRunning && !this.showError) {
                     this.$emit('watch-menu-closed', {
                         questionId: this.questionId, isWatchedByUser: this.localWatchedByUser
                     });
-                } else if (open && this.numberOfWatches > 0 && this.users === null && !this.loadWatchingUserRunning) {
+                } else if (open && this.numberOfWatches > 0 && this.users === null && !this.loadWatchingUserRunning &&
+                    !this.showError) {
                     try {
                         this.loadWatchingUserRunning = true;
                         this.users = await this.$axios.$get(this.apiGetUserCommand,
                             {params: {id: this.watchedId, page: 0}});
-                    } catch (error) {
-                        this.showError = true;
-                    } finally {
                         //Workaround to show menu after load of user data on correct position
                         this.menu = false;
                         await Vue.nextTick();
                         this.menu = true;
+                    } catch (error) {
+                        this.showError = true;
+                    } finally {
                         this.loadWatchingUserRunning = false;
                     }
                 }
