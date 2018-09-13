@@ -128,7 +128,7 @@
         },
         watch: {
             async menu(open) {
-                if (!open && this.isLoggedInUser) {
+                if (!open && this.isLoggedInUser && !this.loadWatchingUserRunning) {
                     this.$emit('watch-menu-closed', {
                         questionId: this.questionId, isWatchedByUser: this.localWatchedByUser
                     });
@@ -140,11 +140,11 @@
                     } catch (error) {
                         this.showError = true;
                     } finally {
-                        this.loadWatchingUserRunning = false;
                         //Workaround to show menu after load of user data on correct position
                         this.menu = false;
                         await Vue.nextTick();
                         this.menu = true;
+                        this.loadWatchingUserRunning = false;
                     }
                 }
             }

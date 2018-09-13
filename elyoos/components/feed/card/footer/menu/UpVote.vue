@@ -125,7 +125,7 @@
         },
         watch: {
             async menu(open) {
-                if (!open && this.isLoggedInUser) {
+                if (!open && this.isLoggedInUser && !this.loadUpVotedUserRunning) {
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
@@ -138,11 +138,11 @@
                     } catch (error) {
                         this.showError = true;
                     } finally {
-                        this.loadUpVotedUserRunning = false;
                         //Workaround to show menu after load of user data on correct position
                         this.menu = false;
                         await Vue.nextTick();
                         this.menu = true;
+                        this.loadUpVotedUserRunning = false;
                     }
                 }
             }
