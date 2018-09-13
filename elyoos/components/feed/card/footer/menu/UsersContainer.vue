@@ -5,7 +5,7 @@
         </div>
         <div class="user-container">
             <user :user="user" :show-date-relative="true" v-for="user in users" :key="user.userId"
-                  v-if="user.userId !== userId"
+                  v-if="user.userId !== userId || !user.userId"
                   @remove-from-trust-circle="removeUserFromTrustCircle"
                   @add-to-trust-circle="addUserToTrustCircle">
             </user>

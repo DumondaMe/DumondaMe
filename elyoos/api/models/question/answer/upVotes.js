@@ -1,25 +1,23 @@
 'use strict';
 
 const db = requireDb();
-const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const anonymousUser = require('../../watches/anonymousUser');
+const response = require('../../watches/response');
+const moreUser = require('../../watches/moreUser');
 
 const PAGE_SIZE = 20;
 
-const getUserResponse = async function (users) {
-    for (let user of users) {
-        user.slug = slug(user.name);
-        user.profileUrl = await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
-    }
-    if (users.length > PAGE_SIZE) {
-        users.pop();
-    }
-    return users;
+const getNumberOfUpVotesCommand = function (answerId, userId) {
+    return db.cypher().match(`(a:Answer {answerId: {answerId}})`)
+        .optionalMatch(`(a)<-[upVote:UP_VOTE]-(user:User)`)
+        .where(`NOT user.userId = {userId} OR {userId} IS null`)
+        .return(`COUNT(upVote) AS numberOfUpVotes`)
+        .end({answerId, userId}).getCommand();
 };
 
 const getUpVotes = async function (userId, answerId, page) {
     page = PAGE_SIZE * page;
-    let response = await db.cypher().match(`(:Answer {answerId: {answerId}})<-[upVote:UP_VOTE]-(user:User)`)
+    let dbResponse = await db.cypher().match(`(:Answer {answerId: {answerId}})<-[upVote:UP_VOTE]-(user:User)`)
         .where(`(user.privacyMode = 'public' OR (user.privacyMode = 'publicEl' AND {userId} IS NOT null) OR 
                 (user.privacyMode = 'contactOnly' AND (user)-[:IS_CONTACT]->(:User {userId: {userId}}))) AND
                 (NOT user.userId = {userId} OR {userId} IS null)`)
@@ -28,10 +26,12 @@ const getUpVotes = async function (userId, answerId, page) {
         .orderBy(`isPersonOfTrust DESC, date DESC`)
         .skip(`{page}`)
         .limit(`${PAGE_SIZE + 1}`)
-        .end({answerId, page, userId}).send();
+        .end({answerId, page, userId}).send([getNumberOfUpVotesCommand(answerId, userId)]);
 
-    let hasMoreUsers = response.length > PAGE_SIZE;
-    return {users: await getUserResponse(response), hasMoreUsers};
+    let hasMoreUsers = moreUser.getHasMoreUsers(dbResponse[1], PAGE_SIZE);
+    let users = await response.getUserResponse(dbResponse[1]);
+    await anonymousUser.addAnonymousUser(users, dbResponse[0][0].numberOfUpVotes, hasMoreUsers, page);
+    return {users, hasMoreUsers};
 
 };
 

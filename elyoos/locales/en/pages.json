@@ -153,8 +153,8 @@
       "userUpVote": {
         "title": "has up voted this answer",
         "titleTwoNames": "have up voted this answer",
-        "moreUpVotes": "Further up vote by:",
-        "moreUpVotes_plural": "Further up votes by:",
+        "moreUpVotes": "Up voted by:",
+        "moreUpVotes_plural": "Up voted by:",
         "titleIsLoggedInUser": "have up voted this answer",
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer",
         "titleIsAdmin": "created this answer"

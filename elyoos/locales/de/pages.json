@@ -153,8 +153,8 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleTwoNames": "haben dieser Antwort zugestimmt",
-        "moreUpVotes": "Zustimmung von einer für dich sichtbaren Person:",
-        "moreUpVotes_plural": "Zustimmung von für dich sichtbaren Personen:",
+        "moreUpVotes": "Zustimmung von:",
+        "moreUpVotes_plural": "Zustimmungen von:",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
         "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt",
         "titleIsAdmin": "hast diese Antwort erstellt"
