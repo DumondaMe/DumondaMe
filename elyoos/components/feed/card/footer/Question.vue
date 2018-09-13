@@ -44,12 +44,19 @@
             </watches-menu>
         </div>
         <div class="footer-icon">
-            <v-icon medium class="action-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert</v-icon>
-            <v-icon medium class="action-icon only-few-answers" v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 4">
-                mdi-comment-alert
-            </v-icon>
-            <v-icon medium class="action-icon" v-else>mdi-comment</v-icon>
-            <span class="footer-description number">{{numberOfAnswers}}</span>
+            <v-tooltip bottom>
+                <div slot="activator">
+                    <v-icon medium class="tooltip-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert
+                    </v-icon>
+                    <v-icon medium class="tooltip-icon only-few-answers"
+                            v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 3">
+                        mdi-comment-alert
+                    </v-icon>
+                    <v-icon medium class="tooltip-icon" v-else>mdi-comment</v-icon>
+                    <span class="footer-description number">{{numberOfAnswers}}</span>
+                </div>
+                <span>{{$t('pages:feeds.menu.questions.numberOfAnswers', {count: numberOfAnswers})}}</span>
+            </v-tooltip>
         </div>
         <div class="footer-icon" v-if="action !== 'watch'">
             <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"

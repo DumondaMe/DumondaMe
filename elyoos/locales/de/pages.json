@@ -183,6 +183,10 @@
       },
       "regions": {
         "title": "Dieses Engagement ist in den folgenden Regionen aktiv"
+      },
+      "questions": {
+        "numberOfAnswers": "Eine Antwort",
+        "numberOfAnswers_plural": "{{count}} Antworten"
       }
     }
   },

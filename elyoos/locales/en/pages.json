@@ -183,6 +183,10 @@
       },
       "regions": {
         "title": "This commitment is active in the following regions"
+      },
+      "questions": {
+        "numberOfAnswers": "An Answer",
+        "numberOfAnswers_plural": "{{count}} Answers"
       }
     }
   },
