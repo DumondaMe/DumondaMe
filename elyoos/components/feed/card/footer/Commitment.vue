@@ -107,6 +107,8 @@
                     return this.$t(`pages:feeds.menu.userUpVote.${title}`);
                 } else if (this.action === 'watch') {
                     return this.$t(`pages:feeds.menu.watchesCommitment.${title}`);
+                } else if (!this.$store.state.auth.userIsAuthenticated) {
+                    return this.$t(`pages:feeds.menu.creatorCommitment.title`);
                 }
             },
             creatorTitle() {

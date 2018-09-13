@@ -80,7 +80,7 @@
         components: {UserMenu, WatchesMenu},
         computed: {
             userTitle() {
-                if (this.action === 'created') {
+                if (this.action === 'created' || !this.$store.state.auth.userIsAuthenticated) {
                     return this.$t("pages:feeds.menu.creatorQuestion.title");
                 } else if (this.action === 'watch' && this.user && !this.user.isLoggedInUser) {
                     return this.$t("pages:feeds.menu.watchesQuestion.title");
