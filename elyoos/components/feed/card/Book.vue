@@ -28,9 +28,8 @@
             <div class="book-preview-image" v-if="answer.imageUrl">
                 <img :src="answer.imageUrl">
             </div>
-            <div class="answer-description">
-                <expand-text :expand-text="answer.description"
-                             :class="{'no-book-image': !answer.imageUrl}" itemprop="text">
+            <div class="answer-description" :class="{'no-book-image': !answer.imageUrl}">
+                <expand-text :expand-text="answer.description" itemprop="text">
                 </expand-text>
             </div>
         </div>
