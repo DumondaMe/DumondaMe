@@ -11,7 +11,6 @@
 <script>
     import EditCommitment from './commitment/Edit';
     import SearchCommitment from './commitment/Search';
-    import Vue from 'vue';
 
     export default {
         components: {EditCommitment, SearchCommitment},
