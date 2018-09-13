@@ -22,7 +22,7 @@
                         <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
                     </div>
                 </div>
-                <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
+                <user-content v-if="numberOfShowedUsers > 0 && !loadWatchingUserRunning" :users="users.users"
                               :api-get-user="apiGetUserCommand" :init-has-more-users="users.hasMoreUsers"
                               :id="watchedId" :user-id="userId"
                               :user-description="$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
@@ -30,6 +30,11 @@
                 </user-content>
                 <div v-else-if="numberOfWatches === 0" class="no-watches-description">
                     {{$t('pages:feeds.menu.'+ menuTranslation + '.noWatches')}}
+                </div>
+                <div v-else-if="loadWatchingUserRunning" class="loading-watching-user-running">
+                    <div class="text-xs-center">
+                        <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </div>
                 </div>
                 <v-divider></v-divider>
                 <div class="menu-commands">
@@ -66,6 +71,7 @@
 <script>
     import UserContent from './UsersContainer';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
+    import Vue from 'vue';
 
     export default {
         props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isWatchingAction', 'isAdmin', 'watchedByUser',
@@ -74,13 +80,13 @@
         data() {
             return {
                 menu: false, watchingRunning: false, showLoginRequired: false, localWatchedByUser: this.watchedByUser,
-                users: null, showError: false
+                users: null, showError: false, loadWatchingUserRunning: false
             }
         },
         computed: {
             numberOfShowedUsers() {
                 if (this.users) {
-                    return this.users.users.filter((user) => user.userId !== this.userId).length;
+                    return this.users.users.filter((user) => user.userId !== this.userId || user.isAnonymous).length;
                 }
                 return 0;
             },
@@ -126,9 +132,20 @@
                     this.$emit('watch-menu-closed', {
                         questionId: this.questionId, isWatchedByUser: this.localWatchedByUser
                     });
-                } else if (open && this.numberOfWatches > 0 && this.users === null) {
-                    this.users = await this.$axios.$get(this.apiGetUserCommand,
-                        {params: {id: this.watchedId, page: 0}});
+                } else if (open && this.numberOfWatches > 0 && this.users === null && !this.loadWatchingUserRunning) {
+                    try {
+                        this.loadWatchingUserRunning = true;
+                        this.users = await this.$axios.$get(this.apiGetUserCommand,
+                            {params: {id: this.watchedId, page: 0}});
+                    } catch (error) {
+                        this.showError = true;
+                    } finally {
+                        this.loadWatchingUserRunning = false;
+                        //Workaround to show menu after load of user data on correct position
+                        this.menu = false;
+                        await Vue.nextTick();
+                        this.menu = true;
+                    }
                 }
             }
         }
@@ -139,6 +156,9 @@
     .ely-menu-container.ely-menu-watches-container {
         .no-watches-description {
             padding: 12px 16px;
+        }
+        .loading-watching-user-running {
+            margin-bottom: 12px;
         }
     }
 </style>

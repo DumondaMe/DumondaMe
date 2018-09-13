@@ -153,6 +153,7 @@
       "userUpVote": {
         "title": "has up voted this answer",
         "titleTwoNames": "have up voted this answer",
+        "noWatches": "No one has yet this answer up voted.",
         "moreUpVotes": "Up voted by:",
         "moreUpVotes_plural": "Up voted by:",
         "titleIsLoggedInUser": "have up voted this answer",

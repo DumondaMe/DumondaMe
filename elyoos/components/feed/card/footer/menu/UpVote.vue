@@ -31,6 +31,14 @@
                           :user-description="$t('pages:feeds.menu.userUpVote.moreUpVotes',
                           {count: numberOfShowedUsers})">
             </user-content>
+            <div v-else-if="numberOfUpVotes === 0" class="no-up-votes-description">
+                {{$t('pages:feeds.menu.userUpVote.noWatches')}}
+            </div>
+            <div v-else-if="loadUpVotedUserRunning" class="loading-up-voted-user-running">
+                <div class="text-xs-center">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </div>
+            </div>
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
@@ -65,6 +73,7 @@
 <script>
     import UserContent from './UsersContainer';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
+    import Vue from 'vue';
 
     export default {
         props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
@@ -73,13 +82,13 @@
         data() {
             return {
                 menu: false, upVoteRunning: false, showLoginRequired: false, localUpVotedByUser: this.upVotedByUser,
-                users: null, showError: false
+                users: null, showError: false, loadUpVotedUserRunning: false
             }
         },
         computed: {
             numberOfShowedUsers() {
                 if (this.users) {
-                    return this.users.users.filter((user) => user.userId !== this.userId).length;
+                    return this.users.users.filter((user) => user.userId !== this.userId || user.isAnonymous).length;
                 }
                 return 0;
             }
@@ -121,9 +130,20 @@
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
                 }
-                else if (open && this.numberOfUpVotes > 0 && this.users === null) {
-                    this.users = await this.$axios.$get(`/question/answer/upVotes`,
-                        {params: {id: this.answerId, page: 0}});
+                else if (open && this.numberOfUpVotes > 0 && this.users === null && !this.loadUpVotedUserRunning) {
+                    try {
+                        this.loadUpVotedUserRunning = true;
+                        this.users = await this.$axios.$get(`/question/answer/upVotes`,
+                            {params: {id: this.answerId, page: 0}});
+                    } catch (error) {
+                        this.showError = true;
+                    } finally {
+                        this.loadUpVotedUserRunning = false;
+                        //Workaround to show menu after load of user data on correct position
+                        this.menu = false;
+                        await Vue.nextTick();
+                        this.menu = true;
+                    }
                 }
             }
         }
@@ -131,5 +151,13 @@
 </script>
 
 <style lang="scss">
+    .ely-menu-container.up-vote-menu-container {
+        .no-up-votes-description {
+            padding: 12px 16px;
+        }
 
+        .loading-up-voted-user-running {
+            margin-bottom: 12px;
+        }
+    }
 </style>

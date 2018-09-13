@@ -153,6 +153,7 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleTwoNames": "haben dieser Antwort zugestimmt",
+        "noWatches": "Noch Niemand hat dieser Antwort zugestimmt.",
         "moreUpVotes": "Zustimmung von:",
         "moreUpVotes_plural": "Zustimmungen von:",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
