@@ -4,6 +4,8 @@
   "passwordConfirm": "Confirm password",
   "forename": "Forename",
   "surname": "Surname",
+  "anonymousUser": "Anonymous Person",
+  "anonymousUser_plural": "{{count}} Anonymous Persons",
   "terms": "terms",
   "privacyPolicy": "Privacy Policy",
   "title": "Title",

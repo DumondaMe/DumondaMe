@@ -128,7 +128,7 @@ describe('Getting users who watches a commitment', function () {
         res.body.users[2].isPersonOfTrust.should.equals(false);
     });
 
-    it('Show not user when privacy to contact only and no contact relationship exists', async function () {
+    it('Show anonymous user when privacy to contact only and no contact relationship exists', async function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '3', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'contactOnly'});
         await dbDsl.sendToDb();
@@ -137,7 +137,11 @@ describe('Getting users who watches a commitment', function () {
         let res = await requestHandler.get('/api/commitment/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
-        res.body.users.length.should.equals(0);
+        res.body.users.length.should.equals(1);
+
+        res.body.users[0].isAnonymous.should.equals(true);
+        res.body.users[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+        res.body.users[0].numberOfAnonymous.should.equals(1);
     });
 
     it('Show user when privacy to contact only and contact relationship exists', async function () {
@@ -157,7 +161,7 @@ describe('Getting users who watches a commitment', function () {
         res.body.users[0].isPersonOfTrust.should.equals(false);
     });
 
-    it('Show not user when privacy to elyoos only and user is not logged in', async function () {
+    it('Show anonymous user when privacy to elyoos only and user is not logged in', async function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '3', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
@@ -165,7 +169,11 @@ describe('Getting users who watches a commitment', function () {
         let res = await requestHandler.get('/api/commitment/watches', {id: '1', page: 0});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
-        res.body.users.length.should.equals(0);
+        res.body.users.length.should.equals(1);
+
+        res.body.users[0].isAnonymous.should.equals(true);
+        res.body.users[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+        res.body.users[0].numberOfAnonymous.should.equals(1);
     });
 
     it('Show user when privacy to elyoos only and user is logged in', async function () {
@@ -196,7 +204,7 @@ describe('Getting users who watches a commitment', function () {
     });
 
     it('Has more is true', async function () {
-        for (let index = 3; index < 25; index++) {
+        for (let index = 3; index < 24; index++) {
             dbDsl.watchCommitment({commitmentId: '1', userId: `${index}`, created: 999 + index});
         }
         await dbDsl.sendToDb();
@@ -206,5 +214,23 @@ describe('Getting users who watches a commitment', function () {
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(true);
         res.body.users.length.should.equals(20);
+    });
+
+    it('Return only one anonymous user', async function () {
+        for (let index = 3; index < 24; index++) {
+            dbDsl.watchCommitment({commitmentId: '1', userId: `${index}`, created: 999 + index});
+            dbDsl.setUserPrivacy(`${index}`, {privacyMode: 'contactOnly'});
+        }
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/commitment/watches', {id: '1', page: 0});
+        res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(false);
+        res.body.users.length.should.equals(1);
+
+        res.body.users[0].isAnonymous.should.equals(true);
+        res.body.users[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+        res.body.users[0].numberOfAnonymous.should.equals(21);
     });
 });

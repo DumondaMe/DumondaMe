@@ -162,16 +162,18 @@
       "watchesQuestion": {
         "title": "findet diese Frage interessant",
         "titleTwoNames": "finden diese Frage interessant",
-        "moreWatches": "Für die Frage interessiert sich:",
-        "moreWatches_plural": "Für die Frage interessieren sich:",
+        "noWatches": "Noch niemand findet diese Frage interessant",
+        "moreWatches": "Die Frage findet interessant:",
+        "moreWatches_plural": "Die Fragen finden interessant:",
         "titleIsLoggedInUser": "findest diese Frage interessant",
         "titleIsLoggedInUserAndNotWatched": "findest diese Frage nicht interessant"
       },
       "watchesCommitment": {
         "title": "findet dieses Engagement interessant",
         "titleTwoNames": "finden dieses Engagement interessant",
-        "moreWatches": "Findet dieses Engagement interessant:",
-        "moreWatches_plural": "Finden dieses Engagement interessant:",
+        "noWatches": "Noch niemand findet diese Engagement interessant",
+        "moreWatches": "Dieses Engagement findet interessant:",
+        "moreWatches_plural": "Dieses Engagement finden interessant:",
         "titleIsLoggedInUser": "findest dieses Engagement interessant",
         "titleIsLoggedInUserAndNotWatched": "findest dieses Engagement nicht interessant"
       },

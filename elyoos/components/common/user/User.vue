@@ -4,7 +4,7 @@
                      params: {userId: user.userId, slug: user.slug}})">
             <img :src="user.profileUrl">
         </div>
-        <div class="user-info-container">
+        <div class="user-info-container" v-if="!user.isAnonymous">
             <div class="user-name"
                  @click="$router.push({name: 'user-userId-slug',
                      params: {userId: user.userId, slug: user.slug}})">{{user.name}}
@@ -23,7 +23,10 @@
                 <span v-else-if="showDateRelative && user.date"> {{user.date | formatRelativeTimesAgo}}</span>
             </div>
         </div>
-        <div class="user-settings-menu" v-if="isAuthenticated && !user.isLoggedInUser">
+        <div class="user-info-container" v-else>
+            <div class="user-name-anonymous">{{$t('common:anonymousUser', {count: user.numberOfAnonymous})}}</div>
+        </div>
+        <div class="user-settings-menu" v-if="isAuthenticated && !user.isLoggedInUser && !user.isAnonymous">
             <v-menu bottom left>
                 <v-btn icon slot="activator">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -95,6 +98,9 @@
                 display: inline-block;
                 font-size: 14px;
                 cursor: pointer;
+            }
+            .user-name-anonymous {
+                font-size: 14px;
             }
             :hover.user-name {
                 text-decoration: underline;

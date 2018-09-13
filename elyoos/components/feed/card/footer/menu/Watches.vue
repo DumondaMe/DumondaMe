@@ -2,7 +2,7 @@
     <div>
         <v-menu v-model="menu" :close-on-content-click="false" offset-y>
             <slot name="icon" slot="activator"></slot>
-            <v-card class="ely-menu-container">
+            <v-card class="ely-menu-container ely-menu-watches-container">
                 <div v-if="isAuthenticated">
                     <div class="menu-title" v-if="isLoggedInUser && isWatchingAction">
                         <span class="primary-title">{{$t('common:you')}} </span>
@@ -28,6 +28,9 @@
                               :user-description="$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
                           {count: numberOfShowedUsers})">
                 </user-content>
+                <div v-else-if="numberOfWatches === 0" class="no-watches-description">
+                    {{$t('pages:feeds.menu.'+ menuTranslation + '.noWatches')}}
+                </div>
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
@@ -133,5 +136,9 @@
 </script>
 
 <style lang="scss">
-
+    .ely-menu-container.ely-menu-watches-container {
+        .no-watches-description {
+            padding: 12px 16px;
+        }
+    }
 </style>

@@ -62,7 +62,7 @@
         .menu-user-container-content {
             .more-user-description {
                 font-size: 14px;
-                margin-bottom: 18px;
+                margin-bottom: 12px;
             }
             .user-container {
                 max-height: 336px;
