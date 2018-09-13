@@ -5,6 +5,34 @@ export const state = () => ({
     feedPage: 0
 });
 
+const setTrustCircleForSinglePerson = function (users, userId, personOfTrustSince, isPersonOfTrust) {
+    let user = users.find((contact) => contact.userId === userId);
+    if (user) {
+        if (isPersonOfTrust) {
+            user.personOfTrustSince = personOfTrustSince;
+        } else {
+            delete user.personOfTrustSince;
+        }
+        user.isPersonOfTrust = isPersonOfTrust;
+        return true;
+    }
+    return false;
+};
+
+const setTrustCircleForFeed = function (feed, userId, isPersonOfTrust) {
+    let changedState = false;
+    for (let card of feed) {
+        if (card.user && card.user.userId === userId) {
+            card.user.isTrustUser = isPersonOfTrust;
+            changedState = true;
+        }
+        if (card.creator && card.creator.userId === userId) {
+            card.creator.isTrustUser = isPersonOfTrust;
+            changedState = true;
+        }
+    }
+};
+
 export const mutations = {
     SET_USER_PROFILE: function (state, user) {
         state.user = user;
@@ -24,32 +52,74 @@ export const mutations = {
         state.user.profileImage = image;
     },
     REMOVE_USER_FROM_TRUST_CIRCLE: function (state, userId) {
+        let setTrustUser = false;
         if (state.user.userId === userId) {
             state.user.isPersonOfTrustOfLoggedInUser = false;
-        } else {
-            let user = state.user.peopleOfTrust.find((contact) => contact.userId === userId);
-            if (user) {
-                delete user.personOfTrustSince;
-                user.isPersonOfTrust = false;
-                if (state.user.isLoggedInUser) {
-                    state.user.numberOfPeopleOfTrust--;
-                }
-            }
+        }
+        if (setTrustCircleForSinglePerson(state.user.peopleOfTrust, userId, null, false)) {
+            setTrustUser = true;
+        }
+        if (setTrustCircleForSinglePerson(state.user.peopleTrustUser, userId, null, false)) {
+            setTrustUser = true;
+        }
+        if (setTrustCircleForFeed(state.user.feed, userId, false)) {
+            setTrustUser = true;
+        }
+        if (setTrustUser && state.user.isLoggedInUser) {
+            state.user.numberOfPeopleOfTrust--;
         }
     },
     ADD_USER_TO_TRUST_CIRCLE: function (state, userToAdd) {
+        let setTrustUser = false;
         if (state.user.userId === userToAdd.userId) {
             state.user.isPersonOfTrustOfLoggedInUser = true;
-        } else {
-            let user = state.user.peopleOfTrust.find((contact) => contact.userId === userToAdd.userId);
-            if (user) {
-                user.personOfTrustSince = userToAdd.personOfTrustSince;
-                user.isPersonOfTrust = true;
+        }
+        if (setTrustCircleForSinglePerson(state.user.peopleOfTrust, userToAdd.userId,
+            userToAdd.personOfTrustSince, true)) {
+            setTrustUser = true;
+        }
+        if (setTrustCircleForSinglePerson(state.user.peopleTrustUser, userToAdd.userId,
+            userToAdd.personOfTrustSince, true)) {
+            setTrustUser = true;
+        }
+        if (setTrustCircleForFeed(state.user.feed, userToAdd.userId, true)) {
+            setTrustUser = true;
+        }
+        if (setTrustUser && state.user.isLoggedInUser) {
+            state.user.numberOfPeopleOfTrust++;
+        }
+        /*if ((setTrustCircleForSinglePerson(state.user.peopleOfTrust, userToAdd.userId,
+            userToAdd.personOfTrustSince, true) ||
+            setTrustCircleForSinglePerson(state.user.peopleTrustUser, userToAdd.userId,
+                userToAdd.personOfTrustSince, true) ||
+            setTrustCircleForFeed(state.user.feed, userToAdd.userId)) && state.user.isLoggedInUser) {
+            state.user.numberOfPeopleOfTrust++;
+        }*/
+        /*let user = state.user.peopleOfTrust.find((contact) => contact.userId === userToAdd.userId);
+        if (user) {
+            user.personOfTrustSince = userToAdd.personOfTrustSince;
+            user.isPersonOfTrust = true;
+            if (state.user.isLoggedInUser) {
+                addedToLoggedInUser = true;
+            }
+        }*/
+        /*for (let card of state.user.feed) {
+            if (card.user && card.user.userId === userToAdd.userId) {
+                card.user.isTrustUser = true;
                 if (state.user.isLoggedInUser) {
-                    state.user.numberOfPeopleOfTrust++;
+                    addedToLoggedInUser = true;
                 }
             }
-        }
+            if (card.creator && card.creator.userId === userToAdd.userId) {
+                card.creator.isTrustUser = true;
+                if (state.user.isLoggedInUser) {
+                    addedToLoggedInUser = true;
+                }
+            }
+        }*/
+        /*if (addedToLoggedInUser) {
+            state.user.numberOfPeopleOfTrust++;
+        }*/
     },
     ADD_PEOPLE_OF_TRUST: function (state, {peopleOfTrust, numberOfPeopleOfTrust, numberOfInvisiblePeopleOfTrust}) {
         state.user.peopleOfTrust = state.user.peopleOfTrust.concat(peopleOfTrust);
@@ -79,7 +149,27 @@ export const mutations = {
         if (answerToRemove > -1) {
             state.user.feed.splice(answerToRemove, 1);
         }
-    }
+    },
+    ADD_QUESTION_WATCH(state, questionId) {
+        let question = state.user.feed.find(
+            (element) => element.questionId === questionId && element.type === 'Question');
+        question.numberOfWatches++;
+    },
+    REMOVE_QUESTION_WATCH(state, questionId) {
+        let question = state.user.feed.find(
+            (element) => element.questionId === questionId && element.type === 'Question');
+        question.numberOfWatches--;
+    },
+    ADD_COMMITMENT_WATCH(state, commitmentId) {
+        let commitment = state.user.feed.find(
+            (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
+        commitment.numberOfWatches++;
+    },
+    REMOVE_COMMITMENT_WATCH(state, commitmentId) {
+        let commitment = state.user.feed.find(
+            (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
+        commitment.numberOfWatches--;
+    },
 };
 
 export const getters = {

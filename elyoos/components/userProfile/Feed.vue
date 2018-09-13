@@ -10,8 +10,13 @@
                                             :created="element.created" :action="element.action"
                                             :regions="element.regions" :card-type="element.type"
                                             :is-up-voted-by-user="element.isUpVotedByUser"
+                                            :commitment-id="element.commitmentId"
+                                            :is-watched-by-user="element.isWatchedByUser" :is-admin="element.isAdmin"
                                             @up-voted="upVoted" @down-voted="downVoted"
-                                            @up-vote-menu-closed="upVoteMenuClosed">
+                                            @add-watch="addCommitmentWatch" @remove-watch="removeCommitmentWatch"
+                                            @up-vote-menu-closed="upVoteMenuClosed"
+                                            @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </commitment-card-footer>
                 </commitment-card>
                 <book-card :answer="element" v-if="element.type === 'Book'">
@@ -20,7 +25,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
                 <text-card :answer="element" v-if="element.type === 'Text'">
@@ -29,7 +36,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </text-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
@@ -38,7 +47,9 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </link-card>
                 <youtube-card :answer="element" v-if="element.type === 'Youtube'">
@@ -47,13 +58,20 @@
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser"
                                         @up-voted="upVoted" @down-voted="downVoted"
-                                        @up-vote-menu-closed="upVoteMenuClosed">
+                                        @up-vote-menu-closed="upVoteMenuClosed"
+                                        @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                        @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'">
                     <question-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
-                                          :number-of-answers="element.numberOfAnswers" :action="element.action">
+                                          :number-of-answers="element.numberOfAnswers" :action="element.action"
+                                          :question-id="element.questionId"
+                                          :is-watched-by-user="element.isWatchedByUser"
+                                          @add-watch="addQuestionWatch" @remove-watch="removeQuestionWatch"
+                                          @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
+                                          @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </question-card-footer>
                 </question-card>
             </div>
@@ -92,6 +110,24 @@
                 if (!isUpVotedByUser && this.$store.state.userProfile.user.isLoggedInUser) {
                     this.$store.commit('userProfile/REMOVE_ANSWER', answerId);
                 }
+            },
+            addQuestionWatch(questionId) {
+                this.$store.commit('userProfile/ADD_QUESTION_WATCH', questionId);
+            },
+            removeQuestionWatch(questionId) {
+                this.$store.commit('userProfile/REMOVE_QUESTION_WATCH', questionId);
+            },
+            addCommitmentWatch(commitmentId) {
+                this.$store.commit('userProfile/ADD_COMMITMENT_WATCH', commitmentId);
+            },
+            removeCommitmentWatch(commitmentId) {
+                this.$store.commit('userProfile/REMOVE_COMMITMENT_WATCH', commitmentId);
+            },
+            async addUserToTrustCircle(user) {
+                this.$store.commit('userProfile/ADD_USER_TO_TRUST_CIRCLE', user);
+            },
+            async removeUserFromTrustCircle(userId) {
+                this.$store.commit('userProfile/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
             }
         }
     }
