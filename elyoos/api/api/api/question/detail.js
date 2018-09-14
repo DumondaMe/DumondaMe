@@ -24,8 +24,9 @@ module.exports = function (router) {
     router.get('/:questionId', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetQuestionDetail, logger);
         let userId = apiHelper.getUserId(req);
+        let superUser = apiHelper.isSuperUser(req);
         params.answerId = params.answerId || null;
-        let response = await detail.getQuestion(params.questionId, params.answerId, params.language, userId);
+        let response = await detail.getQuestion(params.questionId, params.answerId, params.language, userId, superUser);
         res.status(200).json(response);
     }));
 };

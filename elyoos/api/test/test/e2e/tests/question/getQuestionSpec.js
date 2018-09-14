@@ -75,6 +75,7 @@ describe('Getting details of a question', function () {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
             topics: ['topic2'], language: 'en', modified: 701
         });
+        dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/2', {language: 'de'});
@@ -84,6 +85,7 @@ describe('Getting details of a question', function () {
         res.body.description.should.equals('Test elyoos.org change the world');
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.isAdmin.should.equals(false);
+        res.body.isSuperUser.should.equals(true);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
@@ -119,6 +121,7 @@ describe('Getting details of a question', function () {
         should.not.exist(res.body.description);
         should.not.exist(res.body.descriptionHtml);
         res.body.isAdmin.should.equals(false);
+        res.body.isSuperUser.should.equals(false);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
@@ -166,6 +169,7 @@ describe('Getting details of a question', function () {
         res.body.numberOfAnswers.should.equals(6);
         res.body.userWatchesQuestion.should.equals(true);
         res.body.isAdmin.should.equals(true);
+        res.body.isSuperUser.should.equals(false);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
@@ -371,6 +375,7 @@ describe('Getting details of a question', function () {
         res.body.numberOfAnswers.should.equals(6);
         res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(true);
+        res.body.isSuperUser.should.equals(false);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
@@ -489,6 +494,7 @@ describe('Getting details of a question', function () {
     it('Getting details of a question when not logged in (answers sorted by date)', async function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1'});
         dbDsl.watchQuestion({questionId: '1', userId: '4'});
+        dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
@@ -503,6 +509,7 @@ describe('Getting details of a question', function () {
         res.body.numberOfAnswers.should.equals(6);
         res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(false);
+        res.body.isSuperUser.should.equals(false);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');

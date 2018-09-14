@@ -8,7 +8,7 @@ const answers = require('./answers');
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 
-const getQuestion = async function (questionId, answerId, language, userId) {
+const getQuestion = async function (questionId, answerId, language, userId, isSuperUser) {
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
         .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
@@ -26,6 +26,7 @@ const getQuestion = async function (questionId, answerId, language, userId) {
             question.descriptionHtml = linkifyHtml(question.description);
         }
         question.isAdmin = questionResponse.isAdmin;
+        question.isSuperUser = isSuperUser;
         question.topics = questionResponse.topics;
         question.numberOfWatches = questionResponse.numberOfWatches;
         question.numberOfAnswers = questionResponse.numberOfAnswers;
