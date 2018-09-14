@@ -13,7 +13,9 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
         .optionalMatch(`(question)-[:ANSWER]->(answer)`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
         .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
+        .optionalMatch(`(question)<-[:SUGGESTION]-(suggestions:QuestionSuggestion)`)
         .return(`question, user, count(DISTINCT answer) AS numberOfAnswers, count(DISTINCT watch) AS numberOfWatches,
+                 count(DISTINCT suggestions) AS numberOfSuggestions,
                  collect(DISTINCT {description: topic.${language}, id: topic.topicId}) AS topics,
                  EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser,
@@ -28,6 +30,7 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
         question.isAdmin = questionResponse.isAdmin;
         question.isSuperUser = isSuperUser;
         question.topics = questionResponse.topics;
+        question.numberOfSuggestions = questionResponse.numberOfSuggestions;
         question.numberOfWatches = questionResponse.numberOfWatches;
         question.numberOfAnswers = questionResponse.numberOfAnswers;
         question.userWatchesQuestion = questionResponse.userWatchesQuestion;

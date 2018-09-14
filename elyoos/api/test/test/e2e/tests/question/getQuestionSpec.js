@@ -11,7 +11,7 @@ describe('Getting details of a question', function () {
     let startTime;
 
     beforeEach(async function () {
-        await dbDsl.init(6);
+        await dbDsl.init(9);
         await requestHandler.logout();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
@@ -76,6 +76,14 @@ describe('Getting details of a question', function () {
             topics: ['topic2'], language: 'en', modified: 701
         });
         dbDsl.setUserIsSuperUser('1');
+        dbDsl.addSuggestionToQuestion({
+            questionId: '2', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
+            explanation: 'explanation', created: 999
+        });
+        dbDsl.addSuggestionToQuestion({
+            questionId: '2', suggestionId: '101', userId: '5', title: 'newTitle2', description: 'newDescription2',
+            explanation: 'explanation2', created: 998
+        });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/2', {language: 'de'});
@@ -86,6 +94,7 @@ describe('Getting details of a question', function () {
         res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
         res.body.isAdmin.should.equals(false);
         res.body.isSuperUser.should.equals(true);
+        res.body.numberOfSuggestions.should.equals(2);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
@@ -122,6 +131,7 @@ describe('Getting details of a question', function () {
         should.not.exist(res.body.descriptionHtml);
         res.body.isAdmin.should.equals(false);
         res.body.isSuperUser.should.equals(false);
+        res.body.numberOfSuggestions.should.equals(0);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(701);
         res.body.language.should.equals('en');
@@ -170,6 +180,7 @@ describe('Getting details of a question', function () {
         res.body.userWatchesQuestion.should.equals(true);
         res.body.isAdmin.should.equals(true);
         res.body.isSuperUser.should.equals(false);
+        res.body.numberOfSuggestions.should.equals(0);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
@@ -376,6 +387,7 @@ describe('Getting details of a question', function () {
         res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(true);
         res.body.isSuperUser.should.equals(false);
+        res.body.numberOfSuggestions.should.equals(0);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
@@ -495,6 +507,10 @@ describe('Getting details of a question', function () {
         dbDsl.watchQuestion({questionId: '1', userId: '1'});
         dbDsl.watchQuestion({questionId: '1', userId: '4'});
         dbDsl.setUserIsSuperUser('1');
+        dbDsl.addSuggestionToQuestion({
+            questionId: '1', suggestionId: '100', userId: '5', title: 'newTitle', description: 'newDescription',
+            explanation: 'explanation', created: 999
+        });
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
@@ -510,6 +526,7 @@ describe('Getting details of a question', function () {
         res.body.userWatchesQuestion.should.equals(false);
         res.body.isAdmin.should.equals(false);
         res.body.isSuperUser.should.equals(false);
+        res.body.numberOfSuggestions.should.equals(1);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.userId.should.equals('1');
         res.body.creator.slug.should.equals('user-meier');
