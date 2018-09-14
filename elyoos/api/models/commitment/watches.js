@@ -3,7 +3,7 @@
 const db = requireDb();
 const anonymousUser = require('../watches/anonymousUser');
 const response = require('../watches/response');
-const moreUser = require('../watches/moreUser');
+const moreUser = require('../util/moreSearchResults');
 
 const PAGE_SIZE = 20;
 
@@ -29,7 +29,7 @@ const getUserWatchesCommitment = async function (userId, commitmentId, page) {
         .limit(`${PAGE_SIZE + 1}`)
         .end({commitmentId, page, userId}).send([getNumberOfCommitmentCommand(commitmentId, userId)]);
 
-    let hasMoreUsers = moreUser.getHasMoreUsers(dbResponse[1], PAGE_SIZE);
+    let hasMoreUsers = moreUser.getHasMoreResults(dbResponse[1], PAGE_SIZE);
     let users = await response.getUserResponse(dbResponse[1]);
     await anonymousUser.addAnonymousUser(users, dbResponse[0][0].numberOfWatches, hasMoreUsers, page);
     return {users, hasMoreUsers};
