@@ -6,7 +6,7 @@ let logger = require('./logging').getLogger(__filename);
 let searchUserWithEmail = function (email) {
     return db.cypher().match('(u:User {emailNormalized: {email}})')
         .return(`u.password AS password, u.emailNormalized AS email, u.userId AS id, u.elyoosAdmin AS elyoosAdmin,
-                 u.language AS lang`)
+                 u.language AS lang, ANY (label IN labels(u) WHERE label = 'SuperUser') AS superUser`)
         .end({email: email})
         .send()
         .then(function (resp) {
@@ -22,7 +22,10 @@ let searchUserWithEmail = function (email) {
 let UserLibrary = function () {
     return {
         serialize: function (user, done) {
-            done(null, {id: user.id, elyoosAdmin: user.elyoosAdmin, lang: user.language, email: user.email});
+            done(null, {
+                id: user.id, elyoosAdmin: user.elyoosAdmin, superUser: user.superUser, lang: user.language,
+                email: user.email
+            });
         },
         deserialize: function (sessionUser, done) {
             done(null, sessionUser);
