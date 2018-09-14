@@ -360,6 +360,13 @@
       "invalidYoutubeId": "Invalid youtube link.",
       "linkAnswerExists": "The link has already been used as an answer to this question",
       "websiteNotFound": "The website could not be reached. Check if your link is correct."
+    },
+    "menu": {
+      "suggestion": {
+        "title": "Suggestions for upgrading the question",
+        "noSuggestion": "Editorial users can enter suggestions here to improve the quality of the question.",
+        "addButton": "Enter Suggestion"
+      }
     }
   },
   "detailCommitment": {

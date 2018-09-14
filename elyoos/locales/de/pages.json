@@ -357,6 +357,13 @@
       "invalidYoutubeId": "Ungültiger Youtube Link.",
       "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet",
       "websiteNotFound": "Die Webseite konnte nicht erreicht werden. Prüfe ob dein Link korrekt ist."
+    },
+    "menu": {
+      "suggestion": {
+        "title": "Vorschläge zur Aufwertung der Frage",
+        "noSuggestion": "Hier können redaktionelle Benutzer Vorschläge erfassen, um die Qualität der Frage zu verbesseren.",
+        "addButton": "Vorschlag Erfassen"
+      }
     }
   },
   "detailCommitment": {

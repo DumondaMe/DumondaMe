@@ -45,6 +45,10 @@
                         </v-btn>
                         <span class="description">{{question.numberOfAnswers}}</span>
                     </div>
+                    <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
+                                :is-super-user="question.isSuperUser"
+                                :number-of-suggestion="question.numberOfSuggestions">
+                    </suggestion>
                     <admin-commands v-if="question.isAdmin"></admin-commands>
                 </div>
             </div>
@@ -68,9 +72,10 @@
     import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
     import AdminCommands from './AdminCommands';
+    import Suggestion from './Suggestion';
 
     export default {
-        components: {UserMenu, WatchesMenu, CreateDialog, LoginRequiredDialog, AdminCommands},
+        components: {UserMenu, WatchesMenu, CreateDialog, LoginRequiredDialog, AdminCommands, Suggestion},
         data() {
             return {dialog: false, showLoginRequired: false}
         },
