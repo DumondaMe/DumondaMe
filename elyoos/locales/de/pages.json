@@ -185,8 +185,10 @@
         "title": "Dieses Engagement ist in den folgenden Regionen aktiv"
       },
       "questions": {
-        "numberOfAnswers": "Eine Antwort",
-        "numberOfAnswers_plural": "{{count}} Antworten"
+        "noAnswers": "Hat noch keine Antworten",
+        "fewAnswers": "Hat erst eine Antwort",
+        "fewAnswers_plural": "Hat erst {{count}} Antworten",
+        "numberOfAnswers": "{{count}} Antworten"
       }
     }
   },

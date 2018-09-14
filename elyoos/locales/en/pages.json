@@ -185,8 +185,12 @@
         "title": "This commitment is active in the following regions"
       },
       "questions": {
-        "numberOfAnswers": "An Answer",
-        "numberOfAnswers_plural": "{{count}} Answers"
+        "questions": {
+          "noAnswers": "Has no answers yet",
+          "fewAnswers": "Has only one answer",
+          "fewAnswers_plural": "Has only {{count}} answers",
+          "numberOfAnswers": "{{count}} answers"
+        }
       }
     }
   },
