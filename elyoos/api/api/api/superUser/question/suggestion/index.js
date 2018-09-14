@@ -1,9 +1,9 @@
 'use strict';
 
 const validation = require('elyoos-server-lib').jsonValidation;
-const suggestionCreate = requireModel('user/question/suggestion/create');
-const suggestionEdit = requireModel('user/question/suggestion/edit');
-const suggestionDelete = requireModel('user/question/suggestion/delete');
+const suggestionCreate = requireModel('superUser/question/suggestion/create');
+const suggestionEdit = requireModel('superUser/question/suggestion/edit');
+const suggestionDelete = requireModel('superUser/question/suggestion/delete');
 const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
 const auth = require('elyoos-server-lib').auth;
 const exceptions = require('elyoos-server-lib').exceptions;

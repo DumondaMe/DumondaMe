@@ -32,7 +32,7 @@ describe('Delete a suggestion of a question', function () {
     it('Delete of suggestion', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.del('/api/user/question/suggestion/', {suggestionId: '100'});
+        let res = await requestHandler.del('/api/superUser/question/suggestion/', {suggestionId: '100'});
         res.status.should.equal(200);
 
         let resp = await db.cypher()
@@ -45,7 +45,7 @@ describe('Delete a suggestion of a question', function () {
     it('Fails because user is not creator of suggestion', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.del('/api/user/question/suggestion', {suggestionId: '100'});
+        let res = await requestHandler.del('/api/superUser/question/suggestion', {suggestionId: '100'});
         res.status.should.equal(400);
     });
 });

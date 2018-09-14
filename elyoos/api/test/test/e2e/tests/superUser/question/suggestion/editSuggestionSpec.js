@@ -32,7 +32,7 @@ describe('Edit a suggestion of a question', function () {
     it('Super user edits suggestion with all params', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/suggestion/', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion/', {
             suggestionId: '100',
             title: 'modifiedTitle1',
             description: 'modifiedDescription1',
@@ -54,7 +54,7 @@ describe('Edit a suggestion of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/suggestion', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion', {
             suggestionId: '100',
             title: 'modifiedTitle1',
         });
@@ -74,7 +74,7 @@ describe('Edit a suggestion of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/suggestion', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion', {
             suggestionId: '100',
             description: 'modifiedDescription1',
         });
@@ -94,7 +94,7 @@ describe('Edit a suggestion of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/suggestion', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion', {
             suggestionId: '100',
             explanation: 'modifiedExplanation1',
         });
@@ -114,7 +114,7 @@ describe('Edit a suggestion of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/suggestion', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion', {
             suggestionId: '100'
         });
         res.status.should.equal(400);
@@ -123,7 +123,7 @@ describe('Edit a suggestion of a question', function () {
     it('Fails because user is not creator of suggestion', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.put('/api/user/question/suggestion', {
+        let res = await requestHandler.put('/api/superUser/question/suggestion', {
             suggestionId: '100',
             explanation: 'explanation1',
         });

@@ -32,7 +32,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             title: 'newTitle1',
             description: 'newDescription1',
@@ -61,7 +61,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             title: 'newTitle1',
         });
@@ -81,7 +81,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             description: 'newDescription1',
         });
@@ -101,7 +101,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             explanation: 'explanation1',
         });
@@ -121,7 +121,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
         });
         res.status.should.equal(400);
@@ -134,7 +134,7 @@ describe('Creating a new suggestion for a question', function () {
     it('Fails because user is not super user', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             explanation: 'explanation1',
         });
@@ -149,7 +149,7 @@ describe('Creating a new suggestion for a question', function () {
         dbDsl.setUserIsSuperUser('2');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
-        let res = await requestHandler.post('/api/user/question/suggestion', {
+        let res = await requestHandler.post('/api/superUser/question/suggestion', {
             questionId: '1',
             explanation: 'explanation1',
         });
