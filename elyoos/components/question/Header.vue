@@ -46,7 +46,7 @@
                         <span class="description">{{question.numberOfAnswers}}</span>
                     </div>
                     <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
-                                :is-super-user="question.isSuperUser"
+                                :is-super-user="question.isSuperUser" :question-id="question.questionId"
                                 :number-of-suggestion="question.numberOfSuggestions">
                     </suggestion>
                     <admin-commands v-if="question.isAdmin"></admin-commands>

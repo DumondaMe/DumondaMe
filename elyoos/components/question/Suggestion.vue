@@ -1,29 +1,25 @@
 <template>
     <div id="question-suggestion-button">
-        <suggestion-menu :number-of-suggestion="numberOfSuggestion" :is-admin="isAdmin" :is-super-user="isSuperUser">
+        <suggestion-menu :number-of-suggestion="numberOfSuggestion" :is-admin="isAdmin" :is-super-user="isSuperUser"
+                         :question-id="questionId">
             <div slot="icon">
                 <v-btn small fab color="secondary">
                     <v-icon>mdi-wrench</v-icon>
                 </v-btn>
-                <span class="number-of-suggestions">{{question.numberOfSuggestions}}</span>
+                <span class="number-of-suggestions">{{numberOfSuggestion}}</span>
             </div>
         </suggestion-menu>
     </div>
 </template>
 
 <script>
-    import SuggestionMenu from './menu/Suggestion';
+    import SuggestionMenu from './menu/SuggestionMenu';
 
     export default {
-        props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser'],
+        props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser', 'questionId'],
         components: {SuggestionMenu},
         data() {
             return {}
-        },
-        computed: {
-            question() {
-                return this.$store.state.question.question;
-            }
         },
         methods: {}
     }

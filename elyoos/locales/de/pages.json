@@ -345,6 +345,13 @@
       "description": "Willst du die Frage {{question}} wirklich löschen?",
       "confirmButton": "Ja, Frage löschen"
     },
+    "suggestionDialog": {
+      "title": "Vorschläge zur Verbesserung der Qualität der Frage",
+      "descriptionSuggestion": "Hier kannst du dem Ersteller der Frage Vorschläge machen, wie die Qualität der Frage verbessert werden könnte.",
+      "question": "Vorschlag für Änderung der Frage",
+      "description": "Vorschlag für Änderung der Beschreibung der Frage",
+      "explanation": "Deine Begründung zum Verbesserungsvorschlag"
+    },
     "generalInfo": {
       "title": "Allgemeines",
       "watchers": "{{count}} Person",
@@ -361,8 +368,11 @@
     "menu": {
       "suggestion": {
         "title": "Vorschläge zur Aufwertung der Frage",
-        "noSuggestion": "Hier können redaktionelle Benutzer Vorschläge erfassen, um die Qualität der Frage zu verbesseren.",
-        "addButton": "Vorschlag Erfassen"
+        "userSuggestion": "hat einen Vorschlage erstellt",
+        "loggedInUserSuggestion": "hast einen Vorschlage erstellt",
+        "noSuggestion": "Hier können redaktionelle Benutzer_innen Vorschläge erfassen, um die Qualität der Frage zu verbessern.",
+        "addButton": "Vorschlag Erfassen",
+        "tooltipDetailView": "Detailansicht Dialog öffnen"
       }
     }
   },

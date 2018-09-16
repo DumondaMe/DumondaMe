@@ -1,43 +1,121 @@
 <template>
-    <v-menu v-model="menu" :close-on-content-click="false" offset-y>
-        <slot name="icon" slot="activator"></slot>
-        <v-card class="ely-menu-container ely-menu-suggestion">
-            <div class="menu-title">
-                {{$t('pages:detailQuestion.menu.suggestion.title')}}
+    <div>
+        <div class="suggestion-question">
+            <div class="user-image">
+                <img :src="suggestion.creator.userImage">
             </div>
-            <div class="menu-content menu-suggestion-content">
-                <div class="no-suggestion">
-                    {{$t('pages:detailQuestion.menu.suggestion.noSuggestion')}}
+            <div>
+                <div class="user-action-description">
+                    <div v-if="suggestion.creator.isLoggedInUser">
+                        <span class="creator-name">{{$t('common:you')}}</span>
+                        {{$t('pages:detailQuestion.menu.suggestion.loggedInUserSuggestion')}}
+                    </div>
+                    <div v-else>
+                        <span class="creator-name">{{suggestion.creator.name}}</span>
+                        {{$t('pages:detailQuestion.menu.suggestion.userSuggestion')}}
+                    </div>
+                </div>
+                <div class="suggestion-created">{{suggestion.created | formatRelativeTimesAgo}}</div>
+                <div v-if="suggestion.title" class="suggestion-element">
+                    <div class="suggestion-title">
+                        {{$t('pages:detailQuestion.suggestionDialog.question')}}:
+                    </div>
+                    <div class="suggestion-text">{{suggestion.title}}</div>
+                </div>
+                <div v-if="suggestion.description" class="suggestion-element">
+                    <div class="suggestion-title">
+                        {{$t('pages:detailQuestion.suggestionDialog.description')}}:
+                    </div>
+                    <div class="suggestion-text">{{suggestion.description}}</div>
+                </div>
+                <div v-if="suggestion.explanation" class="suggestion-element">
+                    <div class="suggestion-title">
+                        {{$t('pages:detailQuestion.suggestionDialog.explanation')}}:
+                    </div>
+                    <div class="suggestion-text">{{suggestion.explanation}}</div>
+                </div>
+                <div class="suggestion-commands">
+                    <v-menu bottom left offset-y v-if="suggestion.creator.isLoggedInUser">
+                        <v-btn small fab color="secondary" class="first-button" slot="activator"
+                               :disabled="!suggestion.creator.isLoggedInUser">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-tile @click="showEditSuggestionDialog = true">
+                                <v-list-tile-title>{{$t("common:button.edit")}}</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile @click="showDeleteSuggestionDialog = true">
+                                <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+                    <v-tooltip bottom>
+                        <v-btn small fab color="secondary" slot="activator">
+                            <v-icon>mdi-magnify-plus</v-icon>
+                        </v-btn>
+                        <span>{{$t('pages:detailQuestion.menu.suggestion.tooltipDetailView')}}</span>
+                    </v-tooltip>
                 </div>
             </div>
-            <v-divider></v-divider>
-            <div class="menu-commands">
-                <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-                <v-btn color="primary" :disabled="isAdmin" @click="addWatch()">
-                    <v-icon left>mdi-wrench</v-icon>
-                    {{$t('pages:detailQuestion.menu.suggestion.addButton')}}
-                </v-btn>
-            </div>
-        </v-card>
-    </v-menu>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
-        props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser'],
+        props: ['suggestion', 'isAdmin'],
+        components: {},
         data() {
-            return {menu: false}
+            return {
+                showError: false, showEditSuggestionDialog: false, showDeleteSuggestionDialog: false
+            }
         },
-        methods: {
-        }
+        methods: {}
     }
 </script>
 
 <style lang="scss">
-    .ely-menu-container.ely-menu-suggestion {
-        .menu-suggestion-content {
+    .suggestion-question {
+        display: flex;
+        .user-image {
+            margin-right: 12px;
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+        }
+        .user-action-description {
+            font-size: 14px;
+            font-weight: 500;
+            .creator-name {
+                cursor: pointer;
+                color: $primary-color;
+            }
+            :hover.creator-name {
+                text-decoration: underline;
+            }
+        }
+        .suggestion-created {
+            font-size: 14px;
+            color: $secondary-text;
+            margin-bottom: 8px;
+        }
+        .suggestion-element {
+            font-size: 14px;
+            .suggestion-title {
 
+            }
+            .suggestion-text {
+                font-style: italic;
+            }
+        }
+        .suggestion-commands {
+            margin-top: 8px;
+            display: flex;
+            .first-button {
+                margin-left: 0;
+            }
         }
     }
 </style>

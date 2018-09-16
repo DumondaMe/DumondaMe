@@ -337,24 +337,25 @@
         "website": "Link to Website"
       }
     },
-    "sidebar": {
-      "admin": {
-        "title": "Administrator",
-        "description": "You are the administrator of this question."
-      },
-      "deleteQuestion": {
-        "title": "Delete Question",
-        "description": "Do you really want to delete the question '{{question}}'?",
-        "confirmButton": "Yes, Delete Question"
-      },
-      "generalInfo": {
-        "title": "General Information",
-        "watchers": "{{count}} Person",
-        "watchers_plural": "{{count}} People",
-        "watchersNotExisting": "Nobody yet",
-        "answer": "{{count}} Answer",
-        "answer_plural": "{{count}} Answers"
-      }
+    "deleteDialogQuestion": {
+      "title": "Delete question",
+      "description": "Do you really want to delete the question {question}}?",
+      "confirmButton": "Yes, delete question"
+    },
+    "suggestionDialog": {
+      "title": "Proposals to improve the quality of the question",
+      "descriptionSuggestion": "Here you can make suggestions to the creator of the question how the quality of the question could be improved.",
+      "question": "Proposal for modification of the question",
+      "description": "Proposal to modify the description of the question",
+      "explanation": "Your reason for the improvement suggestion"
+    },
+    "generalInfo": {
+      "title": "General Information",
+      "watchers": "{{count}} Person",
+      "watchers_plural": "{{count}} People",
+      "watchersNotExisting": "Nobody yet",
+      "answer": "{{count}} Answer",
+      "answer_plural": "{{count}} Answers"
     },
     "error": {
       "invalidYoutubeId": "Invalid youtube link.",
@@ -364,8 +365,11 @@
     "menu": {
       "suggestion": {
         "title": "Suggestions for upgrading the question",
+        "userSuggestion": "has created a proposal",
+        "loggedInUserSuggestion": "has created a proposal",
         "noSuggestion": "Editorial users can enter suggestions here to improve the quality of the question.",
-        "addButton": "Enter Suggestion"
+        "addButton": "Enter Suggestion",
+        "tooltipDetailView": "Open detail view dialog"
       }
     }
   },
