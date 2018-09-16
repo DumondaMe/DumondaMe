@@ -37,12 +37,13 @@ const addSuggestionToQuestion = function (data) {
         .addCommand(` SET u :SuperUser`)
         .create(`(suggestion:QuestionSuggestion {suggestionId: {suggestionId}, 
                   title: {title}, description: {description}, explanation: {explanation},
-                  created: {created}, modified: {modified}})`)
+                  created: {created}, modified: {modified}, open: {open}})`)
         .merge(`(q)<-[:SUGGESTION]-(suggestion)`)
         .merge(`(suggestion)<-[:IS_CREATOR]-(u)`)
         .end({
             questionId: data.questionId, suggestionId: data.suggestionId, userId: data.userId, created: data.created,
-            modified: data.modified, title: data.title, description: data.description, explanation: data.explanation
+            modified: data.modified, title: data.title, description: data.description, explanation: data.explanation,
+            open: data.open
         }).getCommand());
 };
 

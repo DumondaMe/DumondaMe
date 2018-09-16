@@ -4,10 +4,7 @@ const db = requireDb();
 const exceptions = require('elyoos-server-lib').exceptions;
 const moreResults = require('../util/moreSearchResults');
 const cdn = require('elyoos-server-lib').cdn;
-const answerParser = require('./answer/answerParser');
-const answers = require('./answers');
 const slug = require('limax');
-const linkifyHtml = require('linkifyjs/html');
 
 const PAGE_SIZE = 20;
 
@@ -44,10 +41,10 @@ const getSuggestions = async function (questionId, page, userId, superUser) {
     let dbResponse = await db.cypher()
         .match(`(:Question {questionId: {questionId}})<-[:SUGGESTION]-(s:QuestionSuggestion)
                  <-[:IS_CREATOR]-(user:User)`)
-        .return(`s.title AS title, s.description AS description, s.explanation AS explanation, s.created AS created, 
-                 s.suggestionId AS suggestionId, user,
+        .return(`s.open AS open, s.title AS title, s.description AS description, s.explanation AS explanation, 
+                 s.created AS created, s.suggestionId AS suggestionId, user,
                  exists((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser`)
-        .orderBy(`created DESC`)
+        .orderBy(`open DESC, created DESC`)
         .skip(`{page}`)
         .limit(`${PAGE_SIZE + 1}`)
         .end({questionId, page, userId}).send();

@@ -52,6 +52,7 @@ describe('Creating a new suggestion for a question', function () {
         resp.length.should.equals(1);
         resp[0].suggestion.suggestionId.should.equals(res.body.suggestionId);
         resp[0].suggestion.created.should.equals(res.body.created);
+        resp[0].suggestion.open.should.equals(true);
         resp[0].suggestion.title.should.equals('newTitle1');
         resp[0].suggestion.description.should.equals('newDescription1');
         resp[0].suggestion.explanation.should.equals('explanation1');
@@ -72,6 +73,7 @@ describe('Creating a new suggestion for a question', function () {
         resp.length.should.equals(1);
         resp[0].suggestion.suggestionId.should.equals(res.body.suggestionId);
         resp[0].suggestion.created.should.least(startTime);
+        resp[0].suggestion.open.should.equals(true);
         resp[0].suggestion.title.should.equals('newTitle1');
         should.not.exist(resp[0].suggestion.description);
         should.not.exist(resp[0].suggestion.explanation);
@@ -92,6 +94,7 @@ describe('Creating a new suggestion for a question', function () {
         resp.length.should.equals(1);
         resp[0].suggestion.suggestionId.should.equals(res.body.suggestionId);
         resp[0].suggestion.created.should.least(startTime);
+        resp[0].suggestion.open.should.equals(true);
         resp[0].suggestion.description.should.equals('newDescription1');
         should.not.exist(resp[0].suggestion.title);
         should.not.exist(resp[0].suggestion.explanation);
@@ -112,6 +115,7 @@ describe('Creating a new suggestion for a question', function () {
         resp.length.should.equals(1);
         resp[0].suggestion.suggestionId.should.equals(res.body.suggestionId);
         resp[0].suggestion.created.should.least(startTime);
+        resp[0].suggestion.open.should.equals(true);
         resp[0].suggestion.explanation.should.equals('explanation1');
         should.not.exist(resp[0].suggestion.title);
         should.not.exist(resp[0].suggestion.description);

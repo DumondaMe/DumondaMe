@@ -40,12 +40,12 @@ describe('Getting suggestions from super users for a question', function () {
     it('Get suggestions as super user', async function () {
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '100', userId: '1', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation', created: 999
+            explanation: 'explanation', created: 999, open: true
         });
 
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '101', userId: '3', title: 'newTitle2', description: 'newDescription2',
-            explanation: 'explanation2', created: 998
+            explanation: 'explanation2', created: 998, open: true
         });
         dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
@@ -57,6 +57,7 @@ describe('Getting suggestions from super users for a question', function () {
 
         res.body.suggestions[0].suggestionId.should.equals('100');
         res.body.suggestions[0].title.should.equals('newTitle');
+        res.body.suggestions[0].open.should.equals(true);
         res.body.suggestions[0].description.should.equals('newDescription');
         res.body.suggestions[0].explanation.should.equals('explanation');
         res.body.suggestions[0].created.should.equals(999);
@@ -70,6 +71,7 @@ describe('Getting suggestions from super users for a question', function () {
 
         res.body.suggestions[1].suggestionId.should.equals('101');
         res.body.suggestions[1].title.should.equals('newTitle2');
+        res.body.suggestions[1].open.should.equals(true);
         res.body.suggestions[1].description.should.equals('newDescription2');
         res.body.suggestions[1].explanation.should.equals('explanation2');
         res.body.suggestions[1].created.should.equals(998);
@@ -82,15 +84,40 @@ describe('Getting suggestions from super users for a question', function () {
         res.body.suggestions[1].creator.isTrustUser.should.equals(true);
     });
 
-    it('Get suggestions as admin', async function () {
+    it('Open suggestion is showed first', async function () {
         dbDsl.addSuggestionToQuestion({
-            questionId: '10', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation', created: 999
+            questionId: '10', suggestionId: '100', userId: '1', title: 'newTitle', description: 'newDescription',
+            explanation: 'explanation', created: 999, open: false
         });
 
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '101', userId: '3', title: 'newTitle2', description: 'newDescription2',
-            explanation: 'explanation2', created: 998
+            explanation: 'explanation2', created: 998, open: true
+        });
+        dbDsl.createContactConnection('1', '3');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/suggestion', {questionId: '10', page: 0});
+        res.status.should.equal(200);
+        res.body.hasMoreSuggestions.should.equals(false);
+        res.body.suggestions.length.should.equals(2);
+
+        res.body.suggestions[0].suggestionId.should.equals('101');
+        res.body.suggestions[0].open.should.equals(true);
+
+        res.body.suggestions[1].suggestionId.should.equals('100');
+        res.body.suggestions[1].open.should.equals(false);
+    });
+
+    it('Get suggestions as admin', async function () {
+        dbDsl.addSuggestionToQuestion({
+            questionId: '10', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
+            explanation: 'explanation', created: 999, open: true
+        });
+
+        dbDsl.addSuggestionToQuestion({
+            questionId: '10', suggestionId: '101', userId: '3', title: 'newTitle2', description: 'newDescription2',
+            explanation: 'explanation2', created: 998, open: true
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
@@ -106,12 +133,12 @@ describe('Getting suggestions from super users for a question', function () {
     it('Not allowed to get suggestions as normal user', async function () {
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation', created: 999
+            explanation: 'explanation', created: 999, open: true
         });
 
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '101', userId: '3', title: 'newTitle2', description: 'newDescription2',
-            explanation: 'explanation2', created: 998
+            explanation: 'explanation2', created: 998, open: true
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

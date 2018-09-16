@@ -14,7 +14,7 @@ const createSuggestion = async function (userId, questionId, title, description,
     let dbResponse = await db.cypher()
         .match("(question:Question {questionId: {questionId}}), (user:User {userId: {userId}})")
         .create(`(suggestion:QuestionSuggestion {suggestionId: {suggestionId}, title: {title}, 
-                  description: {description}, explanation: {explanation}, created: {created}})`)
+                  description: {description}, explanation: {explanation}, created: {created}, open: true})`)
         .merge(`(user)-[:IS_CREATOR]->(suggestion)`)
         .merge(`(suggestion)-[:SUGGESTION]->(question)`)
         .return(`user.name AS name`)
