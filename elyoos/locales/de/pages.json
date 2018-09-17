@@ -368,8 +368,8 @@
     "menu": {
       "suggestion": {
         "title": "Vorschläge zur Aufwertung der Frage",
-        "userSuggestion": "hat einen Vorschlage erstellt",
-        "loggedInUserSuggestion": "hast einen Vorschlage erstellt",
+        "userSuggestion": "hat einen Vorschlag erstellt",
+        "loggedInUserSuggestion": "hast einen Vorschlag erstellt",
         "noSuggestion": "Hier können redaktionelle Benutzer_innen Vorschläge erfassen, um die Qualität der Frage zu verbessern.",
         "addButton": "Vorschlag Erfassen",
         "tooltipDetailView": "Detailansicht Dialog öffnen",
