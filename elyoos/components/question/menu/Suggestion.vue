@@ -67,15 +67,19 @@
         <edit-suggestion-dialog v-if="showEditSuggestionDialog" @close-dialog="showEditSuggestionDialog = false"
                                 @finish="editSuggestion" :init-suggestion="suggestion">
         </edit-suggestion-dialog>
+        <delete-suggestion-dialog v-if="showDeleteSuggestionDialog" @close-dialog="showDeleteSuggestionDialog = false"
+                                  @delete-suggestion="deleteSuggestion" :suggestion-id="suggestion.suggestionId">
+        </delete-suggestion-dialog>
     </div>
 </template>
 
 <script>
     import EditSuggestionDialog from '../dialog/suggestion/EditSuggestionDialog';
+    import DeleteSuggestionDialog from '../dialog/suggestion/DeleteSuggestionDialog';
 
     export default {
         props: ['suggestion', 'isAdmin'],
-        components: {EditSuggestionDialog},
+        components: {EditSuggestionDialog, DeleteSuggestionDialog},
         data() {
             return {
                 showError: false, showEditSuggestionDialog: false, showDeleteSuggestionDialog: false
@@ -87,6 +91,10 @@
                 this.suggestion.title = suggestion.title;
                 this.suggestion.description = suggestion.description;
                 this.suggestion.explanation = suggestion.explanation;
+            },
+            deleteSuggestion() {
+                this.$emit('delete-suggestion', this.suggestion.suggestionId);
+                this.showDeleteSuggestionDialog = false;
             }
         }
     }
@@ -94,6 +102,7 @@
 
 <style lang="scss">
     .suggestion-question {
+        margin-bottom: 26px;
         display: flex;
         .user-image {
             margin-right: 12px;
@@ -135,7 +144,6 @@
             }
         }
         .suggestion-commands {
-            margin-top: 8px;
             display: flex;
             .first-button {
                 margin-left: 0;

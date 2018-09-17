@@ -13,7 +13,8 @@
                     </div>
                     <div class="suggestion-content-container" v-else-if="suggestions">
                         <suggestion :suggestion="suggestion" :is-admin="isAdmin"
-                                    v-for="suggestion of suggestions.suggestions" :key="suggestion.suggestionId">
+                                    v-for="suggestion of suggestions.suggestions" :key="suggestion.suggestionId"
+                                    @delete-suggestion="suggestionDeleted">
                         </suggestion>
                     </div>
                 </div>
@@ -64,6 +65,14 @@
             suggestionCreated(suggestion) {
                 this.showCreateSuggestion = false;
                 this.closeMenuOnOutsideClick = true;
+            },
+            suggestionDeleted(suggestionId) {
+                let indexSuggestion = this.suggestions.suggestions.findIndex(
+                    (suggestion) => suggestion.suggestionId === suggestionId);
+                if (indexSuggestion > -1) {
+                    this.suggestions.suggestions.splice(indexSuggestion, 1);
+                }
+                this.$emit('delete-suggestion');
             }
         },
         watch: {

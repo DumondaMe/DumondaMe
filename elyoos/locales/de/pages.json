@@ -345,6 +345,11 @@
       "description": "Willst du die Frage {{question}} wirklich löschen?",
       "confirmButton": "Ja, Frage löschen"
     },
+    "deleteDialogSuggestion": {
+      "title": "Vorschlag löschen",
+      "description": "Willst du den Vorschlag wirklich löschen?",
+      "confirmButton": "Ja, Vorschlag löschen"
+    },
     "suggestionDialog": {
       "title": "Vorschläge zur Verbesserung der Qualität der Frage",
       "descriptionSuggestion": "Hier kannst du dem Ersteller der Frage Vorschläge machen, wie die Qualität der Frage verbessert werden könnte.",

@@ -3,11 +3,11 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="300px">
             <v-card id="dialog-delete-question">
                 <div id="elyoos-dialog-header">
-                    {{$t("pages:detailQuestion.deleteDialogQuestion.title")}}
+                    {{$t("pages:detailQuestion.deleteDialogSuggestion.title")}}
                 </div>
                 <v-divider></v-divider>
                 <v-card-text id="dialog-delete-question-content">
-                    <p>{{$t("pages:detailQuestion.deleteDialogQuestion.description", {question})}}</p>
+                    <p>{{$t("pages:detailQuestion.deleteDialogSuggestion.description")}}</p>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -17,7 +17,7 @@
                     </v-btn>
                     <v-btn color="primary" @click.native="deleteQuestion()"
                            :loading="running" :disabled="running">
-                        {{$t("pages:detailQuestion.deleteDialogQuestion.confirmButton")}}
+                        {{$t("pages:detailQuestion.deleteDialogSuggestion.confirmButton")}}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -30,22 +30,21 @@
 
 <script>
     export default {
+        props: ['suggestionId'],
         data() {
             return {dialog: true, running: false, showError: false}
-        },
-        computed: {
-            question() {
-                return this.$store.state.question.question.question;
-            }
         },
         methods: {
             async deleteQuestion() {
                 try {
                     this.running = true;
-                    await this.$store.dispatch('question/deleteQuestion');
-                    this.$emit('delete-question');
-                } catch (error) {
+                    await this.$axios.$delete(`superUser/question/suggestion`,
+                        {params: {suggestionId: this.suggestionId}});
+                    this.$emit('delete-suggestion');
+                }
+                catch (e) {
                     this.showError = true;
+                } finally {
                     this.running = false;
                 }
             }

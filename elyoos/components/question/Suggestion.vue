@@ -1,7 +1,7 @@
 <template>
     <div id="question-suggestion-button">
         <suggestion-menu :number-of-suggestion="numberOfSuggestion" :is-admin="isAdmin" :is-super-user="isSuperUser"
-                         :question-id="questionId">
+                         :question-id="questionId" @delete-suggestion="suggestionDeleted">
             <div slot="icon">
                 <v-btn small fab color="secondary">
                     <v-icon>mdi-wrench</v-icon>
@@ -21,7 +21,11 @@
         data() {
             return {}
         },
-        methods: {}
+        methods: {
+            suggestionDeleted() {
+                this.$store.commit('question/SUGGESTION_REMOVED');
+            }
+        }
     }
 </script>
 
