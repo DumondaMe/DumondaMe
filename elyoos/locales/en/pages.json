@@ -41,6 +41,7 @@
     "filter": {
       "tooltip": {
         "activity": "Activities",
+        "activityPublic": "You need to log in to see the activities",
         "question": "Questions",
         "commitment": "Commitments",
         "event": "Events",

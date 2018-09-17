@@ -22,12 +22,13 @@
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
-            <v-tooltip top class="filter-element-container" v-if="isAuthenticated">
+            <v-tooltip top class="filter-element-container" :class="{'is-public': !isAuthenticated}">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
                     <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
                 </div>
-                <span>{{$t("pages:feeds.filter.tooltip.activity")}}</span>
+                <span v-if="isAuthenticated">{{$t("pages:feeds.filter.tooltip.activity")}}</span>
+                <span v-else>{{$t("pages:feeds.filter.tooltip.activityPublic")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
             <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
@@ -95,8 +96,10 @@
         },
         methods: {
             async setFilter(filter) {
-                this.$store.commit('feedFilter/SET_MAIN_FILTER', filter);
-                await this.$store.dispatch('feed/getFeed');
+                if (!(filter === 'activity' && !this.$store.state.auth.userIsAuthenticated)) {
+                    this.$store.commit('feedFilter/SET_MAIN_FILTER', filter);
+                    await this.$store.dispatch('feed/getFeed');
+                }
             },
             async topicChanged(topics) {
                 this.$store.commit('feedFilter/SET_TOPIC_FILTER', topics);
@@ -131,6 +134,14 @@
                     border-bottom: 3px solid $primary-color;
                     i.v-icon {
                         color: $primary-color;
+                    }
+                }
+            }
+            .filter-element-container.is-public {
+                .filter-element {
+                    cursor: auto;
+                    i.v-icon {
+                        color: $disabled-text;
                     }
                 }
             }
