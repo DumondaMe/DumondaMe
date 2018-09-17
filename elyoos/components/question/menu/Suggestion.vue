@@ -64,19 +64,31 @@
                 </div>
             </div>
         </div>
+        <edit-suggestion-dialog v-if="showEditSuggestionDialog" @close-dialog="showEditSuggestionDialog = false"
+                                @finish="editSuggestion" :init-suggestion="suggestion">
+        </edit-suggestion-dialog>
     </div>
 </template>
 
 <script>
+    import EditSuggestionDialog from '../dialog/suggestion/EditSuggestionDialog';
+
     export default {
         props: ['suggestion', 'isAdmin'],
-        components: {},
+        components: {EditSuggestionDialog},
         data() {
             return {
                 showError: false, showEditSuggestionDialog: false, showDeleteSuggestionDialog: false
             }
         },
-        methods: {}
+        methods: {
+            editSuggestion(suggestion) {
+                this.showEditSuggestionDialog = false;
+                this.suggestion.title = suggestion.title;
+                this.suggestion.description = suggestion.description;
+                this.suggestion.explanation = suggestion.explanation;
+            }
+        }
     }
 </script>
 
@@ -114,6 +126,7 @@
         }
         .suggestion-element {
             font-size: 14px;
+            margin-bottom: 12px;
             .suggestion-title {
 
             }
