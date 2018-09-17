@@ -65,6 +65,8 @@
             suggestionCreated(suggestion) {
                 this.showCreateSuggestion = false;
                 this.closeMenuOnOutsideClick = true;
+                this.suggestions.suggestions.unshift(suggestion);
+                this.$emit('add-suggestion');
             },
             suggestionDeleted(suggestionId) {
                 let indexSuggestion = this.suggestions.suggestions.findIndex(

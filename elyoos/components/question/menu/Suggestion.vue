@@ -91,6 +91,7 @@
                 this.suggestion.title = suggestion.title;
                 this.suggestion.description = suggestion.description;
                 this.suggestion.explanation = suggestion.explanation;
+                this.$emit('add-suggestion');
             },
             deleteSuggestion() {
                 this.$emit('delete-suggestion', this.suggestion.suggestionId);

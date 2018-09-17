@@ -47,6 +47,7 @@
                     }
                     this.loading = true;
                     let response = await this.$axios.$post(`superUser/question/suggestion`, newSuggestion);
+                    newSuggestion.suggestionId = response.suggestionId;
                     newSuggestion.created = response.created;
                     newSuggestion.creator = response.creator;
                     this.$emit('finish', newSuggestion);

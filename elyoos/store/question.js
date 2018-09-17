@@ -139,6 +139,9 @@ export const mutations = {
     },
     SUGGESTION_REMOVED(state) {
         state.question.numberOfSuggestions--;
+    },
+    SUGGESTION_ADDED(state) {
+        state.question.numberOfSuggestions++;
     }
 };
 
