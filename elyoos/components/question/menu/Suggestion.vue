@@ -5,6 +5,12 @@
                 <img :src="suggestion.creator.userImage">
             </div>
             <div>
+                <div class="status-is-open" v-if="suggestion.open">
+                    {{$t('pages:detailQuestion.menu.suggestion.statusOpen')}}
+                </div>
+                <div class="status-is-open" v-else>
+                    {{$t('pages:detailQuestion.menu.suggestion.statusClosed')}}
+                </div>
                 <div class="user-action-description">
                     <div v-if="suggestion.creator.isLoggedInUser">
                         <span class="creator-name">{{$t('common:you')}}</span>
@@ -85,6 +91,11 @@
                 border-radius: 50%;
             }
         }
+        .status-is-open {
+            font-size: 12px;
+            line-height: 14px;
+            color: $success-text;
+        }
         .user-action-description {
             font-size: 14px;
             font-weight: 500;
@@ -97,7 +108,7 @@
             }
         }
         .suggestion-created {
-            font-size: 14px;
+            font-size: 12px;
             color: $secondary-text;
             margin-bottom: 8px;
         }

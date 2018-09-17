@@ -345,8 +345,8 @@
     "suggestionDialog": {
       "title": "Proposals to improve the quality of the question",
       "descriptionSuggestion": "Here you can make suggestions to the creator of the question how the quality of the question could be improved.",
-      "question": "Proposal for modification of the question",
-      "description": "Proposal to modify the description of the question",
+      "question": "New wording of the question",
+      "description": "New wording of the description of the question",
       "explanation": "Your reason for the improvement suggestion"
     },
     "generalInfo": {
@@ -369,7 +369,9 @@
         "loggedInUserSuggestion": "has created a proposal",
         "noSuggestion": "Editorial users can enter suggestions here to improve the quality of the question.",
         "addButton": "Enter Suggestion",
-        "tooltipDetailView": "Open detail view dialog"
+        "tooltipDetailView": "Open detail view dialog",
+        "statusOpen": "Suggestion is open",
+        "statusClosed": "Suggestion has been closed"
       }
     }
   },
