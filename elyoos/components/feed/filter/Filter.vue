@@ -1,13 +1,6 @@
 <template>
     <div id="feed-filter">
         <div class="type-filter-container">
-            <v-tooltip top class="filter-element-container" v-if="isAuthenticated">
-                <div class="filter-element" slot="activator"
-                     :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
-                    <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
-                </div>
-                <span>{{$t("pages:feeds.filter.tooltip.activity")}}</span>
-            </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'question'}" @click="setFilter('question')">
@@ -28,6 +21,13 @@
                     <v-icon>mdi-calendar</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
+            </v-tooltip>
+            <v-tooltip top class="filter-element-container" v-if="isAuthenticated">
+                <div class="filter-element" slot="activator"
+                     :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
+                    <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
+                </div>
+                <span>{{$t("pages:feeds.filter.tooltip.activity")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
             <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
