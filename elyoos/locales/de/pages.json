@@ -49,12 +49,12 @@
       },
       "post": {
         "all": "Alle Beiträge",
-        "onlyVideo": "Nur Videos",
-        "onlyText": "Nur Text Antworten",
-        "onlyBook": "Nur Bücher",
-        "onlyLink": "Nur Links",
-        "onlyCommitment": "Nur Engagements",
-        "onlyEvent": "Nur Veranstaltungen"
+        "onlyVideo": "Videos",
+        "onlyText": "Text Antworten",
+        "onlyBook": "Bücher",
+        "onlyLink": "Links",
+        "onlyCommitment": "Engagements",
+        "onlyEvent": "Veranstaltungen"
       },
       "question": {
         "onlyQuestion": "Nur Fragen",

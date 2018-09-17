@@ -49,12 +49,12 @@
       },
       "post": {
         "all": "All posts",
-        "onlyVideo": "Only videos",
-        "onlyText": "Only text answers",
-        "onlyBook": "Only books",
-        "onlyLink": "Only links",
-        "onlyCommitment": "Only commitments",
-        "onlyEvent": "Only events"
+        "onlyVideo": "Videos",
+        "onlyText": "Text answers",
+        "onlyBook": "Books",
+        "onlyLink": "Links",
+        "onlyCommitment": "Commitments",
+        "onlyEvent": "Events"
       },
       "question": {
         "onlyQuestion": "Only questions",
