@@ -78,11 +78,11 @@ describe('Getting details of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         dbDsl.addSuggestionToQuestion({
             questionId: '2', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation', created: 999
+            explanation: 'explanation', created: 999, open: true
         });
         dbDsl.addSuggestionToQuestion({
             questionId: '2', suggestionId: '101', userId: '5', title: 'newTitle2', description: 'newDescription2',
-            explanation: 'explanation2', created: 998
+            explanation: 'explanation2', created: 998, open: true
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -509,7 +509,7 @@ describe('Getting details of a question', function () {
         dbDsl.setUserIsSuperUser('1');
         dbDsl.addSuggestionToQuestion({
             questionId: '1', suggestionId: '100', userId: '5', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation', created: 999
+            explanation: 'explanation', created: 999, open: true
         });
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});

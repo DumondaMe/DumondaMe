@@ -21,7 +21,7 @@ describe('Delete a suggestion of a question', function () {
 
         dbDsl.addSuggestionToQuestion({
             questionId: '10', suggestionId: '100', userId: '1', title: 'newTitle', description: 'newDescription',
-            explanation: 'explanation'
+            explanation: 'explanation', open: true
         })
     });
 
