@@ -1,8 +1,5 @@
 <template>
     <div class="menu-content menu-user-container-content">
-        <div class="more-user-description">
-            {{userDescription}}
-        </div>
         <div class="user-container">
             <user :user="user" :show-date-relative="true" v-for="user in users" :key="user.userId"
                   v-if="user.userId !== userId || !user.userId"
@@ -21,7 +18,7 @@
     import User from '~/components/common/user/User';
 
     export default {
-        props: ['userDescription', 'users', 'initHasMoreUsers', 'apiGetUser', 'id', 'userId'],
+        props: ['users', 'initHasMoreUsers', 'apiGetUser', 'id', 'userId'],
         components: {User},
         data() {
             return {usersPage: 1, loadingNextUsers: false, hasMoreUsers: this.initHasMoreUsers}

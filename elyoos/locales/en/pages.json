@@ -154,8 +154,8 @@
         "title": "has up voted this answer",
         "titleTwoNames": "have up voted this answer",
         "noWatches": "No one has yet this answer up voted.",
-        "moreUpVotes": "Up voted by:",
-        "moreUpVotes_plural": "Up voted by:",
+        "moreUpVotes": "Up voted by",
+        "moreUpVotes_plural": "Up voted by",
         "titleIsLoggedInUser": "have up voted this answer",
         "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer",
         "titleIsAdmin": "created this answer"
@@ -164,8 +164,8 @@
         "title": "finds this question interesting",
         "titleTwoNames": "find this question interesting",
         "noWatches": "No one yet finds this question interesting",
-        "moreWatches": "The question is of interest to:",
-        "moreWatches_plural": "The question is of interest to:",
+        "moreWatches": "The question is of interest to",
+        "moreWatches_plural": "The question is of interest to",
         "titleIsLoggedInUser": "find this question interesting",
         "titleIsLoggedInUserAndNotWatched": "don't find this question interesting"
       },
@@ -173,8 +173,8 @@
         "title": "finds this commitment interesting",
         "titleTwoNames": "finds this commitment interesting",
         "noWatches": "No one yet finds this commitment interesting",
-        "moreWatches": "The commitment is of interest to:",
-        "moreWatches_plural": "The commitment is of interest to:",
+        "moreWatches": "The commitment is of interest to",
+        "moreWatches_plural": "The commitment is of interest to",
         "titleIsLoggedInUser": "find this commitment interesting",
         "titleIsLoggedInUserAndNotWatched": "don't find this commitment interesting"
       },

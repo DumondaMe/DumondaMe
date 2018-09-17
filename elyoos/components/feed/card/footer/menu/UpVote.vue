@@ -2,7 +2,10 @@
     <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy>
         <slot name="icon" slot="activator"></slot>
         <v-card class="ely-menu-container up-vote-menu-container">
-            <div class="menu-title" v-if="customTextHasUpVoted && customTextHasNotUpVoted">
+            <div class="menu-title" v-if="!isAuthenticated">
+                {{$t('pages:feeds.menu.userUpVote.moreUpVotes', {count: numberOfShowedUsers})}}
+            </div>
+            <div class="menu-title" v-else-if="customTextHasUpVoted && customTextHasNotUpVoted">
                 <span class="primary-title">{{$t('common:you')}} </span>
                 <span v-if="isAdmin" v-html="customTextIsAdmin"></span>
                 <span v-else-if="localUpVotedByUser" v-html="customTextHasUpVoted"></span>
@@ -27,9 +30,7 @@
             </div>
             <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
                           api-get-user="/question/answer/upVotes" :init-has-more-users="users.hasMoreUsers"
-                          :id="answerId" :user-id="userId"
-                          :user-description="$t('pages:feeds.menu.userUpVote.moreUpVotes',
-                          {count: numberOfShowedUsers})">
+                          :id="answerId" :user-id="userId">
             </user-content>
             <div v-else-if="numberOfUpVotes === 0" class="no-up-votes-description">
                 {{$t('pages:feeds.menu.userUpVote.noWatches')}}
@@ -91,6 +92,9 @@
                     return this.users.users.filter((user) => user.userId !== this.userId || user.isAnonymous).length;
                 }
                 return 0;
+            },
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
             }
         },
         methods: {

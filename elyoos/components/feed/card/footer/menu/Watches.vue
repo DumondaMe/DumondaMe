@@ -21,12 +21,18 @@
                         <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
                         <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
                     </div>
+                    <div class="menu-title" v-else>{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
+                        {count: numberOfShowedUsers})}}
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
+                        {count: numberOfShowedUsers})}}
+                    </div>
                 </div>
                 <user-content v-if="numberOfShowedUsers > 0 && !loadWatchingUserRunning" :users="users.users"
                               :api-get-user="apiGetUserCommand" :init-has-more-users="users.hasMoreUsers"
-                              :id="watchedId" :user-id="userId"
-                              :user-description="$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
-                          {count: numberOfShowedUsers})">
+                              :id="watchedId" :user-id="userId">
                 </user-content>
                 <div v-else-if="numberOfWatches === 0" class="no-watches-description">
                     {{$t('pages:feeds.menu.'+ menuTranslation + '.noWatches')}}
