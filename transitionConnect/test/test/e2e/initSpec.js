@@ -1,10 +1,10 @@
 'use strict';
 
 let app = require('../../../server');
-let dbConfig = require('elyoos-server-lib').databaseConfig;
+let dbConfig = require('dumonda-me-server-lib').databaseConfig;
 let elyoosTestUtil = require('elyoos-server-test-util');
 
-elyoosTestUtil.init(require('elyoos-server-lib'), app, 'tc');
+elyoosTestUtil.init(require('dumonda-me-server-lib'), app, 'tc');
 
 elyoosTestUtil.stubLimitRate();
 

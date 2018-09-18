@@ -1,6 +1,6 @@
 'use strict';
 
-let db = require('elyoos-server-lib').databaseConfig;
+let db = require('dumonda-me-server-lib').databaseConfig;
 
 let token;
 

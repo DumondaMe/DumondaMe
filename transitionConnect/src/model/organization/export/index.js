@@ -2,8 +2,8 @@
 
 let _ = require('lodash');
 let db = requireDb();
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let exceptions = require('dumonda-me-server-lib').exceptions;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let convertLocations = function (locations) {
     let locationsForJson = [];

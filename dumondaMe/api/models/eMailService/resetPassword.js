@@ -30,7 +30,7 @@ const sendReset = async function (email, language) {
             let linkId = await setPasswordIsRequested(resp[0].user.userId);
 
             await eMail.sendEMail('resetPassword',
-                {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${linkId}`},
+                {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${linkId}`},
                 language, originalEmailAddress);
         } else {
             logger.info(`Reset password email is not sent to ${originalEmailAddress}`);

@@ -1,6 +1,6 @@
 'use strict';
 
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let parseString = function (vEvent, property, isMandatory) {
     let index = vEvent.indexOf(property), result = null;

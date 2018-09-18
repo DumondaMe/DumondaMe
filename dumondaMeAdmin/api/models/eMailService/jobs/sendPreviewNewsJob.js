@@ -8,7 +8,7 @@ const processDefinition = function (data, done) {
         title: data.title,
         text: data.text,
         forename: data.forename,
-        unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/${data.email}`
+        unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/${data.email}`
     }, data.email);
     done();
 };

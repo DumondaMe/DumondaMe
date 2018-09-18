@@ -39,15 +39,15 @@ describe('Unit Test eMailService/jobs/sendNewsJob', function () {
 
             expect(sendEMail.withArgs('sendNews', {
                 title: 'news1Title', text: 'news1Text', forename: 'user',
-                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
+                unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user@irgendwo.ch`
             }, 'user@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
                 title: 'news1Title', text: 'news1Text', forename: 'user',
-                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user2@irgendwo.ch`
+                unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user2@irgendwo.ch`
             }, 'user2@irgendwo.ch').calledOnce).to.equal(true);
             expect(sendEMail.withArgs('sendNews', {
                 title: 'news1Title', text: 'news1Text', forename: 'user',
-                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user3@irgendwo.ch`
+                unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user3@irgendwo.ch`
             }, 'user3@irgendwo.ch').calledOnce).to.equal(true);
 
             let resp = await db.cypher().match(`(news:News {newsId: '1'})`)

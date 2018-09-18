@@ -1,12 +1,12 @@
 'use strict';
 
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 let importModifiedOrganization = requireModel('organization/import/modifiedOrg');
 let importNewOrganization = requireModel('organization/import/newOrg');
 let deleteOrganization = requireModel('organization/import/deleteOrg');
 let exportOrganizations = requireModel('organization/export/index');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 let topic = require("../../../schema/topic");
 
 let schemaGetListOrganizations = {

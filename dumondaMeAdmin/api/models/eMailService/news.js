@@ -25,7 +25,7 @@ let sendNews = async function (newsId) {
                 title: news.title,
                 text: news.text,
                 forename: user.forename,
-                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/${user.email}`
+                unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/${user.email}`
             }, 'de', user.email);
         }
         return users;
@@ -41,7 +41,7 @@ let sendPreviewNews = async function (emailAddress, forename, title, text) {
         title: title,
         text: text,
         forename: forename,
-        unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/${emailAddress}`
+        unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/${emailAddress}`
     }, 'de', emailAddress);
 };
 
