@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-registered-users-overview" class="ely-card">
+    <div id="dumonda-me-registered-users-overview" class="ely-card">
         <div id="number-of-users">{{numberOfUsers}} {{$t('pages:home.users.numberOfUsers')}}</div>
         <div class="user" v-for="user in users">
             <div class="user-image">
@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-registered-users-overview {
+    #dumonda-me-registered-users-overview {
         margin-right: 28px;
         display: inline-block;
         width: 300px;

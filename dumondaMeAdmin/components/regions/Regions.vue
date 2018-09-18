@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-regions-overview">
+    <div id="dumonda-me-regions-overview">
         <v-btn color="primary" @click="showCreateRegionDialog = true" id="create-region-button">
             <v-icon left>mdi-plus-box-outline</v-icon>
             {{$t('pages:regions.createRegionDialog')}}
@@ -33,7 +33,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-regions-overview {
+    #dumonda-me-regions-overview {
         #create-region-button {
             margin-left: 0;
             margin-bottom: 18px;

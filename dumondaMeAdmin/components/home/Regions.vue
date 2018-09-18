@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-regions" class="ely-card">
+    <div id="dumonda-me-regions" class="ely-card">
         <div id="number-of-regions">
             <nuxt-link to="/regions">{{regions.length}}
                 {{$t('pages:home.region.numberOfRegions', {count: regions.length})}}
@@ -25,7 +25,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-regions {
+    #dumonda-me-regions {
         margin-right: 28px;
         display: inline-block;
         width: 300px;

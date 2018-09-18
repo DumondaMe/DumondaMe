@@ -1,6 +1,6 @@
 <template>
-    <div class="elyoos-region-container">
-        <div class="elyoos-region ely-card" :class="{'is-top-region': isTopRegion}">
+    <div class="dumonda-me-region-container">
+        <div class="dumonda-me-region ely-card" :class="{'is-top-region': isTopRegion}">
             <h2>{{region[getLanguage]}}</h2>
             <div class="region-content">
                 <div class="region-info">RegionId: {{region.regionId}}
@@ -71,8 +71,8 @@
 </script>
 
 <style lang="scss">
-    .elyoos-region-container {
-        .elyoos-region {
+    .dumonda-me-region-container {
+        .dumonda-me-region {
             margin-bottom: 18px;
             h2 {
                 font-weight: 500;

@@ -1,9 +1,9 @@
 'use strict';
 
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let db = require('dumonda-me-server-test-util').db;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let moment = require('moment');
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let should = require('chai').should();
 
 describe('Importing organizations from tc', function () {

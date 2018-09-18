@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-topics-overview">
+    <div id="dumonda-me-topics-overview">
         <v-btn color="primary" @click="showCreateTopicDialog = true" id="create-main-topic-button">
             <v-icon left>mdi-plus-box-outline</v-icon>
             {{$t('pages:topics.createTopicDialog')}}
@@ -34,7 +34,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-topics-overview {
+    #dumonda-me-topics-overview {
         #create-main-topic-button {
             margin-left: 0;
             margin-bottom: 18px;

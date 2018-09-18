@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-news-overview">
+    <div id="dumonda-me-news-overview">
 
     </div>
 </template>
@@ -17,7 +17,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-news-overview {
+    #dumonda-me-news-overview {
         width: 300px;
     }
 </style>

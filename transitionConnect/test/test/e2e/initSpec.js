@@ -2,11 +2,11 @@
 
 let app = require('../../../server');
 let dbConfig = require('dumonda-me-server-lib').databaseConfig;
-let elyoosTestUtil = require('elyoos-server-test-util');
+let dumondaMeTestUtil = require('dumonda-me-server-test-util');
 
-elyoosTestUtil.init(require('dumonda-me-server-lib'), app, 'tc');
+dumondaMeTestUtil.init(require('dumonda-me-server-lib'), app, 'tc');
 
-elyoosTestUtil.stubLimitRate();
+dumondaMeTestUtil.stubLimitRate();
 
 let chai = require('chai');
 let chaiSubset = require('chai-subset');

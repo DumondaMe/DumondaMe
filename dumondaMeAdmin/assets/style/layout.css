@@ -21,17 +21,17 @@ body {
   background-color: #ffffff;
   box-shadow: none; }
 
-.elyoos-dialog-error-message {
+.dumonda-me-dialog-error-message {
   padding: 8px 0;
   color: #EF5350; }
 
-.elyoos-dialog-warning-message {
+.dumonda-me-dialog-warning-message {
   padding: 8px 0;
   color: #EF6C00; }
 
-#elyoos-dialog-header {
+#dumonda-me-dialog-header {
   padding: 16px; }
-  #elyoos-dialog-header .title-element-primary {
+  #dumonda-me-dialog-header .title-element-primary {
     color: #1E88E5; }
 
 .ely-loading-progress {

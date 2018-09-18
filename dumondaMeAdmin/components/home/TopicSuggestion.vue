@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-topic-suggestions" class="ely-card">
+    <div id="dumonda-me-topic-suggestions" class="ely-card">
         <div id="number-of-suggestions">
             <nuxt-link class="password-reset" to="/topics">{{numberOfTopicSuggestions}}
                 {{$t('pages:home.topic.numberOfTopicSuggestions')}}
@@ -32,7 +32,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-topic-suggestions {
+    #dumonda-me-topic-suggestions {
         margin-right: 28px;
         display: inline-block;
         width: 300px;
