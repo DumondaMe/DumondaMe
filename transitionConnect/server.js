@@ -4,25 +4,25 @@ if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
 
-require('elyoos-server-lib').init('tc');
+require('dumonda-me-server-lib').init('tc');
 
 global.requireDb = function () {
-    return require('elyoos-server-lib').neo4j;
+    return require('dumonda-me-server-lib').neo4j;
 };
 
 global.requireModel = function (name) {
     return require(`${__dirname}/src/model/${name}`);
 };
 
-require('elyoos-server-lib').jsonValidation;
+require('dumonda-me-server-lib').jsonValidation;
 let Promise = require('bluebird');
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 
 let kraken = require('kraken-js');
-let dbConfig = require('elyoos-server-lib').databaseConfig;
+let dbConfig = require('dumonda-me-server-lib').databaseConfig;
 let app = require('express')();
 let options = require('./src/lib/spec')(app);
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 let port = process.env.PORT || 8084;
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {

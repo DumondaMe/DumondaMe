@@ -1,8 +1,8 @@
 'use strict';
 
 let db = requireDb();
-let time = require('elyoos-server-lib').time;
-let uuid = require('elyoos-server-lib').uuid;
+let time = require('dumonda-me-server-lib').time;
+let uuid = require('dumonda-me-server-lib').uuid;
 let parser = require('./iCalEventParser');
 
 

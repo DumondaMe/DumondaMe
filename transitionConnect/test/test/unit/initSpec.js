@@ -5,18 +5,18 @@ if (!process.env.BASE_DIR) {
 }
 
 global.requireDb = function () {
-    return require('elyoos-server-lib').neo4j;
+    return require('dumonda-me-server-lib').neo4j;
 };
 
 global.requireModel = function (name) {
     return require(`${__dirname}/../../../src/model/${name}`);
 };
 
-require('elyoos-server-lib').jsonValidation;
+require('dumonda-me-server-lib').jsonValidation;
 
-require('elyoos-server-test-util').init(require('elyoos-server-lib'));
+require('elyoos-server-test-util').init(require('dumonda-me-server-lib'));
 
-let dbConfig = require('elyoos-server-lib').databaseConfig;
+let dbConfig = require('dumonda-me-server-lib').databaseConfig;
 
 let chai = require('chai');
 let chaiSubset = require('chai-subset');

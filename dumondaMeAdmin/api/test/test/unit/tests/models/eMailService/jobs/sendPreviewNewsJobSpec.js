@@ -38,7 +38,7 @@ describe('Unit Test eMailService/jobs/sendPreviewNewsJob', function () {
 
             expect(sendEMail.withArgs('sendNews', {
                 title: 'title', text: 'description', forename: 'user',
-                unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
+                unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user@irgendwo.ch`
             }, 'user@irgendwo.ch').calledOnce).to.equal(true);
 
             done();

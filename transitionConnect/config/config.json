@@ -67,7 +67,7 @@
       "enabled": true,
       "priority": 1000,
       "module": {
-        "name": "elyoos-server-lib/lib/error/errors",
+        "name": "dumonda-me-server-lib/lib/error/errors",
         "method": "handlingError"
       }
     }

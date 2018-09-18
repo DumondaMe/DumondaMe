@@ -34,7 +34,7 @@ describe('Integration Tests to send news preview', function () {
             title: 'title',
             text: 'description',
             forename: 'user',
-            unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/user@irgendwo.ch`
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user@irgendwo.ch`
         }, 'de', 'user@irgendwo.ch').should.be.true;
     });
 });

@@ -2,7 +2,7 @@
 
 let dateParser = require('./dateParser');
 let stringParser = require('./stringParser');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 let iCalProperties = require('./iCalProperties');
 
 const UID = 'UID:';

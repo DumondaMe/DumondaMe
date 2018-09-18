@@ -11,7 +11,7 @@ let getAccessToken = function (code) {
             code: code,
             client_id: '270929621236-4cauqnck95vm8ohkvu3rokhp74jued28.apps.googleusercontent.com',
             client_secret: '0C5eH6e2qZ2RHA5FlV8i2wLp',
-            redirect_uri: `${process.env.ELYOOS_DOMAIN}auth`,
+            redirect_uri: `${process.env.DUMONDA_ME_DOMAIN}auth`,
             grant_type: 'authorization_code'
         },
         headers: {

@@ -30,7 +30,7 @@ const sendInvitation = async function (invitedUsers) {
             try {
                 await email.sendEMail("invitePerson", {
                     name: data.name, userMessage: invitedUser.message, userImage: userImage,
-                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/invitation/${invitedUser.email}`
+                    unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitation/${invitedUser.email}`
                 }, 'de', invitedUser.email);
                 sentEmails.push(invitedUser.email);
             } catch (error) {

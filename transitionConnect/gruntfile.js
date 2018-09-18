@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 options: {
                     separator: '\n',
                     sonar: {
-                        projectKey: 'javascript-sonar-runner-elyoos-transition-connecct',
+                        projectKey: 'javascript-sonar-runner-dumonda-me-transition-connecct',
                         projectName: 'Transition Connect API',
                         projectVersion: '1.0',
                         sources: 'controllers, models, server.js',

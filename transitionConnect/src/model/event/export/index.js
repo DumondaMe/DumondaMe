@@ -3,8 +3,8 @@
 let db = requireDb();
 let ical = require('ical-generator');
 let moment = require('moment');
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let exceptions = require('dumonda-me-server-lib').exceptions;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const BEGIN_EVENT = 'BEGIN:VEVENT';
 const END_EVENT = 'END:VEVENT';
@@ -40,7 +40,7 @@ let exportEvent = async function (uid, req) {
         .optionalMatch(`(event)-[:HAS]->(address:Address)`)
         .return(`org, event, address`).end({uid: uid}).send();
     if(resp.length === 1) {
-        let cal = ical({domain: 'elyoos.org'}),
+        let cal = ical({domain: 'dumonda.me'}),
             event = resp[0].event, org = resp[0].org, address = resp[0].address;
         cal.createEvent({
             summary: event.title, uid: event.eventId,

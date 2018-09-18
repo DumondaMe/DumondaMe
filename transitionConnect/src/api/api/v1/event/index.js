@@ -1,12 +1,12 @@
 'use strict';
 
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 let exportEvents = requireModel('event/export/index');
 let modifiedEvent = requireModel('event/import/modifiedEvent');
 let createEvent = requireModel('event/import/createEvent');
 let deleteEvent = requireModel('event/import/deleteEvent');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let schemaGetListEvents = {
     name: 'getListEvents',

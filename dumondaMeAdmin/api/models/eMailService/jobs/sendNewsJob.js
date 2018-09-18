@@ -26,7 +26,7 @@ let processDefinition = async function (data, done) {
                     title: news.title,
                     text: news.text,
                     forename: user.forename,
-                    unsubscribeLink: `${process.env.ELYOOS_DOMAIN}unsubscribe/news/${user.email}`
+                    unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/${user.email}`
                 }, user.email);
             }
             return users;
