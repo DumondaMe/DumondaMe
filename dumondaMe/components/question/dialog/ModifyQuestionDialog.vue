@@ -6,7 +6,7 @@
                       :action-button-text="$t('pages:question.modifyQuestionDialog.changeButton')"
                       :is-modify-mode="true">
                 <div slot="header">
-                    <div id="elyoos-dialog-header">
+                    <div id="dumonda-me-dialog-header">
                         {{$t('pages:question.modifyQuestionDialog.title', getTitle())}}
                     </div>
                     <v-divider></v-divider>

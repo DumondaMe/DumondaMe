@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-password-reset-request">
+    <div id="dumonda-me-password-reset-request">
         <div id="password-reset-container" class="ely-card">
             <h2>{{$t("pages:passwordResetRequest.title")}}</h2>
             <div v-show="!successfullyReset">
@@ -69,7 +69,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-password-reset-request {
+    #dumonda-me-password-reset-request {
         #password-reset-container {
             width: 300px;
 

@@ -5,7 +5,7 @@
                     :existing-regions="existingRegions" :action-button-text="$t('common:button.change')"
                     :description="$t('pages:commitment.createDialog.regionDescription')" :loading="loading">
                 <div slot="header">
-                    <div id="elyoos-dialog-header">
+                    <div id="dumonda-me-dialog-header">
                         <div v-html="titleText"></div>
                     </div>
                     <v-divider></v-divider>
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-dialog-header.modify-region-dialog-header {
+    #dumonda-me-dialog-header.modify-region-dialog-header {
         padding-left: 24px;
     }
 </style>

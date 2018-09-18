@@ -3,7 +3,7 @@
     "settings": "Einstellungen",
     "yourProfile": "Dein Profil",
     "createCommitment": "Engagement erfassen",
-    "aboutElyoos": "Über Elyoos",
+    "aboutDumondaMe": "Über DumondaMe",
     "logout": "Abmelden"
   },
   "login": {
@@ -16,7 +16,7 @@
   },
   "passwordResetRequest": {
     "title": "Passwort vergessen?",
-    "description": "Gib die E-Mail Adresse an mit welcher du deinen Elyoos Account erstellt hast.",
+    "description": "Gib die E-Mail Adresse an mit welcher du deinen DumondaMe Account erstellt hast.",
     "sentDescription": "Es wurde ein Email mit einem Link zum zurück setzten des Passwortes an {{email}}  versendet. Der Link ist nur 20 Minuten gültig.",
     "errorToManyRequest": "Du hast zu oft versucht das Passwort zurück zu setzten. Versuche es später wieder.",
     "resetPasswordButton": "Absenden"
@@ -30,7 +30,7 @@
     "loginButton": "Anmelden"
   },
   "register": {
-    "registerTitle": "Benutzerkonto erstellen für Elyoos",
+    "registerTitle": "Benutzerkonto erstellen für DumondaMe",
     "acceptTerms": "Ich akzeptiere die",
     "acceptTerms2": "und die",
     "registerButton": "Erstellen",
@@ -106,7 +106,7 @@
       "title": "Aktuelle Fragen"
     },
     "empty": {
-      "descriptionAllFilter": "Nachfolgend ein kleiner Überblick zu den wichtigsten Konzepten von Elyoos.",
+      "descriptionAllFilter": "Nachfolgend ein kleiner Überblick zu den wichtigsten Konzepten von DumondaMe.",
       "descriptionQuestionFilter": "Bisher hat noch keine Person aus deinem Trust Circle eine Frage gestellt oder Fragen beantwortet.",
       "descriptionCommitmentFilter": "Bisher hat noch keine Person aus deinem Trust Circle ein Engagment erstellt oder interessiert sich dafür.",
       "descriptionEventFilter": "Im Moment finden keine Veranstaltungen von Engagements statt welche dich interessieren. "
@@ -118,15 +118,15 @@
       },
       "question": {
         "title": "Frage",
-        "text1": "Bei Elyoos dreht sich alles um das Beantworten von Fragen. Du kannst auf vielfältige Weise zu diesem Prozess beitragen:",
-        "text2": "Erstelle selber Fragen welche dich interessieren und die noch nicht auf Elyoos gestellt wurden",
+        "text1": "Bei DumondaMe dreht sich alles um das Beantworten von Fragen. Du kannst auf vielfältige Weise zu diesem Prozess beitragen:",
+        "text2": "Erstelle selber Fragen welche dich interessieren und die noch nicht auf DumondaMe gestellt wurden",
         "text3": "Beantworte Fragen mit deinen eigenen Worten, einem Video, einem Buch, einem Link oder einem Engagement.",
         "text4": "Stimme Antworten zu. So trägst du dazu bei, dass die relevantesten Antworten zuerst angezeigt werden.",
         "text5": "Markiere Fragen als interessant. So sieht dein Trust Circle welche Fragen dich interessieren und du bleibst auf dem laufenden wenn neue Antworten hinzugefügt werden."
       },
       "commitment": {
         "title": "Engagement",
-        "text1": "Ein Engagement ist bei Elyoos ein Verein, ein Projekt, eine Organisation oder aber dein persönliches Engagement für eine bessere Welt. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
+        "text1": "Ein Engagement ist bei DumondaMe ein Verein, ein Projekt, eine Organisation oder aber dein persönliches Engagement für eine bessere Welt. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
         "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen."
       }
     },
@@ -135,7 +135,7 @@
     },
     "support": {
       "title": "Unterstütze uns",
-      "description": "Elyoos steht noch ganz am Anfang. Erfahre hier wie wie du uns Unterstützen kannst.",
+      "description": "DumondaMe steht noch ganz am Anfang. Erfahre hier wie wie du uns Unterstützen kannst.",
       "moreLink": "Mehr erfahren..."
     },
     "menu": {
@@ -199,7 +199,7 @@
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
       "websiteLoadedFailed": "Deine Webseite konnte nicht erreicht werden.",
       "websiteLoading": "Der Link zu deiner Webseite wird geprüft.",
-      "commitmentExists": "Warnung! Das Engagement wurde bereits erfasst auf Elyoos.",
+      "commitmentExists": "Warnung! Das Engagement wurde bereits erfasst auf DumondaMe.",
       "primaryLanguage": "Hauptsprache",
       "primaryLanguageDescription": "Weitere Sprachen können später hinzugefügt werden.",
       "toManySpaces": "Es dürfen maximal {{count}} Leerzeichen verwendet werden",
@@ -528,7 +528,7 @@
     "languageUI": "Sprache der Benutzeroberfläche",
     "privacyTitle": "Privatsphäreneinstellungen",
     "privacyPublic": "Dein Profil ist öffentlich",
-    "privacyPublicOnElyoos": "Dein Profil wird nur von anderen Benutzern von Elyoos gesehen",
+    "privacyPublicOnDumondaMe": "Dein Profil wird nur von anderen Benutzern von DumondaMe gesehen",
     "privacyOnlyContact": "Nur Personen in deinem Trust Circle sehen dein Profil"
   },
   "notifications": {
@@ -568,8 +568,8 @@
     "general": {
       "title": "Allgemeine Hinweise",
       "point1": "Stand: 10.07.2018",
-      "point2": "Diese Datenschutzerklärung gilt für den gesamten Dienst Elyoos",
-      "point3": "Verantwortlich für die Verarbeitung personenbezogener Daten ist der Verein Elyoos"
+      "point2": "Diese Datenschutzerklärung gilt für den gesamten Dienst DumondaMe",
+      "point3": "Verantwortlich für die Verarbeitung personenbezogener Daten ist der Verein DumondaMe"
     },
     "processingData": {
       "title": "Wie werden deine personenbezogenen Daten verarbeitet?",
@@ -579,21 +579,21 @@
       },
       "informationProvideToUs": {
         "title": "Informationen, die du uns mitteilst.",
-        "text1": "Dies sind Daten, die wir direkt von dir erhalten und Informationen, die du auf der Elyoos Website veröffentlichst, beispielsweise:",
+        "text1": "Dies sind Daten, die wir direkt von dir erhalten und Informationen, die du auf der DumondaMe Website veröffentlichst, beispielsweise:",
         "point1": "Zugangsdaten (z.B. Nutzername und Passwort)",
         "point2": "Profildaten (z.B. Foto, Beschreibung über dich, welche Fragen du erstellt hast, usw.)",
         "point3": "Fragen, Antworten, Engagements"
       },
       "informationAutomaticallyObtain": {
-        "title": "Informationen, die wir auf Grund deiner Nutzung von Elyoos automatisch erhalten.",
-        "text1": "Während du den Dienst Elyoos nutzt oder besuchst, werden automatisch Daten von dir mittels Tracking (Matomo) und Logfiles auf unseren Servern gesammelt. Die erhobenen Daten speichern wir für bis zu 90 Tagen in vollständiger Form. Wir verwenden das Tracking aus folgenden Gründen:",
+        "title": "Informationen, die wir auf Grund deiner Nutzung von DumondaMe automatisch erhalten.",
+        "text1": "Während du den Dienst DumondaMe nutzt oder besuchst, werden automatisch Daten von dir mittels Tracking (Matomo) und Logfiles auf unseren Servern gesammelt. Die erhobenen Daten speichern wir für bis zu 90 Tagen in vollständiger Form. Wir verwenden das Tracking aus folgenden Gründen:",
         "point1": "Gewährleistung der Sicherheit",
         "point2": "Optimierung der Website",
         "point3": "Ermittlung statistischer Kennwerte"
       },
       "informationFromOtherSource": {
         "title": "Informationen, die wir über dich aus anderen Quellen erhalten.",
-        "text1": "Wenn jemand auf Elyoos eine Person einlädt die noch kein Konto hat, speichern wir diese E-Mail Adresse. Die eingeladenen Nicht-Nutzer können über einen Opt-Out-Link in der Einladungs-E-Mail dem Versand weiterer Einladungen oder Einladungs-Erinnerungen an die jeweilige E-Mail-Adresse widersprechen."
+        "text1": "Wenn jemand auf DumondaMe eine Person einlädt die noch kein Konto hat, speichern wir diese E-Mail Adresse. Die eingeladenen Nicht-Nutzer können über einen Opt-Out-Link in der Einladungs-E-Mail dem Versand weiterer Einladungen oder Einladungs-Erinnerungen an die jeweilige E-Mail-Adresse widersprechen."
       },
       "whoReceiveInformation": {
         "title": "Wer erhält Daten zu deiner Person?",
@@ -614,29 +614,29 @@
       },
       "rightOfObjection": {
         "title": "Widerspruchsrecht",
-        "text1": "Nutzer dieser Webseite können von ihrem Widerspruchsrecht Gebrauch machen und der Verarbeitung ihrer personenbezogenen Daten zu jeder Zeit widersprechen. Wenn du eine Berichtigung, Sperrung, Löschung oder Auskunft über die zu deiner Person gespeicherten personenbezogenen Daten wünscht oder Fragen bzgl. der Erhebung, Verarbeitung oder Verwendung deiner personenbezogenen Daten hast oder erteilte Einwilligungen widerrufen möchtest, dann wende dich bitte an folgende E-Mail-Adresse: info@elyoos.org"
+        "text1": "Nutzer dieser Webseite können von ihrem Widerspruchsrecht Gebrauch machen und der Verarbeitung ihrer personenbezogenen Daten zu jeder Zeit widersprechen. Wenn du eine Berichtigung, Sperrung, Löschung oder Auskunft über die zu deiner Person gespeicherten personenbezogenen Daten wünscht oder Fragen bzgl. der Erhebung, Verarbeitung oder Verwendung deiner personenbezogenen Daten hast oder erteilte Einwilligungen widerrufen möchtest, dann wende dich bitte an folgende E-Mail-Adresse: info@dumonda.me"
       }
     }
   },
   "faq": {
     "title": "Häufige Fragen",
     "question1": {
-      "title": "Was unterscheidet Elyoos von anderen, sozialen Netzwerken?",
-      "text1": "Bei den meisten sozialen Netzwerke werden einzelne Beiträge wie z.B. Bilder, Texte oder Videos gepostet und höchstens, wie z.B bei Twitter, mit hashtags gruppiert. Bei Elyoos sind diese Beiträge als Antwort einer Frage zugeordnet. Auf diese Weise finden Benutzer_innen die für sie relevanten Informationen einfacher.",
-      "text2": "Ein weiterer wichtiger Punkt ist, dass Elyoos komplett Werbefrei ist und zu hundert Prozent mit Spenden finanziert wird. Zudem fokussieren wir unsere Inhalte auf das in der <a href='/vision'>Vision</a> genannte Ziel."
+      "title": "Was unterscheidet DumondaMe von anderen, sozialen Netzwerken?",
+      "text1": "Bei den meisten sozialen Netzwerke werden einzelne Beiträge wie z.B. Bilder, Texte oder Videos gepostet und höchstens, wie z.B bei Twitter, mit hashtags gruppiert. Bei DumondaMe sind diese Beiträge als Antwort einer Frage zugeordnet. Auf diese Weise finden Benutzer_innen die für sie relevanten Informationen einfacher.",
+      "text2": "Ein weiterer wichtiger Punkt ist, dass DumondaMe komplett Werbefrei ist und zu hundert Prozent mit Spenden finanziert wird. Zudem fokussieren wir unsere Inhalte auf das in der <a href='/vision'>Vision</a> genannte Ziel."
     },
     "question2": {
-      "title": "Welches sind die wichtigsten Konzepte bei Elyoos?",
+      "title": "Welches sind die wichtigsten Konzepte bei DumondaMe?",
       "text1": "Frage/Antwort, Engagement und Trust Circle."
     },
     "question3": {
       "title": "Was ist ein Engagement?",
-      "text1": "Ein Engagement kann bei Elyoos ein Verein, ein Projekt, eine Organisation oder aber auch dein persönliches Engagement für eine bessere Welt sein. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
+      "text1": "Ein Engagement kann bei DumondaMe ein Verein, ein Projekt, eine Organisation oder aber auch dein persönliches Engagement für eine bessere Welt sein. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
       "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen. "
     },
     "question4": {
       "title": "Soll ich Engagements erfassen welche ich nicht vertrete?",
-      "text1": "Nein. Engagements sollen nur von den Personen erfasst werden die das Engagement selbst vertreten. Du hast jedoch die Möglichkeit ein von Elyoos generiertes E-Mail an eine Person mit einem Engagement zu senden, um sie auf diese Plattform aufmerksam zu machen."
+      "text1": "Nein. Engagements sollen nur von den Personen erfasst werden die das Engagement selbst vertreten. Du hast jedoch die Möglichkeit ein von DumondaMe generiertes E-Mail an eine Person mit einem Engagement zu senden, um sie auf diese Plattform aufmerksam zu machen."
     },
     "question5": {
       "title": "Was ist ein Trust Circle?",
@@ -654,7 +654,7 @@
     },
     "question8": {
       "title": "Sind meine Fragen für Personen ohne Konto sichtbar?",
-      "text1": "Wenn du eine Frage erstellst, ist diese erstmal nur für Personen mit einem Benutzerkonto sichtbar. Ob deine Frage auch öffentlich zugänglich wird, entscheidet ein Administrator von Elyoos. Wir möchten auf diese Weise sicherstellen, dass gegen aussen vor allem diejenigen Fragen sichtbar sind, die von allgemeinem Interesse sein könnten."
+      "text1": "Wenn du eine Frage erstellst, ist diese erstmal nur für Personen mit einem Benutzerkonto sichtbar. Ob deine Frage auch öffentlich zugänglich wird, entscheidet ein Administrator von DumondaMe. Wir möchten auf diese Weise sicherstellen, dass gegen aussen vor allem diejenigen Fragen sichtbar sind, die von allgemeinem Interesse sein könnten."
     },
     "question9": {
       "title": "Welche Vorteile habe ich mit einem Konto?",
@@ -669,8 +669,8 @@
       "text1": "Die Entwicklung und der Betrieb der Plattform wird zu 100 Prozent mit Spenden finanziert."
     },
     "question12": {
-      "title": "Ist der Code von Elyoos Open Source?",
-      "text1": "Ja, um eine bessere Transparenz bezüglich den verwendeten Algorithmen anzubieten ist der Code Open Source. Dieser kann auf <a href='https://github.com/Elyoos/Elyoos' target='_blank'>Github</a> eingesehen werden."
+      "title": "Ist der Code von DumondaMe Open Source?",
+      "text1": "Ja, um eine bessere Transparenz bezüglich den verwendeten Algorithmen anzubieten ist der Code Open Source. Dieser kann auf <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a> eingesehen werden."
     }
   },
   "footer": {

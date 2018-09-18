@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px">
             <answer-commitment @close-dialog="$emit('close-dialog')" :init-commitment="initCommitment"
                                :answer-id="answerId" :action-button-text="$t('pages:detailQuestion.editAnswerButton')">
-                <div id="elyoos-dialog-header">
+                <div id="dumonda-me-dialog-header">
                     {{$t('pages:detailQuestion.editAnswerTitle', {answer: initCommitment.title})}}
                 </div>
             </answer-commitment>

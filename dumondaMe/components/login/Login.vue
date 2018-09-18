@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-login">
+    <div id="dumonda-me-login">
         <div id="login-container">
             <h2>{{$t("pages:login.titleLogin")}}</h2>
             <div id="login-content-container">
@@ -71,7 +71,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-login {
+    #dumonda-me-login {
         #login-container {
             width: 300px;
             margin: 0 auto;

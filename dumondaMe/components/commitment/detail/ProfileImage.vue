@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-commitment-image">
+    <div id="dumonda-me-commitment-image">
         <div id="commitment-image">
             <img :src="commitment.imageUrl"/>
         </div>
@@ -20,7 +20,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-commitment-image {
+    #dumonda-me-commitment-image {
         #commitment-image {
             width: 320px;
             height: 320px;

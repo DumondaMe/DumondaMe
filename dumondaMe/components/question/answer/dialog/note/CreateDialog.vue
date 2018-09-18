@@ -4,7 +4,7 @@
             <create-note-dialog @close-dialog="$emit('close-dialog')" :action-button-text="$t('common:button.create')"
                                 @finish="createNote" :loading="loading" init-note-text="">
                 <div slot="header">
-                    <div id="elyoos-dialog-header">
+                    <div id="dumonda-me-dialog-header">
                         {{$t('pages:detailQuestion.note.createNoteDialog.title', {answer: answerTitle})}}
                     </div>
                     <v-divider></v-divider>

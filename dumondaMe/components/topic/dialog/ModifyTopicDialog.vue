@@ -5,7 +5,7 @@
                     :action-button-text="$t('pages:question.modifyTopicDialog.changeButton')"
                     :description="$t('pages:question.createDialog.topicDescription')" :loading="loading">
                 <div slot="header">
-                    <div id="elyoos-dialog-header" class="modify-topic-dialog-header">
+                    <div id="dumonda-me-dialog-header" class="modify-topic-dialog-header">
                         {{titleText}}
                     </div>
                     <v-divider></v-divider>
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-dialog-header.modify-topic-dialog-header {
+    #dumonda-me-dialog-header.modify-topic-dialog-header {
         padding-left: 24px;
     }
 </style>

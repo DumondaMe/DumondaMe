@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-register">
+    <div id="dumonda-me-register">
         <h1>{{$t("pages:register.registerTitle")}}</h1>
         <div id="register-content-container">
             <v-form @submit.prevent="register" v-model="valid" ref="form" v-show="!successfullyRegistered">
@@ -58,7 +58,7 @@
                         </v-checkbox>
                     </v-flex>
                 </v-layout>
-                <vue-recaptcha class="elyoos-recaptcha" sitekey="6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ"
+                <vue-recaptcha class="dumonda-me-recaptcha" sitekey="6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ"
                                @verify="setResponse">
                 </vue-recaptcha>
                 <p class="register-error" v-if="showErrorAccountExist">{{$t('pages:register.errorAccountExist')}}</p>
@@ -148,7 +148,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-register {
+    #dumonda-me-register {
         max-width: 600px;
         background-color: white;
         border-radius: 6px;
@@ -173,7 +173,7 @@
                     min-width: 0;
                 }
             }
-            .elyoos-recaptcha {
+            .dumonda-me-recaptcha {
                 margin-top: 18px;
                 margin-right: auto;
                 margin-bottom: 36px;

@@ -6,7 +6,7 @@
                         :action-button-text="$t('pages:commitment.modifyCommitmentDialog.changeButton')"
                         :is-modify-mode="true">
                 <div slot="header">
-                    <div id="elyoos-dialog-header">
+                    <div id="dumonda-me-dialog-header">
                         {{$t('pages:commitment.modifyCommitmentDialog.title', getTitle())}}
                     </div>
                     <v-divider></v-divider>

@@ -6,7 +6,7 @@
                             :action-button-text="$t('common:button.edit')"
                             @close-dialog="$emit('close-dialog')" @finish="editSuggestion">
                     <div slot="header">
-                        <div id="elyoos-dialog-header">
+                        <div id="dumonda-me-dialog-header">
                             {{$t('pages:detailQuestion.suggestionDialog.title')}}
                         </div>
                         <v-divider></v-divider>

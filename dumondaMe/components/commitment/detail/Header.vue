@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-commitment-header">
+    <div id="dumonda-me-commitment-header">
         <h1>{{commitment.title}}</h1>
         <p id="commitment-description">{{commitment.description}}</p>
         <div id="commands-container">
@@ -59,7 +59,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-commitment-header {
+    #dumonda-me-commitment-header {
         h1 {
             margin-bottom: 4px;
             font-weight: 300;

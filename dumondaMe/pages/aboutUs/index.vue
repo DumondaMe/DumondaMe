@@ -1,7 +1,7 @@
 <template>
     <div id="ely-about-us">
         <div v-if="selectedLanguage === 'de'">
-            <p class="top-text">Elyoos wird vom gleichnamigen Verein entwickelt und betrieben. Der Verein wurde am
+            <p class="top-text">DumondaMe wird vom gleichnamigen Verein entwickelt und betrieben. Der Verein wurde am
                 21.06.2017 gegründet.
                 Die Vereinsstatuten findest du
                 <a target="_blank" :href="bylaws">hier.</a>
@@ -12,7 +12,7 @@
                 </div>
                 <div>
                     <h2 class="name">Roger Waldvogel</h2>
-                    <div class="ely-function">Initiator von Elyoos</div>
+                    <div class="ely-function">Initiator von DumondaMe</div>
                     <p class="about-text">Leidenschaftlicher Software Entwickler, Kletterer, Meditierender, (luzider)
                         Träumer.</p>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <h2 class="name">Roman Kümin</h2>
-                    <div class="ely-function">Vizepräsident von Elyoos</div>
+                    <div class="ely-function">Vizepräsident von DumondaMe</div>
                     <p class="about-text">Interessiert in Digitalen Währungen und Blockchain, Gartenkräuterhalter.</p>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 tatkräftig beim Aufbau dieser Plattform.</p>
         </div>
         <div v-else-if="selectedLanguage === 'en'">
-            <p class="top-text">Elyoos is developed and operated by the non-profit association of the same name. The
+            <p class="top-text">DumondaMe is developed and operated by the non-profit association of the same name. The
                 association was founded on 21.06.2017. You can find the statutes of the association
                 <a target="_blank" :href="bylaws">here.</a>
             </p>
@@ -41,7 +41,7 @@
                 </div>
                 <div>
                     <h2 class="name">Roger Waldvogel</h2>
-                    <div class="ely-function">Initiator of Elyoos</div>
+                    <div class="ely-function">Initiator of DumondaMe</div>
                     <p class="about-text">Passionate Software Developer, Climber, Meditating, (lucid)
                         Dreamer.</p>
                 </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h2 class="name">Roman Kümin</h2>
-                    <div class="ely-function">Vice President of Elyoos</div>
+                    <div class="ely-function">Vice President of DumondaMe</div>
                     <p class="about-text">Interested in Digital Currencies and Blockchain, Garden Herb Holder.</p>
                 </div>
             </div>
