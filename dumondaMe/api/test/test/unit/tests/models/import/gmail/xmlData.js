@@ -39,7 +39,7 @@ return `<?xml version="1.0" encoding="UTF-8"?>
   <link rel="http://schemas.google.com/contacts/2008/rel#edit-photo" type="image/*" href="https://www.google.com/m8/feeds/photos/media/climberwoodi%40gmail.com/7453d18ea96385/1B2M2Y8AsgTpgAmY7PhCfg"/>
   <link rel="self" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/7453d18ea96385"/>
   <link rel="edit" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/7453d18ea96385/1478425172480000"/>
-  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.elyoos1@elyoos.org" primary="true"/>
+  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.dumondaMe1@dumonda.me" primary="true"/>
  </entry>
  <entry>
   <id>http://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/base/88238090e05c038</id>
@@ -49,7 +49,7 @@ return `<?xml version="1.0" encoding="UTF-8"?>
   <link rel="http://schemas.google.com/contacts/2008/rel#edit-photo" type="image/*" href="https://www.google.com/m8/feeds/photos/media/climberwoodi%40gmail.com/88238090e05c038/1B2M2Y8AsgTpgAmY7PhCfg"/>
   <link rel="self" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/88238090e05c038"/>
   <link rel="edit" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/88238090e05c038/1474452287340001"/>
-  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.elyoos2@elyoos.org" primary="true"/>
+  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.dumondaMe2@dumonda.me" primary="true"/>
  </entry>
  <entry>
   <id>http://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/base/88238090e05c038</id>
@@ -59,7 +59,7 @@ return `<?xml version="1.0" encoding="UTF-8"?>
   <link rel="http://schemas.google.com/contacts/2008/rel#edit-photo" type="image/*" href="https://www.google.com/m8/feeds/photos/media/climberwoodi%40gmail.com/88238090e05c038/1B2M2Y8AsgTpgAmY7PhCfg"/>
   <link rel="self" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/88238090e05c038"/>
   <link rel="edit" type="application/atom+xml" href="https://www.google.com/m8/feeds/contacts/climberwoodi%40gmail.com/full/88238090e05c038/1474452287340001"/>
-  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.elyoos3@elyoos.org" primary="true"/>
+  <gd:email rel="http://schemas.google.com/g/2005#other" address="test.dumondaMe3@dumonda.me" primary="true"/>
  </entry>
 </feed>`;
 };

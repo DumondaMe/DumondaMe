@@ -32,7 +32,7 @@ describe('Creating youtube answer', function () {
         return requestHandler.logout();
     });
 
-    it('Creating not in elyoos existing youtube answer', async function () {
+    it('Creating not in dumondaMe existing youtube answer', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/youtube/1', {

@@ -161,7 +161,7 @@ describe('Getting users who watches a commitment', function () {
         res.body.users[0].isPersonOfTrust.should.equals(false);
     });
 
-    it('Show anonymous user when privacy to elyoos only and user is not logged in', async function () {
+    it('Show anonymous user when privacy to dumondaMe only and user is not logged in', async function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '3', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
@@ -176,7 +176,7 @@ describe('Getting users who watches a commitment', function () {
         res.body.users[0].numberOfAnonymous.should.equals(1);
     });
 
-    it('Show user when privacy to elyoos only and user is logged in', async function () {
+    it('Show user when privacy to dumondaMe only and user is logged in', async function () {
         dbDsl.watchCommitment({commitmentId: '1', userId: '3', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();

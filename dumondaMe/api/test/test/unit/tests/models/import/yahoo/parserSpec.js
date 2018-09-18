@@ -10,7 +10,7 @@ describe('Unit Test import/yahoo/parser', function () {
 
         let result = testee.parse(testXML.getTestData());
         expect(result.length).to.be.equal(2);
-        expect(result).to.containSubset([{email: 'test2@elyoos.org'}]);
-        expect(result).to.containSubset([{email: 'test@elyoos.org', name: 'Hans Muster'}]);
+        expect(result).to.containSubset([{email: 'test2@dumonda.me'}]);
+        expect(result).to.containSubset([{email: 'test@dumonda.me', name: 'Hans Muster'}]);
     });
 });

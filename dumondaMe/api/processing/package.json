@@ -1,5 +1,5 @@
 {
-  "name": "elyoos-processing",
+  "name": "dumonda-me-processing",
   "version": "1.0.0",
   "scripts": {
     "installDev": "npm install &&  npm link ../../../commonLib/serverLib"

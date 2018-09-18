@@ -24,12 +24,12 @@ describe('Getting user profile with activity feed', function () {
         });
 
         dbDsl.createQuestion('100', {
-            creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'de', created: 666
         });
 
         dbDsl.createQuestion('101', {
-            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['topic2'], language: 'de', created: 666
         });
 

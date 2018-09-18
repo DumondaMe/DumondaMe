@@ -30,7 +30,7 @@ describe('Search a website link', function () {
         return requestHandler.logout();
     });
 
-    it('Search for a website which has not yet been posted on elyoos', async function () {
+    it('Search for a website which has not yet been posted on dumondaMe', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -55,7 +55,7 @@ describe('Search a website link', function () {
         res.body.type.should.equals('Link');
     });
 
-    it('Search for a website which has been posted on elyoos', async function () {
+    it('Search for a website which has been posted on dumondaMe', async function () {
 
         dbDsl.createLinkAnswer('10', {creator: '2', questionId: '2', created: 500, pageType: 'article',
             link: 'https://www.example.org/blog/1224'});

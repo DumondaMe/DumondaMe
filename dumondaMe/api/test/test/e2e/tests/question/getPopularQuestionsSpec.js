@@ -14,12 +14,12 @@ describe('Get public popular question', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createQuestion('1', {
-            creatorId: '3', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['Spiritual', 'Education'], language: 'de', created: 500, modified: 700
         });
 
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 701
         });
         dbDsl.createTextAnswer('50', {
@@ -27,7 +27,7 @@ describe('Get public popular question', function () {
         });
 
         dbDsl.createQuestion('3', {
-            creatorId: '3', question: 'Das ist eine Frage3', description: 'Test elyoos.org change the world3',
+            creatorId: '3', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
             topics: ['Spiritual', 'Education'], language: 'de', created: 401, modified: 701
         });
         dbDsl.createTextAnswer('51', {
@@ -45,7 +45,7 @@ describe('Get public popular question', function () {
 
     it('Returns the most popular questions of the last four weeks', async function () {
         dbDsl.createQuestion('4', {
-            creatorId: '3', question: 'Das ist eine Frage4', description: 'Test elyoos.org change the world4',
+            creatorId: '3', question: 'Das ist eine Frage4', description: 'Test dumonda.me change the world4',
             topics: ['Spiritual', 'Education'], language: 'de', created: 402, modified: 701
         });
         dbDsl.createTextAnswer('53', {
@@ -83,7 +83,7 @@ describe('Get public popular question', function () {
 
     it('Returns the most popular questions of the last four weeks (ignoring to old questions)', async function () {
         dbDsl.createQuestion('4', {
-            creatorId: '3', question: 'Das ist eine Frage4', description: 'Test elyoos.org change the world4',
+            creatorId: '3', question: 'Das ist eine Frage4', description: 'Test dumonda.me change the world4',
             topics: ['Spiritual', 'Education'], language: 'de', created: 402, modified: 701
         });
         dbDsl.createTextAnswer('53', {

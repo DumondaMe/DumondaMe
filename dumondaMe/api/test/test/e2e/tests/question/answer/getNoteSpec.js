@@ -15,7 +15,7 @@ describe('Getting notes of an answer', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('6', {
@@ -25,7 +25,7 @@ describe('Getting notes of an answer', function () {
         dbDsl.createNote('50', {answerId: '6', creatorId: '1', created: 555});
         dbDsl.createNote('51', {answerId: '6', creatorId: '2', created: 444});
         dbDsl.createNote('52', {answerId: '6', creatorId: '3', created: 333});
-        dbDsl.createNote('53', {answerId: '6', creatorId: '1', created: 666, text: 'Test elyoos.org change the world'});
+        dbDsl.createNote('53', {answerId: '6', creatorId: '1', created: 666, text: 'Test dumonda.me change the world'});
         dbDsl.upVoteNote({noteId: '52', userId: '1'});
         dbDsl.upVoteNote({noteId: '52', userId: '2'});
         dbDsl.upVoteNote({noteId: '53', userId: '3'});
@@ -56,8 +56,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.slug.should.equals('user-meier3');
 
         res.body.notes[1].noteId.should.equals('53');
-        res.body.notes[1].text.should.equals('Test elyoos.org change the world');
-        res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[1].text.should.equals('Test dumonda.me change the world');
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].hasVoted.should.equals(false);
@@ -98,8 +98,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes.length.should.equals(4);
 
         res.body.notes[0].noteId.should.equals('53');
-        res.body.notes[0].text.should.equals('Test elyoos.org change the world');
-        res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[0].text.should.equals('Test dumonda.me change the world');
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
         res.body.notes[0].hasVoted.should.equals(false);
@@ -160,8 +160,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.slug.should.equals('user-meier3');
 
         res.body.notes[1].noteId.should.equals('53');
-        res.body.notes[1].text.should.equals('Test elyoos.org change the world');
-        res.body.notes[1].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[1].text.should.equals('Test dumonda.me change the world');
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].hasVoted.should.equals(false);
@@ -201,8 +201,8 @@ describe('Getting notes of an answer', function () {
         res.body.notes.length.should.equals(4);
 
         res.body.notes[0].noteId.should.equals('53');
-        res.body.notes[0].text.should.equals('Test elyoos.org change the world');
-        res.body.notes[0].textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.notes[0].text.should.equals('Test dumonda.me change the world');
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
         res.body.notes[0].hasVoted.should.equals(false);

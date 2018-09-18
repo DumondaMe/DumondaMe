@@ -43,14 +43,14 @@ describe('Edit a note for an answer', function () {
 
     it('Edit a note for an answer (with url)', async function () {
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '50', text: 'Test elyoos.org change the world'});
+        let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '50', text: 'Test dumonda.me change the world'});
         res.status.should.equal(200);
-        res.body.textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match(`(answer:Answer {answerId: '5'})-[:NOTE]->(note:Note {noteId: '50'})`)
             .return(`note`).end().send();
         resp.length.should.equals(1);
-        resp[0].note.text.should.equals('Test elyoos.org change the world');
+        resp[0].note.text.should.equals('Test dumonda.me change the world');
     });
 
     it('Edit a note for an answer (not creator of note)', async function () {

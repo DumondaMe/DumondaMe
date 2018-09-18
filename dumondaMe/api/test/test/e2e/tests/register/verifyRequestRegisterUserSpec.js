@@ -12,7 +12,7 @@ describe('Integration Tests for verify registering a new user', function () {
 
     let registerRequestUserValid = {
             email: 'inFo@elYoos.org',
-            emailNormalized: 'info@elyoos.org',
+            emailNormalized: 'info@dumonda.me',
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
             name: 'user Waldvogel',
             forename: 'user',
@@ -31,13 +31,13 @@ describe('Integration Tests for verify registering a new user', function () {
         registerRequestUserValid.registerDate = startTime;
         registerRequestUserValidCaseSensitiveEmail.registerDate = startTime;
         registerRequestUserValidCaseSensitiveEmail.linkId = uuidv4();
-        registerRequestUserValidCaseSensitiveEmail.email = 'info@elyoos.org';
+        registerRequestUserValidCaseSensitiveEmail.email = 'info@dumonda.me';
         registerRequestUserExpired.registerDate = startTime - (60 * 60 * 12) - 1;
         registerRequestUserExpired.linkId = uuidv4();
-        registerRequestUserExpired.email = 'INFO2@elyoos.org';
-        registerRequestUserExpired.emailNormalized = 'info2@elyoos.org';
+        registerRequestUserExpired.email = 'INFO2@dumonda.me';
+        registerRequestUserExpired.emailNormalized = 'info2@dumonda.me';
         registerRequestUserValidWithInvitation.email = 'info3@ELYOOS.org';
-        registerRequestUserValidWithInvitation.emailNormalized = 'info3@elyoos.org';
+        registerRequestUserValidWithInvitation.emailNormalized = 'info3@dumonda.me';
         registerRequestUserValidWithInvitation.registerDate = startTime;
         registerRequestUserValidWithInvitation.linkId = uuidv4();
         dbDsl.createUserRegisterRequest(registerRequestUserValid);
@@ -45,9 +45,9 @@ describe('Integration Tests for verify registering a new user', function () {
         dbDsl.createUserRegisterRequest(registerRequestUserExpired);
         dbDsl.createUserRegisterRequest(registerRequestUserValidWithInvitation);
 
-        dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@ELYOOS.org', emailNormalized: 'info3@elyoos.org'}]);
-        dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@elyoos.org', emailNormalized: 'info3@elyoos.org'}]);
-        dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@elyoos.org', emailNormalized: 'info3@elyoos.org'}]);
+        dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@ELYOOS.org', emailNormalized: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
         await dbDsl.sendToDb();
     });
 
@@ -66,7 +66,7 @@ describe('Integration Tests for verify registering a new user', function () {
 
         user.length.should.equals(1);
         should.exist(user[0].user.userId);
-        user[0].user.emailNormalized.should.equals('info@elyoos.org');
+        user[0].user.emailNormalized.should.equals('info@dumonda.me');
         user[0].user.name.should.equals('user Waldvogel');
         should.not.exist(user[0].user.linkId);
         user[0].user.forename.should.equals(registerRequestUserValid.forename);
@@ -81,7 +81,7 @@ describe('Integration Tests for verify registering a new user', function () {
         user.length.should.equals(0);
 
         await requestHandler.login({
-            'username': 'info@elyoos.org',
+            'username': 'info@dumonda.me',
             'password': '1'
         });
     });
@@ -96,7 +96,7 @@ describe('Integration Tests for verify registering a new user', function () {
             .return('user').end().send();
         user.length.should.equals(1);
         should.exist(user[0].user.userId);
-        user[0].user.emailNormalized.should.equals('info3@elyoos.org');
+        user[0].user.emailNormalized.should.equals('info3@dumonda.me');
         user[0].user.name.should.equals('user Waldvogel');
         should.not.exist(user[0].user.linkId);
         user[0].user.forename.should.equals(registerRequestUserValidWithInvitation.forename);
@@ -121,7 +121,7 @@ describe('Integration Tests for verify registering a new user', function () {
             .return('user').end({linkId: registerRequestUserValidWithInvitation.linkId}).send();
         user.length.should.equals(0);
         await requestHandler.login({
-            'username': 'infO3@elyoos.org',
+            'username': 'infO3@dumonda.me',
             'password': '1'
         });
     });
@@ -139,7 +139,7 @@ describe('Integration Tests for verify registering a new user', function () {
         res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValidCaseSensitiveEmail.linkId});
         res.status.should.equal(400);
 
-        user = await db.cypher().match("(user:User {email: 'info@elyoos.org'})")
+        user = await db.cypher().match("(user:User {email: 'info@dumonda.me'})")
             .return('user').end().send();
         user.length.should.equals(0);
 
@@ -147,7 +147,7 @@ describe('Integration Tests for verify registering a new user', function () {
             .return('user').end({linkId: registerRequestUserValidCaseSensitiveEmail.linkId}).send();
         user.length.should.equals(0);
         await requestHandler.login({
-            'username': 'info@elyoos.org',
+            'username': 'info@dumonda.me',
             'password': '1'
         });
     });

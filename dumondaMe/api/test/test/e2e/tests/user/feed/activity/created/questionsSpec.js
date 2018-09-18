@@ -19,7 +19,7 @@ describe('Get activity feed for created questions', function () {
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -30,11 +30,11 @@ describe('Get activity feed for created questions', function () {
             hasPreviewImage: true
         });
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'de', created: 602,
         });
         dbDsl.createQuestion('3', {
-            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic3'], language: 'en', created: 555,
         });
     });
@@ -58,8 +58,8 @@ describe('Get activity feed for created questions', function () {
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[0].description.should.equals('Test elyoos.org change the world1');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world1`);
+        res.body.feed[0].description.should.equals('Test dumonda.me change the world1');
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(500);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].user.userId.should.equals('2');
@@ -151,7 +151,7 @@ describe('Get activity feed for created questions', function () {
 
     it('Show question created by the user', async function () {
         dbDsl.createQuestion('21', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 700
         });
         await dbDsl.sendToDb();
@@ -174,7 +174,7 @@ describe('Get activity feed for created questions', function () {
 
     it('Show question created by the user when topic filter ist active', async function () {
         dbDsl.createQuestion('21', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 700
         });
         await dbDsl.sendToDb();

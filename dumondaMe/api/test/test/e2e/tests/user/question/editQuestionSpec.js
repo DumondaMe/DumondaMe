@@ -57,16 +57,16 @@ describe('Edit a question', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question', {
-            questionId: '1', question: 'Andere Frage', description: 'Test elyoos.org change the world', lang: 'en'
+            questionId: '1', question: 'Andere Frage', description: 'Test dumonda.me change the world', lang: 'en'
         });
         res.status.should.equal(200);
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
             .return(`question, collect(topic.topicId) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].question.question.should.equals('Andere Frage');
-        resp[0].question.description.should.equals('Test elyoos.org change the world');
+        resp[0].question.description.should.equals('Test dumonda.me change the world');
         resp[0].question.modified.should.least(startTime);
         resp[0].topics.length.should.equals(1);
         resp[0].topics.should.include('topic1');
@@ -108,16 +108,16 @@ describe('Edit a question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question', {
             questionId: '1', question: 'Andere Frage<script>alert()</script>',
-            description: 'Test elyoos.org change the world<script>alert()</script>', lang: 'en'
+            description: 'Test dumonda.me change the world<script>alert()</script>', lang: 'en'
         });
         res.status.should.equal(200);
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
             .return(`question, collect(topic.topicId) AS topics`).end().send();
         resp.length.should.equals(1);
         resp[0].question.question.should.equals('Andere Frage');
-        resp[0].question.description.should.equals('Test elyoos.org change the world');
+        resp[0].question.description.should.equals('Test dumonda.me change the world');
     });
 
     it('Only admin is allowed to edit question', async function () {

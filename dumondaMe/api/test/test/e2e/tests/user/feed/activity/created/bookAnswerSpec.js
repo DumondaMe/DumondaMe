@@ -21,7 +21,7 @@ describe('Get activity feed for created book answers', function () {
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createBookAnswer('6', {
@@ -115,7 +115,7 @@ describe('Get activity feed for created book answers', function () {
             parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
         });
         dbDsl.createQuestion('2', {
-            creatorId: '2', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            creatorId: '2', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['topic111'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createBookAnswer('7', {
@@ -180,7 +180,7 @@ describe('Get activity feed for created book answers', function () {
             parentTopicId: 'topic11', topicId: 'topic111', descriptionDe: 'topic111De', descriptionEn: 'topic111En'
         });
         dbDsl.createQuestion('2', {
-            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            creatorId: '4', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['topic111'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createBookAnswer('7', {

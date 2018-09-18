@@ -33,7 +33,7 @@ describe('Getting details of a question', function () {
         }, []);
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -72,7 +72,7 @@ describe('Getting details of a question', function () {
 
     it('Getting details of a question without answers', async function () {
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'en', modified: 701
         });
         dbDsl.setUserIsSuperUser('1');
@@ -90,8 +90,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
-        res.body.description.should.equals('Test elyoos.org change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.description.should.equals('Test dumonda.me change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.isAdmin.should.equals(false);
         res.body.isSuperUser.should.equals(true);
         res.body.numberOfSuggestions.should.equals(2);
@@ -170,8 +170,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('Test elyoos.org change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.description.should.equals('Test dumonda.me change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -377,8 +377,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('Test elyoos.org change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.description.should.equals('Test dumonda.me change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -516,8 +516,8 @@ describe('Getting details of a question', function () {
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
-        res.body.description.should.equals('Test elyoos.org change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.description.should.equals('Test dumonda.me change the world');
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');

@@ -18,7 +18,7 @@ describe('Getting suggestions from super users for a question', function () {
         dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
 
         dbDsl.createQuestion('10', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
     });

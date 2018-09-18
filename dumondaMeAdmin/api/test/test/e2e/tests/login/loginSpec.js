@@ -20,7 +20,7 @@ describe('Integration Tests Login', function () {
         await request(app).post('/api/login').send(users.invalidPassword).expect(400);
     });
 
-    it('Login - Return 400 because user is not ElyoosAdmin', async function () {
+    it('Login - Return 400 because user is not DumondaMeAdmin', async function () {
         await dbDsl.sendToDb();
         await request(app).post('/api/login').send(users.validUser).expect(400);
     });
