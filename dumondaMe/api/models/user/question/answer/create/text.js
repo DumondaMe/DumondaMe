@@ -1,12 +1,12 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const cdn = require('elyoos-server-lib').cdn;
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const cdn = require('dumonda-me-server-lib').cdn;
 const notification = require(`./notification`);
 const slug = require('limax');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const createTextAnswerCommand = function (params) {
     return db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")

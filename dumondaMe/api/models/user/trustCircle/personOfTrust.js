@@ -1,9 +1,9 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const exceptions = require('elyoos-server-lib').exceptions;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const uuid = require('dumonda-me-server-lib').uuid;
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const moment = require('moment');
 
 let validAddContactCommand = async function (userId, contactId, req) {

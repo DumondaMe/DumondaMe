@@ -1,15 +1,15 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const cdn = require('elyoos-server-lib').cdn;
-const exceptions = require('elyoos-server-lib').exceptions;
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const cdn = require('dumonda-me-server-lib').cdn;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const image = require('./image');
 const notification = require(`./notification`);
 const sharp = require('sharp');
 const slug = require('limax');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_BOOK_EXISTS_ALREADY = 2;
 

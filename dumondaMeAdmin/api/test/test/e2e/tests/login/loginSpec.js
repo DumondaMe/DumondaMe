@@ -2,8 +2,8 @@
 
 const app = require('../../../../../../server');
 const request = require('supertest');
-const users = require('elyoos-server-test-util').user;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 
 describe('Integration Tests Login', function () {
 
@@ -26,7 +26,7 @@ describe('Integration Tests Login', function () {
     });
 
     it('Login - Return 200', async function () {
-        dbDsl.setUserIsElyoosAdmin('1');
+        dbDsl.setUserIsDumondaMeAdmin('1');
         await dbDsl.sendToDb();
         await request(app).post('/api/login').send(users.validUser).expect(200);
     });

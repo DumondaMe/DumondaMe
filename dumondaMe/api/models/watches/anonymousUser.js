@@ -1,6 +1,6 @@
 'use strict';
 
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 
 const addAnonymousUser = async function (users, numberOfWatches, hasMoreUsers, numberOfSkipUsers) {
     if (numberOfWatches > 0 && !hasMoreUsers && users.length + numberOfSkipUsers < numberOfWatches) {

@@ -2,8 +2,8 @@
 
 let https = require('https');
 let promise = require('bluebird');
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let exceptions = require('dumonda-me-server-lib').exceptions;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let ERROR_CODE_RECAPTCHA_FAILED = 1;
 

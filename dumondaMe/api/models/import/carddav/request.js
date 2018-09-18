@@ -3,7 +3,7 @@
 let xpath = require('xpath');
 let dom = require('xmldom').DOMParser;
 let rp = require('request-promise');
-let exception = require('elyoos-server-lib').exceptions;
+let exception = require('dumonda-me-server-lib').exceptions;
 
 let getAddressUrl = function (username, password, baseUrl) {
     let option = {

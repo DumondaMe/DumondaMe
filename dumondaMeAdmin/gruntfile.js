@@ -19,8 +19,8 @@ module.exports = function (grunt) {
                 options: {
                     separator: '\n',
                     sonar: {
-                        projectKey: 'javascript-sonar-runner-elyoos-server-admin',
-                        projectName: 'Elyoos Admin Server',
+                        projectKey: 'javascript-sonar-runner-dumonda-me-server-admin',
+                        projectName: 'DumondaMe Admin Server',
                         projectVersion: '0.1',
                         sources: 'controllers, models, server.js',
                         sourceEncoding: 'UTF-8',

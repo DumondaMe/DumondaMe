@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-let cdn = require('elyoos-server-lib').cdn;
+let cdn = require('dumonda-me-server-lib').cdn;
 
 const getQueryString = function (query) {
     let queryString = '';

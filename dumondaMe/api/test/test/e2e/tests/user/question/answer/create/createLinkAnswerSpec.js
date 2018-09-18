@@ -1,15 +1,15 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const db = require('elyoos-server-test-util').db;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const users = require('dumonda-me-server-test-util').user;
+const db = require('dumonda-me-server-test-util').db;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const rp = require('request');
 const moment = require('moment');
 const fs = require('fs');
 const should = require('chai').should();
 const sinon = require('sinon');
-const stubCDN = require('elyoos-server-test-util').stubCDN();
+const stubCDN = require('dumonda-me-server-test-util').stubCDN();
 
 describe('Creating link answer', function () {
 

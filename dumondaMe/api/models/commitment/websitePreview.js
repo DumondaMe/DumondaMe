@@ -3,10 +3,10 @@
 const db = requireDb();
 const rp = require('request-promise');
 const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const parseWebsite = require('./../website/parse');
 const cheerio = require('cheerio');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const WEBSITE_LOAD_FAILED = 1;
 

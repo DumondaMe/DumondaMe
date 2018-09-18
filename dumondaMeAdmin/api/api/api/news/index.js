@@ -1,12 +1,12 @@
 'use strict';
 
-const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const auth = require('dumonda-me-server-lib').auth;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const overview = requireModel('news/overview');
 const createNews = requireModel('news/create');
 const editNews = requireModel('news/edit');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const validation = require('elyoos-server-lib').jsonValidation;
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 
 const schemaGetNewsOverview = {
     name: 'getNewsOverview',

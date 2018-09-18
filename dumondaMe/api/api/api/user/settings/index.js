@@ -1,9 +1,9 @@
 'use strict';
 
 const setting = requireModel('user/setting/setting');
-const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
+const auth = require('dumonda-me-server-lib').auth;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 
 module.exports = function (router) {
 

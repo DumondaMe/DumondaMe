@@ -1,8 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const checkRegionExists = async function (regionId, req) {
     let resp = await db.cypher().match(`(region:Region {regionId: {regionId}})`)

@@ -1,10 +1,10 @@
 'use strict';
 
 let accountSetup = requireModel('user/setting/accountSetup');
-let auth = require('elyoos-server-lib').auth;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('dumonda-me-server-lib').auth;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 
 let schemaPostFinishSetupAccount = {
     name: 'finishSetupAccount',

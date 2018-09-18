@@ -12,7 +12,7 @@ invalidJsonRequest.prototype.constructor = invalidJsonRequest;
 function invalidOperation(message, errorCode) {
     this.message = message;
     this.name = "invalidOperation";
-    this.elyoosErrorCode = errorCode;
+    this.dumondaMeErrorCode = errorCode;
 }
 invalidOperation.prototype = Object.create(Error.prototype);
 invalidOperation.prototype.constructor = invalidOperation;
@@ -20,7 +20,7 @@ invalidOperation.prototype.constructor = invalidOperation;
 function unauthorized(message, errorCode) {
     this.message = message;
     this.name = "unauthorized";
-    this.elyoosErrorCode = errorCode;
+    this.dumondaMeErrorCode = errorCode;
 }
 unauthorized.prototype = Object.create(Error.prototype);
 unauthorized.prototype.constructor = unauthorized;
@@ -28,7 +28,7 @@ unauthorized.prototype.constructor = unauthorized;
 function invalidAuthentication(message, errorCode) {
     this.message = message;
     this.name = "invalidAuthentication";
-    this.elyoosErrorCode = errorCode;
+    this.dumondaMeErrorCode = errorCode;
 }
 invalidAuthentication.prototype = Object.create(Error.prototype);
 invalidAuthentication.prototype.constructor = invalidAuthentication;

@@ -1,8 +1,8 @@
 'use strict';
 
 const passport = require('passport');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-const rateLimit = require('elyoos-server-lib').limiteRate;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+const rateLimit = require('dumonda-me-server-lib').limiteRate;
 
 const apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
@@ -25,8 +25,8 @@ module.exports = function (router) {
                 logger.warn('User not allowed to login', req, {httpStatusCode: 400});
                 return res.status(400).end();
             }
-            if(!user.elyoosAdmin) {
-                logger.warn('User not allowed to login. Is not elyoos admin.', req, {httpStatusCode: 400});
+            if(!user.dumondaMeAdmin) {
+                logger.warn('User not allowed to login. Is not DumondaMe admin.', req, {httpStatusCode: 400});
                 return res.status(400).end();
             }
 

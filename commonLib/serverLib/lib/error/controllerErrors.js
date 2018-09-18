@@ -6,8 +6,8 @@ let getErrorHandling = function (description, req, res, logger, controllerCode) 
     return controllerCode().catch(exceptions.InvalidJsonRequest, function () {
         res.status(400).end();
     }).catch({name: 'invalidOperation'}, function (e) {
-        if (e && e.elyoosErrorCode) {
-            res.status(400).json({errorCode: e.elyoosErrorCode});
+        if (e && e.dumondaMeErrorCode) {
+            res.status(400).json({errorCode: e.dumondaMeErrorCode});
         } else {
             res.status(400).end();
         }

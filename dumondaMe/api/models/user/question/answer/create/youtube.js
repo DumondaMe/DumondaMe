@@ -1,14 +1,14 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const cdn = require('elyoos-server-lib').cdn;
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const cdn = require('dumonda-me-server-lib').cdn;
 const slug = require('limax');
 const youtube = require('../../../../util/youtube');
 const notification = require(`./notification`);
-const exceptions = require('elyoos-server-lib').exceptions;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_YOUTUBE_ID_NOT_FOUND = 1;
 const ERROR_CODE_YOUTUBE_EXISTS_ALREADY = 2;

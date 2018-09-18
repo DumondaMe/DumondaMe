@@ -1,9 +1,9 @@
 'use strict';
 
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let users = require('elyoos-server-test-util').user;
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
+let users = require('dumonda-me-server-test-util').user;
+let db = require('dumonda-me-server-test-util').db;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let should = require('chai').should();
 
 describe('Integration Tests setting user location', function () {

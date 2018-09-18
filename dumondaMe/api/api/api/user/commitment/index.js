@@ -1,15 +1,15 @@
 'use strict';
 
-const validation = require('elyoos-server-lib').jsonValidation;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const topic = require("../../../schema/topic");
 const language = require("../../../schema/language");
 const commitmentCreate = requireModel('user/commitment/create');
 const commitmentEdit = requireModel('user/commitment/edit');
 const commitmentDelete = requireModel('user/commitment/delete');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const auth = require('elyoos-server-lib').auth;
-const apiHelper = require('elyoos-server-lib').apiHelper;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const auth = require('dumonda-me-server-lib').auth;
+const apiHelper = require('dumonda-me-server-lib').apiHelper;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateCommitment = {
     name: 'createCommitment',

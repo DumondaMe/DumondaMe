@@ -1,9 +1,9 @@
 'use strict';
 
-const db = require('elyoos-server-test-util').db;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
+const db = require('dumonda-me-server-test-util').db;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const should = require('chai').should();
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
 const uuidv4 = require('uuid/v4');
 const _ = require('lodash');

@@ -1,9 +1,9 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const eMail = require('elyoos-server-lib').eMail;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const eMail = require('dumonda-me-server-lib').eMail;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const sinon = require('sinon');
 
 describe('Integration Tests to send news preview', function () {

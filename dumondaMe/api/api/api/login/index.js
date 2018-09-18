@@ -2,8 +2,8 @@
 
 let passport = require('passport');
 let loginUser = requireModel('user/loginUser');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let rateLimit = require('elyoos-server-lib').limiteRate;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+let rateLimit = require('dumonda-me-server-lib').limiteRate;
 let _ = require('lodash');
 
 let apiLimiter = rateLimit.getRate({

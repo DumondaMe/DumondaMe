@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 
 const isAdmin = async function (userId, commitmentId) {
     let response = await db.cypher().match(`(commitment:Commitment {commitmentId: {commitmentId}})

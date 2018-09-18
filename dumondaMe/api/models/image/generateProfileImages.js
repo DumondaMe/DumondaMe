@@ -4,7 +4,7 @@
 'use strict';
 
 let sharp = require('sharp');
-let cdn = require('elyoos-server-lib').cdn;
+let cdn = require('dumonda-me-server-lib').cdn;
 
 module.exports = {
     generateProfileImage: async function (originalFilePath, userId) {

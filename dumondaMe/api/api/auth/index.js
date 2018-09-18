@@ -1,7 +1,7 @@
 'use strict';
 
 let path = require('path');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

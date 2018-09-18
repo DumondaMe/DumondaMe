@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('elyoos-server-lib').passwordEncryption;
+let testee = require('dumonda-me-server-lib').passwordEncryption;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 

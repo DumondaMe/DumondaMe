@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const time = require('elyoos-server-lib').time;
+const time = require('dumonda-me-server-lib').time;
 const answerParser = require('./answer/answerParser');
 
 const PAGE_SIZE = 20;

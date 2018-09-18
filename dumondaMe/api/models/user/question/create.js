@@ -4,9 +4,9 @@ const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const topicsSecurity = require('./../../topic/security');
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const createQuestion = async function (userId, params) {
     params.questionId = uuid.generateUUID();

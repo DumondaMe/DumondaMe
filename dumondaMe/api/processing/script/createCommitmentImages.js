@@ -1,7 +1,7 @@
 const sharp = require('sharp');
-const db = require('elyoos-server-lib').neo4j;
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const db = require('dumonda-me-server-lib').neo4j;
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const addTitleImage = async function (pages) {
     for (let result of pages) {

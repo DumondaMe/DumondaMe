@@ -1,10 +1,10 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('dumonda-me-server-test-util').user;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let should = require('chai').should();
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let db = require('dumonda-me-server-test-util').db;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 
 describe('Change user profile data', function () {
 

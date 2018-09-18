@@ -1,8 +1,8 @@
 'use strict';
 
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const users = require('elyoos-server-test-util').user;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const users = require('dumonda-me-server-test-util').user;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
 
 //All test cases are the same as for book answers an are therefore tested in upVoted/bookAnswerSpec

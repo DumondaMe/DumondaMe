@@ -1,9 +1,9 @@
 'use strict';
 
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let rateLimit = require('elyoos-server-lib').limiteRate;
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+let rateLimit = require('dumonda-me-server-lib').limiteRate;
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 let unsubscribe = requireModel('unsubscribe/invitation');
 
 let schemaUnsubscribeInvitation = {

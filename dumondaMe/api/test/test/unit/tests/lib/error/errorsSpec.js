@@ -1,6 +1,6 @@
 'use strict';
 
-let testee = require('elyoos-server-lib').errors;
+let testee = require('dumonda-me-server-lib').errors;
 let request = require('../../request');
 let sinon = require('sinon');
 let expect = require('chai').expect;

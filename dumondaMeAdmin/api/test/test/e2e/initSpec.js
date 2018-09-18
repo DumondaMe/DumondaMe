@@ -1,13 +1,13 @@
 'use strict';
 
 const app = require('../../../../server');
-const dbConfig = require('elyoos-server-lib').databaseConfig;
-const elyoosTestUtil = require('elyoos-server-test-util');
+const dbConfig = require('dumonda-me-server-lib').databaseConfig;
+const elyoosTestUtil = require('dumonda-me-server-test-util');
 require('chai').should();
 
-elyoosTestUtil.init(require('elyoos-server-lib'), app);
+elyoosTestUtil.init(require('dumonda-me-server-lib'), app);
 
-elyoosTestUtil.stubCDN().stub(require('elyoos-server-lib').cdn);
+elyoosTestUtil.stubCDN().stub(require('dumonda-me-server-lib').cdn);
 elyoosTestUtil.stubLimitRate();
 
 describe('Initialize Server for all integration tests', function () {

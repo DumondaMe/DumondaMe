@@ -13,8 +13,8 @@ let setUserLastLoginTime = function (lastLogin) {
         .end().getCommand());
 };
 
-let setUserIsElyoosAdmin = function (userId) {
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {elyoosAdmin: true})
+let setUserIsDumondaMeAdmin = function (userId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {dumondaMeAdmin: true})
         .end({userId: userId}).getCommand());
 };
 
@@ -127,7 +127,7 @@ let setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
 module.exports = {
     setUserRegisteredDate,
     setUserLastLoginTime,
-    setUserIsElyoosAdmin,
+    setUserIsDumondaMeAdmin,
     setUserIsSuperUser,
     setUserLocation,
     setUserEmail,

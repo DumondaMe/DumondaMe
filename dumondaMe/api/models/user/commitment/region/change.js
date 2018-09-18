@@ -3,7 +3,7 @@
 const db = requireDb();
 const security = require('./../security');
 const securityRegion = require('./../../../region/security');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const changeRegions = async function (userId, commitmentId, regions) {
     await security.isAdmin(userId, commitmentId);

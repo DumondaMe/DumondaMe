@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let time = require('elyoos-server-lib').time;
+let time = require('dumonda-me-server-lib').time;
 
 let accountSetupFinished = function (id) {
     return db.cypher().match('(u:User {userId: {id}})')

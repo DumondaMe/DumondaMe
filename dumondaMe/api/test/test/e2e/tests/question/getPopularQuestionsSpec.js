@@ -1,7 +1,7 @@
 'use strict';
 
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
 
 describe('Get public popular question', function () {

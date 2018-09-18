@@ -1,9 +1,9 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const moreResults = require('../util/moreSearchResults');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const slug = require('limax');
 
 const PAGE_SIZE = 20;

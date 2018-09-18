@@ -1,8 +1,8 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
 
 describe('Integration Tests for getting registered user overview', function () {

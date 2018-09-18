@@ -6,14 +6,14 @@ exports.handlingError = function () {
     return function (err, req, res, next) {
         if (err instanceof Error) {
             if (err.name === 'invalidJsonRequest' || err.name === 'invalidOperation') {
-                if (err.elyoosErrorCode) {
-                    res.status(400).json({errorCode: err.elyoosErrorCode});
+                if (err.dumondaMeErrorCode) {
+                    res.status(400).json({errorCode: err.dumondaMeErrorCode});
                 } else {
                     res.status(400).end();
                 }
             } else if (err.name === 'unauthorized') {
-                if (err.elyoosErrorCode) {
-                    res.status(401).json({errorCode: err.elyoosErrorCode});
+                if (err.dumondaMeErrorCode) {
+                    res.status(401).json({errorCode: err.dumondaMeErrorCode});
                 } else {
                     res.status(401).end();
                 }

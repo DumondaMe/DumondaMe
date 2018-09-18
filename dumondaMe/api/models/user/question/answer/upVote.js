@@ -1,9 +1,9 @@
 'use strict';
 
 const db = requireDb();
-const time = require('elyoos-server-lib').time;
-const exceptions = require('elyoos-server-lib').exceptions;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const time = require('dumonda-me-server-lib').time;
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const validToUpVoteAnswer = async function (userId, answerId) {
     let result = await db.cypher().match(`(user:User {userId: {userId}})-[:UP_VOTE|IS_CREATOR]->

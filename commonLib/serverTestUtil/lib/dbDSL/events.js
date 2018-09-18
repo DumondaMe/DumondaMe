@@ -12,7 +12,7 @@ let createPageEventNewAddress = function (pageId, eventData, address) {
                   endDate: {endDate}, modified: {modified}})-[:HAS]->(:Address {addressId: {addressId}, address: {address}, description: {addressDescription},
                   latitude: {addressLatitude}, longitude: {addressLongitude}})`)
         .end({
-            pageId: pageId, eventId: eventData.eventId, uid: `${eventData.eventId}@elyoos.org`, title: eventData.title, description: eventData.description,
+            pageId: pageId, eventId: eventData.eventId, uid: `${eventData.eventId}@dumonda.me`, title: eventData.title, description: eventData.description,
             startDate: eventData.startDate, endDate: eventData.endDate, modified: eventData.modified, addressId: address.addressId,
             addressDescription: address.description, address: address.address, addressLatitude: address.lat, addressLongitude: address.lng,
         }).getCommand());
@@ -26,7 +26,7 @@ let createPageEventExistingAddress = function (pageId, eventData, addressId) {
         .create(`(page)-[:EVENT]->(:Event${eventData.importTC} {eventId: {eventId}, uid: {uid}, title: {title}, description: {description}, startDate: {startDate}, 
                   endDate: {endDate}, linkDescription: {linkDescription}, modified: {modified}})-[:HAS]->(address)`)
         .end({
-            pageId: pageId, eventId: eventData.eventId, uid: `${eventData.eventId}@elyoos.org`, title: eventData.title, description: eventData.description,
+            pageId: pageId, eventId: eventData.eventId, uid: `${eventData.eventId}@dumonda.me`, title: eventData.title, description: eventData.description,
             startDate: eventData.startDate, endDate: eventData.endDate, modified: eventData.modified,
             linkDescription: eventData.linkDescription, addressId: addressId
         }).getCommand());

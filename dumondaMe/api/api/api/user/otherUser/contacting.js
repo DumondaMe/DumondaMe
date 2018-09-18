@@ -1,11 +1,11 @@
 /*
 'use strict';
 
-let validation = require('elyoos-server-lib').jsonValidation;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 let userIsPersonOfTrust = requireModel('contact/userIsPersonOfTrust');
-let auth = require('elyoos-server-lib').auth;
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let auth = require('dumonda-me-server-lib').auth;
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let schemaRequestConnecting = {
     name: 'requestContacting',

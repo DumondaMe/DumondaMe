@@ -3,17 +3,17 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
-require('elyoos-server-lib').init('elyoos');
+require('dumonda-me-server-lib').init('elyoos');
 
 global.requireDb = function () {
-    return require('elyoos-server-lib').neo4j;
+    return require('dumonda-me-server-lib').neo4j;
 };
 
 global.requireModel = function (name) {
     return require(`${__dirname}/api/models/${name}`);
 };
 
-require('elyoos-server-lib').jsonValidation;
+require('dumonda-me-server-lib').jsonValidation;
 const Promise = require('bluebird');
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
@@ -28,10 +28,10 @@ if (!isTesting) {
     nuxt = new Nuxt(nuxtConfig);
 }
 const kraken = require('kraken-js');
-const dbConfig = require('elyoos-server-lib').databaseConfig;
+const dbConfig = require('dumonda-me-server-lib').databaseConfig;
 const app = require('express')();
-const options = require('elyoos-server-lib').spec(app, nuxt);
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const options = require('dumonda-me-server-lib').spec(app, nuxt);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const port = process.env.PORT || 3000;
 
 if (isProduction || isServerDevelopment) {

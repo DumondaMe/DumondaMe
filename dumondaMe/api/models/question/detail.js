@@ -1,8 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const cdn = require('elyoos-server-lib').cdn;
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const cdn = require('dumonda-me-server-lib').cdn;
 const answerParser = require('./answer/answerParser');
 const answers = require('./answers');
 const slug = require('limax');

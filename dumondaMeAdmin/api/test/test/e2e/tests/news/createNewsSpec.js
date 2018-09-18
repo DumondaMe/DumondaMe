@@ -1,10 +1,10 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const eMail = require('elyoos-server-lib').eMail;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
-const db = require('elyoos-server-test-util').db;
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const eMail = require('dumonda-me-server-lib').eMail;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
+const db = require('dumonda-me-server-test-util').db;
 const moment = require('moment');
 const sinon = require('sinon');
 

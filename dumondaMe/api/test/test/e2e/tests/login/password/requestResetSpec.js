@@ -1,8 +1,8 @@
 'use strict';
 
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let db = require('elyoos-server-test-util').db;
-let eMail = require('elyoos-server-lib').eMail;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
+let db = require('dumonda-me-server-test-util').db;
+let eMail = require('dumonda-me-server-lib').eMail;
 let sinon = require('sinon');
 let moment = require('moment');
 

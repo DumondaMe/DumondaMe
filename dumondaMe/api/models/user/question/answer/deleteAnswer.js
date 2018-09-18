@@ -2,8 +2,8 @@
 
 const db = requireDb();
 const security = require('./security');
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const deleteShowQuestionRequestNotifications = function (answerId) {
     return db.cypher()

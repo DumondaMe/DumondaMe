@@ -3,11 +3,11 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     head: {
-        title: 'Elyoos Admin',
+        title: 'DumondaMe Admin',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-            {hid: 'description', name: 'description', content: 'Elyoos Admin'}
+            {hid: 'description', name: 'description', content: 'DumondaMe Admin'}
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},

@@ -2,7 +2,7 @@
 
 let db = requireDb();
 let _ = require('lodash');
-let eMailQueue = require('elyoos-server-lib').eMailQueue;
+let eMailQueue = require('dumonda-me-server-lib').eMailQueue;
 
 let getNormalizedEmails = function (emails) {
     let normalizedEmails = [];

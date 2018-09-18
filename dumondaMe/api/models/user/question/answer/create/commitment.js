@@ -2,10 +2,10 @@
 
 const slug = require('limax');
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const cdn = require('elyoos-server-lib').cdn;
-const exceptions = require('elyoos-server-lib').exceptions;
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const cdn = require('dumonda-me-server-lib').cdn;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const notification = require(`./notification`);
 
 const createCommitmentCommand = function (params) {

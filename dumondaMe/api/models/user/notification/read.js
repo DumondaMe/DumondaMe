@@ -1,8 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
-const exceptions = require('elyoos-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
 
 const ERROR_CODE_NOTIFICATION_NOT_EXISTING = 1;
 

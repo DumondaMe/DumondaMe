@@ -4,8 +4,8 @@ const slug = require('limax');
 const db = requireDb();
 const image = require(`./image`);
 const security = require('./security');
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const editCommitment = async function (userId, params, titlePath) {
     params.modified = time.getNowUtcTimestamp();
