@@ -14,7 +14,7 @@ global.requireModel = function (name) {
 
 require('dumonda-me-server-lib').jsonValidation;
 
-require('elyoos-server-test-util').init(require('dumonda-me-server-lib'));
+require('dumonda-me-server-test-util').init(require('dumonda-me-server-lib'));
 
 let dbConfig = require('dumonda-me-server-lib').databaseConfig;
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="elyoos-topic-container">
-        <div class="elyoos-topic ely-card" :class="{'is-main-topic': isMainTopic}">
+    <div class="dumonda-me-topic-container">
+        <div class="dumonda-me-topic ely-card" :class="{'is-main-topic': isMainTopic}">
             <h2>{{topic[getLanguage]}}</h2>
             <div class="topic-content">
                 <div class="topic-info">TopicId: {{topic.topicId}}
@@ -81,8 +81,8 @@
 </script>
 
 <style lang="scss">
-    .elyoos-topic-container {
-        .elyoos-topic {
+    .dumonda-me-topic-container {
+        .dumonda-me-topic {
             margin-bottom: 18px;
             h2 {
                 font-weight: 500;

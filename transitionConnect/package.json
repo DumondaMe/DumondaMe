@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "installDev": "npm install && npm link ../commonLib/serverTestUtil && npm link ../commonLib/serverLib",
     "start": "node server.js"
   },
   "dependencies": {
@@ -20,6 +21,8 @@
     "method-override": "2.3.8",
     "moment": "2.18.1",
     "neo4j-driver": "1.5.0",
+    "dompurify": "1.0.6",
+    "jsdom": "11.12.0",
     "request": "2.81.0",
     "request-promise": "4.1.1",
     "tv4": "1.3.0",
