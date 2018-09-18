@@ -45,8 +45,8 @@
                     </div>
                 </div>
             </v-form>
-            <div class="elyoos-dialog-error-message" v-show="showErrorMessage">{{showErrorMessage}}</div>
-            <div class="elyoos-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
+            <div class="dumonda-me-dialog-error-message" v-show="showErrorMessage">{{showErrorMessage}}</div>
+            <div class="dumonda-me-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>

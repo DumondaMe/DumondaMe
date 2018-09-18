@@ -1,6 +1,6 @@
 <template>
-    <div id="elyoos-question-header">
-        <div id="elyoos-question-header-content">
+    <div id="dumonda-me-question-header">
+        <div id="dumonda-me-question-header-content">
             <div id="question-header-main">
                 <h1 itemprop="name">{{question.question}}</h1>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
@@ -115,9 +115,9 @@
 </script>
 
 <style lang="scss">
-    #elyoos-question-header {
+    #dumonda-me-question-header {
         margin-bottom: 48px;
-        #elyoos-question-header-content {
+        #dumonda-me-question-header-content {
             display: flex;
             #question-header-main {
                 max-width: 550px;

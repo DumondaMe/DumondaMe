@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="300px">
             <v-card id="dialog-delete-question">
-                <div id="elyoos-dialog-header">
+                <div id="dumonda-me-dialog-header">
                     {{$t("pages:detailQuestion.deleteDialogQuestion.title")}}
                 </div>
                 <v-divider></v-divider>

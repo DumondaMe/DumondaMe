@@ -1,6 +1,6 @@
 <template>
-    <div class="elyoos-answer-container">
-        <div class="elyoos-answer-content">
+    <div class="dumonda-me-answer-container">
+        <div class="dumonda-me-answer-content">
             <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope class="feed-card ely-card"
                  itemtype="http://schema.org/Answer">
                 <text-card v-if="answer.answerType === 'Text'" :answer="answer"
@@ -115,8 +115,8 @@
 </script>
 
 <style lang="scss">
-    .elyoos-answer-container {
-        .elyoos-answer-content {
+    .dumonda-me-answer-container {
+        .dumonda-me-answer-content {
             .new-added-answer {
                 border: 1px solid $success-text;
             }

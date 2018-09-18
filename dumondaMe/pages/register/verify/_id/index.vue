@@ -25,7 +25,7 @@
             } catch (e) {
                 error({
                     statusCode: 400,
-                    message: 'Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@elyoos.org.'
+                    message: 'Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@dumonda.me.'
                 })
             }
         }

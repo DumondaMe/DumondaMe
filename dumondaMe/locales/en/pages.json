@@ -3,7 +3,7 @@
     "settings": "Settings",
     "yourProfile": "Your Profil",
     "createCommitment": "Create Commitment",
-    "aboutElyoos": "About Elyoos",
+    "aboutDumondaMe": "About DumondaMe",
     "logout": "Logout"
   },
   "login": {
@@ -16,7 +16,7 @@
   },
   "passwordResetRequest": {
     "title": "Forgotten your password?",
-    "description": "Enter the email address you used to create your Elyoos account.",
+    "description": "Enter the email address you used to create your DumondaMe account.",
     "sentDescription": "An email with a link to reset the password was sent to {{email}}. The link is only valid for 20 minutes.",
     "errorToManyRequest": "You tried too many times to reset the password. Try again later.",
     "resetPasswordButton": "Send Request"
@@ -30,7 +30,7 @@
     "loginButton": "Login"
   },
   "register": {
-    "registerTitle": "Create an account for Elyoos",
+    "registerTitle": "Create an account for DumondaMe",
     "acceptTerms": "Accept",
     "acceptTerms2": "and the",
     "registerButton": "Create",
@@ -106,7 +106,7 @@
       "title": "Hot Questions"
     },
     "empty": {
-      "descriptionAllFilter": "Here is a brief overview of the most important concepts of Elyoos.",
+      "descriptionAllFilter": "Here is a brief overview of the most important concepts of DumondaMe.",
       "descriptionQuestionFilter": "So far, no one from your Trust Circle has asked a question or answered questions.",
       "descriptionCommitmentFilter": "No person from your Trust Circle has created or is interested in a commitment yet.",
       "descriptionEventFilter": "At the moment there are no events of commitments that interest you."
@@ -118,15 +118,15 @@
       },
       "question": {
         "title": "Question",
-        "text1": "Elyoos is all about answering questions. You can contribute to this process in many ways:",
-        "text2": "Ask questions you are interested in and which have not yet been asked on Elyoos.",
+        "text1": "DumondaMe is all about answering questions. You can contribute to this process in many ways:",
+        "text2": "Ask questions you are interested in and which have not yet been asked on DumondaMe.",
         "text3": "Answer questions with your own words, a video, a book, a link or a commitment.",
         "text4": "Agree answers. In this way, you help ensure that the most relevant answers are displayed first.",
         "text5": "Mark questions as interesting. This way your Trust Circle sees which questions you are interested in and you stay up to date when new answers are added."
       },
       "commitment": {
         "title": "Commitment",
-        "text1": "A commitment at Elyoos is an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
+        "text1": "A commitment at DumondaMe is an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
         "text2": "Alice, for example, is interested in the question 'How can zero waste be implemented in everyday life?'. In answer to this question, Bob captured a Zero Waste store near where Alice lives. She now knows where she can shop in order to use less packaging material."
       }
     },
@@ -135,7 +135,7 @@
     },
     "support": {
       "title": "Support us",
-      "description": "Elyoos is still in its very beginning. Find out here how you can support us.",
+      "description": "DumondaMe is still in its very beginning. Find out here how you can support us.",
       "moreLink": "Learn more..."
     },
     "menu": {
@@ -201,7 +201,7 @@
       "websiteLoaded": "The link to your website has been successfully checked.",
       "websiteLoadedFailed": "Your website could not be reached.",
       "websiteLoading": "The link to your website will be checked.",
-      "commitmentExists": "Warning! The engagement has already been entered on Elyoos.",
+      "commitmentExists": "Warning! The engagement has already been entered on DumondaMe.",
       "primaryLanguage": "Primary Language",
       "primaryLanguageDescription": "More languages can be added later",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
@@ -525,7 +525,7 @@
     "languageUI": "User interface language",
     "privacyTitle": "Privacy Settings",
     "privacyPublic": "Your profile is public",
-    "privacyPublicOnElyoos": "Your profile will only be seen by other users of Elyoos",
+    "privacyPublicOnDumondaMe": "Your profile will only be seen by other users of DumondaMe",
     "privacyOnlyContact": "Only people in your trust circle see your profile"
   },
   "notifications": {
@@ -565,8 +565,8 @@
     "general": {
       "title": "General information",
       "point1": "Last updated: 10.07.2018",
-      "point2": "This privacy policy applies to the entire Elyoos service",
-      "point3": "Responsible for the processing of personal data is the association Elyoos"
+      "point2": "This privacy policy applies to the entire DumondaMe service",
+      "point3": "Responsible for the processing of personal data is the association DumondaMe"
     },
     "processingData": {
       "title": "How is your personal data processed?",
@@ -576,21 +576,21 @@
       },
       "informationProvideToUs": {
         "title": "Information you provide to us.",
-        "text1": "This is information that we receive directly from you and information that you post on the Elyoos website, for example:",
+        "text1": "This is information that we receive directly from you and information that you post on the DumondaMe website, for example:",
         "point1": "Login details (e.g. username and password)",
         "point2": "Profile information (e.g. photo, description about you, which questions you have created, etc.)",
         "point3": "Questions, Answers, Commitments"
       },
       "informationAutomaticallyObtain": {
-        "title": "Information we automatically obtain through your use of Elyoos",
-        "text1": "While you use or visit the Elyoos service, data is automatically collected from you via tracking (Matomo) and log files on our servers. We store the collected data for up to 90 days in complete form. We use tracking for the following reasons:",
+        "title": "Information we automatically obtain through your use of DumondaMe",
+        "text1": "While you use or visit the DumondaMe service, data is automatically collected from you via tracking (Matomo) and log files on our servers. We store the collected data for up to 90 days in complete form. We use tracking for the following reasons:",
         "point1": "Security guarantee",
         "point2": "Optimization of the website",
         "point3": "Determination of statistical characteristics"
       },
       "informationFromOtherSource": {
         "title": "Information we obtain about you from other sources",
-        "text1": "If someone on Elyoos invites a person who doesn't have an account yet, we save this email address. Invited non-users can object to the sending of further invitations or invitation reminders to the respective e-mail address via an opt-out link in the invitation e-mail."
+        "text1": "If someone on DumondaMe invites a person who doesn't have an account yet, we save this email address. Invited non-users can object to the sending of further invitations or invitation reminders to the respective e-mail address via an opt-out link in the invitation e-mail."
       },
       "whoReceiveInformation": {
         "title": "Who may receive information about you?",
@@ -611,29 +611,29 @@
       },
       "rightOfObjection": {
         "title": "Right of objection",
-        "text1": "Users of this website may exercise their right of objection and object to the processing of their personal data at any time. If you wish to have your personal data stored corrected, blocked, deleted or informed, or if you have any questions regarding the collection, processing or use of your personal data, or if you wish to withdraw your consent, please contact us at the following e-mail address: info@elyoos.org"
+        "text1": "Users of this website may exercise their right of objection and object to the processing of their personal data at any time. If you wish to have your personal data stored corrected, blocked, deleted or informed, or if you have any questions regarding the collection, processing or use of your personal data, or if you wish to withdraw your consent, please contact us at the following e-mail address: info@dumonda.me"
       }
     }
   },
   "faq": {
     "title": "Frequent Asked Questions",
     "question1": {
-      "title": "What distinguishes Elyoos from other social networks?",
-      "text1": "In most social networks, individual posts such as pictures, texts or videos are posted and grouped with hashtags at most, as for example on Twitter. In Elyoos, these posts are assigned to a question as an answer. This makes it easier for users to find the information relevant to them.",
-      "text2": "Another important point is that Elyoos is completely advertising free and is one hundred percent financed by donations. In addition, we focus our content on the goal mentioned in <a href='/vision'>Vision</a>."
+      "title": "What distinguishes DumondaMe from other social networks?",
+      "text1": "In most social networks, individual posts such as pictures, texts or videos are posted and grouped with hashtags at most, as for example on Twitter. In DumondaMe, these posts are assigned to a question as an answer. This makes it easier for users to find the information relevant to them.",
+      "text2": "Another important point is that DumondaMe is completely advertising free and is one hundred percent financed by donations. In addition, we focus our content on the goal mentioned in <a href='/vision'>Vision</a>."
     },
     "question2": {
-      "title": "What are the most important concepts at Elyoos?",
+      "title": "What are the most important concepts at DumondaMe?",
       "text1": "Question/Answer, Commitment and Trust Circle."
     },
     "question3": {
       "title": "What is a commitment?",
-      "text1": "A commitment at Elyoos can be an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
+      "text1": "A commitment at DumondaMe can be an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
       "text2": "Alice, for example, is interested in the question 'How can zero waste be implemented in everyday life?'. In answer to this question, Bob captured a Zero Waste store near where Alice lives. She now knows where she can shop in order to use less packaging material."
     },
     "question4": {
       "title": "Should I enter commitments that I do not represent?",
-      "text1": "No. Commitments should only be recorded by those persons who represent the commitment itself. However, you have the option to send an email generated by Elyoos to a person with a commitment to draw their attention to this platform."
+      "text1": "No. Commitments should only be recorded by those persons who represent the commitment itself. However, you have the option to send an email generated by DumondaMe to a person with a commitment to draw their attention to this platform."
     },
     "question5": {
       "title": "What is a Trust Circle?",
@@ -651,7 +651,7 @@
     },
     "question8": {
       "title": "Are my questions visible to people without an account?",
-      "text1": "When you create a question, it is initially only visible to people with a user account. An administrator of Elyoos will decide whether your question will also become public. In this way, we want to ensure that issues of general interest are visible to the outside world."
+      "text1": "When you create a question, it is initially only visible to people with a user account. An administrator of DumondaMe will decide whether your question will also become public. In this way, we want to ensure that issues of general interest are visible to the outside world."
     },
     "question9": {
       "title": "What are the advantages of an account?",
@@ -666,8 +666,8 @@
       "text1": "The development and operation of the platform is financed 100 percent by donations."
     },
     "question12": {
-      "title": "Is the code of Elyoos open source?",
-      "text1": "Yes, to provide a better transparency regarding the algorithms used, the code is open source. This can be viewed at <a href='https://github.com/Elyoos/Elyoos' target='_blank'>Github</a>."
+      "title": "Is the code of DumondaMe open source?",
+      "text1": "Yes, to provide a better transparency regarding the algorithms used, the code is open source. This can be viewed at <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a>."
     }
   },
   "footer": {

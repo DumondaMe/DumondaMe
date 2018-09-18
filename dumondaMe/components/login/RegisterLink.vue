@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-register-link">
+    <div id="dumonda-me-register-link">
         <div id="register-container">
             <h2>{{$t("pages:login.titleRegister")}}</h2>
             <v-btn color="primary" @click="$router.push({name: 'register'})">{{$t("pages:login.registerLink")}}</v-btn>
@@ -8,7 +8,7 @@
 </template>
 
 <style lang="scss">
-    #elyoos-register-link {
+    #dumonda-me-register-link {
         #register-container {
             width: 300px;
 

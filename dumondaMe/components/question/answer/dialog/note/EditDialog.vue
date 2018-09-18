@@ -4,7 +4,7 @@
             <edit-note-dialog @close-dialog="$emit('close-dialog')" :action-button-text="$t('common:button.change')"
                               @finish="editNote" :loading="loading" :init-note-text="noteText">
                 <div slot="header">
-                    <div id="elyoos-dialog-header">
+                    <div id="dumonda-me-dialog-header">
                         {{$t('pages:detailQuestion.note.editNoteDialog.title', {answer: answerTitle})}}
                     </div>
                     <v-divider></v-divider>

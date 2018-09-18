@@ -1,7 +1,7 @@
 <template>
-    <div id="elyoos-header">
+    <div id="dumonda-me-header">
         <div id="header-container">
-            <div id="elyoos-logo" hidden-xs-only>
+            <div id="dumonda-me-logo" hidden-xs-only>
                 <img :src="getLogoUrl" @click="$router.push({name: 'index'})"/>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
@@ -128,7 +128,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-header {
+    #dumonda-me-header {
         position: fixed;
         z-index: 100;
         top: 0;
@@ -143,7 +143,7 @@
             height: 100%;
             margin: 0 auto;
             clear: both;
-            #elyoos-logo {
+            #dumonda-me-logo {
                 display: inline-block;
                 cursor: pointer;
                 height: 100%;

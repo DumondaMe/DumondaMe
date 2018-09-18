@@ -5,7 +5,7 @@
                       :action-button-text="$t('common:button.change')"
                       :loading="loading" :init-location="initEvent.location" :init-region="[initEvent.region]">
                 <div slot="header">
-                    <div id="elyoos-dialog-header"
+                    <div id="dumonda-me-dialog-header"
                          v-html="$t('pages:detailCommitment.events.editLocationDialog.title', {title})">
                     </div>
                     <v-divider></v-divider>

@@ -1,6 +1,6 @@
 <template>
-    <div id="elyoos-user-profile-image">
-        <div id="elyoos-user-image-container">
+    <div id="dumonda-me-user-profile-image">
+        <div id="dumonda-me-user-image-container">
             <div class="user-image">
                 <img :src="user.profileImage"/>
             </div>
@@ -62,8 +62,8 @@
 </script>
 
 <style lang="scss">
-    #elyoos-user-profile-image {
-        #elyoos-user-image-container {
+    #dumonda-me-user-profile-image {
+        #dumonda-me-user-image-container {
             .user-image {
                 width: 180px;
                 height: 180px;

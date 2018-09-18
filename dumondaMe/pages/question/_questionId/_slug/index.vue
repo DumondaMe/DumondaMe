@@ -46,24 +46,15 @@
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);
-        },
-        mounted() {
-            if (this.$route.query.answerId) {
-                let e = window.document.getElementById(`card-${this.$route.query.answerId}`);
-                if (!!e && e.scrollIntoView) {
-                    e.scrollIntoView(true);
-                    window.scrollBy(0, -62);
-                }
-            }
         }
     }
 </script>
 
 <style lang="scss">
     #question-detail {
-        .elyoos-answer-container {
+        .dumonda-me-answer-container {
             margin-top: 24px;
-            .elyoos-answer-content {
+            .dumonda-me-answer-content {
                 padding-top: 12px;
             }
         }

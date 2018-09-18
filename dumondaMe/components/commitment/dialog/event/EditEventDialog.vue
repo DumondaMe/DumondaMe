@@ -5,7 +5,7 @@
                            @finish="finish" :action-button-text="$t('common:button.change')"
                            :init-event="initEvent">
                 <div slot="header">
-                    <div id="elyoos-dialog-header"
+                    <div id="dumonda-me-dialog-header"
                          v-html="$t('pages:detailCommitment.events.editDialog.title', {title})">
                     </div>
                     <v-divider></v-divider>

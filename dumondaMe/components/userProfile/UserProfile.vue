@@ -1,5 +1,5 @@
 <template>
-    <div id="elyoos-user-profile">
+    <div id="dumonda-me-user-profile">
         <div id="profile-info-container">
             <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
             <div class="user-description">{{user.userDescription}}</div>
@@ -55,7 +55,7 @@
 </script>
 
 <style lang="scss">
-    #elyoos-user-profile {
+    #dumonda-me-user-profile {
         padding-bottom: 32px;
         #profile-info-container {
             #user-name {

@@ -6,7 +6,7 @@
                 <span slot="label">{{$t("pages:settings.privacyPublic")}}</span>
             </v-radio>
             <v-radio value="publicEl" color="primary">
-                <span slot="label">{{$t("pages:settings.privacyPublicOnElyoos")}}</span>
+                <span slot="label">{{$t("pages:settings.privacyPublicOnDumondaMe")}}</span>
             </v-radio>
             <v-radio value="onlyContact" color="primary">
                 <span slot="label">{{$t("pages:settings.privacyOnlyContact")}}</span>

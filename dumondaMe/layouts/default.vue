@@ -1,21 +1,21 @@
 <template>
     <v-app>
-        <elyoos-toolbar></elyoos-toolbar>
-        <div id="elyoos-content">
-            <div id="elyoos-inner-content">
+        <dumonda-me-toolbar></dumonda-me-toolbar>
+        <div id="dumonda-me-content">
+            <div id="dumonda-me-inner-content">
                 <nuxt/>
             </div>
         </div>
-        <elyoos-footer></elyoos-footer>
+        <dumonda-me-footer></dumonda-me-footer>
     </v-app>
 </template>
 
 <script>
-    import ElyoosToolbar from '~/components/toolbar/ElyoosToolbar';
-    import ElyoosFooter from '~/components/footer/Footer';
+    import DumondaMeToolbar from '~/components/toolbar/DumondaMeToolbar';
+    import DumondaMeFooter from '~/components/footer/Footer';
 
     export default {
-        components: {ElyoosToolbar, ElyoosFooter}
+        components: {DumondaMeToolbar, DumondaMeFooter}
     }
 </script>
 
@@ -37,12 +37,12 @@
         #__layout {
             .application.theme--light {
                 background-color: $background-normal;
-                #elyoos-content {
+                #dumonda-me-content {
                     min-height: inherit;
                     height: inherit;
                     padding-top: 124px;
                     padding-bottom: 64px;
-                    #elyoos-inner-content {
+                    #dumonda-me-inner-content {
                         max-width: 950px;
                         width: 100%;
                         margin: 0 auto;
