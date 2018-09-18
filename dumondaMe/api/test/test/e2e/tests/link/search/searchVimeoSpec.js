@@ -30,7 +30,7 @@ describe('Search a vimeo link', function () {
         return requestHandler.logout();
     });
 
-    it('Search for a vimeo video which has not yet been posted on elyoos', async function () {
+    it('Search for a vimeo video which has not yet been posted on dumondaMe', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -57,7 +57,7 @@ describe('Search a vimeo link', function () {
         res.status.should.equal(404);
     });
 
-    it('Search for a vimeo video which has been posted on elyoos', async function () {
+    it('Search for a vimeo video which has been posted on dumondaMe', async function () {
         dbDsl.createVimeoAnswer('10', {creator: '2', questionId: '2', created: 500,
             link: 'https://vimeo.com/channels/staffpicks/251713531', linkEmbed: 'https://player.vimeo.com/video/251713531'});
 

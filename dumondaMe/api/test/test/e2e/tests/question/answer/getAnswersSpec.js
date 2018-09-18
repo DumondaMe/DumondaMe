@@ -33,7 +33,7 @@ describe('Getting answers of a question', function () {
         }, []);
 
         dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -78,7 +78,7 @@ describe('Getting answers of a question', function () {
 
     it('Getting answers of a question without answers', async function () {
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'en', modified: 701
         });
         await dbDsl.sendToDb();

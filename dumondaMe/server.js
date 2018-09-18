@@ -3,7 +3,7 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
-require('dumonda-me-server-lib').init('elyoos');
+require('dumonda-me-server-lib').init('dumondaMe');
 
 global.requireDb = function () {
     return require('dumonda-me-server-lib').neo4j;

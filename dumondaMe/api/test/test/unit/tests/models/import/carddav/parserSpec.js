@@ -10,7 +10,7 @@ describe('Unit Test import/carddav/parser', function () {
 
         let result = testee.parse(testXML.getTestXML());
         expect(result.length).to.be.equal(2);
-        expect(result).to.containSubset([{email: 'test@elyoos.org', name: 'Hans Muster'}]);
-        expect(result).to.containSubset([{email: 'test2@elyoos.org', name: 'Hans Muster2'}]);
+        expect(result).to.containSubset([{email: 'test@dumonda.me', name: 'Hans Muster'}]);
+        expect(result).to.containSubset([{email: 'test2@dumonda.me', name: 'Hans Muster2'}]);
     });
 });

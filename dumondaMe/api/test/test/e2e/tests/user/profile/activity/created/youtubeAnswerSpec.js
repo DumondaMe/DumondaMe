@@ -21,7 +21,7 @@ describe('Get activity feed with created youtube answers for a user', function (
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createYoutubeAnswer('6', {

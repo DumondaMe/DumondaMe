@@ -20,7 +20,7 @@ describe('Get activity feed for interested questions', function () {
         dbDsl.createMainTopic({topicId: 'topic5', descriptionDe: 'topic5De', descriptionEn: 'topic5En'});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('5', {
@@ -31,11 +31,11 @@ describe('Get activity feed for interested questions', function () {
             hasPreviewImage: true
         });
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'de', created: 602,
         });
         dbDsl.createQuestion('3', {
-            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test elyoos.org change the world3',
+            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
             topics: ['topic3', 'topic4', 'topic5'], language: 'en', created: 555,
         });
     });
@@ -60,7 +60,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world1`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(501);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
@@ -99,7 +99,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world1`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(501);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
@@ -150,7 +150,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].question.should.equals('Das ist eine Frage3');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[0].created.should.equals(556);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(1);
@@ -190,7 +190,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].question.should.equals('Das ist eine Frage3');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
@@ -238,7 +238,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].question.should.equals('Das ist eine Frage3');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
@@ -281,7 +281,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].question.should.equals('Das ist eine Frage3');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);
@@ -324,7 +324,7 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].question.should.equals('Das ist eine Frage3');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[0].created.should.equals(558);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(3);

@@ -46,7 +46,7 @@ describe('Get feed for commitments without any link to a question', function () 
         dbDsl.watchCommitment({commitmentId: '100', userId: '7', created: 999});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic2'], language: 'de', created: 500, modified: 700
         });
     });

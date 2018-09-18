@@ -39,7 +39,7 @@ describe('Get activity feed for created commitment answers', function () {
 
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createCommitmentAnswer('6', {

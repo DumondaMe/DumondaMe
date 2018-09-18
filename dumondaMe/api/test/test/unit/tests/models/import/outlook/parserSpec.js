@@ -10,8 +10,8 @@ describe('Unit Test import/outlook/parser', function () {
 
         let result = testee.parse(testXML.getTestData());
         expect(result.length).to.be.equal(3);
-        expect(result).to.containSubset([{email: 'hans.muster3@elyoos.org'}]);
-        expect(result).to.containSubset([{email: 'hans.muster2@elyoos.org', name: 'Hans Muster2'}]);
-        expect(result).to.containSubset([{email: 'hans.muster@elyoos.org', name: 'Hans Muster'}]);
+        expect(result).to.containSubset([{email: 'hans.muster3@dumonda.me'}]);
+        expect(result).to.containSubset([{email: 'hans.muster2@dumonda.me', name: 'Hans Muster2'}]);
+        expect(result).to.containSubset([{email: 'hans.muster@dumonda.me', name: 'Hans Muster'}]);
     });
 });

@@ -25,7 +25,7 @@ describe('Get question feed for questions with only a few answers', function () 
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world1',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 888, modified: 999
         });
         dbDsl.createTextAnswer('5', {
@@ -41,7 +41,7 @@ describe('Get question feed for questions with only a few answers', function () 
             creatorId: '5', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createQuestion('2', {
-            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test elyoos.org change the world2',
+            creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['topic221'], language: 'de', created: 777,
         });
         dbDsl.createTextAnswer('9', {
@@ -54,7 +54,7 @@ describe('Get question feed for questions with only a few answers', function () 
             creatorId: '5', questionId: '2', answer: 'Answer', created: 600,
         });
         dbDsl.createQuestion('3', {
-            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test elyoos.org change the world3',
+            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
             topics: ['topic2'], language: 'en', created: 666,
         });
 
@@ -78,8 +78,8 @@ describe('Get question feed for questions with only a few answers', function () 
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].question.should.equals('Das ist eine Frage2');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage2');
-        res.body.feed[0].description.should.equals('Test elyoos.org change the world2');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world2`);
+        res.body.feed[0].description.should.equals('Test dumonda.me change the world2');
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world2`);
         res.body.feed[0].created.should.equals(777);
         res.body.feed[0].numberOfAnswers.should.equals(3);
         res.body.feed[0].numberOfWatches.should.equals(1);
@@ -96,8 +96,8 @@ describe('Get question feed for questions with only a few answers', function () 
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].question.should.equals('Das ist eine Frage3');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage3');
-        res.body.feed[1].description.should.equals('Test elyoos.org change the world3');
-        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world3`);
+        res.body.feed[1].description.should.equals('Test dumonda.me change the world3');
+        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
         res.body.feed[1].created.should.equals(666);
         res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(0);
@@ -116,7 +116,7 @@ describe('Get question feed for questions with only a few answers', function () 
         dbDsl.createContactConnection('1', '3');
 
         dbDsl.createQuestion('4', {
-            creatorId: '6', question: 'Das ist eine Frage3', description: 'Test elyoos.org change the world3',
+            creatorId: '6', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
             topics: ['topic2'], language: 'en', created: 666,
         });
         dbDsl.createTextAnswer('12', {
@@ -138,7 +138,7 @@ describe('Get question feed for questions with only a few answers', function () 
 
     it('Show questions with only a few answers (topic filter)', async function () {
         dbDsl.createQuestion('5', {
-            creatorId: '4', question: 'Das ist eine Frage5', description: 'Test elyoos.org change the world5',
+            creatorId: '4', question: 'Das ist eine Frage5', description: 'Test dumonda.me change the world5',
             topics: ['topic3'], language: 'de', created: 444,
         });
         dbDsl.createTextAnswer('6', {

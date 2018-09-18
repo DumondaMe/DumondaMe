@@ -2,13 +2,13 @@
 
 const app = require('../../../../server');
 const dbConfig = require('dumonda-me-server-lib').databaseConfig;
-const elyoosTestUtil = require('dumonda-me-server-test-util');
+const dumondaMeTestUtil = require('dumonda-me-server-test-util');
 require('chai').should();
 
-elyoosTestUtil.init(require('dumonda-me-server-lib'), app);
+dumondaMeTestUtil.init(require('dumonda-me-server-lib'), app);
 
-elyoosTestUtil.stubCDN().stub(require('dumonda-me-server-lib').cdn);
-elyoosTestUtil.stubLimitRate();
+dumondaMeTestUtil.stubCDN().stub(require('dumonda-me-server-lib').cdn);
+dumondaMeTestUtil.stubLimitRate();
 
 describe('Initialize Server for all integration tests', function () {
 

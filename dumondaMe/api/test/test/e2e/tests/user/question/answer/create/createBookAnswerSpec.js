@@ -39,7 +39,7 @@ describe('Creating book answer', function () {
         return requestHandler.logout();
     });
 
-    it('Creating not in elyoos existing book answer (with url)', async function () {
+    it('Creating not in dumondaMe existing book answer (with url)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.returns(fs.createReadStream(`${__dirname}/test.jpg`));
 
@@ -75,7 +75,7 @@ describe('Creating book answer', function () {
         should.not.exist(resp[0].original);
     });
 
-    it('Create a book response that has not yet been created in elyoos (without url)', async function () {
+    it('Create a book response that has not yet been created in dumondaMe (without url)', async function () {
         sandbox.stub(rp, 'get');
 
         await dbDsl.sendToDb();

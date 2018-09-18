@@ -11,7 +11,7 @@ global.requireDb = function () {
 global.requireModel = function (name) {
     return require(`${__dirname}/../../../models/${name}`);
 };
-require('dumonda-me-server-lib').init('elyoos');
+require('dumonda-me-server-lib').init('dumondaMe');
 require('dumonda-me-server-lib').jsonValidation;
 
 require('dumonda-me-server-test-util').init(require('dumonda-me-server-lib'));

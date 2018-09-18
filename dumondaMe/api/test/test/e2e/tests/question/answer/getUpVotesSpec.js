@@ -15,7 +15,7 @@ describe('Getting users who up voted an answer', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'Test elyoos.org change the world',
+            creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
         dbDsl.createTextAnswer('6', {
@@ -155,7 +155,7 @@ describe('Getting users who up voted an answer', function () {
         res.body.users[0].isPersonOfTrust.should.equals(false);
     });
 
-    it('Show anonymous user when privacy to elyoos only and user is not logged in', async function () {
+    it('Show anonymous user when privacy to dumondaMe only and user is not logged in', async function () {
         dbDsl.upVoteAnswer({userId: '3', answerId: '6', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();
@@ -170,7 +170,7 @@ describe('Getting users who up voted an answer', function () {
         res.body.users[0].numberOfAnonymous.should.equals(1);
     });
 
-    it('Show user when privacy to elyoos only and user is logged in', async function () {
+    it('Show user when privacy to dumondaMe only and user is logged in', async function () {
         dbDsl.upVoteAnswer({userId: '3', answerId: '6', created: 999});
         dbDsl.setUserPrivacy('3', {privacyMode: 'publicEl'});
         await dbDsl.sendToDb();

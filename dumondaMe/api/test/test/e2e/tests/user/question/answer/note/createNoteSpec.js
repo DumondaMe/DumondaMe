@@ -52,10 +52,10 @@ describe('Creating a note for an answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/note',
-            {answerId: '5', text: 'Test elyoos.org change the world'});
+            {answerId: '5', text: 'Test dumonda.me change the world'});
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.textHtml.should.equals(`Test <a href="http://elyoos.org" class="linkified" target="_blank">elyoos.org</a> change the world`);
+        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
         res.body.creator.userId.should.equals('1');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
@@ -65,7 +65,7 @@ describe('Creating a note for an answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals('5');
         resp[0].note.noteId.should.equals(res.body.noteId);
-        resp[0].note.text.should.equals(`Test elyoos.org change the world`);
+        resp[0].note.text.should.equals(`Test dumonda.me change the world`);
     });
 
     it('Creating a note for a commitment answer is not allowed', async function () {
@@ -80,7 +80,7 @@ describe('Creating a note for an answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/note',
-            {answerId: '5', text: 'Test elyoos.org change the world'});
+            {answerId: '5', text: 'Test dumonda.me change the world'});
         res.status.should.equal(400);
 
         let resp = await db.cypher().match(`(:Answer)-[:NOTE]->(note:Note)`)
@@ -94,7 +94,7 @@ describe('Creating a note for an answer', function () {
         });
         await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/user/question/answer/note',
-            {answerId: '5', text: 'Test elyoos.org change the world'});
+            {answerId: '5', text: 'Test dumonda.me change the world'});
         res.status.should.equal(401);
     });
 });

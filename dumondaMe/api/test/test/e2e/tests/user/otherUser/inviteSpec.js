@@ -9,7 +9,7 @@ let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 
-describe('Integration Tests for inviting other users to elyoos', function () {
+describe('Integration Tests for inviting other users to dumondaMe', function () {
 
     let sandbox, stubSendEMail;
 
@@ -47,7 +47,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         return requestHandler.logout();
     });
 
-    it('Invite only user without a profile on elyoos or without a contact connection', async function () {
+    it('Invite only user without a profile on dumondaMe or without a contact connection', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite',
             {
@@ -90,7 +90,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         expect(resp.length).to.equal(1);
     });
 
-    it('Invite only user with existing account on elyoos', function () {
+    it('Invite only user with existing account on dumondaMe', function () {
         return requestHandler.login(users.validUser).then(function () {
             return requestHandler.put('/api/user/otherUser/invite',
                 {
@@ -119,7 +119,7 @@ describe('Integration Tests for inviting other users to elyoos', function () {
         });
     });
 
-    it('Invite all not existing users to elyoos', function () {
+    it('Invite all not existing users to dumondaMe', function () {
         return requestHandler.login(users.validUser).then(function () {
             return requestHandler.put('/api/user/otherUser/invite',
                 {

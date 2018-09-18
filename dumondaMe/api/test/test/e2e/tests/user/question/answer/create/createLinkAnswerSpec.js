@@ -39,7 +39,7 @@ describe('Creating link answer', function () {
         return requestHandler.logout();
     });
 
-    it('Create a link response that has not yet been created in elyoos (with url)', async function () {
+    it('Create a link response that has not yet been created in dumondaMe (with url)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.returns(fs.createReadStream(`${__dirname}/test.jpg`));
 
@@ -75,7 +75,7 @@ describe('Creating link answer', function () {
         should.not.exist(resp[0].original);
     });
 
-    it('Create a link response that has not yet been created in elyoos (without url and description)', async function () {
+    it('Create a link response that has not yet been created in dumondaMe (without url and description)', async function () {
         sandbox.stub(rp, 'get');
 
         await dbDsl.sendToDb();

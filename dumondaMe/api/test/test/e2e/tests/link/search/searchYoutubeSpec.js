@@ -30,7 +30,7 @@ describe('Search a youtube link', function () {
         return requestHandler.logout();
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos (with og:title)', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe (with og:title)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -49,7 +49,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos (with og:description)', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe (with og:description)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -68,7 +68,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -86,7 +86,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos (youtu.be url)', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe (youtu.be url)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -104,7 +104,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos (without title)', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe (without title)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -121,7 +121,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has not yet been posted on elyoos (without description)', async function () {
+    it('Search for a youtube video which has not yet been posted on dumondaMe (without description)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(
             `<head>
@@ -138,7 +138,7 @@ describe('Search a youtube link', function () {
         res.body.type.should.equals('Youtube');
     });
 
-    it('Search for a youtube video which has been posted on elyoos', async function () {
+    it('Search for a youtube video which has been posted on dumondaMe', async function () {
         dbDsl.createYoutubeAnswer('10', {creator: '2', questionId: '2', created: 500, idOnYoutube: '00zxopGPYW4',
             link: 'https://www.youtube.com/watch?v=00zxopGPYW4', linkEmbed: 'https://www.youtube.com/embed/00zxopGPYW4'});
 

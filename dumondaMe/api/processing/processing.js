@@ -1,4 +1,4 @@
-require('dumonda-me-server-lib').init('elyoos');
+require('dumonda-me-server-lib').init('dumondaMe');
 
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 require('fs-extra');
