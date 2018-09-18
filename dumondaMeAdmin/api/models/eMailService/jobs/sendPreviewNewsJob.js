@@ -1,6 +1,6 @@
 "use strict";
 
-const email = require('elyoos-server-lib').eMail;
+const email = require('dumonda-me-server-lib').eMail;
 
 const processDefinition = function (data, done) {
 

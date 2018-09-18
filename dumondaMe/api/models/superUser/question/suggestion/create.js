@@ -1,12 +1,12 @@
 'use strict';
 
 const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const db = requireDb();
 const security = require('./security');
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const createSuggestion = async function (userId, questionId, title, description, explanation) {
     let suggestionId = uuid.generateUUID(), created = time.getNowUtcTimestamp();

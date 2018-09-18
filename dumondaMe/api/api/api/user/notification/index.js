@@ -1,8 +1,8 @@
 'use strict';
 
 const notification = requireModel('user/notification/notification');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const auth = require('elyoos-server-lib').auth;
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const auth = require('dumonda-me-server-lib').auth;
 
 module.exports = function (router) {
 

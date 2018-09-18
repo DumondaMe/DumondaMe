@@ -1,5 +1,5 @@
 {
-  "name": "elyoosAdmin",
+  "name": "dumondaMeAdmin",
   "version": "1.0.0",
   "scripts": {
     "build": "nuxt build",

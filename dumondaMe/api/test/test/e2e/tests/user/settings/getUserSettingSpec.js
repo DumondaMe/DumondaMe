@@ -1,8 +1,8 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let users = require('dumonda-me-server-test-util').user;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 
 describe('Getting user setting', function () {
 

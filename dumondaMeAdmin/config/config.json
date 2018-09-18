@@ -59,10 +59,10 @@
     "session": {
       "priority": 70,
       "module": {
-        "name": "elyoos-server-lib/lib/redisSession",
+        "name": "dumonda-me-server-lib/lib/redisSession",
         "arguments": [
           {
-            "key": "sessionElyoosAdmin",
+            "key": "sessionDumondaMeAdmin",
             "secret": "hrI483Ie9201Frw4",
             "cookie": {
               "path": "/",
@@ -118,7 +118,7 @@
       "enabled": true,
       "priority": 1000,
       "module": {
-        "name": "elyoos-server-lib/lib/error/errors",
+        "name": "dumonda-me-server-lib/lib/error/errors",
         "method": "handlingError"
       }
     }

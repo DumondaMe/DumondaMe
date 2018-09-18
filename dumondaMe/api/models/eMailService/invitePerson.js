@@ -2,10 +2,10 @@
 
 const db = requireDb();
 const tmp = require('tmp');
-const email = require('elyoos-server-lib').eMail;
-const cdn = require('elyoos-server-lib').cdn;
+const email = require('dumonda-me-server-lib').eMail;
+const cdn = require('dumonda-me-server-lib').cdn;
 const fs = require('fs');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getUserImage = function (userId) {
     let imageData, userImage = tmp.fileSync({postfix: '.jpg'});

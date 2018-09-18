@@ -16,15 +16,15 @@ let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
 
-let init = function (numberOfUser, isElyoosAdmin) {
+let init = function (numberOfUser, isDumondaMeAdmin) {
     let i = 0, userId;
-    isElyoosAdmin = isElyoosAdmin || false;
+    isDumondaMeAdmin = isDumondaMeAdmin || false;
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
-        name: 'user Meier', surname: 'Meier', forename:'user', userDescription: 'superman', userId: '1', lastSetupAccount: 500, elyoosAdmin: {elyoosAdmin}, language: 'de',
+        name: 'user Meier', surname: 'Meier', forename:'user', userDescription: 'superman', userId: '1', lastSetupAccount: 500, dumondaMeAdmin: {dumondaMeAdmin}, language: 'de',
         userLocationDescription: 'irgendwo', latitude: 1.1, longitude: 2.2, privacyMode: 'public'})`)
-            .end({elyoosAdmin: isElyoosAdmin}).getCommand());
+            .end({dumondaMeAdmin: isDumondaMeAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', userDescription: 'superman${userId}', 
@@ -70,7 +70,7 @@ module.exports = {
 
     setUserRegisteredDate: user.setUserRegisteredDate,
     setUserLastLoginTime: user.setUserLastLoginTime,
-    setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
+    setUserIsDumondaMeAdmin: user.setUserIsDumondaMeAdmin,
     setUserIsSuperUser: user.setUserIsSuperUser,
     setUserLocation: user.setUserLocation,
     setUserEmail: user.setUserEmail,

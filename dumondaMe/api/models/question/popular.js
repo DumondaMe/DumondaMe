@@ -2,7 +2,7 @@
 
 const db = requireDb();
 const slug = require('limax');
-const time = require('elyoos-server-lib').time;
+const time = require('dumonda-me-server-lib').time;
 
 const FOUR_WEEKS = 2419200;
 

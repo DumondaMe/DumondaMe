@@ -2,9 +2,9 @@
 
 let db = requireDb();
 let security = require('./../security');
-let time = require('elyoos-server-lib').time;
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let time = require('dumonda-me-server-lib').time;
+let exceptions = require('dumonda-me-server-lib').exceptions;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let checkIsAllowedToSetState = async function (userId, pageId, req) {
     await security.checkAllowedToEditPage(userId, pageId, req);

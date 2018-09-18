@@ -6,9 +6,9 @@ const cheerio = require('cheerio');
 const parseWebsite = require('./../website/parse');
 const youtubeLink = requireModel('util/youtube');
 const vimeoLink = requireModel('util/vimeo');
-const exceptions = require('elyoos-server-lib').exceptions;
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const LINK = 'Link';
 const YOUTUBE = 'Youtube';

@@ -5,7 +5,7 @@
 
 const db = requireDb();
 const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
 const activity = require('./activity');

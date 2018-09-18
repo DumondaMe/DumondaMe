@@ -1,8 +1,8 @@
 "use strict";
 
 const db = requireDb();
-const email = require('elyoos-server-lib').eMail;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const email = require('dumonda-me-server-lib').eMail;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getUsers = async function (newsId) {
     let commands = [];

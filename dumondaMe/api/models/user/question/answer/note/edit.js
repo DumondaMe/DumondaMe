@@ -1,8 +1,8 @@
 const db = requireDb();
-const time = require('elyoos-server-lib').time;
-const exceptions = require('elyoos-server-lib').exceptions;
+const time = require('dumonda-me-server-lib').time;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const linkifyHtml = require('linkifyjs/html');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const security = async function (userId, noteId) {
     let resp = await db.cypher()

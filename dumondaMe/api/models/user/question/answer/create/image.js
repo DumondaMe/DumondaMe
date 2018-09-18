@@ -3,8 +3,8 @@
 const Promise = require('bluebird');
 const rp = require('request');
 const sharp = require('sharp');
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 
 const uploadPreviewImage = async function (uploadKey, originalImageUrl, width, height) {

@@ -5,9 +5,9 @@ const db = requireDb();
 const topicsSecurity = require('./../../topic/security');
 const regionSecurity = require('./../../region/security');
 const image = require(`./image`);
-const uuid = require('elyoos-server-lib').uuid;
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const uuid = require('dumonda-me-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const createCommitment = async function (userId, params, titlePath) {
     params.commitmentId = uuid.generateUUID();

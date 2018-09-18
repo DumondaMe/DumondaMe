@@ -1,8 +1,8 @@
 'use strict';
 
 const sharp = require('sharp');
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const uploadTitleImage = async function (titlePath, answerId, resetImage) {
     if (typeof titlePath === 'string') {

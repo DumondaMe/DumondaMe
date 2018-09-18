@@ -1,11 +1,11 @@
 /*
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let eMail = require('elyoos-server-lib').eMail;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let db = require('elyoos-server-test-util').db;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let users = require('dumonda-me-server-test-util').user;
+let eMail = require('dumonda-me-server-lib').eMail;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
+let db = require('dumonda-me-server-test-util').db;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let sinon = require('sinon');
 let expect = require('chai').expect;
 

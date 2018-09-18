@@ -1,10 +1,10 @@
 "use strict";
 
 const db = requireDb();
-const time = require('elyoos-server-lib').time;
-const eMail = require('elyoos-server-lib').eMail;
+const time = require('dumonda-me-server-lib').time;
+const eMail = require('dumonda-me-server-lib').eMail;
 const uuidv4 = require('uuid/v4');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const timeValid = 60 * 20;  //20 Minutes
 

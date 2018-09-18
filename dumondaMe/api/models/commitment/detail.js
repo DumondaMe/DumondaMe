@@ -3,8 +3,8 @@
 const slug = require('limax');
 const db = requireDb();
 const events = require('./events');
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getLinkedQuestionResponse = function (questions) {
     const linkedQuestions = [];

@@ -3,8 +3,8 @@
 const db = requireDb();
 const linkifyHtml = require('linkifyjs/html');
 const security = require('./security');
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const editQuestion = async function (userId, params) {
     params.userId = userId;

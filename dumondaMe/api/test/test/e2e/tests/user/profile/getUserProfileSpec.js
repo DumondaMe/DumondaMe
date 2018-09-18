@@ -1,9 +1,9 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('dumonda-me-server-test-util').user;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let should = require('chai').should();
-let dbDsl = require('elyoos-server-test-util').dbDSL;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 
 describe('Getting user profile data', function () {
 

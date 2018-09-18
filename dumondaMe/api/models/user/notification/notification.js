@@ -1,9 +1,9 @@
 'use strict';
 
 const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const db = requireDb();
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getShowQuestionOnCommitmentRequest = function (notification) {
     let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;

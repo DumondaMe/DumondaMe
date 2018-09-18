@@ -1,10 +1,10 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const uuid = require('elyoos-server-lib').uuid;
-const cdn = require('elyoos-server-lib').cdn;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const uuid = require('dumonda-me-server-lib').uuid;
+const cdn = require('dumonda-me-server-lib').cdn;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let deleteRegisterRequest = async function (emailNormalized, req) {
     await db.cypher().match("(user:UserRegisterRequest {emailNormalized: {emailNormalized}})")

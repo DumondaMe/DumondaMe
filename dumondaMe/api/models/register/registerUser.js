@@ -4,10 +4,10 @@ const db = requireDb();
 const registerUserRequest = require('./../eMailService/registerUserRequest');
 const uuidv4 = require('uuid/v4');
 const recaptcha = require('./../util/recaptcha');
-const passwordEncryption = require('elyoos-server-lib').passwordEncryption;
-const exceptions = require('elyoos-server-lib').exceptions;
-const time = require('elyoos-server-lib').time;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const passwordEncryption = require('dumonda-me-server-lib').passwordEncryption;
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_EMAIL_EXISTS = 2;
 

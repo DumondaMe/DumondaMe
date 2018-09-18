@@ -2,10 +2,10 @@
 
 let app = require('../../../../../../server');
 let request = require('supertest');
-let users = require('elyoos-server-test-util').user;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('dumonda-me-server-test-util').user;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
-let db = require('elyoos-server-test-util').db;
+let db = require('dumonda-me-server-test-util').db;
 
 describe('Integration Tests Login', function () {
 

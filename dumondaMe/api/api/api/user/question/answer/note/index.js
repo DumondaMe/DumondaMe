@@ -1,12 +1,12 @@
 'use strict';
 
-const validation = require('elyoos-server-lib').jsonValidation;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const createNote = requireModel('user/question/answer/note/create');
 const editNote = requireModel('user/question/answer/note/edit');
 const deleteNote = requireModel('user/question/answer/note/delete');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const auth = require('dumonda-me-server-lib').auth;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateNote = {
     name: 'createNote',

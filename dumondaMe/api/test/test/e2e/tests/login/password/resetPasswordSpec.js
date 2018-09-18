@@ -1,7 +1,7 @@
 'use strict';
 
-let requestHandler = require('elyoos-server-test-util').requestHandler;
-let db = require('elyoos-server-test-util').db;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
+let db = require('dumonda-me-server-test-util').db;
 let moment = require('moment');
 let should = require('chai').should();
 

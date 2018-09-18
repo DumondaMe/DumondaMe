@@ -1,9 +1,9 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const db = require('elyoos-server-test-util').db;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const users = require('dumonda-me-server-test-util').user;
+const db = require('dumonda-me-server-test-util').db;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 
 describe('Remove notification when user deletes an answers for a question', function () {
 

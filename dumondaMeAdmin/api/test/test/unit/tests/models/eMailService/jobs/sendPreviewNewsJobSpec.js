@@ -1,8 +1,8 @@
 'use strict';
 
 const testee = require('../../../../../../../models/eMailService/jobs/sendPreviewNewsJob');
-const email = require('elyoos-server-lib').eMail;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
+const email = require('dumonda-me-server-lib').eMail;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const bluebird = require('bluebird');

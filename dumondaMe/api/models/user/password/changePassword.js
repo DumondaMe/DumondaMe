@@ -1,9 +1,9 @@
 'use strict';
 
 let db = requireDb();
-let passwordEncryption = require('elyoos-server-lib').passwordEncryption;
-let exceptions = require('elyoos-server-lib').exceptions;
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let passwordEncryption = require('dumonda-me-server-lib').passwordEncryption;
+let exceptions = require('dumonda-me-server-lib').exceptions;
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 let checkActualPassword = function (userId, actualPassword, req) {
 

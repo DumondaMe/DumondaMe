@@ -2,8 +2,8 @@
 
 const db = requireDb();
 const sendNews = require('./../eMailService/news');
-const time = require('elyoos-server-lib').time;
-const uuid = require('elyoos-server-lib').uuid;
+const time = require('dumonda-me-server-lib').time;
+const uuid = require('dumonda-me-server-lib').uuid;
 
 let create = async function (params) {
 

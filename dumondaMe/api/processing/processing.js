@@ -1,10 +1,10 @@
-require('elyoos-server-lib').init('elyoos');
+require('dumonda-me-server-lib').init('elyoos');
 
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 require('fs-extra');
 const process = require('./script/changeUserImages');
 
-const dbConfig = require('elyoos-server-lib').databaseConfig;
+const dbConfig = require('dumonda-me-server-lib').databaseConfig;
 
 const runProcess = async function () {
     await process.process();

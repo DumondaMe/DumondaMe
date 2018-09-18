@@ -1,9 +1,9 @@
 'use strict';
 
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 let overview = requireModel('news/overview');
-let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let validation = require('elyoos-server-lib').jsonValidation;
+let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
+let validation = require('dumonda-me-server-lib').jsonValidation;
 
 let schemaGetNewsOverview = {
     name: 'getNewsOverview',

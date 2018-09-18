@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 
 const getNumberOfTopicSuggestions = function () {
     return db.cypher().match(`(user:User)-[:SUGGEST]->(suggestion:TopicSuggestion)`)

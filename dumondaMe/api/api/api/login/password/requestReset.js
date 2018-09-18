@@ -1,10 +1,10 @@
 'use strict';
 
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const schemaLanguage = require("../../../schema/language");
-const rateLimit = require('elyoos-server-lib').limiteRate;
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const validation = require('elyoos-server-lib').jsonValidation;
+const rateLimit = require('dumonda-me-server-lib').limiteRate;
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const resetPassword = requireModel('eMailService/resetPassword');
 
 const schemaRequestPasswordReset = {

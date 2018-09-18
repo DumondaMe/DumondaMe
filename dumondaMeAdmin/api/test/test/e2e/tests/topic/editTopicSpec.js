@@ -1,9 +1,9 @@
 'use strict';
 
-const users = require('elyoos-server-test-util').user;
-const dbDsl = require('elyoos-server-test-util').dbDSL;
-const db = require('elyoos-server-test-util').db;
-const requestHandler = require('elyoos-server-test-util').requestHandler;
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const db = require('dumonda-me-server-test-util').db;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 
 describe('Integration Tests for edit topics', function () {
 

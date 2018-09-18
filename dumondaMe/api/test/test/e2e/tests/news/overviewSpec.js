@@ -1,7 +1,7 @@
 'use strict';
 
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
 
 describe('Integration Tests to get an overview of the news', function () {

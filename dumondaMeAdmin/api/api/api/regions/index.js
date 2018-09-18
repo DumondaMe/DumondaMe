@@ -1,12 +1,12 @@
 'use strict';
 
-const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const auth = require('dumonda-me-server-lib').auth;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const overview = requireModel('region/regions');
 const editRegion = requireModel('region/edit');
 const createRegion = requireModel('region/create');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const validation = require('elyoos-server-lib').jsonValidation;
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const schemaLanguage = require("../schema/language");
 
 

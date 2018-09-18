@@ -1,6 +1,6 @@
 "use strict";
 
-const eMail = require('elyoos-server-lib').eMail;
+const eMail = require('dumonda-me-server-lib').eMail;
 
 const sendRegisterUserVerification = async function (linkId, language, sendTo) {
     await eMail.sendEMail('registerUserRequest',

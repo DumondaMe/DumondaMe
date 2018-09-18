@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('elyoos-server-lib').uuid;
+const uuid = require('dumonda-me-server-lib').uuid;
 
 const create = async function (params) {
     params.topicId = uuid.generateUUID();

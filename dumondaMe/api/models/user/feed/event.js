@@ -1,7 +1,7 @@
 'use strict';
 
 const slug = require('limax');
-const cdn = require('elyoos-server-lib').cdn;
+const cdn = require('dumonda-me-server-lib').cdn;
 const db = requireDb();
 
 const PAGE_SIZE = 20;

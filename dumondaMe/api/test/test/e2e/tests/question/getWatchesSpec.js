@@ -1,8 +1,8 @@
 'use strict';
 
-let users = require('elyoos-server-test-util').user;
-let dbDsl = require('elyoos-server-test-util').dbDSL;
-let requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('dumonda-me-server-test-util').user;
+let dbDsl = require('dumonda-me-server-test-util').dbDSL;
+let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
 
 describe('Getting users who watches a question', function () {

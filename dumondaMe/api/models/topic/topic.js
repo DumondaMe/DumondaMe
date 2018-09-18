@@ -1,7 +1,7 @@
 'use strict';
 
 const db = requireDb();
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getTopicResponse = function (topics) {
     let map = {}, node, roots = [];

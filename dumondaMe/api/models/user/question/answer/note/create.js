@@ -1,10 +1,10 @@
 const db = requireDb();
-const time = require('elyoos-server-lib').time;
-const uuid = require('elyoos-server-lib').uuid;
-const exceptions = require('elyoos-server-lib').exceptions;
+const time = require('dumonda-me-server-lib').time;
+const uuid = require('dumonda-me-server-lib').uuid;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const linkifyHtml = require('linkifyjs/html');
 const slug = require('limax');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const createNote = async function (userId, answerId, text) {
     let response = {

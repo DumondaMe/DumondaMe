@@ -19,8 +19,8 @@ module.exports = function (grunt) {
                 options: {
                     separator: '\n',
                     sonar: {
-                        projectKey: 'javascript-sonar-runner-elyoos-api',
-                        projectName: 'Elyoos Api',
+                        projectKey: 'javascript-sonar-runner-dumonda-me-api',
+                        projectName: 'DumondaMe Api',
                         projectVersion: '0.1',
                         sources: 'api/api, api/models, server.js',
                         sourceEncoding: 'UTF-8',

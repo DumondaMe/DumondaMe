@@ -1,6 +1,6 @@
 'use strict';
 
-let cdn = require('elyoos-server-lib').cdn;
+let cdn = require('dumonda-me-server-lib').cdn;
 let _ = require("lodash");
 
 let getImageForPreview = async function (contact, profileType) {

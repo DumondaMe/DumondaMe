@@ -1,11 +1,11 @@
 'use strict';
 
-const validation = require('elyoos-server-lib').jsonValidation;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const answerCreate = requireModel('user/question/answer/create/youtube');
 const answerEdit = requireModel('user/question/answer/edit/youtube');
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const auth = require('elyoos-server-lib').auth;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const auth = require('dumonda-me-server-lib').auth;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateYoutubeAnswer = {
     name: 'createYoutubeAnswer',

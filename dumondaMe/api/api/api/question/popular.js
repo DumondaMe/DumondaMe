@@ -1,10 +1,10 @@
 'use strict';
 
-const validation = require('elyoos-server-lib').jsonValidation;
+const validation = require('dumonda-me-server-lib').jsonValidation;
 const popularQuestion = requireModel('question/popular');
 const schemaLanguage = require("../../schema/language");
-const asyncMiddleware = require('elyoos-server-lib').asyncMiddleware;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaGetPopularQuestionDetail = {
     name: 'getPopularQuestionDetail',

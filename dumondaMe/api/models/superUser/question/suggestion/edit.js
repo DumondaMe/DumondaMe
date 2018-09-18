@@ -2,7 +2,7 @@
 
 const db = requireDb();
 const security = require('./security');
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const editSuggestion = async function (userId, suggestionId, title, description, explanation) {
     await security.isAdminOfSuggestion(userId, suggestionId);

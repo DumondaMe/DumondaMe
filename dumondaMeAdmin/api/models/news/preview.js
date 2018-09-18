@@ -1,8 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const sendNews = require('./../eMailService/news');
 
 const preview = async function (userId, params, req) {

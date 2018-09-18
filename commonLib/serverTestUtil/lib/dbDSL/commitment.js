@@ -44,7 +44,7 @@ const createEvent = function (data) {
     data.description = data.description || `event${data.eventId}Description`;
     data.location = data.location || `event${data.eventId}Location`;
     data.linkDescription = data.linkDescription || `https://example.org/${data.eventId}`;
-    data.uid = data.description || `${data.eventId}@elyoos.org`;
+    data.uid = data.description || `${data.eventId}@dumonda.me`;
     data.created = data.created || 500;
     data.modified = data.modified || null;
 

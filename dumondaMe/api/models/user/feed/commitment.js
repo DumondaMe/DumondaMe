@@ -2,8 +2,8 @@
 
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
-const cdn = require('elyoos-server-lib').cdn;
-const time = require('elyoos-server-lib').time;
+const cdn = require('dumonda-me-server-lib').cdn;
+const time = require('dumonda-me-server-lib').time;
 const db = requireDb();
 
 const PAGE_SIZE = 20;

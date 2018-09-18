@@ -1,10 +1,10 @@
 'use strict';
 
 const db = requireDb();
-const exceptions = require('elyoos-server-lib').exceptions;
-const time = require('elyoos-server-lib').time;
-const uuid = require('elyoos-server-lib').uuid;
-const logger = require('elyoos-server-lib').logging.getLogger(__filename);
+const exceptions = require('dumonda-me-server-lib').exceptions;
+const time = require('dumonda-me-server-lib').time;
+const uuid = require('dumonda-me-server-lib').uuid;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const addWatchNotificationExists = function (userId, commitmentId, watchAdded) {
     return db.cypher().match(`(admin:User)-[:IS_ADMIN]->(c:Commitment {commitmentId: {commitmentId}})<-[:NOTIFICATION]-
