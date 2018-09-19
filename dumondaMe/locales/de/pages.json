@@ -622,7 +622,7 @@
     "title": "Häufige Fragen",
     "question1": {
       "title": "Was unterscheidet DumondaMe von anderen, sozialen Netzwerken?",
-      "text1": "Bei den meisten sozialen Netzwerke werden einzelne Beiträge wie z.B. Bilder, Texte oder Videos gepostet und höchstens, wie z.B bei Twitter, mit hashtags gruppiert. Bei DumondaMe sind diese Beiträge als Antwort einer Frage zugeordnet. Auf diese Weise finden Benutzer_innen die für sie relevanten Informationen einfacher.",
+      "text1": "Bei den meisten sozialen Netzwerke werden einzelne Beiträge wie z.B. Bilder, Texte oder Videos gepostet und höchstens, wie z.B bei Twitter, mit hashtags gruppiert. Bei DumondaMe sind diese Beiträge als Antwort einer Frage zugeordnet.",
       "text2": "Ein weiterer wichtiger Punkt ist, dass DumondaMe komplett Werbefrei ist und zu hundert Prozent mit Spenden finanziert wird. Zudem fokussieren wir unsere Inhalte auf das in der <a href='/vision'>Vision</a> genannte Ziel."
     },
     "question2": {
@@ -640,35 +640,29 @@
     },
     "question5": {
       "title": "Was ist ein Trust Circle?",
-      "text1": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr. Wenn sehr viele Personen dich in ihrem  Trust Circle führen, hast du eine hohe Reichweite im Netzwerk. Interessiert dich z.B. eine Frage bedeutet dies, dass viele Personen es in ihrem Feed sehen."
+      "text1": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du wenn du den Trust Circle Filter in deinem Feed aktiviert hast, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
     },
     "question6": {
-      "title": "Wie verbreiten sich Informationen im Netzwerk?",
-      "text1": "Dies funktioniert vergleichbar wie bei anderen sozialen Netzwerken. Beispiel:",
-      "text2": "Erstellt eine Person eine Frage, sehen dies die Leute in ihrem Feed welche diese Person in ihrem Trust Circle führen. ",
-      "text3": "Findet nun eine Person die Frage interessant oder beantwortet diese, sehen dies wiederum die Leute welche diese Person in ihrem Trust Circle führen."
-    },
-    "question7": {
       "title": "Weshalb werden Antworten bewertet?",
       "text1": "Das Bewerten von Antworten soll sicherstellen, dass die Relevantesten zuerst erscheinen. Auf diese Weise musst du nicht lange scrollen bis du die passenden Antworten gefunden hast."
     },
-    "question8": {
+    "question7": {
       "title": "Sind meine Fragen für Personen ohne Konto sichtbar?",
-      "text1": "Wenn du eine Frage erstellst, ist diese erstmal nur für Personen mit einem Benutzerkonto sichtbar. Ob deine Frage auch öffentlich zugänglich wird, entscheidet ein Administrator von DumondaMe. Wir möchten auf diese Weise sicherstellen, dass gegen aussen vor allem diejenigen Fragen sichtbar sind, die von allgemeinem Interesse sein könnten."
+      "text1": "Ja, alle Fragen sind öffentlich sichtbar. Es sehen jedoch nur diejenigen Personen das du der Autor der Frage bist, welche dein Profil gemäss deinen Privatsphären Einstellungen sehen können. "
+    },
+    "question8": {
+      "title": "Welche Vorteile habe ich mit einem Konto?",
+      "text1": "Ein Konto ermöglicht es dir Fragen, Antworten und Engagements zu erstellen. Zudem bleibst du auf dem Laufenden, mit welchen Thematiken sich die Personen beschäftigen denen du vertraust und wie sie über ein Thema denken."
     },
     "question9": {
-      "title": "Welche Vorteile habe ich mit einem Konto?",
-      "text1": "Ein Konto ermöglicht es dir Fragen, Antworten und Engagements zu erstellen. Zudem bleibst du auf dem Laufenden, mit welchen Thematiken sich die Personen beschäftigen die du kennst. Du siehst auf diese Weise auch Fragen, die ohne Benutzerkonto nicht sichtbar sind.  Ein weiterer wichtiger Vorteil ist, dass du die Antworten einer Frage nach deinem Trust Circle filtern kannst. So erfährst du, wie die Personen denen du vertraust, über ein Thema denken. "
-    },
-    "question10": {
       "title": "Ist mein Profil auch für Nicht-Mitglieder sichtbar?",
       "text1": "Dein Profil ist für Personen ohne Konto und Suchmaschinen nur sichtbar, wenn du dies in der Privatsphären Einstellung erlaubst."
     },
-    "question11": {
+    "question10": {
       "title": "Wie finanziert sich die Plattform?",
       "text1": "Die Entwicklung und der Betrieb der Plattform wird zu 100 Prozent mit Spenden finanziert."
     },
-    "question12": {
+    "question11": {
       "title": "Ist der Code von DumondaMe Open Source?",
       "text1": "Ja, um eine bessere Transparenz bezüglich den verwendeten Algorithmen anzubieten ist der Code Open Source. Dieser kann auf <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a> eingesehen werden."
     }
