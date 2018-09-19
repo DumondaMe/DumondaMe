@@ -3,8 +3,6 @@
         <div id="ely-footer-container">
             <div class="footer-nav" @click="$router.push({name: 'vision'})">{{$t("pages:footer.vision")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'aboutUs'})">{{$t("pages:footer.aboutUs")}}</div>
-            <div class="footer-nav">{{$t("pages:footer.news")}}</div>
-            <div class="footer-nav">{{$t("pages:footer.donate")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'terms'})">{{$t("pages:footer.terms")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'privacy'})">{{$t("pages:footer.privacy")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'faq'})">{{$t("pages:footer.faq")}}</div>
