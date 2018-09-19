@@ -1,7 +1,7 @@
 'use strict';
 
 let getSubject = function () {
-    return `Willkommen bei DumondaMe`;
+    return `Reset password`;
 };
 
 module.exports = {
