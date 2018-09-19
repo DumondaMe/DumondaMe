@@ -21,10 +21,6 @@
 
         <h2>{{$t('pages:faq.question6.title')}}</h2>
         <p>{{$t('pages:faq.question6.text1')}}</p>
-        <p>{{$t('pages:faq.question6.text2')}}</p>
-        <img :src="getUrl('img/faq/Dataflow.jpg')">
-        <p>{{$t('pages:faq.question6.text3')}}</p>
-        <img :src="getUrl('img/faq/Dataflow_2.jpg')">
 
         <h2>{{$t('pages:faq.question7.title')}}</h2>
         <p>{{$t('pages:faq.question7.text1')}}</p>
@@ -39,10 +35,7 @@
         <p>{{$t('pages:faq.question10.text1')}}</p>
 
         <h2>{{$t('pages:faq.question11.title')}}</h2>
-        <p>{{$t('pages:faq.question11.text1')}}</p>
-
-        <h2>{{$t('pages:faq.question12.title')}}</h2>
-        <p v-html="$t('pages:faq.question12.text1')"></p>
+        <p v-html="$t('pages:faq.question11.text1')"></p>
 
     </div>
 </template>
