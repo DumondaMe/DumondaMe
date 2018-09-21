@@ -7,10 +7,13 @@ const addTitleImage = async function (users) {
     for (let user of users) {
         try {
             let titleImage = await cdn.getObject(`profileImage/${user.userId}/profile.jpg`, process.env.BUCKET_PRIVATE);
+            let newTitle = await sharp(titleImage.Body).resize(400, 400).jpeg({quality: 80})
+                .toBuffer();
             let newPreview = await sharp(titleImage.Body).resize(148, 148).jpeg({quality: 80})
                 .toBuffer();
-            let newThumbnail = await sharp(titleImage.Body).resize(40, 40).jpeg({quality: 80})
+            let newThumbnail = await sharp(titleImage.Body).resize(40, 40).jpeg({quality: 90})
                 .toBuffer();
+            await cdn.uploadBuffer(newTitle, `profileImage/${user.userId}/profile.jpg`, process.env.BUCKET_PRIVATE);
             await cdn.uploadBuffer(newPreview, `profileImage/${user.userId}/profilePreview.jpg`, process.env.BUCKET_PRIVATE);
             await cdn.uploadBuffer(newThumbnail, `profileImage/${user.userId}/thumbnail.jpg`, process.env.BUCKET_PRIVATE);
             console.log(`Uploaded images for user ${user.userId}`)
