@@ -6,16 +6,13 @@ const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const uploadTitleImage = async function (titlePath, answerId, resetImage) {
     if (typeof titlePath === 'string') {
-        let original = await sharp(titlePath).background({r: 255, g: 255, b: 255, alpha: 0}).flatten().resize(600, 600)
-            .crop(sharp.strategy.entropy).jpeg({quality: 93}).toBuffer();
-        let title460x460 = await sharp(original)
-            .resize(460, 460).jpeg({quality: 80}).toBuffer();
-        let title320x320 = await sharp(original)
-            .resize(320, 320).jpeg({quality: 80}).toBuffer();
-        let title120x120 = await sharp(original)
-            .resize(120, 120).jpeg({quality: 80}).toBuffer();
-        let title40x40 = await sharp(original)
-            .resize(40, 40).jpeg({quality: 80}).toBuffer();
+        let original = await sharp(titlePath).background({r: 255, g: 255, b: 255, alpha: 0}).flatten().max()
+            .resize(600, 600).jpeg({quality: 93}).toBuffer();
+        let title460x460 = await sharp(original).max().resize(460, 344).jpeg({quality: 80}).toBuffer();
+        let title320x320 = await sharp(original).max().resize(320, 239).jpeg({quality: 80}).toBuffer();
+        let title120x120 = await sharp(original).max().resize(120, 90).jpeg({quality: 80}).toBuffer();
+        let title40x40 = await sharp(original).crop(sharp.strategy.entropy)
+            .resize(40, 40).jpeg({quality: 90}).toBuffer();
         await cdn.uploadBuffer(original, `commitment/${answerId}/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title460x460, `commitment/${answerId}/460x460/title.jpg`, process.env.BUCKET_PUBLIC);
         await cdn.uploadBuffer(title320x320, `commitment/${answerId}/320x320/title.jpg`, process.env.BUCKET_PUBLIC);
