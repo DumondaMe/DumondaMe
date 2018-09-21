@@ -118,12 +118,10 @@
                 cursor: pointer;
                 display: flex;
                 .commitment-image {
-                    width: 80px;
-                    height: 80px;
-                    flex: 0 0 80px;
+                    width: 120px;
+                    flex: 0 0 120px;
                     img {
                         width: 100%;
-                        height: 100%;
                         border-radius: 4px;
                     }
                 }

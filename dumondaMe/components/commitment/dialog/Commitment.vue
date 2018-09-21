@@ -58,7 +58,7 @@
         </v-card-actions>
     </v-card>
     <crop-image v-else :initial-image="imageToCrop" :action-label="$t('common:button.ok')"
-                @close="showImageCrop = false" @action="setImage">
+                @close="showImageCrop = false" @action="setImage" :aspect-ratio="1.3364">
     </crop-image>
 </template>
 
