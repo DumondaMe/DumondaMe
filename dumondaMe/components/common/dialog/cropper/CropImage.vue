@@ -35,14 +35,14 @@
     import Cropper from 'cropperjs/dist/cropper.min.js';
 
     export default {
-        props: ['initialImage', 'actionLabel', 'uploadRunning'],
+        props: ['initialImage', 'actionLabel', 'uploadRunning', 'aspectRatio'],
         data() {
             return {image: this.initialImage, imgSrc: null, imageCropper: null}
         },
         mounted: function () {
 
             this.imageCropper = new Cropper(this.$refs.cropper, {
-                aspectRatio: 1,
+                aspectRatio: this.aspectRatio,
                 viewMode: 1,
                 scalable: false,
                 zoomOnTouch: false,

@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="500px">
             <crop-image :initial-image="initialImage" :action-label="$t('common:button.upload')"
-                        :upload-running="uploadRunning"
+                        :upload-running="uploadRunning" :aspect-ratio="1"
                         @close="$emit('close-dialog')" @action="uploadImage">
             </crop-image>
         </v-dialog>

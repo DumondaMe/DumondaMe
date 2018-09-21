@@ -106,8 +106,8 @@
                         float: left;
                     }
                     img {
-                        width: 125px;
-                        height: 125px;
+                        width: 120px;
+                        border-radius: 4px;
                         @media screen and (max-width: 699px) {
                             display: block;
                             margin: 0 auto 18px auto;
