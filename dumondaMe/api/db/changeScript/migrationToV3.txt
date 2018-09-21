@@ -5,6 +5,10 @@ MATCH (:User)-[written:WRITTEN]->(b:Blog)
 OPTIONAL MATCH (b)<-[rel]-(recommendation:Recommendation)<-[rel2:RECOMMENDS]-(:User)
 DELETE written, rel, rel2, b, recommendation;
 
+MATCH (p:Page)<-[:RECOMMENDS]-(rec:Recommendation)-[:RECOMMENDS]-(user:User)
+WHERE p.label = 'Generic' AND NOT (user)-[:IS_ADMIN]->(p)
+MERGE (p)<-[:WATCH {created: rec.created}]-(user);
+
 //Remove all recommendations
 MATCH (r:Recommendation)-[rel]-()
 DELETE r, rel;
@@ -15,6 +19,10 @@ WHERE b.label = 'Generic'
 SET b:Commitment
 SET b.language = b.language[0]
 REMOVE b:Page, b.label;
+
+//Add Creator
+match (u:User)-[:IS_ADMIN]->(c:Commitment)
+merge (u)-[:IS_CREATOR]->(c);
 
 //Remove addresses
 MATCH (a:Address)-[rel]-()
@@ -32,62 +40,42 @@ WHERE b:Message OR b:Thread OR b:Bug OR b:Feedback OR b:Comment OR b:DiscussionI
 OPTIONAL MATCH (b)-[rel]-()
 DELETE b, rel;
 
-
-//Crate Topics
-MERGE (:Topic {name: 'Gesellschaftliche Entwicklung'});
-MERGE (:Topic {name: 'Umwelt'});
-MERGE (:Topic {name: 'Politik'});
-MERGE (:Topic {name: 'Wirtschaft'});
-MERGE (:Topic {name: 'Persönliche Entwicklung'});
-MERGE (:Topic {name: 'Gesundheit'});
-MERGE (:Topic {name: 'Bildung'});
-MERGE (:Topic {name: 'Spiritualität'});
-
-CREATE CONSTRAINT ON (t:Topic) ASSERT t.name IS UNIQUE;
-
 //ASSIGN Topics
-MATCH (b:Commitment), (t:Topic {name: 'Gesundheit'})
+MATCH (b:Commitment), (t:Topic {topicId: 'a81cffea-f1c7-44be-bbf4-2b9a772dd635'})
 WHERE 'health' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Umwelt'})
+MATCH (b:Commitment), (t:Topic {topicId: '09b7709f-9056-4a0e-aa80-bbff466aeac1'})
 WHERE 'environmental' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Spiritualität'})
+MATCH (b:Commitment), (t:Topic {topicId: 'c8e77069-906c-4ffa-b3c7-21a43d284f4a'})
 WHERE 'spiritual' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Bildung'})
+MATCH (b:Commitment), (t:Topic {topicId: 'ddada6ba-d94c-4740-8bbb-22c329d41e88'})
 WHERE 'education' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Persönliche Entwicklung'})
-WHERE 'personalDevelopment' IN b.topic
-MERGE (b)<-[:TOPIC]-(t);
-
-MATCH (b:Commitment), (t:Topic {name: 'Politik'})
+MATCH (b:Commitment), (t:Topic {topicId: '63ee63ff-761f-4b4f-82ad-3202a51de1a8'})
 WHERE 'politics' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Wirtschaft'})
+MATCH (b:Commitment), (t:Topic {topicId: 'b8a3400e-5fa2-4407-876b-e4740af5b4a4'})
 WHERE 'economy' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-MATCH (b:Commitment), (t:Topic {name: 'Gesellschaftliche Entwicklung'})
+MATCH (b:Commitment), (t:Topic {topicId: '382d1f13-f61d-4327-bb1c-fce072479140'})
 WHERE 'socialDevelopment' IN b.topic
 MERGE (b)<-[:TOPIC]-(t);
 
-//Remove topic and language
-MATCH (b:Page)
-REMOVE b.language, b.topic;
-
 MATCH (b:Commitment)
-REMOVE b.topic;
+SET b.commitmentId = b.pageId
+REMOVE b.topic, b.pageId;
 
 //Set new privacy settings
 MATCH (u:User)
-SET u.privacyMode = 'public';
+SET u.privacyMode = 'publicEl';
 
 MATCH (u:User)-[rel:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)
 DELETE rel, privacy;
@@ -99,6 +87,8 @@ return event
 
 //Add new constraints
 CREATE CONSTRAINT ON (b:Answer) ASSERT b.answerId IS UNIQUE;
+CREATE CONSTRAINT ON (t:Topic) ASSERT t.topicId IS UNIQUE;
+CREATE CONSTRAINT ON (r:Region) ASSERT r.regionId IS UNIQUE;
 CREATE CONSTRAINT ON (b:Commitment) ASSERT b.commitmentId IS UNIQUE;
 CREATE CONSTRAINT ON (b:Question) ASSERT b.questionId IS UNIQUE;
 
@@ -107,6 +97,3 @@ CALL apoc.index.addAllNodes('entities',{
   User: ["name"],
   Question:  ["question"],
   Commitment: ["title"]}, {autoUpdate:true, type:"fulltext"});
-
-CALL apoc.index.addAllNodes('keywords',{
-    Topic: ["name"]}, {autoUpdate:true, type:"fulltext"});
