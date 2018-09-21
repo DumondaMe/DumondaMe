@@ -36,7 +36,7 @@ export const getters = {
             }
         }
         if (state.regionFilter && state.regionFilter.id !== 'international' && state.mainFilter !== 'question') {
-            params.regions = [state.regionFilter]
+            params.regions = [state.regionFilter.id]
         }
         if (!(state.topicFilter.length === 1 && state.topicFilter[0].id === 'allTopics')) {
             params.topics = state.topicFilter.map(topic => topic.id);
