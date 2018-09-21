@@ -2,7 +2,7 @@ require('dumonda-me-server-lib').init('dumondaMe');
 
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 require('fs-extra');
-const process = require('./script/changeUserImages');
+const process = require('./script/copyDefaultUserImages');
 
 const dbConfig = require('dumonda-me-server-lib').databaseConfig;
 
