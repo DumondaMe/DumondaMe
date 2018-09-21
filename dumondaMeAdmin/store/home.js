@@ -11,11 +11,11 @@ export const state = () => ({
 export const mutations = {
     SET_USERS: function (state, users) {
         state.users = users;
-        state.nextUsers = users.length;
+        state.nextUsers += users.length;
     },
     ADD_USERS: function (state, users) {
         state.users = state.users.concat(users);
-        state.nextUsers = users.length;
+        state.nextUsers += users.length;
     },
     SET_NUMBER_OF_USERS: function (state, numberOfUsers) {
         state.numberOfUsers = numberOfUsers;
