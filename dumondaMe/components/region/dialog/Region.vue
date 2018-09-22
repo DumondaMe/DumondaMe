@@ -7,7 +7,7 @@
             <div class="user-description">{{description}}</div>
             <ely-select :items="regions" :existing-items="existingRegions" :select-multiple="selectMultiple"
                         :single-selected-item-id="'international'" :dis-select-parent-items="true"
-                        @select-changed="selectChanged">
+                        :hide-item="hideItem" @select-changed="selectChanged">
             </ely-select>
         </v-card-text>
         <v-divider></v-divider>
@@ -28,7 +28,7 @@
     import ElySelect from '~/components/common/select/Select';
 
     export default {
-        props: ['actionButtonText', 'description', 'loading', 'existingRegions', 'selectMultiple'],
+        props: ['actionButtonText', 'description', 'loading', 'existingRegions', 'selectMultiple', 'hideItem'],
         components: {ElySelect},
         data() {
             return {regions: [], selectedRegions: [], loadingRegions: false, hasChanged: true}

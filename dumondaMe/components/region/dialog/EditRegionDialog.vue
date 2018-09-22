@@ -3,7 +3,8 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px">
             <region @close-dialog="$emit('close-dialog')" @finish="changeRegions" :select-multiple="selectMultiple"
                     :existing-regions="existingRegions" :action-button-text="$t('common:button.change')"
-                    :description="$t('pages:commitment.createDialog.regionDescription')" :loading="loading">
+                    :description="$t('pages:commitment.createDialog.regionDescription')" :loading="loading"
+                    :hide-item="hideItem" >
                 <div slot="header">
                     <div id="dumonda-me-dialog-header">
                         <div v-html="titleText"></div>
@@ -22,7 +23,7 @@
     import Region from '~/components/region/dialog/Region';
 
     export default {
-        props: ['existingRegions', 'titleText', 'api', 'apiParam', 'selectMultiple'],
+        props: ['existingRegions', 'titleText', 'api', 'apiParam', 'selectMultiple', 'hideItem'],
         data() {
             return {dialog: true, loading: false, showError: false}
         },
