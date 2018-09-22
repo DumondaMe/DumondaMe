@@ -59,9 +59,9 @@
         padding-bottom: 32px;
         #profile-info-container {
             #user-name {
-                font-weight: 300;
-                font-size: 32px;
-                line-height: 28px;
+                font-weight: 400;
+                font-size: 30px;
+                line-height: 30px;
             }
             .user-status-info {
                 margin-top: 6px;
