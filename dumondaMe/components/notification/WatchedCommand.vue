@@ -3,7 +3,7 @@
         <v-btn outline color="primary" @click="readNotificationEvent()"
                :loading="requestWatchedRunning"
                :disabled="requestWatchedRunning || notification.removed">
-            {{$t('common:button.readNotification')}}
+            {{$t('common:button.delete')}}
         </v-btn>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
