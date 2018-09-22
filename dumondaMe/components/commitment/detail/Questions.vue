@@ -8,25 +8,6 @@
                      params: {questionId: question.questionId, slug: question.slug}})">{{question.question}}</span>
             </div>
             <div class="description">{{question.description}}</div>
-            <div class="card-footer-feed">
-                <div class="footer-icon">
-                    <up-vote-menu :answer-id="question.commitmentAnswerId"
-                                  :is-admin="question.isCreatedByUser" :up-voted-by-user="question.isUpVotedByUser"
-                                  :number-of-up-votes="question.upVotes"
-                                  @up-voted="upVote" @down-voted="downVote"
-                                  :custom-text-has-up-voted="$t('pages:detailCommitment.menu.upVote.hasUpVoted',
-                                  {question: `<span class='primary-title'>${question.question}</span>`})"
-                                  :custom-text-has-not-up-voted="$t('pages:detailCommitment.menu.upVote.hasNotUpVoted',
-                                  {question: `<span class='primary-title'>${question.question}</span>`})"
-                                  :custom-text-is-admin="$t('pages:detailCommitment.menu.upVote.isAdmin',
-                                  {question: `<span class='primary-title'>${question.question}</span>`})">
-                        <div slot="icon">
-                            <v-icon medium class="action-icon">mdi-thumb-up</v-icon>
-                            <span class="footer-description number">{{question.upVotes}}</span>
-                        </div>
-                    </up-vote-menu>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -79,17 +60,6 @@
                 font-size: 16px;
                 font-weight: 300;
                 margin-bottom: 12px;
-            }
-
-            .card-footer-feed {
-                .footer-icon {
-                    .action-icon {
-                        margin-left: 0;
-                    }
-                    .footer-description.number {
-                        margin-left: 4px;
-                    }
-                }
             }
         }
         .question.last-question {
