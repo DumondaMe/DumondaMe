@@ -1,27 +1,27 @@
 <template>
-    <div id="detail-layout">
-        <div id="detail-content">
-            <slot name="content"></slot>
-        </div>
+    <div id="detail-question-layout">
         <div id="detail-sidebar">
             <slot name="sidebar"></slot>
+        </div>
+        <div id="detail-content">
+            <slot name="content"></slot>
         </div>
     </div>
 </template>
 
 <style lang="scss">
-    #detail-layout {
+    #detail-question-layout {
         #detail-content {
-            float: left;
-            width: 620px;
+            margin-right: 444px;
             @media screen and (max-width: $sm) {
-                width: 100%;
                 margin-left: 0;
                 margin-right: 0;
             }
         }
         #detail-sidebar {
-            margin-left: 700px;
+            float: right;
+            width: 360px;
+            padding-top: 12px;
             @media screen and (max-width: $sm) {
                 display: none;
             }

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import DetailLayout from '~/components/layouts/DetailQuestion';
+    import DetailLayout from '~/components/layouts/Detail';
     import QuestionHeader from '~/components/question/Header';
     import Answers from '~/components/question/answer/Answers';
     import CreateAnswer from '~/components/question/CreateAnswer';

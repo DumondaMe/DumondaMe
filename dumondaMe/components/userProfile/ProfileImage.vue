@@ -67,6 +67,7 @@
             .user-image {
                 width: 180px;
                 height: 180px;
+                margin-left: 180px;
                 img {
                     border-radius: 6px;
                     height: 100%;
@@ -76,7 +77,8 @@
             #button-change-image {
                 width: 180px;
                 margin-top: 12px;
-                margin-left: 0;
+                margin-left: 180px;
+                margin-right: 0;
             }
         }
     }

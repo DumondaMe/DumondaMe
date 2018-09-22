@@ -23,6 +23,7 @@
     #dumonda-me-commitment-image {
         #commitment-image {
             width: 320px;
+            margin-left: 40px;
             img {
                 width: 100%;
                 border-radius: 6px;
