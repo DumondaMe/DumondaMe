@@ -6,7 +6,7 @@
             </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
-                    <v-btn icon slot="activator">
+                    <v-btn icon slot="activator" class="right-outer-element">
                         <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn>
                     <v-list>
@@ -28,7 +28,9 @@
                 </v-menu>
             </div>
             <div class="header-nav" v-else>
-                <v-btn outline v-on:click="$router.push({name: 'login'})">{{$t("common:toolbar.login")}}</v-btn>
+                <v-btn outline v-on:click="$router.push({name: 'login'})" class="right-outer-element">
+                    {{$t("common:toolbar.login")}}
+                </v-btn>
             </div>
             <div class="header-nav" v-if="!isAuthenticated">
                 <v-menu bottom>
@@ -174,6 +176,9 @@
                     i.v-icon {
                         color: $primary-color;
                     }
+                }
+                .right-outer-element {
+                    margin-right: 0;
                 }
             }
         }
