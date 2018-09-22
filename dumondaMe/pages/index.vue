@@ -60,7 +60,7 @@
                 return this.$store.state.feed.totalNumberOfElements === 0 && !this.$store.state.feed.publicFeed;
             },
             showLoadNextButton() {
-                return this.$store.state.feed.loadingNext;
+                return this.$store.state.feed.loadingNext && !this.$store.state.feed.loading;
             },
             feed() {
                 return this.$store.state.feed.feed
