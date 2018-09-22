@@ -559,7 +559,11 @@
     },
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
-    "noNotifications": "You have no notifications."
+    "noNotifications": "You have no notifications.",
+    "toolbar": {
+      "notMarkedAsRead": "Delete notification",
+      "markedAsRead": "Deleted and will no longer be shown to you the next time you visit this page"
+    }
   },
   "privacy": {
     "title": "Privacy Policy",

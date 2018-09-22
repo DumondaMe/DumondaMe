@@ -1,10 +1,13 @@
 <template>
     <div class="notification-watched-command">
-        <v-btn outline color="primary" @click="readNotificationEvent()"
-               :loading="requestWatchedRunning"
-               :disabled="requestWatchedRunning || notification.removed">
-            {{$t('common:button.delete')}}
-        </v-btn>
+        <v-tooltip bottom max-width="250px">
+            <v-btn color="primary" @click="readNotificationEvent()" slot="activator"
+                   :loading="requestWatchedRunning" :disabled="requestWatchedRunning || notification.removed">
+                {{$t('common:button.delete')}}
+            </v-btn>
+            <span v-if="!notification.removed">{{$t('pages:notifications.toolbar.notMarkedAsRead')}}</span>
+            <span v-else>{{$t('pages:notifications.toolbar.markedAsRead')}}</span>
+        </v-tooltip>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>

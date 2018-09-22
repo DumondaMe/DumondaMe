@@ -562,7 +562,11 @@
     },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
-    "noNotifications": "Du hast keine Benachrichtigungen."
+    "noNotifications": "Du hast keine Benachrichtigungen.",
+    "toolbar": {
+      "notMarkedAsRead": "Benachrichtung löschen",
+      "markedAsRead": "Wurde gelöscht und wird dir bei erneuten Aufruf dieser Seite nicht mehr angezeigt"
+    }
   },
   "privacy": {
     "title": "Datenschutzerklärung",
