@@ -1,10 +1,10 @@
 <template>
     <div class="select-container">
-        <select-element :item="item" v-for="item in localItems" :key="item.id"
+        <select-element :item="item" v-for="item in localItems" :key="item.id" v-if="item.id !== hideItem"
                         :is-root="true" :select-multiple="selectMultiple"
                         :dis-select-parent-items="disSelectParentItems"
                         :disabled="maxItems && maxItems <= selected.length" :min-items="minItems"
-                        :number-of-selected-items="selected.length"
+                        :number-of-selected-items="selected.length" :hideItem="hideItem"
                         @select-changed="selectChanged">
         </select-element>
     </div>
@@ -16,7 +16,7 @@
 
     export default {
         props: ['items', 'existingItems', 'selectMultiple', 'singleSelectedItemId', 'disSelectParentItems',
-            'maxItems', 'minItems'],
+            'maxItems', 'minItems', 'hideItem'],
         components: {SelectElement},
         data() {
             return {localItems: JSON.parse(JSON.stringify(this.items)), selected: []}
