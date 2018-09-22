@@ -97,8 +97,12 @@
         methods: {
             async setFilter(filter) {
                 if (!(filter === 'activity' && !this.$store.state.auth.userIsAuthenticated)) {
-                    this.$store.commit('feedFilter/SET_MAIN_FILTER', filter);
-                    await this.$store.dispatch('feed/getFeed');
+                    if (filter !== 'question') {
+                        this.$router.push({name: filter});
+                    } else {
+                        this.$router.push({name: 'index'});
+                    }
+                    /*await this.$store.dispatch('feed/getFeed');*/
                 }
             },
             async topicChanged(topics) {

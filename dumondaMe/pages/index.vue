@@ -30,12 +30,16 @@
     import FeedEmpty from "~/components/feed/FeedEmpty";
 
     export default {
-        async fetch({query, app, error, store}) {
+        async fetch({error, store, route}) {
             try {
-                store.commit('feedFilter/SET_MAIN_FILTER', 'question')
+                if (route.name === 'index') {
+                    store.commit('feedFilter/SET_MAIN_FILTER', 'question');
+                } else {
+                    store.commit('feedFilter/SET_MAIN_FILTER', route.name);
+                }
                 await Promise.all([store.dispatch(`feed/getFeed`)/*, store.dispatch(`feed/getPopularQuestion`)*/]);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.statusCode});
             }
         },
         components: {
