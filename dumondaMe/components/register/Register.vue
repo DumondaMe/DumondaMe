@@ -58,7 +58,7 @@
                         </v-checkbox>
                     </v-flex>
                 </v-layout>
-                <vue-recaptcha class="dumonda-me-recaptcha" sitekey="6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ"
+                <vue-recaptcha class="dumonda-me-recaptcha" :sitekey="siteKey"
                                @verify="setResponse">
                 </vue-recaptcha>
                 <p class="register-error" v-if="showErrorAccountExist">{{$t('pages:register.errorAccountExist')}}</p>
@@ -106,13 +106,15 @@
                 formForename: '',
                 formSurname: '',
                 acceptTerms: false,
-                rcaptResponse: '',
-                rcaptSigKey: process.env.RECAPTCHA_SITE_KEY
+                rcaptResponse: ''
             }
         },
         computed: {
             isValid() {
                 return this.valid && this.acceptTerms && !!this.rcaptResponse;
+            },
+            siteKey() {
+                return this.$store.state.recaptcha.siteKey
             }
         },
         mixins: [validationRules],
