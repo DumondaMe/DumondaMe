@@ -38,7 +38,7 @@
     "limax": "1.6.0",
     "moment": "2.20.1",
     "nuxt-matomo": "0.5.0",
-    "neo4j-driver": "1.5.0",
+    "neo4j-driver": "1.6.3",
     "node-geocoder": "3.16.0",
     "nodemailer": "4.6.7",
     "nunjucks": "3.1.3",
