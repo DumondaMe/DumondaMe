@@ -2,9 +2,15 @@ CREATE CONSTRAINT ON (user:User) ASSERT user.userId IS UNIQUE;
 CREATE CONSTRAINT ON (user:User) ASSERT user.email IS UNIQUE;
 CREATE CONSTRAINT ON (user:User) ASSERT user.emailNormalized IS UNIQUE;
 
-CREATE CONSTRAINT ON (thread:Thread) ASSERT thread.threadId IS UNIQUE;
+CREATE CONSTRAINT ON (answer:Answer) ASSERT answer.answerId IS UNIQUE;
 
-CREATE CONSTRAINT ON (page:Page) ASSERT page.pageId IS UNIQUE;
+CREATE CONSTRAINT ON (question:Question) ASSERT question.questionId IS UNIQUE;
+
+CREATE CONSTRAINT ON (commitment:Commitment) ASSERT commitment.commitmentId IS UNIQUE;
+
+CREATE CONSTRAINT ON (region:Region) ASSERT region.regionId IS UNIQUE;
+
+CREATE CONSTRAINT ON (topic:Topic) ASSERT topic.topicId IS UNIQUE;
 
 CREATE CONSTRAINT ON (notification:EMailNotification) ASSERT notification.userId IS UNIQUE;
 
