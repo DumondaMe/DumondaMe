@@ -15,7 +15,7 @@
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile @click="showCreateQuestion = true">
-                            <v-list-tile-title>{{$t("common:button.askQuestion")}}</v-list-tile-title>
+                            <v-list-tile-title>{{$t("pages:toolbar.askQuestion")}}</v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="showCreateCommitment = true">
                             <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
