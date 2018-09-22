@@ -62,9 +62,8 @@
     #dumonda-me-commitment-header {
         h1 {
             margin-bottom: 4px;
-            font-weight: 300;
-            font-size: 32px;
-            line-height: 32px;
+            font-weight: 400;
+            font-size: 30px;
         }
         #commitment-description {
             margin-top: 12px;

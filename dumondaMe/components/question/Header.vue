@@ -124,7 +124,8 @@
             }
             h1 {
                 margin-bottom: 4px;
-                font-size: 28px;
+                font-size: 30px;
+                font-weight: 400;
             }
             #question-description {
                 margin-top: 12px;
