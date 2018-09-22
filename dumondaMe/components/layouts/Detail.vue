@@ -21,7 +21,6 @@
         #detail-sidebar {
             float: right;
             width: 360px;
-            padding-top: 12px;
             @media screen and (max-width: $sm) {
                 display: none;
             }

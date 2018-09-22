@@ -45,7 +45,7 @@
         margin-bottom: 42px;
         display: flex;
         #answer-question-button {
-            margin-top: 0;
+            margin-top: 8px;
             margin-right: 0;
         }
     }
