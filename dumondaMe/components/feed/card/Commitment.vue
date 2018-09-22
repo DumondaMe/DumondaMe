@@ -3,24 +3,17 @@
         <div class="feed-card-header">
             <div>
                 <span class="answer-type">{{$t('common:feedCard.answerType.commitment')}} </span>
-                <span v-if="answer.questionId">
-                    <span class="card-header-link">
-                        <nuxt-link :to="{name: 'question-questionId-slug',
-                                params: {questionId: answer.questionId, slug: answer.questionSlug},
-                                query: {answerId: answer.answerId}}">{{answer.title}}
-                        </nuxt-link>
-                    </span>
-                    <span v-if="!hideQuestion">
-                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
-                            class="card-header-link">
-                         <nuxt-link :to="{name: 'question-questionId-slug',
-                        params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                         </nuxt-link></span></span>
-                </span>
-                <span class="card-header-link" v-else>
+                <span class="card-header-link">
                     <nuxt-link :to="{name: 'commitment-commitmentId-slug',
                             params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}}">{{answer.title}}
                     </nuxt-link>
+                </span>
+                <span v-if="answer.questionId && !hideQuestion">
+                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                        class="card-header-link">
+                         <nuxt-link :to="{name: 'question-questionId-slug',
+                        params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
+                         </nuxt-link></span>
                 </span>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
