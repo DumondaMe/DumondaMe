@@ -88,38 +88,6 @@ export const mutations = {
         if (setTrustUser && state.user.isLoggedInUser) {
             state.user.numberOfPeopleOfTrust++;
         }
-        /*if ((setTrustCircleForSinglePerson(state.user.peopleOfTrust, userToAdd.userId,
-            userToAdd.personOfTrustSince, true) ||
-            setTrustCircleForSinglePerson(state.user.peopleTrustUser, userToAdd.userId,
-                userToAdd.personOfTrustSince, true) ||
-            setTrustCircleForFeed(state.user.feed, userToAdd.userId)) && state.user.isLoggedInUser) {
-            state.user.numberOfPeopleOfTrust++;
-        }*/
-        /*let user = state.user.peopleOfTrust.find((contact) => contact.userId === userToAdd.userId);
-        if (user) {
-            user.personOfTrustSince = userToAdd.personOfTrustSince;
-            user.isPersonOfTrust = true;
-            if (state.user.isLoggedInUser) {
-                addedToLoggedInUser = true;
-            }
-        }*/
-        /*for (let card of state.user.feed) {
-            if (card.user && card.user.userId === userToAdd.userId) {
-                card.user.isTrustUser = true;
-                if (state.user.isLoggedInUser) {
-                    addedToLoggedInUser = true;
-                }
-            }
-            if (card.creator && card.creator.userId === userToAdd.userId) {
-                card.creator.isTrustUser = true;
-                if (state.user.isLoggedInUser) {
-                    addedToLoggedInUser = true;
-                }
-            }
-        }*/
-        /*if (addedToLoggedInUser) {
-            state.user.numberOfPeopleOfTrust++;
-        }*/
     },
     ADD_PEOPLE_OF_TRUST: function (state, {peopleOfTrust, numberOfPeopleOfTrust, numberOfInvisiblePeopleOfTrust}) {
         state.user.peopleOfTrust = state.user.peopleOfTrust.concat(peopleOfTrust);
