@@ -93,10 +93,9 @@ let inviteUser = function (userId, invitedUserId) {
         }).getCommand());
 };
 
-let setUserPrivacy = function (userIds, data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
-        .where("u.userId IN {userIds}")
-        .set("u", {privacyMode: data.privacyMode}).end({userIds}).getCommand());
+let setUserPrivacy = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {privacyMode: data.privacyMode}).end({userId}).getCommand());
 };
 
 let createPrivacy = function (userIds, type, privacy) {

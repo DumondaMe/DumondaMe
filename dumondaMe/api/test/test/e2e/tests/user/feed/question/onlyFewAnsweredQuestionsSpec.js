@@ -141,7 +141,7 @@ describe('Get question feed for questions with only a few answers', function () 
             creatorId: '4', question: 'Das ist eine Frage5', description: 'Test dumonda.me change the world5',
             topics: ['topic3'], language: 'de', created: 444,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createTextAnswer('22', {
             creatorId: '3', questionId: '5', answer: 'Answer6', created: 600,
         });
 
