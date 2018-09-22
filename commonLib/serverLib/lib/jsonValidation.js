@@ -101,7 +101,7 @@ const convertValues = function (data, requestSchema) {
 const sanitize = function (body) {
     for (let param in body) {
         if (body.hasOwnProperty(param) && typeof body[param] === 'string') {
-            body[param] = DOMPurify.sanitize(body[param]);
+            body[param] = DOMPurify.sanitize(body[param], {ALLOWED_TAGS: []});
         }
     }
 };
