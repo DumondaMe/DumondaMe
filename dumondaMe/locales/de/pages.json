@@ -198,8 +198,8 @@
     "createDialog": {
       "link": "Link zur Webseite deines Engagments",
       "websiteLoaded": "Der Link zu deiner Webseite wurde erfolgreich geprüft.",
-      "websiteLoadedFailed": "Deine Webseite konnte nicht erreicht werden.",
       "websiteLoading": "Der Link zu deiner Webseite wird geprüft.",
+      "websiteLoadingDescription": "Falls dein Engagement keine Webseite hat, überspringe einfach diesen Punkt.",
       "commitmentExists": "Warnung! Das Engagement wurde bereits erfasst auf DumondaMe.",
       "primaryLanguage": "Hauptsprache",
       "primaryLanguageDescription": "Weitere Sprachen können später hinzugefügt werden.",

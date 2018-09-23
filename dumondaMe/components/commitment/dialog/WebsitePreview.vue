@@ -7,6 +7,9 @@
             <v-form v-model="valid" @keydown.enter.native="goToNext">
                 <v-layout row wrap>
                     <v-flex xs12>
+                        <div id="description-website">
+                            {{$t('pages:commitment.createDialog.websiteLoadingDescription')}}
+                        </div>
                         <v-text-field v-model="link" name="link" ref="link" :loading="checkLink"
                                       :label="$t('pages:commitment.createDialog.link')"
                                       :rules="[isValidLink(),
@@ -15,10 +18,6 @@
                         <p id="website-successfully-loaded" v-if="previewLoaded && !checkLink && !loadingWebsiteFailed
                         && !existingCommitment">
                             {{$t('pages:commitment.createDialog.websiteLoaded')}}
-                        </p>
-                        <p id="website-loading-failed" v-else-if="!previewLoaded &&!checkLink && loadingWebsiteFailed
-                        && !existingCommitment">
-                            {{$t('pages:commitment.createDialog.websiteLoadedFailed')}}
                         </p>
                         <p v-else-if="checkLink && !existingCommitment">
                             {{$t('pages:commitment.createDialog.websiteLoading')}}
@@ -47,12 +46,8 @@
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" :loading="checkLink"
-                   v-if="previewLoaded">
+            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" :loading="checkLink">
                 {{$t("common:button.next")}}
-            </v-btn>
-            <v-btn color="primary" @click.native="$emit('next')" :disabled="checkLink" :loading="checkLink" v-else>
-                {{$t("pages:commitment.createDialog.noWebsiteButton")}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -122,11 +117,11 @@
 <style lang="scss">
     #dialog-create-commitment {
         #dialog-create-commitment-content {
+            #description-website {
+                margin-bottom: 28px;
+            }
             #website-successfully-loaded {
                 color: $success-text;
-            }
-            #website-loading-failed {
-                color: $error-text;
             }
             #warning-commitment-exists {
                 color: $warning;
