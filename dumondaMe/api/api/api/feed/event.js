@@ -1,7 +1,6 @@
 'use strict';
 
 const validation = require('dumonda-me-server-lib').jsonValidation;
-const auth = require('dumonda-me-server-lib').auth;
 const schemaLanguage = require('../../schema/language');
 const feed = requireModel('user/feed/event');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
