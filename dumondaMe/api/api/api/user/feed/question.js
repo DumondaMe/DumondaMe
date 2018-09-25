@@ -16,7 +16,7 @@ const schemaGetQuestionFeed = {
     properties: {
         guiLanguage: schemaLanguage.language,
         languages: schemaLanguage.languageMultiple,
-        order: {enum: ['mostPopular', 'newest', 'notAnswered', 'onlyFewAnswers']},
+        order: {enum: ['mostPopular', 'newest', 'notAnswered']},
         periodOfTime: {enum: ['week', 'month']},
         page: {type: 'integer', minimum: 0},
         timestamp: {type: 'integer', minimum: 0},

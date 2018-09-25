@@ -29,8 +29,7 @@
                 if (this.$store.state.auth.userIsAuthenticated) {
                     return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
                         {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')},
-                        {id: 'notAnswered', description: this.$t('pages:feeds.filter.order.notAnswered')},
-                        {id: 'onlyFewAnswers', description: this.$t('pages:feeds.filter.order.onlyFewAnswer')}]
+                        {id: 'notAnswered', description: this.$t('pages:feeds.filter.order.notAnswered')}]
                 }
                 return [{id: 'mostPopular', description: this.$t('pages:feeds.filter.order.popular')},
                     {id: 'newest', description: this.$t('pages:feeds.filter.order.newest')}]
