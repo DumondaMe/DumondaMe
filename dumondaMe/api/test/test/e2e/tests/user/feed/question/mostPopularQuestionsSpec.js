@@ -43,7 +43,7 @@ describe('Get question feed for the most popular questions', function () {
         });
         dbDsl.createQuestion('3', {
             creatorId: '1', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
-            topics: ['topic2', 'topic3'], language: 'en', created: 555,
+            topics: ['topic2', 'topic3'], language: 'en', created: 666,
         });
     });
 
@@ -51,54 +51,17 @@ describe('Get question feed for the most popular questions', function () {
         return requestHandler.logout();
     });
 
-    it('Only questions with at least one answer are shown', async function () {
-        dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: 995});
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed/question', {
-            guiLanguage: 'de', languages: ['de'], order: 'mostPopular'
-        });
-        res.status.should.equal(200);
-        res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(1);
-
-        res.body.feed[0].questionId.should.equals('1');
-        res.body.feed[0].question.should.equals('Das ist eine Frage');
-        res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[0].description.should.equals('Test dumonda.me change the world1');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
-        res.body.feed[0].created.should.equals(500);
-        res.body.feed[0].numberOfAnswers.should.equals(2);
-        res.body.feed[0].numberOfWatches.should.equals(0);
-        res.body.feed[0].isWatchedByUser.should.equals(false);
-        res.body.feed[0].user.userId.should.equals('2');
-        res.body.feed[0].user.name.should.equals('user Meier2');
-        res.body.feed[0].user.slug.should.equals('user-meier2');
-        res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
-        res.body.feed[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
-        res.body.feed[0].user.isLoggedInUser.should.equals(false);
-        res.body.feed[0].user.isTrustUser.should.equals(false);
-        should.not.exist(res.body.feed[0].creator);
-    });
-
-    it('Question sorted by number of up votes and watches', async function () {
+    it('Question sorted by watches and then by up votes of the answers', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
-            creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
-        });
         //Score for question 3
-        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: 998});
         dbDsl.watchQuestion({questionId: '3', userId: '5', created: 997});
         dbDsl.watchQuestion({questionId: '3', userId: '6', created: 996});
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: 994});
         dbDsl.watchQuestion({questionId: '2', userId: '1', created: 993});
-        //Score for question1
-        dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: 995});
 
         dbDsl.createContactConnection('1', '3');
 
@@ -112,7 +75,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed.length.should.equals(3);
 
         res.body.feed[0].questionId.should.equals('3');
-        res.body.feed[0].numberOfAnswers.should.equals(1);
+        res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(2);
         res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('1');
@@ -128,33 +91,36 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.isTrustUser.should.equals(true);
 
         res.body.feed[2].questionId.should.equals('1');
+        res.body.feed[2].question.should.equals('Das ist eine Frage');
+        res.body.feed[2].questionSlug.should.equals('das-ist-eine-frage');
+        res.body.feed[2].description.should.equals('Test dumonda.me change the world1');
+        res.body.feed[2].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
+        res.body.feed[2].created.should.equals(500);
         res.body.feed[2].numberOfAnswers.should.equals(2);
         res.body.feed[2].numberOfWatches.should.equals(0);
+        res.body.feed[2].isWatchedByUser.should.equals(false);
         res.body.feed[2].user.userId.should.equals('2');
+        res.body.feed[2].user.name.should.equals('user Meier2');
+        res.body.feed[2].user.slug.should.equals('user-meier2');
+        res.body.feed[2].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        res.body.feed[2].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.feed[2].user.isLoggedInUser.should.equals(false);
         res.body.feed[2].user.isTrustUser.should.equals(false);
     });
 
-    it('Question sorted by number of up votes and watches (only trust circle)', async function () {
+    it('Question sorted by watches and then by up votes of the answers (only trust circle)', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
-            creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
-        });
         //Score for question 3
-        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: 998});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: 997});
-        dbDsl.watchQuestion({questionId: '3', userId: '7', created: 996});
+        dbDsl.watchQuestion({userId: '6', questionId: '3', created: 997});
+        dbDsl.watchQuestion({userId: '7', questionId: '3', created: 996});
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '8', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '9', answerId: '7', created: 994});
-        dbDsl.watchQuestion({questionId: '2', userId: '10', created: 993});
-        //Score for question1
-        dbDsl.upVoteAnswer({userId: '11', answerId: '5', created: 995});
+        dbDsl.watchQuestion({userId: '10', questionId: '2', created: 993});
 
-        dbDsl.createContactConnection('1', '4');
+        dbDsl.createContactConnection('1', '7');
         dbDsl.createContactConnection('1', '8');
         dbDsl.createContactConnection('1', '10');
 
@@ -165,7 +131,7 @@ describe('Get question feed for the most popular questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(3);
 
         res.body.feed[0].questionId.should.equals('2');
         res.body.feed[0].numberOfAnswers.should.equals(1);
@@ -176,15 +142,22 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.isTrustUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('3');
-        res.body.feed[1].numberOfAnswers.should.equals(1);
+        res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(2);
         res.body.feed[1].isWatchedByUser.should.equals(false);
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
+
+        res.body.feed[2].questionId.should.equals('1');
+        res.body.feed[2].numberOfAnswers.should.equals(2);
+        res.body.feed[2].numberOfWatches.should.equals(0);
+        res.body.feed[2].user.userId.should.equals('2');
+        res.body.feed[2].user.isLoggedInUser.should.equals(false);
+        res.body.feed[2].user.isTrustUser.should.equals(false);
     });
 
-    it('Question sorted by number of up votes and watches (topic filter)', async function () {
+    it('Question sorted by watches and then by up votes of the answers (topic filter)', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
@@ -195,7 +168,6 @@ describe('Get question feed for the most popular questions', function () {
         dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
         dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: 998});
         dbDsl.watchQuestion({questionId: '3', userId: '5', created: 997});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: 996});
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: 994});
@@ -208,7 +180,7 @@ describe('Get question feed for the most popular questions', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/question', {
-            guiLanguage: 'de', languages: ['de', 'en'], order: 'mostPopular', topics: ['topic221', 'topic3']
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'mostPopular', topics: ['topic2']
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
@@ -216,7 +188,7 @@ describe('Get question feed for the most popular questions', function () {
 
         res.body.feed[0].questionId.should.equals('3');
         res.body.feed[0].numberOfAnswers.should.equals(1);
-        res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
@@ -231,7 +203,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.isTrustUser.should.equals(true);
     });
 
-    it('Question sorted by number of up votes and watches (trust circle and topic filter)', async function () {
+    it('Question sorted by watches and then by up votes of the answers (trust circle and topic filter)', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
@@ -241,12 +213,12 @@ describe('Get question feed for the most popular questions', function () {
         //Score for question 3
         dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: 999});
         dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: 998});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: 997});
-        dbDsl.watchQuestion({questionId: '3', userId: '7', created: 996});
+        dbDsl.watchQuestion({userId: '6', questionId: '3', created: 997});
+        dbDsl.watchQuestion({userId: '7', questionId: '3', created: 996});
         //Score for question 2
         dbDsl.upVoteAnswer({userId: '8', answerId: '7', created: 995});
         dbDsl.upVoteAnswer({userId: '9', answerId: '7', created: 994});
-        dbDsl.watchQuestion({questionId: '2', userId: '10', created: 993});
+        dbDsl.watchQuestion({userId: '10', questionId: '2', created: 993});
         //Score for question1
         dbDsl.upVoteAnswer({userId: '11', answerId: '5', created: 995});
 
@@ -272,7 +244,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.isTrustUser.should.equals(false);
     });
 
-    it('Question show only english', async function () {
+    it('Show only english questions', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
@@ -304,24 +276,25 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.isTrustUser.should.equals(false);
     });
 
-    it('Question sorted by number of up votes and watches (only last 7 Days)', async function () {
+    it('Question sorted by watches and then by up votes of the answers (only last 7 Days)', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
         dbDsl.createTextAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
+
         //Score for question 3
-        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: startTime - (WEEK - 10)});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: startTime - (WEEK + 11)});
-        dbDsl.watchQuestion({questionId: '3', userId: '5', created: startTime - (WEEK + 12)});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: startTime - (WEEK + 10)});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: startTime - WEEK - 10});
+        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: startTime - WEEK + 11});
+        dbDsl.watchQuestion({questionId: '3', userId: '5', created: startTime - WEEK - 12});
+        dbDsl.watchQuestion({questionId: '3', userId: '6', created: startTime - WEEK + 10});
         //Score for question 2
-        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - (WEEK + 10)});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - (WEEK - 10)});
-        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - (WEEK - 11)});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - WEEK + 10});
+        dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - WEEK + 10});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - WEEK + 11});
         //Score for question1
-        dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: startTime - (WEEK + 11)});
+        dbDsl.watchQuestion({questionId: '1', userId: '1', created: startTime - WEEK - 11});
 
         dbDsl.createContactConnection('1', '3');
 
@@ -351,24 +324,25 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.isTrustUser.should.equals(false);
     });
 
-    it('Question sorted by number of up votes and watches (only last month)', async function () {
+    it('Question sorted by watches and then by up votes of the answers (only last month)', async function () {
         dbDsl.createTextAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
         dbDsl.createTextAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
+
         //Score for question 3
-        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: startTime - (FOUR_WEEKS - 10)});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: startTime - (FOUR_WEEKS + 11)});
-        dbDsl.watchQuestion({questionId: '3', userId: '5', created: startTime - (FOUR_WEEKS + 12)});
-        dbDsl.watchQuestion({questionId: '3', userId: '6', created: startTime - (FOUR_WEEKS + 10)});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '8', created: startTime - FOUR_WEEKS - 10});
+        dbDsl.upVoteAnswer({userId: '5', answerId: '8', created: startTime - FOUR_WEEKS + 11});
+        dbDsl.watchQuestion({questionId: '3', userId: '5', created: startTime - FOUR_WEEKS - 12});
+        dbDsl.watchQuestion({questionId: '3', userId: '6', created: startTime - FOUR_WEEKS + 10});
         //Score for question 2
-        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - (FOUR_WEEKS + 10)});
-        dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - (FOUR_WEEKS - 10)});
-        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - (FOUR_WEEKS - 11)});
+        dbDsl.upVoteAnswer({userId: '4', answerId: '7', created: startTime - FOUR_WEEKS + 10});
+        dbDsl.upVoteAnswer({userId: '5', answerId: '7', created: startTime - FOUR_WEEKS + 10});
+        dbDsl.watchQuestion({questionId: '2', userId: '1', created: startTime - FOUR_WEEKS + 11});
         //Score for question1
-        dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: startTime - (FOUR_WEEKS + 11)});
+        dbDsl.upVoteAnswer({userId: '8', answerId: '5', created: startTime - FOUR_WEEKS - 11});
 
         dbDsl.createContactConnection('1', '3');
 
