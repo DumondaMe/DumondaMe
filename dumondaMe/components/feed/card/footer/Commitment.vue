@@ -76,7 +76,6 @@
             <region-menu :regions="regions">
                 <div slot="icon">
                     <v-icon medium class="action-icon">mdi-map-marker</v-icon>
-                    <span class="footer-description number">{{regions.length}}</span>
                 </div>
             </region-menu>
         </div>
