@@ -48,16 +48,10 @@
                 <div slot="activator">
                     <v-icon medium class="tooltip-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert
                     </v-icon>
-                    <v-icon medium class="tooltip-icon only-few-answers"
-                            v-else-if="numberOfAnswers > 0 && numberOfAnswers <= 4">
-                        mdi-comment-alert
-                    </v-icon>
                     <v-icon medium class="tooltip-icon" v-else>mdi-comment</v-icon>
                     <span class="footer-description number">{{numberOfAnswers}}</span>
                 </div>
                 <span v-if="numberOfAnswers === 0">{{$t('pages:feeds.menu.questions.noAnswers')}}</span>
-                <span v-else-if="numberOfAnswers <= 4">
-                    {{$t('pages:feeds.menu.questions.fewAnswers', {count: numberOfAnswers})}}</span>
                 <span v-else>{{$t('pages:feeds.menu.questions.numberOfAnswers', {count: numberOfAnswers})}}</span>
             </v-tooltip>
         </div>
@@ -113,9 +107,6 @@
         .footer-icon {
             .tooltip-icon.no-answers.v-icon {
                 color: $warning
-            }
-            .tooltip-icon.only-few-answers.v-icon {
-                color: #bfbc12
             }
         }
     }
