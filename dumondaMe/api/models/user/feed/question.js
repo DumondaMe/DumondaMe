@@ -48,32 +48,32 @@ const getTopicFilter = function (topics, hasAnswer) {
     return ''
 };
 
-const getPeriodOfTimeFilterQuery = function (periodOfTime) {
-    return db.cypher().with(`creator, question, answer, upVotes, watches`)
-        .where(`upVotes.created > {${periodOfTime}} OR watches.created > {${periodOfTime}}`)
-        .getCommandString();
+const getPeriodOfTimeActionsFilter = function (periodOfTime, type) {
+    if (periodOfTime) {
+        return db.cypher().where(`${type}.created > {${periodOfTime}}`).getCommandString();
+    }
+    return '';
 };
 
-const getPeriodOfTimeFilter = function (periodOfTime) {
-    if (periodOfTime === 'week') {
-        return getPeriodOfTimeFilterQuery('oneWeek');
-    } else if (periodOfTime === 'month') {
-        return getPeriodOfTimeFilterQuery('fourWeeks');
+const getPeriodOfTimeHasBeenWatchedFilter = function (periodOfTime) {
+    if (periodOfTime) {
+        return db.cypher().where(`scoreWatches > 0`).getCommandString();
     }
     return '';
 };
 
 const getMostPopularQuery = function (trustCircle, topics, periodOfTime) {
     return db.cypher()
-        .match(`(creator:User)-[:IS_CREATOR]->(question:Question)-[:ANSWER]->(answer:Answer)`)
+        .match(`(creator:User)-[:IS_CREATOR]->(question:Question)`)
         .where(`question.language IN {languages}`)
+        .optionalMatch(`(question)-[:ANSWER]->(answer:Answer)`)
         .addCommand(getTopicFilter(topics, true))
         .optionalMatch(`(answer)<-[upVotes:UP_VOTE]-(:User)${getTrustCircleFilter(trustCircle)}`)
+        .addCommand(getPeriodOfTimeActionsFilter(periodOfTime, 'upVotes'))
         .optionalMatch(`(question)<-[watches:WATCH]-(:User)${getTrustCircleFilter(trustCircle)}`)
-        .addCommand(getPeriodOfTimeFilter(periodOfTime))
-        .with(`creator, question, [count(DISTINCT upVotes), count(DISTINCT watches)] AS scoreList`)
-        .with(`creator, question, reduce(totalScore = 0, n IN scoreList | totalScore + n) AS score`)
-        .where(`score > 0`);
+        .addCommand(getPeriodOfTimeActionsFilter(periodOfTime, 'watches'))
+        .with(`creator, question, count(DISTINCT upVotes) AS scoreUpVotes, count(DISTINCT watches) AS scoreWatches`)
+        .addCommand(getPeriodOfTimeHasBeenWatchedFilter(periodOfTime))
 };
 
 const getTrustCircleFilterForNewest = function (trustCircle) {
@@ -88,7 +88,7 @@ const getOrderByTimeQuery = function (trustCircle, topics) {
         .match(`(creator:User)-[:IS_CREATOR]->(question:Question)`)
         .where(`question.language IN {languages}${getTrustCircleFilterForNewest(trustCircle)}`)
         .addCommand(getTopicFilter(topics, false))
-        .with(`creator, question, 0 AS score`)
+        .with(`creator, question, 0 AS scoreUpVotes, 0 AS scoreWatches`)
 };
 
 const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
@@ -100,7 +100,7 @@ const getStartQuery = function (order, trustCircle, topics, periodOfTime) {
     } else if (order === 'onlyFewAnswers') {
         return getOrderByTimeQuery(trustCircle, topics)
             .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
-            .with(`creator, question, score, count(DISTINCT answer) AS tempNumberOfAnswers`)
+            .with(`creator, question, scoreUpVotes, scoreWatches, count(DISTINCT answer) AS tempNumberOfAnswers`)
             .where(`tempNumberOfAnswers < 4`);
     }
     return getOrderByTimeQuery(trustCircle, topics);
@@ -115,15 +115,15 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
         .optionalMatch(`(question)-[answer:ANSWER]-(:Answer)`)
         .return(`creator, question.questionId AS questionId, question.question AS question, question.created AS created,
                  question.description AS description, count(DISTINCT answer) AS numberOfAnswers, 'Question' AS type,
-                 count(DISTINCT watches) AS numberOfWatches, score,
+                 count(DISTINCT watches) AS numberOfWatches, scoreWatches, scoreUpVotes,
                  creator.userId = {userId} AS isLoggedInUser, 
                  EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)
-        .orderBy(`score DESC, created DESC`)
+        .orderBy(`scoreWatches DESC, scoreUpVotes DESC, created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({
-            languages, userId, page, topics, fourWeeks: time.getNowUtcTimestamp() - FOUR_WEEKS,
-            oneWeek: time.getNowUtcTimestamp() - WEEK
+            languages, userId, page, topics, month: time.getNowUtcTimestamp() - FOUR_WEEKS,
+            week: time.getNowUtcTimestamp() - WEEK
         }).send();
 
     return {
