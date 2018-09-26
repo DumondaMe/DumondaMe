@@ -564,7 +564,7 @@
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen.",
     "toolbar": {
-      "notMarkedAsRead": "Benachrichtung löschen",
+      "notMarkedAsRead": "Benachrichtung wird gelöscht",
       "markedAsRead": "Wurde gelöscht und wird dir bei erneuten Aufruf dieser Seite nicht mehr angezeigt"
     }
   },

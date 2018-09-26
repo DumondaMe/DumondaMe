@@ -3,7 +3,7 @@
         <v-tooltip bottom max-width="250px">
             <v-btn color="primary" @click="readNotificationEvent()" slot="activator"
                    :loading="requestWatchedRunning" :disabled="requestWatchedRunning || notification.removed">
-                {{$t('common:button.delete')}}
+                {{$t('common:button.ok')}}
             </v-btn>
             <span v-if="!notification.removed">{{$t('pages:notifications.toolbar.notMarkedAsRead')}}</span>
             <span v-else>{{$t('pages:notifications.toolbar.markedAsRead')}}</span>

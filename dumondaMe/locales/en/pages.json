@@ -561,7 +561,7 @@
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications.",
     "toolbar": {
-      "notMarkedAsRead": "Delete notification",
+      "notMarkedAsRead": "Notification will be deleted",
       "markedAsRead": "Deleted and will no longer be shown to you the next time you visit this page"
     }
   },
