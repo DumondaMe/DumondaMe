@@ -46,8 +46,8 @@
                 region = region[0];
             }
             return {
-                valid: false, location: this.initLocation, loadingRegions: false, regions: [], hasChanged: false,
-                selectedRegion: JSON.parse(JSON.stringify(region))
+                valid: false, location: this.initLocation, loadingRegions: false,
+                regions: [], hasChanged: false, selectedRegion: JSON.parse(JSON.stringify(region))
             }
         },
         async mounted() {
@@ -68,7 +68,8 @@
             },
             checkHasChanged() {
                 if (this.initRegion) {
-                    return this.selectedRegion && this.initRegion[0].id !== this.selectedRegion.id;
+                    return this.selectedRegion && this.initRegion[0].id !== this.selectedRegion.id ||
+                        this.location !== this.initLocation;
                 }
                 return true;
             },
@@ -78,6 +79,11 @@
                 } else {
                     this.selectedRegion = null;
                 }
+                this.hasChanged = this.checkHasChanged();
+            }
+        },
+        watch: {
+            location() {
                 this.hasChanged = this.checkHasChanged();
             }
         },
