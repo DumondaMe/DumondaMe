@@ -20,7 +20,7 @@
     "description": "Enter the email address you used to create your DumondaMe account.",
     "sentDescription": "An email with a link to reset the password was sent to {{email}}. The link is only valid for 20 minutes.",
     "errorToManyRequest": "You tried too many times to reset the password. Try again later.",
-    "resetPasswordButton": "Send Request"
+    "resetPasswordButton": "Send request"
   },
   "passwordReset": {
     "title": "Change Password",
@@ -132,7 +132,7 @@
       }
     },
     "createContribution": {
-      "button": "Create a Post"
+      "button": "Create a post"
     },
     "support": {
       "title": "Support us",
@@ -207,13 +207,13 @@
       "primaryLanguageDescription": "More languages can be added later",
       "toManySpaces": "A maximum of {{count}} spaces are allowed",
       "regionDescription": "In which region are you active with your commitment?",
-      "addTopicButton": "Add Topic",
+      "addTopicButton": "Add topic",
       "addTopicDescription": "Topic",
       "topicUsed": "This topic is already in use",
       "topicDescription": "Which topics can be assigned to your commitment?. E.g. Zero Waste, Food Waste etc.",
       "maxTopic": "A maximum of {{count}} topics can be used",
-      "noWebsiteButton": "No Website, Next",
-      "createCommitmentButton": "Create Commitment",
+      "noWebsiteButton": "No website, next",
+      "createCommitmentButton": "Create commitment",
       "stepWebsite": "Website",
       "stepData": "Commitment",
       "stepRegion": "Region",
@@ -225,7 +225,7 @@
       "linkDescription": "Link to the description of the event",
       "start": "Start:",
       "end": "End:",
-      "createEventButton": "Create Event",
+      "createEventButton": "Create event",
       "regionDescription": "In which region will the event take place?",
       "topicEventDescription": "Which topics should this event be assigned to? Only the subject areas of the commitment can be used.",
       "stepEvent": "Event",
@@ -235,11 +235,11 @@
     },
     "modifyCommitmentDialog": {
       "title": "Change Commitment '{{commitment}}'",
-      "changeButton": "Change Commitment"
+      "changeButton": "Change commitment"
     },
     "modifyTopicDialog": {
       "title": "Change topic for '{{commitment}}'",
-      "changeButton": "Change Topic"
+      "changeButton": "Change topic"
     },
     "editRegionDialog": {
       "title": "Change Regions for {{- commitment}}"
@@ -247,16 +247,16 @@
   },
   "question": {
     "createDialog": {
-      "createQuestionButton": "Create Question",
+      "createQuestionButton": "Create question",
       "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc."
     },
     "modifyQuestionDialog": {
       "title": "Change Question '{{question}}'",
-      "changeButton": "Edit Question"
+      "changeButton": "Edit question"
     },
     "modifyTopicDialog": {
       "title": "Change topic for '{{question}}'",
-      "changeButton": "Change Topic"
+      "changeButton": "Change topic"
     },
     "answerDialog": {
       "title": "Answer to question {{- question}}",
@@ -274,7 +274,7 @@
     },
     "answerLinkDialog": {
       "answerInfoWrongType": "Your link is not a YouTube or Vimeo video.",
-      "answerSwitchTypeButton": "Create Link",
+      "answerSwitchTypeButton": "Create link",
       "typeOfWebsiteDescription": "What kind of weblink is it?",
       "typeWebsite": "Website",
       "typeArticle": "Article",
@@ -282,7 +282,7 @@
     },
     "answerVideoDialog": {
       "answerInfoWrongType": "Your link is a YouTube or Vimeo video.",
-      "answerSwitchTypeButton": "Create Video"
+      "answerSwitchTypeButton": "Create video"
     },
     "selectAnswerDialog": {
       "title": "Answers",
@@ -299,9 +299,9 @@
     "searchLink": "Copy paste your link",
     "searchBook": "Search the book",
     "searchCommitment": "Search the commitment",
-    "createAnswerButton": "Create Answer",
-    "showAllAnswerButton": "Show All Answers",
-    "showNextAnswerButton": "Show Next Answers",
+    "createAnswerButton": "Create answer",
+    "showAllAnswerButton": "Show all answers",
+    "showNextAnswerButton": "Show next answers",
     "answerNotFound": "This answer has been deleted",
     "noAnswer": "This question has not yet been answered",
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
@@ -324,7 +324,7 @@
       "deleteNoteDialog": {
         "title": "Delete Note",
         "description": "Do you really want to delete the note '{{note}}'?",
-        "confirmButton": "Yes, Delete Note"
+        "confirmButton": "Yes, delete note"
       }
     },
     "answerType": {
@@ -375,7 +375,7 @@
         "userSuggestion": "has created a proposal",
         "loggedInUserSuggestion": "has created a proposal",
         "noSuggestion": "Editorial users can enter suggestions here to improve the quality of the question.",
-        "addButton": "Enter Suggestion",
+        "addButton": "Enter suggestion",
         "tooltipDetailView": "Open detail view dialog",
         "statusOpen": "Suggestion is open",
         "statusClosed": "Suggestion has been closed"
@@ -417,7 +417,7 @@
       "deleteDialog": {
         "title": "Delete Event",
         "description": "Do you really want to delete the event {{- event}}?",
-        "deleteEventButton": "Yes, Delete Event"
+        "deleteEventButton": "Yes, delete event"
       },
       "editDialog": {
         "title": "Edit Event {{- title}}"
@@ -429,7 +429,7 @@
     "deleteDialog": {
       "title": "Delete Commitment",
       "description": "Do you really want to delete this commitment {{- commitment}}?",
-      "deleteCommitmentButton": "Yes, Delete Commitment"
+      "deleteCommitmentButton": "Yes, delete commitment"
     },
     "menu": {
       "upVote": {
@@ -461,7 +461,7 @@
     },
     "profileData": {
       "changeProfileDataTitle": "Change Profile",
-      "changeProfileDataButton": "Change Profile",
+      "changeProfileDataButton": "Change profile",
       "userDescription": "A short description of your person"
     },
     "profileInfo": {

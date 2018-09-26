@@ -43,24 +43,23 @@
     "abort": "Abort",
     "back": "Back",
     "next": "Next",
-    "showMore": "Show More",
+    "showMore": "Show more",
     "create": "Create",
-    "createNote": "Create Note",
-    "askQuestion": "Ask Question",
-    "answerQuestion": "Answer Question",
+    "createNote": "Create note",
+    "askQuestion": "Ask question",
+    "answerQuestion": "Answer question",
     "answer": "Answer",
     "filter": "Filters",
-    "readMore": "Read More",
+    "readMore": "Read more",
     "change": "Change",
     "edit": "Edit",
     "delete": "Delete",
-    "changeImage": "Change Image",
+    "changeImage": "Change image",
     "upload": "Upload",
-    "uploadImage": "Upload Image",
-    "upVote": "Up Vote",
+    "uploadImage": "Upload image",
+    "upVote": "Up vote",
     "interested": "Interested",
-    "login": "Login",
-    "readNotification": "Notification Read"
+    "login": "Login"
   },
   "language": {
     "de": "German",
@@ -70,7 +69,7 @@
     "Book": "Book",
     "CommitmentAnswer": "Commitment",
     "Link": "Link",
-    "Youtube": "Youtube Video"
+    "Youtube": "Youtube video"
   },
   "feedCard": {
     "answersQuestion": "answers the question",
