@@ -211,7 +211,7 @@
       "topicDescription": "Welchen Themengebieten kann dein Engagement zugeordnet werden. Z.B. Zero Waste, Food Waste usw.",
       "maxTopic": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
       "noWebsiteButton": "Keine Webseite, Weiter",
-      "createCommitmentButton": "Engagement Erstellen",
+      "createCommitmentButton": "Engagement erstellen",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
       "stepRegion": "Region",
@@ -223,7 +223,7 @@
       "linkDescription": "Link zur Beschreibung der Veranstaltung",
       "start": "Beginnt:",
       "end": "Endet:",
-      "createEventButton": "Veranstaltung Erstellten",
+      "createEventButton": "Veranstaltung erstellten",
       "regionDescription": "In welcher Region findet die Veranstaltung statt?",
       "topicEventDescription": "Welchen Themenbereichen soll diese Veranstaltung zugeordnet werden? Es können nur die Themenbereiche des Engagements verwendet werden.",
       "stepEvent": "Veranstaltung",
@@ -245,7 +245,7 @@
   },
   "question": {
     "createDialog": {
-      "createQuestionButton": "Frage Erstellen",
+      "createQuestionButton": "Frage erstellen",
       "topicDescription": "Welche Themengebiete können deiner Frage zugeordnet werden. Z.B. Zero Waste, Food Waste usw."
     },
     "modifyQuestionDialog": {
@@ -272,7 +272,7 @@
     },
     "answerLinkDialog": {
       "answerInfoWrongType": "Bei deinem Link handelt es sich nicht um ein Youtube oder Vimeo Video.",
-      "answerSwitchTypeButton": "Link Erfassen",
+      "answerSwitchTypeButton": "Link erfassen",
       "typeOfWebsiteDescription": "Um was für ein Weblink handelt es sich?",
       "typeWebsite": "Webseite",
       "typeArticle": "Artikel",
@@ -280,7 +280,7 @@
     },
     "answerVideoDialog": {
       "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube oder Vimeo Video.",
-      "answerSwitchTypeButton": "Video Erfassen"
+      "answerSwitchTypeButton": "Video erfassen"
     },
     "selectAnswerDialog": {
       "title": "Antworten",
@@ -297,8 +297,8 @@
     "searchLink": "Copy Paste deinen Link",
     "searchBook": "Suche das Buch",
     "searchCommitment": "Suche das Engagment",
-    "createAnswerButton": "Antwort Erstellen",
-    "editAnswerButton": "Antwort Ändern",
+    "createAnswerButton": "Antwort erstellen",
+    "editAnswerButton": "Antwort ändern",
     "editAnswerTitle": "Antwort '{{answer}}' ändern",
     "deleteAnswerTitle": "Antwort löschen",
     "deleteAnswerDescription": "Willst du die Antwort '{{answer}}' wirklich löschen?",
@@ -327,7 +327,7 @@
       "deleteNoteDialog": {
         "title": "Anmerkung löschen",
         "description": "Willst du die Anmerkung '{{note}}' wirklich löschen?",
-        "confirmButton": "Ja, Anmerkung Löschen"
+        "confirmButton": "Ja, Anmerkung löschen"
       }
     },
     "answerType": {
@@ -378,7 +378,7 @@
         "userSuggestion": "hat einen Vorschlag erstellt",
         "loggedInUserSuggestion": "hast einen Vorschlag erstellt",
         "noSuggestion": "Hier können redaktionelle Benutzer_innen Vorschläge erfassen, um die Qualität der Frage zu verbessern.",
-        "addButton": "Vorschlag Erfassen",
+        "addButton": "Vorschlag erfassen",
         "tooltipDetailView": "Detailansicht Dialog öffnen",
         "statusOpen": "Vorschlag ist geöffnet",
         "statusClosed": "Vorschlag wurde geschlossen"
@@ -464,7 +464,7 @@
     },
     "profileData": {
       "changeProfileDataTitle": "Profil bearbeiten",
-      "changeProfileDataButton": "Profil Bearbeiten",
+      "changeProfileDataButton": "Profil bearbeiten",
       "userDescription": "Eine kurze Beschreibung deiner Person"
     },
     "profileInfo": {
