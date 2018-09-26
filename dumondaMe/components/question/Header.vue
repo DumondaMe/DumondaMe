@@ -5,10 +5,7 @@
                 <h1 itemprop="name">{{question.question}}</h1>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
                 <div id="question-commands">
-                    <user-menu :menu-title="creatorTitle" :user-image="question.creator.userImagePreview"
-                               :user-name="question.creator.name" :user-id="question.creator.userId"
-                               :user-slug="question.creator.slug"
-                               :is-trust-user="question.creator.isTrustUser" :is-logged-in-user="question.isAdmin"
+                    <user-menu :menu-title="creatorTitle" :user="question.creator"
                                @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                                @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                         <div class="user-icon" slot="icon">

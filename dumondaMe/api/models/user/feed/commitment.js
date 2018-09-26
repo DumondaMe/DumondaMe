@@ -20,16 +20,28 @@ const getFeedResponse = async function (commitments) {
         if (commitment.description) {
             commitment.descriptionHtml = linkifyHtml(commitment.description);
         }
-        commitment.user = {
-            userId: commitment.creator.userId,
-            name: commitment.creator.name,
-            slug: slug(commitment.creator.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/thumbnail.jpg`),
-            userImagePreview: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/profilePreview.jpg`),
-            isLoggedInUser: commitment.isLoggedInUser,
-            isTrustUser: commitment.isTrustUser
-        };
+        if (commitment.creator.privacyMode === 'public' ||
+            (commitment.creator.privacyMode === 'publicEl' && userId !== null) ||
+            (commitment.creator.privacyMode === 'onlyContact' && commitment.creatorTrustUser)) {
+            commitment.user = {
+                isAnonymous: false,
+                userId: commitment.creator.userId,
+                name: commitment.creator.name,
+                slug: slug(commitment.creator.name),
+                userImage: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/profilePreview.jpg`),
+                isLoggedInUser: commitment.isLoggedInUser,
+                isTrustUser: commitment.isTrustUser
+            };
+        } else {
+            commitment.user = {
+                isAnonymous: true,
+                userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
+            };
+        }
         delete commitment.creator;
+        delete commitment.creatorTrustUser;
     }
     return commitments;
 };
@@ -128,6 +140,7 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
                  commitment.created AS created, commitment.modified AS modified, commitment.description AS description, 
                  'Commitment' AS type, count(DISTINCT watches) AS numberOfWatches, score,
                  creator.userId = {userId} AS isLoggedInUser, collect(DISTINCT region.${guiLanguage}) AS regions,
+                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
                  EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((commitment)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  EXISTS((commitment)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)

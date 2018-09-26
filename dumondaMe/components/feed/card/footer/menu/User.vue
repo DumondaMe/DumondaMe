@@ -2,31 +2,36 @@
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" offset-y>
         <slot name="icon" slot="activator"></slot>
         <v-card class="ely-menu-container ely-menu-user">
-            <div class="menu-title"><span class="primary-title" v-if="!isLoggedInUser">{{userName}}</span>
+            <div class="menu-title">
+                <span class="primary-title" v-if="user.isAnonymous">{{$t('common:anonymousUser')}}</span>
+                <span class="primary-title" v-else-if="!user.isLoggedInUser">{{user.userName}}</span>
                 <span class="primary-title" v-else>{{$t('common:you')}}</span> {{menuTitle}}
             </div>
             <div class="menu-content menu-user-content">
-                <div class="user-image" @click="goToProfile()">
-                    <v-tooltip bottom debounce="300" class="trust-circle-icon" v-if="isTrustUser">
+                <div class="user-image" @click="goToProfile()" :class="{'anonymous-image': user.isAnonymous}">
+                    <v-tooltip bottom debounce="300" class="trust-circle-icon" v-if="user.isTrustUser">
                         <v-icon slot="activator">mdi-account-circle</v-icon>
                         <span>{{$t('common:inYourTrustCircle')}}</span>
                     </v-tooltip>
-                    <img :src="userImage">
+                    <img :src="user.userImagePreview">
+                </div>
+                <div class="anonymous-description" v-if="user.isAnonymous">
+                    {{$t('common:anonymousUserDescription')}}
                 </div>
             </div>
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-                <div v-if="!isLoggedInUser">
+                <div v-if="!user.isLoggedInUser && !user.isAnonymous">
                     <v-btn color="primary" class="user-action-button lower-action-button"
-                           v-if="isTrustUser" :loading="loading" :disabled="loading || isLoggedInUser"
+                           v-if="user.isTrustUser" :loading="loading" :disabled="loading || user.isLoggedInUser"
                            @click="removeUserFromTrustCircle">
                         <v-icon left>mdi-check</v-icon>
                         {{$t('common:trustCircle')}}
                     </v-btn>
                     <v-btn color="primary" class="user-action-button lower-action-button" v-else
-                           :loading="loading" :disabled="loading || isLoggedInUser"
+                           :loading="loading" :disabled="loading || user.isLoggedInUser"
                            @click="addUserToTrustCircle">
                         <v-icon left>mdi-account-plus</v-icon>
                         {{$t('common:trustCircle')}}
@@ -46,25 +51,30 @@
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
-        props: ['menuTitle', 'user', 'userImage', 'userName', 'userId', 'userSlug', 'isTrustUser', 'isLoggedInUser'],
+        props: ['menuTitle', 'user'],
         components: {LoginRequiredDialog},
         data() {
             return {menu: false, loading: false, showError: false, showLoginRequired: false}
         },
         methods: {
             goToProfile() {
-                if (this.isLoggedInUser) {
-                    this.$router.push({name: 'user'});
-                } else {
-                    this.$router.push({name: 'user-userId-slug', params: {userId: this.userId, slug: this.userSlug}})
+                if (!this.user.isAnonymous) {
+                    if (this.user.isLoggedInUser) {
+                        this.$router.push({name: 'user'});
+                    } else {
+                        this.$router.push({
+                            name: 'user-userId-slug',
+                            params: {userId: this.user.userId, slug: this.user.userSlug}
+                        })
+                    }
                 }
             },
             async sendUserToTrustCircleCommand(command, emit) {
                 if (this.$store.state.auth.userIsAuthenticated) {
                     try {
                         this.loading = true;
-                        await this.$axios[command](`user/trustCircle/${this.userId}`);
-                        this.$emit(emit, this.userId);
+                        await this.$axios[command](`user/trustCircle/${this.user.userId}`);
+                        this.$emit(emit, this.user.userId);
                     } catch (error) {
                         this.showError = true;
                     } finally {
@@ -113,6 +123,17 @@
                         color: $success-text;
                     }
                 }
+            }
+            .user-image.anonymous-image {
+                width: 100px;
+                height: 100px;
+                img {
+                    cursor: auto;
+                }
+            }
+            .anonymous-description {
+                margin-left: 12px;
+                max-width: 200px;
             }
         }
     }

@@ -10,22 +10,35 @@ const PAGE_SIZE = 20;
 const FOUR_WEEKS = 2419200;
 const WEEK = 604800;
 
-const getFeedResponse = async function (questions) {
+const getFeedResponse = async function (questions, userId) {
     for (let question of questions) {
         question.questionSlug = slug(question.question);
         if (question.description) {
             question.descriptionHtml = linkifyHtml(question.description);
         }
-        question.user = {
-            userId: question.creator.userId,
-            name: question.creator.name,
-            slug: slug(question.creator.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/thumbnail.jpg`),
-            userImagePreview: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/profilePreview.jpg`),
-            isLoggedInUser: question.isLoggedInUser,
-            isTrustUser: question.isTrustUser
-        };
+        if (question.creator.privacyMode === 'public' ||
+            (question.creator.privacyMode === 'publicEl' && userId !== null) ||
+            (question.creator.privacyMode === 'onlyContact' && question.creatorTrustUser)) {
+            question.user = {
+                isAnonymous: false,
+                userId: question.creator.userId,
+                name: question.creator.name,
+                slug: slug(question.creator.name),
+                userImage: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/profilePreview.jpg`),
+                isLoggedInUser: question.isLoggedInUser,
+                isTrustUser: question.isTrustUser
+            };
+
+        } else {
+            question.user = {
+                isAnonymous: true,
+                userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
+            };
+        }
         delete question.creator;
+        delete question.creatorTrustUser;
     }
     return questions;
 };
@@ -112,6 +125,7 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
                  question.description AS description, count(DISTINCT answer) AS numberOfAnswers, 'Question' AS type,
                  count(DISTINCT watches) AS numberOfWatches, scoreWatches, scoreUpVotes,
                  creator.userId = {userId} AS isLoggedInUser, 
+                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
                  EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)
         .orderBy(`scoreWatches DESC, scoreUpVotes DESC, created DESC`)
@@ -122,7 +136,7 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
         }).send();
 
     return {
-        feed: await getFeedResponse(response), timestamp
+        feed: await getFeedResponse(response, userId), timestamp
     };
 };
 

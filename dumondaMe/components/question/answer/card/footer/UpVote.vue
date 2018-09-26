@@ -34,13 +34,12 @@
 </template>
 
 <script>
-    import UserMenu from '~/components/feed/card/footer/menu/User';
     import UpVoteMenu from '~/components/feed/card/footer/menu/UpVote';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
         props: ['numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
-        components: {UserMenu, UpVoteMenu, LoginRequiredDialog},
+        components: {UpVoteMenu, LoginRequiredDialog},
         data() {
             return {
                 showLoginRequired: false, upVoteRunning: false, showError: false

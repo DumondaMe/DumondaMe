@@ -6,6 +6,7 @@
   "surname": "Nachname",
   "anonymousUser": "Anonyme Person",
   "anonymousUser_plural": "{{count}} anonyme Personen",
+  "anonymousUserDescription": "Das Profil dieses Benutzers ist für dich nicht sichtbar.",
   "terms": "AGB's",
   "privacyPolicy": "Datenschutzbestimmungen",
   "title": "Titel",
