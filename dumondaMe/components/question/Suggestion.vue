@@ -5,7 +5,7 @@
                          @add-suggestion="suggestionAdded">
             <div slot="icon">
                 <v-btn small fab color="secondary">
-                    <v-icon>mdi-wrench</v-icon>
+                    <v-icon>mdi-lightbulb-outline</v-icon>
                 </v-btn>
                 <span class="number-of-suggestions">{{numberOfSuggestion}}</span>
             </div>

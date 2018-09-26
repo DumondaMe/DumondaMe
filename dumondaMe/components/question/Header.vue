@@ -42,6 +42,7 @@
                         </v-btn>
                         <span class="description">{{question.numberOfAnswers}}</span>
                     </div>
+                    <v-spacer></v-spacer>
                     <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
                                 :is-super-user="question.isSuperUser" :question-id="question.questionId"
                                 :number-of-suggestion="question.numberOfSuggestions">
