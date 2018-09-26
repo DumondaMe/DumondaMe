@@ -29,12 +29,21 @@
         <div class="event-footer">
             <div class="footer-icon">
                 <v-icon>mdi-map-marker</v-icon>
-                <span class="footer-text">{{event.location}} ({{event.region.description}})</span>
+                <span class="footer-text">
+                    <v-tooltip bottom open-delay="500">
+                        <span slot="activator">{{event.location}} ({{event.region.description}})</span>
+                        <span >{{event.location}} ({{event.region.description}})</span>
+                    </v-tooltip>
+                </span>
             </div>
             <div class="footer-icon" v-if="event.linkDescription">
                 <v-icon medium>mdi-calendar-text</v-icon>
                 <span class="footer-text">
-                    <a target="_blank" :href="event.linkDescription" class="link">{{linkDescriptionWithoutProtocol}}</a>
+                    <v-tooltip bottom open-delay="500">
+                        <a target="_blank" :href="event.linkDescription" class="link" slot="activator">
+                            {{linkDescriptionWithoutProtocol}}</a>
+                        <span>{{event.linkDescription}}</span>
+                    </v-tooltip>
                 </span>
             </div>
         </div>
@@ -126,23 +135,24 @@
             margin-top: 12px;
             .footer-icon {
                 vertical-align: top;
-                display: inline-block;
+                display: flex;
                 height: 40px;
                 .v-icon {
-                    display: inline-block;
                     height: 24px;
                     width: 24px;
                     color: #009688;
                 }
                 .footer-text {
-                    display: inline-block;
-                    margin-left: 4px;
+                    margin-left: 8px;
                     font-size: 14px;
                     font-weight: 400;
                     color: $secondary-text;
                     line-height: 24px;
                     height: 24px;
                     vertical-align: middle;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     .footer-link {
                         cursor: pointer;
                     }
