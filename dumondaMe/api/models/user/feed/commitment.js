@@ -10,7 +10,7 @@ const PAGE_SIZE = 20;
 const FOUR_WEEKS = 2419200;
 const WEEK = 604800;
 
-const getFeedResponse = async function (commitments) {
+const getFeedResponse = async function (commitments, userId) {
     for (let commitment of commitments) {
         commitment.commitmentSlug = slug(commitment.title);
         commitment.imageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/460x460/title.jpg`);
@@ -152,7 +152,7 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
         }).send();
 
     return {
-        feed: await getFeedResponse(response), timestamp
+        feed: await getFeedResponse(response, userId), timestamp
     };
 };
 
