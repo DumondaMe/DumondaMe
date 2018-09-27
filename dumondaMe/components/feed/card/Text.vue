@@ -3,7 +3,11 @@
         <div class="feed-card-header">
             <div>
                 <span class="answer-type"
-                      v-if="!hideQuestion">{{$t('common:feedCard.answerType.textWithQuestion')}} </span>
+                      v-if="!hideQuestion">
+                    <span>{{$t('common:feedCard.answerType.textWithQuestion1')}} </span>
+                    <span class="creator-name" @click="goToProfile()">{{creator.name}} </span>
+                    <span>{{$t('common:feedCard.answerType.textWithQuestion2')}} </span>
+                </span>
                 <span class="answer-type" v-else>{{$t('common:feedCard.answerType.text')}}</span>
                 <span class="card-header-link">
                 <nuxt-link :to="{name: 'question-questionId-slug',
@@ -25,8 +29,19 @@
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
-        props: ['answer', 'hideQuestion'],
-        components: {ExpandText}
+        props: ['answer', 'hideQuestion', 'creator'],
+        components: {ExpandText},
+        methods: {
+            goToProfile() {
+                if (this.creator.isLoggedInUser) {
+                    this.$router.push({name: 'user'});
+                } else {
+                    this.$router.push({
+                        name: 'user-userId-slug', params: {userId: this.creator.userId, slug: this.creator.slug}
+                    })
+                }
+            }
+        }
     }
 </script>
 
@@ -37,6 +52,14 @@
         }
         .question-to-answer-container {
             margin-bottom: 8px;
+        }
+        .creator-name {
+            color: $primary-color;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        :hover.creator-name {
+            text-decoration: underline;
         }
     }
 </style>

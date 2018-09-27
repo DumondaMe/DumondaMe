@@ -66,8 +66,7 @@
         vertical-align: top;
         line-height: 14px;
         height: 14px;
-        margin: 14px 4px 12px 0;
-        padding-left: 4px;
+        margin: 14px 0 12px 0;
         font-size: 14px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.54);
@@ -83,22 +82,28 @@
         font-size: 16px;
         cursor: pointer;
       }
+      .footer-description.right-number {
+        margin-right: 16px;
+        margin-left: 6px;
+
+      }
+      .footer-description.left-number {
+        margin-right: 6px;
+        margin-left: 16px;
+      }
       .user-icon {
         vertical-align: top;
         cursor: pointer;
         height: 40px;
         width: 40px;
+        margin-right: 16px;
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
         }
       }
-      .user-icon.creator-icon {
-        margin-right: 0;
-      }
       .action-icon {
-        margin-left: 16px;
         margin-top: 6px;
         cursor: pointer;
         color: #009688;
@@ -107,20 +112,9 @@
         color: #1E88E5;
       }
       .tooltip-icon {
-        margin-left: 16px;
         margin-top: 6px;
         color: #009688;
       }
-      .badge__badge {
-        right: -14px;
-      }
-    }
-    .separator-icon {
-      display: inline-block;
-      vertical-align: top;
-      padding-top: 6px;
-      padding-bottom: 6px;
-      margin-right: 12px;
     }
   }
 }
