@@ -59,6 +59,8 @@ describe('Get activity feed with created link answers for a user', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(601);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');

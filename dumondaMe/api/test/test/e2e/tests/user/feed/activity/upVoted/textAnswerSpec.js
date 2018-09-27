@@ -46,6 +46,7 @@ describe('Get activity feed for up voted text answers', function () {
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].answer.should.equals('Answer');
         res.body.feed[0].questionId.should.equals('1');

@@ -4,6 +4,7 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const users = require('dumonda-me-server-test-util').user;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 //All test cases are the same as for book answers an are therefore tested in upVoted/bookAnswerSpec
 describe('Get activity feed for up voted commitment answers', function () {
@@ -63,6 +64,7 @@ describe('Get activity feed for up voted commitment answers', function () {
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
@@ -82,13 +84,7 @@ describe('Get activity feed for up voted commitment answers', function () {
         res.body.feed[0].user.userImage.should.equals('profileImage/4/thumbnail.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('2');
-        res.body.feed[0].creator.name.should.equals('user Meier2');
-        res.body.feed[0].creator.slug.should.equals('user-meier2');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
-        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
-        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
-        res.body.feed[0].creator.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('CommitmentAnswer');
         res.body.feed[1].action.should.equals('created');

@@ -154,31 +154,27 @@
       },
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
-        "titleTwoNames": "haben dieser Antwort zugestimmt",
-        "noWatches": "Noch Niemand hat dieser Antwort zugestimmt.",
-        "moreUpVotes": "Zustimmung von",
-        "moreUpVotes_plural": "Zustimmungen von",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
-        "titleIsLoggedInUserAndNotUpVoted": "hast dieser Antwort nicht zugestimmt",
-        "titleIsAdmin": "hast diese Antwort erstellt"
+        "noUpVotes": "Noch Niemand hat dieser Antwort zugestimmt.",
+        "userIsOnlyUpVoter": "Du bist die erste Person welche dieser Antwort zugestimmt hat.",
+        "moreUpVotes": "Zustimmung von",
+        "moreUpVotes_plural": "Zustimmungen von"
       },
       "watchesQuestion": {
         "title": "findet diese Frage interessant",
-        "titleTwoNames": "finden diese Frage interessant",
-        "noWatches": "Noch niemand findet diese Frage interessant",
-        "moreWatches": "Die Frage findet interessant",
-        "moreWatches_plural": "Die Fragen finden interessant",
         "titleIsLoggedInUser": "findest diese Frage interessant",
-        "titleIsLoggedInUserAndNotWatched": "findest diese Frage nicht interessant"
+        "noWatches": "Noch niemand findet diese Frage interessant",
+        "userIsOnlyWatcher": "Du bist die erste Person welche diese Frage interessant findet.",
+        "moreWatches": "Interessierte Person",
+        "moreWatches_plural": "Interessierte Personen"
       },
       "watchesCommitment": {
         "title": "findet dieses Engagement interessant",
-        "titleTwoNames": "finden dieses Engagement interessant",
-        "noWatches": "Noch niemand findet diese Engagement interessant",
-        "moreWatches": "Dieses Engagement findet interessant",
-        "moreWatches_plural": "Dieses Engagement finden interessant",
         "titleIsLoggedInUser": "findest dieses Engagement interessant",
-        "titleIsLoggedInUserAndNotWatched": "findest dieses Engagement nicht interessant"
+        "noWatches": "Noch niemand findet diese Engagement interessant",
+        "userIsOnlyWatcher": "Du bist die erste Person welche dieses Engagement interessant findet.",
+        "moreWatches": "Interessierte Person",
+        "moreWatches_plural": "Interessierte Personen"
       },
       "eventCreateByCommitment": {
         "title": "hat diesen Event erfasst"

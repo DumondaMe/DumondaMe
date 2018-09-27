@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="footer-up-vote-button">
-            <up-vote-menu :answer-id="answerId" :is-logged-in-user="true"
+            <up-vote-menu :answer-id="answerId" :is-logged-in-user="isLoggedInUser"
                           :is-admin="isAdmin" :up-voted-by-user="isUpVotedByUser"
                           :number-of-up-votes="numberOfUpVotes"
-                          @up-voted="upVote"
-                          @down-voted="downVote"
+                          @up-voted="(answerId) => $emit('up-voted', answerId)"
+                          @down-voted="(answerId) => $emit('down-voted', answerId)"
                           @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
                 <div slot="icon">
                     <span class="description left-side">{{numberOfUpVotes}}</span>
@@ -38,19 +38,11 @@
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
 
     export default {
-        props: ['numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
+        props: ['numberOfUpVotes', 'isUpVotedByUser', 'isLoggedInUser', 'isAdmin', 'answerId'],
         components: {UpVoteMenu, LoginRequiredDialog},
         data() {
             return {
                 showLoginRequired: false, upVoteRunning: false, showError: false
-            }
-        },
-        methods: {
-            upVote() {
-                this.$store.commit('question/UP_VOTE_ANSWER', this.answerId)
-            },
-            downVote() {
-                this.$store.commit('question/DOWN_VOTE_ANSWER', this.answerId)
             }
         }
     }

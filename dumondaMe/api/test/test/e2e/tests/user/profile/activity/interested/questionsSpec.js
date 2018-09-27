@@ -4,6 +4,7 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const users = require('dumonda-me-server-test-util').user;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 describe('Get activity feed for interested questions for a user', function () {
 
@@ -65,6 +66,7 @@ describe('Get activity feed for interested questions for a user', function () {
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
@@ -72,13 +74,7 @@ describe('Get activity feed for interested questions for a user', function () {
         res.body.feed[0].user.userImagePreview.should.equals('profileImage/5/profilePreview.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('2');
-        res.body.feed[0].creator.name.should.equals('user Meier2');
-        res.body.feed[0].creator.slug.should.equals('user-meier2');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/2/thumbnail.jpg');
-        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
-        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
-        res.body.feed[0].creator.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('Get interested question for logged in user', async function () {
@@ -99,7 +95,6 @@ describe('Get activity feed for interested questions for a user', function () {
         res.body.feed[0].isWatchedByUser.should.equals(true);
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('2');
-        res.body.feed[0].creator.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
     });
 });

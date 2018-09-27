@@ -18,6 +18,8 @@
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"
                            :is-up-voted-by-user="answer.hasVoted" :is-admin="answer.isAdmin"
                            :answer-id="answer.answerId" :regions="answer.regions"
+                           @up-voted="(answerId) => $emit('up-voted', answerId)"
+                           @down-voted="(answerId) => $emit('down-voted', answerId)"
                            @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
                            @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
             </answer-footer>

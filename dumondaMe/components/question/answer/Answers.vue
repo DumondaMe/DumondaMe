@@ -4,22 +4,27 @@
             <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope class="feed-card ely-card"
                  itemtype="http://schema.org/Answer">
                 <text-card v-if="answer.answerType === 'Text'" :answer="answer"
+                           @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </text-card>
                 <youtube-card v-else-if="answer.answerType === 'Youtube'" :answer="answer"
+                              @up-voted="upVote" @down-voted="downVote"
                               @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                               @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </youtube-card>
                 <link-card v-else-if="answer.answerType === 'Link'" :answer="answer"
+                           @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </link-card>
                 <book-card v-else-if="answer.answerType === 'Book'" :answer="answer"
+                           @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </book-card>
                 <commitment-card v-else-if="answer.answerType === 'Commitment'" :answer="answer"
+                                 @up-voted="upVote" @down-voted="downVote"
                                  @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                                  @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </commitment-card>
@@ -83,6 +88,12 @@
             },
             async removeUserFromTrustCircle(userId) {
                 this.$store.commit('question/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
+            },
+            upVote(answerId) {
+                this.$store.commit('question/UP_VOTE_ANSWER', answerId)
+            },
+            downVote(answerId) {
+                this.$store.commit('question/DOWN_VOTE_ANSWER', answerId)
             },
             async showAllAnswers() {
                 try {

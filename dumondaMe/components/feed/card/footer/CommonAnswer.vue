@@ -36,7 +36,7 @@
         <v-spacer></v-spacer>
         <div class="footer-icon">
             <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
-                            :is-admin="user.isAdmin" :answer-id="answerId"
+                            :is-admin="isAdmin" :answer-id="answerId"
                             @up-voted="(answerId) => $emit('up-voted', answerId)"
                             @down-voted="(answerId) => $emit('down-voted', answerId)"
                             @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
@@ -50,7 +50,7 @@
     import UpVoteButton from '~/components/question/answer/card/footer/UpVote';
 
     export default {
-        props: ['creator', 'user', 'action', 'numberOfUpVotes', 'isUpVotedByUser', 'answerId'],
+        props: ['creator', 'user', 'action', 'numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
         components: {UserMenu, UpVoteButton},
         computed: {
             userTitle() {

@@ -75,6 +75,8 @@ describe('Get activity feed with created commitment answers for a user', functio
         res.body.feed[0].regions.should.includes('regionDe');
         res.body.feed[0].regions.should.includes('region211De');
         res.body.feed[0].created.should.equals(601);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');

@@ -22,7 +22,9 @@
             </div>
             <v-spacer></v-spacer>
             <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
-                            :is-admin="isAdmin" :answer-id="answerId">
+                            :is-admin="isAdmin" :answer-id="answerId"
+                            @up-voted="(answerId) => $emit('up-voted', answerId)"
+                            @down-voted="(answerId) => $emit('down-voted', answerId)">
             </up-vote-button>
         </div>
     </div>
