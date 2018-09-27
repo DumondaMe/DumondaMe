@@ -154,31 +154,27 @@
       },
       "userUpVote": {
         "title": "has up voted this answer",
-        "titleTwoNames": "have up voted this answer",
-        "noWatches": "No one has yet this answer up voted.",
-        "moreUpVotes": "Up voted by",
-        "moreUpVotes_plural": "Up voted by",
         "titleIsLoggedInUser": "have up voted this answer",
-        "titleIsLoggedInUserAndNotUpVoted": "didn't up vote that answer",
-        "titleIsAdmin": "created this answer"
+        "noUpVotes": "No one has yet this answer up voted.",
+        "userIsOnlyUpVoter": "You're the first person to agree to that answer.",
+        "moreUpVotes": "Up voted by",
+        "moreUpVotes_plural": "Up voted by"
       },
       "watchesQuestion": {
         "title": "finds this question interesting",
-        "titleTwoNames": "find this question interesting",
-        "noWatches": "No one yet finds this question interesting",
-        "moreWatches": "The question is of interest to",
-        "moreWatches_plural": "The question is of interest to",
         "titleIsLoggedInUser": "find this question interesting",
-        "titleIsLoggedInUserAndNotWatched": "don't find this question interesting"
+        "noWatches": "No one yet finds this question interesting",
+        "userIsOnlyWatcher": "You are the first person to find this question interesting.",
+        "moreWatches": "Interested person",
+        "moreWatches_plural": "Interested persons"
       },
       "watchesCommitment": {
         "title": "finds this commitment interesting",
-        "titleTwoNames": "finds this commitment interesting",
-        "noWatches": "No one yet finds this commitment interesting",
-        "moreWatches": "The commitment is of interest to",
-        "moreWatches_plural": "The commitment is of interest to",
         "titleIsLoggedInUser": "find this commitment interesting",
-        "titleIsLoggedInUserAndNotWatched": "don't find this commitment interesting"
+        "noWatches": "No one yet finds this commitment interesting",
+        "userIsOnlyWatcher": "You are the first person to find this commitment interesting.",
+        "moreWatches": "Interested person",
+        "moreWatches_plural": "Interested persons"
       },
       "eventCreateByCommitment": {
         "title": "has created this event"

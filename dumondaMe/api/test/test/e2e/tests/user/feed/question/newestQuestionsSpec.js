@@ -80,6 +80,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(0);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
@@ -98,6 +99,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(1);
         res.body.feed[1].isWatchedByUser.should.equals(true);
+        res.body.feed[1].isAdmin.should.equals(false);
         res.body.feed[1].user.userId.should.equals('3');
         res.body.feed[1].user.name.should.equals('user Meier3');
         res.body.feed[1].user.slug.should.equals('user-meier3');
@@ -116,6 +118,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[2].numberOfAnswers.should.equals(0);
         res.body.feed[2].numberOfWatches.should.equals(2);
         res.body.feed[2].isWatchedByUser.should.equals(false);
+        res.body.feed[2].isAdmin.should.equals(true);
         res.body.feed[2].user.userId.should.equals('1');
         res.body.feed[2].user.name.should.equals('user Meier');
         res.body.feed[2].user.slug.should.equals('user-meier');

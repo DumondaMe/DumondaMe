@@ -74,6 +74,8 @@ describe('Get activity feed for created commitment answers', function () {
         res.body.feed[0].regions.should.includes('regionDe');
         res.body.feed[0].regions.should.includes('region211De');
         res.body.feed[0].created.should.equals(601);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');
@@ -81,7 +83,7 @@ describe('Get activity feed for created commitment answers', function () {
         res.body.feed[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        should.not.exist(res.body.feed[0].creator);
+        should.not.exist(res.body.feed[0].user.isAdmin);
     });
 
     it('Created commitment answer within region', async function () {
@@ -149,7 +151,6 @@ describe('Get activity feed for created commitment answers', function () {
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
-        should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('Commitment');
         res.body.feed[1].action.should.equals('created');

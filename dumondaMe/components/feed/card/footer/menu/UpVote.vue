@@ -2,52 +2,32 @@
     <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy>
         <slot name="icon" slot="activator"></slot>
         <v-card class="ely-menu-container up-vote-menu-container">
-            <div class="menu-title" v-if="!isAuthenticated">
+            <div class="menu-title">
                 {{$t('pages:feeds.menu.userUpVote.moreUpVotes', {count: numberOfShowedUsers})}}
-            </div>
-            <div class="menu-title" v-else-if="customTextHasUpVoted && customTextHasNotUpVoted">
-                <span class="primary-title">{{$t('common:you')}} </span>
-                <span v-if="isAdmin" v-html="customTextIsAdmin"></span>
-                <span v-else-if="localUpVotedByUser" v-html="customTextHasUpVoted"></span>
-                <span v-else v-html="customTextHasNotUpVoted"></span>
-            </div>
-            <div class="menu-title" v-else>
-                <span v-if="!isLoggedInUser">
-                    <span class="primary-title">{{userName}} </span>
-                    <span v-if="localUpVotedByUser">{{$t('common:and')}} <span class="primary-title">{{$t('common:you')}}
-                    </span>{{$t("pages:feeds.menu.userUpVote.titleTwoNames")}}</span>
-                    <span v-else>{{$t("pages:feeds.menu.userUpVote.title")}}</span>
-                </span>
-                <span v-else-if="isAdmin">
-                    <span class="primary-title">{{$t('common:you')}} </span>
-                    <span>{{$t("pages:feeds.menu.userUpVote.titleIsAdmin")}}</span>
-                </span>
-                <span v-else>
-                    <span class="primary-title">{{$t('common:you')}} </span>
-                    <span v-if="localUpVotedByUser">{{$t("pages:feeds.menu.userUpVote.titleIsLoggedInUser")}}</span>
-                    <span v-else>{{$t("pages:feeds.menu.userUpVote.titleIsLoggedInUserAndNotUpVoted")}}</span>
-                </span>
             </div>
             <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
                           api-get-user="/question/answer/upVotes" :init-has-more-users="users.hasMoreUsers"
                           :id="answerId" :user-id="userId">
             </user-content>
-            <div v-else-if="numberOfUpVotes === 0" class="no-up-votes-description">
-                {{$t('pages:feeds.menu.userUpVote.noWatches')}}
+            <div v-else-if="numberOfUpVotes === 0" class="up-votes-description">
+                {{$t('pages:feeds.menu.userUpVote.noUpVotes')}}
             </div>
             <div v-else-if="loadUpVotedUserRunning" class="loading-up-voted-user-running">
                 <div class="text-xs-center">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
             </div>
+            <div v-else-if="numberOfUpVotes === 1 && upVotedByUser" class="up-votes-description">
+                {{$t('pages:feeds.menu.userUpVote.userIsOnlyUpVoter')}}
+            </div>
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                 <v-tooltip top debounce="300" v-if="localUpVotedByUser">
-                    <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="downVote()" slot="activator"
-                           :loading="upVoteRunning">
-                        <v-icon left>mdi-check</v-icon>
+                    <v-btn color="user-has-up-voted-button" :disabled="isAdmin || upVoteRunning" @click="downVote()"
+                           slot="activator" :loading="upVoteRunning">
+                        <v-icon left>mdi-thumb-up</v-icon>
                         {{$t('common:button.upVote')}}
                     </v-btn>
                     <span>{{$t('common:feedCard.upVote.removeUpVote')}}</span>
@@ -55,7 +35,7 @@
                 <v-tooltip top debounce="300" v-else>
                     <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="upVote()" slot="activator"
                            :loading="upVoteRunning">
-                        <v-icon left>mdi-thumb-up</v-icon>
+                        <v-icon left>mdi-thumb-up-outline</v-icon>
                         {{$t('common:button.upVote')}}
                     </v-btn>
                     <span v-if="!isAdmin">{{$t('common:feedCard.upVote.addUpVote')}}</span>
@@ -77,8 +57,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId',
-            'numberOfUpVotes', 'customTextHasUpVoted', 'customTextHasNotUpVoted', 'customTextIsAdmin'],
+        props: ['userId', 'isLoggedInUser', 'isAdmin', 'upVotedByUser', 'answerId', 'numberOfUpVotes'],
         components: {UserContent, LoginRequiredDialog},
         data() {
             return {
@@ -157,12 +136,19 @@
 
 <style lang="scss">
     .ely-menu-container.up-vote-menu-container {
-        .no-up-votes-description {
-            padding: 12px 16px;
+        .up-votes-description {
+            padding: 0 16px 12px 16px;
         }
 
         .loading-up-voted-user-running {
             margin-bottom: 12px;
+        }
+        .user-has-up-voted-button.v-btn {
+            background-color: $selected-button;
+            color: white;
+            i.v-icon {
+                color: white;
+            }
         }
     }
 </style>

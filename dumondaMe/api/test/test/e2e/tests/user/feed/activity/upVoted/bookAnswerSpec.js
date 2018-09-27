@@ -4,6 +4,7 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const users = require('dumonda-me-server-test-util').user;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 describe('Get activity feed for up voted book answers', function () {
 
@@ -54,19 +55,14 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('4');
         res.body.feed[0].user.name.should.equals('user Meier4');
         res.body.feed[0].user.slug.should.equals('user-meier4');
         res.body.feed[0].user.userImage.should.equals('profileImage/4/thumbnail.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('3');
-        res.body.feed[0].creator.name.should.equals('user Meier3');
-        res.body.feed[0].creator.slug.should.equals('user-meier3');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
-        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
-        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
-        res.body.feed[0].creator.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('Book');
         res.body.feed[1].action.should.equals('created');
@@ -93,7 +89,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(3);
         res.body.feed[0].isUpVotedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
 
         res.body.feed[1].type.should.equals('Book');
         res.body.feed[1].action.should.equals('created');
@@ -117,7 +112,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
 
         res.body.feed[1].type.should.equals('Book');
         res.body.feed[1].action.should.equals('created');
@@ -143,7 +137,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(3);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
 
         res.body.feed[1].type.should.equals('Book');
         res.body.feed[1].action.should.equals('created');
@@ -168,7 +161,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
     });
 
     it('Only latest up voted book answer (trust circle filter)', async function () {
@@ -191,7 +183,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].isUpVotedByUser.should.equals(true);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
     });
 
     it('Get up voted book answer (trust circle and topics filter)', async function () {
@@ -210,7 +201,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
     });
 
     it('Only latest up voted book answer  (trust circle and topics filter)', async function () {
@@ -233,7 +223,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(3);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].creator.userId.should.equals('3');
     });
 
     it('Up voted book answer is not shown because of topics filter', async function () {

@@ -60,6 +60,8 @@ describe('Get activity feed for a user with created commitments', function () {
         res.body.feed[0].regions.should.includes('regionDe');
         res.body.feed[0].regions.should.includes('region211De');
         res.body.feed[0].created.should.equals(400);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('2');
         res.body.feed[0].user.name.should.equals('user Meier2');
         res.body.feed[0].user.slug.should.equals('user-meier2');

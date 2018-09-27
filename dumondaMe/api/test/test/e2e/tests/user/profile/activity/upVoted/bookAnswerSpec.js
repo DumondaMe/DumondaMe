@@ -4,6 +4,7 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const users = require('dumonda-me-server-test-util').user;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 describe('Get activity feed with up voted book answers for a user', function () {
 
@@ -60,19 +61,14 @@ describe('Get activity feed with up voted book answers for a user', function () 
         res.body.feed[0].created.should.equals(999);
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('5');
         res.body.feed[0].user.name.should.equals('user Meier5');
         res.body.feed[0].user.slug.should.equals('user-meier5');
         res.body.feed[0].user.userImage.should.equals('profileImage/5/thumbnail.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('3');
-        res.body.feed[0].creator.name.should.equals('user Meier3');
-        res.body.feed[0].creator.slug.should.equals('user-meier3');
-        res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
-        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
-        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
-        res.body.feed[0].creator.isTrustUser.should.equals(false);
+        should.not.exist(res.body.feed[0].creator);
     });
 
     it('Get by logged in user up voted book answer', async function () {
@@ -92,6 +88,6 @@ describe('Get activity feed with up voted book answers for a user', function () 
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].creator.userId.should.equals('3');
+        should.not.exist(res.body.feed[0].creator);
     });
 });

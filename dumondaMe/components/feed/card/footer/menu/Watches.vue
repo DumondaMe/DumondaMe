@@ -3,38 +3,14 @@
         <v-menu v-model="menu" :close-on-content-click="false" offset-y>
             <slot name="icon" slot="activator"></slot>
             <v-card class="ely-menu-container ely-menu-watches-container">
-                <div v-if="isAuthenticated">
-                    <div class="menu-title" v-if="isLoggedInUser && isWatchingAction">
-                        <span class="primary-title">{{$t('common:you')}} </span>
-                        <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
-                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
-                    </div>
-                    <div class="menu-title" v-else-if="!isLoggedInUser && isWatchingAction">
-                        <span class="primary-title">{{userName}} </span>
-                        <span v-if="localWatchedByUser">{{$t('common:and')}}
-                            <span class="primary-title">{{$t('common:you')}}
-                        </span>{{$t("pages:feeds.menu." + menuTranslation + ".titleTwoNames")}}</span>
-                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".title")}}</span>
-                    </div>
-                    <div class="menu-title" v-else-if="!isWatchingAction && !isAdmin">
-                        <span class="primary-title">{{$t('common:you')}} </span>
-                        <span v-if="localWatchedByUser">{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUser")}}</span>
-                        <span v-else>{{$t("pages:feeds.menu." + menuTranslation + ".titleIsLoggedInUserAndNotWatched")}}</span>
-                    </div>
-                    <div class="menu-title" v-else>{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
-                        {count: numberOfShowedUsers})}}
-                    </div>
-                </div>
-                <div v-else>
-                    <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
-                        {count: numberOfShowedUsers})}}
-                    </div>
+                <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
+                    {count: numberOfShowedUsers})}}
                 </div>
                 <user-content v-if="numberOfShowedUsers > 0 && !loadWatchingUserRunning" :users="users.users"
                               :api-get-user="apiGetUserCommand" :init-has-more-users="users.hasMoreUsers"
                               :id="watchedId" :user-id="userId">
                 </user-content>
-                <div v-else-if="numberOfWatches === 0" class="no-watches-description">
+                <div v-else-if="numberOfWatches === 0" class="watches-description">
                     {{$t('pages:feeds.menu.'+ menuTranslation + '.noWatches')}}
                 </div>
                 <div v-else-if="loadWatchingUserRunning" class="loading-watching-user-running">
@@ -42,22 +18,26 @@
                         <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     </div>
                 </div>
+                <div v-else-if="numberOfWatches === 1 && watchedByUser" class="watches-description">
+                    {{$t('pages:feeds.menu.'+ menuTranslation + '.userIsOnlyWatcher')}}
+                </div>
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-tooltip top debounce="300" v-if="localWatchedByUser">
-                        <v-btn color="primary" :disabled="isAdmin || watchingRunning" @click="removeWatch()"
+                        <v-btn color="user-is-interested-button" :disabled="isAdmin || watchingRunning" @click="removeWatch()"
                                slot="activator" :loading="watchingRunning">
-                            <v-icon left>mdi-check</v-icon>
+                            <v-icon left>mdi-star</v-icon>
                             {{$t('common:button.interested')}}
                         </v-btn>
                         <span>{{$t('common:feedCard.watch.removeWatch')}}</span>
                     </v-tooltip>
                     <v-tooltip top debounce="300" v-else>
-                        <v-btn color="primary" :disabled="isAdmin || watchingRunning" @click="addWatch()"
+                        <v-btn color="primary" :disabled="isAdmin || watchingRunning"
+                               @click="addWatch()"
                                slot="activator" :loading="watchingRunning">
-                            <v-icon left>mdi-star</v-icon>
+                            <v-icon left>mdi-star-outline</v-icon>
                             {{$t('common:button.interested')}}
                         </v-btn>
                         <span v-if="!isAdmin">{{$t('common:feedCard.watch.addWatch')}}</span>
@@ -80,8 +60,8 @@
     import Vue from 'vue';
 
     export default {
-        props: ['userName', 'userId', 'userSlug', 'isLoggedInUser', 'isWatchingAction', 'isAdmin', 'watchedByUser',
-            'watchedId', 'watchedIdName', 'numberOfWatches', 'apiWatch', 'apiGetUserCommand', 'menuTranslation'],
+        props: ['userId', 'isLoggedInUser', 'isAdmin', 'watchedByUser', 'watchedId', 'watchedIdName', 'numberOfWatches',
+            'apiWatch', 'apiGetUserCommand', 'menuTranslation'],
         components: {UserContent, LoginRequiredDialog},
         data() {
             return {
@@ -161,11 +141,19 @@
 
 <style lang="scss">
     .ely-menu-container.ely-menu-watches-container {
-        .no-watches-description {
-            padding: 12px 16px;
+        .watches-description {
+            padding: 0 16px 12px 16px;
+            max-width: 300px;
         }
         .loading-watching-user-running {
             margin-bottom: 12px;
+        }
+        .user-is-interested-button.v-btn  {
+            background-color: $selected-button;
+            color: white;
+            i.v-icon {
+                color: white;
+            }
         }
     }
 </style>

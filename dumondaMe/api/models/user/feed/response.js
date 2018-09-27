@@ -17,6 +17,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
         result.questionId = feedElement.question.questionId;
         result.question = feedElement.question.question;
         result.questionSlug = slug(feedElement.question.question);
+        result.isAdmin = feedElement.isAdmin;
     }
 };
 
@@ -167,7 +168,9 @@ const getFeed = async function (feedElements, userId) {
             action: getActivity(feedElement.relActivity),
             created: feedElement.created
         };
-        if (result.type !== 'Event') {
+        if (result.type !== 'Event' && result.type !== 'Text') {
+            result.user = await getUser(feedElement, userId);
+        } else if(result.type === 'Text') {
             result.user = await getUser(feedElement, userId);
             result.creator = await getCreator(feedElement, result.type, result.action, userId);
         }

@@ -51,6 +51,7 @@ describe('Get activity feed for interested commitments for a user', function () 
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].numberOfWatches.should.equals(1);
         res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].commitmentSlug.should.equals('test-commitment');
         res.body.feed[0].title.should.equals('Test Commitment');

@@ -13,11 +13,8 @@
 </template>
 
 <script>
-    import UpVoteMenu from '~/components/feed/card/footer/menu/UpVote';
-
     export default {
         name: "questions",
-        components: {UpVoteMenu},
         computed: {
             questions() {
                 return this.$store.state.commitment.commitment.linkedWithQuestions;

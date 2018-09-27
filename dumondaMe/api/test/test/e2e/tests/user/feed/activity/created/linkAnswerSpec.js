@@ -55,6 +55,8 @@ describe('Get activity feed for created link answers', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].created.should.equals(601);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.name.should.equals('user Meier3');
         res.body.feed[0].user.slug.should.equals('user-meier3');
@@ -62,7 +64,6 @@ describe('Get activity feed for created link answers', function () {
         res.body.feed[0].user.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
-        should.not.exist(res.body.feed[0].creator);
     });
 
     it('Show only link answer', async function () {

@@ -19,7 +19,7 @@
         <div class="footer-icon">
             <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"
                           :is-watching-action="false"
-                          :user-slug="user.slug" :is-logged-in-user="true" :is-admin="user.isLoggedInUser"
+                          :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser" :is-admin="isAdmin"
                           :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
                           menu-translation="watchesQuestion" api-get-user-command="question/watches"
                           api-watch="user/question/watch"
@@ -59,8 +59,8 @@
     import WatchesMenu from './menu/Watches'
 
     export default {
-        props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'isWatchedByUser', 'action',
-            'questionId'],
+        props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'isWatchedByUser', 'isAdmin',
+            'action', 'questionId'],
         components: {UserMenu, WatchesMenu},
         computed: {
             userTitle() {
