@@ -4,7 +4,7 @@
         <v-card class="ely-menu-container ely-menu-user">
             <div class="menu-title">
                 <span class="primary-title" v-if="user.isAnonymous">{{$t('common:anonymousUser')}}</span>
-                <span class="primary-title" v-else-if="!user.isLoggedInUser">{{user.userName}}</span>
+                <span class="primary-title" v-else-if="!user.isLoggedInUser">{{user.name}}</span>
                 <span class="primary-title" v-else>{{$t('common:you')}}</span> {{menuTitle}}
             </div>
             <div class="menu-content menu-user-content">
