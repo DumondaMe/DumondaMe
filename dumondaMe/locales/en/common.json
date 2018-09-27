@@ -75,7 +75,8 @@
   "feedCard": {
     "answersQuestion": "answers the question",
     "answerType": {
-      "textWithQuestion": "Answer to question",
+      "textWithQuestion1": "Answer from",
+      "textWithQuestion2": "to question",
       "text": "Answer",
       "video": "Video",
       "book": "Book",

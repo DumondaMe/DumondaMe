@@ -34,11 +34,6 @@
         .question-header {
             display: block;
             line-height: 16px;
-            .question-icon {
-                margin-left: -2px;
-                margin-right: 8px;
-                font-size: 22px;
-            }
             .question-title {
                 cursor: pointer;
                 font-size: 16px;
