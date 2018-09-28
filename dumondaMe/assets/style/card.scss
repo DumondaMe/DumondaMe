@@ -115,6 +115,33 @@
         margin-top: 6px;
         color: #009688;
       }
+      .tooltip-icon.comment-icon {
+        margin-top: 8px;
+      }
+    }
+    .footer-icon.footer-watches-button {
+      .not-watching.v-btn {
+        background-color: #009688;
+        i.v-icon {
+          color: white;
+        }
+      }
+      .watching.v-btn {
+        background-color: #607D8B;
+        i.v-icon {
+          color: white;
+        }
+      }
+      button {
+        margin: 0;
+      }
+      .footer-description.number-of-watches {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54);
+        margin-right: 8px;
+        margin-left: 22px;
+      }
     }
   }
 }
