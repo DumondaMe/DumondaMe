@@ -61,7 +61,7 @@
 
 <style lang="scss">
     #question-admin-commands-container {
-        margin-left: 4px;
+        margin-left: 18px;
         height: 40px;
         display: inline-block;
         #admin-commands {

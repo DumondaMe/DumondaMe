@@ -4,10 +4,10 @@
                          :question-id="questionId" @delete-suggestion="suggestionDeleted"
                          @add-suggestion="suggestionAdded">
             <div slot="icon">
+                <span class="number-of-suggestions">{{numberOfSuggestion}}</span>
                 <v-btn small fab color="secondary">
                     <v-icon>mdi-lightbulb-outline</v-icon>
                 </v-btn>
-                <span class="number-of-suggestions">{{numberOfSuggestion}}</span>
             </div>
         </suggestion-menu>
     </div>
@@ -43,8 +43,8 @@
             font-size: 16px;
             font-weight: 500;
             color: $secondary-text;
-            margin-left: 10px;
-            margin-right: 16px;
+            margin-left: 18px;
+            margin-right: 8px;
             vertical-align: middle;
         }
     }
