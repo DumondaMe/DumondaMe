@@ -119,6 +119,7 @@
             display: flex;
             #question-header-main {
                 max-width: 550px;
+                width: 100%;
             }
             h1 {
                 margin-bottom: 4px;
