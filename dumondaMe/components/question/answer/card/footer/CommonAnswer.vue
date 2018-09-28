@@ -56,9 +56,14 @@
 </script>
 
 <style lang="scss">
-    .card-common-answer-footer {
+    .card-footer-feed.card-common-answer-footer {
         .footer-icon.common-answer-footer-user-icon {
             margin-right: 12px;
+        }
+        .footer-icon {
+            .action-icon {
+                margin-right: 6px;
+            }
         }
     }
 </style>
