@@ -2,9 +2,9 @@
     <v-flex xs12>
         <div id="link-container">
             <div v-if="linkData.imageUrl" id="link-image">
-                <img :src="linkData.imageUrl" v-if="linkData.imageUrl"/>
+                <img :src="linkData.imageUrl" v-if="linkData.imageUrl && !hasImageLoadError" @error="imageError"/>
             </div>
-            <div id="link-content" :class="{'image-missing': !linkData.imageUrl}">
+            <div id="link-content" :class="{'image-missing': !linkData.imageUrl || hasImageLoadError}">
                 <v-text-field v-model="linkData.title"
                               :label="$t('common:title')"
                               :rules="[ruleFieldRequired($t('validation:fieldRequired')),
@@ -36,7 +36,7 @@
         props: ['initLinkData', 'link', 'answerId'],
         data() {
             return {
-                linkData: JSON.parse(JSON.stringify(this.initLinkData))
+                linkData: JSON.parse(JSON.stringify(this.initLinkData)), hasImageLoadError: false
             }
         },
         mixins: [validationRules],
@@ -63,10 +63,14 @@
         },
         methods: {
             async createLinkAnswer() {
-                let answerId = await this.$store.dispatch('question/createLinkAnswer', {
+                let params = {
                     link: this.link, title: this.linkData.title, description: this.linkData.description,
-                    imageUrl: this.linkData.imageUrl, type: this.linkData.pageType
-                });
+                    type: this.linkData.pageType
+                };
+                if(!this.hasImageLoadError) {
+                    params.imageUrl = this.linkData.imageUrl;
+                }
+                let answerId = await this.$store.dispatch('question/createLinkAnswer', params);
                 this.$emit('close-dialog', answerId);
             },
             async editLinkAnswer() {
@@ -75,6 +79,9 @@
                     type: this.linkData.pageType, answerId: this.answerId
                 });
                 this.$emit('close-dialog');
+            },
+            imageError() {
+                this.hasImageLoadError = true;
             }
         }
     }
