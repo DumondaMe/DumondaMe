@@ -34,7 +34,7 @@
             </v-tooltip>
         </div>
         <v-spacer></v-spacer>
-        <div class="footer-icon">
+        <div class="footer-icon common-answer-up-vote-feed">
             <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
                             :is-admin="isAdmin" :answer-id="answerId"
                             @up-voted="(answerId) => $emit('up-voted', answerId)"
@@ -71,5 +71,4 @@
 </script>
 
 <style lang="scss">
-
 </style>

@@ -48,43 +48,29 @@
             </v-tooltip>
         </div>
         <v-spacer v-if="action"></v-spacer>
+        <div class="footer-icon" v-if="!action">
+            <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
+                          watched-id-name="commitmentId" :user-slug="user.slug"
+                          :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
+                          :is-admin="isAdmin"
+                          :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
+                          menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
+                          api-watch="user/commitment/watch"
+                          @add-watch="(id) => $emit('add-watch', id)"
+                          @remove-watch="(id) => $emit('remove-watch', id)"
+                          @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                <div slot="icon">
+                    <v-icon medium class="action-icon">mdi-star</v-icon>
+                    <span class="footer-description number right-number">{{numberOfWatches}}</span>
+                </div>
+            </watches-menu>
+        </div>
         <div class="footer-icon footer-commitment-region-left-icon" v-if="cardType === 'CommitmentAnswer'">
             <region-menu :regions="regions">
                 <div slot="icon">
                     <v-icon medium class="action-icon">mdi-map-marker</v-icon>
                 </div>
             </region-menu>
-        </div>
-        <div class="footer-icon" v-if="cardType === 'Commitment'">
-            <div>
-                <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
-                              watched-id-name="commitmentId" :user-slug="user.slug"
-                              :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
-                              :is-admin="isAdmin"
-                              :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
-                              menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
-                              api-watch="user/commitment/watch"
-                              @add-watch="(id) => $emit('add-watch', id)"
-                              @remove-watch="(id) => $emit('remove-watch', id)"
-                              @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
-                    <div slot="icon" v-if="action">
-                        <span class="footer-description number left-number">{{numberOfWatches}}</span>
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                    </div>
-                    <div slot="icon" v-else>
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                    </div>
-                </watches-menu>
-            </div>
-        </div>
-        <div class="footer-icon" v-else>
-            <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
-                            :is-admin="isAdmin" :answer-id="answerId"
-                            @up-voted="(answerId) => $emit('up-voted', answerId)"
-                            @down-voted="(answerId) => $emit('down-voted', answerId)"
-                            @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
-            </up-vote-button>
         </div>
         <div class="footer-icon" v-if="cardType !== 'CommitmentAnswer'"
              :class="{'footer-commitment-region-right-icon': action}">
@@ -93,6 +79,36 @@
                     <v-icon medium class="action-icon">mdi-map-marker</v-icon>
                 </div>
             </region-menu>
+        </div>
+        <div class="footer-icon footer-watches-button" v-if="cardType === 'Commitment' && action">
+            <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
+                          watched-id-name="commitmentId" :user-slug="user.slug"
+                          :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
+                          :is-admin="isAdmin"
+                          :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
+                          menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
+                          api-watch="user/commitment/watch"
+                          @add-watch="(id) => $emit('add-watch', id)"
+                          @remove-watch="(id) => $emit('remove-watch', id)"
+                          @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                <div slot="icon">
+                    <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
+                    <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser" :disabled="isAdmin">
+                        <v-icon>mdi-star-outline</v-icon>
+                    </v-btn>
+                    <v-btn slot="activator" small fab color="watching" v-else>
+                        <v-icon>mdi-star</v-icon>
+                    </v-btn>
+                </div>
+            </watches-menu>
+        </div>
+        <div class="footer-icon" v-else-if="cardType === 'CommitmentAnswer' && action">
+            <up-vote-button :number-of-up-votes="numberOfUpVotes" :is-up-voted-by-user="isUpVotedByUser"
+                            :is-admin="isAdmin" :answer-id="answerId"
+                            @up-voted="(answerId) => $emit('up-voted', answerId)"
+                            @down-voted="(answerId) => $emit('down-voted', answerId)"
+                            @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
+            </up-vote-button>
         </div>
     </div>
 </template>

@@ -67,10 +67,14 @@
                 margin: 0;
             }
             .description.left-side {
+                display: inline-block;
+                vertical-align: top;
+                line-height: 14px;
+                height: 14px;
                 font-size: 16px;
                 font-weight: 500;
                 color: $secondary-text;
-                margin-right: 8px;
+                margin: 14px 8px 12px 0;
             }
         }
     }

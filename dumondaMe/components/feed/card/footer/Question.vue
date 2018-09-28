@@ -16,7 +16,7 @@
             <v-icon medium class="tooltip-icon">mdi-comment-question</v-icon>
         </div>
         <v-spacer v-if="action"></v-spacer>
-        <div class="footer-icon">
+        <div class="footer-icon" v-if="!action">
             <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"
                           :is-watching-action="false"
                           :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser" :is-admin="isAdmin"
@@ -27,14 +27,8 @@
                           @remove-watch="(id) => $emit('remove-watch', id)"
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <div slot="icon">
-                    <div v-if="action">
-                        <span class="footer-description number left-number">{{numberOfWatches}}</span>
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                    </div>
-                    <div v-else>
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                    </div>
+                    <v-icon medium class="action-icon">mdi-star</v-icon>
+                    <span class="footer-description number right-number">{{numberOfWatches}}</span>
                 </div>
             </watches-menu>
         </div>
@@ -42,14 +36,35 @@
             <v-tooltip bottom>
                 <div slot="activator">
                     <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
-                    <v-icon medium class="tooltip-icon no-answers" v-if="numberOfAnswers === 0">mdi-comment-alert
+                    <v-icon medium class="tooltip-icon no-answers comment-icon" v-if="numberOfAnswers === 0">mdi-comment-alert
                     </v-icon>
-                    <v-icon medium class="tooltip-icon" v-else>mdi-comment</v-icon>
+                    <v-icon medium class="tooltip-icon comment-icon" v-else>mdi-comment</v-icon>
                     <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
                 </div>
                 <span v-if="numberOfAnswers === 0">{{$t('pages:feeds.menu.questions.noAnswers')}}</span>
                 <span v-else>{{$t('pages:feeds.menu.questions.numberOfAnswers', {count: numberOfAnswers})}}</span>
             </v-tooltip>
+        </div>
+        <div class="footer-icon footer-watches-button" v-if="action">
+            <watches-menu :user-id="user.userId" :watched-id="questionId" watched-id-name="questionId"
+                          :is-watching-action="false"
+                          :user-slug="user.slug" :is-logged-in-user="user.isLoggedInUser" :is-admin="isAdmin"
+                          :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
+                          menu-translation="watchesQuestion" api-get-user-command="question/watches"
+                          api-watch="user/question/watch"
+                          @add-watch="(id) => $emit('add-watch', id)"
+                          @remove-watch="(id) => $emit('remove-watch', id)"
+                          @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
+                <div slot="icon">
+                    <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
+                    <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser" :disabled="isAdmin">
+                        <v-icon>mdi-star-outline</v-icon>
+                    </v-btn>
+                    <v-btn slot="activator" small fab color="watching" v-else>
+                        <v-icon>mdi-star</v-icon>
+                    </v-btn>
+                </div>
+            </watches-menu>
         </div>
     </div>
 </template>

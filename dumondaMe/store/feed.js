@@ -29,10 +29,12 @@ export const mutations = {
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.feed.find((element) => element.answerId === answerId);
         upVoteAnswer.numberOfUpVotes++;
+        upVoteAnswer.isUpVotedByUser = true;
     },
     DOWN_VOTE_ANSWER(state, answerId) {
         let downVoteAnswer = state.feed.find((answer) => answer.answerId === answerId);
         downVoteAnswer.numberOfUpVotes--;
+        downVoteAnswer.isUpVotedByUser = false;
     },
     REMOVE_ANSWER(state, answerId) {
         let answerToRemove = state.feed.findIndex((answer) => answer.answerId === answerId);
@@ -44,21 +46,25 @@ export const mutations = {
         let question = state.feed.find(
             (element) => element.questionId === questionId && element.type === 'Question');
         question.numberOfWatches++;
+        question.isWatchedByUser = true;
     },
     REMOVE_QUESTION_WATCH(state, questionId) {
         let question = state.feed.find(
             (element) => element.questionId === questionId && element.type === 'Question');
         question.numberOfWatches--;
+        question.isWatchedByUser = false;
     },
     ADD_COMMITMENT_WATCH(state, commitmentId) {
         let commitment = state.feed.find(
             (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
         commitment.numberOfWatches++;
+        commitment.isWatchedByUser = true;
     },
     REMOVE_COMMITMENT_WATCH(state, commitmentId) {
         let commitment = state.feed.find(
             (element) => element.commitmentId === commitmentId && element.type === 'Commitment');
         commitment.numberOfWatches--;
+        commitment.isWatchedByUser = false;
     },
     ADD_USER_TO_TRUST_CIRCLE(state, userId) {
         for (let element of state.feed) {
