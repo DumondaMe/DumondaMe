@@ -1,6 +1,6 @@
 <template>
     <div class="card-footer-feed">
-        <div class="footer-icon">
+        <div class="footer-icon" v-if="cardType === 'CommitmentAnswer' || action">
             <user-menu :menu-title="userTitle" :user="user"
                        @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
                        @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
