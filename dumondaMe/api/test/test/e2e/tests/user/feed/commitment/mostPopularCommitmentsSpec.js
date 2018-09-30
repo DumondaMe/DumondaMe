@@ -78,10 +78,7 @@ describe('Get feed for the most popular commitments', function () {
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('Region1De');
         res.body.feed[0].created.should.equals(555);
-        res.body.feed[0].user.userId.should.equals('4');
-        res.body.feed[0].user.name.should.equals('user Meier4');
-        res.body.feed[0].user.slug.should.equals('user-meier4');
-        res.body.feed[0].user.userImage.should.equals('profileImage/4/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].user);
         should.not.exist(res.body.feed[0].creator);
 
         res.body.feed[1].type.should.equals('Commitment');

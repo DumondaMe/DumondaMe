@@ -79,10 +79,7 @@ describe('Get feed for commitments without any link to a question', function () 
         res.body.feed[0].regions.length.should.equals(1);
         res.body.feed[0].regions.should.include('Region21De');
         res.body.feed[0].created.should.equals(777);
-        res.body.feed[0].user.userId.should.equals('2');
-        res.body.feed[0].user.name.should.equals('user Meier2');
-        res.body.feed[0].user.slug.should.equals('user-meier2');
-        res.body.feed[0].user.userImage.should.equals('profileImage/2/thumbnail.jpg');
+        should.not.exist(res.body.feed[0].user);
         should.not.exist(res.body.feed[0].creator);
     });
 
