@@ -49,9 +49,8 @@
         </div>
         <v-spacer v-if="action"></v-spacer>
         <div class="footer-icon" v-if="!action">
-            <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
-                          watched-id-name="commitmentId" :user-slug="user.slug"
-                          :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
+            <watches-menu :user-id="loggedInUserId" :watched-id="commitmentId" watched-id-name="commitmentId"
+                          :is-watching-action="action === 'watch'"
                           :is-admin="isAdmin"
                           :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
                           menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
@@ -81,9 +80,8 @@
             </region-menu>
         </div>
         <div class="footer-icon footer-watches-button" v-if="cardType === 'Commitment' && action">
-            <watches-menu :user-id="user.userId" :user-name="user.name" :watched-id="commitmentId"
-                          watched-id-name="commitmentId" :user-slug="user.slug"
-                          :is-logged-in-user="user.isLoggedInUser" :is-watching-action="action === 'watch'"
+            <watches-menu :user-id="loggedInUserId" :watched-id="commitmentId" watched-id-name="commitmentId"
+                          :is-watching-action="action === 'watch'"
                           :is-admin="isAdmin"
                           :watched-by-user="isWatchedByUser" :number-of-watches="numberOfWatches"
                           menu-translation="watchesCommitment" api-get-user-command="commitment/watches"
@@ -120,7 +118,7 @@
     import RegionMenu from './menu/Regions'
 
     export default {
-        props: ['user', 'creator', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
+        props: ['user', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
             'numberOfWatches', 'isWatchedByUser', 'isAdmin', 'answerId', 'commitmentId'],
         components: {UserMenu, WatchesMenu, UpVoteButton, RegionMenu},
         computed: {
@@ -140,6 +138,9 @@
                 } else if (!this.$store.state.auth.userIsAuthenticated) {
                     return this.$t(`pages:feeds.menu.creatorCommitment.title`);
                 }
+            },
+            loggedInUserId() {
+                return this.$store.state.user.userId;
             }
         }
     }

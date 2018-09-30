@@ -10,6 +10,11 @@ let initRecaptcha = function (commit) {
     commit('recaptcha/SET_RECAPTCHA_SITE_KEY', process.env.RECAPTCHA_SITE_KEY)
 };
 
+let initUser = function (commit, req) {
+    if (req.user && req.user.id) {
+        commit('user/SET_USER_ID', req.user.id);
+    }
+};
 
 export const actions = {
 
@@ -20,5 +25,6 @@ export const actions = {
         }
         initFeedFilter(commit, app.i18n.i18next.t('common:international'));
         initRecaptcha(commit);
+        initUser(commit, req);
     }
 };
