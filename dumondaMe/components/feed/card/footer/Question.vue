@@ -10,10 +10,20 @@
             </user-menu>
         </div>
         <div class="footer-icon" v-if="action === 'watch'">
-            <v-icon medium class="tooltip-icon">mdi-star</v-icon>
+            <v-tooltip bottom>
+                <v-icon medium class="tooltip-icon" slot="activator">mdi-star</v-icon>
+                <span v-if="user.isLoggedInUser">{{$t('common:you')}}
+                    {{$t('pages:feeds.menu.userUpVote.titleIsLoggedInUser')}}</span>
+                <span v-else>{{user.name}} {{$t('pages:feeds.menu.userUpVote.title')}}</span>
+            </v-tooltip>
         </div>
         <div class="footer-icon" v-if="action === 'created'">
-            <v-icon medium class="tooltip-icon">mdi-comment-question</v-icon>
+            <v-tooltip bottom>
+                <v-icon medium class="tooltip-icon" slot="activator">mdi-comment-question</v-icon>
+                <span v-if="user.isLoggedInUser">{{$t('common:you')}}
+                    {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
+                <span v-else>{{user.name}} {{$t('pages:feeds.menu.creatorQuestion.title')}}</span>
+            </v-tooltip>
         </div>
         <v-spacer v-if="action"></v-spacer>
         <div class="footer-icon" v-if="!action">
@@ -36,7 +46,8 @@
             <v-tooltip bottom>
                 <div slot="activator">
                     <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
-                    <v-icon medium class="tooltip-icon no-answers comment-icon" v-if="numberOfAnswers === 0">mdi-comment-alert
+                    <v-icon medium class="tooltip-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
+                        mdi-comment-alert
                     </v-icon>
                     <v-icon medium class="tooltip-icon comment-icon" v-else>mdi-comment</v-icon>
                     <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
