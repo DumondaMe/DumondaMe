@@ -10,7 +10,7 @@ const PAGE_SIZE = 20;
 const FOUR_WEEKS = 2419200;
 const WEEK = 604800;
 
-const getFeedResponse = async function (commitments, userId) {
+const getFeedResponse = async function (commitments) {
     for (let commitment of commitments) {
         commitment.commitmentSlug = slug(commitment.title);
         commitment.imageUrl = cdn.getPublicUrl(`commitment/${commitment.commitmentId}/460x460/title.jpg`);
@@ -20,28 +20,6 @@ const getFeedResponse = async function (commitments, userId) {
         if (commitment.description) {
             commitment.descriptionHtml = linkifyHtml(commitment.description);
         }
-        if (commitment.creator.privacyMode === 'public' ||
-            (commitment.creator.privacyMode === 'publicEl' && userId !== null) ||
-            (commitment.creator.privacyMode === 'onlyContact' && commitment.creatorTrustUser)) {
-            commitment.user = {
-                isAnonymous: false,
-                userId: commitment.creator.userId,
-                name: commitment.creator.name,
-                slug: slug(commitment.creator.name),
-                userImage: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/thumbnail.jpg`),
-                userImagePreview: await cdn.getSignedUrl(`profileImage/${commitment.creator.userId}/profilePreview.jpg`),
-                isLoggedInUser: commitment.isLoggedInUser,
-                isTrustUser: commitment.isTrustUser
-            };
-        } else {
-            commitment.user = {
-                isAnonymous: true,
-                userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
-                userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
-            };
-        }
-        delete commitment.creator;
-        delete commitment.creatorTrustUser;
     }
     return commitments;
 };
@@ -136,12 +114,10 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
         .addCommand(getRegionFilter(regions))
         .optionalMatch(`(commitment)<-[watches:WATCH]-(:User)`)
         .optionalMatch(`(commitment)-[:BELONGS_TO_REGION]->(region:Region)`)
-        .return(`creator, commitment.commitmentId AS commitmentId, commitment.title AS title, 
+        .return(`commitment.commitmentId AS commitmentId, commitment.title AS title, 
                  commitment.created AS created, commitment.modified AS modified, commitment.description AS description, 
                  'Commitment' AS type, count(DISTINCT watches) AS numberOfWatches, score,
-                 creator.userId = {userId} AS isLoggedInUser, collect(DISTINCT region.${guiLanguage}) AS regions,
-                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
-                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
+                 collect(DISTINCT region.${guiLanguage}) AS regions,
                  EXISTS((commitment)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  EXISTS((commitment)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser`)
         .orderBy(`score DESC, created DESC`)
