@@ -7,7 +7,7 @@
     "startStaticServer": "node node_modules/http-server/bin/http-server ./staticServer -p 8088"
   },
   "dependencies": {
-    "nuxt": "1.4.0",
+    "nuxt": "1.4.2",
     "@nuxtjs/axios": "4.5.2",
     "@mdi/font": "2.4.85",
     "babel-polyfill": "6.26.0",
@@ -42,7 +42,7 @@
     "aws-sdk": "2.188.0",
     "tmp": "0.0.31",
     "connect-redis": "3.3.0",
-    "vuetify": "1.0.19",
+    "vuetify": "1.1.14",
     "debounce": "1.1.0",
     "nodemailer": "4.6.7",
     "email-templates": "4.0.1",
