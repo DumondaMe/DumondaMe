@@ -137,11 +137,13 @@ const getFeedCommandString = function (guiLanguage, pageSize) {
                  COUNT(DISTINCT answer) AS numberOfAnswers, COUNT(DISTINCT upVote) AS numberOfUpVotes, 
                  COUNT(DISTINCT watch) AS numberOfWatches, collect(DISTINCT region.${guiLanguage}) AS regions, 
                  labels(feedElement) AS type, collect(DISTINCT rca.${guiLanguage}) AS commitmentAnswerRegions,
-                 exists((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS creatorIsInTrustCircle,
-                 exists((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,
-                 exists((feedElement)<-[:UP_VOTE]-(:User {userId: {userId}})) AS isUpVotedByUser,
-                 exists((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
-                 exists((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
+                 EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS creatorIsInTrustCircle,
+                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
+                 EXISTS((activityElement)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS activityIsInTrustCircle,
+                 EXISTS((activityElement)-[:IS_CONTACT]->(:User {userId: {userId}})) AS activityTrustUser,
+                 EXISTS((feedElement)<-[:UP_VOTE]-(:User {userId: {userId}})) AS isUpVotedByUser,
+                 EXISTS((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
+                 EXISTS((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
                  max(tempCreated) AS created, type(relActivity) AS relActivity`)
         .orderBy(`created DESC`)
         .skip(`{page}`).limit(`${pageSize}`).getCommandString()
