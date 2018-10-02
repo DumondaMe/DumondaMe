@@ -133,28 +133,42 @@ const getActivity = function (relActivity) {
     }
 };
 
-const getUserResponse = async function (user, userId, isTrustUser) {
-    return {
-        userId: user.userId,
-        isLoggedInUser: user.userId === userId,
-        isTrustUser: isTrustUser,
-        name: user.name,
-        slug: slug(user.name),
-        userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
-        userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`)
+const getUserResponse = async function (user, userId, isTrustUser, userTrustFeedUser) {
+    if (user.privacyMode === 'public' ||
+        (user.privacyMode === 'publicEl' && userId !== null) ||
+        (user.privacyMode === 'onlyContact' && userTrustFeedUser)) {
+        return {
+            isAnonymous: false,
+            userId: user.userId,
+            isLoggedInUser: user.userId === userId,
+            isTrustUser: isTrustUser,
+            name: user.name,
+            slug: slug(user.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`)
+        }
+    } else {
+        return {
+            isAnonymous: true,
+            userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
+        }
     }
 };
 
 const getUser = async function (feedElement, userId) {
     if (feedElement.relActivity === 'WATCH' || feedElement.relActivity === 'UP_VOTE') {
-        return await getUserResponse(feedElement.activityElement, userId, feedElement.activityIsInTrustCircle);
+        return await getUserResponse(feedElement.activityElement, userId, feedElement.activityIsInTrustCircle,
+            feedElement.activityTrustUser);
     }
-    return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
+    return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle,
+        feedElement.activityTrustUser);
 };
 
 const getCreator = async function (feedElement, resultType, action, userId) {
     if (resultType !== 'Commitment' && (action === 'upVote' || action === 'watch')) {
-        return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle);
+        return await getUserResponse(feedElement.creator, userId, feedElement.creatorIsInTrustCircle,
+            feedElement.creatorTrustUser);
     }
 };
 
@@ -170,7 +184,7 @@ const getFeed = async function (feedElements, userId) {
         };
         if (result.type !== 'Event' && result.type !== 'Text') {
             result.user = await getUser(feedElement, userId);
-        } else if(result.type === 'Text') {
+        } else if (result.type === 'Text') {
             result.user = await getUser(feedElement, userId);
             result.creator = await getCreator(feedElement, result.type, result.action, userId);
         }
