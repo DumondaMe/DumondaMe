@@ -363,7 +363,7 @@
     "error": {
       "invalidYoutubeId": "Invalid youtube link.",
       "linkAnswerExists": "The link has already been used as an answer to this question",
-      "websiteNotFound": "The website could not be reached. Check if your link is correct."
+      "websiteNotFound": "The website could not be reached. Check if your link is correct. However, you can still enter the link as an answer."
     },
     "menu": {
       "suggestion": {
