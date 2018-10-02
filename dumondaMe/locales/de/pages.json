@@ -366,7 +366,7 @@
     "error": {
       "invalidYoutubeId": "Ungültiger Youtube Link.",
       "linkAnswerExists": "Der Link wurde bereits als Antwort für diese Frage verwendet",
-      "websiteNotFound": "Die Webseite konnte nicht erreicht werden. Prüfe ob dein Link korrekt ist."
+      "websiteNotFound": "Die Webseite konnte nicht erreicht werden. Prüfe ob dein Link korrekt ist. Du kannst den Link als Antwort aber trotzdem erfassen."
     },
     "menu": {
       "suggestion": {

@@ -15,6 +15,7 @@
                                        ruleFieldRequired($t('validation:fieldRequired')),
                                        ruleToManyChars($t('validation:toManyChars'), 1000)]">
                 </v-text-field>
+                <div class="dumonda-me-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
                 <div v-if="validLinkType" class="link-content">
                     <youtube v-if="linkData.type === 'Youtube'" :init-link-data="linkData" :link="link"
                              :answer-id="answerId" @upload-command="setUploadCommand"
@@ -22,8 +23,7 @@
                              @link-data-changed="setHasChanged">
                     </youtube>
                     <website-link v-else-if="linkData.type === 'Link'" :init-link-data="linkData"
-                                  :link="link"
-                                  :answer-id="answerId" @upload-command="setUploadCommand"
+                                  :link="link" :answer-id="answerId" @upload-command="setUploadCommand"
                                   @close-dialog="answerId => $emit('close-dialog', answerId)"
                                   @link-data-changed="setHasChanged">
                     </website-link>
@@ -46,7 +46,6 @@
                 </div>
             </v-form>
             <div class="dumonda-me-dialog-error-message" v-show="showErrorMessage">{{showErrorMessage}}</div>
-            <div class="dumonda-me-dialog-warning-message" v-show="showWarningMessage">{{showWarningMessage}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -56,7 +55,7 @@
             </v-btn>
             <v-btn color="primary" @click.native="startUpload()" :loading="uploadRunning"
                    :disabled="!valid || checkLink || uploadRunning || !!this.showErrorMessage ||
-                   !!this.showWarningMessage || !hasChanged || !validLinkType">
+                   !hasChanged || !validLinkType">
                 {{actionButtonText}}
             </v-btn>
         </v-card-actions>
@@ -153,9 +152,10 @@
                         if (error.response.data.errorCode === ERROR_CODE_NO_YOUTUBE_ID) {
                             this.showErrorMessage = this.$t('pages:detailQuestion.error.invalidYoutubeId');
                         } else if (error.response.data.errorCode === ERROR_CODE_ANSWER_EXISTS) {
-                            this.showWarningMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
+                            this.showErrorMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
                         } else if (error.response.status === PAGE_NOT_FOUND) {
                             this.showWarningMessage = this.$t('pages:detailQuestion.error.websiteNotFound');
+                            this.linkData = {type: 'Link'};
                         } else {
                             this.showErrorMessage = this.$t('common:error.unknown');
                         }
