@@ -139,6 +139,9 @@
                 this.linkData = {};
                 this.showErrorMessage = false;
                 this.showWarningMessage = false;
+                if (typeof this.link === 'string') {
+                    this.link = this.link.trim();
+                }
                 if (this.$refs.link.validate()) {
                     try {
                         let questionId = this.$store.state.question.question.questionId;
@@ -155,7 +158,7 @@
                             this.showErrorMessage = this.$t('pages:detailQuestion.error.linkAnswerExists');
                         } else if (error.response.status === PAGE_NOT_FOUND) {
                             this.showWarningMessage = this.$t('pages:detailQuestion.error.websiteNotFound');
-                            this.linkData = {type: 'Link'};
+                            this.linkData = {type: 'Link', title: '', description: ''};
                         } else {
                             this.showErrorMessage = this.$t('common:error.unknown');
                         }
