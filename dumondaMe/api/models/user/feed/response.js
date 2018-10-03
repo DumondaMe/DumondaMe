@@ -134,7 +134,7 @@ const getActivity = function (relActivity) {
 };
 
 const getUserResponse = async function (user, userId, isTrustUser, userTrustFeedUser) {
-    if (user.privacyMode === 'public' ||
+    if (user.privacyMode === 'public' || user.userId === userId ||
         (user.privacyMode === 'publicEl' && userId !== null) ||
         (user.privacyMode === 'onlyContact' && userTrustFeedUser)) {
         return {

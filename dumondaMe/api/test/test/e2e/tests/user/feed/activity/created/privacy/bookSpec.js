@@ -129,4 +129,44 @@ describe('Show the user profile in the activity feed for created books only if t
         res.body.feed[0].user.isAnonymous.should.equals(false);
         res.body.feed[0].user.userId.should.equals('3');
     });
+
+    it('Show logged in user when privacy setting are set to publicEl', async function () {
+        dbDsl.createBookAnswer('7', {
+            creatorId: '1', questionId: '1', created: 999, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
+        dbDsl.setUserPrivacy('1', {privacyMode: 'publicEl'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.feed.length.should.equals(3);
+
+        res.body.feed[0].answerId.should.equals('7');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.isAnonymous.should.equals(false);
+        res.body.feed[0].user.userId.should.equals('1');
+    });
+
+    it('Show logged in user when privacy setting are set to onlyContact', async function () {
+        dbDsl.createBookAnswer('7', {
+            creatorId: '1', questionId: '1', created: 999, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
+        dbDsl.setUserPrivacy('1', {privacyMode: 'onlyContact'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.feed.length.should.equals(3);
+
+        res.body.feed[0].answerId.should.equals('7');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.isAnonymous.should.equals(false);
+        res.body.feed[0].user.userId.should.equals('1');
+    });
 });
