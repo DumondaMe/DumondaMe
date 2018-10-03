@@ -16,7 +16,7 @@ const getFeedResponse = async function (questions, userId) {
         if (question.description) {
             question.descriptionHtml = linkifyHtml(question.description);
         }
-        if (question.creator.privacyMode === 'public' ||
+        if (question.creator.privacyMode === 'public' || question.creator.userId === userId ||
             (question.creator.privacyMode === 'publicEl' && userId !== null) ||
             (question.creator.privacyMode === 'onlyContact' && question.creatorTrustUser)) {
             question.user = {

@@ -43,11 +43,27 @@ describe('Show the user profile in the question feed only if the privacy setting
         should.not.exist(res.body.feed[0].user.isTrustUser);
     });
 
-    it('Show user when privacy setting are set to onlyContact and user is not in trust circle (mostPopular)', async function () {
+    it('Show user when privacy setting are set to onlyContact and user is in trust circle (mostPopular)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
         dbDsl.createContactConnection('2', '1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/question', {
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'mostPopular'
+        });
+        res.status.should.equal(200);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.isAnonymous.should.equals(false);
+        res.body.feed[0].user.userId.should.equals('2');
+    });
+
+    it('Show user when privacy setting are set to onlyContact and user is logged in user (mostPopular)', async function () {
+        dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
+        dbDsl.createContactConnection('2', '1');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/feed/question', {
             guiLanguage: 'de', languages: ['de', 'en'], order: 'mostPopular'
         });
@@ -96,6 +112,22 @@ describe('Show the user profile in the question feed only if the privacy setting
         res.body.feed[0].user.userId.should.equals('2');
     });
 
+    it('Show user when privacy setting are set to onlyContact and user is logged in user (newest)', async function () {
+        dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
+        dbDsl.createContactConnection('2', '1');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
+        let res = await requestHandler.get('/api/user/feed/question', {
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'newest'
+        });
+        res.status.should.equal(200);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.isAnonymous.should.equals(false);
+        res.body.feed[0].user.userId.should.equals('2');
+    });
+
     it('Hide user when privacy setting are set to onlyContact and user is not in trust circle (notAnswered)', async function () {
         dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
         await dbDsl.sendToDb();
@@ -122,6 +154,22 @@ describe('Show the user profile in the question feed only if the privacy setting
         dbDsl.createContactConnection('2', '1');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/question', {
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'notAnswered'
+        });
+        res.status.should.equal(200);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.isAnonymous.should.equals(false);
+        res.body.feed[0].user.userId.should.equals('2');
+    });
+
+    it('Show user when privacy setting are set to onlyContact and user is logged in user (notAnswered)', async function () {
+        dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
+        dbDsl.createContactConnection('2', '1');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser2);
         let res = await requestHandler.get('/api/user/feed/question', {
             guiLanguage: 'de', languages: ['de', 'en'], order: 'notAnswered'
         });
