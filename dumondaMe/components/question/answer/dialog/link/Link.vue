@@ -171,19 +171,22 @@
 
 <style lang="scss">
     #link-answer-container {
+        width: 100%;
         .info-answer {
             font-weight: 300;
             margin-bottom: 12px;
         }
         #link-answer-title {
             display: block;
+            width: 100%;
             .question-title {
                 color: $primary-color;
+                width: 100%;
                 white-space: normal;
             }
         }
         .dumonda-me-dialog-warning-message {
-            max-width: 500px;
+            width: 100%;
         }
         #link-answer-content {
             .invalid-link-type-info {
