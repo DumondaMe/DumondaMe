@@ -182,6 +182,9 @@
                 white-space: normal;
             }
         }
+        .dumonda-me-dialog-warning-message {
+            max-width: 500px;
+        }
         #link-answer-content {
             .invalid-link-type-info {
                 margin-top: 12px;
