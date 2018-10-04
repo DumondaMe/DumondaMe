@@ -23,6 +23,7 @@ module.exports = {
         }
     },
     modules: [
+        '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
         'nuxt-sass-resources-loader'
@@ -38,6 +39,10 @@ module.exports = {
         mode: 'out-in',
         css: false,
         duration: 0
+    },
+    axios: {
+        prefix: '/api/',
+        proxy: true
     },
     build: {
         babel: {

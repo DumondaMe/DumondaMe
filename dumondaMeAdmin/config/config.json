@@ -19,6 +19,53 @@
     "compress": {
       "enabled": true
     },
+    "appsec": {
+      "enabled": true,
+      "priority": 90,
+      "module": {
+        "name": "lusca",
+        "arguments": [
+          {
+            "csrf": false,
+            "csp": {
+              "policy": [
+                "font-src 'self' https://fonts.gstatic.com/",
+                "style-src 'self' https://fonts.googleapis.com/ http://localhost:8080 'unsafe-inline'",
+                "script-src 'self' https://ajax.googleapis.com/ https://www.google.com/ https://www.gstatic.com/ http://localhost:8080 'unsafe-inline'"
+              ]
+            },
+            "xframe": "SAMEORIGIN",
+            "xssProtection": true,
+            "nosniff": true
+          }
+        ]
+      }
+    },
+    "session": {
+      "priority": 70,
+      "module": {
+        "name": "dumonda-me-server-lib/lib/redisSession",
+        "arguments": [
+          {
+            "key": "sessionDumondaMeAdmin",
+            "secret": "hrI483Ie9201Frw4",
+            "cookie": {
+              "path": "/",
+              "httpOnly": true,
+              "maxAge": 43200000
+            },
+            "rolling": false,
+            "proxy": null,
+            "resave": false,
+            "saveUninitialized": true
+          },
+          {
+            "host": "localhost",
+            "port": 6379
+          }
+        ]
+      }
+    },
     "json": {
       "priority": 30,
       "module": {
@@ -54,53 +101,6 @@
       "priority": 60,
       "module": {
         "name": "cookie-parser"
-      }
-    },
-    "session": {
-      "priority": 70,
-      "module": {
-        "name": "dumonda-me-server-lib/lib/redisSession",
-        "arguments": [
-          {
-            "key": "sessionDumondaMeAdmin",
-            "secret": "hrI483Ie9201Frw4",
-            "cookie": {
-              "path": "/",
-              "httpOnly": true,
-              "maxAge": 43200000
-            },
-            "rolling": true,
-            "proxy": null,
-            "resave": true,
-            "saveUninitialized": true
-          },
-          {
-            "host": "localhost",
-            "port": 6379
-          }
-        ]
-      }
-    },
-    "appsec": {
-      "enabled": true,
-      "priority": 90,
-      "module": {
-        "name": "lusca",
-        "arguments": [
-          {
-            "csrf": false,
-            "csp": {
-              "policy": [
-                "font-src 'self' https://fonts.gstatic.com/",
-                "style-src 'self' https://fonts.googleapis.com/ http://localhost:8080 'unsafe-inline'",
-                "script-src 'self' https://ajax.googleapis.com/ https://www.google.com/ https://www.gstatic.com/ http://localhost:8080 'unsafe-inline'"
-              ]
-            },
-            "xframe": "SAMEORIGIN",
-            "xssProtection": true,
-            "nosniff": true
-          }
-        ]
       }
     },
     "router": {
