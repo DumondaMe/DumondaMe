@@ -27,7 +27,8 @@ const getAnswersCommand = function (questionId, answerId, page, userId) {
         .return(`DISTINCT answer, creator, upVotes, isAdmin, hasVoted, commitment, answerType, 
                  collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes,
                  collect(DISTINCT {event: event, region: eventRegion}) AS events,
-                 EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(creator)) AS isTrustUser`)
+                 EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(creator)) AS isTrustUser,
+                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .skip(`{skip}`)
         .limit(`${PAGE_SIZE + 1}`)
