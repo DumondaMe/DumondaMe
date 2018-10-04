@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "nuxt": "1.4.2",
-    "@nuxtjs/axios": "4.5.2",
+    "@nuxtjs/axios": "5.1.0",
+    "@nuxtjs/proxy": "1.2.4",
     "@mdi/font": "2.4.85",
     "babel-polyfill": "6.26.0",
     "@panter/vue-i18next": "0.9.1",
@@ -22,7 +23,7 @@
     "bcrypt": "1.0.2",
     "body-parser": "1.17.1",
     "method-override": "2.3.8",
-    "cookie-parser": "1.4.3",
+    "cookie-signature": "1.1.0",
     "cookie-session": "1.2.0",
     "express-session": "1.15.2",
     "express-json": "1.0.0",

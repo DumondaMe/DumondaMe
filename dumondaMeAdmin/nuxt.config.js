@@ -17,7 +17,12 @@ module.exports = {
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL
     },
+    axios: {
+        prefix: '/api/',
+        proxy: true
+    },
     modules: [
+        '@nuxtjs/proxy',
         '@nuxtjs/axios',
         'nuxt-sass-resources-loader'
     ],
