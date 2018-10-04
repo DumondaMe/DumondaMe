@@ -6,7 +6,7 @@ let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
 const should = require('chai').should();
 
-describe('Privacy settings of the user created a question or answered question', function () {
+describe('Privacy settings of the user created a question', function () {
 
     let startTime;
 

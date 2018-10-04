@@ -1,11 +1,7 @@
 'use strict';
 
-const db = requireDb();
-const exceptions = require('dumonda-me-server-lib').exceptions;
 const cdn = require('dumonda-me-server-lib').cdn;
-const time = require('dumonda-me-server-lib').time;
 const slug = require('limax');
-const linkifyHtml = require('linkifyjs/html');
 
 const getEvents = function (events, language) {
     let result = [];
@@ -25,6 +21,29 @@ const getEvents = function (events, language) {
     return result;
 };
 
+const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) {
+    if (user.privacyMode === 'public' || user.userId === userId ||
+        (user.privacyMode === 'publicEl' && userId !== null) ||
+        (user.privacyMode === 'onlyContact' && creatorTrustUser)) {
+        return {
+            isAnonymous: false,
+            name: user.name,
+            userId: user.userId,
+            slug: slug(user.name),
+            userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`),
+            isLoggedInUser: user.userId === userId,
+            isTrustUser,
+        };
+    } else {
+        return {
+            isAnonymous: true,
+            userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
+            userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
+        }
+    }
+};
+
 const getAnswers = async function (answers, language, userId) {
     let result = [];
     for (let answer of answers) {
@@ -36,15 +55,8 @@ const getAnswers = async function (answers, language, userId) {
             formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter(
                 (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
-            formattedAnswer.creator = {
-                name: answer.creator.name,
-                userId: answer.creator.userId,
-                slug: slug(answer.creator.name),
-                userImage: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/thumbnail.jpg`),
-                userImagePreview: await cdn.getSignedUrl(`profileImage/${answer.creator.userId}/profilePreview.jpg`),
-                isLoggedInUser: answer.creator.userId === userId,
-                isTrustUser: answer.isTrustUser,
-            };
+            formattedAnswer.creator = await getCreator(answer.creator, answer.isTrustUser, answer.creatorTrustUser,
+                userId);
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/460x460/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {
