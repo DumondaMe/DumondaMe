@@ -4,7 +4,7 @@
             <div class="feed-card ely-card" v-for="element in feed">
                 <commitment-card :answer="element"
                                  v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
-                    <commitment-card-footer slot="footer" :user="element.user" :creator="element.creator"
+                    <commitment-card-footer slot="footer" :user="element.user"
                                             :number-of-up-votes="element.numberOfUpVotes"
                                             :number-of-watches="element.numberOfWatches" :answer-id="element.answerId"
                                             :created="element.created" :action="element.action"
@@ -20,7 +20,7 @@
                     </commitment-card-footer>
                 </commitment-card>
                 <book-card :answer="element" v-if="element.type === 'Book'">
-                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                    <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser" :is-admin="element.isAdmin"
@@ -53,7 +53,7 @@
                     </event-card-footer>
                 </event-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
-                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                    <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser" :is-admin="element.isAdmin"
@@ -64,7 +64,7 @@
                     </common-card-footer>
                 </link-card>
                 <youtube-card :answer="element" v-if="element.type === 'Youtube'">
-                    <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
+                    <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
                                         :is-up-voted-by-user="element.isUpVotedByUser" :is-admin="element.isAdmin"
