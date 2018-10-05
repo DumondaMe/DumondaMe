@@ -6,7 +6,7 @@
                 <span :class="{'selected': !selectUpComing}" class="select-event" @click="getEvents(false)">{{$t('pages:detailCommitment.events.past')}}</span>)</span>
         </h2>
         <div id="event-admin-commands" v-if="isAdmin">
-            <v-btn color="primary" @click="showCreateEventDialog = true">
+            <v-btn color="secondary" @click="showCreateEventDialog = true">
                 <v-icon>mdi-calendar-plus</v-icon>
                 {{$t('common:button.create')}}
             </v-btn>
