@@ -19,8 +19,6 @@ const schemaRequestPasswordReset = {
 
 const apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
-    delayAfter: 3,
-    delayMs: 3 * 1000,
     max: 10
 });
 

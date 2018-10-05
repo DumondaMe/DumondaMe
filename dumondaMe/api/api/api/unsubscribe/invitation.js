@@ -18,8 +18,6 @@ let schemaUnsubscribeInvitation = {
 
 let apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
-    delayAfter: 1,
-    delayMs: 3 * 1000,
     max: 3
 });
 
