@@ -22,10 +22,6 @@ export const getters = {
 
 export const actions = {
     async createNewQuestion({state}) {
-        let question = JSON.parse(JSON.stringify(state.question));
-        if (question.description.trim() === '') {
-            delete question.description;
-        }
-        return await this.$axios.$post('/user/question', question);
+        return await this.$axios.$post('/user/question', state.question);
     }
 };

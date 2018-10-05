@@ -16,10 +16,10 @@
                     </v-flex>
                     <v-flex xs12>
                         <v-textarea type="text" v-model="question.description" name="description" auto-grow
-                                      rows="1"
-                                      :label="$t('common:description')"
-                                      :rules="[ruleToManyChars($t('validation:toManyChars'), 2000)]"
-                                      :counter="2000">
+                                    rows="1"
+                                    :label="$t('common:description')"
+                                    :rules="[ruleToManyChars($t('validation:toManyChars'), 2000)]"
+                                    :counter="2000">
                         </v-textarea>
                     </v-flex>
                     <v-flex xs12>
@@ -27,7 +27,7 @@
                                   :label="$t('pages:feeds.selectLanguage')"
                                   :rules="[ruleSelectRequired($t('validation:fieldRequired'))]"
                                   :items="getLanguages()"
-                                  single-line bottom required>
+                                  single-line required>
                         </v-select>
                     </v-flex>
                 </v-layout>
@@ -39,7 +39,7 @@
             <v-btn color="primary" flat :disabled="loading"
                    @click.native="$emit('close-dialog')">{{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click.native="$emit('finish', question)" :loading="loading"
+            <v-btn color="primary" @click.native="finish" :loading="loading"
                    :disabled="!valid || loading || !hasChanged">
                 {{actionButtonText}}
             </v-btn>
@@ -60,16 +60,28 @@
             };
         },
         computed: {
-          hasChanged() {
-              if(this.isModifyMode) {
-                  return (this.question.question !== this.questionCompare.question ||
-                      this.question.description !== this.questionCompare.description ||
-                      this.question.lang !== this.questionCompare.lang);
-              }
-              return true;
-          }
+            hasChanged() {
+                if (this.isModifyMode) {
+                    return (this.question.question !== this.questionCompare.question ||
+                        this.question.description !== this.questionCompare.description ||
+                        this.question.lang !== this.questionCompare.lang);
+                }
+                return true;
+            }
         },
-        mixins: [validationRules, languages]
+        mixins: [validationRules, languages],
+        methods: {
+            finish() {
+                let params = {question: this.question.question, lang: this.question.lang};
+                if (this.question.description && this.question.description.trim() !== '') {
+                    params.description = this.question.description;
+                }
+                if (this.question.questionId) {
+                    params.questionId = this.question.questionId;
+                }
+                this.$emit('finish', params);
+            }
+        }
     }
 </script>
 
