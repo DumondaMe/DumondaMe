@@ -38,10 +38,10 @@ export const mutations = {
         }
     },
     SET_QUESTION_INFO(state, question) {
-        state.question.question = question.question;
-        state.question.description = question.description;
-        state.question.descriptionHtml = question.descriptionHtml;
-        state.question.language = question.lang;
+        Vue.set(state.question, 'question', question.question);
+        Vue.set(state.question, 'description', question.description);
+        Vue.set(state.question, 'descriptionHtml', question.descriptionHtml);
+        Vue.set(state.question, 'language', question.lang);
     },
     SET_TOPICS(state, topics) {
         state.question.topics = topics;
