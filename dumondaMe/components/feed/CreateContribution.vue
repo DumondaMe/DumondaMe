@@ -1,7 +1,7 @@
 <template>
     <div class="feed-create-question-container">
         <v-menu bottom offset-y>
-            <v-btn color="primary" slot="activator">
+            <v-btn color="secondary" slot="activator">
                 {{$t('pages:feeds.createContribution.button')}}
                 <v-icon right>mdi-menu-down</v-icon>
             </v-btn>

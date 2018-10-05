@@ -2,7 +2,7 @@
     <div>
         <div id="create-answer-container">
             <v-spacer></v-spacer>
-            <v-btn color="primary" id="answer-question-button" @click="openCreateAnswerDialog()">
+            <v-btn color="secondary" id="answer-question-button" @click="openCreateAnswerDialog()">
                 <v-icon left>mdi-plus</v-icon>
                 {{$t('common:button.answerQuestion')}}
             </v-btn>
