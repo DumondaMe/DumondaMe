@@ -107,6 +107,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
         res.body.creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.isLoggedInUser.should.equals(false);
         res.body.topics.length.should.equals(1);
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
@@ -144,6 +145,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
         res.body.creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.creator.isTrustUser.should.equals(true);
+        res.body.creator.isLoggedInUser.should.equals(false);
         res.body.topics.length.should.equals(1);
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
@@ -187,6 +189,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
         res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.isLoggedInUser.should.equals(true);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
@@ -394,6 +397,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
         res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.isLoggedInUser.should.equals(true);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
@@ -533,6 +537,7 @@ describe('Getting details of a question', function () {
         res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
         res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.isLoggedInUser.should.equals(false);
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});

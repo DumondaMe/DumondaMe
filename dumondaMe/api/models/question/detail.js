@@ -20,6 +20,7 @@ const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) 
             userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
             userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`),
             isTrustUser,
+            isLoggedInUser: user.userId === userId && userId !== null
         };
     } else {
         return {
