@@ -59,7 +59,7 @@
             width: 150px;
             height: 150px;
             border-radius: 4px;
-            border: 1px solid $primary-color-button;
+            border: 1px solid $primary-color;
             margin: 16px auto;
             padding: 8px;
             cursor: pointer;
