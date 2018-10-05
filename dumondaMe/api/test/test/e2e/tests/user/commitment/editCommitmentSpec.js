@@ -112,6 +112,22 @@ describe('Modify a commitment', function () {
         resp[0].commitment.language.should.equals('en');
     });
 
+    it('Less than 460 pixels width for an image is not allowed', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/commitment/1', {
+            title: 'Commitment Example',
+            description: 'Commitment Example Description',
+            website: 'https://www.example2.org/',
+            lang: 'en'
+        }, `${__dirname}/testFail.jpg`);
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(1);
+        stubCDN.uploadBuffer.called.should.be.false;
+        stubCDN.copyFile.called.should.be.false;
+
+    });
+
     it('Only allowed to modify commitment where user is admin', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);

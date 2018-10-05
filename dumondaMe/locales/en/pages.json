@@ -212,6 +212,7 @@
       "createCommitmentButton": "Create commitment",
       "acknowledgeDescription": "Only those persons should be entered who officially represent this commitment.",
       "acknowledgeCheckbox": "I officially represent this commitment",
+      "warningToSmallImage": "Your picture for the commitment is too small. It must be at least 460 pixels wide.",
       "stepWebsite": "Website",
       "stepData": "Commitment",
       "stepRegion": "Region",

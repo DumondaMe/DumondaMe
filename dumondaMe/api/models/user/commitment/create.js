@@ -17,6 +17,7 @@ const createCommitment = async function (userId, params, titlePath) {
     regionSecurity.checkOnlyInternational(params.regions);
     await topicsSecurity.checkTopicsExists(params.topics);
     await regionSecurity.checkRegionsExists(params.regions);
+    await image.checkImageSize(titlePath);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(commitment:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
                   language: {lang}, website: {website}, created: {created}})`)

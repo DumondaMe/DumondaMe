@@ -26,6 +26,10 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
+        <v-snackbar top v-model="showWarning" color="warning" :timeout="0">
+            {{$t("pages:commitment.createDialog.warningToSmallImage")}}
+            <v-btn dark flat @click="showWarning = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -37,9 +41,11 @@
     import Region from '~/components/region/dialog/Region';
     import Stepper from './Stepper';
 
+    const ERROR_CODE_IMAGE_TO_SMALL = 1;
+
     export default {
         data() {
-            return {dialog: true, showPage: 0, loading: false, showError: false}
+            return {dialog: true, showPage: 0, loading: false, showError: false, showWarning: false}
         },
         components: {Acknowledge, WebsitePreview, CommitmentContent, Topics, Region, Stepper},
         mounted() {
@@ -57,8 +63,12 @@
                         params: {commitmentId: response.commitmentId, slug: response.slug}
                     });
                 }
-                catch (e) {
-                    this.showError = true;
+                catch (error) {
+                    if (error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
+                        this.showWarning = true;
+                    } else {
+                        this.showError = true;
+                    }
                 } finally {
                     this.loading = false;
                 }

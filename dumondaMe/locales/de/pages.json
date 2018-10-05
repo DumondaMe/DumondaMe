@@ -210,6 +210,7 @@
       "createCommitmentButton": "Engagement erstellen",
       "acknowledgeDescription": "Es sollen nur die Personen ein Engagement erfassen, die dieses Engagement offiziell vertreten.",
       "acknowledgeCheckbox": "Ich vertrete dieses Engagment offiziell",
+      "warningToSmallImage": "Dein Bild für das Engagement ist zu klein. Es muss mindestens 460 Pixel breit sein.",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
       "stepRegion": "Region",
