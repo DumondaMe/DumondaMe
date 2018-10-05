@@ -8,8 +8,6 @@ let _ = require('lodash');
 
 let apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
-    delayAfter: 3,
-    delayMs: 3 * 1000,
     max: 50
 });
 
