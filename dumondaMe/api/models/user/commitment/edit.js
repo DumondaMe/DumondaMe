@@ -12,6 +12,7 @@ const editCommitment = async function (userId, params, titlePath) {
     params.userId = userId;
     params.website = params.website || null;
     await security.isAdmin(userId, params.commitmentId);
+    await image.checkImageSize(titlePath);
     await db.cypher()
         .match(`(commitment:Commitment {commitmentId: {commitmentId}})<-[:IS_ADMIN]-(:User {userId: {userId}})`)
         .set(`commitment`, {

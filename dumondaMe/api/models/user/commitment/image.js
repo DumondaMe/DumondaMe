@@ -2,7 +2,20 @@
 
 const sharp = require('sharp');
 const cdn = require('dumonda-me-server-lib').cdn;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+
+const ERROR_CODE_IMAGE_TO_SMALL = 1;
+
+const checkImageSize = async function (titlePath, req) {
+    if (titlePath) {
+        let metadata = await sharp(titlePath).metadata();
+        if (metadata.width < 460) {
+            return new exceptions.getInvalidOperation(`Image ist to small ${metadata.width}`, logger, req,
+                ERROR_CODE_IMAGE_TO_SMALL);
+        }
+    }
+};
 
 const uploadTitleImage = async function (titlePath, answerId, resetImage) {
     if (typeof titlePath === 'string') {
@@ -34,5 +47,6 @@ const uploadTitleImage = async function (titlePath, answerId, resetImage) {
 };
 
 module.exports = {
-    uploadTitleImage
+    uploadTitleImage,
+    checkImageSize
 };

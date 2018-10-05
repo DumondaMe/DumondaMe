@@ -157,6 +157,25 @@ describe('Creating a new commitment', function () {
         resp.length.should.equals(1);
     });
 
+    it('Less than 460 pixels width for an image is not allowed', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/commitment', {
+            title: 'Commitment Example', description: 'description', website: 'https://www.example.org',
+            regions: ['international'], topics: ['topic1'], lang: 'de'
+        }, `${__dirname}/testFail.jpg`);
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(1);
+        stubCDN.uploadBuffer.called.should.be.false;
+        stubCDN.copyFile.called.should.be.false;
+
+        let resp = await db.cypher().match("(commitment:Commitment)-[:BELONGS_TO_REGION]->(:Region {regionId: 'international'})")
+            .match("(commitment)<-[:IS_CREATOR]->(user)")
+            .return(`commitment`).end().send();
+        resp.length.should.equals(0);
+    });
+
     it('Not allowed to add region international with other regions', async function () {
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
         await dbDsl.sendToDb();
