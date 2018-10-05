@@ -10,7 +10,11 @@ export const mutations = {
         state.commitment = {title: '', description: '', website: '', lang: 'de', imageUrl: null};
     },
     SET_COMMITMENT: function (state, commitment) {
-        state.commitment = commitment;
+        state.commitment.title = commitment.title;
+        state.commitment.description = commitment.description;
+        state.commitment.website = commitment.website;
+        state.commitment.lang = commitment.lang;
+        state.commitment.imageUrl = commitment.imageUrl;
     },
     SET_REGIONS: function (state, regions) {
         state.commitment.regions = regions;

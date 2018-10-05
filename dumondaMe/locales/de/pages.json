@@ -208,6 +208,8 @@
       "maxTopic": "Es dürfen maximal {{count}} Schlüsselwörter verwendet werden",
       "noWebsiteButton": "Keine Webseite, Weiter",
       "createCommitmentButton": "Engagement erstellen",
+      "acknowledgeDescription": "Es sollen nur die Personen ein Engagement erfassen, die dieses Engagement offiziell vertreten.",
+      "acknowledgeCheckbox": "Ich vertrete dieses Engagment offiziell",
       "stepWebsite": "Webseite",
       "stepData": "Engagement",
       "stepRegion": "Region",

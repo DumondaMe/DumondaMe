@@ -210,6 +210,8 @@
       "maxTopic": "A maximum of {{count}} topics can be used",
       "noWebsiteButton": "No website, next",
       "createCommitmentButton": "Create commitment",
+      "acknowledgeDescription": "Only those persons should be entered who officially represent this commitment.",
+      "acknowledgeCheckbox": "I officially represent this commitment",
       "stepWebsite": "Website",
       "stepData": "Commitment",
       "stepRegion": "Region",
