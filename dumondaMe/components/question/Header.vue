@@ -122,8 +122,9 @@
                 width: 100%;
             }
             h1 {
-                margin-bottom: 4px;
+                margin-bottom: 8px;
                 font-size: 30px;
+                line-height: 42px;
                 font-weight: 400;
             }
             #question-description {

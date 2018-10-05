@@ -64,6 +64,7 @@
             margin-bottom: 4px;
             font-weight: 400;
             font-size: 30px;
+            line-height: 42px;
         }
         #commitment-description {
             margin-top: 12px;
