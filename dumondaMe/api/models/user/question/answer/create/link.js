@@ -34,6 +34,12 @@ const createLinkAnswerOriginalLinkCommand = function (params) {
         .end(params);
 };
 
+const setNoImage = async function (answerId) {
+    return await db.cypher().match(`(answer:Link:Answer {answerId: {answerId}})`)
+        .set('answer', {hasPreviewImage: false})
+        .end({answerId}).send();
+};
+
 const uploadImages = async function (params) {
     let buffer = await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
     if (buffer) {
@@ -41,7 +47,9 @@ const uploadImages = async function (params) {
             .resize(460, 460).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
         await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/460x460/preview.jpg`,
             process.env.BUCKET_PUBLIC);
+        return true;
     }
+    return false;
 };
 
 const createLinkAnswer = async function (userId, params) {
@@ -53,7 +61,13 @@ const createLinkAnswer = async function (userId, params) {
         .send([createLinkAnswerCommand(params),
             notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
     if (user[0].length === 1) {
-        await uploadImages(params);
+        let uploadedImage = false;
+        if (params.hasPreviewImage) {
+            uploadedImage = await uploadImages(params);
+            if (!uploadedImage) {
+                await setNoImage(params.answerId);
+            }
+        }
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
         const result = {
             answerId: params.answerId, created: params.created,
@@ -66,7 +80,7 @@ const createLinkAnswer = async function (userId, params) {
                 isTrustUser: false
             }
         };
-        if (params.imageUrl) {
+        if (uploadedImage) {
             result.imageUrl = cdn.getPublicUrl(`link/${params.answerId}/460x460/preview.jpg`);
         }
         return result;
