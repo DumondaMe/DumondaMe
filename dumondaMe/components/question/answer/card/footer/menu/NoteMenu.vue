@@ -13,7 +13,7 @@
                     </div>
                     <div v-else>
                         <div class="notes-commands">
-                            <div class="sort-button-container" :class="{'sort-deactivated': notes.length < 3}">
+                            <div class="sort-button-container" :class="{'sort-deactivated': notes && notes.length < 3}">
                                 <v-btn icon class="sort-button" @click="toggleSort">
                                     <v-icon>mdi-sort-descending</v-icon>
                                 </v-btn>
