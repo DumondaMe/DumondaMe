@@ -288,6 +288,32 @@
       "videoDescription": "Youtube und Vimeo Videos",
       "bookDescription": "Ein Buch welches Antworten auf die Frage liefert",
       "commitmentDescription": "Welches Engagement beschäftigt sich mit dieser Fragestellung?"
+    },
+    "instructionDialog": {
+      "title": "Wie sollen Fragen formuliert werden?",
+      "description": "Die Formulierung einer Frage hat einen grossen Einfluss darauf, wie diese beantwortet wird.",
+      "instruction1": {
+        "title": "Offene Fragen",
+        "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B ja/nein/weiss nicht).",
+        "goodSample": "<b>Offene Frage:</b> Welche Gründe sprechen für/gegen ein bedingungsloses Grundeinkommen?",
+        "badSample": "<b>Geschlossene Frage:</b> Ist ein bedingungsloses Grundeinkommen sinnvoll?"
+      },
+      "instruction2": {
+        "title": "Bevorzuge W Fragen",
+        "description": "W Fragen (Warum/Wieso/Weshalb/Welche/usw.) führen meistens zu offenen Fragen."
+      },
+      "instruction3": {
+        "title": "Fragen die zu Lösungen führen",
+        "description": "Stelle gezielt auch Fragen um konkrete Lösungsvorschläge zu erhalten.",
+        "goodSample": "Was kann ich gegen Mikroplastik tun?"
+      },
+      "instruction4": {
+        "title": "Kein Dialekt",
+        "description": "Verwende beim Schreiben deiner Frage bitte nur Schriftdeutsch."
+      },
+      "instruction5": {
+        "title": "Keine beleidigende, rassistische oder diskriminierende Frage"
+      }
     }
   },
   "detailQuestion": {

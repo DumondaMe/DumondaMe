@@ -290,6 +290,32 @@
       "videoDescription": "Youtube und Vimeo Videos",
       "bookDescription": "A book that provides answers to the question",
       "commitmentDescription": "Which commitment deals with this question?"
+    },
+    "instructionDialog": {
+      "title": "How should questions be worded?",
+      "description": "The formulation of a question has a great influence on how it is answered.",
+      "instruction1": {
+        "title": "Open questions",
+        "description": "Prefer open questions to closed ones. For closed questions, the answer options are more limited (e.g. yes/no/know not).",
+        "goodSample": "<b>Open questions:</b> Which reasons speak for/against an unconditional basic income?",
+        "badSample": "<b>Closed questions:</b> Does an unconditional basic income make sense?"
+      },
+      "instruction2": {
+        "title": "Prefer W questions",
+        "description": "W questions usually lead to open questions"
+      },
+      "instruction3": {
+        "title": "Questions that lead to solutions",
+        "description": "Ask specific questions in order to receive concrete proposals for solutions.",
+        "goodSample": "What can I do against microplasty?"
+      },
+      "instruction4": {
+        "title": "No dialect",
+        "description": "Please use only written English when writing your question."
+      },
+      "instruction5": {
+        "title": "No offensive, racist or discriminatory question"
+      }
     }
   },
   "detailQuestion": {
