@@ -301,8 +301,8 @@
         "badSample": "<b>Closed questions:</b> Does an unconditional basic income make sense?"
       },
       "instruction2": {
-        "title": "Prefer W questions",
-        "description": "W questions usually lead to open questions"
+        "title": "Prefer Wh questions",
+        "description": "Wh questions (why, where, which etc.) usually lead to open questions"
       },
       "instruction3": {
         "title": "Questions that lead to solutions",
