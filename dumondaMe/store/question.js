@@ -88,7 +88,7 @@ export const mutations = {
     },
     SET_ANSWER_NOTES(state, {answerId, notes}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
-        answer.notes = notes;
+        Vue.set(answer, 'notes', notes);
     },
     EDIT_ANSWER_NOTE(state, {answerId, noteId, text, textHtml}) {
         let answer = state.question.answers.find((answer) => answer.answerId === answerId);
@@ -279,9 +279,7 @@ export const actions = {
         let response = await this.$axios.$get(`/question/answer/note`, {
             params: {answerId, page: 0, sort: state.sortNotes}
         });
-        commit('SET_ANSWER_NOTES', {
-            answerId, notes: response.notes
-        });
+        commit('SET_ANSWER_NOTES', {answerId, notes: response.notes});
     },
     async upVoteNoteOfAnswer({commit}, {answerId, noteId}) {
         await this.$axios.$post(`/user/question/answer/note/upVote`, {noteId});
