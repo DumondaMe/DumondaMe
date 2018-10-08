@@ -39,7 +39,7 @@ describe('Creating link answer', function () {
         return requestHandler.logout();
     });
 
-    it('Create a link response that has not yet been created in dumondaMe (with url)', async function () {
+    it('Create a link answer that has not yet been created in dumondaMe (with url)', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.returns(fs.createReadStream(`${__dirname}/test.jpg`));
 
@@ -75,8 +75,44 @@ describe('Creating link answer', function () {
         should.not.exist(resp[0].original);
     });
 
-    it('Create a link response that has not yet been created in dumondaMe (without url and description)', async function () {
-        sandbox.stub(rp, 'get');
+    it('Create a link answer where link to image can not be loaded', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.callsArg(1, 'error');
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/link/1', {
+            link: 'https://example.com/blog', imageUrl: 'https://example.com/example.jpg',
+            title: 'titleLink', description: 'descriptionLink', type: 'blog'
+        });
+        res.status.should.equal(200);
+        res.body.created.should.least(startTime);
+        should.not.exist(res.body.imageUrl);
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+        stubCDN.uploadBuffer.called.should.be.false;
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Link:Answer)<-[:IS_CREATOR]-(user:User {userId: '1'})`)
+            .optionalMatch(`(answer)-[:ORIGINAL]->(original)`)
+            .return(`answer, original`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.title.should.equals('titleLink');
+        resp[0].answer.description.should.equals('descriptionLink');
+        resp[0].answer.link.should.equals('https://example.com/blog');
+        resp[0].answer.pageType.should.equals('blog');
+        resp[0].answer.hasPreviewImage.should.equals(false);
+        resp[0].answer.created.should.equals(res.body.created);
+        should.not.exist(resp[0].original);
+    });
+
+    it('Create a link answer that has not yet been created in dumondaMe (without url and description)', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.returns(fs.createReadStream(`${__dirname}/test.jpg`));
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
