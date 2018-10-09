@@ -103,41 +103,39 @@
       "answer": "{{count}} Antwort",
       "answer_plural": "{{count}} Antworten"
     },
-    "popularQuestion": {
-      "title": "Aktuelle Fragen"
-    },
     "empty": {
       "descriptionAllFilter": "Nachfolgend ein kleiner Überblick zu den wichtigsten Konzepten von DumondaMe.",
       "descriptionQuestionFilter": "Bisher hat noch keine Person aus deinem Trust Circle eine Frage gestellt oder Fragen beantwortet.",
       "descriptionCommitmentFilter": "Bisher hat noch keine Person aus deinem Trust Circle ein Engagment erstellt oder interessiert sich dafür.",
       "descriptionEventFilter": "Im Moment finden keine Veranstaltungen von Engagements statt welche dich interessieren. "
     },
-    "help": {
-      "trustCircle": {
-        "title": "Trust Circle",
-        "text1": "Welchen Informationen wir glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem Trust Circle hinzu. Dadurch siehst du in deinem Feed, wenn sie eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr. Wenn sehr viele Personen dich in ihrem  Trust Circle führen, hast du eine hohe Reichweite im Netzwerk. Interessiert dich z.B. eine Frage bedeutet dies, dass viele Personen es in ihrem Feed sehen."
-      },
-      "question": {
-        "title": "Frage",
-        "text1": "Bei DumondaMe dreht sich alles um das Beantworten von Fragen. Du kannst auf vielfältige Weise zu diesem Prozess beitragen:",
-        "text2": "Erstelle selber Fragen welche dich interessieren und die noch nicht auf DumondaMe gestellt wurden",
-        "text3": "Beantworte Fragen mit deinen eigenen Worten, einem Video, einem Buch, einem Link oder einem Engagement.",
-        "text4": "Stimme Antworten zu. So trägst du dazu bei, dass die relevantesten Antworten zuerst angezeigt werden.",
-        "text5": "Markiere Fragen als interessant. So sieht dein Trust Circle welche Fragen dich interessieren und du bleibst auf dem laufenden wenn neue Antworten hinzugefügt werden."
-      },
-      "commitment": {
-        "title": "Engagement",
-        "text1": "Ein Engagement ist bei DumondaMe ein Verein, ein Projekt, eine Organisation oder aber dein persönliches Engagement für eine bessere Welt. Engagements sind ein wichtiger Bestandteil der Plattform und können als Antworten auf Fragen verwendet werden. Der_Die Benutzer_in erhält auf diese Weise wichtige Informationen wer sich konkret mit einer Fragestellung auseinander setzt.",
-        "text2": "Z.B. interessiert sich Alice für die Frage “Wie kann Zero Waste im Alltag umgesetzt werden?”. Als Antwort auf diese Frage wurde von Bob ein Zero Waste Laden in der Nähe wo Alice wohnt erfasst. Sie weiss nun wo sie Einkaufen kann, um weniger Verpackungsmaterial zu verbrauchen."
-      }
-    },
     "createContribution": {
       "button": "Beitrag erstellen"
     },
     "support": {
       "title": "Unterstütze uns",
-      "description": "DumondaMe steht noch ganz am Anfang. Erfahre hier wie wie du uns Unterstützen kannst.",
-      "moreLink": "Mehr erfahren..."
+      "description": "DumondaMe befindet sich noch ganz am Anfang und steht aktuell als <a href='https://de.wikipedia.org/wiki/Entwicklungsstadium_(Software)#Beta-Version' target='_blank'>Beta Version</a> zur Verfügung. Du kannst uns auf vielfältige Weise als Pionier beim Aufbau dieser Plattform unterstützen:",
+      "support1": "Hast du einen Fehler entdeckt oder eine Idee wie etwas optimiert werden könnte? Schreib uns an <a href='mailto:feedback@dumonda.me'>feedback@dumonda.me</a>.",
+      "support2": {
+        "text1": "Stelle Fragen",
+        "text2": "oder beantworte diese mit deiner Expertise."
+      },
+      "support3": "Stimme Antworten zu und markiere Fragen und Engagements welche du interessant findest.",
+      "support4": {
+        "text1": "Erfasse noch heute dein",
+        "text2": "Engagement",
+        "text3": "für eine leuchtende Zukunft."
+      },
+      "support5": "Mache Personen und Engagements auf DumondaMe aufmerksam."
+    },
+    "commitmentInfo": {
+      "title": "Was ist ein Engagement?",
+      "description": "Ein Engagement kann bei DumondaMe ein Projekt, eine Organisation oder aber auch dein persönliches Engagement für eine leuchtende Zukunft sein.",
+      "create": "Dein Engagement erfassen..."
+    },
+    "activityInfo": {
+      "title": "Sehen was im Netzwerk passiert",
+      "description": "Ob jemand eine Frage erstellt oder diese beantwortet, im Activity Feed kannst du sehen was im Netzwerk geschieht. Zudem kannst du mit Hilfe der Filter einschränken, was dir angezeigt werden soll. Ist zum Beispiel der Trust Circle Filter aktiviert, werden nur die Aktivitäten der Personen angezeigt denen du vertraust. "
     },
     "menu": {
       "creatorAnswer": {

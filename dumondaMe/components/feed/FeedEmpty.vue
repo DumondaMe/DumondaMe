@@ -12,17 +12,12 @@
         <div class="description" v-if="activeTypeFilter === 'event'">
             {{$t('pages:feeds.empty.descriptionEventFilter')}}
         </div>
-
-        <feed-help v-if="activeTypeFilter === null"></feed-help>
     </div>
 </template>
 
 <script>
-    import FeedHelp from "~/components/feed/FeedHelp";
-
     export default {
         name: "FeedEmpty",
-        components: {FeedHelp},
         computed: {
             activeTypeFilter() {
                 return this.$store.state.feed.typeFilter;

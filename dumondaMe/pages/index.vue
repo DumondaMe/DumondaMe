@@ -2,7 +2,9 @@
     <feed-layout>
         <div slot="sidebar">
             <feed-create-contribution></feed-create-contribution>
-            <feed-support></feed-support>
+            <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
+            <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
+            <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
             <!--<feed-popular-question></feed-popular-question>-->
         </div>
         <div slot="content">
@@ -25,7 +27,9 @@
     import FeedFilter from '~/components/feed/filter/Filter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import FeedCreateContribution from '~/components/feed/CreateContribution';
-    import FeedSupport from '~/components/feed/Support';
+    import FeedSupport from '~/components/feed/info/Support';
+    import FeedCommitmentInfo from '~/components/feed/info/Commitment';
+    import FeedActivityInfo from '~/components/feed/info/Activity';
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
 
@@ -43,8 +47,8 @@
             }
         },
         components: {
-            FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport, Cards,
-            FeedEmpty
+            FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport, FeedCommitmentInfo,
+            FeedActivityInfo, Cards, FeedEmpty
         },
         head() {
             return {
@@ -61,7 +65,7 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             showHelpFeedInfo() {
-                return this.$store.state.feed.totalNumberOfElements === 0 && !this.$store.state.feed.publicFeed;
+                return this.$store.state.feed.totalNumberOfElements === 0;
             },
             showLoadNextButton() {
                 return this.$store.state.feed.loadingNext && !this.$store.state.feed.loading;
