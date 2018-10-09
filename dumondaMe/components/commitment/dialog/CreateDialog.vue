@@ -2,6 +2,12 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px">
             <acknowledge v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1">
+                <div slot="header">
+                    <div id="dumonda-me-dialog-header">
+                        {{$t('pages:commitment.createDialog.acknowledgeTitle')}}
+                    </div>
+                    <v-divider></v-divider>
+                </div>
             </acknowledge>
             <region v-else-if="showPage === 1" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
                     :action-button-text="$t('common:button.next')" :select-multiple="true" hide-item="international"
