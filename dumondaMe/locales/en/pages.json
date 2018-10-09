@@ -103,41 +103,39 @@
       "answer": "{{count}} Answer",
       "answer_plural": "{{count}} Answers"
     },
-    "popularQuestion": {
-      "title": "Hot Questions"
-    },
     "empty": {
       "descriptionAllFilter": "Here is a brief overview of the most important concepts of DumondaMe.",
       "descriptionQuestionFilter": "So far, no one from your Trust Circle has asked a question or answered questions.",
       "descriptionCommitmentFilter": "No person from your Trust Circle has created or is interested in a commitment yet.",
       "descriptionEventFilter": "At the moment there are no events of commitments that interest you."
     },
-    "help": {
-      "trustCircle": {
-        "title": "Trust Circle",
-        "text1": "What information we believe has a lot to do with trust. Add people whose opinions you value to your Trust Circle. This allows you to see in your feed when they capture a question, answer questions, agree to answers, and much more. If a lot of people lead you in their Trust Circle, you have a large reach in the network. For example, if you are interested in a question, this means that many people see it in their feed."
-      },
-      "question": {
-        "title": "Question",
-        "text1": "DumondaMe is all about answering questions. You can contribute to this process in many ways:",
-        "text2": "Ask questions you are interested in and which have not yet been asked on DumondaMe.",
-        "text3": "Answer questions with your own words, a video, a book, a link or a commitment.",
-        "text4": "Agree answers. In this way, you help ensure that the most relevant answers are displayed first.",
-        "text5": "Mark questions as interesting. This way your Trust Circle sees which questions you are interested in and you stay up to date when new answers are added."
-      },
-      "commitment": {
-        "title": "Commitment",
-        "text1": "A commitment at DumondaMe is an association, a project, an organisation or your personal commitment to a better world. Commitments are an important part of the platform and can be used as answers to questions. In this way, the user receives important information about who is dealing with a specific question.",
-        "text2": "Alice, for example, is interested in the question 'How can zero waste be implemented in everyday life?'. In answer to this question, Bob captured a Zero Waste store near where Alice lives. She now knows where she can shop in order to use less packaging material."
-      }
-    },
     "createContribution": {
       "button": "Create a post"
     },
     "support": {
       "title": "Support us",
-      "description": "DumondaMe is still in its very beginning. Find out here how you can support us.",
-      "moreLink": "Learn more..."
+      "description": "DumondaMe is still at the very beginning and is currently available as <a href='https://de.wikipedia.org/wiki/Entwicklungsstadium_(Software)#Beta-Version' target='_blank'>Beta Version</a>. You can support us in many ways as a pioneer in building this platform:",
+      "support1": "Have you discovered a bug or an idea how something could be optimized? Write us at <a href='mailto:feedback@dumonda.me'>feedback@dumonda.me</a>.",
+      "support2": {
+        "text1": "Ask questions",
+        "text2": "or answer them with your expertise."
+      },
+      "support3": "Agree to answers and mark questions and commitments that you find interesting.",
+      "support4": {
+        "text1": "Capture your",
+        "text2": "commitment",
+        "text3": "to a bright future today."
+      },
+      "support5": "Make people and commitments aware of DumondaMe."
+    },
+    "commitmentInfo": {
+      "title": "What is a commitment?",
+      "description": "A commitment at DumondaMe can be a project, an organisation or your personal commitment to a bright future.",
+      "create": "Create your commitment..."
+    },
+    "activityInfo": {
+      "title": "See what happens in the network",
+      "description": "Whether someone creates a question or answers it, in the Activity Feed you can see what's happening on the network. You can also use the filters to narrow down what you want to see. For example, if the Trust Circle filter is enabled, only the activities of the people you trust will be displayed."
     },
     "menu": {
       "creatorAnswer": {
