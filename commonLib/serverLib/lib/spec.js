@@ -10,6 +10,13 @@ let cookieSecret;
 
 module.exports = function (app, nuxt) {
 
+    app.on('middleware:before:appsec', function () {
+        app.get('/healthCheck', function (req, res) {
+            res.type('text/plain');
+            res.send("OK");
+        });
+    });
+
     app.on('middleware:before:json', function () {
         if ('testing' !== process.env.NODE_ENV &&
             (process.env.REDIRECT_WWW === 'true' || process.env.REDIRECT_HTTPS === 'true')) {
