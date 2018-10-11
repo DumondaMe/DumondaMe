@@ -100,7 +100,7 @@
                 return this.$store.state.i18n.languages.find(lang => lang.key === this.$store.state.i18n.language);
             },
             getLogoUrl() {
-                return `${process.env.staticUrl}/img/logo.png`;
+                return `${process.env.staticUrl}/img/logo.jpg`;
             },
             showNotification() {
                 return this.numberOfNotifications > 0;
@@ -150,7 +150,8 @@
                 cursor: pointer;
                 height: 100%;
                 img {
-                    margin-top: 13px;
+                    height: 30px;
+                    margin-top: 14px;
                     @media screen and (max-width: $sm) {
                         margin-left: 12px;
                     }
