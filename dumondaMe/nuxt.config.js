@@ -19,7 +19,7 @@ module.exports = {
     },
     router: {
         scrollBehavior: function () {
-            return { x: 0, y: 0 }
+            return {x: 0, y: 0}
         }
     },
     modules: [
@@ -44,7 +44,11 @@ module.exports = {
         prefix: '/api/',
         proxy: true
     },
+    render: {
+        resourceHints: false
+    },
     build: {
+        transpile: [/^vuetify/],
         babel: {
             plugins: [
                 ["transform-imports", {
