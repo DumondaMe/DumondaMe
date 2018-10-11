@@ -41,6 +41,7 @@ if (isProduction || isServerDevelopment) {
 app.use(kraken(options));
 
 app.on('start', function () {
+    logger.info('Wait until database connection is established');
     dbConfig.connected.then(function () {
         logger.info('Admin Server started');
     });
