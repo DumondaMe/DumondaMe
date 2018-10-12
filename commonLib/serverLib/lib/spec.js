@@ -5,6 +5,7 @@ let cookie = require('cookie-signature');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
+let logger = require('./logging').getLogger(__filename);
 let cookieKey;
 let cookieSecret;
 
@@ -56,9 +57,13 @@ module.exports = function (app, nuxt) {
                 if (req.originalUrl.match(/api/) === null) {
                     req.headers.cookie = cookieKey + '=s:' + cookie.sign(req.sessionID, cookieSecret);
                 }
-                req.session.save(function () {
+                req.session.save(async function () {
                     if (req.originalUrl.match(/api/) === null) {
-                        nuxt.render(req, res);
+                        try {
+                            await nuxt.render(req, res);
+                        } catch (err) {
+                            logger.error('Nuxt rendering has failed', {error: err});
+                        }
                     } else {
                         next();
                     }
