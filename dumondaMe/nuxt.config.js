@@ -44,6 +44,9 @@ module.exports = {
         prefix: '/api/',
         proxy: true
     },
+    render: {
+        resourceHints: false
+    },
     build: {
         babel: {
             plugins: [
