@@ -11,29 +11,22 @@ let cookieSecret;
 
 module.exports = function (app, nuxt) {
 
-    app.on('middleware:before:appsec', function () {
-        app.get('/healthCheck', function (req, res) {
-            res.type('text/plain');
-            res.send("OK");
-        });
+    app.get('/healthCheck', function (req, res) {
+        res.type('text/plain');
+        res.send("OK");
     });
 
-    app.on('middleware:before:json', function () {
-        if ('testing' !== process.env.NODE_ENV &&
-            (process.env.REDIRECT_WWW === 'true' || process.env.REDIRECT_HTTPS === 'true')) {
-            app.use(function (req, res, next) {
-                if (process.env.REDIRECT_WWW === 'true' &&
-                    req.headers.host.match(/^www/) === null) {
-                    return res.redirect('https://www.' + req.headers.host + req.url, 301);
-                }
-                if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http' &&
-                    process.env.REDIRECT_HTTPS === 'true') {
-                    return res.redirect('https://' + req.headers.host + req.url);
-                }
-                next();
-            });
-        }
-    });
+    if (process.env.ROBOT_TEXT_ENABLE_CRAWLER === 'true') {
+        app.get('/robots.txt', function (req, res) {
+            res.type('text/plain');
+            res.send("User-agent: *\nDisallow: ");
+        });
+    } else {
+        app.get('/robots.txt', function (req, res) {
+            res.type('text/plain');
+            res.send("User-agent: *\nDisallow: /");
+        });
+    }
 
     app.on('middleware:after:session', function () {
         app.use(passport.initialize());
@@ -71,18 +64,6 @@ module.exports = function (app, nuxt) {
             });
         }
     });
-
-    if (process.env.ROBOT_TEXT_ENABLE_CRAWLER === 'true') {
-        app.get('/robots.txt', function (req, res) {
-            res.type('text/plain');
-            res.send("User-agent: *\nDisallow: ");
-        });
-    } else {
-        app.get('/robots.txt', function (req, res) {
-            res.type('text/plain');
-            res.send("User-agent: *\nDisallow: /");
-        });
-    }
 
     return {
         onconfig: function (config, next) {
