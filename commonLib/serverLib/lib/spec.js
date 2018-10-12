@@ -6,8 +6,31 @@ let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
 let logger = require('./logging').getLogger(__filename);
+let expressWinston = require('express-winston');
+let winstonCloudWatch = require('winston-cloudwatch');
+let winston = require('winston');
+
 let cookieKey;
 let cookieSecret;
+
+const getLoggingTransport = function () {
+    let transports = [];
+    if (process.env.NODE_ENV !== 'production') {
+        transports.push(new winston.transports.Console({
+            format: winston.format.combine(winston.format.colorize(), winston.format.simple())
+        }));
+    }
+    if (process.env.CLOUD_WATCH_LOG_STREAM_NAME) {
+        transports.push(new winstonCloudWatch({
+            logGroupName: 'elyoosWebserver',
+            logStreamName: process.env.CLOUD_WATCH_LOG_STREAM_NAME,
+            level: 'info',
+            awsRegion: process.env.AWS_REGION
+        }));
+    }
+    return transports;
+};
+
 
 module.exports = function (app, nuxt) {
 
@@ -63,6 +86,18 @@ module.exports = function (app, nuxt) {
                 });
             });
         }
+    });
+
+    app.on('middleware:before:router', function () {
+        app.use(expressWinston.logger({
+            transports: getLoggingTransport()
+        }));
+    });
+
+    app.on('middleware:after:router', function () {
+        app.use(expressWinston.errorLogger({
+            transports: getLoggingTransport()
+        }));
     });
 
     return {
