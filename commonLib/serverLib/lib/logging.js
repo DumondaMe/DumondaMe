@@ -20,15 +20,15 @@ let customLevels = {
     }
 };
 
-let logger = new winston.Logger({
-    transports: [
-        new (winston.transports.Console)({
-            colorize: true
-        })
-    ],
-    levels: customLevels.levels,
-    colors: customLevels.colors
+let logger = winston.createLogger({
+    levels: customLevels.levels
 });
+
+if (process.env.NODE_ENV !== 'production') {
+    logger.add(new winston.transports.Console({
+        format: winston.format.combine(winston.format.colorize(), winston.format.simple())
+    }));
+}
 
 if (process.env.CLOUD_WATCH_LOG_STREAM_NAME) {
     let winstonCloudWatchConfig = {
@@ -37,7 +37,7 @@ if (process.env.CLOUD_WATCH_LOG_STREAM_NAME) {
         level: 'info',
         awsRegion: process.env.AWS_REGION
     };
-    logger.add(winstonCloudWatch, winstonCloudWatchConfig);
+    logger.add(new winstonCloudWatch(winstonCloudWatchConfig));
 }
 
 let log = function (module, level, message, metadata, request) {
