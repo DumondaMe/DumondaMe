@@ -69,14 +69,13 @@ tv4.addFormat('id', function (data) {
     return 'String is empty';
 });
 
-const validate = function (req, data, requestSchema, logger) {
+const validate = function (req, data, requestSchema) {
     let errors = tv4.validateMultiple(data, requestSchema),
         invalidJsonException;
     if (errors.valid) {
         return Promise.resolve(data);
     }
-    invalidJsonException = new exceptions.InvalidJsonRequest('Wrong input data');
-    logger.warn(invalidJsonException.message, req, {error: errors}, req);
+    invalidJsonException = new exceptions.InvalidJsonRequest(`Wrong input data ${data}`);
     return Promise.reject(invalidJsonException);
 };
 
@@ -107,7 +106,7 @@ const sanitize = function (body) {
 };
 
 module.exports = {
-    validateRequest: function (req, requestSchema, logger) {
+    validateRequest: function (req, requestSchema) {
 
         if (req.body.model) {
             req.body = JSON.parse(req.body.model);
@@ -122,16 +121,16 @@ module.exports = {
             req.body = Object.assign(req.body, req.query);
         }
         sanitize(req.body);
-        return validate(req, req.body, requestSchema, logger);
+        return validate(req, req.body, requestSchema);
     },
-    validateQueryRequest: function (req, requestSchema, logger) {
+    validateQueryRequest: function (req, requestSchema) {
         convertValues(req.query, requestSchema);
         sanitize(req.query);
-        return validate(req, req.query, requestSchema, logger);
+        return validate(req, req.query, requestSchema);
     },
-    validateParams: function (req, requestSchema, logger) {
+    validateParams: function (req, requestSchema) {
         convertValues(req.params, requestSchema);
         sanitize(req.params);
-        return validate(req, req.params, requestSchema, logger);
+        return validate(req, req.params, requestSchema);
     }
 };

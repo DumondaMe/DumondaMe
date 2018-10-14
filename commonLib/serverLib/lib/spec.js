@@ -96,7 +96,10 @@ module.exports = function (app, nuxt) {
 
     app.on('middleware:after:router', function () {
         app.use(expressWinston.errorLogger({
-            transports: getLoggingTransport()
+            transports: getLoggingTransport(),
+            meta: true,
+            msg: "HTTP {{req.method}} {{req.url}}",
+            expressFormat: true
         }));
     });
 
