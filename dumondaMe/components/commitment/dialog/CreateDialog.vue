@@ -16,14 +16,14 @@
             </region>
             <topics v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                     :action-button-text="$t('common:button.next')"
-                    :description="$t('pages:commitment.createDialog.topicDescription')" :loading="loading">
+                    :description="$t('pages:commitment.createDialog.topicDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
             <website-preview v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </website-preview>
             <commitment-content v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')"
-                                @finish="finishCommitmentData"
+                                @finish="finishCommitmentData" :loading="loading"
                                 :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
                                 :init-commitment="$store.getters['createCommitment/getCommitmentCopy']">
                 <stepper slot="header" :selected-step="showPage"></stepper>
