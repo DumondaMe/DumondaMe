@@ -12,7 +12,7 @@
             </feed-filter>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
-            <cards v-else :feed="feed">
+            <cards v-else :feed="feed" :route-name="$route.name">
             </cards>
             <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
                    :disabled="loadNextRunning" v-if="showLoadNextButton">

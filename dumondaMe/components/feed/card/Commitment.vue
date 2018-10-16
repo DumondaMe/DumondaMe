@@ -15,7 +15,7 @@
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
                          </nuxt-link></span>
                 </span>
-                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+                <div class="secondary-text" v-if="!hideTime">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
@@ -38,7 +38,7 @@
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
-        props: ['answer', 'hideQuestion'],
+        props: ['answer', 'hideQuestion', 'hideTime'],
         components: {ExpandText},
         data() {
             return {expandDescription: false}
