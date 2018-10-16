@@ -60,7 +60,7 @@ describe('Edit a question', function () {
             questionId: '1', question: 'Andere Frage', description: 'Test dumonda.me change the world', lang: 'en'
         });
         res.status.should.equal(200);
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
             .return(`question, collect(topic.topicId) AS topics`).end().send();
@@ -111,7 +111,7 @@ describe('Edit a question', function () {
             description: 'Test dumonda.me change the world<script>alert()</script>', lang: 'en'
         });
         res.status.should.equal(200);
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question {questionId: '1'})")
             .return(`question, collect(topic.topicId) AS topics`).end().send();

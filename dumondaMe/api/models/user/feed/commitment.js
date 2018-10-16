@@ -18,7 +18,7 @@ const getFeedResponse = async function (commitments) {
             commitment.imageUrl = commitment.imageUrl + `?v=${commitment.modified}`
         }
         if (commitment.description) {
-            commitment.descriptionHtml = linkifyHtml(commitment.description);
+            commitment.descriptionHtml = linkifyHtml(commitment.description, {attributes: {rel: 'noopener'}});
         }
     }
     return commitments;

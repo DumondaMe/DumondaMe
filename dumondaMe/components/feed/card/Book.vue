@@ -16,7 +16,7 @@
                 </div>
                 <div v-else>
                     <span class="answer-type">{{$t('common:feedCard.answerType.book')}} </span>
-                    <span class="card-header-link"><a target="_blank" :href="link"
+                    <span class="card-header-link"><a target="_blank" rel="noopener" :href="link"
                                                       class="link">{{answer.title}} </a></span>
                 </div>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>

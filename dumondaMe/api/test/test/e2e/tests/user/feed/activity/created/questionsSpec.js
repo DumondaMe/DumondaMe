@@ -59,7 +59,7 @@ describe('Get activity feed for created questions', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].description.should.equals('Test dumonda.me change the world1');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(500);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].user.userId.should.equals('2');

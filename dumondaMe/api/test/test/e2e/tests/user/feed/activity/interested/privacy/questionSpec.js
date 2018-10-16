@@ -37,7 +37,7 @@ describe('Show user profile in the activity feed for watched questions only if t
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(501);
         res.body.feed[0].numberOfAnswers.should.equals(0);
         res.body.feed[0].numberOfWatches.should.equals(1);

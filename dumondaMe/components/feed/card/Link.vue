@@ -16,7 +16,7 @@
                 </div>
                 <div v-else>
                     <span class="answer-type">{{answerType}} </span>
-                    <span class="card-header-link"><a target="_blank" :href="answer.link"
+                    <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
                                                       class="link">{{answer.title}} </a>
                     </span>
                 </div>

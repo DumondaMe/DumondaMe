@@ -53,8 +53,8 @@
                                 {{$t('pages:register.acceptTerms')}}
                                 <a href="/terms" target="_blank">{{$t('common:terms')}}</a>
                                 {{$t('pages:register.acceptTerms2')}}
-                                <a href="/privacy" target="_blank">{{$t('common:privacyPolicy')}}</a></span>
-
+                                <a href="/privacy" target="_blank">{{$t('common:privacyPolicy')}}</a>
+                            </span>
                         </v-checkbox>
                     </v-flex>
                 </v-layout>

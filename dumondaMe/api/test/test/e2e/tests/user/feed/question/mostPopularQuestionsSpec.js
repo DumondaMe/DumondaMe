@@ -95,7 +95,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[2].question.should.equals('Das ist eine Frage');
         res.body.feed[2].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[2].description.should.equals('Test dumonda.me change the world1');
-        res.body.feed[2].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
+        res.body.feed[2].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world1`);
         res.body.feed[2].created.should.equals(500);
         res.body.feed[2].numberOfAnswers.should.equals(2);
         res.body.feed[2].numberOfWatches.should.equals(0);

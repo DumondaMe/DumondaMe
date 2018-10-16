@@ -55,7 +55,7 @@ describe('Creating a note for an answer', function () {
             {answerId: '5', text: 'Test dumonda.me change the world'});
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.creator.userId.should.equals('1');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');

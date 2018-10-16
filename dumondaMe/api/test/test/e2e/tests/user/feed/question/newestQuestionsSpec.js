@@ -75,7 +75,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
         res.body.feed[0].description.should.equals('Test dumonda.me change the world1');
-        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world1`);
+        res.body.feed[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world1`);
         res.body.feed[0].created.should.equals(888);
         res.body.feed[0].numberOfAnswers.should.equals(2);
         res.body.feed[0].numberOfWatches.should.equals(0);
@@ -94,7 +94,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[1].question.should.equals('Das ist eine Frage2');
         res.body.feed[1].questionSlug.should.equals('das-ist-eine-frage2');
         res.body.feed[1].description.should.equals('Test dumonda.me change the world2');
-        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world2`);
+        res.body.feed[1].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world2`);
         res.body.feed[1].created.should.equals(777);
         res.body.feed[1].numberOfAnswers.should.equals(0);
         res.body.feed[1].numberOfWatches.should.equals(1);
@@ -113,7 +113,7 @@ describe('Get question feed for the newest questions', function () {
         res.body.feed[2].question.should.equals('Das ist eine Frage3');
         res.body.feed[2].questionSlug.should.equals('das-ist-eine-frage3');
         res.body.feed[2].description.should.equals('Test dumonda.me change the world3');
-        res.body.feed[2].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world3`);
+        res.body.feed[2].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world3`);
         res.body.feed[2].created.should.equals(666);
         res.body.feed[2].numberOfAnswers.should.equals(0);
         res.body.feed[2].numberOfWatches.should.equals(2);

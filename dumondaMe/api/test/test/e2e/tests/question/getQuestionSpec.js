@@ -91,7 +91,7 @@ describe('Getting details of a question', function () {
         res.body.questionId.should.equals('2');
         res.body.question.should.equals('Das ist eine Frage2');
         res.body.description.should.equals('Test dumonda.me change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.isAdmin.should.equals(false);
         res.body.isSuperUser.should.equals(true);
         res.body.numberOfSuggestions.should.equals(2);
@@ -173,7 +173,7 @@ describe('Getting details of a question', function () {
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('Test dumonda.me change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -381,7 +381,7 @@ describe('Getting details of a question', function () {
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('Test dumonda.me change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');
@@ -521,7 +521,7 @@ describe('Getting details of a question', function () {
         res.body.questionId.should.equals('1');
         res.body.question.should.equals('Das ist eine Frage');
         res.body.description.should.equals('Test dumonda.me change the world');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.created.should.equals(500);
         res.body.modified.should.equals(700);
         res.body.language.should.equals('de');

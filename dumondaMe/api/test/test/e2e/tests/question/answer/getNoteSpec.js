@@ -57,7 +57,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[1].noteId.should.equals('53');
         res.body.notes[1].text.should.equals('Test dumonda.me change the world');
-        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].hasVoted.should.equals(false);
@@ -99,7 +99,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[0].noteId.should.equals('53');
         res.body.notes[0].text.should.equals('Test dumonda.me change the world');
-        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
         res.body.notes[0].hasVoted.should.equals(false);
@@ -161,7 +161,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[1].noteId.should.equals('53');
         res.body.notes[1].text.should.equals('Test dumonda.me change the world');
-        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.notes[1].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.notes[1].created.should.equals(666);
         res.body.notes[1].upVotes.should.equals(1);
         res.body.notes[1].hasVoted.should.equals(false);
@@ -202,7 +202,7 @@ describe('Getting notes of an answer', function () {
 
         res.body.notes[0].noteId.should.equals('53');
         res.body.notes[0].text.should.equals('Test dumonda.me change the world');
-        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.notes[0].textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
         res.body.notes[0].created.should.equals(666);
         res.body.notes[0].upVotes.should.equals(1);
         res.body.notes[0].hasVoted.should.equals(false);

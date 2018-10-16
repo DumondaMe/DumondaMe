@@ -26,7 +26,7 @@ const createQuestion = async function (userId, params) {
     logger.info(`Created question with id ${params.questionId}`);
     let response = {questionId: params.questionId, slug: slug(params.question)};
     if(params.description) {
-        response.descriptionHtml = linkifyHtml(params.description);
+        response.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
     }
     return response;
 };
