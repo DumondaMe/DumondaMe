@@ -4,6 +4,43 @@
             <div id="dumonda-me-logo" hidden-xs-only>
                 <img :src="getLogoUrl" @click="$router.push({name: 'index'})"/>
             </div>
+            <v-spacer></v-spacer>
+            <div class="header-nav">
+                <v-btn flat icon @click="$router.push({name: 'index'})"
+                       :class="{active: $route.path === '/'}">
+                    <v-icon>mdi-home-outline</v-icon>
+                </v-btn>
+            </div>
+            <div class="header-nav" v-if="!isAuthenticated">
+                <v-menu bottom>
+                    <v-btn outline slot="activator">
+                        {{selectedLanguage.description}}
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile @click="changeLanguage(lang.key)" v-for="lang in getLanguages" :key="lang.key">
+                            <v-list-tile-title>{{lang.description}}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+            </div>
+            <div class="header-nav" v-if="!isAuthenticated">
+                <v-btn outline v-on:click="$router.push({name: 'login'})" class="right-outer-element">
+                    {{$t("common:toolbar.login")}}
+                </v-btn>
+            </div>
+            <div class="header-nav" v-if="isAuthenticated">
+                <v-btn flat icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
+                    <v-icon>mdi-account-outline</v-icon>
+                </v-btn>
+            </div>
+            <div class="header-nav" v-if="isAuthenticated">
+                <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
+                    <v-badge color="secondary" v-model="showNotification" right overlap>
+                        <v-icon>mdi-bell-outline</v-icon>
+                        <span slot="badge">{{numberOfNotifications}}</span>
+                    </v-badge>
+                </v-btn>
+            </div>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-menu bottom left>
                     <v-btn icon slot="activator" class="right-outer-element">
@@ -26,42 +63,6 @@
                         </v-list-tile>
                     </v-list>
                 </v-menu>
-            </div>
-            <div class="header-nav" v-else>
-                <v-btn outline v-on:click="$router.push({name: 'login'})" class="right-outer-element">
-                    {{$t("common:toolbar.login")}}
-                </v-btn>
-            </div>
-            <div class="header-nav" v-if="!isAuthenticated">
-                <v-menu bottom>
-                    <v-btn outline slot="activator">
-                        {{selectedLanguage.description}}
-                    </v-btn>
-                    <v-list>
-                        <v-list-tile @click="changeLanguage(lang.key)" v-for="lang in getLanguages" :key="lang.key">
-                            <v-list-tile-title>{{lang.description}}</v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-            </div>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
-                    <v-badge color="secondary" v-model="showNotification" right overlap>
-                        <v-icon>mdi-bell-outline</v-icon>
-                        <span slot="badge">{{numberOfNotifications}}</span>
-                    </v-badge>
-                </v-btn>
-            </div>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
-                    <v-icon>mdi-account-outline</v-icon>
-                </v-btn>
-            </div>
-            <div class="header-nav">
-                <v-btn flat icon @click="$router.push({name: 'index'})"
-                       :class="{active: $route.path === '/'}">
-                    <v-icon>mdi-home-outline</v-icon>
-                </v-btn>
             </div>
         </div>
         <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
@@ -144,9 +145,8 @@
             width: 100%;
             height: 100%;
             margin: 0 auto;
-            clear: both;
+            display: flex;
             #dumonda-me-logo {
-                display: inline-block;
                 cursor: pointer;
                 height: 100%;
                 img {
@@ -163,7 +163,6 @@
                 }
             }
             .header-nav {
-                float: right;
                 height: 100%;
                 padding-top: 4px;
                 button {
