@@ -9,15 +9,21 @@
                 {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
             </v-btn>
             <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
-                <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
-                       v-if="user.isPersonOfTrustOfLoggedInUser">
-                    <v-icon left>mdi-check</v-icon>
-                    {{$t("common:trustCircle")}}
-                </v-btn>
-                <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator" v-else>
-                    <v-icon left>mdi-account-plus</v-icon>
-                    {{$t("common:trustCircle")}}
-                </v-btn>
+                <v-tooltip bottom v-if="user.isPersonOfTrustOfLoggedInUser">
+                    <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
+                           v-if="user.isPersonOfTrustOfLoggedInUser">
+                        <v-icon left>mdi-check</v-icon>
+                        {{$t("common:trustCircle")}}
+                    </v-btn>
+                    <span>{{$t('common:removeFromTrustCircle')}}</span>
+                </v-tooltip>
+                <v-tooltip bottom v-else>
+                    <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator">
+                        <v-icon left>mdi-account-plus</v-icon>
+                        {{$t("common:trustCircle")}}
+                    </v-btn>
+                    <span>{{$t('common:addToTrustCircle')}}</span>
+                </v-tooltip>
             </div>
         </div>
         <upload-user-data-dialog v-if="showUploadUserDataDialog" @close-dialog="showUploadUserDataDialog = false">

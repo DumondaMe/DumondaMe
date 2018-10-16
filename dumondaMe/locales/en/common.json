@@ -28,6 +28,8 @@
   "topic_plural": "Topics",
   "trustCircle": "Trust Circle",
   "inYourTrustCircle": "In your Trust Circle",
+  "addToTrustCircle": "Add to your Trust Circle",
+  "removeFromTrustCircle": "Remove from your Trust Circle",
   "selectAll": "Select All",
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "youAreAdmin": "You are administrator",
