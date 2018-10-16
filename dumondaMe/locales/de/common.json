@@ -113,5 +113,9 @@
   "error": {
     "unknown": "Es ist ein Fehler aufgetreten.",
     "startDateAfterEndDate": "Start ist nach dem Ende"
+  },
+  "beta": {
+    "title": "Beta Version",
+    "description": "DumondaMe befindet sich noch ganz am Anfang und ist nun als Beta Version öffentlich verfügbar. Dies bedeutet das die Plattform Fehler enthalten kann und noch nicht über den vollen Funktionsumfang verfügt."
   }
 }

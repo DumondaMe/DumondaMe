@@ -2,6 +2,7 @@
     <detail-layout itemscope itemtype="http://schema.org/Question">
         <div slot="sidebar">
             <create-answer></create-answer>
+            <beta-version></beta-version>
             <general-information></general-information>
         </div>
         <div slot="content" id="question-detail">
@@ -17,6 +18,7 @@
     import Answers from '~/components/question/answer/Answers';
     import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
+    import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
         async asyncData({params, query, app, error, store}) {
@@ -42,7 +44,7 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation},
+        components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion},
         created() {
             this.question.questionId = this.$route.params.questionId;
             this.$store.commit('question/SET_QUESTION', this.question);
