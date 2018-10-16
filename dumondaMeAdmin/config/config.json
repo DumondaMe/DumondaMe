@@ -21,7 +21,7 @@
     },
     "appsec": {
       "enabled": true,
-      "priority": 90,
+      "priority": 10,
       "module": {
         "name": "lusca",
         "arguments": [
@@ -42,7 +42,7 @@
       }
     },
     "session": {
-      "priority": 70,
+      "priority": 20,
       "module": {
         "name": "dumonda-me-server-lib/lib/redisSession",
         "arguments": [
