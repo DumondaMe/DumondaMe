@@ -2,7 +2,7 @@
     <div>
         <div class="feed-cards-container" v-if="!isLoadingFeed && feed.length > 0">
             <div class="feed-card ely-card" v-for="element in feed">
-                <commitment-card :answer="element"
+                <commitment-card :answer="element" :hide-time="routeName === 'commitment'"
                                  v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
                     <commitment-card-footer slot="footer" :user="element.user"
                                             :number-of-up-votes="element.numberOfUpVotes"
@@ -74,7 +74,8 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </youtube-card>
-                <question-card :question="element" v-if="element.type === 'Question'">
+                <question-card :question="element" v-if="element.type === 'Question'"
+                               :hide-time="routeName === 'index'">
                     <question-card-footer slot="footer" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
                                           :number-of-answers="element.numberOfAnswers" :action="element.action"
@@ -110,7 +111,7 @@
     import EventCardFooter from './card/footer/Event';
 
     export default {
-        props: ['feed'],
+        props: ['feed', 'routeName'],
         components: {
             CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter, EventCardFooter

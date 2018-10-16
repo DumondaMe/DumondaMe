@@ -6,7 +6,7 @@
                 <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: question.questionId, slug: question.questionSlug}}"> {{question.question}}
                 </nuxt-link></span>
-                <div class="secondary-text">{{question.created | formatRelativeTimesAgo}}</div>
+                <div class="secondary-text" v-if="!hideTime">{{question.created | formatRelativeTimesAgo}}</div>
             </div>
         </div>
         <expand-text :expand-text="question.descriptionHtml" class="question-description" itemprop="text">
@@ -20,7 +20,7 @@
     import ExpandText from '~/components/common/text/Expand.vue'
 
     export default {
-        props: ['question'],
+        props: ['question', 'hideTime'],
         components: {CardFooter, ExpandText}
     }
 </script>
