@@ -2,6 +2,7 @@
     <feed-layout>
         <div slot="sidebar">
             <feed-create-contribution></feed-create-contribution>
+            <beta-version></beta-version>
             <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
             <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
@@ -32,6 +33,7 @@
     import FeedActivityInfo from '~/components/feed/info/Activity';
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
+    import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
         async fetch({error, store, route}) {
@@ -48,7 +50,7 @@
         },
         components: {
             FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport, FeedCommitmentInfo,
-            FeedActivityInfo, Cards, FeedEmpty
+            FeedActivityInfo, Cards, FeedEmpty, BetaVersion
         },
         head() {
             return {
