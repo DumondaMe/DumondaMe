@@ -11,7 +11,7 @@ module.exports = {
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
-            {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons'}
+            {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ]
     },
     env: {
