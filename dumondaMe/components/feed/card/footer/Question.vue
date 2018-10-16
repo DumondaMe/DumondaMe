@@ -44,12 +44,13 @@
         </div>
         <div class="footer-icon">
             <v-tooltip bottom>
-                <div slot="activator">
+                <div slot="activator" @click="$router.push({name: 'question-questionId-slug',
+                     params: {questionId: questionId, slug: questionSlug}})">
                     <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
-                    <v-icon medium class="tooltip-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
+                    <v-icon medium class="action-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
                         mdi-comment-alert
                     </v-icon>
-                    <v-icon medium class="tooltip-icon comment-icon" v-else>mdi-comment</v-icon>
+                    <v-icon medium class="action-icon comment-icon" v-else>mdi-comment</v-icon>
                     <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
                 </div>
                 <span v-if="numberOfAnswers === 0">{{$t('pages:feeds.menu.questions.noAnswers')}}</span>
@@ -86,7 +87,7 @@
 
     export default {
         props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'isWatchedByUser', 'isAdmin',
-            'action', 'questionId'],
+            'action', 'questionId', 'questionSlug'],
         components: {UserMenu, WatchesMenu},
         computed: {
             userTitle() {

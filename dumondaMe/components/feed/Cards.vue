@@ -79,7 +79,7 @@
                     <question-card-footer slot="footer" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
                                           :number-of-answers="element.numberOfAnswers" :action="element.action"
-                                          :question-id="element.questionId"
+                                          :question-id="element.questionId" :question-slug="element.questionSlug"
                                           :is-watched-by-user="element.isWatchedByUser" :is-admin="element.isAdmin"
                                           @add-watch="addQuestionWatch" @remove-watch="removeQuestionWatch"
                                           @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
