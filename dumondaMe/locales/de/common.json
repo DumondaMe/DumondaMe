@@ -28,6 +28,8 @@
   "topic_plural": "Themenbereiche",
   "trustCircle": "Trust Circle",
   "inYourTrustCircle": "In deinem Trust Circle",
+  "addToTrustCircle": "Deinem Trust Circle hinzufügen",
+  "removeFromTrustCircle": "Aus deinem Trust Circle entfernen",
   "selectAll": "Alle Auswählen",
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "youAreAdmin": "Du bist Administrator",

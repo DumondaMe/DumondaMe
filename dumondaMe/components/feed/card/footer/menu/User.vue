@@ -24,18 +24,24 @@
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                 <div v-if="!user.isLoggedInUser && !user.isAnonymous">
-                    <v-btn color="primary" class="user-action-button lower-action-button"
-                           v-if="user.isTrustUser" :loading="loading" :disabled="loading || user.isLoggedInUser"
-                           @click="removeUserFromTrustCircle">
-                        <v-icon left>mdi-check</v-icon>
-                        {{$t('common:trustCircle')}}
-                    </v-btn>
-                    <v-btn color="primary" class="user-action-button lower-action-button" v-else
-                           :loading="loading" :disabled="loading || user.isLoggedInUser"
-                           @click="addUserToTrustCircle">
-                        <v-icon left>mdi-account-plus</v-icon>
-                        {{$t('common:trustCircle')}}
-                    </v-btn>
+                    <v-tooltip top v-if="user.isTrustUser">
+                        <v-btn color="primary" class="user-action-button lower-action-button" slot="activator"
+                               :loading="loading" :disabled="loading || user.isLoggedInUser"
+                               @click="removeUserFromTrustCircle">
+                            <v-icon left>mdi-check</v-icon>
+                            {{$t('common:trustCircle')}}
+                        </v-btn>
+                        <span>{{$t('common:removeFromTrustCircle')}}</span>
+                    </v-tooltip>
+                    <v-tooltip top v-else>
+                        <v-btn color="primary" class="user-action-button lower-action-button" slot="activator"
+                               :loading="loading" :disabled="loading || user.isLoggedInUser"
+                               @click="addUserToTrustCircle">
+                            <v-icon left>mdi-account-plus</v-icon>
+                            {{$t('common:trustCircle')}}
+                        </v-btn>
+                        <span>{{$t('common:addToTrustCircle')}}</span>
+                    </v-tooltip>
                 </div>
             </div>
         </v-card>
