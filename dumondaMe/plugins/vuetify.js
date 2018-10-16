@@ -26,6 +26,7 @@ import {
 } from 'vuetify';
 
 Vue.use(Vuetify, {
+    iconfont: 'mdi',
     theme: {
         primary: '#009e97',
         accent: '#7986CB',
