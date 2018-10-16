@@ -21,7 +21,7 @@ const editNote = async function (userId, noteId, text) {
         .end({noteId, userId}).send();
 
     logger.info(`User ${userId} has edit a note ${noteId}`);
-    return {textHtml: linkifyHtml(text)};
+    return {textHtml: linkifyHtml(text, {attributes: {rel: 'noopener'}})};
 };
 
 

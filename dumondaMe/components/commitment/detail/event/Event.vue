@@ -3,6 +3,7 @@
         <div class="event-header-container">
             <div>
                 <div class="event-title" v-if="event.linkDescription"><a target="_blank" :href="event.linkDescription"
+                                                                         rel="noopener"
                                                                          class="link">{{event.title}} </a></div>
                 <div class="event-title" v-else>{{event.title}}</div>
                 <div class="event-date">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
@@ -40,7 +41,7 @@
                 <v-icon medium>mdi-calendar-text</v-icon>
                 <span class="footer-text">
                     <v-tooltip bottom open-delay="500">
-                        <a target="_blank" :href="event.linkDescription" class="link" slot="activator">
+                        <a target="_blank" rel="noopener" :href="event.linkDescription" class="link" slot="activator">
                             {{linkDescriptionWithoutProtocol}}</a>
                         <span>{{event.linkDescription}}</span>
                     </v-tooltip>

@@ -19,7 +19,7 @@ const editQuestion = async function (userId, params) {
     logger.info(`Edit question with id ${params.questionId}`);
     let response = {};
     if(params.description) {
-        response.descriptionHtml = linkifyHtml(params.description);
+        response.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
     }
     return response;
 };

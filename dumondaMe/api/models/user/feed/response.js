@@ -10,7 +10,7 @@ const addDefaultAnswerProperties = function (result, feedElement) {
         result.title = feedElement.feedElement.title;
         result.description = feedElement.feedElement.description;
         if (result.description) {
-            result.descriptionHtml = linkifyHtml(result.description);
+            result.descriptionHtml = linkifyHtml(result.description, {attributes: {rel: 'noopener'}});
         }
         result.isUpVotedByUser = feedElement.isUpVotedByUser;
         result.numberOfUpVotes = feedElement.numberOfUpVotes;
@@ -41,7 +41,7 @@ const addCommitmentProperties = function (result, feedElement) {
         result.title = feedElement.feedElement.title;
         result.description = feedElement.feedElement.description;
         if (result.description) {
-            result.descriptionHtml = linkifyHtml(result.description);
+            result.descriptionHtml = linkifyHtml(result.description, {attributes: {rel: 'noopener'}});
         }
         result.imageUrl = cdn.getPublicUrl(`commitment/${result.commitmentId}/460x460/title.jpg`);
         if (feedElement.feedElement.modified) {
@@ -91,7 +91,7 @@ const addQuestionProperties = function (result, feedElement) {
         result.questionSlug = slug(feedElement.feedElement.question);
         result.description = feedElement.feedElement.description;
         if (result.description) {
-            result.descriptionHtml = linkifyHtml(result.description);
+            result.descriptionHtml = linkifyHtml(result.description, {attributes: {rel: 'noopener'}});
         }
         result.numberOfWatches = feedElement.numberOfWatches;
         result.numberOfAnswers = feedElement.numberOfAnswers;

@@ -14,7 +14,7 @@ const getFeedResponse = async function (questions, userId) {
     for (let question of questions) {
         question.questionSlug = slug(question.question);
         if (question.description) {
-            question.descriptionHtml = linkifyHtml(question.description);
+            question.descriptionHtml = linkifyHtml(question.description, {attributes: {rel: 'noopener'}});
         }
         if (question.creator.privacyMode === 'public' || question.creator.userId === userId ||
             (question.creator.privacyMode === 'publicEl' && userId !== null) ||

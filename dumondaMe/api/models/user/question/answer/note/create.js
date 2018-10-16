@@ -10,7 +10,7 @@ const createNote = async function (userId, answerId, text) {
     let response = {
         noteId: uuid.generateUUID(),
         created: time.getNowUtcTimestamp(),
-        textHtml: linkifyHtml(text)
+        textHtml: linkifyHtml(text, {attributes: {rel: 'noopener'}})
     };
     let res = await db.cypher().match(`(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})`)
         .where(`NOT answer:CommitmentAnswer`)

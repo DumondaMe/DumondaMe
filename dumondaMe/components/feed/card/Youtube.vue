@@ -18,7 +18,7 @@
                     </div>
                     <div v-else>
                         <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span>
-                        <span class="card-header-link"><a target="_blank" :href="answer.link"
+                        <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
                                                           class="link">{{answer.title}} </a></span>
                     </div>
                     <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>

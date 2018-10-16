@@ -12,7 +12,7 @@ const getNotesResponse = function (notes, userId) {
         let response = {
             noteId: note.noteId,
             text: note.text,
-            textHtml: linkifyHtml(note.text),
+            textHtml: linkifyHtml(note.text, {attributes: {rel: 'noopener'}}),
             created: note.created,
             upVotes: note.upVotes,
             hasVoted: note.hasVoted,

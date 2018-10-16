@@ -49,7 +49,7 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
         let questionResponse = response[1][0];
         let question = questionResponse.question;
         if (question.description) {
-            question.descriptionHtml = linkifyHtml(question.description);
+            question.descriptionHtml = linkifyHtml(question.description, {attributes: {rel: 'noopener'}});
         }
         question.isAdmin = questionResponse.isAdmin;
         question.isSuperUser = isSuperUser;

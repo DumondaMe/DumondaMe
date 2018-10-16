@@ -6,7 +6,7 @@
         </div>
         <div class="commitment-info" v-if="commitment.website">
             <v-icon class="info-icon">mdi-link</v-icon>
-            <a target="_blank" :href="commitment.website">{{website}}</a>
+            <a target="_blank" rel="noopener" :href="commitment.website">{{website}}</a>
         </div>
         <div class="commitment-info topics">
             <v-icon class="info-icon">mdi-key</v-icon>

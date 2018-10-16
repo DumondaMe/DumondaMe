@@ -60,7 +60,7 @@ describe('Creating a new question', function () {
         });
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
             .return(`question, collect(topic.topicId) AS topics`).end().send();
@@ -108,7 +108,7 @@ describe('Creating a new question', function () {
         });
         res.status.should.equal(200);
         res.body.slug.should.equals('das-ist-eine-fragoeoeaeaeueue');
-        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match("(topic:Topic)-[:TOPIC]->(question:Question)<-[:IS_CREATOR]-(:User {userId: '1'})")
             .return(`question, collect(topic.name) AS topics`).end().send();

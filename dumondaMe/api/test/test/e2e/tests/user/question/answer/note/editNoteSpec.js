@@ -45,7 +45,7 @@ describe('Edit a note for an answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/note', {noteId: '50', text: 'Test dumonda.me change the world'});
         res.status.should.equal(200);
-        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank">dumonda.me</a> change the world`);
+        res.body.textHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world`);
 
         let resp = await db.cypher().match(`(answer:Answer {answerId: '5'})-[:NOTE]->(note:Note {noteId: '50'})`)
             .return(`note`).end().send();
