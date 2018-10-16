@@ -4,8 +4,11 @@
         <v-card class="ely-menu-container ely-menu-user">
             <div class="menu-title">
                 <span class="primary-title" v-if="user.isAnonymous">{{$t('common:anonymousUser')}}</span>
-                <span class="primary-title" v-else-if="!user.isLoggedInUser">{{user.name}}</span>
-                <span class="primary-title" v-else>{{$t('common:you')}}</span> {{menuTitle}}
+                <nuxt-link class="primary-link-title" :to="{name: 'user-userId-slug',
+                params: {userId: user.userId, slug: user.slug}}" v-else-if="!user.isLoggedInUser">{{user.name}}
+                </nuxt-link>
+                <nuxt-link class="primary-link-title" :to="{name: 'user'}" v-else>{{$t('common:you')}}</nuxt-link>
+                {{menuTitle}}
             </div>
             <div class="menu-content menu-user-content">
                 <div class="user-image" @click="goToProfile()" :class="{'anonymous-image': user.isAnonymous}">
