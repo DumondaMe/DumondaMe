@@ -6,7 +6,7 @@
                 <nuxt/>
             </div>
         </div>
-        <dumonda-me-footer></dumonda-me-footer>
+        <dumonda-me-footer v-if="$vuetify.breakpoint.name !== 'xs'"></dumonda-me-footer>
     </v-app>
 </template>
 
@@ -42,6 +42,10 @@
                     height: inherit;
                     padding-top: 124px;
                     padding-bottom: 64px;
+                    @media screen and (max-width: 700px) {
+                        padding-top: 88px;
+                        padding-bottom: 18px;
+                    }
                     #dumonda-me-inner-content {
                         max-width: 950px;
                         width: 100%;
