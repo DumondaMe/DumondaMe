@@ -48,16 +48,6 @@
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.topic")}}</span>
             </v-tooltip>
-            <v-menu bottom offset-y class="right-filter-container">
-                <div class="right-filter" slot="activator">
-                    <v-icon slot="activator">mdi-settings</v-icon>
-                </div>
-                <v-list>
-                    <v-list-tile>
-                        <v-list-tile-title>Reset Filter</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
         </div>
         <div id="feed-sub-filters">
             <sub-filter-activity v-if="mainFilter === 'activity'"></sub-filter-activity>
