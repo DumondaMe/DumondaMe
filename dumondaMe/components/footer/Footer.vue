@@ -24,13 +24,13 @@
         z-index: 7;
         height: 48px;
         margin-top: -48px;
-        background-color: #757575;
+        background-color: $primary-color;
         left: 0;
         right: 0;
         #ely-footer-container {
             margin: 0 auto;
             padding: 0 8px;
-            text-align:center;
+            text-align: center;
             .footer-nav {
                 display: inline-block;
                 color: #ffffff;
