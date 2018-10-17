@@ -6,7 +6,7 @@
                 <nuxt/>
             </div>
         </div>
-        <dumonda-me-footer v-if="$vuetify.breakpoint.name !== 'xs'"></dumonda-me-footer>
+        <dumonda-me-footer v-show="$vuetify.breakpoint.name !== 'xs'"></dumonda-me-footer>
     </v-app>
 </template>
 
