@@ -7,7 +7,7 @@
                 {{item.description}}
             </div>
             <v-spacer></v-spacer>
-            <v-icon class="item-icon" v-show="item.isSelected">done</v-icon>
+            <v-icon class="item-icon" v-show="item.isSelected">mdi-check</v-icon>
         </div>
         <div class="sub-items" v-if="(item.isSelected || (item.subItemIsSelected)) && item.subItems &&
                                         item.subItems.length > 0">
