@@ -6,12 +6,12 @@
                 <nuxt/>
             </div>
         </div>
-        <dumonda-me-footer v-show="$vuetify.breakpoint.name !== 'xs'"></dumonda-me-footer>
+        <dumonda-me-footer id="dumonda-footer-container"></dumonda-me-footer>
     </v-app>
 </template>
 
 <script>
-    import DumondaMeToolbar from '~/components/toolbar/DumondaMeToolbar';
+    import DumondaMeToolbar from '~/components/toolbar/Toolbar';
     import DumondaMeFooter from '~/components/footer/Footer';
 
     export default {
@@ -31,28 +31,38 @@
         box-sizing: border-box;
         min-height: 100%;
         height: 100%;
+        @media screen and (max-width: $xs) {
+            background-color: white;
+        }
     }
 
     body {
         #__layout {
             .application.theme--light {
                 background-color: $background-normal;
+                @media screen and (max-width: $xs) {
+                    background-color: white;
+                }
                 #dumonda-me-content {
                     min-height: inherit;
                     height: inherit;
                     padding-top: 124px;
                     padding-bottom: 64px;
                     @media screen and (max-width: 700px) {
-                        padding-top: 88px;
+                        padding-top: 56px;
                         padding-bottom: 18px;
                     }
                     #dumonda-me-inner-content {
                         max-width: 950px;
                         width: 100%;
                         margin: 0 auto;
-                        @media screen and (max-width: 950px) {
-                            padding-left: 8px;
-                            padding-right: 8px;
+                        @media screen and (max-width: $md) {
+                            padding-left: 14px;
+                            padding-right: 14px;
+                        }
+                        @media screen and (max-width: $xs) {
+                            padding-left: 0;
+                            padding-right: 0;
                         }
                     }
                 }
@@ -71,5 +81,11 @@
         box-sizing: border-box;
         margin: 0;
         text-transform: none !important;
+    }
+
+    #dumonda-footer-container {
+        @media screen and (max-width: $xs) {
+            display: none;
+        }
     }
 </style>

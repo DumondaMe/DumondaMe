@@ -4,6 +4,14 @@
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: none;
+
+  @media screen and (max-width: 650px) {
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 12px;
+  }
 }
 
 .feed-card {
@@ -12,6 +20,10 @@
   padding-left: 22px;
   padding-right: 22px;
   max-width: 550px;
+  @media screen and (max-width: 650px) {
+    margin-bottom: 0;
+
+  }
   .description {
     margin-top: 12px;
     a {

@@ -9,8 +9,10 @@
             <!--<feed-popular-question></feed-popular-question>-->
         </div>
         <div slot="content">
-            <feed-filter>
+            <feed-filter class="index-desktop-feed-filter">
             </feed-filter>
+            <feed-mobile-filter class="index-mobile-feed-filter">
+            </feed-mobile-filter>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -26,6 +28,7 @@
 <script>
     import FeedLayout from '~/components/layouts/Feed';
     import FeedFilter from '~/components/feed/filter/Filter';
+    import FeedMobileFilter from '~/components/feed/filter/MobileFilter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import FeedCreateContribution from '~/components/feed/CreateContribution';
     import FeedSupport from '~/components/feed/info/Support';
@@ -49,14 +52,14 @@
             }
         },
         components: {
-            FeedLayout, FeedFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport, FeedCommitmentInfo,
-            FeedActivityInfo, Cards, FeedEmpty, BetaVersion
+            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
+            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion
         },
         head() {
             return {
                 htmlAttrs: {
                     lang: this.$store.state.i18n.language
-                },
+                }
             }
         },
         data() {
@@ -95,5 +98,17 @@
 <style lang="scss">
     #load-next-page {
         margin-left: 0;
+    }
+
+    .index-desktop-feed-filter {
+        @media screen and (max-width: $xs) {
+            display: none;
+        }
+    }
+
+    .index-mobile-feed-filter {
+        @media screen and (min-width: $xs + 1) {
+            display: none;
+        }
     }
 </style>

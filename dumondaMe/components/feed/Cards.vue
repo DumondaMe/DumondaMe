@@ -158,10 +158,18 @@
 <style lang="scss">
     .feed-cards-container {
         margin-top: 32px;
+
+        @media screen and (max-width: $xs) {
+            margin-top: 58px;
+        }
     }
 
     .feed-loading-container {
         margin-top: 48px;
+
+        @media screen and (max-width: $xs) {
+            margin-top: 80px;
+        }
     }
 
     .feed-no-content-message {
