@@ -74,7 +74,7 @@
     #dumonda-me-login {
         #login-container {
             width: 300px;
-            margin: 0 auto;
+            margin: 24px auto 0 auto;
 
             @media screen and (min-width: $sm) {
                 background-color: white;

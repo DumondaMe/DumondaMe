@@ -34,7 +34,11 @@
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "youAreAdmin": "You are administrator",
   "toolbar": {
-    "login": "Login"
+    "login": "Login",
+    "questions": "Questions",
+    "commitments": "Commitments",
+    "events": "Events",
+    "activities": "Activities"
   },
   "button": {
     "yes": "Yes",

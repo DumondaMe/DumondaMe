@@ -34,7 +34,11 @@
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "youAreAdmin": "Du bist Administrator",
   "toolbar": {
-    "login": "Anmelden"
+    "login": "Anmelden",
+    "questions": "Fragen",
+    "commitments": "Engagements",
+    "events": "Veranstaltungen",
+    "activities": "Aktivitäten"
   },
   "button": {
     "yes": "Ja",

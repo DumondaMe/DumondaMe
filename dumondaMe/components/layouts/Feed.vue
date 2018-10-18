@@ -14,7 +14,10 @@
         #feed-sidebar {
             float: left;
             width: 360px;
-            @media screen and (max-width: $sm) {
+            @media screen and (min-width: $xs) and (max-width: $sm) {
+                width: 280px;
+            }
+            @media screen and (max-width: $xs) {
                 display: none;
             }
             .feed-additional-info-container {
@@ -30,7 +33,10 @@
         }
         #feed-content {
             margin-left: 444px;
-            @media screen and (max-width: $sm) {
+            @media screen and (min-width: $xs) and (max-width: $sm) {
+                margin-left: 300px;
+            }
+            @media screen and (max-width: $xs) {
                 margin-left: 0;
                 margin-right: 0;
             }
