@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <answer-link @close-dialog="$emit('close-dialog')" :init-link-data="initLinkData" :init-link="initLink"
                          :answer-id="answerId" :action-button-text="$t('pages:detailQuestion.editAnswerButton')"
                          :init-is-video="isVideo" :init-type="initType">

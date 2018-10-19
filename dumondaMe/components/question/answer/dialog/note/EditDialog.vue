@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <edit-note-dialog @close-dialog="$emit('close-dialog')" :action-button-text="$t('common:button.change')"
                               @finish="editNote" :loading="loading" :init-note-text="noteText">
                 <div slot="header">

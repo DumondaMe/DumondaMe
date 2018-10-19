@@ -8,7 +8,8 @@
             </v-btn>
         </div>
         <v-layout row justify-center v-if="showCreateDialog">
-            <v-dialog v-model="showCreateDialog" scrollable persistent max-width="770px">
+            <v-dialog v-model="showCreateDialog" scrollable persistent max-width="770px"
+                      :fullscreen="$vuetify.breakpoint.xsOnly">
                 <create-dialog @close-dialog="showCreateDialog = false">
                 </create-dialog>
             </v-dialog>

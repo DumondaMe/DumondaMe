@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <event-content @close-dialog="$emit('close-dialog')" :loading="loading"
                            @finish="finish" :action-button-text="$t('common:button.change')"
                            :init-event="initEvent">

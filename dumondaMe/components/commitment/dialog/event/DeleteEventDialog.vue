@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="400px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="400px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card>
                 <v-card-title>
                     {{$t("pages:detailCommitment.events.deleteDialog.title")}}

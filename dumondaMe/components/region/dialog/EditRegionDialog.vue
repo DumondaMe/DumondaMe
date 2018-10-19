@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <region @close-dialog="$emit('close-dialog')" @finish="changeRegions" :select-multiple="selectMultiple"
                     :existing-regions="existingRegions" :action-button-text="$t('common:button.change')"
                     :description="$t('pages:commitment.createDialog.regionDescription')" :loading="loading"

@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="300px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="300px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card id="dialog-delete-question">
                 <div id="dumonda-me-dialog-header">
                     {{$t("pages:detailQuestion.deleteDialogSuggestion.title")}}
