@@ -127,6 +127,10 @@
 
 <style lang="scss">
     .dumonda-me-answer-container {
+        @media screen and (max-width: $xs) {
+            margin-top: 0;
+            border-top: 1px solid $divider;
+        }
         .dumonda-me-answer-content {
             .new-added-answer {
                 border: 1px solid $success-text;

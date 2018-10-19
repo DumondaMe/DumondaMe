@@ -402,7 +402,7 @@
         "userSuggestion": "hat einen Vorschlag erstellt",
         "loggedInUserSuggestion": "hast einen Vorschlag erstellt",
         "noSuggestion": "Hier können redaktionelle Benutzer_innen Vorschläge erfassen, um die Qualität der Frage zu verbessern.",
-        "addButton": "Vorschlag erfassen",
+        "addButton": "Erfassen",
         "tooltipDetailView": "Detailansicht Dialog öffnen",
         "statusOpen": "Vorschlag ist geöffnet",
         "statusClosed": "Vorschlag wurde geschlossen"

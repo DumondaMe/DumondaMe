@@ -7,6 +7,7 @@
         </div>
         <div slot="content" id="question-detail">
             <question-header></question-header>
+            <general-information id="general-information-mobile"></general-information>
             <answers></answers>
         </div>
     </detail-layout>
@@ -56,8 +57,22 @@
     #question-detail {
         .dumonda-me-answer-container {
             margin-top: 24px;
+            @media screen and (max-width: $xs) {
+                margin-top: 0;
+            }
             .dumonda-me-answer-content {
                 padding-top: 12px;
+                @media screen and (max-width: $xs) {
+                    padding-top: 0;
+                }
+            }
+        }
+        #general-information-mobile {
+            @media screen and (min-width: $xs) {
+                display: none;
+            }
+            @media screen and (max-width: $xs) {
+                border-bottom: none;
             }
         }
     }

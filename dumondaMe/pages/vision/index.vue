@@ -41,10 +41,18 @@
     #ely-vision {
         max-width: 600px;
         margin: 0 auto;
+        @media screen and (max-width: $xs) {
+            margin-top: 18px;
+            padding: 0 16px;
+        }
         h1 {
             font-size: 52px;
             line-height: 60px;
             margin-bottom: 18px;
+
+            @media screen and (max-width: $xs) {
+                font-size: 28px;
+            }
         }
         p {
             font-weight: 300;

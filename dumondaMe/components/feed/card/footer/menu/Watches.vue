@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-menu v-model="menu" :close-on-content-click="false" offset-y>
+        <v-menu v-model="menu" :close-on-content-click="false" offset-y min-width="290">
             <slot name="icon" slot="activator"></slot>
             <v-card class="ely-menu-container ely-menu-watches-container">
                 <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
