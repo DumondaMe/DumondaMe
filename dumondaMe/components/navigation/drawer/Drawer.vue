@@ -8,7 +8,7 @@
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
-                <nuxt-link :to="{name: 'notifications'}">
+                <nuxt-link :to="{name: 'user-notifications'}">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
