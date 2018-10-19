@@ -33,6 +33,12 @@
   "selectAll": "Alle Auswählen",
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "youAreAdmin": "Du bist Administrator",
+  "navigation": {
+    "yourProfile": "Dein Profil",
+    "notification": "Benachrichtigungen",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
   "toolbar": {
     "login": "Anmelden",
     "questions": "Fragen",
@@ -66,7 +72,8 @@
     "uploadImage": "Bild hochladen",
     "upVote": "Up vote",
     "interested": "Interessiert",
-    "login": "Anmelden"
+    "login": "Anmelden",
+    "register": "Konto erstellen"
   },
   "language": {
     "de": "Deutsch",

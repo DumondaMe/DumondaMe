@@ -21,6 +21,7 @@ import {
     VSnackbar,
     VChip,
     VRadioGroup,
+    VNavigationDrawer,
     VProgressCircular,
     VProgressLinear,
     VDatePicker
@@ -58,6 +59,7 @@ Vue.use(Vuetify, {
         VSnackbar,
         VChip,
         VRadioGroup,
+        VNavigationDrawer,
         VProgressCircular,
         VProgressLinear,
         VDatePicker

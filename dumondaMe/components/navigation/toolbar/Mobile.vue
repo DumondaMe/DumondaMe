@@ -2,7 +2,7 @@
     <div>
         <div id="dumonda-me-mobile-header">
             <v-btn icon class="nav-icon" v-if="$route.name === 'index' || $route.name === 'commitment' ||
-            $route.name === 'event' || $route.name === 'activity'">
+            $route.name === 'event' || $route.name === 'activity'" @click="$emit('open-drawer')">
                 <v-icon>mdi-menu</v-icon>
             </v-btn>
             <v-btn icon class="nav-icon" v-else @click="$router.go(-1)">
@@ -22,7 +22,7 @@
             </v-btn>
             <v-btn icon class="nav-icon" @click="$router.push({name: 'user-notifications'})" v-if="isAuthenticated">
                 <v-badge color="secondary" v-model="showNotification" right overlap>
-                    <v-icon>mdi-bell</v-icon>
+                    <v-icon>mdi-bell-outline</v-icon>
                     <span slot="badge">{{numberOfNotifications}}</span>
                 </v-badge>
             </v-btn>
@@ -65,18 +65,16 @@
 
 <style lang="scss">
     #dumonda-me-mobile-header {
+        background-color: $background-normal;
         padding: 4px 0;
         display: flex;
         .nav-icon {
-            color: white;
-            button {
-                color: white;
-            }
+
         }
         .mobile-header-title {
+            margin-left: 8px;
             height: 48px;
             line-height: 48px;
-            color: white;
             font-weight: 500;
         }
     }
