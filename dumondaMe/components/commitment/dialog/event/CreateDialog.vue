@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <event-content v-if="showPage === 1" @close-dialog="$emit('close-dialog')"
                            @finish="finishEventData" :action-button-text="$t('common:button.next')"
                            :init-event="$store.getters['createEvent/getEventCopy']">

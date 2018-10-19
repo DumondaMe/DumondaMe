@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="500px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="500px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card id="dialog-upload-user-data">
                 <v-card-title>
                     {{$t("pages:detailUser.profileData.changeProfileDataTitle")}}

@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <question @close-dialog="$emit('close-dialog')" @finish="changeQuestion" :loading="loading"
                       :init-question="$store.getters['question/getQuestionInfo']"
                       :action-button-text="$t('pages:question.modifyQuestionDialog.changeButton')"

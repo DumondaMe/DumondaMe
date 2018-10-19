@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <show-instruction @close-dialog="$emit('close-dialog')" v-if="showInstruction"
                               @next="showInstruction = false">
                 <div slot="header">

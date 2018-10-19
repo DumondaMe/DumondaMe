@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-layout row justify-center>
-            <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+            <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
                 <suggestion :init-suggestion="{}" :is-edit-mode="false" :loading="loading"
                             :action-button-text="$t('pages:detailQuestion.menu.suggestion.addButton')"
                             @close-dialog="$emit('close-dialog')" @finish="createSuggestion">

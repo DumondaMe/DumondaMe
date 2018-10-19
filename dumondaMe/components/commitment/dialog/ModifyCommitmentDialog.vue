@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <commitment @close-dialog="$emit('close-dialog')" @finish="changeCommitment" :loading="loading"
                         :init-commitment="$store.getters['commitment/getCommitment']"
                         :action-button-text="$t('pages:commitment.modifyCommitmentDialog.changeButton')"

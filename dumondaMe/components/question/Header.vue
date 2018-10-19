@@ -61,7 +61,7 @@
         </div>
 
         <v-layout row justify-center>
-            <v-dialog v-model="dialog" scrollable persistent max-width="770px">
+            <v-dialog v-model="dialog" scrollable persistent max-width="770px" :fullscreen="$vuetify.breakpoint.xsOnly">
                 <create-dialog @close-dialog="dialog = false" v-if="dialog">
                 </create-dialog>
             </v-dialog>
