@@ -33,6 +33,12 @@
   "selectAll": "Select All",
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "youAreAdmin": "You are administrator",
+  "navigation": {
+    "yourProfile": "Your Profile",
+    "notification": "Notifications",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
   "toolbar": {
     "login": "Login",
     "questions": "Questions",
@@ -66,7 +72,8 @@
     "uploadImage": "Upload image",
     "upVote": "Up vote",
     "interested": "Interested",
-    "login": "Login"
+    "login": "Login",
+    "register": "Create account"
   },
   "language": {
     "de": "German",

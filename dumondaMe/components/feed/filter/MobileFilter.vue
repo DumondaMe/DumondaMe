@@ -1,6 +1,6 @@
 <template>
     <div id="feed-mobile-filter">
-        <v-tabs centered color="primary" dark fixed-tabs>
+        <v-tabs centered color="mobile-filter-color" light fixed-tabs>
             <v-tab nuxt :to="{name: 'index'}" exact>
                 <v-icon>mdi-help-circle-outline</v-icon>
             </v-tab>
@@ -51,5 +51,8 @@
         left: 0;
         right: 0;
         z-index: 100;
+        .mobile-filter-color {
+            background-color: $background-normal;
+        }
     }
 </style>

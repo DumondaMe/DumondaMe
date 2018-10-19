@@ -10,7 +10,7 @@
                         </v-btn>
                     </div>
                     <div>
-                        <v-btn color="primary" outline @click="goToRegister()" class="link-button">
+                        <v-btn color="primary" @click="goToRegister()" class="link-button">
                             {{$t("pages:login.registerLink")}}
                         </v-btn>
                     </div>

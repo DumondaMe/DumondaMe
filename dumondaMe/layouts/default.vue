@@ -1,21 +1,28 @@
 <template>
     <v-app>
-        <dumonda-me-toolbar></dumonda-me-toolbar>
+        <dumonda-me-toolbar @open-drawer="drawer = true"></dumonda-me-toolbar>
         <div id="dumonda-me-content">
             <div id="dumonda-me-inner-content">
                 <nuxt/>
             </div>
         </div>
-        <dumonda-me-footer id="dumonda-footer-container"></dumonda-me-footer>
+        <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
+        <v-navigation-drawer v-model="drawer" absolute temporary>
+            <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
+        </v-navigation-drawer>
     </v-app>
 </template>
 
 <script>
-    import DumondaMeToolbar from '~/components/toolbar/Toolbar';
-    import DumondaMeFooter from '~/components/footer/Footer';
+    import DumondaMeToolbar from '~/components/navigation/toolbar/Toolbar';
+    import DumondaMeFooter from '~/components/navigation/footer/Footer';
+    import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
 
     export default {
-        components: {DumondaMeToolbar, DumondaMeFooter}
+        components: {DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer},
+        data() {
+            return {drawer: null}
+        }
     }
 </script>
 
@@ -66,6 +73,9 @@
                         }
                     }
                 }
+                .v-navigation-drawer {
+                    z-index: 101;
+                }
             }
         }
     }
@@ -83,7 +93,7 @@
         text-transform: none !important;
     }
 
-    #dumonda-footer-container {
+    #ely-footer {
         @media screen and (max-width: $xs) {
             display: none;
         }

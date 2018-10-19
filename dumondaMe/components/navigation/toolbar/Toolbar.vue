@@ -10,7 +10,8 @@
                         :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"
                         :number-of-notifications="numberOfNotifications" @logout="logout"
                         @change-language="changeLanguage" @create-question="showCreateQuestion = true"
-                        @create-commitment="showCreateCommitment = true">
+                        @create-commitment="showCreateCommitment = true"
+                        @open-drawer="$emit('open-drawer')">
         </mobile-toolbar>
         <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
         </create-commitment-dialog>
@@ -90,9 +91,8 @@
         background-color: white;
         border-bottom: 1px solid #ddd;
         @media screen and (max-width: $xs) {
-            background-color: $primary-color;
             border-bottom: none;
-            //box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
         }
         #desktop-toolbar {
             @media screen and (max-width: $xs) {
