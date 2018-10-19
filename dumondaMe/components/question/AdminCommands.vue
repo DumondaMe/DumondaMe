@@ -64,8 +64,8 @@
         margin-left: 18px;
         height: 40px;
         display: inline-block;
-        #admin-commands {
-
+        @media screen and (max-width: $xs) {
+            margin-left: 0;
         }
     }
 </style>

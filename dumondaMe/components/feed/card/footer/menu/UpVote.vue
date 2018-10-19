@@ -1,5 +1,5 @@
 <template>
-    <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy>
+    <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy min-width="290">
         <slot name="icon" slot="activator"></slot>
         <v-card class="ely-menu-container up-vote-menu-container">
             <div class="menu-title">

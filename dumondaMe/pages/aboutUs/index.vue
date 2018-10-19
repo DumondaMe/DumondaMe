@@ -85,6 +85,10 @@
     #ely-about-us {
         max-width: 600px;
         margin: 0 auto;
+        @media screen and (max-width: $xs) {
+            margin-top: 18px;
+            padding: 0 16px;
+        }
         .top-text {
             margin-bottom: 40px;
         }
@@ -98,6 +102,10 @@
             margin-bottom: 22px;
             .profile-image {
                 margin-right: 18px;
+                @media screen and (max-width: $xs) {
+                    width: 80px;
+                    height: 80px;
+                }
                 img {
                     border-radius: 2px;
                 }

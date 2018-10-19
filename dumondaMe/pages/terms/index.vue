@@ -299,6 +299,10 @@
 
 <style lang="scss">
     #terms {
+        @media screen and (max-width: $xs) {
+            margin-top: 18px;
+            padding: 0 16px;
+        }
         .terms-date {
             margin-top: 4px;
             font-weight: 300;
@@ -316,6 +320,11 @@
             line-height: 60px;
             color: #333;
             margin-bottom: 40px;
+            @media screen and (max-width: $xs) {
+                font-size: 28px;
+                line-height: 34px;
+                margin-bottom: 18px;
+            }
         }
         h2 {
             font-size: 36px;
@@ -323,6 +332,11 @@
             color: #333;
             margin-top: 30px;
             margin-bottom: 20px;
+            @media screen and (max-width: $xs) {
+                font-size: 24px;
+                line-height: 28px;
+                margin-bottom: 14px;
+            }
         }
 
         ul {
@@ -330,6 +344,9 @@
             font-size: 16px;
             margin-left: 18px;
             margin-bottom: 18px;
+            @media screen and (max-width: $xs) {
+                margin-left: 8px;
+            }
         }
 
         p {

@@ -1,13 +1,14 @@
 <template>
-    <div id="question-suggestion-button">
+    <div>
         <suggestion-menu :number-of-suggestion="numberOfSuggestion" :is-admin="isAdmin" :is-super-user="isSuperUser"
                          :question-id="questionId" @delete-suggestion="suggestionDeleted"
-                         @add-suggestion="suggestionAdded">
+                         @add-suggestion="suggestionAdded" id="question-suggestion-button">
             <div slot="icon">
-                <span class="number-of-suggestions">{{numberOfSuggestion}}</span>
+                <span class="number-of-suggestions" v-if="!numberIsRightSide">{{numberOfSuggestion}}</span>
                 <v-btn small fab color="secondary">
-                    <v-icon>mdi-lightbulb-outline</v-icon>
+                    <v-icon>mdi-lightbulb</v-icon>
                 </v-btn>
+                <span class="number-of-suggestions number-right" v-if="numberIsRightSide">{{numberOfSuggestion}}</span>
             </div>
         </suggestion-menu>
     </div>
@@ -17,7 +18,7 @@
     import SuggestionMenu from './menu/SuggestionMenu';
 
     export default {
-        props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser', 'questionId'],
+        props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser', 'questionId', 'numberIsRightSide'],
         components: {SuggestionMenu},
         data() {
             return {}
@@ -35,7 +36,6 @@
 
 <style lang="scss">
     #question-suggestion-button {
-        margin-left: 8px;
         height: 40px;
         display: inline-block;
         .number-of-suggestions {
@@ -46,6 +46,9 @@
             margin-left: 18px;
             margin-right: 8px;
             vertical-align: middle;
+        }
+        .number-of-suggestions.number-right {
+            margin-left: 2px;
         }
     }
 </style>

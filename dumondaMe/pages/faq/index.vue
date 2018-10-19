@@ -52,11 +52,20 @@
 
 <style lang="scss">
     #faq-description {
+        @media screen and (max-width: $xs) {
+            margin-top: 18px;
+            padding: 0 16px;
+        }
         h1 {
             font-size: 52px;
             line-height: 60px;
             color: #333;
             margin-bottom: 40px;
+            @media screen and (max-width: $xs) {
+                font-size: 28px;
+                line-height: 34px;
+                margin-bottom: 18px;
+            }
         }
         h2 {
             font-size: 30px;
@@ -64,11 +73,19 @@
             color: #333;
             margin-top: 30px;
             margin-bottom: 20px;
+            @media screen and (max-width: $xs) {
+                font-size: 24px;
+                line-height: 28px;
+                margin-bottom: 14px;
+            }
         }
 
         img {
             max-width: 450px;
             margin-bottom: 12px;
+            @media screen and (max-width: $xs) {
+                width: 100%;
+            }
         }
 
         p {

@@ -41,11 +41,6 @@
 
 <style lang="scss">
     .general-info-container {
-        h3 {
-            font-size: 16px;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 12px;
-        }
         .question-info {
             display: block;
             font-size: 14px;

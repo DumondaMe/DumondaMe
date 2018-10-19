@@ -45,9 +45,17 @@
                     <v-spacer></v-spacer>
                     <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
                                 :is-super-user="question.isSuperUser" :question-id="question.questionId"
-                                :number-of-suggestion="question.numberOfSuggestions">
+                                :number-of-suggestion="question.numberOfSuggestions" id="suggestion-button-desktop">
                     </suggestion>
-                    <admin-commands v-if="question.isAdmin"></admin-commands>
+                    <admin-commands v-if="question.isAdmin" id="admin-button-desktop"></admin-commands>
+                </div>
+                <div id="mobile-commands">
+                    <admin-commands v-if="question.isAdmin" id="admin-button-mobile"></admin-commands>
+                    <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
+                                :is-super-user="question.isSuperUser" :question-id="question.questionId"
+                                :number-of-suggestion="question.numberOfSuggestions" id="suggestion-button-mobile"
+                                :number-is-right-side="true">
+                    </suggestion>
                 </div>
             </div>
         </div>
@@ -115,6 +123,11 @@
 <style lang="scss">
     #dumonda-me-question-header {
         margin-bottom: 48px;
+        @media screen and (max-width: $xs) {
+            margin-top: 18px;
+            margin-bottom: 12px;
+            padding: 0 16px;
+        }
         #dumonda-me-question-header-content {
             display: flex;
             #question-header-main {
@@ -126,6 +139,11 @@
                 font-size: 30px;
                 line-height: 42px;
                 font-weight: 400;
+                @media screen and (max-width: $xs) {
+                    font-size: 24px;
+                    line-height: 28px;
+                    margin-bottom: 18px;
+                }
             }
             #question-description {
                 margin-top: 12px;
@@ -162,6 +180,40 @@
                 }
                 button {
                     margin: 0;
+                }
+                #suggestion-button-desktop {
+                    margin-right: 16px;
+                    @media screen and (max-width: $xs) {
+                        display: none;
+                    }
+                }
+                #admin-button-desktop {
+                    @media screen and (max-width: $xs) {
+                        display: none;
+                    }
+                }
+            }
+            #mobile-commands {
+                display: flex;
+                margin-top: 12px;
+                @media screen and (min-width: $xs) {
+                    display: none;
+                }
+                #suggestion-button-mobile {
+                    @media screen and (max-width: $xs) {
+                        button {
+                            margin-left: 16px;
+                        }
+                    }
+                }
+                #admin-button-mobile {
+                    #admin-commands {
+                        @media screen and (max-width: $xs) {
+                            button {
+                                margin-left: 0;
+                            }
+                        }
+                    }
                 }
             }
         }

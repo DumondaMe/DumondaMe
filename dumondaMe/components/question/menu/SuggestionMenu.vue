@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-menu v-model="menu" :close-on-content-click="false"
+        <v-menu v-model="menu" :close-on-content-click="false" min-width="300"
                 :close-on-click="closeMenuOnOutsideClick" offset-y>
             <slot name="icon" slot="activator"></slot>
             <v-card class="ely-menu-container ely-menu-suggestion">
@@ -23,7 +23,7 @@
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-btn color="primary" :disabled="isAdmin" @click="openShowCreateSuggestion()">
-                        <v-icon left>mdi-wrench</v-icon>
+                        <v-icon left>mdi-lightbulb</v-icon>
                         {{$t('pages:detailQuestion.menu.suggestion.addButton')}}
                     </v-btn>
                 </div>

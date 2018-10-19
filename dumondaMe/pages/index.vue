@@ -107,7 +107,7 @@
     }
 
     .index-mobile-feed-filter {
-        @media screen and (min-width: $xs + 1) {
+        @media screen and (min-width: $xs) {
             display: none;
         }
     }

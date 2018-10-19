@@ -399,7 +399,7 @@
         "userSuggestion": "has created a proposal",
         "loggedInUserSuggestion": "has created a proposal",
         "noSuggestion": "Editorial users can enter suggestions here to improve the quality of the question.",
-        "addButton": "Enter suggestion",
+        "addButton": "Create",
         "tooltipDetailView": "Open detail view dialog",
         "statusOpen": "Suggestion is open",
         "statusClosed": "Suggestion has been closed"
