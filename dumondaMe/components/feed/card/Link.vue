@@ -2,24 +2,26 @@
     <div class="link-answer-feed-card">
         <div class="feed-card-header">
             <div>
-                <div v-if="!hideQuestion">
-                    <span class="answer-type">{{answerType}} </span><span class="card-header-link">
-                    <nuxt-link :to="{name: 'question-questionId-slug',
+                <h2 class="feed-card-title">
+                    <div v-if="!hideQuestion">
+                        <span class="answer-type">{{answerType}} </span><span class="card-header-link">
+                        <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
-                    </nuxt-link></span>
-                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
-                        class="card-header-link">
-                    <nuxt-link :to="{name: 'question-questionId-slug',
+                        </nuxt-link></span>
+                        <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                            class="card-header-link">
+                        <nuxt-link :to="{name: 'question-questionId-slug',
                         params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                    </nuxt-link></span>
-                </div>
-                <div v-else>
-                    <span class="answer-type">{{answerType}} </span>
-                    <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
-                                                      class="link">{{answer.title}} </a>
-                    </span>
-                </div>
+                        </nuxt-link></span>
+                    </div>
+                    <div v-else>
+                        <span class="answer-type">{{answerType}} </span>
+                        <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
+                                                          class="link">{{answer.title}} </a>
+                        </span>
+                    </div>
+                </h2>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <v-spacer></v-spacer>
@@ -27,7 +29,7 @@
         </div>
         <div class="link-answer-content">
             <div class="link-preview-image" v-if="answer.imageUrl">
-                <img :src="answer.imageUrl">
+                <img :src="answer.imageUrl" @click="openLink">
             </div>
             <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
                 <expand-text :expand-text="answer.description"
@@ -52,6 +54,17 @@
                 }
                 return this.$t(`common:feedCard.answerType.link.link`)
             }
+        },
+        methods: {
+            openLink() {
+                if (this.hideQuestion) {
+                    window.open(this.answer.link)
+                } else {
+                    this.$router.push({name: 'question-questionId-slug',
+                        params: {questionId: this.answer.questionId, slug: this.answer.questionSlug},
+                        query: {answerId: this.answer.answerId}})
+                }
+            }
         }
     }
 </script>
@@ -61,6 +74,7 @@
         .link-answer-content {
             .link-preview-image {
                 img {
+                    cursor: pointer;
                     border-radius: 4px;
                     width: 100%;
                 }

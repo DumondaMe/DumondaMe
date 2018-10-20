@@ -2,10 +2,12 @@
     <div class="question-feed-card">
         <div class="feed-card-header">
             <div>
-                <span class="answer-type">{{$t('common:question')}} </span><span class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
+                <h2 class="feed-card-title">
+                    <span class="answer-type">{{$t('common:question')}} </span><span class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: question.questionId, slug: question.questionSlug}}"> {{question.question}}
-                </nuxt-link></span>
+                    </nuxt-link></span>
+                </h2>
                 <div class="secondary-text" v-if="!hideTime">{{question.created | formatRelativeTimesAgo}}</div>
             </div>
         </div>

@@ -2,23 +2,25 @@
     <div class="book-answer-feed-card">
         <div class="feed-card-header">
             <div>
-                <div v-if="!hideQuestion">
-                    <span class="answer-type">{{$t('common:feedCard.answerType.book')}} </span>
-                    <span class="card-header-link"><nuxt-link :to="{name: 'question-questionId-slug',
+                <h2 class="feed-card-title">
+                    <div v-if="!hideQuestion">
+                        <span class="answer-type">{{$t('common:feedCard.answerType.book')}} </span>
+                        <span class="card-header-link"><nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.title}}
-                </nuxt-link></span>
-                    <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
-                        class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
+                    </nuxt-link></span>
+                        <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                            class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                </nuxt-link></span>
-                </div>
-                <div v-else>
-                    <span class="answer-type">{{$t('common:feedCard.answerType.book')}} </span>
-                    <span class="card-header-link"><a target="_blank" rel="noopener" :href="link"
-                                                      class="link">{{answer.title}} </a></span>
-                </div>
+                    </nuxt-link></span>
+                    </div>
+                    <div v-else>
+                        <span class="answer-type">{{$t('common:feedCard.answerType.book')}} </span>
+                        <span class="card-header-link"><a target="_blank" rel="noopener" :href="link"
+                                                          class="link">{{answer.title}} </a></span>
+                    </div>
+                </h2>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <v-spacer></v-spacer>
@@ -26,7 +28,7 @@
         </div>
         <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
             <div class="book-preview-image" v-if="answer.imageUrl">
-                <img :src="answer.imageUrl">
+                <img :src="answer.imageUrl" @click="openBook">
             </div>
             <div class="answer-description" :class="{'no-book-image': !answer.imageUrl}">
                 <expand-text :expand-text="answer.description" itemprop="text">
@@ -50,6 +52,17 @@
             link() {
                 return `http://books.google.com/books?vid=${this.answer.googleBookId}`;
             }
+        },
+        methods: {
+            openBook() {
+                if (this.hideQuestion) {
+                    window.open(this.link)
+                } else {
+                    this.$router.push({name: 'question-questionId-slug',
+                        params: {questionId: this.answer.questionId, slug: this.answer.questionSlug},
+                        query: {answerId: this.answer.answerId}})
+                }
+            }
         }
     }
 </script>
@@ -62,10 +75,14 @@
             margin-bottom: 16px;
             .book-preview-image {
                 img {
+                    cursor: pointer;
                     border-radius: 2px;
                     margin-top: 6px;
                     max-height: 250px;
                     max-width: 120px;
+                    @media screen and (max-width: $xs) {
+                        max-width: 80px;
+                    }
                 }
             }
             .answer-description {
