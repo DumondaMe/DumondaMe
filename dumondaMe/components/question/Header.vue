@@ -202,7 +202,7 @@
                 #suggestion-button-mobile {
                     @media screen and (max-width: $xs) {
                         button {
-                            margin-left: 16px;
+                            margin-left: 0;
                         }
                     }
                 }
@@ -211,6 +211,7 @@
                         @media screen and (max-width: $xs) {
                             button {
                                 margin-left: 0;
+                                margin-right: 24px;
                             }
                         }
                     }
