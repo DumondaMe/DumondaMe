@@ -3,7 +3,7 @@
         <v-card-title id="commitment-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text id="commitment-answer-content">
+        <v-card-text id="commitment-answer-content" class="mobile-dialog-content">
             <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoCommitment')}}</div>
             <v-text-field v-model="titleCommitment" :loading="searchCommitmentRunning"
                           :label="$t('pages:detailQuestion.searchCommitment')"
@@ -120,6 +120,10 @@
                 .commitment-image {
                     width: 120px;
                     flex: 0 0 120px;
+                    @media screen and (max-width: $xs) {
+                        width: 80px;
+                        flex: 0 0 80px;
+                    }
                     img {
                         width: 100%;
                         border-radius: 4px;

@@ -3,7 +3,7 @@
         <v-card-title id="commitment-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text id="commitment-answer-content">
+        <v-card-text id="commitment-answer-content" class="mobile-dialog-content">
             <v-form v-model="valid">
                 <div id="commitment-container">
                     <div id="commitment-image">

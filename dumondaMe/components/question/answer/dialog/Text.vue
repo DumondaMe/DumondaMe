@@ -3,7 +3,7 @@
         <v-card-title id="answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text>
+        <v-card-text class="mobile-dialog-content">
             <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoText')}}</div>
             <v-form v-model="valid">
                 <v-layout row wrap>
@@ -18,9 +18,9 @@
                 </v-layout>
             </v-form>
         </v-card-text>
+        <v-spacer></v-spacer>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>

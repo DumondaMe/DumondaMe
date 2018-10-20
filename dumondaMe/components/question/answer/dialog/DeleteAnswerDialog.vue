@@ -6,7 +6,7 @@
                     {{$t("pages:detailQuestion.deleteAnswerTitle")}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text id="dialog-delete-question-content">
+                <v-card-text id="dialog-delete-question-content" class="mobile-dialog-content">
                     <p>{{$t("pages:detailQuestion.deleteAnswerDescription", {answer})}}</p>
                 </v-card-text>
                 <v-divider></v-divider>

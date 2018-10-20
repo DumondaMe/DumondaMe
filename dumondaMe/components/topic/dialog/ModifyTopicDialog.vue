@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <topics @close-dialog="$emit('close-dialog')" @finish="changeTopics" :existing-topics="existingTopics"
-                    :action-button-text="$t('pages:question.modifyTopicDialog.changeButton')"
+                    :action-button-text="$t('common:button.change')"
                     :description="$t('pages:question.createDialog.topicDescription')" :loading="loading">
                 <div slot="header">
                     <div id="dumonda-me-dialog-header" class="modify-topic-dialog-header">
