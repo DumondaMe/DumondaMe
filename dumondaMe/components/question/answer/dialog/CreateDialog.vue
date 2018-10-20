@@ -18,12 +18,11 @@
 </template>
 
 <script>
-    import SelectAnswerType from './SelectAnswerType';
+    import SelectAnswerType from './selectAnswerType/Select';
     import AnswerText from './Text';
     import AnswerLink from './link/Link';
     import AnswerBook from './Book';
     import AnswerCommitment from './Commitment';
-    import Vue from 'vue';
 
     export default {
         components: {SelectAnswerType, AnswerText, AnswerLink, AnswerBook, AnswerCommitment},
