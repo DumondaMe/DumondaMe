@@ -3,7 +3,7 @@
         <div>
             <slot name="header"></slot>
         </div>
-        <v-card-text>
+        <v-card-text class="mobile-dialog-content">
             <v-form v-model="valid">
                 <v-layout row wrap>
                     <v-flex xs12>

@@ -3,7 +3,7 @@
         <v-card-title id="book-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text id="book-answer-content">
+        <v-card-text id="book-answer-content" class="mobile-dialog-content">
             <v-form v-model="valid">
                 <div id="book-container">
                     <div v-if="book.thumbnail" id="book-image">

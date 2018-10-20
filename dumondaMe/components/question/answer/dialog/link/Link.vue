@@ -3,7 +3,7 @@
         <v-card-title id="link-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text id="link-answer-content">
+        <v-card-text id="link-answer-content" class="mobile-dialog-content">
             <div class="info-answer" v-if="isVideo">{{$t('pages:question.answerDialog.answerInfoVideo')}}</div>
             <div class="info-answer" v-else>{{$t('pages:question.answerDialog.answerInfoLink')}}</div>
             <v-form v-model="valid">

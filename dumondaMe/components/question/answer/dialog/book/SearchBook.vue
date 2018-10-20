@@ -3,7 +3,7 @@
         <v-card-title id="book-answer-title" v-html="$t('pages:question.answerDialog.title', {question})">
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text id="book-answer-content">
+        <v-card-text id="book-answer-content" class="mobile-dialog-content">
             <div class="info-answer">{{$t('pages:question.answerDialog.answerInfoBook')}}</div>
             <v-text-field v-model="title" :loading="searchBookRunning"
                           :label="$t('pages:detailQuestion.searchBook')"

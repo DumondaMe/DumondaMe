@@ -14,7 +14,8 @@
         <v-divider></v-divider>
         <v-card-actions>
             <div id="number-of-topics" :class="{'max-number-of-topics': selectedTopics.length === 10}">
-                {{$t("common:topic", {count: selectedTopics.length})}} {{selectedTopics.length}}/10
+                <span class="topic-description">{{$t("common:topic", {count: selectedTopics.length})}}</span>
+                {{selectedTopics.length}}/10
             </div>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
@@ -74,6 +75,11 @@
         #number-of-topics {
             padding-left: 16px;
             font-size: 14px;
+            .topic-description {
+                @media screen and (max-width: 700px) {
+                    display: none;
+                }
+            }
         }
         .max-number-of-topics {
             color: $error-text;
