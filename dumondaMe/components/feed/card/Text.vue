@@ -2,18 +2,20 @@
     <div class="text-answer-feed-card">
         <div class="feed-card-header">
             <div>
-                <span class="answer-type"
+                <h2 class="feed-card-title">
+                    <span class="answer-type"
                       v-if="!hideQuestion">
                     <span>{{$t('common:feedCard.answerType.textWithQuestion1')}} </span>
                     <span class="creator-name" @click="goToProfile()">{{creator.name}} </span>
                     <span>{{$t('common:feedCard.answerType.textWithQuestion2')}} </span>
-                </span>
-                <span class="answer-type" v-else>{{$t('common:feedCard.answerType.text')}}</span>
-                <span class="card-header-link">
-                <nuxt-link :to="{name: 'question-questionId-slug',
+                    </span>
+                    <span class="answer-type" v-else>{{$t('common:feedCard.answerType.text')}}</span>
+                    <span class="card-header-link">
+                    <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.question}}
-                </nuxt-link></span>
+                    </nuxt-link></span>
+                </h2>
                 <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
             </div>
             <v-spacer></v-spacer>

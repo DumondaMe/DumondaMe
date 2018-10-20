@@ -3,24 +3,26 @@
         <div class="youtube-answer-content" ref="answerContent" :class="{'show-embed': showEmbed}">
             <div class="feed-card-header">
                 <div>
-                    <div v-if="!hideQuestion">
-                        <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span><span
-                            class="card-header-link">
-                    <nuxt-link :to="{name: 'question-questionId-slug',
-                                params: {questionId: answer.questionId, slug: answer.questionSlug},
-                                query: {answerId: answer.answerId}}"> {{answer.title}}
-                    </nuxt-link></span>
-                        <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
-                            class="card-header-link">
-                    <nuxt-link :to="{name: 'question-questionId-slug',
-                            params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
-                    </nuxt-link></span>
-                    </div>
-                    <div v-else>
-                        <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span>
-                        <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
-                                                          class="link">{{answer.title}} </a></span>
-                    </div>
+                    <h2 class="feed-card-title">
+                        <div v-if="!hideQuestion">
+                            <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span><span
+                                class="card-header-link">
+                            <nuxt-link :to="{name: 'question-questionId-slug',
+                                    params: {questionId: answer.questionId, slug: answer.questionSlug},
+                                    query: {answerId: answer.answerId}}"> {{answer.title}}
+                            </nuxt-link></span>
+                            <span class="answer-type">{{$t('common:feedCard.answersQuestion')}} </span><span
+                                class="card-header-link">
+                            <nuxt-link :to="{name: 'question-questionId-slug',
+                                params: {questionId: answer.questionId, slug: answer.questionSlug}}"> {{answer.question}}
+                            </nuxt-link></span>
+                        </div>
+                        <div v-else>
+                            <span class="answer-type">{{$t('common:feedCard.answerType.video')}} </span>
+                            <span class="card-header-link"><a target="_blank" rel="noopener" :href="answer.link"
+                                                              class="link">{{answer.title}} </a></span>
+                        </div>
+                    </h2>
                     <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
                 </div>
                 <v-spacer></v-spacer>
