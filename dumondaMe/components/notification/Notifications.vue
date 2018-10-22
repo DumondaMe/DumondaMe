@@ -41,7 +41,7 @@
     #notifications-container {
         .notification {
             margin-bottom: 12px;
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 padding: 16px;
                 margin-bottom: 0;
             }
