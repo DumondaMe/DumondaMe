@@ -13,6 +13,7 @@
             </feed-filter>
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
+            <beta-version class="index-mobile-feed-filter"></beta-version>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
