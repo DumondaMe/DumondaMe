@@ -33,7 +33,9 @@ module.exports = {
         path.resolve(__dirname, 'assets/style/card.scss'),
         path.resolve(__dirname, 'assets/style/layout.scss')
     ],
-    loading: false,
+    loading: {
+        color: '#009e97'
+    },
     transition: {
         name: 'page',
         mode: 'out-in',
