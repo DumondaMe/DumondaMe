@@ -31,7 +31,7 @@
     #commitment-notifications-container {
         h2 {
             color: $secondary-color;
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 margin-left: 16px;
                 font-weight: 500;
                 margin-top: 8px;

@@ -183,12 +183,12 @@
                 }
                 #suggestion-button-desktop {
                     margin-right: 16px;
-                    @media screen and (max-width: $xs) {
+                    @media screen and (max-width: 780px) {
                         display: none;
                     }
                 }
                 #admin-button-desktop {
-                    @media screen and (max-width: $xs) {
+                    @media screen and (max-width: 780px) {
                         display: none;
                     }
                 }
@@ -196,11 +196,11 @@
             #mobile-commands {
                 display: flex;
                 margin-top: 12px;
-                @media screen and (min-width: $xs) {
+                @media screen and (min-width: 780px) {
                     display: none;
                 }
                 #suggestion-button-mobile {
-                    @media screen and (max-width: $xs) {
+                    @media screen and (max-width: 780px) {
                         button {
                             margin-left: 0;
                         }
@@ -208,7 +208,7 @@
                 }
                 #admin-button-mobile {
                     #admin-commands {
-                        @media screen and (max-width: $xs) {
+                        @media screen and (max-width: 780px) {
                             button {
                                 margin-left: 0;
                                 margin-right: 24px;

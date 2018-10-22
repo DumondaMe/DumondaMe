@@ -37,7 +37,7 @@
 <style lang="scss">
     #commitment-questions-container {
         h2 {
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 padding-left: 16px;
                 padding-right: 16px;
                 border-bottom: none;
@@ -53,7 +53,7 @@
                 color: $primary-color;
                 font-size: 16px;
                 margin-bottom: 12px;
-                @media screen and (max-width: $sm) {
+                @media screen and (max-width: $xs) {
                     margin-bottom: 6px;
                 }
                 .question-type {

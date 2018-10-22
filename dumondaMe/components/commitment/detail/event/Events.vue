@@ -105,7 +105,7 @@
 <style lang="scss">
     #events-container {
         h2 {
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 margin-top: 12px;
                 border-bottom: none;
                 padding-right: 16px;
@@ -130,7 +130,7 @@
             margin-bottom: 12px;
             button {
                 margin-left: 0;
-                @media screen and (max-width: $sm) {
+                @media screen and (max-width: $xs) {
                     margin-left: 16px;
                 }
                 i.v-icon {
@@ -141,7 +141,7 @@
         }
         .no-events-description {
             font-weight: 300;
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 padding-right: 16px;
                 padding-left: 16px
             }
