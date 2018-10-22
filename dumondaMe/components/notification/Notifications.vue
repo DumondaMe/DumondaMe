@@ -41,10 +41,13 @@
     #notifications-container {
         .notification {
             margin-bottom: 12px;
+            @media screen and (max-width: $sm) {
+                padding: 16px;
+                margin-bottom: 0;
+            }
             .notification-created {
                 margin-bottom: 8px;
                 font-size: 12px;
-                color: $secondary-text;
             }
         }
         .show-border {
