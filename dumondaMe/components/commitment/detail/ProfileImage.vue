@@ -25,6 +25,10 @@
             width: 320px;
             margin-left: 40px;
             @media screen and (max-width: $sm) {
+                width: 280px;
+                margin-left: auto;
+            }
+            @media screen and (max-width: $xs) {
                 margin-top: 18px;
                 margin-left: 16px;
             }

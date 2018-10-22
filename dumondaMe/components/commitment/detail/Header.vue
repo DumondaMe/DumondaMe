@@ -60,7 +60,7 @@
 
 <style lang="scss">
     #dumonda-me-commitment-header {
-        @media screen and (max-width: $sm) {
+        @media screen and (max-width: $xs) {
             padding: 0 16px;
         }
         h1 {
@@ -68,7 +68,7 @@
             font-weight: 400;
             font-size: 30px;
             line-height: 42px;
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 margin-top: 8px;
                 font-size: 24px;
                 line-height: 28px;
@@ -80,7 +80,7 @@
             font-weight: 300;
             white-space: pre-line;
             word-break: break-word;
-            @media screen and (max-width: $sm) {
+            @media screen and (max-width: $xs) {
                 margin-bottom: 8px;
             }
         }

@@ -69,6 +69,11 @@
                 height: 180px;
                 margin-left: 180px;
                 @media screen and (max-width: $sm) {
+                    width: 180px;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+                @media screen and (max-width: $xs) {
                     margin: 18px 0 18px 16px;
                 }
                 img {
@@ -83,6 +88,10 @@
                 margin-left: 180px;
                 margin-right: 0;
                 @media screen and (max-width: $sm) {
+                    margin-left: auto;
+                    margin-right: 0;
+                }
+                @media screen and (max-width: $xs) {
                     display: block;
                     margin-left: 16px;
                     margin-bottom: 28px;

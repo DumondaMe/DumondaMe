@@ -72,7 +72,7 @@
             border-bottom: 1px solid $divider;
         }
         .user-mobile-content {
-            @media screen and (min-width: $sm) {
+            @media screen and (min-width: $xs) {
                 display: none;
             }
         }
