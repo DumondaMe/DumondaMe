@@ -1,18 +1,23 @@
 <template>
     <div class="ely-date-time-picker">
         <div class="description">{{description}}</div>
-        <v-menu :close-on-content-click="false" v-model="menu"
-                :nudge-right="40" lazy transition="scale-transition" offset-y>
-            <v-text-field slot="activator" v-model="this.dateFormatted" prepend-icon="mdi-calendar" readonly
-                          class="date-input">
-            </v-text-field>
-            <v-date-picker v-model="date" @input="menu = false" next-icon="mdi-chevron-right"
-                           prev-icon="mdi-chevron-left" :locale="getLanguage" no-title :min="min">
-            </v-date-picker>
-        </v-menu>
-        <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock"
-                      :rules="[isValidTime()]">
-        </v-text-field>
+        <v-layout row wrap class="time-container">
+            <v-flex xs12 md6>
+                <v-menu :close-on-content-click="false" v-model="menu"
+                        :nudge-right="40" lazy transition="scale-transition" offset-y>
+                    <v-text-field slot="activator" v-model="this.dateFormatted" prepend-icon="mdi-calendar" readonly
+                                  class="date-input">
+                    </v-text-field>
+                    <v-date-picker v-model="date" @input="menu = false" next-icon="mdi-chevron-right"
+                                   prev-icon="mdi-chevron-left" :locale="getLanguage" no-title :min="min"
+                                   :full-width="$vuetify.breakpoint.xsOnly">
+                    </v-date-picker>
+                </v-menu>
+                <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock"
+                              :rules="[isValidTime()]">
+                </v-text-field>
+            </v-flex>
+        </v-layout>
         <div class="warning-date-icon" v-if="warning">
             <v-tooltip bottom debounce="300">
                 <v-icon slot="activator">mdi-alert-outline</v-icon>
@@ -87,6 +92,9 @@
             width: 120px;
             padding-top: 20px;
         }
+        .time-container {
+            width: 100%;
+        }
         .date-input {
             width: 132px;
             max-width: 132px;
@@ -95,6 +103,12 @@
             margin-left: 18px;
             width: 90px;
             max-width: 90px;
+            @media screen and (max-width: 600px) {
+                margin-left: 0;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
         }
         .warning-date-icon {
             margin-left: 8px;

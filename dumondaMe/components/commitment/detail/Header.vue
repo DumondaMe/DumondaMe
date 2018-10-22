@@ -60,11 +60,19 @@
 
 <style lang="scss">
     #dumonda-me-commitment-header {
+        @media screen and (max-width: $sm) {
+            padding: 0 16px;
+        }
         h1 {
             margin-bottom: 4px;
             font-weight: 400;
             font-size: 30px;
             line-height: 42px;
+            @media screen and (max-width: $sm) {
+                margin-top: 8px;
+                font-size: 24px;
+                line-height: 28px;
+            }
         }
         #commitment-description {
             margin-top: 12px;
@@ -72,6 +80,9 @@
             font-weight: 300;
             white-space: pre-line;
             word-break: break-word;
+            @media screen and (max-width: $sm) {
+                margin-bottom: 8px;
+            }
         }
         #commands-container {
             display: flex;

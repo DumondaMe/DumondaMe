@@ -29,6 +29,16 @@
 
 <style lang="scss">
     #commitment-notifications-container {
+        h2 {
+            color: $secondary-color;
+            @media screen and (max-width: $sm) {
+                margin-left: 16px;
+                font-weight: 500;
+                margin-top: 8px;
+                margin-bottom: 0;
+                border-bottom: none;
+            }
+        }
         .notification {
             padding: 16px;
             margin-bottom: 8px;

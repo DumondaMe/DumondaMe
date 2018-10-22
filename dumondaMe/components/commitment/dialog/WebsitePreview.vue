@@ -3,7 +3,7 @@
         <div>
             <slot name="header"></slot>
         </div>
-        <v-card-text id="dialog-create-commitment-content">
+        <v-card-text id="dialog-create-commitment-content" class="mobile-dialog-content">
             <v-form v-model="valid" @keydown.enter.native="goToNext">
                 <v-layout row wrap>
                     <v-flex xs12>

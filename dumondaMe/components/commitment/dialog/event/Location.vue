@@ -6,7 +6,7 @@
         <div id="location-description">
             {{location}} <span v-if="selectedRegion">({{selectedRegion.description}})</span>
         </div>
-        <v-card-text>
+        <v-card-text class="mobile-dialog-content">
             <v-form v-model="valid" ref="form" class="input-location">
                 <v-text-field v-model="location"
                               :label="$t('pages:commitment.createEventDialog.location')"

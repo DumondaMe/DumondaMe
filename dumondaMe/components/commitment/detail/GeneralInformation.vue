@@ -42,6 +42,9 @@
 <style lang="scss">
     .general-info-container {
         margin-top: 18px;
+        @media screen and (max-width: $sm) {
+            margin-top: 0;
+        }
         .commitment-info {
             display: block;
             font-size: 14px;
@@ -90,6 +93,12 @@
             .info-icon {
                 margin-top: 2px;
             }
+        }
+    }
+    .general-info-container.ely-card {
+        @media screen and (max-width: $sm) {
+            padding-left: 16px;
+            padding-right: 16px;
         }
     }
 </style>

@@ -3,7 +3,7 @@
         <div>
             <slot name="header"></slot>
         </div>
-        <v-card-text id="dialog-create-event-content">
+        <v-card-text id="dialog-create-event-content" class="mobile-dialog-content">
             <v-form v-model="valid" @keydown.enter.native="finish" ref="form">
                 <v-text-field v-model="event.title"
                               :label="$t('pages:commitment.createEventDialog.title')"

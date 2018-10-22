@@ -3,7 +3,7 @@
         <div>
             <slot name="header"></slot>
         </div>
-        <v-card-text>
+        <v-card-text class="mobile-dialog-content">
             <div class="acknowledge-description">
                 {{$t('pages:commitment.createDialog.acknowledgeDescription')}}
             </div>
