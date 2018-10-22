@@ -6,7 +6,7 @@
                     {{$t("pages:detailCommitment.deleteDialog.title")}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text>
+                <v-card-text class="mobile-dialog-content">
                     <p v-html="$t('pages:detailCommitment.deleteDialog.description', {commitment: commitmentToDelete})"></p>
                 </v-card-text>
                 <v-divider></v-divider>
