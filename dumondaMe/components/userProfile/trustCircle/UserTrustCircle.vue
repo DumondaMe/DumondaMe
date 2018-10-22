@@ -96,6 +96,9 @@
 <style lang="scss">
     .user-trust-circle-container {
         margin-top: 24px;
+        @media screen and (max-width: $sm) {
+            margin-top: 12px;
+        }
         h3 {
             font-size: 16px;
             font-weight: 500;
@@ -137,5 +140,11 @@
             margin-left: 0;
         }
 
+    }
+    .user-trust-circle-container.ely-card {
+        @media screen and (max-width: $sm) {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
     }
 </style>

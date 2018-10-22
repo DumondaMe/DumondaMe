@@ -136,6 +136,9 @@
 <style lang="scss">
     .user-feed-cards-container {
         margin-top: 32px;
+        @media screen and (max-width: $sm) {
+            margin-top: 16px;
+        }
     }
 
     .user-feed-no-content-message {

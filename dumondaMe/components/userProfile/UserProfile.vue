@@ -63,12 +63,22 @@
 <style lang="scss">
     #dumonda-me-user-profile {
         padding-bottom: 32px;
+        @media screen and (max-width: $sm) {
+            padding-bottom: 0;
+        }
         #profile-info-container {
+            @media screen and (max-width: $sm) {
+                padding: 0 16px;
+            }
             #user-name {
                 text-align: start;
                 font-weight: 400;
                 font-size: 30px;
                 line-height: 42px;
+                @media screen and (max-width: $xs) {
+                    font-size: 24px;
+                    line-height: 28px;
+                }
             }
             .user-status-info {
                 margin-top: 6px;
