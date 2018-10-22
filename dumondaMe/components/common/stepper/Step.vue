@@ -38,6 +38,9 @@
             }
             .step-name {
                 font-size: 14px;
+                @media screen and (max-width: $sm) {
+                    display: none;
+                }
             }
         }
         .step.active-step {
