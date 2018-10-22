@@ -2,7 +2,7 @@
     <div class="dumonda-me-answer-container">
         <div class="dumonda-me-answer-content">
             <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope class="feed-card ely-card"
-                 itemtype="http://schema.org/Answer">
+                 itemtype="http://schema.org/Answer" :class="{'single-feed-card': showAllAnswersButton}">
                 <text-card v-if="answer.answerType === 'Text'" :answer="answer"
                            @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
@@ -135,6 +135,11 @@
             .new-added-answer {
                 border: 1px solid $success-text;
             }
+            .feed-card.ely-card.single-feed-card {
+                @media screen and (max-width: $sm) {
+                    border-bottom: none;
+                }
+            }
         }
         .show-answer-not-found {
             font-size: 20px;
@@ -143,6 +148,9 @@
         }
         .show-answer-button {
             margin-left: 0;
+            @media screen and (max-width: $sm) {
+                margin-left: 16px;
+            }
         }
         .show-no-answers {
             font-size: 20px;
