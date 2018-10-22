@@ -24,6 +24,13 @@
         #commitment-image {
             width: 320px;
             margin-left: 40px;
+            @media screen and (max-width: $sm) {
+                margin-top: 18px;
+                margin-left: 16px;
+            }
+            @media screen and (max-width: 340px) {
+                width: 288px;
+            }
             img {
                 width: 100%;
                 border-radius: 6px;

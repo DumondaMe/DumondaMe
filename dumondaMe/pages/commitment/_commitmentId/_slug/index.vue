@@ -1,8 +1,14 @@
 <template>
     <detail-layout>
         <div slot="content" id="commitment-detail">
+            <div class="user-mobile-content">
+                <profile-image></profile-image>
+            </div>
             <commitment-header>
             </commitment-header>
+            <div class="user-mobile-content">
+                <general-information></general-information>
+            </div>
             <notifications>
             </notifications>
             <questions>
@@ -11,10 +17,8 @@
             </events>
         </div>
         <div slot="sidebar" id="commitment-sidebar">
-            <profile-image>
-            </profile-image>
-            <general-information>
-            </general-information>
+            <profile-image></profile-image>
+            <general-information></general-information>
         </div>
     </detail-layout>
 </template>
@@ -66,6 +70,11 @@
             margin-top: 32px;
             margin-bottom: 12px;
             border-bottom: 1px solid $divider;
+        }
+        .user-mobile-content {
+            @media screen and (min-width: $sm) {
+                display: none;
+            }
         }
     }
 

@@ -131,9 +131,15 @@
             margin-top: 12px;
             font-weight: 300;
             white-space: pre-wrap;
+            @media screen and (max-width: $sm) {
+                margin-top: 6px;
+            }
         }
         .event-footer {
             margin-top: 12px;
+            @media screen and (max-width: $sm) {
+                margin-top: 6px;
+            }
             .footer-icon {
                 vertical-align: top;
                 display: flex;
@@ -169,6 +175,12 @@
                     }
                 }
             }
+        }
+    }
+    .commitment-event.ely-card {
+        @media screen and (max-width: $sm) {
+            padding-left: 16px;
+            padding-right: 16px;
         }
     }
 </style>

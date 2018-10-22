@@ -6,7 +6,7 @@
                     {{$t("pages:detailCommitment.events.deleteDialog.title")}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text id="dialog-delete-question-content">
+                <v-card-text id="dialog-delete-question-content" class="mobile-dialog-content">
                     <p v-html="$t('pages:detailCommitment.events.deleteDialog.description', {event: eventToDelete})"></p>
                 </v-card-text>
                 <v-divider></v-divider>

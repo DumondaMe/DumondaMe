@@ -104,6 +104,15 @@
 
 <style lang="scss">
     #events-container {
+        h2 {
+            @media screen and (max-width: $sm) {
+                margin-top: 12px;
+                border-bottom: none;
+                padding-right: 16px;
+                padding-left: 16px;
+                font-weight: 500;
+            }
+        }
         .select-event-container {
             font-size: 12px;
             .select-event {
@@ -121,6 +130,9 @@
             margin-bottom: 12px;
             button {
                 margin-left: 0;
+                @media screen and (max-width: $sm) {
+                    margin-left: 16px;
+                }
                 i.v-icon {
                     margin-right: 8px;
                     font-size: 20px;
@@ -129,6 +141,10 @@
         }
         .no-events-description {
             font-weight: 300;
+            @media screen and (max-width: $sm) {
+                padding-right: 16px;
+                padding-left: 16px
+            }
         }
         .show-more-events-button {
             margin-left: 0;

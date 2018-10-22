@@ -36,6 +36,15 @@
 
 <style lang="scss">
     #commitment-questions-container {
+        h2 {
+            @media screen and (max-width: $sm) {
+                padding-left: 16px;
+                padding-right: 16px;
+                border-bottom: none;
+                font-weight: 500;
+                margin-top: 12px;
+            }
+        }
         .question.feed-card {
             padding-left: 18px;
             padding-bottom: 12px;
@@ -44,6 +53,9 @@
                 color: $primary-color;
                 font-size: 16px;
                 margin-bottom: 12px;
+                @media screen and (max-width: $sm) {
+                    margin-bottom: 6px;
+                }
                 .question-type {
                     color: $primary-text;
                     font-weight: 500;
@@ -57,6 +69,9 @@
                 font-size: 16px;
                 font-weight: 300;
                 margin-bottom: 12px;
+                @media screen and (max-width: $sm) {
+                    margin-top: 6px;
+                }
             }
         }
         .question.last-question {
