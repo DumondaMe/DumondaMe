@@ -13,6 +13,13 @@
         margin-bottom: 12px;
         font-size: 14px;
         font-weight: 300;
+        @media screen and (max-width: $xs) {
+            margin-top: 58px;
+            font-size: 16px;
+            max-width: 550px;
+            margin-right: auto;
+            margin-left: auto;
+        }
         h3.beta-version-title {
             color: $secondary-color;
             margin-bottom: 12px;

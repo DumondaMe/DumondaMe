@@ -160,7 +160,7 @@
         margin-top: 32px;
 
         @media screen and (max-width: $xs) {
-            margin-top: 58px;
+            margin-top: 12px;
             .feed-card {
                 margin: 0 auto;
             }
