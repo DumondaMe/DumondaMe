@@ -1,31 +1,36 @@
 <template>
     <v-card id="dialog-upload-cropped-image">
-        <v-card-text id="dialog-upload-cropped-image-content">
+        <v-card-text id="dialog-upload-cropped-image-content" class="mobile-dialog-content">
             <div id="cropper-image">
                 <img :src="imgSrc" ref="cropper">
             </div>
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-actions>
-            <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
-                   @change="handleImageChange"/>
-            <v-btn flat icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
-                <v-icon>mdi-image</v-icon>
-            </v-btn>
-            <v-btn flat icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
-                <v-icon>mdi-rotate-left</v-icon>
-            </v-btn>
-            <v-btn flat icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
-                <v-icon>mdi-rotate-right</v-icon>
-            </v-btn>
+        <v-card-actions id="upload-cropped-image-actions">
+            <div id="cropped-image-modification-actions" class="cropped-image-action-block">
+                <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
+                       @change="handleImageChange"/>
+                <v-btn flat icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
+                    <v-icon>mdi-image</v-icon>
+                </v-btn>
+                <v-btn flat icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
+                    <v-icon>mdi-rotate-left</v-icon>
+                </v-btn>
+                <v-btn flat icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
+                    <v-icon>mdi-rotate-right</v-icon>
+                </v-btn>
+            </div>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="$emit('close')">
-                {{$t("common:button.abort")}}
-            </v-btn>
-            <v-btn color="primary" @click.native="$emit('action', imageCropper)"
-                   :loading="uploadRunning" :disabled="uploadRunning">
-                {{actionLabel}}
-            </v-btn>
+            <div class="cropped-image-action-block">
+                <v-spacer></v-spacer>
+                <v-btn color="primary" flat @click.native="$emit('close')">
+                    {{$t("common:button.abort")}}
+                </v-btn>
+                <v-btn color="primary" @click.native="$emit('action', imageCropper)"
+                       :loading="uploadRunning" :disabled="uploadRunning">
+                    {{actionLabel}}
+                </v-btn>
+            </div>
         </v-card-actions>
     </v-card>
 </template>
@@ -96,6 +101,20 @@
                     max-height: 100%;
                     max-width: 100%;
                 }
+            }
+        }
+        #upload-cropped-image-actions {
+            @media screen and (max-width: 600px) {
+                display: block;
+            }
+            .cropped-image-action-block {
+                display: flex;
+            }
+        }
+        #cropped-image-modification-actions {
+            @media screen and (max-width: 600px) {
+                margin-bottom: 18px;
+                justify-content: center;
             }
         }
     }

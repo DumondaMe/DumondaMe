@@ -2,7 +2,13 @@
     <div id="ely-user-logged-in-profile-layout">
         <detail-layout>
             <div slot="content">
+                <div class="user-mobile-content">
+                    <profile-image></profile-image>
+                </div>
                 <user-profile></user-profile>
+                <div class="user-mobile-content">
+                    <trust-circle></trust-circle>
+                </div>
                 <feed :feed="feed"></feed>
             </div>
             <div slot="sidebar">
@@ -49,6 +55,11 @@
             }
             #detail-sidebar {
                 margin-left: 650px;
+            }
+        }
+        .user-mobile-content {
+            @media screen and (min-width: $sm) {
+                display: none;
             }
         }
     }

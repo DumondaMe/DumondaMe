@@ -68,6 +68,9 @@
                 width: 180px;
                 height: 180px;
                 margin-left: 180px;
+                @media screen and (max-width: $sm) {
+                    margin: 18px 0 18px 16px;
+                }
                 img {
                     border-radius: 6px;
                     height: 100%;
@@ -79,6 +82,11 @@
                 margin-top: 12px;
                 margin-left: 180px;
                 margin-right: 0;
+                @media screen and (max-width: $sm) {
+                    display: block;
+                    margin-left: 16px;
+                    margin-bottom: 28px;
+                }
             }
         }
     }

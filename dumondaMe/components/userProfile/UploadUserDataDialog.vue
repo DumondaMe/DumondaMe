@@ -6,7 +6,7 @@
                     {{$t("pages:detailUser.profileData.changeProfileDataTitle")}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text id="dialog-upload-user-data-content">
+                <v-card-text id="dialog-upload-user-data-content" class="mobile-dialog-content">
                     <v-form v-model="valid">
                         <v-layout row wrap>
                             <v-flex xs12 md5>
