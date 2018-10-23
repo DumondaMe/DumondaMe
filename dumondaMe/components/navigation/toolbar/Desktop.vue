@@ -4,6 +4,7 @@
             <div id="dumonda-me-logo">
                 <img :src="logoUrl" @click="$emit('open-drawer')"/>
             </div>
+            <search-toolbar></search-toolbar>
             <v-spacer></v-spacer>
             <div class="header-nav" v-if="isAuthenticated">
                 <v-btn flat icon @click="$router.push({name: 'index'})"
@@ -57,9 +58,12 @@
 </template>
 
 <script>
+    import SearchToolbar from './Search';
+
     export default {
         props: ['isAuthenticated', 'languages', 'selectedLanguage', 'logoUrl', 'showNotification',
-            'numberOfNotifications']
+            'numberOfNotifications'],
+        components: {SearchToolbar}
     }
 </script>
 
