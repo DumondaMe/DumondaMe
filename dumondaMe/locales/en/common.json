@@ -37,7 +37,8 @@
     "yourProfile": "Your Profile",
     "notification": "Notifications",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "language": "Language"
   },
   "toolbar": {
     "login": "Login",

@@ -37,7 +37,8 @@
     "yourProfile": "Dein Profil",
     "notification": "Benachrichtigungen",
     "settings": "Einstellungen",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "language": "Sprache"
   },
   "toolbar": {
     "login": "Anmelden",

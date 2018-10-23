@@ -4,7 +4,8 @@
                          :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"
                          :number-of-notifications="numberOfNotifications" @logout="logout"
                          @change-language="changeLanguage" @create-question="showCreateQuestion = true"
-                         @create-commitment="showCreateCommitment = true">
+                         @create-commitment="showCreateCommitment = true"
+                         @open-drawer="$emit('open-drawer')">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" :languages="languages" id="mobile-toolbar"
                         :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"

@@ -42,6 +42,12 @@
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
+                <nuxt-link :to="{name: 'faq'}">
+                    <v-icon>mdi-label</v-icon>
+                    <span class="navigation-text">{{$t("pages:footer.faq")}}</span>
+                </nuxt-link>
+            </div>
+            <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'terms'}">
                     <v-icon>mdi-label</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.terms")}}</span>
@@ -53,18 +59,19 @@
                     <span class="navigation-text">{{$t("pages:footer.privacy")}}</span>
                 </nuxt-link>
             </div>
-            <div class="drawer-navigation-element">
-                <nuxt-link :to="{name: 'faq'}">
-                    <v-icon>mdi-label</v-icon>
-                    <span class="navigation-text">{{$t("pages:footer.faq")}}</span>
-                </nuxt-link>
-            </div>
             <!--<div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'contact'}">
                     <v-icon>mdi-label</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.contact")}}</span>
                 </nuxt-link>
             </div>-->
+        </div>
+        <div v-if="!isAuthenticated" class="bottom-navigation">
+            <v-divider></v-divider>
+            <div class="drawer-navigation-element">
+                <v-icon @click="setLanguage()">mdi-web</v-icon>
+                <span class="navigation-text" @click="setLanguage()">{{$t("common:navigation.language")}}</span>
+            </div>
         </div>
         <div v-if="isAuthenticated" class="bottom-navigation">
             <v-divider></v-divider>
@@ -81,6 +88,8 @@
                 </div>
             </div>
         </div>
+        <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
+        </language-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -89,12 +98,14 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
 
     export default {
         name: "Drawer",
         data() {
-            return {showError: false}
+            return {showError: false, showChangeLanguage: false}
         },
+        components: {LanguageDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -119,6 +130,10 @@
                 } catch (e) {
                     this.showError = true;
                 }
+            },
+            setLanguage() {
+                this.showChangeLanguage = true;
+                this.$emit('close-drawer');
             }
         }
     }
@@ -151,6 +166,7 @@
                 display: flex;
             }
             .navigation-text {
+                cursor: pointer;
                 text-decoration: none;
                 margin-left: 28px;
                 font-size: 16px;

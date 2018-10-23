@@ -2,7 +2,7 @@
     <div>
         <div id="header-desktop-container">
             <div id="dumonda-me-logo">
-                <img :src="logoUrl" @click="$router.push({name: 'index'})"/>
+                <img :src="logoUrl" @click="$emit('open-drawer')"/>
             </div>
             <v-spacer></v-spacer>
             <div class="header-nav" v-if="isAuthenticated">
@@ -12,20 +12,7 @@
                 </v-btn>
             </div>
             <div class="header-nav" v-if="!isAuthenticated">
-                <v-menu bottom>
-                    <v-btn outline slot="activator">
-                        {{selectedLanguage.description}}
-                    </v-btn>
-                    <v-list>
-                        <v-list-tile @click="$emit('change-language', lang.key)" v-for="lang in languages"
-                                     :key="lang.key">
-                            <v-list-tile-title>{{lang.description}}</v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-            </div>
-            <div class="header-nav" v-if="!isAuthenticated">
-                <v-btn outline v-on:click="$router.push({name: 'login'})" class="right-outer-element">
+                <v-btn outline color="primary" v-on:click="$router.push({name: 'login'})" class="right-outer-element">
                     {{$t("common:toolbar.login")}}
                 </v-btn>
             </div>
@@ -72,7 +59,7 @@
 <script>
     export default {
         props: ['isAuthenticated', 'languages', 'selectedLanguage', 'logoUrl', 'showNotification',
-            'numberOfNotifications'],
+            'numberOfNotifications']
     }
 </script>
 
@@ -90,16 +77,8 @@
             cursor: pointer;
             height: 100%;
             img {
-                height: 30px;
-                margin-top: 14px;
-                @media screen and (max-width: $sm) {
-                    margin-left: 12px;
-                }
-                @media screen and (max-width: $xs) {
-                    margin-top: 18px;
-                    height: 20px;
-                    margin-left: 12px;
-                }
+                height: 22px;
+                margin-top: 16px;
             }
         }
         .header-nav {
@@ -119,6 +98,11 @@
             }
             .right-outer-element {
                 margin-right: 0;
+            }
+        }
+        .header-nav.most-left-button {
+            button {
+                margin-left: 0;
             }
         }
     }
