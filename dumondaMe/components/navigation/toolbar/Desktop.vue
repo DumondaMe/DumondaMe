@@ -86,7 +86,6 @@
             padding-top: 4px;
             button {
                 color: #666666;
-                border-bottom-color: #666666;
                 i.v-icon {
                     color: #666666;
                 }
