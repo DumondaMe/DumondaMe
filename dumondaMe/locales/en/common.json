@@ -34,6 +34,7 @@
   "loginRequiredInfo": "You must be logged in to perform this action.",
   "youAreAdmin": "You are administrator",
   "navigation": {
+    "home": "Home",
     "yourProfile": "Your Profile",
     "notification": "Notifications",
     "settings": "Settings",

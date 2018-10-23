@@ -26,6 +26,17 @@
                    @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
             </v-btn>
+            <v-divider></v-divider>
+            <div class="drawer-navigation-element">
+                <nuxt-link :to="{name: 'index'}">
+                    <v-icon>mdi-home</v-icon>
+                    <span class="navigation-text">{{$t("common:navigation.home")}}</span>
+                </nuxt-link>
+            </div>
+            <div class="drawer-navigation-element">
+                <v-icon @click="setLanguage()">mdi-web</v-icon>
+                <span class="navigation-text" @click="setLanguage()">{{$t("common:navigation.language")}}</span>
+            </div>
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
@@ -65,13 +76,6 @@
                     <span class="navigation-text">{{$t("pages:footer.contact")}}</span>
                 </nuxt-link>
             </div>-->
-        </div>
-        <div v-if="!isAuthenticated" class="bottom-navigation">
-            <v-divider></v-divider>
-            <div class="drawer-navigation-element">
-                <v-icon @click="setLanguage()">mdi-web</v-icon>
-                <span class="navigation-text" @click="setLanguage()">{{$t("common:navigation.language")}}</span>
-            </div>
         </div>
         <div v-if="isAuthenticated" class="bottom-navigation">
             <v-divider></v-divider>
