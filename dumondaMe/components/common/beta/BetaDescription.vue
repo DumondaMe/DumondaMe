@@ -1,5 +1,5 @@
 <template>
-    <div id="beta-version-description" class="ely-card">
+    <div class="beta-version-description ely-card">
         <h3 class="beta-version-title">{{$t('common:beta.title')}}</h3>
         <div class="description">{{$t('common:beta.description')}}</div>
     </div>
@@ -9,7 +9,7 @@
 </script>
 
 <style lang="scss">
-    #beta-version-description {
+    .beta-version-description {
         margin-bottom: 12px;
         font-size: 14px;
         font-weight: 300;
