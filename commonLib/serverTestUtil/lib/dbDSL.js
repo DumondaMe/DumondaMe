@@ -79,9 +79,8 @@ module.exports = {
     blockUser: user.blockUser,
     invitationSentBeforeRegistration: user.invitationSentBeforeRegistration,
     inviteUser: user.inviteUser,
-    setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     setUserPrivacy: user.setUserPrivacy,
-    createPrivacy: user.createPrivacy,
+    setUserName: user.setUserName,
 
     createNews: news.createNews,
 
