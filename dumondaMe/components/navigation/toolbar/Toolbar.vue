@@ -1,5 +1,6 @@
 <template>
-    <div id="dumonda-me-header">
+    <div id="dumonda-me-header" :class="{'header-without-boarder': $route.name === 'index' ||
+    $route.name === 'commitment' || $route.name === 'event' || $route.name === 'activity'}">
         <desktop-toolbar :is-authenticated="isAuthenticated" :languages="languages" id="desktop-toolbar"
                          :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"
                          :number-of-notifications="numberOfNotifications" @logout="logout"
@@ -93,7 +94,7 @@
         border-bottom: 1px solid #ddd;
         @media screen and (max-width: $xs) {
             border-bottom: none;
-            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
         }
         #desktop-toolbar {
             @media screen and (max-width: $xs) {
@@ -104,6 +105,12 @@
             @media screen and (min-width: $xs) {
                 display: none;
             }
+        }
+    }
+
+    #dumonda-me-header.header-without-boarder {
+        @media screen and (max-width: $xs) {
+            box-shadow: none;
         }
     }
 </style>
