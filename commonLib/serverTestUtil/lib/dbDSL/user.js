@@ -98,30 +98,11 @@ let setUserPrivacy = function (userId, data) {
         .set("u", {privacyMode: data.privacyMode}).end({userId}).getCommand());
 };
 
-let createPrivacy = function (userIds, type, privacy) {
-    let idsCommand = null;
-    if (userIds) {
-        idsCommand = "u.userId IN {userIds}";
-    }
-    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
-        .where(idsCommand)
-        .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, contacts: {contacts}, 
-                  pinwall: {pinwall}})`)
-        .end({
-            userIds: userIds,
-            type: type,
-            profile: privacy.profile,
-            image: privacy.image,
-            contacts: privacy.contacts,
-            pinwall: privacy.pinwall
-        }).getCommand());
+let setUserName = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {name: data.name}).end({userId}).getCommand());
 };
 
-let setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
-    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: '1'})")
-        .set('u', {showUserRecommendationOnHome: showUserRecommendationOnHome})
-        .end().getCommand());
-};
 
 module.exports = {
     setUserRegisteredDate,
@@ -136,6 +117,5 @@ module.exports = {
     invitationSentBeforeRegistration,
     inviteUser,
     setUserPrivacy,
-    createPrivacy,
-    setRecommendedUserOnHomeScreen
+    setUserName
 };
