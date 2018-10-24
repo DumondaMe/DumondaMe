@@ -1,5 +1,8 @@
 <template>
     <v-app>
+        <v-navigation-drawer v-model="drawer" temporary fixed>
+            <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
+        </v-navigation-drawer>
         <dumonda-me-toolbar @open-drawer="drawer = true"></dumonda-me-toolbar>
         <div id="dumonda-me-content">
             <div id="dumonda-me-inner-content">
@@ -7,9 +10,6 @@
             </div>
         </div>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
-        <v-navigation-drawer v-model="drawer" absolute temporary>
-            <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
-        </v-navigation-drawer>
     </v-app>
 </template>
 
