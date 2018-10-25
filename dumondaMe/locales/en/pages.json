@@ -43,6 +43,11 @@
       "title": "Persons",
       "noUserDescription": "No persons were found.",
       "inTrustCircle": "Is in your Trust Circle"
+    },
+    "questions": {
+      "title": "Questions",
+      "noQuestionDescription": "No question found.",
+      "createNewQuestion": "Create question"
     }
   },
   "feeds": {

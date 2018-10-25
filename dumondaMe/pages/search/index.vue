@@ -1,7 +1,9 @@
 <template>
     <div id="search-content">
+        <questions v-if="hasQuestions"></questions>
         <users v-if="hasUsers"></users>
 
+        <questions-no-result v-if="!hasQuestions"></questions-no-result>
         <users-no-result v-if="!hasUsers"></users-no-result>
     </div>
 </template>
@@ -9,6 +11,8 @@
 <script>
     import Users from '~/components/search/users/users';
     import UsersNoResult from '~/components/search/users/noResult';
+    import Questions from '~/components/search/questions/questions';
+    import QuestionsNoResult from '~/components/search/Questions/noResult';
 
     export default {
         async fetch({error, store, query}) {
@@ -18,7 +22,7 @@
                 error({statusCode: e.statusCode});
             }
         },
-        components: {Users, UsersNoResult},
+        components: {Users, UsersNoResult, Questions, QuestionsNoResult},
         head() {
             return {
                 htmlAttrs: {

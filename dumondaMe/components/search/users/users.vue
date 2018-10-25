@@ -93,6 +93,7 @@
 
 <style lang="scss">
     #search-users-container {
+        margin-bottom: 38px;
         .user-profile-title {
             font-size: 22px;
             margin-bottom: 18px;

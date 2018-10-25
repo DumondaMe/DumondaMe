@@ -7,9 +7,10 @@
 
 <style lang="scss">
     #search-users-no-result-container {
+        margin-bottom: 38px;
         h2 {
             font-size: 22px;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
     }
 </style>
