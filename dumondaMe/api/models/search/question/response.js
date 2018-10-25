@@ -11,13 +11,16 @@ const getResponse = async function (questions, userId) {
             questionId: question.question.questionId,
             question: question.question.question,
             slug: slug(question.question.question),
-            description: question.question.description,
-            descriptionHtml: linkifyHtml(question.question.description, {attributes: {rel: 'noopener'}}),
             isAdmin: question.isAdmin,
             numberOfAnswers: question.numberOfAnswers,
             numberOfWatches: question.numberOfWatches,
             isWatchedByUser: question.isWatchedByUser
         };
+        if (question.question.description) {
+            questionResponse.description = question.question.description;
+            questionResponse.descriptionHtml = linkifyHtml(question.question.description,
+                {attributes: {rel: 'noopener'}});
+        }
         questionResponse.user = {
             userId: question.admin.userId,
             name: question.admin.name,
