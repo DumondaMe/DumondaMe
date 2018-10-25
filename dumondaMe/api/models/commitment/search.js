@@ -7,7 +7,7 @@ const getQueryString = function (query) {
     let queryString = '';
     for (let word of query.trim().split(' ')) {
         if (word.trim().length > 0) {
-            queryString += `Commitment.title:${word}*~ `;
+            queryString += `+Commitment.title:${word}*~ `;
         }
     }
     return queryString.trim();
