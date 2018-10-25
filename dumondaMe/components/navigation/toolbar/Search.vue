@@ -16,6 +16,9 @@
                 {{result}}
             </div>
         </div>
+        <v-snackbar bottom v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -26,7 +29,10 @@
     export default {
         props: [],
         data() {
-            return {showResults: false, searchText: '', results: [], keySelected: null, ignoreSearchTextChange: false}
+            return {
+                showResults: false, searchText: '', results: [], keySelected: null, ignoreSearchTextChange: false,
+                showError: false
+            }
         },
         methods: {
             async autocomplete() {
@@ -39,9 +45,18 @@
                     this.showResults = false;
                 }
             },
-            search() {
+            async search() {
                 if (this.searchText.trim().length >= 2) {
-                    this.$router.push({name: 'search', query: {query: this.searchText}})
+                    let routeName = this.$route.name;
+                    this.$router.push({name: 'search', query: {query: this.searchText}});
+                    if (routeName === 'search') {
+                        try {
+                            await this.$store.dispatch(`search/search`, this.searchText)
+                        } catch (e) {
+                            this.showError = true;
+                        }
+                    }
+                    this.showResults = false;
                 }
             },
             closeAutocomplete() {
