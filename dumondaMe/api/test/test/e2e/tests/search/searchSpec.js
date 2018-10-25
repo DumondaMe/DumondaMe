@@ -94,6 +94,16 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.questions[0].user.isTrustUser.should.equals(false);
     });
 
+    it('Find nothing (user not logged in)', async function () {
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        let res = await requestHandler.get('/api/search', {query: 'asdfasdf kö asdlfjöalsdkjf asdkfö ', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.users.length.should.equals(0);
+        res.body.commitments.length.should.equals(0);
+        res.body.questions.length.should.equals(0);
+    });
+
     it('Autocomplete user, commitment and question (user is logged in, privacy public)', async function () {
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();

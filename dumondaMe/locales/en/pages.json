@@ -38,6 +38,13 @@
     "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account.",
     "errorAccountExist": "For this e-mail address already exists a user account"
   },
+  "search": {
+    "users": {
+      "title": "Persons",
+      "noUserDescription": "No persons were found.",
+      "inTrustCircle": "Is in your Trust Circle"
+    }
+  },
   "feeds": {
     "filter": {
       "tooltip": {
