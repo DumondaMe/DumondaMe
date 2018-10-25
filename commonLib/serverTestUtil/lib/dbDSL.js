@@ -35,12 +35,12 @@ let init = function (numberOfUser, isDumondaMeAdmin) {
 };
 
 let setApocIndex = async function () {
-    await db.cypher().call(`apoc.index.addAllNodes('keywords',{Topic: ["name"]}, {autoUpdate:true, type:"fulltext"})`)
+    await db.cypher().call(`apoc.index.addAllNodes('keywords',{Topic: ["name"]}, {autoUpdate:false, type:"fulltext"})`)
         .send();
     await db.cypher().call(`apoc.index.addAllNodes('entities',{
                             User: ["name"],
                             Question:  ["question"],
-                            Commitment: ["title"]}, {autoUpdate:true, type:"fulltext"})`).send();
+                            Commitment: ["title"]}, {autoUpdate:false, type:"fulltext"})`).send();
 };
 
 module.exports = {
