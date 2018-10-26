@@ -151,4 +151,21 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.questions[0].user.isTrustUser.should.equals(false);
         res.body.questions[0].user.isAnonymous.should.equals(false);
     });
+
+    it('Show user of trust circle first', async function () {
+        dbDsl.setUserName('2', {name: 'BenutzerTest'});
+        dbDsl.setUserName('3', {name: 'BenutzerTest2'});
+        dbDsl.setUserName('4', {name: 'BenutzerTest3'});
+        dbDsl.createContactConnection('1', '4');
+        dbDsl.createContactConnection('1', '3');
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search', {query: 'BenutzerTest', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.users.length.should.equals(3);
+        res.body.users[0].userId.should.equals('3');
+        res.body.users[1].userId.should.equals('4');
+        res.body.users[2].userId.should.equals('2');
+    });
 });
