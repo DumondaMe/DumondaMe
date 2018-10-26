@@ -14,7 +14,7 @@
     import Users from '~/components/search/users/users';
     import UsersNoResult from '~/components/search/users/noResult';
     import Questions from '~/components/search/questions/questions';
-    import QuestionsNoResult from '~/components/search/Questions/noResult';
+    import QuestionsNoResult from '~/components/search/questions/noResult';
     import Commitments from '~/components/search/commitments/commitments';
     import CommitmentNoResult from '~/components/search/commitments/noResult';
 
