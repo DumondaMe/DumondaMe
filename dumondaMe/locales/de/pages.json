@@ -48,6 +48,11 @@
       "title": "Fragen",
       "noQuestionDescription": "Es wurden keine Frage gefunden.",
       "createNewQuestion": "Frage erfassen"
+    },
+    "commitments": {
+      "title": "Engagements",
+      "noQuestionDescription": "Es wurden keine Engagements gefunden.",
+      "createNewCommitment": "Engagement erfassen"
     }
   },
   "feeds": {
