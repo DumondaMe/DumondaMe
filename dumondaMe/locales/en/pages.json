@@ -52,7 +52,7 @@
     },
     "commitments": {
       "title": "Commitments",
-      "noQuestionDescription": "No commitments were found.",
+      "noCommitmentDescription": "No commitments were found.",
       "createNewCommitment": "Create commitment"
     }
   },
