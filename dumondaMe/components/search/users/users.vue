@@ -2,11 +2,13 @@
     <div id="search-users-container">
         <h2 class="user-profile-title">{{$t("pages:search.users.title")}}</h2>
         <div class="user-container ely-card" v-for="user of users">
-            <div class="user-preview-img" @click="goToProfile(user)">
+            <div class="user-preview-img" :class="{'anonymous': user.isAnonymous}" @click="goToProfile(user)">
                 <img :src="user.userImage">
             </div>
             <div class="user-content">
-                <div class="user-name" @click="goToProfile(user)">{{user.name}}</div>
+                <div class="user-name" @click="goToProfile(user)" :class="{'anonymous': user.isAnonymous}">
+                    {{user.name}}
+                </div>
                 <div class="user-state" v-if="user.isTrustUser">{{$t('pages:search.users.inTrustCircle')}}</div>
                 <div v-if="!user.isLoggedInUser && !user.isAnonymous" class="trust-circle-button">
                     <v-tooltip top v-if="user.isTrustUser">
@@ -48,13 +50,15 @@
         },
         methods: {
             goToProfile(user) {
-                if (user.isLoggedInUser) {
-                    this.$router.push({name: 'user'});
-                } else {
-                    this.$router.push({
-                        name: 'user-userId-slug',
-                        params: {userId: user.userId, slug: user.slug}
-                    });
+                if (!user.isAnonymous) {
+                    if (user.isLoggedInUser) {
+                        this.$router.push({name: 'user'});
+                    } else {
+                        this.$router.push({
+                            name: 'user-userId-slug',
+                            params: {userId: user.userId, slug: user.slug}
+                        });
+                    }
                 }
             },
             async sendUserToTrustCircleCommand(command, userId) {
@@ -110,6 +114,9 @@
                     border-radius: 4px;
                 }
             }
+            .user-preview-img.anonymous {
+                cursor: auto;
+            }
             .user-content {
                 position: relative;
                 margin-left: 18px;
@@ -126,6 +133,12 @@
                 }
                 :hover.user-name {
                     text-decoration: underline;
+                }
+                .user-name.anonymous {
+                    cursor: auto;
+                }
+                :hover.user-name.anonymous {
+                    text-decoration: none;
                 }
                 .user-state {
                     margin-top: 2px;
