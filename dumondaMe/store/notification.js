@@ -44,7 +44,7 @@ let checkNotificationTimer;
 
 const checkNotificationChanged = async function (axios, commit) {
     try {
-        let status = await axios.$get('user/notification/status');
+        let status = await axios.$get('user/notification/status', {progress: false});
         commit('SET_NUMBER_OF_NOTIFICATIONS', status.numberOfNotifications);
     } catch (error) {
         console.log(error);

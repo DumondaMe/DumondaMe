@@ -41,7 +41,8 @@
         methods: {
             async autocomplete() {
                 if (this.searchText.trim().length >= 2) {
-                    const response = await this.$axios.get('search/autocomplete', {params: {query: this.searchText}});
+                    const response = await this.$axios.get('search/autocomplete',
+                        {params: {query: this.searchText}, progress: false});
                     this.results = response.data;
                     this.showResults = true;
                     this.keySelected = null;
