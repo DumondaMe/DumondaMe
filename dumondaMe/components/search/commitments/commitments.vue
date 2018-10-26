@@ -1,7 +1,8 @@
 <template>
     <div id="search-commitments-container">
         <h2 class="commitments-title">{{$t("pages:search.commitments.title")}}</h2>
-        <div class="commitments-container ely-card feed-card" v-for="commitment of commitments">
+        <div class="commitments-container ely-card feed-card" v-for="(commitment, index) of commitments"
+             :class="{'last-card-element': index === commitments.length - 1}">
             <div class="feed-card-header">
                 <div>
                     <h2 class="feed-card-title">
@@ -91,21 +92,40 @@
 <style lang="scss">
     #search-commitments-container {
         margin-bottom: 38px;
+        @media screen and (max-width: $xs) {
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid $divider;
+        }
         .commitments-title {
             font-size: 22px;
             margin-bottom: 18px;
+            @media screen and (max-width: $xs) {
+                display: none;
+            }
         }
         .commitments-container {
+            @media screen and (max-width: $xs) {
+                padding-bottom: 8px;
+            }
             .commitment-content {
                 display: flex;
                 margin-top: 4px;
                 margin-bottom: 8px;
+                @media screen and (max-width: $xs) {
+                    margin-bottom: 0;
+                }
                 .commitment-image {
                     cursor: pointer;
                     width: 100px;
                     min-width: 100px;
+                    @media screen and (max-width: $xs) {
+                        width: 80px;
+                        min-width: 80px;
+                    }
                     img {
                         width: 100%;
+                        border-radius: 6px;
                     }
                 }
             }
@@ -113,8 +133,16 @@
                 margin-left: 18px;
             }
         }
+        .commitments-container.last-card-element {
+            @media screen and (max-width: $xs) {
+                border-bottom: none;
+            }
+        }
         button {
             margin-left: 0;
+            @media screen and (max-width: $xs) {
+                margin-left: 16px;
+            }
         }
     }
 </style>

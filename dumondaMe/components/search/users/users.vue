@@ -1,7 +1,8 @@
 <template>
     <div id="search-users-container">
         <h2 class="user-profile-title">{{$t("pages:search.users.title")}}</h2>
-        <div class="user-container ely-card" v-for="user of users">
+        <div class="user-container ely-card" v-for="(user, index) of users"
+             :class="{'last-card-element': index === users.length - 1}">
             <div class="user-preview-img" :class="{'anonymous': user.isAnonymous}" @click="goToProfile(user)">
                 <img :src="user.userImage">
             </div>
@@ -98,13 +99,25 @@
 <style lang="scss">
     #search-users-container {
         margin-bottom: 38px;
+        @media screen and (max-width: $xs) {
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid $divider;
+        }
         .user-profile-title {
             font-size: 22px;
             margin-bottom: 18px;
+            @media screen and (max-width: $xs) {
+                display: none;
+            }
         }
         .user-container {
             display: flex;
             margin-bottom: 16px;
+            @media screen and (max-width: $xs) {
+                padding-bottom: 12px;
+                margin-bottom: 0;
+            }
             .user-preview-img {
                 cursor: pointer;
                 width: 100px;
@@ -154,6 +167,11 @@
                         margin-bottom: 0;
                     }
                 }
+            }
+        }
+        .user-container.last-card-element {
+            @media screen and (max-width: $xs) {
+                border-bottom: none;
             }
         }
     }
