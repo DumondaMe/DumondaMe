@@ -14,24 +14,27 @@
                 </question-card-footer>
             </question-card>
         </div>
-        <v-btn color="secondary">
+        <v-btn color="primary" @click="openCreateDialog">
             {{$t('pages:search.questions.createNewQuestion')}}
         </v-btn>
-        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
-        </v-snackbar>
+        <create-question-dialog v-if="showCreateQuestionDialog" @close-dialog="showCreateQuestionDialog = false">
+        </create-question-dialog>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
     </div>
 </template>
 
 <script>
     import QuestionCard from '~/components/feed/card/Question';
     import QuestionCardFooter from '~/components/feed/card/footer/Question';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
+    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
 
     export default {
         data() {
-            return {loading: false, showError: false}
+            return {showCreateQuestionDialog: false, showLoginRequired: false}
         },
-        components: {QuestionCard, QuestionCardFooter},
+        components: {QuestionCard, QuestionCardFooter, LoginRequiredDialog, CreateQuestionDialog},
         methods: {
             addQuestionWatch(questionId) {
                 this.$store.commit('search/ADD_QUESTION_WATCH', questionId);
@@ -44,6 +47,13 @@
             },
             async removeUserFromTrustCircle(userId) {
                 this.$store.commit('search/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
+            },
+            openCreateDialog() {
+                if (this.$store.state.auth.userIsAuthenticated) {
+                    this.showCreateQuestionDialog = true
+                } else {
+                    this.showLoginRequired = true;
+                }
             }
         },
         computed: {

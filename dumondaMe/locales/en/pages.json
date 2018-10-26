@@ -48,6 +48,11 @@
       "title": "Questions",
       "noQuestionDescription": "No question found.",
       "createNewQuestion": "Create question"
+    },
+    "commitments": {
+      "title": "Commitments",
+      "noQuestionDescription": "No commitments were found.",
+      "createNewCommitment": "Create commitment"
     }
   },
   "feeds": {

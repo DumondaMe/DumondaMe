@@ -2,9 +2,11 @@
     <div id="search-content">
         <questions v-if="hasQuestions"></questions>
         <users v-if="hasUsers"></users>
+        <commitments v-if="hasCommitments"></commitments>
 
         <questions-no-result v-if="!hasQuestions"></questions-no-result>
         <users-no-result v-if="!hasUsers"></users-no-result>
+        <commitment-no-result v-if="!hasCommitments"></commitment-no-result>
     </div>
 </template>
 
@@ -13,6 +15,8 @@
     import UsersNoResult from '~/components/search/users/noResult';
     import Questions from '~/components/search/questions/questions';
     import QuestionsNoResult from '~/components/search/Questions/noResult';
+    import Commitments from '~/components/search/commitments/commitments';
+    import CommitmentNoResult from '~/components/search/commitments/noResult';
 
     export default {
         async fetch({error, store, query}) {
@@ -22,7 +26,7 @@
                 error({statusCode: e.statusCode});
             }
         },
-        components: {Users, UsersNoResult, Questions, QuestionsNoResult},
+        components: {Users, UsersNoResult, Questions, QuestionsNoResult, Commitments, CommitmentNoResult},
         head() {
             return {
                 htmlAttrs: {
