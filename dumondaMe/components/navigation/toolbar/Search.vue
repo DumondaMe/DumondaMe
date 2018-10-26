@@ -2,7 +2,7 @@
     <div id="toolbar-search">
         <div class="search-content">
             <div class="search-input">
-                <input type="text" v-model="searchText" placeholder="Hier kann bald gesucht werden"
+                <input type="text" v-model="searchText" :placeholder="$t('pages:toolbar.search')"
                        @focus="inputFocus" @blur="closeAutocomplete" @keydown.down="keySelectDown"
                        @keydown.up="keySelectUp" @keydown.enter="selectItemKey">
                 <v-icon class="search-icon" @click="search">mdi-magnify</v-icon>
