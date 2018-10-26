@@ -5,7 +5,8 @@
     "askQuestion": "Frage stellen",
     "createCommitment": "Engagement erfassen",
     "aboutDumondaMe": "Über DumondaMe",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "search": "Suche"
   },
   "login": {
     "titleLogin": "Ich habe bereits ein Konto",

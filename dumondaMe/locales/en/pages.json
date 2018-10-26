@@ -5,7 +5,8 @@
     "askQuestion": "Ask Question",
     "createCommitment": "Create Commitment",
     "aboutDumondaMe": "About DumondaMe",
-    "logout": "Logout"
+    "logout": "Logout",
+    "search": "Search"
   },
   "login": {
     "titleLogin": "I already have an account",
