@@ -21,15 +21,26 @@ const getResponse = async function (questions, userId) {
             questionResponse.descriptionHtml = linkifyHtml(question.question.description,
                 {attributes: {rel: 'noopener'}});
         }
-        questionResponse.user = {
-            userId: question.admin.userId,
-            name: question.admin.name,
-            slug: slug(question.admin.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${question.admin.userId}/thumbnail.jpg`),
-            userImagePreview: await cdn.getSignedUrl(`profileImage/${question.admin.userId}/profilePreview.jpg`),
-            isLoggedInUser: question.admin.userId === userId,
-            isTrustUser: question.isTrustUser
-        };
+        if ((question.admin.privacyMode === 'onlyContact' && !question.adminTrustLoggedInUser) ||
+            ((question.admin.privacyMode === 'onlyContact' || question.admin.privacyMode === 'publicEl')
+                && userId === null)) {
+            questionResponse.user = {
+                isAnonymous: true,
+                userImage: await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`)
+            }
+        } else {
+            questionResponse.user = {
+                isAnonymous: false,
+                userId: question.admin.userId,
+                name: question.admin.name,
+                slug: slug(question.admin.name),
+                userImage: await cdn.getSignedUrl(`profileImage/${question.admin.userId}/thumbnail.jpg`),
+                userImagePreview: await cdn.getSignedUrl(`profileImage/${question.admin.userId}/profilePreview.jpg`),
+                isLoggedInUser: question.admin.userId === userId,
+                isTrustUser: question.isTrustUser
+            };
+        }
         response.push(questionResponse);
     }
     return response;

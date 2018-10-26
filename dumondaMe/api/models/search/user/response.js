@@ -10,11 +10,16 @@ const getResponse = async function (users, userId) {
             isAnonymous: false,
             userId: user.user.userId,
             name: user.user.name,
-            slug: slug(user.user.name),
-            userImage: await cdn.getSignedUrl(`profileImage/${user.user.userId}/profilePreview.jpg`),
             isLoggedInUser: user.user.userId === userId,
             isTrustUser: user.isTrustUser
         };
+        if (user.user.privacyMode === 'onlyContact' && !user.userTrustLoggedInUser) {
+            userResponse.isAnonymous = true;
+            userResponse.userImage = await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`);
+        } else {
+            userResponse.slug = slug(user.user.name);
+            userResponse.userImage = await cdn.getSignedUrl(`profileImage/${user.user.userId}/profilePreview.jpg`);
+        }
         response.push(userResponse);
     }
     return response;

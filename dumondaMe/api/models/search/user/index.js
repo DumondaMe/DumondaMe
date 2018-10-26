@@ -5,7 +5,9 @@ const db = requireDb();
 const searchCommand = function (query, language, userId, skip, limit) {
     let queryString = `+User.name:${query}~`;
     return db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS user`)
-        .return(`DISTINCT user, EXISTS((user)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser`)
+        .where(`({userId} IS NULL AND user.privacyMode = 'public') OR {userId} IS NOT NULL `)
+        .return(`DISTINCT user, EXISTS((user)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
+                 EXISTS((user)-[:IS_CONTACT]->(:User {userId: {userId}})) AS userTrustLoggedInUser`)
         .skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
 };
 
