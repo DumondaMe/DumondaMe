@@ -92,6 +92,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.questions[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.questions[0].user.isLoggedInUser.should.equals(false);
         res.body.questions[0].user.isTrustUser.should.equals(false);
+        res.body.questions[0].user.isAnonymous.should.equals(false);
     });
 
     it('Find nothing (user not logged in)', async function () {
@@ -148,5 +149,6 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.questions[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.questions[0].user.isLoggedInUser.should.equals(false);
         res.body.questions[0].user.isTrustUser.should.equals(false);
+        res.body.questions[0].user.isAnonymous.should.equals(false);
     });
 });
