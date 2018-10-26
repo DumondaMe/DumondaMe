@@ -52,7 +52,7 @@
     },
     "commitments": {
       "title": "Engagements",
-      "noQuestionDescription": "Es wurden keine Engagements gefunden.",
+      "noCommitmentDescription": "Es wurden keine Engagements gefunden.",
       "createNewCommitment": "Engagement erfassen"
     }
   },
