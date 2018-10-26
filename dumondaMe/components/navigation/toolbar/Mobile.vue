@@ -1,8 +1,8 @@
 <template>
     <div>
         <div id="dumonda-me-mobile-header">
-            <div class="dumonda-me-mobile-header-container" v-if="showSearch">
-                <search-toolbar @close-search="showSearch = false"></search-toolbar>
+            <div class="dumonda-me-mobile-header-container" v-if="showSearch || $route.name === 'search'">
+                <search-toolbar @close-search="closeSearch"></search-toolbar>
             </div>
             <div class="dumonda-me-mobile-header-container" v-else>
                 <v-btn icon class="nav-icon" v-if="$route.name === 'index' || $route.name === 'commitment' ||
@@ -71,6 +71,14 @@
         components: {SearchToolbar},
         data() {
             return {showSearch: false}
+        },
+        methods: {
+            closeSearch() {
+                if (this.$route.name === 'search') {
+                    this.$router.push({name: 'index'});
+                }
+                this.showSearch = false
+            }
         }
     }
 </script>
