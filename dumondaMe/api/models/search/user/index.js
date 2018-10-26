@@ -8,7 +8,7 @@ const searchCommand = function (query, language, userId, skip, limit) {
         .where(`({userId} IS NULL AND user.privacyMode = 'public') OR {userId} IS NOT NULL `)
         .return(`DISTINCT user, EXISTS((user)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((user)-[:IS_CONTACT]->(:User {userId: {userId}})) AS userTrustLoggedInUser`)
-        .orderBy(`isTrustUser DESC`)
+        .orderBy(`isTrustUser DESC, user.name`)
         .skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
 };
 

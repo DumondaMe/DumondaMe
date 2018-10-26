@@ -7,7 +7,7 @@ const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 describe('Search for user, commitment or question with fuzzy match', function () {
 
     beforeEach(async function () {
-        await dbDsl.init(4);
+        await dbDsl.init(9);
         dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
 
@@ -54,6 +54,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         await dbDsl.setApocIndex();
         let res = await requestHandler.get('/api/search', {query: 'Hans Wurst', lang: 'de'});
         res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
         res.body.users[0].userId.should.equals('3');
         res.body.users[0].name.should.equals('Hans Wurst3');
@@ -63,6 +64,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.users[0].isTrustUser.should.equals(false);
         res.body.users[0].isAnonymous.should.equals(false);
 
+        res.body.hasMoreCommitments.should.equals(false);
         res.body.commitments.length.should.equals(1);
         res.body.commitments[0].commitmentId.should.equals('1');
         res.body.commitments[0].title.should.equals('Das ist ein Engagement von Hans Wurst');
@@ -75,6 +77,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.commitments[0].regions.length.should.equals(1);
         res.body.commitments[0].regions.should.include('Region1De');
 
+        res.body.hasMoreQuestions.should.equals(false);
         res.body.questions.length.should.equals(1);
         res.body.questions[0].questionId.should.equals('10');
         res.body.questions[0].question.should.equals('Das ist eine Frage von Hans Wur');
@@ -100,6 +103,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         await dbDsl.setApocIndex();
         let res = await requestHandler.get('/api/search', {query: 'asdfasdf kö asdlfjöalsdkjf asdkfö ', lang: 'de'});
         res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(0);
         res.body.commitments.length.should.equals(0);
         res.body.questions.length.should.equals(0);
@@ -111,6 +115,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/search', {query: 'Hans Wurst', lang: 'de'});
         res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
         res.body.users[0].userId.should.equals('3');
         res.body.users[0].name.should.equals('Hans Wurst3');
@@ -120,6 +125,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.users[0].isTrustUser.should.equals(false);
         res.body.users[0].isAnonymous.should.equals(false);
 
+        res.body.hasMoreCommitments.should.equals(false);
         res.body.commitments.length.should.equals(1);
         res.body.commitments[0].commitmentId.should.equals('1');
         res.body.commitments[0].title.should.equals('Das ist ein Engagement von Hans Wurst');
@@ -132,6 +138,7 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.commitments[0].regions.length.should.equals(1);
         res.body.commitments[0].regions.should.include('Region1De');
 
+        res.body.hasMoreQuestions.should.equals(false);
         res.body.questions.length.should.equals(1);
         res.body.questions[0].questionId.should.equals('10');
         res.body.questions[0].question.should.equals('Das ist eine Frage von Hans Wur');
@@ -163,9 +170,53 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/search', {query: 'BenutzerTest', lang: 'de'});
         res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(3);
         res.body.users[0].userId.should.equals('3');
         res.body.users[1].userId.should.equals('4');
         res.body.users[2].userId.should.equals('2');
+    });
+
+    it('Has more users', async function () {
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search', {query: 'user Meier', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.hasMoreUsers.should.equals(true);
+        res.body.users.length.should.equals(6);
+    });
+
+    it('Has more questions', async function () {
+        for (let index = 0; index < 7; index++) {
+            dbDsl.createQuestion(`10${index}`, {
+                creatorId: '2', question: 'Has more questions', created: 500, modified: 700,
+                description: 'Test dumonda.me change the world1', topics: ['topic1'], language: 'de'
+            });
+        }
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search', {query: 'Has more questions', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.hasMoreQuestions.should.equals(true);
+        res.body.questions.length.should.equals(6);
+    });
+
+    it('Has more commitments', async function () {
+        for (let index = 0; index < 7; index++) {
+            dbDsl.createCommitment(`10${index}`, {
+                title: 'Has more commitments', regions: ['region-1'],
+                adminId: '2', topics: ['topic1'], language: 'de', created: 700, modified: 777,
+                website: 'https://www.example.org/'
+            }, []);
+        }
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search', {query: 'Has more commitments', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.hasMoreCommitments.should.equals(true);
+        res.body.commitments.length.should.equals(6);
     });
 });
