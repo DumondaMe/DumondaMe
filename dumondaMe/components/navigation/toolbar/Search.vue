@@ -9,7 +9,7 @@
             </div>
             <v-btn flat class="close-search" @click="$emit('close-search')">Abbrechen</v-btn>
         </div>
-        <div class="autocomplete-results" v-show="showResults">
+        <div class="autocomplete-results" v-show="showResults && this.searchText !== this.lastSearchText">
             <div class="autocomplete-result" v-for="(result, index) of results"
                  :class="{'selected-autocomplete-result': keySelected === index}"
                  @click="selectItem(index)">
@@ -29,9 +29,13 @@
     export default {
         props: [],
         data() {
+            let initSearchText = '';
+            if (this.$route.name === 'search' && this.$route.query && this.$route.query.query) {
+                initSearchText = this.$route.query.query;
+            }
             return {
-                showResults: false, searchText: '', results: [], keySelected: null, ignoreSearchTextChange: false,
-                showError: false
+                showResults: false, searchText: initSearchText, results: [], keySelected: null,
+                ignoreSearchTextChange: false, showError: false, lastSearchText: initSearchText
             }
         },
         methods: {
@@ -48,12 +52,14 @@
             async search() {
                 if (this.searchText.trim().length >= 2) {
                     let routeName = this.$route.name;
+                    this.lastSearchText = this.searchText;
                     this.$router.push({name: 'search', query: {query: this.searchText}});
                     if (routeName === 'search') {
                         try {
                             await this.$store.dispatch(`search/search`, this.searchText)
                         } catch (e) {
                             this.showError = true;
+                            this.lastSearchText = '';
                         }
                     }
                     this.showResults = false;
@@ -87,7 +93,6 @@
                     this.ignoreSearchTextChange = true;
                     this.keySelected === null;
                     this.results = [];
-                    await Vue.nextTick();
                 }
                 this.search();
             },
@@ -96,18 +101,24 @@
                 this.ignoreSearchTextChange = true;
                 this.keySelected === null;
                 this.results = [];
-                await Vue.nextTick();
                 this.search();
             }
         },
         watch: {
             searchText: debounce(async function () {
-                if (!this.ignoreSearchTextChange) {
+                if (this.searchText !== this.lastSearchText) {
                     await this.autocomplete();
-                } else {
-                    this.ignoreSearchTextChange = false;
                 }
-            }, 500)
+            }, 500),
+            $route(to) {
+                if (to.name === 'search' && to.query && to.query.query) {
+                    this.searchText = to.query.query;
+                    this.lastSearchText = to.query.query;
+                } else {
+                    this.searchText = '';
+                    this.lastSearchText = '';
+                }
+            }
         }
     }
 </script>
