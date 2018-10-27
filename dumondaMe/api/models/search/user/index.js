@@ -1,5 +1,7 @@
 'use strict';
 
+const moreSearchResult = require('../../util/moreSearchResults');
+const usersResponse = require('./response');
 const db = requireDb();
 
 const searchCommand = function (query, language, userId, skip, limit) {
@@ -12,8 +14,10 @@ const searchCommand = function (query, language, userId, skip, limit) {
         .skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
 };
 
-const search = async function () {
-
+const search = async function (query, language, userId, skip, limit) {
+    let users = await searchCommand(query, language, userId, skip, limit + 1).send();
+    let hasMoreUsers = moreSearchResult.getHasMoreResults(users, limit);
+    return {users: await usersResponse.getResponse(users), hasMoreUsers};
 };
 
 module.exports = {
