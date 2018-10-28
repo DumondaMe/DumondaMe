@@ -22,7 +22,7 @@ const searchCommand = function (query, language, userId, skip, limit) {
 const search = async function (query, language, userId, skip, limit) {
     let questions = await searchCommand(query, language, userId, skip, limit + 1).send();
     let hasMoreQuestions = moreSearchResult.getHasMoreResults(questions, limit);
-    return {questions: await questionResponse.getResponse(questions), hasMoreQuestions};
+    return {questions: await questionResponse.getResponse(questions, userId), hasMoreQuestions};
 };
 
 module.exports = {
