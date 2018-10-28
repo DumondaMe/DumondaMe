@@ -17,7 +17,7 @@ const searchCommand = function (query, language, userId, skip, limit) {
 const search = async function (query, language, userId, skip, limit) {
     let users = await searchCommand(query, language, userId, skip, limit + 1).send();
     let hasMoreUsers = moreSearchResult.getHasMoreResults(users, limit);
-    return {users: await usersResponse.getResponse(users), hasMoreUsers};
+    return {users: await usersResponse.getResponse(users, userId), hasMoreUsers};
 };
 
 module.exports = {
