@@ -15,9 +15,15 @@
                 </question-card-footer>
             </question-card>
         </div>
-        <v-btn color="primary" @click="openCreateDialog">
-            {{$t('pages:search.questions.createNewQuestion')}}
-        </v-btn>
+        <div class="search-questions-commands">
+            <v-btn outline color="primary" v-if="hasMoreQuestions" class="has-more-button" @click="getNextQuestions"
+                   :loading="loadingNextQuestions" :disabled="loadingNextQuestions">
+                {{$t('common:button.showMore')}}
+            </v-btn>
+            <v-btn color="primary" @click="openCreateDialog" class="create-question-button">
+                {{$t('pages:search.questions.createNewQuestion')}}
+            </v-btn>
+        </div>
         <create-question-dialog v-if="showCreateQuestionDialog" @close-dialog="showCreateQuestionDialog = false">
         </create-question-dialog>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
@@ -33,7 +39,7 @@
 
     export default {
         data() {
-            return {showCreateQuestionDialog: false, showLoginRequired: false}
+            return {showCreateQuestionDialog: false, showLoginRequired: false, loadingNextQuestions: false}
         },
         components: {QuestionCard, QuestionCardFooter, LoginRequiredDialog, CreateQuestionDialog},
         methods: {
@@ -55,11 +61,24 @@
                 } else {
                     this.showLoginRequired = true;
                 }
+            },
+            async getNextQuestions() {
+                try {
+                    this.loadingNextQuestions = true;
+                    await this.$store.dispatch('search/searchNextQuestions');
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loadingNextQuestions = false;
+                }
             }
         },
         computed: {
             questions() {
                 return this.$store.state.search.questions;
+            },
+            hasMoreQuestions() {
+                return this.$store.state.search.hasMoreQuestions;
             }
         },
     }
@@ -90,10 +109,22 @@
                 border-bottom: none;
             }
         }
-        button {
-            margin-left: 0;
-            @media screen and (max-width: $xs) {
-                margin-left: 16px;
+        .search-questions-commands {
+            margin-top: 12px;
+            display: flex;
+            .has-more-button {
+                margin-left: 0;
+                margin-right: 16px;
+                @media screen and (max-width: $xs) {
+                    margin-left: 16px;
+                    margin-right: 0;
+                }
+            }
+            .create-question-button {
+                margin-left: 0;
+                @media screen and (max-width: $xs) {
+                    margin-left: 16px;
+                }
             }
         }
     }

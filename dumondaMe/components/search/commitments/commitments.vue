@@ -39,9 +39,15 @@
                                     @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
             </commitment-card-footer>
         </div>
-        <v-btn color="primary" @click="openCreateDialog">
-            {{$t('pages:search.commitments.createNewCommitment')}}
-        </v-btn>
+        <div class="search-commitment-commands">
+            <v-btn outline color="primary" v-if="hasMoreCommitments" class="has-more-button" @click="getNextCommitments"
+                   :loading="loadingNextCommitments" :disabled="loadingNextCommitments">
+                {{$t('common:button.showMore')}}
+            </v-btn>
+            <v-btn color="primary" @click="openCreateDialog" class="create-commitment-button">
+                {{$t('pages:search.commitments.createNewCommitment')}}
+            </v-btn>
+        </div>
         <create-commitment-dialog v-if="showCreateCommitmentDialog" @close-dialog="showCreateCommitmentDialog = false">
         </create-commitment-dialog>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
@@ -57,7 +63,7 @@
 
     export default {
         data() {
-            return {showCreateCommitmentDialog: false, showLoginRequired: false}
+            return {showCreateCommitmentDialog: false, showLoginRequired: false, loadingNextCommitments: false}
         },
         components: {CommitmentCardFooter, ExpandText, LoginRequiredDialog, CreateCommitmentDialog},
         methods: {
@@ -79,11 +85,24 @@
                 } else {
                     this.showLoginRequired = true;
                 }
+            },
+            async getNextCommitments() {
+                try {
+                    this.loadingNextCommitments = true;
+                    await this.$store.dispatch('search/searchNextCommitments');
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loadingNextCommitments = false;
+                }
             }
         },
         computed: {
             commitments() {
                 return this.$store.state.search.commitments;
+            },
+            hasMoreCommitments() {
+                return this.$store.state.search.hasMoreCommitments;
             }
         },
     }
@@ -138,10 +157,22 @@
                 border-bottom: none;
             }
         }
-        button {
-            margin-left: 0;
-            @media screen and (max-width: $xs) {
-                margin-left: 16px;
+        .search-commitment-commands {
+            margin-top: 12px;
+            display: flex;
+            .has-more-button {
+                margin-left: 0;
+                margin-right: 16px;
+                @media screen and (max-width: $xs) {
+                    margin-left: 16px;
+                    margin-right: 0;
+                }
+            }
+            .create-commitment-button {
+                margin-left: 0;
+                @media screen and (max-width: $xs) {
+                    margin-left: 16px;
+                }
             }
         }
     }
