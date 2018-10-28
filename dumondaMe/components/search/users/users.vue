@@ -33,6 +33,10 @@
                 </div>
             </div>
         </div>
+        <v-btn outline color="primary" v-if="hasMoreUsers" class="has-more-button" @click="getNextUsers"
+               :loading="loadingNextUsers" :disabled="loadingNextUsers">
+            {{$t('common:button.showMore')}}
+        </v-btn>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -47,7 +51,7 @@
     export default {
         components: {LoginRequiredDialog},
         data() {
-            return {loading: false, showLoginRequired: false, showError: false}
+            return {loading: false, loadingNextUsers: false, showLoginRequired: false, showError: false}
         },
         methods: {
             goToProfile(user) {
@@ -86,11 +90,24 @@
             },
             async removeUserFromTrustCircle(userId) {
                 await this.sendUserToTrustCircleCommand('$delete', userId);
+            },
+            async getNextUsers() {
+                try {
+                    this.loadingNextUsers = true;
+                    await this.$store.dispatch('search/searchNextUsers');
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loadingNextUsers = false;
+                }
             }
         },
         computed: {
             users() {
                 return this.$store.state.search.users;
+            },
+            hasMoreUsers() {
+                return this.$store.state.search.hasMoreUsers;
             }
         },
     }
@@ -172,6 +189,12 @@
         .user-container.last-card-element {
             @media screen and (max-width: $xs) {
                 border-bottom: none;
+            }
+        }
+        .has-more-button {
+            margin-left: 0;
+            @media screen and (max-width: $xs) {
+                margin-left: 16px;
             }
         }
     }
