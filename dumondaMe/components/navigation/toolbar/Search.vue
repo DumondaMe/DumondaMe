@@ -165,10 +165,22 @@
                 input:focus {
                     outline: none;
                 }
+                input::placeholder {
+                    color: $secondary-text;
+                    opacity: 1;
+                }
+
+                input:-ms-input-placeholder {
+                    color: $secondary-text;;
+                }
+
+                input::-ms-input-placeholder {
+                    color: $secondary-text;;
+                }
                 .search-icon {
                     position: absolute;
                     right: 0;
-                    top: 17px;
+                    top: 16px;
                     padding: 0 6px;
                     @media screen and (max-width: $xs) {
                         top: 13px
