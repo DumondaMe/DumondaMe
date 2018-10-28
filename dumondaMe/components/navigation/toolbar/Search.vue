@@ -126,31 +126,34 @@
 
 <style lang="scss">
     #toolbar-search {
-        margin-left: 70px;
-        margin-right: 30px;
-        width: 350px;
-        @media screen and (max-width: 750px) {
-            margin-left: 30px;
-        }
+        position: relative;
+        width: 100%;
         @media screen and (max-width: $xs) {
             width: 100%;
             margin-left: 12px;
             margin-right: 12px;
         }
         .search-content {
-            width: 100%;
+            width: 260px;
+            margin-right: auto;
+            margin-left: auto;
             display: flex;
+            @media screen and (max-width: $xs) {
+                width: 100%;
+                margin-right: 0;
+                margin-left: 0;
+            }
             .search-input {
                 position: relative;
                 width: 100%;
                 input {
                     padding: 0 36px 0 7px;
-                    margin-top: 13px;
-                    height: 32px;
+                    margin-top: 14px;
+                    height: 28px;
                     width: 100%;
-                    background: #fafafa;
+                    background: white;
                     border: 1px solid #dbdbdb;
-                    border-radius: 2px;
+                    border-radius: 4px;
                     font-size: 14px;
 
                     @media screen and (max-width: $xs) {
@@ -182,23 +185,33 @@
             }
         }
         .autocomplete-results {
+            position: absolute;
             font-size: 14px;
             background-color: white;
             z-index: 110;
+            width: 260px;
+            margin-right: auto;
+            margin-left: auto;
             border-bottom: 1px solid #dbdbdb;
             border-right: 1px solid #dbdbdb;
             border-left: 1px solid #dbdbdb;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             @media screen and (max-width: $xs) {
+                width: 100%;
                 margin-right: 116px;
+                margin-left: 0;
             }
             .autocomplete-result {
                 cursor: pointer;
+                width: 260px;
                 padding: 7px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                @media screen and (max-width: $xs) {
+                    width: 100%;
+                }
             }
             :hover.autocomplete-result {
                 background: #E0F2F1;
