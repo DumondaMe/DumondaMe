@@ -7,7 +7,11 @@
         <p v-html="$t('pages:faq.question1.text2')"></p>
 
         <h2>{{$t('pages:faq.question2.title')}}</h2>
-        <p>{{$t('pages:faq.question2.text1')}}</p>
+        <ul>
+            <li v-html="$t('pages:faq.question2.text1')"></li>
+            <li v-html="$t('pages:faq.question2.text2')"></li>
+            <li v-html="$t('pages:faq.question2.text3')"></li>
+        </ul>
 
         <h2>{{$t('pages:faq.question3.title')}}</h2>
         <p>{{$t('pages:faq.question3.text1')}}</p>
@@ -92,6 +96,14 @@
             font-weight: 300;
             font-size: 16px;
             line-height: 24px;
+        }
+        ul {
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        b {
+            font-weight: 500;
         }
     }
 </style>
