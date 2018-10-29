@@ -1,5 +1,5 @@
 <template>
-    <question v-if="showPage === 1" @close-dialog="$emit('close-dialog')"
+    <question v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @open-instruction="$emit('open-instruction')"
               @finish="finishQuestion" :action-button-text="$t('common:button.next')"
               :init-question="initQuestion" :is-modify-mode="false">
         <stepper slot="header" :selected-step="showPage"></stepper>

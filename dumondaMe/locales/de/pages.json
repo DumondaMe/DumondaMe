@@ -262,6 +262,7 @@
   "question": {
     "createDialog": {
       "createQuestionButton": "Frage erstellen",
+      "instructionLink": "Was muss ich bei der Formulierung einer Frage beachten?",
       "topicDescription": "Welche Themengebiete können deiner Frage zugeordnet werden. Z.B. Zero Waste, Food Waste usw."
     },
     "modifyQuestionDialog": {
@@ -307,8 +308,8 @@
       "commitmentDescription": "Welches Engagement beschäftigt sich mit dieser Fragestellung?"
     },
     "instructionDialog": {
-      "title": "Wie sollen Fragen formuliert werden?",
-      "description": "Die Formulierung einer Frage hat einen grossen Einfluss darauf, wie diese beantwortet wird.",
+      "step1Title": "Wie sollen Fragen formuliert werden?",
+      "description": "Die Formulierung einer Frage hat einen grossen Einfluss darauf, wie diese beantwortet wird. Aus diesem Grund haben wir einige Empfehlungen für dich zusammengestellt.",
       "instruction1": {
         "title": "Offene Fragen",
         "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B ja/nein/weiss nicht).",
@@ -329,7 +330,12 @@
         "description": "Verwende beim Schreiben deiner Frage bitte nur Schriftdeutsch."
       },
       "instruction5": {
-        "title": "Keine beleidigende, rassistische oder diskriminierende Frage"
+        "title": "Selbstverständlich",
+        "description": "Keine beleidigende, rassistische oder diskriminierende Frage"
+      },
+      "instruction6": {
+        "title": "Das wärs schon ;-)",
+        "description": "Ok, ich werde mir Mühe geben"
       }
     }
   },
