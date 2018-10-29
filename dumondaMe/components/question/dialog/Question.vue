@@ -32,6 +32,9 @@
                     </v-flex>
                 </v-layout>
             </v-form>
+            <div class="asking-question-help-link" v-if="hasAskedQuestion" @click="$emit('open-instruction')">
+                {{$t('pages:question.createDialog.instructionLink')}}
+            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -67,6 +70,9 @@
                         this.question.lang !== this.questionCompare.lang);
                 }
                 return true;
+            },
+            hasAskedQuestion() {
+                return this.$store.state.createQuestion.hasAskedQuestion;
             }
         },
         mixins: [validationRules, languages],
@@ -87,6 +93,15 @@
 
 <style lang="scss">
     #question-container {
+        .asking-question-help-link {
+            cursor: pointer;
+            font-size: 14px;
+            color: $secondary-text;
+            margin-top: 12px;
+        }
+        :hover.asking-question-help-link {
+            text-decoration: underline;
+        }
         #select-language {
             label {
                 display: inline-block;
