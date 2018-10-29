@@ -671,7 +671,9 @@
     },
     "question2": {
       "title": "What are the most important concepts at DumondaMe?",
-      "text1": "Question/Answer, Commitment and Trust Circle."
+      "text1": "Collection of knowledge in the form of <b>questions and answers</b>",
+      "text2": "<b>Commitments</b>, which show where people are working for a bright future",
+      "text3": "The <b>Trust Circle</b> that shows you information from people you trust"
     },
     "question3": {
       "title": "What is a commitment?",
