@@ -264,6 +264,7 @@
   "question": {
     "createDialog": {
       "createQuestionButton": "Create question",
+      "instructionLink": "What do I have to consider when formulating a question?",
       "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc."
     },
     "modifyQuestionDialog": {
@@ -309,7 +310,7 @@
       "commitmentDescription": "Which commitment deals with this question?"
     },
     "instructionDialog": {
-      "title": "How should questions be worded?",
+      "step1Title": "How should questions be worded?",
       "description": "The formulation of a question has a great influence on how it is answered.",
       "instruction1": {
         "title": "Open questions",
@@ -331,7 +332,12 @@
         "description": "Please use only written English when writing your question."
       },
       "instruction5": {
-        "title": "No offensive, racist or discriminatory question"
+        "title": "Of course",
+        "description": "No offensive, racist or discriminatory question"
+      },
+      "instruction6": {
+        "title": "That's it.  ;-)",
+        "description": "Okay, I'll try."
       }
     }
   },
