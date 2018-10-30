@@ -2,19 +2,14 @@
     <div id="navigation-drawer">
         <div v-if="isAuthenticated" class="user-navigation">
             <div class="drawer-navigation-element">
-                <nuxt-link :to="{name: 'user'}">
-                    <v-icon>mdi-account</v-icon>
-                    <span class="navigation-text">{{$t("common:navigation.yourProfile")}}</span>
-                </nuxt-link>
+                <v-icon @click="askQuestion">mdi-help-circle-outline</v-icon>
+                <span class="navigation-text" @click="askQuestion">
+                    {{$t("common:navigation.askQuestion")}}</span>
             </div>
             <div class="drawer-navigation-element">
-                <nuxt-link :to="{name: 'user-notifications'}">
-                    <v-badge color="secondary" v-model="showNotification" right overlap>
-                        <v-icon>mdi-bell</v-icon>
-                        <span slot="badge">{{numberOfNotifications}}</span>
-                    </v-badge>
-                    <span class="navigation-text">{{$t("common:navigation.notification")}}</span>
-                </nuxt-link>
+                <v-icon @click="createCommitment">mdi-human-handsup</v-icon>
+                <span class="navigation-text" @click="createCommitment">
+                    {{$t("common:navigation.createCommitment")}}</span>
             </div>
         </div>
         <div v-else>
@@ -42,31 +37,31 @@
         <div class="common-navigation">
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'vision'}">
-                    <v-icon>mdi-label</v-icon>
+                    <v-icon>mdi-rocket</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.vision")}}</span>
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'aboutUs'}">
-                    <v-icon>mdi-label</v-icon>
+                    <v-icon>mdi-account-multiple</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.aboutUs")}}</span>
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'faq'}">
-                    <v-icon>mdi-label</v-icon>
+                    <v-icon>mdi-help</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.faq")}}</span>
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'terms'}">
-                    <v-icon>mdi-label</v-icon>
+                    <v-icon>mdi-library</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.terms")}}</span>
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'privacy'}">
-                    <v-icon>mdi-label</v-icon>
+                    <v-icon>mdi-security-lock</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.privacy")}}</span>
                 </nuxt-link>
             </div>
@@ -94,6 +89,10 @@
         </div>
         <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
         </language-dialog>
+        <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
+        </create-commitment-dialog>
+        <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
+        </create-question-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -103,13 +102,18 @@
 <script>
     import {mapGetters} from 'vuex';
     import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
+    import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
+    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
 
     export default {
         name: "Drawer",
         data() {
-            return {showError: false, showChangeLanguage: false}
+            return {
+                showError: false, showChangeLanguage: false, showCreateCommitment: false,
+                showCreateQuestion: false
+            }
         },
-        components: {LanguageDialog},
+        components: {LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -137,6 +141,14 @@
             },
             setLanguage() {
                 this.showChangeLanguage = true;
+                this.$emit('close-drawer');
+            },
+            askQuestion() {
+                this.showCreateQuestion = true;
+                this.$emit('close-drawer');
+            },
+            createCommitment() {
+                this.showCreateCommitment = true;
                 this.$emit('close-drawer');
             }
         }

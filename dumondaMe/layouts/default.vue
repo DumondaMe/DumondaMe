@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-model="drawer" temporary fixed>
+        <v-navigation-drawer v-model="drawer" temporary fixed :right="isRightSideDrawer">
             <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
         </v-navigation-drawer>
         <dumonda-me-toolbar @open-drawer="drawer = true"></dumonda-me-toolbar>
@@ -21,7 +21,21 @@
     export default {
         components: {DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer},
         data() {
-            return {drawer: null}
+            return {drawer: null, isRightSideDrawer: true};
+        },
+        mounted() {
+            this.onResize();
+            window.addEventListener('resize', this.onResize, {passive: true});
+        },
+        beforeDestroy() {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', this.onResize, {passive: true});
+            }
+        },
+        methods: {
+            onResize() {
+                this.isRightSideDrawer = window.innerWidth >= 700;
+            }
         }
     }
 </script>
