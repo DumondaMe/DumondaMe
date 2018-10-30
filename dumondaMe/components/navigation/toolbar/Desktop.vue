@@ -2,18 +2,13 @@
     <div>
         <div id="header-desktop-container">
             <div id="dumonda-me-logo">
-                <img :src="logoUrl" @click="$emit('open-drawer')"/>
+                <img :src="logoUrl" @click="$router.push({name: 'index'})"/>
             </div>
             <search-toolbar></search-toolbar>
             <v-spacer></v-spacer>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'index'})"
-                       :class="{active: $route.path === '/'}">
-                    <v-icon>mdi-home-outline</v-icon>
-                </v-btn>
-            </div>
             <div class="header-nav" v-if="!isAuthenticated">
-                <v-btn outline color="primary" v-on:click="$router.push({name: 'login'})" class="right-outer-element">
+                <v-btn outline color="primary" v-on:click="$router.push({name: 'login'})" class="right-outer-element"
+                       small>
                     {{$t("common:toolbar.login")}}
                 </v-btn>
             </div>
@@ -30,28 +25,10 @@
                     </v-badge>
                 </v-btn>
             </div>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-menu bottom left>
-                    <v-btn icon slot="activator" class="right-outer-element">
-                        <v-icon>mdi-dots-vertical</v-icon>
-                    </v-btn>
-                    <v-list>
-                        <v-list-tile @click="$router.push({name: 'setting'})">
-                            <v-list-tile-title>{{$t("pages:toolbar.settings")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-divider></v-divider>
-                        <v-list-tile @click="$emit('create-question')">
-                            <v-list-tile-title>{{$t("pages:toolbar.askQuestion")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-list-tile @click="$emit('create-commitment')">
-                            <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
-                        </v-list-tile>
-                        <v-divider></v-divider>
-                        <v-list-tile @click="$emit('logout')">
-                            <v-list-tile-title>{{$t("pages:toolbar.logout")}}</v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
+            <div class="header-nav menu-nav">
+                <v-btn flat icon @click="$emit('open-drawer')">
+                    <v-icon>mdi-menu</v-icon>
+                </v-btn>
             </div>
         </div>
     </div>
@@ -61,8 +38,7 @@
     import SearchToolbar from './Search';
 
     export default {
-        props: ['isAuthenticated', 'languages', 'selectedLanguage', 'logoUrl', 'showNotification',
-            'numberOfNotifications'],
+        props: ['isAuthenticated', 'logoUrl', 'showNotification', 'numberOfNotifications'],
         components: {SearchToolbar}
     }
 </script>
@@ -100,12 +76,13 @@
                 }
             }
             .right-outer-element {
-                margin-right: 0;
+                margin-top: 10px;
+                margin-right: 12px;
             }
         }
-        .header-nav.most-left-button {
+        .header-nav.menu-nav {
             button {
-                margin-left: 0;
+                margin-right: 0;
             }
         }
     }

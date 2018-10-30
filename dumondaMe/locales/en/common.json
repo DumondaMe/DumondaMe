@@ -37,6 +37,8 @@
     "home": "Home",
     "yourProfile": "Your Profile",
     "notification": "Notifications",
+    "askQuestion": "Ask Question",
+    "createCommitment": "Create Commitment",
     "settings": "Settings",
     "logout": "Logout",
     "language": "Language"

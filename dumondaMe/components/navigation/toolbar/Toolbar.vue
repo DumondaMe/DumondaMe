@@ -1,15 +1,15 @@
 <template>
     <div id="dumonda-me-header" :class="{'header-without-boarder': $route.name === 'index' ||
     $route.name === 'commitment' || $route.name === 'event' || $route.name === 'activity'}">
-        <desktop-toolbar :is-authenticated="isAuthenticated" :languages="languages" id="desktop-toolbar"
-                         :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"
+        <desktop-toolbar :is-authenticated="isAuthenticated"  id="desktop-toolbar"
+                         :logo-url="logoUrl" :show-notification="showNotification"
                          :number-of-notifications="numberOfNotifications" @logout="logout"
                          @change-language="changeLanguage" @create-question="showCreateQuestion = true"
                          @create-commitment="showCreateCommitment = true"
                          @open-drawer="$emit('open-drawer')">
         </desktop-toolbar>
-        <mobile-toolbar :is-authenticated="isAuthenticated" :languages="languages" id="mobile-toolbar"
-                        :selected-language="selectedLanguage" :logo-url="logoUrl" :show-notification="showNotification"
+        <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
+                        :logo-url="logoUrl" :show-notification="showNotification"
                         :number-of-notifications="numberOfNotifications" @logout="logout"
                         @change-language="changeLanguage" @create-question="showCreateQuestion = true"
                         @create-commitment="showCreateCommitment = true"
@@ -45,12 +45,6 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            },
-            languages() {
-                return this.$store.state.i18n.languages
-            },
-            selectedLanguage() {
-                return this.$store.state.i18n.languages.find(lang => lang.key === this.$store.state.i18n.language);
             },
             logoUrl() {
                 return `${process.env.staticUrl}/img/logo.jpg`;

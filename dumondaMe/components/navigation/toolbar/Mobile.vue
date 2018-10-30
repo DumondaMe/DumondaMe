@@ -25,7 +25,8 @@
                 <v-btn icon class="nav-icon">
                     <v-icon @click="showSearch = true">mdi-magnify</v-icon>
                 </v-btn>
-                <v-btn icon class="nav-icon" @click="$router.push({name: 'user-notifications'})" v-if="isAuthenticated">
+                <v-btn icon class="nav-icon nav-bell" @click="$router.push({name: 'user-notifications'})"
+                       v-if="isAuthenticated">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell-outline</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
@@ -34,29 +35,6 @@
                 <v-btn icon class="nav-icon" v-if="!isAuthenticated" @click="$router.push({name: 'login'})">
                     <v-icon>mdi-login-variant</v-icon>
                 </v-btn>
-                <div class="nav-icon" v-if="isAuthenticated">
-                    <v-menu bottom left>
-                        <v-btn icon slot="activator" class="right-outer-element">
-                            <v-icon>mdi-dots-vertical</v-icon>
-                        </v-btn>
-                        <v-list>
-                            <v-list-tile @click="$router.push({name: 'setting'})">
-                                <v-list-tile-title>{{$t("pages:toolbar.settings")}}</v-list-tile-title>
-                            </v-list-tile>
-                            <v-divider></v-divider>
-                            <v-list-tile @click="$emit('create-question')">
-                                <v-list-tile-title>{{$t("pages:toolbar.askQuestion")}}</v-list-tile-title>
-                            </v-list-tile>
-                            <v-list-tile @click="$emit('create-commitment')">
-                                <v-list-tile-title>{{$t("pages:toolbar.createCommitment")}}</v-list-tile-title>
-                            </v-list-tile>
-                            <v-divider></v-divider>
-                            <v-list-tile @click="$emit('logout')">
-                                <v-list-tile-title>{{$t("pages:toolbar.logout")}}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </div>
             </div>
         </div>
     </div>
@@ -66,8 +44,7 @@
     import SearchToolbar from './Search';
 
     export default {
-        props: ['isAuthenticated', 'languages', 'selectedLanguage', 'logoUrl', 'showNotification',
-            'numberOfNotifications'],
+        props: ['isAuthenticated', 'logoUrl', 'showNotification', 'numberOfNotifications'],
         components: {SearchToolbar},
         data() {
             return {showSearch: false}
@@ -95,6 +72,9 @@
             height: 48px;
             line-height: 48px;
             font-weight: 500;
+        }
+        .nav-icon.nav-bell {
+            margin-right: 18px;
         }
     }
 </style>
