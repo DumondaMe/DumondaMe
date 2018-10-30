@@ -1,6 +1,5 @@
 import Vue from 'vue';
-import {
-    Vuetify,
+import Vuetify, {
     VApp,
     VBtn,
     VBadge,
@@ -14,7 +13,6 @@ import {
     VTextField,
     VTooltip,
     VCheckbox,
-    VGrid,
     VSelect,
     VSnackbar,
     VChip,
@@ -22,7 +20,7 @@ import {
     VProgressCircular,
     VProgressLinear,
     VDatePicker
-} from 'vuetify';
+} from 'vuetify/lib';
 
 Vue.use(Vuetify, {
     theme: {
@@ -48,7 +46,6 @@ Vue.use(Vuetify, {
         VTextField,
         VTooltip,
         VCheckbox,
-        VGrid,
         VSelect,
         VSnackbar,
         VChip,

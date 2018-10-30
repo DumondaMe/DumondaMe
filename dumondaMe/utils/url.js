@@ -1,4 +1,4 @@
-module.exports = (withProtocol) => {
+export default function checkUrl(withProtocol) {
 
     let protocol = ``;
     if (withProtocol) {
