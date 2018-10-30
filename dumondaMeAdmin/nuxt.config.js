@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
     head: {
@@ -38,28 +39,14 @@ module.exports = {
         duration: 0
     },
     build: {
-        babel: {
-            plugins: [
-                ["transform-imports", {
-                    "vuetify": {
-                        "transform": "vuetify/es5/components/${member}",
-                        "preventFullImport": true
-                    }
-                }]
-            ]
-        },
+        transpile: [/^vuetify/],
+        plugins: [
+            new VuetifyLoaderPlugin()
+        ],
+        extractCSS: true,
 
-        vendor: ['babel-polyfill',
-            'i18next',
-            '@panter/vue-i18next',
-            'moment',
-            'moment/locale/de',
-            'moment/locale/en-gb',
-            'debounce',
-            '~/plugins/vuetify.js'],
-
-        extend(config, ctx) {
-            if (ctx.isServer) {
+        extend(config) {
+            if (process.server) {
                 config.externals = [
                     nodeExternals({
                         whitelist: [/^vuetify/]
