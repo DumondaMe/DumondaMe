@@ -34,6 +34,7 @@
 <style lang="scss">
     #dumonda-me-topic-suggestions {
         margin-right: 28px;
+        margin-bottom: 40px;
         display: inline-block;
         width: 300px;
         height: 400px;
