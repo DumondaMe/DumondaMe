@@ -15,6 +15,9 @@
     "region": {
       "numberOfRegions": "Country",
       "numberOfRegions_plural": "Countries"
+    },
+    "news": {
+      "addNewsButton": "Send Newsletter"
     }
   },
   "topics": {
@@ -43,6 +46,16 @@
     "showSubRegions": "Show Sub Region",
     "dialog": {
       "region": "Region"
+    }
+  },
+  "news": {
+    "dialog": {
+      "title": "Sending Newsletter",
+      "newsletterTitle": "Newsletter Title",
+      "newsletterText": "Newsletter Text",
+      "sendPreviewButton": "Send Preview",
+      "sendNewsletterButton": "Send Newsletter",
+      "confirmSendNewsletter": "Should this newsletter be sent?"
     }
   }
 }

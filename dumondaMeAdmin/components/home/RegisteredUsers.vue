@@ -48,6 +48,7 @@
         width: 300px;
         height: 400px;
         overflow-y: auto;
+        margin-bottom: 40px;
 
         #number-of-users {
             font-weight: 300;

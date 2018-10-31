@@ -26,7 +26,7 @@ const schemaCreateNews = {
     required: ['title', 'text'],
     properties: {
         title: {type: 'string', format: 'notEmptyString', maxLength: 160},
-        text: {type: 'string', format: 'notEmptyString', maxLength: 5000},
+        text: {type: 'string', format: 'notEmptyString', maxLength: 10000},
     }
 };
 
@@ -38,7 +38,7 @@ const schemaEditNews = {
     properties: {
         newsId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         title: {type: 'string', format: 'notEmptyString', maxLength: 160},
-        text: {type: 'string', format: 'notEmptyString', maxLength: 5000},
+        text: {type: 'string', format: 'notEmptyString', maxLength: 10000},
     }
 };
 
