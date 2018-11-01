@@ -26,7 +26,7 @@ const apiLimiter = rateLimit.getRate({
 module.exports = function (router) {
 
     router.post('/', apiLimiter, asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestPasswordReset, logger);
+        let request = await validation.validateRequest(req, schemaRequestPasswordReset);
         logger.info(`Password reset request for email address ${request.email}`);
         await resetPassword.sendReset(request.email, request.language);
         res.status(200).end();

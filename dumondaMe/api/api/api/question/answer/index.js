@@ -5,7 +5,6 @@ const schemaLanguage = require('../../../schema/language');
 const answers = requireModel('question/answers');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const apiHelper = require('dumonda-me-server-lib').apiHelper;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaGetQuestionAnswers = {
     name: 'getQuestionAnswers',
@@ -22,7 +21,7 @@ const schemaGetQuestionAnswers = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetQuestionAnswers, logger);
+        const params = await validation.validateRequest(req, schemaGetQuestionAnswers);
         let userId = apiHelper.getUserId(req);
         let response = await answers.getAnswers(params.questionId, params.page, params.language, userId);
         res.status(200).json(response);

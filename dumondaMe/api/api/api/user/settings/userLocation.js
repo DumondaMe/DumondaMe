@@ -31,7 +31,7 @@ module.exports = function (router) {
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Setting user location failed', req, res, logger, function () {
-            return validation.validateRequest(req, schemaPostUserLocation, logger).then(function (request) {
+            return validation.validateRequest(req, schemaPostUserLocation).then(function (request) {
                 return userLocation.setUserLocation(req.user.id, request);
             }).then(function () {
                 logger.info("User updated user location", req);
@@ -42,7 +42,7 @@ module.exports = function (router) {
 
     router.delete('/', auth.isAuthenticated(), function (req, res) {
         return controllerErrors('Error occurs while deleting user location', req, res, logger, function () {
-            return validation.validateRequest(req, schemaDeleteUserLocation, logger).then(function (request) {
+            return validation.validateRequest(req, schemaDeleteUserLocation).then(function (request) {
                 return userLocation.deleteUserLocation(req.user.id, request.contactIds, req);
             }).then(function () {
                 res.status(200).end();

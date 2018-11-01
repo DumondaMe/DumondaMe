@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const websitePreview = requireModel('commitment/websitePreview');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaWebsitePreview = {
     name: 'getCommitmentWebsitePreview',
@@ -19,7 +18,7 @@ const schemaWebsitePreview = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaWebsitePreview, logger);
+        const params = await validation.validateRequest(req, schemaWebsitePreview);
         let response = await websitePreview.getPreview(params.link.trim());
         res.status(200).json(response);
     }));

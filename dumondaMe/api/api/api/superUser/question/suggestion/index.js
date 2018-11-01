@@ -7,7 +7,6 @@ const suggestionDelete = requireModel('superUser/question/suggestion/delete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
 const exceptions = require('dumonda-me-server-lib').exceptions;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateSuggestion = {
     name: 'createSuggestion',
@@ -54,7 +53,7 @@ const checkParameter = function (title, description, explanation) {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateSuggestion, logger);
+        const params = await validation.validateRequest(req, schemaCreateSuggestion);
         checkParameter(params.title, params.description, params.explanation);
         params.title = params.title || null;
         params.description = params.description || null;
@@ -65,7 +64,7 @@ module.exports = function (router) {
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditSuggestion, logger);
+        const params = await validation.validateRequest(req, schemaEditSuggestion);
         checkParameter(params.title, params.description, params.explanation);
         params.title = params.title || null;
         params.description = params.description || null;
@@ -76,7 +75,7 @@ module.exports = function (router) {
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteSuggestion, logger);
+        const params = await validation.validateRequest(req, schemaDeleteSuggestion);
         await suggestionDelete.deleteSuggestion(req.user.id, params.suggestionId);
         res.status(200).end();
     }));

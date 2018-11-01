@@ -37,7 +37,7 @@ const schemaGetProfileActivity = {
 
 module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
-        let params = await validation.validateRequest(req, schemaGetProfileActivity, logger);
+        let params = await validation.validateRequest(req, schemaGetProfileActivity);
         logger.info(`Requests activity of user ${params.userId}`, req);
         params.page = params.page || 0;
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();

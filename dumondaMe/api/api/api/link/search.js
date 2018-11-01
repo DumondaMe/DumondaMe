@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const linkSearch = requireModel('link/search');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaSearchLink = {
     name: 'getSearchLink',
@@ -20,7 +19,7 @@ const schemaSearchLink = {
 module.exports = function (router) {
 
     router.get('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaSearchLink, logger);
+        const params = await validation.validateRequest(req, schemaSearchLink);
         let response = await linkSearch.search(params.link.trim(), params.questionId);
         res.status(200).json(response);
     }));

@@ -6,7 +6,6 @@ const editNote = requireModel('user/question/answer/note/edit');
 const deleteNote = requireModel('user/question/answer/note/delete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateNote = {
     name: 'createNote',
@@ -43,19 +42,19 @@ const schemaDeleteNote = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateNote, logger);
+        const params = await validation.validateRequest(req, schemaCreateNote);
         let response = await createNote.createNote(req.user.id, params.answerId, params.text);
         res.status(200).json(response);
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditNote, logger);
+        const params = await validation.validateRequest(req, schemaEditNote);
         let response = await editNote.editNote(req.user.id, params.noteId, params.text);
         res.status(200).json(response);
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteNote, logger);
+        const params = await validation.validateRequest(req, schemaDeleteNote);
         await deleteNote.deleteNote(req.user.id, params.noteId);
         res.status(200).end();
     }));

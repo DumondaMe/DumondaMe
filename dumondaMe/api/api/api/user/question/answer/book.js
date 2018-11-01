@@ -5,7 +5,6 @@ const answerCreate = requireModel('user/question/answer/create/book');
 const answerEdit = requireModel('user/question/answer/edit/book');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateBookAnswer = {
     name: 'createBookAnswer',
@@ -38,13 +37,13 @@ const schemaEditBookAnswer = {
 module.exports = function (router) {
 
     router.post('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateBookAnswer, logger);
+        const params = await validation.validateRequest(req, schemaCreateBookAnswer);
         let response = await answerCreate.createBookAnswer(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditBookAnswer, logger);
+        const params = await validation.validateRequest(req, schemaEditBookAnswer);
         let response = await answerEdit.editBookAnswer(req.user.id, params);
         res.status(200).json(response);
     }));

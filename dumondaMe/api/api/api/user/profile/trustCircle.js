@@ -19,7 +19,7 @@ const schemaRequestGetPeopleOfTrust = {
 
 module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestGetPeopleOfTrust, logger);
+        let request = await validation.validateRequest(req, schemaRequestGetPeopleOfTrust);
         logger.info(`Requests trust circle of user ${request.userId}`, req);
         let contacts = await trustCircle.getTrustCircle(req.user.id, request.userId,
             request.maxItems, request.skip, req);

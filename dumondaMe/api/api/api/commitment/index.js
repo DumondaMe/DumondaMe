@@ -5,7 +5,6 @@ const schemaLanguage = require('../../schema/language');
 const commitment = requireModel('commitment/detail');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const apiHelper = require('dumonda-me-server-lib').apiHelper;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCommitmentDetail = {
     name: 'getCommitmentDetail',
@@ -21,7 +20,7 @@ const schemaCommitmentDetail = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCommitmentDetail, logger);
+        const params = await validation.validateRequest(req, schemaCommitmentDetail);
         let userId = apiHelper.getUserId(req);
         let response = await commitment.getDetail(userId, params.commitmentId, params.language);
         res.status(200).json(response);

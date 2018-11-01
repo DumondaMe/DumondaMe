@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const schemaLanguage = require('../../schema/language');
 const events = requireModel('commitment/events');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaEventsOfCommitment = {
     name: 'getEventOfCommitment',
@@ -22,7 +21,7 @@ const schemaEventsOfCommitment = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEventsOfCommitment, logger);
+        const params = await validation.validateRequest(req, schemaEventsOfCommitment);
         let response = await events.getEvents(params.commitmentId, params.upComing, params.page, params.language);
         res.status(200).json(response);
     }));

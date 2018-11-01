@@ -22,7 +22,7 @@ module.exports = function (router) {
     router.put('/:pageId', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
-            return validation.validateRequest(req, schemaSetSync, logger).then(function (request) {
+            return validation.validateRequest(req, schemaSetSync).then(function (request) {
                 return sync.setSyncState(req.user.id, request.pageId, request.state, req);
             }).then(function () {
                 res.status(200).end();

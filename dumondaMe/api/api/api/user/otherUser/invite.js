@@ -27,7 +27,7 @@ module.exports = function (router) {
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         logger.info("User invites friends", req);
-        let request = await validation.validateRequest(req, schemaInviteFriends, logger);
+        let request = await validation.validateRequest(req, schemaInviteFriends);
         await invite.sendInvitation(req.user.id, request.emails, request.message);
         res.status(200).end();
     }));

@@ -5,7 +5,6 @@ const schemaLanguage = require('../../schema/language');
 const detail = requireModel('question/detail');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const apiHelper = require('dumonda-me-server-lib').apiHelper;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaGetQuestionDetail = {
     name: 'getQuestionDetail',
@@ -22,7 +21,7 @@ const schemaGetQuestionDetail = {
 module.exports = function (router) {
 
     router.get('/:questionId', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetQuestionDetail, logger);
+        const params = await validation.validateRequest(req, schemaGetQuestionDetail);
         let userId = apiHelper.getUserId(req);
         let superUser = apiHelper.isSuperUser(req);
         params.answerId = params.answerId || null;

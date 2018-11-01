@@ -3,7 +3,6 @@
 const validation = require('dumonda-me-server-lib').jsonValidation;
 const autocomplete = requireModel('search/autocomplete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaAutocomplete = {
     name: 'getAutocomplete',
@@ -18,7 +17,7 @@ const schemaAutocomplete = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaAutocomplete, logger);
+        const params = await validation.validateRequest(req, schemaAutocomplete);
         let response = await autocomplete.search(params.query, req.user.id);
         res.status(200).json(response);
     }));

@@ -19,14 +19,14 @@ const schemaBlockOtherUser = {
 module.exports = function (router) {
 
     router.post('/:userId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaBlockOtherUser, logger);
+        let request = await validation.validateRequest(req, schemaBlockOtherUser);
         logger.info(`User has blocked ${request.userId}`, req);
         await block.blockOtherUser(req.user.id, request.userId, req);
         res.status(200).end();
     }));
 
     router.delete('/:userId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaBlockOtherUser, logger);
+        let request = await validation.validateRequest(req, schemaBlockOtherUser);
         logger.info(`User removed blocking of ${request.userId}`, req);
         await block.unblockOtherUser(req.user.id, request.userId, req);
         res.status(200).end();
