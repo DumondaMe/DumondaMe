@@ -20,7 +20,7 @@ module.exports = function (router) {
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Finish setup account failed', req, res, logger, function () {
-            return validation.validateRequest(req, schemaPostFinishSetupAccount, logger).then(function () {
+            return validation.validateRequest(req, schemaPostFinishSetupAccount).then(function () {
                 return accountSetup.accountSetupFinished(req.user.id, req.body);
             }).then(function () {
                 logger.info("User finished successfully account setup", req);

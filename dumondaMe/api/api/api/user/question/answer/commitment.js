@@ -6,7 +6,6 @@ const answerCreate = requireModel('user/question/answer/create/commitment');
 const answerEdit = requireModel('user/question/answer/edit/commitment');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateCommitmentAnswer = {
     name: 'createCommitmentAnswer',
@@ -35,13 +34,13 @@ const schemaEditCommitmentAnswer = {
 module.exports = function (router) {
 
     router.post('/:questionId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateCommitmentAnswer, logger);
+        const params = await validation.validateRequest(req, schemaCreateCommitmentAnswer);
         let response = await answerCreate.createCommitmentAnswer(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditCommitmentAnswer, logger);
+        const params = await validation.validateRequest(req, schemaEditCommitmentAnswer);
         let response = await answerEdit.editCommitmentAnswer(req.user.id, params);
         res.status(200).json(response);
     }));

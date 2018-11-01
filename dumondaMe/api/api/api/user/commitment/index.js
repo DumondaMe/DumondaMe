@@ -9,7 +9,6 @@ const commitmentDelete = requireModel('user/commitment/delete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
 const apiHelper = require('dumonda-me-server-lib').apiHelper;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateCommitment = {
     name: 'createCommitment',
@@ -60,19 +59,19 @@ const schemaDeleteCommitment = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateCommitment, logger);
+        const params = await validation.validateRequest(req, schemaCreateCommitment);
         let response = await commitmentCreate.createCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);
     }));
 
     router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditCommitment, logger);
+        const params = await validation.validateRequest(req, schemaEditCommitment);
         let response = await commitmentEdit.editCommitment(req.user.id, params, apiHelper.getFile(req));
         res.status(200).json(response);
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteCommitment, logger);
+        const params = await validation.validateRequest(req, schemaDeleteCommitment);
         await commitmentDelete.deleteCommitment(req.user.id, params.commitmentId);
         res.status(200).end();
     }));

@@ -25,7 +25,7 @@ module.exports = function (router) {
 
     router.post('/', apiLimiter, function (req, res) {
         return controllerErrors('Error occurs on unsubscribe invitation', req, res, logger, function () {
-            return validation.validateRequest(req, schemaUnsubscribeInvitation, logger).then(function (request) {
+            return validation.validateRequest(req, schemaUnsubscribeInvitation).then(function (request) {
                 logger.info(`Unsubscribe Email ${request.email}`);
                 return unsubscribe.unsubscribe(request.email, req);
             }).then(function () {

@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const request = requireModel('user/commitment/showQuestionRequest');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaShowQuestionRequest = {
     name: 'showQuestionRequest',
@@ -21,7 +20,7 @@ const schemaShowQuestionRequest = {
 module.exports = function (router) {
 
     router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaShowQuestionRequest, logger);
+        const params = await validation.validateRequest(req, schemaShowQuestionRequest);
         let response = await request.showQuestion(req.user.id, params.commitmentId, params.questionId,
             params.showQuestion);
         res.status(200).json(response);

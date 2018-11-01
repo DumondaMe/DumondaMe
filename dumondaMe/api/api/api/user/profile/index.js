@@ -36,7 +36,7 @@ const schemaPostNewProfileData = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        let params = await validation.validateRequest(req, schemaRequestGetUserDetails, logger);
+        let params = await validation.validateRequest(req, schemaRequestGetUserDetails);
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();
         let userProfile = await profile.getUserProfile(req.user.id, params.userId, params.languages, params.guiLanguage,
             params.timestamp);
@@ -45,7 +45,7 @@ module.exports = function (router) {
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        await validation.validateRequest(req, schemaPostNewProfileData, logger);
+        await validation.validateRequest(req, schemaPostNewProfileData);
         await profile.updateUserProfile(req.user.id, req.body);
         logger.info("Successfully updated user profile", req);
         res.status(200).end();

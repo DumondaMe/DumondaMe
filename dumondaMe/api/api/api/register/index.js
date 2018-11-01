@@ -24,7 +24,7 @@ const schemaRegisterUser = {
 module.exports = function (router) {
 
     router.post('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaRegisterUser, logger);
+        const params = await validation.validateRequest(req, schemaRegisterUser);
         logger.info('Register new user with email ' + params.email, req);
         await registerUser.registerUser(params, req);
         res.status(200).end();

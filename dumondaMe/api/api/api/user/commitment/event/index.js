@@ -6,7 +6,6 @@ const eventEdit = requireModel('user/commitment/event/edit');
 const eventDelete = requireModel('user/commitment/event/delete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateEvent = {
     name: 'createEvent',
@@ -55,19 +54,19 @@ const schemaDeleteEvent = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateEvent, logger);
+        const params = await validation.validateRequest(req, schemaCreateEvent);
         let response = await create.createEvent(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditEvent, logger);
+        const params = await validation.validateRequest(req, schemaEditEvent);
         await eventEdit.editEvent(req.user.id, params);
         res.status(200).end();
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteEvent, logger);
+        const params = await validation.validateRequest(req, schemaDeleteEvent);
         await eventDelete.deleteEvent(req.user.id, params.eventId);
         res.status(200).end();
     }));

@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const changeRegion = requireModel('user/commitment/region/change');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaChangeRegion = {
     name: 'changeRegion',
@@ -25,7 +24,7 @@ const schemaChangeRegion = {
 module.exports = function (router) {
 
     router.put('/:commitmentId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaChangeRegion, logger);
+        const params = await validation.validateRequest(req, schemaChangeRegion);
         await changeRegion.changeRegions(req.user.id, params.commitmentId, params.regions);
         res.status(200).end();
     }));

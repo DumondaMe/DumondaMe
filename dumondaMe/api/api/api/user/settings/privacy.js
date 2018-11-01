@@ -18,7 +18,7 @@ const schemaChangePrivacy = {
 module.exports = function (router) {
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaChangePrivacy, logger);
+        let request = await validation.validateRequest(req, schemaChangePrivacy);
         logger.info(`User ${req.user.id} changes privacy settings`, req);
         await privacy.changePrivacySettings(req.user.id, request.privacyMode);
         res.status(200).end();

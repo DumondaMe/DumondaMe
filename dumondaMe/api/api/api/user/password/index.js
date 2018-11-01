@@ -22,7 +22,7 @@ module.exports = function (router) {
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs when changing the password', req, res, logger, function () {
-            return validation.validateRequest(req, schemaChangePasword, logger).then(function (request) {
+            return validation.validateRequest(req, schemaChangePasword).then(function (request) {
                 logger.info("User changes password", req);
                 return password.changePassword(req.user.id, request.newPassword, request.actualPassword, req);
             }).then(function () {

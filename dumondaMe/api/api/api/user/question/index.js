@@ -8,7 +8,6 @@ const questionEdit = requireModel('user/question/edit');
 const questionDelete = requireModel('user/question/delete');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const auth = require('dumonda-me-server-lib').auth;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaCreateQuestion = {
     name: 'createQuestion',
@@ -49,19 +48,19 @@ const schemaDeleteQuestion = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateQuestion, logger);
+        const params = await validation.validateRequest(req, schemaCreateQuestion);
         let response = await questionCreate.createQuestion(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditQuestion, logger);
+        const params = await validation.validateRequest(req, schemaEditQuestion);
         let response = await questionEdit.editQuestion(req.user.id, params);
         res.status(200).json(response);
     }));
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaDeleteQuestion, logger);
+        const params = await validation.validateRequest(req, schemaDeleteQuestion);
         let response = await questionDelete.deleteQuestion(req.user.id, params.questionId);
         res.status(200).json(response);
     }));

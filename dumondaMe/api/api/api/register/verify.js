@@ -26,7 +26,7 @@ module.exports = function (router) {
     router.post('/', apiLimiter, function (req, res) {
 
         return controllerErrors('Error occurs during verification of user email address', req, res, logger, function () {
-            return validation.validateRequest(req, schemaRequestPasswordReset, logger).then(function (request) {
+            return validation.validateRequest(req, schemaRequestPasswordReset).then(function (request) {
                 logger.info(`Email verification for linkId ${request.linkId}`);
                 return verifyUserRequest.verify(request.linkId, req);
             }).then(function (data) {

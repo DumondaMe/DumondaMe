@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const notes = requireModel('question/answer/note');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 const apiHelper = require('dumonda-me-server-lib').apiHelper;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaGetNotesOfAnswer = {
     name: 'getNotesOfAnswer',
@@ -21,7 +20,7 @@ const schemaGetNotesOfAnswer = {
 module.exports = function (router) {
 
     router.get('/', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetNotesOfAnswer, logger);
+        const params = await validation.validateRequest(req, schemaGetNotesOfAnswer);
         let userId = apiHelper.getUserId(req);
         let response = await notes.getNotes(userId, params.answerId, params.page, params.sort);
         res.status(200).json(response);

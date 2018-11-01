@@ -19,14 +19,14 @@ const schemaRequestPersonOfTrust = {
 module.exports = function (router) {
 
     router.post('/:userId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestPersonOfTrust, logger);
+        let request = await validation.validateRequest(req, schemaRequestPersonOfTrust);
         logger.info(`User has added ${request.userId} to trust circle`, req);
         let result = await personOfTrust.addPersonToTrustCircle(req.user.id, request.userId, req);
         res.status(200).json(result);
     }));
 
     router.delete('/:userId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        let request = await validation.validateRequest(req, schemaRequestPersonOfTrust, logger);
+        let request = await validation.validateRequest(req, schemaRequestPersonOfTrust);
         logger.info(`User removed ${request.userId} from trust circle`, req);
         await personOfTrust.removePersonFromTrustCircle(req.user.id, request.userId, req);
         res.status(200).end();
