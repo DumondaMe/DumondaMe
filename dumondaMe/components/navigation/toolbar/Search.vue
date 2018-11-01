@@ -197,7 +197,6 @@
             }
         }
         .autocomplete-results {
-            position: absolute;
             font-size: 14px;
             background-color: white;
             z-index: 110;
@@ -210,6 +209,7 @@
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             @media screen and (max-width: $xs) {
+                position: absolute;
                 width: 100%;
                 margin-right: 116px;
                 margin-left: 0;
@@ -232,13 +232,6 @@
                 background: #E0F2F1;
             }
         }
-        .autocomplete-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 105;
-        }
+
     }
 </style>
