@@ -33,6 +33,7 @@
   "selectAll": "Alle Auswählen",
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
   "youAreAdmin": "Du bist Administrator",
+  "noScript": "Dein Browser unterstützt kein Javascript! Ohne Javascript funktioniert diese Seite nicht richtig.",
   "navigation": {
     "home": "Startseite",
     "yourProfile": "Dein Profil",
