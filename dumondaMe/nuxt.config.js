@@ -9,6 +9,7 @@ module.exports = {
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
             {hid: 'description', name: 'description', content: 'DumondaMe'}
         ],
+        noscript: [{innerHTML: "This website requires JavaScript", body: true}],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
