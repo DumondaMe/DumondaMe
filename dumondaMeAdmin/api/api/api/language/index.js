@@ -4,7 +4,6 @@ const validation = require('dumonda-me-server-lib').jsonValidation;
 const schemaLanguage = require("../schema/language");
 const language = requireModel('language/language');
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 
 const schemaEditLanguage = {
@@ -20,7 +19,7 @@ const schemaEditLanguage = {
 module.exports = function (router) {
 
     router.put('/:language', asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditLanguage, logger);
+        const params = await validation.validateRequest(req, schemaEditLanguage);
         await language.setLanguage(req.user, req.session, params.language);
         res.status(200).end();
     }));

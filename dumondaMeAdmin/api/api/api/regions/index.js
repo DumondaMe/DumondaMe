@@ -49,21 +49,21 @@ const schemaEditRegion = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetRegionsOverview, logger);
+        const params = await validation.validateRequest(req, schemaGetRegionsOverview);
         logger.info(`User requests region overview`, req);
         const response = await overview.getRegions(params.language, params.parentRegionId);
         res.status(200).json(response);
     }));
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateRegion, logger);
+        const params = await validation.validateRequest(req, schemaCreateRegion);
         logger.info(`Create new region`, req);
         let response = await createRegion.create(params, req);
         res.status(200).json(response);
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditRegion, logger);
+        const params = await validation.validateRequest(req, schemaEditRegion);
         logger.info(`Edit of region`, req);
         await editRegion.edit(params, req);
         res.status(200).end();

@@ -20,7 +20,7 @@ const schemaGetRegisteredOverview = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetRegisteredOverview, logger);
+        const params = await validation.validateRequest(req, schemaGetRegisteredOverview);
         logger.info("User requests feedback registered overview", req);
         const response = await overview.getOverview(params);
         res.status(200).json(response);

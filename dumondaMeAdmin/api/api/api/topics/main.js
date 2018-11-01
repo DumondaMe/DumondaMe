@@ -35,7 +35,7 @@ const schemaCreateMainTopic = {
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateMainTopic, logger);
+        const params = await validation.validateRequest(req, schemaCreateMainTopic);
         logger.info(`Create new main topic`, req);
         let response = await createMainTopic.create(params);
         res.status(200).json(response);
