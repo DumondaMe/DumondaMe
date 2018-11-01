@@ -10,6 +10,9 @@
             </div>
         </div>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
+        <noscript>
+            <div class="no-script-description">{{$t('common:noScript')}}</div>
+        </noscript>
     </v-app>
 </template>
 
@@ -111,5 +114,18 @@
         @media screen and (max-width: $xs) {
             display: none;
         }
+    }
+
+    .no-script-description {
+        position: fixed;
+        height: 58px;
+        line-height: 58px;
+        text-align: center;
+        z-index: 120;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        color: white;
+        background-color: $error-text;
     }
 </style>
