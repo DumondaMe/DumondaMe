@@ -49,14 +49,14 @@ const schemaEditTopic = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetTopicsOverview, logger);
+        const params = await validation.validateRequest(req, schemaGetTopicsOverview);
         logger.info("User requests topic overview", req);
         const response = await overview.getOverview(params);
         res.status(200).json(response);
     }));
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditTopic, logger);
+        const params = await validation.validateRequest(req, schemaEditTopic);
         logger.info(`Edit of topic`, req);
         await editTopic.edit(params, req);
         res.status(200).end();

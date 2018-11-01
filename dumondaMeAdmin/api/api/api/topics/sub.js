@@ -48,14 +48,14 @@ const schemaCreateSubTopic = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetSubTopics, logger);
+        const params = await validation.validateRequest(req, schemaGetSubTopics);
         logger.info("User requests topic overview", req);
         const response = await subTopic.getSubTopics(params.topicId, params.language);
         res.status(200).json(response);
     }));
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateSubTopic, logger);
+        const params = await validation.validateRequest(req, schemaCreateSubTopic);
         logger.info(`Create new sub topic`, req);
         let response = await createSubTopic.create(params);
         res.status(200).json(response);
