@@ -16,7 +16,8 @@
     "create": "Erstellen",
     "edit": "Bearbeiten",
     "abort": "Abbrechen",
-    "close": "Schliessen"
+    "close": "Schliessen",
+    "back": "Zurück"
   },
   "error": {
     "unknown": "Es ist ein Fehler aufgetreten."

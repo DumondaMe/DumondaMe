@@ -13,14 +13,14 @@ let schemaPreviewNews = {
     required: ['title', 'text'],
     properties: {
         title: {type: 'string', format: 'notEmptyString', maxLength: 160},
-        text: {type: 'string', format: 'notEmptyString', maxLength: 5000},
+        text: {type: 'string', format: 'notEmptyString', maxLength: 10000},
     }
 };
 
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaPreviewNews, logger);
+        const params = await validation.validateRequest(req, schemaPreviewNews, true);
         logger.info(`Admin sends preview of news`, req);
         await previewNews.preview(req.user.id, params, req);
         res.status(200).end();

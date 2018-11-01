@@ -97,16 +97,20 @@ const convertValues = function (data, requestSchema) {
 };
 
 //To prevent xss attacks
-const sanitize = function (body) {
+const sanitize = function (body, allowHtml) {
     for (let param in body) {
         if (body.hasOwnProperty(param) && typeof body[param] === 'string') {
-            body[param] = DOMPurify.sanitize(body[param], {ALLOWED_TAGS: []});
+            if (allowHtml === true) {
+                body[param] = DOMPurify.sanitize(body[param]);
+            } else {
+                body[param] = DOMPurify.sanitize(body[param], {ALLOWED_TAGS: []});
+            }
         }
     }
 };
 
 module.exports = {
-    validateRequest: function (req, requestSchema) {
+    validateRequest: function (req, requestSchema, allowHtml) {
 
         if (req.body.model) {
             req.body = JSON.parse(req.body.model);
@@ -120,7 +124,7 @@ module.exports = {
             convertValues(req.query, requestSchema);
             req.body = Object.assign(req.body, req.query);
         }
-        sanitize(req.body);
+        sanitize(req.body, allowHtml);
         return validate(req, req.body, requestSchema);
     },
     validateQueryRequest: function (req, requestSchema) {

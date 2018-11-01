@@ -30,7 +30,7 @@ describe('Integration Tests creating news', function () {
     it('Create news', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/news', {title: 'title', text: 'description'});
+        let res = await requestHandler.post('/api/news', {title: 'title', text: 'description <p></p>'});
         res.status.should.equal(200);
         res.body.created.should.be.at.least(startTime);
 
@@ -42,6 +42,6 @@ describe('Integration Tests creating news', function () {
         news.length.should.equals(1);
         news[0].news.created.should.be.at.least(startTime);
         news[0].news.title.should.equals("title");
-        news[0].news.text.should.equals("description");
+        news[0].news.text.should.equals("description <p></p>");
     });
 });

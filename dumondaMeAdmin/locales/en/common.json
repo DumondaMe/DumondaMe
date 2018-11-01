@@ -16,7 +16,8 @@
     "create": "Create",
     "edit": "Edit",
     "abort": "Abort",
-    "close": "Close"
+    "close": "Close",
+    "back": "Back"
   },
   "error": {
     "unknown": "An error has occurred."

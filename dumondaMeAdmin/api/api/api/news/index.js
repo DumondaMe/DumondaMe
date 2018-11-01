@@ -45,21 +45,21 @@ const schemaEditNews = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaGetNewsOverview, logger);
+        const params = await validation.validateRequest(req, schemaGetNewsOverview);
         logger.info("User requests news overview", req);
         const response = await overview.getOverview(params);
         res.status(200).json(response);
     }));
 
     router.post('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaCreateNews, logger);
+        const params = await validation.validateRequest(req, schemaCreateNews, true);
         logger.info(`Admin creates news`, req);
         let response = await createNews.create(params);
         res.status(200).json(response);
     }));
 
     router.put('/:newsId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        const params = await validation.validateRequest(req, schemaEditNews, logger);
+        const params = await validation.validateRequest(req, schemaEditNews, true);
         logger.info(`Admin edits news`, req);
         let response = await editNews.edit(params);
         res.status(200).json(response);

@@ -27,12 +27,12 @@ describe('Integration Tests to send news preview', function () {
     it('Sending news preview', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.post('/api/news/preview', {title: 'title', text: 'description'});
+        let res = await requestHandler.post('/api/news/preview', {title: 'title', text: 'description <p></p>'});
         res.status.should.equal(200);
 
         stubSendEMail.calledWith("sendNews", {
             title: 'title',
-            text: 'description',
+            text: 'description <p></p>',
             forename: 'user',
             unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/news/user@irgendwo.ch`
         }, 'de', 'user@irgendwo.ch').should.be.true;
