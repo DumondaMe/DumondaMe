@@ -31,7 +31,7 @@ describe('Integration Tests edit news', function () {
     it('Edit news', async function () {
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/news/1', {title: 'title', text: 'description'});
+        let res = await requestHandler.put('/api/news/1', {title: 'title', text: 'description <p></p>'});
         res.status.should.equal(200);
         res.body.modified.should.be.at.least(startTime);
 
@@ -43,6 +43,6 @@ describe('Integration Tests edit news', function () {
         news[0].news.modified.should.be.at.least(startTime);
         news[0].news.created.should.equals(500);
         news[0].news.title.should.equals("title");
-        news[0].news.text.should.equals("description");
+        news[0].news.text.should.equals("description <p></p>");
     });
 });
