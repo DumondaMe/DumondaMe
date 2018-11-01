@@ -87,3 +87,16 @@ body {
     height: 100%;
   }
 }
+
+noscript{
+  position: fixed;
+  height: 58px;
+  line-height: 58px;
+  text-align: center;
+  z-index: 120;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  color: white;
+  background-color: #EF5350;
+}
