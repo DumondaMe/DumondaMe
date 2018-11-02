@@ -573,7 +573,7 @@
     "privacyPublic": "Dein Profil ist öffentlich",
     "privacyPublicOnDumondaMe": "Dein Profil wird nur von anderen Benutzern von DumondaMe gesehen",
     "privacyOnlyContact": "Nur Personen in deinem Trust Circle sehen dein Profil",
-    "privacyShowActivity": "Aktivitäten in deinem Profil anzeigen"
+    "privacyShowActivity": "Deine Aktivitäten in deinem Profil anderen Personen anzeigen"
   },
   "notifications": {
     "showQuestionRequest": {
