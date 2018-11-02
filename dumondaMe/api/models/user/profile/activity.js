@@ -18,12 +18,16 @@ let getFeedCommand = function (userId, userDetailId, page, timestamp, languages,
 };
 
 let getFeed = async function (userId, userDetailId, page, timestamp, languages, guiLanguage, topics, regions, req) {
-    await security.checkAllowedToGetProfile(userId, userDetailId, req);
+    let showProfileActivity = await security.checkAllowedToGetProfile(userId, userDetailId, req);
 
-    let response = await getFeedCommand(userId, userDetailId, page, timestamp, languages, guiLanguage, topics,
-        regions).send();
+    let feed = [];
+    if(userDetailId === userId || showProfileActivity) {
+        let response = await getFeedCommand(userId, userDetailId, page, timestamp, languages, guiLanguage, topics,
+            regions).send();
+        feed = await answerResponseHandler.getFeed(response, userId);
+    }
     return {
-        feed: await answerResponseHandler.getFeed(response, userId), timestamp
+        feed, timestamp
     };
 };
 

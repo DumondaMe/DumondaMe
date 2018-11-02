@@ -12,19 +12,37 @@
                 <span slot="label">{{$t("pages:settings.privacyOnlyContact")}}</span>
             </v-radio>
         </v-radio-group>
+        <div id="select-hide-activity">
+            <v-checkbox v-model="showProfileActivity" :label="$t('pages:settings.privacyShowActivity')"
+            color="primary">
+            </v-checkbox>
+        </div>
     </div>
 </template>
 
 <script>
+    import VCheckbox from "vuetify/lib/components/VCheckbox/VCheckbox";
+
     export default {
+        components: {VCheckbox},
         data() {
             return {
-                privacyMode: this.$store.state.setting.setting.privacyMode
+                privacyMode: this.$store.state.setting.setting.privacyMode,
+                showProfileActivity: this.$store.state.setting.setting.showProfileActivity
             }
         },
         watch: {
             privacyMode(newPrivacyMode) {
-                this.$store.dispatch('setting/setPrivacy', newPrivacyMode);
+                this.$store.dispatch('setting/setPrivacy', {
+                    privacyMode: newPrivacyMode,
+                    showProfileActivity: this.showProfileActivity
+                });
+            },
+            showProfileActivity(newShowProfileActivity) {
+                this.$store.dispatch('setting/setPrivacy', {
+                    privacyMode: this.privacyMode,
+                    showProfileActivity: newShowProfileActivity
+                });
             }
         }
     }

@@ -15,6 +15,7 @@ let checkAllowedToGetProfile = async function (userId, userDetailId, req) {
         return exceptions.getUnauthorized(`User ${userId} has not access rights to view user profile ${userDetailId}`,
             logger, req);
     }
+    return response[0].user.showProfileActivity;
 };
 
 module.exports = {

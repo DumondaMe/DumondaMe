@@ -94,6 +94,18 @@ describe('Getting user profile with activity feed', function () {
         res.body.feed[4].created.should.equals(444);
     });
 
+    it('Show feed of logged in user even when showProfileActivity is set to false', async function () {
+        dbDsl.setUserProfileActivityPrivacy('3', {showProfileActivity: false});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '3', created: 999});
+        dbDsl.watchQuestion({questionId: '100', userId: '1', created: 998});
+        dbDsl.watchCommitment({commitmentId: '21', userId: '1', created: 997});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/profile', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.feed.length.should.equal(5);
+    });
+
     it('Get profile of another user', async function () {
 
         dbDsl.upVoteAnswer({userId: '2', answerId: '4', created: 999});
@@ -130,6 +142,18 @@ describe('Getting user profile with activity feed', function () {
         res.body.feed[4].action.should.equals('created');
         res.body.feed[4].commitmentId.should.equals('21');
         res.body.feed[4].created.should.equals(444);
+    });
+
+    it('Hide feed of user when showProfileActivity is set to false', async function () {
+        dbDsl.setUserProfileActivityPrivacy('2', {showProfileActivity: false});
+        dbDsl.upVoteAnswer({userId: '2', answerId: '4', created: 999});
+        dbDsl.watchQuestion({questionId: '101', userId: '2', created: 998});
+        dbDsl.watchCommitment({commitmentId: '20', userId: '2', created: 997});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/profile', {userId: '2', guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.feed.length.should.equal(0);
     });
 
     it('Get profile data of a user (Not logged in)', async function () {

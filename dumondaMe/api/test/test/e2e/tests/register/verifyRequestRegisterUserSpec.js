@@ -75,6 +75,7 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
+        user[0].user.showProfileActivity.should.equals(true);
 
         user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
             .return('user').end({linkId: registerRequestUserValid.linkId}).send();
@@ -105,6 +106,7 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
+        user[0].user.showProfileActivity.should.equals(true);
 
         user = await db.cypher().match("(:User {email: 'info3@ELYOOS.org'})<-[:HAS_INVITED]-(user:User)")
             .return('user').orderBy("user.userId").end().send();

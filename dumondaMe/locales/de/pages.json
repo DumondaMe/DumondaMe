@@ -563,7 +563,7 @@
       "otherUserInfo_plural": "Hat {{count}} Antworten zugestimmt."
     },
     "feed": {
-      "noResults": "Hat noch keine Aktivitäten."
+      "noResults": "Hat noch keine Aktivitäten oder du kannst diese nicht sehen."
     }
   },
   "settings": {
@@ -572,7 +572,8 @@
     "privacyTitle": "Privatsphäreneinstellungen",
     "privacyPublic": "Dein Profil ist öffentlich",
     "privacyPublicOnDumondaMe": "Dein Profil wird nur von anderen Benutzern von DumondaMe gesehen",
-    "privacyOnlyContact": "Nur Personen in deinem Trust Circle sehen dein Profil"
+    "privacyOnlyContact": "Nur Personen in deinem Trust Circle sehen dein Profil",
+    "privacyShowActivity": "Aktivitäten in deinem Profil anzeigen"
   },
   "notifications": {
     "showQuestionRequest": {
