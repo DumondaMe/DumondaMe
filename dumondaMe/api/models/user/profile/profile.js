@@ -43,6 +43,7 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
                 (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
                 (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
         .return(`u.userId AS userId, u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
+                 u.showProfileActivity AS showProfileActivity,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[7].length === 1) {
@@ -59,10 +60,14 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
         profile.peopleTrustUser = resp[5];
         await userInfo.addImageForThumbnail(resp[5]);
 
-        profile.feed = await answerResponseHandler.getFeed(resp[6], userId);
-
-
         profile.isLoggedInUser = userId === userIdOfProfile;
+
+        if (profile.showProfileActivity || profile.isLoggedInUser) {
+            profile.feed = await answerResponseHandler.getFeed(resp[6], userId);
+        } else {
+            profile.feed = [];
+        }
+
         addSlugToPeople(profile.peopleOfTrust);
         addSlugToPeople(profile.peopleTrustUser);
         return profile;

@@ -15,11 +15,13 @@ describe('Getting user setting', function () {
     });
 
     it('Get user settings when logged in', async function () {
+        dbDsl.setUserProfileActivityPrivacy('1', {showProfileActivity: false});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/settings');
         res.status.should.equal(200);
         res.body.privacyMode.should.equal('public');
+        res.body.showProfileActivity.should.equal(false);
     });
 
     it('Get no user settings when not logged in', async function () {

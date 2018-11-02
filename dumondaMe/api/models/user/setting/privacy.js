@@ -2,9 +2,9 @@
 
 let db = requireDb();
 
-let changePrivacySettings = async function (userId, privacyMode) {
+let changePrivacySettings = async function (userId, privacyMode, showProfileActivity) {
     await db.cypher().match(`(user:User {userId: {userId}})`)
-        .set('user', {privacyMode: privacyMode})
+        .set('user', {privacyMode, showProfileActivity})
         .end({userId: userId}).send();
 };
 

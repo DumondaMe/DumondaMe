@@ -98,6 +98,11 @@ let setUserPrivacy = function (userId, data) {
         .set("u", {privacyMode: data.privacyMode}).end({userId}).getCommand());
 };
 
+let setUserProfileActivityPrivacy = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {showProfileActivity: data.showProfileActivity}).end({userId}).getCommand());
+};
+
 let setUserName = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
         .set("u", {name: data.name}).end({userId}).getCommand());
@@ -117,5 +122,6 @@ module.exports = {
     invitationSentBeforeRegistration,
     inviteUser,
     setUserPrivacy,
+    setUserProfileActivityPrivacy,
     setUserName
 };

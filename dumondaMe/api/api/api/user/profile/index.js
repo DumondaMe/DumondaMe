@@ -39,7 +39,7 @@ module.exports = function (router) {
         let params = await validation.validateRequest(req, schemaRequestGetUserDetails);
         params.timestamp = params.timestamp || time.getNowUtcTimestamp();
         let userProfile = await profile.getUserProfile(req.user.id, params.userId, params.languages, params.guiLanguage,
-            params.timestamp);
+            params.timestamp, req);
         logger.info("Requests of user profile", req);
         res.status(200).json(userProfile);
     }));

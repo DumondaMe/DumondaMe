@@ -42,6 +42,7 @@ let verify = async function (linkId, req) {
     userId = uuid.generateUUID();
     user.userId = userId;
     user.privacyMode = 'publicEl';
+    user.showProfileActivity = true;
 
     commands.push(db.cypher().match(`(user:UserRegisterRequest {linkId: {linkId}})`)
         .return("user").end({linkId: linkId}).getCommand());

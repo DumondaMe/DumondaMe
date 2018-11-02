@@ -23,13 +23,13 @@ let init = function (numberOfUser, isDumondaMeAdmin) {
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
         name: 'user Meier', surname: 'Meier', forename:'user', userDescription: 'superman', userId: '1', lastSetupAccount: 500, dumondaMeAdmin: {dumondaMeAdmin}, language: 'de',
-        userLocationDescription: 'irgendwo', latitude: 1.1, longitude: 2.2, privacyMode: 'public'})`)
+        userLocationDescription: 'irgendwo', latitude: 1.1, longitude: 2.2, privacyMode: 'public', showProfileActivity: true})`)
             .end({dumondaMeAdmin: isDumondaMeAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', userDescription: 'superman${userId}', 
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch', 
-            language: 'de', emailNormalized: 'user${userId}@irgendwo.ch', latitude: 0, longitude: 0, privacyMode: 'public'})`).end().getCommand());
+            language: 'de', emailNormalized: 'user${userId}@irgendwo.ch', latitude: 0, longitude: 0, privacyMode: 'public', showProfileActivity: true})`).end().getCommand());
         }
     });
 };
@@ -80,6 +80,7 @@ module.exports = {
     invitationSentBeforeRegistration: user.invitationSentBeforeRegistration,
     inviteUser: user.inviteUser,
     setUserPrivacy: user.setUserPrivacy,
+    setUserProfileActivityPrivacy: user.setUserProfileActivityPrivacy,
     setUserName: user.setUserName,
 
     createNews: news.createNews,

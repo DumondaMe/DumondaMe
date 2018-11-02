@@ -9,9 +9,10 @@ const schemaChangePrivacy = {
     name: 'changePrivacy',
     type: 'object',
     additionalProperties: false,
-    required: ['privacyMode'],
+    required: ['privacyMode', 'showProfileActivity'],
     properties: {
         privacyMode: {enum: ['public', 'publicEl', 'onlyContact']},
+        showProfileActivity: {type: 'boolean'}
     }
 };
 
@@ -20,7 +21,7 @@ module.exports = function (router) {
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaChangePrivacy);
         logger.info(`User ${req.user.id} changes privacy settings`, req);
-        await privacy.changePrivacySettings(req.user.id, request.privacyMode);
+        await privacy.changePrivacySettings(req.user.id, request.privacyMode, request.showProfileActivity);
         res.status(200).end();
     }));
 };
