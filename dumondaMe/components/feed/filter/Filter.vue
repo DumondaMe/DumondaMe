@@ -25,7 +25,7 @@
             <v-tooltip top class="filter-element-container" :class="{'is-public': !isAuthenticated}">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
-                    <v-icon slot="activator">mdi-clipboard-pulse-outline</v-icon>
+                    <v-icon slot="activator">mdi-heart-pulse</v-icon>
                 </div>
                 <span v-if="isAuthenticated">{{$t("pages:feeds.filter.tooltip.activity")}}</span>
                 <span v-else>{{$t("pages:feeds.filter.tooltip.activityPublic")}}</span>
