@@ -47,7 +47,7 @@
                 return this.$store.state.auth.userIsAuthenticated
             },
             logoUrl() {
-                return `${process.env.staticUrl}/img/logo.jpg`;
+                return `${process.env.staticUrl}/img/logo.png`;
             },
             showNotification() {
                 return this.numberOfNotifications > 0;
