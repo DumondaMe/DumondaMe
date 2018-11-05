@@ -11,7 +11,7 @@
                 <v-icon>mdi-calendar</v-icon>
             </v-tab>
             <v-tab nuxt :to="{name: 'activity'}" v-if="isAuthenticated">
-                <v-icon>mdi-clipboard-pulse-outline</v-icon>
+                <v-icon>mdi-heart-pulse</v-icon>
             </v-tab>
         </v-tabs>
     </div>
