@@ -6,9 +6,9 @@
             </div>
             <search-toolbar></search-toolbar>
             <v-spacer></v-spacer>
-            <div class="header-nav" v-if="!isAuthenticated">
-                <v-btn outline color="primary" v-on:click="$router.push({name: 'login'})" class="right-outer-element"
-                       small>
+            <div class="header-nav-button" v-if="!isAuthenticated">
+                <v-btn v-on:click="$router.push({name: 'login'})" class="right-outer-element"
+                       small color="secondary">
                     {{$t("common:toolbar.login")}}
                 </v-btn>
             </div>
@@ -79,6 +79,10 @@
                 margin-top: 10px;
                 margin-right: 12px;
             }
+        }
+        .header-nav-button {
+            height: 100%;
+            padding-top: 8px;
         }
         .header-nav.menu-nav {
             button {
