@@ -17,7 +17,7 @@
                    @click="$router.push({name: 'login'})">
                 {{$t('common:button.login')}}
             </v-btn>
-            <v-btn color="primary" class="navigation-button-full-width"
+            <v-btn color="primary" class="navigation-button-full-width register-button"
                    @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
             </v-btn>
@@ -164,6 +164,9 @@
         }
         .user-navigation {
             margin-bottom: 8px;
+        }
+        .register-button {
+            margin-bottom: 38px;
         }
         .common-navigation {
             margin-top: 14px;
