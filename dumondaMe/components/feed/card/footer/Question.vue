@@ -11,7 +11,7 @@
         </div>
         <div class="footer-icon" v-if="action === 'watch'">
             <v-tooltip bottom>
-                <v-icon medium class="tooltip-icon" slot="activator">mdi-star</v-icon>
+                <v-icon medium class="main-action-icon" slot="activator">mdi-star</v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.userUpVote.titleIsLoggedInUser')}}</span>
                 <span v-else>{{user.name}} {{$t('pages:feeds.menu.userUpVote.title')}}</span>
@@ -19,7 +19,7 @@
         </div>
         <div class="footer-icon" v-if="action === 'created'">
             <v-tooltip bottom>
-                <v-icon medium class="tooltip-icon" slot="activator">mdi-comment-question</v-icon>
+                <v-icon medium class="main-action-icon" slot="activator">mdi-comment-question</v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
                 <span v-else>{{user.name}} {{$t('pages:feeds.menu.creatorQuestion.title')}}</span>

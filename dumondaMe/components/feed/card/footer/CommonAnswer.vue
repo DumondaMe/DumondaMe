@@ -11,7 +11,7 @@
         </div>
         <div class="footer-icon">
             <v-tooltip bottom v-if="action === 'created'" class="footer-user-action">
-                <v-icon medium slot="activator" class="tooltip-icon">
+                <v-icon medium slot="activator" class="main-action-icon">
                     mdi-comment-plus
                 </v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -22,7 +22,7 @@
                 </span>
             </v-tooltip>
             <v-tooltip bottom v-if="action === 'upVote'" class="footer-user-action">
-                <v-icon medium slot="activator" class="tooltip-icon">
+                <v-icon medium slot="activator" class="main-action-icon">
                     mdi-thumb-up
                 </v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
