@@ -2,12 +2,9 @@
 
 const Promise = require('bluebird');
 const AWS = require('aws-sdk');
-const NodeCache = require('node-cache');
 const expiresAfterADay = 60 * 60 * 12;
 const fs = require('fs');
 const logger = require('./logging').getLogger(__filename);
-
-const cache = new NodeCache({stdTTL: 10800, checkperiod: 3600});
 
 if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
@@ -31,24 +28,20 @@ let copyFile = function (source, destination, bucket) {
 };
 
 const getSignedUrl = async function (path) {
-    let params = {Bucket: process.env.BUCKET_PRIVATE, Key: path, Expires: expiresAfterADay},
-        signedUrl = cache.get(path);
-    if (!signedUrl) {
-        try {
-            signedUrl = await new Promise(function (resolve, reject) {
-                s3.getSignedUrl('getObject', params, function (err, data) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        cache.set(path, data);
-                        resolve(data);
-                    }
-                });
+    let params = {Bucket: process.env.BUCKET_PRIVATE, Key: path, Expires: expiresAfterADay}, signedUrl = null;
+    try {
+        signedUrl = await new Promise(function (resolve, reject) {
+            s3.getSignedUrl('getObject', params, function (err, data) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
             });
-        }
-        catch (error) {
-            logger.error(`Getting Url ${path} from s3 failed`, null, error);
-        }
+        });
+    }
+    catch (error) {
+        logger.error(`Getting Url ${path} from s3 failed`, null, error);
     }
     return signedUrl;
 };
