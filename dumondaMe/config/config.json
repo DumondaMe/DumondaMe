@@ -46,10 +46,10 @@
             "cookie": {
               "path": "/",
               "httpOnly": true,
-              "maxAge": 43200000,
+              "maxAge": 172800,
               "sameSite": false
             },
-            "rolling": false,
+            "rolling": true,
             "proxy": null,
             "resave": false,
             "saveUninitialized": true
