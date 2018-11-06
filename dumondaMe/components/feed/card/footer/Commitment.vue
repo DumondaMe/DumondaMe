@@ -11,10 +11,10 @@
         </div>
         <div class="footer-icon" v-if="action">
             <div class="footer-icon" v-if="action === 'watch'">
-                <v-icon medium class="tooltip-icon">mdi-star</v-icon>
+                <v-icon medium class="main-action-icon">mdi-star</v-icon>
             </div>
             <v-tooltip bottom v-if="action === 'created' && cardType === 'Commitment'" class="footer-user-action">
-                <v-icon medium slot="activator" class="tooltip-icon" v-if="cardType === 'Commitment'">
+                <v-icon medium slot="activator" class="main-action-icon" v-if="cardType === 'Commitment'">
                     mdi-human-handsup
                 </v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -25,7 +25,7 @@
                     </span>
             </v-tooltip>
             <v-tooltip bottom v-else-if="action === 'created' && cardType !== 'Commitment'" class="footer-user-action">
-                <v-icon medium slot="activator" class="tooltip-icon">
+                <v-icon medium slot="activator" class="main-action-icon">
                     mdi-comment-plus
                 </v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -36,7 +36,7 @@
                 </span>
             </v-tooltip>
             <v-tooltip bottom v-else-if="action === 'upVote'" class="footer-user-action">
-                <v-icon medium slot="activator" class="tooltip-icon">
+                <v-icon medium slot="activator" class="main-action-icon">
                     mdi-thumb-up
                 </v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
