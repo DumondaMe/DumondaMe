@@ -42,13 +42,25 @@
             }
         },
         head() {
+            let description = '';
+            if (this.commitment && this.commitment.description) {
+                description = this.commitment.description.substring(0, 150);
+                if (this.commitment.description.length > 150) {
+                    description += '...';
+                }
+            }
             return {
                 title: this.commitment.title,
                 htmlAttrs: {
                     lang: this.commitment.lang
                 },
                 meta: [
-                    {hid: 'description', name: 'description', content: this.commitment.description}
+                    {hid: 'description', name: 'description', content: description},
+                    {hid: 'og:title', name: 'og:title', content: this.commitment.title},
+                    {hid: 'og:description', name: 'og:description', content: description},
+                    {hid: 'og:url', name: 'og:url', content: `https://dumonda.me${this.$route.path}`},
+                    {hid: 'twitter:title', name: 'twitter:title', content: this.commitment.title},
+                    {hid: 'twitter:description', name: 'twitter:description', content: description}
                 ]
             }
         },
