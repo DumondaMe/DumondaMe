@@ -1,6 +1,14 @@
 <template>
     <div id="feed-filter">
         <div class="type-filter-container">
+            <v-tooltip top class="filter-element-container" :class="{'is-public': !isAuthenticated}">
+                <div class="filter-element" slot="activator"
+                     :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
+                    <v-icon slot="activator">mdi-heart-pulse</v-icon>
+                </div>
+                <span v-if="isAuthenticated">{{$t("pages:feeds.filter.tooltip.activity")}}</span>
+                <span v-else>{{$t("pages:feeds.filter.tooltip.activityPublic")}}</span>
+            </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'question'}" @click="setFilter('question')">
@@ -21,14 +29,6 @@
                     <v-icon>mdi-calendar</v-icon>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
-            </v-tooltip>
-            <v-tooltip top class="filter-element-container" :class="{'is-public': !isAuthenticated}">
-                <div class="filter-element" slot="activator"
-                     :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
-                    <v-icon slot="activator">mdi-heart-pulse</v-icon>
-                </div>
-                <span v-if="isAuthenticated">{{$t("pages:feeds.filter.tooltip.activity")}}</span>
-                <span v-else>{{$t("pages:feeds.filter.tooltip.activityPublic")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
             <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
@@ -87,12 +87,12 @@
         methods: {
             async setFilter(filter) {
                 if (!(filter === 'activity' && !this.$store.state.auth.userIsAuthenticated)) {
-                    if (filter !== 'question') {
+                    if ((filter !== 'activity' && this.$store.state.auth.userIsAuthenticated) ||
+                        (filter !== 'question' && !this.$store.state.auth.userIsAuthenticated) ) {
                         this.$router.push({name: filter});
                     } else {
                         this.$router.push({name: 'index'});
                     }
-                    /*await this.$store.dispatch('feed/getFeed');*/
                 }
             },
             async topicChanged(topics) {
