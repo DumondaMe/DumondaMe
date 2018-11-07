@@ -5,14 +5,14 @@
             <div id="login-content-container">
                 <v-form @submit.prevent="login" v-model="valid" ref="form">
                     <p class="login-error" v-if="formError && !loading">{{$t('pages:login.invalidLoginData')}}</p>
-                    <v-text-field type="text" v-model="formUsername" name="username"
+                    <v-text-field type="text" v-model="formUsername" name="username" autocomplete="username"
                                   :label="$t('common:email')"
                                   :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                            ruleIsEmail($t('validation:isEmail')),
                                            ruleToManyChars($t('validation:toManyChars'), 255)]"
                                   class="input-group--focused">
                     </v-text-field>
-                    <v-text-field type="password" v-model="formPassword" name="password"
+                    <v-text-field type="password" v-model="formPassword" name="password" autocomplete="current-password"
                                   :label="$t('common:password')"
                                   :rules="[ruleFieldRequired($t('validation:fieldRequired')),
                                            ruleToManyChars($t('validation:toManyChars'), 55)]">
@@ -56,7 +56,8 @@
                     this.$store.dispatch('notification/startCheckNotificationChanged');
                     this.$store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
                     if (!this.fromRoute || this.fromRoute.name === null ||
-                        this.fromRoute.name === 'login-passwordReset') {
+                        this.fromRoute.name === 'login-passwordReset' || this.fromRoute.name === 'commitment' ||
+                        this.fromRoute.name === 'event') {
                         this.$router.replace({name: 'index'});
                     } else {
                         this.$router.go(-1);
