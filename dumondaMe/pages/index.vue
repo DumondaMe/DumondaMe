@@ -42,7 +42,9 @@
     export default {
         async fetch({error, store, route}) {
             try {
-                if (route.name === 'index') {
+                if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
+                    store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
+                } else if (route.name === 'index' && !store.state.auth.userIsAuthenticated) {
                     store.commit('feedFilter/SET_MAIN_FILTER', 'question');
                 } else {
                     store.commit('feedFilter/SET_MAIN_FILTER', route.name);
