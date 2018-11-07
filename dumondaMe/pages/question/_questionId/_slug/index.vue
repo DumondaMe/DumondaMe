@@ -35,13 +35,25 @@
             }
         },
         head() {
+            let description = '';
+            if (this.question && this.question.description) {
+                description = this.question.description.substring(0, 150);
+                if (this.question.description.length > 150) {
+                    description += '...';
+                }
+            }
             return {
                 title: this.question.question,
                 htmlAttrs: {
                     lang: this.question.language
                 },
                 meta: [
-                    {hid: 'description', name: 'description', content: this.question.description}
+                    {hid: 'description', name: 'description', content: description},
+                    {hid: 'og:title', name: 'og:title', content: this.question.question},
+                    {hid: 'og:description', name: 'og:description', content: description},
+                    {hid: 'og:url', name: 'og:url', content: `https://dumonda.me${this.$route.path}`},
+                    {hid: 'twitter:title', name: 'twitter:title', content: this.question.question},
+                    {hid: 'twitter:description', name: 'twitter:description', content: description}
                 ]
             }
         },

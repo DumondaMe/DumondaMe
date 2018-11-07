@@ -60,7 +60,18 @@
             return {
                 htmlAttrs: {
                     lang: this.$store.state.i18n.language
-                }
+                },
+                meta: [
+                    {hid: 'description', name: 'description', content: this.$t('common:meta.description')},
+                    {hid: 'keywords', name: 'keywords', content: this.$t('common:meta.keywords')},
+                    {hid: 'og:description', property: 'og:description', content: this.$t('common:meta.description')},
+                    {hid: 'og:title', property: 'og:title', content: this.$t('common:navigation.home')},
+                    {
+                        hid: 'twitter:description', property: 'twitter:description',
+                        content: this.$t('common:meta.description')
+                    },
+                    {hid: 'twitter:title', property: 'twitter:title', content: this.$t('common:navigation.home')}
+                ]
             }
         },
         data() {
@@ -69,13 +80,16 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            },
+            }
+            ,
             showHelpFeedInfo() {
                 return this.$store.state.feed.totalNumberOfElements === 0;
-            },
+            }
+            ,
             showLoadNextButton() {
                 return this.$store.state.feed.loadingNext && !this.$store.state.feed.loading;
-            },
+            }
+            ,
             feed() {
                 return this.$store.state.feed.feed
             }
@@ -84,8 +98,9 @@
             async loadNext() {
                 try {
                     this.loadNextRunning = true;
-                    await this.$store.dispatch(`feed/loadNextFeedElements`,
-                        {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
+                    await
+                        this.$store.dispatch(`feed/loadNextFeedElements`,
+                            {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
                     this.loadNextRunning = false;
                 }
                 catch (error) {

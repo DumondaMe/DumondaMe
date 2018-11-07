@@ -7,7 +7,19 @@ module.exports = {
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-            {hid: 'description', name: 'description', content: 'DumondaMe'}
+            {hid: 'og:type', property: 'og:type', content: 'website'},
+            {hid: 'og:url', property: 'og:url', content: 'https://www.dumonda.me/'},
+            {hid: 'og:site_name', property: 'og:site_name', content: 'Dumonda Me'},
+            {
+                hid: 'og:image', property: 'og:image',
+                content: `${process.env.CLIENT_STATIC_URL}/img/socialMedia/preview.jpg`
+            },
+            {hid: 'twitter:card', property: 'twitter:card', content: 'summary'},
+            {hid: 'twitter:url', property: 'twitter:url', content: 'https://www.dumonda.me/'},
+            {
+                hid: 'twitter:image', property: 'twitter:image',
+                content: `${process.env.CLIENT_STATIC_URL}/img/socialMedia/preview.jpg`
+            }
         ],
         noscript: [{innerHTML: "This website requires JavaScript", body: true}],
         link: [

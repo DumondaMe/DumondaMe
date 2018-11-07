@@ -135,5 +135,9 @@
   "beta": {
     "title": "Beta Version",
     "description": "DumondaMe is still at the very beginning and is now publicly available as beta version. This means that the platform may contain bugs and does not have the full functionality yet."
+  },
+  "meta": {
+    "description": "DumondaMe is the social network for a sustainable society.",
+    "keywords": "Social justice, Quality of life, Peace, Environmental protection, Economy, Society, Health, Art, Culture, Agriculture, Food, Spirituality, Consciousness, Human rights, Closeness to nature, Alternative medicine, Physical activity, Nutrition, Permaculture "
   }
 }
