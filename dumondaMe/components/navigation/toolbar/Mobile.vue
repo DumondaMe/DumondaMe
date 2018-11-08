@@ -55,11 +55,6 @@
         data() {
             return {showSearch: false}
         },
-        computed: {
-            isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
-            }
-        },
         methods: {
             closeSearch() {
                 if (this.$route.name === 'search') {
