@@ -81,6 +81,28 @@ const addCreatedAnswerProperties = function (notificationResponse, notification)
     }
 };
 
+const addCreatedNoteProperties = function (notificationResponse, notification) {
+    if (notificationResponse.type === 'createdNote') {
+        let answer = notification.infos.find((info) => typeof info.info.answerId === 'string');
+        let question = notification.infos.find((info) => typeof info.info.questionId === 'string').info;
+        let note = notification.infos.find((info) => typeof info.info.noteId === 'string').info;
+        notificationResponse.questionId = question.questionId;
+        notificationResponse.questionTitle = question.question;
+        notificationResponse.questionSlug = slug(question.question);
+        notificationResponse.answerId = answer.info.answerId;
+        notificationResponse.answerType = answer.type.filter(
+            (l) => ['Youtube', 'Text', 'Link', 'Book'].some(v => v === l))[0];
+        notificationResponse.noteId = note.noteId;
+        notificationResponse.noteText = note.text;
+
+        if (notificationResponse.answerType === 'Text') {
+            notificationResponse.answerTitle = answer.info.answer;
+        } else {
+            notificationResponse.answerTitle = answer.info.title;
+        }
+    }
+};
+
 const getResponse = async function (notifications) {
     let response = [];
     for (let notification of notifications) {
@@ -89,11 +111,13 @@ const getResponse = async function (notifications) {
         } else if (notification.notification.type === 'addedToTrustCircle' ||
             notification.notification.type === 'watchingCommitment' ||
             notification.notification.type === 'watchingQuestion' ||
-            notification.notification.type === 'createdAnswer') {
+            notification.notification.type === 'createdAnswer' ||
+            notification.notification.type === 'createdNote') {
             let notificationResponse = await getNotificationWithOriginators(notification);
             addWatchingCommitmentProperties(notificationResponse, notification);
             addWatchingQuestionProperties(notificationResponse, notification);
             addCreatedAnswerProperties(notificationResponse, notification);
+            addCreatedNoteProperties(notificationResponse, notification);
             response.push(notificationResponse);
         }
     }

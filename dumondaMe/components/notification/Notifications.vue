@@ -11,6 +11,8 @@
             </watch-question>
             <created-answer :notification="notification" v-if="notification.type === 'createdAnswer'">
             </created-answer>
+            <created-note :notification="notification" v-if="notification.type === 'createdNote'">
+            </created-note>
         </div>
         <div id="no-notifications" class="ely-card" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
@@ -25,10 +27,11 @@
     import WatchCommitment from './WatchCommitment';
     import WatchQuestion from './WatchQuestion';
     import CreatedAnswer from './CreatedAnswer';
+    import CreatedNote from './CreatedNote';
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer},
+        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer, CreatedNote},
         computed: {
             ...mapGetters({
                 notifications: 'notification/notifications'

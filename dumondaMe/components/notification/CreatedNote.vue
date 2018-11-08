@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-created-answer">
+    <div class="notification-created-note">
         <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
         <div class="notification-user">
             <div class="user-image" @click="$router.push({name: 'user-userId-slug',
@@ -12,16 +12,16 @@
                      params: {userId: notification.users[0].userId, slug: notification.users[0].slug}})">
                             {{notification.users[0].name}} </span>
                     <span v-if="notification.answerType !== 'Text'"
-                         v-html="$t('pages:notifications.createdAnswer.notification', {question, type, answer})">
+                          v-html="$t('pages:notifications.createdNote.notification', {question, type, answer})">
                     </span>
                     <span v-else
-                         v-html="$t('pages:notifications.createdAnswer.notificationTextAnswer', {question})">
+                          v-html="$t('pages:notifications.createdNote.notificationTextAnswer', {question, answer})">
                     </span>
                 </div>
             </div>
         </div>
-        <div class="text-answer" v-if="notification.answerType === 'Text'">
-            {{notification.answerTitle}}
+        <div class="text-answer">
+            {{notification.noteText}}
         </div>
         <watched-command :notification="notification"></watched-command>
     </div>
@@ -36,17 +36,18 @@
         components: {Users, WatchedCommand},
         computed: {
             question() {
-                return `<a class="notification-title"
-                           href="${this.questionLink()}">
-                        ${this.notification.questionTitle}</a>`
+                return `<a class="notification-title" href="${this.questionLink()}">
+                           ${this.notification.questionTitle}</a>`
             },
             type() {
                 return this.$t(`common:answerType.${this.notification.answerType}`);
             },
             answer() {
-                return `<a class="notification-title"
-                           href="${this.questionLink()}">
-                        ${this.notification.answerTitle}</a>`
+                let answer = this.notification.answerTitle;
+                if (answer.length > 60) {
+                    answer = answer.substring(0, 80) + '...';
+                }
+                return `<a class="notification-title main-notification" href="${this.questionLink()}">${answer}</a>`
             }
         },
         methods: {
@@ -58,7 +59,7 @@
 </script>
 
 <style lang="scss">
-    .notification-created-answer {
+    .notification-created-note {
         font-weight: 300;
         .notification-user {
             margin-top: 12px;
@@ -84,8 +85,8 @@
                     font-size: 16px;
                     line-height: normal;
                     .user-name {
-                        font-weight: 500;
                         color: $primary-text;
+                        font-weight: 500;
                         cursor: pointer;
                     }
                     :hover.user-name {
@@ -104,12 +105,15 @@
             font-size: 16px;
         }
         .notification-title {
+            color: $primary-text;
             font-weight: 400;
-            color: $primary-color;
             text-decoration: none;
         }
         :hover.notification-title {
             text-decoration: underline;
+        }
+        .notification-title.main-notification {
+            color: $primary-color;
         }
         .text-answer {
             margin-top: 12px;

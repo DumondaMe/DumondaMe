@@ -33,7 +33,7 @@
             font-size: 16px;
         }
         .commitment-title {
-            font-weight: 500;
+            font-weight: 400;
             color: $primary-color;
             text-decoration: none;
         }
