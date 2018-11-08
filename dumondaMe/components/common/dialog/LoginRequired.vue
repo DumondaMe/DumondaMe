@@ -3,7 +3,8 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="250px">
             <v-card id="dialog-login-required">
                 <v-card-text id="dialog-login-required-content">
-                    <p>{{$t("common:loginRequiredInfo")}}</p>
+                    <p v-if="loginDescription">{{loginDescription}}</p>
+                    <p v-else>{{$t("common:loginRequiredInfo")}}</p>
                     <div>
                         <v-btn color="primary" outline @click="goToLogin()" class="link-button">
                             {{$t("common:toolbar.login")}}
@@ -29,6 +30,7 @@
 
 <script>
     export default {
+        props: ['loginDescription'],
         data() {
             return {dialog: true}
         },

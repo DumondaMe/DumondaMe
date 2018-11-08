@@ -20,7 +20,8 @@
                 <v-icon>mdi-calendar</v-icon>
             </v-tab>
         </v-tabs>
-        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false"
+                               :login-description="$t('pages:feeds.filter.activity.loginDescription')">
         </login-required-dialog>
     </div>
 </template>
