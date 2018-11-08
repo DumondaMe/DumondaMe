@@ -22,14 +22,15 @@
     import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
-        async asyncData({params, query, app, error, store}) {
+        async fetch({params, query, app, error, store}) {
             try {
                 let paramsToSend = {params: {language: store.state.i18n.language}};
                 if (query.answerId) {
                     paramsToSend.params.answerId = query.answerId;
                 }
-                let resp = await app.$axios.$get(`question/detail/${params.questionId}`, paramsToSend);
-                return {question: resp};
+                let question = await app.$axios.$get(`question/detail/${params.questionId}`, paramsToSend);
+                question.questionId = params.questionId;
+                store.commit('question/SET_QUESTION', question);
             } catch (e) {
                 error({statusCode: e.statusCode})
             }
@@ -58,9 +59,10 @@
             }
         },
         components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion},
-        created() {
-            this.question.questionId = this.$route.params.questionId;
-            this.$store.commit('question/SET_QUESTION', this.question);
+        computed: {
+            question() {
+                return this.$store.state.question.question.question;
+            }
         }
     }
 </script>
