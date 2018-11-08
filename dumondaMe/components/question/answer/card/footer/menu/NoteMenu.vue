@@ -67,20 +67,6 @@
                 return this.$store.state.question.sortNotes;
             }
         },
-        async mounted() {
-            if (this.numberOfNotes > 0) {
-                try {
-                    this.loading = true;
-                    await this.$store.dispatch('question/loadAnswerNote', this.answerId);
-                }
-                catch (error) {
-                    this.showError = true;
-                }
-                finally {
-                    this.loading = false;
-                }
-            }
-        },
         components: {CreateNoteDialog, LoginRequiredDialog, Note},
         methods: {
             async toggleSort() {
@@ -100,6 +86,22 @@
                     this.closeOnClickOutside = false
                 } else {
                     this.showLoginRequired = true;
+                }
+            }
+        },
+        watch: {
+            async menu(isOpen) {
+                if (this.numberOfNotes > 0 && isOpen) {
+                    try {
+                        this.loading = true;
+                        await this.$store.dispatch('question/loadAnswerNote', this.answerId);
+                    }
+                    catch (error) {
+                        this.showError = true;
+                    }
+                    finally {
+                        this.loading = false;
+                    }
                 }
             }
         }
