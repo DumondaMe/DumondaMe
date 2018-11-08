@@ -6,20 +6,26 @@
             </div>
             <div class="dumonda-me-mobile-header-container" v-else>
                 <v-btn icon class="nav-icon" v-if="$route.name === 'index' || $route.name === 'commitment' ||
-            $route.name === 'event' || $route.name === 'activity'" @click="$emit('open-drawer')">
+            $route.name === 'event' || $route.name === 'activity' || $route.name === 'question'"
+                       @click="$emit('open-drawer')">
                     <v-icon>mdi-menu</v-icon>
                 </v-btn>
                 <v-btn icon class="nav-icon" v-else @click="$router.go(-1)">
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
-                <div class="mobile-header-title" v-if="$route.name === 'index'">{{$t('common:toolbar.questions')}}</div>
+                <div class="mobile-header-title" v-if="$route.name === 'index' && isAuthenticated">
+                    {{$t('common:toolbar.activities')}}
+                </div>
+                <div class="mobile-header-title" v-else-if="$route.name === 'index' && !isAuthenticated">
+                    {{$t('common:toolbar.questions')}}
+                </div>
                 <div class="mobile-header-title" v-else-if="$route.name === 'commitment'">
                     {{$t('common:toolbar.commitments')}}
                 </div>
                 <div class="mobile-header-title" v-else-if="$route.name === 'event'">{{$t('common:toolbar.events')}}
                 </div>
-                <div class="mobile-header-title" v-else-if="$route.name === 'activity'">
-                    {{$t('common:toolbar.activities')}}
+                <div class="mobile-header-title" v-else-if="$route.name === 'question'">
+                    {{$t('common:toolbar.questions')}}
                 </div>
                 <v-spacer></v-spacer>
                 <v-btn icon class="nav-icon">
@@ -48,6 +54,11 @@
         components: {SearchToolbar},
         data() {
             return {showSearch: false}
+        },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
         },
         methods: {
             closeSearch() {

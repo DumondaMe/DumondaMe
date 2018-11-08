@@ -1,7 +1,8 @@
 <template>
     <div id="dumonda-me-header" :class="{'header-without-boarder': $route.name === 'index' ||
-    $route.name === 'commitment' || $route.name === 'event' || $route.name === 'activity'}">
-        <desktop-toolbar :is-authenticated="isAuthenticated"  id="desktop-toolbar"
+    $route.name === 'commitment' || $route.name === 'event' || $route.name === 'activity' ||
+    $route.name === 'question'}">
+        <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
                          :logo-url="logoUrl" :show-notification="showNotification"
                          :number-of-notifications="numberOfNotifications" @logout="logout"
                          @change-language="changeLanguage" @create-question="showCreateQuestion = true"

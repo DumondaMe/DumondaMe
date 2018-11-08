@@ -1,7 +1,16 @@
 <template>
     <div id="feed-mobile-filter">
-        <v-tabs centered color="mobile-filter-color" light fixed-tabs>
-            <v-tab nuxt :to="{name: 'index'}" exact>
+        <v-tabs centered color="mobile-filter-color" light fixed-tabs v-model="selectedTab">
+            <v-tab nuxt :to="{name: 'index'}" exact v-if="isAuthenticated">
+                <v-icon>mdi-heart-pulse</v-icon>
+            </v-tab>
+            <v-tab @click="showLoginRequired = true" v-else>
+                <v-icon>mdi-heart-pulse</v-icon>
+            </v-tab>
+            <v-tab nuxt :to="{name: 'question'}" v-if="isAuthenticated">
+                <v-icon>mdi-help-circle-outline</v-icon>
+            </v-tab>
+            <v-tab nuxt :to="{name: 'index'}" v-else exact>
                 <v-icon>mdi-help-circle-outline</v-icon>
             </v-tab>
             <v-tab nuxt :to="{name: 'commitment'}">
@@ -10,34 +19,31 @@
             <v-tab nuxt :to="{name: 'event'}">
                 <v-icon>mdi-calendar</v-icon>
             </v-tab>
-            <v-tab nuxt :to="{name: 'activity'}" v-if="isAuthenticated">
-                <v-icon>mdi-heart-pulse</v-icon>
-            </v-tab>
         </v-tabs>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
     </div>
 </template>
 
 <script>
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import Vue from 'vue';
+
     export default {
         data() {
-            return {index: 1};
+            return {showLoginRequired: false, selectedTab: null};
         },
+        components: {LoginRequiredDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            },
-            mainFilter() {
-                return this.$store.state.feedFilter.mainFilter;
             }
         },
-        methods: {
-            async setFilter(filter) {
-                if (!(filter === 'activity' && !this.$store.state.auth.userIsAuthenticated)) {
-                    if (filter !== 'question') {
-                        this.$router.push({name: filter});
-                    } else {
-                        this.$router.push({name: 'index'});
-                    }
+        watch: {
+            async selectedTab(newTab, previousTab) {
+                if (newTab === 0 && previousTab !== 0 && previousTab) {
+                    await Vue.nextTick();
+                    this.selectedTab = previousTab;
                 }
             }
         }
