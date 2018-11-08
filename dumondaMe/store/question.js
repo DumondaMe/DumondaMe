@@ -2,8 +2,9 @@ import Vue from 'vue';
 
 export const state = () => ({
     question: {
-        question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0, isAdmin: false,
-        numberOfAnswers: 0, numberOfSuggestions: 0, userWatchesQuestion: false, answers: [], topics: [], regions: []
+        questionId: '', question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0,
+        isAdmin: false, numberOfAnswers: 0, numberOfSuggestions: 0, userWatchesQuestion: false, answers: [],
+        topics: [], regions: []
     },
     sortNotes: 'newest',
     nextAnswersPage: 1
