@@ -70,6 +70,9 @@
         "onlyCommitment": "Engagements",
         "onlyEvent": "Veranstaltungen"
       },
+      "activity": {
+        "loginDescription": "Erstelle ein Konto oder logge dich ein um im Activity Feed zu sehen, was im Netzwerk geschieht, so zum Beispiel welche Fragen gerade gestellt oder beantwortet wurden."
+      },
       "question": {
         "onlyQuestion": "Nur Fragen",
         "onlyAnswer": "Nur Antworten"

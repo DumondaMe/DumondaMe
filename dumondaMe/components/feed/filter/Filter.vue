@@ -1,7 +1,7 @@
 <template>
     <div id="feed-filter">
         <div class="type-filter-container">
-            <v-tooltip top class="filter-element-container" :class="{'is-public': !isAuthenticated}">
+            <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
                     <v-icon slot="activator">mdi-heart-pulse</v-icon>
@@ -55,6 +55,9 @@
             <sub-filter-commitment v-else-if="mainFilter === 'commitment'"></sub-filter-commitment>
             <sub-filter-event v-else-if="mainFilter === 'event'"></sub-filter-event>
         </div>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false"
+                               :login-description="$t('pages:feeds.filter.activity.loginDescription')">
+        </login-required-dialog>
     </div>
 </template>
 
@@ -65,11 +68,12 @@
     import SubFilterEvent from './subFilter/Event';
     import CommonFilterTopic from './commonFilter/SelectTopic';
     import CommonFilterTrustCircle from './commonFilter/TrustCircle';
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
 
     export default {
         components: {
             SubFilterActivity, SubFilterQuestion, SubFilterCommitment, SubFilterEvent,
-            CommonFilterTopic, CommonFilterTrustCircle
+            CommonFilterTopic, CommonFilterTrustCircle, LoginRequiredDialog
         },
         computed: {
             isAuthenticated() {
@@ -81,18 +85,20 @@
         },
         data: function () {
             return {
-                showTrustCircleFilter: false
+                showTrustCircleFilter: false, showLoginRequired: false
             }
         },
         methods: {
             async setFilter(filter) {
                 if (!(filter === 'activity' && !this.$store.state.auth.userIsAuthenticated)) {
                     if ((filter !== 'activity' && this.$store.state.auth.userIsAuthenticated) ||
-                        (filter !== 'question' && !this.$store.state.auth.userIsAuthenticated) ) {
+                        (filter !== 'question' && !this.$store.state.auth.userIsAuthenticated)) {
                         this.$router.push({name: filter});
                     } else {
                         this.$router.push({name: 'index'});
                     }
+                } else {
+                    this.showLoginRequired = true;
                 }
             },
             async topicChanged(topics) {

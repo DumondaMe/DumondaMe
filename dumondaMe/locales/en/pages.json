@@ -70,6 +70,9 @@
         "onlyCommitment": "Commitments",
         "onlyEvent": "Events"
       },
+      "activity": {
+        "loginDescription": "Create an account or log in to see what's happening on the network in the activity feed, such as what questions have just been asked or answered."
+      },
       "question": {
         "onlyQuestion": "Only questions",
         "onlyAnswer": "Only answers"
