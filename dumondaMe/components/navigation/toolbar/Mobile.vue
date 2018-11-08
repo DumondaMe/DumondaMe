@@ -31,7 +31,7 @@
                 <v-btn icon class="nav-icon">
                     <v-icon @click="showSearch = true">mdi-magnify</v-icon>
                 </v-btn>
-                <v-btn icon class="nav-icon nav-bell" @click="$router.push({name: 'user-notifications'})"
+                <v-btn icon class="nav-icon nav-bell" @click="$router.push({name: 'notifications'})"
                        v-if="isAuthenticated">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell-outline</v-icon>

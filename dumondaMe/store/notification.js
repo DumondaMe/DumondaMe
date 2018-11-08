@@ -63,7 +63,7 @@ export const actions = {
     async startCheckNotificationChanged({commit}) {
         if (!checkNotificationTimer) {
             await checkNotificationChanged(this.$axios, commit);
-            checkNotificationTimer = setInterval(checkNotificationChanged, 30000, this.$axios, commit);
+            checkNotificationTimer = setInterval(checkNotificationChanged, 120000, this.$axios, commit);
         }
     },
     stopCheckNotificationChanged() {

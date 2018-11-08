@@ -39,7 +39,7 @@
         },
         components: {CreateCommitmentDialog, CreateQuestionDialog, DesktopToolbar, MobileToolbar},
         mounted: function () {
-            if (this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'user-notifications') {
+            if (this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'notifications') {
                 this.$store.dispatch('notification/startCheckNotificationChanged');
             }
         },

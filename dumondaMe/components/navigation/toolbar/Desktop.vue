@@ -18,7 +18,7 @@
                 </v-btn>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'user-notifications'})">
+                <v-btn flat icon @click="$router.push({name: 'notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell-outline</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
