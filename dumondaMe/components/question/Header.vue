@@ -40,7 +40,7 @@
                         <v-btn slot="activator" small fab color="primary" @click="openCreateAnswerDialog()">
                             <v-icon>mdi-forum</v-icon>
                         </v-btn>
-                        <span class="description">{{question.numberOfAnswers}}</span>
+                        <span class="description" itemprop="answerCount">{{question.numberOfAnswers}}</span>
                     </div>
                     <v-spacer></v-spacer>
                     <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"

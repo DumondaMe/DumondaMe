@@ -8,7 +8,7 @@
                           @down-voted="(answerId) => $emit('down-voted', answerId)"
                           @up-vote-menu-closed="(data) => $emit('up-vote-menu-closed', data)">
                 <div slot="icon">
-                    <span class="description left-side">{{numberOfUpVotes}}</span>
+                    <span class="description left-side" itemprop="upvoteCount">{{numberOfUpVotes}}</span>
                     <v-tooltip bottom v-if="!isUpVotedByUser || isAdmin">
                         <v-btn slot="activator" small fab color="not-up-voted"
                                :disabled="isAdmin">
