@@ -108,5 +108,6 @@ module.exports = {
     notificationUserAddedToTrustCircle: notification.userAddedToTrustCircle,
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
-    notificationCreateAnswer: notification.createAnswer
+    notificationCreateAnswer: notification.createAnswer,
+    notificationCreateNote: notification.createNote
 };

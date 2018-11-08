@@ -12,12 +12,21 @@ const security = async function (userId, noteId) {
     }
 };
 
+const deleteCreatedNoteNotification = function (userId, noteId) {
+    return db.cypher()
+        .match(`(creatorAnswer:User {userId: {userId}})-[:IS_CREATOR]->(note:Note {noteId: {noteId}})
+         <-[rel:NOTIFICATION]-(n:Notification {type: 'createdNote'})`)
+        .match(`(n)-[rel2]->()`)
+        .delete(`rel, rel2, n`)
+        .end({userId, noteId}).getCommand();
+};
+
 const deleteNote = async function (userId, noteId) {
     await security(userId, noteId);
     await db.cypher().match(`(user:User {userId: {userId}})-[:IS_CREATOR]->(note:Note {noteId: {noteId}})`)
         .optionalMatch(`(note)-[rel]-()`)
         .delete(`note, rel`)
-        .end({noteId, userId}).send();
+        .end({noteId, userId}).send([deleteCreatedNoteNotification(userId, noteId)]);
 
     logger.info(`User ${userId} has deleted the note ${noteId}`);
 };
