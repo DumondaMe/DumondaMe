@@ -603,8 +603,12 @@
       "notification_plural": "{{count}} weitere Personen findet deine Frage {{- question}} interessant."
     },
     "createdAnswer": {
-      "notification": "Hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
-      "notificationTextAnswer": "Hat die Frage {{- question}} beantwortet."
+      "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
+      "notificationTextAnswer": "hat die Frage {{- question}} beantwortet."
+    },
+    "createdNote": {
+      "notification": "hat eine Anmerkung für die {{type}} Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt.",
+      "notificationTextAnswer": "hat eine Anmerkung für die  Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt."
     },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",

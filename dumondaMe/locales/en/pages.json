@@ -603,6 +603,10 @@
       "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
       "notificationTextAnswer": "Has answered the question{{- question}}."
     },
+    "createdNote": {
+      "notification": "has created a note for the {{type}} answer {{- answer}}, which answers the question {{- question}}.",
+      "notificationTextAnswer": "has created a note for the answer {{- answer}}, which answers the question {{- question}}."
+    },
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications.",

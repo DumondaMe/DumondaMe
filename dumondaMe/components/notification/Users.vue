@@ -50,7 +50,7 @@
                 height: 38px;
                 .user-name-container {
                     font-weight: 400;
-                    color: $primary-color;
+                    color: $primary-text;
                     font-size: 16px;
                     line-height: 16px;
                     .user-name {
