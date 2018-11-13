@@ -97,7 +97,8 @@ module.exports = {
     },
     plugins: ['~/plugins/i18n.js',
         '~/plugins/moment.js',
-        '~/plugins/vuetify.js'],
+        '~/plugins/vuetify.js',
+        '~/plugins/axios.js'],
     css: [
         '~/assets/style/app.styl',
         'cropperjs/dist/cropper.min.css',
