@@ -1,6 +1,6 @@
 <template>
     <v-card id="question-instruction-container">
-        <div>
+        <div id="question-instruction-container-header">
             <stepper-header>
                 <step :number="1" :selected-step="step">
                 </step>
@@ -24,7 +24,7 @@
                 </step>
             </stepper-header>
         </div>
-        <v-card-text class="mobile-dialog-content">
+        <v-card-text class="mobile-dialog-content question-instruction-content">
             <div v-if="step === 1">
                 <div class="instruction-title">{{$t('pages:question.instructionDialog.step1Title')}}</div>
                 <div class="description">{{$t('pages:question.instructionDialog.description')}}</div>
@@ -111,40 +111,47 @@
 
 <style lang="scss">
     #question-instruction-container {
-        .description {
-            font-weight: 300;
-            text-align: center;
+        max-width: 650px;
+        #question-instruction-container-header {
+            max-width: 650px;
         }
-        .instruction-title {
-            font-weight: 500;
-            color: $primary-color;
-            font-size: 22px;
-            margin-top: 0;
-            margin-bottom: 18px;
-            text-align: center;
-        }
-        .instruction-description {
-            font-weight: 300;
-        }
-        .sample {
-            margin-top: 12px;
-            font-weight: 300;
-            padding: 4px 12px;
-            b {
+        .question-instruction-content {
+            max-width: 650px;
+            .description {
+                font-weight: 300;
+                text-align: center;
+            }
+            .instruction-title {
                 font-weight: 500;
+                color: $primary-color;
+                font-size: 22px;
+                margin-top: 0;
+                margin-bottom: 18px;
+                text-align: center;
             }
-        }
-        .acknowledge-checkbox {
-            .v-input__control {
-                margin: 0 auto;
+            .instruction-description {
+                font-weight: 300;
             }
-        }
-        .instruction-bad-sample {
-            border-left: 4px solid $error-text;
+            .sample {
+                margin-top: 12px;
+                font-weight: 300;
+                padding: 4px 12px;
+                b {
+                    font-weight: 500;
+                }
+            }
+            .acknowledge-checkbox {
+                .v-input__control {
+                    margin: 0 auto;
+                }
+            }
+            .instruction-bad-sample {
+                border-left: 4px solid $error-text;
 
-        }
-        .instruction-good-sample {
-            border-left: 4px solid $success-text;
+            }
+            .instruction-good-sample {
+                border-left: 4px solid $success-text;
+            }
         }
     }
 </style>
