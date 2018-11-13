@@ -54,6 +54,15 @@
 </script>
 
 <style lang="scss">
+    #dialog-delete-question {
+        max-width: 300px;
+        #dumonda-me-dialog-header {
+            max-width: 300px;
+        }
+        #dialog-delete-question-content {
+            max-width: 300px;
+        }
+    }
     #dialog-login-required {
         max-width: 250px;
         #dialog-login-required-content {

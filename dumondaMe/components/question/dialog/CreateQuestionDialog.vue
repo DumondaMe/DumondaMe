@@ -1,10 +1,11 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly"
+        id="show-loading-create-question-dialog-container">
             <div class="show-loading-create-question-dialog" v-if="loading">
                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
-            <show-instruction @close-dialog="closeInstruction"
+            <show-instruction @close-dialog="closeInstruction" class="show-instruction-container"
                               v-else-if="(showInstruction && !hasAskedQuestion) || showInstructionAgain"
                               @next="showQuestion">
                 <div slot="header">
@@ -65,7 +66,14 @@
 </script>
 
 <style lang="scss">
-    .show-loading-create-question-dialog {
-        min-height: 400px;
+    #show-loading-create-question-dialog-container {
+
+        .show-loading-create-question-dialog {
+            width: 100%;
+            min-height: 400px;
+        }
+        .show-instruction-container {
+            width: 100%;
+        }
     }
 </style>
