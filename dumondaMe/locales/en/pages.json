@@ -130,7 +130,7 @@
     "support": {
       "title": "Support us",
       "description": "You can support us in many ways as a pioneer in building this platform:",
-      "support1": "Have you discovered a bug or an idea how something could be optimized? Write us at <a href='mailto:feedback@dumonda.me'>feedback@dumonda.me</a>.",
+      "support1": "Have you discovered a bug or an idea how something could be optimized? Write us at <a href='mailto:feedback@dumonda.me' target='_self'>feedback@dumonda.me</a>",
       "support2": {
         "text1": "Ask questions",
         "text2": "or answer them with your expertise."
