@@ -98,7 +98,7 @@ module.exports = function (app, nuxt) {
         app.use(expressWinston.errorLogger({
             transports: getLoggingTransport(),
             meta: true,
-            msg: "HTTP {{req.method}} {{req.url}}",
+            msg: "HTTP {{req.method}} {{req.url}} {{req.meta}}",
             expressFormat: true
         }));
     });
