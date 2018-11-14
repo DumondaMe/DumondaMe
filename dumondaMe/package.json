@@ -12,7 +12,7 @@
   "dependencies": {
     "@panter/vue-i18next": "0.13.0",
     "aws-sdk": "2.328.0",
-    "@nuxtjs/axios": "5.3.3",
+    "@nuxtjs/axios": "5.3.6",
     "@nuxtjs/proxy": "1.2.4",
     "@mdi/font": "2.5.94",
     "babel-polyfill": "6.26.0",
