@@ -5,7 +5,10 @@ export const state = () => ({
 
 export const mutations = {
     RESET: function (state) {
-        state.question = {question: '', description: '', lang: 'de', topics: []};
+        state.question.question = '';
+        state.question.description = '';
+        state.question.lang = 'de';
+        state.question.topics = [];
     },
     SET_QUESTION: function (state, question) {
         state.question = question;

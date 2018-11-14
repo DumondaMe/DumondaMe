@@ -2,12 +2,18 @@ import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
 import {postWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
-    commitment: {title: '', description: '', website: '', lang: 'de', imageUrl: null}
+    commitment: {title: '', description: '', website: '', lang: 'de', imageUrl: null, topics: [], regions: []}
 });
 
 export const mutations = {
     RESET: function (state) {
-        state.commitment = {title: '', description: '', website: '', lang: 'de', imageUrl: null};
+        state.commitment.title = '';
+        state.commitment.description = '';
+        state.commitment.website = '';
+        state.commitment.lang = 'de';
+        state.commitment.imageUrl = null;
+        state.commitment.topics = [];
+        state.commitment.regions = [];
     },
     SET_COMMITMENT: function (state, commitment) {
         state.commitment.title = commitment.title;
