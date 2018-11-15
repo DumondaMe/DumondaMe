@@ -61,7 +61,7 @@
         components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion},
         computed: {
             question() {
-                return this.$store.state.question.question.question;
+                return this.$store.state.question.question;
             }
         }
     }
