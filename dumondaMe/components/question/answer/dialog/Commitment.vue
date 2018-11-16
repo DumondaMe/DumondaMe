@@ -13,9 +13,14 @@
     import SearchCommitment from './commitment/Search';
 
     export default {
+        props: ['initCommitment'],
         components: {EditCommitment, SearchCommitment},
         data() {
-            return {selectedCommitment: null}
+            let selectedCommitment = null;
+            if (this.initCommitment && this.initCommitment.commitmentId) {
+                selectedCommitment = JSON.parse(JSON.stringify(this.initCommitment));
+            }
+            return {selectedCommitment}
         },
         methods: {
             setSelected(newSelectedCommitment) {

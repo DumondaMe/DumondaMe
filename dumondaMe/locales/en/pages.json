@@ -298,6 +298,19 @@
       "answerInfoWrongType": "Your link is a YouTube or Vimeo video.",
       "answerSwitchTypeButton": "Create video"
     },
+    "answerTextDialog": {
+      "answerOtherTypeDescription": "You used links in your text. Do you want to capture a different type of response?",
+      "commitmentAnswerSuggestion": "The <b>Commitment</b> <span class='main-label'>{{- commitment}}</span> is the answer",
+      "commitmentAnswerExists": "The <b>Commitment</b> <span class='main-label'>{{- commitment}}</span> has already been taken as answer for this question.",
+      "youtubeAnswerSuggestion": "The <b>Video</b> <span class='main-label'>{{- youtubeLink}}</span> is the answer",
+      "youtubeAnswerExists": "The <b>Video</b> <span class='main-label'>{{- youtubeLink}}</span> has already been taken as answer for this question.",
+      "linkAnswerSuggestion": "The <b>Link</b> <span class='main-label'>{{- link}}</span> is the answer",
+      "linkAnswerExists": "The <b>Link</b> <span class='main-label'>{{- link}}</span> has already been taken as answer for this question.",
+      "createTextAnswer": "I would still like to create a <b>Text response</b>",
+      "switchVideoButton": "Create Video",
+      "switchLinkButton": "Create Link",
+      "switchCommitmentButton": "Link commitment"
+    },
     "selectAnswerDialog": {
       "title": "Answers",
       "textDescription": "Answer the question with your words",

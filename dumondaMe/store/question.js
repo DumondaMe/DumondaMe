@@ -174,8 +174,9 @@ export const actions = {
     async deleteQuestion({commit, state}) {
         await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
     },
-    async createTextAnswer({commit, state}, {answer}) {
-        let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`, {answer});
+    async createTextAnswer({commit, state}, {answer, createAnswerWithLink}) {
+        let response = await this.$axios.$post(`/user/question/answer/text/${state.question.questionId}`,
+            {answer, createAnswerWithLink});
         commit('ADD_ANSWER', {
             answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [],
             answerType: 'Text', answer, created: response.created, creator: response.creator

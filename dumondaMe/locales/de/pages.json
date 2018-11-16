@@ -296,6 +296,19 @@
       "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube oder Vimeo Video.",
       "answerSwitchTypeButton": "Video erfassen"
     },
+    "answerTextDialog": {
+      "answerOtherTypeDescription": "Du hast in deinem Text Links verwendet. Möchtest du einen anderen Typ von Antwort erfassen?",
+      "commitmentAnswerSuggestion": "Das <b>Engagement</b> <span class='main-label'>{{- commitment}}</span> ist die Antwort",
+      "commitmentAnswerExists": "Das <b>Engagement</b> <span class='main-label'>{{- commitment}}</span> wurde bereits als Antwort erfasst für diese Frage.",
+      "youtubeAnswerSuggestion": "Das <b>Video</b> <span class='main-label'>{{- youtubeLink}}</span> ist die Antwort",
+      "youtubeAnswerExists": "Das <b>Video</b> <span class='main-label'>{{- youtubeLink}}</span> wurde bereits als Antwort erfasst für diese Frage.",
+      "linkAnswerSuggestion": "Der <b>Link</b> <span class='main-label'>{{- link}}</span> ist die Antwort",
+      "linkAnswerExists": "Der <b>Link</b> <span class='main-label'>{{- link}}</span> wurde bereits als Antwort erfasst für diese Frage.",
+      "createTextAnswer": "Ich möchte trotzdem eine <b>Text Antwort</b> erstellen",
+      "switchVideoButton": "Video erfassen",
+      "switchLinkButton": "Link erfassen",
+      "switchCommitmentButton": "Engagement verlinken"
+    },
     "selectAnswerDialog": {
       "title": "Antworten",
       "textDescription": "Beantworte die Frage mit deinen Worten",

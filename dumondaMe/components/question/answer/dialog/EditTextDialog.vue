@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import AnswerText from './Text';
+    import AnswerText from './text/Text';
 
     export default {
         props: ['initAnswer', 'answerId'],
