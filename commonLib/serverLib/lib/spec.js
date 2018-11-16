@@ -13,7 +13,7 @@ let winston = require('winston');
 let cookieKey;
 let cookieSecret;
 
-const getLoggingTransport = function () {
+const getLoggingTransport = function (jsonFormat) {
     let transports = [];
     if (process.env.NODE_ENV !== 'production') {
         transports.push(new winston.transports.Console({
@@ -25,6 +25,7 @@ const getLoggingTransport = function () {
             logGroupName: 'elyoosWebserver',
             logStreamName: process.env.CLOUD_WATCH_LOG_STREAM_NAME,
             level: 'info',
+            jsonMessage: jsonFormat,
             awsRegion: process.env.AWS_REGION
         }));
     }
@@ -90,15 +91,15 @@ module.exports = function (app, nuxt) {
 
     app.on('middleware:before:router', function () {
         app.use(expressWinston.logger({
-            transports: getLoggingTransport()
+            transports: getLoggingTransport(false)
         }));
     });
 
     app.on('middleware:after:router', function () {
         app.use(expressWinston.errorLogger({
-            transports: getLoggingTransport(),
+            transports: getLoggingTransport(true),
             meta: true,
-            msg: "HTTP {{req.method}} {{req.url}} {{req.meta}}",
+            msg: "HTTP {{req.method}} {{req.url}}",
             expressFormat: true
         }));
     });
