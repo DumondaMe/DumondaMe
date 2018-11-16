@@ -78,7 +78,7 @@
     const PAGE_NOT_FOUND = 404;
 
     export default {
-        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo', 'initType'],
+        props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo', 'initType', 'loadLinkOnInit'],
         data() {
             let linkData = JSON.parse(JSON.stringify(this.initLinkData));
             if (this.initType) {
@@ -89,6 +89,11 @@
                 showWarningMessage: false, link: this.initLink, linkData: linkData,
                 isVideo: this.initIsVideo, hasChanged: !this.answerId, uploadCommand: function () {
                 }, showError: false
+            }
+        },
+        mounted: async function() {
+            if (this.loadLinkOnInit && this.link && this.link.trim() !== '') {
+                await this.loadingPreviewOfVideo();
             }
         },
         components: {WebsiteLink, Youtube},
@@ -132,10 +137,8 @@
                     this.showError = true;
                     this.uploadRunning = false;
                 }
-            }
-        },
-        watch: {
-            link: debounce(async function () {
+            },
+            async loadingPreviewOfVideo() {
                 this.linkData = {};
                 this.showErrorMessage = false;
                 this.showWarningMessage = false;
@@ -164,6 +167,11 @@
                         }
                     }
                 }
+            }
+        },
+        watch: {
+            link: debounce(async function () {
+                await this.loadingPreviewOfVideo();
             }, 500)
         }
     }
