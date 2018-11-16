@@ -43,7 +43,7 @@ module.exports = function (router) {
 
     router.put('/:answerId', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaEditTextAnswer);
-        await answerEdit.editTextAnswer(req.user.id, params);
-        res.status(200).end();
+        let response = await answerEdit.editTextAnswer(req.user.id, params);
+        res.status(200).json(response);
     }));
 };

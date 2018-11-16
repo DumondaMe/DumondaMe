@@ -81,6 +81,7 @@ const addBookProperties = function (result, feedElement) {
 const addTextProperties = function (result, feedElement) {
     if (result.type === 'Text') {
         result.answer = feedElement.feedElement.answer;
+        result.answerHtml = linkifyHtml(feedElement.feedElement.answer, {attributes: {rel: 'noopener'}});
     }
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const cdn = require('dumonda-me-server-lib').cdn;
+const linkifyHtml = require('linkifyjs/html');
 const slug = require('limax');
 
 const getEvents = function (events, language) {
@@ -72,6 +73,8 @@ const getAnswers = async function (answers, language, userId) {
                 }
                 formattedAnswer.regions = answer.regions.map((region) => region[language]);
                 formattedAnswer.events = getEvents(answer.events, language)
+            } else if (formattedAnswer.answerType === 'Text') {
+                formattedAnswer.answerHtml = linkifyHtml(formattedAnswer.answer, {attributes: {rel: 'noopener'}});
             }
             result.push(formattedAnswer);
         }

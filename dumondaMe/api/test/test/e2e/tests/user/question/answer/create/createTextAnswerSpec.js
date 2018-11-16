@@ -193,6 +193,7 @@ describe('Creating new text answer', function () {
             createAnswerWithLink: true
         });
         res.status.should.equal(200);
+        res.body.answerHtml.should.equals('answer <a href="https://www.youtube.com/watch?v=MbV4wjkYtYc" class="linkified" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MbV4wjkYtYc</a> and <a href="https://www.youtube.com/watch?v=anU86pXngMs" class="linkified" target="_blank" rel="noopener">https://www.youtube.com/watch?v=anU86pXngMs</a> and <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a> and <a href="https://www.wwf.ch" class="linkified" target="_blank" rel="noopener">https://www.wwf.ch</a>');
         res.body.created.should.least(startTime);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');

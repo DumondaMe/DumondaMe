@@ -179,13 +179,14 @@ export const actions = {
             {answer, createAnswerWithLink});
         commit('ADD_ANSWER', {
             answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [],
-            answerType: 'Text', answer, created: response.created, creator: response.creator
+            answerType: 'Text', answer, answerHtml: response.answerHtml, created: response.created,
+            creator: response.creator
         });
         return response.answerId;
     },
     async editTextAnswer({commit}, {answer, answerId}) {
-        await this.$axios.$put(`/user/question/answer/text/${answerId}`, {answer});
-        commit('EDIT_ANSWER', {answerId, answer: {answer}});
+        let response = await this.$axios.$put(`/user/question/answer/text/${answerId}`, {answer});
+        commit('EDIT_ANSWER', {answerId, answer: {answer, answerHtml: response.answerHtml}});
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
         if (youtubeData.hasOwnProperty('description') && youtubeData.description.trim() === '') {
