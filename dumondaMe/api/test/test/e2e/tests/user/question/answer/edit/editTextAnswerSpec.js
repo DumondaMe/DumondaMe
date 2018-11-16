@@ -37,15 +37,16 @@ describe('Edit text answer', function () {
     it('Edit text answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/text/5', {
-            answer: 'Answer5'
+            answer: 'Answer5 www.dumonda.me'
         });
         res.status.should.equal(200);
+        res.body.answerHtml.should.equals('Answer5 <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Text {answerId: '5'})<-[:IS_CREATOR]-(user:User {userId: '1'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.answer.should.equals('Answer5');
+        resp[0].answer.answer.should.equals('Answer5 www.dumonda.me');
         resp[0].answer.created.should.equals(500);
         resp[0].answer.modified.should.least(startTime);
     });

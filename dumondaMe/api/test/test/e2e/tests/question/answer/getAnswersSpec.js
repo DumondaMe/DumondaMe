@@ -4,7 +4,6 @@ let users = require('dumonda-me-server-test-util').user;
 let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
-const should = require('chai').should();
 
 describe('Getting answers of a question', function () {
 
@@ -40,7 +39,7 @@ describe('Getting answers of a question', function () {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '3', questionId: '1', answer: 'Answer2',
+            creatorId: '3', questionId: '1', answer: 'Answer2 www.dumonda.me',
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
@@ -126,7 +125,8 @@ describe('Getting answers of a question', function () {
 
         res.body.answers[1].answerId.should.equals('6');
         res.body.answers[1].answerType.should.equals('Text');
-        res.body.answers[1].answer.should.equals('Answer2');
+        res.body.answers[1].answer.should.equals('Answer2 www.dumonda.me');
+        res.body.answers[1].answerHtml.should.equals('Answer2 <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
         res.body.answers[1].hasVoted.should.equals(false);

@@ -25,7 +25,7 @@ describe('Get activity feed for up voted text answers', function () {
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
         dbDsl.createTextAnswer('6', {
-            creatorId: '3', questionId: '1', answer: 'Answer', created: 600,
+            creatorId: '3', questionId: '1', answer: 'Answer www.dumonda.me', created: 600,
         });
     });
 
@@ -48,7 +48,8 @@ describe('Get activity feed for up voted text answers', function () {
         res.body.feed[0].isUpVotedByUser.should.equals(false);
         res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
-        res.body.feed[0].answer.should.equals('Answer');
+        res.body.feed[0].answer.should.equals('Answer www.dumonda.me');
+        res.body.feed[0].answerHtml.should.equals('Answer <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].question.should.equals('Das ist eine Frage');
         res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');

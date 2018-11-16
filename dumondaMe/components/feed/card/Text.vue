@@ -21,7 +21,7 @@
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
         </div>
-        <expand-text :expand-text="answer.answer" class="answer-description" itemprop="text">
+        <expand-text :expand-text="answer.answerHtml" class="answer-description" itemprop="text">
         </expand-text>
         <slot name="footer"></slot>
     </div>

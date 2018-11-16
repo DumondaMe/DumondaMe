@@ -8,6 +8,7 @@ const notification = require(`./notification`);
 const youtube = require('../../../../util/youtube');
 const slug = require('limax');
 const linkify = require('linkifyjs');
+const linkifyHtml = require('linkifyjs/html');
 const {URL} = require('url');
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
@@ -113,6 +114,7 @@ const createTextAnswer = async function (userId, params) {
         logger.info(`Created text answer ${params.answerId} for question ${params.questionId}`);
         return {
             answerId: params.answerId, created: params.created,
+            answerHtml: linkifyHtml(params.answer, {attributes: {rel: 'noopener'}}),
             creator: {
                 name: user[0][0].name,
                 slug: slug(user[0][0].name),
