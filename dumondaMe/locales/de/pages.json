@@ -14,7 +14,9 @@
     "title": "Passwort vergessen?",
     "description": "Gib die E-Mail Adresse an mit welcher du deinen DumondaMe Account erstellt hast.",
     "sentDescription": "Es wurde ein Email mit einem Link zum zurück setzten des Passwortes an {{email}}  versendet. Der Link ist nur 20 Minuten gültig.",
+    "sentDescriptionWarning": "Prüfe, wenn das E-Mail bei dir nicht ankommt, ob dieses im Spam Ordner gelandet ist.",
     "errorToManyRequest": "Du hast zu oft versucht das Passwort zurück zu setzten. Versuche es später wieder.",
+    "errorEmailNotExist": "Kein Benutzerkonto mit dieser E-Mail Adresse vorhanden.",
     "resetPasswordButton": "Absenden"
   },
   "passwordReset": {
