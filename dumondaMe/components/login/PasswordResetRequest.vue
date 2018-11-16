@@ -20,6 +20,7 @@
             </div>
             <div v-show="successfullyReset">
                 <p>{{$t('pages:passwordResetRequest.sentDescription', {email: formEmail})}}</p>
+                <p class="spam-warning">{{$t('pages:passwordResetRequest.sentDescriptionWarning')}}</p>
                 <v-btn color="primary" @click="$router.push({name: 'index'})">
                     {{$t("common:button.back")}}
                 </v-btn>
@@ -54,7 +55,9 @@
                         });
                         this.successfullyReset = true;
                     } catch (e) {
-                        if (e.statusCode = 429) {
+                        if (e.response.status === 404) {
+                            this.errorMessage = this.$t('pages:passwordResetRequest.errorEmailNotExist')
+                        } else if (e.response.status === 429) {
                             this.errorMessage = this.$t('pages:passwordResetRequest.errorToManyRequest')
                         } else {
                             this.errorMessage = this.$t('common:error.unknown')
@@ -84,6 +87,11 @@
             .error-message {
                 color: #d84021;
                 border-left: 2px solid #d84021;
+                padding-left: 12px;
+            }
+            .spam-warning {
+                border-left: 2px solid $warning;
+                color: $warning;
                 padding-left: 12px;
             }
             h2 {

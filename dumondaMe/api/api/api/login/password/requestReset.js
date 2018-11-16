@@ -20,7 +20,7 @@ const schemaRequestPasswordReset = {
 
 const apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
-    max: 10
+    max: 20
 });
 
 module.exports = function (router) {
@@ -28,7 +28,6 @@ module.exports = function (router) {
     router.post('/', apiLimiter, asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaRequestPasswordReset);
         logger.info(`Password reset request for email address ${request.email}`);
-        await resetPassword.sendReset(request.email, request.language);
-        res.status(200).end();
+        await resetPassword.sendReset(request.email, request.language, res);
     }));
 };

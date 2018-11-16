@@ -17,7 +17,7 @@ const setPasswordIsRequested = async function (userId) {
     return linkId;
 };
 
-const sendReset = async function (email, language) {
+const sendReset = async function (email, language, res) {
     let originalEmailAddress;
     email = email.toLowerCase();
     let resp = await db.cypher().match("(user:User {emailNormalized: {email}})")
@@ -32,11 +32,14 @@ const sendReset = async function (email, language) {
             await eMail.sendEMail('resetPassword',
                 {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${linkId}`},
                 language, originalEmailAddress);
+            res.status(200).end();
         } else {
             logger.info(`Reset password email is not sent to ${originalEmailAddress}`);
+            res.status(429).end();
         }
     } else {
         logger.info(`User not found for ${email}`);
+        res.status(404).end();
     }
 };
 

@@ -95,7 +95,7 @@ describe('Integration Tests for requesting a password reset login', function () 
             email: 'user@irgendwo.ch',
             language: 'de'
         });
-        res.status.should.equal(200);
+        res.status.should.equal(429);
         stubSendEMail.calledOnce.should.be.true;
     });
 
@@ -104,7 +104,7 @@ describe('Integration Tests for requesting a password reset login', function () 
             email: 'user3@irgendwo.ch',
             language: 'de'
         });
-        res.status.should.equal(200);
+        res.status.should.equal(429);
         stubSendEMail.called.should.be.false;
     });
 
@@ -113,7 +113,7 @@ describe('Integration Tests for requesting a password reset login', function () 
             email: 'user10@irgendwo.ch',
             language: 'de'
         });
-        res.status.should.equal(200);
+        res.status.should.equal(404);
         stubSendEMail.called.should.be.false;
     });
 });

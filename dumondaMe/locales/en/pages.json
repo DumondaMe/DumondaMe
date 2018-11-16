@@ -14,7 +14,9 @@
     "title": "Forgotten your password?",
     "description": "Enter the email address you used to create your DumondaMe account.",
     "sentDescription": "An email with a link to reset the password was sent to {{email}}. The link is only valid for 20 minutes.",
+    "sentDescriptionWarning": "If the email does not reach you, check whether it has landed in the Spam folder.",
     "errorToManyRequest": "You tried too many times to reset the password. Try again later.",
+    "errorEmailNotExist": "No user account available with this email address.",
     "resetPasswordButton": "Send request"
   },
   "passwordReset": {
