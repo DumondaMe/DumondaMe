@@ -100,7 +100,13 @@ module.exports = function (app, nuxt) {
             transports: getLoggingTransport(true),
             meta: true,
             msg: "HTTP {{req.method}} {{req.url}}",
-            expressFormat: true
+            expressFormat: true,
+            dynamicMeta: function(req) {
+                return {
+                    user: req.user ? req.user : null,
+                    body: req.body ? req.body : null,
+                };
+            }
         }));
     });
 
