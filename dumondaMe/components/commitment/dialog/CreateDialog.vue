@@ -25,7 +25,7 @@
             <commitment-content v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')"
                                 @finish="finishCommitmentData" :loading="loading"
                                 :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
-                                :init-commitment="$store.getters['createCommitment/getCommitmentCopy']">
+                                :init-commitment="$store.getters['createCommitment/getCommitment']">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment-content>
         </v-dialog>
@@ -70,7 +70,8 @@
                     });
                 }
                 catch (error) {
-                    if (error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
+                    if (error.response && error.response.data &&
+                        error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
                         this.showWarning = true;
                     } else {
                         this.showError = true;

@@ -106,7 +106,6 @@
                         this.checkLink = false;
                     }
                 } else {
-                    this.$store.commit('createCommitment/RESET');
                     this.previewLoaded = false;
                 }
             }, 500)

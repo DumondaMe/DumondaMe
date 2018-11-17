@@ -46,7 +46,8 @@
                     this.$emit('finish');
                 }
                 catch (error) {
-                    if (error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
+                    if (error.response && error.response.data &&
+                        error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
                         this.showWarning = true;
                     } else {
                         this.showError = true;
