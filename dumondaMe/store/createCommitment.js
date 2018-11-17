@@ -15,6 +15,13 @@ export const mutations = {
         state.commitment.topics = [];
         state.commitment.regions = [];
     },
+    RESET_COMMITMENT_DATA: function (state) {
+        state.commitment.title = '';
+        state.commitment.description = '';
+        state.commitment.website = '';
+        state.commitment.lang = 'de';
+        state.commitment.imageUrl = null;
+    },
     SET_COMMITMENT: function (state, commitment) {
         state.commitment.title = commitment.title;
         state.commitment.description = commitment.description;
@@ -31,8 +38,11 @@ export const mutations = {
 };
 
 export const getters = {
-    getCommitmentCopy: state => {
-        return JSON.parse(JSON.stringify(state.commitment));
+    getCommitment: state => {
+        return {
+            title: state.commitment.title, description: state.commitment.description,
+            website: state.commitment.website, lang: state.commitment.lang
+        };
     }
 };
 
@@ -57,7 +67,7 @@ export const actions = {
             commitment.website = commitment.link;
             commit('SET_COMMITMENT', commitment);
         } else {
-            commit('RESET', commitment);
+            commit('RESET_COMMITMENT_DATA');
         }
         return commitment;
     },
