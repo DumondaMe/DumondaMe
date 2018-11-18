@@ -669,7 +669,11 @@
         "title": "Wer erhält Daten zu deiner Person?",
         "text1": "Wir geben deine personenbezogenen Daten nur an Dritte weiter, wenn …",
         "point1": "Du uns dies in den Privatsphäre Einstellungen erlaubst.",
-        "point2": "Wir gesetzlich, gerichtlich oder behördlich dazu verpflichtet sind."
+        "point2": "Wir gesetzlich, gerichtlich oder behördlich dazu verpflichtet sind.",
+        "youtube": {
+          "title": "Youtube",
+          "text1": "Wir verlinken auf dieser Seite zum Videodienst YouTube der Firma YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Durch das Abspielen von YouTube-Videos werden Daten an YouTube übertragen, gespeichert und ausgewertet. Solltest Du ein YouTube-Konto haben und angemeldet sein, werden diese Daten deinem persönlichen Konto und den darin gespeicherten Daten zugeordnet. Welche Daten von Google erfasst werden und wofür diese Daten verwendet werden, kannst du auf <a href='https://www.google.com/intl/de/policies/privacy/' target='_blank' rel='noopener'>https://www.google.com/intl/de/policies/privacy/</a> nachlesen."
+        }
       }
     },
     "rights": {
