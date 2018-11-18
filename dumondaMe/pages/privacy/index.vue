@@ -27,6 +27,12 @@
             <li>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.point2')}}</li>
             <li>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.point3')}}</li>
         </ul>
+        <iframe style="border: 0; height: 160px; width: 600px;" class="matomo-opt-out-iframe-desktop"
+                :src="optOutLink">
+        </iframe>
+        <iframe style="border: 0; height: 290px; width: 300px;" class="matomo-opt-out-iframe-mobile"
+                :src="optOutLink">
+        </iframe>
 
         <h3>4. {{$t('pages:privacy.processingData.informationFromOtherSource.title')}}</h3>
         <p>{{$t('pages:privacy.processingData.informationFromOtherSource.text1')}}</p>
@@ -37,6 +43,8 @@
             <li>{{$t('pages:privacy.processingData.whoReceiveInformation.point1')}}</li>
             <li>{{$t('pages:privacy.processingData.whoReceiveInformation.point2')}}</li>
         </ul>
+        <h4>5.1 {{$t('pages:privacy.processingData.whoReceiveInformation.youtube.title')}}</h4>
+        <p v-html="$t('pages:privacy.processingData.whoReceiveInformation.youtube.text1')"></p>
 
         <h2>{{$t('pages:privacy.rights.title')}}</h2>
 
@@ -56,6 +64,9 @@
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language
+            },
+            optOutLink() {
+                return `https://dumondame.innocraft.cloud/index.php?module=CoreAdminHome&action=optOut&language=${this.$store.state.i18n.language}&backgroundColor=&fontColor=&fontSize=&fontFamily=`
             }
         }
     }
@@ -110,6 +121,17 @@
                 margin-bottom: 14px;
             }
         }
+        h4 {
+            font-size: 20px;
+            color: #333;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            @media screen and (max-width: $xs) {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+        }
 
         p {
             font-weight: 300;
@@ -125,6 +147,16 @@
             margin-bottom: 18px;
             @media screen and (max-width: $xs) {
                 margin-left: 8px;
+            }
+        }
+        .matomo-opt-out-iframe-desktop {
+            @media screen and (max-width: 650px) {
+                display: none;
+            }
+        }
+        .matomo-opt-out-iframe-mobile {
+            @media screen and (min-width: 650px) {
+                display: none;
             }
         }
     }

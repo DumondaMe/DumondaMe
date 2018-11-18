@@ -666,7 +666,11 @@
         "title": "Who may receive information about you?",
         "text1": "We will only pass on your personal data to third parties if...",
         "point1": "You allow us to do this in the privacy settings.",
-        "point2": "We are legally, judicially or officially obliged to do so."
+        "point2": "We are legally, judicially or officially obliged to do so.",
+        "youtube": {
+          "title": "Youtube",
+          "text1": "On this page we link to the video service YouTube of the company YouTube, LLC, 901 Cherry Ave, San Bruno, CA 94066, USA. When YouTube videos are played, data is transferred to YouTube, stored and evaluated. If you have a YouTube account and are logged in, this information will be associated with your personal account and the information it contains. You can find out what data Google collects and what this data is used for at <a href='https://www.google.com/intl/de/policies/privacy/' target='_blank' rel='noopener'>https://www.google.com/intl/de/policies/privacy/</a>."
+        }
       }
     },
     "rights": {
