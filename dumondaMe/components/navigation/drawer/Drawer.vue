@@ -48,6 +48,12 @@
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
+                <nuxt-link :to="{name: 'contact'}">
+                    <v-icon>mdi-account-box-outline</v-icon>
+                    <span class="navigation-text">{{$t("pages:footer.contact")}}</span>
+                </nuxt-link>
+            </div>
+            <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'faq'}">
                     <v-icon>mdi-help</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.faq")}}</span>
@@ -65,12 +71,6 @@
                     <span class="navigation-text">{{$t("pages:footer.privacy")}}</span>
                 </nuxt-link>
             </div>
-            <!--<div class="drawer-navigation-element">
-                <nuxt-link :to="{name: 'contact'}">
-                    <v-icon>mdi-label</v-icon>
-                    <span class="navigation-text">{{$t("pages:footer.contact")}}</span>
-                </nuxt-link>
-            </div>-->
         </div>
         <div v-if="isAuthenticated" class="bottom-navigation">
             <v-divider></v-divider>
