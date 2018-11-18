@@ -114,12 +114,17 @@ describe('Creating new text answer', function () {
     });
 
     it('Text answer contains youtube videos and links', async function () {
+        dbDsl.createCommitment('11', {
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'en', created: 700, modified: 701,
+            website: 'http://www.dumonda.me', regions: ['region-1'], title: 'Das ist ein englisch Engagement'
+        });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/text/1', {
             answer: 'answer https://www.youtube.com/watch?v=MbV4wjkYtYc and https://www.youtube.com/watch?v=anU86pXngMs and www.dumonda.me and https://www.wwf.ch'
         });
         res.status.should.equal(406);
+        res.body.commitment.length.should.equals(0);
         res.body.youtube.length.should.equals(2);
         res.body.youtube[0].url.should.equals('https://www.youtube.com/watch?v=MbV4wjkYtYc');
         res.body.youtube[0].usedAsAnswer.should.equals(false);
@@ -183,6 +188,24 @@ describe('Creating new text answer', function () {
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Text:Answer)<-[:IS_CREATOR]-(user:User)`)
             .return(`answer, user`).end().send();
         resp.length.should.equals(0);
+    });
+
+    it('Text answer contains link of commitment with other language', async function () {
+        dbDsl.createCommitment('11', {
+            adminId: '2', topics: ['topic1', 'topic2'], language: 'en', created: 700, modified: 701,
+            website: 'https://www.example2.org/', regions: ['region-1'], title: 'Das ist ein englisch Engagement'
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/text/1', {
+            answer: 'answer https://www.example2.org/test'
+        });
+        res.status.should.equal(406);
+        res.body.youtube.length.should.equals(0);
+        res.body.links.length.should.equals(1);
+        res.body.links[0].url.should.equals('https://www.example2.org/test');
+        res.body.links[0].usedAsAnswer.should.equals(false);
+        res.body.commitment.length.should.equals(0);
     });
 
     it('Creating text answer even with links', async function () {

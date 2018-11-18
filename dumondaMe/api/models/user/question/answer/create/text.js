@@ -15,12 +15,11 @@ const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const searchCommitment = async function (link, questionId) {
     let regex = new URL(link);
     regex = regex.host;
-    return await db.cypher().match(`(commitment:Commitment)`)
-        .where(`commitment.website =~ {link}`)
+    return await db.cypher().match(`(commitment:Commitment), (question:Question {questionId: {questionId}})`)
+        .where(`commitment.website =~ {link} AND commitment.language = question.language`)
         .return(`commitment.commitmentId AS commitmentId, commitment.title AS title, 
                  commitment.description AS description, commitment.modified AS modified,
-                 EXISTS((:Question {questionId: {questionId}})-[:ANSWER]->
-                 (:CommitmentAnswer)-[:COMMITMENT]->(commitment)) AS usedAsAnswer`)
+                 EXISTS((question)-[:ANSWER]->(:CommitmentAnswer)-[:COMMITMENT]->(commitment)) AS usedAsAnswer`)
         .limit(5).end({link: `(?i).*${regex}.*`, questionId}).send();
 };
 
