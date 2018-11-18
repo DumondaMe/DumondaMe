@@ -740,6 +740,10 @@
       "text1": "Yes, to provide a better transparency regarding the algorithms used, the code is open source. This can be viewed at <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a>."
     }
   },
+  "contact": {
+    "title": "Contact",
+    "post": "DumondaMe<br>8000 Zurich<br>Switzerland"
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "About us",

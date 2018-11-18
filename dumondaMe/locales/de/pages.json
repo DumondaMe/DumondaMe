@@ -743,6 +743,10 @@
       "text1": "Ja, um eine bessere Transparenz bezüglich den verwendeten Algorithmen anzubieten ist der Code Open Source. Dieser kann auf <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a> eingesehen werden."
     }
   },
+  "contact": {
+    "title": "Kontakt",
+    "post": "DumondaMe<br>8000 Zürich<br>Schweiz"
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "Über uns",
