@@ -10,7 +10,7 @@
                     <span>{{$t('common:feedCard.answerType.textWithQuestion2')}} </span>
                     </span>
                     <span class="answer-type" v-else>{{$t('common:feedCard.answerType.text')}}</span>
-                    <span class="card-header-link">
+                    <span class="card-header-link" v-if="answer.questionId">
                     <nuxt-link :to="{name: 'question-questionId-slug',
                             params: {questionId: answer.questionId, slug: answer.questionSlug},
                             query: {answerId: answer.answerId}}"> {{answer.question}}
