@@ -82,6 +82,8 @@ module.exports = {
     setUserPrivacy: user.setUserPrivacy,
     setUserProfileActivityPrivacy: user.setUserProfileActivityPrivacy,
     setUserName: user.setUserName,
+    interestedTopics: user.interestedTopics,
+    interestedRegions: user.interestedRegions,
 
     createNews: news.createNews,
 

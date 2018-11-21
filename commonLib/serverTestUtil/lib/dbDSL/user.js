@@ -108,6 +108,22 @@ let setUserName = function (userId, data) {
         .set("u", {name: data.name}).end({userId}).getCommand());
 };
 
+let interestedTopics = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(u:User {userId: {userId}}), (t:Topic)`)
+        .where(`t.topicId IN {topics}`)
+        .merge(`(u)-[:INTERESTED]->(t)`)
+        .end({userId, topics: data.topics}).getCommand());
+};
+
+let interestedRegions = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(u:User {userId: {userId}}), (r:Region)`)
+        .where(`r.regionId IN {regions}`)
+        .merge(`(u)-[:INTERESTED]->(r)`)
+        .end({userId, regions: data.regions}).getCommand());
+};
+
 
 module.exports = {
     setUserRegisteredDate,
@@ -123,5 +139,7 @@ module.exports = {
     inviteUser,
     setUserPrivacy,
     setUserProfileActivityPrivacy,
-    setUserName
+    setUserName,
+    interestedTopics,
+    interestedRegions
 };
