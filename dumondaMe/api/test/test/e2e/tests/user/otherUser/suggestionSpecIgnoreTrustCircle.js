@@ -54,12 +54,12 @@ describe('Suggestion of other users for trust circle and ignoring the own trust 
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/otherUser/suggestionIgnoreTrustCircle', {skip: 0, limit: 10});
+        let res = await requestHandler.get('/api/user/otherUser/suggestionIgnoreTrustCircle', {skip: 0, limit: 2});
         res.status.should.equal(200);
 
         res.body.trustCircleSuggestion.should.equal(false);
-        res.body.hasMoreUsers.should.equal(false);
-        res.body.users.length.should.equal(3);
+        res.body.hasMoreUsers.should.equal(true);
+        res.body.users.length.should.equal(2);
         res.body.users[0].userId.should.equal('6');
         res.body.users[0].name.should.equal('user Meier6');
         res.body.users[0].numberOfIntersectingTrustCircle.should.equal(0);
@@ -72,10 +72,5 @@ describe('Suggestion of other users for trust circle and ignoring the own trust 
         res.body.users[1].slug.should.equal('user-meier9');
         res.body.users[1].profileUrl.should.equal('profileImage/9/thumbnail.jpg');
 
-        res.body.users[2].userId.should.equal('5');
-        res.body.users[2].name.should.equal('user Meier5');
-        res.body.users[2].numberOfIntersectingTrustCircle.should.equal(0);
-        res.body.users[2].slug.should.equal('user-meier5');
-        res.body.users[2].profileUrl.should.equal('profileImage/5/thumbnail.jpg');
     });
 });
