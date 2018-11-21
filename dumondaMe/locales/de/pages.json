@@ -279,7 +279,7 @@
       "answerInfoLink": "Beantworte mit einem Link auf eine Website, einen Blog, einen Zeitungsartikel usw. die Frage.",
       "answerHintLink": "Z.Bsp. https://www.kulturpark.ch",
       "answerDescriptionVideo": "Weshalb beantwortet dieses Video die Frage?",
-      "answerInfoVideo": "Beantworte mit einem Youtube oder Vimeo Video die Frage.",
+      "answerInfoVideo": "Beantworte mit einem Youtube Video die Frage.",
       "answerHintVideo": "Z.Bsp. https://www.youtube.com/watch?v=TEy6HPpXRAo",
       "answerDescriptionBook": "Beschreibung des Buches",
       "answerInfoBook": "Beantworte mit einem Hinweis zu einem Buch die Frage.",
@@ -287,7 +287,7 @@
       "answerInfoCommitment": "Beantworte mit einem Engagement die Frage."
     },
     "answerLinkDialog": {
-      "answerInfoWrongType": "Bei deinem Link handelt es sich nicht um ein Youtube oder Vimeo Video.",
+      "answerInfoWrongType": "Bei deinem Link handelt es sich nicht um ein Youtube Video.",
       "answerSwitchTypeButton": "Link erfassen",
       "typeOfWebsiteDescription": "Um was für ein Weblink handelt es sich?",
       "typeWebsite": "Webseite",
@@ -295,7 +295,7 @@
       "typeBlog": "Blog"
     },
     "answerVideoDialog": {
-      "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube oder Vimeo Video.",
+      "answerInfoWrongType": "Bei deinem Link handelt es sich um ein Youtube Video.",
       "answerSwitchTypeButton": "Video erfassen"
     },
     "answerTextDialog": {
@@ -315,7 +315,7 @@
       "title": "Antworten",
       "textDescription": "Beantworte die Frage mit deinen Worten",
       "linkDescription": "Webseite, Blog, Zeitungsartikel usw.",
-      "videoDescription": "Youtube und Vimeo Videos",
+      "videoDescription": "Youtube Video",
       "bookDescription": "Ein Buch welches Antworten auf die Frage liefert",
       "commitmentDescription": "Welches Engagement beschäftigt sich mit dieser Fragestellung?"
     },

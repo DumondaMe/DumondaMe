@@ -281,7 +281,7 @@
       "answerInfoLink": "Answer the question with a link to a website, blog, newspaper article, etc.",
       "answerHintLink": "E.g. https://www.kulturpark.ch",
       "answerDescriptionVideo": "Why does this video answer the question?",
-      "answerInfoVideo": "Answer the question with a YouTube or Vimeo video.",
+      "answerInfoVideo": "Answer the question with a YouTube video.",
       "answerHintVideo": "E.g. https://www.youtube.com/watch?v=TEy6HPpXRAo",
       "answerDescriptionBook": "Description of the book",
       "answerInfoBook": "Answer the question with a reference to a book.",
@@ -289,7 +289,7 @@
       "answerInfoCommitment": "Answer the question with a commitment."
     },
     "answerLinkDialog": {
-      "answerInfoWrongType": "Your link is not a YouTube or Vimeo video.",
+      "answerInfoWrongType": "Your link is not a YouTube video.",
       "answerSwitchTypeButton": "Create link",
       "typeOfWebsiteDescription": "What kind of weblink is it?",
       "typeWebsite": "Website",
@@ -297,7 +297,7 @@
       "typeBlog": "Blog"
     },
     "answerVideoDialog": {
-      "answerInfoWrongType": "Your link is a YouTube or Vimeo video.",
+      "answerInfoWrongType": "Your link is a YouTube video.",
       "answerSwitchTypeButton": "Create video"
     },
     "answerTextDialog": {
@@ -317,7 +317,7 @@
       "title": "Answers",
       "textDescription": "Answer the question with your words",
       "linkDescription": "Website, blog, newspaper articles etc.",
-      "videoDescription": "Youtube und Vimeo Videos",
+      "videoDescription": "Youtube Video",
       "bookDescription": "A book that provides answers to the question",
       "commitmentDescription": "Which commitment deals with this question?"
     },
