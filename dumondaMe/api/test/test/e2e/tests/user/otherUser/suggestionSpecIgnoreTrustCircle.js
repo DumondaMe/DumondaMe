@@ -73,4 +73,35 @@ describe('Suggestion of other users for trust circle and ignoring the own trust 
         res.body.users[1].profileUrl.should.equal('profileImage/9/thumbnail.jpg');
 
     });
+
+    it('Do not show user when privacy setting of user is set to onlyContact', async function () {
+        dbDsl.createRegion('international', {de: 'internationalDe', en: 'internationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+
+        dbDsl.interestedRegions('1', {regions: ['region-1']});
+        dbDsl.interestedRegions('5', {regions: ['region-1']});
+        dbDsl.interestedRegions('6', {regions: ['region-1']});
+
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+
+        dbDsl.interestedTopics('1', {topics: ['topic1']});
+        dbDsl.interestedTopics('6', {topics: ['topic1']});
+        dbDsl.interestedTopics('5', {topics: ['topic1']});
+
+        dbDsl.createContactConnection('2', '5');
+        dbDsl.createContactConnection('2', '6');
+
+        dbDsl.setUserPrivacy('6', {privacyMode: 'onlyContact'});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/otherUser/suggestionIgnoreTrustCircle', {skip: 0, limit: 10});
+        res.status.should.equal(200);
+
+        res.body.trustCircleSuggestion.should.equal(false);
+        res.body.hasMoreUsers.should.equal(false);
+        res.body.users.length.should.equal(1);
+        res.body.users[0].userId.should.equal('5');
+        res.body.users[0].profileUrl.should.equal('profileImage/5/thumbnail.jpg');
+    });
 });

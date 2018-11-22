@@ -8,7 +8,8 @@ const cdn = require('dumonda-me-server-lib').cdn;
 let trustCircleUserSuggestionCommand = function (userId, limit, skip) {
     return db.cypher()
         .match('(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:IS_CONTACT]->(suggestedUser:User)')
-        .where(`NOT (user)-[:IS_CONTACT]->(suggestedUser) AND suggestedUser.privacyMode <> 'onlyContact'`)
+        .where(`NOT (user)-[:IS_CONTACT]->(suggestedUser) AND suggestedUser.privacyMode <> 'onlyContact' AND
+                NOT user.userId = suggestedUser.userId`)
         .with(`user, suggestedUser, count(suggestedUser) AS numberOfIntersectingTrustCircle`)
         .optionalMatch(`(user)-[:INTERESTED]->(interested)<-[:INTERESTED]-(suggestedUser)`)
         .where(`interested:Topic OR interested:Region`)
@@ -23,13 +24,14 @@ let trustCircleUserSuggestionCommand = function (userId, limit, skip) {
 
 let ignoreTrustCircleUserSuggestionCommand = function (userId, limit, skip) {
     return db.cypher()
-        .match(`(user:User {userId: {userId}})-[:INTERESTED]->(interested:Topic)<-[:INTERESTED]-(suggestedUser:User)`)
-        .where(`NOT (user)-[:IS_CONTACT]->(suggestedUser) AND suggestedUser.privacyMode <> 'onlyContact'`)
-        .with(`user, suggestedUser, count(interested) AS numberOfSameTopic`)
-        .match(`(user)-[:INTERESTED]->(interested:Region)<-[:INTERESTED]-(suggestedUser)`)
-        .with(`user, suggestedUser, numberOfSameTopic, count(interested) AS numberOfSameRegion`)
-        .match(`(suggestedUser)<-[:IS_CONTACT]-(trustUser:User)`)
-        .with(`suggestedUser, numberOfSameTopic, numberOfSameRegion, count(trustUser) AS numberTrustUser`)
+        .match(`(suggestedUser:User)<-[:IS_CONTACT]-(trustUser:User)`)
+        .where(`suggestedUser.userId <> {userId} AND NOT (:User {userId: {userId}})-[:IS_CONTACT]->(suggestedUser) AND 
+                suggestedUser.privacyMode <> 'onlyContact'`)
+        .with(`suggestedUser, count(trustUser) AS numberTrustUser`)
+        .optionalMatch(`(:User {userId: {userId}})-[:INTERESTED]->(interested:Topic)<-[:INTERESTED]-(suggestedUser)`)
+        .with(`suggestedUser, numberTrustUser, count(interested) AS numberOfSameTopic`)
+        .optionalMatch(`(:User {userId: {userId}})-[:INTERESTED]->(interested:Region)<-[:INTERESTED]-(suggestedUser)`)
+        .with(`suggestedUser, numberTrustUser, numberOfSameTopic, count(interested) AS numberOfSameRegion`)
         .return(`DISTINCT suggestedUser.userId AS userId, suggestedUser.name AS name, 
                      0 AS numberOfIntersectingTrustCircle, numberOfSameTopic, numberOfSameRegion, numberTrustUser`)
         .orderBy(`numberOfSameTopic DESC, numberOfSameRegion DESC, numberTrustUser DESC`)
@@ -38,10 +40,10 @@ let ignoreTrustCircleUserSuggestionCommand = function (userId, limit, skip) {
         .end({userId, limit: limit + 1, skip});
 };
 
-let handlingResponse = async function(users) {
+let handlingResponse = async function (users) {
     for (let user of users) {
         user.slug = slug(user.name);
-        user.profileUrl = cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`);
+        user.profileUrl = await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`);
     }
 };
 
