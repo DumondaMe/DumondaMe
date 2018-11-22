@@ -12,11 +12,17 @@
         <div class="user-suggestion-loading text-xs-center" v-else>
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
-        <v-btn outline color="primary" v-if="hasMoreUsers && !reloadingButtonActive" class="loading-button"
-               @click="loadNextUserSuggestion">
-            {{$t('common:button.showMore')}}
+        <v-btn outline color="primary" v-if="(hasMoreUsers && !reloadingButtonActive && skip > 7) ||
+                                             (skip > 7 && !reloadingButtonActive)" class="loading-button"
+               @click="loadNextUserSuggestion(true)">
+            {{$t('common:button.back')}}
         </v-btn>
-        <v-btn outline color="primary" v-if="reloadingButtonActive" class="loading-button"
+        <v-btn outline color="primary" v-if="hasMoreUsers && !reloadingButtonActive"
+               class="loading-button"
+               @click="loadNextUserSuggestion(false)">
+            {{$t('common:button.next')}}
+        </v-btn>
+        <v-btn outline color="primary" v-else-if="reloadingButtonActive" class="loading-button"
                @click="loadStartUserSuggestion">
             {{$t('pages:feeds.userSuggestion.reloadSuggestionButton')}}
         </v-btn>
@@ -32,7 +38,7 @@
         data() {
             return {
                 users: [], hasMoreUsers: false, trustCircleSuggestion: true, loading: true, loadingButton: false,
-                reloadingButtonActive: false
+                reloadingButtonActive: false, skip: 0
             }
         },
         components: {UserSuggestion},
@@ -43,10 +49,18 @@
             userAddedToTrustCircle() {
                 this.reloadingButtonActive = true;
             },
-            async loadNextUserSuggestion() {
+            async loadNextUserSuggestion(back) {
                 try {
+                    let limit = 10;
                     this.loadingButton = true;
-                    this.loadUserSuggestion(this.users.length, 10);
+                    if (back) {
+                        this.skip = this.skip - 20;
+                        if (this.skip < 0) {
+                            this.skip = 0;
+                            limit = 7;
+                        }
+                    }
+                    this.loadUserSuggestion(this.skip, limit);
                 } finally {
                     this.loadingButton = false;
                 }
@@ -66,7 +80,8 @@
                 for (let user of result.users) {
                     Vue.set(user, 'userHasBeenAddedToTrustCircle', false);
                 }
-                this.users = this.users.concat(result.users);
+                this.skip = skip + limit;
+                this.users = result.users;
                 this.hasMoreUsers = result.hasMoreUsers;
                 this.trustCircleSuggestion = result.trustCircleSuggestion;
             }
