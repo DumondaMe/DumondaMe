@@ -6,6 +6,7 @@
             <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
             <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
+            <user-suggestions v-if="isAuthenticated"></user-suggestions>
             <!--<feed-popular-question></feed-popular-question>-->
         </div>
         <div slot="content">
@@ -38,6 +39,7 @@
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
     import BetaVersion from "~/components/common/beta/BetaDescription";
+    import UserSuggestions from '~/components/feed/UserSuggestions';
 
     export default {
         async fetch({error, store, route}) {
@@ -56,7 +58,7 @@
         },
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
-            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion
+            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions
         },
         head() {
             return {

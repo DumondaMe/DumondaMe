@@ -205,6 +205,12 @@
           "numberOfAnswers": "{{count}} answers"
         }
       }
+    },
+    "userSuggestion": {
+      "title": "Suggestions for your Trust Cricle",
+      "noSuggestion": "Unfortunately we have no suggestions for you at the moment.",
+      "addUser": "Add {{name}} to your Trust Circle",
+      "reloadSuggestionButton": "New Suggest"
     }
   },
   "commitment": {
