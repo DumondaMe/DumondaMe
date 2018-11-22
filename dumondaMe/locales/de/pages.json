@@ -203,6 +203,12 @@
         "fewAnswers_plural": "Hat erst {{count}} Antworten",
         "numberOfAnswers": "{{count}} Antworten"
       }
+    },
+    "userSuggestion": {
+      "title": "Vorschläge für deinen Trust Cricle",
+      "noSuggestion": "Leider haben wir im Moment keine Vorschläge für dich.",
+      "addUser": "{{name}} zu deinem Trust Circle hinzufügen",
+      "reloadSuggestionButton": "Neu Vorschlagen"
     }
   },
   "commitment": {
