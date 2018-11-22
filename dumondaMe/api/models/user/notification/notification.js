@@ -43,6 +43,28 @@ const getNotificationWithOriginators = async function (notification) {
     }
 };
 
+const getNotificationAddedToTrustCircle = async function (notification) {
+    let index, users = [];
+    for (index = 0; index < 3 && index < notification.infos.length; index++) {
+        let user = notification.infos[index].info;
+        let created = notification.relInfos[index].created;
+        users.push({
+            userId: user.userId,
+            name: user.name,
+            slug: slug(user.name),
+            added: created,
+            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
+        });
+    }
+    return {
+        notificationId: notification.notification.notificationId,
+        users: users,
+        numberOfUsers: notification.infos.length,
+        created: notification.notification.created,
+        type: notification.notification.type
+    }
+};
+
 const addWatchingCommitmentProperties = function (notificationResponse, notification) {
     if (notificationResponse.type === 'watchingCommitment' && notification.infos.length === 1) {
         notificationResponse.commitmentId = notification.infos[0].info.commitmentId;
@@ -108,7 +130,9 @@ const getResponse = async function (notifications) {
     for (let notification of notifications) {
         if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
-        } else if (notification.notification.type === 'addedToTrustCircle' ||
+        } else if (notification.notification.type === 'addedToTrustCircle') {
+            response.push(await getNotificationAddedToTrustCircle(notification));
+        } else if (
             notification.notification.type === 'watchingCommitment' ||
             notification.notification.type === 'watchingQuestion' ||
             notification.notification.type === 'createdAnswer' ||
