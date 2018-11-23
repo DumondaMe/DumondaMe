@@ -60,9 +60,8 @@
             <p>Furthermore, <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a>
                 actively supported us in building this platform.</p>
         </div>
-        <h2 class="subtitle" v-if="selectedLanguage === 'de'">{{$t('pages:aboutUs.history.title')}}</h2>
-        <v-timeline align-top id="dumonda-me-history-timeline" :dense="this.$vuetify.breakpoint.name === 'xs'"
-                    v-if="selectedLanguage === 'de'">
+        <h2 class="subtitle">{{$t('pages:aboutUs.history.title')}}</h2>
+        <v-timeline align-top id="dumonda-me-history-timeline" :dense="this.$vuetify.breakpoint.name === 'xs'">
             <timeline-element color="#009e97" icon="mdi-lightbulb-on-outline"
                               :date="$t('pages:aboutUs.history.thoughtFlash.date')"
                               :timeline-title="$t('pages:aboutUs.history.thoughtFlash.title')"
@@ -153,12 +152,12 @@
                               :timeline-title="$t('pages:aboutUs.history.helloWorld.title')"
                               :timeline-text="$t('pages:aboutUs.history.helloWorld.text')">
             </timeline-element>
-            <timeline-element color="green lighten-1" icon="mdi-currency-usd"
+            <timeline-element color="green lighten-1" icon="mdi-rocket"
                               :date="$t('pages:aboutUs.history.crowdfunding.date')"
                               :timeline-title="$t('pages:aboutUs.history.crowdfunding.title')"
                               :timeline-text="$t('pages:aboutUs.history.crowdfunding.text')">
             </timeline-element>
-            <timeline-element color="green lighten-1" icon="mdi-step-forward"
+            <timeline-element color="green lighten-1" icon="mdi-auto-fix"
                               :date="$t('pages:aboutUs.history.nextSteps.date')"
                               :timeline-title="$t('pages:aboutUs.history.nextSteps.title')"
                               :timeline-text="$t('pages:aboutUs.history.nextSteps.text')">

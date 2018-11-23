@@ -750,6 +750,119 @@
     "title": "Contact",
     "post": "DumondaMe<br>8000 Zurich<br>Switzerland"
   },
+  "aboutUs": {
+    "team": {
+      "title": "Team"
+    },
+    "history": {
+      "title": "Once upon a time...",
+      "thoughtFlash": {
+        "title": "The flash of inspiration",
+        "text": "Suddenly the thought is there and I (Roger Waldvogel) can't stop thinking: What if there were a social network that works without advertising and is designed from the ground up for the benefit of society?",
+        "date": "November 2013"
+      },
+      "openSea": {
+        "title": "Into the open water",
+        "text": "I jump in the cold water and quit my job as a software engineer to dedicate myself fully to this project. Well, the first two months after the resignation I do anything but programming until I remember why I quit my well-paid job...",
+        "date": "October 2014"
+      },
+      "firstVersion": {
+        "title": "The first version is online",
+        "text": "The first version with the name 'Elyoos' appears on the internet and almost nobody notices it. Not even the search engines...",
+        "date": "Beginning of April 2015"
+      },
+      "crisis": {
+        "title": "Crisis",
+        "text": "An experience plunges me into a deep crisis. I doubt whether the implementation of Elyoos makes any sense at all. Completely frustrated, I begin to write down my thoughts in a book and ask myself the question: How should it continue?",
+        "date": "June 2015"
+      },
+      "goOn": {
+        "title": "And on it continues",
+        "text": "Suddenly I realize what Elyoos is supposed to achieve and what I want to contribute to the development of society. I delete almost the entire code and start all over again.",
+        "date": "January 2016"
+      },
+      "money": {
+        "title": "The dear money",
+        "text": "My savings are slowly coming to an end. Since only a half professional crowdfunding does not lead to success, I get unexpected support from my family.",
+        "date": "End of 2016"
+      },
+      "onToTwo": {
+        "title": "From one to two",
+        "text": "Finally I'm not alone anymore! Roman Kümin actively supports me in the conception of the platform and the strategic orientation.",
+        "date": "December 22nd 2016"
+      },
+      "transitionConnect": {
+        "title": "Transition Connect",
+        "text": "Since the end of 2016 I have made some efforts to make Elyoos better known and got to know so many interesting people in the field of eco-social change. The result is a cooperation between <a href='https://wp.wandel.jetzt/' target='_blank' rel='noopener'>Wandel.jetzt</a>, <a href='http://www.transition-zuerich.ch/' target='_blank' rel='noopener'>Transition Zürich</a> and <a href='https://www.revamp-it.ch/' target='_blank' rel='noopener'>Revamp-IT</a> and me to implement the <a href='http://www.transition-connect.org/' target='_blank' rel='noopener'>Transition Connect Service</a>.",
+        "date": "May 12th, 2017"
+      },
+      "clubElyoos": {
+        "title": "Association Elyoos",
+        "text": "In the Cafe Sphéres in Zurich, on a warm summer evening, the association Elyoos is founded.",
+        "date": "21 June 2017"
+      },
+      "kulturparkZurich": {
+        "title": "Kulturpark Zürich",
+        "text": "Slowly but surely the money is getting hot again. That's why we write to foundations and gratefully receive generous support from <a href='https://www.kulturpark.ch/' target='_blank' rel='noopener'>Kulturpark Zürich</a>.",
+        "date": "End of 2017"
+      },
+      "alphaTransitionConnect": {
+        "title": "Alpha Version of Transition Connect",
+        "text": "I put all my energy into it again and finish the alpha version of Transition Connect.",
+        "date": "December 2017"
+      },
+      "three": {
+        "title": "All good things come in threes",
+        "text": "When preparing the documents for the foundations, we take a lot of time and consider in detail how to proceed. In this process, we realize that the focus of the platform should be on 'question/answer' functionality. For these and several other reasons, a large part of what has already been programmed is thrown into the virtual trash for the second time.",
+        "date": "January 2018"
+      },
+      "momoRonja": {
+        "title": "The team is growing",
+        "text": "We get infinitely valuable support from <a href='https://momoundronja.ch/' target='_blank' rel='noopener'>momo&ronja</a>! Four smoking heads are clearly better than two...",
+        "date": "January 2018"
+      },
+      "conceptTest": {
+        "title": "Concept test",
+        "text": "The 'question/answer' functionality is tested with some persons in the <a href='https://www.kulturpark.ch/' target='_blank' rel='noopener'>Kulturpark Zürich</a>.",
+        "date": "July 14th, 2018."
+      },
+      "nameCrash": {
+        "title": "Uuiii another challenge",
+        "text": "A brand search brings new challenges to light: There are already some brand names that collide with Elyoos. After extensive brainstorming, the new name 'DumondaMe' appears on the screen. Dumonda means 'question' in Rhaeto-Romanic and therefore fits perfectly to the new concept.",
+        "date": "Mid August 2018"
+      },
+      "dumondaMeOnline": {
+        "title": "DumondaMe is online!",
+        "text": "After a lot of sweat into the implementation of the feedback from the concept test, DumondaMe is now available online for everyone as a beta version. Even the search engines can now find DumondaMe!",
+        "date": "September 22nd, 2018."
+      },
+      "elyoosToDumondaMe": {
+        "title": "The association Elyoos becomes DumondaMe",
+        "text": "In the process of the general renaming also the name of the supporting association Elyoos is changed to DumondaMe.",
+        "date": "November 10th, 2018"
+      },
+      "helloWorld": {
+        "title": "Hello World, this is DumondaMe",
+        "text": "Now it will be interesting for everyone! We want to make DumondaMe known to the public in different ways, like an explanation video produced by us and we want to build up the community further. ",
+        "date": "Mid December 2018"
+      },
+      "crowdfunding": {
+        "title": "Crowdfunding",
+        "text": "In 2019 we want to really get started. For this to succeed, we need the appropriate financial means, which we would also like to receive through a professionally designed crowdfunding.",
+        "date": "March 2019"
+      },
+      "nextSteps": {
+        "title": "Next Steps",
+        "text": "The focus in 2019 will be on building the community, implementing functions to ensure the quality of content and the stability and scalability of the platform. ",
+        "date": "2019"
+      },
+      "goal": {
+        "title": "A bright future becomes reality",
+        "text": "The world has become a place where a sustainable approach to nature, social justice, a high quality of life and peace are as self-evident as the air we breathe!",
+        "date": "coming soon"
+      }
+    }
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "About us",
