@@ -37,6 +37,17 @@
         data() {
             return {fromRoute: null}
         },
+        mounted: function () {
+            //This is a workaround for 500 chunk error after deployment
+            if (this.error.statusCode === 500
+                && /^Loading chunk [0-9]+ failed/.test(this.error.message)
+                && window.location.hash !== '#retry') {
+                // the chunk might no longer be available due to a recent redeployment of the page
+                // mark the page to don't trigger reload infinitely
+                window.location.hash = '#retry';
+                window.location.reload(true);
+            }
+        },
         beforeRouteEnter(to, fromRoute, next) {
             next(vm => {
                 vm.fromRoute = fromRoute;
