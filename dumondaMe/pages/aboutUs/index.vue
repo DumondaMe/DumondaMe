@@ -61,7 +61,8 @@
                 actively supported us in building this platform.</p>
         </div>
         <h2 class="subtitle">{{$t('pages:aboutUs.history.title')}}</h2>
-        <v-timeline align-top id="dumonda-me-history-timeline" :dense="this.$vuetify.breakpoint.name === 'xs'">
+        <v-timeline align-top id="dumonda-me-history-timeline"
+                    :dense="showDenseTimeline">
             <timeline-element color="#009e97" icon="mdi-lightbulb-on-outline"
                               :date="$t('pages:aboutUs.history.thoughtFlash.date')"
                               :timeline-title="$t('pages:aboutUs.history.thoughtFlash.title')"
@@ -176,6 +177,12 @@
 
     export default {
         components: {TimelineElement},
+        data() {
+            return {showDenseTimeline: false}
+        },
+        mounted() {
+            this.showDenseTimeline = window.innerWidth < 600;
+        },
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language
