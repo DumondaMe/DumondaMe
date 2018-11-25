@@ -69,7 +69,8 @@ const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
     return db.cypher()
         .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
-                 OR feedElement:Question)AND feedElement.created <= {timestamp} 
+                 OR feedElement:Question) AND (activityElement:User OR activityElement:Commitment) 
+                 AND feedElement.created <= {timestamp} 
                  ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
