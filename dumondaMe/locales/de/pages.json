@@ -345,15 +345,11 @@
       },
       "instruction4": {
         "title": "Kein Dialekt",
-        "description": "Verwende beim Schreiben deiner Frage bitte nur Schriftdeutsch."
+        "description": "Verwende für die Formulierung deiner Frage bitte nur Schriftdeutsch."
       },
       "instruction5": {
         "title": "Selbstverständlich",
         "description": "Keine beleidigende, rassistische oder diskriminierende Frage"
-      },
-      "instruction6": {
-        "title": "Das wärs schon ;-)",
-        "description": "Ok, ich werde mir Mühe geben"
       }
     }
   },
