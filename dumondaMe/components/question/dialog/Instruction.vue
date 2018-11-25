@@ -19,9 +19,6 @@
                 <v-divider></v-divider>
                 <step :number="6" :selected-step="step">
                 </step>
-                <v-divider v-if="!this.hasAskedQuestion"></v-divider>
-                <step v-if="!this.hasAskedQuestion" :number="7" :selected-step="step">
-                </step>
             </stepper-header>
         </div>
         <v-card-text class="mobile-dialog-content question-instruction-content">
@@ -64,19 +61,12 @@
                     {{$t('pages:question.instructionDialog.instruction5.description')}}
                 </div>
             </div>
-            <div v-else-if="step === 7">
-                <div class="instruction-title">{{$t('pages:question.instructionDialog.instruction6.title')}}</div>
-                <v-checkbox :label="$t('pages:question.instructionDialog.instruction6.description')"
-                            v-model="hasAcknowledge" color="primary" class="acknowledge-checkbox">
-                </v-checkbox>
-            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
-            <v-btn color="primary" @click="navigationButtonPressed"
-                   :disabled="!enableNext || (!hasAcknowledge && step === 7)">
+            <v-btn color="primary" @click="navigationButtonPressed">
                 {{$t("common:button.next")}}
             </v-btn>
         </v-card-actions>
@@ -93,7 +83,7 @@
         },
         methods: {
             navigationButtonPressed() {
-                if ((this.step < 7 && !this.hasAskedQuestion) || (this.step < 6 && this.hasAskedQuestion)) {
+                if (this.step < 6) {
                     this.step = this.step + 1;
                 } else {
                     this.$emit('next')
