@@ -1,0 +1,2 @@
+MATCH (u:User)
+Remove u.userLocationDescription, u.street, u.userLocationDescription, u.place, u.lastSetupAccount, u.female, u.birthday, u.country, u.latitude, u.longitude;
