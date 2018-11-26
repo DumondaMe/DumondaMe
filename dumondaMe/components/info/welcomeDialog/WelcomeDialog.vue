@@ -6,12 +6,17 @@
             <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </profile-image>
-            <region v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
+            <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage = 3"
+                     :init-privacy-mode="settings.privacyMode"
+                     :init-show-profile-activity="settings.showProfileActivity">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </privacy>
+            <region v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
                     :action-button-text="$t('common:button.next')" :select-multiple="true" hide-item="international"
                     :description="$t('pages:commitment.createDialog.regionDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </region>
-            <topics v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
+            <topics v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                     :action-button-text="$t('common:button.next')"
                     :description="$t('pages:commitment.createDialog.topicDescription')">
                 <stepper slot="header" :selected-step="showPage"></stepper>
@@ -30,17 +35,25 @@
 <script>
     import Welcome from './Welcome';
     import ProfileImage from './ProfileImage';
+    import Privacy from './Privacy';
     import Topics from '~/components/topic/dialog/Topics';
     import Region from '~/components/region/dialog/Region';
     import Stepper from './Stepper';
 
-    const ERROR_CODE_IMAGE_TO_SMALL = 1;
-
     export default {
         data() {
-            return {dialog: true, showPage: 0, loading: false, showError: false, showWarning: false}
+            return {dialog: true, showPage: 0, loading: false, showError: false, showWarning: false, settings: {}}
         },
-        components: {Topics, Region, Stepper, Welcome, ProfileImage},
+        async mounted() {
+            try {
+                this.settings = await this.$axios.$get(`user/settings`);
+            } catch (error) {
+
+            } finally {
+                this.loading = false;
+            }
+        },
+        components: {Topics, Region, Stepper, Welcome, ProfileImage, Privacy},
         methods: {
             async finishCommitmentData({commitment}) {
 

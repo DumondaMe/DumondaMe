@@ -587,10 +587,12 @@
     "languageTitle": "Language Settings",
     "languageUI": "User interface language",
     "privacyTitle": "Privacy Settings",
+    "privacyDescription": "Define who can see your profile.",
     "privacyPublic": "Your profile is public",
-    "privacyPublicOnDumondaMe": "Your profile will only be seen by other users of DumondaMe",
-    "privacyOnlyContact": "Only people in your trust circle see your profile",
-    "privacyShowActivity": "Show your activities in your profile to other people"
+    "privacyPublicOnDumondaMe": "Your profile can only be seen by people who have logged in to DumondaMe",
+    "privacyOnlyContact": "Only people you have added to your Trust Circle will see your profile",
+    "privacyShowActivityDescription": "Should people who can see your profile also see your activities? E.g. Answer Agreed, Question Asked, Engagement Marked as Interesting etc.",
+    "privacyShowActivity": "Show activities"
   },
   "notifications": {
     "showQuestionRequest": {
