@@ -14,6 +14,9 @@ let initUser = function (commit, req) {
     if (req.user && req.user.id) {
         commit('user/SET_USER_ID', req.user.id);
     }
+    if (req.user && req.user.infoState) {
+        commit('user/SET_USER_INFO_STATE', req.user.infoState);
+    }
 };
 
 export const actions = {

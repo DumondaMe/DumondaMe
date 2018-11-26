@@ -34,6 +34,7 @@ export default ({app, store, req}) => {
     let resources = {}, lang = store.state.i18n.language;
     resources[lang] = {
         common: require(`~/locales/${lang}/common.json`),
+        dialog: require(`~/locales/${lang}/dialog.json`),
         pages: require(`~/locales/${lang}/pages.json`),
         validation: require(`~/locales/${lang}/validation.json`)
     };
