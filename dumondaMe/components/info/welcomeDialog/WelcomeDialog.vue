@@ -4,6 +4,7 @@
             <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1">
             </welcome>
             <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2">
+                <stepper slot="header" :selected-step="showPage"></stepper>
             </profile-image>
             <region v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
                     :action-button-text="$t('common:button.next')" :select-multiple="true" hide-item="international"
