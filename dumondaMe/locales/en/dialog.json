@@ -1,0 +1,11 @@
+{
+  "welcome": {
+    "stepWelcome": {
+      "title": "Beautiful you are a part of DumondaMe",
+      "description": "To make getting started as easy as possible, you can make the most important settings for your account below. In addition, we would like to briefly introduce you to the most important concepts of DumondaMe."
+    },
+    "stepProfileImage": {
+      "description": "Select your profile picture. In the privacy settings you can determine who is allowed to see it."
+    }
+  }
+}

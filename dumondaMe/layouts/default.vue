@@ -9,6 +9,7 @@
                 <nuxt/>
             </div>
         </div>
+        <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </v-app>
 </template>
@@ -17,15 +18,17 @@
     import DumondaMeToolbar from '~/components/navigation/toolbar/Toolbar';
     import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
+    import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
 
     export default {
-        components: {DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer},
+        components: {DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog},
         data() {
-            return {drawer: null, isRightSideDrawer: true};
+            return {drawer: null, isRightSideDrawer: true, showInfoDialog: false};
         },
         mounted() {
             this.onResize();
             window.addEventListener('resize', this.onResize, {passive: true});
+            this.showInfoDialog = true;
         },
         beforeDestroy() {
             if (typeof window !== 'undefined') {
@@ -35,6 +38,12 @@
         methods: {
             onResize() {
                 this.isRightSideDrawer = window.innerWidth >= 700;
+            }
+        },
+        computed: {
+            showWelcomeDialog() {
+                return this.showInfoDialog && this.$store.state.user.infoState === 0 &&
+                    this.$store.state.auth.userIsAuthenticated;
             }
         }
     }
@@ -64,6 +73,7 @@
                 @media screen and (max-width: $xs) {
                     background-color: white;
                 }
+
                 #dumonda-me-content {
                     min-height: inherit;
                     height: inherit;
@@ -73,6 +83,7 @@
                         padding-top: 56px;
                         padding-bottom: 18px;
                     }
+
                     #dumonda-me-inner-content {
                         max-width: 950px;
                         width: 100%;
@@ -87,6 +98,7 @@
                         }
                     }
                 }
+
                 .v-navigation-drawer {
                     z-index: 101;
                 }
