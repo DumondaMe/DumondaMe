@@ -17,7 +17,7 @@ let getResponse = function (setting) {
     setting.interestedTopics = [];
     for (let topic of setting.topics) {
         setting.interestedTopics.push({
-            topicId: topic.topicId,
+            id: topic.topicId,
             description: topic[setting.language]
         })
     }

@@ -36,9 +36,9 @@ describe('Getting user setting', function () {
         res.body.languages[0].should.equal('de');
 
         res.body.interestedTopics.length.should.equal(2);
-        res.body.interestedTopics[0].topicId.should.equal('topic1');
+        res.body.interestedTopics[0].id.should.equal('topic1');
         res.body.interestedTopics[0].description.should.equal('topic1De');
-        res.body.interestedTopics[1].topicId.should.equal('topic22');
+        res.body.interestedTopics[1].id.should.equal('topic22');
         res.body.interestedTopics[1].description.should.equal('topic22De');
 
         res.body.showProfileActivity.should.equal(false);
