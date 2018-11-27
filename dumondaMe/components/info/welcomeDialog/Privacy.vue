@@ -44,18 +44,8 @@
         props: ['initPrivacyMode', 'initShowProfileActivity'],
         data() {
             return {
-                loading: true, showError: false, showProfileActivity: this.initShowProfileActivity,
+                loading: false, showError: false, showProfileActivity: this.initShowProfileActivity,
                 privacyMode: this.initPrivacyMode
-            }
-        },
-        async mounted() {
-            try {
-                let result = await this.$axios.$get('user/profile/image');
-                this.profileImage = result.profileImage;
-            } catch (error) {
-
-            } finally {
-                this.loading = false;
             }
         },
         methods: {
