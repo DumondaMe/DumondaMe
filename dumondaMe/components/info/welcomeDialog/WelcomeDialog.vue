@@ -1,26 +1,38 @@
 <template>
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="750px" :fullscreen="$vuetify.breakpoint.xsOnly">
-            <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1"
+            <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage++"
                      :loading="loading" class="welcome-dialog">
             </welcome>
-            <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2"
+            <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage++"
                            class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </profile-image>
-            <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage = 3"
+            <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage++"
                      :init-privacy-mode="settings.privacyMode" class="welcome-dialog"
                      :init-show-profile-activity="settings.showProfileActivity">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </privacy>
-            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4"
+            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++"
                     :init-topics="settings.interestedTopics" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
-            <languages v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage = 5"
+            <languages v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++"
                        :init-languages="settings.languages" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </languages>
+            <question v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
+                      class="welcome-dialog">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </question>
+            <commitment v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="showPage++"
+                        class="welcome-dialog">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </commitment>
+            <trust-circle v-if="showPage === 7" @close-dialog="$emit('close-dialog')" @next="finish"
+                          class="welcome-dialog">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </trust-circle>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
@@ -38,6 +50,9 @@
     import Privacy from './Privacy';
     import Topics from './Topics';
     import Languages from './Languages';
+    import Question from './Question';
+    import Commitment from './Commitment';
+    import TrustCircle from './TrustCircle';
     import Stepper from './Stepper';
 
     export default {
@@ -53,8 +68,13 @@
                 this.loading = false;
             }
         },
-        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Languages},
-        methods: {}
+        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Languages, Question, Commitment, TrustCircle},
+        methods: {
+            finish() {
+
+                this.$emit('close-dialog');
+            }
+        }
     }
 </script>
 
@@ -65,7 +85,11 @@
             font-size: 28px;
             color: $primary-color;
             margin-bottom: 18px;
+            @media screen and (max-width: $xs) {
+                font-size: 22px;
+            }
         }
+
         .mobile-dialog-content {
             padding-top: 0;
         }

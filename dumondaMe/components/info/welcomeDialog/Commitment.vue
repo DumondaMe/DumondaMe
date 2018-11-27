@@ -1,11 +1,14 @@
 <template>
-    <v-card id="welcome-container">
+    <v-card id="welcome-commitment-container">
+        <div>
+            <slot name="header"></slot>
+        </div>
         <v-card-text class="mobile-dialog-content">
-            <div id="welcome-dialog-title">{{$t("dialog:welcome.stepWelcome.title")}}</div>
-            <div id="welcome-title-image-container">
+            <div id="image-commitment-container">
                 <img :src="imageUrl"/>
             </div>
-            <div class="welcome-description">{{$t("dialog:welcome.stepWelcome.description")}}</div>
+            <div class="help-hint">{{$t("dialog:welcome.stepCommitment.hint")}}</div>
+            <div class="commitment-description" v-html="$t('dialog:welcome.stepCommitment.description')"></div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -13,7 +16,7 @@
             <v-btn color="primary" flat @click="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click="$emit('next')" :disabled="loading" :loading="loading">
+            <v-btn color="primary" @click="$emit('next')">
                 {{$t("common:button.next")}}
             </v-btn>
         </v-card-actions>
@@ -22,22 +25,34 @@
 
 <script>
     export default {
-        props: ['loading'],
         computed: {
             imageUrl() {
-                return `${process.env.staticUrl}/img/welcome/welcome.jpg`;
+                return `${process.env.staticUrl}/img/welcome/commitment.jpg`;
             }
         }
     }
 </script>
 
 <style lang="scss">
-    #welcome-container {
-        .mobile-dialog-content {
-            padding-top: 16px;
+    #welcome-commitment-container {
+
+        .commitment-description {
+            margin-top: 18px;
+            font-weight: 300;
+            b {
+                font-weight: 500;
+                color: $primary-color;
+            }
         }
 
-        #welcome-title-image-container {
+        .help-hint {
+            margin-bottom: 12px;
+            color: $secondary-color;
+            border-left: 2px solid $secondary-color;
+            padding-left: 12px;
+        }
+
+        #image-commitment-container {
             width: 400px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
@@ -50,13 +65,6 @@
                 width: 100%;
                 border-radius: 6px;
             }
-        }
-
-        .welcome-description {
-            text-align: center;
-            font-weight: 300;
-            max-width: 550px;
-            margin: 0 auto;
         }
     }
 </style>
