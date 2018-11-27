@@ -11,14 +11,8 @@
                      :init-show-profile-activity="settings.showProfileActivity">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </privacy>
-            <region v-else-if="showPage === 3" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
-                    :action-button-text="$t('common:button.next')" :select-multiple="true" hide-item="international"
-                    :description="$t('pages:commitment.createDialog.regionDescription')">
-                <stepper slot="header" :selected-step="showPage"></stepper>
-            </region>
-            <topics v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
-                    :action-button-text="$t('common:button.next')"
-                    :description="$t('pages:commitment.createDialog.topicDescription')">
+            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4"
+                     :init-topics="settings.interestedTopics">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
         </v-dialog>
@@ -36,8 +30,7 @@
     import Welcome from './Welcome';
     import ProfileImage from './ProfileImage';
     import Privacy from './Privacy';
-    import Topics from '~/components/topic/dialog/Topics';
-    import Region from '~/components/region/dialog/Region';
+    import Topics from './Topics';
     import Stepper from './Stepper';
 
     export default {
@@ -53,19 +46,9 @@
                 this.loading = false;
             }
         },
-        components: {Topics, Region, Stepper, Welcome, ProfileImage, Privacy},
+        components: {Stepper, Welcome, ProfileImage, Privacy, Topics},
         methods: {
-            async finishCommitmentData({commitment}) {
 
-            },
-            finishRegion(regions) {
-
-                this.showPage = 2;
-            },
-            finishTopics(topics) {
-
-                this.showPage = 3;
-            }
         }
     }
 </script>

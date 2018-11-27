@@ -595,7 +595,9 @@
     "privacyPublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben",
     "privacyOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast sehen dein Profil",
     "privacyShowActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. Antwort zugestimmt, Frage gestellt, Engagement als interessant markiert usw.",
-    "privacyShowActivity": "Aktivitäten anzeigen"
+    "privacyShowActivity": "Aktivitäten anzeigen",
+    "topicsTitle": "Themenbereiche",
+    "topicsDescription": "Welche Themen interessieren dich?"
   },
   "notifications": {
     "showQuestionRequest": {
