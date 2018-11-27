@@ -1,7 +1,7 @@
 <template>
     <v-card id="welcome-container">
         <v-card-text class="mobile-dialog-content">
-            <div id="welcome-title">{{$t("dialog:welcome.stepWelcome.title")}}</div>
+            <div id="welcome-dialog-title">{{$t("dialog:welcome.stepWelcome.title")}}</div>
             <div id="welcome-title-image-container">
                 <img :src="imageUrl"/>
             </div>
@@ -33,11 +33,6 @@
 
 <style lang="scss">
     #welcome-container {
-        #welcome-title {
-            text-align: center;
-            font-size: 28px;
-            color: $primary-color;
-        }
 
         #welcome-title-image-container {
             width: 300px;

@@ -4,6 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
+            <div id="welcome-dialog-title">{{$t("pages:settings.privacyTitle")}}</div>
             <div class="privacy-description">{{$t('pages:settings.privacyDescription')}}</div>
             <v-radio-group v-model="privacyMode" class="select-privacy-setting" :disabled="loading">
                 <v-radio value="public" color="primary">
@@ -75,7 +76,11 @@
 
 <style lang="scss">
     #welcome-privacy-container {
+        #welcome-dialog-title {
+            //text-align: left;
+        }
         .privacy-description {
+            margin-top: 18px;
             font-weight: 300;
         }
 

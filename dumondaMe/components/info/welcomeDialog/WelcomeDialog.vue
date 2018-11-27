@@ -2,22 +2,23 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="750px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1"
-                     :loading="loading">
+                     :loading="loading" class="welcome-dialog">
             </welcome>
-            <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2">
+            <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2"
+                           class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </profile-image>
             <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage = 3"
-                     :init-privacy-mode="settings.privacyMode"
+                     :init-privacy-mode="settings.privacyMode" class="welcome-dialog"
                      :init-show-profile-activity="settings.showProfileActivity">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </privacy>
             <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4"
-                    :init-topics="settings.interestedTopics">
+                    :init-topics="settings.interestedTopics" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
             <languages v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage = 5"
-                       :init-languages="settings.languages">
+                       :init-languages="settings.languages" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </languages>
         </v-dialog>
@@ -58,5 +59,15 @@
 </script>
 
 <style lang="scss">
-
+    .welcome-dialog {
+        #welcome-dialog-title {
+            text-align: center;
+            font-size: 28px;
+            color: $primary-color;
+            margin-bottom: 18px;
+        }
+        .mobile-dialog-content {
+            padding-top: 0;
+        }
+    }
 </style>

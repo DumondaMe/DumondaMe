@@ -4,6 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content" v-if="hideCropImageDialog">
+            <div id="welcome-dialog-title">{{$t("dialog:welcome.stepProfileImage.title")}}</div>
             <div id="profile-image-container">
                 <img :src="profileImage" v-if="profileImage"/>
                 <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
@@ -103,6 +104,7 @@
             img {
                 width: 100%;
                 border-radius: 6px;
+                border: 1px solid $divider;
             }
 
             #change-image-button {
