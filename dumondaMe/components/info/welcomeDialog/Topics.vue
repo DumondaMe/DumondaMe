@@ -4,6 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
+            <div id="welcome-dialog-title">{{$t("pages:settings.topicsTitle")}}</div>
             <div class="topics-description">{{$t('pages:settings.topicsDescription')}}</div>
             <ely-select :items="topics" :existing-items="existingTopics" :select-multiple="true" :min-items="1"
                         single-selected-item-id="allTopics" @select-changed="selectChanged"
@@ -97,6 +98,10 @@
 
 <style lang="scss">
     #welcome-topics-container {
+        #welcome-dialog-title {
+            max-width: 400px;
+            margin: 0 auto 12px auto;
+        }
         .topics-description {
             max-width: 400px;
             margin: 0 auto 12px auto;

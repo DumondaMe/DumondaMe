@@ -5,6 +5,7 @@
       "description": "Um den Einstieg möglichst einfach zu gestallten, kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen. Zudem wollen wir dir ganz kurz die wichtigsten Konzepte von DumondaMe vorstellen"
     },
     "stepProfileImage": {
+      "title": "Dein Profilbild",
       "description": "Wähle dein Profilbild aus. Mit den Privatsphäre Einstellungen kannst du bestimmen wer es sehen darf."
     }
   }

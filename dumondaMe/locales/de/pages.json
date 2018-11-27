@@ -594,11 +594,12 @@
     "privacyPublic": "Dein Profil ist öffentlich",
     "privacyPublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben",
     "privacyOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast sehen dein Profil",
-    "privacyShowActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. Antwort zugestimmt, Frage gestellt, Engagement als interessant markiert usw.",
+    "privacyShowActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. welchen Antworten du zugestimmt hast.",
     "privacyShowActivity": "Aktivitäten anzeigen",
     "topicsTitle": "Themenbereiche",
     "topicsDescription": "Welche Themen interessieren dich?",
-    "languagesDescription": "Welche Sprachen verstehst du? Es werden dir nur die Fragen und Engagements angezeigt, welche du ausgewählt hast."
+    "languagesTitle": "Spracheinstellungen",
+    "languagesDescription": "Welche Sprachen verstehst du? Es werden dir nur die Fragen und Engagements in den Sprachen angezeigt, welche du ausgewählt hast. "
   },
   "notifications": {
     "showQuestionRequest": {

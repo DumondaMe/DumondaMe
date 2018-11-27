@@ -4,6 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
+            <div id="welcome-dialog-title">{{$t("pages:settings.languagesTitle")}}</div>
             <div class="languages-description">{{$t('pages:settings.languagesDescription')}}</div>
             <div class="select-languages-container">
                 <div class="selected-language" v-for="language in getLanguagesTranslated()" :key="language.value">
