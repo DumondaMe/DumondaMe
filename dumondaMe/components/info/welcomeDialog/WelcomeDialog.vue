@@ -1,7 +1,8 @@
 <template>
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="750px" :fullscreen="$vuetify.breakpoint.xsOnly">
-            <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1">
+            <welcome v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1"
+                     :loading="loading">
             </welcome>
             <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage = 2">
                 <stepper slot="header" :selected-step="showPage"></stepper>
@@ -12,9 +13,13 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </privacy>
             <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4"
-                     :init-topics="settings.interestedTopics">
+                    :init-topics="settings.interestedTopics">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
+            <languages v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage = 5"
+                       :init-languages="settings.languages">
+                <stepper slot="header" :selected-step="showPage"></stepper>
+            </languages>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
@@ -31,6 +36,7 @@
     import ProfileImage from './ProfileImage';
     import Privacy from './Privacy';
     import Topics from './Topics';
+    import Languages from './Languages';
     import Stepper from './Stepper';
 
     export default {
@@ -41,15 +47,13 @@
             try {
                 this.settings = await this.$axios.$get(`user/settings`);
             } catch (error) {
-
+                this.showError = true;
             } finally {
                 this.loading = false;
             }
         },
-        components: {Stepper, Welcome, ProfileImage, Privacy, Topics},
-        methods: {
-
-        }
+        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Languages},
+        methods: {}
     }
 </script>
 

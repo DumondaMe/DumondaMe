@@ -13,7 +13,7 @@
             <v-btn color="primary" flat @click="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
-            <v-btn color="primary" @click="$emit('next')">
+            <v-btn color="primary" @click="$emit('next')" :disabled="loading" :loading="loading">
                 {{$t("common:button.next")}}
             </v-btn>
         </v-card-actions>
@@ -22,6 +22,7 @@
 
 <script>
     export default {
+        props: ['loading'],
         computed: {
             imageUrl() {
                 return `${process.env.staticUrl}/img/welcome/welcome.jpg`;
