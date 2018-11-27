@@ -7,6 +7,22 @@
     "stepProfileImage": {
       "title": "Dein Profilbild",
       "description": "Wähle dein Profilbild aus. Mit den Privatsphäre Einstellungen kannst du bestimmen wer es sehen darf."
+    },
+    "stepQuestion": {
+      "description": "<b>Fragen</b> sind das Herzstück von DumondaMe. Diese können mit verschiedenen Antworttypen beantwortet werden wie:",
+      "link": "Links auf Webseiten",
+      "youtube": "Youtube Videos",
+      "books": "Büchern",
+      "text": "eigenen Texten",
+      "commitment": "Engagements",
+      "hint": "Tipp! Du kannst auch deine eigene Frage beantworten."
+    },
+    "stepCommitment": {
+      "description": "<b>Engagements</b> bei DumondaMe sind die Möglichkeit deinen Verein, dein Unternehmen, dein Projekt oder aber auch dein persönliches Engagement für eine leuchtende Zukunft der Welt zu präsentieren. Auf diese Weise werden die vielen wertvollen Engagements die bereits umgesetzt werden oder in Planung sind für Alle sichtbar.",
+      "hint": "Tipp! Engagements können auch als Antwort auf eine Frage verwendet werden."
+    },
+    "stepTrustCircle": {
+      "description": "Welchen Informationen wir Glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. Durch das Aktivieren des Trust Circle - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
     }
   }
 }
