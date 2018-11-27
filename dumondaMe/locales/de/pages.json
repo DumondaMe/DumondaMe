@@ -597,7 +597,8 @@
     "privacyShowActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. Antwort zugestimmt, Frage gestellt, Engagement als interessant markiert usw.",
     "privacyShowActivity": "Aktivitäten anzeigen",
     "topicsTitle": "Themenbereiche",
-    "topicsDescription": "Welche Themen interessieren dich?"
+    "topicsDescription": "Welche Themen interessieren dich?",
+    "languagesDescription": "Welche Sprachen verstehst du? Es werden dir nur die Fragen und Engagements angezeigt, welche du ausgewählt hast."
   },
   "notifications": {
     "showQuestionRequest": {
