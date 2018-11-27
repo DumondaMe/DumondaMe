@@ -2,7 +2,7 @@
   "welcome": {
     "stepWelcome": {
       "title": "Beautiful you are a part of DumondaMe",
-      "description": "To make getting started as easy as possible, you can make the most important settings for your account below. In addition, we would like to briefly introduce you to the most important concepts of DumondaMe."
+      "description": "To make getting started as easy as possible, you can make the most important settings for your account below."
     },
     "stepProfileImage": {
       "title": "Your Profile Picture",
@@ -18,7 +18,7 @@
       "hint": "Tip! You can also answer your own question."
     },
     "stepCommitment": {
-      "description": "<b>Commitments</b> at DumondaMe are the possibility to present your club, your company, your project or your personal commitment for a bright future of the world. In this way the many valuable engagements that are already implemented or in planning are visible for all.",
+      "description": "<b>Commitments</b> at DumondaMe are the possibility to present your club, your company, your project or your personal commitment for a bright future of the world.",
       "hint": "Tip! Engagements can also be used as an answer to a question."
     },
     "stepTrustCircle": {

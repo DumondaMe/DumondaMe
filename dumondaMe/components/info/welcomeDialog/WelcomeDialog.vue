@@ -17,19 +17,15 @@
                     :init-topics="settings.interestedTopics" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </topics>
-            <languages v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++"
-                       :init-languages="settings.languages" class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage"></stepper>
-            </languages>
-            <question v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <question v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++"
                       class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </question>
-            <commitment v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <commitment v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
                         class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment>
-            <trust-circle v-if="showPage === 7" @close-dialog="$emit('close-dialog')" @next="finish"
+            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish"
                           class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </trust-circle>

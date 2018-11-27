@@ -19,7 +19,7 @@
         <v-card-actions v-if="hideCropImageDialog">
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click="$emit('close-dialog')">
-                {{$t("common:button.close")}}
+                {{$t("common:button.later")}}
             </v-btn>
             <v-btn color="primary" @click="$emit('next')" :disabled="loading">
                 {{$t("common:button.next")}}
