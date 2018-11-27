@@ -19,7 +19,11 @@
             'maxItems', 'minItems', 'hideItem'],
         components: {SelectElement},
         data() {
-            return {localItems: JSON.parse(JSON.stringify(this.items)), selected: []}
+            let selected = [];
+            if (this.existingItems && this.existingItems.length > 0) {
+                selected = JSON.parse(JSON.stringify(this.existingItems));
+            }
+            return {localItems: JSON.parse(JSON.stringify(this.items)), selected}
         },
         mounted() {
             this.setIsSelectedState(this.localItems, this.existingItems);
