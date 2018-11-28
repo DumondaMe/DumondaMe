@@ -24,12 +24,6 @@ let setUserIsSuperUser = function (userId) {
         .end({userId: userId}).getCommand());
 };
 
-let setUserLocation = function (userId, data) {
-    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
-        .set("u", {userLocationDescription: data.description, latitude: data.latitude, longitude: data.longitude})
-        .end({userId: userId}).getCommand());
-};
-
 let setUserEmail = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
         .set("u", {email: data.email})
@@ -108,6 +102,21 @@ let setUserName = function (userId, data) {
         .set("u", {name: data.name}).end({userId}).getCommand());
 };
 
+let setUserLanguages = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {languages: data.languages}).end({userId}).getCommand());
+};
+
+let setTrustCircle = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {trustCircle: data.trustCircle}).end({userId}).getCommand());
+};
+
+let setInfoState = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {infoState: data.infoState}).end({userId}).getCommand());
+};
+
 let interestedTopics = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(u:User {userId: {userId}}), (t:Topic)`)
@@ -130,7 +139,6 @@ module.exports = {
     setUserLastLoginTime,
     setUserIsDumondaMeAdmin,
     setUserIsSuperUser,
-    setUserLocation,
     setUserEmail,
     createUser,
     createUserRegisterRequest,
@@ -140,6 +148,9 @@ module.exports = {
     setUserPrivacy,
     setUserProfileActivityPrivacy,
     setUserName,
+    setUserLanguages,
+    setTrustCircle,
+    setInfoState,
     interestedTopics,
     interestedRegions
 };
