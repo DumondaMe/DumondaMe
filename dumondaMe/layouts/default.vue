@@ -42,7 +42,8 @@
         },
         computed: {
             showWelcomeDialog() {
-                return this.showInfoDialog && this.$store.state.user.infoState === 0 &&
+                return this.showInfoDialog &&
+                    (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
                     this.$store.state.auth.userIsAuthenticated;
             }
         }
