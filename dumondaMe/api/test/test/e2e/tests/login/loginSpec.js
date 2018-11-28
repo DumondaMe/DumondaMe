@@ -71,6 +71,8 @@ describe('Integration Tests Login', function () {
         res.body.languages.length.should.equals(1);
         res.body.languages.should.includes('en');
         res.body.infoState.should.equals(0);
+        res.body.topics.length.should.equals(0);
+        res.body.regions.length.should.equals(0);
     });
 
     it('Logout - Return a 200', function (done) {
