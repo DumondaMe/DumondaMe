@@ -19,7 +19,7 @@ module.exports = function (router) {
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaChangeUserLanguages);
-        await languages.changeLanguagesSettings(req.user.id, request.languages);
+        await languages.changeLanguagesSettings(req.user.id, request.languages, req);
         res.status(200).end();
     }));
 };
