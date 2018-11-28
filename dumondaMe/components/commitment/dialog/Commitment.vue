@@ -35,8 +35,8 @@
                                                ruleToManyChars($t('validation:toManyChars'), 1000)]">
                         </v-text-field>
                         <v-select id="select-language"
-                                  :items="getLanguages" v-model="commitment.lang"
-                                  item-value="key" item-text="description" persistent-hint
+                                  :items="getLanguagesTranslated()" v-model="commitment.lang"
+                                  item-value="value" item-text="text" persistent-hint
                                   :rules="[ruleSelectRequired($t('validation:fieldRequired'))]">
                             :hint="$t('pages:commitment.createDialog.primaryLanguageDescription')">
                             <span slot="label">{{$t('pages:commitment.createDialog.primaryLanguage')}}</span>
@@ -64,6 +64,7 @@
 
 <script>
     import validationRules from '~/mixins/validationRules.js';
+    import languages from '~/mixins/languages.js';
     import urlRegex from '~/utils/url';
     import CropImage from '~/components/common/dialog/cropper/CropImage';
 
@@ -129,12 +130,9 @@
             },
             defaultCommitmentImage() {
                 return `${process.env.staticUrl}/img/defaultCommitmentTitle.jpg`;
-            },
-            getLanguages() {
-                return this.$store.state.i18n.languages
             }
         },
-        mixins: [validationRules]
+        mixins: [validationRules, languages]
     }
 </script>
 

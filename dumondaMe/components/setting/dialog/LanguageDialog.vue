@@ -8,8 +8,8 @@
                 <v-divider></v-divider>
                 <v-card-text id="dialog-set-language-content" class="mobile-dialog-content">
                     <v-select id="select-user-language" :label="$t('pages:settings.languageUI')"
-                              :items="getLanguages" v-model="language"
-                              item-value="key" item-text="description">
+                              :items="getLanguages()" v-model="language"
+                              item-value="value" item-text="text">
                     </v-select>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -32,17 +32,16 @@
 </template>
 
 <script>
+    import languages from '~/mixins/languages.js';
+
     export default {
         data() {
-            return {dialog: true, running: false, showError: false, language: this.$store.state.i18n.languages
-                    .find(lang => lang.key === this.$store.state.i18n.language)}
+            return {dialog: true, running: false, showError: false, language: this.getLanguages()
+                    .find(lang => lang.value === this.$store.state.i18n.language)}
         },
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language;
-            },
-            getLanguages() {
-                return this.$store.state.i18n.languages
             },
             languageNotChanged() {
                 return this.$store.state.i18n.language === this.language.key;
@@ -59,7 +58,8 @@
                     this.running = false;
                 }
             }
-        }
+        },
+        mixins: [languages]
     }
 </script>
 

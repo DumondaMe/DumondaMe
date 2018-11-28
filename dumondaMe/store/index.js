@@ -10,24 +10,29 @@ let initRecaptcha = function (commit) {
     commit('recaptcha/SET_RECAPTCHA_SITE_KEY', process.env.RECAPTCHA_SITE_KEY)
 };
 
-let initUser = function (commit, req) {
+let initUser = function (commit, req, language) {
     if (req.user && req.user.id) {
         commit('user/SET_USER_ID', req.user.id);
     }
     if (req.user && req.user.infoState) {
         commit('user/SET_USER_INFO_STATE', req.user.infoState);
     }
+    if (req.user && req.user.languages) {
+        commit('i18n/SET_LANGUAGES', req.user.languages);
+    } else {
+        commit('i18n/SET_LANGUAGES', [language]);
+    }
 };
 
 export const actions = {
 
-    nuxtServerInit({commit}, {req, app}) {
+    nuxtServerInit({commit}, {req, app, store}) {
         setUserAuthentication(commit, req);
         if (req.isAuthenticated()) {
             commit('feedFilter/SET_MAIN_FILTER', 'activity')
         }
         initFeedFilter(commit, app.i18n.i18next.t('common:international'));
         initRecaptcha(commit);
-        initUser(commit, req);
+        initUser(commit, req, store.state.i18n.language);
     }
 };

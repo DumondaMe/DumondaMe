@@ -2,34 +2,33 @@
     <div id="language-setting-container">
         <h2 class="user-profile-title">{{$t("pages:settings.languageTitle")}}</h2>
         <v-select id="select-user-language" :label="$t('pages:settings.languageUI')"
-                  :items="getLanguages" v-model="selectedLanguage"
-                  item-value="key" item-text="description">
+                  :items="getLanguages()" v-model="selectedLanguage"
+                  item-value="value" item-text="text">
         </v-select>
     </div>
 </template>
 
 <script>
+    import languages from '~/mixins/languages.js';
 
     export default {
         data() {
             return {
-                selectedLanguage: this.$store.state.i18n.languages
-                    .find(lang => lang.key === this.$store.state.i18n.language)
+                selectedLanguage: this.getLanguages()
+                    .find(lang => lang.value === this.$store.state.i18n.language)
             }
         },
         computed: {
             user() {
                 return this.$store.state.userProfile.user;
-            },
-            getLanguages() {
-                return this.$store.state.i18n.languages
             }
         },
         watch: {
             selectedLanguage(newValue) {
                 this.$store.dispatch('i18n/setLanguage', {language: newValue});
             }
-        }
+        },
+        mixins: [languages]
     }
 </script>
 
