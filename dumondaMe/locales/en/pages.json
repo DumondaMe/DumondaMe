@@ -133,7 +133,7 @@
     "support": {
       "title": "Support us",
       "description": "You can support us in many ways as a pioneer in building this platform:",
-      "support1": "Have you discovered a bug or an idea how something could be optimized? Write us at <a href='mailto:feedback@dumonda.me' target='_self'>feedback@dumonda.me</a>",
+      "support1": "Your feedback is important to us! Write us at <a href='mailto:feedback@dumonda.me' target='_self'>feedback@dumonda.me</a>",
       "support2": {
         "text1": "Ask questions",
         "text2": "or answer them with your expertise."
@@ -153,7 +153,7 @@
     },
     "activityInfo": {
       "title": "See what happens in the network",
-      "description": "Whether someone creates a question or answers it, in the Activity Feed you can see what's happening on the network. You can also use the filters to narrow down what you want to see. For example, if the Trust Circle filter is enabled, only the activities of the people you trust will be displayed."
+      "description": "In the Activity Feed you can see what is happening in the network, for example which questions have just been asked or answered. With the help of the filters you can determine what should be displayed to you. For example, if the Trust Circle filter is enabled, only the activities of those you trust are visible. "
     },
     "menu": {
       "creatorAnswer": {
