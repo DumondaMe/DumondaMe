@@ -17,12 +17,6 @@
                     <span slot="label">{{$t("pages:settings.privacyOnlyContact")}}</span>
                 </v-radio>
             </v-radio-group>
-            <div class="privacy-description">{{$t('pages:settings.privacyShowActivityDescription')}}</div>
-            <div id="select-hide-activity">
-                <v-checkbox v-model="showProfileActivity" :label="$t('pages:settings.privacyShowActivity')"
-                            color="primary" :disabled="loading">
-                </v-checkbox>
-            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>

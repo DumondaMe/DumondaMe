@@ -26,7 +26,7 @@
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </commitment>
             <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish"
-                          class="welcome-dialog">
+                          class="welcome-dialog" :loading="loading">
                 <stepper slot="header" :selected-step="showPage"></stepper>
             </trust-circle>
         </v-dialog>
@@ -66,9 +66,16 @@
         },
         components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Languages, Question, Commitment, TrustCircle},
         methods: {
-            finish() {
-
-                this.$emit('close-dialog');
+            async finish() {
+                try {
+                    this.loading = true;
+                    await this.$axios.$post(`user/settings/finishWelcome`);
+                    this.$emit('close-dialog');
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }
