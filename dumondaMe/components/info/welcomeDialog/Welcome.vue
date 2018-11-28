@@ -39,12 +39,15 @@
 
         #welcome-title-image-container {
             width: 400px;
+            min-height: 289px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
                 width: 300px;
+                min-height: 217px;
             }
             @media screen and (max-width: 350px) {
                 width: 280px;
+                min-height: 200px;
             }
             img {
                 width: 100%;

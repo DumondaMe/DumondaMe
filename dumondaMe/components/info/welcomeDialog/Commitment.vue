@@ -52,11 +52,14 @@
 
         #image-commitment-container {
             width: 400px;
+            min-height: 292px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
+                min-height: 219px;
                 width: 300px;
             }
             @media screen and (max-width: 350px) {
+                min-height: 204px;
                 width: 280px;
             }
             img {
