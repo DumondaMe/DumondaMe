@@ -66,11 +66,14 @@
 
         #image-question-container {
             width: 400px;
+            min-height: 243px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
+                min-height: 182px;
                 width: 300px;
             }
             @media screen and (max-width: 350px) {
+                min-height: 170px;
                 width: 280px;
             }
             img {

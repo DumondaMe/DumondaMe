@@ -52,11 +52,14 @@
 
         #image-trust-circle-container {
             width: 400px;
+            min-height: 295px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
                 width: 300px;
+                min-height: 222px;
             }
             @media screen and (max-width: 350px) {
+                min-height: 207px;
                 width: 280px;
             }
 

@@ -103,6 +103,7 @@
 
             img {
                 width: 100%;
+                min-height: 146px;
                 border-radius: 6px;
                 border: 1px solid $divider;
             }
