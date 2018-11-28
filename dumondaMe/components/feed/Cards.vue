@@ -75,7 +75,7 @@
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-if="element.type === 'Question'"
-                               :hide-time="routeName === 'index'">
+                               :hide-time="routeName === 'question'">
                     <question-card-footer slot="footer" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
                                           :number-of-answers="element.numberOfAnswers" :action="element.action"
