@@ -12,7 +12,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="$emit('next')">
+            <v-btn color="primary" @click="$emit('next')" :loading="loading" :disabled="loading">
                 {{$t("common:button.finish")}}
             </v-btn>
         </v-card-actions>
@@ -21,6 +21,7 @@
 
 <script>
     export default {
+        props: ['loading'],
         computed: {
             imageUrl() {
                 return `${process.env.staticUrl}/img/welcome/trustCircle.jpg`;
@@ -35,6 +36,7 @@
         .trust-circle-description {
             margin-top: 18px;
             font-weight: 300;
+
             b {
                 font-weight: 500;
                 color: $primary-color;
@@ -57,6 +59,7 @@
             @media screen and (max-width: 350px) {
                 width: 280px;
             }
+
             img {
                 width: 100%;
                 border-radius: 6px;
