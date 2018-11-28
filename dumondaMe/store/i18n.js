@@ -1,10 +1,7 @@
 import moment from 'moment';
 
 export const state = () => ({
-    languages: [
-        {key: 'de', description: 'Deutsch'},
-        {key: 'en', description: 'English'}
-    ],
+    languages: ['de'],
     language: 'de'
 });
 
@@ -14,6 +11,9 @@ export const mutations = {
             state.language = language;
             moment.locale(language);
         }
+    },
+    SET_LANGUAGES: function (state, languages) {
+        state.languages = languages;
     }
 };
 

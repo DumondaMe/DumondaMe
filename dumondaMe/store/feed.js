@@ -104,7 +104,7 @@ export const actions = {
     async getFeed({commit, rootState, rootGetters}) {
         try {
             commit('SET_LOADING', true);
-            let params = {params: {page: 0, guiLanguage: rootState.i18n.language, languages: ['de', 'en']}};
+            let params = {params: {page: 0, guiLanguage: rootState.i18n.language, languages: rootState.i18n.languages}};
             params.params = Object.assign(params.params, rootGetters['feedFilter/getFilterParams']);
             let response = await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params,
                 rootState.feedFilter.mainFilter, 'SET_FEED', this.$axios);
@@ -114,7 +114,11 @@ export const actions = {
         }
     },
     async loadNextFeedElements({commit, state, rootState, rootGetters}) {
-        let params = {params: {page: state.page + 1, guiLanguage: rootState.i18n.language, languages: ['de', 'en']}};
+        let params = {
+            params: {
+                page: state.page + 1, guiLanguage: rootState.i18n.language, languages: rootState.i18n.languages
+            }
+        };
         params.params = Object.assign(params.params, rootGetters['feedFilter/getFilterParams']);
         await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params, rootState.feedFilter.mainFilter,
             'ADD_TO_FEED', this.$axios);

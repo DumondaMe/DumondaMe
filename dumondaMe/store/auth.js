@@ -11,7 +11,9 @@ export const mutations = {
 export const actions = {
     async login({commit}, {username, password}) {
         try {
-            await this.$axios.$post('/login', {username, password});
+            let response = await this.$axios.$post('/login', {username, password});
+            commit('user/SET_USER_INFO_STATE', response.infoState, {root: true});
+            commit('i18n/SET_LANGUAGES', response.languages, {root: true});
             commit('SET_USER_IS_AUTHENTICATED', true);
         } catch (error) {
             if (error.response && error.response.status === 401) {
