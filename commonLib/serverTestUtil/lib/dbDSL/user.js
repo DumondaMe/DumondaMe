@@ -40,8 +40,7 @@ let createUser = function (userId, forename, surname, email) {
 
 let createUserRegisterRequest = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:UserRegisterRequest {name: {name}, surname: {surname},
-    forename: {forename}, email: {email}, emailNormalized: {emailNormalized}, linkId: {linkId}, password: {password}, registerDate: {registerDate},
-    latitude: {latitude}, longitude: {longitude}})`)
+    forename: {forename}, email: {email}, emailNormalized: {emailNormalized}, linkId: {linkId}, password: {password}, registerDate: {registerDate}})`)
         .end({
             name: `${data.forename} ${data.surname}`,
             surname: data.surname,
@@ -50,9 +49,7 @@ let createUserRegisterRequest = function (data) {
             emailNormalized: data.emailNormalized,
             linkId: data.linkId,
             password: data.password,
-            registerDate: data.registerDate,
-            latitude: data.latitude,
-            longitude: data.longitude
+            registerDate: data.registerDate
         }).getCommand());
 };
 
