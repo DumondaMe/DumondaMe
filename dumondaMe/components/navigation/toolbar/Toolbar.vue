@@ -4,15 +4,15 @@
     $route.name === 'question'}">
         <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
                          :logo-url="logoUrl" :show-notification="showNotification"
-                         :number-of-notifications="numberOfNotifications" @logout="logout"
-                         @change-language="changeLanguage" @create-question="showCreateQuestion = true"
+                         :number-of-notifications="numberOfNotifications"
+                         @create-question="showCreateQuestion = true"
                          @create-commitment="showCreateCommitment = true"
                          @open-drawer="$emit('open-drawer')">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
                         :logo-url="logoUrl" :show-notification="showNotification"
-                        :number-of-notifications="numberOfNotifications" @logout="logout"
-                        @change-language="changeLanguage" @create-question="showCreateQuestion = true"
+                        :number-of-notifications="numberOfNotifications"
+                        @create-question="showCreateQuestion = true"
                         @create-commitment="showCreateCommitment = true"
                         @open-drawer="$emit('open-drawer')">
         </mobile-toolbar>
@@ -56,23 +56,6 @@
             ...mapGetters({
                 numberOfNotifications: 'notification/numberOfNotifications'
             })
-        },
-        methods: {
-            async logout() {
-                try {
-                    await this.$store.dispatch('auth/logout');
-                    this.$store.dispatch('notification/stopCheckNotificationChanged');
-                    this.$store.commit('notification/RESET_NOTIFICATION');
-                    this.$store.commit('feedFilter/SET_FILTER_TO_PUBLIC_STATE');
-                    await this.$store.dispatch('feed/getFeed');
-                    this.$router.push({name: 'index'});
-                } catch (e) {
-                    this.showError = true;
-                }
-            },
-            changeLanguage(lang) {
-                this.$store.dispatch('i18n/setLanguage', {language: lang});
-            }
         }
     }
 </script>
