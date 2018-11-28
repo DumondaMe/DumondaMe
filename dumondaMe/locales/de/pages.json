@@ -132,15 +132,15 @@
     },
     "support": {
       "title": "Unterstütze uns",
-      "description": "Du kannst uns auf vielfältige Weise als Pionier*in beim Aufbau dieser Plattform unterstützen:",
-      "support1": "Hast du einen Fehler entdeckt oder eine Idee wie etwas optimiert werden könnte? Schreib uns an <a href='mailto:feedback@dumonda.me' target='_self'>feedback@dumonda.me</a>",
+      "description": "Du kannst uns auf vielfältige Weise als Pionier_in beim Aufbau dieser Plattform unterstützen:",
+      "support1": "Dein Feedback ist uns wichtig! Schreib uns an <a href='mailto:feedback@dumonda.me' target='_self'>feedback@dumonda.me</a>",
       "support2": {
         "text1": "Stelle Fragen",
         "text2": "oder beantworte diese mit deiner Expertise."
       },
-      "support3": "Stimme Antworten zu und markiere Fragen und Engagements welche du interessant findest.",
+      "support3": "Stimme Antworten zu und markiere Fragen und Engagements, welche du interessant findest",
       "support4": {
-        "text1": "Erfasse noch heute dein",
+        "text1": "Erfasse jetzt gleich dein",
         "text2": "Engagement",
         "text3": "für eine leuchtende Zukunft."
       },
@@ -153,7 +153,7 @@
     },
     "activityInfo": {
       "title": "Sehen was im Netzwerk passiert",
-      "description": "Ob jemand eine Frage erstellt oder diese beantwortet, im Activity Feed kannst du sehen was im Netzwerk geschieht. Zudem kannst du mit Hilfe der Filter einschränken, was dir angezeigt werden soll. Ist zum Beispiel der Trust Circle Filter aktiviert, werden nur die Aktivitäten der Personen angezeigt denen du vertraust. "
+      "description": "Im Activity Feed siehst du, was im Netzwerk geschieht, so zum Beispiel welche Fragen gerade gestellt oder beantwortet wurden. Mit Hilfe der Filter kannst du bestimmen, was dir angezeigt werden soll. Ist beispielsweise der Trust Circle-Filter aktiviert, sind nur die Aktivitäten der Personen sichtbar, denen du vertraust. "
     },
     "menu": {
       "creatorAnswer": {
