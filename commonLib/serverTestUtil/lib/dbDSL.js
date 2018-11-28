@@ -72,7 +72,6 @@ module.exports = {
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsDumondaMeAdmin: user.setUserIsDumondaMeAdmin,
     setUserIsSuperUser: user.setUserIsSuperUser,
-    setUserLocation: user.setUserLocation,
     setUserEmail: user.setUserEmail,
     createUser: user.createUser,
     createUserRegisterRequest: user.createUserRegisterRequest,
@@ -82,6 +81,9 @@ module.exports = {
     setUserPrivacy: user.setUserPrivacy,
     setUserProfileActivityPrivacy: user.setUserProfileActivityPrivacy,
     setUserName: user.setUserName,
+    setUserLanguages: user.setUserLanguages,
+    setTrustCircle: user.setTrustCircle,
+    setInfoState: user.setInfoState,
     interestedTopics: user.interestedTopics,
     interestedRegions: user.interestedRegions,
 

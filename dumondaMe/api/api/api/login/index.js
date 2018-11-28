@@ -36,10 +36,12 @@ module.exports = function (router) {
 
                 try {
                     await loginUser.setTimestamp(req.user.id);
-                    res.status(200).json({username: user.email, lang: user.lang});
+                    res.status(200).json({
+                        username: user.email, lang: user.lang, languages: user.languages,
+                        infoState: user.infoState, topics: user.topics, regions: user.regions
+                    });
                     logger.info(`Successful login of user ${req.user.id}`, req, {});
-                }
-                catch (error) {
+                } catch (error) {
                     logger.error('Setting Timestamp failed', req, {error: error});
                     res.status(500).end();
                 }
