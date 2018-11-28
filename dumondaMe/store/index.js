@@ -2,8 +2,16 @@ let setUserAuthentication = function (commit, req) {
     commit('auth/SET_USER_IS_AUTHENTICATED', req.isAuthenticated());
 };
 
-let initFeedFilter = function (commit, description) {
+let initRegionFilter = function (commit, description) {
     commit('feedFilter/SET_REGION_FILTER', {id: 'international', description})
+};
+
+let initTopicFilter = function (commit, user) {
+    if (user && user.topics && user.topics.length > 0) {
+        commit('feedFilter/SET_TOPIC_FILTER', user.topics.map(function (topicId) {
+            return {id: topicId}
+        }));
+    }
 };
 
 let initRecaptcha = function (commit) {
@@ -31,7 +39,8 @@ export const actions = {
         if (req.isAuthenticated()) {
             commit('feedFilter/SET_MAIN_FILTER', 'activity')
         }
-        initFeedFilter(commit, app.i18n.i18next.t('common:international'));
+        initRegionFilter(commit, app.i18n.i18next.t('common:international'));
+        initTopicFilter(commit, req.user);
         initRecaptcha(commit);
         initUser(commit, req, store.state.i18n.language);
     }

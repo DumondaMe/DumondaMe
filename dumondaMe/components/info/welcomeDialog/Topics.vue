@@ -83,7 +83,20 @@
             async next() {
                 try {
                     this.loading = true;
-                    await this.$axios.$put(`/user/settings/topics`, this.getTopics());
+                    let topics = this.getTopics();
+                    await this.$axios.$put(`/user/settings/topics`, topics);
+                    if (topics && topics.topics && topics.topics.length > 0) {
+                        this.$store.commit('feedFilter/SET_TOPIC_FILTER', topics.topics.map(function (topicId) {
+                            return {id: topicId};
+                        }));
+                    } else {
+                        this.$store.commit('feedFilter/SET_TOPIC_FILTER', [{id: 'allTopics'}]);
+                    }
+                    if (this.$route.name === 'index' || this.$route.name === 'commitment' ||
+                        this.$route.name === 'event' || this.$route.name === 'activity' ||
+                        this.$route.name === 'question') {
+                        await this.$store.dispatch(`feed/getFeed`);
+                    }
                     this.$emit('next');
                 } catch (error) {
                     this.showError = true;
@@ -102,6 +115,7 @@
             max-width: 400px;
             margin: 0 auto 12px auto;
         }
+
         .topics-description {
             max-width: 400px;
             margin: 0 auto 12px auto;
