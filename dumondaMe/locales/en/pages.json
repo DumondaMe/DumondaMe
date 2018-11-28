@@ -33,6 +33,7 @@
     "acceptTerms2": "and the",
     "registerButton": "Create",
     "emailSentText": "To activate your account you need to verify your email address. For this purpose a message was sent to {{email}}. It may take a few minutes until it arrives in your account.",
+    "spamHint": "If you did not receive an email, check your spam folder.",
     "errorAccountExist": "For this e-mail address already exists a user account"
   },
   "search": {

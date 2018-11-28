@@ -71,7 +71,8 @@
                 </div>
             </v-form>
             <div v-show="successfullyRegistered" id="register-info">
-                {{$t("pages:register.emailSentText", {email: formEmail})}}
+                <div v-html="$t('pages:register.emailSentText', {email: formEmail})"></div>
+                <p class="spam-hint">{{$t("pages:register.spamHint")}}</p>
                 <div id="register-info-command">
                     <v-btn color="primary" @click="$router.push({name: 'index'})" class="register-button">
                         {{$t("common:button.ok")}}
@@ -156,17 +157,21 @@
         border-radius: 6px;
         border: 1px solid #e0e0e0;
         padding: 16px;
+
         #register-content-container {
             margin-top: 24px;
+
             .register-error {
                 color: #d84021;
                 border-left: 2px solid #d84021;
                 padding-left: 12px;
             }
+
             .accept-terms {
                 margin-left: -4px;
                 margin-top: 12px;
                 margin-bottom: 12px;
+
                 label {
                     text-overflow: unset;
                     white-space: unset;
@@ -175,23 +180,41 @@
                     min-width: 0;
                 }
             }
+
             .dumonda-me-recaptcha {
                 margin-top: 18px;
                 margin-right: auto;
                 margin-bottom: 36px;
             }
+
             #register-commands {
                 display: flex;
+
                 #register-button {
                     margin-left: auto;
                     margin-right: 0;
                 }
             }
+
             #register-info {
                 margin-top: 12px;
+                font-weight: 300;
+
+                b {
+                    font-weight: 500;
+                }
+
+                .spam-hint {
+                    margin: 12px 0 0 0;
+                    color: $warning;
+                    border-left: 2px solid $warning;
+                    padding-left: 12px;
+                }
+
                 #register-info-command {
                     margin-top: 12px;
                     display: flex;
+
                     button {
                         margin-left: auto;
                         margin-right: 0;
