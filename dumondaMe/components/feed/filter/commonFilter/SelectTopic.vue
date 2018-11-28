@@ -42,6 +42,9 @@
                     this.hasChanged = false;
                     await this.$store.dispatch('topic/getTopics');
                 }
+            },
+            initTopics(newInitTopics) {
+                this.localSelectedTopics = JSON.parse(JSON.stringify(newInitTopics));
             }
         }
     }
