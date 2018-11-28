@@ -17,8 +17,6 @@ describe('Integration Tests for verify registering a new user', function () {
             name: 'user Waldvogel',
             forename: 'user',
             surname: 'Waldvogel',
-            latitude: 0,
-            longitude: 0,
             linkId: uuidv4()
         }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),
         registerRequestUserValidWithInvitation, registerRequestUserValidCaseSensitiveEmail;
@@ -71,11 +69,12 @@ describe('Integration Tests for verify registering a new user', function () {
         should.not.exist(user[0].user.linkId);
         user[0].user.forename.should.equals(registerRequestUserValid.forename);
         user[0].user.surname.should.equals(registerRequestUserValid.surname);
-        user[0].user.latitude.should.equals(registerRequestUserValid.latitude);
-        user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
         user[0].user.showProfileActivity.should.equals(true);
+        user[0].user.languages.length.should.equals(2);
+        user[0].user.languages.should.includes('de');
+        user[0].user.languages.should.includes('en');
 
         user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
             .return('user').end({linkId: registerRequestUserValid.linkId}).send();
@@ -102,11 +101,12 @@ describe('Integration Tests for verify registering a new user', function () {
         should.not.exist(user[0].user.linkId);
         user[0].user.forename.should.equals(registerRequestUserValidWithInvitation.forename);
         user[0].user.surname.should.equals(registerRequestUserValidWithInvitation.surname);
-        user[0].user.latitude.should.equals(registerRequestUserValid.latitude);
-        user[0].user.longitude.should.equals(registerRequestUserValid.longitude);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
         user[0].user.showProfileActivity.should.equals(true);
+        user[0].user.languages.length.should.equals(2);
+        user[0].user.languages.should.includes('de');
+        user[0].user.languages.should.includes('en');
 
         user = await db.cypher().match("(:User {email: 'info3@ELYOOS.org'})<-[:HAS_INVITED]-(user:User)")
             .return('user').orderBy("user.userId").end().send();

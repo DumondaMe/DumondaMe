@@ -43,6 +43,7 @@ let verify = async function (linkId, req) {
     user.userId = userId;
     user.privacyMode = 'publicEl';
     user.showProfileActivity = true;
+    user.languages = ['de', 'en'];
 
     commands.push(db.cypher().match(`(user:UserRegisterRequest {linkId: {linkId}})`)
         .return("user").end({linkId: linkId}).getCommand());
