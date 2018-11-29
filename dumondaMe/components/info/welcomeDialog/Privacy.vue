@@ -4,17 +4,17 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
-            <div id="welcome-dialog-title">{{$t("pages:settings.privacyTitle")}}</div>
-            <div class="privacy-description">{{$t('pages:settings.privacyDescription')}}</div>
+            <div id="welcome-dialog-title">{{$t("pages:settings.privacy.title")}}</div>
+            <div class="privacy-description">{{$t('pages:settings.privacy.privacyModeDescription')}}</div>
             <v-radio-group v-model="privacyMode" class="select-privacy-setting" :disabled="loading">
                 <v-radio value="public" color="primary">
-                    <span slot="label">{{$t("pages:settings.privacyPublic")}}</span>
+                    <span slot="label">{{$t("pages:settings.privacy.privacyModePublic")}}</span>
                 </v-radio>
                 <v-radio value="publicEl" color="primary">
-                    <span slot="label">{{$t("pages:settings.privacyPublicOnDumondaMe")}}</span>
+                    <span slot="label">{{$t("pages:settings.privacy.privacyModePublicOnDumondaMe")}}</span>
                 </v-radio>
                 <v-radio value="onlyContact" color="primary">
-                    <span slot="label">{{$t("pages:settings.privacyOnlyContact")}}</span>
+                    <span slot="label">{{$t("pages:settings.privacy.privacyModeOnlyContact")}}</span>
                 </v-radio>
             </v-radio-group>
         </v-card-text>

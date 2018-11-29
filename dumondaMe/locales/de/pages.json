@@ -588,19 +588,23 @@
     }
   },
   "settings": {
-    "languageTitle": "Spracheinstellungen",
-    "languageUI": "Sprache der Benutzeroberfläche",
-    "privacyTitle": "Privatsphäreneinstellungen",
-    "privacyDescription": "Bestimme wer dein Profil sehen darf.",
-    "privacyPublic": "Dein Profil ist öffentlich",
-    "privacyPublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben",
-    "privacyOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast sehen dein Profil",
-    "privacyShowActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. welchen Antworten du zugestimmt hast.",
-    "privacyShowActivity": "Aktivitäten anzeigen",
-    "topicsTitle": "Themenbereiche",
-    "topicsDescription": "Welche Themen interessieren dich?",
-    "languagesTitle": "Spracheinstellungen",
-    "languagesDescription": "Welche Sprachen verstehst du? Es werden dir nur die Fragen und Engagements in den Sprachen angezeigt, welche du ausgewählt hast. "
+    "security": {
+      "title": "Sicherheit"
+    },
+    "language": {
+      "title": "Sprache",
+      "languageUI": "Sprache der Benutzeroberfläche",
+      "languagesDescription": "Welche Sprachen verstehst du? Es werden dir nur die Fragen und Engagements in den Sprachen angezeigt, welche du ausgewählt hast."
+    },
+    "privacy": {
+      "title": "Privatsphäre",
+      "privacyModeDescription": "Bestimme wer dein Profil sehen darf:",
+      "privacyModePublic": "Dein Profil ist öffentlich",
+      "privacyModePublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben",
+      "privacyModeOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast sehen dein Profil",
+      "showActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. welchen Antworten du zugestimmt hast.",
+      "showActivity": "Aktivitäten anzeigen"
+    }
   },
   "notifications": {
     "showQuestionRequest": {

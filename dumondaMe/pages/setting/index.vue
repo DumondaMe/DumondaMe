@@ -1,15 +1,11 @@
 <template>
     <div id="ely-user-setting-layout">
-        <language>
-        </language>
-        <privacy>
-        </privacy>
+        <settings></settings>
     </div>
 </template>
 
 <script>
-    import Language from '~/components/setting/Language.vue';
-    import Privacy from '~/components/setting/Privacy.vue';
+    import Settings from '~/components/setting/Settings';
 
     export default {
         async fetch({store, error}) {
@@ -19,7 +15,7 @@
                 error({statusCode: e.statusCode})
             }
         },
-        components: {Language, Privacy}
+        components: {Settings}
     }
 </script>
 

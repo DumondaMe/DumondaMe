@@ -8,6 +8,10 @@
       "title": "Dein Profilbild",
       "description": "Wähle dein Profilbild aus. Mit den Privatsphäre Einstellungen kannst du bestimmen wer es sehen darf."
     },
+    "stepTopics": {
+      "title": "Themenbereiche",
+      "description": "Welche Themen interessieren dich?"
+    },
     "stepQuestion": {
       "description": "<b>Fragen</b> sind das Herzstück von DumondaMe. Diese können mit verschiedenen Antworttypen beantwortet werden wie:",
       "link": "Links auf Webseiten",

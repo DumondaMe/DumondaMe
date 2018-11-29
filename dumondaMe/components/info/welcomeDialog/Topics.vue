@@ -4,8 +4,8 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
-            <div id="welcome-dialog-title">{{$t("pages:settings.topicsTitle")}}</div>
-            <div class="topics-description">{{$t('pages:settings.topicsDescription')}}</div>
+            <div id="welcome-dialog-title">{{$t("dialog:welcome.stepTopics.title")}}</div>
+            <div class="topics-description">{{$t("dialog:welcome.stepTopics.description")}}</div>
             <ely-select :items="topics" :existing-items="existingTopics" :select-multiple="true" :min-items="1"
                         single-selected-item-id="allTopics" @select-changed="selectChanged"
                         v-if="topics.length > 0">
