@@ -35,6 +35,12 @@
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
+            <div class="drawer-navigation-element" v-if="isAuthenticated">
+                <nuxt-link :to="{name: 'index'}">
+                    <v-icon>mdi-home</v-icon>
+                    <span class="navigation-text">{{$t("common:navigation.home")}}</span>
+                </nuxt-link>
+            </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'vision'}">
                     <v-icon>mdi-rocket</v-icon>
