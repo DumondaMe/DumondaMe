@@ -27,53 +27,45 @@ describe('Integration Tests for changing password of a user', function () {
         return requestHandler.logout();
     });
 
-    it('Change the password - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/password', {
-                actualPassword: '1',
-                newPassword: 'abzBzae1'
-            });
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return requestHandler.logout();
-        }).then(function () {
-            return requestHandler.login({
-                'username': 'user@irgendwo.ch',
-                'password': 'abzBzae1'
-            });
-        })
+    it('Change the password', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/password', {
+            actualPassword: '1',
+            newPassword: 'abzBzae1'
+        });
+        res.status.should.equal(200);
+        await requestHandler.logout();
+        res = await requestHandler.login({
+            'username': 'user@irgendwo.ch',
+            'password': 'abzBzae1'
+        });
+        res.status.should.equal(200);
     });
 
-    it('Change the password fails because actual password is wrong - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/password', {
-                actualPassword: '2',
-                newPassword: 'abz1Bzae'
-            });
-        }).then(function (res) {
-            res.status.should.equal(400);
+    it('Change the password fails because actual password is wrong', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/password', {
+            actualPassword: '2',
+            newPassword: 'abz1Bzae'
         });
+        res.status.should.equal(400);
     });
 
-    it('Change the password fails because capital letter is missing - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/password', {
-                actualPassword: '1',
-                newPassword: 'abz1bzae'
-            });
-        }).then(function (res) {
-            res.status.should.equal(400);
+    it('Change the password fails because capital letter is missing', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/password', {
+            actualPassword: '1',
+            newPassword: 'abz1bzae'
         });
+        res.status.should.equal(400);
     });
 
-    it('Change the password fails because number letter is missing - Return 400', function () {
-        return requestHandler.login(users.validUser).then(function () {
-            return requestHandler.post('/api/user/password', {
-                actualPassword: '1',
-                newPassword: 'abzvBzae'
-            });
-        }).then(function (res) {
-            res.status.should.equal(400);
+    it('Change the password fails because number is missing', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/password', {
+            actualPassword: '1',
+            newPassword: 'abzvBzae'
         });
+        res.status.should.equal(400);
     });
 });
