@@ -2,11 +2,12 @@
 
 const moreSearchResult = require('../../util/moreSearchResults');
 const questionResponse = require('./response');
+const queryParser = require('../queryParser');
 const db = requireDb();
 
 const searchCommand = function (query, language, userId, skip, limit) {
-    let queryString = `+Question.question:${query}~`;
-    return db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS question`)
+    let queryString = `Question.question:("${query.trim()}"~20)^5 ${queryParser.wordsQuery(query, 'Question.question:')}`;
+    return db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS question, weight`)
         .match(`(question)<-[:IS_CREATOR]-(admin:User)`)
         .optionalMatch(`(question)<-[:WATCH]-(watchingUser:User)`)
         .optionalMatch(`(question)-[:ANSWER]->(answer:Answer)`)
@@ -15,8 +16,8 @@ const searchCommand = function (query, language, userId, skip, limit) {
                  EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
                  EXISTS((question)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
                  EXISTS((admin)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
-                 EXISTS((admin)-[:IS_CONTACT]->(:User {userId: {userId}})) AS adminTrustLoggedInUser`)
-        .skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
+                 EXISTS((admin)-[:IS_CONTACT]->(:User {userId: {userId}})) AS adminTrustLoggedInUser, weight`)
+        .orderBy('weight DESC').skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
 };
 
 const search = async function (query, language, userId, skip, limit) {

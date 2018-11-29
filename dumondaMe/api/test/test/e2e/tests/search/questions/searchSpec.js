@@ -39,7 +39,7 @@ describe('Search for question with fuzzy match', function () {
         let res = await requestHandler.get('/api/search/questions', {query: 'Das ist eine Frage', lang: 'de', skip: 0, limit: 10});
         res.status.should.equal(200);
         res.body.hasMoreQuestions.should.equals(false);
-        res.body.questions.length.should.equals(1);
+        res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('10');
         res.body.questions[0].question.should.equals('Das ist eine Frage');
         res.body.questions[0].slug.should.equals('das-ist-eine-frage');
@@ -57,6 +57,7 @@ describe('Search for question with fuzzy match', function () {
         res.body.questions[0].user.isLoggedInUser.should.equals(false);
         res.body.questions[0].user.isTrustUser.should.equals(false);
         res.body.questions[0].user.isAnonymous.should.equals(false);
+        res.body.questions[1].questionId.should.equals('12');
     });
 
     it('Search question when logged in', async function () {
@@ -66,7 +67,7 @@ describe('Search for question with fuzzy match', function () {
         let res = await requestHandler.get('/api/search/questions', {query: 'Das ist eine Frage', lang: 'de', skip: 0, limit: 10});
         res.status.should.equal(200);
         res.body.hasMoreQuestions.should.equals(false);
-        res.body.questions.length.should.equals(1);
+        res.body.questions.length.should.equals(2);
         res.body.questions[0].questionId.should.equals('10');
         res.body.questions[0].question.should.equals('Das ist eine Frage');
         res.body.questions[0].slug.should.equals('das-ist-eine-frage');
@@ -84,6 +85,7 @@ describe('Search for question with fuzzy match', function () {
         res.body.questions[0].user.isLoggedInUser.should.equals(false);
         res.body.questions[0].user.isTrustUser.should.equals(false);
         res.body.questions[0].user.isAnonymous.should.equals(false);
+        res.body.questions[1].questionId.should.equals('12');
     });
 
     it('Has more questions', async function () {
