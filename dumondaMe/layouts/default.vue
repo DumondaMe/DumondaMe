@@ -9,7 +9,7 @@
                 <nuxt/>
             </div>
         </div>
-        <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
+        <!--<welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>-->
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </v-app>
 </template>
