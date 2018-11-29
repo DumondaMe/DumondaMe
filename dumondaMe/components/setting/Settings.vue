@@ -16,12 +16,14 @@
                 <div class="setting-navigation-element last-element" :class="{'selected-element': selected === 'security'}"
                      @click="navigate('security')">
                     <div class="settings-title">{{$t('pages:settings.security.title')}}</div>
+                    <security class="setting-content-mobile-container" v-if="selected === 'security'"></security>
                 </div>
             </div>
         </div>
         <div id="setting-content-container" class="ely-card">
             <language v-if="selected === 'language'"></language>
             <privacy v-else-if="selected === 'privacy'"></privacy>
+            <security v-else-if="selected === 'security'"></security>
         </div>
     </div>
 </template>
@@ -29,6 +31,7 @@
 <script>
     import Language from './Language';
     import Privacy from './Privacy';
+    import Security from './Security';
 
     export default {
         data() {
@@ -38,7 +41,7 @@
             }
             return {selected}
         },
-        components: {Language, Privacy},
+        components: {Language, Privacy, Security},
         methods: {
             navigate(selected) {
                 this.selected = selected;

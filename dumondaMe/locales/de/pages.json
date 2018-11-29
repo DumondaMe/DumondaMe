@@ -589,7 +589,13 @@
   },
   "settings": {
     "security": {
-      "title": "Sicherheit"
+      "title": "Sicherheit",
+      "changePasswordTitle": "Passwort ändern",
+      "oldPassword": "Altes Passwort",
+      "newPassword": "Neues Passwort",
+      "confirmNewPassword": "Neues Passwort bestätigen",
+      "changePasswordButton": "Passwort ändern",
+      "changedPasswordSuccessfully": "Passwort erfolgreich geändert"
     },
     "language": {
       "title": "Sprache",
