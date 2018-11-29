@@ -23,17 +23,4 @@ module.exports = function (router) {
         await password.changePassword(req.user.id, request.newPassword, request.actualPassword, req);
         res.status(200).end();
     }));
-
-    /*router.post('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Error occurs when changing the password', req, res, logger, function () {
-            return validation.validateRequest(req, schemaChangePasword).then(function (request) {
-                logger.info("User changes password", req);
-                return password.changePassword(req.user.id, request.newPassword, request.actualPassword, req);
-            }).then(function () {
-                res.status(200).end();
-            });
-        });
-    });*/
-
 };
