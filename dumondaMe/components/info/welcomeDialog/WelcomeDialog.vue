@@ -45,7 +45,6 @@
     import ProfileImage from './ProfileImage';
     import Privacy from './Privacy';
     import Topics from './Topics';
-    import Languages from './Languages';
     import Question from './Question';
     import Commitment from './Commitment';
     import TrustCircle from './TrustCircle';
@@ -64,7 +63,7 @@
                 this.loading = false;
             }
         },
-        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Languages, Question, Commitment, TrustCircle},
+        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Question, Commitment, TrustCircle},
         methods: {
             async finish() {
                 try {
