@@ -8,6 +8,10 @@
       "title": "Your Profile Picture",
       "description": "Select your profile picture. In the privacy settings you can determine who is allowed to see it."
     },
+    "stepTopics": {
+      "title": "Topics",
+      "description": "Which topics are you interested in?"
+    },
     "stepQuestion": {
       "description": "<b>Questions</b> are the heart of DumondaMe. These can be answered with different answer types like:",
       "link": "Links to websites",
