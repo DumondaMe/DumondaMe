@@ -18,7 +18,7 @@ const schemaNotificationRead = {
 module.exports = function (router) {
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaNotificationRead);
-        let response = await notification.remove(req.user.id, params.notificationId);
+        let response = await notification.markAsRead(req.user.id, params.notificationId);
         res.status(200).json(response);
     }));
 };

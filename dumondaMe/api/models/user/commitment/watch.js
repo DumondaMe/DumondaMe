@@ -8,7 +8,7 @@ const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const addWatchNotificationExists = function (userId, commitmentId, watchAdded) {
     return db.cypher().match(`(admin:User)-[:IS_ADMIN]->(c:Commitment {commitmentId: {commitmentId}})<-[:NOTIFICATION]-
-                (n:Notification {type: 'watchingCommitment'})`)
+                (n:Notification:Unread {type: 'watchingCommitment'})`)
         .where(`(n)-[:NOTIFIED]->(admin) AND NOT (:User {userId: {userId}})<-[:ORIGINATOR_OF_NOTIFICATION]-(n)`)
         .set(`n`, {created: watchAdded})
         .with(`n`)
@@ -20,8 +20,9 @@ const addWatchNotificationExists = function (userId, commitmentId, watchAdded) {
 const addWatchNotificationNotExists = function (userId, commitmentId, watchAdded) {
     let notificationId = uuid.generateUUID();
     return db.cypher().match(`(admin:User)-[:IS_ADMIN]->(c:Commitment {commitmentId: {commitmentId}})`)
-        .where(`NOT (c)<-[:NOTIFICATION]-(:Notification {type: 'watchingCommitment'})-[:NOTIFIED]->(admin)`)
-        .merge(`(c)<-[:NOTIFICATION]-(n:Notification {type: 'watchingCommitment', created: {watchAdded}, 
+        .where(`NOT (c)<-[:NOTIFICATION]-(:Notification:Unread {type: 'watchingCommitment'})-[:NOTIFIED]->(admin)
+        AND NOT (:User {userId: {userId}})<-[:ORIGINATOR_OF_NOTIFICATION]-(:Notification {type: 'watchingCommitment'})-[:NOTIFICATION]->(c)`)
+        .merge(`(c)<-[:NOTIFICATION]-(n:Notification:Unread {type: 'watchingCommitment', created: {watchAdded}, 
                  notificationId: {notificationId}})`)
         .merge(`(n)-[:NOTIFIED]->(admin)`)
         .with(`n`)

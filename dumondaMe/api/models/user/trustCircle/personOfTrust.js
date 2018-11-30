@@ -29,7 +29,7 @@ let removeInvitation = function (userId, contactId) {
 
 let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, contactAdded) {
     return db.cypher().match(`(u:User {userId: {userId}}), 
-             (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification {type: 'addedToTrustCircle'})`)
+             (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification:Unread {type: 'addedToTrustCircle'})`)
         .set(`n`, {created: contactAdded})
         .merge(`(n)-[:NOTIFICATION {created: {created}}]->(u)`)
         .end({userId, contactId}).getCommand()
@@ -38,8 +38,8 @@ let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, c
 let addUserAddedToTrustCircleNotificationNotExists = function (userId, contactId, contactAdded) {
     let notificationId = uuid.generateUUID();
     return db.cypher().match('(u:User {userId: {userId}}), (contact:User {userId: {contactId}})')
-        .where(`NOT (contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle'})`)
-        .merge(`(contact)<-[:NOTIFIED]-(:Notification {type: 'addedToTrustCircle', created: {contactAdded}, 
+        .where(`NOT (contact)<-[:NOTIFIED]-(:Notification:Unread {type: 'addedToTrustCircle'})`)
+        .merge(`(contact)<-[:NOTIFIED]-(:Notification:Unread {type: 'addedToTrustCircle', created: {contactAdded}, 
                  notificationId: {notificationId}})-[:NOTIFICATION {created: {contactAdded}}]->(u)`)
         .end({userId, contactId, contactAdded, notificationId}).getCommand()
 };

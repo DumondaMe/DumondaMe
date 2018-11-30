@@ -37,9 +37,10 @@ describe('Notification when commitment has been added as answer to a question', 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('50');
+        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(666);
         res.body.notifications[0].type.should.equals('showQuestionRequest');
         res.body.notifications[0].commitmentId.should.equals('2');
