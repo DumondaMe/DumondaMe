@@ -271,7 +271,9 @@
     "createDialog": {
       "createQuestionButton": "Create question",
       "instructionLink": "What do I have to consider when formulating a question?",
-      "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc."
+      "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc.",
+      "numberOfAnswers": "{{count}} Antwort",
+      "numberOfAnswers_plural": "{{count}} Antworten"
     },
     "modifyQuestionDialog": {
       "title": "Change Question '{{question}}'",
