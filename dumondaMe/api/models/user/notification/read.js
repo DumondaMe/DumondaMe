@@ -6,7 +6,7 @@ const exceptions = require('dumonda-me-server-lib').exceptions;
 
 const ERROR_CODE_NOTIFICATION_NOT_EXISTING = 1;
 
-const isAllowedToReadNotification = async function (userId, notificationId) {
+const isAllowedToMarkNotificationAsRead = async function (userId, notificationId) {
     let result = await db.cypher()
         .match(`(n:Notification {notificationId: {notificationId}})`)
         .optionalMatch(`(user:User {userId: {userId}})<-[:NOTIFIED]-(n)`)
@@ -19,17 +19,15 @@ const isAllowedToReadNotification = async function (userId, notificationId) {
     }
 };
 
-const remove = async function (userId, notificationId) {
-    await isAllowedToReadNotification(userId, notificationId);
+const markAsRead = async function (userId, notificationId) {
+    await isAllowedToMarkNotificationAsRead(userId, notificationId);
     await db.cypher()
-        .match(`(:User {userId: {userId}})<-[rel1:NOTIFIED]-(n:Notification {notificationId: {notificationId}})`)
-        .optionalMatch(`(n)-[rel2:NOTIFICATION]->()`)
-        .optionalMatch(`(n)-[rel3:ORIGINATOR_OF_NOTIFICATION]->(:User)`)
-        .delete(`rel1, rel2, rel3, n`)
+        .match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification {notificationId: {notificationId}})`)
+        .remove(`n:Unread`)
         .end({userId, notificationId}).send();
     logger.info(`User ${userId} has notification ${notificationId} read`);
 };
 
 module.exports = {
-    remove
+    markAsRead
 };

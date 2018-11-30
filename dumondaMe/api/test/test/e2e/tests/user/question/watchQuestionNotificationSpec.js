@@ -32,7 +32,7 @@ describe('Notification when user watches a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(q:Question)`)
             .return('notification, q, user.userId AS userId, relNot.created AS created')
             .end().send();
@@ -46,7 +46,7 @@ describe('Notification when user watches a question', function () {
 
     it('Notification is not added twice to the same user', async function () {
         dbDsl.userWatchesQuestion('50', {
-            questionId: '1',
+            questionId: '1', read: true,
             created: 678, watchingUsers: [{userId: '1', created: 555}]
         });
 
@@ -75,7 +75,7 @@ describe('Notification when user watches a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(q:Question)`)
             .return('notification, q, collect(user.userId) AS userIds, collect(relNot.created) AS created')
             .end().send();
@@ -85,6 +85,29 @@ describe('Notification when user watches a question', function () {
         notification[0].q.questionId.should.equals('1');
         notification[0].userIds.length.should.equals(3);
         notification[0].created.length.should.equals(3);
+    });
+
+    it('Watching a question creates new notification because other notifications are read', async function () {
+        dbDsl.userWatchesQuestion('50', {
+            questionId: '1', read: true,
+            created: 678, watchingUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}]
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/1');
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(q:Question)`)
+            .return('notification, q, user.userId AS userId')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.not.equals('50');
+        notification[0].notification.created.should.least(startTime);
+        notification[0].q.questionId.should.equals('1');
+        notification[0].userId.should.equals('1');
     });
 
     it('Delete watch of a question deletes notification', async function () {

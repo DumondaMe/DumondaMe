@@ -5,7 +5,7 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const db = require('dumonda-me-server-test-util').db;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 
-describe('Mark Notification as read', function () {
+describe('Mark notification as read', function () {
 
     beforeEach(async function () {
         await dbDsl.init(5);
@@ -17,7 +17,7 @@ describe('Mark Notification as read', function () {
         return requestHandler.logout();
     });
 
-    it('Remove addedToTrustCircle notification', async function () {
+    it('Mark addedToTrustCircle notification as read', async function () {
 
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '1', created: 678, trustCircleUsers:
@@ -34,13 +34,13 @@ describe('Mark Notification as read', function () {
         let res = await requestHandler.put('/api/user/notification/read', {notificationId: '50'});
         res.status.should.equal(200);
 
-        let notification = await db.cypher().match(`(n:Notification)`)
+        let notification = await db.cypher().match(`(n:Notification:Unread)`)
             .return('n.notificationId AS notificationId').end().send();
         notification.length.should.equals(1);
         notification[0].notificationId.should.equals('51');
     });
 
-    it('Remove watchCommitment notification', async function () {
+    it('Mark watchCommitment notification as read', async function () {
 
         dbDsl.createRegion('region', {de: 'regionDe', en: 'regionEn'});
 
@@ -61,10 +61,10 @@ describe('Mark Notification as read', function () {
 
         let notification = await db.cypher().match(`(n:Notification)`)
             .return('n.notificationId AS notificationId').end().send();
-        notification.length.should.equals(0);
+        notification.length.should.equals(1);
     });
 
-    it('Remove not existing notification', async function () {
+    it('Mark not existing notification as read', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/notification/read', {notificationId: '11'});
@@ -72,7 +72,7 @@ describe('Mark Notification as read', function () {
         res.body.errorCode.should.equal(1);
     });
 
-    it('Not allowed to remove notification of other user', async function () {
+    it('Not allowed to mark notification of other user as read', async function () {
 
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '2', created: 678, trustCircleUsers:
@@ -84,13 +84,12 @@ describe('Mark Notification as read', function () {
         let res = await requestHandler.put('/api/user/notification/read', {notificationId: '50'});
         res.status.should.equal(400);
 
-        let notification = await db.cypher().match(`(n:Notification)`)
+        let notification = await db.cypher().match(`(n:Notification:Unread)`)
             .return('n.notificationId AS notificationId').end().send();
         notification.length.should.equals(1);
-        notification[0].notificationId.should.equals('50');
     });
 
-    it('Not allowed to remove notification when not logged in', async function () {
+    it('Not allowed to mark notification as read when not logged in', async function () {
 
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '1', created: 678, trustCircleUsers:
@@ -101,9 +100,8 @@ describe('Mark Notification as read', function () {
         let res = await requestHandler.put('/api/user/notification/read', {notificationId: '50'});
         res.status.should.equal(401);
 
-        let notification = await db.cypher().match(`(n:Notification)`)
+        let notification = await db.cypher().match(`(n:Notification:Unread)`)
             .return('n.notificationId AS notificationId').end().send();
         notification.length.should.equals(1);
-        notification[0].notificationId.should.equals('50');
     });
 });

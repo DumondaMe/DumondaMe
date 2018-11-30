@@ -4,10 +4,14 @@ const db = require('../db');
 const dbConnectionHandling = require('./dbConnectionHandling');
 
 const showQuestionOnCommitmentRequest = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(c:Commitment {commitmentId: {commitmentId}}), (admin:User {userId: {adminId}}), 
                 (q:Question {questionId: {questionId}})`)
-        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {type: 'showQuestionRequest', 
+        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification${readLabel} {type: 'showQuestionRequest', 
                                       created: {created}, notificationId: {notificationId}})-[:NOTIFIED]->(admin)`)
         .merge(`(c)<-[:NOTIFICATION]-(notification)`)
         .end({
@@ -20,9 +24,13 @@ const showQuestionOnCommitmentRequest = function (notificationId, data) {
 };
 
 const userAddedToTrustCircle = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(userAddedToTrustCircle:User {userId: {userId}})`)
-        .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification {type: 'addedToTrustCircle', 
+        .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification${readLabel} {type: 'addedToTrustCircle', 
                                       created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .unwind(`{trustCircleUsers} AS trustCircleUser`)
@@ -38,8 +46,12 @@ const userAddedToTrustCircle = function (notificationId, data) {
 };
 
 const userWatchesCommitment = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
-        .merge(`(notification:Notification {type: 'watchingCommitment', 
+        .merge(`(notification:Notification${readLabel} {type: 'watchingCommitment', 
                                       created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .match(`(admin:User)-[:IS_ADMIN]->(c:Commitment {commitmentId: {commitmentId}})`)
@@ -59,8 +71,12 @@ const userWatchesCommitment = function (notificationId, data) {
 };
 
 const userWatchesQuestion = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
-        .merge(`(notification:Notification {type: 'watchingQuestion', 
+        .merge(`(notification:Notification${readLabel} {type: 'watchingQuestion', 
                  created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})`)
@@ -80,8 +96,12 @@ const userWatchesQuestion = function (notificationId, data) {
 };
 
 const createAnswer = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
-        .merge(`(notification:Notification {type: 'createdAnswer', 
+        .merge(`(notification:Notification${readLabel} {type: 'createdAnswer', 
                                       created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})`)
@@ -103,8 +123,12 @@ const createAnswer = function (notificationId, data) {
 };
 
 const createNote = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
-        .merge(`(notification:Notification {type: 'createdNote', 
+        .merge(`(notification:Notification${readLabel} {type: 'createdNote', 
                                       created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .match(`(q:Question {questionId: {questionId}})`)

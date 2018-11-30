@@ -37,7 +37,7 @@ describe('Handling person of trust relationship', function () {
         user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
             .return('notification, user.userId AS userId, relNot.created AS created')
             .end().send();
         notification.length.should.equals(1);
@@ -65,7 +65,7 @@ describe('Handling person of trust relationship', function () {
         user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
             .return('notification, user.userId AS userId, relNot.created AS created')
             .orderBy(`created DESC`)
             .end().send();
@@ -78,6 +78,35 @@ describe('Handling person of trust relationship', function () {
         notification[1].created.should.equals(555);
         notification[2].userId.should.equals('4');
         notification[2].created.should.equals(444);
+    });
+
+    it('Adding a person of trust and send adding notification to person (Added person has read notifications)', async function () {
+        dbDsl.notificationUserAddedToTrustCircle('50', {
+            userId: '5', read: true,
+            created: 678, trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}]
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/trustCircle/5');
+        res.status.should.equal(200);
+        res.body.personOfTrustSince.should.least(startTime);
+        let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
+            .return('r.contactAdded as contactAdded')
+            .end().send();
+        user.length.should.equals(1);
+        user[0].contactAdded.should.equals(res.body.personOfTrustSince);
+
+        let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+            .return('notification, user.userId AS userId, relNot.created AS created')
+            .orderBy(`created DESC`)
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.not.equals('50');
+        notification[0].notification.created.should.least(startTime);
+        notification[0].userId.should.equals('1');
+        notification[0].created.should.least(startTime);
     });
 
     it('Adding a person of trust and remove invitations', async function () {

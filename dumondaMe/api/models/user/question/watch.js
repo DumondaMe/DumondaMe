@@ -8,7 +8,7 @@ const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const addWatchNotificationExists = function (userId, questionId, watchAdded) {
     return db.cypher().match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})<-[:NOTIFICATION]-
-                (n:Notification {type: 'watchingQuestion'})`)
+                (n:Notification:Unread {type: 'watchingQuestion'})`)
         .where(`(n)-[:NOTIFIED]->(creator) AND NOT (:User {userId: {userId}})<-[:ORIGINATOR_OF_NOTIFICATION]-(n)`)
         .set(`n`, {created: watchAdded})
         .with(`n`)
@@ -20,8 +20,9 @@ const addWatchNotificationExists = function (userId, questionId, watchAdded) {
 const addWatchNotificationNotExists = function (userId, questionId, watchAdded) {
     let notificationId = uuid.generateUUID();
     return db.cypher().match(`(creator:User)-[:IS_CREATOR]->(q:Question {questionId: {questionId}})`)
-        .where(`NOT (q)<-[:NOTIFICATION]-(:Notification {type: 'watchingQuestion'})-[:NOTIFIED]->(creator)`)
-        .merge(`(q)<-[:NOTIFICATION]-(n:Notification {type: 'watchingQuestion', created: {watchAdded}, 
+        .where(`NOT (q)<-[:NOTIFICATION]-(:Notification:Unread {type: 'watchingQuestion'})-[:NOTIFIED]->(creator)
+                AND NOT (:User {userId: {userId}})<-[:ORIGINATOR_OF_NOTIFICATION]-(:Notification {type: 'watchingQuestion'})-[:NOTIFICATION]->(q)`)
+        .merge(`(q)<-[:NOTIFICATION]-(n:Notification:Unread {type: 'watchingQuestion', created: {watchAdded}, 
                  notificationId: {notificationId}})`)
         .merge(`(n)-[:NOTIFIED]->(creator)`)
         .with(`n`)

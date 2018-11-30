@@ -30,9 +30,10 @@ describe('Notification when question of user has been answered', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('20');
+        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
         res.body.notifications[0].answerType.should.equals('Book');
@@ -63,9 +64,10 @@ describe('Notification when question of user has been answered', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('20');
+        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
         res.body.notifications[0].answerType.should.equals('CommitmentAnswer');
@@ -91,9 +93,10 @@ describe('Notification when question of user has been answered', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('20');
+        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
         res.body.notifications[0].answerType.should.equals('Link');
@@ -117,9 +120,10 @@ describe('Notification when question of user has been answered', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(1);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('20');
+        res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
         res.body.notifications[0].answerType.should.equals('Text');
@@ -140,15 +144,16 @@ describe('Notification when question of user has been answered', function () {
             creatorId: '2', questionId: '1', created: 555, idOnYoutube: 'Lhku7ZBWEK8',
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
-        dbDsl.notificationCreateAnswer('20', {questionId: '1', answerId: '5', created: 678});
+        dbDsl.notificationCreateAnswer('20', {questionId: '1', answerId: '5', created: 678, read: true});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(0);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('20');
+        res.body.notifications[0].read.should.equals(true);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
         res.body.notifications[0].answerType.should.equals('Youtube');

@@ -9,6 +9,7 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
     let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
     let question = notification.infos.find((info) => typeof info.info.questionId === 'string').info;
     return {
+        read: notification.read,
         notificationId: notification.notification.notificationId,
         created: notification.notification.created,
         type: notification.notification.type,
@@ -35,6 +36,7 @@ const getNotificationWithOriginators = async function (notification) {
         });
     }
     return {
+        read: notification.read,
         notificationId: notification.notification.notificationId,
         users: users,
         numberOfUsers: notification.originators.length,
@@ -57,6 +59,7 @@ const getNotificationAddedToTrustCircle = async function (notification) {
         });
     }
     return {
+        read: notification.read,
         notificationId: notification.notification.notificationId,
         users: users,
         numberOfUsers: notification.infos.length,
@@ -148,15 +151,15 @@ const getResponse = async function (notifications) {
     return response;
 };
 
-const getNumberOfNotificationsCommand = function (userId) {
-    return db.cypher().match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
-        .return(`COUNT(DISTINCT n) AS numberOfNotifications`)
+const getNumberOfUnreadNotificationsCommand = function (userId) {
+    return db.cypher().match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification:Unread)`)
+        .return(`COUNT(DISTINCT n) AS numberOfUnreadNotifications`)
         .end({userId});
 };
 
-const getNumberOfNotifications = async function (userId) {
-    let result = await getNumberOfNotificationsCommand(userId).send();
-    return {numberOfNotifications: result[0].numberOfNotifications};
+const getNumberOfUnreadNotifications = async function (userId) {
+    let result = await getNumberOfUnreadNotificationsCommand(userId).send();
+    return {numberOfUnreadNotifications: result[0].numberOfUnreadNotifications};
 };
 
 const getNotifications = async function (userId) {
@@ -167,18 +170,18 @@ const getNotifications = async function (userId) {
         .with(`n, info, relInfo, originator, relOriginator`)
         .orderBy(`relOriginator.created DESC, relInfo.created DESC`)
         .return(`DISTINCT n AS notification, collect(DISTINCT {info: info, type: labels(info)}) AS infos, 
-                 collect(DISTINCT relInfo) AS relInfos,
+                 collect(DISTINCT relInfo) AS relInfos, none(label in labels(n) WHERE label = 'Unread') AS read,
                  collect(DISTINCT originator) AS originators, collect(DISTINCT relOriginator) AS relOriginators`)
         .orderBy(`n.created DESC`)
-        .end({userId}).send([getNumberOfNotificationsCommand(userId).getCommand()]);
+        .end({userId}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);
     return {
         notifications: await getResponse(result[1]),
-        numberOfNotifications: result[0][0].numberOfNotifications
+        numberOfUnreadNotifications: result[0][0].numberOfUnreadNotifications
     };
 };
 
 module.exports = {
     getNotifications,
-    getNumberOfNotifications
+    getNumberOfUnreadNotifications
 };
