@@ -65,6 +65,70 @@ describe('Handling watch question requests from a user', function () {
         resp.length.should.equals(0);
     });
 
+    it('User request to unwatch question when notification with only one user watching exists', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.userWatchesQuestion('50', {
+            questionId: '1',
+            created: 678, watchingUsers: [{userId: '1', created: 555}]
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/watch', {questionId: '1'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match("(q:Question)<-[:WATCH]-(u:User)").return(`q, u`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('User request to unwatch question when notification with multiple user watching exists', async function () {
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.userWatchesQuestion('50', {
+            questionId: '1',
+            created: 678, watchingUsers: [{userId: '1', created: 555}, {userId: '3', created: 555}]
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/watch', {questionId: '1'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match("(q:Question)<-[:WATCH]-(u:User)").return(`q, u`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
+        resp.length.should.equals(1);
+    });
+
+    it('User request to unwatch question do not delete other notifications', async function () {
+        dbDsl.createRegion('region', {de: 'regionDe', en: 'regionEn'});
+        dbDsl.createCommitment('1', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example.org/', regions: ['region']
+        });
+        dbDsl.watchCommitment({commitmentId: '1', userId: '1'});
+
+        dbDsl.watchQuestion({questionId: '1', userId: '1'});
+        dbDsl.userWatchesQuestion('50', {
+            questionId: '1',
+            created: 678, watchingUsers: [{userId: '1', created: 555}, {userId: '3', created: 555}]
+        });
+        dbDsl.notificationShowQuestionOnCommitmentRequest('51', {questionId: '1', commitmentId: '1', adminId: '2',
+            created: 777});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/question/watch', {questionId: '1'});
+        res.status.should.equal(200);
+
+        let resp = await db.cypher().match("(q:Question)<-[:WATCH]-(u:User)").return(`q, u`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
+        resp.length.should.equals(2);
+    });
+
     it('Only logged in user can watch question', async function () {
         await dbDsl.sendToDb();
         let res = await requestHandler.put('/api/user/question/watch/1');
