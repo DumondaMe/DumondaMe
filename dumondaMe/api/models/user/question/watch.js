@@ -55,9 +55,9 @@ const removeWatchNotification = function (userId, questionId) {
           (n:Notification {type: 'watchingQuestion'})-[:NOTIFICATION]->(q:Question {questionId: {questionId}})`)
         .delete(`rel`)
         .with(`n, q`)
-        .match('(q)<-[relC:NOTIFICATION]-(notification)-[notified:NOTIFIED]->(:User)')
-        .where(`NOT (notification)-[:ORIGINATOR_OF_NOTIFICATION]->(:User)`)
-        .delete(`notification, notified, relC`)
+        .match('(q)<-[relC:NOTIFICATION]-(n)-[notified:NOTIFIED]->(:User)')
+        .where(`NOT (n)-[:ORIGINATOR_OF_NOTIFICATION]->(:User)`)
+        .delete(`n, notified, relC`)
         .end({userId, questionId}).getCommand()
 };
 
