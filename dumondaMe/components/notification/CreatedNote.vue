@@ -2,15 +2,19 @@
     <div class="notification-created-note">
         <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
         <div class="notification-user">
-            <div class="user-image" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: notification.users[0].userId, slug: notification.users[0].slug}})">
+            <div class="user-image" @click="navigateToUserProfile(notification.users[0])">
                 <img :src="notification.users[0].thumbnailUrl"/>
             </div>
             <div class="user-info">
                 <div class="user-info-container">
-                        <span class="user-name" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: notification.users[0].userId, slug: notification.users[0].slug}})">
+                    <span class="user-name" @click="navigateToUserProfile(notification.users[0])"
+                          v-if="!notification.users[0].isAnonymous">
                             {{notification.users[0].name}} </span>
+                    <v-tooltip bottom v-else>
+                        <span class="user-name" slot="activator">
+                            {{notification.users[0].name}} </span>
+                        <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
+                    </v-tooltip>
                     <span v-if="notification.answerType !== 'Text'"
                           v-html="$t('pages:notifications.createdNote.notification', {question, type, answer})">
                     </span>
@@ -51,6 +55,11 @@
             }
         },
         methods: {
+            navigateToUserProfile(user) {
+                if (user.isAnonymous === false) {
+                    this.$router.push({name: 'user-userId-slug', params: {userId: user.userId, slug: user.slug}});
+                }
+            },
             questionLink() {
                 return `/question/${this.notification.questionId}/${this.notification.questionSlug}?answerId=${this.notification.answerId}`;
             }

@@ -37,7 +37,7 @@ describe('Handling person of trust relationship', function () {
         user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .return('notification, user.userId AS userId, relNot.created AS created')
             .end().send();
         notification.length.should.equals(1);
@@ -65,7 +65,7 @@ describe('Handling person of trust relationship', function () {
         user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .return('notification, user.userId AS userId, relNot.created AS created')
             .orderBy(`created DESC`)
             .end().send();
@@ -98,7 +98,7 @@ describe('Handling person of trust relationship', function () {
         user[0].contactAdded.should.equals(res.body.personOfTrustSince);
 
         let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
-        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .return('notification, user.userId AS userId, relNot.created AS created')
             .orderBy(`created DESC`)
             .end().send();
@@ -265,7 +265,7 @@ describe('Handling person of trust relationship', function () {
             .return('r').end().send();
         rel.length.should.equals(0);
 
-        rel = await db.cypher().match("(:User {userId: '2'})<-[:NOTIFIED]-(n:Notification)-[:NOTIFICATION]->(u:User)")
+        rel = await db.cypher().match("(:User {userId: '2'})<-[:NOTIFIED]-(n:Notification)-[:ORIGINATOR_OF_NOTIFICATION]->(u:User)")
             .return('n, u').end().send();
         rel.length.should.equals(1);
         rel[0].u.userId.should.equals('4');

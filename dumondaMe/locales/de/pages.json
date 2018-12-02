@@ -645,7 +645,8 @@
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen.",
-    "buttonRead": "Gelesen"
+    "buttonRead": "Gelesen",
+    "notAllowedToNavigateToPerson": "Du kannst das Profil dieser Person nicht sehen"
   },
   "privacy": {
     "title": "Datenschutzerklärung",

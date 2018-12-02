@@ -1,14 +1,18 @@
 <template>
     <div class="notification-user-container">
         <div class="user" v-for="user in users">
-            <div class="user-image" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: user.userId, slug: user.slug}})">
+            <div class="user-image" @click="navigateToUserProfile(user)">
                 <img :src="user.thumbnailUrl"/>
             </div>
             <div class="user-info">
                 <div class="user-name-container">
-                        <span class="user-name" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: user.userId, slug: user.slug}})">{{user.name}}</span>
+                    <span class="user-name" @click="navigateToUserProfile(user)"
+                          v-if="!user.isAnonymous">{{user.name}} </span>
+                    <v-tooltip bottom v-else>
+                        <span class="user-name" slot="activator">
+                            {{user.name}} </span>
+                        <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
+                    </v-tooltip>
                 </div>
                 <div class="created">
                     {{user.added | formatRelativeTimesAgo}}
@@ -24,7 +28,14 @@
 
 <script>
     export default {
-        props: ['users', 'numberOfUsers']
+        props: ['users', 'numberOfUsers'],
+        methods: {
+            navigateToUserProfile(user) {
+                if (user.isAnonymous === false) {
+                    this.$router.push({name: 'user-userId-slug', params: {userId: user.userId, slug: user.slug}});
+                }
+            }
+        },
     }
 </script>
 
@@ -34,32 +45,39 @@
             margin-top: 12px;
             display: block;
             clear: both;
+
             .user-image {
                 cursor: pointer;
                 float: left;
                 height: 38px;
                 width: 38px;
+
                 img {
                     height: 100%;
                     width: 100%;
                     border-radius: 2px;
                 }
             }
+
             .user-info {
                 margin-left: 52px;
                 height: 38px;
+
                 .user-name-container {
                     font-weight: 400;
                     color: $primary-text;
                     font-size: 16px;
                     line-height: 16px;
+
                     .user-name {
                         cursor: pointer;
                     }
+
                     :hover.user-name {
                         text-decoration: underline;
                     }
                 }
+
                 .created {
                     font-size: 12px;
                     color: $secondary-text;
@@ -67,6 +85,7 @@
                 }
             }
         }
+
         .more-user-info {
             font-size: 14px;
             margin-top: 12px;

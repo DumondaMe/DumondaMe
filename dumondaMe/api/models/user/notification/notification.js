@@ -1,5 +1,6 @@
 'use strict';
 
+const moreSearchResult = require('../../util/moreSearchResults');
 const slug = require('limax');
 const cdn = require('dumonda-me-server-lib').cdn;
 const db = requireDb();
@@ -23,24 +24,32 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
     }
 };
 
+const getUser = async function (user, created, isContact) {
+    let isAnonymous = user.privacyMode === 'onlyContact' && !isContact, thumbnailUrl;
+    if (isAnonymous) {
+        thumbnailUrl = await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`)
+    } else {
+        thumbnailUrl = await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
+    }
+    return {
+        userId: user.userId, name: user.name, slug: slug(user.name), added: created,
+        thumbnailUrl, isAnonymous
+    }
+};
+
 const getNotificationWithOriginators = async function (notification) {
     let index, users = [];
     for (index = 0; index < 3 && index < notification.originators.length; index++) {
-        let user = notification.originators[index];
-        let created = notification.relOriginators[index].created;
-        users.push({
-            userId: user.userId,
-            name: user.name,
-            slug: slug(user.name),
-            added: created,
-            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
-        });
+        let user = notification.originators[index].originator;
+        let created = notification.originators[index].relOriginator.created;
+        let isContact = notification.originators[index].isContact;
+        users.push(await getUser(user, created, isContact));
     }
     return {
         read: notification.read,
         notificationId: notification.notification.notificationId,
         users: users,
-        numberOfUsers: notification.originators.length,
+        numberOfUsers: notification.numberOfOriginators,
         created: notification.notification.created,
         type: notification.notification.type
     }
@@ -51,13 +60,8 @@ const getNotificationAddedToTrustCircle = async function (notification) {
     for (index = 0; index < 3 && index < notification.infos.length; index++) {
         let user = notification.infos[index].info;
         let created = notification.relInfos[index].created;
-        users.push({
-            userId: user.userId,
-            name: user.name,
-            slug: slug(user.name),
-            added: created,
-            thumbnailUrl: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`)
-        });
+        let isContact = notification.relInfos[index].isContact;
+        users.push(await getUser(user, created, isContact));
     }
     return {
         read: notification.read,
@@ -134,14 +138,9 @@ const getResponse = async function (notifications) {
     for (let notification of notifications) {
         if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
-        } else if (notification.notification.type === 'addedToTrustCircle') {
-            response.push(await getNotificationAddedToTrustCircle(notification));
-        } else if (
-            notification.notification.type === 'watchingCommitment' ||
-            notification.notification.type === 'watchingQuestion' ||
-            notification.notification.type === 'createdAnswer' ||
-            notification.notification.type === 'createdNote') {
+        } else {
             let notificationResponse = await getNotificationWithOriginators(notification);
+            //response.push(await getNotificationAddedToTrustCircle(notification));
             addWatchingCommitmentProperties(notificationResponse, notification);
             addWatchingQuestionProperties(notificationResponse, notification);
             addCreatedAnswerProperties(notificationResponse, notification);
@@ -163,21 +162,29 @@ const getNumberOfUnreadNotifications = async function (userId) {
     return {numberOfUnreadNotifications: result[0].numberOfUnreadNotifications};
 };
 
-const getNotifications = async function (userId) {
+const getNotifications = async function (userId, skip, limit) {
     let result = await db.cypher()
-        .match(`(:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
+        .match(`(u:User {userId: {userId}})<-[:NOTIFIED]-(n:Notification)`)
+        .with(`u, n`)
+        .orderBy(`n.created DESC`)
+        .skip(`{skip}`).limit(`{limit}`)
+        .optionalMatch(`(n)-[:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
+        .with(`u, n, count(originator) AS numberOfOriginators`)
         .optionalMatch(`(n)-[relInfo:NOTIFICATION]->(info)`)
         .optionalMatch(`(n)-[relOriginator:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
-        .with(`n, info, relInfo, originator, relOriginator`)
+        .with(`n, info, relInfo, originator, relOriginator, numberOfOriginators`)
         .orderBy(`relOriginator.created DESC, relInfo.created DESC`)
         .return(`DISTINCT n AS notification, collect(DISTINCT {info: info, type: labels(info)}) AS infos, 
                  collect(DISTINCT relInfo) AS relInfos, none(label in labels(n) WHERE label = 'Unread') AS read,
-                 collect(DISTINCT originator) AS originators, collect(DISTINCT relOriginator) AS relOriginators`)
+                 collect(DISTINCT {originator: originator, relOriginator: relOriginator,
+                 isContact: EXISTS((:User {userId: {userId}})<-[:IS_CONTACT]-(originator))})[0..3] AS originators,
+                 numberOfOriginators`)
         .orderBy(`n.created DESC`)
-        .end({userId}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
+        .end({userId, skip, limit: limit + 1}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);
+    let hasMoreNotifications = moreSearchResult.getHasMoreResults(result[1], limit);
     return {
-        notifications: await getResponse(result[1]),
+        notifications: await getResponse(result[1]), hasMoreNotifications,
         numberOfUnreadNotifications: result[0][0].numberOfUnreadNotifications
     };
 };

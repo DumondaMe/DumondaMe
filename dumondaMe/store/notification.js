@@ -2,7 +2,8 @@ import Vue from 'vue';
 
 export const state = () => ({
     notifications: [],
-    numberOfUnreadNotifications: 0
+    numberOfUnreadNotifications: 0,
+    hasMoreNotifications: false
 });
 
 export const getters = {
@@ -18,10 +19,12 @@ export const mutations = {
     RESET_NOTIFICATION: function (state) {
         state.notifications = [];
         state.numberOfUnreadNotifications = 0;
+        state.hasMoreNotifications = false
     },
     SET_NOTIFICATION: function (state, notification) {
         state.notifications = notification.notifications;
         state.numberOfUnreadNotifications = notification.numberOfUnreadNotifications;
+        state.hasMoreNotifications = notification.hasMoreNotifications;
     },
     SET_NUMBER_OF_UNREAD_NOTIFICATIONS: function (state, numberOfUnreadNotifications) {
         state.numberOfUnreadNotifications = numberOfUnreadNotifications;
@@ -59,9 +62,10 @@ const checkNotificationChanged = async function (axios, commit) {
 };
 
 export const actions = {
-    async getNotifications({commit}) {
+    async getNotifications({commit, state}) {
         try {
-            let notifications = await this.$axios.$get('user/notification');
+            let notifications = await this.$axios.$get('user/notification',
+                {params: {skip: state.notifications.length, limit: 20}});
             commit('SET_NOTIFICATION', notifications);
         } catch (error) {
             console.log(error);
