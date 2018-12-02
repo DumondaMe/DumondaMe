@@ -35,9 +35,10 @@ describe('Notification when commitment has been added as answer to a question', 
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/notification');
+        let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
         res.body.numberOfUnreadNotifications.should.equals(0);
+        res.body.hasMoreNotifications.should.equals(false);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('50');
         res.body.notifications[0].read.should.equals(true);

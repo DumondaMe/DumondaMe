@@ -13,6 +13,7 @@
     export default {
         async fetch({store, error}) {
             try {
+                store.commit(`notification/RESET_NOTIFICATION`);
                 await store.dispatch(`notification/getNotifications`);
             } catch (e) {
                 error({statusCode: e.statusCode})

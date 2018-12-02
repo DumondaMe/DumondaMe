@@ -642,7 +642,8 @@
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications.",
-    "buttonRead": "Read"
+    "buttonRead": "Read",
+    "notAllowedToNavigateToPerson": "You can't see this person's profile"
   },
   "privacy": {
     "title": "Privacy Policy",
