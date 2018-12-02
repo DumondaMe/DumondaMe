@@ -11,7 +11,7 @@ const addCreatedNoteNotification = function (userId, noteId, created) {
         .with(`creatorNote, note, answer, question`)
         .match(`(answer)<-[:IS_CREATOR]-(creatorAnswer:User)`)
         .where(`creatorNote.userId <> creatorAnswer.userId`)
-        .create(`(n:Notification {type: 'createdNote', created: {created}, 
+        .create(`(n:Notification:Unread {type: 'createdNote', created: {created}, 
                  notificationId: {notificationId}})`)
         .merge(`(n)-[:NOTIFIED]->(creatorAnswer)`)
         .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]->(creatorNote)`)

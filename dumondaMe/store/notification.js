@@ -1,11 +1,13 @@
+import Vue from 'vue';
+
 export const state = () => ({
     notifications: [],
-    numberOfNotifications: 0
+    numberOfUnreadNotifications: 0
 });
 
 export const getters = {
-    numberOfNotifications: state => {
-        return state.numberOfNotifications;
+    numberOfUnreadNotifications: state => {
+        return state.numberOfUnreadNotifications;
     },
     notifications: state => {
         return state.notifications;
@@ -15,28 +17,33 @@ export const getters = {
 export const mutations = {
     RESET_NOTIFICATION: function (state) {
         state.notifications = [];
-        state.numberOfNotifications = 0;
+        state.numberOfUnreadNotifications = 0;
     },
     SET_NOTIFICATION: function (state, notification) {
-        for (let n of notification.notifications) {
-            n.removed = false;
-        }
         state.notifications = notification.notifications;
-        state.numberOfNotifications = notification.numberOfNotifications;
+        state.numberOfUnreadNotifications = notification.numberOfUnreadNotifications;
     },
-    SET_NUMBER_OF_NOTIFICATIONS: function (state, numberOfNotifications) {
-        state.numberOfNotifications = numberOfNotifications;
+    SET_NUMBER_OF_UNREAD_NOTIFICATIONS: function (state, numberOfUnreadNotifications) {
+        state.numberOfUnreadNotifications = numberOfUnreadNotifications;
     },
-    REMOVE_NOTIFICATION: function (state, notificationToRemove) {
+    NOTIFICATION_READ: function (state, notificationToRemove) {
         let index = state.notifications.indexOf(notificationToRemove);
         if (index > -1) {
-            state.notifications[index].removed = true;
+            state.notifications[index].read = true;
         }
-        state.numberOfNotifications--;
+        state.numberOfUnreadNotifications--;
+    },
+    SHOW_QUESTION: function (state, {notificationToRemove, showQuestion}) {
+        let index = state.notifications.indexOf(notificationToRemove);
+        if (index > -1) {
+            Vue.set(state.notifications[index], 'showQuestion', showQuestion);
+            Vue.set(state.notifications[index], 'read', true);
+        }
+        state.numberOfUnreadNotifications--;
     },
     ADD_NOTIFICATION: function (state, notificationToAdd) {
         state.notifications.unshift(notificationToAdd);
-        state.numberOfNotifications++;
+        state.numberOfUnreadNotifications++;
     }
 };
 
@@ -45,7 +52,7 @@ let checkNotificationTimer;
 const checkNotificationChanged = async function (axios, commit) {
     try {
         let status = await axios.$get('user/notification/status', {progress: false});
-        commit('SET_NUMBER_OF_NOTIFICATIONS', status.numberOfNotifications);
+        commit('SET_NUMBER_OF_UNREAD_NOTIFICATIONS', status.numberOfUnreadNotifications);
     } catch (error) {
         console.log(error);
     }
@@ -75,6 +82,6 @@ export const actions = {
     async notificationRead({commit}, notification) {
         await this.$axios.$put('user/notification/read',
             {notificationId: notification.notificationId});
-        commit('REMOVE_NOTIFICATION', notification);
+        commit('NOTIFICATION_READ', notification);
     }
 };

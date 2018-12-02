@@ -13,6 +13,7 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
         notificationId: notification.notification.notificationId,
         created: notification.notification.created,
         type: notification.notification.type,
+        showQuestion: notification.notification.showQuestion,
         commitmentId: commitment.commitmentId,
         commitmentTitle: commitment.title,
         commitmentSlug: slug(commitment.title),

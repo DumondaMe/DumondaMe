@@ -39,7 +39,7 @@ describe('Notification when user creates a note for an answer', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdNote'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdNote'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .match(`(notification)-[:NOTIFICATION]->(note:Note)`)

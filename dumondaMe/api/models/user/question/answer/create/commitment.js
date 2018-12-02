@@ -26,10 +26,9 @@ const createCommitmentCommand = function (params) {
 const showQuestionRequestNotification = function (params) {
     params.notificationId = uuid.generateUUID();
     return db.cypher().match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:CommitmentAnswer:Answer 
-                            {answerId: {answerId}})-[:COMMITMENT]->
-                            (c:Commitment {commitmentId: {commitmentId}})`)
+                            {answerId: {answerId}})-[:COMMITMENT]->(c:Commitment {commitmentId: {commitmentId}})`)
         .match(`(c)<-[:IS_ADMIN]-(admin:User)`)
-        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification {created: {created}, type: 'showQuestionRequest',
+        .merge(`(q)<-[:NOTIFICATION]-(notification:Notification:Unread {created: {created}, type: 'showQuestionRequest',
                 notificationId: {notificationId}})-[:NOTIFIED]->(admin)`)
         .with(`notification, c`)
         .merge(`(c)<-[:NOTIFICATION]-(notification)`)

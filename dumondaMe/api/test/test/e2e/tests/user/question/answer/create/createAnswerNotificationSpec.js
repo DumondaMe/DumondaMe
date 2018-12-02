@@ -46,7 +46,7 @@ describe('Notification when user creates answers for a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
@@ -80,7 +80,7 @@ describe('Notification when user creates answers for a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .match(`(notification)-[:NOTIFICATION]->(commitment:Commitment)`)
@@ -107,7 +107,7 @@ describe('Notification when user creates answers for a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
@@ -130,7 +130,7 @@ describe('Notification when user creates answers for a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
@@ -154,7 +154,7 @@ describe('Notification when user creates answers for a question', function () {
         res.status.should.equal(200);
 
         let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
-        (notification:Notification {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
             .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
             .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
             .return('DISTINCT notification, question, answer, user.userId AS userId, relNot.created AS created')
@@ -215,7 +215,7 @@ describe('Notification when user creates answers for a question', function () {
         notification.length.should.equals(0);
     });
 
-    it('Create not notification when link answer has been created by creator of question', async function () {
+    it('Create no notification when link answer has been created by creator of question', async function () {
         sandbox.stub(rp, 'get');
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);

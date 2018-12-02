@@ -4,14 +4,14 @@
     $route.name === 'question'}">
         <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
                          :logo-url="logoUrl" :show-notification="showNotification"
-                         :number-of-notifications="numberOfNotifications"
+                         :number-of-notifications="numberOfUnreadNotifications"
                          @create-question="showCreateQuestion = true"
                          @create-commitment="showCreateCommitment = true"
                          @open-drawer="$emit('open-drawer')">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
                         :logo-url="logoUrl" :show-notification="showNotification"
-                        :number-of-notifications="numberOfNotifications"
+                        :number-of-notifications="numberOfUnreadNotifications"
                         @create-question="showCreateQuestion = true"
                         @create-commitment="showCreateCommitment = true"
                         @open-drawer="$emit('open-drawer')">
@@ -51,10 +51,10 @@
                 return `${process.env.staticUrl}/img/logo.png`;
             },
             showNotification() {
-                return this.numberOfNotifications > 0;
+                return this.numberOfUnreadNotifications > 0;
             },
             ...mapGetters({
-                numberOfNotifications: 'notification/numberOfNotifications'
+                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
             })
         }
     }

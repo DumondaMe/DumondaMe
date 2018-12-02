@@ -616,12 +616,8 @@
       "notification1": "Your Commitment",
       "notification2": "has been linked to the question",
       "notification3": ". Should this question be displayed on your commitment page?",
-      "postNotificationAccepted1": "The question",
-      "postNotificationAccepted2": "is displayed on your commitment page",
-      "postNotificationAccepted3": ".",
-      "postNotificationDeny1": "The question",
-      "postNotificationDeny2": "is not displayed on the",
-      "postNotificationDeny3": "page of your commitment."
+      "showQuestion": "The question is displayed",
+      "notShowQuestion": "The question is not displayed"
     },
     "addToTrustCircle": {
       "notification": "This person has added you to their Trust Circle.",
@@ -646,10 +642,7 @@
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications.",
-    "toolbar": {
-      "notMarkedAsRead": "Notification will be deleted",
-      "markedAsRead": "Deleted and will no longer be shown to you the next time you visit this page"
-    }
+    "buttonRead": "Read"
   },
   "privacy": {
     "title": "Privacy Policy",
