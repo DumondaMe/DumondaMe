@@ -44,7 +44,26 @@ describe('Notification when user watches a question', function () {
         notification[0].created.should.least(startTime);
     });
 
-    it('Notification is not added twice to the same user', async function () {
+    it('Notification is not added twice to the same user (Notification unread)', async function () {
+        dbDsl.userWatchesQuestion('50', {
+            questionId: '1',
+            created: 678, watchingUsers: [{userId: '1', created: 555}]
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/1');
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(:User {userId: '2'})<-[:NOTIFIED]-
+        (notification:Notification {type: 'watchingQuestion'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .match(`(notification)-[:NOTIFICATION]->(q:Question)`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(1);
+    });
+
+    it('Notification is not added twice to the same user (Notification read)', async function () {
         dbDsl.userWatchesQuestion('50', {
             questionId: '1', read: true,
             created: 678, watchingUsers: [{userId: '1', created: 555}]

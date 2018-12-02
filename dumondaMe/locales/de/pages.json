@@ -619,12 +619,8 @@
       "notification1": "Dein Engagement",
       "notification2": "wurde mit der Frage",
       "notification3": "verlinkt. Soll diese Frage auf der Seite deines Engagements angezeigt werden?",
-      "postNotificationAccepted1": "Die Frage",
-      "postNotificationAccepted2": "wird auf der Seite deines Engagments",
-      "postNotificationAccepted3": "angezeigt.",
-      "postNotificationDeny1": "Die Frage",
-      "postNotificationDeny2": "wird nicht auf der Seite deines Engagments",
-      "postNotificationDeny3": "angezeigt."
+      "showQuestion": "Die Frage wird angezeigt",
+      "notShowQuestion": "Die Frage wird nicht angezeigt"
     },
     "addToTrustCircle": {
       "notification": "Eine Person hat dich zu ihrem Trust Circle hinzugefügt.",
@@ -649,10 +645,7 @@
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen.",
-    "toolbar": {
-      "notMarkedAsRead": "Benachrichtung wird gelöscht",
-      "markedAsRead": "Wurde gelöscht und wird dir bei erneuten Aufruf dieser Seite nicht mehr angezeigt"
-    }
+    "buttonRead": "Gelesen"
   },
   "privacy": {
     "title": "Datenschutzerklärung",

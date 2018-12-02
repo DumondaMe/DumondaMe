@@ -47,8 +47,11 @@ describe('Show question on commitment activation', function () {
         res.body.slug.should.equals('das-ist-eine-frage');
         res.body.upVotes.should.equals(1);
 
-        let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
-        resp.length.should.equals(0);
+        let resp = await db.cypher().match("(n:Notification)").where(`NOT n:Unread`)
+            .return(`n`).end().send();
+        resp.length.should.equals(1);
+        resp[0].n.notificationId.should.equals('50');
+        resp[0].n.showQuestion.should.equals(true);
 
         resp = await db.cypher().match("(q:Question {questionId: '2'})<-[:SHOW_QUESTION]-(c:Commitment {commitmentId: '1'})")
             .return(`q`).end().send();
@@ -61,8 +64,11 @@ describe('Show question on commitment activation', function () {
         let res = await requestHandler.put('/api/user/commitment/showQuestionRequest/1', {questionId: '2', showQuestion: false});
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
-        resp.length.should.equals(0);
+        let resp = await db.cypher().match("(n:Notification)").where(`NOT n:Unread`)
+            .return(`n`).end().send();
+        resp.length.should.equals(1);
+        resp[0].n.notificationId.should.equals('50');
+        resp[0].n.showQuestion.should.equals(false);
 
         resp = await db.cypher().match("(q:Question {questionId: '2'})<-[:SHOW_QUESTION]-(c:Commitment {commitmentId: '1'})")
             .return(`q`).end().send();

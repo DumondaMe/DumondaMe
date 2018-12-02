@@ -1,6 +1,7 @@
 <template>
     <div id="notifications-container">
-        <div class="notification ely-card" v-for="notification in notifications">
+        <div class="notification ely-card" :class="{'unread-notification': !notification.read}"
+             v-for="notification in notifications">
             <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>
             <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
@@ -48,14 +49,24 @@
                 padding: 16px;
                 margin-bottom: 0;
             }
+
             .notification-created {
                 margin-bottom: 8px;
                 font-size: 12px;
             }
         }
-        .show-border {
-            border-bottom: 1px solid #e0e0e0;
+
+        .notification.unread-notification {
+            background-color: #EEEEEE;
+            @media screen and (min-width: $xs) {
+                border: 2px solid $divider;
+            }
         }
+
+        .show-border {
+            border-bottom: 1px solid #E0F2F1;
+        }
+
         #no-notifications {
             padding: 16px;
             font-size: 18px;

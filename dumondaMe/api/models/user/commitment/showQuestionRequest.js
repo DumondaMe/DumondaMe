@@ -4,12 +4,12 @@ const slug = require('limax');
 const db = requireDb();
 const security = require('./security');
 
-const removeNotification = function (userId, commitmentId, questionId) {
+const markNotificationAsRead = function (userId, commitmentId, questionId, showQuestion) {
     return db.cypher()
-        .match(`(:Commitment {commitmentId: {commitmentId}})<-[:NOTIFICATION]-(n:Notification)
-                 -[:NOTIFICATION]->(:Question {questionId: {questionId}})`)
-        .optionalMatch(`(n)-[rel]-()`)
-        .delete(`n, rel`)
+        .match(`(:Commitment {commitmentId: {commitmentId}})<-[:NOTIFICATION]
+        -(n:Notification {type: 'showQuestionRequest'})-[:NOTIFICATION]->(:Question {questionId: {questionId}})`)
+        .set(`n`, {showQuestion})
+        .remove(`n:Unread`)
         .end({commitmentId, questionId});
 };
 
@@ -30,7 +30,7 @@ const showQuestion = async function (userId, commitmentId, questionId, showQuest
     if (showQuestion) {
         commands = [setShowQuestion(commitmentId, questionId)];
     }
-    let resp = await removeNotification(userId, commitmentId, questionId).send(commands);
+    let resp = await markNotificationAsRead(userId, commitmentId, questionId, showQuestion).send(commands);
     if (showQuestion && resp[0].length === 1) {
         let question = resp[0][0];
         question.slug = slug(question.question);

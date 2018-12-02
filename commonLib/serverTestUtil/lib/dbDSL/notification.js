@@ -8,12 +8,16 @@ const showQuestionOnCommitmentRequest = function (notificationId, data) {
     if (data.read) {
         readLabel = '';
     }
+    if (typeof data.showQuestion === 'undefined') {
+        data.showQuestion = null;
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(c:Commitment {commitmentId: {commitmentId}}), (admin:User {userId: {adminId}}), 
                 (q:Question {questionId: {questionId}})`)
         .merge(`(q)<-[:NOTIFICATION]-(notification:Notification${readLabel} {type: 'showQuestionRequest', 
                                       created: {created}, notificationId: {notificationId}})-[:NOTIFIED]->(admin)`)
         .merge(`(c)<-[:NOTIFICATION]-(notification)`)
+        .set('notification', {showQuestion: data.showQuestion})
         .end({
             notificationId,
             commitmentId: data.commitmentId,

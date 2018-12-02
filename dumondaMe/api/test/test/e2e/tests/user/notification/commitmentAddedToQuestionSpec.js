@@ -24,7 +24,7 @@ describe('Notification when commitment has been added as answer to a question', 
         });
 
         dbDsl.notificationShowQuestionOnCommitmentRequest('50', {questionId: '1', commitmentId: '2', adminId: '1',
-            created: 666});
+            created: 666, read: true, showQuestion: false});
     });
 
     afterEach(function () {
@@ -37,10 +37,11 @@ describe('Notification when commitment has been added as answer to a question', 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification');
         res.status.should.equal(200);
-        res.body.numberOfUnreadNotifications.should.equals(1);
+        res.body.numberOfUnreadNotifications.should.equals(0);
         res.body.notifications.length.should.equals(1);
         res.body.notifications[0].notificationId.should.equals('50');
-        res.body.notifications[0].read.should.equals(false);
+        res.body.notifications[0].read.should.equals(true);
+        res.body.notifications[0].showQuestion.should.equals(false);
         res.body.notifications[0].created.should.equals(666);
         res.body.notifications[0].type.should.equals('showQuestionRequest');
         res.body.notifications[0].commitmentId.should.equals('2');
