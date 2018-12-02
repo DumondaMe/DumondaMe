@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="feed-cards-container" v-if="!isLoadingFeed && feed.length > 0">
+        <div class="feed-cards-container" v-show="!isLoadingFeed && feed.length > 0">
             <div class="feed-card ely-card" v-for="element in feed">
                 <commitment-card :answer="element" :hide-time="routeName === 'commitment'"
                                  v-if="element.type === 'Commitment' || element.type === 'CommitmentAnswer'">
@@ -19,7 +19,7 @@
                                             @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </commitment-card-footer>
                 </commitment-card>
-                <book-card :answer="element" v-if="element.type === 'Book'">
+                <book-card :answer="element" v-else-if="element.type === 'Book'">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
@@ -30,7 +30,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
-                <text-card :answer="element" v-if="element.type === 'Text'"
+                <text-card :answer="element" v-else-if="element.type === 'Text'"
                            :creator="element.creator ? element.creator: element.user">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
@@ -42,7 +42,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </text-card>
-                <event-card :event="element" v-if="element.type === 'Event'">
+                <event-card :event="element" v-else-if="element.type === 'Event'">
                     <event-card-footer slot="footer" :commitment="element.commitmentTitle"
                                        :commitment-id="element.commitmentId" :commitment-slug="element.commitmentSlug"
                                        :location="element.location" :region="element.region"
@@ -52,7 +52,7 @@
                                        :commitment-description="element.commitmentDescription">
                     </event-card-footer>
                 </event-card>
-                <link-card :answer="element" v-if="element.type === 'Link'">
+                <link-card :answer="element" v-else-if="element.type === 'Link'">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
@@ -63,7 +63,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </link-card>
-                <youtube-card :answer="element" v-if="element.type === 'Youtube'">
+                <youtube-card :answer="element" v-else-if="element.type === 'Youtube'">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
@@ -74,7 +74,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </youtube-card>
-                <question-card :question="element" v-if="element.type === 'Question'"
+                <question-card :question="element" v-else-if="element.type === 'Question'"
                                :hide-time="routeName === 'question'">
                     <question-card-footer slot="footer" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
@@ -88,10 +88,10 @@
                 </question-card>
             </div>
         </div>
-        <div v-else-if="isLoadingFeed" class="feed-loading-container text-xs-center">
+        <div v-show="isLoadingFeed" class="feed-loading-container text-xs-center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
-        <div v-else-if="feed.length === 0" class="feed-no-content-message">
+        <div v-show="!isLoadingFeed && feed.length === 0" class="feed-no-content-message">
             {{$t('pages:feeds.filter.noResults')}}
         </div>
     </div>
