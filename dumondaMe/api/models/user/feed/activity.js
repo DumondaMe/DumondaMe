@@ -126,14 +126,17 @@ const getStartQuery = function (trustCircle, topics, typeFilter, showInterested)
 };
 
 const getFeedCommandString = function (guiLanguage, pageSize) {
-    return db.cypher().optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
+    return db.cypher().unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
+        .with(`DISTINCT feedElement, relActivity, activityElement, max(tempCreated) AS created`)
+        .orderBy(`created DESC`)
+        .skip(`{page}`).limit(`${pageSize}`)
+        .optionalMatch(`(feedElement)-[:ANSWER]->(answer:Answer)`)
         .optionalMatch(`(feedElement)-[:BELONGS_TO_REGION]->(region:Region)`)
         .optionalMatch(`(feedElement)<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch(`(feedElement)<-[:ANSWER]-(question:Question)`)
         .optionalMatch(`(feedElement)<-[:UP_VOTE]-(upVote:User)`)
         .optionalMatch(`(feedElement)<-[:WATCH]-(watch:User)`)
         .optionalMatch(`(feedElement)-[:COMMITMENT]-(commitment:Commitment)-[:BELONGS_TO_REGION]->(rca:Region)`)
-        .unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
         .return(`DISTINCT feedElement, activityElement, creator, question, commitment, 
                  COUNT(DISTINCT answer) AS numberOfAnswers, COUNT(DISTINCT upVote) AS numberOfUpVotes, 
                  COUNT(DISTINCT watch) AS numberOfWatches, collect(DISTINCT region.${guiLanguage}) AS regions, 
@@ -145,9 +148,8 @@ const getFeedCommandString = function (guiLanguage, pageSize) {
                  EXISTS((feedElement)<-[:UP_VOTE]-(:User {userId: {userId}})) AS isUpVotedByUser,
                  EXISTS((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
                  EXISTS((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
-                 max(tempCreated) AS created, type(relActivity) AS relActivity`)
-        .orderBy(`created DESC`)
-        .skip(`{page}`).limit(`${pageSize}`).getCommandString()
+                 created, type(relActivity) AS relActivity`)
+        .orderBy(`created DESC`).getCommandString()
 };
 
 const getFeed = async function (userId, page, timestamp, typeFilter, guiLanguage, languages, trustCircle, topics,
