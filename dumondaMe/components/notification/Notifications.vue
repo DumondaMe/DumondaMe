@@ -15,6 +15,10 @@
             <created-note :notification="notification" v-if="notification.type === 'createdNote'">
             </created-note>
         </div>
+        <v-btn outline color="primary" id="load-next-button" v-if="hasMoreNotifications"
+               @click="loadNextNotifications" :disabled="loadingNextNotifications" :loading="loadingNextNotifications">
+            {{$t("common:button.showMore")}}
+        </v-btn>
         <div id="no-notifications" class="ely-card" v-if="notifications.length === 0">
             {{$t("pages:notifications.noNotifications")}}
         </div>
@@ -33,11 +37,27 @@
     export default {
         name: "notifications",
         components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer, CreatedNote},
+        data() {
+            return {loadingNextNotifications: false}
+        },
         computed: {
+            hasMoreNotifications() {
+                return this.$store.state.notification.hasMoreNotifications
+            },
             ...mapGetters({
                 notifications: 'notification/notifications'
             })
         },
+        methods: {
+            async loadNextNotifications() {
+                try {
+                    this.loadingNextNotifications = true;
+                    await this.$store.dispatch('notification/getNotifications');
+                } finally {
+                    this.loadingNextNotifications = false;
+                }
+            }
+        }
     }
 </script>
 
@@ -61,6 +81,10 @@
             @media screen and (min-width: $xs) {
                 border: 2px solid $divider;
             }
+        }
+
+        #load-next-button {
+            margin-left: 0;
         }
 
         .show-border {
