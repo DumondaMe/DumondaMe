@@ -22,7 +22,7 @@ export const mutations = {
         state.hasMoreNotifications = false
     },
     SET_NOTIFICATION: function (state, notification) {
-        state.notifications = notification.notifications;
+        state.notifications = state.notifications.concat(notification.notifications);
         state.numberOfUnreadNotifications = notification.numberOfUnreadNotifications;
         state.hasMoreNotifications = notification.hasMoreNotifications;
     },
