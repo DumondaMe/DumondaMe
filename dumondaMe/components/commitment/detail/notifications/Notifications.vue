@@ -19,7 +19,7 @@
                 return this.$store.state.notification.notifications.filter(notification => {
                         return notification.type === 'showQuestionRequest' &&
                             notification.commitmentId === this.$route.params.commitmentId &&
-                            !notification.removed;
+                            !notification.read;
                     }
                 )
             }
