@@ -4,11 +4,24 @@ const wordsQuery = function (sentence, searchProperty) {
     let words = '';
     let wordsSplit = sentence.trim().split(" ");
     for (let word of wordsSplit) {
-        words = words + ` ${searchProperty}${word}~3`
+        word = word.trim();
+        if (word.length === 2) {
+            words = words + ` ${searchProperty}${word}~1`
+        } else if (word.length === 3) {
+            words = words + ` ${searchProperty}${word}~2`
+        } else if (word.length > 3) {
+            words = words + ` ${searchProperty}${word}~3`
+        }
     }
     return words;
 };
 
+
+const cleanQuery = function (query) {
+    return query.replace('-', '');
+};
+
 module.exports = {
-    wordsQuery
+    wordsQuery,
+    cleanQuery
 };
