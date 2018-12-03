@@ -1,29 +1,29 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Beautiful you are a part of DumondaMe",
-      "description": "To make getting started as easy as possible, you can make the most important settings for your account below."
+      "title": "Welcome to DumondaMe!",
+      "description": "For an easy start, you can make the most important settings for your account below."
     },
     "stepProfileImage": {
       "title": "Your Profile Picture",
-      "description": "Select your profile picture. In the privacy settings you can determine who is allowed to see it."
+      "description": "Select your profile picture. With the privacy settings you can determine who is allowed to see it."
     },
     "stepTopics": {
       "title": "Topics",
       "description": "Which topics are you interested in?"
     },
     "stepQuestion": {
-      "description": "<b>Questions</b> are the heart of DumondaMe. These can be answered with different answer types like:",
+      "description": "<b>Questions</b> are the heart of DumondaMe. They can be linked to various answer types such as:",
       "link": "Links to websites",
       "youtube": "Youtube videos",
       "books": "Books",
       "text": "own texts",
       "commitment": "Commitments",
-      "hint": "Tip! You can also answer your own question."
+      "hint": "Tip: You can also answer your own question."
     },
     "stepCommitment": {
-      "description": "<b>Commitments</b> at DumondaMe are the possibility to present your club, your company, your project or your personal commitment for a bright future of the world.",
-      "hint": "Tip! Engagements can also be used as an answer to a question."
+      "description": "A <b>commitment</b> at DumondaMe is your association, your company, your project or your personal commitment for a bright future, which you can present to the world here.",
+      "hint": "Tip: Commitments can also be used as an answer to a question."
     },
     "stepTrustCircle": {
       "description": "What information we believe has a lot to do with trust. Add people whose opinion you value to your <b>Trust Circle</b>. By activating the Trust Circle filter, you will see in your feed when these people capture a question, answer questions, agree to answers, and more."

@@ -32,8 +32,8 @@
     "acceptTerms": "Ich akzeptiere die",
     "acceptTerms2": "und die",
     "registerButton": "Erstellen",
-    "emailSentText": "Um dein Konto zu aktivieren muss noch deine Email Adresse verifiziert werden. Dazu wurde eine Nachricht an <b>{{email}}</b> versendet. Es kann einige Minuten dauern bis diese in deinem Konto ankommt.",
-    "spamHint": "Falls du kein E-Mail erhalten hast, prüfe deinen Spam Ordner.",
+    "emailSentText": "Um dein Konto zu aktivieren, muss noch deine E-Mail-Adresse verifiziert werden. Dazu wurde eine Nachricht an <b>{{email}}</b> versendet. Es kann einige Minuten dauern, bis diese in deinem Posteingang ankommt.",
+    "spamHint": "Falls du kein E-Mail erhalten hast, prüfe deinen Spamordner.",
     "errorAccountExist": "Für diese E-Mail Adresse existiert bereits ein Benutzerkonto"
   },
   "search": {
@@ -606,11 +606,11 @@
     },
     "privacy": {
       "title": "Privatsphäre",
-      "privacyModeDescription": "Bestimme wer dein Profil sehen darf:",
-      "privacyModePublic": "Dein Profil ist öffentlich",
-      "privacyModePublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben",
-      "privacyModeOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast sehen dein Profil",
-      "showActivityDescription": "Sollen Personen die dein Profil sehen können und sich dieses anschauen auch deine Aktivitäten sehen? Z.B. welchen Antworten du zugestimmt hast.",
+      "privacyModeDescription": "Bestimme, wer dein Profil sehen darf.",
+      "privacyModePublic": "Dein Profil ist öffentlich.",
+      "privacyModePublicOnDumondaMe": "Dein Profil kann nur von Personen gesehen werde, welche sich auf DumondaMe eingeloggt haben.",
+      "privacyModeOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast, sehen dein Profil.",
+      "showActivityDescription": "Sollen Personen, die dein Profil sehen können und sich dieses anschauen, auch deine Aktivitäten sehen? (z.B. welchen Antworten du zugestimmt hast)",
       "showActivity": "Aktivitäten anzeigen"
     }
   },
