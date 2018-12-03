@@ -33,7 +33,7 @@
     import ElySelect from '~/components/common/select/Select';
 
     export default {
-        props: ['actionButtonText', 'description', 'loading', 'existingTopics'],
+        props: ['actionButtonText', 'description', 'loading', 'existingTopics', 'notCheckIfChanged'],
         data() {
             return {topics: [], selectedTopics: [], hasChanged: true}
         },
@@ -47,7 +47,7 @@
         components: {ElySelect},
         methods: {
             checkHasChanged() {
-                if (this.existingTopics) {
+                if (this.existingTopics && !this.notCheckIfChanged) {
                     return this.existingTopics.length !== this.selectedTopics.length &&
                         !this.existingTopics.every(existingTopic => this.selectedTopics.includes(existingTopic));
                 }

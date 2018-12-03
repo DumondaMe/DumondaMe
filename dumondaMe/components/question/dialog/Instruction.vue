@@ -2,22 +2,22 @@
     <v-card id="question-instruction-container">
         <div id="question-instruction-container-header">
             <stepper-header>
-                <step :number="1" :selected-step="step">
+                <step :number="1" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
                 <v-divider></v-divider>
-                <step :number="2" :selected-step="step">
+                <step :number="2" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
                 <v-divider></v-divider>
-                <step :number="3" :selected-step="step">
+                <step :number="3" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
                 <v-divider></v-divider>
-                <step :number="4" :selected-step="step">
+                <step :number="4" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
                 <v-divider></v-divider>
-                <step :number="5" :selected-step="step">
+                <step :number="5" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
                 <v-divider></v-divider>
-                <step :number="6" :selected-step="step">
+                <step :number="6" :selected-step="step" @navigate-to-step="navigateToStep">
                 </step>
             </stepper-header>
         </div>
@@ -64,6 +64,9 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
+            <v-btn color="primary" flat @click="step--" v-show="step > 1">
+                {{$t("common:button.back")}}
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
             <v-btn color="primary" @click="navigationButtonPressed">
@@ -88,6 +91,9 @@
                 } else {
                     this.$emit('next')
                 }
+            },
+            navigateToStep(step) {
+                this.step = step;
             }
         },
         components: {StepperHeader, Step},
@@ -102,15 +108,19 @@
 <style lang="scss">
     #question-instruction-container {
         max-width: 650px;
+
         #question-instruction-container-header {
             max-width: 650px;
         }
+
         .question-instruction-content {
             max-width: 650px;
+
             .description {
                 font-weight: 300;
                 text-align: center;
             }
+
             .instruction-title {
                 font-weight: 500;
                 color: $primary-color;
@@ -119,26 +129,32 @@
                 margin-bottom: 18px;
                 text-align: center;
             }
+
             .instruction-description {
                 font-weight: 300;
             }
+
             .sample {
                 margin-top: 12px;
                 font-weight: 300;
                 padding: 4px 12px;
+
                 b {
                     font-weight: 500;
                 }
             }
+
             .acknowledge-checkbox {
                 .v-input__control {
                     margin: 0 auto;
                 }
             }
+
             .instruction-bad-sample {
                 border-left: 4px solid $error-text;
 
             }
+
             .instruction-good-sample {
                 border-left: 4px solid $success-text;
             }

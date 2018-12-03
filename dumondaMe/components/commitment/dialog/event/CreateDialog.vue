@@ -3,13 +3,14 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <event-content v-if="showPage === 1" @close-dialog="$emit('close-dialog')"
                            @finish="finishEventData" :action-button-text="$t('common:button.next')"
-                           :init-event="$store.getters['createEvent/getEventCopy']">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                           :init-event="$store.getters['createEvent/getEventCopy']"
+                           :not-check-if-changed="true">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </event-content>
             <location v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishLocation"
                       :action-button-text="$t('pages:commitment.createEventDialog.createEventButton')"
                       :loading="loading" :init-location="''">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </location>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -50,6 +51,9 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            navigateToStep(step) {
+                this.showPage = step;
             }
         }
     }

@@ -1,6 +1,7 @@
 <template>
     <stepper-header>
-        <step :name="$t('common:question')" :number="1" :selected-step="selectedStep">
+        <step :name="$t('common:question')" :number="1" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
         <step :name="$t('common:topic')" :number="2" :selected-step="selectedStep">

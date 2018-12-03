@@ -28,7 +28,8 @@
     import ElySelect from '~/components/common/select/Select';
 
     export default {
-        props: ['actionButtonText', 'description', 'loading', 'existingRegions', 'selectMultiple', 'hideItem'],
+        props: ['actionButtonText', 'description', 'loading', 'existingRegions', 'notCheckIfChanged', 'selectMultiple',
+            'hideItem'],
         components: {ElySelect},
         data() {
             return {regions: [], selectedRegions: [], loadingRegions: false, hasChanged: true}
@@ -48,7 +49,7 @@
         },
         methods: {
             checkHasChanged() {
-                if (this.existingRegions) {
+                if (this.existingRegions && !this.notCheckIfChanged) {
                     return this.existingRegions.length !== this.selectedRegions.length ||
                         !this.existingRegions.every(existingRegion => this.selectedRegions
                             .some(selectedRegion => selectedRegion.id === existingRegion.id));
@@ -66,8 +67,10 @@
 <style lang="scss">
     #dialog-create-region-commitment {
         max-width: 650px;
+
         #dialog-create-region-commitment-content {
             max-width: 100%;
+
             .user-description {
                 font-weight: 300;
                 max-width: 400px;
