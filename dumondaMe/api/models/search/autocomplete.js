@@ -4,6 +4,7 @@ const db = requireDb();
 const queryParser = require('./queryParser');
 
 const search = async function (query, userId) {
+    query = queryParser.cleanQuery(query);
     query = `("${query.trim()}"~20)^20 ${queryParser.wordsQuery(query, '')}`;
     let result = await db.cypher().call(`apoc.index.search("entities", {query}) YIELD node AS result, weight`)
         .where(`{userId} IS NOT NULL OR result:Commitment OR result:Question OR 
