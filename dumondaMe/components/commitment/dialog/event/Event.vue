@@ -11,8 +11,8 @@
                                        ruleToManyChars($t('validation:toManyChars'), 100)]" :counter="100">
                 </v-text-field>
                 <v-textarea v-model="event.description"
-                              :label="$t('common:description')"
-                              :rules="[ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
+                            :label="$t('common:description')"
+                            :rules="[ruleToManyChars($t('validation:toManyChars'), 1000)]" :counter="1000">
                 </v-textarea>
                 <v-text-field v-model="event.linkDescription"
                               :label="$t('pages:commitment.createEventDialog.linkDescription')"
@@ -49,7 +49,7 @@
     import StartEndDateTimePicker from '~/components/common/date/StartEndDateTimePicker'
 
     export default {
-        props: ['actionButtonText', 'initEvent', 'loading'],
+        props: ['actionButtonText', 'initEvent', 'loading', 'notCheckIfChanged'],
         components: {StartEndDateTimePicker},
         data() {
             return {
@@ -64,17 +64,20 @@
         },
         computed: {
             hasChanged() {
-                if (typeof this.event.description === 'string' && this.event.description.trim() === '') {
-                    delete this.event.description;
+                if (!this.notCheckIfChanged) {
+                    if (typeof this.event.description === 'string' && this.event.description.trim() === '') {
+                        delete this.event.description;
+                    }
+                    if (typeof this.event.linkDescription === 'string' && this.event.linkDescription.trim() === '') {
+                        delete this.event.linkDescription;
+                    }
+                    return this.event.title !== this.eventCompare.title ||
+                        this.event.description !== this.eventCompare.description ||
+                        this.event.linkDescription !== this.eventCompare.linkDescription ||
+                        this.event.startDate !== this.eventCompare.startDate ||
+                        this.event.endDate !== this.eventCompare.endDate;
                 }
-                if (typeof this.event.linkDescription === 'string' && this.event.linkDescription.trim() === '') {
-                    delete this.event.linkDescription;
-                }
-                return this.event.title !== this.eventCompare.title ||
-                    this.event.description !== this.eventCompare.description ||
-                    this.event.linkDescription !== this.eventCompare.linkDescription ||
-                    this.event.startDate !== this.eventCompare.startDate ||
-                    this.event.endDate !== this.eventCompare.endDate;
+                return true;
             }
         },
         methods: {
@@ -114,6 +117,7 @@
 <style lang="scss">
     #dialog-event {
         max-width: 650px;
+
         .date-picker {
             margin-top: 12px;
         }

@@ -20,7 +20,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-btn color="primary" flat @click="$emit('back')">
+            <v-btn color="primary" flat @click="$emit('back')" :disabled="loading">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-spacer></v-spacer>

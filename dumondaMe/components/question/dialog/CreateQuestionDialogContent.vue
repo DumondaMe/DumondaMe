@@ -2,12 +2,12 @@
     <question v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @open-instruction="$emit('open-instruction')"
               @finish="finishQuestion" :action-button-text="$t('common:button.next')"
               :init-question="initQuestion" :is-modify-mode="false">
-        <stepper slot="header" :selected-step="showPage"></stepper>
+        <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
     </question>
     <topics v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
             :action-button-text="$t('pages:question.createDialog.createQuestionButton')" :loading="loading"
-            :description="$t('pages:question.createDialog.topicDescription')">>
-        <stepper slot="header" :selected-step="showPage"></stepper>
+            :description="$t('pages:question.createDialog.topicDescription')">
+        <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
     </topics>
 </template>
 
@@ -42,6 +42,9 @@
                 catch (e) {
                     this.loading = false;
                 }
+            },
+            navigateToStep(step) {
+                this.showPage = step;
             }
         }
     }

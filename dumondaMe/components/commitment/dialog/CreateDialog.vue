@@ -11,22 +11,24 @@
             </acknowledge>
             <region v-else-if="showPage === 1" @close-dialog="$emit('close-dialog')" @finish="finishRegion"
                     :action-button-text="$t('common:button.next')" :select-multiple="true" hide-item="international"
-                    :description="$t('pages:commitment.createDialog.regionDescription')">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                    :description="$t('pages:commitment.createDialog.regionDescription')"
+                    :existing-regions="getExistingRegions()" :not-check-if-changed="true">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </region>
             <topics v-else-if="showPage === 2" @close-dialog="$emit('close-dialog')" @finish="finishTopics"
                     :action-button-text="$t('common:button.next')"
-                    :description="$t('pages:commitment.createDialog.topicDescription')">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                    :description="$t('pages:commitment.createDialog.topicDescription')"
+                    :existing-topics="getExistingTopics()" :not-check-if-changed="true">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </topics>
             <website-preview v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage = 4">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </website-preview>
             <commitment-content v-else-if="showPage === 4" @close-dialog="$emit('close-dialog')"
                                 @finish="finishCommitmentData" :loading="loading"
                                 :action-button-text="$t('pages:commitment.createDialog.createCommitmentButton')"
                                 :init-commitment="$store.getters['createCommitment/getCommitment']">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </commitment-content>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -68,8 +70,7 @@
                         name: 'commitment-commitmentId-slug',
                         params: {commitmentId: response.commitmentId, slug: response.slug}
                     });
-                }
-                catch (error) {
+                } catch (error) {
                     if (error.response && error.response.data &&
                         error.response.data.errorCode === ERROR_CODE_IMAGE_TO_SMALL) {
                         this.showWarning = true;
@@ -87,6 +88,19 @@
             finishTopics(topics) {
                 this.$store.commit('createCommitment/SET_TOPICS', topics.map(topic => topic.id));
                 this.showPage = 3;
+            },
+            navigateToStep(step) {
+                this.showPage = step;
+            },
+            getExistingRegions() {
+                return this.$store.state.createCommitment.commitment.regions.map(function (id) {
+                    return {id};
+                });
+            },
+            getExistingTopics() {
+                return this.$store.state.createCommitment.commitment.topics.map(function (id) {
+                    return {id};
+                });
             }
         }
     }
