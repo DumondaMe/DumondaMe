@@ -6,28 +6,28 @@
             </welcome>
             <profile-image v-if="showPage === 1" @close-dialog="$emit('close-dialog')" @next="showPage++"
                            class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </profile-image>
-            <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
                      :init-privacy-mode="settings.privacyMode" class="welcome-dialog"
                      :init-show-profile-activity="settings.showProfileActivity">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </privacy>
-            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
                     :init-topics="settings.interestedTopics" class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </topics>
-            <question v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <question v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
                       class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </question>
             <commitment v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
-                        class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                        @back="showPage--" class="welcome-dialog">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </commitment>
-            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish"
+            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish" @back="showPage--"
                           class="welcome-dialog" :loading="loading">
-                <stepper slot="header" :selected-step="showPage"></stepper>
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </trust-circle>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -75,6 +75,9 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            navigateToStep(step) {
+                this.showPage = step;
             }
         }
     }

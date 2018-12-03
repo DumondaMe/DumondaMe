@@ -1,18 +1,23 @@
 <template>
     <stepper-header>
-        <step :number="1" :selected-step="selectedStep">
+        <step :number="1" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
-        <step :number="2" :selected-step="selectedStep">
+        <step :number="2" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
-        <step :number="3" :selected-step="selectedStep">
+        <step :number="3" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
-        <step :number="4" :selected-step="selectedStep">
+        <step :number="4" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
-        <step :number="5" :selected-step="selectedStep">
+        <step :number="5" :selected-step="selectedStep"
+              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
         <step :number="6" :selected-step="selectedStep">
