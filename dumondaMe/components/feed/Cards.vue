@@ -75,7 +75,7 @@
                     </common-card-footer>
                 </youtube-card>
                 <question-card :question="element" v-else-if="element.type === 'Question'"
-                               :hide-time="routeName === 'question'">
+                               :hide-time="hideTimeQuestion">
                     <question-card-footer slot="footer" :user="element.user"
                                           :created="element.created" :number-of-watches="element.numberOfWatches"
                                           :number-of-answers="element.numberOfAnswers" :action="element.action"
@@ -119,6 +119,10 @@
         computed: {
             isLoadingFeed() {
                 return this.$store.state.feed.loading
+            },
+            hideTimeQuestion() {
+                return (this.routeName === 'question' && this.$store.state.auth.userIsAuthenticated) ||
+                    this.routeName === 'index' && !this.$store.state.auth.userIsAuthenticated
             }
         },
         methods: {
