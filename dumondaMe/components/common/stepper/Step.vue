@@ -1,13 +1,21 @@
 <template>
     <div class="step" :class="{'active-step': number === selectedStep, 'future-step': number > selectedStep}">
-        <span class="step-number">{{number}}</span>
+        <span class="step-number" :class="{'step-number-without-name': !name}"
+        @click="navigateToStep">{{number}}</span>
         <div class="step-name">{{name}}</div>
     </div>
 </template>
 
 <script>
     export default {
-        props: {name: String, number: Number, selectedStep: Number}
+        props: {name: String, number: Number, selectedStep: Number},
+        methods: {
+            navigateToStep() {
+                if (this.number < this.selectedStep) {
+                    this.$emit('navigate-to-step', this.number)
+                }
+            }
+        },
     }
 </script>
 
@@ -22,7 +30,9 @@
             flex-direction: row;
             padding: 24px;
             position: relative;
+
             .step-number {
+                cursor: pointer;
                 border-radius: 50%;
                 font-size: 12px;
                 color: white;
@@ -36,6 +46,11 @@
                 text-align: center;
                 vertical-align: middle;
             }
+
+            .step-number.step-number-without-name {
+                margin-right: 0;
+            }
+
             .step-name {
                 font-size: 14px;
                 @media screen and (max-width: $sm) {
@@ -43,14 +58,17 @@
                 }
             }
         }
+
         .step.active-step {
             .step-name {
                 font-weight: 500;
             }
         }
+
         .step.future-step {
             .step-number {
-                background-color: rgba(0,0,0,.38);
+                cursor: default;
+                background-color: rgba(0, 0, 0, .38);
             }
         }
     }
