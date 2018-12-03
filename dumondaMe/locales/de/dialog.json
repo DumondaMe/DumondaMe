@@ -1,32 +1,32 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Schön bist du ein Teil von DumondaMe",
-      "description": "Um den Einstieg möglichst einfach zu gestallten, kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen."
+      "title": "Willkommen bei DumondaMe!",
+      "description": "Für einen einfachen Einstieg kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen."
     },
     "stepProfileImage": {
       "title": "Dein Profilbild",
-      "description": "Wähle dein Profilbild aus. Mit den Privatsphäre Einstellungen kannst du bestimmen wer es sehen darf."
+      "description": "Wähle dein Profilbild aus. Mit den Privatsphäre-Einstellungen kannst du bestimmen, wer es sehen darf."
     },
     "stepTopics": {
       "title": "Themenbereiche",
       "description": "Welche Themen interessieren dich?"
     },
     "stepQuestion": {
-      "description": "<b>Fragen</b> sind das Herzstück von DumondaMe. Diese können mit verschiedenen Antworttypen beantwortet werden wie:",
+      "description": "<b>Fragen</b> sind das Herzstück von DumondaMe. Sie können mit verschiedenen Antworttypen verknüpft werden wie:",
       "link": "Links auf Webseiten",
       "youtube": "Youtube Videos",
       "books": "Büchern",
       "text": "eigenen Texten",
       "commitment": "Engagements",
-      "hint": "Tipp! Du kannst auch deine eigene Frage beantworten."
+      "hint": "Tipp: Du kannst auch deine eigene Frage beantworten."
     },
     "stepCommitment": {
-      "description": "<b>Engagements</b> bei DumondaMe sind die Möglichkeit deinen Verein, dein Unternehmen, dein Projekt oder aber auch dein persönliches Engagement für eine leuchtende Zukunft der Welt zu präsentieren.",
-      "hint": "Tipp! Engagements können auch als Antwort auf eine Frage verwendet werden."
+      "description": "Ein <b>Engagements</b> ist bei DumondaMe dein Verein, dein Unternehmen, dein Projekt oder dein persönliches Engagement für eine leuchtende Zukunft, welches du hier der Welt präsentieren kannst.",
+      "hint": "Tipp: Engagements können auch als Antwort auf eine Frage verwendet werden."
     },
     "stepTrustCircle": {
-      "description": "Welchen Informationen wir Glauben schenken hat viel mit Vertrauen zu tun. Füge Personen deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. Durch das Aktivieren des Trust Circle - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+      "description": "Welchen Informationen wir Glauben schenken, hat viel mit Vertrauen zu tun. Füge Personen, deren Meinung du schätzt, deinem Trust Circle hinzu. Durch das Aktivieren des Trust Circle - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
     }
   }
 }
