@@ -26,7 +26,7 @@
       "hint": "Tip: Commitments can also be used as an answer to a question."
     },
     "stepTrustCircle": {
-      "description": "What information we believe has a lot to do with trust. Add people whose opinion you value to your <b>Trust Circle</b>. By activating the Trust Circle filter, you will see in your feed when these people capture a question, answer questions, agree to answers, and more."
+      "description": "What information we believe has a lot to do with trust. Add people whose opinion you value to your <b>Trust Circle</b>. By activating the <b>Trust Circle</b> filter, you will see in your feed when these people capture a question, answer questions, agree to answers, and more."
     }
   }
 }
