@@ -356,6 +356,11 @@
         "title": "Of course",
         "description": "No offensive, racist or discriminatory question"
       }
+    },
+    "similarQuestion": {
+      "title": "Similar questions",
+      "answers": "{{count}} Answer",
+      "answers_plural": "{{count}} Answers"
     }
   },
   "detailQuestion": {

@@ -41,6 +41,7 @@
 
 <style lang="scss">
     .general-info-container {
+        margin-bottom: 12px;
         .question-info {
             display: block;
             font-size: 14px;

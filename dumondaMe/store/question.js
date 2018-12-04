@@ -4,7 +4,7 @@ export const state = () => ({
     question: {
         questionId: '', question: null, description: null, descriptionHtml: null, lang: null, numberOfWatches: 0,
         isAdmin: false, numberOfAnswers: 0, numberOfSuggestions: 0, userWatchesQuestion: false, answers: [],
-        topics: [], regions: []
+        topics: [], regions: [], similarQuestions: []
     },
     sortNotes: 'newest',
     nextAnswersPage: 1

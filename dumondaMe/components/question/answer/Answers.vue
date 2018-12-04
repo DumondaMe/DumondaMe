@@ -149,6 +149,8 @@
         .show-answer-button {
             margin-left: 0;
             @media screen and (max-width: $sm) {
+                margin-top: 16px;
+                margin-bottom: 12px;
                 margin-left: 16px;
             }
         }

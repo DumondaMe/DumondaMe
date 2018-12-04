@@ -75,6 +75,14 @@ describe('Getting details of a question', function () {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world',
             topics: ['topic2'], language: 'en', modified: 701
         });
+        dbDsl.createQuestion('3', {
+            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
+            topics: ['topic2'], language: 'en', modified: 800
+        });
+        dbDsl.createBookAnswer('20', {
+            creatorId: '3', questionId: '3', created: 497, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
         dbDsl.setUserIsSuperUser('1');
         dbDsl.addSuggestionToQuestion({
             questionId: '2', suggestionId: '100', userId: '4', title: 'newTitle', description: 'newDescription',
@@ -112,6 +120,12 @@ describe('Getting details of a question', function () {
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
 
+        res.body.similarQuestions.length.should.equals(1);
+        res.body.similarQuestions[0].questionId.should.equals('3');
+        res.body.similarQuestions[0].question.should.equals('Das ist eine Frage3');
+        res.body.similarQuestions[0].questionSlug.should.equals('das-ist-eine-frage3');
+        res.body.similarQuestions[0].numberOfAnswers.should.equals(1);
+
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(0);
     });
@@ -120,6 +134,10 @@ describe('Getting details of a question', function () {
         dbDsl.createQuestion('2', {
             creatorId: '3', question: 'Das ist eine Frage2',
             topics: ['topic2'], language: 'en', modified: 701
+        });
+        dbDsl.createQuestion('3', {
+            creatorId: '4', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
+            topics: ['topic2'], language: 'en', modified: 800
         });
         dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
@@ -149,6 +167,12 @@ describe('Getting details of a question', function () {
         res.body.topics.length.should.equals(1);
         res.body.topics[0].id.should.equals('topic2');
         res.body.topics[0].description.should.equals('topic2De');
+
+        res.body.similarQuestions.length.should.equals(1);
+        res.body.similarQuestions[0].questionId.should.equals('3');
+        res.body.similarQuestions[0].question.should.equals('Das ist eine Frage3');
+        res.body.similarQuestions[0].questionSlug.should.equals('das-ist-eine-frage3');
+        res.body.similarQuestions[0].numberOfAnswers.should.equals(0);
 
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(0);
@@ -193,6 +217,8 @@ describe('Getting details of a question', function () {
         res.body.topics.length.should.equals(2);
         res.body.topics.should.deep.include({id: 'topic1', description: 'topic1De'});
         res.body.topics.should.deep.include({id: 'topic2', description: 'topic2De'});
+
+        res.body.similarQuestions.length.should.equals(0);
 
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);

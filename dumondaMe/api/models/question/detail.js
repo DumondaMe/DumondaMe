@@ -5,8 +5,10 @@ const exceptions = require('dumonda-me-server-lib').exceptions;
 const cdn = require('dumonda-me-server-lib').cdn;
 const answerParser = require('./answer/answerParser');
 const answers = require('./answers');
+const similar = require('./similar');
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
+const time = require('dumonda-me-server-lib').time;
 
 const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) {
     if (user.privacyMode === 'public' || user.userId === userId ||
@@ -44,9 +46,10 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
                  EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser,
                  EXISTS((user)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion`)
-        .end({questionId, userId}).send([answers.getAnswersCommand(questionId, answerId, 0, userId).getCommand()]);
-    if (response[1].length === 1) {
-        let questionResponse = response[1][0];
+        .end({questionId, userId}).send([answers.getAnswersCommand(questionId, answerId, 0, userId).getCommand(),
+            similar.getSimilarQuestionsCommand(questionId, time.getNowUtcTimestamp(), 0, 10).getCommand()]);
+    if (response[2].length === 1) {
+        let questionResponse = response[2][0];
         let question = questionResponse.question;
         if (question.description) {
             question.descriptionHtml = linkifyHtml(question.description, {attributes: {rel: 'noopener'}});
@@ -65,6 +68,7 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
             response[0] = response[0].slice(0, answers.PAGE_SIZE);
         }
         question.answers = await answerParser.getAnswers(response[0], language, userId);
+        question.similarQuestions = similar.getResponse(response[1]);
         return question;
     }
     throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);

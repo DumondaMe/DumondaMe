@@ -354,6 +354,11 @@
         "title": "Selbstverständlich",
         "description": "Keine beleidigende, rassistische oder diskriminierende Frage"
       }
+    },
+    "similarQuestion": {
+      "title": "Ähnliche Fragen",
+      "answers": "{{count}} Antwort",
+      "answers_plural": "{{count}} Antworten"
     }
   },
   "detailQuestion": {
