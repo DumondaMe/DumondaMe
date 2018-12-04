@@ -4,11 +4,13 @@
             <create-answer></create-answer>
             <beta-version></beta-version>
             <general-information></general-information>
+            <similar-questions></similar-questions>
         </div>
         <div slot="content" id="question-detail">
             <question-header></question-header>
-            <general-information id="general-information-mobile"></general-information>
+            <general-information class="sidebar-on-mobile"></general-information>
             <answers></answers>
+            <similar-questions class="sidebar-on-mobile"></similar-questions>
         </div>
     </detail-layout>
 </template>
@@ -19,6 +21,7 @@
     import Answers from '~/components/question/answer/Answers';
     import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
+    import SimilarQuestions from '~/components/question/SimilarQuestions';
     import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
@@ -58,7 +61,9 @@
                 ]
             }
         },
-        components: {DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion},
+        components: {
+            DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion, SimilarQuestions
+        },
         computed: {
             question() {
                 return this.$store.state.question.question;
@@ -74,6 +79,7 @@
             @media screen and (max-width: $xs) {
                 margin-top: 0;
             }
+
             .dumonda-me-answer-content {
                 padding-top: 12px;
                 @media screen and (max-width: $xs) {
@@ -81,7 +87,8 @@
                 }
             }
         }
-        #general-information-mobile {
+
+        .sidebar-on-mobile {
             @media screen and (min-width: $xs) {
                 display: none;
             }
