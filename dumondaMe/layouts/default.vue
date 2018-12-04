@@ -10,6 +10,7 @@
             </div>
         </div>
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
+        <cookie-privacy-read-info></cookie-privacy-read-info>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </v-app>
 </template>
@@ -19,9 +20,12 @@
     import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
+    import cookiePrivacyReadInfo from '~/components/info/cookiePrivacyReadInfo';
 
     export default {
-        components: {DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog},
+        components: {
+            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, cookiePrivacyReadInfo
+        },
         data() {
             return {drawer: null, isRightSideDrawer: true, showInfoDialog: false};
         },

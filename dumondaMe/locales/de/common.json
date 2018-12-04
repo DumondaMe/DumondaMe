@@ -141,5 +141,10 @@
   "meta": {
     "description": "DumondaMe ist das soziales Netzwerk für eine zukunftsfähige Gesellschaft.",
     "keywords": "Soziale Gerechtigkeit, Lebensqualität, Frieden, Umweltschutz, Wirtschaft, Gesellschaft, Gesundheit, Kunst, Kultur, Landwirtschaft, Lebensmittel, Spiritualität, Bewusstsein, Menschenrechte, Naturverbundenheit, Alternative Medizin, Bewegung, Ernährung, Permakultur "
+  },
+  "cookiePrivacyInfo": {
+    "info1": "Diese Webseite verwendet Cookies. Indem du unsere Webseite weiterhin ohne Änderung der Einstellungen nutzt, stimmst du unserer",
+    "infoLinkPrivacy": "Verwendung von Cookies",
+    "info2": "zu."
   }
 }

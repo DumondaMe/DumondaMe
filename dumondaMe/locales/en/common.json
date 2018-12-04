@@ -141,5 +141,10 @@
   "meta": {
     "description": "DumondaMe is the social network for a sustainable society.",
     "keywords": "Social justice, Quality of life, Peace, Environmental protection, Economy, Society, Health, Art, Culture, Agriculture, Food, Spirituality, Consciousness, Human rights, Closeness to nature, Alternative medicine, Physical activity, Nutrition, Permaculture "
+  },
+  "cookiePrivacyInfo": {
+    "info1": "This website uses cookies. By continuing to use our website without changing your preferences, you consent to our",
+    "infoLinkPrivacy": "use of cookies",
+    "info2": "."
   }
 }
