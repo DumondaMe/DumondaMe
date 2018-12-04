@@ -52,6 +52,7 @@
                     this.loading = true;
                     await this.$axios.$put(`user/settings/privacy`,
                         {privacyMode, showProfileActivity});
+                    this.$emit('privacy-mode-changed', privacyMode);
                 } catch (error) {
 
                 } finally {
@@ -62,9 +63,6 @@
         watch: {
             async privacyMode(newPrivacyMode) {
                 this.setSetting(newPrivacyMode, this.showProfileActivity);
-            },
-            async showProfileActivity(newShowProfileActivity) {
-                this.setSetting(this.privacyMode, newShowProfileActivity);
             }
         }
 

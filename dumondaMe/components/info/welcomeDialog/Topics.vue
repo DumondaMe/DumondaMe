@@ -100,7 +100,7 @@
                         this.$route.name === 'question') {
                         await this.$store.dispatch(`feed/getFeed`);
                     }
-                    this.$emit('next');
+                    this.$emit('next', this.selectedTopics);
                 } catch (error) {
                     this.showError = true;
                 } finally {
