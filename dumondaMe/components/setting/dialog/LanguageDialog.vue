@@ -3,11 +3,11 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="300px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card id="dialog-set-language">
                 <div id="dumonda-me-dialog-header">
-                    {{$t("pages:settings.languageTitle")}}
+                    {{$t("pages:settings.language.title")}}
                 </div>
                 <v-divider></v-divider>
                 <v-card-text id="dialog-set-language-content" class="mobile-dialog-content">
-                    <v-select id="select-user-language" :label="$t('pages:settings.languageUI')"
+                    <v-select id="select-user-language" :label="$t('pages:settings.language.languageUI')"
                               :items="getLanguages()" v-model="language"
                               item-value="value" item-text="text">
                     </v-select>
