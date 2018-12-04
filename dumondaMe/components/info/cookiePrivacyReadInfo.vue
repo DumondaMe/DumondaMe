@@ -1,15 +1,20 @@
 <template>
-    <div id="cookie-privacy-read-info" v-if="showInfo">
-        <div id="cookie-privacy-read-info-container">
-            <div class="privacy-info-text">
-                <span>{{$t('common:cookiePrivacyInfo.info1')}} </span>
-                <nuxt-link :to="{name: 'privacy'}">{{$t('common:cookiePrivacyInfo.infoLinkPrivacy')}}</nuxt-link>
-                <span> {{$t('common:cookiePrivacyInfo.info2')}}</span>
+    <div>
+        <no-ssr>
+            <div id="cookie-privacy-read-info" v-if="showInfo">
+                <div id="cookie-privacy-read-info-container">
+                    <div class="privacy-info-text">
+                        <span>{{$t('common:cookiePrivacyInfo.info1')}} </span>
+                        <nuxt-link :to="{name: 'privacy'}">{{$t('common:cookiePrivacyInfo.infoLinkPrivacy')}}
+                        </nuxt-link>
+                        <span> {{$t('common:cookiePrivacyInfo.info2')}}</span>
+                    </div>
+                    <v-btn color="secondary" @click="acceptCookies">
+                        {{$t('common:button.ok')}}
+                    </v-btn>
+                </div>
             </div>
-            <v-btn color="secondary" @click="acceptCookies">
-                {{$t('common:button.ok')}}
-            </v-btn>
-        </div>
+        </no-ssr>
     </div>
 </template>
 
@@ -97,6 +102,7 @@
                     font-weight: 500;
                 }
             }
+
             button {
                 @media screen and (max-width: $xs) {
                     margin-top: 18px;
