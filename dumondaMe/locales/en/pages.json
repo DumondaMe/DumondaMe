@@ -358,7 +358,7 @@
       }
     },
     "similarQuestion": {
-      "title": "Similar questions",
+      "title": "More questions",
       "answers": "{{count}} Answer",
       "answers_plural": "{{count}} Answers"
     }
