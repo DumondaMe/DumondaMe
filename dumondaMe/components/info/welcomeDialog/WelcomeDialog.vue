@@ -10,10 +10,11 @@
             </profile-image>
             <privacy v-if="showPage === 2" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
                      :init-privacy-mode="settings.privacyMode" class="welcome-dialog"
-                     :init-show-profile-activity="settings.showProfileActivity">
+                     :init-show-profile-activity="settings.showProfileActivity"
+                     @privacy-mode-changed="privacyModeChanged">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </privacy>
-            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
+            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="nextTopics" @back="showPage--"
                     :init-topics="settings.interestedTopics" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </topics>
@@ -75,6 +76,13 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            nextTopics(topics) {
+                this.settings.interestedTopics = topics;
+                this.showPage++;
+            },
+            privacyModeChanged(newPrivacyMode) {
+                this.settings.privacyMode = newPrivacyMode;
             },
             navigateToStep(step) {
                 this.showPage = step;
