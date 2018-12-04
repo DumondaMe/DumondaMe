@@ -676,7 +676,22 @@
         "text1": "While you use or visit the DumondaMe service, data is automatically collected from you via tracking (Matomo) and log files on our servers. We store the collected data for up to 90 days in complete form. We use tracking for the following reasons:",
         "point1": "Security guarantee",
         "point2": "Optimization of the website",
-        "point3": "Determination of statistical characteristics"
+        "point3": "Determination of statistical characteristics",
+        "cookies": {
+          "title": "Cookies",
+          "matomo": {
+            "title": "Matomo Web Analysis Cookie",
+            "description": "This is needed for the tracking by Matomo described above."
+          },
+          "dumondaMe": {
+            "title": "DumondaMe Session",
+            "description": "This generic cookie is used to administer your website session."
+          },
+          "youtube": {
+            "title": "Youtube Cookies",
+            "description": "Since we include videos from Youtube, <a href='https://policies.google.com/technologies/cookies?' target='_blank' rel='noopener'>cookies are created by Youtube</>."
+          }
+        }
       },
       "informationFromOtherSource": {
         "title": "Information we obtain about you from other sources",

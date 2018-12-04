@@ -679,7 +679,22 @@
         "text1": "Während du den Dienst DumondaMe nutzt oder besuchst, werden automatisch Daten von dir mittels Tracking (Matomo) und Logfiles auf unseren Servern gesammelt. Die erhobenen Daten speichern wir für bis zu 90 Tagen in vollständiger Form. Wir verwenden das Tracking aus folgenden Gründen:",
         "point1": "Gewährleistung der Sicherheit",
         "point2": "Optimierung der Website",
-        "point3": "Ermittlung statistischer Kennwerte"
+        "point3": "Ermittlung statistischer Kennwerte",
+        "cookies": {
+          "title": "Cookies",
+          "matomo": {
+            "title": "Matomo Webanalyse-Cookie",
+            "description": "Dieser wird für die oben beschriebene Tracking durch Matomo benötigt."
+          },
+          "dumondaMe": {
+            "title": "DumondaMe Session",
+            "description": "Dieser generische Cookie dient der Verwaltung deiner Website-Sitzung"
+          },
+          "youtube": {
+            "title": "Youtube Cookies",
+            "description": "Da wir Videos von Youtube einbinden, werden <a href='https://policies.google.com/technologies/cookies?' target='_blank' rel='noopener'>Cookies von Youtube</> erstellt."
+          }
+        }
       },
       "informationFromOtherSource": {
         "title": "Informationen, die wir über dich aus anderen Quellen erhalten.",

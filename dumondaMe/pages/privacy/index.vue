@@ -27,12 +27,21 @@
             <li>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.point2')}}</li>
             <li>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.point3')}}</li>
         </ul>
-        <iframe style="border: 0; height: 160px; width: 600px;" class="matomo-opt-out-iframe-desktop"
+        <h4>3.1 {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.title')}}</h4>
+        <h5>3.1.1 {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.matomo.title')}}</h5>
+        <p>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.matomo.description')}}</p>
+        <iframe style="height: 180px; width: 600px;" class="matomo-opt-out-iframe-desktop"
                 :src="optOutLink">
         </iframe>
         <iframe style="border: 0; height: 290px; width: 300px;" class="matomo-opt-out-iframe-mobile"
                 :src="optOutLink">
         </iframe>
+
+        <h5>3.1.2 {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.dumondaMe.title')}}</h5>
+        <p>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.dumondaMe.description')}}</p>
+        <h5>3.1.3 {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.youtube.title')}}</h5>
+        <p v-html="$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.youtube.description')"></p>
+
 
         <h3>4. {{$t('pages:privacy.processingData.informationFromOtherSource.title')}}</h3>
         <p>{{$t('pages:privacy.processingData.informationFromOtherSource.text1')}}</p>
@@ -132,6 +141,14 @@
                 margin-bottom: 12px;
             }
         }
+        h5 {
+            font-weight: 400;
+            font-size: 20px;
+            margin-bottom: 12px;
+            @media screen and (max-width: $xs) {
+                font-size: 18px;
+            }
+        }
 
         p {
             font-weight: 300;
@@ -150,6 +167,8 @@
             }
         }
         .matomo-opt-out-iframe-desktop {
+            border: 2px solid $warning;
+            border-radius: 4px;
             @media screen and (max-width: 650px) {
                 display: none;
             }
