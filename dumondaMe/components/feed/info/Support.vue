@@ -16,6 +16,7 @@
             </li>
             <li>{{$t('pages:feeds.support.support5')}}</li>
         </ul>
+        <social-media-links></social-media-links>
         <create-commitment-dialog v-if="showCreateCommitmentDialog" @close-dialog="showCreateCommitmentDialog = false">
         </create-commitment-dialog>
         <create-question-dialog v-if="showCreateQuestionDialog" @close-dialog="showCreateQuestionDialog = false">
@@ -29,9 +30,10 @@
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired';
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
     import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
+    import SocialMediaLinks from '~/components/info/SocialMediaLinks';
 
     export default {
-        components: {CreateQuestionDialog, CreateCommitmentDialog, LoginRequiredDialog},
+        components: {CreateQuestionDialog, CreateCommitmentDialog, LoginRequiredDialog, SocialMediaLinks},
         data() {
             return {showCreateQuestionDialog: false, showCreateCommitmentDialog: false, showLoginRequired: false}
         },
@@ -67,6 +69,9 @@
             li {
                 margin-bottom: 8px;
             }
+        }
+        .social-media-links-container {
+            margin-top: 20px;
         }
     }
 </style>
