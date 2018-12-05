@@ -110,14 +110,16 @@
     },
     "upVote": {
       "userHasUpVoted": "Du findest diese Antwort passend",
-      "userHasNotUpVoted": "Ist dies eine passende Antwort?",
+      "userHasNotUpVoted": "Wer findet dies eine passende Antwort?",
       "removeUpVote": "Der Antwort nicht mehr zustimmen",
       "addUpVote": "Der Antwort zustimmen",
       "userIsAdmin": "Als Ersteller kannst du der Antwort nicht zustimmen"
     },
     "watch": {
       "userHasWatched": "Du findest dies interessant",
-      "userHasNotWatched": "Findest du dies interessant?",
+      "userHasNotWatched": "Wer findet das interessant?",
+      "numberOfInterested": "{{count}} Person findet das interessant",
+      "numberOfInterested_plural": "{{count}} Personen finden das interessant",
       "removeWatch": "Interessant entfernen",
       "addWatch": "Als Interessant markieren",
       "userIsAdmin": "Als Ersteller kannst du dies nicht als interessant markieren"

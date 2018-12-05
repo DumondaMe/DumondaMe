@@ -12,14 +12,20 @@
                           api-watch="user/commitment/watch"
                           @add-watch="addWatch" @remove-watch="removeWatch">
                 <div slot="icon">
-                    <v-btn class="button-watch" color="primary" small fab slot="activator"
-                           v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                        <v-icon>mdi-star-outline</v-icon>
-                    </v-btn>
-                    <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
-                           v-else slot="activator">
-                        <v-icon>mdi-star</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <v-btn class="button-watch" color="primary" small fab slot="activator"
+                               v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
+                            <v-icon>mdi-star-outline</v-icon>
+                        </v-btn>
+                        <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
+                               v-else slot="activator">
+                            <v-icon>mdi-star</v-icon>
+                        </v-btn>
+                        <span v-if="!commitment.userWatchesCommitment || isAdmin">
+                            {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
+                        <span v-else>{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
+                    </v-tooltip>
                     <span class="description">{{commitment.numberOfWatches}}</span>
                 </div>
             </watches-menu>
@@ -63,6 +69,7 @@
         @media screen and (max-width: $xs) {
             padding: 0 16px;
         }
+
         h1 {
             margin-bottom: 4px;
             font-weight: 400;
@@ -74,6 +81,7 @@
                 line-height: 28px;
             }
         }
+
         #commitment-description {
             margin-top: 12px;
             font-size: 16px;
@@ -84,21 +92,27 @@
                 margin-bottom: 8px;
             }
         }
+
         #commands-container {
             display: flex;
+
             .user-watches-commitment {
                 background-color: #607D8B;
+
                 i.v-icon {
                     color: white;
                 }
             }
+
             .watches-menu {
                 display: inline-block;
             }
+
             .button-watch {
                 display: inline-block;
                 margin-left: 0;
             }
+
             .description {
                 height: 40px;
                 line-height: 40px;

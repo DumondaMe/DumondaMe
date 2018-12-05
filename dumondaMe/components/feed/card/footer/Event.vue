@@ -11,9 +11,12 @@
             </commitment-menu>
         </div>
         <div class="footer-icon footer-event-location-icon">
-            <v-icon medium class="action-icon">
-                mdi-map-marker
-            </v-icon>
+            <v-tooltip bottom>
+                <v-icon medium class="action-icon" slot="activator">
+                    mdi-map-marker
+                </v-icon>
+                <span>{{$t('pages:feeds.menu.eventCreateByCommitment.region')}}</span>
+            </v-tooltip>
         </div>
         <div class="footer-event-description">
             <v-tooltip bottom open-delay="500">
@@ -39,10 +42,12 @@
         .card-footer-feed {
             .footer-icon.footer-event-location-icon {
                 display: block;
+
                 .action-icon {
                     display: block;
                 }
             }
+
             .footer-event-description {
                 display: block;
                 vertical-align: middle;

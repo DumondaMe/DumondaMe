@@ -24,22 +24,33 @@
                                       api-watch="user/question/watch"
                                       @add-watch="addWatch" @remove-watch="removeWatch">
                             <div slot="icon">
-                                <v-btn slot="activator" small fab color="primary" v-if="!question.userWatchesQuestion"
-                                       :disabled="question.isAdmin">
-                                    <v-icon>mdi-star-outline</v-icon>
-                                </v-btn>
-                                <v-btn slot="activator" small fab color="user-watches-question"
-                                       v-else>
-                                    <v-icon>mdi-star</v-icon>
-                                </v-btn>
+                                <v-tooltip bottom>
+                                    <v-btn slot="activator" small fab color="primary"
+                                           v-if="!question.userWatchesQuestion"
+                                           :disabled="question.isAdmin">
+                                        <v-icon>mdi-star-outline</v-icon>
+                                    </v-btn>
+                                    <v-btn slot="activator" small fab color="user-watches-question"
+                                           v-else>
+                                        <v-icon>mdi-star</v-icon>
+                                    </v-btn>
+                                    <span v-if="!question.userWatchesQuestion || question.isAdmin">
+                            {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
+                                    <span v-else>{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
+                                </v-tooltip>
                                 <span class="description">{{question.numberOfWatches}}</span>
                             </div>
                         </watches-menu>
                     </div>
                     <div>
-                        <v-btn slot="activator" small fab color="primary" @click="openCreateAnswerDialog()">
-                            <v-icon>mdi-forum</v-icon>
-                        </v-btn>
+                        <v-tooltip bottom>
+                            <v-btn slot="activator" small fab color="primary" @click="openCreateAnswerDialog()">
+                                <v-icon>mdi-forum</v-icon>
+                            </v-btn>
+                            <span>{{$t('pages:feeds.menu.questions.numberOfAnswers',
+                                {count: question.numberOfAnswers})}}</span>
+                        </v-tooltip>
                         <span class="description" itemprop="answerCount">{{question.numberOfAnswers}}</span>
                     </div>
                     <v-spacer></v-spacer>
@@ -128,12 +139,15 @@
             margin-bottom: 12px;
             padding: 0 16px;
         }
+
         #dumonda-me-question-header-content {
             display: flex;
+
             #question-header-main {
                 max-width: 550px;
                 width: 100%;
             }
+
             h1 {
                 margin-bottom: 8px;
                 font-size: 30px;
@@ -145,30 +159,37 @@
                     margin-bottom: 18px;
                 }
             }
+
             #question-description {
                 margin-top: 12px;
                 font-size: 16px;
                 font-weight: 300;
             }
+
             #question-commands {
                 margin-top: 24px;
                 display: flex;
+
                 .user-icon {
                     height: 40px;
                     width: 40px;
                     margin-right: 24px;
+
                     img {
                         width: 100%;
                         height: 100%;
                         border-radius: 50%;
                     }
                 }
+
                 .user-watches-question {
                     background-color: #607D8B;
+
                     i.v-icon {
                         color: white;
                     }
                 }
+
                 .description {
                     display: inline-block;
                     font-size: 16px;
@@ -178,27 +199,32 @@
                     margin-right: 20px;
                     vertical-align: middle;
                 }
+
                 button {
                     margin: 0;
                 }
+
                 #suggestion-button-desktop {
                     margin-right: 16px;
                     @media screen and (max-width: 780px) {
                         display: none;
                     }
                 }
+
                 #admin-button-desktop {
                     @media screen and (max-width: 780px) {
                         display: none;
                     }
                 }
             }
+
             #mobile-commands {
                 display: flex;
                 margin-top: 12px;
                 @media screen and (min-width: 780px) {
                     display: none;
                 }
+
                 #suggestion-button-mobile {
                     @media screen and (max-width: 780px) {
                         button {
@@ -206,6 +232,7 @@
                         }
                     }
                 }
+
                 #admin-button-mobile {
                     #admin-commands {
                         @media screen and (max-width: 780px) {

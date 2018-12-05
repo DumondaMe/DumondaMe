@@ -11,11 +11,11 @@ const PAGE_SIZE = 20;
 export const mutations = {
     SET_FEED(state, feed) {
         state.feed = feed;
-        state.loadingNext = feed.length === PAGE_SIZE;
+        state.loadingNext = feed.length > PAGE_SIZE;
     },
     ADD_TO_FEED(state, feed) {
         state.feed = state.feed.concat(feed);
-        state.loadingNext = feed.length === PAGE_SIZE;
+        state.loadingNext = feed.length > PAGE_SIZE;
     },
     SET_PAGE(state, page) {
         state.page = page;

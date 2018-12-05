@@ -193,10 +193,12 @@
         "moreWatches_plural": "Interessierte Personen"
       },
       "eventCreateByCommitment": {
-        "title": "hat diesen Event erfasst"
+        "title": "hat diesen Event erfasst",
+        "region": "Hier findet die Veranstaltung statt"
       },
       "regions": {
-        "title": "Dieses Engagement ist in den folgenden Regionen aktiv"
+        "title": "Dieses Engagement ist in den folgenden Regionen aktiv",
+        "tooltip": "Regionen"
       },
       "questions": {
         "noAnswers": "Hat noch keine Antworten",
@@ -363,6 +365,11 @@
       "title": "Weitere Fragen",
       "answers": "{{count}} Antwort",
       "answers_plural": "{{count}} Antworten"
+    },
+    "answer": {
+      "note": {
+        "tooltip": "Anmerkungen zur Antwort"
+      }
     }
   },
   "detailQuestion": {
