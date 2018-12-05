@@ -86,12 +86,13 @@
                                           @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </question-card-footer>
                 </question-card>
+                <social-media-card v-else-if="element.type === 'socialMediaInfo'"></social-media-card>
             </div>
         </div>
         <div v-show="isLoadingFeed" class="feed-loading-container text-xs-center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
-        <div v-show="!isLoadingFeed && feed.length === 0" class="feed-no-content-message">
+        <div v-show="!isLoadingFeed && (feed.length === 0)" class="feed-no-content-message">
             {{$t('pages:feeds.filter.noResults')}}
         </div>
     </div>
@@ -105,6 +106,7 @@
     import LinkCard from './card/Link'
     import YoutubeCard from './card/Youtube'
     import QuestionCard from './card/Question'
+    import SocialMediaCard from './card/SocialMedia'
     import CommonCardFooter from './card/footer/CommonAnswer';
     import CommitmentCardFooter from './card/footer/Commitment';
     import QuestionCardFooter from './card/footer/Question';
@@ -113,7 +115,7 @@
     export default {
         props: ['feed', 'routeName'],
         components: {
-            CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard,
+            CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard, SocialMediaCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter, EventCardFooter
         },
         computed: {

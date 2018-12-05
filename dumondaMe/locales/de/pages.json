@@ -210,6 +210,10 @@
       "noSuggestion": "Leider haben wir im Moment keine Vorschläge für dich.",
       "addUser": "{{name}} zu deinem Trust Circle hinzufügen",
       "reloadSuggestionButton": "Neu Vorschlagen"
+    },
+    "socialMedia": {
+      "title": "Spread the word!",
+      "description": "Mache deine Freunde auf DumondaMe aufmerksam damit wir gemeinsam eine leuchtende Zukunft verwirklichen."
     }
   },
   "commitment": {

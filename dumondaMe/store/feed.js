@@ -88,6 +88,12 @@ export const mutations = {
     }
 };
 
+const addSocialMediaInfoToResponse = function (feed) {
+    if (feed.length > 4) {
+        feed.splice(4, 0, {type: 'socialMediaInfo'});
+    }
+};
+
 const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {
     let response;
     if (isAuthenticated) {
@@ -96,6 +102,9 @@ const getFeedRequest = async function (commit, isAuthenticated, params, mainFilt
         response = await $axios.$get(`/feed/${mainFilter}`, params);
     }
     commit('SET_PAGE', params.params.page);
+    if (params.params.page === 0) {
+        addSocialMediaInfoToResponse(response.feed);
+    }
     commit(commitCommand, response.feed);
     return response;
 };
