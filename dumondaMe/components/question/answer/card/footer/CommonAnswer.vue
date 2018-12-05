@@ -12,12 +12,15 @@
             </div>
             <div class="footer-icon">
                 <note-menu :title="answerTitle" :number-of-notes="numberOfNotes" :answer-id="answerId" :notes="notes">
-                    <div slot="icon">
-                        <v-icon medium class="action-icon">
-                            mdi-note
-                        </v-icon>
-                        <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
-                    </div>
+                    <v-tooltip bottom slot="icon">
+                        <div slot="activator">
+                            <v-icon medium class="action-icon">
+                                mdi-note
+                            </v-icon>
+                            <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
+                        </div>
+                        <span>{{$t('pages:question.answer.note.tooltip')}}</span>
+                    </v-tooltip>
                 </note-menu>
             </div>
             <v-spacer></v-spacer>
@@ -60,6 +63,7 @@
         .footer-icon.common-answer-footer-user-icon {
             margin-right: 12px;
         }
+
         .footer-icon {
             .action-icon {
                 margin-right: 6px;

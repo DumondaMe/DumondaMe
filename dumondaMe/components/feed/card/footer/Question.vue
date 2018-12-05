@@ -13,8 +13,8 @@
             <v-tooltip bottom>
                 <v-icon medium class="main-action-icon" slot="activator">mdi-star</v-icon>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
-                    {{$t('pages:feeds.menu.userUpVote.titleIsLoggedInUser')}}</span>
-                <span v-else>{{user.name}} {{$t('pages:feeds.menu.userUpVote.title')}}</span>
+                    {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
+                <span v-else>{{user.name}} {{$t('pages:feeds.menu.watchesQuestion.title')}}</span>
             </v-tooltip>
         </div>
         <div class="footer-icon" v-if="action === 'created'">
@@ -36,10 +36,13 @@
                           @add-watch="(id) => $emit('add-watch', id)"
                           @remove-watch="(id) => $emit('remove-watch', id)"
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
-                <div slot="icon">
-                    <v-icon medium class="action-icon">mdi-star</v-icon>
-                    <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                </div>
+                <v-tooltip slot="icon" bottom>
+                    <div slot="activator">
+                        <v-icon medium class="action-icon">mdi-star</v-icon>
+                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
+                    </div>
+                    <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
+                </v-tooltip>
             </watches-menu>
         </div>
         <div class="footer-icon">
@@ -69,12 +72,21 @@
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <div slot="icon">
                     <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
-                    <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser" :disabled="isAdmin">
-                        <v-icon>mdi-star-outline</v-icon>
-                    </v-btn>
-                    <v-btn slot="activator" small fab color="watching" v-else>
-                        <v-icon>mdi-star</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom slot="icon">
+                        <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser"
+                               :disabled="isAdmin">
+                            <v-icon>mdi-star-outline</v-icon>
+                        </v-btn>
+                        <v-btn slot="activator" small fab color="watching" v-else>
+                            <v-icon>mdi-star</v-icon>
+                        </v-btn>
+                        <span v-if="isAdmin">{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
+                        <span v-else-if="!isWatchedByUser">
+                            {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
+                        <span v-else>{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
+                    </v-tooltip>
                 </div>
             </watches-menu>
         </div>

@@ -193,10 +193,12 @@
         "moreWatches_plural": "Interested persons"
       },
       "eventCreateByCommitment": {
-        "title": "has created this event"
+        "title": "has created this event",
+        "region": "This is where the event takes place"
       },
       "regions": {
-        "title": "This commitment is active in the following regions"
+        "title": "This commitment is active in the following regions",
+        "tooltip": "Regions"
       },
       "questions": {
         "questions": {
@@ -365,6 +367,11 @@
       "title": "More questions",
       "answers": "{{count}} Answer",
       "answers_plural": "{{count}} Answers"
+    },
+    "answer": {
+      "note": {
+        "tooltip": "Notes on the answer"
+      }
     }
   },
   "detailQuestion": {

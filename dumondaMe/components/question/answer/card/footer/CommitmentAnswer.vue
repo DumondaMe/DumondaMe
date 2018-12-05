@@ -12,9 +12,12 @@
         <div class="footer-icon">
             <region-menu :regions="regions">
                 <div slot="icon">
-                    <v-icon medium class="action-icon">
-                        mdi-map-marker
-                    </v-icon>
+                    <v-tooltip bottom>
+                        <v-icon medium class="action-icon" slot="activator">
+                            mdi-map-marker
+                        </v-icon>
+                        <span>{{$t('pages:feeds.menu.regions.tooltip')}}</span>
+                    </v-tooltip>
                 </div>
             </region-menu>
         </div>

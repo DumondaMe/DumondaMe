@@ -10,9 +10,17 @@
             </user-menu>
         </div>
         <div class="footer-icon" v-if="action">
-            <div class="footer-icon" v-if="action === 'watch'">
-                <v-icon medium class="main-action-icon">mdi-star</v-icon>
-            </div>
+            <v-tooltip bottom v-if="action === 'watch'" class="footer-icon">
+                <v-icon medium slot="activator" class="main-action-icon">
+                    mdi-star
+                </v-icon>
+                <span v-if="user.isLoggedInUser">{{$t('common:you')}}
+                    {{$t('pages:feeds.menu.watchesCommitment.titleIsLoggedInUser')}}
+                </span>
+                <span v-else>{{user.name}}
+                    {{$t('pages:feeds.menu.watchesCommitment.title')}}
+                </span>
+            </v-tooltip>
             <v-tooltip bottom v-if="action === 'created' && cardType === 'Commitment'" class="footer-user-action">
                 <v-icon medium slot="activator" class="main-action-icon" v-if="cardType === 'Commitment'">
                     mdi-human-handsup
@@ -58,25 +66,25 @@
                           @add-watch="(id) => $emit('add-watch', id)"
                           @remove-watch="(id) => $emit('remove-watch', id)"
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
-                <div slot="icon">
-                    <v-icon medium class="action-icon">mdi-star</v-icon>
-                    <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                </div>
+                <v-tooltip slot="icon" bottom>
+                    <div slot="activator">
+                        <v-icon medium class="action-icon">mdi-star</v-icon>
+                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
+                    </div>
+                    <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
+                </v-tooltip>
             </watches-menu>
         </div>
-        <div class="footer-icon footer-commitment-region-left-icon" v-if="cardType === 'CommitmentAnswer'">
+        <div class="footer-icon"
+             :class="{'footer-commitment-region-right-icon': action,
+             'footer-commitment-region-left-icon': cardType === 'CommitmentAnswer'}">
             <region-menu :regions="regions">
-                <div slot="icon">
-                    <v-icon medium class="action-icon">mdi-map-marker</v-icon>
-                </div>
-            </region-menu>
-        </div>
-        <div class="footer-icon" v-if="cardType !== 'CommitmentAnswer'"
-             :class="{'footer-commitment-region-right-icon': action}">
-            <region-menu :regions="regions">
-                <div slot="icon">
-                    <v-icon medium class="action-icon">mdi-map-marker</v-icon>
-                </div>
+                <v-tooltip bottom slot="icon">
+                    <v-icon medium slot="activator" class="action-icon">
+                        mdi-map-marker
+                    </v-icon>
+                    {{$t('pages:feeds.menu.regions.tooltip')}}
+                </v-tooltip>
             </region-menu>
         </div>
         <div class="footer-icon footer-watches-button" v-if="cardType === 'Commitment' && action">
@@ -91,12 +99,21 @@
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <div slot="icon">
                     <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
-                    <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser" :disabled="isAdmin">
-                        <v-icon>mdi-star-outline</v-icon>
-                    </v-btn>
-                    <v-btn slot="activator" small fab color="watching" v-else>
-                        <v-icon>mdi-star</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom slot="icon">
+                        <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser"
+                               :disabled="isAdmin">
+                            <v-icon>mdi-star-outline</v-icon>
+                        </v-btn>
+                        <v-btn slot="activator" small fab color="watching" v-else>
+                            <v-icon>mdi-star</v-icon>
+                        </v-btn>
+                        <span v-if="isAdmin">{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.creatorCommitment.titleIsLoggedInUser')}}</span>
+                        <span v-else-if="!isWatchedByUser">
+                            {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
+                        <span v-else>{{$t('common:you')}}
+                            {{$t('pages:feeds.menu.watchesCommitment.titleIsLoggedInUser')}}</span>
+                    </v-tooltip>
                 </div>
             </watches-menu>
         </div>
@@ -151,6 +168,7 @@
         .footer-commitment-region-right-icon {
             margin-left: 22px;
         }
+
         .footer-commitment-region-left-icon {
             margin-right: 18px;
         }
