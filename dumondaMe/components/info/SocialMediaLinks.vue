@@ -4,7 +4,7 @@
             <a class="social-media-button" href="https://www.facebook.com/dumondaMe/" target="_blank" rel="noopener">
                 <img :src="facebook"/>
             </a>
-            <a class="social-media-button" href="https://www.facebook.com/dumondaMe/" target="_blank" rel="noopener">
+            <a class="social-media-button" href="https://linkedin.com/company/dumondame" target="_blank" rel="noopener">
                 <img :src="linkedIn"/>
             </a>
             <a class="social-media-button" href="https://www.youtube.com/channel/UCl74yeMn-EzqwcE2Rd-wIzQ"
@@ -47,7 +47,6 @@
 <style lang="scss">
     .social-media-links-container {
         .social-media-links-inner-container {
-            margin: 0 auto;
             max-width: 216px;
 
             .social-media-button {
