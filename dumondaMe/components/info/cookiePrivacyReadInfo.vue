@@ -43,7 +43,7 @@
         },
         methods: {
             acceptCookies() {
-                document.cookie = "privacyWarning=true;";
+                document.cookie = "privacyWarning=true; expires=Fri, 31 Dec 2030 23:59:59 UTC;";
                 this.showCookieWarning = false;
             },
             getCookie(cname) {
