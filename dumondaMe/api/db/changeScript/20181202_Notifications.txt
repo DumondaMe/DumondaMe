@@ -1,4 +1,4 @@
-MATCH (n:Notification {type: 'addedToTrustCircle'})-[rel:NOTIFICATION]->(u:User)
+MATCH (n:Notification)-[rel:NOTIFICATION]->(u:User)
 MERGE (n)-[:ORIGINATOR_OF_NOTIFICATION]->(u)
 DELETE rel;
 
