@@ -14,7 +14,10 @@
             </feed-filter>
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
-            <beta-version class="index-mobile-feed-filter"></beta-version>
+            <about-dumonda-me v-if="!isAuthenticated && $route.name === 'index'"></about-dumonda-me>
+            <beta-version class="index-mobile-feed-filter"
+                          :class="{'top-feed-element': isAuthenticated ||
+                          (!isAuthenticated && $route.name !== 'index')}"></beta-version>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -40,6 +43,7 @@
     import FeedEmpty from "~/components/feed/FeedEmpty";
     import BetaVersion from "~/components/common/beta/BetaDescription";
     import UserSuggestions from '~/components/feed/UserSuggestions';
+    import AboutDumondaMe from '~/components/feed/AboutDumondaMe';
 
     export default {
         async fetch({error, store, route}) {
@@ -58,7 +62,7 @@
         },
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
-            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions
+            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe
         },
         head() {
             return {
@@ -106,8 +110,7 @@
                         this.$store.dispatch(`feed/loadNextFeedElements`,
                             {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
                     this.loadNextRunning = false;
-                }
-                catch (error) {
+                } catch (error) {
                     this.loadNextRunning = false;
                 }
             }
@@ -130,5 +133,8 @@
         @media screen and (min-width: $xs) {
             display: none;
         }
+    }
+    .index-mobile-feed-filter.top-feed-element {
+        margin-top: 56px;
     }
 </style>
