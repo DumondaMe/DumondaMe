@@ -235,8 +235,7 @@
       },
       "register": {
         "title": "Together everything is possible!",
-        "description": "Become a part of the network and create an account for DumondaMe.",
-        "actionButton": "Create account"
+        "description": "Become a part of the network and create an account for DumondaMe."
       }
     }
   },
