@@ -14,7 +14,7 @@
     "title": "Passwort vergessen?",
     "description": "Gib die E-Mail Adresse an mit welcher du deinen DumondaMe Account erstellt hast.",
     "sentDescription": "Es wurde ein Email mit einem Link zum zurück setzten des Passwortes an {{email}}  versendet. Der Link ist nur 20 Minuten gültig.",
-    "sentDescriptionWarning": "Prüfe, wenn das E-Mail bei dir nicht ankommt, ob dieses im Spam Ordner gelandet ist.",
+    "sentDescriptionWarning": "Falls du kein E-Mail erhalten hast, prüfe deinen Spamordner.",
     "errorToManyRequest": "Du hast zu oft versucht das Passwort zurück zu setzten. Versuche es später wieder.",
     "errorEmailNotExist": "Kein Benutzerkonto mit dieser E-Mail Adresse vorhanden.",
     "resetPasswordButton": "Absenden"
@@ -34,7 +34,9 @@
     "registerButton": "Erstellen",
     "emailSentText": "Um dein Konto zu aktivieren, muss noch deine E-Mail-Adresse verifiziert werden. Dazu wurde eine Nachricht an <b>{{email}}</b> versendet. Es kann einige Minuten dauern, bis diese in deinem Posteingang ankommt.",
     "spamHint": "Falls du kein E-Mail erhalten hast, prüfe deinen Spamordner.",
-    "errorAccountExist": "Für diese E-Mail Adresse existiert bereits ein Benutzerkonto"
+    "errorAccountExist": "Für diese E-Mail Adresse existiert bereits ein Benutzerkonto",
+    "successfullyRegistered": "Du hast dein Konto erfolgreich aktiviert. Melde dich nun mit deiner E-Mail Adresse und deinem Passwort an.",
+    "errorRegistered": "Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@dumonda.me."
   },
   "search": {
     "users": {
