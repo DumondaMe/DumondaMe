@@ -19,6 +19,16 @@
                 {{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.actionButton')}}
             </v-btn>
         </div>
+        <div class="ely-card about-dumonda-me-card" v-if="isEnglish">
+            <div class="about-title">Dear English speaking user</div>
+            <div class="about-description">At the moment we are still focusing our content on the German-speaking area.
+                For this reason it has few English-speaking contents. However, you can still create an account and you
+                will be informed when we start generating English language content.
+            </div>
+            <v-btn outline color="primary" @click="changeLanguage">
+                Change to German
+            </v-btn>
+        </div>
         <div class="ely-card about-dumonda-me-card">
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.register.title')}}</div>
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.register.description')}}</div>
@@ -31,15 +41,22 @@
 
 <script>
     export default {
-
         computed: {
             welcomeImage() {
                 return `${process.env.staticUrl}/img/welcome/welcome2.jpg`;
             },
             welcomeImageMobile() {
                 return `${process.env.staticUrl}/img/welcome/welcome2_mobile.jpg`;
+            },
+            isEnglish() {
+                return this.$store.state.i18n.language === 'en';
             }
-        }
+        },
+        methods: {
+            changeLanguage() {
+                this.$store.dispatch('i18n/setLanguage', {language: 'de'});
+            }
+        },
     }
 </script>
 
