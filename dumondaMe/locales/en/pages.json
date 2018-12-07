@@ -14,7 +14,7 @@
     "title": "Forgotten your password?",
     "description": "Enter the email address you used to create your DumondaMe account.",
     "sentDescription": "An email with a link to reset the password was sent to {{email}}. The link is only valid for 20 minutes.",
-    "sentDescriptionWarning": "If the email does not reach you, check whether it has landed in the Spam folder.",
+    "sentDescriptionWarning": "If you did not receive an email, check your spam folder.",
     "errorToManyRequest": "You tried too many times to reset the password. Try again later.",
     "errorEmailNotExist": "No user account available with this email address.",
     "resetPasswordButton": "Send request"
@@ -32,9 +32,11 @@
     "acceptTerms": "Accept",
     "acceptTerms2": "and the",
     "registerButton": "Create",
-    "emailSentText": "To activate your account, you need to verify your email address. A message has been sent to {{email}} to do this. It may take a few minutes for it to arrive in your inbox.",
+    "emailSentText": "To activate your account, you need to verify your email address. A message has been sent to <b>{{email}}</b> to do this. It may take a few minutes for it to arrive in your inbox.",
     "spamHint": "If you did not receive an email, check your spam folder.",
-    "errorAccountExist": "For this e-mail address already exists a user account"
+    "errorAccountExist": "For this e-mail address already exists a user account",
+    "successfullyRegistered": "You have successfully activated your account. Now log in with your e-mail address and your password.",
+    "errorRegistered": "Activating your account has failed. Please contact info@dumonda.me."
   },
   "search": {
     "users": {

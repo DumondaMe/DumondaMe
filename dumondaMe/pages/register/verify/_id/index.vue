@@ -5,8 +5,7 @@
         </v-flex>
         <v-flex xs12 md6>
             <div id="successfully-registered-message">
-                Du hast dein Konto erfolgreich aktiviert. Melde dich nun mit deiner E-Mail Adresse und deinem Passwort
-                an.
+                {{$t('pages:register.successfullyRegistered')}}
             </div>
         </v-flex>
     </v-layout>
@@ -25,7 +24,7 @@
             } catch (e) {
                 error({
                     statusCode: 400,
-                    message: 'Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@dumonda.me.'
+                    message: app.i18n.i18next.t('pages:register.errorRegistered')
                 })
             }
         }
