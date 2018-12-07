@@ -33,7 +33,7 @@
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.register.title')}}</div>
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.register.description')}}</div>
             <v-btn color="secondary" @click="$router.push({name: 'register'})">
-                {{$t('pages:feeds.aboutDumondaMeInfos.register.actionButton')}}
+                {{$t('common:button.register')}}
             </v-btn>
         </div>
     </div>

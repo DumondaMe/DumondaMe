@@ -2,7 +2,7 @@
     <div id="dumonda-me-register-link">
         <div id="register-container">
             <h2>{{$t("pages:login.titleRegister")}}</h2>
-            <v-btn color="primary" @click="$router.push({name: 'register'})">{{$t("pages:login.registerLink")}}</v-btn>
+            <v-btn color="secondary" @click="$router.push({name: 'register'})">{{$t("pages:login.registerLink")}}</v-btn>
         </div>
     </div>
 </template>
