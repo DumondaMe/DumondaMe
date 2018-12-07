@@ -37,14 +37,14 @@
     export default {
         data() {
             return {dialog: true, running: false, showError: false, language: this.getLanguages()
-                    .find(lang => lang.value === this.$store.state.i18n.language)}
+                    .find(lang => lang.value === this.$store.state.i18n.language).value}
         },
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language;
             },
             languageNotChanged() {
-                return this.$store.state.i18n.language === this.language.key;
+                return this.$store.state.i18n.language === this.language;
             }
         },
         methods: {
