@@ -5,7 +5,7 @@
                 <h2 class="feed-card-title">
                     <span class="answer-type">{{$t('common:question')}} </span><span class="card-header-link">
                     <nuxt-link :to="{name: 'question-questionId-slug',
-                            params: {questionId: question.questionId, slug: question.questionSlug}}"> {{question.question}}
+                            params: {questionId: question.questionId, slug: slug}}"> {{question.question}}
                     </nuxt-link></span>
                 </h2>
                 <div class="secondary-text" v-if="!hideTime">{{question.created | formatRelativeTimesAgo}}</div>
@@ -23,7 +23,17 @@
 
     export default {
         props: ['question', 'hideTime'],
-        components: {CardFooter, ExpandText}
+        components: {CardFooter, ExpandText},
+        computed: {
+            slug() {
+                if (this.question.questionSlug) {
+                    return this.question.questionSlug;
+                } else if (this.question.slug) {
+                    return this.question.slug;
+                }
+                return '';
+            }
+        }
     }
 </script>
 
@@ -33,17 +43,21 @@
             margin-top: 12px;
             margin-bottom: 16px;
         }
+
         .question-header {
             display: block;
             line-height: 16px;
+
             .question-title {
                 cursor: pointer;
                 font-size: 16px;
                 vertical-align: middle;
                 color: $primary-color;
+
                 .link {
                     text-decoration: none;
                 }
+
                 :hover.link {
                     text-decoration: underline;
                 }
