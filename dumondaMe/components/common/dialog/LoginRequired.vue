@@ -11,8 +11,8 @@
                         </v-btn>
                     </div>
                     <div>
-                        <v-btn color="primary" @click="goToRegister()" class="link-button">
-                            {{$t("pages:login.registerLink")}}
+                        <v-btn color="secondary" @click="goToRegister()" class="link-button">
+                            {{$t("common:button.register")}}
                         </v-btn>
                     </div>
                 </v-card-text>
