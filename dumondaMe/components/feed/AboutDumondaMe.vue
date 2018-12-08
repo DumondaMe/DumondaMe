@@ -22,8 +22,8 @@
         <div class="ely-card about-dumonda-me-card" v-if="isEnglish">
             <div class="about-title">Dear English speaking user</div>
             <div class="about-description">At the moment we are still focusing our content on the German-speaking area.
-                For this reason it has few English-speaking contents. However, you can still create an account and you
-                will be informed when we start generating English language content.
+                That’s why only few English-speaking content exists for now. However, you can still create an account
+                and will be informed as soon as we start publishing English language content.
             </div>
             <v-btn outline color="primary" @click="changeLanguage">
                 Change to German

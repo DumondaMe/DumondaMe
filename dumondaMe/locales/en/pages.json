@@ -230,12 +230,12 @@
       },
       "aboutUs": {
         "title": "Who is behind this project?",
-        "description": "DumondaMe is developed by the association of the same name. Find out more about the origins and who exactly operates this platform.",
+        "description": "DumondaMe is developed and operated by the association of the same name. Learn more about the history of its origins and who is building this platform.",
         "actionButton": "About us"
       },
       "register": {
         "title": "Together everything is possible!",
-        "description": "Become a part of the network and create an account for DumondaMe."
+        "description": "Join in by registering easily and asking questions or answering with your expertise."
       }
     }
   },
