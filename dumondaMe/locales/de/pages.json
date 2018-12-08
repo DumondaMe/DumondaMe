@@ -222,18 +222,18 @@
     "aboutDumondaMeInfos": {
       "vision": {
         "title": "Was ist das Ziel von DumondaMe?",
-        "description": "Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit, eine hohe Lebensqualität und Frieden so selbstverständlich ist wie die Luft zum Atmen?  DumondaMe ist ein soziales Netzwerk, welches die Verwirklichung dieser Vision ermöglicht.",
+        "description": "Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit, eine hohe Lebensqualität und Frieden so selbstverständlich sind wie die Luft zum Atmen?  DumondaMe ist ein soziales Netzwerk, welches die Verwirklichung dieser Vision anstrebt.",
         "actionButton": "Häufige Fragen",
         "actionButtonVision": "Vision"
       },
       "aboutUs": {
         "title": "Wer steht hinter diesem Projekt?",
-        "description": "DumondaMe wird vom gleichnamigen Verein entwickelt. Erfahre mehr zur Entstehungsgeschichte und wer genau diese Plattform betreibt.",
+        "description": "DumondaMe wird vom gleichnamigen Verein entwickelt und betrieben. Erfahre mehr zur Entstehungsgeschichte und darüber, wer diese Plattform aufbaut.",
         "actionButton": "Über Uns"
       },
       "register": {
         "title": "Gemeinsam ist alles möglich!",
-        "description": "Werde ein Teil des Netzwerkes und erstelle einen Account für DumondaMe. "
+        "description": "Mach mit, indem du dich unkompliziert registrierst und dann Fragen stellst oder mit deiner Expertise beantwortest sowie passende Antworten bestätigst."
       }
     }
   },
