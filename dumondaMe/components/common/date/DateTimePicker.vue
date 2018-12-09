@@ -28,15 +28,16 @@
 </template>
 
 <script>
-    import moment from 'moment';
+    import format from 'date-fns/format'
+    import getTime from 'date-fns/get_time'
 
     export default {
         props: ['description', 'min', 'initDate', 'warning', 'warningText'],
         data() {
             return {
-                time: moment.unix(this.initDate).format('HH:mm'),
-                date: moment.unix(this.initDate).format('YYYY-MM-DD'),
-                dateFormatted: this.formatDate(moment.unix(this.initDate).format('YYYY-MM-DD')),
+                time: format(this.initDate * 1000, 'HH:mm'),
+                date: format(this.initDate * 1000, 'YYYY-MM-DD'),
+                dateFormatted: this.$options.filters.getFormatDateOnlyShort(this.initDate),
                 menu: false,
                 validTime: true
             }
@@ -48,17 +49,17 @@
         },
         watch: {
             date() {
-                this.dateFormatted = this.formatDate(this.date);
+                this.dateFormatted = this.$options.filters.getFormatDateOnlyShort(this.date);
                 if (this.validTime) {
                     this.$emit('date-changed', {
-                        date: moment(`${this.date} ${this.time}`, 'YYYY-MM-DD HH:mm').unix(), isValid: this.validTime
+                        date: getTime(`${this.date} ${this.time}`) / 1000, isValid: this.validTime
                     });
                 }
             },
             time(time) {
                 if (this.validTimeRegex(time)) {
                     this.$emit('date-changed', {
-                        date: moment(`${this.date} ${time}`, 'YYYY-MM-DD HH:mm').unix(), isValid: true
+                        date: getTime(`${this.date} ${time}`) / 1000, isValid: this.validTime
                     });
                 } else {
                     this.$emit('date-changed', {date: null, isValid: false});
@@ -74,11 +75,6 @@
             },
             validTimeRegex(time) {
                 return /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(time);
-            },
-            formatDate(date) {
-                if (!date) return null;
-
-                return moment(date).format('l');
             }
         }
     }

@@ -1,37 +1,72 @@
 import Vue from 'vue';
-import moment from 'moment';
-import 'moment/locale/de';
-import 'moment/locale/en-gb';
+
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import format from 'date-fns/format'
+import isSameDay from 'date-fns/is_same_day'
+import getTime from 'date-fns/get_time'
+
+let locale = null;
+let localeName = 'en';
+
+const getOptions = function () {
+    let options = {};
+    if (locale) {
+        options.locale = locale;
+    }
+    return options;
+};
+
+const getFormatDate = function (value) {
+    if (value) {
+        if (localeName === 'de') {
+            return format(value * 1000, 'D. MMM YYYY', getOptions())
+        } else if (localeName === 'en') {
+            return format(value * 1000, 'MMM D, YYYY', getOptions())
+        }
+    }
+};
+
+const getFormatDateShort = function (value) {
+    if (value) {
+        let valueToConvert = value;
+        if (typeof valueToConvert === 'string') {
+            valueToConvert = getTime(value) / 1000;
+        }
+        if (localeName === 'de') {
+            return format(valueToConvert * 1000, 'DD.MM.YYYY', getOptions())
+        } else if (localeName === 'en') {
+            return format(valueToConvert * 1000, 'MM/DD/YYYY', getOptions())
+        }
+    }
+};
 
 Vue.filter('formatRelativeTimesAgo', function (value) {
     if (value) {
-        return moment.unix(value).fromNow();
-    }
-});
-
-Vue.filter('formatDate', function (value) {
-    if (value) {
-        return moment.unix(value).format('l LT');
+        return distanceInWordsToNow(value * 1000, getOptions());
     }
 });
 
 Vue.filter('formatDateOnly', function (value) {
-    if (value) {
-        return moment.unix(value).format('ll');
-    }
+    return getFormatDate(value);
 });
 
+Vue.filter('getFormatDateOnlyShort', function (value) {
+    return getFormatDateShort(value);
+});
+
+
 Vue.filter('formatFromToDate', function (startDate, endDate, atTranslation) {
-    startDate = moment.unix(startDate);
-    endDate = moment.unix(endDate);
-    if (startDate.isSame(endDate, 'day')) {
-        return `${startDate.format('LL')} ${atTranslation}
-                    ${startDate.format('HH:mm')} - ${endDate.format('HH:mm')}`
+    if (isSameDay(startDate * 1000, endDate * 1000)) {
+        return `${getFormatDate(startDate)} ${atTranslation} 
+                ${format(startDate * 1000, 'h:mm', getOptions())} - ${format(endDate * 1000, 'h:mm', getOptions())}`
     }
-    return `${startDate.format('LL')} ${atTranslation}
-                ${startDate.format('HH:mm')} - ${endDate.format('LL')} ${endDate.format('HH:mm')}`
+    return `${getFormatDate(startDate)} ${atTranslation} ${format(startDate * 1000, 'h:mm', getOptions())} 
+              - ${getFormatDate(endDate)} ${atTranslation} ${format(startDate * 1000, 'h:mm', getOptions())} `
 });
 
 export default ({store}) => {
-    moment.locale(store.state.i18n.language);
+    if (store.state.i18n.language === 'de') {
+        locale = require('date-fns/locale/de');
+        localeName = 'de';
+    }
 }

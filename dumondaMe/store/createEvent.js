@@ -1,22 +1,25 @@
-import moment from 'moment';
+import getTime from 'date-fns/get_time'
+import startOfTomorrow from 'date-fns/start_of_tomorrow'
 
-const getTimestamp = function (hour) {
-    let nextDayDate = `${moment().add(1, 'day').format('YYYY-MM-DD')} ${hour}:00`;
-    return moment(nextDayDate, 'YYYY-MM-DD HH:mm').unix();
+const TEN_HOURS_IN_SECONDS = 36000;
+const ELEVEN_HOURS_IN_SECONDS = 39600;
+
+const getTimestamp = function (seconds) {
+    return (getTime(startOfTomorrow()) / 1000) + seconds;
 };
 
 export const state = () => ({
     event: {
-        title: '', description: '', location: '', region: '', startDate: getTimestamp('10'),
-        endDate: getTimestamp('11'), linkDescription: null
+        title: '', description: '', location: '', region: '', startDate: getTimestamp(TEN_HOURS_IN_SECONDS),
+        endDate: getTimestamp(ELEVEN_HOURS_IN_SECONDS), linkDescription: null
     }
 });
 
 export const mutations = {
     RESET: function (state) {
         state.event = {
-            title: '', description: '', location: '', region: '', startDate: getTimestamp('10'),
-            endDate: getTimestamp('11'), linkDescription: null
+            title: '', description: '', location: '', region: '', startDate: getTimestamp(TEN_HOURS_IN_SECONDS),
+            endDate: getTimestamp(ELEVEN_HOURS_IN_SECONDS), linkDescription: null
         };
     },
     SET_EVENT: function (state, event) {
