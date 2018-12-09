@@ -43,7 +43,8 @@
 </template>
 
 <script>
-    import moment from 'moment';
+    import startOfTomorrow from 'date-fns/start_of_tomorrow'
+    import format from 'date-fns/format'
     import validationRules from '~/mixins/validationRules.js';
     import urlRegex from '~/utils/url';
     import StartEndDateTimePicker from '~/components/common/date/StartEndDateTimePicker'
@@ -59,7 +60,7 @@
                 validStartDate: true,
                 validEndDate: true,
                 startDateAfterEndDate: false,
-                minDate: moment().add(1, 'd').format('YYYY-MM-DD')
+                minDate: format(startOfTomorrow(), 'YYYY-MM-DD')
             }
         },
         computed: {

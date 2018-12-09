@@ -61,7 +61,6 @@
 </template>
 
 <script>
-    import moment from 'moment';
     import DeleteEventDialog from '~/components/commitment/dialog/event/DeleteEventDialog';
     import EditEventDialog from '~/components/commitment/dialog/event/EditEventDialog';
     import EditLocationDialog from '~/components/commitment/dialog/event/EditLocationDialog';
