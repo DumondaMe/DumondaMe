@@ -1,7 +1,7 @@
 <template>
     <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy min-width="290">
         <slot name="icon" slot="activator"></slot>
-        <v-card class="ely-menu-container up-vote-menu-container">
+        <v-card class="ely-menu-container up-vote-menu-container" v-if="menu">
             <div class="menu-title">
                 {{$t('pages:feeds.menu.userUpVote.moreUpVotes', {count: numberOfShowedUsers})}}
             </div>
@@ -43,9 +43,9 @@
                 </v-tooltip>
             </div>
         </v-card>
-        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        <login-required-dialog v-if="showLoginRequired && menu" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
-        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+        <v-snackbar top v-if="menu" v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </v-menu>

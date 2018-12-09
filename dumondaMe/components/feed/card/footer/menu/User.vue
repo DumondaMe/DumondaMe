@@ -1,7 +1,7 @@
 <template>
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" min-width="290" offset-y>
         <slot name="icon" slot="activator"></slot>
-        <v-card class="ely-menu-container ely-menu-user">
+        <v-card class="ely-menu-container ely-menu-user" v-if="menu">
             <div class="menu-title">
                 <span class="primary-title" v-if="user.isAnonymous">{{$t('common:anonymousUser')}}</span>
                 <nuxt-link class="primary-link-title" :to="{name: 'user-userId-slug',
@@ -48,9 +48,9 @@
                 </div>
             </div>
         </v-card>
-        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        <login-required-dialog v-if="showLoginRequired && menu" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
-        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+        <v-snackbar top v-if="menu" v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </v-menu>

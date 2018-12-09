@@ -2,7 +2,7 @@
     <div>
         <v-menu v-model="menu" :close-on-content-click="false" offset-y min-width="290">
             <slot name="icon" slot="activator"></slot>
-            <v-card class="ely-menu-container ely-menu-watches-container">
+            <v-card class="ely-menu-container ely-menu-watches-container" v-if="menu">
                 <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
                     {count: numberOfShowedUsers})}}
                 </div>
@@ -46,9 +46,9 @@
                 </div>
             </v-card>
         </v-menu>
-        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        <login-required-dialog v-if="showLoginRequired && menu" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
-        <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
+        <v-snackbar top v-if="menu" v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
