@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
     head: {
@@ -39,13 +40,18 @@ module.exports = {
         '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
-        'nuxt-sass-resources-loader'
+        '@nuxtjs/style-resources'
     ],
-    sassResources: [
+    /*sassResources: [
         path.resolve(__dirname, 'assets/style/variables.scss'),
         path.resolve(__dirname, 'assets/style/card.scss'),
         path.resolve(__dirname, 'assets/style/layout.scss')
-    ],
+    ],*/
+    styleResources: {
+        scss: [path.resolve(__dirname, 'assets/style/variables.scss'),
+            path.resolve(__dirname, 'assets/style/card.scss'),
+            path.resolve(__dirname, 'assets/style/layout.scss')]
+    },
     loading: {
         color: '#009e97'
     },
@@ -63,27 +69,14 @@ module.exports = {
         resourceHints: false
     },
     build: {
-        babel: {
-            plugins: [
-                ["transform-imports", {
-                    "vuetify": {
-                        "transform": "vuetify/es5/components/${member}",
-                        "preventFullImport": true
-                    }
-                }]
-            ]
-        },
+        transpile: [/^vuetify/],
+        plugins: [
+            new VuetifyLoaderPlugin()
+        ],
+        extractCSS: true,
 
-        vendor: ['babel-polyfill',
-            'i18next',
-            '@panter/vue-i18next',
-            'cropperjs/dist/cropper.min.js',
-            'debounce',
-            'vue-recaptcha/dist/vue-recaptcha.min.js',
-            '~/plugins/vuetify.js'],
-
-        extend(config, ctx) {
-            if (ctx.isServer) {
+        extend(config) {
+            if (process.server) {
                 config.externals = [
                     nodeExternals({
                         whitelist: [/^vuetify/]
