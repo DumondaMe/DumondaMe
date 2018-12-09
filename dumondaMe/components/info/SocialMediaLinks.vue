@@ -47,7 +47,6 @@
 <style lang="scss">
     .social-media-links-container {
         .social-media-links-inner-container {
-            max-width: 216px;
 
             .social-media-button {
                 display: inline-block;
