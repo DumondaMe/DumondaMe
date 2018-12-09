@@ -1,9 +1,9 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-model="drawer" temporary fixed :right="isRightSideDrawer">
+        <v-navigation-drawer v-if="drawerLoaded" v-model="drawer" temporary fixed :right="isRightSideDrawer">
             <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
         </v-navigation-drawer>
-        <dumonda-me-toolbar @open-drawer="drawer = true"></dumonda-me-toolbar>
+        <dumonda-me-toolbar @open-drawer="drawer = true; drawerLoaded = true"></dumonda-me-toolbar>
         <div id="dumonda-me-content">
             <div id="dumonda-me-inner-content">
                 <nuxt/>
@@ -27,7 +27,7 @@
             DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, cookiePrivacyReadInfo
         },
         data() {
-            return {drawer: null, isRightSideDrawer: true, showInfoDialog: false};
+            return {drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false};
         },
         mounted() {
             this.onResize();

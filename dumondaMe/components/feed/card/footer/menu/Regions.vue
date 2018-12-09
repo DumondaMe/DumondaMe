@@ -1,7 +1,7 @@
 <template>
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" min-width="290" offset-y>
         <slot name="icon" slot="activator"></slot>
-        <v-card class="ely-menu-container ely-menu-region">
+        <v-card class="ely-menu-container ely-menu-region" v-if="menu">
             <div class="menu-title">
                 {{$t('pages:feeds.menu.regions.title')}}
             </div>
