@@ -73,8 +73,8 @@ module.exports = {
             new VuetifyLoaderPlugin()
         ],
         extractCSS: true,
-        extend(config) {
-            if (process.server) {
+        extend(config, { isServer }) {
+            if (isServer) {
                 config.externals = [
                     nodeExternals({
                         whitelist: [/^vuetify/]
