@@ -26,7 +26,10 @@ module.exports = {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
-        ]
+        ],
+        script: [{
+            src: "polyfill.min.js"
+        }]
     },
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL
@@ -40,18 +43,13 @@ module.exports = {
         '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
-        '@nuxtjs/style-resources'
+        'nuxt-sass-resources-loader'
     ],
-    /*sassResources: [
+    sassResources: [
         path.resolve(__dirname, 'assets/style/variables.scss'),
         path.resolve(__dirname, 'assets/style/card.scss'),
         path.resolve(__dirname, 'assets/style/layout.scss')
-    ],*/
-    styleResources: {
-        scss: [path.resolve(__dirname, 'assets/style/variables.scss'),
-            path.resolve(__dirname, 'assets/style/card.scss'),
-            path.resolve(__dirname, 'assets/style/layout.scss')]
-    },
+    ],
     loading: {
         color: '#009e97'
     },
@@ -74,7 +72,6 @@ module.exports = {
             new VuetifyLoaderPlugin()
         ],
         extractCSS: true,
-
         extend(config) {
             if (process.server) {
                 config.externals = [
