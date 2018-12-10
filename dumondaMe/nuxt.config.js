@@ -72,7 +72,7 @@ module.exports = {
         plugins: [
             new VuetifyLoaderPlugin()
         ],
-        extractCSS: true,
+        optimizeCSS: true,
         extend(config, { isServer }) {
             if (isServer) {
                 config.externals = [
