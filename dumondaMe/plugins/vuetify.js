@@ -26,8 +26,6 @@ import Vuetify, {
     VDatePicker
 } from 'vuetify/lib';
 
-import {Ripple, ClickOutside, Touch} from 'vuetify/lib/directives'
-
 Vue.use(Vuetify, {
     iconfont: 'mdi',
     theme: {
@@ -64,10 +62,5 @@ Vue.use(Vuetify, {
         VProgressCircular,
         VProgressLinear,
         VDatePicker
-    },
-    directives: {
-        Ripple,
-        ClickOutside,
-        Touch
     }
 });
