@@ -28,7 +28,7 @@ module.exports = {
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ],
         script: [{
-            src: "polyfill.min.js"
+            src: `${process.env.CLIENT_STATIC_URL}/polyfill.min.js`
         }]
     },
     dev: (process.env.NODE_ENV !== 'production'),
