@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
     head: {
@@ -25,7 +26,10 @@ module.exports = {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
-        ]
+        ],
+        script: [{
+            src: "polyfill.min.js"
+        }]
     },
     dev: (process.env.NODE_ENV !== 'production'),
     env: {
@@ -64,27 +68,13 @@ module.exports = {
         resourceHints: false
     },
     build: {
-        babel: {
-            plugins: [
-                ["transform-imports", {
-                    "vuetify": {
-                        "transform": "vuetify/es5/components/${member}",
-                        "preventFullImport": true
-                    }
-                }]
-            ]
-        },
-
-        vendor: ['babel-polyfill',
-            'i18next',
-            '@panter/vue-i18next',
-            'cropperjs/dist/cropper.min.js',
-            'debounce',
-            'vue-recaptcha/dist/vue-recaptcha.min.js',
-            '~/plugins/vuetify.js'],
-
-        extend(config, ctx) {
-            if (ctx.isServer) {
+        transpile: [/^vuetify/],
+        plugins: [
+            new VuetifyLoaderPlugin()
+        ],
+        extractCSS: true,
+        extend(config) {
+            if (process.server) {
                 config.externals = [
                     nodeExternals({
                         whitelist: [/^vuetify/]
