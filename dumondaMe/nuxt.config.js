@@ -27,6 +27,7 @@ module.exports = {
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ]
     },
+    dev: (process.env.NODE_ENV !== 'production'),
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL
     },
