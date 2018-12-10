@@ -9,7 +9,7 @@
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
             <!--<feed-popular-question></feed-popular-question>-->
         </div>
-        <div slot="content">
+        <div slot="content" id="feed-detail-container">
             <feed-filter class="index-desktop-feed-filter">
             </feed-filter>
             <feed-mobile-filter class="index-mobile-feed-filter">
@@ -119,22 +119,25 @@
 </script>
 
 <style lang="scss">
-    #load-next-page {
-        margin-left: 0;
-    }
-
-    .index-desktop-feed-filter {
-        @media screen and (max-width: $xs) {
-            display: none;
+    #feed-detail-container {
+        #load-next-page {
+            margin-left: 0;
         }
-    }
 
-    .index-mobile-feed-filter {
-        @media screen and (min-width: $xs) {
-            display: none;
+        .index-desktop-feed-filter {
+            @media screen and (max-width: $xs) {
+                display: none;
+            }
         }
-    }
-    .index-mobile-feed-filter.top-feed-element {
-        margin-top: 56px;
+
+        .index-mobile-feed-filter {
+            @media screen and (min-width: $xs) {
+                display: none;
+            }
+        }
+
+        .index-mobile-feed-filter.top-feed-element {
+            margin-top: 56px;
+        }
     }
 </style>
