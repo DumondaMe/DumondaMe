@@ -89,8 +89,8 @@ export const mutations = {
 };
 
 const addSocialMediaInfoToResponse = function (feed) {
-    if (feed.length > 4) {
-        feed.splice(4, 0, {type: 'socialMediaInfo'});
+    if (feed.length > 2) {
+        feed.splice(2, 0, {type: 'socialMediaInfo'});
     }
 };
 
