@@ -26,10 +26,14 @@
                         @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </commitment>
-            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish" @back="showPage--"
-                          class="welcome-dialog" :loading="loading">
+            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="showPage++"
+                          @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </trust-circle>
+            <actions v-if="showPage === 7" @close-dialog="$emit('close-dialog')" @next="finish" @back="showPage--"
+                     class="welcome-dialog" :loading="loading">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
+            </actions>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
@@ -49,6 +53,7 @@
     import Question from './Question';
     import Commitment from './Commitment';
     import TrustCircle from './TrustCircle';
+    import Actions from './Actions';
     import Stepper from './Stepper';
 
     export default {
@@ -64,7 +69,7 @@
                 this.loading = false;
             }
         },
-        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Question, Commitment, TrustCircle},
+        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Question, Commitment, TrustCircle, Actions},
         methods: {
             async finish() {
                 try {

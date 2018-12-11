@@ -27,6 +27,11 @@
     },
     "stepTrustCircle": {
       "description": "Welchen Informationen wir Glauben schenken, hat viel mit Vertrauen zu tun. Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. Durch das Aktivieren des <b>Trust Circle</b> - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+    },
+    "stepActions": {
+      "description": "In dem du Antworten zustimmst",
+      "description2": "hilfst du mit, dass die relevantesten Informationen zuerst erscheinen. Zudem kannst du Fragen und Engagements markieren, welche dich interessieren",
+      "description3": ". So siehst du in deinem Aktivitäten Feed wenn interessante Fragen beantwortet wurden oder interessante Engagements Veranstaltungen planen. (Der Aktivitäten Feed wird noch überarbeitet damit dir dies besser dargestellt wird)"
     }
   }
 }

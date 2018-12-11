@@ -1,13 +1,19 @@
 <template>
-    <v-card id="welcome-trust-circle-container">
+    <v-card id="welcome-actions-container">
         <div>
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content">
-            <div id="image-trust-circle-container">
+            <div id="image-actions-container">
                 <img :src="imageUrl"/>
             </div>
-            <div class="trust-circle-description" v-html="$t('dialog:welcome.stepTrustCircle.description')"></div>
+            <div>
+                <span class="trust-actions-description">{{$t('dialog:welcome.stepActions.description')}} </span>
+                <v-icon color="secondary">mdi-thumb-up</v-icon>
+                <span class="trust-actions-description"> {{$t('dialog:welcome.stepActions.description2')}} </span>
+                <v-icon color="secondary">mdi-star</v-icon>
+                <span class="trust-actions-description"> {{$t('dialog:welcome.stepActions.description3')}}</span>
+            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -15,11 +21,8 @@
                 {{$t("common:button.back")}}
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="$emit('close-dialog')">
-                {{$t("common:button.later")}}
-            </v-btn>
-            <v-btn color="primary" @click="$emit('next')">
-                {{$t("common:button.next")}}
+            <v-btn color="primary" @click="$emit('next')" :loading="loading" :disabled="loading">
+                {{$t("common:button.finish")}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -27,18 +30,19 @@
 
 <script>
     export default {
+        props: ['loading'],
         computed: {
             imageUrl() {
-                return `${process.env.staticUrl}/img/welcome/trustCircle.jpg`;
+                return `${process.env.staticUrl}/img/welcome/action.jpg`;
             }
         }
     }
 </script>
 
 <style lang="scss">
-    #welcome-trust-circle-container {
+    #welcome-actions-container {
 
-        .trust-circle-description {
+        .trust-actions-description {
             margin-top: 18px;
             font-weight: 300;
 
@@ -48,23 +52,20 @@
             }
         }
 
-        .help-hint {
-            margin-top: 12px;
-            color: $secondary-color;
-            border-left: 2px solid $secondary-color;
-            padding-left: 12px;
+        i {
+            margin: 0 4px;
         }
 
-        #image-trust-circle-container {
+        #image-actions-container {
             width: 400px;
-            min-height: 295px;
+            min-height: 252px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
                 width: 300px;
-                min-height: 222px;
+                min-height: 189px;
             }
             @media screen and (max-width: 350px) {
-                min-height: 207px;
+                min-height: 176px;
                 width: 280px;
             }
 
