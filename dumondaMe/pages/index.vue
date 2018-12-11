@@ -15,11 +15,13 @@
             </feed-filter>
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
-            <about-dumonda-me v-if="!isAuthenticated && $route.name === 'index'"></about-dumonda-me>
-            <beta-version class="index-mobile-feed-filter"
+            <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
+            <beta-version class="index-mobile-feed-filter" v-show="!isLoading"
                           :class="{'top-feed-element': isAuthenticated ||
-                          (!isAuthenticated && $route.name !== 'index')}"></beta-version>
-            <concept-info class="index-mobile-feed-filter"></concept-info>
+                          (!isAuthenticated && $route.name !== 'index')}">
+            </beta-version>
+            <concept-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading">
+            </concept-info>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -92,16 +94,16 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            }
-            ,
+            },
             showHelpFeedInfo() {
                 return this.$store.state.feed.totalNumberOfElements === 0;
-            }
-            ,
+            },
             showLoadNextButton() {
                 return this.$store.state.feed.loadingNext && !this.$store.state.feed.loading;
-            }
-            ,
+            },
+            isLoading() {
+                return this.$store.state.feed.loading;
+            },
             feed() {
                 return this.$store.state.feed.feed
             }
