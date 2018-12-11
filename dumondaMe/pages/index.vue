@@ -6,6 +6,7 @@
             <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
             <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
+            <concept-info></concept-info>
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
             <!--<feed-popular-question></feed-popular-question>-->
         </div>
@@ -18,6 +19,7 @@
             <beta-version class="index-mobile-feed-filter"
                           :class="{'top-feed-element': isAuthenticated ||
                           (!isAuthenticated && $route.name !== 'index')}"></beta-version>
+            <concept-info class="index-mobile-feed-filter"></concept-info>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -44,6 +46,7 @@
     import BetaVersion from "~/components/common/beta/BetaDescription";
     import UserSuggestions from '~/components/feed/UserSuggestions';
     import AboutDumondaMe from '~/components/feed/AboutDumondaMe';
+    import ConceptInfo from '~/components/feed/info/Concept';
 
     export default {
         async fetch({error, store, route}) {
@@ -62,7 +65,8 @@
         },
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
-            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe
+            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe,
+            ConceptInfo
         },
         head() {
             return {

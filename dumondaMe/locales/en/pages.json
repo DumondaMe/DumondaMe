@@ -237,6 +237,10 @@
         "title": "Together everything is possible!",
         "description": "Join in by registering easily and asking questions or answering with your expertise."
       }
+    },
+    "conceptInfo": {
+      "title": "What are the most important concepts?",
+      "actionButton": "Start tour"
     }
   },
   "commitment": {

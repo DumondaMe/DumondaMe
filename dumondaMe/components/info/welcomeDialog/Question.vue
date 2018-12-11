@@ -19,7 +19,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-btn color="primary" flat @click="$emit('back')">
+            <v-btn color="primary" flat @click="$emit('back')" v-if="!hideBackButton">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-spacer></v-spacer>
@@ -35,6 +35,7 @@
 
 <script>
     export default {
+        props: ['hideBackButton'],
         computed: {
             imageUrl() {
                 return `${process.env.staticUrl}/img/welcome/question.jpg`;

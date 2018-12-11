@@ -25,6 +25,7 @@
             max-width: 550px;
             margin-right: auto;
             margin-left: auto;
+            margin-bottom: 0;
         }
 
         h3.beta-version-title {
@@ -39,6 +40,9 @@
 
         .description {
             margin-bottom: 8px;
+            @media screen and (max-width: $xs) {
+                margin-bottom: 0;
+            }
         }
     }
     .beta-version-description.is-authenticated {
