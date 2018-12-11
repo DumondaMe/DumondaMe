@@ -12,6 +12,9 @@
                     <iframe :width="youtubeWidth" :height="youtubeHeight"
                             src="https://www.youtube.com/embed/hcCvaH0RJj4?rel=0&autoplay=1" frameBorder="0"
                             allow="autoplay"></iframe>
+                    <div class="mobile-autoplay-warning">
+                        {{$t('pages:feeds.aboutDumondaMeInfos.vision.autoplayWarning')}}
+                    </div>
                 </div>
             </div>
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.vision.description')}}</div>
@@ -113,6 +116,14 @@
 
                 .desktop-welcome-image {
                     @media screen and (max-width: 400px) {
+                        display: none;
+                    }
+                }
+
+                .mobile-autoplay-warning {
+                    color: $warning;
+                    margin-bottom: 8px;
+                    @media screen and (min-width: $xs) {
                         display: none;
                     }
                 }
