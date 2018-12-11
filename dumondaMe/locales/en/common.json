@@ -138,7 +138,8 @@
   },
   "beta": {
     "title": "Beta Version",
-    "description": "DumondaMe is still at the very beginning and is now publicly available as beta version. This means that the platform may contain bugs and does not have the full functionality yet."
+    "description": "DumondaMe is still at the very beginning and is now publicly available as beta version. This means that the platform may contain bugs and does not have the full functionality yet.",
+    "buttonNextSteps": "The next steps"
   },
   "meta": {
     "description": "DumondaMe is the social network for a sustainable society.",
