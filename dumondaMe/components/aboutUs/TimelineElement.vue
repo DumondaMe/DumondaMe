@@ -6,6 +6,7 @@
             <v-card-text class="white text--primary">
                 <div class="date-mobile">{{date}}</div>
                 <p v-html="timelineText"></p>
+                <slot name="info"></slot>
             </v-card-text>
         </v-card>
     </v-timeline-item>
@@ -26,14 +27,21 @@
                 display: none;
             }
         }
+
         .v-timeline-item__opposite {
             align-self: start;
             margin-top: 12px;
+
             .headline.year-description {
                 font-size: 20px !important;
                 line-height: 20px !important;
             }
         }
+
+        .social-media-links-inner-container {
+            margin-top: 18px;
+        }
+
         p {
             margin-bottom: 0;
         }

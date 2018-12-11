@@ -909,8 +909,8 @@
       },
       "helloWorld": {
         "title": "Hello World, hier ist DumondaMe",
-        "text": "Nun wird es für alle interessant! Auf verschiedenen Wegen, wie einem eigens von uns produzierten Erklärvideos, wollen wir DumondaMe in der Öffentlichkeit bekannt machen und die Community weiter aufbauen. ",
-        "date": "Mitte Dezember 2018"
+        "text": "Nun wird es für alle interessant! Auf verschiedenen Wegen, wie einem eigens von uns produzierten <a href='https://youtu.be/hcCvaH0RJj4' target='_blank' rel='noopener'>Erklärvideos</a>, wollen wir DumondaMe in der Öffentlichkeit bekannt machen und die Community weiter aufbauen. ",
+        "date": "12. Dezember 2018"
       },
       "crowdfunding": {
         "title": "Crowdfunding",
