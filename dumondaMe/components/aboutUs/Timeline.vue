@@ -88,10 +88,11 @@
                               :timeline-title="$t('pages:aboutUs.history.elyoosToDumondaMe.title')"
                               :timeline-text="$t('pages:aboutUs.history.elyoosToDumondaMe.text')">
             </timeline-element>
-            <timeline-element color="green lighten-1" icon="mdi-earth"
+            <timeline-element color="#009e97" icon="mdi-earth"
                               :date="$t('pages:aboutUs.history.helloWorld.date')"
                               :timeline-title="$t('pages:aboutUs.history.helloWorld.title')"
                               :timeline-text="$t('pages:aboutUs.history.helloWorld.text')">
+                <social-media-links slot="info"></social-media-links>
             </timeline-element>
             <timeline-element color="green lighten-1" icon="mdi-rocket"
                               :date="$t('pages:aboutUs.history.crowdfunding.date')"
@@ -114,9 +115,10 @@
 
 <script>
     import TimelineElement from './TimelineElement';
+    import SocialMediaLinks from '~/components/info/SocialMediaLinks';
 
     export default {
-        components: {TimelineElement},
+        components: {TimelineElement, SocialMediaLinks},
         data() {
             return {showDenseTimeline: false, showTimeline: false}
         },
