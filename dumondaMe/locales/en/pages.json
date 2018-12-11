@@ -236,7 +236,8 @@
       },
       "register": {
         "title": "Together everything is possible!",
-        "description": "Join in by registering easily and asking questions or answering with your expertise."
+        "description": "Join in by registering easily and asking questions or answering with your expertise.",
+        "loginButton": "I already have an account"
       }
     },
     "conceptInfo": {

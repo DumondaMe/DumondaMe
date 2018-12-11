@@ -48,6 +48,9 @@
             <v-btn color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
             </v-btn>
+            <v-btn color="primary" outline @click="$router.push({name: 'login'})" class="mobile-login-button">
+                {{$t('pages:feeds.aboutDumondaMeInfos.register.loginButton')}}
+            </v-btn>
         </div>
     </div>
 </template>
@@ -157,6 +160,11 @@
                 margin: 12px 18px 0 0;
                 @media screen and (max-width: $xs) {
                     margin-bottom: 12px;
+                }
+            }
+            .mobile-login-button {
+                @media screen and (max-width: $xs) {
+                    margin-top: 0;
                 }
             }
         }

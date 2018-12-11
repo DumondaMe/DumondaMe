@@ -234,7 +234,8 @@
       },
       "register": {
         "title": "Gemeinsam ist alles möglich!",
-        "description": "Mach mit, indem du dich unkompliziert registrierst und dann Fragen stellst oder mit deiner Expertise beantwortest sowie passende Antworten bestätigst."
+        "description": "Mach mit, indem du dich unkompliziert registrierst und dann Fragen stellst oder mit deiner Expertise beantwortest sowie passende Antworten bestätigst.",
+        "loginButton": "Ich habe bereits ein Konto"
       }
     },
     "conceptInfo": {
