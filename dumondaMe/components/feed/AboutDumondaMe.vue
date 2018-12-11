@@ -2,8 +2,18 @@
     <div class="about-dumonda-me-container">
         <div class="ely-card about-dumonda-me-card">
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.vision.title')}}</div>
-            <img :src="welcomeImage" class="desktop-welcome-image"/>
-            <img :src="welcomeImageMobile" class="mobile-welcome-image"/>
+            <div class="youtube-video-container" ref="youtubeContainer">
+                <div v-if="showYoutubePreviewImage" @click="showYoutubePreviewImage = false">
+                    <img :src="welcomeImage" class="desktop-welcome-image"/>
+                    <img :src="welcomeImageMobile" class="mobile-welcome-image"/>
+                    <img :src="imageYoutube" class="youtube-icon"/>
+                </div>
+                <div v-else>
+                    <iframe :width="youtubeWidth" :height="youtubeHeight"
+                            src="https://www.youtube.com/embed/hcCvaH0RJj4?rel=0&autoplay=1" frameBorder="0"
+                            allow="autoplay"></iframe>
+                </div>
+            </div>
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.vision.description')}}</div>
             <v-btn outline color="primary" @click="$router.push({name: 'faq'})">
                 {{$t('pages:feeds.aboutDumondaMeInfos.vision.actionButton')}}
@@ -41,6 +51,9 @@
 
 <script>
     export default {
+        data() {
+            return {showYoutubePreviewImage: true}
+        },
         computed: {
             welcomeImage() {
                 return `${process.env.staticUrl}/img/welcome/welcome2.jpg`;
@@ -48,8 +61,17 @@
             welcomeImageMobile() {
                 return `${process.env.staticUrl}/img/welcome/welcome2_mobile.jpg`;
             },
+            imageYoutube() {
+                return `${process.env.staticUrl}/img/youtube.png`;
+            },
             isEnglish() {
                 return this.$store.state.i18n.language === 'en';
+            },
+            youtubeWidth() {
+                return this.$refs.youtubeContainer.clientWidth;
+            },
+            youtubeHeight() {
+                return this.$refs.youtubeContainer.clientWidth * 0.6;
             }
         },
         methods: {
@@ -72,22 +94,42 @@
                 margin-bottom: 18px;
             }
 
-            img {
-                width: 100%;
-                border-radius: 4px;
-                margin-bottom: 8px;
-            }
+            .youtube-video-container {
+                position: relative;
+                cursor: pointer;
 
-            .mobile-welcome-image {
-                max-width: 350px;
-                @media screen and (min-width: 400px) {
-                    display: none;
+                img {
+                    width: 100%;
+                    border-radius: 4px;
+                    margin-bottom: 8px;
                 }
-            }
 
-            .desktop-welcome-image {
-                @media screen and (max-width: 400px) {
-                    display: none;
+                .mobile-welcome-image {
+                    max-width: 350px;
+                    @media screen and (min-width: 400px) {
+                        display: none;
+                    }
+                }
+
+                .desktop-welcome-image {
+                    @media screen and (max-width: 400px) {
+                        display: none;
+                    }
+                }
+
+                .youtube-icon {
+                    position: absolute;
+                    width: 70px;
+                    margin-top: -25px;
+                    margin-left: -35px;
+                    top: 50%;
+                    left: 50%;
+
+                    @media screen and (max-width: $xs) {
+                        width: 50px;
+                        margin-top: -22px;
+                        margin-left: -25px;
+                    }
                 }
             }
 
