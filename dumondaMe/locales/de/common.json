@@ -138,7 +138,8 @@
   },
   "beta": {
     "title": "Beta-Version",
-    "description": "DumondaMe befindet sich noch ganz am Anfang und ist nun als Beta-Version öffentlich verfügbar. Dies bedeutet, dass die Plattform Fehler enthalten kann und noch nicht über den vollen Funktionsumfang verfügt."
+    "description": "DumondaMe befindet sich noch ganz am Anfang und ist nun als Beta-Version öffentlich verfügbar. Dies bedeutet, dass die Plattform Fehler enthalten kann und noch nicht über den vollen Funktionsumfang verfügt.",
+    "buttonNextSteps": "Die nächsten Schritte"
   },
   "meta": {
     "description": "DumondaMe ist das soziales Netzwerk für eine zukunftsfähige Gesellschaft.",

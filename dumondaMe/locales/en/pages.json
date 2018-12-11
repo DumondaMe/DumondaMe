@@ -926,6 +926,38 @@
       }
     }
   },
+  "nextSteps": {
+    "title": "The next steps",
+    "description": "DumondaMe is still at the very beginning and there is still a lot to optimize or extend. In the following the most important further development steps are listed.",
+    "performanceAndError": {
+      "title": "Fixing occurring errors and performance issues",
+      "description": "At the moment this has the highest priority so that you can use the platform without any problems. "
+    },
+    "activityFeed": {
+      "title": "Revise Activities Feed",
+      "description": "At the moment the activities feed shows everything that happens in the network and the filter options are a bit confusing (unless you are working on it all day ;-). The Activities Feed will only show the activities of people from your Trust Circle and the questions/commitments you have marked as interesting."
+    },
+    "emailNotifications": {
+      "title": "E-mail notification",
+      "description": "If you have received a notification, after a certain period of time, if you have not read it, an e-mail will be sent to you to draw your attention to it. The e-mail notifications can be deactivated."
+    },
+    "questionQuality": {
+      "title": "Quality assurance of the questions",
+      "description": "Editorial users can make recommendations on how a question could be better formulated."
+    },
+    "messageButtonWhatsapp": {
+      "title": "Using Whatsapp/Telegram to make people aware of a question",
+      "description": "There should be buttons for Whatsapp and Telegram for each question, with which you can send a request to someone from your contacts. E.g. Can you answer the question \"BlaBla\"?"
+    },
+    "multipleAdminsCommitment": {
+      "title": "Multiple administrators for commitments",
+      "description": "At the moment, only one administrator can be defined for a commitment. It should also be possible to see who is involved in a commitment."
+    },
+    "more": {
+      "title": "And much more...",
+      "description": "We'll keep you up to date on what happens next! Please feel free to contribute your feedback (feedback@dumonda.me)"
+    }
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "About us",
