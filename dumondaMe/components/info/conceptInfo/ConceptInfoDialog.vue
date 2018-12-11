@@ -9,10 +9,14 @@
                         @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </commitment>
-            <trust-circle v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="$emit('close-dialog')"
-                          @back="showPage--" class="welcome-dialog" :loading="loading">
+            <trust-circle v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++"
+                          @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </trust-circle>
+            <actions v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="$emit('close-dialog')"
+                     @back="showPage--" class="welcome-dialog" :loading="loading">
+                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
+            </actions>
         </v-dialog>
     </v-layout>
 </template>
@@ -21,13 +25,14 @@
     import Question from '../welcomeDialog/Question';
     import Commitment from '../welcomeDialog/Commitment';
     import TrustCircle from '../welcomeDialog/TrustCircle';
+    import Actions from '../welcomeDialog/Actions';
     import Stepper from './Stepper';
 
     export default {
         data() {
             return {dialog: true, showPage: 1, loading: false}
         },
-        components: {Stepper,  Question, Commitment, TrustCircle},
+        components: {Stepper,  Question, Commitment, TrustCircle, Actions},
         methods: {
             navigateToStep(step) {
                 this.showPage = step;

@@ -27,6 +27,11 @@
     },
     "stepTrustCircle": {
       "description": "What information we believe has a lot to do with trust. Add people whose opinion you value to your <b>Trust Circle</b>. By activating the <b>Trust Circle</b> filter, you will see in your feed when these people capture a question, answer questions, agree to answers, and more."
+    },
+    "stepActions": {
+      "description": "By agreeing to the answers",
+      "description2": "you are helping to ensure that the most relevant information appears first. You can also mark questions and engagements that interest you",
+      "description3": ". So you can see in your activities feed when interesting questions have been answered or interesting engagements are planning events. (The Activities feed will be updated soon to make it more visible to you)"
     }
   }
 }
