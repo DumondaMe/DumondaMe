@@ -811,8 +811,8 @@
       "text1": "Dein Profil ist für Personen ohne Konto und Suchmaschinen nur sichtbar, wenn du dies in der Privatsphären-Einstellung erlaubst."
     },
     "selfAnswerQuestions": {
-      "title": "Kann ich meine Fragen selber beantworten?",
-      "text1": "Ja, du kannst deine Fragen auch selber beantworten. "
+      "title": "Kann ich meine eigene Frage beantworten?",
+      "text1": "Ja, du kannst deine Fragen auch selbst beantworten."
     },
     "donation": {
       "title": "Wie finanziert sich die Plattform?",
@@ -942,34 +942,34 @@
   },
   "nextSteps": {
     "title": "Die nächsten Schritte",
-    "description": "DumondaMe steht noch ganz am Anfang und es gibt noch einiges zu optimieren oder zu erweitern. Nachfolgend sind die wichtigsten weiteren Entwicklungsschritte aufgelistet.",
+    "description": "DumondaMe steht ganz am Anfang und es gibt noch einiges zu optimieren und zu erweitern. Nachfolgend sind die wichtigsten kommenden Entwicklungsschritte aufgelistet:",
     "performanceAndError": {
       "title": "Auftretende Fehler und Performance Probleme beheben",
-      "description": "Das hat im Moment die allerhöchste Priorität damit du die Plattform ohne Problem nutzen kannst. "
+      "description": "Das hat im Moment die allerhöchste Priorität, damit du die Plattform ohne Problem nutzen kannst."
     },
     "activityFeed": {
-      "title": "Aktivitäten Feed überarbeiten",
-      "description": "Im Moment wird im Aktivitäten Feed alles angezeigt was im Netzwerk geschieht und die Filtermöglichkeiten sind etwas verwirrend (Ausser man beschäftigt sich den ganzen Tag damit ;-). Der Aktivitäten Feed soll in Zukunft nur die Aktivitäten der Personen aus deinem Trust Circle und der Fragen/Engagements die du als interessant markiert hast anzeigen."
+      "title": "Aktivitäten-Feed überarbeiten",
+      "description": "Im Moment wird im Aktivitäten-Feed alles angezeigt, was im Netzwerk geschieht und die Filtermöglichkeiten sind etwas verwirrend (ausser man beschäftigt sich den ganzen Tag damit ;-)). Der Aktivitäten-Feed soll in Zukunft anzeigen: Die Aktivitäten der Personen aus deinem Trust Circle und die neusten Updates der Fragen/Engagements, die du als interessant markiert hast."
     },
     "emailNotifications": {
       "title": "Benachrichtigung per E-Mail",
-      "description": "Wenn du eine Benachrichtigung erhalten hast soll dir nach einer gewissen Zeit, wenn du diese nicht gelesen hast, ein E-Mail gesendet werden um die darauf aufmerksam zu machen. Die Benachrichtigungen per E-Mail können deaktiviert werden."
+      "description": "Wenn du eine Benachrichtigung erhalten hast, soll dir nach einer gewissen Zeit, wenn du diese nicht gelesen hast, ein E-Mail gesendet werden, um dich darauf aufmerksam zu machen. Die Benachrichtigungen per E-Mail können deaktiviert werden."
     },
     "questionQuality": {
       "title": "Qualitätssicherung der Fragen",
-      "description": "Redaktionelle User können Empfehlungen machen wie eine Frage besser formuliert werden könnte."
+      "description": "Redaktionelle User können Empfehlungen machen, wie eine Frage besser formuliert werden könnte."
     },
     "messageButtonWhatsapp": {
       "title": "Personen per Whatsapp/Telegram auf eine Frage aufmerksam machen",
-      "description": "Es soll Buttons für Whatsapp und Telegram bei jeder Frage geben, mit welchen du eine Anfrage an Jemanden aus deinem Bekanntenkreis versenden kannst. Z.B. Kannst du die Frage “BlaBla” beantworten?"
+      "description": "Es soll bei jeder Frage Buttons für Whatsapp und Telegram geben, mit welchen du eine Anfrage an jemanden aus deinem Bekanntenkreis versenden kannst. Z.B. Kannst du die Frage “Was kann ich tun, um einen nachhaltigen Umgang mit der Natur zu fördern?” beantworten?"
     },
     "multipleAdminsCommitment": {
       "title": "Mehrere Administratoren für Engagements",
-      "description": "Im Moment kann nur eine Person Administrator eine Engagements sein. Ausserdem soll erfasst werden können wer bei einem Engagement mitwirkt. "
+      "description": "Im Moment kann nur eine Person Administrator_in eines Engagements sein. Bald kann zudem erfasst werden, wer bei einem Engagement mitwirkt."
     },
     "more": {
       "title": "Und noch vieles mehr…",
-      "description": "Wir werden dich auf dem Laufenden halten wie es weiter geht! Gerne kannst du dein Feedback einbringen (feedback@dumonda.me)"
+      "description": "Wir werden dich auf dem Laufenden halten, wie es weiter geht! Gerne kannst du dein Feedback einbringen: feedback@dumonda.me"
     }
   },
   "footer": {
