@@ -14,7 +14,7 @@ const addWatchNotificationExists = function (userId, questionId, watchAdded) {
         .with(`n`)
         .match(`(u:User {userId: {userId}})`)
         .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {watchAdded}}]->(u)`)
-        .end({userId, questionId, watchAdded}).getCommand()
+        .end({userId, questionId, watchAdded})
 };
 
 const addWatchNotificationNotExists = function (userId, questionId, watchAdded) {
@@ -28,23 +28,24 @@ const addWatchNotificationNotExists = function (userId, questionId, watchAdded) 
         .with(`n`)
         .match(`(u:User {userId: {userId}})`)
         .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {watchAdded}}]->(u)`)
-        .end({userId, questionId, notificationId, watchAdded}).getCommand()
+        .end({userId, questionId, notificationId, watchAdded})
 };
 
 const addWatch = async function (userId, questionId) {
-    let commands = [], created = time.getNowUtcTimestamp();
-    commands.push(addWatchNotificationExists(userId, questionId, created));
-    commands.push(addWatchNotificationNotExists(userId, questionId, created));
+    let created = time.getNowUtcTimestamp();
 
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})`)
         .where(`NOT (user)-[:WATCH]->(question) AND NOT (user)-[:IS_CREATOR]->(question)`)
         .merge(`(user)-[:WATCH {created: {created}}]->(question)`)
         .return(`user`)
-        .end({userId, questionId, created}).send(commands);
+        .end({userId, questionId, created}).send();
 
-    if (response[2].length === 0) {
+    if (response.length === 0) {
         throw new exceptions.InvalidOperation(`Watch could not be added from user ${userId} to question ${questionId}`);
+    } else {
+        await addWatchNotificationExists(userId, questionId, created).send([
+            addWatchNotificationNotExists(userId, questionId, created).getCommand()])
     }
 
     logger.info(`User watches question ${questionId}`)
