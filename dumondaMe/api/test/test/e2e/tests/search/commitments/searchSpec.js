@@ -67,6 +67,23 @@ describe('Search for commitments with fuzzy match', function () {
         res.body.commitments[0].regions.should.include('Region1De');
     });
 
+    it('Search commitment created by the logged in user', async function () {
+        dbDsl.createCommitment('4', {
+            title: 'BlaBlaBla', regions: ['region-1'],
+            adminId: '1', topics: ['topic1'], language: 'de', created: 700, website: 'https://www.example.org/'
+        }, []);
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search/commitments', {query: 'BlaBlaBla', lang: 'de', skip: 0, limit: 10});
+        res.status.should.equal(200);
+        res.body.hasMoreCommitments.should.equals(false);
+        res.body.commitments.length.should.equals(1);
+        res.body.commitments[0].commitmentId.should.equals('4');
+        res.body.commitments[0].isWatchedByUser.should.equals(false);
+        res.body.commitments[0].isAdmin.should.equals(true);
+    });
+
     it('Has more commitments', async function () {
         for (let index = 0; index < 7; index++) {
             dbDsl.createCommitment(`1${index}`, {

@@ -61,6 +61,7 @@ describe('Search for question with fuzzy match', function () {
     });
 
     it('Search question when logged in', async function () {
+        dbDsl.watchQuestion({questionId: '10', userId: '1', created: 558});
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();
         await requestHandler.login(users.validUser);
@@ -74,8 +75,8 @@ describe('Search for question with fuzzy match', function () {
         res.body.questions[0].description.should.equals('Test dumonda.me change the world1');
         res.body.questions[0].descriptionHtml.should.equals(`Test <a href="http://dumonda.me" class="linkified" target="_blank" rel="noopener">dumonda.me</a> change the world1`);
         res.body.questions[0].numberOfAnswers.should.equals(2);
-        res.body.questions[0].numberOfWatches.should.equals(1);
-        res.body.questions[0].isWatchedByUser.should.equals(false);
+        res.body.questions[0].numberOfWatches.should.equals(2);
+        res.body.questions[0].isWatchedByUser.should.equals(true);
         res.body.questions[0].isAdmin.should.equals(false);
         res.body.questions[0].user.userId.should.equals('2');
         res.body.questions[0].user.name.should.equals('user Meier2');
@@ -86,6 +87,23 @@ describe('Search for question with fuzzy match', function () {
         res.body.questions[0].user.isTrustUser.should.equals(false);
         res.body.questions[0].user.isAnonymous.should.equals(false);
         res.body.questions[1].questionId.should.equals('12');
+    });
+
+    it('Search question created by the logged in user', async function () {
+        dbDsl.createQuestion('13', {
+            creatorId: '1', question: 'BlaBlaBla', description: 'Test dumonda.me change the world2',
+            topics: ['topic1'], language: 'de', created: 500, modified: 700
+        });
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search/questions', {query: 'BlaBlaBla', lang: 'de', skip: 0, limit: 10});
+        res.status.should.equal(200);
+        res.body.hasMoreQuestions.should.equals(false);
+        res.body.questions.length.should.equals(1);
+        res.body.questions[0].questionId.should.equals('13');
+        res.body.questions[0].isWatchedByUser.should.equals(false);
+        res.body.questions[0].isAdmin.should.equals(true);
     });
 
     it('Has more questions', async function () {

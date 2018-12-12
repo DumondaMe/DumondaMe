@@ -15,7 +15,7 @@ const searchCommand = function (query, language, userId, skip, limit) {
         .return(`DISTINCT question, admin, COUNT(DISTINCT watchingUser) AS numberOfWatches,
                  COUNT(DISTINCT answer) AS numberOfAnswers,
                  EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
-                 EXISTS((question)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 EXISTS((question)<-[:IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
                  EXISTS((admin)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((admin)-[:IS_CONTACT]->(:User {userId: {userId}})) AS adminTrustLoggedInUser, weight`)
         .orderBy('weight DESC').skip(`{skip}`).limit(`{limit}`).end({queryString, userId, skip, limit});
