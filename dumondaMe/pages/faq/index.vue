@@ -1,51 +1,69 @@
 <template>
     <div id="faq-description">
         <h1>{{$t('pages:faq.title')}}</h1>
-        <h2>{{$t('pages:faq.question1.title')}}</h2>
-        <p>{{$t('pages:faq.question1.text1')}}</p>
-        <img :src="getUrl('img/faq/Concept.jpg')">
-        <p v-html="$t('pages:faq.question1.text2')"></p>
 
-        <h2>{{$t('pages:faq.question2.title')}}</h2>
+        <h2>{{$t('pages:faq.importantConcepts.title')}}</h2>
         <ul>
-            <li v-html="$t('pages:faq.question2.text1')"></li>
-            <li v-html="$t('pages:faq.question2.text2')"></li>
-            <li v-html="$t('pages:faq.question2.text3')"></li>
+            <li v-html="$t('pages:faq.importantConcepts.text1')"></li>
+            <li v-html="$t('pages:faq.importantConcepts.text2')"></li>
+            <li v-html="$t('pages:faq.importantConcepts.text3')"></li>
         </ul>
+        <v-btn color="primary" class="tour-button" @click="showConceptInfoDialog = true">
+            {{$t('pages:faq.importantConcepts.tourButton')}}
+        </v-btn>
+        <concept-info-dialog v-if="showConceptInfoDialog" @close-dialog="showConceptInfoDialog = false">
+        </concept-info-dialog>
 
-        <h2>{{$t('pages:faq.question3.title')}}</h2>
-        <p>{{$t('pages:faq.question3.text1')}}</p>
-        <p>{{$t('pages:faq.question3.text2')}}</p>
+        <h2>{{$t('pages:faq.meaningOfDumondaMe.title')}}</h2>
+        <p v-html="$t('pages:faq.meaningOfDumondaMe.text1')"></p>
 
-        <h2>{{$t('pages:faq.question4.title')}}</h2>
-        <p>{{$t('pages:faq.question4.text1')}}</p>
+        <h2>{{$t('pages:faq.differenceSocialNetwork.title')}}</h2>
+        <p>{{$t('pages:faq.differenceSocialNetwork.text1')}}</p>
+        <img :src="getUrl('img/faq/Concept.jpg')">
+        <p v-html="$t('pages:faq.differenceSocialNetwork.text2')"></p>
 
-        <h2>{{$t('pages:faq.question5.title')}}</h2>
-        <p>{{$t('pages:faq.question5.text1')}}</p>
+        <h2>{{$t('pages:faq.advantageAccount.title')}}</h2>
+        <p>{{$t('pages:faq.advantageAccount.text1')}}</p>
 
-        <h2>{{$t('pages:faq.question6.title')}}</h2>
-        <p>{{$t('pages:faq.question6.text1')}}</p>
+        <h2>{{$t('pages:faq.commitment.title')}}</h2>
+        <p>{{$t('pages:faq.commitment.text1')}}</p>
+        <p>{{$t('pages:faq.commitment.text2')}}</p>
 
-        <h2>{{$t('pages:faq.question7.title')}}</h2>
-        <p>{{$t('pages:faq.question7.text1')}}</p>
+        <h2>{{$t('pages:faq.whoCanCreateCommitments.title')}}</h2>
+        <p>{{$t('pages:faq.whoCanCreateCommitments.text1')}}</p>
 
-        <h2>{{$t('pages:faq.question8.title')}}</h2>
-        <p>{{$t('pages:faq.question8.text1')}}</p>
+        <h2>{{$t('pages:faq.whatsIsTrustCircle.title')}}</h2>
+        <p>{{$t('pages:faq.whatsIsTrustCircle.text1')}}</p>
 
-        <h2>{{$t('pages:faq.question9.title')}}</h2>
-        <p>{{$t('pages:faq.question9.text1')}}</p>
+        <h2>{{$t('pages:faq.whyAreAnswersUpVoted.title')}}</h2>
+        <p>{{$t('pages:faq.whyAreAnswersUpVoted.text1')}}</p>
 
-        <h2>{{$t('pages:faq.question10.title')}}</h2>
-        <p>{{$t('pages:faq.question10.text1')}}</p>
+        <h2>{{$t('pages:faq.questionVisibility.title')}}</h2>
+        <p>{{$t('pages:faq.questionVisibility.text1')}}</p>
 
-        <h2>{{$t('pages:faq.question11.title')}}</h2>
-        <p v-html="$t('pages:faq.question11.text1')"></p>
+        <h2>{{$t('pages:faq.selfAnswerQuestions.title')}}</h2>
+        <p>{{$t('pages:faq.selfAnswerQuestions.text1')}}</p>
+
+        <h2>{{$t('pages:faq.userVisibility.title')}}</h2>
+        <p>{{$t('pages:faq.userVisibility.text1')}}</p>
+
+        <h2>{{$t('pages:faq.donation.title')}}</h2>
+        <p>{{$t('pages:faq.donation.text1')}}</p>
+
+        <h2>{{$t('pages:faq.openSource.title')}}</h2>
+        <p v-html="$t('pages:faq.openSource.text1')"></p>
 
     </div>
 </template>
 
 <script>
+    import ConceptInfoDialog from '~/components/info/conceptInfo/ConceptInfoDialog';
+
     export default {
+        components: {ConceptInfoDialog},
+        data() {
+            return {showConceptInfoDialog: false}
+        },
         methods: {
             getUrl(url) {
                 return `${process.env.staticUrl}/${url}`;
@@ -60,6 +78,7 @@
             margin-top: 18px;
             padding: 0 16px;
         }
+
         h1 {
             font-size: 52px;
             line-height: 60px;
@@ -71,6 +90,7 @@
                 margin-bottom: 18px;
             }
         }
+
         h2 {
             font-size: 30px;
             line-height: 46px;
@@ -97,13 +117,20 @@
             font-size: 16px;
             line-height: 24px;
         }
+
         ul {
             font-weight: 300;
             font-size: 16px;
             line-height: 24px;
         }
+
         b {
             font-weight: 500;
+        }
+
+        .tour-button {
+            margin-top: 14px;
+            margin-left: 0;
         }
     }
 </style>
