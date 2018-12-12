@@ -52,6 +52,9 @@ describe('Handling watch commitment requests from a user', function () {
 
         let resp = await db.cypher().match("(c:Commitment)<-[:WATCH]-(u:User)").return(`c, u`).end().send();
         resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
+        resp.length.should.equals(0);
     });
 
     it('User request to unwatch commitment with read notification', async function () {

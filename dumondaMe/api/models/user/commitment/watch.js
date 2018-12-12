@@ -14,7 +14,7 @@ const addWatchNotificationExists = function (userId, commitmentId, watchAdded) {
         .with(`n`)
         .match(`(u:User {userId: {userId}})`)
         .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {watchAdded}}]->(u)`)
-        .end({userId, commitmentId, watchAdded}).getCommand()
+        .end({userId, commitmentId, watchAdded})
 };
 
 const addWatchNotificationNotExists = function (userId, commitmentId, watchAdded) {
@@ -28,23 +28,25 @@ const addWatchNotificationNotExists = function (userId, commitmentId, watchAdded
         .with(`n`)
         .match(`(u:User {userId: {userId}})`)
         .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {watchAdded}}]->(u)`)
-        .end({userId, commitmentId, notificationId, watchAdded}).getCommand()
+        .end({userId, commitmentId, notificationId, watchAdded})
 };
 
 const addWatch = async function (userId, commitmentId) {
-    let commands = [], created = time.getNowUtcTimestamp();
-    commands.push(addWatchNotificationExists(userId, commitmentId, created));
-    commands.push(addWatchNotificationNotExists(userId, commitmentId, created));
+    let created = time.getNowUtcTimestamp();
 
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}}), (commitment:Commitment {commitmentId: {commitmentId}})`)
         .where(`NOT (user)-[:WATCH]->(commitment) AND NOT (user)-[:IS_ADMIN]->(commitment)`)
         .merge(`(user)-[:WATCH {created: {created}}]->(commitment)`)
         .return(`user`)
-        .end({userId, commitmentId, created}).send(commands);
+        .end({userId, commitmentId, created}).send();
 
-    if (response[2].length === 0) {
+    if (response.length === 0) {
         throw new exceptions.InvalidOperation(`Watch could not be added from user ${userId} to commitment ${commitmentId}`);
+    } else {
+        await addWatchNotificationExists(userId, commitmentId, created).send(
+            [addWatchNotificationNotExists(userId, commitmentId, created).getCommand()]
+        );
     }
 
     logger.info(`User watches commitment ${commitmentId}`)

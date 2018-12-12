@@ -52,6 +52,9 @@ describe('Handling watch question requests from a user', function () {
 
         let resp = await db.cypher().match("(q:Question)<-[:WATCH]-(u:User)").return(`q, u`).end().send();
         resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)").return(`n`).end().send();
+        resp.length.should.equals(0);
     });
 
     it('User request to unwatch question', async function () {
