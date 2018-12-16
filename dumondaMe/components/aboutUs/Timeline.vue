@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="about-us-timeline">
         <h2 class="subtitle">{{$t('pages:aboutUs.history.title')}}</h2>
         <v-timeline align-top id="dumonda-me-history-timeline" v-if="showTimeline"
                     :dense="showDenseTimeline">
@@ -94,6 +94,16 @@
                               :timeline-text="$t('pages:aboutUs.history.helloWorld.text')">
                 <social-media-links slot="info"></social-media-links>
             </timeline-element>
+            <timeline-element color="#D81B60" icon="mdi-emoticon-excited" v-if="!isAuthenticated"
+                              :date="$t('pages:aboutUs.history.register.date')"
+                              :timeline-title="$t('pages:aboutUs.history.register.title')"
+                              :timeline-text="$t('pages:aboutUs.history.register.text')">
+                <div slot="info">
+                    <v-btn color="secondary" class="register-button" @click="$router.push({name: 'register'})">
+                        {{$t('common:button.register')}}
+                    </v-btn>
+                </div>
+            </timeline-element>
             <timeline-element color="green lighten-1" icon="mdi-rocket"
                               :date="$t('pages:aboutUs.history.crowdfunding.date')"
                               :timeline-title="$t('pages:aboutUs.history.crowdfunding.title')"
@@ -125,10 +135,20 @@
         mounted() {
             this.showDenseTimeline = window.innerWidth < 600;
             this.showTimeline = true;
+        },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
         }
     }
 </script>
 
 <style lang="scss">
-
+    #about-us-timeline {
+        .register-button {
+            margin-left: 0;
+            margin-top: 18px;
+        }
+    }
 </style>

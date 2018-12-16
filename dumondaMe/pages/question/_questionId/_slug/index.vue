@@ -3,6 +3,7 @@
         <div slot="sidebar">
             <create-answer></create-answer>
             <beta-version></beta-version>
+            <register v-if="!isAuthenticated"></register>
             <general-information></general-information>
             <similar-questions></similar-questions>
         </div>
@@ -10,6 +11,7 @@
             <question-header></question-header>
             <general-information class="sidebar-on-mobile"></general-information>
             <answers></answers>
+            <register class="register-on-mobile" v-if="!isAuthenticated"></register>
             <similar-questions class="sidebar-on-mobile"></similar-questions>
         </div>
     </detail-layout>
@@ -22,6 +24,7 @@
     import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
     import SimilarQuestions from '~/components/question/SimilarQuestions';
+    import Register from '~/components/question/Register';
     import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
@@ -62,11 +65,15 @@
             }
         },
         components: {
-            DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion, SimilarQuestions
+            Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion,
+            SimilarQuestions
         },
         computed: {
             question() {
                 return this.$store.state.question.question;
+            },
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
             }
         }
     }
@@ -85,6 +92,13 @@
                 @media screen and (max-width: $xs) {
                     padding-top: 0;
                 }
+            }
+        }
+
+        .register-on-mobile {
+            margin-bottom: 0;
+            @media screen and (min-width: $xs) {
+                display: none;
             }
         }
 
