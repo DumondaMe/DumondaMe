@@ -189,7 +189,7 @@
       "watchesCommitment": {
         "title": "findet dieses Engagement interessant",
         "titleIsLoggedInUser": "findest dieses Engagement interessant",
-        "noWatches": "Noch niemand findet diese Engagement interessant",
+        "noWatches": "Noch niemand findet dieses Engagement interessant",
         "userIsOnlyWatcher": "Du bist die erste Person welche dieses Engagement interessant findet.",
         "moreWatches": "Interessierte Person",
         "moreWatches_plural": "Interessierte Personen"
