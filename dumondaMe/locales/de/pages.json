@@ -769,6 +769,11 @@
       "title": "Was bedeutet der Name DumondaMe?",
       "text1": "<b>Dumonda</b> bedeutet auf Rätoromanisch 'Frage' und <b>Me</b> hat auf Englisch, Spanisch, Italienisch und Französisch die Bedeutung 'mich'. DumondaMe = Frage mich :-)"
     },
+    "whosBehindDumondaMe": {
+      "title": "Wer steht hinter DumondaMe?",
+      "text1": "Das Projekt wurde von Roger Waldvogel lanciert und wird vom gleichnamigen Verein entwickelt und betrieben.",
+      "navigationButton": "Mehr über uns erfahren"
+    },
     "differenceSocialNetwork": {
       "title": "Was unterscheidet DumondaMe von anderen, sozialen Netzwerken?",
       "text1": "Bei den meisten sozialen Netzwerken werden einzelne Beiträge wie z.B. Bilder, Texte oder Videos isoliert gepostet und nur teilweise, wie bei Twitter, mit Hashtags gruppiert. Bei DumondaMe startet alles mit einer Frage, welcher dann als Antworten die Beiträge verschiedener Art zugeordnet werden.",
@@ -822,6 +827,12 @@
       "title": "Ist der Code von DumondaMe Open Source?",
       "text1": "Ja, um eine bessere Transparenz bezüglich den verwendeten Algorithmen anzubieten ist der Code Open Source. Dieser kann auf <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a> eingesehen werden."
     }
+  },
+  "vision": {
+    "title": "Unsere Vision",
+    "text1": "Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit, eine hohe Lebensqualität und Frieden so selbstverständlich ist wie die Luft zum Atmen? Um dies zu verwirklichen ist es unabdingbar, dass wir die notwendigen Fragen stellen und die passenden Antworten umsetzen. Dazu braucht es Engagement in verschiedenen Themenbereichen wie Umweltschutz, Wirtschaft, Gesundheit, Bildung, Spiritualität und vielen mehr.",
+    "text2": "DumondaMe dient als Katalysator, welcher die bereits vorhanden Lösungsvorschläge sichtbar macht und das Erarbeiten von neuen unterstützt. Das soziale Netzwerk nutzt dabei das Potenzial des Internets, um mit vereinten Kräften einen Paradigmenwechsel zu ermöglichen. Einer welcher uns nicht länger nur von einer besseren Zukunft träumen lässt, sondern diese in die Gegenwart bringt.",
+    "aboutUsButton": "Wer steht hinter DumondaMe?"
   },
   "contact": {
     "title": "Kontakt",

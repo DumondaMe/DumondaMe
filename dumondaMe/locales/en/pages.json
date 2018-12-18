@@ -766,6 +766,11 @@
       "title": "What does the name DumondaMe mean?",
       "text1": "<b>Dumonda</b> means 'question' in Rhaeto-Romanic and <b>Me</b> means 'me' in English, Spanish, Italian and French."
     },
+    "whosBehindDumondaMe": {
+      "title": "Who's behind DumondaMe?",
+      "text1": "The project was launched by Roger Waldvogel and is developed and operated by the association of the same name.",
+      "navigationButton": "More about us"
+    },
     "differenceSocialNetwork": {
       "title": "What distinguishes DumondaMe from other social networks?",
       "text1": "In most social networks, individual posts such as pictures, texts or videos are posted and grouped with hashtags at most, as for example on Twitter. In DumondaMe, these posts are assigned to a question as an answer.",
@@ -819,6 +824,12 @@
       "title": "Is the code of DumondaMe open source?",
       "text1": "Yes, to provide a better transparency regarding the algorithms used, the code is open source. This can be viewed at <a href='https://github.com/DumondaMe/DumondaMe' target='_blank'>Github</a>."
     }
+  },
+  "vision": {
+    "title": "Our Vision",
+    "text1": "How do we change the world into a place where a sustainable interaction with nature, social justice, a high quality of life and peace are as self-evident as the air we breathe? In order to achieve this, it is indispensable that we ask the necessary questions and implement the appropriate answers. This requires commitment in various areas such as environmental protection, the economy, health, education, spirituality and many more.",
+    "text2": "DumondaMe serves as a catalyst, which makes already existing solutions visible and supports the development of new ones. The social network uses the potential of the Internet in order to enable a paradigm shift with united forces. One that no longer lets us only dream of a better future, but brings it into the present.",
+    "aboutUsButton": "Who's behind DumondaMe?"
   },
   "contact": {
     "title": "Contact",
