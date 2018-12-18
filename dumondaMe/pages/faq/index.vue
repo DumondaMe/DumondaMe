@@ -14,6 +14,12 @@
         <concept-info-dialog v-if="showConceptInfoDialog" @close-dialog="showConceptInfoDialog = false">
         </concept-info-dialog>
 
+        <h2>{{$t('pages:faq.whosBehindDumondaMe.title')}}</h2>
+        <p v-html="$t('pages:faq.whosBehindDumondaMe.text1')"></p>
+        <v-btn color="primary" class="navigation-button" @click="$router.push({name: 'aboutUs'})">
+            {{$t('pages:faq.whosBehindDumondaMe.navigationButton')}}
+        </v-btn>
+
         <h2>{{$t('pages:faq.meaningOfDumondaMe.title')}}</h2>
         <p v-html="$t('pages:faq.meaningOfDumondaMe.text1')"></p>
 
@@ -24,6 +30,10 @@
 
         <h2>{{$t('pages:faq.advantageAccount.title')}}</h2>
         <p>{{$t('pages:faq.advantageAccount.text1')}}</p>
+        <v-btn color="secondary" class="navigation-button" @click="$router.push({name: 'register'})"
+               v-if="!isAuthenticated">
+            {{$t('common:button.register')}}
+        </v-btn>
 
         <h2>{{$t('pages:faq.commitment.title')}}</h2>
         <p>{{$t('pages:faq.commitment.text1')}}</p>
@@ -67,6 +77,11 @@
         methods: {
             getUrl(url) {
                 return `${process.env.staticUrl}/${url}`;
+            }
+        },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
             }
         }
     }
@@ -130,6 +145,11 @@
 
         .tour-button {
             margin-top: 14px;
+            margin-left: 0;
+        }
+
+        .navigation-button {
+            margin-top: 0;
             margin-left: 0;
         }
     }
