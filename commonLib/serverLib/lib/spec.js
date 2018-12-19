@@ -71,11 +71,11 @@ module.exports = function (app, nuxt) {
 
         if (nuxt && nuxt.render) {
             app.use(function (req, res, next) {
-                if (req.originalUrl.match(/api/) === null) {
+                if (req.originalUrl.match(/^\/api\//) === null) {
                     req.headers.cookie = cookieKey + '=s:' + cookie.sign(req.sessionID, cookieSecret);
                 }
                 req.session.save(async function () {
-                    if (req.originalUrl.match(/api/) === null) {
+                    if (req.originalUrl.match(/^\/api\//) === null) {
                         try {
                             await nuxt.render(req, res);
                         } catch (err) {
