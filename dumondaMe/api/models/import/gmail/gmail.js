@@ -1,42 +1,33 @@
 'use strict';
 
-let rp = require('request-promise');
-let parser = require('./parser');
+const rp = require('request-promise');
+const parser = require('./parser');
+const user = require('../user');
 
-let getAccessToken = function (code) {
-    let option = {
-        method: 'POST',
-        uri: `https://www.googleapis.com/oauth2/v4/token`,
+const getAccessToken = async function (code) {
+    let normalizedCode = code.replace('%2F', '/');
+    let resp = await rp.post('https://www.googleapis.com/oauth2/v4/token', {
         form: {
-            code: code,
-            client_id: '270929621236-4cauqnck95vm8ohkvu3rokhp74jued28.apps.googleusercontent.com',
-            client_secret: '0C5eH6e2qZ2RHA5FlV8i2wLp',
+            code: normalizedCode,
+            client_id: process.env.OAUTH_GOOGLE_CLIENT_ID,
+            client_secret: process.env.OAUTH_GOOGLE_SECRET,
             redirect_uri: `${process.env.DUMONDA_ME_DOMAIN}auth`,
             grant_type: 'authorization_code'
-        },
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
         }
-    };
-    return rp(option).then(function (resp) {
-        resp = JSON.parse(resp);
-        return resp.access_token;
     });
+    resp = JSON.parse(resp);
+    return resp.access_token;
 };
 
-let importGmailContacts = function (userId, request) {
-    return getAccessToken(request.code).then(function (token) {
-        let option = {
-            uri: `https://www.google.com/m8/feeds/contacts/default/full`,
-            qs: {
-                access_token: token,
-                'max-results': 3000
-            }
-        };
-        return rp(option);
-    }).then(function (resp) {
-        return {addresses: parser.parseXML((resp))};
-    });
+const importGmailContacts = async function (userId, request) {
+    let token = await getAccessToken(request.code);
+    let option = {
+        url: `https://www.google.com/m8/feeds/contacts/default/full`,
+        qs: {access_token: token, 'max-results': 3000}
+    };
+    let resp = await rp.get(option);
+    let users = parser.parseXML(resp);
+    return {contacts: await user.getExistingUserInfo(users, userId)};
 };
 
 module.exports = {

@@ -33,7 +33,8 @@ module.exports = {
     },
     dev: (process.env.NODE_ENV !== 'production'),
     env: {
-        staticUrl: process.env.CLIENT_STATIC_URL
+        staticUrl: process.env.CLIENT_STATIC_URL,
+        oAuthGoogleClientUrl: process.env.OAUTH_GOOGLE_CLIENT_URL
     },
     router: {
         scrollBehavior: function () {
