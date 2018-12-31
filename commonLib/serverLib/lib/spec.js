@@ -43,7 +43,7 @@ module.exports = function (app, nuxt) {
     if (process.env.ROBOT_TEXT_ENABLE_CRAWLER === 'true') {
         app.get('/robots.txt', function (req, res) {
             res.type('text/plain');
-            res.send("User-agent: *\nDisallow: ");
+            res.send("User-agent: *\nDisallow: *?answerId=* \nDisallow: *?eventId=*");
         });
     } else {
         app.get('/robots.txt', function (req, res) {
