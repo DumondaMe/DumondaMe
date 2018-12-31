@@ -1,20 +1,22 @@
 <template>
-    <detail-layout itemscope itemtype="http://schema.org/Question">
-        <div slot="sidebar">
-            <create-answer></create-answer>
-            <beta-version></beta-version>
-            <register v-if="!isAuthenticated"></register>
-            <general-information></general-information>
-            <similar-questions></similar-questions>
-        </div>
-        <div slot="content" id="question-detail">
-            <question-header></question-header>
-            <general-information class="sidebar-on-mobile"></general-information>
-            <answers></answers>
-            <register class="register-on-mobile" v-if="!isAuthenticated"></register>
-            <similar-questions class="sidebar-on-mobile"></similar-questions>
-        </div>
-    </detail-layout>
+    <div itemscope itemtype="http://schema.org/QAPage">
+        <detail-layout itemscope itemtype="http://schema.org/Question">
+            <div slot="sidebar">
+                <create-answer></create-answer>
+                <beta-version></beta-version>
+                <register v-if="!isAuthenticated"></register>
+                <general-information></general-information>
+                <similar-questions></similar-questions>
+            </div>
+            <div slot="content" id="question-detail">
+                <question-header></question-header>
+                <general-information class="sidebar-on-mobile"></general-information>
+                <answers></answers>
+                <register class="register-on-mobile" v-if="!isAuthenticated"></register>
+                <similar-questions class="sidebar-on-mobile"></similar-questions>
+            </div>
+        </detail-layout>
+    </div>
 </template>
 
 <script>
