@@ -1,6 +1,6 @@
 <template>
     <div itemscope itemtype="http://schema.org/QAPage">
-        <detail-layout itemscope itemtype="http://schema.org/Question">
+        <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
             <div slot="sidebar">
                 <create-answer></create-answer>
                 <beta-version></beta-version>
