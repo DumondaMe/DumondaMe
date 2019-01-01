@@ -23,7 +23,9 @@
                                                               class="link">{{answer.title}} </a></span>
                         </div>
                     </h2>
-                    <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+                    <time class="secondary-text" itemprop="dateCreated" :datetime="dateCreatedIso">
+                        {{answer.created | formatRelativeTimesAgo}}
+                    </time>
                 </div>
                 <v-spacer></v-spacer>
                 <slot name="feedMenu"></slot>
@@ -34,9 +36,7 @@
                 <img :src="youtubeImage" v-else @click="showEmbed = true">
             </div>
             <div class="answer-description">
-                <expand-text :expand-text="answer.description"
-                             itemprop="text">
-                </expand-text>
+                <expand-text :expand-text="answer.description"></expand-text>
             </div>
         </div>
         <slot name="footer"></slot>
@@ -45,6 +45,7 @@
 
 <script>
     import ExpandText from '~/components/common/text/Expand.vue'
+    import format from 'date-fns/format'
 
     export default {
         props: ['answer', 'hideQuestion'],
@@ -71,6 +72,9 @@
             },
             youtubeHeight() {
                 return this.$refs.answerContent.clientWidth * 0.6;
+            },
+            dateCreatedIso() {
+                return format(this.answer.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
             }
         }
     }

@@ -21,7 +21,9 @@
                                                           class="link">{{answer.title}} </a></span>
                     </div>
                 </h2>
-                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+                <time class="secondary-text" itemprop="dateCreated" :datetime="dateCreatedIso">
+                    {{answer.created | formatRelativeTimesAgo}}
+                </time>
             </div>
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
@@ -31,7 +33,7 @@
                 <img :src="answer.imageUrl" @click="openBook">
             </div>
             <div class="answer-description" :class="{'no-book-image': !answer.imageUrl}">
-                <expand-text :expand-text="answer.description" itemprop="text">
+                <expand-text :expand-text="answer.description">
                 </expand-text>
             </div>
         </div>
@@ -41,6 +43,7 @@
 
 <script>
     import ExpandText from '~/components/common/text/Expand.vue'
+    import format from 'date-fns/format'
 
     export default {
         props: ['answer', 'hideQuestion'],
@@ -51,6 +54,9 @@
         computed: {
             link() {
                 return `http://books.google.com/books?vid=${this.answer.googleBookId}`;
+            },
+            dateCreatedIso() {
+                return format(this.answer.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
             }
         },
         methods: {
@@ -58,9 +64,11 @@
                 if (this.hideQuestion) {
                     window.open(this.link)
                 } else {
-                    this.$router.push({name: 'question-questionId-slug',
+                    this.$router.push({
+                        name: 'question-questionId-slug',
                         params: {questionId: this.answer.questionId, slug: this.answer.questionSlug},
-                        query: {answerId: this.answer.answerId}})
+                        query: {answerId: this.answer.answerId}
+                    })
                 }
             }
         }
@@ -73,6 +81,7 @@
             min-height: 90px;
             display: flex;
             margin-bottom: 16px;
+
             .book-preview-image {
                 img {
                     cursor: pointer;
@@ -85,16 +94,20 @@
                     }
                 }
             }
+
             .answer-description {
                 margin-left: 18px;
+
                 p {
                     max-height: 11.2em;
                 }
             }
+
             .answer-description.no-book-image {
                 margin-left: 0;
             }
         }
+
         .book-answer-content.no-book-image {
             min-height: 0;
         }

@@ -22,7 +22,9 @@
                         </span>
                     </div>
                 </h2>
-                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+                <time class="secondary-text" itemprop="dateCreated" :datetime="dateCreatedIso">
+                    {{answer.created | formatRelativeTimesAgo}}
+                </time>
             </div>
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
@@ -33,7 +35,7 @@
             </div>
             <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
                 <expand-text :expand-text="answer.description"
-                             :class="{'no-link-image': !answer.imageUrl}" itemprop="text">
+                             :class="{'no-link-image': !answer.imageUrl}">
                 </expand-text>
             </div>
         </div>
@@ -43,6 +45,7 @@
 
 <script>
     import ExpandText from '~/components/common/text/Expand.vue'
+    import format from 'date-fns/format'
 
     export default {
         props: ['answer', 'hideQuestion'],
@@ -53,6 +56,9 @@
                     return this.$t(`common:feedCard.answerType.link.${this.answer.pageType}`)
                 }
                 return this.$t(`common:feedCard.answerType.link.link`)
+            },
+            dateCreatedIso() {
+                return format(this.answer.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
             }
         },
         methods: {

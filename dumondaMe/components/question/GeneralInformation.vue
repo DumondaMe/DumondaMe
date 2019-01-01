@@ -6,9 +6,9 @@
         </div>
         <div class="question-info">
             <v-icon class="info-icon">mdi-clock-outline</v-icon>
-            <div class="question-info-content">
+            <time class="question-info-content" itemprop="dateCreated" :datetime="dateCreatedIso">
                 {{question.created | formatRelativeTimesAgo}}
-            </div>
+            </time>
         </div>
         <div class="question-info">
             <v-icon class="info-icon">mdi-key</v-icon>
@@ -28,12 +28,16 @@
 
 <script>
     import language from '~/mixins/languages.js';
+    import format from 'date-fns/format'
 
     export default {
         mixins: [language],
         computed: {
             question() {
                 return this.$store.state.question.question;
+            },
+            dateCreatedIso() {
+                return format(this.question.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
             }
         }
     }
@@ -55,7 +59,6 @@
                 }
             }
             .question-info-content {
-                margin-left: 30px;
                 .user-name {
                     font-weight: 400;
                     cursor: pointer;
