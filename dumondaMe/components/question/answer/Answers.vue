@@ -3,6 +3,7 @@
         <div class="dumonda-me-answer-content">
             <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope class="feed-card ely-card"
                  itemtype="http://schema.org/Answer" :class="{'single-feed-card': showAllAnswersButton}">
+                <a itemprop="url" :href="getAnswerUrl(answer.answerId)" class="hide-answer-link"></a>
                 <text-card v-if="answer.answerType === 'Text'" :answer="answer"
                            @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
@@ -120,6 +121,9 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            getAnswerUrl(answerId) {
+                return `https://www.dumonda.me/question/${this.$route.params.questionId}/${this.$route.params.slug}?answerId=${answerId}`
             }
         }
     }
@@ -131,21 +135,29 @@
             margin-top: 0;
             border-top: 1px solid $divider;
         }
+
         .dumonda-me-answer-content {
+            .hide-answer-link {
+                display: none;
+            }
+
             .new-added-answer {
                 border: 1px solid $success-text;
             }
+
             .feed-card.ely-card.single-feed-card {
                 @media screen and (max-width: $sm) {
                     border-bottom: none;
                 }
             }
         }
+
         .show-answer-not-found {
             font-size: 20px;
             margin-bottom: 24px;
             font-weight: 300;
         }
+
         .show-answer-button {
             margin-left: 0;
             @media screen and (max-width: $sm) {
@@ -154,6 +166,7 @@
                 margin-left: 16px;
             }
         }
+
         .show-no-answers {
             font-size: 20px;
             font-weight: 300;

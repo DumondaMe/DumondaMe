@@ -16,12 +16,14 @@
                             query: {answerId: answer.answerId}}"> {{answer.question}}
                     </nuxt-link></span>
                 </h2>
-                <div class="secondary-text">{{answer.created | formatRelativeTimesAgo}}</div>
+                <time class="secondary-text" itemprop="dateCreated" :datetime="dateCreatedIso">
+                    {{answer.created | formatRelativeTimesAgo}}
+                </time>
             </div>
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
         </div>
-        <expand-text :expand-text="answer.answerHtml" class="answer-description" itemprop="text">
+        <expand-text :expand-text="answer.answerHtml" class="answer-description">
         </expand-text>
         <slot name="footer"></slot>
     </div>
@@ -29,10 +31,16 @@
 
 <script>
     import ExpandText from '~/components/common/text/Expand.vue'
+    import format from 'date-fns/format'
 
     export default {
         props: ['answer', 'hideQuestion', 'creator'],
         components: {ExpandText},
+        computed: {
+            dateCreatedIso() {
+                return format(this.answer.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
+            }
+        },
         methods: {
             goToProfile() {
                 if (this.creator.isLoggedInUser) {

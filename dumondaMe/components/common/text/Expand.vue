@@ -1,6 +1,6 @@
 <template>
     <div class="expand-text-container">
-        <p :class="{'expand': expandDescription}" ref="expandElement">
+        <p :class="{'expand': expandDescription}" ref="expandElement" itemprop="text">
             <span v-html="expandText"></span></p>
         <div v-show="showTextExpanse && !expandDescription" class="expanse-button"
              @click="expandDescription = true">{{$t('common:button.readMore')}}

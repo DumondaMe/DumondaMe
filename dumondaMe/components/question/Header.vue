@@ -39,7 +39,7 @@
                                     <span v-else>{{$t('common:you')}}
                             {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
                                 </v-tooltip>
-                                <span class="description">{{question.numberOfWatches}}</span>
+                                <span class="description" itemprop="upvoteCount">{{question.numberOfWatches}}</span>
                             </div>
                         </watches-menu>
                     </div>
