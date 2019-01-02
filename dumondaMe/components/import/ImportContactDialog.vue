@@ -3,13 +3,11 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly"
                   id="import-contact-dialog">
             <v-card id="import-contact-container">
-                <div>
-
-                </div>
                 <v-card-text class="mobile-dialog-content">
-                    <div class="import-source-container" @click="openGoogleImport">
-                        <img :src="getImportUrl('gmail.png')"/>
-                    </div>
+                    <import-contact-container @contacts-loaded="contactsLoaded"></import-contact-container>
+                    <contact v-for="contact in contacts" :contact="contact" :key="contact.email"
+                             @select-changed="selectChanged">
+                    </contact>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -17,7 +15,7 @@
                     <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                         {{$t("common:button.close")}}
                     </v-btn>
-                    <v-btn color="primary" @click.native="$emit('close-dialog')">
+                    <v-btn color="primary" @click.native="$emit('close-dialog')" :disabled="selected.length === 0">
                         {{$t("common:button.ok")}}
                     </v-btn>
                 </v-card-actions>
@@ -27,56 +25,27 @@
 </template>
 
 <script>
-
-    import oAuthWindow from './oAuthWindow';
-    import parseGoogleOAuthUrl from './parseGoogleOAuthUrl';
+    import ImportContactContainer from './ImportContactContainer';
+    import Contact from './Contact';
 
     export default {
         data() {
-            return {dialog: true, oAuthWindow: null, checkWindowInterval: null, contacts: []}
+            return {dialog: true, contacts: [], selected: []}
         },
-        components: {},
+        components: {Contact, ImportContactContainer},
         methods: {
-            getImportUrl(image) {
-                return `${process.env.staticUrl}/img/import/${image}`;
+            contactsLoaded(contacts) {
+                this.contacts = this.contacts.concat(contacts);
             },
-            openGoogleImport() {
-                if (this.oAuthWindow === null) {
-                    let sendImportRequest = this.sendImportRequest;
-                    let window = oAuthWindow.open(process.env.oAuthGoogleClientUrl,
-                        async function (url) {
-                            try {
-                                if (typeof url === 'string') {
-                                    let code = parseGoogleOAuthUrl.parse(url);
-                                    await sendImportRequest(code);
-                                }
-                            } catch (e) {
-                                console.error(e);
-                            }
-                        });
-                    this.oAuthWindow = window.window;
-                    this.checkWindowInterval = window.interval;
-                }
-            },
-            async sendImportRequest(code) {
-                let response = await this.$axios.$get('import/contact/gmail', {params: {code}});
-                debugger
-                this.contacts = response.addresses;
-            },
-            closeOAuthWindow() {
-                if (this.oAuthWindow && this.oAuthWindow.close) {
-                    this.oAuthWindow.close();
-                    this.oAuthWindow = null;
-                }
-                if (this.checkWindowInterval) {
-                    clearInterval(this.checkWindowInterval);
+            selectChanged(eMail) {
+                let index = this.selected.indexOf(eMail);
+                if (index > -1) {
+                    this.selected.splice(index, 1);
+                } else {
+                    this.selected.push(eMail);
                 }
             }
-        },
-        beforeDestroy() {
-            this.closeOAuthWindow();
-        },
-        computed: {}
+        }
     }
 </script>
 
