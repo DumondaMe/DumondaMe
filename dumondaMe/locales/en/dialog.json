@@ -33,5 +33,8 @@
       "description2": "you are helping to ensure that the most relevant information appears first. You can also mark questions and engagements that interest you",
       "description3": ". So you can see in your activities feed when interesting questions have been answered or interesting engagements are planning events. (The Activities feed will be updated soon to make it more visible to you)"
     }
+  },
+  "invite": {
+    "title": "Networking"
   }
 }

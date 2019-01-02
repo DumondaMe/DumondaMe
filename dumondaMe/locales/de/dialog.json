@@ -33,5 +33,8 @@
       "description2": "hilfst du mit, dass die relevantesten Informationen zuerst erscheinen. Zudem kannst du Fragen und Engagements markieren, welche dich interessieren",
       "description3": ". So siehst du in deinem Aktivitäten Feed wenn interessante Fragen beantwortet wurden oder interessante Engagements Veranstaltungen planen. (Der Aktivitäten Feed wird noch überarbeitet damit dir dies besser dargestellt wird)"
     }
+  },
+  "invite": {
+    "title": "Vernetzen"
   }
 }
