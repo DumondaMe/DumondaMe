@@ -17,7 +17,7 @@
 
     export default {
         components: {Login, RegisterLink},
-        async asyncData({params, app , error}) {
+        async asyncData({params, app, error}) {
             try {
                 let resp = await app.$axios.$post('register/verify', {linkId: params.id});
                 return {email: resp.email};
@@ -26,6 +26,11 @@
                     statusCode: 400,
                     message: app.i18n.i18next.t('pages:register.errorRegistered')
                 })
+            }
+        },
+        mounted() {
+            if (process.env.isProduction) {
+                gtag('event', 'conversion', {'send_to': 'AW-773868544/OE86CL7KzZIBEICYgfEC'});
             }
         }
     }

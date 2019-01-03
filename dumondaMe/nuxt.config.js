@@ -2,6 +2,20 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
+const getScripts = function () {
+    let script = [{src: `${process.env.CLIENT_STATIC_URL}/polyfill.min.js`}];
+    if (process.env.NODE_ENV === 'production') {
+        script.push({
+            src: `https://www.googletagmanager.com/gtag/js?id=AW-773868544`, async: true
+        });
+        script.push({
+            innerHTML: "window.dataLayer = window.dataLayer || []; " +
+                "function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-773868544');"
+        });
+    }
+    return script;
+};
+
 module.exports = {
     head: {
         title: 'DumondaMe',
@@ -27,13 +41,13 @@ module.exports = {
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ],
-        script: [{
-            src: `${process.env.CLIENT_STATIC_URL}/polyfill.min.js`
-        }]
+        script: getScripts(),
+        __dangerouslyDisableSanitizers: ['script']
     },
     dev: (process.env.NODE_ENV !== 'production'),
     env: {
-        staticUrl: process.env.CLIENT_STATIC_URL
+        staticUrl: process.env.CLIENT_STATIC_URL,
+        isProduction: process.env.NODE_ENV === 'production'
     },
     router: {
         scrollBehavior: function () {
@@ -73,7 +87,7 @@ module.exports = {
             new VuetifyLoaderPlugin()
         ],
         optimizeCSS: true,
-        extend(config, { isServer }) {
+        extend(config, {isServer}) {
             if (isServer) {
                 config.externals = [
                     nodeExternals({
