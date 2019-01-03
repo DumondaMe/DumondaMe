@@ -81,7 +81,8 @@
     "upVote": "Up vote",
     "interested": "Interested",
     "login": "Login",
-    "register": "Create account"
+    "register": "Create account",
+    "import": "Import"
   },
   "language": {
     "de": "German",

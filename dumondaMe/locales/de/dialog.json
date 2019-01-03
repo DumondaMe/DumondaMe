@@ -35,6 +35,16 @@
     }
   },
   "invite": {
-    "title": "Vernetzen"
+    "gmx": {
+      "title": "GMX Kontakte importieren",
+      "email": "Deine GMX E-Mail Adresse"
+    },
+    "webDe": {
+      "title": "Web.De Kontakte importieren",
+      "email": "Deine Web.De E-Mail Adresse"
+    },
+    "basicAuth": {
+      "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden."
+    }
   }
 }
