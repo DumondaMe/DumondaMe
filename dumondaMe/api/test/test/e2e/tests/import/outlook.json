@@ -1,0 +1,159 @@
+{
+  "@odata.context": "https://outlook.office.com/api/v2.0/$metadata#Me/Contacts",
+  "value": [
+    {
+      "@odata.id": "https://outlook.office.com/api/v2.0/Users('66d840de-8658-47d2-916a-795e68d0d4ff@84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa')/Contacts('AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=')",
+      "@odata.etag": "W/\"EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M\"",
+      "Id": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=",
+      "CreatedDateTime": "2019-01-03T07:07:07Z",
+      "LastModifiedDateTime": "2019-01-03T07:07:08Z",
+      "ChangeKey": "EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M",
+      "Categories": [],
+      "ParentFolderId": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgAuAAAAAAAGBFOjllitTbsG7mFWkGozAQAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAA=",
+      "Birthday": null,
+      "FileAs": "Muster, Hans",
+      "DisplayName": "Hans Muster",
+      "GivenName": "Hans",
+      "Initials": null,
+      "MiddleName": null,
+      "NickName": null,
+      "Surname": "Muster",
+      "Title": null,
+      "YomiGivenName": null,
+      "YomiSurname": null,
+      "YomiCompanyName": null,
+      "Generation": null,
+      "ImAddresses": [],
+      "JobTitle": null,
+      "CompanyName": null,
+      "Department": null,
+      "OfficeLocation": null,
+      "Profession": null,
+      "BusinessHomePage": null,
+      "AssistantName": null,
+      "Manager": null,
+      "HomePhones": [],
+      "MobilePhone1": null,
+      "BusinessPhones": [],
+      "SpouseName": null,
+      "PersonalNotes": "",
+      "Children": [],
+      "EmailAddresses": [
+        {
+          "Name": "hans.muster@test.ch",
+          "Address": "hans.muster@test.ch"
+        }
+      ],
+      "HomeAddress": {
+        "Type": "Unknown"
+      },
+      "BusinessAddress": {
+        "Type": "Unknown"
+      },
+      "OtherAddress": {
+        "Type": "Unknown"
+      }
+    },
+    {
+      "@odata.id": "https://outlook.office.com/api/v2.0/Users('66d840de-8658-47d2-916a-795e68d0d4ff@84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa')/Contacts('AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=')",
+      "@odata.etag": "W/\"EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M\"",
+      "Id": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=",
+      "CreatedDateTime": "2019-01-03T07:07:07Z",
+      "LastModifiedDateTime": "2019-01-03T07:07:08Z",
+      "ChangeKey": "EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M",
+      "Categories": [],
+      "ParentFolderId": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgAuAAAAAAAGBFOjllitTbsG7mFWkGozAQAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAA=",
+      "Birthday": null,
+      "FileAs": "Muster2, Hans",
+      "DisplayName": "Hans Muster2",
+      "GivenName": "Hans",
+      "Initials": null,
+      "MiddleName": null,
+      "NickName": null,
+      "Surname": "Muster",
+      "Title": null,
+      "YomiGivenName": null,
+      "YomiSurname": null,
+      "YomiCompanyName": null,
+      "Generation": null,
+      "ImAddresses": [],
+      "JobTitle": null,
+      "CompanyName": null,
+      "Department": null,
+      "OfficeLocation": null,
+      "Profession": null,
+      "BusinessHomePage": null,
+      "AssistantName": null,
+      "Manager": null,
+      "HomePhones": [],
+      "MobilePhone1": null,
+      "BusinessPhones": [],
+      "SpouseName": null,
+      "PersonalNotes": "",
+      "Children": [],
+      "EmailAddresses": [
+        {
+          "Name": "user3@irgendwo.ch",
+          "Address": "user3@irgendwo.ch"
+        }
+      ],
+      "HomeAddress": {
+        "Type": "Unknown"
+      },
+      "BusinessAddress": {
+        "Type": "Unknown"
+      },
+      "OtherAddress": {
+        "Type": "Unknown"
+      }
+    },
+    {
+      "@odata.id": "https://outlook.office.com/api/v2.0/Users('66d840de-8658-47d2-916a-795e68d0d4ff@84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa')/Contacts('AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=')",
+      "@odata.etag": "W/\"EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M\"",
+      "Id": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgBGAAAAAAAGBFOjllitTbsG7mFWkGozBwAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAAI2KjZl0GPS7sG7hi8nwapAADtfVLjAAA=",
+      "CreatedDateTime": "2019-01-03T07:07:07Z",
+      "LastModifiedDateTime": "2019-01-03T07:07:08Z",
+      "ChangeKey": "EQAAABYAAAAI2KjZl0GPS7sG7hi8nwapAADtfQ1M",
+      "Categories": [],
+      "ParentFolderId": "AAMkADY2ZDg0MGRlLTg2NTgtNDdkMi05MTZhLTc5NWU2OGQwZDRmZgAuAAAAAAAGBFOjllitTbsG7mFWkGozAQAI2KjZl0GPS7sG7hi8nwapAAAAAAEOAAA=",
+      "Birthday": null,
+      "FileAs": "Muster3, Hans",
+      "DisplayName": "Hans Muster3",
+      "GivenName": "Hans",
+      "Initials": null,
+      "MiddleName": null,
+      "NickName": null,
+      "Surname": "Muster",
+      "Title": null,
+      "YomiGivenName": null,
+      "YomiSurname": null,
+      "YomiCompanyName": null,
+      "Generation": null,
+      "ImAddresses": [],
+      "JobTitle": null,
+      "CompanyName": null,
+      "Department": null,
+      "OfficeLocation": null,
+      "Profession": null,
+      "BusinessHomePage": null,
+      "AssistantName": null,
+      "Manager": null,
+      "HomePhones": [],
+      "MobilePhone1": null,
+      "BusinessPhones": [],
+      "SpouseName": null,
+      "PersonalNotes": "",
+      "Children": [],
+      "EmailAddresses": [],
+      "HomeAddress": {
+        "Type": "Unknown"
+      },
+      "BusinessAddress": {
+        "Type": "Unknown"
+      },
+      "OtherAddress": {
+        "Type": "Unknown"
+      }
+    }
+  ]
+}
