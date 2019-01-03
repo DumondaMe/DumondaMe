@@ -4,6 +4,10 @@
              @click="openOAuthImport(sendGMailImportRequest, oAuthGoogleClientUrl, googleParser)">
             <img :src="getImportUrl('gmail.png')"/>
         </div>
+        <div class="import-source"
+             @click="openOAuthImport(sendOutlookImportRequest, oAuthOutlookClientUrl, outlookParser)">
+            <img :src="getImportUrl('outlook.png')"/>
+        </div>
     </div>
 </template>
 
@@ -11,12 +15,14 @@
 
     import oAuthWindow from './oAuthWindow';
     import parseGoogleOAuthUrl from './parseGoogleOAuthUrl';
+    import parseOutlookOAuthUrl from './parseOutlookOAuthUrl';
 
     export default {
         data() {
             return {
                 oAuthWindow: null, checkWindowInterval: null, googleParser: parseGoogleOAuthUrl,
-                oAuthGoogleClientUrl: process.env.oAuthGoogleClientUrl
+                oAuthGoogleClientUrl: process.env.oAuthGoogleClientUrl,
+                oAuthOutlookClientUrl: process.env.oAuthOutlookClientUrl, outlookParser: parseOutlookOAuthUrl
             }
         },
         methods: {
@@ -29,6 +35,7 @@
                         async function (url) {
                             try {
                                 if (typeof url === 'string') {
+                                    debugger
                                     let code = parser.parse(url);
                                     await sendImportRequest(code);
                                 }
@@ -43,7 +50,11 @@
             async sendGMailImportRequest(code) {
                 let response = await this.$axios.$get('import/contact/gmail', {params: {code}});
                 this.addSourceToContacts(response.contacts, 'GMail');
-                debugger
+                this.$emit('contacts-loaded', response.contacts);
+            },
+            async sendOutlookImportRequest(code) {
+                let response = await this.$axios.$get('import/contact/outlook', {params: {code}});
+                this.addSourceToContacts(response.contacts, 'Outlook');
                 this.$emit('contacts-loaded', response.contacts);
             },
             addSourceToContacts(contacts, source) {
@@ -73,6 +84,7 @@
             display: inline-block;
             width: 40px;
             height: 40px;
+            margin-right: 18px;
 
             img {
                 cursor: pointer;
