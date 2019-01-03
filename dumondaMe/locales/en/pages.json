@@ -726,6 +726,11 @@
           "youtube": {
             "title": "Youtube Cookies",
             "description": "Since we include videos from Youtube, <a href='https://policies.google.com/technologies/cookies?' target='_blank' rel='noopener'>cookies are created by Youtube</>."
+          },
+          "adWordsConversionTracking": {
+            "title": "AdWords Conversion Tracking",
+            "description": "Within the context of Google AdWords, we use so-called conversion tracking. When you click on an ad placed by Google, a cookie is set for conversion tracking. These cookies lose their validity after 60 days and do not serve to personally identify the user. If the user visits certain pages of this website and the cookie has not expired, Google and we may recognize that the user clicked on the ad and was directed to that page",
+            "descriptionHide": "Each Google AdWords customer receives a different cookie. Cookies cannot be tracked through AdWords customer websites. The information collected through the Conversion cookie is used to generate conversion statistics. This tells us the total number of users who clicked on the ad and were directed to a page tagged with a conversion tracking tag. However, we will not provide any information that personally identifies a user. If you do not want to participate in tracking, you can opt out of this use by turning off the Google Conversion Tracking cookie in your Internet browser under User Preferences. You will then no longer be included in the conversion tracking statistics."
           }
         }
       },

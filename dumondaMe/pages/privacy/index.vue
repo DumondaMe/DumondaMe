@@ -41,7 +41,16 @@
         <p>{{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.dumondaMe.description')}}</p>
         <h5>3.1.3 {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.youtube.title')}}</h5>
         <p v-html="$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.youtube.description')"></p>
-
+        <h5>3.1.4
+            {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.adWordsConversionTracking.title')}}</h5>
+        <p>
+            {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.adWordsConversionTracking.description')}}</p>
+        <div class="show-more-text" v-if="hideAdWordsText" @click="hideAdWordsText = false">
+            {{$t('common:button.showMore')}}
+        </div>
+        <p v-else>
+            {{$t('pages:privacy.processingData.informationAutomaticallyObtain.cookies.adWordsConversionTracking.descriptionHide')}}
+        </p>
 
         <h3>4. {{$t('pages:privacy.processingData.informationFromOtherSource.title')}}</h3>
         <p>{{$t('pages:privacy.processingData.informationFromOtherSource.text1')}}</p>
@@ -70,6 +79,11 @@
 
 <script>
     export default {
+        data() {
+            return {
+                hideAdWordsText: true
+            }
+        },
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language
@@ -87,6 +101,14 @@
             margin-top: 18px;
             padding: 0 16px;
         }
+
+        .show-more-text {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 16px;
+            color: $primary-color;
+        }
+
         .terms-date {
             margin-top: 4px;
             font-size: 14px;
@@ -108,6 +130,7 @@
                 margin-bottom: 18px;
             }
         }
+
         h2 {
             font-size: 36px;
             line-height: 52px;
@@ -120,6 +143,7 @@
                 margin-bottom: 14px;
             }
         }
+
         h3 {
             font-size: 24px;
             color: #333;
@@ -130,6 +154,7 @@
                 margin-bottom: 14px;
             }
         }
+
         h4 {
             font-size: 20px;
             color: #333;
@@ -141,6 +166,7 @@
                 margin-bottom: 12px;
             }
         }
+
         h5 {
             font-weight: 400;
             font-size: 20px;
@@ -166,6 +192,7 @@
                 margin-left: 8px;
             }
         }
+
         .matomo-opt-out-iframe-desktop {
             border: 2px solid $warning;
             border-radius: 4px;
@@ -173,6 +200,7 @@
                 display: none;
             }
         }
+
         .matomo-opt-out-iframe-mobile {
             @media screen and (min-width: 650px) {
                 display: none;
