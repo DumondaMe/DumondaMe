@@ -8,6 +8,12 @@
              @click="openOAuthImport(sendOutlookImportRequest, oAuthOutlookClientUrl, outlookParser)">
             <img :src="getImportUrl('outlook.png')"/>
         </div>
+        <div class="import-source" @click="$emit('show-basic-auth-gmx')">
+            <img :src="getImportUrl('gmx.png')"/>
+        </div>
+        <div class="import-source" @click="$emit('show-basic-auth-webde')">
+            <img :src="getImportUrl('webde.png')"/>
+        </div>
     </div>
 </template>
 
@@ -35,7 +41,6 @@
                         async function (url) {
                             try {
                                 if (typeof url === 'string') {
-                                    debugger
                                     let code = parser.parse(url);
                                     await sendImportRequest(code);
                                 }
@@ -80,11 +85,14 @@
 
 <style lang="scss">
     .import-source-container {
+        max-width: 290px;
+        margin: 0 auto;
+
         .import-source {
             display: inline-block;
             width: 40px;
             height: 40px;
-            margin-right: 18px;
+            margin-right: 28px;
 
             img {
                 cursor: pointer;

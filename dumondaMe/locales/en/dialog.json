@@ -35,6 +35,16 @@
     }
   },
   "invite": {
-    "title": "Networking"
+    "gmx": {
+      "title": "Import GMX contacts",
+      "email": "Your GMX email address"
+    },
+    "webDe": {
+      "title": "Web.de Import Contacts",
+      "email": "Your Web.de email address"
+    },
+    "basicAuth": {
+      "info": "Your login data will not be saved by DumondaMe. This information is only needed to load the address book."
+    }
   }
 }
