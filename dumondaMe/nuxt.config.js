@@ -48,6 +48,8 @@ module.exports = {
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL,
         isProduction: process.env.NODE_ENV === 'production'
+        oAuthGoogleClientUrl: process.env.OAUTH_GOOGLE_CLIENT_URL,
+        oAuthOutlookClientUrl: process.env.OAUTH_OUTLOOK_CLIENT_URL
     },
     router: {
         scrollBehavior: function () {

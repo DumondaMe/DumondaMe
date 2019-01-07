@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:gd='http://schemas.google.com/g/2005'
+      xmlns:batch='http://schemas.google.com/gdata/batch'
+      xmlns:gContact='http://schemas.google.com/contact/2008'
+      xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/'>
+    <id>test@gmail.com</id>
+    <updated>2018-12-20T08:57:01.330Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
+    <title type='text'>Test Users's Contacts</title>
+    <link href='http://www.google.com/' rel='alternate' type='text/html'/>
+    <author>
+        <name>Roger Waldvogel</name>
+        <email>test@gmail.com</email>
+    </author>
+    <generator version='1.0' uri='http://www.google.com/m8/feeds'>Contacts</generator>
+    <openSearch:totalResults>3</openSearch:totalResults>
+    <openSearch:startIndex>1</openSearch:startIndex>
+    <openSearch:itemsPerPage>3000</openSearch:itemsPerPage>
+    <entry>
+        <id>http://www.google.com/m8/feeds/contacts/test%40gmail.com/base/321</id>
+        <updated>2014-01-22T17:37:54.037Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
+        <title type='text'>Hans Wurst/M</title>
+        <link rel='http://schemas.google.com/contacts/2008/rel#edit-photo' type='image/*'
+              href='https://www.google.com/m8/feeds/photos/media/test%40gmail.comtest%40gmail.com/321/654'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/321'/>
+        <link rel='edit' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/321/1390412274037001'/>
+        <gd:phoneNumber rel='http://schemas.google.com/g/2005#mobile' uri='tel:123456'>123456</gd:phoneNumber>
+    </entry>
+    <entry>
+        <id>http://www.google.com/m8/feeds/contacts/test%40gmail.com/base/9874</id>
+        <updated>2016-11-16T09:21:21.710Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
+        <title type='text'>Alice im Wunderland</title>
+        <link rel='http://schemas.google.com/contacts/2008/rel#edit-photo' type='image/*'
+              href='https://www.google.com/m8/feeds/photos/media/test%40gmail.com/9874/654'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12'/>
+        <link rel='edit' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12/3212'/>
+        <gd:email rel='http://schemas.google.com/g/2005#other' address='follow@rabbit.de' primary='true'/>
+    </entry>
+    <entry>
+        <id>http://www.google.com/m8/feeds/contacts/test%40gmail.com/base/9874</id>
+        <updated>2016-11-16T09:21:21.710Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
+        <title type='text'>Bob</title>
+        <link rel='http://schemas.google.com/contacts/2008/rel#edit-photo' type='image/*'
+              href='https://www.google.com/m8/feeds/photos/media/test%40gmail.com/9874/654'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12'/>
+        <link rel='edit' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12/3212'/>
+        <gd:email rel='http://schemas.google.com/g/2005#other' address='user3@irgendwo.ch' primary='true'/>
+    </entry>
+</feed>

@@ -1,14 +1,14 @@
 'use strict';
 
-let parser = require('../carddav/parser');
-let cardDavRequest = require('../carddav/request');
+const parser = require('../carddav/parser');
+const cardDavRequest = require('../carddav/request');
+const user = require('../user');
 
-let importWebDeContacts = function (userId, request) {
-    return cardDavRequest.getAddressUrl(request.username, request.password, 'carddav.web.de').then(function (addressBookUrl) {
-        return cardDavRequest.getContacts(request.username, request.password, 'carddav.web.de', addressBookUrl);
-    }).then(function (resp) {
-        return {addresses: parser.parse(resp)};
-    });
+const importWebDeContacts = async function (userId, request) {
+    let addressBookUrl = await cardDavRequest.getAddressUrl(request.username, request.password, 'carddav.web.de');
+    let resp = await cardDavRequest.getContacts(request.username, request.password, 'carddav.web.de', addressBookUrl);
+    let users = parser.parse(resp);
+    return {contacts: await user.getExistingUserInfo(users, userId)};
 };
 
 module.exports = {
