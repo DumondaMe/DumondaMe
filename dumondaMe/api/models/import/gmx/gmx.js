@@ -1,14 +1,14 @@
 'use strict';
 
-let parser = require('../carddav/parser');
-let cardDavRequest = require('../carddav/request');
+const parser = require('../carddav/parser');
+const cardDavRequest = require('../carddav/request');
+const user = require('../user');
 
-let importGmxContacts = function (userId, request) {
-    return cardDavRequest.getAddressUrl(request.username, request.password, 'carddav.gmx.net').then(function (addressBookUrl) {
-        return cardDavRequest.getContacts(request.username, request.password, 'carddav.gmx.net', addressBookUrl);
-    }).then(function (resp) {
-        return {addresses: parser.parse(resp)};
-    });
+const importGmxContacts = async function (userId, request) {
+    let addressBookUrl = await cardDavRequest.getAddressUrl(request.username, request.password, 'carddav.gmx.net');
+    let resp = await cardDavRequest.getContacts(request.username, request.password, 'carddav.gmx.net', addressBookUrl);
+    let users = parser.parse(resp);
+    return {contacts: await user.getExistingUserInfo(users, userId)};
 };
 
 module.exports = {

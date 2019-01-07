@@ -1,13 +1,12 @@
 'use strict';
 
-let validation = require('dumonda-me-server-lib').jsonValidation;
-let auth = require('dumonda-me-server-lib').auth;
-let importGmx = requireModel('import/gmx/gmx');
-let controllerErrors = require('dumonda-me-server-lib').controllerErrors;
-let logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
+const validation = require('dumonda-me-server-lib').jsonValidation;
+const auth = require('dumonda-me-server-lib').auth;
+const importGmx = requireModel('import/gmx/gmx');
+const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
 
 let schemaImportGmxContacts = {
-    name: 'getGmxContacts',
+    name: 'importGmxContacts',
     type: 'object',
     additionalProperties: false,
     required: ['username', 'password'],
@@ -19,15 +18,9 @@ let schemaImportGmxContacts = {
 
 module.exports = function (router) {
 
-    router.get('/', auth.isAuthenticated(), function (req, res) {
-
-        return controllerErrors('Error occurs when importing gmx contacts', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaImportGmxContacts, logger).then(function (request) {
-                logger.info('Request import of gmx contacts', req);
-                return importGmx.import(req.user.id, request, req);
-            }).then(function (page) {
-                res.status(200).json(page);
-            });
-        });
-    });
+    router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
+        let request = await validation.validateRequest(req, schemaImportGmxContacts);
+        let page = await importGmx.import(req.user.id, request, req);
+        res.status(200).json(page);
+    }));
 };

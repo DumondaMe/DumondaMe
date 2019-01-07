@@ -40,6 +40,7 @@
     "notification": "Notifications",
     "askQuestion": "Ask Question",
     "createCommitment": "Create Commitment",
+    "inviteContacts": "Invite friends",
     "settings": "Settings",
     "logout": "Logout",
     "language": "Language"
@@ -80,7 +81,8 @@
     "upVote": "Up vote",
     "interested": "Interested",
     "login": "Login",
-    "register": "Create account"
+    "register": "Create account",
+    "import": "Import"
   },
   "language": {
     "de": "German",

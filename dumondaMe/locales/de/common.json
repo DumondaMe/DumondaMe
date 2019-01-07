@@ -40,6 +40,7 @@
     "notification": "Benachrichtigungen",
     "askQuestion": "Frage stellen",
     "createCommitment": "Engagement erfassen",
+    "inviteContacts": "Freunde einladen",
     "settings": "Einstellungen",
     "logout": "Abmelden",
     "language": "Sprache"
@@ -80,7 +81,8 @@
     "upVote": "Up vote",
     "interested": "Interessiert",
     "login": "Login",
-    "register": "Benutzerkonto erstellen"
+    "register": "Benutzerkonto erstellen",
+    "import": "Importieren"
   },
   "language": {
     "de": "Deutsch",

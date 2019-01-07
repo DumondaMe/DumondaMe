@@ -11,6 +11,11 @@
                 <span class="navigation-text" @click="createCommitment">
                     {{$t("common:navigation.createCommitment")}}</span>
             </div>
+            <div class="drawer-navigation-element">
+                <v-icon @click="inviteContacts">mdi-account-multiple-plus</v-icon>
+                <span class="navigation-text" @click="inviteContacts">
+                    {{$t("common:navigation.inviteContacts")}}</span>
+            </div>
         </div>
         <div v-else>
             <v-btn outline color="primary" class="navigation-button-full-width"
@@ -99,6 +104,8 @@
         </create-commitment-dialog>
         <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
         </create-question-dialog>
+        <import-contact-dialog v-if="showImportContact" @close-dialog="showImportContact = false">
+        </import-contact-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -110,16 +117,17 @@
     import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
     import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
+    import ImportContactDialog from '~/components/import/ImportContactDialog'
 
     export default {
         name: "Drawer",
         data() {
             return {
                 showError: false, showChangeLanguage: false, showCreateCommitment: false,
-                showCreateQuestion: false
+                showCreateQuestion: false, showImportContact: false
             }
         },
-        components: {LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog},
+        components: {LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -157,6 +165,10 @@
             createCommitment() {
                 this.showCreateCommitment = true;
                 this.$emit('close-drawer');
+            },
+            inviteContacts() {
+                this.showImportContact = true;
+                this.$emit('close-drawer');
             }
         }
     }
@@ -165,32 +177,41 @@
 <style lang="scss">
     #navigation-drawer {
         padding: 32px 16px 8px 16px;
+
         .navigation-button-full-width {
             margin: 0 0 18px 0;
             width: 100%;
         }
+
         .user-navigation {
             margin-bottom: 8px;
         }
+
         .register-button {
             margin-bottom: 38px;
         }
+
         .common-navigation {
             margin-top: 14px;
         }
+
         .bottom-navigation {
             margin-top: 12px;
+
             .bottom-inner-navigation {
                 margin-top: 8px;
             }
         }
+
         .drawer-navigation-element {
             padding: 8px 0;
             display: flex;
+
             a {
                 text-decoration: none;
                 display: flex;
             }
+
             .navigation-text {
                 cursor: pointer;
                 text-decoration: none;
