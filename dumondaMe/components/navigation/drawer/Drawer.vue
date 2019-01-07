@@ -11,11 +11,11 @@
                 <span class="navigation-text" @click="createCommitment">
                     {{$t("common:navigation.createCommitment")}}</span>
             </div>
-            <div class="drawer-navigation-element">
+            <!--<div class="drawer-navigation-element">
                 <v-icon @click="inviteContacts">mdi-account-multiple-plus</v-icon>
                 <span class="navigation-text" @click="inviteContacts">
                     {{$t("common:navigation.inviteContacts")}}</span>
-            </div>
+            </div>-->
         </div>
         <div v-else>
             <v-btn outline color="primary" class="navigation-button-full-width"
