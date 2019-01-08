@@ -2,9 +2,8 @@
     <div id="ely-about-us">
         <h2>{{$t('pages:aboutUs.team.title')}}</h2>
         <div v-if="selectedLanguage === 'de'">
-            <p class="top-text">DumondaMe wird vom gleichnamigen Verein entwickelt und betrieben. Der Verein wurde am
-                21.06.2017 gegründet.
-                Die Vereinsstatuten findest du
+            <p class="top-text">DumondaMe wird vom gleichnamigen, gemeinnützigen Verein entwickelt und betrieben. Der
+                Verein wurde am 21.06.2017 gegründet. Die Vereinsstatuten findest du
                 <a target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
@@ -32,8 +31,8 @@
                 tatkräftig beim Aufbau dieser Plattform.</p>
         </div>
         <div v-else-if="selectedLanguage === 'en'">
-            <p class="top-text">DumondaMe is developed and operated by the non-profit association of the same name. The
-                association was founded on 21.06.2017. You can find the statutes of the association
+            <p class="top-text">DumondaMe is developed and operated by the nonprofit society of the same name. The
+                nonprofit society was founded on 21.06.2017. You can find the statutes of the society
                 <a target="_blank" :href="bylaws">here.</a>
             </p>
             <div class="about-user">
@@ -94,6 +93,7 @@
             margin-top: 18px;
             padding: 0 16px;
         }
+
         h2 {
             font-size: 32px;
             color: #333;
@@ -104,37 +104,45 @@
                 margin-bottom: 18px;
             }
         }
+
         h2.subtitle {
             margin-top: 58px;
             margin-bottom: 0;
         }
+
         .top-text {
             margin-bottom: 40px;
         }
+
         p {
             font-weight: 300;
             font-size: 16px;
             line-height: 24px;
         }
+
         .about-user {
             display: flex;
             margin-bottom: 22px;
+
             .profile-image {
                 margin-right: 18px;
                 @media screen and (max-width: $xs) {
                     width: 80px;
                     height: 80px;
                 }
+
                 img {
                     border-radius: 2px;
                 }
             }
+
             h3 {
                 line-height: 18px;
                 font-size: 18px;
                 color: $primary-color;
 
             }
+
             .ely-function {
                 font-size: 14px;
                 font-weight: 300;

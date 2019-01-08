@@ -224,14 +224,14 @@
     "aboutDumondaMeInfos": {
       "vision": {
         "title": "What is the goal of DumondaMe?",
-        "description": "How do we change the world into a place where a sustainable approach to nature, social justice, a high quality of life and peace are as self-evident as the air we breathe? DumondaMe is the social network that aims to make this vision a reality.",
+        "description": "How do we change the world into a place where a sustainable approach to nature, social justice, a high quality of life and peace are as self-evident as the air we breathe? DumondaMe is the nonprofit social network that aims to make this vision a reality.",
         "autoplayWarning": "On mobile devices you have to click on the video again to play it.",
         "actionButton": "Frequently Asked Questions",
         "actionButtonVision": "Vision"
       },
       "aboutUs": {
         "title": "Who is behind this project?",
-        "description": "DumondaMe is developed and operated by the association of the same name. Learn more about the history of its origins and who is building this platform.",
+        "description": "DumondaMe is developed and operated by the nonprofit society of the same name. Learn more about the history of its origins and who is building this platform.",
         "actionButton": "About us"
       },
       "register": {
@@ -692,7 +692,7 @@
       "title": "General information",
       "point1": "Last updated: 10.07.2018",
       "point2": "This privacy policy applies to the entire DumondaMe service",
-      "point3": "Responsible for the processing of personal data is the association DumondaMe"
+      "point3": "Responsible for the processing of personal data is the society DumondaMe"
     },
     "processingData": {
       "title": "How is your personal data processed?",
@@ -773,7 +773,7 @@
     },
     "whosBehindDumondaMe": {
       "title": "Who's behind DumondaMe?",
-      "text1": "The project was launched by Roger Waldvogel and is developed and operated by the association of the same name.",
+      "text1": "The project was launched by Roger Waldvogel and is developed and operated by the nonprofit society of the same name.",
       "navigationButton": "More about us"
     },
     "differenceSocialNetwork": {
@@ -888,7 +888,7 @@
       },
       "clubElyoos": {
         "title": "Association Elyoos",
-        "text": "In the Cafe Sphères in Zurich, on a warm summer evening, the association Elyoos is founded.",
+        "text": "In the Cafe Sphères in Zurich, on a warm summer evening, the nonprofit society Elyoos is founded.",
         "date": "21 June 2017"
       },
       "kulturparkZurich": {
@@ -927,8 +927,8 @@
         "date": "September 22nd, 2018."
       },
       "elyoosToDumondaMe": {
-        "title": "The association Elyoos becomes DumondaMe",
-        "text": "In the process of the general renaming also the name of the supporting association Elyoos is changed to DumondaMe.",
+        "title": "The society Elyoos becomes DumondaMe",
+        "text": "In the process of the general renaming also the name of the supporting nonprofit society Elyoos is changed to DumondaMe.",
         "date": "November 10th, 2018"
       },
       "helloWorld": {
