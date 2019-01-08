@@ -1,4 +1,4 @@
-FROM node:10.14.0
+FROM node:10.15.0
 
 ENV NODE_ENV 'production'
 ENV PORT 3000
