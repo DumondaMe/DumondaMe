@@ -8,6 +8,7 @@ let getSignedUrl;
 let uploadFile;
 let uploadBuffer;
 let copyFile;
+let getObject;
 let deleteFolder;
 let createFolderRegisterUser;
 
@@ -29,6 +30,7 @@ module.exports = function () {
             uploadFile = stubFunction(cdn, 'uploadFile');
             uploadBuffer = stubFunction(cdn, 'uploadBuffer');
             copyFile = stubFunction(cdn, 'copyFile');
+            getObject = stubFunction(cdn, 'getObject');
             deleteFolder = stubFunction(cdn, 'deleteFolder');
             createFolderRegisterUser = stubFunction(cdn, 'createFolderRegisterUser');
 
@@ -37,6 +39,7 @@ module.exports = function () {
             uploadFile.returns(Promise.resolve());
             uploadBuffer.resolves();
             copyFile.returns(Promise.resolve());
+            getObject.returns(Promise.resolve({}));
             deleteFolder.returns(Promise.resolve());
             createFolderRegisterUser.returns(Promise.resolve());
         },
@@ -45,6 +48,7 @@ module.exports = function () {
         uploadFile: uploadFile,
         uploadBuffer: uploadBuffer,
         copyFile: copyFile,
+        getObject: getObject,
         deleteFolder: deleteFolder,
         createFolderRegisterUser: createFolderRegisterUser
     };
