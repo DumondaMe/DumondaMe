@@ -49,7 +49,7 @@ describe('Integration Tests for request to register a new user', function () {
         user[0].emailNormalized.should.equals('climberwoodi@gmx.ch');
         user[0].registerDate.should.be.at.least(startTime);
 
-        stubSendEMail.calledWith("registerUserRequest", {link: `${process.env.ELYOOS_DOMAIN}register/verify/${user[0].linkId}`},
+        stubSendEMail.calledWith("registerUserRequest", {link: `${process.env.DUMONDA_ME_DOMAIN}register/verify/${user[0].linkId}`},
             'de', 'Climberwoodi@Gmx.ch').should.be.true;
 
         await requestHandler.logout();
