@@ -47,7 +47,7 @@ describe('Integration Tests for requesting a password reset login', function () 
         user.length.should.equals(1);
         user[0].u.resetPasswordRequestTimeout.should.at.least(startTime + (60 * 20));
         stubSendEMail.calledWith("resetPassword",
-            {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
+            {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
             'de', 'USER@irgendwo.ch').should.be.true;
     });
 
@@ -62,7 +62,7 @@ describe('Integration Tests for requesting a password reset login', function () 
 
         user.length.should.equals(1);
         stubSendEMail.calledWith("resetPassword",
-            {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
+            {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
             'de', 'USER@irgendwo.ch').should.be.true;
     });
 
@@ -75,7 +75,7 @@ describe('Integration Tests for requesting a password reset login', function () 
         let user = await db.cypher().match("(u:User {userId: '2'})").return("u").end().send();
         user.length.should.equals(1);
         stubSendEMail.calledWith("resetPassword",
-            {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
+            {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
             'de', 'user2@IRGENdwo.ch').should.be.true;
     });
 
@@ -88,7 +88,7 @@ describe('Integration Tests for requesting a password reset login', function () 
 
         let user = await db.cypher().match("(u:User {userId: '1'})").return("u").end().send();
         stubSendEMail.calledWith("resetPassword",
-            {link: `${process.env.ELYOOS_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
+            {link: `${process.env.DUMONDA_ME_DOMAIN}login/passwordReset?linkId=${user[0].u.resetPasswordLinkId}`},
             'de', 'USER@irgendwo.ch').should.be.true;
 
         res = await requestHandler.post('/api/login/password/requestReset', {
