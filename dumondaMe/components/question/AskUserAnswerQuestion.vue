@@ -1,0 +1,101 @@
+<template>
+    <div class="ask-user-answer-question ely-card">
+        <h3 class="ask-user-answer-question-title">{{$t('pages:question.askUserAnswerQuestion.title')}}</h3>
+        <div class="description">{{$t('pages:question.askUserAnswerQuestion.description')}}</div>
+        <div class="send-button-image-container">
+            <v-tooltip bottom>
+                <div class="invite-button" slot="activator" @click="showInviteUserToAnswerQuestionDialog = true">
+                    <img :src="dumondaMeImage"/>
+                </div>
+                <span>{{$t('pages:question.askUserAnswerQuestion.dumondaMeButton')}}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <a class="invite-button" :href="whatsAppLink" target="_blank" rel="noopener" slot="activator">
+                    <img :src="whatsAppImage"/>
+                </a>
+                <span>{{$t('pages:question.askUserAnswerQuestion.whatsAppButton')}}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <a class="invite-button last" :href="telegramLink" target="_blank" rel="noopener" slot="activator">
+                    <img :src="telegramImage"/>
+                </a>
+                <span>{{$t('pages:question.askUserAnswerQuestion.telegramButton')}}</span>
+            </v-tooltip>
+        </div>
+        <invite-user-to-answer-question-dialog v-if="showInviteUserToAnswerQuestionDialog"
+                                               @close-dialog="showInviteUserToAnswerQuestionDialog = false">
+        </invite-user-to-answer-question-dialog>
+    </div>
+</template>
+
+<script>
+    import InviteUserToAnswerQuestionDialog from './dialog/inviteUserToAnswerQuestion/InviteDialog'
+
+    export default {
+        components: {InviteUserToAnswerQuestionDialog},
+        data() {
+            return {showInviteUserToAnswerQuestionDialog: false}
+        },
+        methods: {
+            getQuestionLink() {
+                return `Kannst%20du%20die%20folgende%20Frage%20beantworten%3F%3A%20` +
+                    encodeURIComponent(`https://www.dumonda.me/question/${this.$route.params.questionId}/${this.$route.params.slug}`);
+            }
+        },
+        computed: {
+            whatsAppLink() {
+                return `https://wa.me/?text=${this.getQuestionLink()}`;
+            },
+            whatsAppImage() {
+                return `${process.env.staticUrl}/img/socialMedia/link/whatsApp.png`;
+            },
+            telegramLink() {
+                return `https://telegram.me/share/url?url=${this.getQuestionLink()}`;
+            },
+            telegramImage() {
+                return `${process.env.staticUrl}/img/socialMedia/link/telegram.png`;
+            },
+            dumondaMeImage() {
+                return `${process.env.staticUrl}/img/socialMedia/link/dumondaMe.png`;
+            },
+        }
+    }
+</script>
+
+<style lang="scss">
+    .ask-user-answer-question.ely-card {
+        @media screen and (max-width: $xs) {
+            padding: 12px 16px;
+            border-top: 1px solid $divider;
+        }
+        margin-bottom: 12px;
+
+        h3.ask-user-answer-question-title {
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .send-button-image-container {
+            margin-top: 18px;
+
+            .invite-button {
+                cursor: pointer;
+                display: inline-block;
+                height: 32px;
+                width: 32px;
+                margin-right: 14px;
+
+                img {
+                    height: 100%;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+</style>

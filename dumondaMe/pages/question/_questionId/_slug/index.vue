@@ -3,14 +3,15 @@
         <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
             <div slot="sidebar">
                 <create-answer></create-answer>
-                <beta-version></beta-version>
                 <register v-if="!isAuthenticated"></register>
                 <general-information></general-information>
+                <ask-user-answer-question v-if="isAuthenticated"></ask-user-answer-question>
                 <similar-questions></similar-questions>
             </div>
             <div slot="content" id="question-detail">
                 <question-header></question-header>
                 <general-information class="sidebar-on-mobile"></general-information>
+                <ask-user-answer-question class="sidebar-on-mobile" v-if="isAuthenticated"></ask-user-answer-question>
                 <answers></answers>
                 <register class="register-on-mobile" v-if="!isAuthenticated"></register>
                 <similar-questions class="sidebar-on-mobile"></similar-questions>
@@ -25,9 +26,9 @@
     import Answers from '~/components/question/answer/Answers';
     import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
+    import AskUserAnswerQuestion from '~/components/question/AskUserAnswerQuestion';
     import SimilarQuestions from '~/components/question/SimilarQuestions';
     import Register from '~/components/question/Register';
-    import BetaVersion from "~/components/common/beta/BetaDescription";
 
     export default {
         async fetch({params, query, app, error, store}) {
@@ -67,8 +68,8 @@
             }
         },
         components: {
-            Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, BetaVersion,
-            SimilarQuestions
+            Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, SimilarQuestions,
+            AskUserAnswerQuestion
         },
         computed: {
             question() {

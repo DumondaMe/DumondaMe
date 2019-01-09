@@ -82,7 +82,8 @@
     "interested": "Interested",
     "login": "Login",
     "register": "Create account",
-    "import": "Import"
+    "import": "Import",
+    "sent": "Sending"
   },
   "language": {
     "de": "German",
