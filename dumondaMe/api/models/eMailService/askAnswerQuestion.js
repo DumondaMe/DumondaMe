@@ -9,7 +9,7 @@ const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getUserImage = async function (userId) {
     let imageData, userImage = tmp.fileSync({postfix: '.jpg'});
-    imageData = await cdn.getObject(`profileImage/${userId}/profile.jpg`);
+    imageData = await cdn.getObject(`profileImage/${userId}/profile.jpg`, process.env.BUCKET_PRIVATE);
     fs.writeFileSync(userImage.name, imageData.Body);
     return userImage;
 };

@@ -88,8 +88,21 @@
                 }
                 return users;
             },
-            sendInvitation() {
-
+            async sendInvitation() {
+                try {
+                    this.running = true;
+                    await this.sendInvitationRegisteredUser();
+                    this.$emit('close-dialog');
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.running = false;
+                }
+            },
+            async sendInvitationRegisteredUser() {
+                let userIds = this.selectedUsers.filter(user => user.hasOwnProperty('userId'))
+                    .map(user => user.userId);
+                await this.$axios.$put(`user/question/invite`, {questionId: this.questionId, userIds});
             }
         },
         watch: {
