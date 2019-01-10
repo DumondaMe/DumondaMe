@@ -32,17 +32,20 @@ const setSentToNotRegisteredUser = async function (userId, questionId, sentEmail
         .with(`asked, sentEmail`)
         .merge(`(invitedUser:InvitedUser {email: sentEmail, emailNormalized: sentEmail})`)
         .merge(`(asked)-[:ASKED]->(invitedUser)`)
+        .onCreate(` SET invitedUser:EMailNotificationEnabled`)
         .end({userId, questionId, sentEmails}).send();
 };
 
-const sendAskUserToAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug, emailType) {
+const sendAskUserToAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug, emailType,
+                                                    emailUnsubscribeLink) {
     let userImage = await getUserImage(sendingUser.userId);
     let sentEmails = [];
     for (let user of users) {
         try {
             let questionLink = `${process.env.DUMONDA_ME_DOMAIN}question/${questionId}/${questionSlug}`;
+            let unsubscribeLink = `${process.env.DUMONDA_ME_DOMAIN}${emailUnsubscribeLink}/${user.email}`;
             await email.sendEMail(emailType, {
-                name: sendingUser.name, questionLink, userImage: userImage, question
+                name: sendingUser.name, questionLink, unsubscribeLink, userImage: userImage, question
             }, 'de', user.email);
             sentEmails.push(user.email);
         } catch (error) {
@@ -58,7 +61,7 @@ const sendAskUserToAnswerQuestion = async function (users, sendingUser, question
 const askRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug) {
     if (users.length > 0) {
         let sentEmails = await sendAskUserToAnswerQuestion(users, sendingUser, question, questionId, questionSlug,
-            "askRegisteredUserAnswerQuestion");
+            "askRegisteredUserAnswerQuestion", "unsubscribe/answerQuestion");
         await setSentToRegisteredUser(sendingUser.userId, questionId, sentEmails);
     }
 };
@@ -66,7 +69,7 @@ const askRegisteredUserAnswerQuestion = async function (users, sendingUser, ques
 const askNotRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug) {
     if (users.length > 0) {
         let sentEmails = await sendAskUserToAnswerQuestion(users, sendingUser, question, questionId, questionSlug,
-            "askNotRegisteredUserAnswerQuestion");
+            "askNotRegisteredUserAnswerQuestion", "unsubscribe/invitedUser");
         await setSentToNotRegisteredUser(sendingUser.userId, questionId, sentEmails);
     }
 };
