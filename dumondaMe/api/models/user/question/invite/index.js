@@ -7,8 +7,8 @@ const _ = require('lodash');
 const exceptions = require('dumonda-me-server-lib').exceptions;
 
 const getExistingUsers = async function (userId, usersToInvite, questionId) {
-    return await db.cypher().match(`(user:User)`)
-        .where(`user.userId IN {usersToInvite}`)
+    return await db.cypher().match(`(user:User:EMailNotificationEnabled)`)
+        .where(`user.userId IN {usersToInvite} AND NOT EXISTS(user.disableInviteAnswerQuestionNotification)`)
         .optionalMatch(`(:User {userId: {userId}})-[:ASKED_TO_ANSWER_QUESTION]->
                         (asked:AskedToAnswerQuestion)-[:ASKED]->(user)`)
         .with(`user, asked`)
@@ -19,9 +19,13 @@ const getExistingUsers = async function (userId, usersToInvite, questionId) {
 
 const getNotExistingUsers = async function (userId, emails, questionId) {
     let existingUsers = await db.cypher()
-        .match(`(:User {userId: {userId}})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(user)`)
-        .where(`user.emailNormalized IN {emails} AND (user:User OR user:InviteUser) AND 
-               (asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: {questionId}})`)
+        .match(`(user)`)
+        .where(`user.emailNormalized IN {emails} AND (user:User OR user:InvitedUser)`)
+        .optionalMatch(`(:User {userId: {userId}})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)
+                        -[:ASKED]->(user)`)
+        .with(`user, asked`)
+        .where(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: {questionId}}) OR 
+                NOT user:EMailNotificationEnabled`)
         .return(`user.email AS email`)
         .end({userId, emails, questionId}).send();
     let notExistingUsers = _.difference(emails, existingUsers.map((user) => user.email));

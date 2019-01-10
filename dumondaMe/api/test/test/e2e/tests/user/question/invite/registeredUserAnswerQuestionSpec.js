@@ -5,7 +5,6 @@ const db = require('dumonda-me-server-test-util').db;
 const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const eMail = require('dumonda-me-server-lib').eMail;
-const should = require('chai').should();
 const sinon = require('sinon');
 const moment = require('moment');
 const fs = require('fs');
@@ -14,8 +13,6 @@ const tmp = require('tmp');
 describe('Ask registered user to answer question', function () {
 
     let startTime, sandbox, stubSendEMail;
-
-    //Send invitation for other question to registered user is allowed
 
     beforeEach(async function () {
         let stubFileSync;
@@ -50,7 +47,8 @@ describe('Ask registered user to answer question', function () {
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user3@irgendwo.ch`
         }, 'de', 'user3@irgendwo.ch').should.be.true;
 
         let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
@@ -73,7 +71,8 @@ describe('Ask registered user to answer question', function () {
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user3@irgendwo.ch`
         }, 'de', 'user3@irgendwo.ch').should.be.true;
         stubSendEMail.resetHistory();
 
@@ -90,7 +89,8 @@ describe('Ask registered user to answer question', function () {
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage2', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/11/das-ist-eine-frage2`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/11/das-ist-eine-frage2`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user3@irgendwo.ch`
         }, 'de', 'user3@irgendwo.ch').should.be.true;
 
         resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
@@ -110,12 +110,14 @@ describe('Ask registered user to answer question', function () {
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user3@irgendwo.ch`
         }, 'de', 'user3@irgendwo.ch').should.be.true;
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user2@irgendwo.ch`
         }, 'de', 'user2@irgendwo.ch').should.be.true;
 
         let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})")
@@ -135,7 +137,8 @@ describe('Ask registered user to answer question', function () {
 
         stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/answerQuestion/user3@irgendwo.ch`
         }, 'de', 'user3@irgendwo.ch').should.be.true;
         stubSendEMail.resetHistory();
 
@@ -143,16 +146,48 @@ describe('Ask registered user to answer question', function () {
             questionId: '10', userIds: ['3']
         });
         res.status.should.equal(200);
-
-        stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
-            name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
-        }, 'de', 'user3@irgendwo.ch').should.be.false;
+        stubSendEMail.called.should.be.false;
 
         let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
             .return(`asked`).end().send();
         resp.length.should.equals(1);
+    });
+
+    it('Do not send invitation if email notification is disabled', async function () {
+        dbDsl.disableEMailNotification('3');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/invite', {
+            questionId: '10', userIds: ['3']
+        });
+        res.status.should.equal(200);
+
+        stubSendEMail.called.should.be.false;
+
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
+            .with(`asked`)
+            .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .return(`asked`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Do not send invitation if email notification for answer a question is disabled', async function () {
+        dbDsl.disableInviteAnswerQuestionNotification('3');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/invite', {
+            questionId: '10', userIds: ['3']
+        });
+        res.status.should.equal(200);
+
+        stubSendEMail.called.should.be.false;
+
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
+            .with(`asked`)
+            .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .return(`asked`).end().send();
+        resp.length.should.equals(0);
     });
 });

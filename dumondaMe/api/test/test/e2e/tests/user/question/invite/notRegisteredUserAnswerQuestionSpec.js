@@ -48,10 +48,11 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
 
-        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser {email: 'not.exist@irgendwo.ch'})")
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
             .return(`asked`).end().send();
@@ -75,10 +76,11 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
 
-        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser {email: 'not.exist@irgendwo.ch'})")
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
             .return(`asked`).end().send();
@@ -96,12 +98,14 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist2@irgendwo.ch`
         }, 'de', 'not.exist2@irgendwo.ch').should.be.true;
 
         let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})")
@@ -123,7 +127,8 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
         stubSendEMail.resetHistory();
 
@@ -132,13 +137,9 @@ describe('Ask not registered user to answer question', function () {
             emails: ['not.exist@irgendwo.ch']
         });
         res.status.should.equal(200);
+        stubSendEMail.called.should.be.false;
 
-        stubSendEMail.calledWith("askRegisteredUserAnswerQuestion", {
-            name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
-        }, 'de', 'not.exist@irgendwo.ch').should.be.false;
-
-        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser {email: 'not.exist@irgendwo.ch'})")
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
             .return(`asked`).end().send();
@@ -159,10 +160,11 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/10/das-ist-eine-frage`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
 
-        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser {email: 'not.exist@irgendwo.ch'})")
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
             .return(`asked`).end().send();
@@ -176,14 +178,37 @@ describe('Ask not registered user to answer question', function () {
 
         stubSendEMail.calledWith("askNotRegisteredUserAnswerQuestion", {
             name: `user Meier`, question: 'Das ist eine Frage2', userImage: sinon.match.any,
-            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/11/das-ist-eine-frage2`
+            questionLink: `${process.env.DUMONDA_ME_DOMAIN}question/11/das-ist-eine-frage2`,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/not.exist@irgendwo.ch`
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
 
-        resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser {email: 'not.exist@irgendwo.ch'})")
+        resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
             .with(`asked`)
             .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '11'})`)
             .return(`asked`).end().send();
         resp.length.should.equals(1);
+    });
+
+    it('Not allowed to send invitation because user has deactivated email notification', async function () {
+        dbDsl.invitationSentBeforeRegistration('2', [{
+            email: 'not.exist@irgendwo.ch',
+            emailNormalized: 'not.exist@irgendwo.ch',
+            invitationSent: 500
+        }]);
+        dbDsl.disableEMailNotificationForInvitedUser('not.exist@irgendwo.ch');
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+            questionId: '10',
+            emails: ['not.exist@irgendwo.ch']
+        });
+        res.status.should.equal(200);
+        stubSendEMail.called.should.be.false;
+
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:InvitedUser:EMailNotificationEnabled {email: 'not.exist@irgendwo.ch'})")
+            .return(`asked`).end().send();
+        resp.length.should.equals(0);
     });
 
     it('Emails are the same in lowercase', async function () {
