@@ -1,0 +1,5 @@
+MATCH (u:User)
+SET u:EMailNotificationEnabled;
+
+MATCH (u:InvitedUser)
+SET u:EMailNotificationEnabled;
