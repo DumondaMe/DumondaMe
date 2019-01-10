@@ -23,6 +23,7 @@
             </v-tooltip>
         </div>
         <invite-user-to-answer-question-dialog v-if="showInviteUserToAnswerQuestionDialog"
+                                               :question-id="$route.params.questionId"
                                                @close-dialog="showInviteUserToAnswerQuestionDialog = false">
         </invite-user-to-answer-question-dialog>
     </div>
