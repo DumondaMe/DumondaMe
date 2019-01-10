@@ -16,7 +16,7 @@ const schemaInviteNotRegisteredUserToAnswerQuestion = {
             type: 'array',
             items: {type: 'string', format: 'notEmptyString', maxLength: 255},
             minItems: 1,
-            maxItems: 10,
+            maxItems: 30,
             uniqueItems: true
         }
     }
