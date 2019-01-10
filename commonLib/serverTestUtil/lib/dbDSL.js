@@ -7,6 +7,7 @@ let answer = require('./dbDSL/answer');
 let user = require('./dbDSL/user');
 let news = require('./dbDSL/news');
 let events = require('./dbDSL/events');
+let eMailNotificationSettings = require('./dbDSL/emailNotificationSettings');
 let notification = require('./dbDSL/notification');
 let tc = require('./dbDSL/transitionConnect');
 let question = require('./dbDSL/question');
@@ -21,13 +22,13 @@ let init = function (numberOfUser, isDumondaMeAdmin) {
     isDumondaMeAdmin = isDumondaMeAdmin || false;
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
-        dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
+        dbConnectionHandling.getCommands().push(db.cypher().create(`(:User:EMailNotificationEnabled {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
         name: 'user Meier', surname: 'Meier', forename:'user', userDescription: 'superman', userId: '1', lastSetupAccount: 500, dumondaMeAdmin: {dumondaMeAdmin}, language: 'de', languages: ['de'],
         userLocationDescription: 'irgendwo', privacyMode: 'public', showProfileActivity: true})`)
             .end({dumondaMeAdmin: isDumondaMeAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
-            dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', userDescription: 'superman${userId}', 
+            dbConnectionHandling.getCommands().push(db.cypher().create(`(:User:EMailNotificationEnabled {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', userDescription: 'superman${userId}', 
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch', 
             language: 'de', languages: ['de'], emailNormalized: 'user${userId}@irgendwo.ch', privacyMode: 'public', showProfileActivity: true})`).end().getCommand());
         }
@@ -95,6 +96,8 @@ module.exports = {
     createQuestion: question.createQuestion,
     watchQuestion: question.watchQuestion,
     addSuggestionToQuestion: question.addSuggestionToQuestion,
+    inviteRegisteredUserToAnswerQuestion: question.inviteRegisteredUserToAnswerQuestion,
+    invitePreviouslyInvitedUserToAnswerQuestion: question.invitePreviouslyInvitedUserToAnswerQuestion,
 
     unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
 
@@ -113,5 +116,9 @@ module.exports = {
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
     notificationCreateAnswer: notification.createAnswer,
-    notificationCreateNote: notification.createNote
+    notificationCreateNote: notification.createNote,
+
+    disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
+    disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser,
+    disableInviteAnswerQuestionNotification: eMailNotificationSettings.disableInviteAnswerQuestionNotification
 };

@@ -47,8 +47,32 @@ const addSuggestionToQuestion = function (data) {
         }).getCommand());
 };
 
+const inviteRegisteredUserToAnswerQuestion = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}}), 
+                (invitedUser:User {userId: {userIdOfUserToInvite}})`)
+        .merge(`(u)-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:QUESTION_TO_ANSWER]->(q)`)
+        .merge(`(asked)-[:ASKED]->(invitedUser)`)
+        .end({
+            questionId: data.questionId, userId: data.userId, userIdOfUserToInvite: data.userIdOfUserToInvite
+        }).getCommand());
+};
+
+const invitePreviouslyInvitedUserToAnswerQuestion = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}}), 
+                (invitedUser:InvitedUser {email: {emailOfUserToInvite}})`)
+        .merge(`(u)-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:QUESTION_TO_ANSWER]->(q)`)
+        .merge(`(asked)-[:ASKED]->(invitedUser)`)
+        .end({
+            questionId: data.questionId, userId: data.userId, emailOfUserToInvite: data.emailOfUserToInvite
+        }).getCommand());
+};
+
 module.exports = {
     createQuestion,
     watchQuestion,
-    addSuggestionToQuestion
+    addSuggestionToQuestion,
+    inviteRegisteredUserToAnswerQuestion,
+    invitePreviouslyInvitedUserToAnswerQuestion
 };
