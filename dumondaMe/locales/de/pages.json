@@ -399,7 +399,7 @@
       "telegramButton": "Benachrichtigung über Telegram versenden",
       "inviteDialog": {
         "searchLabel": "Name oder E-Mail Adresse",
-        "description": "Hier kannst du nach Personen suchen und ihnen ein von DumondaMe generiertes E-Mail zukommen lassen, welche sie bittet diese Frage zu beantworten. Du kannst auch die E-Mail Adresse von noch nicht registrierten Benutzer_innen verwenden."
+        "description": "Hier kannst du nach Personen suchen und ihnen ein von DumondaMe generiertes E-Mail zukommen lassen, welches sie bittet diese Frage zu beantworten. Du kannst auch die E-Mail Adresse von noch nicht registrierten Benutzer_innen verwenden."
       }
     },
     "answer": {
