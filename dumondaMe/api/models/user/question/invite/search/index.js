@@ -37,7 +37,10 @@ const searchCommand = function (query, questionId, userId, skip, limit) {
                          -[:QUESTION_TO_ANSWER]->(:Question {questionId: {questionId}})`)
         .return(`DISTINCT user, EXISTS((user)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser, 
                  EXISTS((user)-[:IS_CONTACT]->(:User {userId: {userId}})) AS userTrustLoggedInUser, weight,
-                 EXISTS((asked)-[:ASKED]->(user)) AS hasAlreadyAsked, LABELS(user) AS userLabels`)
+                 EXISTS((asked)-[:ASKED]->(user)) AS hasAlreadyAsked, LABELS(user) AS userLabels,
+                 EXISTS((user)-[:IS_CREATOR]->(:Question {questionId: {questionId}})) AS isAdminOfQuestion,
+                 EXISTS((user)-[:IS_CREATOR]->(:Answer)<-[:ANSWER]-(:Question {questionId: {questionId}})) 
+                 AS userAnsweredQuestion`)
         .orderBy(`isTrustUser DESC, weight DESC, user.name`)
         .skip(`{skip}`).limit(`{limit}`).end({queryString, query, questionId, userId, skip, limit});
 };

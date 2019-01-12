@@ -16,7 +16,7 @@ describe('Ask registered user to answer question', function () {
 
     beforeEach(async function () {
         let stubFileSync;
-        await dbDsl.init(3);
+        await dbDsl.init(4);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         sandbox = sinon.sandbox.create();
         stubSendEMail = sandbox.stub(eMail, 'sendEMail');
@@ -28,7 +28,7 @@ describe('Ask registered user to answer question', function () {
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
 
         dbDsl.createQuestion('10', {
-            creatorId: '1', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+            creatorId: '4', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
         });
     });
 
@@ -179,6 +179,45 @@ describe('Ask registered user to answer question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10', userIds: ['3']
+        });
+        res.status.should.equal(200);
+
+        stubSendEMail.called.should.be.false;
+
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
+            .with(`asked`)
+            .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .return(`asked`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Not allowed to send invitation to administrator of question', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/invite', {
+            questionId: '10', userIds: ['4']
+        });
+        res.status.should.equal(200);
+
+        stubSendEMail.called.should.be.false;
+
+        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
+            .with(`asked`)
+            .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .return(`asked`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Not allowed to send invitation to user who has answered question', async function () {
+        dbDsl.createBookAnswer('5', {
+            creatorId: '2', questionId: '10', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/invite', {
+            questionId: '10', userIds: ['2']
         });
         res.status.should.equal(200);
 

@@ -8,7 +8,9 @@ const exceptions = require('dumonda-me-server-lib').exceptions;
 
 const getExistingUsers = async function (userId, usersToInvite, questionId) {
     return await db.cypher().match(`(user:User:EMailNotificationEnabled)`)
-        .where(`user.userId IN {usersToInvite} AND NOT EXISTS(user.disableInviteAnswerQuestionNotification)`)
+        .where(`user.userId IN {usersToInvite} AND NOT EXISTS(user.disableInviteAnswerQuestionNotification) AND NOT
+                (user)-[:IS_CREATOR]->(:Question {questionId: {questionId}}) AND NOT
+                (user)-[:IS_CREATOR]->(:Answer)<-[:ANSWER]-(:Question {questionId: {questionId}})`)
         .optionalMatch(`(:User {userId: {userId}})-[:ASKED_TO_ANSWER_QUESTION]->
                         (asked:AskedToAnswerQuestion)-[:ASKED]->(user)`)
         .with(`user, asked`)
