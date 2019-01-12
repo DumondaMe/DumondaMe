@@ -92,6 +92,7 @@
                 try {
                     this.running = true;
                     await this.sendInvitationRegisteredUser();
+                    await this.sendInvitationNotRegisteredUser();
                     this.$emit('close-dialog');
                 } catch (error) {
                     this.showError = true;
@@ -102,7 +103,17 @@
             async sendInvitationRegisteredUser() {
                 let userIds = this.selectedUsers.filter(user => user.hasOwnProperty('userId'))
                     .map(user => user.userId);
-                await this.$axios.$put(`user/question/invite`, {questionId: this.questionId, userIds});
+                if (userIds.length > 0) {
+                    await this.$axios.$put(`user/question/invite`, {questionId: this.questionId, userIds});
+                }
+            },
+            async sendInvitationNotRegisteredUser() {
+                let emails = this.selectedUsers.filter(user => user.hasOwnProperty('email'))
+                    .map(user => user.email);
+                if (emails.length > 0) {
+                    await this.$axios.$put(`user/question/invite/notRegisteredUser`,
+                        {questionId: this.questionId, emails});
+                }
             }
         },
         watch: {
