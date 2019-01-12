@@ -5,7 +5,8 @@ const cdn = require('dumonda-me-server-lib').cdn;
 const checkSendingEmailAllowed = function (user) {
     return !user.hasAlreadyAsked && user.user.disableInviteAnswerQuestionNotification !== true &&
         user.userLabels.includes('EMailNotificationEnabled') && (user.user.privacyMode !== 'onlyContact' ||
-            (user.user.privacyMode === 'onlyContact' && user.userTrustLoggedInUser))
+            (user.user.privacyMode === 'onlyContact' && user.userTrustLoggedInUser)) &&
+        !user.isAdminOfQuestion && !user.userAnsweredQuestion
 };
 
 const checkNotLoggedInUser = function (user, userId) {
