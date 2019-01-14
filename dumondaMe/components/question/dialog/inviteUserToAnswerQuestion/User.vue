@@ -4,14 +4,22 @@
                     :readonly="!user.sendingEmailAllowed || isReadOnly">
             <div slot="label">
                 <div v-if="!user.userId" class="email-label">
-                    {{user.email}}
+                    <div>{{user.email}}</div>
+                    <div class="user-info" v-if="!user.sendingEmailAllowed && !isReadOnly">
+                        {{$t('pages:question.askUserAnswerQuestion.inviteDialog.notAllowedToSend')}}
+                    </div>
                 </div>
                 <div v-else class="existing-user">
                     <div class="user-image">
                         <img :src="user.userImage"/>
                     </div>
                     <div class="user-content-container">
-                        <div class="user-name">{{user.name}}</div>
+                        <div class="user-name" :class="{'user-info-visible': !user.sendingEmailAllowed && !isReadOnly}">
+                            {{user.name}}
+                        </div>
+                        <div class="user-info" v-if="!user.sendingEmailAllowed && !isReadOnly">
+                            {{$t('pages:question.askUserAnswerQuestion.inviteDialog.notAllowedToSend')}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,12 +35,8 @@
             return {sendMessageToUser: this.initSelection, loading: false}
         },
         components: {},
-        methods: {
-
-        },
-        computed: {
-
-        },
+        methods: {},
+        computed: {},
         watch: {
             sendMessageToUser() {
                 this.$emit('select-changed', this.user);
@@ -46,6 +50,13 @@
 
         .email-label {
             margin-left: 12px;
+
+            .user-info {
+                font-size: 14px;
+                margin-top: 6px;
+                line-height: 14px;
+                color: $warning;
+            }
         }
 
         .existing-user {
@@ -68,8 +79,20 @@
 
                 .user-name {
                     font-weight: 500;
-                    line-height: 16px;
+                    line-height: 40px;
                     font-size: 16px;
+
+                }
+
+                .user-name.user-info-visible {
+                    line-height: 16px;
+                }
+
+                .user-info {
+                    font-size: 14px;
+                    margin-top: 10px;
+                    line-height: 14px;
+                    color: $warning;
                 }
             }
 
