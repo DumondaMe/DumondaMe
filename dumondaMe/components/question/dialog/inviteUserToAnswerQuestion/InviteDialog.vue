@@ -17,12 +17,18 @@
                                   @select-changed="selectedChanged">
                             </user>
                         </div>
+                        <div class="invitation-already-sent-title">
+                            {{$t("pages:question.askUserAnswerQuestion.inviteDialog.alreadySentTitle")}}
+                        </div>
+                        <div v-for="user in invitationAlreadySent">
+                            <user :user="user" :init-selection="true" :is-read-only="true"></user>
+                        </div>
                     </div>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                    <div id="number-of-selected-users" :class="{'max-number-of-users': selectedUsers.length > 29}">
-                        {{selectedUsers.length}}/30
+                    <div id="number-of-selected-users" :class="{'max-number-of-users': numberOfSelected > 29}">
+                        {{numberOfSelected}}/30
                     </div>
                     <v-spacer></v-spacer>
                     <v-btn color="primary" flat @click.native="$emit('close-dialog')" :disabled="running">
@@ -30,7 +36,7 @@
                     </v-btn>
                     <v-btn color="primary" @click.native="sendInvitation()"
                            :loading="running" :disabled="running || selectedUsers.length === 0 ||
-                           selectedUsers.length > 29">
+                           numberOfSelected > 29">
                         {{$t("common:button.sent")}}
                     </v-btn>
                 </v-card-actions>
@@ -52,11 +58,28 @@
         data() {
             return {
                 dialog: true, search: '', running: false, showError: false, users: [], selectedUsers: [],
-                showHelpText: true
+                showHelpText: true, invitationAlreadySent: []
             }
         },
         components: {User},
-        computed: {},
+        computed: {
+            numberOfSelected() {
+                return this.invitationAlreadySent.length + this.selectedUsers.length;
+            }
+        },
+        async mounted() {
+            try {
+                this.running = true;
+                let response = await this.$axios.$get(`user/question/invite/alreadySent`,
+                    {params: {questionId: this.questionId}});
+                this.invitationAlreadySent = response.users;
+                if (this.invitationAlreadySent.length > 0) {
+                    this.showHelpText = false;
+                }
+            } finally {
+                this.running = false;
+            }
+        },
         methods: {
             indexOfUsers(users, user) {
                 return users.findIndex(function (selectedUser) {
@@ -149,6 +172,15 @@
 
         #dialog-invite-user-to-answer-question-content {
             max-width: 650px;
+
+            .invitation-already-sent-title {
+                font-weight: 500;
+                font-size: 16px;
+                margin-top: 12px;
+                padding-top: 12px;
+                margin-bottom: 18px;
+                border-top: 1px solid $divider;
+            }
         }
 
         #number-of-selected-users {
