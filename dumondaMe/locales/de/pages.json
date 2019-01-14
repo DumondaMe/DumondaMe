@@ -678,6 +678,9 @@
       "notification": "Eine Person hat dich zu ihrem Trust Circle hinzugefügt.",
       "notification_plural": "{{count}} Personen haben dich zu ihrem Trust Circle hinzugefügt."
     },
+    "invitedUserHasRegistered": {
+      "notification": "Folgende Person die du eingeladen hast, hat ein Benutzerkonto auf DumondaMe erstellt."
+    },
     "watchingCommitment": {
       "notification": "Folgende Person findet dein Engagement {{- commitment}} interessant.",
       "notification_plural": "{{count}} weitere Personen findet dein Engagement {{- commitment}} interessant."

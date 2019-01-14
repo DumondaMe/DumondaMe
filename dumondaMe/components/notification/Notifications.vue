@@ -6,6 +6,9 @@
             </show-question-request>
             <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
             </add-to-trust-circle>
+            <invited-user-has-registered :notification="notification"
+                                         v-if="notification.type === 'invitedUserHasRegistered'">
+            </invited-user-has-registered>
             <watch-commitment :notification="notification" v-if="notification.type === 'watchingCommitment'">
             </watch-commitment>
             <watch-question :notification="notification" v-if="notification.type === 'watchingQuestion'">
@@ -33,10 +36,12 @@
     import WatchQuestion from './WatchQuestion';
     import CreatedAnswer from './CreatedAnswer';
     import CreatedNote from './CreatedNote';
+    import InvitedUserHasRegistered from './InvitedUserHasRegistered';
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer, CreatedNote},
+        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer, CreatedNote,
+            InvitedUserHasRegistered},
         data() {
             return {loadingNextNotifications: false}
         },
