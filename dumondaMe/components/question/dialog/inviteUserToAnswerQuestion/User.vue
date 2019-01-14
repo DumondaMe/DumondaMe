@@ -1,7 +1,7 @@
 <template>
     <div class="user-to-invite-to-answer-question">
         <v-checkbox v-model="sendMessageToUser" color="secondary"
-                    :readonly="!user.sendingEmailAllowed">
+                    :readonly="!user.sendingEmailAllowed || isReadOnly">
             <div slot="label">
                 <div v-if="!user.userId" class="email-label">
                     {{user.email}}
@@ -22,7 +22,7 @@
 <script>
 
     export default {
-        props: ['user', 'initSelection'],
+        props: ['user', 'initSelection', 'isReadOnly'],
         data() {
             return {sendMessageToUser: this.initSelection, loading: false}
         },
