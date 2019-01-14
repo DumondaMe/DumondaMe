@@ -17,7 +17,7 @@
                                   @select-changed="selectedChanged">
                             </user>
                         </div>
-                        <div class="invitation-already-sent-title">
+                        <div class="invitation-already-sent-title" v-if="invitationAlreadySent.length > 0">
                             {{$t("pages:question.askUserAnswerQuestion.inviteDialog.alreadySentTitle")}}
                         </div>
                         <div v-for="user in invitationAlreadySent">
