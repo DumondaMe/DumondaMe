@@ -49,6 +49,21 @@ const userAddedToTrustCircle = function (notificationId, data) {
         }).getCommand());
 };
 
+const invitedUserHasRegistered = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(user:User {userId: {userId}}), (invitedUser:User {userId: {invitedUserId}})`)
+        .merge(`(user)<-[:NOTIFIED]-(notification:Notification${readLabel} {type: 'invitedUserHasRegistered', 
+                                      created: {created}, notificationId: {notificationId}})
+                 -[:ORIGINATOR_OF_NOTIFICATION]->(invitedUser)`)
+        .end({
+            notificationId, userId: data.userId, invitedUserId: data.invitedUserId, created: data.created
+        }).getCommand());
+};
+
 const userWatchesCommitment = function (notificationId, data) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -157,6 +172,7 @@ const createNote = function (notificationId, data) {
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
+    invitedUserHasRegistered,
     userWatchesCommitment,
     userWatchesQuestion,
     createAnswer,
