@@ -113,6 +113,7 @@ module.exports = {
 
     notificationShowQuestionOnCommitmentRequest: notification.showQuestionOnCommitmentRequest,
     notificationUserAddedToTrustCircle: notification.userAddedToTrustCircle,
+    notificationInvitedUserHasRegistered: notification.invitedUserHasRegistered,
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
     notificationCreateAnswer: notification.createAnswer,
