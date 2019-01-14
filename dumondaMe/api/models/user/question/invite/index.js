@@ -28,7 +28,7 @@ const getNotExistingUsers = async function (userId, emails, questionId) {
         .with(`user, asked`)
         .where(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: {questionId}}) OR 
                 NOT user:EMailNotificationEnabled`)
-        .return(`user.email AS email`)
+        .return(`user.emailNormalized AS email`)
         .end({userId, emails, questionId}).send();
     let notExistingUsers = _.difference(emails, existingUsers.map((user) => user.email));
     return notExistingUsers.map((email) => {
@@ -64,11 +64,12 @@ const inviteRegisteredUserToAnswerQuestion = async function (userId, usersToInvi
         slug(question.question));
 };
 
-const inviteNotRegisteredUserToAnswerQuestion = async function (userId, usersToInvite, questionId) {
+const inviteNotRegisteredUserToAnswerQuestion = async function (userId, emailsToInvite, questionId) {
     let question = await getQuestion(questionId);
     let user = await getUser(userId);
-    let existingUsers = await getNotExistingUsers(userId, usersToInvite, questionId);
-    await email.askNotRegisteredUserAnswerQuestion(existingUsers, user, question.question, questionId,
+    let notExistingUsers = await getNotExistingUsers(userId, emailsToInvite.map(email => email.toLowerCase()),
+        questionId);
+    await email.askNotRegisteredUserAnswerQuestion(notExistingUsers, user, question.question, questionId,
         slug(question.question));
 };
 

@@ -84,9 +84,9 @@ describe('Integration Tests for verify registering a new user', function () {
     });
 
     it('Verify email address with valid linkId and create account with invitations', async function () {
-        dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@DUMONDA.me', emailNormalized: 'info3@dumonda.me'}]);
-        dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
-        dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('2', [{emailOfUserToInvite: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('3', [{emailOfUserToInvite: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('4', [{emailOfUserToInvite: 'info3@dumonda.me'}]);
         await dbDsl.sendToDb();
 
         let res = await requestHandler.post('/api/register/verify',

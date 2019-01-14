@@ -30,9 +30,9 @@ const setSentToNotRegisteredUser = async function (userId, questionId, sentEmail
         .with(`asked`)
         .unwind(`{sentEmails} AS sentEmail`)
         .with(`asked, sentEmail`)
-        .merge(`(invitedUser:InvitedUser {email: sentEmail, emailNormalized: sentEmail})`)
-        .merge(`(asked)-[:ASKED]->(invitedUser)`)
+        .merge(`(invitedUser:InvitedUser {emailNormalized: sentEmail})`)
         .onCreate(` SET invitedUser:EMailNotificationEnabled`)
+        .merge(`(asked)-[:ASKED]->(invitedUser)`)
         .end({userId, questionId, sentEmails}).send();
 };
 
