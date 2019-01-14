@@ -10,7 +10,7 @@ const disableEMailNotification = function (userId) {
 };
 
 const disableEMailNotificationForInvitedUser = function (email) {
-    dbConnectionHandling.getCommands().push(db.cypher().match("(u:InvitedUser {email: {email}})")
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:InvitedUser {emailNormalized: {email}})")
         .remove(`u:EMailNotificationEnabled`).end({email}).getCommand());
 };
 

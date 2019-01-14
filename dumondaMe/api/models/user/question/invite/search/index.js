@@ -42,7 +42,8 @@ const searchCommand = function (query, questionId, userId, skip, limit) {
                  EXISTS((user)-[:IS_CREATOR]->(:Answer)<-[:ANSWER]-(:Question {questionId: {questionId}})) 
                  AS userAnsweredQuestion`)
         .orderBy(`isTrustUser DESC, weight DESC, user.name`)
-        .skip(`{skip}`).limit(`{limit}`).end({queryString, query, questionId, userId, skip, limit});
+        .skip(`{skip}`).limit(`{limit}`)
+        .end({queryString, query: query.toLowerCase(), questionId, userId, skip, limit});
 };
 
 const search = async function (query, questionId, userId, skip, limit) {

@@ -62,7 +62,8 @@ const invitePreviouslyInvitedUserToAnswerQuestion = function (data) {
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(q:Question {questionId: {questionId}}), (u:User {userId: {userId}})`)
         .merge(`(u)-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:QUESTION_TO_ANSWER]->(q)`)
-        .merge(`(asked)-[:ASKED]->(invitedUser:InvitedUser {email: {emailOfUserToInvite}, emailNormalized: {emailOfUserToInvite}})`)
+        .merge(`(invitedUser:InvitedUser:EMailNotificationEnabled {emailNormalized: {emailOfUserToInvite}})`)
+        .merge(`(asked)-[:ASKED]->(invitedUser)`)
         .end({
             questionId: data.questionId, userId: data.userId, emailOfUserToInvite: data.emailOfUserToInvite
         }).getCommand());
