@@ -11,7 +11,7 @@ const _ = require('lodash');
 describe('Integration Tests for verify registering a new user', function () {
 
     let registerRequestUserValid = {
-            email: 'inFo@elYoos.org',
+            email: 'inFo@duMonda.me',
             emailNormalized: 'info@dumonda.me',
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
             name: 'user Waldvogel',
@@ -34,7 +34,7 @@ describe('Integration Tests for verify registering a new user', function () {
         registerRequestUserExpired.linkId = uuidv4();
         registerRequestUserExpired.email = 'INFO2@dumonda.me';
         registerRequestUserExpired.emailNormalized = 'info2@dumonda.me';
-        registerRequestUserValidWithInvitation.email = 'info3@ELYOOS.org';
+        registerRequestUserValidWithInvitation.email = 'info3@DUMONDA.me';
         registerRequestUserValidWithInvitation.emailNormalized = 'info3@dumonda.me';
         registerRequestUserValidWithInvitation.registerDate = startTime;
         registerRequestUserValidWithInvitation.linkId = uuidv4();
@@ -42,11 +42,6 @@ describe('Integration Tests for verify registering a new user', function () {
         dbDsl.createUserRegisterRequest(registerRequestUserValidCaseSensitiveEmail);
         dbDsl.createUserRegisterRequest(registerRequestUserExpired);
         dbDsl.createUserRegisterRequest(registerRequestUserValidWithInvitation);
-
-        dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@ELYOOS.org', emailNormalized: 'info3@dumonda.me'}]);
-        dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
-        dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
-        await dbDsl.sendToDb();
     });
 
     afterEach(function () {
@@ -55,11 +50,12 @@ describe('Integration Tests for verify registering a new user', function () {
 
     it('Verify email address with valid linkId and create account', async function () {
 
+        await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
         res.status.should.equal(200);
         res.body.email.should.equals(registerRequestUserValid.email);
 
-        let user = await db.cypher().match("(user:User {email: 'inFo@elYoos.org'})")
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
             .return('user').end().send();
 
         user.length.should.equals(1);
@@ -80,19 +76,25 @@ describe('Integration Tests for verify registering a new user', function () {
             .return('user').end({linkId: registerRequestUserValid.linkId}).send();
         user.length.should.equals(0);
 
-        await requestHandler.login({
+        res = await requestHandler.login({
             'username': 'info@dumonda.me',
             'password': '1'
         });
+        res.status.should.equal(200);
     });
 
     it('Verify email address with valid linkId and create account with invitations', async function () {
+        dbDsl.invitationSentBeforeRegistration('2', [{email: 'info3@DUMONDA.me', emailNormalized: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('3', [{email: 'INFO3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
+        dbDsl.invitationSentBeforeRegistration('4', [{email: 'info3@dumonda.me', emailNormalized: 'info3@dumonda.me'}]);
+        await dbDsl.sendToDb();
 
-        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValidWithInvitation.linkId});
+        let res = await requestHandler.post('/api/register/verify',
+            {linkId: registerRequestUserValidWithInvitation.linkId});
         res.status.should.equal(200);
         res.body.email.should.equals(registerRequestUserValidWithInvitation.email);
 
-        let user = await db.cypher().match("(user:User {email: 'info3@ELYOOS.org'})")
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'info3@DUMONDA.me'})")
             .return('user').end().send();
         user.length.should.equals(1);
         should.exist(user[0].user.userId);
@@ -108,12 +110,14 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.languages.should.includes('de');
         user[0].user.languages.should.includes('en');
 
-        user = await db.cypher().match("(:User {email: 'info3@ELYOOS.org'})<-[:HAS_INVITED]-(user:User)")
+        let notifications = await db.cypher()
+            .match(`(user:User)<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
+                    -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info3@dumonda.me'})`)
             .return('user').orderBy("user.userId").end().send();
-        user.length.should.equals(3);
-        user[0].user.userId.should.equals('2');
-        user[1].user.userId.should.equals('3');
-        user[2].user.userId.should.equals('4');
+        notifications.length.should.equals(3);
+        notifications[0].user.userId.should.equals('2');
+        notifications[1].user.userId.should.equals('3');
+        notifications[2].user.userId.should.equals('4');
 
         let invitedUser = await db.cypher().match("(user:InvitedUser)")
             .return('user').end().send();
@@ -128,13 +132,169 @@ describe('Integration Tests for verify registering a new user', function () {
         });
     });
 
-    it('First verify is success. Second verify fails because of same normalized email', async function () {
+    it('With invitation to answer one question', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createQuestion('10', {
+            creatorId: '2', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '10', emailOfUserToInvite: 'info@dumonda.me', userId: '3'});
+        await dbDsl.sendToDb();
 
         let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
         res.status.should.equal(200);
         res.body.email.should.equals(registerRequestUserValid.email);
 
-        let user = await db.cypher().match("(user:User {email: 'inFo@elYoos.org'})")
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
+            .return('user').end().send();
+        user.length.should.equals(1);
+        should.exist(user[0].user.userId);
+        user[0].user.emailNormalized.should.equals('info@dumonda.me');
+
+        user = await db.cypher()
+            .match(`(:User {emailNormalized: 'info@dumonda.me'})<-[:ASKED]-(asked:AskedToAnswerQuestion)
+                     -[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .with('asked')
+            .match(`(asked)<-[:ASKED_TO_ANSWER_QUESTION]-(user:User {email: 'user3@irgendwo.ch'})`)
+            .return('user').end().send();
+        user.length.should.equals(1);
+
+        let notifications = await db.cypher()
+            .match(`(:User {userId: '3'})<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
+                    -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info@dumonda.me'})`)
+        .return('n').end().send();
+        notifications.length.should.equals(1);
+
+        let invitedUser = await db.cypher().match("(user:InvitedUser {emailNormalized: 'info@dumonda.me'})")
+            .return('user').end().send();
+        invitedUser.length.should.equals(0);
+
+        user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
+            .return('user').end({linkId: registerRequestUserValid.linkId}).send();
+        user.length.should.equals(0);
+
+        res = await requestHandler.login({
+            'username': 'info@duMonda.me',
+            'password': '1'
+        });
+        res.status.should.equal(200);
+    });
+
+    it('With invitation from two persons to answer one question', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createQuestion('10', {
+            creatorId: '2', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '10', emailOfUserToInvite: 'info@dumonda.me', userId: '3'});
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '10', emailOfUserToInvite: 'info@dumonda.me', userId: '2'});
+        await dbDsl.sendToDb();
+
+        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
+        res.status.should.equal(200);
+        res.body.email.should.equals(registerRequestUserValid.email);
+
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
+            .return('user').end().send();
+        user.length.should.equals(1);
+        should.exist(user[0].user.userId);
+        user[0].user.emailNormalized.should.equals('info@dumonda.me');
+
+        user = await db.cypher()
+            .match(`(:User {emailNormalized: 'info@dumonda.me'})<-[:ASKED]-(asked:AskedToAnswerQuestion)
+                     -[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .with('asked')
+            .match(`(asked)<-[:ASKED_TO_ANSWER_QUESTION]-(user:User)`)
+            .return('user').end().send();
+        user.length.should.equals(2);
+
+        let notifications = await db.cypher()
+            .match(`(user:User)<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
+                    -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info@dumonda.me'})`)
+            .return('user').orderBy("user.userId").end().send();
+        notifications.length.should.equals(2);
+        notifications[0].user.userId.should.equals('2');
+        notifications[1].user.userId.should.equals('3');
+
+        let invitedUser = await db.cypher().match("(user:InvitedUser {emailNormalized: 'info@dumonda.me'})")
+            .return('user').end().send();
+        invitedUser.length.should.equals(0);
+
+        user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
+            .return('user').end({linkId: registerRequestUserValid.linkId}).send();
+        user.length.should.equals(0);
+
+        res = await requestHandler.login({
+            'username': 'info@duMonda.me',
+            'password': '1'
+        });
+        res.status.should.equal(200);
+    });
+
+    it('With invitation from two persons to answer tow question', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createQuestion('10', {
+            creatorId: '4', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.createQuestion('11', {
+            creatorId: '4', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '10', emailOfUserToInvite: 'info@dumonda.me', userId: '3'});
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '11', emailOfUserToInvite: 'info@dumonda.me', userId: '2'});
+        await dbDsl.sendToDb();
+
+        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
+        res.status.should.equal(200);
+        res.body.email.should.equals(registerRequestUserValid.email);
+
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
+            .return('user').end().send();
+        user.length.should.equals(1);
+        should.exist(user[0].user.userId);
+        user[0].user.emailNormalized.should.equals('info@dumonda.me');
+
+        user = await db.cypher()
+            .match(`(:User {emailNormalized: 'info@dumonda.me'})<-[:ASKED]-(asked:AskedToAnswerQuestion)
+                     -[:QUESTION_TO_ANSWER]->(:Question)`)
+            .with('asked')
+            .match(`(asked)<-[:ASKED_TO_ANSWER_QUESTION]-(user:User)`)
+            .return('user').end().send();
+        user.length.should.equals(2);
+
+        let notifications = await db.cypher()
+            .match(`(user:User)<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
+                    -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info@dumonda.me'})`)
+            .return('user').orderBy("user.userId").end().send();
+        notifications.length.should.equals(2);
+        notifications[0].user.userId.should.equals('2');
+        notifications[1].user.userId.should.equals('3');
+
+        let invitedUser = await db.cypher().match("(user:InvitedUser {emailNormalized: 'info@dumonda.me'})")
+            .return('user').end().send();
+        invitedUser.length.should.equals(0);
+
+        user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
+            .return('user').end({linkId: registerRequestUserValid.linkId}).send();
+        user.length.should.equals(0);
+
+        res = await requestHandler.login({
+            'username': 'info@duMonda.me',
+            'password': '1'
+        });
+        res.status.should.equal(200);
+    });
+
+    it('First verify is success. Second verify fails because of same normalized email', async function () {
+
+        await dbDsl.sendToDb();
+        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
+        res.status.should.equal(200);
+        res.body.email.should.equals(registerRequestUserValid.email);
+
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
             .return('user').end().send();
         user.length.should.equals(1);
 
@@ -156,6 +316,7 @@ describe('Integration Tests for verify registering a new user', function () {
 
     it('Send Error when linkId does not exist', async function () {
 
+        await dbDsl.sendToDb();
         let res = await requestHandler.post('/api/register/verify', {linkId: uuidv4()});
         res.status.should.equal(400);
 
