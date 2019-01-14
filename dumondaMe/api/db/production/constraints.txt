@@ -1,6 +1,7 @@
 CREATE CONSTRAINT ON (user:User) ASSERT user.userId IS UNIQUE;
 CREATE CONSTRAINT ON (user:User) ASSERT user.email IS UNIQUE;
 CREATE CONSTRAINT ON (user:User) ASSERT user.emailNormalized IS UNIQUE;
+CREATE CONSTRAINT ON (invitedUser:InvitedUser) ASSERT invitedUser.emailNormalized IS UNIQUE;
 
 CREATE CONSTRAINT ON (answer:Answer) ASSERT answer.answerId IS UNIQUE;
 
