@@ -1009,6 +1009,15 @@
       "description": "Wir werden dich auf dem Laufenden halten, wie es weiter geht! Gerne kannst du dein Feedback einbringen: feedback@dumonda.me"
     }
   },
+  "unsubscribe": {
+    "title": "Erfolgreich abbestellt",
+    "invitedUser": {
+      "description": "Es werden keine weiteren E-Mails an die Adresse <b>{{email}}</b> versendet."
+    },
+    "answerQuestion": {
+      "description": "Du erhältst keine weiteren E-Mails von DumondaMe mit der Bitte eine Frage zu beantworten."
+    }
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "Über uns",
