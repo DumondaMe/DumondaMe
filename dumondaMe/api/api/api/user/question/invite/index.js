@@ -27,7 +27,7 @@ module.exports = function (router) {
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaInviteUserToAnswerQuestion);
         let response = await inviteUser.inviteRegisteredUserToAnswerQuestion(req.user.id, params.userIds,
-            params.questionId);
+            params.questionId, req);
         res.status(200).json(response);
     }));
 };

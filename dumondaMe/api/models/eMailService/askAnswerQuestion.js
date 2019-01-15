@@ -37,7 +37,7 @@ const setSentToNotRegisteredUser = async function (userId, questionId, sentEmail
 };
 
 const sendAskUserToAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug, emailType,
-                                                    emailUnsubscribeLink) {
+                                                    emailUnsubscribeLink, req) {
     let userImage = await getUserImage(sendingUser.userId);
     let sentEmails = [];
     for (let user of users) {
@@ -49,7 +49,7 @@ const sendAskUserToAnswerQuestion = async function (users, sendingUser, question
             }, 'de', user.email);
             sentEmails.push(user.email);
         } catch (error) {
-            logger.warn(`Sending ask user ${user.email} to answer question failed`)
+            logger.error(`Sending ask user ${user.email} to answer question failed`, req, error)
         }
     }
     if (userImage && userImage.removeCallback) {
@@ -58,18 +58,18 @@ const sendAskUserToAnswerQuestion = async function (users, sendingUser, question
     return sentEmails;
 };
 
-const askRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug) {
+const askRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug, req) {
     if (users.length > 0) {
         let sentEmails = await sendAskUserToAnswerQuestion(users, sendingUser, question, questionId, questionSlug,
-            "askRegisteredUserAnswerQuestion", "unsubscribe/answerQuestion");
+            "askRegisteredUserAnswerQuestion", "unsubscribe/answerQuestion", req);
         await setSentToRegisteredUser(sendingUser.userId, questionId, sentEmails);
     }
 };
 
-const askNotRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug) {
+const askNotRegisteredUserAnswerQuestion = async function (users, sendingUser, question, questionId, questionSlug, req) {
     if (users.length > 0) {
         let sentEmails = await sendAskUserToAnswerQuestion(users, sendingUser, question, questionId, questionSlug,
-            "askNotRegisteredUserAnswerQuestion", "unsubscribe/invitedUser");
+            "askNotRegisteredUserAnswerQuestion", "unsubscribe/invitedUser", req);
         await setSentToNotRegisteredUser(sendingUser.userId, questionId, sentEmails);
     }
 };

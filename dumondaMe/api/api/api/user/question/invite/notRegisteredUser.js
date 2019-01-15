@@ -38,7 +38,7 @@ module.exports = function (router) {
         lowerCaseEmails(req.body.emails);
         const params = await validation.validateRequest(req, schemaInviteNotRegisteredUserToAnswerQuestion);
         let response = await inviteUser.inviteNotRegisteredUserToAnswerQuestion(req.user.id, params.emails,
-            params.questionId);
+            params.questionId, req);
         res.status(200).json(response);
     }));
 };
