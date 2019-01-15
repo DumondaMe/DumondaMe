@@ -3,7 +3,7 @@
         <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" offset-y
                 :close-on-click="closeOnClickOutside">
             <slot name="icon" slot="activator"></slot>
-            <v-card class="ely-menu-container">
+            <v-card class="ely-menu-container" v-if="menu">
                 <div class="menu-title">{{$t('common:feedCard.note.menuDescription')}}
                     <span class="primary-title">{{title}}</span>
                 </div>
