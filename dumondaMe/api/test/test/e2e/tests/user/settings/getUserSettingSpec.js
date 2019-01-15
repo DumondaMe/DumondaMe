@@ -35,6 +35,9 @@ describe('Getting user setting', function () {
         res.body.languages.length.should.equal(1);
         res.body.languages[0].should.equal('de');
 
+        res.body.emailNotifications.enabledEmailNotifications.should.equals(true);
+        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(true);
+
         res.body.interestedTopics.length.should.equal(2);
         res.body.interestedTopics[0].id.should.equal('topic1');
         res.body.interestedTopics[0].description.should.equal('topic1De');
@@ -42,6 +45,30 @@ describe('Getting user setting', function () {
         res.body.interestedTopics[1].description.should.equal('topic22De');
 
         res.body.showProfileActivity.should.equal(false);
+    });
+
+    it('Get disabled email notifications', async function () {
+        dbDsl.disableEMailNotification('1');
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.emailNotifications.enabledEmailNotifications.should.equals(false);
+        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(true);
+    });
+
+    it('Get disabled email notifications for invited to answer question', async function () {
+        dbDsl.disableInviteAnswerQuestionNotification('1');
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.emailNotifications.enabledEmailNotifications.should.equals(true);
+        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(false);
     });
 
     it('Get no user settings when not logged in', async function () {
