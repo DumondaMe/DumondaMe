@@ -18,7 +18,7 @@ const schemaUnsubscribeInvitedUser = {
 
 const apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
-    max: 3
+    max: 20
 });
 
 module.exports = function (router) {
