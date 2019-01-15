@@ -2,7 +2,8 @@
     <div id="dumonda-me-question-header">
         <div id="dumonda-me-question-header-content">
             <div id="question-header-main">
-                <h1 itemprop="name">{{question.question}}</h1>
+                <h1 itemprop="name" :class="{'show-all-answer': showOnlyOneAnswer}"
+                    @click="showAllAnswers()">{{question.question}}</h1>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
                 <div id="question-commands">
                     <user-menu :menu-title="creatorTitle" :user="question.creator"
@@ -100,6 +101,9 @@
             question() {
                 return this.$store.state.question.question;
             },
+            showOnlyOneAnswer() {
+                return !!this.$route.query.answerId
+            },
             creatorTitle() {
                 if (this.question.isAdmin) {
                     return this.$t("pages:feeds.menu.creatorQuestion.titleIsLoggedInUser");
@@ -126,6 +130,17 @@
             },
             async removeUserFromTrustCircle(userId) {
                 this.$store.commit('question/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
+            },
+            async showAllAnswers() {
+                try {
+                    await this.$store.dispatch('question/showAllAnswers');
+                    this.$router.replace({
+                        name: 'question-questionId-slug',
+                        params: {questionId: this.$route.params.questionId, slug: this.$route.params.slug}
+                    });
+                } catch (err) {
+
+                }
             }
         }
     }
@@ -158,6 +173,10 @@
                     line-height: 28px;
                     margin-bottom: 18px;
                 }
+            }
+
+            h1.show-all-answer {
+                cursor: pointer;
             }
 
             #question-description {
