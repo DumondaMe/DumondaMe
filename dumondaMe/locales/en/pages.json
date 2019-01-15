@@ -663,6 +663,11 @@
       "privacyModeOnlyContact": "Only people you have added to your Trust Circle will see your profile",
       "showActivityDescription": "Should people who can see your profile also see your activities? E.g. Answer Agreed, Question Asked, Engagement Marked as Interesting etc.",
       "showActivity": "Show activities"
+    },
+    "emailNotification": {
+      "title": "E-mail notifications",
+      "emailNotifications": "I would like to receive e-mail notifications",
+      "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question."
     }
   },
   "notifications": {
