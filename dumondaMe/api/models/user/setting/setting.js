@@ -11,6 +11,13 @@ let sortTopics = function (topics, language) {
     });
 };
 
+let emailNotificationSettings = function (setting) {
+    return {
+        enabledEmailNotifications: setting.userLabels.includes('EMailNotificationEnabled'),
+        enableInviteToAnswerQuestion: !setting.disableInviteAnswerQuestionNotification
+    }
+};
+
 let getResponse = function (setting) {
     sortTopics(setting.topics, setting.language);
 
@@ -21,7 +28,11 @@ let getResponse = function (setting) {
             description: topic[setting.language]
         })
     }
+    setting.emailNotifications = emailNotificationSettings(setting);
+
     delete setting.topics;
+    delete setting.disableInviteAnswerQuestionNotification;
+    delete setting.userLabels;
     return setting;
 };
 
@@ -30,7 +41,8 @@ let getUserSetting = async function (userId) {
     let resp = await db.cypher().match(`(u:User {userId: {userId}})`)
         .optionalMatch(`(u)-[:INTERESTED]->(topic:Topic)`)
         .return(`u.privacyMode AS privacyMode, u.showProfileActivity AS showProfileActivity, u.languages AS languages,
-                 u.language AS language, collect(topic) AS topics`)
+                 u.language AS language, collect(topic) AS topics, labels(u) AS userLabels, 
+                 u.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification`)
         .end({userId}).send();
     return getResponse(resp[0]);
 };
