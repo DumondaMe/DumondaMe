@@ -666,6 +666,11 @@
       "privacyModeOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast, sehen dein Profil.",
       "showActivityDescription": "Sollen Personen, die dein Profil sehen können und sich dieses anschauen, auch deine Aktivitäten sehen? (z.B. welchen Antworten du zugestimmt hast)",
       "showActivity": "Aktivitäten anzeigen"
+    },
+    "emailNotification": {
+      "title": "E-Mail Benachrichtigungen",
+      "emailNotifications": "Ich möchte E-Mail Benachrichtigungen erhalten",
+      "inviteToAnswerQuestion": "Andere Benutzer von DumondaMe können mich darum bitten, eine Frage zu beantworten."
     }
   },
   "notifications": {
