@@ -56,21 +56,21 @@ const getUser = async function (userId) {
     throw new exceptions.InvalidOperation(`User ${userId} does not exists`);
 };
 
-const inviteRegisteredUserToAnswerQuestion = async function (userId, usersToInvite, questionId) {
+const inviteRegisteredUserToAnswerQuestion = async function (userId, usersToInvite, questionId, req) {
     let question = await getQuestion(questionId);
     let user = await getUser(userId);
     let existingUsers = await getExistingUsers(userId, usersToInvite, questionId);
     await email.askRegisteredUserAnswerQuestion(existingUsers, user, question.question, questionId,
-        slug(question.question));
+        slug(question.question), req);
 };
 
-const inviteNotRegisteredUserToAnswerQuestion = async function (userId, emailsToInvite, questionId) {
+const inviteNotRegisteredUserToAnswerQuestion = async function (userId, emailsToInvite, questionId, req) {
     let question = await getQuestion(questionId);
     let user = await getUser(userId);
     let notExistingUsers = await getNotExistingUsers(userId, emailsToInvite.map(email => email.toLowerCase()),
         questionId);
     await email.askNotRegisteredUserAnswerQuestion(notExistingUsers, user, question.question, questionId,
-        slug(question.question));
+        slug(question.question), req);
 };
 
 module.exports = {
