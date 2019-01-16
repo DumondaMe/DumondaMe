@@ -16,7 +16,16 @@ module.exports.init = function (type) {
         module.exports.logging = require('./logging');
         module.exports.time = require('./time');
         module.exports.uuid = require('./uuid');
-    } else  {
+    } else if (type === 'emailService') {
+        module.exports.exceptions = require('./error/exceptions');
+        module.exports.cdn = require('./cdn');
+        module.exports.neo4j = require('./neo4j');
+        module.exports.databaseConfig = require('./databaseConfig');
+        module.exports.limiteRate = require('./limiteRate');
+        module.exports.logging = require('./logging');
+        module.exports.time = require('./time');
+        module.exports.uuid = require('./uuid');
+    } else {
         module.exports.eMail = require('./eMail/eMail');
 
         module.exports.apiHelper = require('./apiHelper');
