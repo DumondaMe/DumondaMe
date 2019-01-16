@@ -1,7 +1,6 @@
 FROM node:10.15.0
 
 ENV NODE_ENV 'production'
-ENV PORT 3000
 
 RUN mkdir -p /usr/src/app/server/src
 RUN mkdir -p /usr/src/app/server/serverLib
@@ -18,5 +17,4 @@ COPY originalPackage.json /usr/src/app/server/package.json
 
 USER node
 
-EXPOSE 3000
 CMD [ "npm", "start" ]
