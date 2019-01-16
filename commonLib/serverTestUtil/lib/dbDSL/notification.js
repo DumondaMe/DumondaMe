@@ -28,13 +28,16 @@ const showQuestionOnCommitmentRequest = function (notificationId, data) {
 };
 
 const userAddedToTrustCircle = function (notificationId, data) {
-    let readLabel = ':Unread';
+    let readLabel = ':Unread', sentLabel = '';
     if (data.read) {
         readLabel = '';
     }
+    if (data.emailSent) {
+        readLabel = ':EmailSent';
+    }
     dbConnectionHandling.getCommands().push(db.cypher()
         .match(`(userAddedToTrustCircle:User {userId: {userId}})`)
-        .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification${readLabel} {type: 'addedToTrustCircle', 
+        .merge(`(userAddedToTrustCircle)<-[:NOTIFIED]-(notification:Notification${readLabel}${sentLabel} {type: 'addedToTrustCircle', 
                                       created: {created}, notificationId: {notificationId}})`)
         .with(`notification`)
         .unwind(`{trustCircleUsers} AS trustCircleUser`)

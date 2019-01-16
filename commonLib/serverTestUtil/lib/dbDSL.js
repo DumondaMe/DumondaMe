@@ -121,5 +121,6 @@ module.exports = {
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser,
-    disableInviteAnswerQuestionNotification: eMailNotificationSettings.disableInviteAnswerQuestionNotification
+    disableInviteAnswerQuestionNotification: eMailNotificationSettings.disableInviteAnswerQuestionNotification,
+    disableNewNotificationEmail: eMailNotificationSettings.disableNewNotificationEmail
 };
