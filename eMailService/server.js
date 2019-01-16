@@ -13,7 +13,7 @@ const notifications = require('./src/notifications');
 
 dbConfig.connected.then(async function () {
     logger.info('EMail service started');
-    schedule.scheduleJob('*/20 * * * * *', async function () {
+    schedule.scheduleJob(process.env.JOB_SCHEDULE, async function () {
         try {
             logger.info(`The job to send unread notifications was started.`);
             await notifications.sendUnreadNotifications();
