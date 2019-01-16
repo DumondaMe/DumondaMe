@@ -17,6 +17,7 @@ module.exports.init = function (type) {
         module.exports.time = require('./time');
         module.exports.uuid = require('./uuid');
     } else if (type === 'emailService') {
+        module.exports.eMail = require('./eMail/eMail');
         module.exports.exceptions = require('./error/exceptions');
         module.exports.cdn = require('./cdn');
         module.exports.neo4j = require('./neo4j');

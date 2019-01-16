@@ -19,8 +19,14 @@ const disableInviteAnswerQuestionNotification = function (userId) {
         .set('u', {disableInviteAnswerQuestionNotification: true}).end({userId}).getCommand());
 };
 
+const disableNewNotificationEmail = function (userId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set('u', {disableNewNotificationEmail: true}).end({userId}).getCommand());
+};
+
 module.exports = {
     disableEMailNotification,
     disableEMailNotificationForInvitedUser,
     disableInviteAnswerQuestionNotification,
+    disableNewNotificationEmail
 };
