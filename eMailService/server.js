@@ -29,3 +29,4 @@ dbConfig.connected.then(async function () {
 });
 
 dbConfig.config({host: process.env.DATABASE_URL});
+logger.info('Start database init' + process.env.DATABASE_URL);
