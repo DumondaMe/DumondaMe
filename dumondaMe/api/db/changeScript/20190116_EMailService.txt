@@ -1,0 +1,3 @@
+MATCH (u:User)
+WHERE NOT EXISTS(u.language)
+SET u.language = 'de';
