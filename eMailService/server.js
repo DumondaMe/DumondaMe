@@ -1,3 +1,5 @@
+'use strict';
+
 require('dumonda-me-server-lib').init('emailService');
 require('fs-extra');
 
