@@ -16,10 +16,19 @@ const setInviteToAnswerQuestion = function (enableInviteToAnswerQuestion) {
     return ' SET user.disableInviteAnswerQuestionNotification = true';
 };
 
-const changeSettings = async function (userId, enableEmailNotifications, enableInviteToAnswerQuestion) {
+const setNewNotifications = function (enableInviteToAnswerQuestion) {
+    if (enableInviteToAnswerQuestion) {
+        return ' REMOVE user.disableNewNotificationEmail';
+    }
+    return ' SET user.disableNewNotificationEmail = true';
+};
+
+const changeSettings = async function (userId, enableEmailNotifications, enableInviteToAnswerQuestion,
+                                       enableNewNotifications) {
     await db.cypher().match(`(user:User {userId: {userId}})`)
         .addCommand(setEMailNotificationLabel(enableEmailNotifications))
         .addCommand(setInviteToAnswerQuestion(enableInviteToAnswerQuestion))
+        .addCommand(setNewNotifications(enableNewNotifications))
         .end({userId: userId}).send();
 };
 

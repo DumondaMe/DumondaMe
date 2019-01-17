@@ -12,7 +12,8 @@ const schemaEmailNotificationSettings = {
     required: ['enableEmailNotifications', 'enableInviteToAnswerQuestion'],
     properties: {
         enableEmailNotifications: {type: 'boolean'},
-        enableInviteToAnswerQuestion: {type: 'boolean'}
+        enableInviteToAnswerQuestion: {type: 'boolean'},
+        enableNewNotifications: {type: 'boolean'}
     }
 };
 
@@ -22,7 +23,7 @@ module.exports = function (router) {
         let request = await validation.validateRequest(req, schemaEmailNotificationSettings);
         logger.info(`User ${req.user.id} changes email notification settings`, req);
         await emailNotifications.changeSettings(req.user.id, request.enableEmailNotifications,
-            request.enableInviteToAnswerQuestion);
+            request.enableInviteToAnswerQuestion, request.enableNewNotifications);
         res.status(200).end();
     }));
 };

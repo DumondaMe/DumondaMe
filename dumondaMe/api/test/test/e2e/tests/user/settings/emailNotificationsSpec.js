@@ -22,7 +22,7 @@ describe('Setting of the email notifications', function () {
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true});
+            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
@@ -35,7 +35,7 @@ describe('Setting of the email notifications', function () {
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: false, enableInviteToAnswerQuestion: true});
+            {enableEmailNotifications: false, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
@@ -49,7 +49,7 @@ describe('Setting of the email notifications', function () {
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true});
+            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
@@ -64,7 +64,7 @@ describe('Setting of the email notifications', function () {
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: false});
+            {enableEmailNotifications: true, enableInviteToAnswerQuestion: false, enableNewNotifications: true});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
@@ -72,5 +72,36 @@ describe('Setting of the email notifications', function () {
             .end().send();
         user.length.should.equals(1);
         user[0].disableInviteAnswerQuestionNotification.should.equals(true);
+    });
+
+    it('Enable email when new notifications available', async function () {
+        dbDsl.disableNewNotificationEmail('1');
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/settings/emailNotifications',
+            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
+        res.status.should.equal(200);
+
+        let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
+            .return('user.disableNewNotificationEmail AS disableNewNotificationEmail')
+            .end().send();
+        user.length.should.equals(1);
+        should.not.exist(user[0].disableNewNotificationEmail)
+    });
+
+    it('Disable email when new notifications available', async function () {
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/settings/emailNotifications',
+            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: false});
+        res.status.should.equal(200);
+
+        let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
+            .return('user.disableNewNotificationEmail AS disableNewNotificationEmail')
+            .end().send();
+        user.length.should.equals(1);
+        user[0].disableNewNotificationEmail.should.equals(true);
     });
 });
