@@ -16,6 +16,8 @@
                 <div>
                     <h3 class="name">Roger Waldvogel</h3>
                     <div class="ely-function">Initiator von DumondaMe</div>
+                    <div class="email-address"><a
+                            href="mailto:roger.waldvogel@dumonda.me">roger.waldvogel@dumonda.me</a></div>
                     <p class="about-text">Ich bin eidgenössisch diplomierter Informatikingenieur FH und verfüge
                         über mehrjährige, professionelle Berufserfahrung in der Entwicklung von komplexen
                         Software Systemen. Es ist für mich eine Herzensangelegenheit, dass die neuen
@@ -31,9 +33,11 @@
                 <div>
                     <h3 class="name">Roman Kümin</h3>
                     <div class="ely-function">Vizepräsident von DumondaMe</div>
+                    <div class="email-address"><a
+                            href="mailto:roman.kuemin@dumonda.me">roman.kuemin@dumonda.me</a></div>
                     <p class="about-text">Ich bin eidgenössisch diplomierter Informatiker, welcher über 15 Jahren in
-                        der Business-Analyse eines der grössten Rückversicherers der Welt tätig war. Ich bin
-                        von dem positiven Potenzial der Gesellschaft überzeugt und möchte dessen Entfaltung
+                        der Business-Analyse eines der grössten Rückversicherers der Welt tätig war. Von dem positiven
+                        Potenzial der Gesellschaft bin ich überzeugt und möchte dessen Entfaltung
                         mit der Unterstützung von DumondaMe fördern.
                     </p>
                 </div>
@@ -47,6 +51,8 @@
                 <div>
                     <h3 class="name">Kim Degen</h3>
                     <div class="ely-function"></div>
+                    <div class="email-address without-function"><a
+                            href="mailto:kimjana@momoundronja.ch">kimjana@momoundronja.ch</a></div>
                     <p class="about-text">
                     </p>
                 </div>
@@ -58,13 +64,15 @@
                 <div>
                     <h3 class="name">Jeannine Brutschin</h3>
                     <div class="ely-function"></div>
+                    <div class="email-address without-function"><a
+                            href="mailto:jeannine@momoundronja.ch">jeannine@momoundronja.ch</a></div>
                     <p class="about-text">
                     </p>
                 </div>
             </div>
             <div class="team-sub-title">Ehrenamtliche Helfer</div>
             <p>Des weiteren werden wir von vielen Menschen auf ehrenamtlicher Basis unterstützt. An dieser Stelle vielen
-                herzlichen Dank für euer freiwilliges Wirken, ohne welches dieses Projekt nicht hätte verwirklicht
+                herzlichen Dank für euer freiwilliges Wirken, ohne welches dieses Projekt nicht hätte realisiert
                 werden können.
             </p>
         </div>
@@ -188,9 +196,26 @@
             }
 
             .ely-function {
+                margin-top: 4px;
                 font-size: 14px;
-                font-weight: 300;
-                margin-bottom: 6px;
+                color: $primary-text
+            }
+
+            .email-address {
+                font-size: 14px;
+                line-height: 14px;
+                height: 14px;
+                margin-top: 4px;
+                margin-bottom: 8px;
+
+                a {
+                    text-decoration: none;
+                    color: $primary-text
+                }
+            }
+
+            .email-address.without-function {
+                margin-top: 6px;
             }
         }
 
