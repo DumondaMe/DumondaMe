@@ -37,6 +37,7 @@ describe('Getting user setting', function () {
 
         res.body.emailNotifications.enabledEmailNotifications.should.equals(true);
         res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(true);
+        res.body.emailNotifications.enableNewNotifications.should.equals(true);
 
         res.body.interestedTopics.length.should.equal(2);
         res.body.interestedTopics[0].id.should.equal('topic1');
