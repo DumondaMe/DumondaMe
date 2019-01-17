@@ -14,7 +14,8 @@ let sortTopics = function (topics, language) {
 let emailNotificationSettings = function (setting) {
     return {
         enabledEmailNotifications: setting.userLabels.includes('EMailNotificationEnabled'),
-        enableInviteToAnswerQuestion: !setting.disableInviteAnswerQuestionNotification
+        enableInviteToAnswerQuestion: !setting.disableInviteAnswerQuestionNotification,
+        enableNewNotifications: !setting.disableNewNotificationEmail
     }
 };
 
@@ -32,6 +33,7 @@ let getResponse = function (setting) {
 
     delete setting.topics;
     delete setting.disableInviteAnswerQuestionNotification;
+    delete setting.disableNewNotificationEmail;
     delete setting.userLabels;
     return setting;
 };
@@ -42,7 +44,8 @@ let getUserSetting = async function (userId) {
         .optionalMatch(`(u)-[:INTERESTED]->(topic:Topic)`)
         .return(`u.privacyMode AS privacyMode, u.showProfileActivity AS showProfileActivity, u.languages AS languages,
                  u.language AS language, collect(topic) AS topics, labels(u) AS userLabels, 
-                 u.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification`)
+                 u.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification,
+                 u.disableNewNotificationEmail AS disableNewNotificationEmail`)
         .end({userId}).send();
     return getResponse(resp[0]);
 };
