@@ -30,10 +30,21 @@ const addAttachments = function (result, template, templateData) {
     }
 };
 
+const addEMailSender = function (result, template, templateData, language) {
+    let senderPath = path.join(__dirname, 'templates', template, language, 'sender.js');
+    if (fs.existsSync(senderPath)) {
+        let sender = require(senderPath);
+        result.senderName = sender.getSender(templateData);
+    } else {
+        result.senderName = 'DumondaMe';
+    }
+};
+
 const renderTemplate = async function (template, templateData, language) {
     let result = {html: await emailTemplate.render(`${template}/${language}/html`, templateData)};
     addSubject(result, template, templateData, language);
     addAttachments(result, template, templateData);
+    addEMailSender(result, template, templateData, language);
     return result;
 };
 

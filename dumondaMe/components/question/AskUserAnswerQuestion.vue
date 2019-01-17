@@ -75,6 +75,7 @@
             margin-bottom: 12px;
             font-size: 16px;
             font-weight: 500;
+            color: $secondary-color;
         }
 
         .description {

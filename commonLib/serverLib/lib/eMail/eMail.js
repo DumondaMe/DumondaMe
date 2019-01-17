@@ -32,7 +32,7 @@ let sendEMail = async function (template, templateData, language, sendTo) {
     try {
         renderResult = await emailTemplates.renderTemplate(template, templateData, language);
         let response = await transporter.sendMail({
-            from: 'DumondaMe <info@dumonda.me>', to: sendTo,
+            from: `${renderResult.senderName} <info@dumonda.me>`, to: sendTo,
             subject: renderResult.subject, html: renderResult.html, attachments: renderResult.attachments
         });
         if (response.err) {

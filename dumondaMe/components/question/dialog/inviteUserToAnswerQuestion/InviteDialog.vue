@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card id="dialog-invite-user-to-answer-question">
                 <div id="dumonda-me-dialog-header">
-                    {{$t("pages:question.askUserAnswerQuestion.title")}}
+                    {{$t("pages:question.askUserAnswerQuestion.inviteDialog.title")}}
                 </div>
                 <v-divider></v-divider>
                 <v-card-text id="dialog-invite-user-to-answer-question-content" class="mobile-dialog-content">
