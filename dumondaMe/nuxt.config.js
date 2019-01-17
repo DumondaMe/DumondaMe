@@ -22,6 +22,8 @@ module.exports = {
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+            {hid: 'mobile-web-app-capable', name: 'mobile-web-app-capable', content: 'yes'},
+            {hid: 'theme-color', name: 'theme-color', content: '#009e97'},
             {hid: 'og:type', property: 'og:type', content: 'website'},
             {hid: 'og:url', property: 'og:url', content: 'https://www.dumonda.me/'},
             {hid: 'og:site_name', property: 'og:site_name', content: 'Dumonda Me'},
@@ -57,6 +59,7 @@ module.exports = {
         }
     },
     modules: [
+        ['@nuxtjs/pwa', {meta: false, oneSignal: false}],
         '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
@@ -82,6 +85,11 @@ module.exports = {
     },
     render: {
         resourceHints: false
+    },
+    manifest: {
+        name: 'DumondaMe',
+        "short_name": 'DumondaMe',
+        lang: 'de'
     },
     build: {
         transpile: [/^vuetify/],
