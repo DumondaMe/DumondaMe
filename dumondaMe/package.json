@@ -17,6 +17,7 @@
     "@nuxtjs/proxy": "1.2.4",
     "@mdi/font": "2.5.94",
     "babel-polyfill": "6.26.0",
+    "@nuxtjs/pwa": "2.6.0",
     "bcrypt": "3.0.2",
     "bluebird": "3.5.2",
     "body-parser": "1.18.3",
