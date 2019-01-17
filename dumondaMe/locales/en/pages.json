@@ -667,8 +667,10 @@
     },
     "emailNotification": {
       "title": "E-mail notifications",
+      "disabledDescription": "You will not receive any email notifications from DumondaMe. An exception is the newsletter and important information regarding the operation of the platform.",
       "emailNotifications": "I would like to receive e-mail notifications",
-      "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question."
+      "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question.",
+      "newNotifications": "An email will be sent to you when you receive new notifications on DumondaMe."
     }
   },
   "notifications": {

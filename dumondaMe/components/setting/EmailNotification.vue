@@ -3,14 +3,23 @@
         <div id="top-checkbox">
             <v-checkbox v-model="enabledEmailNotifications"
                         :label="$t('pages:settings.emailNotification.emailNotifications')"
-                        color="secondary" :disabled="loading">
+                        color="primary" :disabled="loading">
             </v-checkbox>
         </div>
         <v-divider class="email-notification-divider"></v-divider>
-        <v-checkbox v-model="enableInviteToAnswerQuestion"
-                    :label="$t('pages:settings.emailNotification.inviteToAnswerQuestion')"
-                    color="primary" :disabled="loading || !enabledEmailNotifications">
-        </v-checkbox>
+        <div v-if="enabledEmailNotifications" id="sub-checkboxes">
+            <v-checkbox v-model="enableInviteToAnswerQuestion"
+                        :label="$t('pages:settings.emailNotification.inviteToAnswerQuestion')"
+                        color="primary" :disabled="loading || !enabledEmailNotifications">
+            </v-checkbox>
+            <v-checkbox v-model="enableNewNotifications"
+                        :label="$t('pages:settings.emailNotification.newNotifications')"
+                        color="primary" :disabled="loading || !enabledEmailNotifications">
+            </v-checkbox>
+        </div>
+        <div v-else class="email-disabled-description">
+            {{$t('pages:settings.emailNotification.disabledDescription')}}
+        </div>
     </div>
 </template>
 
@@ -20,28 +29,56 @@
             return {
                 enabledEmailNotifications: this.$store.state.setting.emailNotifications.enabledEmailNotifications,
                 enableInviteToAnswerQuestion: this.$store.state.setting.emailNotifications.enableInviteToAnswerQuestion,
-                loading: false
+                enableNewNotifications: this.$store.state.setting.emailNotifications.enableNewNotifications,
+                loading: false, previouslyEnabledEmailNotifications: false
             }
         },
+        mounted() {
+            this.disableAllNotifications();
+        },
         methods: {
-            async setEmailNotifications() {
+            async setEmailNotifications(enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications) {
                 try {
                     this.loading = true;
+                    this.previouslyEnabledEmailNotifications = false;
                     await this.$store.dispatch('setting/setEmailNotification', {
-                        enableEmailNotifications: this.enabledEmailNotifications,
-                        enableInviteToAnswerQuestion: this.enableInviteToAnswerQuestion
+                        enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications
                     });
                 } finally {
                     this.loading = false;
                 }
+            },
+            disableAllNotifications() {
+                if (!this.enableInviteToAnswerQuestion && !this.enableNewNotifications) {
+                    this.enabledEmailNotifications = false;
+                    return true;
+                }
+                return false;
             }
         },
         watch: {
             async enabledEmailNotifications() {
-                await this.setEmailNotifications();
+                await this.setEmailNotifications(this.enabledEmailNotifications, this.enabledEmailNotifications,
+                    this.enabledEmailNotifications);
+                if (this.enabledEmailNotifications) {
+                    this.previouslyEnabledEmailNotifications = true;
+                    this.enableInviteToAnswerQuestion = true;
+                    this.enableNewNotifications = true;
+                }
             },
             async enableInviteToAnswerQuestion() {
-                await this.setEmailNotifications();
+                if ((!this.previouslyEnabledEmailNotifications || !this.enableInviteToAnswerQuestion) &&
+                    !this.disableAllNotifications()) {
+                    await this.setEmailNotifications(this.enabledEmailNotifications, this.enableInviteToAnswerQuestion,
+                        this.enableNewNotifications);
+                }
+            },
+            async enableNewNotifications() {
+                if ((!this.previouslyEnabledEmailNotifications || !this.enableNewNotifications) &&
+                    !this.disableAllNotifications()) {
+                    await this.setEmailNotifications(this.enabledEmailNotifications, this.enableInviteToAnswerQuestion,
+                        this.enableNewNotifications);
+                }
             }
         }
     }
@@ -59,8 +96,22 @@
             }
         }
 
+        #sub-checkboxes {
+            .v-input {
+                margin-top: 0;
+
+                .v-input__slot {
+                    margin-bottom: 4px;
+                }
+            }
+        }
+
         .email-notification-divider {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .email-disabled-description {
+            font-weight: 300;
         }
     }
 </style>

@@ -28,10 +28,13 @@ export const actions = {
         commit('SET_PRIVACY_MODE', privacyMode);
         commit('SET_PRIVACY_SHOW_PROFILE_ACTIVITY', showProfileActivity);
     },
-    async setEmailNotification({commit}, {enableEmailNotifications, enableInviteToAnswerQuestion}) {
+    async setEmailNotification({commit}, {
+        enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications
+    }) {
         await this.$axios.$put(`user/settings/emailNotifications`,
-            {enableEmailNotifications, enableInviteToAnswerQuestion});
-        commit('SET_EMAIL_NOTIFICATION', {enableEmailNotifications, enableInviteToAnswerQuestion});
+            {enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications});
+        commit('SET_EMAIL_NOTIFICATION',
+            {enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications});
     },
     async setLanguages({commit}, languages) {
         await this.$axios.$put(`user/settings/languages`, {languages});

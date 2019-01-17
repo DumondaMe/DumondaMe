@@ -9,7 +9,7 @@ const schemaEmailNotificationSettings = {
     name: 'changeEmailNotificationsSettings',
     type: 'object',
     additionalProperties: false,
-    required: ['enableEmailNotifications', 'enableInviteToAnswerQuestion'],
+    required: ['enableEmailNotifications', 'enableInviteToAnswerQuestion', 'enableNewNotifications'],
     properties: {
         enableEmailNotifications: {type: 'boolean'},
         enableInviteToAnswerQuestion: {type: 'boolean'},
