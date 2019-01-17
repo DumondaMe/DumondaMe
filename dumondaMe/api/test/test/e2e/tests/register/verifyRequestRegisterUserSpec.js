@@ -17,6 +17,7 @@ describe('Integration Tests for verify registering a new user', function () {
             name: 'user Waldvogel',
             forename: 'user',
             surname: 'Waldvogel',
+            language: 'de',
             linkId: uuidv4()
         }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000),
         registerRequestUserValidWithInvitation, registerRequestUserValidCaseSensitiveEmail;
@@ -68,6 +69,7 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
         user[0].user.showProfileActivity.should.equals(true);
+        user[0].user.language.should.equals('de');
         user[0].user.languages.length.should.equals(2);
         user[0].user.languages.should.includes('de');
         user[0].user.languages.should.includes('en');
@@ -106,6 +108,7 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
         user[0].user.showProfileActivity.should.equals(true);
+        user[0].user.language.should.equals('de');
         user[0].user.languages.length.should.equals(2);
         user[0].user.languages.should.includes('de');
         user[0].user.languages.should.includes('en');

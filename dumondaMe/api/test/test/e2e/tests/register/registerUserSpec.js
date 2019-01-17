@@ -39,7 +39,7 @@ describe('Integration Tests for request to register a new user', function () {
         res.status.should.equal(200);
         let user = await db.cypher().match("(user:UserRegisterRequest {email: 'Climberwoodi@Gmx.ch'})")
             .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, 
-                user.registerDate AS registerDate,
+                user.registerDate AS registerDate, user.language AS language,
                 user.emailNormalized AS emailNormalized, user.linkId AS linkId`)
             .end().send();
         user.length.should.equals(1);
@@ -47,6 +47,7 @@ describe('Integration Tests for request to register a new user', function () {
         user[0].forename.should.equals(newUser.forename);
         user[0].surname.should.equals(newUser.surname);
         user[0].emailNormalized.should.equals('climberwoodi@gmx.ch');
+        user[0].language.should.equals('de');
         user[0].registerDate.should.be.at.least(startTime);
 
         stubSendEMail.calledWith("registerUserRequest", {link: `${process.env.DUMONDA_ME_DOMAIN}register/verify/${user[0].linkId}`},
