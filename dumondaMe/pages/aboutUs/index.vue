@@ -2,11 +2,11 @@
     <div id="ely-about-us">
         <h2>{{$t('pages:aboutUs.title')}}</h2>
         <div v-if="selectedLanguage === 'de'">
-            <p class="top-text">Wir sind ein engagiertes Team mit dem Ziel, die neuen Informationstechnologien zum Wohle
-                der Gesellschaft verfügbar zu machen. Mit viel fachlichem Know-How und Enthusiasmus haben wir DumondaMe
-                verwirklicht. Eine Plattform welche die Entwicklung der Gesellschaft in den Mittelpunkt stellt und nicht
-                den Profit. Aus diesem Grund haben wir den gemeinnützigen Verein DumondaMe gegründet, welcher als
-                tragendes Gefäss für die Entwicklung und den Betrieb dieses Projektes dienen soll. Die Statuten des
+            <p class="top-text">Wir sind ein engagiertes Team mit dem Ziel, dass die neuen Informationstechnologien zum
+                Wohle der Gesellschaft eingesetzt werden. Mit viel fachlichem Know-How und Enthusiasmus haben wir
+                DumondaMe verwirklicht. Eine Plattform welche die Entwicklung der Gesellschaft in den Mittelpunkt stellt
+                und nicht den Profit. Aus diesem Grund haben wir den gemeinnützigen Verein DumondaMe gegründet, welcher
+                als tragendes Gefäss für die Entwicklung und den Betrieb dieses Projektes dienen soll. Die Statuten des
                 Vereines findest du <a target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
