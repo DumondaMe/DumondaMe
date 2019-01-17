@@ -868,8 +868,11 @@
     "post": "DumondaMe<br>8000 Zürich<br>Schweiz"
   },
   "aboutUs": {
+    "title": "Über Uns",
     "team": {
-      "title": "Das Team"
+      "roger": {
+        "description": ""
+      }
     },
     "history": {
       "title": "Es war einmal...",

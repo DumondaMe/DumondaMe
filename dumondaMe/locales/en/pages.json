@@ -865,8 +865,11 @@
     "post": "DumondaMe<br>8000 Zurich<br>Switzerland"
   },
   "aboutUs": {
+    "title": "About Us",
     "team": {
-      "title": "Team"
+      "roger": {
+        "description": ""
+      }
     },
     "history": {
       "title": "Once upon a time...",
