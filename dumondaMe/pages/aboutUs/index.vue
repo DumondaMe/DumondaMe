@@ -1,10 +1,13 @@
 <template>
     <div id="ely-about-us">
-        <h2>{{$t('pages:aboutUs.team.title')}}</h2>
+        <h2>{{$t('pages:aboutUs.title')}}</h2>
         <div v-if="selectedLanguage === 'de'">
-            <p class="top-text">DumondaMe wird vom gleichnamigen, gemeinnützigen Verein entwickelt und betrieben. Der
-                Verein wurde am 21.06.2017 gegründet. Die Vereinsstatuten findest du
-                <a target="_blank" :href="bylaws">hier.</a>
+            <p class="top-text">Wir sind ein engagiertes Team mit dem Ziel, die neuen Informationstechnologien zum Wohle
+                der Gesellschaft verfügbar zu machen. Mit viel fachlichem Know-How und Enthusiasmus haben wir DumondaMe
+                verwirklicht. Eine Plattform welche die Entwicklung der Gesellschaft in den Mittelpunkt stellt und nicht
+                den Profit. Aus diesem Grund haben wir den gemeinnützigen Verein DumondaMe gegründet, welcher als
+                tragendes Gefäss für die Entwicklung und den Betrieb dieses Projektes dienen soll. Die Statuten des
+                Vereines findest du <a target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
                 <div>
@@ -13,8 +16,12 @@
                 <div>
                     <h3 class="name">Roger Waldvogel</h3>
                     <div class="ely-function">Initiator von DumondaMe</div>
-                    <p class="about-text">Leidenschaftlicher Software Entwickler, Kletterer, Meditierender, (luzider)
-                        Träumer.</p>
+                    <p class="about-text">Ich bin eidgenössisch diplomierter Informatikingenieur FH und verfüge
+                        über mehrjährige, professionelle Berufserfahrung in der Entwicklung von komplexen
+                        Software Systemen. Es ist für mich eine Herzensangelegenheit, dass die neuen
+                        Technologien zum Wohle der Allgemeinheit eingesetzt werden. Diese Zielsetzung war
+                        für mich die Hauptmotivation, um das Projekt DumondaMe ins Leben zu rufen.
+                    </p>
                 </div>
             </div>
             <div class="about-user">
@@ -24,11 +31,42 @@
                 <div>
                     <h3 class="name">Roman Kümin</h3>
                     <div class="ely-function">Vizepräsident von DumondaMe</div>
-                    <p class="about-text">Interessiert in Digitalen Währungen und Blockchain, Gartenkräuterhalter.</p>
+                    <p class="about-text">Ich bin eidgenössisch diplomierter Informatiker, welcher über 15 Jahren in
+                        der Business-Analyse eines der grössten Rückversicherers der Welt tätig war. Ich bin
+                        von dem positiven Potenzial der Gesellschaft überzeugt und möchte dessen Entfaltung
+                        mit der Unterstützung von DumondaMe fördern.
+                    </p>
                 </div>
             </div>
-            <p>Des weiteren unterstützten uns <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a>
-                tatkräftig beim Aufbau dieser Plattform.</p>
+            <div class="team-sub-title">Ganzheitliche Projektbegleitung durch
+                <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a></div>
+            <div class="about-user">
+                <div>
+                    <img class="profile-image" :src="imageKim"/>
+                </div>
+                <div>
+                    <h3 class="name">Kim Degen</h3>
+                    <div class="ely-function"></div>
+                    <p class="about-text">
+                    </p>
+                </div>
+            </div>
+            <div class="about-user">
+                <div>
+                    <img class="profile-image" :src="imageJeannine"/>
+                </div>
+                <div>
+                    <h3 class="name">Jeannine Brutschin</h3>
+                    <div class="ely-function"></div>
+                    <p class="about-text">
+                    </p>
+                </div>
+            </div>
+            <div class="team-sub-title">Ehrenamtliche Helfer</div>
+            <p>Des weiteren werden wir von vielen Menschen auf ehrenamtlicher Basis unterstützt. An dieser Stelle vielen
+                herzlichen Dank für euer freiwilliges Wirken, ohne welches dieses Projekt nicht hätte verwirklicht
+                werden können.
+            </p>
         </div>
         <div v-else-if="selectedLanguage === 'en'">
             <p class="top-text">DumondaMe is developed and operated by the nonprofit society of the same name. The
@@ -80,6 +118,12 @@
             },
             imageRoman() {
                 return `${process.env.staticUrl}/img/about/roman_kuemin.jpg`
+            },
+            imageKim() {
+                return `${process.env.staticUrl}/img/about/kim_degen.jpg`
+            },
+            imageJeannine() {
+                return `${process.env.staticUrl}/img/about/jeannine_brutschin.jpg`
             }
         }
     }
@@ -148,6 +192,12 @@
                 font-weight: 300;
                 margin-bottom: 6px;
             }
+        }
+
+        .team-sub-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 22px;
         }
     }
 </style>
