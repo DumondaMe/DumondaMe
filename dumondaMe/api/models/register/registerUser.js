@@ -32,6 +32,7 @@ const registerUser = async function (params, req) {
             forename: params.forename,
             surname: params.surname,
             name: params.forename + ' ' + params.surname,
+            language: params.language,
             password: hash,
             registerDate: time.getNowUtcTimestamp()
         }
