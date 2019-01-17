@@ -392,12 +392,13 @@
       "answers_plural": "{{count}} Antworten"
     },
     "askUserAnswerQuestion": {
-      "title": "Einladungen versenden",
-      "description": "Kennst du Jemand der diese Frage beantworten könnte? Sende ihm/ihr eine Nachricht.",
-      "dumondaMeButton": "Benachrichtigung über DumondaMe versenden",
-      "whatsAppButton": "Benachrichtigung über WhatsApp versenden",
-      "telegramButton": "Benachrichtigung über Telegram versenden",
+      "title": "Wer könnte hierzu etwas wissen?",
+      "description": "Du kennst eine Person, welche diese Frage beantworten kann? Sende ihr eine Nachricht:",
+      "dumondaMeButton": "E-Mail-Einladung über über DumondaMe versenden",
+      "whatsAppButton": "Einladung über über WhatsApp versenden",
+      "telegramButton": "Einladung über über Telegram versenden",
       "inviteDialog": {
+        "title": "E-Mail-Einladungen versenden",
         "searchLabel": "Name oder E-Mail Adresse",
         "alreadySentTitle": "Bereits versendete Einladungen",
         "description": "Hier kannst du nach Personen suchen und ihnen ein von DumondaMe generiertes E-Mail zukommen lassen, welches sie bittet diese Frage zu beantworten. Du kannst auch die E-Mail Adresse von noch nicht registrierten Benutzer_innen verwenden.",
