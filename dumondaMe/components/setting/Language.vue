@@ -7,7 +7,7 @@
         <div class="language-description">{{$t('pages:settings.language.languagesDescription')}}</div>
         <div class="select-languages-container">
             <div class="selected-language" v-for="language in getLanguagesTranslated()" :key="language.value">
-                <v-checkbox v-model="selectedLanguages" :label="language.text"
+                <v-checkbox v-model="selectedLanguages" :label="language.text" color="primary"
                             :value="language.value" :disabled="loading">
                 </v-checkbox>
             </div>
