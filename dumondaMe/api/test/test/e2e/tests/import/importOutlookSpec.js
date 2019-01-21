@@ -51,9 +51,10 @@ describe('Import eMail from outlook', function () {
         res.body.contacts[1].name.should.equals('user Meier3');
         res.body.contacts[1].email.should.equals('user3@irgendwo.ch');
         res.body.contacts[1].isPlatformUser.should.equals(true);
-        res.body.contacts[1].userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.contacts[1].userImage.should.equals('profileImage/3/profilePreview.jpg');
         res.body.contacts[1].isTrustUser.should.equals(false);
         res.body.contacts[1].isAnonymous.should.equals(false);
+        res.body.contacts[1].isLoggedInUser.should.equals(false);
     });
 
 });
