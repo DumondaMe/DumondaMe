@@ -3,9 +3,9 @@
         <h2>{{$t('pages:aboutUs.title')}}</h2>
         <div v-if="selectedLanguage === 'de'">
             <p class="top-text">Mit viel fachlichem Know-how und Enthusiasmus entwickeln wir eine moderne
-                Internetplattform, welche die kollektive Intelligenz zur Lösung von sozialen und ökologischen
-                Herausforderungen nutzbar macht. Der gemeinnützige Verein DumondaMe ist das tragende Gefäss unseres
-                Wirkens. Die Statuten des Vereins findest du <a target="_blank" :href="bylaws">hier.</a>
+                Internetplattform welche die kollektive Intelligenz nutzt, um die sozialen und ökologischen
+                Herausforderungen unserer Zeit anzugehen. Der gemeinnützige Verein DumondaMe ist das tragende Gefäss
+                unseres Wirkens. Die Statuten des Vereins findest du <a target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
                 <div>
