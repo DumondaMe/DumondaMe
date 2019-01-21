@@ -14,10 +14,11 @@ const getExistingUserInfo = async function (users, userId) {
     for (let existingUser of resp) {
         let user = users.find(user => user.email.trim().toLowerCase() === existingUser.email);
         user.isPlatformUser = true;
+        user.isLoggedInUser = existingUser.userId === userId;
         user.isAnonymous = false;
         user.userId = existingUser.userId;
         user.name = existingUser.name;
-        user.userImage = await cdn.getSignedUrl(`profileImage/${existingUser.userId}/thumbnail.jpg`);
+        user.userImage = await cdn.getSignedUrl(`profileImage/${existingUser.userId}/profilePreview.jpg`);
         user.isTrustUser = existingUser.isTrustUser;
     }
     return users;
