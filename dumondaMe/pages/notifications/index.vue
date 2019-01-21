@@ -16,7 +16,7 @@
                 store.commit(`notification/RESET_NOTIFICATION`);
                 await store.dispatch(`notification/getNotifications`);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.request.res.statusCode})
             }
         },
         components: {Notifications},

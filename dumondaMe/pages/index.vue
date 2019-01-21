@@ -62,7 +62,7 @@
                 }
                 await Promise.all([store.dispatch(`feed/getFeed`)/*, store.dispatch(`feed/getPopularQuestion`)*/]);
             } catch (e) {
-                error({statusCode: e.statusCode});
+                error({statusCode: e.request.res.statusCode});
             }
         },
         components: {
