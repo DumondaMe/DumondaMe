@@ -38,7 +38,7 @@ describe('Import eMail from google', function () {
         let res = await requestHandler.get('/api/import/contact/gmail', {code: '1234'});
         res.status.should.equal(200);
 
-        res.body.contacts.length.should.equals(2);
+        res.body.contacts.length.should.equals(3);
         res.body.contacts[0].email.should.equals('follow@rabbit.de');
         res.body.contacts[0].name.should.equals('Alice im Wunderland');
         should.not.exist(res.body.contacts[0].userId);
@@ -47,13 +47,23 @@ describe('Import eMail from google', function () {
         should.not.exist(res.body.contacts[0].isTrustUser);
         should.not.exist(res.body.contacts[0].isAnonymous);
 
-        res.body.contacts[1].userId.should.equals('3');
-        res.body.contacts[1].name.should.equals('user Meier3');
-        res.body.contacts[1].email.should.equals('user3@irgendwo.ch');
+        res.body.contacts[1].userId.should.equals('1');
+        res.body.contacts[1].name.should.equals('user Meier');
+        res.body.contacts[1].email.should.equals('user@irgendwo.ch');
         res.body.contacts[1].isPlatformUser.should.equals(true);
-        res.body.contacts[1].userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.contacts[1].userImage.should.equals('profileImage/1/profilePreview.jpg');
         res.body.contacts[1].isTrustUser.should.equals(false);
         res.body.contacts[1].isAnonymous.should.equals(false);
+        res.body.contacts[1].isLoggedInUser.should.equals(true);
+
+        res.body.contacts[2].userId.should.equals('3');
+        res.body.contacts[2].name.should.equals('user Meier3');
+        res.body.contacts[2].email.should.equals('user3@irgendwo.ch');
+        res.body.contacts[2].isPlatformUser.should.equals(true);
+        res.body.contacts[2].userImage.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.contacts[2].isTrustUser.should.equals(false);
+        res.body.contacts[2].isAnonymous.should.equals(false);
+        res.body.contacts[2].isLoggedInUser.should.equals(false);
     });
 
 });

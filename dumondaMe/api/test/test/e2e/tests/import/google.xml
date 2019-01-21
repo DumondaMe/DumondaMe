@@ -47,6 +47,19 @@
         <id>http://www.google.com/m8/feeds/contacts/test%40gmail.com/base/9874</id>
         <updated>2016-11-16T09:21:21.710Z</updated>
         <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
+        <title type='text'>Logged in User</title>
+        <link rel='http://schemas.google.com/contacts/2008/rel#edit-photo' type='image/*'
+              href='https://www.google.com/m8/feeds/photos/media/test%40gmail.com/9874/654'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12'/>
+        <link rel='edit' type='application/atom+xml'
+              href='https://www.google.com/m8/feeds/contacts/test%40gmail.com/full/12/3212'/>
+        <gd:email rel='http://schemas.google.com/g/2005#other' address='user@irgendwo.ch' primary='true'/>
+    </entry>
+    <entry>
+        <id>http://www.google.com/m8/feeds/contacts/test%40gmail.com/base/9874</id>
+        <updated>2016-11-16T09:21:21.710Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/contact/2008#contact'/>
         <title type='text'>Bob</title>
         <link rel='http://schemas.google.com/contacts/2008/rel#edit-photo' type='image/*'
               href='https://www.google.com/m8/feeds/photos/media/test%40gmail.com/9874/654'/>
