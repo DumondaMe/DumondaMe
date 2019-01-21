@@ -1,7 +1,7 @@
 <template>
     <div class="imported-contact">
         <div v-if="!contact.userId">
-            <v-checkbox v-model="importContact" color="secondary" class="import-checkbox"
+            <v-checkbox v-model="importContact" color="primary" class="import-checkbox"
                         :label="getUserLabel">
             </v-checkbox>
         </div>
@@ -12,17 +12,25 @@
             <div class="user-content-container">
                 <div class="user-name">{{contact.name}}</div>
                 <div class="user-email-address">{{contact.email}}</div>
-            </div>
-            <v-spacer></v-spacer>
-            <div class="add-to-trust-circle-container">
-                <v-tooltip bottom v-if="!contact.isTrustUser && !loading">
-                    <v-btn icon slot="activator" @click="addUserToTrustCircle()">
-                        <v-icon>mdi-account-plus-outline</v-icon>
-                    </v-btn>
-                    <span>{{$t('pages:feeds.userSuggestion.addUser', {name: contact.name})}}</span>
-                </v-tooltip>
-                <div class="adding-user-to-trust-circle-loading text-xs-center" v-else-if="loading">
-                    <v-progress-circular indeterminate color="primary" size="22"></v-progress-circular>
+                <div class="add-to-trust-circle-container" v-if="!contact.isLoggedInUser">
+                    <v-tooltip top v-if="contact.isTrustUser">
+                        <v-btn color="primary" class="user-action-button" slot="activator"
+                               :loading="loading" :disabled="loading"
+                               @click="removeUserFromTrustCircle">
+                            <v-icon left>mdi-check</v-icon>
+                            {{$t('common:trustCircle')}}
+                        </v-btn>
+                        <span>{{$t('common:removeFromTrustCircle')}}</span>
+                    </v-tooltip>
+                    <v-tooltip top v-else>
+                        <v-btn color="primary" class="user-action-button" slot="activator"
+                               :loading="loading" :disabled="loading"
+                               @click="addUserToTrustCircle">
+                            <v-icon left>mdi-account-plus</v-icon>
+                            {{$t('common:trustCircle')}}
+                        </v-btn>
+                        <span>{{$t('common:addToTrustCircle')}}</span>
+                    </v-tooltip>
                 </div>
             </div>
         </div>
@@ -34,12 +42,27 @@
     export default {
         props: ['contact'],
         data() {
-            return {importContact: false, loading: false}
+            return {importContact: false, loading: false, showError: false}
         },
         components: {},
         methods: {
-            addUserToTrustCircle() {
+            async sendUserToTrustCircleCommand(command, isTrustUser) {
+                try {
+                    this.loading = true;
+                    await this.$axios[command](`user/trustCircle/${this.contact.userId}`);
+                    this.contact.isTrustUser = isTrustUser;
+                } catch (error) {
+                    this.showError = true;
+                } finally {
+                    this.loading = false;
+                }
 
+            },
+            async addUserToTrustCircle() {
+                await this.sendUserToTrustCircleCommand('$post', true);
+            },
+            async removeUserFromTrustCircle() {
+                await this.sendUserToTrustCircleCommand('$delete', false);
             }
         },
         computed: {
@@ -71,8 +94,13 @@
             display: flex;
 
             .user-image {
-                height: 40px;
-                width: 40px;
+                height: 120px;
+                width: 120px;
+
+                @media screen and (max-width: $xs) {
+                    height: 60px;
+                    width: 60px;
+                }
 
                 img {
                     height: 100%;
@@ -82,7 +110,7 @@
             }
 
             .user-content-container {
-                margin-left: 12px;
+                margin-left: 18px;
 
                 .user-name {
                     font-weight: 500;
@@ -98,6 +126,11 @@
             }
 
             .add-to-trust-circle-container {
+
+                .user-action-button {
+                    margin-top: 12px;
+                    margin-left: 0;
+                }
             }
         }
     }

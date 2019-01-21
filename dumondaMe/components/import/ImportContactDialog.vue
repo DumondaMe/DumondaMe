@@ -1,7 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly"
-                  id="import-contact-dialog">
+        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <import-basic-auth v-if="showBasicAuthGmx" :label-email="$t('dialog:invite:gmx.email')"
                                :dialog-title="$t('dialog:invite:gmx.title')" import-url="import/contact/gmx"
                                source-description="GMX"
@@ -15,14 +14,20 @@
                                @close="showBasicAuthWebDe = false">
             </import-basic-auth>
             <v-card id="import-contact-container" v-else>
+                <div id="dumonda-me-dialog-header">
+                    {{$t('dialog:invite:importSourceTitle')}}
+                </div>
+                <v-divider></v-divider>
                 <v-card-text class="mobile-dialog-content">
-                    <import-contact-container @contacts-loaded="contactsLoaded"
+                    <import-contact-container @contacts-loaded="contactsLoaded" :contact-exist="contacts.length > 0"
                                               @show-basic-auth-gmx="showBasicAuthGmx = true"
                                               @show-basic-auth-webde="showBasicAuthWebDe = true">
                     </import-contact-container>
-                    <contact v-for="contact in contacts" :contact="contact" :key="contact.email"
-                             @select-changed="selectChanged">
-                    </contact>
+                    <div class="contacts-container">
+                        <contact v-for="contact in contacts" :contact="contact" :key="contact.email"
+                                 @select-changed="selectChanged">
+                        </contact>
+                    </div>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -69,11 +74,13 @@
 </script>
 
 <style lang="scss">
-    #import-contact-dialog {
-        #import-contact-container {
-            .import-source-container {
-                cursor: pointer;
-            }
+    #import-contact-container {
+        .import-source-container {
+            cursor: pointer;
+        }
+
+        .contacts-container {
+            margin-top: 38px;
         }
     }
 </style>
