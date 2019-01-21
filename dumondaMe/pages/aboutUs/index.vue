@@ -2,12 +2,10 @@
     <div id="ely-about-us">
         <h2>{{$t('pages:aboutUs.title')}}</h2>
         <div v-if="selectedLanguage === 'de'">
-            <p class="top-text">Wir sind ein engagiertes Team mit dem Ziel, dass die neuen Informationstechnologien zum
-                Wohle der Gesellschaft eingesetzt werden. Mit viel fachlichem Know-How und Enthusiasmus haben wir
-                DumondaMe verwirklicht. Eine Plattform welche die Entwicklung der Gesellschaft in den Mittelpunkt stellt
-                und nicht den Profit. Aus diesem Grund haben wir den gemeinnützigen Verein DumondaMe gegründet, welcher
-                als tragendes Gefäss für die Entwicklung und den Betrieb dieses Projektes dienen soll. Die Statuten des
-                Vereines findest du <a target="_blank" :href="bylaws">hier.</a>
+            <p class="top-text">Mit viel fachlichem Know-how und Enthusiasmus entwickeln wir eine moderne
+                Internetplattform, welche die kollektive Intelligenz zur Lösung von sozialen und ökologischen
+                Herausforderungen nutzbar macht. Der gemeinnützige Verein DumondaMe ist das tragende Gefäss unseres
+                Wirkens. Die Statuten des Vereins findest du <a target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
                 <div>
@@ -15,9 +13,9 @@
                 </div>
                 <div>
                     <h3 class="name">Roger Waldvogel</h3>
-                    <div class="ely-function">Initiator von DumondaMe</div>
+                    <div class="ely-function">Initator von DumondaMe, Softwareentwicklung</div>
                     <div class="email-address"><a
-                            href="mailto:roger.waldvogel@dumonda.me">roger.waldvogel@dumonda.me</a></div>
+                            href="mailto:rwaldvogel@dumonda.me">rwaldvogel@dumonda.me</a></div>
                     <p class="about-text">Ich bin eidgenössisch diplomierter Informatikingenieur FH und verfüge
                         über mehrjährige, professionelle Berufserfahrung in der Entwicklung von komplexen
                         Software Systemen. Es ist für mich eine Herzensangelegenheit, dass die neuen
@@ -32,13 +30,14 @@
                 </div>
                 <div>
                     <h3 class="name">Roman Kümin</h3>
-                    <div class="ely-function">Vizepräsident von DumondaMe</div>
+                    <div class="ely-function">Konzept und Software Testing</div>
                     <div class="email-address"><a
                             href="mailto:roman.kuemin@dumonda.me">roman.kuemin@dumonda.me</a></div>
                     <p class="about-text">Ich bin eidgenössisch diplomierter Informatiker, welcher über 15 Jahren in
                         der Business-Analyse eines der grössten Rückversicherers der Welt tätig war. Von dem positiven
                         Potenzial der Gesellschaft bin ich überzeugt und möchte dessen Entfaltung
                         mit der Unterstützung von DumondaMe fördern.
+
                     </p>
                 </div>
             </div>
@@ -53,7 +52,10 @@
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
                             href="mailto:kimjana@momoundronja.ch">kimjana@momoundronja.ch</a></div>
-                    <p class="about-text">
+                    <p class="about-text">Ich unterstütze mit momo&ronja die Verwirklichung von Herzensprojekten wie
+                        DumondaMe. Diese Plattform erleichtert das Teilen von Wissen und Erfahrungen für den Aufbau
+                        einer zukunftsfähigen Gesellschaft und genau das brauchen wir jetzt. Unser kraftvolles Teamwork
+                        mit der Ausrichtung auf die Vision bereitet mir grosse Freude: Gemeinsam ist alles möglich!
                     </p>
                 </div>
             </div>
@@ -66,30 +68,38 @@
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
                             href="mailto:jeannine@momoundronja.ch">jeannine@momoundronja.ch</a></div>
-                    <p class="about-text">
+                    <p class="about-text">Mit momo&ronja möchte ich zeigen, wie wir unser volles Potenzial leben und in
+                        Verbundenheit wirksam sein können. Wir alle können einen Beitrag zu einer leuchtenden Zukunft
+                        leisten, einfach indem wir uns trauen, wichtige Fragen zu stellen. Was inspiriert dich? Wie kann
+                        es gehen? Wer hilft mit? DumondaMe unterstützt uns darin, gemeinsam Antworten zu finden.
                     </p>
                 </div>
             </div>
             <div class="team-sub-title">Ehrenamtliche Helfer</div>
-            <p>Des weiteren werden wir von vielen Menschen auf ehrenamtlicher Basis unterstützt. An dieser Stelle vielen
-                herzlichen Dank für euer freiwilliges Wirken, ohne welches dieses Projekt nicht hätte realisiert
-                werden können.
+            <p>Des Weiteren werden wir von vielen Menschen auf ehrenamtlicher Basis unterstützt. An dieser Stelle vielen
+                herzlichen Dank für euer freiwilliges Wirken, ohne welches dieses Projekt nicht realisierbar wäre.
             </p>
         </div>
         <div v-else-if="selectedLanguage === 'en'">
-            <p class="top-text">DumondaMe is developed and operated by the nonprofit society of the same name. The
-                nonprofit society was founded on 21.06.2017. You can find the statutes of the society
-                <a target="_blank" :href="bylaws">here.</a>
+            <p class="top-text">With a lot of professional know-how and enthusiasm we develop a modern internet
+                platform, which makes collective intelligence usable for solving social and ecological challenges. The
+                non-profit society DumondaMe is the supporting organization of our work. You can find the statutes of
+                the society <a target="_blank" :href="bylaws">here.</a>
             </p>
             <div class="about-user">
                 <div>
                     <img class="profile-image" :src="imageRoger"/>
                 </div>
                 <div>
-                    <h2 class="name">Roger Waldvogel</h2>
-                    <div class="ely-function">Initiator of DumondaMe</div>
-                    <p class="about-text">Passionate Software Developer, Climber, Meditating, (lucid)
-                        Dreamer.</p>
+                    <h3 class="name">Roger Waldvogel</h3>
+                    <div class="ely-function">Initiator of DumondaMe, Software development</div>
+                    <div class="email-address"><a
+                            href="mailto:rwaldvogel@dumonda.me">rwaldvogel@dumonda.me</a></div>
+                    <p class="about-text">I am a IT engineer and have several years of professional experience in the
+                        development of complex software systems. It is a matter close to my heart that the new
+                        technologies are used for the benefit of the general public. This objective was the main
+                        motivation for me to start the project DumondaMe.
+                    </p>
                 </div>
             </div>
             <div class="about-user">
@@ -97,13 +107,56 @@
                     <img class="profile-image" :src="imageRoman"/>
                 </div>
                 <div>
-                    <h2 class="name">Roman Kümin</h2>
-                    <div class="ely-function">Vice President of DumondaMe</div>
-                    <p class="about-text">Interested in Digital Currencies and Blockchain, Garden Herb Holder.</p>
+                    <h3 class="name">Roman Kümin</h3>
+                    <div class="ely-function">Concept and Software Testing</div>
+                    <div class="email-address"><a
+                            href="mailto:roman.kuemin@dumonda.me">roman.kuemin@dumonda.me</a></div>
+                    <p class="about-text">I am a certified computer specialist who worked for over 15 years in the
+                        business analysis of one of the largest reinsurers in the world. I am convinced of the positive
+                        potential of the society and would like to promote its development with the support of
+                        DumondaMe.
+
+                    </p>
                 </div>
             </div>
-            <p>Furthermore, <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a>
-                actively supported us in building this platform.</p>
+            <div class="team-sub-title">Ganzheitliche Projektbegleitung durch
+                <a target="_blank" href="https://momoundronja.ch/">momo&ronja</a></div>
+            <div class="about-user">
+                <div>
+                    <img class="profile-image" :src="imageKim"/>
+                </div>
+                <div>
+                    <h3 class="name">Kim Degen</h3>
+                    <div class="ely-function"></div>
+                    <div class="email-address without-function"><a
+                            href="mailto:kimjana@momoundronja.ch">kimjana@momoundronja.ch</a></div>
+                    <p class="about-text">With momo&ronja I support the realization of heart projects like DumondaMe.
+                        This platform facilitates the sharing of knowledge and experience to build a sustainable society
+                        and that is exactly what we need now. Our powerful teamwork with the focus on the vision gives
+                        me great pleasure: Together everything is possible!
+                    </p>
+                </div>
+            </div>
+            <div class="about-user">
+                <div>
+                    <img class="profile-image" :src="imageJeannine"/>
+                </div>
+                <div>
+                    <h3 class="name">Jeannine Brutschin</h3>
+                    <div class="ely-function"></div>
+                    <div class="email-address without-function"><a
+                            href="mailto:jeannine@momoundronja.ch">jeannine@momoundronja.ch</a></div>
+                    <p class="about-text">With momo&ronja I would like to show how we can live our full potential and be
+                        effective in solidarity. We can all contribute to a bright future simply by daring to ask
+                        important questions. What inspires you? How can it work? Who helps? DumondaMe supports us in
+                        finding answers together.
+                    </p>
+                </div>
+            </div>
+            <div class="team-sub-title">Volunteers</div>
+            <p>Furthermore, we are supported by many people on an voluntary basis. Thank you very much for your work,
+                without which this project would not be possible.
+            </p>
         </div>
         <timeline></timeline>
     </div>
