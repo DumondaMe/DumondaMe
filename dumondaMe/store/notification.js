@@ -63,13 +63,9 @@ const checkNotificationChanged = async function (axios, commit) {
 
 export const actions = {
     async getNotifications({commit, state}) {
-        try {
-            let notifications = await this.$axios.$get('user/notification',
-                {params: {skip: state.notifications.length, limit: 20}});
-            commit('SET_NOTIFICATION', notifications);
-        } catch (error) {
-            console.log(error);
-        }
+        let notifications = await this.$axios.$get('user/notification',
+            {params: {skip: state.notifications.length, limit: 20}});
+        commit('SET_NOTIFICATION', notifications);
     },
     async startCheckNotificationChanged({commit}) {
         if (!checkNotificationTimer) {

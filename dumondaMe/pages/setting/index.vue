@@ -12,7 +12,7 @@
             try {
                 await store.dispatch(`setting/getSetting`);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.request.res.statusCode})
             }
         },
         components: {Settings}
