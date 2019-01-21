@@ -93,7 +93,8 @@ module.exports = {
         name: 'DumondaMe',
         "short_name": 'DumondaMe',
         lang: 'de',
-        "start_url": '/'
+        "start_url": '/',
+        display: 'standalone'
     },
     build: {
         transpile: [/^vuetify/],
