@@ -62,7 +62,7 @@ describe('Search user to invite to answer a question by email', function () {
         await dbDsl.setApocIndex();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/question/invite/search',
-            {query: 'invited.user@test.me', skip: 0, limit: 10, questionId: '10'});
+            {query: 'invited.user@te-st.me', skip: 0, limit: 10, questionId: '10'});
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(false);
         res.body.users.length.should.equals(1);
@@ -70,7 +70,7 @@ describe('Search user to invite to answer a question by email', function () {
         should.not.exist(res.body.users[0].name);
         should.not.exist(res.body.users[0].userImage);
         should.not.exist(res.body.users[0].isTrustUser);
-        res.body.users[0].email.should.equals('invited.user@test.me');
+        res.body.users[0].email.should.equals('invited.user@te-st.me');
         res.body.users[0].sendingEmailAllowed.should.equals(true);
     });
 

@@ -18,7 +18,7 @@ const wordsQuery = function (sentence, searchProperty) {
 
 
 const cleanQuery = function (query) {
-    let cleanedQuery = query.replace('-', '');
+    let cleanedQuery = query.replace('*', '');
     return cleanedQuery.trim();
 };
 
