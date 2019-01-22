@@ -2,18 +2,24 @@
     <div>
         <div v-if="error.statusCode !== 401">
             <div class="error-page">
-                <h1 class="error-code">{{ error.statusCode }}</h1>
-                <div class="error-wrapper-message">
-                    <h2 class="error-message">{{ error.message }}</h2>
+                <div v-if="error.statusCode === 404">
+                    <h1 class="error-code">{{ error.statusCode }}</h1>
+                    <div class="error-wrapper-message">
+                        <h2 class="error-message">{{$t('pages:error.404.description')}}</h2>
+                        <nuxt-link class="error-link" to="/">{{$t('pages:error.404.backToStartPage')}}</nuxt-link>
+                    </div>
                 </div>
-                <p v-if="error.statusCode === 404">
-                    <nuxt-link class="error-link" to="/">Zurück zur Startseite</nuxt-link>
-                </p>
+                <div v-else>
+                    <h1 class="error-code">{{ error.statusCode }}</h1>
+                    <div class="error-wrapper-message">
+                        <h2 class="error-message">{{ error.message }}</h2>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-else>
             <div id="status-info">
-                <p id="status-info-text">Um auf diese Seite zugreifen zu können muss du eingeloggt sein.</p>
+                <p id="status-info-text">{{$t('pages:error.401.description')}}</p>
             </div>
             <v-layout row wrap>
                 <v-flex xs12 md6>

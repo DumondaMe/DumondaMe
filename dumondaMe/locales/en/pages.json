@@ -1035,5 +1035,14 @@
     "privacy": "Privacy",
     "faq": "FAQ",
     "contact": "Contact"
+  },
+  "error": {
+    "401": {
+      "description": "You must be logged in to access this page."
+    },
+    "404": {
+      "description": "This page has been deleted or the link is invalid.",
+      "backToStartPage": "Back to the home page"
+    }
   }
 }
