@@ -9,6 +9,7 @@ const similar = require('./similar');
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const time = require('dumonda-me-server-lib').time;
+const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) {
     if (user.privacyMode === 'public' || user.userId === userId ||
@@ -71,7 +72,8 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
         question.similarQuestions = similar.getResponse(response[1]);
         return question;
     }
-    throw new exceptions.InvalidOperation(`Question with id ${questionId} not found`);
+    logger.warn(`Question with id ${questionId} not found`);
+    throw new Error(404);
 };
 
 module.exports = {
