@@ -20,7 +20,7 @@ const getStartQuery = function (query) {
 };
 
 const getUsersResponse = async function (users, query, userId) {
-    query = queryParser.cleanQuery(query);
+    query = query.trim();
     if (emailValidator.validate(query) && (users.length === 0 ||
         (users.length === 1 && users[0].userLabels.includes('InvitedUser')))) {
         return await usersResponse.getEmailResponse(users, query);
