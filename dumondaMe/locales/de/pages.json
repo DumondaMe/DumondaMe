@@ -1038,5 +1038,14 @@
     "privacy": "Datenschutz",
     "faq": "Häufige Fragen",
     "contact": "Kontakt"
+  },
+  "error": {
+    "401": {
+      "description": "Um auf diese Seite zugreifen zu können muss du eingeloggt sein."
+    },
+    "404": {
+      "description": "Diese Seite wurde gelöscht oder der Link ist ungültig.",
+      "backToStartPage": "Zurück zur Startseite"
+    }
   }
 }
