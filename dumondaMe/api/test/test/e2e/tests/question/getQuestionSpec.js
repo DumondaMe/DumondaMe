@@ -702,4 +702,11 @@ describe('Getting details of a question', function () {
         res.body.answers.length.should.equals(20);
         res.body.hasMoreAnswers.should.equals(true);
     });
+
+    it('Question does not exist', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/100', {language: 'de'});
+        res.status.should.equal(404);
+    });
 });
