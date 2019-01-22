@@ -23,7 +23,7 @@
             try {
                 await store.dispatch(`search/search`, query.query)
             } catch (e) {
-                error({statusCode: e.statusCode});
+                error({statusCode: e.request.res.statusCode})
             }
         },
         components: {Users, UsersNoResult, Questions, QuestionsNoResult, Commitments, CommitmentNoResult},

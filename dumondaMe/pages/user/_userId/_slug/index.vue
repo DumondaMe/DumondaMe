@@ -33,7 +33,7 @@
             try {
                 await store.dispatch(`userProfile/getProfileOtherUser`, params.userId);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.request.res.statusCode})
             }
         },
         head() {

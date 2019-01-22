@@ -41,7 +41,7 @@
                 question.questionId = params.questionId;
                 store.commit('question/SET_QUESTION', question);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.request.res.statusCode})
             }
         },
         head() {

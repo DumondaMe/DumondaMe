@@ -38,7 +38,7 @@
             try {
                 await store.dispatch(`commitment/getCommitment`, params.commitmentId);
             } catch (e) {
-                error({statusCode: e.statusCode})
+                error({statusCode: e.request.res.statusCode})
             }
         },
         head() {

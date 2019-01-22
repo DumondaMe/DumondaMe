@@ -14,7 +14,7 @@
             try {
                 await app.$axios.$post(`unsubscribe/notifications`, {email: params.email});
             } catch (e) {
-                error({statusCode: e.statusCode});
+                error({statusCode: e.request.res.statusCode})
             }
         },
         components: {UnsubscribeBox}
