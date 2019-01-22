@@ -10,7 +10,7 @@
                        @click="$emit('open-drawer')">
                     <v-icon>mdi-menu</v-icon>
                 </v-btn>
-                <v-btn icon class="nav-icon" v-else @click="$router.go(-1)">
+                <v-btn icon class="nav-icon" v-else @click="navigateBack">
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
                 <div class="mobile-header-title" v-if="$route.name === 'index' && isAuthenticated">
@@ -56,6 +56,13 @@
             return {showSearch: false}
         },
         methods: {
+            navigateBack() {
+                if (document.referrer.includes(process.env.domainUrl)) {
+                    this.$router.go(-1);
+                } else {
+                    this.$router.push({name: 'index'});
+                }
+            },
             closeSearch() {
                 if (this.$route.name === 'search') {
                     this.$router.push({name: 'index'});
@@ -70,15 +77,18 @@
     #dumonda-me-mobile-header {
         background-color: $background-normal;
         padding: 4px 0;
+
         .dumonda-me-mobile-header-container {
             display: flex;
         }
+
         .mobile-header-title {
             margin-left: 8px;
             height: 48px;
             line-height: 48px;
             font-weight: 500;
         }
+
         .nav-icon.nav-bell {
             margin-right: 18px;
         }
