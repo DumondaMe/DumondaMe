@@ -13,16 +13,10 @@
                 </v-date-picker>
             </v-menu>
             <div class="time-input-container">
-                <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock"
+                <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock" @blur="timeLostFocus"
                               :rules="[isValidTime()]">
                 </v-text-field>
             </div>
-        </div>
-        <div class="warning-date-icon" v-if="warning">
-            <v-tooltip bottom debounce="300">
-                <v-icon slot="activator">mdi-alert-outline</v-icon>
-                <span>{{warningText}}</span>
-            </v-tooltip>
         </div>
     </div>
 </template>
@@ -32,10 +26,11 @@
     import getTime from 'date-fns/get_time'
 
     export default {
-        props: ['description', 'min', 'initDate', 'warning', 'warningText'],
+        props: ['description', 'min', 'initDate'],
         data() {
             return {
                 time: format(this.initDate * 1000, 'HH:mm'),
+                compareTime: format(this.initDate * 1000, 'HH:mm'),
                 date: format(this.initDate * 1000, 'YYYY-MM-DD'),
                 dateFormatted: this.$options.filters.getFormatDateOnlyShort(this.initDate),
                 menu: false,
@@ -58,15 +53,20 @@
             },
             time(time) {
                 if (this.validTimeRegex(time)) {
-                    this.$emit('date-changed', {
+                    this.$emit('time-changed', {
                         date: getTime(`${this.date} ${time}`) / 1000, isValid: this.validTime
                     });
                 } else {
-                    this.$emit('date-changed', {date: null, isValid: false});
+                    this.$emit('time-changed', {date: null, isValid: false});
                 }
             }
         },
         methods: {
+            timeLostFocus() {
+                if (this.validTimeRegex(this.time) && this.time !== this.compareTime) {
+                    this.$emit('time-changed-on-blur', getTime(`${this.date} ${this.time}`) / 1000);
+                }
+            },
             isValidTime() {
                 return v => {
                     this.validTime = this.validTimeRegex(v);
@@ -75,6 +75,12 @@
             },
             validTimeRegex(time) {
                 return /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(time);
+            },
+            updateDate(newInitDate) {
+                this.time = format(newInitDate * 1000, 'HH:mm');
+                this.compareTime = format(newInitDate * 1000, 'HH:mm');
+                this.date = format(newInitDate * 1000, 'YYYY-MM-DD');
+                this.dateFormatted = this.$options.filters.getFormatDateOnlyShort(newInitDate);
             }
         }
     }
@@ -114,15 +120,6 @@
                     padding-top: 0;
                 }
 
-            }
-        }
-
-        .warning-date-icon {
-            margin-left: 8px;
-
-            i.v-icon {
-                padding-top: 22px;
-                color: $warning;
             }
         }
     }
