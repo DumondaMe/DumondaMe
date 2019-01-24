@@ -16,7 +16,7 @@
                     <div class="ely-function">Initator von DumondaMe, Softwareentwicklung</div>
                     <div class="email-address"><a
                             href="mailto:rwaldvogel@dumonda.me">rwaldvogel@dumonda.me</a></div>
-                    <p class="about-text">Ich bin eidgenössisch diplomierter Informatikingenieur FH und verfüge
+                    <p class="about-text">Als eidgenössisch diplomierter Informatikingenieur FH verfüge ich
                         über mehrjährige, professionelle Berufserfahrung in der Entwicklung von komplexen
                         Software Systemen. Es ist für mich eine Herzensangelegenheit, dass die neuen
                         Technologien zum Wohle der Allgemeinheit eingesetzt werden. Diese Zielsetzung war
