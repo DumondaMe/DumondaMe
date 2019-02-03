@@ -1,6 +1,7 @@
 <template>
     <div class="feed-concept-info-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.conceptInfo.title')}}</h3>
+        <img :src="conceptImage" :srcset="concept2xImage" class="concept-image">
         <v-btn outline color="primary" @click="showConceptInfoDialog = true">
             {{$t('pages:feeds.conceptInfo.actionButton')}}
         </v-btn>
@@ -16,6 +17,14 @@
         components: {ConceptInfoDialog},
         data() {
             return {showConceptInfoDialog: false}
+        },
+        computed: {
+            conceptImage() {
+                return `${process.env.staticUrl}/img/landingPage/concept.jpg`;
+            },
+            concept2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/concept_2x.jpg 2x`;
+            }
         }
     }
 </script>
@@ -28,6 +37,12 @@
 
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
+        }
+
+        .concept-image {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 8px;
         }
 
         button {

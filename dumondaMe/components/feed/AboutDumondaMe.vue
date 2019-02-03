@@ -4,7 +4,7 @@
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.vision.title')}}</div>
             <div class="youtube-video-container" ref="youtubeContainer">
                 <div v-if="showYoutubePreviewImage" @click="showYoutubePreviewImage = false">
-                    <img :src="welcomeImage" class="desktop-welcome-image"/>
+                    <img :src="welcomeImage" :srcset="welcome2xImage" class="desktop-welcome-image"/>
                     <img :src="welcomeImageMobile" class="mobile-welcome-image"/>
                     <img :src="imageYoutube" class="youtube-icon"/>
                 </div>
@@ -27,6 +27,7 @@
         </div>
         <div class="ely-card about-dumonda-me-card">
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.title')}}</div>
+            <img :src="teamImage" :srcset="team2xImage" class="team-image">
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.description')}}</div>
             <v-btn outline color="primary" @click="$router.push({name: 'aboutUs'})">
                 {{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.actionButton')}}
@@ -44,6 +45,7 @@
         </div>
         <div class="ely-card about-dumonda-me-card">
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.register.title')}}</div>
+            <img :src="signUpImage" :srcset="signUp2xImage" class="sign-up-image">
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.register.description')}}</div>
             <v-btn color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
@@ -62,10 +64,25 @@
         },
         computed: {
             welcomeImage() {
-                return `${process.env.staticUrl}/img/welcome/welcome2.jpg`;
+                return `${process.env.staticUrl}/img/landingPage/welcome.jpg`;
+            },
+            welcome2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/welcome_2x.jpg 2x`;
             },
             welcomeImageMobile() {
-                return `${process.env.staticUrl}/img/welcome/welcome2_mobile.jpg`;
+                return `${process.env.staticUrl}/img/landingPage/welcome_mobile.jpg`;
+            },
+            signUpImage() {
+                return `${process.env.staticUrl}/img/landingPage/signUp.jpg`;
+            },
+            signUp2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/signUp_2x.jpg 2x`;
+            },
+            teamImage() {
+                return `${process.env.staticUrl}/img/landingPage/team.jpg`;
+            },
+            team2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/team_2x.jpg 2x`;
             },
             imageYoutube() {
                 return `${process.env.staticUrl}/img/youtube.png`;
@@ -166,6 +183,17 @@
                 @media screen and (max-width: $xs) {
                     margin-top: 0;
                 }
+            }
+
+            .sign-up-image {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 8px;
+            }
+
+            .team-image {
+                border-radius: 4px;
+                width: 100%;
             }
         }
     }

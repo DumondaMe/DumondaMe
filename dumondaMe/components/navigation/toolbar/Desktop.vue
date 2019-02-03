@@ -2,7 +2,7 @@
     <div>
         <div id="header-desktop-container">
             <div id="dumonda-me-logo">
-                <img :src="logoUrl" @click="$router.push({name: 'index'})"/>
+                <img :src="logoUrl" :srcset="logo2xUrl" @click="$router.push({name: 'index'})"/>
             </div>
             <search-toolbar></search-toolbar>
             <v-spacer></v-spacer>
@@ -38,8 +38,16 @@
     import SearchToolbar from './Search';
 
     export default {
-        props: ['isAuthenticated', 'logoUrl', 'showNotification', 'numberOfNotifications'],
-        components: {SearchToolbar}
+        props: ['isAuthenticated', 'showNotification', 'numberOfNotifications'],
+        components: {SearchToolbar},
+        computed: {
+            logoUrl() {
+                return `${process.env.staticUrl}/img/logo.png`;
+            },
+            logo2xUrl() {
+                return `${process.env.staticUrl}/img/logo_2x.png 2x`;
+            }
+        }
     }
 </script>
 

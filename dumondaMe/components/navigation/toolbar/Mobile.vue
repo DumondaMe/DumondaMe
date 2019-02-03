@@ -50,7 +50,7 @@
     import SearchToolbar from './Search';
 
     export default {
-        props: ['isAuthenticated', 'logoUrl', 'showNotification', 'numberOfNotifications'],
+        props: ['isAuthenticated', 'showNotification', 'numberOfNotifications'],
         components: {SearchToolbar},
         data() {
             return {showSearch: false}

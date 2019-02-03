@@ -1,6 +1,7 @@
 <template>
     <div class="ask-user-answer-question ely-card">
         <h3 class="ask-user-answer-question-title">{{$t('pages:question.askUserAnswerQuestion.title')}}</h3>
+        <img :src="askImage" :srcset="ask2xImage" class="ask-user-image">
         <div class="description">{{$t('pages:question.askUserAnswerQuestion.description')}}</div>
         <div class="send-button-image-container">
             <v-tooltip bottom>
@@ -44,6 +45,12 @@
             }
         },
         computed: {
+            askImage() {
+                return `${process.env.staticUrl}/img/question/ask.jpg`;
+            },
+            ask2xImage() {
+                return `${process.env.staticUrl}/img/question/ask_2x.jpg 2x`;
+            },
             whatsAppLink() {
                 return `https://wa.me/?text=${this.getQuestionLink()}`;
             },
@@ -76,6 +83,12 @@
             font-size: 16px;
             font-weight: 500;
             color: $secondary-color;
+        }
+
+        .ask-user-image {
+            width: 100%;
+            //margin-left: 40px;
+            margin-bottom: 8px;
         }
 
         .description {
