@@ -1,6 +1,7 @@
 <template>
     <div class="beta-version-description ely-card" :class="{'is-authenticated': isAuthenticated}">
         <h3 class="beta-version-title">{{$t('common:beta.title')}}</h3>
+        <img :src="betaImage" :srcset="beta2xImage" class="beta-version-image">
         <div class="description">{{$t('common:beta.description')}}</div>
         <v-btn outline color="primary" @click="$router.push({name: 'nextSteps'})">
             {{$t('common:beta.buttonNextSteps')}}
@@ -13,6 +14,12 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated;
+            },
+            betaImage() {
+                return `${process.env.staticUrl}/img/landingPage/beta.jpg`;
+            },
+            beta2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/beta_2x.jpg 2x`;
             }
         }
     }
@@ -41,7 +48,12 @@
             }
         }
 
+        .beta-version-image {
+            width: 100%;
+        }
+
         .description {
+            margin-top: 8px;
             margin-bottom: 8px;
             @media screen and (max-width: $xs) {
                 margin-bottom: 0;

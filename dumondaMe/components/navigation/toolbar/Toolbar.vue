@@ -3,14 +3,14 @@
     $route.name === 'commitment' || $route.name === 'event' || $route.name === 'activity' ||
     $route.name === 'question'}">
         <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
-                         :logo-url="logoUrl" :show-notification="showNotification"
+                         :show-notification="showNotification"
                          :number-of-notifications="numberOfUnreadNotifications"
                          @create-question="showCreateQuestion = true"
                          @create-commitment="showCreateCommitment = true"
                          @open-drawer="$emit('open-drawer')">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
-                        :logo-url="logoUrl" :show-notification="showNotification"
+                        :show-notification="showNotification"
                         :number-of-notifications="numberOfUnreadNotifications"
                         @create-question="showCreateQuestion = true"
                         @create-commitment="showCreateCommitment = true"
@@ -46,9 +46,6 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            },
-            logoUrl() {
-                return `${process.env.staticUrl}/img/logo.png`;
             },
             showNotification() {
                 return this.numberOfUnreadNotifications > 0;

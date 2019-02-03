@@ -1,6 +1,7 @@
 <template>
     <div class="feed-support-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.support.title')}}</h3>
+        <img :src="supportImage" :srcset="support2xImage" class="support-us-image">
         <div class="description" v-html="$t('pages:feeds.support.description')"></div>
         <ul>
             <li v-html="$t('pages:feeds.support.support1')"></li>
@@ -45,6 +46,14 @@
                     this.showLoginRequired = true;
                 }
             }
+        },
+        computed: {
+            supportImage() {
+                return `${process.env.staticUrl}/img/landingPage/support.jpg`;
+            },
+            support2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/support_2x.jpg 2x`;
+            }
         }
     }
 </script>
@@ -54,22 +63,32 @@
         margin-bottom: 18px;
         font-size: 14px;
         font-weight: 300;
+
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
         }
+
         .description {
             margin-bottom: 8px;
         }
+
         .open-dialog {
             cursor: pointer;
             color: $primary-color;
             text-decoration: underline;
         }
+
+        .support-us-image {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
         ul {
             li {
                 margin-bottom: 8px;
             }
         }
+
         .social-media-links-container {
             margin-top: 20px;
         }

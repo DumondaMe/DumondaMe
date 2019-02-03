@@ -1,6 +1,7 @@
 <template>
     <div class="social-media-feed-card">
         <div class="social-media-title">{{$t('pages:feeds.socialMedia.title')}}</div>
+        <img :src="spreadTheWordImage" :srcset="spreadTheWord2xImage" class="spread-the-word-image">
         <div class="social-media-description">{{$t('pages:feeds.socialMedia.description')}}</div>
         <social-media-links></social-media-links>
     </div>
@@ -10,7 +11,15 @@
     import SocialMediaLinks from '~/components/info/SocialMediaLinks';
 
     export default {
-        components: {SocialMediaLinks}
+        components: {SocialMediaLinks},
+        computed: {
+            spreadTheWordImage() {
+                return `${process.env.staticUrl}/img/landingPage/spreadTheWord.jpg`;
+            },
+            spreadTheWord2xImage() {
+                return `${process.env.staticUrl}/img/landingPage/spreadTheWord_2x.jpg 2x`;
+            }
+        }
     }
 </script>
 
@@ -23,8 +32,13 @@
         }
 
         .social-media-description {
-            margin-top: 12px;
+            margin-top: 8px;
             font-weight: 300;
+        }
+
+        .spread-the-word-image {
+            margin-top: 8px;
+            width: 100%;
         }
 
         .social-media-links-container {
