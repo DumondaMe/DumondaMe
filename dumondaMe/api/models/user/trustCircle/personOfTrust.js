@@ -31,7 +31,8 @@ let addUserAddedToTrustCircleNotificationExists = function (userId, contactId, c
     return db.cypher().match(`(u:User {userId: {userId}}), 
              (contact:User {userId: {contactId}})<-[:NOTIFIED]-(n:Notification:Unread {type: 'addedToTrustCircle'})`)
         .set(`n`, {created: contactAdded})
-        .merge(`(n)-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]->(u)`)
+        .merge(`(n)-[originatorRel:ORIGINATOR_OF_NOTIFICATION]->(u)`)
+        .onCreate(`SET originatorRel.created = {created}`)
         .end({userId, contactId}).getCommand()
 };
 
