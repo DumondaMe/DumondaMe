@@ -87,7 +87,6 @@
 
         .ask-user-image {
             width: 100%;
-            //margin-left: 40px;
             margin-bottom: 8px;
         }
 
