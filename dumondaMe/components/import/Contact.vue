@@ -2,7 +2,7 @@
     <div class="imported-contact">
         <div v-if="!contact.userId">
             <v-checkbox v-model="importContact" color="primary" class="import-checkbox"
-                        :label="getUserLabel">
+                        :label="getUserLabel" @click.native="changeSelected">
             </v-checkbox>
         </div>
         <div v-else class="existing-user">
@@ -63,6 +63,9 @@
             },
             async removeUserFromTrustCircle() {
                 await this.sendUserToTrustCircleCommand('$delete', false);
+            },
+            changeSelected() {
+                this.$emit('select-changed', this.contact.email);
             }
         },
         computed: {
@@ -71,11 +74,16 @@
                     return `${this.contact.email} (${this.contact.source})`
                 }
                 return this.contact.email;
+            },
+            isSelected() {
+                return this.contact.isSelected;
             }
         },
         watch: {
-            importContact() {
-                this.$emit('select-changed', this.contact.email);
+            isSelected(newIsSelected) {
+                if (newIsSelected !== this.importContact) {
+                    this.importContact = newIsSelected;
+                }
             }
         }
     }
@@ -86,7 +94,7 @@
         border-bottom: 1px solid $divider;
 
         .import-checkbox {
-
+            display: inline-block;
         }
 
         .existing-user {
