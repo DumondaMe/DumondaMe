@@ -1,6 +1,6 @@
 <template>
     <div class="import-source-container">
-        <div class="import-source-description" v-if="!contactExist">
+        <div class="import-source-description">
             {{$t('dialog:invite:importSourceDescription')}}
         </div>
         <div class="import-source-inner-container">
@@ -53,7 +53,6 @@
     import parseOutlookOAuthUrl from './parseOutlookOAuthUrl';
 
     export default {
-        props: ['contactExist'],
         data() {
             return {
                 oAuthWindow: null, checkWindowInterval: null, googleParser: parseGoogleOAuthUrl,
