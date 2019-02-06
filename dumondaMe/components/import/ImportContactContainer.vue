@@ -31,12 +31,16 @@
                         <div class="import-source-element-description">GMX</div>
                     </div>
                 </v-flex>
-                <div class="import-source" @click="$emit('show-basic-auth-webde')">
-                    <div class="import-source-image">
-                        <img :src="getImportUrl('webde.png')"/>
+                <v-flex xs12 sm4 md3>
+                    <div class="import-source" @click="$emit('show-basic-auth-webde')">
+                        <div class="import-source-image">
+                            <img :src="getImportUrl('webde.png')"/>
+                        </div>
+                        <div class="import-source-element-description">WEB.DE</div>
                     </div>
-                    <div class="import-source-element-description">WEB.DE</div>
-                </div>
+                </v-flex>
+                <v-flex xs12 sm6 md6>
+                </v-flex>
             </v-layout>
         </div>
     </div>

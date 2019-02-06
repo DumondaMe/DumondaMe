@@ -36,7 +36,10 @@
   },
   "invite": {
     "importSourceTitle": "Vernetze dich auf DumondaMe",
-    "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen. Du hast auch die Möglichkeit E-Mail-Adressen manuell zu erfassen.",
+    "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen.",
+    "selectAll": "Alle E-Mails auswählen",
+    "showOnlySelected": "Nur ausgewälte E-Mails anzeigen",
+    "showOnlyRegisteredUsers": "Nur registrierte Benutzer anzeigen",
     "gmx": {
       "title": "GMX Kontakte importieren",
       "email": "Deine GMX E-Mail Adresse"
