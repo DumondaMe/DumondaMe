@@ -82,6 +82,8 @@
                         });
                     this.oAuthWindow = window.window;
                     this.checkWindowInterval = window.interval;
+                } else if (this.oAuthWindow && typeof this.oAuthWindow.focus === 'function') {
+                    this.oAuthWindow.focus();
                 }
             },
             async sendGMailImportRequest(code) {
