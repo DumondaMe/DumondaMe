@@ -8,7 +8,7 @@ const importWebDeContacts = async function (userId, request) {
     let addressBookUrl = await cardDavRequest.getAddressUrl(request.username, request.password, 'carddav.web.de');
     let resp = await cardDavRequest.getContacts(request.username, request.password, 'carddav.web.de', addressBookUrl);
     let users = parser.parse(resp);
-    return {contacts: await user.getExistingUserInfo(users, userId)};
+    return {contacts: await user.getUserInfo(users, userId)};
 };
 
 module.exports = {
