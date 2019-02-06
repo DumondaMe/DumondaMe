@@ -13,7 +13,6 @@ let tc = require('./dbDSL/transitionConnect');
 let question = require('./dbDSL/question');
 let region = require('./dbDSL/region');
 let topic = require('./dbDSL/topic');
-let unsubscribe = require('./dbDSL/unsubscribe');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
 
@@ -98,8 +97,6 @@ module.exports = {
     addSuggestionToQuestion: question.addSuggestionToQuestion,
     inviteRegisteredUserToAnswerQuestion: question.inviteRegisteredUserToAnswerQuestion,
     invitePreviouslyInvitedUserToAnswerQuestion: question.invitePreviouslyInvitedUserToAnswerQuestion,
-
-    unsubscribeInvitation: unsubscribe.unsubscribeInvitation,
 
     exportOrganisationToTransitionConnect: tc.exportOrganisation,
     exportEventToTransitionConnect: tc.exportEvent,

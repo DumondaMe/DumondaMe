@@ -1,10 +1,9 @@
 'use strict';
 
 const validation = require('dumonda-me-server-lib').jsonValidation;
-const invite = requireModel('eMailService/invitePerson');
+const invite = requireModel('otherUser/invitePerson');
 const auth = require('dumonda-me-server-lib').auth;
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const schemaInviteFriends = {
     name: 'inviteFriends',
@@ -18,17 +17,18 @@ const schemaInviteFriends = {
             minItems: 1,
             maxItems: 1000,
             uniqueItems: true
-        },
-        message: {type: 'string', format: 'notEmptyString', maxLength: 300}
+        }
     }
 };
 
 module.exports = function (router) {
 
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
-        logger.info("User invites friends", req);
+        if (Array.isArray(req.body.emails)) {
+            req.body.emails = req.body.emails.map(email => email.toLowerCase());
+        }
         let request = await validation.validateRequest(req, schemaInviteFriends);
-        await invite.sendInvitation(req.user.id, request.emails, request.message);
+        await invite.setInvitationFlag(req.user.id, request.emails);
         res.status(200).end();
     }));
 };

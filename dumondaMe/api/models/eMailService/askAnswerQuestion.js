@@ -5,6 +5,7 @@ const tmp = require('tmp');
 const email = require('dumonda-me-server-lib').eMail;
 const cdn = require('dumonda-me-server-lib').cdn;
 const fs = require('fs');
+const _ = require('lodash');
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const getUserImage = async function (userId) {
