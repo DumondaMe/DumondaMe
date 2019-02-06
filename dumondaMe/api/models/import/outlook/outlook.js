@@ -32,7 +32,7 @@ const importOutlookContacts = async function (userId, request) {
     };
     let resp = await rp.get(option);
     let users = parser.parse(resp);
-    return {contacts: await user.getExistingUserInfo(users, userId)};
+    return {contacts: await user.getUserInfo(users, userId)};
 };
 
 module.exports = {

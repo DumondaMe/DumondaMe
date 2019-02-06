@@ -23,7 +23,7 @@ describe('Import eMail from google', function () {
         return requestHandler.logout();
     });
 
-    it('Import google contacts', async function () {
+    it('Import contacts', async function () {
         let stubAccessCodeRequest = sandbox.stub(rp, 'post');
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubAccessCodeRequest.resolves(`{
@@ -41,6 +41,8 @@ describe('Import eMail from google', function () {
         res.body.contacts.length.should.equals(3);
         res.body.contacts[0].email.should.equals('follow@rabbit.de');
         res.body.contacts[0].name.should.equals('Alice im Wunderland');
+        should.not.exist(res.body.contacts[0].alreadySentInvitation);
+        should.not.exist(res.body.contacts[0].notAllowedToSentInvitation);
         should.not.exist(res.body.contacts[0].userId);
         should.not.exist(res.body.contacts[0].isPlatformUser);
         should.not.exist(res.body.contacts[0].userImage);
@@ -64,6 +66,57 @@ describe('Import eMail from google', function () {
         res.body.contacts[2].isTrustUser.should.equals(false);
         res.body.contacts[2].isAnonymous.should.equals(false);
         res.body.contacts[2].isLoggedInUser.should.equals(false);
+    });
+
+    it('Import not registered user already sent invitation', async function () {
+        let stubAccessCodeRequest = sandbox.stub(rp, 'post');
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubAccessCodeRequest.resolves(`{
+            "access_token": "1234",
+            "expires_in": 3599,
+            "scope": "https://www.googleapis.com/auth/contacts.readonly",
+            "token_type": "Bearer"
+        }`);
+        stubGetRequest.resolves(fs.readFileSync(path.resolve(__dirname, 'googleNotRegisteredUser.xml')));
+        dbDsl.invitationSentBeforeRegistration('1', [{
+            emailOfUserToInvite: 'user10@irgendwo.ch'
+        }]);
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/import/contact/gmail', {code: '1234'});
+        res.status.should.equal(200);
+
+        res.body.contacts.length.should.equals(1);
+        res.body.contacts[0].email.should.equals('user10@irgendwo.ch');
+        res.body.contacts[0].name.should.equals('Alice im Wunderland');
+        res.body.contacts[0].alreadySentInvitation.should.equals(true);
+        res.body.contacts[0].notAllowedToSentInvitation.should.equals(false);
+    });
+
+    it('Import not registered unsubscribed user', async function () {
+        let stubAccessCodeRequest = sandbox.stub(rp, 'post');
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubAccessCodeRequest.resolves(`{
+            "access_token": "1234",
+            "expires_in": 3599,
+            "scope": "https://www.googleapis.com/auth/contacts.readonly",
+            "token_type": "Bearer"
+        }`);
+        stubGetRequest.resolves(fs.readFileSync(path.resolve(__dirname, 'googleNotRegisteredUser.xml')));
+        dbDsl.invitationSentBeforeRegistration('1', [{
+            emailOfUserToInvite: 'user10@irgendwo.ch'
+        }]);
+        dbDsl.disableEMailNotificationForInvitedUser('user10@irgendwo.ch');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/import/contact/gmail', {code: '1234'});
+        res.status.should.equal(200);
+
+        res.body.contacts.length.should.equals(1);
+        res.body.contacts[0].email.should.equals('user10@irgendwo.ch');
+        res.body.contacts[0].name.should.equals('Alice im Wunderland');
+        res.body.contacts[0].alreadySentInvitation.should.equals(true);
+        res.body.contacts[0].notAllowedToSentInvitation.should.equals(true);
     });
 
 });
