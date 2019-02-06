@@ -19,7 +19,7 @@
                 </div>
                 <v-divider></v-divider>
                 <v-card-text class="mobile-dialog-content">
-                    <import-contact-container @contacts-loaded="contactsLoaded" :contact-exist="contacts.length > 0"
+                    <import-contact-container @contacts-loaded="contactsLoaded"
                                               @show-basic-auth-gmx="showBasicAuthGmx = true"
                                               @show-basic-auth-webde="showBasicAuthWebDe = true">
                     </import-contact-container>
@@ -72,9 +72,25 @@
                     Vue.set(contact, 'showContact', true);
                     Vue.set(contact, 'isSelected', false);
                 }
-                this.contacts = this.contacts.concat(contacts);
+                this.addContacts(contacts);
                 this.showBasicAuthGmx = false;
                 this.showBasicAuthWebDe = false;
+            },
+            contactNotExisting(newContact) {
+                return !this.contacts.find(function (contact) {
+                    if (newContact.email) {
+                        return contact.email === newContact.email;
+                    } else {
+                        return contact.userId === newContact.userId;
+                    }
+                });
+            },
+            addContacts(newContacts) {
+                for (let newContact of newContacts) {
+                    if (this.contactNotExisting(newContact)) {
+                        this.contacts.push(newContact);
+                    }
+                }
             },
             selectChanged(eMail) {
                 let changedContact = this.contacts.find(function (contact) {
