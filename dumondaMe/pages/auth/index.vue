@@ -1,5 +1,10 @@
 <template>
-
+    <div>
+        <div id="auth-loading-message">{{$t('pages:auth.loadingMessage')}}</div>
+        <div class=" text-xs-center">
+            <v-progress-circular indeterminate color="primary" size="52"></v-progress-circular>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -14,5 +19,11 @@
 </script>
 
 <style lang="scss">
-
+    #auth-loading-message {
+        margin-top: 52px;
+        margin-bottom: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+    }
 </style>

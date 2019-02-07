@@ -1029,6 +1029,9 @@
       "description": "Du erhältst keine weiteren E-Mails von DumondaMe mit der Bitte eine Frage zu beantworten."
     }
   },
+  "auth": {
+    "loadingMessage": "Ladevorgang läuft"
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "Über uns",

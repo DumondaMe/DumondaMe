@@ -7,14 +7,14 @@
                          :number-of-notifications="numberOfUnreadNotifications"
                          @create-question="showCreateQuestion = true"
                          @create-commitment="showCreateCommitment = true"
-                         @open-drawer="$emit('open-drawer')">
+                         @open-drawer="$emit('open-drawer')" v-if="$route.name !== 'auth'">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
                         :show-notification="showNotification"
                         :number-of-notifications="numberOfUnreadNotifications"
                         @create-question="showCreateQuestion = true"
                         @create-commitment="showCreateCommitment = true"
-                        @open-drawer="$emit('open-drawer')">
+                        @open-drawer="$emit('open-drawer')" v-if="$route.name !== 'auth'">
         </mobile-toolbar>
         <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
         </create-commitment-dialog>
