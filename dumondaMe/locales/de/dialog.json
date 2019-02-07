@@ -44,6 +44,7 @@
     "invitationSentTitle": "Einladungen versendet",
     "alreadySent": "Du hast bereits eine Einladung an diese E-Mail Adresse versendet",
     "notAllowedToSent": "Du kannst keine Einladung an diese E-Mail Adresse versenden",
+    "noContactsAdded": "Es wurden keine neuen Kontakte importiert",
     "sendButton": "Einladung versenden",
     "gmx": {
       "title": "GMX Kontakte importieren",

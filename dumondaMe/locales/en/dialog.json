@@ -44,6 +44,7 @@
     "invitationSentTitle": "Invitations sent",
     "alreadySent": "You have already sent an invitation to this e-mail address",
     "notAllowedToSent": "You cannot send an invitation to this email address",
+    "noContactsAdded": "No new contacts imported",
     "gmx": {
       "title": "Import GMX contacts",
       "email": "Your GMX email address"

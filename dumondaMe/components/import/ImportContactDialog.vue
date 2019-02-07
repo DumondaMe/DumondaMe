@@ -22,8 +22,13 @@
                 <v-card-text class="mobile-dialog-content">
                     <import-contact-container @contacts-loaded="contactsLoaded"
                                               @show-basic-auth-gmx="showBasicAuthGmx = true"
-                                              @show-basic-auth-webde="showBasicAuthWebDe = true">
+                                              @show-basic-auth-webde="showBasicAuthWebDe = true"
+                                              @parsing-started="parsingStarted"
+                                              @parsing-ended="parsingEnded">
                     </import-contact-container>
+                    <div class="warning-no-contacts-added" v-show="showNoContactsAddedInfo">
+                        {{$t("dialog:invite.noContactsAdded")}}
+                    </div>
                     <div class="contacts-container">
                         <select-container :contacts="contacts" :number-of-selected-contacts="selectedContacts.length"
                                           :number-of-all-selected="numberOfAllSelected"
@@ -38,8 +43,8 @@
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                    <div class="number-of-selected-contacts" v-show="selectedContacts.length > 0">
-                        {{selectedContacts.length}}
+                    <div class="number-of-selected-contacts" v-show="numberOfAllSelected > 0">
+                        {{selectedContacts.length}}/{{numberOfAllSelected}}
                     </div>
                     <v-spacer></v-spacer>
                     <v-btn color="primary" flat @click.native="$emit('close-dialog')">
@@ -67,19 +72,19 @@
         data() {
             return {
                 dialog: true, contacts: [], showBasicAuthGmx: false, showBasicAuthWebDe: false, showSentMessage: false,
-                loading: false
+                loading: false, showNoContactsAddedInfo: false
             }
         },
         components: {Contact, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
         methods: {
-            contactsLoaded(contacts) {
+            async contactsLoaded(contacts) {
                 for (let contact of contacts) {
                     Vue.set(contact, 'showContact', true);
                     Vue.set(contact, 'isSelected', false);
                 }
-                this.addContacts(contacts);
                 this.showBasicAuthGmx = false;
                 this.showBasicAuthWebDe = false;
+                this.showNoContactsAddedInfo = this.addContacts(contacts);
             },
             checkContactNotExisting(newContact) {
                 return !this.contacts.find(function (contact) {
@@ -91,11 +96,14 @@
                 });
             },
             addContacts(newContacts) {
+                let noContactAdded = true;
                 for (let newContact of newContacts) {
                     if (this.checkContactNotExisting(newContact)) {
                         this.contacts.push(newContact);
+                        noContactAdded = false;
                     }
                 }
+                return noContactAdded;
             },
             selectChanged(eMail) {
                 let changedContact = this.contacts.find(function (contact) {
@@ -141,6 +149,12 @@
                         contact.isSelected = selectAll;
                     }
                 }
+            },
+            async parsingStarted() {
+                this.loading = true;
+            },
+            async parsingEnded() {
+                this.loading = false;
             },
             async sendInvitations() {
                 try {
@@ -191,6 +205,11 @@
             padding-left: 12px;
             font-weight: 500;
             color: $secondary-text;
+        }
+
+        .warning-no-contacts-added {
+            font-size: 16px;
+            color: $warning;
         }
     }
 </style>
