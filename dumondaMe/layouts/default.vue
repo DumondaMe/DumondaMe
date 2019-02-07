@@ -48,7 +48,7 @@
             showWelcomeDialog() {
                 return this.showInfoDialog &&
                     (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
-                    this.$store.state.auth.userIsAuthenticated;
+                    this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
             }
         }
     }

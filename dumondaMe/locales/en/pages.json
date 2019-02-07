@@ -1026,6 +1026,9 @@
       "description": "You will receive no further e-mails from DumondaMe asking you to answer a question."
     }
   },
+  "auth": {
+    "loadingMessage": "Loading in progress"
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "About us",
