@@ -40,6 +40,14 @@
                     </div>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
+                    <div class="import-source" @click="openCsvFileDialog()">
+                        <div class="import-source-image">
+                            <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
+                                   @change="handleCsvFileImport"/>
+                            <img :src="getImportUrl('csv.png')"/>
+                        </div>
+                        <div class="import-source-element-description">CSV Datei</div>
+                    </div>
                 </v-flex>
             </v-layout>
         </div>
@@ -51,9 +59,14 @@
     import oAuthWindow from './oAuthWindow';
     import parseGoogleOAuthUrl from './parseGoogleOAuthUrl';
     import parseOutlookOAuthUrl from './parseOutlookOAuthUrl';
+    import parseCsvFile from './parseCsvFile';
+    import Vue from 'vue';
+
+    let vm;
 
     export default {
         data() {
+            vm = this;
             return {
                 oAuthWindow: null, checkWindowInterval: null, googleParser: parseGoogleOAuthUrl,
                 oAuthGoogleClientUrl: process.env.oAuthGoogleClientUrl,
@@ -110,6 +123,25 @@
                 }
                 if (this.checkWindowInterval) {
                     clearInterval(this.checkWindowInterval);
+                }
+            },
+            openCsvFileDialog() {
+                this.$refs.csvFileDialog.value = null; //Needed to open same file twice
+                this.$refs.csvFileDialog.click();
+            },
+            async handleCsvFileImport(e) {
+                if (e.target.files.length === 1) {
+                    if (typeof FileReader === 'function') {
+                        vm.$emit('parsing-started');
+                        await Vue.nextTick();
+                        const reader = new FileReader();
+                        reader.onload = function () {
+                            vm.$emit('contacts-loaded', parseCsvFile.parseEmails(reader.result));
+                            vm.$emit('parsing-ended');
+                        };
+
+                        reader.readAsText(e.target.files[0]);
+                    }
                 }
             }
         },
