@@ -135,6 +135,45 @@ describe('Integration Tests for verify registering a new user', function () {
         });
     });
 
+    it('Create only one registered notification when invited by user and asked to answer question', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.createQuestion('10', {
+            creatorId: '2', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.invitationSentBeforeRegistration('3', [{emailOfUserToInvite: 'info@dumonda.me'}]);
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion(
+            {questionId: '10', emailOfUserToInvite: 'info@dumonda.me', userId: '3'});
+        await dbDsl.sendToDb();
+
+        let res = await requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId});
+        res.status.should.equal(200);
+        res.body.email.should.equals(registerRequestUserValid.email);
+
+        let user = await db.cypher().match("(user:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})")
+            .return('user').end().send();
+        user.length.should.equals(1);
+        should.exist(user[0].user.userId);
+        user[0].user.emailNormalized.should.equals('info@dumonda.me');
+
+        user = await db.cypher()
+            .match(`(:User {emailNormalized: 'info@dumonda.me'})<-[:ASKED]-(asked:AskedToAnswerQuestion)
+                     -[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
+            .with('asked')
+            .match(`(asked)<-[:ASKED_TO_ANSWER_QUESTION]-(user:User {email: 'user3@irgendwo.ch'})`)
+            .return('user').end().send();
+        user.length.should.equals(1);
+
+        let notifications = await db.cypher()
+            .match(`(:User {userId: '3'})<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
+                    -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info@dumonda.me'})`)
+            .return('n').end().send();
+        notifications.length.should.equals(1);
+
+        let invitedUser = await db.cypher().match("(user:InvitedUser {emailNormalized: 'info@dumonda.me'})")
+            .return('user').end().send();
+        invitedUser.length.should.equals(0);
+    });
+
     it('With invitation to answer one question', async function () {
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
         dbDsl.createQuestion('10', {
