@@ -62,12 +62,20 @@ let blockUser = function (userId, blockedUserId) {
         }).getCommand());
 };
 
+let addSendInvitationCommand = function (sendingEmailPending) {
+    if (sendingEmailPending === true) {
+        return db.cypher().merge(`(user)-[:SENDING_EMAIL_PENDING]->(invitedUser)`).getCommandString();
+    }
+    return '';
+};
+
 let invitationSentBeforeRegistration = function (userId, data) {
     data.forEach(function (invitationData) {
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
             .merge(`(invitedUser:InvitedUser:EMailNotificationEnabled 
             {emailNormalized: {emailNormalized}})`)
             .merge(`(user)-[:HAS_INVITED]->(invitedUser)`)
+            .addCommand(addSendInvitationCommand(invitationData.sendingEmailPending))
             .end({userId: userId, emailNormalized: invitationData.emailOfUserToInvite}).getCommand());
     });
 };
