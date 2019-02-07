@@ -15,7 +15,9 @@
     "neo4j-driver": "1.6.3",
     "uuid": "3.3.2",
     "winston": "3.1.0",
-    "winston-cloudwatch": "2.0.2"
+    "winston-cloudwatch": "2.0.2",
+    "tmp": "0.0.33",
+    "aws-sdk": "2.328.0"
   },
   "devDependencies": {
     "mocha": "5.0.1",

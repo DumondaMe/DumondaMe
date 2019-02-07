@@ -12,6 +12,7 @@ const schedule = require('node-schedule');
 const dbConfig = require('dumonda-me-server-lib').databaseConfig;
 
 const notifications = require('./src/notifications');
+const invitations = require('./src/invitations');
 
 dbConfig.connected.then(async function () {
     logger.info('EMail service started');
@@ -21,6 +22,15 @@ dbConfig.connected.then(async function () {
             await notifications.sendUnreadNotifications();
         } catch (error) {
             logger.error(`The job to send unread notifications failed.`, {}, error);
+        }
+    });
+
+    schedule.scheduleJob(process.env.JOB_SCHEDULE_SENDING_INVITATIONS, async function () {
+        try {
+            logger.info(`The job to send invitations.`);
+            await invitations.sendInvitations();
+        } catch (error) {
+            logger.error(`The job to send invitations failed.`, {}, error);
         }
     });
 
