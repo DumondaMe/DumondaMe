@@ -2,7 +2,17 @@
     <div class="imported-contact">
         <div v-if="!contact.userId">
             <v-checkbox v-model="importContact" color="primary" class="import-checkbox"
-                        :label="getUserLabel" @click.native="changeSelected">
+                        @click.native="changeSelected"
+                        :disabled="contact.alreadySentInvitation || contact.notAllowedToSentInvitation">
+                <div slot="label">
+                    <div>{{getUserLabel}}</div>
+                    <div v-if="contact.alreadySentInvitation" class="checkbox-info">
+                        {{$t('dialog:invite.alreadySent')}}
+                    </div>
+                    <div v-else-if="contact.notAllowedToSentInvitation" class="checkbox-info">
+                        {{$t('dialog:invite.notAllowedToSent')}}
+                    </div>
+                </div>
             </v-checkbox>
         </div>
         <div v-else class="existing-user">
@@ -95,6 +105,11 @@
 
         .import-checkbox {
             display: inline-block;
+
+            .checkbox-info {
+                font-size: 14px;
+                color: $warning;
+            }
         }
 
         .existing-user {
