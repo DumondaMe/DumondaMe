@@ -13,6 +13,7 @@
                                @contacts-loaded="contactsLoaded"
                                @close="showBasicAuthWebDe = false">
             </import-basic-auth>
+            <sent-message-info v-else-if="showSentMessage" @close-dialog="$emit('close-dialog')"></sent-message-info>
             <v-card id="import-contact-container" v-else>
                 <div id="dumonda-me-dialog-header">
                     {{$t('dialog:invite:importSourceTitle')}}
@@ -44,9 +45,9 @@
                     <v-btn color="primary" flat @click.native="$emit('close-dialog')">
                         {{$t("common:button.close")}}
                     </v-btn>
-                    <v-btn color="primary" @click.native="$emit('close-dialog')"
-                           :disabled="selectedContacts.length === 0">
-                        {{$t("common:button.ok")}}
+                    <v-btn color="primary" @click.native="sendInvitations"
+                           :disabled="selectedContacts.length === 0 || loading" :loading="loading">
+                        {{$t("dialog:invite.sendButton")}}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -57,15 +58,19 @@
 <script>
     import ImportContactContainer from './ImportContactContainer';
     import ImportBasicAuth from './ImportBasicAuth';
+    import SentMessageInfo from './SentMessageInfo';
     import Contact from './Contact';
     import SelectContainer from './SelectContainer';
     import Vue from 'vue';
 
     export default {
         data() {
-            return {dialog: true, contacts: [], showBasicAuthGmx: false, showBasicAuthWebDe: false}
+            return {
+                dialog: true, contacts: [], showBasicAuthGmx: false, showBasicAuthWebDe: false, showSentMessage: false,
+                loading: false
+            }
         },
-        components: {Contact, ImportContactContainer, ImportBasicAuth, SelectContainer},
+        components: {Contact, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
         methods: {
             contactsLoaded(contacts) {
                 for (let contact of contacts) {
@@ -76,7 +81,7 @@
                 this.showBasicAuthGmx = false;
                 this.showBasicAuthWebDe = false;
             },
-            contactNotExisting(newContact) {
+            checkContactNotExisting(newContact) {
                 return !this.contacts.find(function (contact) {
                     if (newContact.email) {
                         return contact.email === newContact.email;
@@ -87,7 +92,7 @@
             },
             addContacts(newContacts) {
                 for (let newContact of newContacts) {
-                    if (this.contactNotExisting(newContact)) {
+                    if (this.checkContactNotExisting(newContact)) {
                         this.contacts.push(newContact);
                     }
                 }
@@ -135,6 +140,17 @@
                     if (contact.email) {
                         contact.isSelected = selectAll;
                     }
+                }
+            },
+            async sendInvitations() {
+                try {
+                    this.loading = true;
+                    await this.$axios.$put('user/otherUser/invite', {emails: this.selectedContacts});
+                    this.showSentMessage = true;
+                } catch (error) {
+
+                } finally {
+                    this.loading = false;
                 }
             }
         },
