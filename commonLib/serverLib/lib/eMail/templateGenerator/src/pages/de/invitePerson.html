@@ -13,20 +13,30 @@
         </columns>
         <columns small="12" large="8">
             <h3 class="hello-title">Hallo,</h3>
-            <p class="invitation-text"><strong>{{{{raw}}}}{{name}}{{{{/raw}}}}</strong> hat dich auf DumondaMe eingeladen.</p>
-
-            <p class="invitation-text-user">{{{{raw}}}}{{userMessage}}{{{{/raw}}}}</p>
+            <p class="invitation-text"><strong>{{{{raw}}}}{{name}}{{{{/raw}}}}</strong> möchte dich auf DumondaMe aufmerksam machen.</p>
 
             <spacer size="12"></spacer>
-            <button class="large secondary radius" href="https://www.dumonda.me">DumondaMe öffnen</button>
+            <button class="large secondary radius" href="https://www.dumonda.me">www.dumonda.me</button>
         </columns>
     </row>
+    <spacer size="20"></spacer>
+    <row>
+        <div class="divider"></div>
+    </row>
     <spacer size="30"></spacer>
+    <center>
+        <p class="text-center title-description">DumondaMe, was ist das?</p>
+        <p class="text-center description">Unser Erklärvideo vermittelt dir kurz und bündig worum es geht.</p>
+        <a href="https://youtu.be/hcCvaH0RJj4" class="link-to-youtube-video">
+            <img src="cid:urlVideoPreview">
+        </a>
+    </center>
+    <spacer size="40"></spacer>
     <row>
         <columns small="12">
             <p class="text-center title-description">Die Welt zum Positiven verändern</p>
-            <p class="text-center description">Was kann jeder Einzelne tun, um unsere Welt zum Positiven zu verändern?
-                DumondaMe inspiriert, öffnet die Augen und zeigt Alternativen auf.</p>
+            <p class="text-center description">Was kann jede_r Einzelne tun, um unsere Welt zum Positiven zu verändern?
+                DumondaMe inspiriert, öffnet Augen und zeigt Alternativen auf.</p>
         </columns>
     </row>
     </row>
@@ -34,36 +44,40 @@
     <row>
         <columns small="12">
             <p class="text-center title-description">Gemeinsam ist alles möglich</p>
-            <p class="text-center description">Es gibt unzählige gute Projekte und engagierte Menschen welche die Zukunft zum Vorteil
-                aller mitgestalten wollen. Werde Teil dieser Bewegung und vernetze dich mit Gleichgesinnten.</p>
+            <p class="text-center description">Es gibt unzählige engagierte Menschen und tolle Projekte, welche bereits
+                jetzt aktiv die Zukunft zum Vorteil aller mitgestalten. Werde Teil der Bewegung und vernetze dich mit
+                Gleichgesinnten.</p>
         </columns>
     </row>
     <spacer size="10"></spacer>
     <row>
         <columns small="12">
             <p class="text-center title-description">Non-Profit</p>
-            <p class="text-center description">Dieses soziale Netzwerk stellt die Entwicklung des Mensch in den Mittelpunkt, nicht den Profit.
-                Deshalb ist es Heute wie auch zukünftig werbefrei und wird komplett mit Spenden finanziert.</p>
+            <p class="text-center description">Dieses gemeinnützige soziale Netzwerk stellt die positive Entwicklung der
+                Gesellschaft in den Mittelpunkt, nicht den Profit.
+                Deshalb ist es Heute wie auch zukünftig werbefrei und wird mit Spenden finanziert.</p>
         </columns>
     </row>
-    <spacer size="10"></spacer>
-    <center>
-        <img src="https://www.dumonda.me/app/img/start/screenPreviewMobile.jpg">
-    </center>
-    <spacer size="60"></spacer>
-
-    <row class="footer-invite">
+    <spacer size="15"></spacer>
+    <row>
         <columns small="12">
-            <p class="text-center title-description">Möchtest du mehr wissen?</p>
             <center>
-                <button class="large secondary radius" href="https://www.dumonda.me">DumondaMe öffnen</button>
+                <img src="cid:urlDumondaMeLogo" class="dumonda-me-logo">
             </center>
         </columns>
     </row>
     <spacer size="20"></spacer>
+    <row class="footer-invite">
+        <columns small="12">
+            <p class="text-center title-description">Du möchtest mehr wissen?</p>
+            <center>
+                <button class="large secondary radius" href="https://www.dumonda.me">Willkommen auf DumondaMe!</button>
+            </center>
+        </columns>
+    </row>
+    <spacer size="30"></spacer>
     <p class="text-center">
-        <a href="https://www.dumonda.me/vision">Vision</a> | <a href="https://www.dumonda.me/aboutUs">Wer entwickelt DumondaMe?</a> |
-        <a {{{{raw}}}}href="{{unsubscribeLink}}"{{{{/raw}}}}>Ich will keine weiteren Einladungen</a>
+        <a class="unsubscribe-link" {{{{raw}}}}href="{{unsubscribeLink}}" {{{{/raw}}}}>Abbestellen</a>
     </p>
     <spacer size="30"></spacer>
 </container>
