@@ -28,9 +28,9 @@ const removeSendingEmailPending = async function (emails, userId) {
 
 const sendEMails = async function (users) {
     for (let user of users) {
-        let sentInvitations = [];
+        let sentInvitations = [], userImage;
         try {
-            let userImage = getUserImage(user.userId);
+            userImage = await getUserImage(user.userId);
             for (let userToInvite of user.emails) {
                 let unsubscribeLink = `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/${userToInvite}`;
                 await eMail.sendEMail('invitePerson',
@@ -40,25 +40,37 @@ const sendEMails = async function (users) {
         } catch (error) {
             logger.error(`Failed to send invitation from user ${user.userId}`);
         } finally {
+            if (userImage && typeof userImage.removeCallback === 'function') {
+                userImage.removeCallback();
+            }
             await removeSendingEmailPending(sentInvitations, user.userId);
         }
     }
 
 };
 
+let invitationJobIsRunning = false;
+
 const sendInvitations = async function () {
     let skip = 0, users = [];
-    do {
-        users = await db.cypher()
-            .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(user:User)`)
-            .return(`collect(DISTINCT invitedUser.emailNormalized) AS emails, 
+    if (!invitationJobIsRunning) {
+        try {
+            invitationJobIsRunning = true;
+            do {
+                users = await db.cypher()
+                    .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(user:User)`)
+                    .return(`collect(DISTINCT invitedUser.emailNormalized) AS emails, 
                      user.userId AS userId, user.name AS name`)
-            .orderBy(`user.userId`)
-            .skip(skip)
-            .limit(LIMIT).end().send();
-        await sendEMails(users);
+                    .orderBy(`user.userId`)
+                    .skip(skip)
+                    .limit(LIMIT).end().send();
+                await sendEMails(users);
 
-    } while (users.length === LIMIT);
+            } while (users.length === LIMIT);
+        } finally {
+            invitationJobIsRunning = false;
+        }
+    }
 };
 
 

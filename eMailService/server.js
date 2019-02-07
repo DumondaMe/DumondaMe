@@ -27,7 +27,7 @@ dbConfig.connected.then(async function () {
 
     schedule.scheduleJob(process.env.JOB_SCHEDULE_SENDING_INVITATIONS, async function () {
         try {
-            logger.info(`The job to send invitations.`);
+            logger.info(`The job to send invitations was started.`);
             await invitations.sendInvitations();
         } catch (error) {
             logger.error(`The job to send invitations failed.`, {}, error);
