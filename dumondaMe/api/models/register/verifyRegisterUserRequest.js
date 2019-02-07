@@ -56,6 +56,7 @@ let createInvitedUserToAskQuestionHasRegisteredNotification = async function (em
     await db.cypher()
         .match(`(registeredUser:User {emailNormalized: {emailNormalized}})<-[:ASKED]-(asked:AskedToAnswerQuestion)
                  <-[:ASKED_TO_ANSWER_QUESTION]-(user:User)`)
+        .where(`NOT (user)-[:HAS_INVITED]->(:InvitedUser {emailNormalized: {emailNormalized}})`)
         .with(`DISTINCT user, registeredUser`)
         .merge(`(user)<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered', created: {created},
                  notificationId: apoc.create.uuid()})-[:ORIGINATOR_OF_NOTIFICATION]->(registeredUser)`)
