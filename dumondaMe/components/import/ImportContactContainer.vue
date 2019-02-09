@@ -67,7 +67,6 @@
     export default {
         data() {
             vm = this;
-            console.log(process.env.oAuthGoogleClientUrl);
             return {
                 oAuthWindow: null, checkWindowInterval: null, googleParser: parseGoogleOAuthUrl,
                 oAuthGoogleClientUrl: process.env.oAuthGoogleClientUrl,
