@@ -1,8 +1,7 @@
 <template>
     <div class="imported-contact">
         <div v-if="!contact.userId">
-            <v-checkbox v-model="importContact" color="primary" class="import-checkbox"
-                        @click.native="changeSelected"
+            <v-checkbox v-model="contact.isSelected" color="primary" class="import-checkbox"
                         :disabled="contact.alreadySentInvitation || contact.notAllowedToSentInvitation">
                 <div slot="label">
                     <div>{{getUserLabel}}</div>
@@ -73,9 +72,6 @@
             },
             async removeUserFromTrustCircle() {
                 await this.sendUserToTrustCircleCommand('$delete', false);
-            },
-            changeSelected() {
-                this.$emit('select-changed', this.contact.email);
             }
         },
         computed: {
@@ -85,16 +81,6 @@
                 }
                 return this.contact.email;
             },
-            isSelected() {
-                return this.contact.isSelected;
-            }
-        },
-        watch: {
-            isSelected(newIsSelected) {
-                if (newIsSelected !== this.importContact) {
-                    this.importContact = newIsSelected;
-                }
-            }
         }
     }
 </script>

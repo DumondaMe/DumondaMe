@@ -37,7 +37,7 @@
                                           @select-all="selectAllChanged">
                         </select-container>
                         <contact v-for="contact in contacts" :contact="contact" :key="contact.email"
-                                 @select-changed="selectChanged" v-show="contact.showContact">
+                                 v-show="contact.showContact">
                         </contact>
                     </div>
                 </v-card-text>
@@ -104,12 +104,6 @@
                     }
                 }
                 return noContactAdded;
-            },
-            selectChanged(eMail) {
-                let changedContact = this.contacts.find(function (contact) {
-                    return contact.email === eMail;
-                });
-                changedContact.isSelected = !changedContact.isSelected;
             },
             showRegisteredUsers() {
                 for (let contact of this.contacts) {
