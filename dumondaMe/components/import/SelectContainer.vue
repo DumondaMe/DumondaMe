@@ -7,10 +7,6 @@
                     v-show="numberOfSelectedContacts > 2 && !selectAllState" @change="changeOnlySelectedState"
                     :label="$t('dialog:invite:showOnlySelected')">
         </v-checkbox>
-        <v-checkbox v-model="showOnlyRegisteredUsersState" color="primary" class="select-checkbox" height="20px"
-                    v-show="containsRegisteredUsers" @change="changeOnlyRegisteredUserState"
-                    :label="$t('dialog:invite:showOnlyRegisteredUsers')">
-        </v-checkbox>
     </div>
 </template>
 
@@ -19,37 +15,17 @@
     export default {
         props: ['contacts', 'numberOfSelectedContacts', 'numberOfAllSelected'],
         data() {
-            return {selectAllState: false, showOnlySelectedState: false, showOnlyRegisteredUsersState: false}
+            return {selectAllState: false, showOnlySelectedState: false}
         },
         methods: {
-            changeOnlyRegisteredUserState(newState) {
-                this.$emit('show-only-registered-user', newState);
-                if (newState) {
-                    this.showOnlySelectedState = false;
-                }
-            },
             changeOnlySelectedState(newState) {
                 this.$emit('show-only-selected', newState);
-                if (newState) {
-                    this.showOnlyRegisteredUsersState = false;
-                }
             },
             changeSelectAllState(newState) {
                 this.$emit('select-all', newState);
                 if (newState) {
                     this.showOnlySelectedState = false;
-                    this.showOnlyRegisteredUsersState = false;
                 }
-            }
-        },
-        computed: {
-            containsRegisteredUsers() {
-                for (let contact of this.contacts) {
-                    if (contact.hasOwnProperty('userId')) {
-                        return true;
-                    }
-                }
-                return false;
             }
         },
         watch: {
@@ -62,7 +38,7 @@
 
 <style lang="scss">
     .select-imported-contact-container {
-        border-bottom: 2px solid $divider;
+        border-bottom: 2px solid $primary-color;
 
         .select-checkbox {
             margin-top: 0;

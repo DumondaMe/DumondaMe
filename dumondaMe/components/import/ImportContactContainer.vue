@@ -5,7 +5,7 @@
         </div>
         <div class="import-source-inner-container">
             <v-layout row wrap>
-                <v-flex xs12 sm4 md3>
+                <v-flex xs12 sm4>
                     <div class="import-source"
                          @click="openOAuthImport(sendGMailImportRequest, oAuthGoogleClientUrl, googleParser)">
                         <div class="import-source-image">
@@ -14,16 +14,16 @@
                         <div class="import-source-element-description">Gmail</div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm4 md3>
+                <v-flex xs12 sm4>
                     <div class="import-source"
                          @click="openOAuthImport(sendOutlookImportRequest, oAuthOutlookClientUrl, outlookParser)">
                         <div class="import-source-image">
                             <img :src="getImportUrl('outlook.png')"/>
                         </div>
-                        <div class="import-source-element-description">Outlook</div>
+                        <div class="import-source-element-description">Outlook.com</div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm4 md3>
+                <v-flex xs12 sm4>
                     <div class="import-source" @click="$emit('show-basic-auth-gmx')">
                         <div class="import-source-image">
                             <img :src="getImportUrl('gmx.png')"/>
@@ -31,7 +31,7 @@
                         <div class="import-source-element-description">GMX</div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm4 md3>
+                <v-flex xs12 sm4>
                     <div class="import-source" @click="$emit('show-basic-auth-webde')">
                         <div class="import-source-image">
                             <img :src="getImportUrl('webde.png')"/>
@@ -39,7 +39,7 @@
                         <div class="import-source-element-description">WEB.DE</div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm6 md6>
+                <v-flex xs12 sm4>
                     <div class="import-source" @click="openCsvFileDialog()">
                         <div class="import-source-image">
                             <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
