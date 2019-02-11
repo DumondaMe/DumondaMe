@@ -32,7 +32,6 @@
                     <div class="contacts-container">
                         <select-container :contacts="contacts" :number-of-selected-contacts="selectedContacts.length"
                                           :number-of-all-selected="numberOfAllSelected"
-                                          @show-only-registered-user="showOnlyRegisteredUsersChanged"
                                           @show-only-selected="showOnlySelectedChanged"
                                           @select-all="selectAllChanged">
                         </select-container>
@@ -88,41 +87,26 @@
             },
             checkContactNotExisting(newContact) {
                 return !this.contacts.find(function (contact) {
-                    if (newContact.email) {
-                        return contact.email === newContact.email;
-                    } else {
-                        return contact.userId === newContact.userId;
-                    }
+                    return contact.email === newContact.email;
                 });
             },
             addContacts(newContacts) {
                 let noContactAdded = true;
                 for (let newContact of newContacts) {
                     if (this.checkContactNotExisting(newContact)) {
-                        this.contacts.push(newContact);
+                        if (newContact.userId) {
+                            this.contacts.unshift(newContact);
+                        } else {
+                            this.contacts.push(newContact);
+                        }
                         noContactAdded = false;
                     }
                 }
                 return noContactAdded;
             },
-            showRegisteredUsers() {
-                for (let contact of this.contacts) {
-                    contact.showContact = false;
-                    if (contact.userId) {
-                        contact.showContact = true;
-                    }
-                }
-            },
             showAllContacts() {
                 for (let contact of this.contacts) {
                     contact.showContact = true;
-                }
-            },
-            showOnlyRegisteredUsersChanged(onlyRegisteredUsers) {
-                if (onlyRegisteredUsers) {
-                    this.showRegisteredUsers();
-                } else {
-                    this.showAllContacts();
                 }
             },
             showOnlySelected() {
@@ -139,7 +123,7 @@
             },
             selectAllChanged(selectAll) {
                 for (let contact of this.contacts) {
-                    if (contact.email) {
+                    if (!contact.userId && !contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
                         contact.isSelected = selectAll;
                     }
                 }
@@ -175,7 +159,7 @@
             numberOfAllSelected() {
                 let total = 0;
                 for (let contact of this.contacts) {
-                    if (contact.email) {
+                    if (!contact.userId && !contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
                         total++;
                     }
                 }
