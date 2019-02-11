@@ -120,8 +120,11 @@
 
             .user-content-container {
                 margin-left: 18px;
-                position: relative;
-                height: 120px;
+
+                @media screen and (min-width: $xs) {
+                    position: relative;
+                    height: 120px;
+                }
 
                 .user-name {
                     font-weight: 500;
@@ -136,8 +139,11 @@
                 }
 
                 .add-to-trust-circle-container {
-                    position: absolute;
-                    bottom: 0;
+
+                    @media screen and (min-width: $xs) {
+                        position: absolute;
+                        bottom: 0;
+                    }
 
                     .user-action-button {
                         margin-top: 12px;
