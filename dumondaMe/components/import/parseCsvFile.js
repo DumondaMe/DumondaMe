@@ -12,6 +12,7 @@ export default {
             let elements = text.split(',');
             for (let element of elements) {
                 element = element.trim();
+                element = element.replace(/["']/g, '');
                 if (element.length > 4 && emailValidator.validate(element)) {
                     element = element.toLowerCase();
                     if (emailHasNotBeenAddedToCollection(emails, element)) {
