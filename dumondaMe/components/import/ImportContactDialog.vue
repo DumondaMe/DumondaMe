@@ -30,13 +30,18 @@
                         {{$t("dialog:invite.noContactsAdded")}}
                     </div>
                     <div class="contacts-container">
+                        <registered-user v-for="(contact, index) in registeredUsers" :contact="contact"
+                                         :key="contact.email"
+                                         :last-registered-user="index === registeredUsers.length - 1">
+                        </registered-user>
                         <select-container :contacts="contacts" :number-of-selected-contacts="selectedContacts.length"
                                           :number-of-all-selected="numberOfAllSelected"
                                           @show-only-selected="showOnlySelectedChanged"
                                           @select-all="selectAllChanged">
                         </select-container>
-                        <contact v-for="contact in contacts" :contact="contact" :key="contact.email"
-                                 v-show="contact.showContact">
+                        <contact v-for="(contact, index) in contacts" :contact="contact" :key="contact.email"
+                                 v-show="contact.showContact"
+                                 :last-registered-user="index === contacts.length - 1">
                         </contact>
                     </div>
                 </v-card-text>
@@ -64,17 +69,19 @@
     import ImportBasicAuth from './ImportBasicAuth';
     import SentMessageInfo from './SentMessageInfo';
     import Contact from './Contact';
+    import RegisteredUser from './RegisteredUser';
     import SelectContainer from './SelectContainer';
     import Vue from 'vue';
 
     export default {
         data() {
             return {
-                dialog: true, contacts: [], showBasicAuthGmx: false, showBasicAuthWebDe: false, showSentMessage: false,
-                loading: false, showNoContactsAddedInfo: false
+                dialog: true, contacts: [], registeredUsers: [], showBasicAuthGmx: false, showBasicAuthWebDe: false,
+                showSentMessage: false, loading: false, showNoContactsAddedInfo: false
             }
         },
-        components: {Contact, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
+        components:
+            {Contact, RegisteredUser, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
         methods: {
             async contactsLoaded(contacts) {
                 for (let contact of contacts) {
@@ -86,7 +93,7 @@
                 this.showNoContactsAddedInfo = this.addContacts(contacts);
             },
             checkContactNotExisting(newContact) {
-                return !this.contacts.find(function (contact) {
+                return !this.contacts.concat(this.registeredUsers).find(function (contact) {
                     return contact.email === newContact.email;
                 });
             },
@@ -95,7 +102,7 @@
                 for (let newContact of newContacts) {
                     if (this.checkContactNotExisting(newContact)) {
                         if (newContact.userId) {
-                            this.contacts.unshift(newContact);
+                            this.registeredUsers.push(newContact);
                         } else {
                             this.contacts.push(newContact);
                         }
@@ -123,7 +130,7 @@
             },
             selectAllChanged(selectAll) {
                 for (let contact of this.contacts) {
-                    if (!contact.userId && !contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
+                    if (!contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
                         contact.isSelected = selectAll;
                     }
                 }
@@ -159,7 +166,7 @@
             numberOfAllSelected() {
                 let total = 0;
                 for (let contact of this.contacts) {
-                    if (!contact.userId && !contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
+                    if (!contact.alreadySentInvitation && !contact.notAllowedToSentInvitation) {
                         total++;
                     }
                 }
