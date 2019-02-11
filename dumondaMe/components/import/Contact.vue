@@ -120,6 +120,8 @@
 
             .user-content-container {
                 margin-left: 18px;
+                position: relative;
+                height: 120px;
 
                 .user-name {
                     font-weight: 500;
@@ -132,13 +134,16 @@
                     font-size: 14px;
                     color: $secondary-text;
                 }
-            }
 
-            .add-to-trust-circle-container {
+                .add-to-trust-circle-container {
+                    position: absolute;
+                    bottom: 0;
 
-                .user-action-button {
-                    margin-top: 12px;
-                    margin-left: 0;
+                    .user-action-button {
+                        margin-top: 12px;
+                        margin-bottom: 0;
+                        margin-left: 0;
+                    }
                 }
             }
         }
