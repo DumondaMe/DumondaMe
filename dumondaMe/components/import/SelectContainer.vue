@@ -38,6 +38,7 @@
 
 <style lang="scss">
     .select-imported-contact-container {
+        margin-top: 42px;
         border-bottom: 2px solid $primary-color;
 
         .select-checkbox {
