@@ -46,6 +46,7 @@
     "notAllowedToSent": "You cannot send an invitation to this email address",
     "noContactsAdded": "No new contacts imported",
     "infoCsvFile": "Most email services or programs offer a feature to export your contacts to a CSV file.",
+    "maxNumberOfSelected": "A maximum of 1000 invitations can be sent by e-mail.",
     "sendButton": "Send invitations",
     "gmx": {
       "title": "Import GMX contacts",

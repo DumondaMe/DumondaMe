@@ -46,6 +46,7 @@
     "notAllowedToSent": "Du kannst keine Einladung an diese E-Mail Adresse versenden",
     "noContactsAdded": "Es wurden keine neuen Kontakte importiert",
     "infoCsvFile": "Die meisten E-Mail Dienste oder Programme bieten eine Funktion am, um deine Kontakte in eine CSV Datei zu exportieren. ",
+    "maxNumberOfSelected": "Es dürfen maximal 1000 Einladungen per E-Mail versendet werden.",
     "sendButton": "Einladung versenden",
     "gmx": {
       "title": "GMX Kontakte importieren",
