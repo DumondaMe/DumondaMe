@@ -88,6 +88,12 @@ body {
   }
 }
 
+.show-dialog-error {
+  background-color: $error-text;
+  padding: 8px 16px;
+  color: white;
+}
+
 noscript{
   position: fixed;
   height: 58px;
