@@ -14,23 +14,19 @@
                      @privacy-mode-changed="privacyModeChanged">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </privacy>
-            <topics v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="nextTopics" @back="showPage--"
-                    :init-topics="settings.interestedTopics" class="welcome-dialog">
-                <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
-            </topics>
-            <question v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
+            <question v-if="showPage === 3" @close-dialog="$emit('close-dialog')" @next="showPage++" @back="showPage--"
                       class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </question>
-            <commitment v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <commitment v-if="showPage === 4" @close-dialog="$emit('close-dialog')" @next="showPage++"
                         @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </commitment>
-            <trust-circle v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="showPage++"
+            <trust-circle v-if="showPage === 5" @close-dialog="$emit('close-dialog')" @next="showPage++"
                           @back="showPage--" class="welcome-dialog">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </trust-circle>
-            <actions v-if="showPage === 7" @close-dialog="$emit('close-dialog')" @next="finish" @back="showPage--"
+            <actions v-if="showPage === 6" @close-dialog="$emit('close-dialog')" @next="finish" @back="showPage--"
                      class="welcome-dialog" :loading="loading">
                 <stepper slot="header" :selected-step="showPage" @navigate-to-step="navigateToStep"></stepper>
             </actions>
@@ -49,7 +45,6 @@
     import Welcome from './Welcome';
     import ProfileImage from './ProfileImage';
     import Privacy from './Privacy';
-    import Topics from './Topics';
     import Question from './Question';
     import Commitment from './Commitment';
     import TrustCircle from './TrustCircle';
@@ -69,7 +64,7 @@
                 this.loading = false;
             }
         },
-        components: {Stepper, Welcome, ProfileImage, Privacy, Topics, Question, Commitment, TrustCircle, Actions},
+        components: {Stepper, Welcome, ProfileImage, Privacy, Question, Commitment, TrustCircle, Actions},
         methods: {
             async finish() {
                 try {
@@ -81,10 +76,6 @@
                 } finally {
                     this.loading = false;
                 }
-            },
-            nextTopics(topics) {
-                this.settings.interestedTopics = topics;
-                this.showPage++;
             },
             privacyModeChanged(newPrivacyMode) {
                 this.settings.privacyMode = newPrivacyMode;
