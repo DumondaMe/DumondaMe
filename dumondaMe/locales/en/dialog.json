@@ -41,7 +41,7 @@
     "showOnlySelected": "Show only selected emails",
     "showOnlyRegisteredUsers": "Show registered users only",
     "invitationSentMessage": "Thank you very much for bringing DumondaMe to the attention of your friends! The invitations will be sent in the next minutes by DumondaMe.",
-    "invitationSentTitle": "Invitations sent",
+    "invitationSentTitle": "Invitations will be sent",
     "alreadySent": "You have already sent an invitation to this e-mail address",
     "notAllowedToSent": "You cannot send an invitation to this email address",
     "noContactsAdded": "No new contacts imported",

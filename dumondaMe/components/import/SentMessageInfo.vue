@@ -10,6 +10,7 @@
                 {{$t('dialog:invite.invitationSentMessage')}}
             </div>
         </v-card-text>
+        <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.native="$emit('close-dialog')">
@@ -39,6 +40,7 @@
             width: 100%;
             max-width: 300px;
             margin: 0 auto 24px auto;
+            border-radius: 4px;
         }
         .invited-user-message {
             font-weight: 300;
