@@ -46,6 +46,9 @@
                         </contact>
                     </div>
                 </v-card-text>
+                <div class="show-dialog-error" v-show="selectedContacts.length > 1000">
+                    {{$t('dialog:invite.maxNumberOfSelected')}}
+                </div>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <div class="number-of-selected-contacts" v-show="numberOfAllSelected > 0">
@@ -56,7 +59,8 @@
                         {{$t("common:button.close")}}
                     </v-btn>
                     <v-btn color="primary" @click.native="sendInvitations"
-                           :disabled="selectedContacts.length === 0 || loading" :loading="loading">
+                           :disabled="selectedContacts.length === 0 || loading || selectedContacts.length > 1000"
+                           :loading="loading">
                         {{$t("dialog:invite.sendButton")}}
                     </v-btn>
                 </v-card-actions>
