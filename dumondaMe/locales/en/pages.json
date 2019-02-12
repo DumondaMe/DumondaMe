@@ -240,6 +240,11 @@
         "loginButton": "I already have an account"
       }
     },
+    "networking": {
+      "title": "Network on DumondaMe",
+      "description": "Find your friends or make them aware of this platform with an invitation e-mail.",
+      "actionButton": "Networking"
+    },
     "conceptInfo": {
       "title": "What are the most important concepts?",
       "actionButton": "Start tour"
