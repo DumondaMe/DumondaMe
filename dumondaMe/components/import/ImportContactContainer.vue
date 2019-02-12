@@ -40,14 +40,20 @@
                     </div>
                 </v-flex>
                 <v-flex xs12 sm4>
-                    <div class="import-source" @click="openCsvFileDialog()">
-                        <div class="import-source-image">
-                            <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
-                                   @change="handleCsvFileImport"/>
-                            <img :src="getImportUrl('csv.png')"/>
+                    <v-menu v-model="showCsvFileInfo" open-on-hover :open-on-click="false"
+                            bottom offset-y max-width="320">
+                        <div class="import-source" @click="openCsvFileDialog()" slot="activator">
+                            <div class="import-source-image">
+                                <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
+                                       @change="handleCsvFileImport"/>
+                                <img :src="getImportUrl('csv.png')"/>
+                            </div>
+                            <div class="import-source-element-description">CSV Datei</div>
                         </div>
-                        <div class="import-source-element-description">CSV Datei</div>
-                    </div>
+                        <v-card class="csv-info-card">
+                            {{$t('dialog:invite.infoCsvFile')}}
+                        </v-card>
+                    </v-menu>
                 </v-flex>
             </v-layout>
         </div>
@@ -70,7 +76,8 @@
             return {
                 oAuthWindow: null, checkWindowInterval: null, googleParser: parseGoogleOAuthUrl,
                 oAuthGoogleClientUrl: process.env.oAuthGoogleClientUrl,
-                oAuthOutlookClientUrl: process.env.oAuthOutlookClientUrl, outlookParser: parseOutlookOAuthUrl
+                oAuthOutlookClientUrl: process.env.oAuthOutlookClientUrl, outlookParser: parseOutlookOAuthUrl,
+                showCsvFileInfo: false
             }
         },
         methods: {
@@ -184,6 +191,12 @@
                     color: $secondary-text;
                 }
             }
+
         }
+    }
+
+    .csv-info-card {
+        padding: 16px;
+        max-width: 250px;
     }
 </style>

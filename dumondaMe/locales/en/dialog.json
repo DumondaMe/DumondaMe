@@ -45,6 +45,8 @@
     "alreadySent": "You have already sent an invitation to this e-mail address",
     "notAllowedToSent": "You cannot send an invitation to this email address",
     "noContactsAdded": "No new contacts imported",
+    "infoCsvFile": "Most email services or programs offer a feature to export your contacts to a CSV file.",
+    "sendButton": "Send invitations",
     "gmx": {
       "title": "Import GMX contacts",
       "email": "Your GMX email address"
