@@ -136,7 +136,7 @@
                         await Vue.nextTick();
                         const reader = new FileReader();
                         reader.onload = function () {
-                            vm.$emit('contacts-loaded', parseCsvFile.parseEmails(reader.result));
+                            vm.$emit('contacts-only-email-loaded', parseCsvFile.parseEmails(reader.result));
                             vm.$emit('parsing-ended');
                         };
 
