@@ -20,11 +20,7 @@
               @navigate-to-step="(number) => $emit('navigate-to-step', number)">
         </step>
         <v-divider></v-divider>
-        <step :number="6" :selected-step="selectedStep"
-              @navigate-to-step="(number) => $emit('navigate-to-step', number)">
-        </step>
-        <v-divider></v-divider>
-        <step :number="7" :selected-step="selectedStep">
+        <step :number="6" :selected-step="selectedStep">
         </step>
     </stepper-header>
 </template>
