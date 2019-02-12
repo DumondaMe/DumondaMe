@@ -24,7 +24,7 @@ describe('Add meta data to imported emails', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/import/contact/addMetaInfo', {emails: ['follow@rabbit.de']});
+        let res = await requestHandler.put('/api/import/contact/addMetaInfo', {emails: ['follow@rabbit.de']});
         res.status.should.equal(200);
 
         res.body.contacts.length.should.equals(1);
@@ -43,7 +43,7 @@ describe('Add meta data to imported emails', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/import/contact/addMetaInfo', {emails: ['user@irgendwo.ch']});
+        let res = await requestHandler.put('/api/import/contact/addMetaInfo', {emails: ['user@irgendwo.ch']});
         res.status.should.equal(200);
 
         res.body.contacts.length.should.equals(1);
@@ -62,7 +62,7 @@ describe('Add meta data to imported emails', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/import/contact/addMetaInfo', {emails: ['user2@irgendwo.ch']});
+        let res = await requestHandler.put('/api/import/contact/addMetaInfo', {emails: ['user2@irgendwo.ch']});
         res.status.should.equal(200);
 
         res.body.contacts.length.should.equals(1);
@@ -83,7 +83,7 @@ describe('Add meta data to imported emails', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/import/contact/addMetaInfo', {emails: ['user10@irgendwo.ch']});
+        let res = await requestHandler.put('/api/import/contact/addMetaInfo', {emails: ['user10@irgendwo.ch']});
         res.status.should.equal(200);
 
         res.body.contacts.length.should.equals(1);
@@ -106,7 +106,7 @@ describe('Add meta data to imported emails', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/import/contact/addMetaInfo', {emails: ['user10@irgendwo.ch']});
+        let res = await requestHandler.put('/api/import/contact/addMetaInfo', {emails: ['user10@irgendwo.ch']});
         res.status.should.equal(200);
 
         res.body.contacts.length.should.equals(1);
