@@ -21,6 +21,7 @@
                 <v-divider></v-divider>
                 <v-card-text class="mobile-dialog-content">
                     <import-contact-container @contacts-loaded="contactsLoaded"
+                                              @contacts-only-email-loaded="contactsOnlyEmailLoaded"
                                               @show-basic-auth-gmx="showBasicAuthGmx = true"
                                               @show-basic-auth-webde="showBasicAuthWebDe = true"
                                               @parsing-started="parsingStarted"
@@ -83,7 +84,24 @@
         components:
             {Contact, RegisteredUser, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
         methods: {
-            async contactsLoaded(contacts) {
+            async contactsOnlyEmailLoaded(contacts) {
+                try {
+                    contacts = contacts.map(contact => contact.email);
+                    contacts = contacts.filter(function (contact, index, self) {
+                        return self.indexOf(contact) === index;
+                    });
+                    let response = await this.$axios.$put('import/contact/addMetaInfo', {emails: contacts});
+
+                    response.contacts = response.contacts.map(function (contact) {
+                        contact.source = 'CSV';
+                        return contact;
+                    });
+                    this.contactsLoaded(response.contacts);
+                } catch (error) {
+
+                }
+            },
+            contactsLoaded(contacts) {
                 for (let contact of contacts) {
                     Vue.set(contact, 'showContact', true);
                     Vue.set(contact, 'isSelected', false);
