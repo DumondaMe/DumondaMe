@@ -6,7 +6,7 @@
             <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
             <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
-            <networking-info v-if="isAuthenticated"></networking-info>
+            <networking-info v-if="isAuthenticated && isGerman"></networking-info>
             <concept-info></concept-info>
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
             <!--<feed-popular-question></feed-popular-question>-->
@@ -22,7 +22,7 @@
                           (!isAuthenticated && $route.name !== 'index')}">
             </beta-version>
             <networking-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading"
-                             v-if="isAuthenticated">
+                             v-if="isAuthenticated && isGerman">
             </networking-info>
             <concept-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading">
             </concept-info>
@@ -111,6 +111,9 @@
             },
             feed() {
                 return this.$store.state.feed.feed
+            },
+            isGerman() {
+                return this.$store.state.i18n.language === 'de';
             }
         },
         methods: {
