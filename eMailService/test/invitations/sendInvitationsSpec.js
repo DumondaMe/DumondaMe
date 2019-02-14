@@ -28,7 +28,7 @@ describe('Send invitations emails', function () {
         sandbox.restore();
     });
 
-    it('Send invitation', async function () {
+    it('Sending invitation', async function () {
         dbDsl.invitationSentBeforeRegistration('3',
             [{emailOfUserToInvite: 'info@dumonda.me', sendingEmailPending: true}]);
         await dbDsl.sendToDb();
@@ -39,6 +39,38 @@ describe('Send invitations emails', function () {
             name: `user Meier3`, userImage: sinon.match.any,
             unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/info@dumonda.me`
         }, 'de', 'info@dumonda.me').should.be.true;
+
+        let notification = await db.cypher()
+            .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(:User {userId: '3'})`)
+            .return(`invitedUser`).end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Sending multiple invitations from same user', async function () {
+        dbDsl.invitationSentBeforeRegistration('3',
+            [{emailOfUserToInvite: 'info@dumonda.me', sendingEmailPending: true}]);
+        dbDsl.invitationSentBeforeRegistration('3',
+            [{emailOfUserToInvite: 'info2@dumonda.me', sendingEmailPending: true}]);
+        dbDsl.invitationSentBeforeRegistration('3',
+            [{emailOfUserToInvite: 'info3@dumonda.me', sendingEmailPending: true}]);
+        await dbDsl.sendToDb();
+
+        await testee.sendInvitations();
+
+        stubSendEMail.calledWith("invitePerson", {
+            name: `user Meier3`, userImage: sinon.match.any,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/info@dumonda.me`
+        }, 'de', 'info@dumonda.me').should.be.true;
+
+        stubSendEMail.calledWith("invitePerson", {
+            name: `user Meier3`, userImage: sinon.match.any,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/info2@dumonda.me`
+        }, 'de', 'info2@dumonda.me').should.be.true;
+
+        stubSendEMail.calledWith("invitePerson", {
+            name: `user Meier3`, userImage: sinon.match.any,
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/info3@dumonda.me`
+        }, 'de', 'info3@dumonda.me').should.be.true;
 
         let notification = await db.cypher()
             .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(:User {userId: '3'})`)
