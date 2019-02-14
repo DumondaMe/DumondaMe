@@ -241,9 +241,9 @@
       }
     },
     "networking": {
-      "title": "Network on DumondaMe",
-      "description": "Find your friends or make them aware of this platform with an invitation e-mail.",
-      "actionButton": "Networking"
+      "title": "Your circle of friends on DumondaMe",
+      "description": "Invite friends and network with them on DumondaMe.",
+      "actionButton": "Send invitations"
     },
     "conceptInfo": {
       "title": "What are the most important concepts?",

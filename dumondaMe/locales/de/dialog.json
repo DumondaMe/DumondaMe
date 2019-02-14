@@ -35,12 +35,11 @@
     }
   },
   "invite": {
-    "importSourceTitle": "Vernetze dich auf DumondaMe",
+    "importSourceTitle": "Dein Freundeskreis auf DumondaMe",
     "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen.",
     "selectAll": "Alle E-Mails auswählen",
     "showOnlySelected": "Nur ausgewälte E-Mails anzeigen",
-    "showOnlyRegisteredUsers": "Nur registrierte Benutzer anzeigen",
-    "invitationSentMessage": "Vielen Dank das du deine Freunde und Bekannten auf DumondaMe aufmerksam machst! Die Einladungen werden in den nächsten Minuten von DumondaMe versendet.",
+    "invitationSentMessage": "Vielen Dank, dass du interessierte Menschen aus deinem Umfeld auf DumondaMe aufmerksam machst! Die Einladungen werden in den nächsten Minuten versendet.",
     "invitationSentTitle": "Einladungen wird versendet",
     "alreadySent": "Du hast bereits eine Einladung an diese E-Mail Adresse versendet",
     "notAllowedToSent": "Du kannst keine Einladung an diese E-Mail Adresse versenden",
