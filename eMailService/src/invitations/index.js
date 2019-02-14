@@ -38,7 +38,7 @@ const sendEMails = async function (users) {
                 sentInvitations.push(userToInvite);
             }
         } catch (error) {
-            logger.error(`Failed to send invitation from user ${user.userId}`);
+            logger.error(`Failed to send invitation from user ${user.userId} ${error}`);
         } finally {
             if (userImage && typeof userImage.removeCallback === 'function') {
                 userImage.removeCallback();
