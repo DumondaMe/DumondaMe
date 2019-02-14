@@ -239,9 +239,9 @@
       }
     },
     "networking": {
-      "title": "Vernetze dich auf DumondaMe",
-      "description": "Finde deine Freunde oder mache sie mit einem Einladungs-E-Mail auf diese Plattform aufmerksam.",
-      "actionButton": "Vernetzen"
+      "title": "Dein Freundeskreis auf DumondaMe",
+      "description": "Lade Freunde und Bekannte ein und vernetze dich mit ihnen auf DumondaMe.",
+      "actionButton": "Einladungen versenden"
     },
     "conceptInfo": {
       "title": "Welches sind die wichtigsten Konzepte?",
