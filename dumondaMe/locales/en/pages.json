@@ -997,25 +997,13 @@
       "title": "Fixing occurring errors and performance issues",
       "description": "At the moment this has the highest priority so that you can use the platform without any problems. "
     },
-    "activityFeed": {
-      "title": "Revise Activities Feed",
-      "description": "At the moment the activities feed shows everything that happens in the network and the filter options are a bit confusing (unless you are working on it all day ;-). The Activities Feed will only show the activities of people from your Trust Circle and the questions/commitments you have marked as interesting."
+    "design": {
+      "title": "Improve design and usability",
+      "description": "Together with an extremely talented interaction designer, we want to take the usability and design of DumondaMe to the next level. We are convinced that this will bring us even closer to realizing our vision."
     },
-    "emailNotifications": {
-      "title": "E-mail notification",
-      "description": "If you have received a notification, after a certain period of time, if you have not read it, an e-mail will be sent to you to draw your attention to it. The e-mail notifications can be deactivated."
-    },
-    "questionQuality": {
-      "title": "Quality assurance of the questions",
-      "description": "Editorial users can make recommendations on how a question could be better formulated."
-    },
-    "messageButtonWhatsapp": {
-      "title": "Using Whatsapp/Telegram to make people aware of a question",
-      "description": "There should be buttons for Whatsapp and Telegram for each question, with which you can send a request to someone from your contacts. E.g. Can you answer the question \"BlaBla\"?"
-    },
-    "multipleAdminsCommitment": {
-      "title": "Multiple administrators for commitments",
-      "description": "At the moment, only one administrator can be defined for a commitment. It should also be possible to see who is involved in a commitment."
+    "engagements": {
+      "title": "Enhancing the Functionality of Commitments and Events",
+      "description": "The functionalities for the commitments and events are still very basic at the moment. These will probably be extended and improved in Q2/Q3 2019."
     },
     "more": {
       "title": "And much more...",

@@ -6,20 +6,11 @@
         <h2>{{$t('pages:nextSteps.performanceAndError.title')}}</h2>
         <p>{{$t('pages:nextSteps.performanceAndError.description')}}</p>
 
-        <h2>{{$t('pages:nextSteps.activityFeed.title')}}</h2>
-        <p>{{$t('pages:nextSteps.activityFeed.description')}}</p>
+        <h2>{{$t('pages:nextSteps.design.title')}}</h2>
+        <p>{{$t('pages:nextSteps.design.description')}}</p>
 
-        <h2>{{$t('pages:nextSteps.emailNotifications.title')}}</h2>
-        <p>{{$t('pages:nextSteps.emailNotifications.description')}}</p>
-
-        <h2>{{$t('pages:nextSteps.questionQuality.title')}}</h2>
-        <p>{{$t('pages:nextSteps.questionQuality.description')}}</p>
-
-        <h2>{{$t('pages:nextSteps.messageButtonWhatsapp.title')}}</h2>
-        <p>{{$t('pages:nextSteps.messageButtonWhatsapp.description')}}</p>
-
-        <h2>{{$t('pages:nextSteps.multipleAdminsCommitment.title')}}</h2>
-        <p>{{$t('pages:nextSteps.multipleAdminsCommitment.description')}}</p>
+        <h2>{{$t('pages:nextSteps.engagements.title')}}</h2>
+        <p>{{$t('pages:nextSteps.engagements.description')}}</p>
 
         <h2>{{$t('pages:nextSteps.more.title')}}</h2>
         <p>{{$t('pages:nextSteps.more.description')}}</p>
