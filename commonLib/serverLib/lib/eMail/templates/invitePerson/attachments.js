@@ -17,7 +17,7 @@ let getAttachments = function (templateData) {
             path: path.resolve(__dirname, 'img/DumondaMeLogo.png'),
             cid: 'urlDumondaMeLogo'
         }],
-        tempFiles: [templateData.userImage]
+        tempFiles: []
     };
 };
 
