@@ -9,7 +9,7 @@ let getAttachments = function (templateData) {
             path: templateData.userImage.name,
             cid: 'url'
         }],
-        tempFiles: [templateData.userImage]
+        tempFiles: []
     };
 };
 
