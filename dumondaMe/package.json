@@ -71,7 +71,8 @@
     "xmldom": "0.1.27",
     "xpath": "0.0.27",
     "accept-language-parser": "1.5.0",
-    "date-fns": "1.29.0"
+    "date-fns": "1.29.0",
+    "lru-cache": "5.1.1"
   },
   "devDependencies": {
     "node-sass": "4.9.4",

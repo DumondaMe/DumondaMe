@@ -14,6 +14,9 @@ if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_
 AWS.config.region = process.env.AWS_REGION;
 const s3 = new AWS.S3();
 
+const LRU = require('lru-cache');
+const cache = new LRU({max: 1000, maxAge: 1000 * 60 * 60});
+
 let copyFile = function (source, destination, bucket) {
     let params = {Bucket: bucket, CopySource: `${bucket}/${source}`, Key: destination};
     return new Promise(function (resolve, reject) {
@@ -30,17 +33,20 @@ let copyFile = function (source, destination, bucket) {
 const getSignedUrl = async function (path) {
     let params = {Bucket: process.env.BUCKET_PRIVATE, Key: path, Expires: expiresAfterADay}, signedUrl = null;
     try {
-        signedUrl = await new Promise(function (resolve, reject) {
-            s3.getSignedUrl('getObject', params, function (err, data) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(data);
-                }
+        signedUrl = cache.get(path);
+        if (!signedUrl) {
+            signedUrl = await new Promise(function (resolve, reject) {
+                s3.getSignedUrl('getObject', params, function (err, data) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
             });
-        });
-    }
-    catch (error) {
+            cache.set(path, signedUrl);
+        }
+    } catch (error) {
         logger.error(`Getting Url ${path} from s3 failed`, null, error);
     }
     return signedUrl;
