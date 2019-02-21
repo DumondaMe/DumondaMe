@@ -34,7 +34,7 @@ const getSignedUrl = async function (path) {
     let params = {Bucket: process.env.BUCKET_PRIVATE, Key: path, Expires: expiresAfterADay}, signedUrl = null;
     try {
         signedUrl = cache.get(path);
-        if (!signedUrl) {
+        if (typeof signedUrl !== 'string') {
             signedUrl = await new Promise(function (resolve, reject) {
                 s3.getSignedUrl('getObject', params, function (err, data) {
                     if (err) {
