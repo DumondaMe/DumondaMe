@@ -1,7 +1,7 @@
 <template>
     <div class="social-media-feed-card">
         <div class="social-media-title">{{$t('pages:feeds.socialMedia.title')}}</div>
-        <img :src="spreadTheWordImage" :srcset="spreadTheWord2xImage" class="spread-the-word-image">
+        <img v-lazy="spreadTheWordImage" :data-srcset="spreadTheWord2xImage" class="spread-the-word-image">
         <div class="social-media-description">{{$t('pages:feeds.socialMedia.description')}}</div>
         <social-media-links></social-media-links>
     </div>
@@ -17,7 +17,8 @@
                 return `${process.env.staticUrl}/img/landingPage/spreadTheWord.jpg`;
             },
             spreadTheWord2xImage() {
-                return `${process.env.staticUrl}/img/landingPage/spreadTheWord_2x.jpg 2x`;
+                return `${process.env.staticUrl}/img/landingPage/spreadTheWord.jpg 500w, ` +
+                       `${process.env.staticUrl}/img/landingPage/spreadTheWord_2x.jpg 1000w`;
             }
         }
     }

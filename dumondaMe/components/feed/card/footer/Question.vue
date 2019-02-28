@@ -5,7 +5,7 @@
                        @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
                        @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
                 <div class="user-icon creator-icon" slot="icon">
-                    <img :src="user.userImage">
+                    <img v-lazy="user.userImage">
                 </div>
             </user-menu>
         </div>

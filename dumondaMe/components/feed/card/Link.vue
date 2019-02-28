@@ -31,7 +31,7 @@
         </div>
         <div class="link-answer-content">
             <div class="link-preview-image" v-if="answer.imageUrl">
-                <img :src="answer.imageUrl" @click="openLink">
+                <img v-lazy="answer.imageUrl" @click="openLink">
             </div>
             <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
                 <expand-text :expand-text="answer.description"

@@ -1,7 +1,7 @@
 <template>
     <div class="feed-concept-info-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.conceptInfo.title')}}</h3>
-        <img :src="conceptImage" :srcset="concept2xImage" class="concept-image">
+        <img v-lazy="conceptImage" :data-srcset="concept2xImage" class="concept-image">
         <v-btn outline color="primary" @click="showConceptInfoDialog = true">
             {{$t('pages:feeds.conceptInfo.actionButton')}}
         </v-btn>
@@ -23,7 +23,8 @@
                 return `${process.env.staticUrl}/img/landingPage/concept.jpg`;
             },
             concept2xImage() {
-                return `${process.env.staticUrl}/img/landingPage/concept_2x.jpg 2x`;
+                return `${process.env.staticUrl}/img/landingPage/concept.jpg 300w, ` +
+                       `${process.env.staticUrl}/img/landingPage/concept_2x.jpg 600w`;
             }
         }
     }

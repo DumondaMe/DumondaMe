@@ -45,7 +45,7 @@
         </div>
         <div class="ely-card about-dumonda-me-card">
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.register.title')}}</div>
-            <img :src="signUpImage" :srcset="signUp2xImage" class="sign-up-image">
+            <img v-lazy="signUpImage" :data-srcset="signUp2xImage" class="sign-up-image">
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.register.description')}}</div>
             <v-btn color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
@@ -76,7 +76,8 @@
                 return `${process.env.staticUrl}/img/landingPage/signUp.jpg`;
             },
             signUp2xImage() {
-                return `${process.env.staticUrl}/img/landingPage/signUp_2x.jpg 2x`;
+                return `${process.env.staticUrl}/img/landingPage/signUp.jpg 500w, ` +
+                    `${process.env.staticUrl}/img/landingPage/signUp_2x.jpg 1000w`;
             },
             teamImage() {
                 return `${process.env.staticUrl}/img/landingPage/team.jpg`;
