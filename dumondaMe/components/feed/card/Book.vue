@@ -30,7 +30,7 @@
         </div>
         <div class="book-answer-content" :class="{'no-book-image': !answer.imageUrl}">
             <div class="book-preview-image" v-if="answer.imageUrl">
-                <img :src="answer.imageUrl" @click="openBook">
+                <img v-lazy="answer.imageUrl" @click="openBook">
             </div>
             <div class="answer-description" :class="{'no-book-image': !answer.imageUrl}">
                 <expand-text :expand-text="answer.description">

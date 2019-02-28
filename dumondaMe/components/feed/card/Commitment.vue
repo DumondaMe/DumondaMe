@@ -26,7 +26,7 @@
         </div>
         <div class="commitment-answer-content">
             <div class="commitment-preview-image">
-                <img :src="answer.imageUrl" @click="$router.push({name: 'commitment-commitmentId-slug',
+                <img v-lazy="answer.imageUrl" @click="$router.push({name: 'commitment-commitmentId-slug',
                             params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}})">
             </div>
             <div class="answer-description">

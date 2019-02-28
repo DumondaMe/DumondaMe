@@ -24,8 +24,10 @@ module.exports = {
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
             {hid: 'mobile-web-app-capable', name: 'mobile-web-app-capable', content: 'yes'},
             {hid: 'apple-mobile-web-app-capable', name: 'apple-mobile-web-app-capable', content: 'yes'},
-            {hid: 'apple-mobile-web-app-status-bar-style', name: 'apple-mobile-web-app-status-bar-style',
-                content: 'default'},
+            {
+                hid: 'apple-mobile-web-app-status-bar-style', name: 'apple-mobile-web-app-status-bar-style',
+                content: 'default'
+            },
             {hid: 'theme-color', name: 'theme-color', content: '#009e97'},
             {hid: 'og:type', property: 'og:type', content: 'website'},
             {hid: 'og:url', property: 'og:url', content: 'https://www.dumonda.me/'},
@@ -116,7 +118,8 @@ module.exports = {
     plugins: ['~/plugins/i18n.js',
         '~/plugins/moment.js',
         '~/plugins/vuetify.js',
-        '~/plugins/axios.js'],
+        '~/plugins/axios.js',
+        {src: '~/plugins/vue-lazyload', ssr: false}],
     css: [
         '~/assets/style/app.styl',
         'cropperjs/dist/cropper.min.css',
