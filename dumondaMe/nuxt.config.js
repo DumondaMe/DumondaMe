@@ -3,7 +3,11 @@ const nodeExternals = require('webpack-node-externals');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 const getScripts = function () {
-    let script = [{src: `${process.env.CLIENT_STATIC_URL}/polyfill.min.js`}];
+    let script = [];
+    script.push({
+        innerHTML: "if(!(window.Promise && window.fetch && window.Symbol)) {" +
+            `document.write("<script language='javascript' type='text/javascript' src='${process.env.CLIENT_STATIC_URL}/polyfill.min.js'><\/scr" + "ipt>");}`
+    });
     if (process.env.NODE_ENV === 'production') {
         script.push({
             src: `https://www.googletagmanager.com/gtag/js?id=AW-773868544`, async: true
