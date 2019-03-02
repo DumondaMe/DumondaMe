@@ -52,9 +52,10 @@
                 }
             },
             time(time) {
-                if (this.validTimeRegex(time)) {
+                this.validTime = this.validTimeRegex(time);
+                if (this.validTime) {
                     this.$emit('time-changed', {
-                        date: getTime(`${this.date} ${time}`) / 1000, isValid: this.validTime
+                        date: getTime(`${this.date} ${time}`) / 1000, isValid: true
                     });
                 } else {
                     this.$emit('time-changed', {date: null, isValid: false});
