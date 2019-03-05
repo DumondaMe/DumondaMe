@@ -85,7 +85,7 @@
                     <h3 class="name">Nils Solanki</h3>
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
-                            href="mailto:jeannine@momoundronja.ch">services@solanki.ch</a></div>
+                            href="mailto:services@solanki.ch">services@solanki.ch</a></div>
                     <p class="about-text">Auf DumondaMe vernetzen sich Menschen, über alle Gesellschaftsbereiche
                         hinweg, auf der Suche nach schöpferischen Antworten auf die spannendsten und drängendsten Fragen
                         unserer Zeit. Mit Solanki unterstütze ich das Team darin, die Vision gemeinsam zu entfalten und
@@ -181,7 +181,7 @@
                     <h3 class="name">Nils Solanki</h3>
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
-                            href="mailto:jeannine@momoundronja.ch">services@solanki.ch</a></div>
+                            href="mailto:services@solanki.ch">services@solanki.ch</a></div>
                     <p class="about-text">On DumondaMe people network across all areas of society in search of creative
                         answers to the most exciting and urgent questions of our time. With Solanki, I support the team
                         in unfolding the vision together and creating a joyful (digital) experience out of the hearts
