@@ -48,7 +48,7 @@
                     <img class="profile-image" :src="imageKim"/>
                 </div>
                 <div>
-                    <h3 class="name">Kim Degen</h3>
+                    <h3 class="name">Kim Jana Degen</h3>
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
                             href="mailto:kimjana@momoundronja.ch">kimjana@momoundronja.ch</a></div>
@@ -144,7 +144,7 @@
                     <img class="profile-image" :src="imageKim"/>
                 </div>
                 <div>
-                    <h3 class="name">Kim Degen</h3>
+                    <h3 class="name">Kim Jana Degen</h3>
                     <div class="ely-function"></div>
                     <div class="email-address without-function"><a
                             href="mailto:kimjana@momoundronja.ch">kimjana@momoundronja.ch</a></div>
