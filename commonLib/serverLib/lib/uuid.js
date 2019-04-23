@@ -1,12 +1,13 @@
 "use strict";
 
-const uuidv4 = require('uuid/v4');
+const generate = require('nanoid/generate');
+const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 
 let generateUUID = function () {
-    return uuidv4();
+    return generate(alphabet, 15);
 };
 
 module.exports = {
-    generateUUID: generateUUID
+    generateUUID
 };
