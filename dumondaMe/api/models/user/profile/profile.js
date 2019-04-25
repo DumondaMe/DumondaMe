@@ -9,6 +9,7 @@ const cdn = require('dumonda-me-server-lib').cdn;
 const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
 const activity = require('./activity');
+const adminOfCommitment = require('./adminOfCommitment');
 const answerResponseHandler = require('./../feed/response');
 const userInfo = require('./../userInfo');
 
@@ -24,6 +25,19 @@ let addSlugToPeople = function (peopleOfTrust) {
     }
 };
 
+let getAdminOfCommitments = function (commitments) {
+    let result = [];
+    for (let commitment of commitments) {
+        result.push({
+            commitmentId: commitment.commitmentId,
+            title: commitment.title,
+            slug: slug(commitment.title),
+            imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitmentId}/40x40/title.jpg`, commitment.modified)
+        })
+    }
+    return result;
+};
+
 let getUserProfile = async function (userId, userIdOfProfile, languages, guiLanguage, timestamp) {
 
     checkAllowedToGetProfile(userId, userIdOfProfile);
@@ -37,6 +51,7 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
     commands.push(peopleTrustUser.numberOfInvisiblePeopleTrustUser(userId, userIdOfProfile).getCommand());
     commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 7, 0).getCommand());
     commands.push(activity.getFeedCommand(userId, userIdOfProfile, 0, timestamp, languages, guiLanguage).getCommand());
+    commands.push(adminOfCommitment.getAdminOfCommitmentsCommand(userIdOfProfile, 0).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
@@ -46,8 +61,8 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
                  u.showProfileActivity AS showProfileActivity,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
-    if (resp[7].length === 1) {
-        let profile = resp[7][0];
+    if (resp[8].length === 1) {
+        let profile = resp[8][0];
         profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
 
         profile.numberOfPeopleOfTrust = resp[0][0].numberOfPeopleOfTrust;
@@ -70,6 +85,8 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
 
         addSlugToPeople(profile.peopleOfTrust);
         addSlugToPeople(profile.peopleTrustUser);
+
+        profile.adminOfCommitments = getAdminOfCommitments(resp[7]);
         return profile;
     }
     throw new Error('401');
