@@ -9,6 +9,7 @@ let getAdminOfCommitmentsCommand = function (userDetailId, page) {
     return db.cypher()
         .match(`(:User {userId: {userDetailId}})-[:IS_ADMIN]->(c:Commitment)`)
         .return(`c.title AS title, c.commitmentId AS commitmentId, c.modified AS modified`)
+        .orderBy(`c.title`)
         .end({userDetailId, page})
 };
 
