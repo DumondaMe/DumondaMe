@@ -7,6 +7,7 @@
                 </div>
                 <user-profile></user-profile>
                 <div class="user-mobile-content">
+                    <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
                     <trust-circle></trust-circle>
                 </div>
                 <feed :feed="feed"></feed>
@@ -14,6 +15,7 @@
             <div slot="sidebar">
                 <profile-image></profile-image>
                 <general-information></general-information>
+                <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
                 <trust-circle></trust-circle>
             </div>
         </detail-layout>
@@ -24,6 +26,7 @@
     import DetailLayout from '~/components/layouts/Detail.vue';
     import UserProfile from '~/components/userProfile/UserProfile.vue';
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
+    import CommitmentsOfUser from '~/components/userProfile/commitment/Commitments.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
     import Feed from '~/components/userProfile/Feed.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
@@ -37,11 +40,14 @@
             }
         },
         components: {
-            DetailLayout, UserProfile, ProfileImage, GeneralInformation, Feed, TrustCircle
+            DetailLayout, UserProfile, ProfileImage, CommitmentsOfUser, GeneralInformation, Feed, TrustCircle
         },
         computed: {
             feed() {
                 return this.$store.state.userProfile.user.feed
+            },
+            isAdminOfCommitments() {
+                return this.$store.state.userProfile.user.adminOfCommitments.length > 0;
             }
         }
     }

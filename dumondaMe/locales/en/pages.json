@@ -613,7 +613,8 @@
       "otherUserInfo_plural": "Finds{{count}} questions interesting."
     },
     "commitment": {
-      "title": "Commitments"
+      "loggedInUserTitle": "Your commitments",
+      "otherUserTitle": "{{userForename}}'s commitments"
     },
     "adminCommitment": {
       "loggedInUserInfo": "You are administrator of an commitment.",

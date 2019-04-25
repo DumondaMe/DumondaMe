@@ -616,7 +616,8 @@
       "otherUserInfo_plural": "Findet {{count}} Fragen interessant."
     },
     "commitment": {
-      "title": "Engagements"
+      "loggedInUserTitle": "Deine Engagements",
+      "otherUserTitle": "{{userForename}}'s Engagements"
     },
     "adminCommitment": {
       "loggedInUserInfo": "Du bist der Administrator von einem Engagement.",

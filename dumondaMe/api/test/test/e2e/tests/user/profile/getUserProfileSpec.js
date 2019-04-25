@@ -21,6 +21,19 @@ describe('Getting user profile data', function () {
 
         dbDsl.createContactConnection('7', '1');
 
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+
+        dbDsl.createCommitment('1', {
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 701, modified: 701,
+            website: 'https://www.example.org/', regions: ['region-1']
+        });
+
+        dbDsl.createCommitment('2', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example2.org/', regions: ['region-1']
+        });
+
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile', {guiLanguage: 'de', languages: ['de']});
@@ -58,6 +71,13 @@ describe('Getting user profile data', function () {
         res.body.peopleTrustUser[0].isPersonOfTrust.should.equal(false);
         res.body.peopleTrustUser[0].isLoggedInUser.should.equal(false);
         res.body.peopleTrustUser[0].profileUrl.should.equal('profileImage/7/thumbnail.jpg');
+
+        res.body.adminOfCommitments.length.should.equal(1);
+        res.body.adminOfCommitments[0].commitmentId.should.equal('1');
+        res.body.adminOfCommitments[0].title.should.equal('commitment1Title');
+        res.body.adminOfCommitments[0].slug.should.equal('commitment-1-title');
+        res.body.adminOfCommitments[0].imageUrl.should
+            .equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/40x40/title.jpg?v=701`);
     });
 
     it('Get profile data of not logged in user', async function () {
@@ -131,6 +151,19 @@ describe('Getting user profile data', function () {
         dbDsl.setUserPrivacy('8', {privacyMode: 'onlyContact'});
         dbDsl.setUserPrivacy('6', {privacyMode: 'onlyContact'});
 
+        dbDsl.createRegion('international', {de: 'InternationalDe', en: 'InternationalEn'});
+        dbDsl.createRegion('region-1', {parentRegionId: 'international', de: 'Region1De', en: 'Region1En'});
+
+        dbDsl.createCommitment('2', {
+            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 701, modified: 701,
+            website: 'https://www.example.org/', regions: ['region-1']
+        });
+
+        dbDsl.createCommitment('1', {
+            adminId: '2', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700,
+            website: 'https://www.example2.org/', regions: ['region-1']
+        });
+
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/user/profile', {userId: '2', guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
@@ -172,6 +205,13 @@ describe('Getting user profile data', function () {
         res.body.peopleTrustUser[1].slug.should.equal('user-meier7');
         res.body.peopleTrustUser[1].isPersonOfTrust.should.equal(false);
         res.body.peopleTrustUser[1].profileUrl.should.equal('profileImage/7/thumbnail.jpg');
+
+        res.body.adminOfCommitments.length.should.equal(1);
+        res.body.adminOfCommitments[0].commitmentId.should.equal('1');
+        res.body.adminOfCommitments[0].title.should.equal('commitment1Title');
+        res.body.adminOfCommitments[0].slug.should.equal('commitment-1-title');
+        res.body.adminOfCommitments[0].imageUrl.should
+            .equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/1/40x40/title.jpg`);
     });
 
     it('Deny access to profile when not logged in (PrivacyMode publicEl)', async function () {
