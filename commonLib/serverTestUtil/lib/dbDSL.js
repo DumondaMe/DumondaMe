@@ -56,6 +56,7 @@ module.exports = {
     createCommitmentEvent: commitment.createEvent,
     showQuestionOnCommitment: commitment.showQuestionOnCommitment,
     watchCommitment: commitment.watchCommitment,
+    addAdminToCommitment: commitment.addAdminToCommitment,
 
     createBookAnswer: answer.createBookAnswer,
     createYoutubeAnswer: answer.createYoutubeAnswer,
@@ -115,6 +116,7 @@ module.exports = {
     userWatchesQuestion: notification.userWatchesQuestion,
     notificationCreateAnswer: notification.createAnswer,
     notificationCreateNote: notification.createNote,
+    notificationRequestAdminOfCommitment: notification.requestAdminOfCommitment,
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser,
