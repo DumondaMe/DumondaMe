@@ -172,6 +172,32 @@ const createNote = function (notificationId, data) {
         }).getCommand());
 };
 
+const requestAdminOfCommitment = function (notificationId, data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .merge(`(notification:Notification${readLabel} {type: 'requestAdminOfCommitment', 
+                                      created: {created}, notificationId: {notificationId}})`)
+        .with(`notification`)
+        .match(`(c:Commitment {commitmentId: {commitmentId}})`)
+        .merge(`(c)<-[:NOTIFICATION]-(notification)`)
+        .with(`notification`)
+        .match(`(existingAdmin:User {userId: {existingAdminId}})`)
+        .merge(`(existingAdmin)<-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]-(notification)`)
+        .with(`notification`)
+        .match(`(newAdmin:User {userId: {newAdminId}})`)
+        .merge(`(newAdmin)<-[:NOTIFIED {created: {created}}]-(notification)`)
+        .end({
+            notificationId,
+            commitmentId: data.commitmentId,
+            existingAdminId: data.existingAdminId,
+            newAdminId: data.newAdminId,
+            created: data.created
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
@@ -179,5 +205,6 @@ module.exports = {
     userWatchesCommitment,
     userWatchesQuestion,
     createAnswer,
-    createNote
+    createNote,
+    requestAdminOfCommitment
 };

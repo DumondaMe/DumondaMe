@@ -77,9 +77,17 @@ const watchCommitment = function (data) {
         .end({commitmentId: data.commitmentId, userId: data.userId, created: data.created}).getCommand());
 };
 
+const addAdminToCommitment = function (data) {
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(c:Commitment {commitmentId: {commitmentId}}), (u:User {userId: {userId}})`)
+        .merge(`(c)<-[:IS_ADMIN]-(u)`)
+        .end({commitmentId: data.commitmentId, userId: data.userId}).getCommand());
+};
+
 module.exports = {
     createCommitment,
     createEvent,
     showQuestionOnCommitment,
-    watchCommitment
+    watchCommitment,
+    addAdminToCommitment
 };
