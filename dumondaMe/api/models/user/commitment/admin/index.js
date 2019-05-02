@@ -1,8 +1,13 @@
 'use strict';
 
+const admins = require('./admins');
 const addAdmin = require('./add');
 const removeAdmin = require('./remove');
 const confirmAdmin = require('./confirmAdmin');
+
+const getAdmins = async function (userId, commitmentId) {
+    return await admins.getAdmins(userId, commitmentId);
+};
 
 const add = async function (userId, newAdminId, commitmentId) {
     await addAdmin.add(userId, newAdminId, commitmentId);
@@ -16,6 +21,7 @@ const confirmToAddAdminToCommitment = async function (userId, notificationId, co
 };
 
 module.exports = {
+    getAdmins,
     add,
     remove,
     confirmToAddAdminToCommitment
