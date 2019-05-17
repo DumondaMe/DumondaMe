@@ -32,6 +32,7 @@
   "removeFromTrustCircle": "Aus deinem Trust Circle entfernen",
   "selectAll": "Alle Auswählen",
   "loginRequiredInfo": "Um diese Aktion ausführen zu können, muss du eingeloggt sein.",
+  "admin": "Administrator",
   "youAreAdmin": "Du bist Administrator",
   "noScript": "Dein Browser unterstützt kein Javascript! Ohne Javascript funktioniert diese Seite nicht richtig.",
   "navigation": {
