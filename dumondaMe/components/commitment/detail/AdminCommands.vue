@@ -15,6 +15,9 @@
                     <v-list-tile @click="showModifyTopicDialog = true">
                         <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
                     </v-list-tile>
+                    <v-list-tile @click="showAdminDialog = true">
+                        <v-list-tile-title>{{$t("common:admin")}}</v-list-tile-title>
+                    </v-list-tile>
                     <v-divider></v-divider>
                     <v-list-tile @click="showDeleteCommitmentDialog = true">
                         <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
@@ -40,6 +43,10 @@
                             :existing-regions="commitment.regions" api="user/commitment/region/"
                             :api-param="$route.params.commitmentId" @finish="regionsChanged">
         </edit-region-dialog>
+        <admin-dialog v-if="showAdminDialog" :commitment-id="$route.params.commitmentId"
+                      @close-dialog="showAdminDialog = false">
+
+        </admin-dialog>
     </div>
 </template>
 
@@ -48,13 +55,14 @@
     import DeleteCommitmentDialog from '~/components/commitment/dialog/DeleteCommitmentDialog';
     import ModifyTopicDialog from '~/components/topic/dialog/ModifyTopicDialog';
     import EditRegionDialog from '~/components/region/dialog/EditRegionDialog';
+    import AdminDialog from '~/components/commitment/dialog/admin/AdminDialog';
 
     export default {
-        components: {ModifyCommitmentDialog, DeleteCommitmentDialog, ModifyTopicDialog, EditRegionDialog},
+        components: {ModifyCommitmentDialog, DeleteCommitmentDialog, ModifyTopicDialog, EditRegionDialog, AdminDialog},
         data() {
             return {
                 showModifyCommitmentDialog: false, showDeleteCommitmentDialog: false, showModifyTopicDialog: false,
-                showEditRegionDialog: false
+                showEditRegionDialog: false, showAdminDialog: false
             }
         },
         computed: {

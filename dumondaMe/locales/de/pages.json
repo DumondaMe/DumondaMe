@@ -565,6 +565,13 @@
         "hasUpVoted": "findest das dieses Engagement die Frage {{- question}} beantwortet",
         "hasNotUpVoted": "findest nicht das dieses Engagement die Frage {{- question}} beantwortet"
       }
+    },
+    "adminDialog": {
+      "title": "Administratoren des Engagements {{- commitment}}",
+      "titleAddAdmin": "Administrator zum Engagement {{- commitment}} hinzufügen",
+      "searchAdmin": "Suche neuen Administrator",
+      "removeAdminButton": "Administrator entfernen",
+      "addAdminButton": "Administrator hinzufügen"
     }
   },
   "detailUser": {

@@ -562,6 +562,13 @@
         "hasUpVoted": "find that this engagement answers the question {{- question}}",
         "hasNotUpVoted": "don't find that this engagement answers the question {{- question}}"
       }
+    },
+    "adminDialog": {
+      "title": "Administrators of commitment {{- commitment}}",
+      "titleAddAdmin": "Add administrator to commitment {{- commitment}}",
+      "searchAdmin": "Search new administrator",
+      "removeAdminButton": "Remove Administrator",
+      "addAdminButton": "Add Administrator"
     }
   },
   "detailUser": {
