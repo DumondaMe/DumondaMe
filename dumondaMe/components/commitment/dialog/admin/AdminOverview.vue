@@ -9,6 +9,12 @@
         <v-card-text id="dialog-admin-commitment-overview-content" class="mobile-dialog-content">
             <admin v-for="admin in admins" :key="admin.userId" :admin="admin"
                    :disable-remove-button="disableRemoveButton"></admin>
+
+            <div id="administrator-requested-title" v-if="adminsRequested.length > 0">
+                {{$t("pages:detailCommitment.adminDialog.titleRequestedAdmins")}}
+            </div>
+            <admin-requested v-for="admin in adminsRequested" :key="admin.userId" :admin="admin">
+            </admin-requested>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -26,13 +32,14 @@
 
 <script>
     import Admin from './Admin';
+    import AdminRequested from './AdminRequested';
 
     export default {
-        props: ['admins', 'disableRemoveButton'],
+        props: ['admins', 'adminsRequested', 'disableRemoveButton'],
         data() {
             return {}
         },
-        components: {Admin},
+        components: {Admin, AdminRequested},
         methods: {
             getTitle() {
                 return JSON.parse(JSON.stringify({commitment: this.$store.getters['commitment/getCommitment'].title}));
@@ -47,6 +54,11 @@
 
         #dialog-admin-commitment-overview-content {
             max-width: 650px;
+
+            #administrator-requested-title {
+                margin-top: 22px;
+                margin-bottom: 12px;
+            }
         }
     }
 </style>

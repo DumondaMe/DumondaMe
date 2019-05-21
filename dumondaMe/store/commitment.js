@@ -7,6 +7,8 @@ export const state = () => ({
         title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
         imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: [], regions: []
     },
+    admins: [],
+    adminsRequested: [],
     isUpComingEvents: true,
     eventPage: 1
 });
@@ -20,6 +22,12 @@ export const getters = {
 export const mutations = {
     SET_COMMITMENT(state, commitment) {
         state.commitment = commitment;
+    },
+    SET_ADMINS(state, admins) {
+        state.admins = admins;
+    },
+    SET_ADMINS_REQUESTED(state, adminsRequested) {
+        state.adminsRequested = adminsRequested;
     },
     SET_IS_UP_COMING_EVENTS(state, isUpComingEvents) {
         state.isUpComingEvents = isUpComingEvents;
@@ -117,7 +125,19 @@ export const actions = {
     async getCommitment({commit, state, rootState}, commitmentId) {
         let resp = await this.$axios.$get(`commitment`, {params: {commitmentId, language: rootState.i18n.language}});
         commit('SET_COMMITMENT', resp);
+        commit('SET_ADMINS', []);
+        commit('SET_ADMINS_REQUESTED', []);
         commit('SET_IS_UP_COMING_EVENTS', true);
+    },
+    async getAdmins({commit, state}) {
+        let resp = await this.$axios.get('user/commitment/admin',
+            {params: {commitmentId: state.commitment.commitmentId}, progress: false});
+        commit('SET_ADMINS', resp.data.admin);
+        commit('SET_ADMINS_REQUESTED', resp.data.adminRequested);
+    },
+    async addAdmin({commit, state}, userId) {
+        await this.$axios.post('user/commitment/admin',
+            {commitmentId: state.commitment.commitmentId, userId});
     },
     async deleteCommitment({commit, state}, commitmentId) {
         await this.$axios.$delete(`user/commitment`, {params: {commitmentId}});

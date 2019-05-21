@@ -569,9 +569,12 @@
     "adminDialog": {
       "title": "Administratoren des Engagements {{- commitment}}",
       "titleAddAdmin": "Administrator zum Engagement {{- commitment}} hinzufügen",
+      "titleRequestedAdmins": "Anfrage versendet an:",
       "searchAdmin": "Suche neuen Administrator",
       "removeAdminButton": "Administrator entfernen",
-      "addAdminButton": "Administrator hinzufügen"
+      "addAdminButton": "Administrator hinzufügen",
+      "isTrustUser": "In deinem Trust Circle",
+      "isRequestAdminOfCommitmentActive": "Anfrage wurde bereits versendet"
     }
   },
   "detailUser": {
