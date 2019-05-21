@@ -20,14 +20,24 @@ const getResponse = async function (dbAdmins, userId) {
     return admins;
 };
 
+const getAdminRequestsCommand = function (commitmentId) {
+    return db.cypher()
+        .match(`(user:User)<-[:NOTIFIED]-(n:Notification:Unread {type: 'requestAdminOfCommitment'})
+                -[:NOTIFICATION]->(commitment:Commitment {commitmentId: {commitmentId}})`)
+        .where(`NOT (user)-[:IS_ADMIN]->(commitment)`)
+        .return(`user.userId AS userId, user.name AS name`)
+        .orderBy(`user.name`)
+        .end({commitmentId}).getCommand();
+};
+
 const getAdmins = async function (userId, commitmentId) {
     await commitmentSecurity.isAdmin(userId, commitmentId);
     let admins = await db.cypher()
         .match(`(admin:User)-[:IS_ADMIN]->(commitment:Commitment {commitmentId: {commitmentId}})`)
         .return(`admin.userId AS userId, admin.name AS name`)
         .orderBy(`admin.name`)
-        .end({commitmentId}).send();
-    return {admin: await getResponse(admins, userId)};
+        .end({commitmentId}).send([getAdminRequestsCommand(commitmentId)]);
+    return {admin: await getResponse(admins[1], userId), adminRequested: await getResponse(admins[0], userId)};
 };
 
 module.exports = {
