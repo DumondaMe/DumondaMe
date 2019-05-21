@@ -566,9 +566,12 @@
     "adminDialog": {
       "title": "Administrators of commitment {{- commitment}}",
       "titleAddAdmin": "Add administrator to commitment {{- commitment}}",
+      "titleRequestedAdmins": "Request sent to:",
       "searchAdmin": "Search new administrator",
       "removeAdminButton": "Remove Administrator",
-      "addAdminButton": "Add Administrator"
+      "addAdminButton": "Add Administrator",
+      "isTrustUser": "In your Trust Circle",
+      "isRequestAdminOfCommitmentActive": "Request has already been sent"
     }
   },
   "detailUser": {

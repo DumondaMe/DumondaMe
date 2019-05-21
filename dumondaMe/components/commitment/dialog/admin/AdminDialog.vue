@@ -5,7 +5,8 @@
                        @close-dialog="showAddAdmin = false">
             </add-admin>
             <admin-overview v-else :disable-remove-button="admins.length < 2"
-                            :admins="admins" @close-dialog="$emit('close-dialog')" @add-admin="showAddAdmin = true">
+                            :admins="admins" :admins-requested="adminsRequested" @close-dialog="$emit('close-dialog')"
+                            @add-admin="showAddAdmin = true">
             </admin-overview>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -21,15 +22,20 @@
     export default {
         props: ['commitmentId'],
         data() {
-            return {dialog: true, showError: false, admins: [], showAddAdmin: false}
+            return {dialog: true, showError: false, showAddAdmin: false}
         },
         components: {AddAdmin, AdminOverview},
         async mounted() {
-            let response = await this.$axios.get('user/commitment/admin',
-                {params: {commitmentId: this.commitmentId}, progress: false});
-            this.admins = response.data.admin;
+            await this.$store.dispatch('commitment/getAdmins');
         },
-        methods: {}
+        computed: {
+            admins() {
+                return this.$store.state.commitment.admins;
+            },
+            adminsRequested() {
+                return this.$store.state.commitment.adminsRequested;
+            }
+        }
     }
 </script>
 
