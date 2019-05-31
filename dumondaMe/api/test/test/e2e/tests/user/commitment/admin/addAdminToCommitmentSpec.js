@@ -32,6 +32,9 @@ describe('Add a admin to a commitment', function () {
     });
 
     it('Send request to add a valid new admin to commitment', async function () {
+        dbDsl.notificationRequestAdminOfCommitment('10',
+            {commitmentId: '1', existingAdminId: '1', newAdminId: '4', created: 500, read: true});
+
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/commitment/admin', {
