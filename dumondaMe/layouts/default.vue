@@ -10,6 +10,9 @@
             </div>
         </div>
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
+        <crowdfunding-info-dialog v-else-if="showCrowdfundingInfoDialog"
+                                  @close-dialog="showCrowdfundingInfoDialog = false">
+        </crowdfunding-info-dialog>
         <cookie-privacy-read-info></cookie-privacy-read-info>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </v-app>
@@ -20,19 +23,23 @@
     import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
+    import CrowdfundingInfoDialog from '~/components/info/CrowdfundingInfoDialog';
     import cookiePrivacyReadInfo from '~/components/info/cookiePrivacyReadInfo';
 
     export default {
         components: {
-            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, cookiePrivacyReadInfo
+            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, CrowdfundingInfoDialog,
+            cookiePrivacyReadInfo
         },
         data() {
-            return {drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false};
+            return {drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
+            showCrowdfundingInfoDialog: false};
         },
         mounted() {
             this.onResize();
             window.addEventListener('resize', this.onResize, {passive: true});
             this.showInfoDialog = true;
+            this.showCrowdfundingInfoDialog = true;
         },
         beforeDestroy() {
             if (typeof window !== 'undefined') {

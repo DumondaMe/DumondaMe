@@ -58,5 +58,11 @@
     "basicAuth": {
       "info": "Your login data will not be saved by DumondaMe. This information is only needed to load the address book."
     }
+  },
+  "crowdfunding": {
+    "title": "Breaking News!!!",
+    "description": "From June 1st we are in <b>Crowdfunding</b> mode for 30 days. Only through this the next development steps of DumondaMe become possible. We are sure that with your support we will successfully master this step and take the platform to the next level.",
+    "buttonLater": "Later",
+    "buttonToCrowdfunding": "To the Crowdfunding"
   }
 }
