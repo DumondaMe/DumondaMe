@@ -21,7 +21,7 @@ const addAdminOnlyOnce = async function (newAdminId, commitmentId) {
 const requestIsPending = async function (newAdminId, commitmentId) {
     let response = await db.cypher()
         .match(`(u:User {userId: {newAdminId}})<-[:NOTIFIED]-
-                (:Notification {type: 'requestAdminOfCommitment'})-[:NOTIFICATION]
+                (:Notification:Unread {type: 'requestAdminOfCommitment'})-[:NOTIFICATION]
                 ->(:Commitment {commitmentId: {commitmentId}})`)
         .return(`u`)
         .end({commitmentId, newAdminId}).send();
