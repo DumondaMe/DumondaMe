@@ -43,10 +43,7 @@
                 return 364;
             },
             previewHeight() {
-                if (window.innerWidth < 450) {
-                    return 450
-                }
-                return 470;
+                return 450;
             }
         },
         methods: {
