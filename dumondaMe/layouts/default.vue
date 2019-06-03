@@ -32,14 +32,18 @@
             cookiePrivacyReadInfo
         },
         data() {
-            return {drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
-            showCrowdfundingInfoDialog: false};
+            return {
+                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
+                showCrowdfundingInfoDialog: false
+            };
         },
         mounted() {
             this.onResize();
             window.addEventListener('resize', this.onResize, {passive: true});
             this.showInfoDialog = true;
-            this.showCrowdfundingInfoDialog = true;
+            if (!this.$store.state.auth.userIsAuthenticated) {
+                this.showCrowdfundingInfoDialog = true;
+            }
         },
         beforeDestroy() {
             if (typeof window !== 'undefined') {
@@ -58,7 +62,7 @@
                     this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
             },
             showCrowdfundingDialog() {
-                return this.showCrowdfundingInfoDialog && !this.$store.state.auth.userIsAuthenticated
+                return this.showCrowdfundingInfoDialog
             }
         }
     }
