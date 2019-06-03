@@ -3,6 +3,7 @@
         <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
             <div slot="sidebar">
                 <create-answer></create-answer>
+                <crowdfunding-info></crowdfunding-info>
                 <register v-if="!isAuthenticated"></register>
                 <general-information></general-information>
                 <ask-user-answer-question v-if="isAuthenticated"></ask-user-answer-question>
@@ -28,6 +29,7 @@
     import GeneralInformation from '~/components/question/GeneralInformation';
     import AskUserAnswerQuestion from '~/components/question/AskUserAnswerQuestion';
     import SimilarQuestions from '~/components/question/SimilarQuestions';
+    import CrowdfundingInfo from '~/components/feed/CrowdfundingInfo';
     import Register from '~/components/question/Register';
 
     export default {
@@ -69,7 +71,7 @@
         },
         components: {
             Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, SimilarQuestions,
-            AskUserAnswerQuestion
+            AskUserAnswerQuestion, CrowdfundingInfo
         },
         computed: {
             question() {

@@ -10,7 +10,7 @@
             </div>
         </div>
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
-        <crowdfunding-info-dialog v-else-if="showCrowdfundingInfoDialog"
+        <crowdfunding-info-dialog v-else-if="showCrowdfundingDialog"
                                   @close-dialog="showCrowdfundingInfoDialog = false">
         </crowdfunding-info-dialog>
         <cookie-privacy-read-info></cookie-privacy-read-info>
@@ -56,6 +56,9 @@
                 return this.showInfoDialog &&
                     (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
                     this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
+            },
+            showCrowdfundingDialog() {
+                return this.showCrowdfundingInfoDialog && !this.$store.state.auth.userIsAuthenticated
             }
         }
     }
