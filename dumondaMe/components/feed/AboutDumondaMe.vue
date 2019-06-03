@@ -108,7 +108,7 @@
 
 <style lang="scss">
     .about-dumonda-me-container {
-        margin-top: 58px;
+        margin-top: 0;
         @media screen and (min-width: $xs) {
             margin-top: 32px;
         }
