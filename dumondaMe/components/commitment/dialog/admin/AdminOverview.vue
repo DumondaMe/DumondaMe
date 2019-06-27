@@ -8,7 +8,7 @@
         </div>
         <v-card-text id="dialog-admin-commitment-overview-content" class="mobile-dialog-content">
             <admin v-for="admin in admins" :key="admin.userId" :admin="admin"
-                   :disable-remove-button="disableRemoveButton"></admin>
+                   :disable-remove-button="disableRemoveButton" @remove-admin="removeAdmin"></admin>
 
             <div id="administrator-requested-title" v-if="adminsRequested.length > 0">
                 {{$t("pages:detailCommitment.adminDialog.titleRequestedAdmins")}}
@@ -43,6 +43,9 @@
         methods: {
             getTitle() {
                 return JSON.parse(JSON.stringify({commitment: this.$store.getters['commitment/getCommitment'].title}));
+            },
+            removeAdmin(userId) {
+                this.$emit('remove-admin', userId);
             }
         },
     }

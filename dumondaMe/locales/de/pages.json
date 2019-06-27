@@ -569,6 +569,7 @@
     "adminDialog": {
       "title": "Administratoren des Engagements {{- commitment}}",
       "titleAddAdmin": "Administrator zum Engagement {{- commitment}} hinzufügen",
+      "titleRemoveAdmin": "Administrator von  {{- commitment}} entfernen",
       "titleRequestedAdmins": "Anfrage versendet an:",
       "searchAdmin": "Suche neuen Administrator",
       "removeAdminButton": "Administrator entfernen",
@@ -699,6 +700,12 @@
       "notification3": "verlinkt. Soll diese Frage auf der Seite deines Engagements angezeigt werden?",
       "showQuestion": "Die Frage wird angezeigt",
       "notShowQuestion": "Die Frage wird nicht angezeigt"
+    },
+    "adminOfCommitmentRequest": {
+      "notification1": "möchte dich als Administrator dem Engagement",
+      "notification2": "hinzufügen",
+      "confirmedToBeAdmin": "Anfrage angenommen",
+      "deniedToBeAdmin": "Anfrage abgelehnt"
     },
     "addToTrustCircle": {
       "notification": "Eine Person hat dich zu ihrem Trust Circle hinzugefügt.",
