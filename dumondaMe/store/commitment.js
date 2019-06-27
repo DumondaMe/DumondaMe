@@ -26,6 +26,10 @@ export const mutations = {
     SET_ADMINS(state, admins) {
         state.admins = admins;
     },
+    REMOVE_ADMIN(state, userId) {
+        let indexOfAdmin = state.admins.findIndex((admin) => admin.userId === userId);
+        state.admins.splice(indexOfAdmin, 1);
+    },
     SET_ADMINS_REQUESTED(state, adminsRequested) {
         state.adminsRequested = adminsRequested;
     },
@@ -138,6 +142,11 @@ export const actions = {
     async addAdmin({commit, state}, userId) {
         await this.$axios.post('user/commitment/admin',
             {commitmentId: state.commitment.commitmentId, userId});
+    },
+    async removeAdmin({commit, state}, userId) {
+        await this.$axios.$delete('user/commitment/admin',
+            {params: {commitmentId: state.commitment.commitmentId, userId}});
+        commit('REMOVE_ADMIN', userId);
     },
     async deleteCommitment({commit, state}, commitmentId) {
         await this.$axios.$delete(`user/commitment`, {params: {commitmentId}});

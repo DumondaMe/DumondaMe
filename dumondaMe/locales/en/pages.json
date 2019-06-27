@@ -566,6 +566,7 @@
     "adminDialog": {
       "title": "Administrators of commitment {{- commitment}}",
       "titleAddAdmin": "Add administrator to commitment {{- commitment}}",
+      "titleRemoveAdmin": "Remove administrator from {{- commitment}}",
       "titleRequestedAdmins": "Request sent to:",
       "searchAdmin": "Search new administrator",
       "removeAdminButton": "Remove Administrator",

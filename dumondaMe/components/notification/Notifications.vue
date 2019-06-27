@@ -4,6 +4,9 @@
              v-for="notification in notifications">
             <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>
+            <admin-of-commitment-request :notification="notification"
+                                         v-if="notification.type === 'requestAdminOfCommitment'">
+            </admin-of-commitment-request>
             <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
             </add-to-trust-circle>
             <invited-user-has-registered :notification="notification"
@@ -31,6 +34,7 @@
 <script>
     import {mapGetters} from 'vuex';
     import ShowQuestionRequest from './ShowQuestionRequest';
+    import AdminOfCommitmentRequest from './AdminOfCommitmentRequest';
     import AddToTrustCircle from './AddToTrustCircle';
     import WatchCommitment from './WatchCommitment';
     import WatchQuestion from './WatchQuestion';
@@ -40,8 +44,10 @@
 
     export default {
         name: "notifications",
-        components: {ShowQuestionRequest, AddToTrustCircle, WatchCommitment, WatchQuestion, CreatedAnswer, CreatedNote,
-            InvitedUserHasRegistered},
+        components: {
+            ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
+            CreatedAnswer, CreatedNote, InvitedUserHasRegistered
+        },
         data() {
             return {loadingNextNotifications: false}
         },

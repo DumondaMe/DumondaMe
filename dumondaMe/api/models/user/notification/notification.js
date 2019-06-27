@@ -24,6 +24,24 @@ const getShowQuestionOnCommitmentRequest = function (notification) {
     }
 };
 
+const getAdminOfCommitmentRequest = function (notification) {
+    let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
+    let user = notification.originators[0].originator;
+    return {
+        read: notification.read,
+        notificationId: notification.notification.notificationId,
+        created: notification.notification.created,
+        type: notification.notification.type,
+        confirmToBeAdmin: notification.notification.confirmToBeAdmin || false,
+        userId: user.userId,
+        userName: user.name,
+        userSlug: slug(user.name),
+        commitmentId: commitment.commitmentId,
+        commitmentTitle: commitment.title,
+        commitmentSlug: slug(commitment.title)
+    }
+};
+
 const getUser = async function (user, created, isContact) {
     let isAnonymous = user.privacyMode === 'onlyContact' && !isContact, thumbnailUrl;
     if (isAnonymous) {
@@ -50,24 +68,6 @@ const getNotificationWithOriginators = async function (notification) {
         notificationId: notification.notification.notificationId,
         users: users,
         numberOfUsers: notification.numberOfOriginators,
-        created: notification.notification.created,
-        type: notification.notification.type
-    }
-};
-
-const getNotificationAddedToTrustCircle = async function (notification) {
-    let index, users = [];
-    for (index = 0; index < 3 && index < notification.infos.length; index++) {
-        let user = notification.infos[index].info;
-        let created = notification.relInfos[index].created;
-        let isContact = notification.relInfos[index].isContact;
-        users.push(await getUser(user, created, isContact));
-    }
-    return {
-        read: notification.read,
-        notificationId: notification.notification.notificationId,
-        users: users,
-        numberOfUsers: notification.infos.length,
         created: notification.notification.created,
         type: notification.notification.type
     }
@@ -138,9 +138,10 @@ const getResponse = async function (notifications) {
     for (let notification of notifications) {
         if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
+        } else if (notification.notification.type === 'requestAdminOfCommitment') {
+            response.push(getAdminOfCommitmentRequest(notification));
         } else {
             let notificationResponse = await getNotificationWithOriginators(notification);
-            //response.push(await getNotificationAddedToTrustCircle(notification));
             addWatchingCommitmentProperties(notificationResponse, notification);
             addWatchingQuestionProperties(notificationResponse, notification);
             addCreatedAnswerProperties(notificationResponse, notification);

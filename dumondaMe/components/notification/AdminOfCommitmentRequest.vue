@@ -1,37 +1,36 @@
 <template>
-    <div class="notification-show-question-request">
+    <div class="notification-admin-of-commitment-request">
         <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
         <div class="notification-title" v-if="!notification.removed">
-            {{$t('pages:notifications.showQuestionRequest.notification1')}}
+            <span class="bold user-name" @click="$router.push({name: 'user-userId-slug',
+            params: {userId: notification.userId, slug: notification.userSlug}})">
+                {{notification.userName}}</span>
+            {{$t('pages:notifications.adminOfCommitmentRequest.notification1')}}
             <span class="bold" @click="$router.push({name: 'commitment-commitmentId-slug',
                      params: {commitmentId: notification.commitmentId, slug: notification.commitmentSlug}})">
                 {{notification.commitmentTitle}}</span>
-            {{$t('pages:notifications.showQuestionRequest.notification2')}}
-            <span class="bold" @click="$router.push({name: 'question-questionId-slug',
-                     params: {questionId: notification.questionId, slug: notification.questionSlug}})">
-                {{notification.question}}</span>
-            {{$t('pages:notifications.showQuestionRequest.notification3')}}
+            {{$t('pages:notifications.adminOfCommitmentRequest.notification2')}}
         </div>
         <div class="commands-container" v-if="!notification.read">
-            <v-btn color="success" @click="setShowQuestionOnCommitment(true, 'requestShowQuestionRunning')"
-                   :loading="requestShowQuestionRunning"
-                   :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
+            <v-btn color="success" @click="setAdminOfCommitment(true, 'requestAcceptToBeAdminRunning')"
+                   :loading="requestAcceptToBeAdminRunning"
+                   :disabled="requestAcceptToBeAdminRunning || requestDenyToBeAdminRunning">
                 <v-icon left>mdi-check</v-icon>
-                {{$t('common:button.yes')}}
+                {{$t('common:button.accept')}}
             </v-btn>
-            <v-btn color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
-                   :loading="requestHideQuestionRunning"
-                   :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
+            <v-btn color="error" @click="setAdminOfCommitment(false, 'requestDenyToBeAdminRunning')"
+                   :loading="requestDenyToBeAdminRunning"
+                   :disabled="requestAcceptToBeAdminRunning || requestDenyToBeAdminRunning">
                 <v-icon>mdi-clear</v-icon>
-                {{$t('common:button.no')}}
+                {{$t('common:button.deny')}}
             </v-btn>
         </div>
         <div class="info-post-action" v-else>
-            <div v-if="notification.showQuestion" class="show-question">
-                {{$t('pages:notifications.showQuestionRequest.showQuestion')}}
+            <div v-if="notification.confirmToBeAdmin" class="confirmed-to-be-admin">
+                {{$t('pages:notifications.adminOfCommitmentRequest.confirmedToBeAdmin')}}
             </div>
-            <div v-else class="hide-question">
-                {{$t('pages:notifications.showQuestionRequest.notShowQuestion')}}
+            <div v-else class="denied-to-be-admin">
+                {{$t('pages:notifications.adminOfCommitmentRequest.deniedToBeAdmin')}}
             </div>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
@@ -42,23 +41,22 @@
 
 <script>
     export default {
-        name: "ShowQuestionRequest",
+        name: "AdminOfCommitmentRequest",
         props: ['notification'],
         data() {
             return {
-                requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: '',
+                requestAcceptToBeAdminRunning: false, requestDenyToBeAdminRunning: false,
                 showError: false
             }
         },
         methods: {
-            async setShowQuestionOnCommitment(showQuestion, requestRunning) {
+            async setAdminOfCommitment(confirmToBeAdmin, requestRunning) {
                 try {
                     this[requestRunning] = true;
-                    await this.$axios.$put(`user/commitment/showQuestionRequest/${this.notification.commitmentId}`,
-                        {questionId: this.notification.questionId, showQuestion});
-                    this.$store.commit('notification/SHOW_QUESTION',
-                        {notificationSetAsRead: this.notification, showQuestion});
-                    this.uploaded = requestRunning;
+                    await this.$axios.$post(`user/commitment/admin/confirmAdmin`,
+                        {notificationId: this.notification.notificationId, confirmToBeAdmin});
+                    this.$store.commit('notification/ADMIN_OF_COMMITMENT',
+                        {notificationSetAsRead: this.notification, confirmToBeAdmin});
                 } catch (error) {
                     this.showError = true;
                 } finally {
@@ -70,7 +68,7 @@
 </script>
 
 <style lang="scss">
-    .notification-show-question-request {
+    .notification-admin-of-commitment-request {
         font-weight: 300;
 
         .notification-title {
@@ -78,6 +76,10 @@
                 font-weight: 400;
                 cursor: pointer;
                 color: $primary-color;
+            }
+
+            .bold.user-name {
+                color: $primary-text;
             }
 
             :hover.bold {
@@ -97,11 +99,11 @@
         .info-post-action {
             margin-top: 12px;
 
-            .show-question {
+            .confirmed-to-be-admin {
                 color: $success-text;
             }
 
-            .hide-question {
+            .denied-to-be-admin{
                 color: $warning;
             }
         }

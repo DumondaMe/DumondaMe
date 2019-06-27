@@ -15,6 +15,17 @@ export const getters = {
     }
 };
 
+const setNotificationAsRead = function (state, notificationSetAsRead, propertyValue, propertyName) {
+    let index = state.notifications.indexOf(notificationSetAsRead);
+    if (index > -1) {
+        Vue.set(state.notifications[index], 'read', true);
+        if (propertyName) {
+            Vue.set(state.notifications[index], propertyName, propertyValue);
+        }
+    }
+    state.numberOfUnreadNotifications--;
+};
+
 export const mutations = {
     RESET_NOTIFICATION: function (state) {
         state.notifications = [];
@@ -29,20 +40,14 @@ export const mutations = {
     SET_NUMBER_OF_UNREAD_NOTIFICATIONS: function (state, numberOfUnreadNotifications) {
         state.numberOfUnreadNotifications = numberOfUnreadNotifications;
     },
-    NOTIFICATION_READ: function (state, notificationToRemove) {
-        let index = state.notifications.indexOf(notificationToRemove);
-        if (index > -1) {
-            state.notifications[index].read = true;
-        }
-        state.numberOfUnreadNotifications--;
+    NOTIFICATION_READ: function (state, notificationSetAsRead) {
+        setNotificationAsRead(state, notificationSetAsRead);
     },
-    SHOW_QUESTION: function (state, {notificationToRemove, showQuestion}) {
-        let index = state.notifications.indexOf(notificationToRemove);
-        if (index > -1) {
-            Vue.set(state.notifications[index], 'showQuestion', showQuestion);
-            Vue.set(state.notifications[index], 'read', true);
-        }
-        state.numberOfUnreadNotifications--;
+    SHOW_QUESTION: function (state, {notificationSetAsRead, showQuestion}) {
+        setNotificationAsRead(state, notificationSetAsRead, showQuestion, 'showQuestion');
+    },
+    ADMIN_OF_COMMITMENT: function (state, {notificationSetAsRead, confirmToBeAdmin}) {
+        setNotificationAsRead(state, notificationSetAsRead, confirmToBeAdmin, 'confirmToBeAdmin');
     },
     ADD_NOTIFICATION: function (state, notificationToAdd) {
         state.notifications.unshift(notificationToAdd);
