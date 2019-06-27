@@ -1,0 +1,18 @@
+# Required metadata
+sonar.projectKey=javascript-sonar-runner-elyoos
+sonar.projectName=Elyoos
+sonar.projectVersion=0.1
+ 
+#Sources
+sonar.sources=client/app/js,server
+sonar.exclusions=server/node_modules/**/*,server/test/**/*
+
+#Tests
+sonar.javascript.lcov.reportPath=client/test_out/coverage/Chrome 35.0.1916 (Linux)/lcov.info,server/coverage/lcov.info
+sonar.javascript.jstest.reportsPath=client/test/junit
+
+# Language
+sonar.language=js
+ 
+# Encoding of the source code
+sonar.sourceEncoding=UTF-8

@@ -1,0 +1,13 @@
+<div id="ely-feedback-detail-comment-container">
+    <div class="comment-container" ng-repeat="comment in ctrl.comments.comments"
+         ng-class="{'divider': !$last && !comment.status, 'open-status': comment.status === 'open', 'closed-status': comment.status === 'closed'}">
+        <div class="info-header">
+            <span class="status" ng-if="comment.status === 'closed'">Geschlossen von </span>
+            <span class="status" ng-if="comment.status === 'open'">Wiedereröffnet von </span>
+            <span class="name">{{comment.creator.name}}</span>
+            <span ng-if="comment.createdByAdmin" class="admin"> (Administrator) </span>
+            <span class="date">{{ctrl.getFormattedDate(comment.created, true)}}</span>
+        </div>
+        <ely-expand-text class="comment-text" description="{{comment.text}}" length="500"></ely-expand-text>
+    </div>
+</div>

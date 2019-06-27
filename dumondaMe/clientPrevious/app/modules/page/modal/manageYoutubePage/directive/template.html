@@ -1,0 +1,61 @@
+<form id="manage-youtube-page-input" name="ctrl.manageYoutubePageForm" layout="row" layout-sm="column" layout-xs="column">
+    <div class="youtube-preview" flex="none"
+         ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty">
+        <ely-iframe width="270" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
+                    layout="row" layout-align="center center"></ely-iframe>
+        <div class="youtube-preview-text">
+            Teste mit einem Klick auf das Video ob dieses abgespielt werden kann.
+        </div>
+    </div>
+    <div flex>
+        <div layout="row">
+            <div flex="50">
+                <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
+                           ng-change="ctrl.dataChanged(true)">
+                    <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                </md-select>
+            </div>
+            <div flex="50" flex-offset="5">
+                <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" placeholder="Sprache" required class="ely-select-topic"
+                           ng-change="ctrl.dataChanged(true)">
+                    <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                </md-select>
+            </div>
+        </div>
+        <div ng-if="!ctrl.isEditMode">
+            <md-input-container class="input-container">
+                <label>Titel</label>
+                <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
+                       ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                <div ng-messages="ctrl.manageYoutubePageForm.title.$error">
+                    <div ng-message="required">Wird benötigt!</div>
+                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                </div>
+            </md-input-container>
+        </div>
+        <md-input-container class="input-container">
+            <label>Link</label>
+            <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
+                   ng-change="ctrl.linkHasChanged()" ng-blur="ctrl.lostFocus()" required/>
+            <div ng-messages="ctrl.manageYoutubePageForm.link.$error" ng-show="ctrl.manageYoutubePageForm.link.$dirty">
+                <div ng-message="required">Wird benötigt!</div>
+                <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
+            </div>
+        </md-input-container>
+        <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageYoutubePageForm.link.$valid"
+             ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
+        </div>
+        <md-input-container class="input-container">
+            <label>Allgemeine Beschreibung</label>
+            <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
+                      ng-disabled="ctrl.uploadStarted" ng-change="ctrl.dataChanged()"></textarea>
+            <div class="hint" ng-if="ctrl.manageYoutubePageForm.description.$valid || ctrl.manageYoutubePageForm.description.$pristine">
+                Beschreibe in einer allgemeinen Form worum es in diesem Youtube Video geht. Vermeide persönliche Kommentare.
+            </div>
+            <div ng-messages="ctrl.manageYoutubePageForm.description.$error">
+                <div ng-message="required">Wird benötigt!</div>
+                <div ng-message="md-maxlength">Text ist zu lang</div>
+            </div>
+        </md-input-container>
+    </div>
+</form>

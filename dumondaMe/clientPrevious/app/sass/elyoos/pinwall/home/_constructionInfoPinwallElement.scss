@@ -1,0 +1,27 @@
+.pinwall-info-element {
+  @include cardElement();
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: $background-info;
+  .info-pinwall-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: $background-info;
+  }
+  .info-pinwall-text {
+    line-height: 1.4em;
+    font-size: 14px;
+    color: white;
+    background-color: $background-info;
+    .link {
+      cursor: pointer;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+}
+
+

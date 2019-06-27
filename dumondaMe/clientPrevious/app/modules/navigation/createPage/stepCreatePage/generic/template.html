@@ -1,0 +1,8 @@
+<div id="create-generic-step" class="manage-page" ng-cloak>
+    <ely-manage-generic is-edit-mode="false" data="ctrl.data" event-show-image="ctrl.showImage"
+                     ng-if="!ctrl.selectImage && !ctrl.showExistingPages"
+                     event-data-changed="ctrl.dataChanged"></ely-manage-generic>
+    <ely-preview-picture ratio="1.3364" finish="ctrl.setPreviewImage" finish-command="ctrl.loadImage"
+                         hide-command-button="true" event-has-image="ctrl.eventHasImage" event-running="ctrl.loadingImageIsRunning"
+                         ng-if="ctrl.selectImage"></ely-preview-picture>
+</div>

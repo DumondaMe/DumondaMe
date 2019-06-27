@@ -1,0 +1,11 @@
+#setup-privacy-step {
+  .privacy-content-step {
+    max-width: 500px;
+    margin: 0 auto;
+    .privacy-description {
+      font-weight: 500;
+      font-size: 16px;
+      color: $secondary-text;
+    }
+  }
+}

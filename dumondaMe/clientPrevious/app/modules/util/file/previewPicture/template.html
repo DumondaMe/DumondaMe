@@ -1,0 +1,34 @@
+<div id="ely-preview-picture">
+    <div class="crop-area-container">
+        <div class="cropArea" layout="row" layout-align="center center" flex="grow">
+            <ely-image-cropper commands="ctrl.commands"
+                               image-result-data="ctrl.imagePreviewFinish"
+                               ratio="{{ctrl.ratio}}"
+                               min-width="100" min-height="100"
+                               ng-if="!ctrl.unsupportedFile"></ely-image-cropper>
+            <div class="unsupported-file" ng-if="ctrl.unsupportedFile">Dieser File Type kann nicht hochgeladen werden</div>
+        </div>
+    </div>
+    <div layout="row" layout-align="start center" class="action-commands">
+        <div class="action-icon-container" layout="row">
+            <ely-load-image-button-icon class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto" open-dialog-init="true"
+                                        aria-label="Add Photo" label="Bild"></ely-load-image-button-icon>
+            <div ng-show="!ctrl.running && ctrl.hasImage">
+                <md-button class="md-icon-button" ng-click="ctrl.rotateLeft()" aria-label="rotate image left">
+                    <md-icon md-svg-icon="system:rotateLeft"></md-icon>
+                </md-button>
+            </div>
+            <div ng-show="!ctrl.running && ctrl.hasImage">
+                <md-button class="md-icon-button" ng-click="ctrl.rotateRight()" aria-label="rotate image right">
+                    <md-icon md-svg-icon="system:rotateRight"></md-icon>
+                </md-button>
+            </div>
+        </div>
+        <span flex ng-if="!ctrl.hideCommandButton"></span>
+        <md-button ng-click="ctrl.cancel()" ng-if="!ctrl.hideCommandButton">Abbrechen</md-button>
+        <md-button class="md-primary" ng-if="!ctrl.hideCommandButton"
+                   ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.selected()">Auswählen
+        </md-button>
+    </div>
+    <md-progress-linear class="progress-bar" ng-if="ctrl.running && !ctrl.hideCommandButton" md-mode="indeterminate"></md-progress-linear>
+</div>

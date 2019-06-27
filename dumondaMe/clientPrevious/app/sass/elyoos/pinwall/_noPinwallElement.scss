@@ -1,0 +1,32 @@
+.pinwall-no-element {
+  @include cardElement();
+  padding: 16px;
+  margin: 8px 0;
+  background-color: white;
+  .no-pinwall-title {
+    font-size: 20px;
+    color: $primary-text;
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: white;
+  }
+  .no-pinwall-text {
+    font-size: 14px;
+    color: $secondary-text;
+    background-color: white;
+    .link {
+      cursor: pointer;
+      color: $primary-color;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  }
+  .no-pinwall-text-primary {
+    font-size: 16px;
+    color: $primary-text;
+    background-color: white;
+  }
+}
+
+

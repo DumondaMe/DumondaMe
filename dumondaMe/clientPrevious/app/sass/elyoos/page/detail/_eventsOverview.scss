@@ -1,0 +1,40 @@
+.ely-page-events-overview-container {
+  .event-tab-content {
+    background-color: $background-light;
+  }
+  .ely-page-events-overview {
+    padding-top: 24px;
+    .ely-page-events-overview-element {
+      margin-bottom: 12px;
+      .event-title {
+        cursor: pointer;
+        font-size: 14px;
+        color: $primary-color;
+        font-weight: 500;
+      }
+      .event-title:hover {
+        text-decoration: underline;
+      }
+      .event-sub-descriptions {
+        margin-top: 2px;
+        font-size: 12px;
+        color: $secondary-text;
+        font-weight: 400;
+      }
+      .admin-menu-container {
+        .admin-menu-icon {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.next-button {
+  margin-left: 0;
+  padding-left: 0;
+  .next-button-icon {
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
+}

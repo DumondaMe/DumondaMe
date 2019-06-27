@@ -1,0 +1,9 @@
+<div id="ely-blog-detail">
+    <ely-page-detail-admin edit-page="ctrl.editBlog" delete-page="ctrl.deleteBlog" page-detail="ctrl.blogDetail"></ely-page-detail-admin>
+    <ely-blog-detail-main blog-detail="ctrl.blogDetail"></ely-blog-detail-main>
+    <ely-page-detail-info page-detail="ctrl.blogDetail"></ely-page-detail-info>
+    <ely-page-detail-similar-page page-id="ctrl.blogDetail.page.pageId" ng-if="ctrl.blogDetail.page.pageId"></ely-page-detail-similar-page>
+    <ely-page-detail-recommendation page-id="ctrl.blogDetail.page.pageId" page-type-description="diesen Blog"
+                                    recommendation="ctrl.blogDetail.recommendation"
+                                    title-recommendation="ctrl.blogDetail.page.title" category="Blog"></ely-page-detail-recommendation>
+</div>

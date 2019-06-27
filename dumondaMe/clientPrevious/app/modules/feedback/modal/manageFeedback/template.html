@@ -1,0 +1,73 @@
+<md-dialog id="ely-add-feedback-dialog" layout="column">
+    <form name="ctrl.feedbackForm" id="ely-add-feedback" flex="auto">
+        <div class="md-title ely-dialog-title" ng-show="ctrl.data.group ==='Bug' && !ctrl.data.isEditMode">Fehler melden</div>
+        <div class="md-title ely-dialog-title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && !ctrl.data.isEditMode">
+            Idee erstellen
+        </div>
+        <div class="md-title ely-dialog-title" ng-show="ctrl.data.group ==='Bug' && ctrl.data.isEditMode">Fehler bearbeiten</div>
+        <div class="md-title ely-dialog-title" ng-show="(ctrl.data.group ==='Idea' || ctrl.data.group ==='DiscussionIdea') && ctrl.data.isEditMode">
+            Idee bearbeiten
+        </div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="input-container">
+                    <label>Titel</label>
+                    <input name="title" ng-model="ctrl.data.title" md-maxlength="160" ng-disabled="ctrl.uploadRunning"
+                           ng-change="ctrl.changedInEditMode()" required/>
+                    <div ng-messages="ctrl.feedbackForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <div layout="row" ng-if="ctrl.data.group === 'Bug'">
+                    <div flex="33">
+                        <md-select ng-model="ctrl.data.browser" placeholder="Browser" ng-change="ctrl.changedInEditMode()" required>
+                            <md-option value="firefox">Firefox</md-option>
+                            <md-option value="chrome">Chrome</md-option>
+                            <md-option value="ie">Internet Explorer (Edge)</md-option>
+                            <md-option value="safari">Safari</md-option>
+                            <md-option value="other">Anderer</md-option>
+                        </md-select>
+                    </div>
+                    <div flex="33" flex-offset-gt-xs="5">
+                        <md-select ng-model="ctrl.data.screen" placeholder="Bildschirmgrösse" ng-change="ctrl.changedInEditMode()" required>
+                            <md-option value="desktop">Desktop</md-option>
+                            <md-option value="tablet">Tablet</md-option>
+                            <md-option value="mobile">Mobil</md-option>
+                            <md-option value="all">Alle</md-option>
+                        </md-select>
+                    </div>
+                    <div flex="33" flex-offset-gt-xs="5">
+                        <md-select ng-model="ctrl.data.operatingSystem" placeholder="Betriebssystem" ng-change="ctrl.changedInEditMode()" required>
+                            <md-option value="windows">Windows</md-option>
+                            <md-option value="macOs">Mac OS</md-option>
+                            <md-option value="linux">Linux</md-option>
+                            <md-option value="other">Anderes</md-option>
+                        </md-select>
+                    </div>
+                </div>
+                <md-input-container class="input-container">
+                    <label>Beschreibung</label>
+                    <textarea name="description" ng-model="ctrl.data.description" md-maxlength="3000" ng-change="ctrl.changedInEditMode()"
+                              ng-disabled="ctrl.uploadRunning" max-rows="5" required></textarea>
+                    <div ng-messages="ctrl.feedbackForm.description.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error"
+                       target="_blank" md-autofocus>Abbrechen</md-button>
+            <md-button class="md-primary md-raised"
+                       ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid || ctrl.disableUpload"
+                       ng-click="ctrl.uploadFeedback()">
+                <span ng-show="!ctrl.data.isEditMode">Erstellen</span>
+                <span ng-show="ctrl.data.isEditMode">Ändern</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

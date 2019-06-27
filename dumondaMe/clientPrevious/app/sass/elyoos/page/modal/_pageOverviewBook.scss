@@ -1,0 +1,41 @@
+.ely-page-overview-book {
+  .page-image-preview {
+    float: left;
+    height: 60px;
+    max-width: 38px;
+    margin-right: 8px;
+
+    @media screen and (min-width: $gt-md) {
+      height: 125px;
+      max-width: none;
+    }
+  }
+  .content {
+    margin-bottom: 4px;
+  }
+  .page-title {
+    font-size: 14px;
+    max-height: 34px;
+    overflow: hidden;
+
+    @media screen and (min-width: $gt-md) {
+      font-size: 18px;
+      max-height: none;
+    }
+  }
+  .page-description {
+    margin-top: 4px;
+    font-size: 14px;
+    color: $secondary-text;
+    max-width: 500px;
+    height: 52px;
+    margin-bottom: 8px;
+    overflow: hidden;
+
+    @media screen and (min-width: $gt-md) {
+      height: 118px;
+      max-width: none;
+    }
+  }
+
+}

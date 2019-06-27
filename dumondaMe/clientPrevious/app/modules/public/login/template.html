@@ -1,0 +1,50 @@
+<md-dialog id="login-user" aria-label="Login User" layout="column">
+    <form name="loginForm" ng-cloak ng-if="!ctrl.showPasswordReset" onsubmit="return false;">
+        <div class="md-title ely-dialog-title">Login</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column">
+                <div class="login-user-content">
+                    <md-input-container class="input-element md-block">
+                        <label>Email</label>
+                        <input required type="text" name="username" id="username" aria-label="Email" md-autofocus
+                               ng-model="ctrl.loginuser.email" ng-disabled="ctrl.verifyUser" md-no-asterisk>
+                        <div ng-messages="loginForm.username.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
+                        <label>Passwort</label>
+                        <input type="password" required name="password" id="password" aria-label="Passwort"
+                               ng-model="ctrl.loginuser.password" ng-disabled="ctrl.verifyUser" md-no-asterisk>
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <div class="show-verify-success" ng-if="ctrl.showSuccessfulVerify && !ctrl.error">
+                        Du hast dein Konto erfolgreich aktiviert. Melde dich nun mit deiner E-Mail Adresse und deinem Passwort an.
+                    </div>
+                    <div class="show-error" ng-if="ctrl.showErrorVerify">
+                        Dein Konto zu aktivieren ist fehlgeschlagen. Kontaktiere doch bitte info@elyoos.org.
+                    </div>
+                    <div class="show-error" ng-if="ctrl.error">
+                        {{ctrl.error}}
+                    </div>
+                    <div class="password-reset-link" ng-click="ctrl.showPasswordReset = true" ng-if="!ctrl.verifyUser">
+                        Hast du dein Passwort vergessen?
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.login()"
+                       ng-disabled="loginForm.$invalid || ctrl.loginRunning || ctrl.verifyUser">Login
+            </md-button>
+            <input id="loginbutton" type="submit" value="Login" ng-show="false">
+            </input>
+        </md-dialog-actions>
+    </form>
+    <ely-password-reset-request back="ctrl.showPasswordReset" ng-if="ctrl.showPasswordReset"></ely-password-reset-request>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.loginRunning || ctrl.verifyUser" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

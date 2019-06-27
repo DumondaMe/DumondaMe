@@ -1,0 +1,16 @@
+#ely-page-recommendation {
+  padding: 12px;
+  border-top: 1px solid $divider;
+
+  .overview-rating-tabs {
+    min-height: 200px;
+  }
+}
+
+#ely-page-detail {
+  #ely-page-recommendation {
+    .page-section-title {
+      margin-bottom: 0;
+    }
+  }
+}

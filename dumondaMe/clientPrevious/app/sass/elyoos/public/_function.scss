@@ -1,0 +1,49 @@
+#ely-function {
+  min-height: 100%;
+  background-color: #FFFFFF;
+  #ely-function-container {
+    min-height: 100%;
+    max-width: 800px;
+    @media screen and (min-width: $gt-xmd) {
+      max-width: 1000px;
+    }
+    margin: 0 auto;
+    padding: 32px 16px 0 16px;
+    @media screen and (max-width: $gt-sm) {
+      padding-top: 18px;
+    }
+    .ely-function-element {
+      margin-bottom: 42px;
+      .function-image {
+        height: 180px;
+        width: 180px;
+        margin-right: 52px;
+        @media screen and (max-width: $gt-xs) {
+          margin: 0 auto 24px auto;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .description-container {
+        .description-title {
+          margin-bottom: 12px;
+          font-size: 20px;
+          font-weight: 500;
+          @media screen and (max-width: $gt-xs) {
+            text-align: center;
+          }
+        }
+        .description {
+          font-size: 18px;
+          font-weight: 300;
+          line-height: 26px;
+          @media screen and (max-width: $gt-xs) {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+#ely-thread-overview {
+  height: 100%;
+  .thread-container {
+    height: 100%;
+    overflow-y: auto;
+
+    .is-main-view {
+      @media screen and (min-width: $gt-xs) {
+        padding-top: 16px;
+      }
+    }
+
+    .pinwall-no-element {
+      margin: 16px auto 0 auto;
+      @media screen and (max-width: $gt-xxs) {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+#tutorial-profile-image-step {
+  .image-preview-container {
+    .image-preview-inner-container {
+      .image-handling-container {
+        width: 150px;
+        @media screen and (max-width: $gt-xs) {
+          width: 100%;
+          margin-bottom: 12px;
+        }
+        .image-container {
+          width: 100px;
+          margin: 0 auto;
+          img {
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+          }
+        }
+        .select-image-button-container {
+          .upload-image-button {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+      .image-description-container {
+        max-width: 350px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $secondary-text;
+      }
+    }
+  }
+  .image-crop-container {
+    height: 400px;
+  }
+}

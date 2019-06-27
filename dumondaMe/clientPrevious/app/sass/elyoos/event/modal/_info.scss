@@ -1,0 +1,43 @@
+#event-info {
+  max-width: 650px;
+  .ely-dialog-content {
+    .event-title {
+      color: $primary-color;
+    }
+    .ely-info-element {
+      font-size: 14px;
+      color: $primary-text;
+      margin-bottom: 6px;
+      .link {
+        cursor: pointer;
+        font-weight: 500;
+        color: $primary-color;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+    }
+    .ely-info-date {
+      font-size: 14px;
+      color: $primary-text;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .ely-info-address {
+      font-size: 14px;
+      color: $primary-text;
+      font-weight: 500;
+    }
+    .ely-info-address-description {
+      font-size: 14px;
+      color: $secondary-text;
+    }
+    .ely-info-description {
+      margin-top: 16px;
+      font-size: 14px;
+      color: $secondary-text;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+}

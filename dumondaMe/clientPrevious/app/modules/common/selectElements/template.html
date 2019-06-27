@@ -1,0 +1,49 @@
+<form name="ctrl.addElementsForm" class="select-elements-dialog" aria-label="Add Keywords" ng-cloak>
+    <div class="md-title ely-dialog-title">{{ctrl.dialogTitle}}</div>
+    <md-dialog-content>
+        <div class="md-dialog-content ely-dialog-content">
+            <div layout="row">
+                <md-input-container class="input-container">
+                    <label>{{ctrl.dialogSearchPlaceholder}}</label>
+                    <input name="place" ng-model="ctrl.suggestionKeyword" ng-change="ctrl.suggestionKeywordChanged()"
+                           ng-disabled="ctrl.requestStarted" ng-keypress="ctrl.keyPressed($event)"/>
+                </md-input-container>
+                <div class="search-image-icon" flex-offset="5" layout="row">
+                    <div flex>
+                        <md-button class="md-fab md-mini" aria-label="Search Element" ng-click="ctrl.deleteSuggestion()"
+                                   ng-disabled="ctrl.requestStarted" ng-show="ctrl.suggestion.elements.length > 0">
+                            <md-icon md-svg-icon="system:close" class="icon"></md-icon>
+                        </md-button>
+                    </div>
+                    <div felx>
+                        <md-button class="md-fab md-mini" aria-label="Search Element" ng-click="ctrl.getSuggestionKeyword(ctrl.suggestionKeyword)"
+                                   ng-disabled="ctrl.requestStarted || ctrl.suggestionKeyword.trim() === ''  ||
+                               ctrl.lastRequestString === ctrl.suggestionKeyword">
+                            <md-icon md-svg-icon="system:searchIcon" class="icon"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="suggestion-container" layout="row" layout-wrap flex ng-show="ctrl.suggestion.elements.length > 0">
+                <div flex="100" flex-gt-xs="50" ng-repeat="element in ctrl.suggestion.elements">
+                    <md-checkbox ng-checked="ctrl.exists(element, ctrl.selected)" aria-label="{{element.description}}"
+                                 ng-click="ctrl.toggle(element, ctrl.selected)"></md-checkbox>
+                    {{element.description}}
+                </div>
+            </div>
+            <div ely-infinite-scroll="ctrl.nextElements" class="overview-container" layout="row" layout-wrap flex>
+                <div flex="100" flex-gt-xs="50" ng-repeat="element in ctrl.overview.elements">
+                    <md-checkbox ng-checked="ctrl.exists(element, ctrl.selected)" aria-label="{{element.description}}"
+                                 ng-click="ctrl.toggle(element, ctrl.selected)"></md-checkbox>
+                    {{element.description}}
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="ctrl.onBack()">Zurück</md-button>
+        <md-button class="md-primary md-raised" ng-click="ctrl.onSelected(ctrl.toStringArray(ctrl.selected, 'description'))"
+                   ng-show="ctrl.selected.length > 0">Hinzufügen
+        </md-button>
+    </md-dialog-actions>
+</form>

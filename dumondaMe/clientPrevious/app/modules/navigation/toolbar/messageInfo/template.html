@@ -1,0 +1,9 @@
+<div class="ely-message-info">
+    <md-button class="md-icon-button" aria-label="Open Thread Overview" ng-click="ctrl.openThreadOverview()">
+        <md-icon md-svg-icon="system:chat"></md-icon>
+    </md-button>
+    <div class="number" layout="row" layout-align="center center" ng-if="ctrl.count > 0 && !ctrl.$mdMedia('gt-md')"
+         ng-click="ctrl.openThreadOverview()">
+        <div>{{ctrl.count}}</div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="topic-description">
+    <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="topic-icon book-icon" ng-hide="ctrl.label !== 'Book'"></md-icon>
+    <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="topic-icon youtube-icon"
+             ng-hide="ctrl.label !== 'Youtube'"></md-icon>
+    <md-icon md-svg-icon="cardActions:link" aria-label="Link" class="topic-icon link-icon" ng-hide="ctrl.label !== 'Link'"></md-icon>
+    <md-icon md-svg-icon="cardActions:blog" aria-label="Blog" class="topic-icon" ng-hide="ctrl.label !== 'Blog'"></md-icon>
+    <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="topic-icon" ng-show="ctrl.label"></md-icon>
+    <div class="topic-type"
+         ng-repeat="topic in ctrl.topics">{{ctrl.getTopic(topic)}}
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.ely-search-result-link-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px;
+  cursor: pointer;
+  .link-page-container {
+    .link-header {
+      .link-title {
+        margin: 8px 0 0 0;
+        padding: 0 8px;
+        font-size: 16px;
+        color: $primary-text;
+        font-weight: 500;
+        height: 18px;
+        line-height: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .topic-colors {
+        padding: 0 8px 8px 8px;
+      }
+    }
+    .topic-description {
+      margin: 0 8px 4px 8px;
+    }
+  }
+  .link-image {
+    width: 100% !important;
+  }
+}
+
+

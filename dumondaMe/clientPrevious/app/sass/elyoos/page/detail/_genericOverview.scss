@@ -1,0 +1,21 @@
+.ely-generic-overview {
+  height: 350px;
+  .header {
+    padding: 12px;
+    height: 24px;
+    border-bottom: 1px solid $divider;
+    .title {
+      cursor: pointer;
+      line-height: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: $primary-text;
+      .number {
+        color: $primary-color;
+      }
+    }
+    .title:hover {
+      text-decoration: underline;
+    }
+  }
+}

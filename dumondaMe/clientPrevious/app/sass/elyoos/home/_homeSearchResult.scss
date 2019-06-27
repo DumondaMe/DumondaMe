@@ -1,0 +1,39 @@
+#ely-home-search-result {
+  .result-container {
+    margin: 16px auto;
+    width: 296px;
+    @media screen and (min-width: $gt-xs) {
+      width: 592px;
+    }
+    @media screen and (min-width: $gt-md) {
+      margin-top: 16px;
+    }
+    @media screen and (min-width: $gt-xmd) {
+      width: 592px;
+    }
+    .search-result-title {
+      padding-left: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+    .search-element-user {
+      margin-right: 4px;
+      margin-left: 4px;
+      display: inline-block;
+    }
+    .search-element-page {
+      display: inline-block;
+    }
+  }
+  .no-result {
+    width: 300px;
+    height: 64px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    margin: 16px auto;
+  }
+}
+
+

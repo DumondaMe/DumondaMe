@@ -1,0 +1,7 @@
+<div id="create-blog-step" class="manage-page" ng-cloak>
+    <ely-manage-blog is-edit-mode="false" event-show-privacy="ctrl.showPrivacyEvent" ng-show="!ctrl.showPrivacy"
+                     set-visibility="ctrl.setVisibility" data="ctrl.data" event-image-load="ctrl.imageLoad"
+                     event-data-changed="ctrl.dataChanged"></ely-manage-blog>
+    <ely-manage-blog-visibility ng-show="ctrl.showPrivacy" on-change-visibility-event="ctrl.visibilityChanged"
+                                class="blog-manage-container"></ely-manage-blog-visibility>
+</div>

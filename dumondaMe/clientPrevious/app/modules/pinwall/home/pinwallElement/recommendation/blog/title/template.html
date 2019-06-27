@@ -1,0 +1,11 @@
+<span>
+    <span class="user-name" ng-if="!ctrl.element.thisRecommendationByUser"
+          ui-sref="user.detail({userId: ctrl.element.userId})">{{ctrl.element.name}}</span>
+    <span class="user-name" ng-if="ctrl.element.thisRecommendationByUser" ui-sref="settings.profile()">Du</span>
+    <span ng-if="ctrl.element.thisRecommendationByUser">hast den Blog</span>
+    <span ng-if="!ctrl.element.thisRecommendationByUser && !ctrl.element.isAdmin">hat den Blog</span>
+    <span ng-if="!ctrl.element.thisRecommendationByUser && ctrl.element.isAdmin">hat Deinen Blog</span>
+    <a class="page-title" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">{{ctrl.element.title}}</a>
+    <span ng-if="!ctrl.element.isAdmin">von</span>
+    <a ng-if="!ctrl.element.isAdmin" ui-sref="user.detail({userId: ctrl.element.writerUserId})" class="user-name">{{ctrl.element.writerName}}</a>
+empfohlen</span>

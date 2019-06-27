@@ -1,0 +1,43 @@
+<div id="setup-contact-step" ng-if="ctrl.step.selected">
+    <div ng-if="!ctrl.showAddGroup">
+        <div class="contact-description">
+            Füge Personen deiner Kontaktliste hinzu welche du kennst oder deren Beiträge und Empfehlungen du folgen möchtest.
+        </div>
+        <div class="contact-container" layout="row" layout-xs="column">
+            <div flex flex-order-xs="2">
+                <md-tabs md-border-bottom md-center-tabs class="contact-overview-tabs" md-dynamic-height
+                         md-selected="ctrl.selectedTab">
+                    <md-tab>
+                        <md-tab-label>Vorschläge</md-tab-label>
+                        <md-tab-body>
+                            <ely-tutorial-contact-recommended-users selected-group="ctrl.selectedGroup"
+                                                                    is-active="ctrl.selectedTab === 0">
+                            </ely-tutorial-contact-recommended-users>
+                        </md-tab-body>
+                    </md-tab>
+                    <md-tab ng-repeat="statistic in ctrl.statistics">
+                        <md-tab-label>
+                            <span ng-class="{'active-group-name': statistic.group === ctrl.selectedGroup.group}">
+                                {{statistic.group}}
+                            </span>
+                            <span class="active-group-tab" ng-if="statistic.group === ctrl.selectedGroup.group">(aktiv)</span>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <ely-contact-preview statistics="ctrl.statistics" statistic="statistic"
+                                                 selected-statistic="ctrl.selectedGroup"
+                                                 scroll-request-name="SetupAccountContactOverview"
+                                                 deactivate-block-contact="true"
+                                                 show-only-contact="true"></ely-contact-preview>
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+            </div>
+            <div class="contact-group" flex="none" flex-order-xs="1">
+                <ely-tutorial-contact-group new-group-opened="ctrl.newGroupOpened" selected-group="ctrl.selectedGroup">
+                </ely-tutorial-contact-group>
+            </div>
+        </div>
+    </div>
+    <ely-setting-add-group ng-if="ctrl.showAddGroup" finish-event="ctrl.addNewGroupFinish" group-name-check-event="ctrl.validGroupName"
+                           upload-started-event="ctrl.uploadRunning" add-group="ctrl.commandAddNewGroupEvent"></ely-setting-add-group>
+</div>

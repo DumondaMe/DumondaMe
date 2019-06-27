@@ -1,0 +1,42 @@
+#ely-preview-picture {
+  height: 100%;
+  min-width: 320px;
+  position: relative;
+  @media screen and (min-width: $gt-xs) {
+    min-width: 600px;
+  }
+  .crop-area-container {
+    height: 100%;
+    width: 100%;
+    .cropArea {
+      padding-bottom: 52px;
+      .unsupported-file {
+        padding: 16px;
+        font-size: 14px;
+        color: $error-text;
+      }
+    }
+  }
+  .action-commands {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background-color: white;
+    z-index: 10;
+    .action-icon {
+      cursor: pointer;
+      .icon {
+        cursor: pointer;
+      }
+    }
+  }
+  .progress-bar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 11;
+  }
+}

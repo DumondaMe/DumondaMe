@@ -1,0 +1,52 @@
+.ely-button {
+  display: inline-block;
+  cursor: pointer;
+  color: #333;
+  background-color: #fff;
+  user-select: none;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  .is-selected {
+    background-color: #ccc;
+  }
+
+  .ely-button-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .ely-button-label-landscape {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
+  }
+
+  .portrait-format {
+    width: 100px;
+    height: 100px;
+    .ely-button-label {
+      padding: 6px 12px 12px 12px;
+    }
+    .ely-button-icon {
+      margin-top: 12px;
+      height: 36px;
+      width: 36px;
+    }
+  }
+  .landscape-format {
+    padding: 0 8px;
+    .ely-button-icon {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      margin-right: 6px;
+      height: 28px;
+      width: 28px;
+    }
+  }
+}
+
+.ely-button:hover {
+  background-color: #ccc;
+}

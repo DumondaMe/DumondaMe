@@ -1,0 +1,51 @@
+.ely-search-result-blog-page {
+  width: 280px;
+  height: 180px;
+  display: inline-block;
+  margin: 8px 4px;
+  .blog-page-container {
+    cursor: pointer;
+    .blog-header {
+      padding: 8px;
+      .blogger-image {
+        margin-right: 12px;
+        img {
+          height: 40px !important;
+          width: 40px !important;
+          border-radius: 50%;
+        }
+      }
+      .blog-header-container {
+        .user-name {
+          font-weight: 500;
+          font-size: 14px;
+          color: $primary-text;
+          height: 18px;
+          line-height: 18px;
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+    .blog-info {
+      padding: 0 8px 8px 8px;
+      .blog-title {
+        font-weight: 500;
+        font-size: 16px;
+        color: $primary-text;
+        max-height: 38px;
+        overflow: hidden;
+      }
+      .blog-text {
+        margin-top: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        color: $secondary-text;
+      }
+    }
+  }
+}
+
+

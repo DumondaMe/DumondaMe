@@ -1,0 +1,44 @@
+#ely-create-page-content {
+  .create-page-element-container {
+    cursor: pointer;
+    .create-page-element {
+      width: 100px;
+      height: 100px;
+      @media screen and (min-width: $gt-xs) {
+        width: 120px;
+        height: 120px;
+        margin: 0 8px;
+      }
+      .page-icon {
+        padding: 0 31px 16px 31px;
+        height: 38px;
+        width: 38px;
+        @media screen and (min-width: $gt-xs) {
+          padding: 0 36px 16px 36px;
+          height: 48px;
+          width: 48px;
+        }
+      }
+      .page-description {
+        text-align: center;
+        font-size: 14px;
+        color: $secondary-text;
+        font-weight: 500;
+        @media screen and (min-width: $gt-xs) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .create-page-element-container.selected-page-element {
+    .create-page-element {
+      .page-icon {
+        color: $primary-color;
+      }
+      .page-description {
+        font-weight: 500;
+        color: $primary-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+#ely-home {
+  height: 100%;
+  background-color: $background-normal;
+  #ely-home-content-container {
+    height: 100%;
+    overflow-y: auto;
+    #pinwall-commands-container {
+      @media screen and (min-width: $gt-xs) {
+        padding: 0 230px 0 0;
+      }
+      @media screen and (min-width: 1000px) {
+        padding: 0 255px 0 0;
+      }
+      @media screen and (min-width: $gt-md) {
+        padding: 0 320px 0 0;
+      }
+      @media screen and (min-width: 1750px) {
+        padding: 0 360px 0 0;
+      }
+      #pinwall-commands {
+        height: 70px;
+        max-width: 340px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 12px 0 8px;
+        @media screen and (min-width: $gt-sm) {
+          max-width: 710px;
+          width: 710px;
+        }
+        @media screen and (min-width: 1500px) {
+          max-width: 950px;
+          width: 950px;
+        }
+      }
+    }
+    .pinwall-container {
+      padding: 0 8px;
+      overflow-y: auto;
+      @media screen and (min-width: $gt-xs) {
+        padding: 0 230px 0 0;
+      }
+      @media screen and (min-width: 1000px) {
+        padding: 0 255px 0 0;
+      }
+      @media screen and (min-width: $gt-md) {
+        padding: 0 320px 0 0;
+      }
+      @media screen and (min-width: 1750px) {
+        padding: 0 360px 0 0;
+      }
+      .pinwall-inner-container {
+        max-width: 340px;
+        margin: 0 auto;
+        @media screen and (min-width: $gt-sm) {
+          max-width: 710px;
+          width: 710px;
+        }
+        @media screen and (min-width: 1500px) {
+          max-width: 950px;
+          width: 950px;
+        }
+        .ely-pinwall-container {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+  #info-container {
+    background-color: $background-light;
+    position: fixed;
+    right: 15px;
+    top: 118px;
+    bottom: 10px;
+    width: 215px;
+    @media screen and (min-width: $gt-sm) {
+      top: 134px;
+    }
+    @media screen and (min-width: 1000px) {
+      right: 25px;
+      width: 230px;
+    }
+    @media screen and (min-width: $gt-md) {
+      right: 30px;
+      width: 270px;
+    }
+
+    @media screen and (min-width: 1550px) {
+      right: 50px;
+    }
+
+    @media screen and (min-width: 1750px) {
+      width: 310px;
+    }
+  }
+}
+
+

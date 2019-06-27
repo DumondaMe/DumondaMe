@@ -1,0 +1,40 @@
+.topic-description {
+  .topic-type {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: white;
+    background-color: $secondary-color;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+}
+
+.topic-icon {
+}
+.youtube-icon {
+  color: #cd201f;
+}
+.book-icon {
+
+}
+.answer-icon {
+  color: #F9A825;
+}
+
+.ely-select-topic {
+  .md-select-value {
+    span {
+      max-width: 95%;
+      .md-text {
+        white-space: normal;
+      }
+    }
+  }
+}

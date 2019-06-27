@@ -1,0 +1,56 @@
+<div id="ely-feedback-group-overview">
+    <div id="ely-feedback-group-overview2" ely-infinite-scroll="ctrl.nextOverviewGroup">
+        <div id="ely-feedback-group-overview-container">
+            <div id="ely-feedback-group-inner-container">
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Bug'">Fehler</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Bug'">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du
+                    dazu bei, dass diese Plattform stabiler wird.
+                </div>
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Idea'">Ideen</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Idea'">Hast Du Ideen welche Funktionalitäten nützlich wären?
+                    Bist du noch nicht ganz zufrieden wie gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
+                </div>
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Discussion'">Was meinst Du zu...?</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Discussion'">An dieser Stelle werden Funktionalitäten
+                    diskutiert, welche in unseren Köpfen herumschwirren und wir mit Hilfe von deinem Feedback konkretisieren möchte.
+                </div>
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'DiscussionIdea'">{{ctrl.title}}</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'DiscussionIdea'">{{ctrl.description}}
+                </div>
+                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()" aria-label="create Feedback"
+                           ng-hide="ctrl.group === 'Discussion'">
+                    <span ng-if="ctrl.group === 'Bug'">Fehler melden</span>
+                    <span ng-if="ctrl.group === 'Idea' || ctrl.group === 'DiscussionIdea'">Idee erstellen</span>
+                </md-button>
+                <div class="ely-feedback-content">
+                    <md-tabs md-dynamic-height md-selected="ctrl.selectedIndex">
+                        <md-tab>
+                            <md-tab-label>
+                                <span>Offen</span>
+                                <span>({{ctrl.numberOfFeedback.numberOfOpenFeedbacks}})</span>
+                            </md-tab-label>
+                            <md-tab-body>
+                                <div class="feedback-tab-content">
+                                    <ely-feedback-overview-group-container commands="ctrl.commands" status="open" feedback-title="ctrl.title"
+                                                                           feedback-description="ctrl.description"
+                                                                           number-of-feedback="ctrl.numberOfFeedback"></ely-feedback-overview-group-container>
+                                </div>
+                            </md-tab-body>
+                        </md-tab>
+                        <md-tab>
+                            <md-tab-label>
+                                <span>Erledigt</span>
+                                <span>({{ctrl.numberOfFeedback.numberOfClosedFeedbacks}})</span>
+                            </md-tab-label>
+                            <md-tab-body>
+                                <ely-feedback-overview-group-container commands="ctrl.commandsClosed" status="closed" feedback-title="ctrl.title"
+                                                                       feedback-description="ctrl.description"
+                                                                       number-of-feedback="ctrl.numberOfFeedback"></ely-feedback-overview-group-container>
+                            </md-tab-body>
+                        </md-tab>
+                    </md-tabs>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

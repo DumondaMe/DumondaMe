@@ -1,0 +1,21 @@
+.ely-detail-answer-card {
+  margin: 0 auto 8px auto;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 10px;
+  .answer-detail-container {
+    .answer-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: $primary-text;
+    }
+    .answer-description {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $secondary-text;
+    }
+  }
+}
+
+

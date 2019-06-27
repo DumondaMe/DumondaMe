@@ -1,0 +1,17 @@
+.ely-similar-page-youtube {
+  .youtube-image {
+    width: 120px;
+    cursor: pointer;
+    .youtube-image-align {
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle
+    }
+    img {
+      border-radius: 2px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100px;
+    }
+  }
+}

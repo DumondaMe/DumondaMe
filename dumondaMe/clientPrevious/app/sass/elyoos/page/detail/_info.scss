@@ -1,0 +1,72 @@
+.ely-page-info-container {
+  border-top: 1px solid $divider;
+  padding: 12px;
+  clear: both;
+  .ely-page-info-content {
+    font-size: 14px;
+    color: $secondary-text;
+    .recommendation-content {
+      height: 42px;
+      .page-action.md-fab.md-mini {
+        height: 28px;
+        width: 28px;
+        line-height: 28px;
+        min-height: 0;
+        margin: 0;
+        .action-icon {
+          height: 16px;
+          width: 16px;
+          min-height: 16px;
+          min-width: 16px;
+        }
+      }
+      .upload-recommendation {
+        top: 6px;
+        left: 5px;
+        margin-right: 12px;
+      }
+      .number-container {
+        margin-left: 8px;
+        height: 28px;
+        .number {
+          color: $primary-color;
+          line-height: 28px;
+          font-size: 14px;
+          font-weight: 500;
+          vertical-align: middle;
+          margin-right: 2px;
+        }
+        .description {
+          color: $primary-text;
+          line-height: 28px;
+          font-size: 14px;
+          vertical-align: middle;
+        }
+      }
+    }
+    .topic-container {
+      margin-top: 8px;
+    }
+    .info-detail-row {
+      margin-bottom: 4px;
+      .right-column-info-detail {
+        margin-left: 8px;
+      }
+      .link {
+        cursor: pointer;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+    }
+    .administrator-content {
+      margin-top: 12px;
+      .title {
+        color: $primary-text;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

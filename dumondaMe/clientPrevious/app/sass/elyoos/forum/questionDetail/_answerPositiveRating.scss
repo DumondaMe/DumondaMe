@@ -1,0 +1,16 @@
+.forum-answer-positive-rating {
+  width: 48px;
+  margin-right: 8px;
+  .positive-rating-icon {
+    cursor: pointer;
+    color: $secondary-text;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+  }
+  .number {
+    color: $secondary-text;
+    font-size: 20px;
+    font-weight: 400;
+  }
+}

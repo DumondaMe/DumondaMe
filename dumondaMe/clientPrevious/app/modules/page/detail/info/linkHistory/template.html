@@ -1,0 +1,16 @@
+<md-dialog class="ely-link-history" aria-label="link history">
+    <md-dialog-content class="link-content">
+        <div class="link-view">
+            <ely-iframe width="270" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.selectedLinkEmbed"
+                        ng-if="ctrl.label === 'Youtube'" layout="row" layout-align="center center"></ely-iframe>
+        </div>
+        <div class="link-overview">
+            <div class="link-date" ng-repeat="historyDate in ctrl.linkHistoryDate" ng-click="ctrl.selectLink($index)"
+                 ng-class="{'link-date-selected': ctrl.actualIndex === $index}">
+                {{ctrl.getTime(historyDate, 'LLL')}}</div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="ctrl.cancel()">Ok</md-button>
+    </md-dialog-actions>
+</md-dialog>

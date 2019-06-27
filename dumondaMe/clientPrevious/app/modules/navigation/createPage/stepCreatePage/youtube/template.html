@@ -1,0 +1,9 @@
+<div id="create-youtube-step" class="manage-page" ng-cloak>
+    <ely-manage-youtube is-edit-mode="false" data="ctrl.data"
+                     event-show-existing-videos="ctrl.showExistingVideos"
+                     ng-if="!ctrl.showExistingPages"
+                     event-data-changed="ctrl.dataChanged"></ely-manage-youtube>
+
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages" hide-commands="true"
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+</div>

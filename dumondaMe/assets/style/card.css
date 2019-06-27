@@ -1,0 +1,130 @@
+.ely-card {
+  padding: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: none; }
+  @media screen and (max-width: 700px) {
+    .ely-card {
+      border-radius: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding: 12px; } }
+
+.feed-card {
+  margin-bottom: 18px;
+  padding-bottom: 24px;
+  padding-left: 22px;
+  padding-right: 22px;
+  max-width: 550px; }
+  @media screen and (max-width: 700px) {
+    .feed-card {
+      margin-bottom: 0;
+      padding-left: 16px;
+      padding-right: 16px; } }
+  .feed-card .description {
+    margin-top: 12px; }
+    .feed-card .description a {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.87); }
+  .feed-card .feed-card-header {
+    margin-bottom: 12px;
+    display: flex; }
+    .feed-card .feed-card-header h2.feed-card-title {
+      font-size: 16px;
+      line-height: 24px;
+      margin: 0; }
+    .feed-card .feed-card-header .answer-type {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 16px; }
+    .feed-card .feed-card-header .card-header-link a {
+      font-size: 16px;
+      line-height: 16px;
+      text-decoration: none; }
+    .feed-card .feed-card-header .card-header-link a:hover {
+      text-decoration: underline; }
+    .feed-card .feed-card-header .secondary-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.54); }
+    .feed-card .feed-card-header .v-menu {
+      margin-left: 8px; }
+      .feed-card .feed-card-header .v-menu .v-menu__activator {
+        align-items: flex-start; }
+        .feed-card .feed-card-header .v-menu .v-menu__activator .v-btn {
+          margin: 0; }
+  .feed-card .card-footer-feed {
+    display: flex; }
+    .feed-card .card-footer-feed .footer-icon {
+      vertical-align: top;
+      display: inline-block;
+      height: 40px; }
+      .feed-card .card-footer-feed .footer-icon .footer-description {
+        display: inline-block;
+        vertical-align: top;
+        line-height: 14px;
+        height: 14px;
+        margin: 14px 0 12px 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54); }
+        .feed-card .card-footer-feed .footer-icon .footer-description .footer-link {
+          cursor: pointer; }
+        .feed-card .card-footer-feed .footer-icon .footer-description :hover.footer-link {
+          text-decoration: underline; }
+      .feed-card .card-footer-feed .footer-icon .footer-description.number {
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer; }
+      .feed-card .card-footer-feed .footer-icon .footer-description.right-number {
+        margin-right: 16px;
+        margin-left: 6px; }
+      .feed-card .card-footer-feed .footer-icon .footer-description.left-number {
+        margin-right: 6px;
+        margin-left: 16px; }
+      .feed-card .card-footer-feed .footer-icon .user-icon {
+        vertical-align: top;
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        margin-right: 16px; }
+        .feed-card .card-footer-feed .footer-icon .user-icon img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%; }
+      .feed-card .card-footer-feed .footer-icon .action-icon {
+        margin-top: 6px;
+        cursor: pointer;
+        color: #009e97; }
+      .feed-card .card-footer-feed .footer-icon .action-icon:hover {
+        color: #607D8B; }
+      .feed-card .card-footer-feed .footer-icon .tooltip-icon {
+        margin-top: 6px;
+        color: #009e97; }
+      .feed-card .card-footer-feed .footer-icon .main-action-icon {
+        margin-top: 6px;
+        color: #009e97; }
+      .feed-card .card-footer-feed .footer-icon .tooltip-icon.comment-icon {
+        margin-top: 8px; }
+    .feed-card .card-footer-feed .footer-icon.footer-watches-button .not-watching.v-btn {
+      background-color: #009e97; }
+      .feed-card .card-footer-feed .footer-icon.footer-watches-button .not-watching.v-btn i.v-icon {
+        color: white; }
+    .feed-card .card-footer-feed .footer-icon.footer-watches-button .watching.v-btn {
+      background-color: #607D8B; }
+      .feed-card .card-footer-feed .footer-icon.footer-watches-button .watching.v-btn i.v-icon {
+        color: white; }
+    .feed-card .card-footer-feed .footer-icon.footer-watches-button button {
+      margin: 0; }
+    .feed-card .card-footer-feed .footer-icon.footer-watches-button .footer-description.number-of-watches {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54);
+      margin-right: 8px;
+      margin-left: 22px; }
+
+/*# sourceMappingURL=card.css.map */

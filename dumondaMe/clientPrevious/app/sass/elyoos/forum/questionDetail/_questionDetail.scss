@@ -1,0 +1,25 @@
+#ely-question-detail {
+  height: 100%;
+  background-color: $background-light;
+  #ely-question-detail-overview {
+    max-width: 750px;
+    min-width: 300px;
+    width: 100%;
+    padding-bottom: 12px;
+    margin: 24px auto 12px auto;
+    border-bottom: 1px solid $divider;
+    .description {
+      font-size: 18px;
+      color: $primary-color;
+    }
+    .topic {
+      margin-top: 4px;
+    }
+    .question-commands {
+      margin-top: 8px;
+      margin-left: -8px;
+    }
+  }
+}
+
+

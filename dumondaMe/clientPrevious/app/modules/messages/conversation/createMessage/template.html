@@ -1,0 +1,25 @@
+<md-dialog aria-label="Send new Message" class="ely-conversation-message-create" layout="column">
+    <form name="createMessageForm" class="content-form" ng-cloak>
+        <div class="md-title ely-dialog-title">Nachricht an <span class="highlighted">{{ctrl.description}}</span> schreiben</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="message-input-container">
+                    <label>Nachricht...</label>
+                    <textarea name="messageText" class="message-input" ng-model="ctrl.newMessage" required md-maxlength="1000" md-no-asterisk
+                              ng-disabled="ctrl.uploadStarted" ng-change="ctrl.messageTextChanged()" max-rows="7"></textarea>
+                    <div ng-messages="createMessageForm.messageText.$error" ng-show="createMessageForm.messageText.$dirty">
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()" ng-disabled="ctrl.uploadStarted" target="_blank" md-autofocus>Abbrechen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.sendMessage()"
+                       ng-disabled="ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed">Senden
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

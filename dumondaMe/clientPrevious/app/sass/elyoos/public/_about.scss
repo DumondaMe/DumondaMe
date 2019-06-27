@@ -1,0 +1,59 @@
+#ely-about {
+  min-height: 100%;
+  background-color: #FFFFFF;
+  #ely-about-container {
+    min-height: 100%;
+    max-width: 500px;
+    @media screen and (min-width: $gt-sm) {
+      max-width: 600px;
+    }
+    @media screen and (min-width: $gt-xmd) {
+      max-width: 700px;
+    }
+    margin: 0 auto 64px auto;
+    padding: 32px 16px 0 16px;
+    @media screen and (max-width: $gt-sm) {
+      padding-top: 18px;
+    }
+    .about-elyoos-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+      margin-bottom: 20px;
+    }
+    .about-elyoos-title {
+      font-size: 24px;
+      font-weight: 400;
+      color: $primary-text;
+      margin-bottom: 40px;
+    }
+    .user {
+      margin-bottom: 60px;
+      .about-text {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 26px;
+        margin-bottom: 0;
+      }
+      .profile-image {
+        height: 130px;
+        width: 130px;
+        margin-right: 18px;
+        border-radius: 4px;
+      }
+      .name {
+        font-size: 18px;
+        font-weight: 400;
+        color: $primary-color;
+        margin-bottom: 6px;
+        margin-top: 0;
+      }
+      .ely-function {
+        font-size: 14px;
+        font-weight: 400;
+        color: $secondary-text;
+        margin-bottom: 3px;
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@mixin cardElement() {
+  max-width: 340px;
+  min-width: 280px;
+  @media screen and (min-width: 1500px) {
+    max-width: 450px;
+  }
+}

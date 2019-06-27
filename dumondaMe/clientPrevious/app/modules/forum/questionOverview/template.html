@@ -1,0 +1,8 @@
+<div id="ely-question-overview">
+    <div class="question-overview-container" ely-infinite-scroll="ctrl.nextOverview">
+        <div ng-repeat="question in ctrl.overview.question">
+            <ely-question-overview-element element="question" remove-question="ctrl.questionRemoved"
+                                           index="$index"></ely-question-overview-element>
+        </div>
+    </div>
+</div>

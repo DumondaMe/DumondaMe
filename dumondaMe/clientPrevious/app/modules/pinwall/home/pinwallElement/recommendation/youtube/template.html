@@ -1,0 +1,12 @@
+<div class="youtube-recommendation-desktop">
+    <ely-iframe ng-if="!ctrl.showImagePreview" width="450" height="320" secure-link="https://www.youtube.com/embed/"
+                src="ctrl.getYoutubeAutoplayLink(ctrl.element.linkEmbed)"
+                layout="row" layout-align="center center"></ely-iframe>
+    <img ng-src="{{ctrl.getYoutubeImage(ctrl.element.linkEmbed)}}" ng-if="ctrl.showImagePreview" ng-click="ctrl.showImagePreview = false"
+         class="youtube-preview-image"/>
+    <div class="youtube-description" ui-sref="page.detail({label: 'Youtube', pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
+    <div class="action-container">
+        <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
+                                                 element="ctrl.element"></ely-pinwall-page-recommendation-actions>
+    </div>
+</div>

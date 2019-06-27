@@ -1,0 +1,35 @@
+.ely-pinwall-container {
+  #pinwall-no-result {
+    margin: 48px auto 48px auto;
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+      color: $primary-text;
+      margin-bottom: 12px;
+    }
+    .description {
+      font-size: 14px;
+      color: $secondary-text;
+      .link {
+        cursor: pointer;
+        color: $primary-color;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .one-column-container {
+    margin: 0 auto;
+    max-width: 340px;
+  }
+  .two-column-container {
+    margin: 0 auto;
+    width: 710px;
+    @media screen and (min-width: 1500px) {
+      width: 930px;
+    }
+  }
+}
+
+

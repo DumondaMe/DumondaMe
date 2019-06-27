@@ -1,0 +1,28 @@
+#ely-question {
+  height: 100%;
+  background-color: $background-light;
+  #ely-question-commands {
+    height: 70px;
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto 12px auto;
+    #ely-question-commands-inner-container {
+      height: 70px;
+    }
+  }
+  #ely-question-overview {
+    width: 100%;
+
+    .question-overview-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  .create-question-fab {
+    @include ely-fab-button();
+  }
+}
+
+

@@ -1,0 +1,22 @@
+#create-page-select-type-step {
+  #ely-create-page-content {
+    @media screen and (min-width: $gt-xs) {
+      padding: 0 16px;
+    }
+  }
+  #ely-create-page-description {
+    border-top: 1px solid $divider;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    .description {
+      max-width: 500px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 20px;
+      color: $secondary-text;
+      font-weight: 500;
+      padding: 0 24px;
+      margin: 0 auto;
+    }
+  }
+}
