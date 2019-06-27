@@ -1,0 +1,35 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <div flex="none" hide-gt-md>
+            <md-button class="md-icon-button ely-toolbar-menu" aria-label="Settings" ng-click="ctrl.openLeftNav()">
+                <md-icon md-svg-icon="system:menu"></md-icon>
+            </md-button>
+        </div>
+        <div flex="none" ng-if="ctrl.hasBackNav && !ctrl.searchExpanded" hide-gt-md>
+            <md-button class="md-icon-button" aria-label="Back" ng-click="ctrl.navigateBack()">
+                <md-icon md-svg-icon="system:arrowBack"></md-icon>
+            </md-button>
+        </div>
+        <div flex="nogrow" class="title" ng-if="ctrl.title" hide show-gt-sm>{{ctrl.title}}</div>
+        <ely-toolbar-search flex="65" ng-show="ctrl.hasSearch" lock-open="true" search-close="ctrl.searchClose()" hide
+                            show-gt-sm></ely-toolbar-search>
+        <span flex></span>
+        <ely-toolbar-message-info ng-if="!ctrl.searchExpanded" count="ctrl.count"></ely-toolbar-message-info>
+        <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"
+                            hide-gt-sm></ely-toolbar-search>
+        <md-menu md-position-mode="target-right target" class="button-settings-container">
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.openCreatePage()">Neuer Beitrag</md-button>
+                </md-menu-item>
+                <md-divider></md-divider>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.logout()">Abmelden</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>

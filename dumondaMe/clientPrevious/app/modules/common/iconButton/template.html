@@ -1,0 +1,9 @@
+<div class="ely-icon-button" layout="row" layout-align="start center">
+    <div>
+        <md-button class="md-fab md-mini" aria-label="{{ctrl.label}}" ng-disabled="ctrl.elyDisabled">
+            <md-icon md-svg-icon="{{ctrl.icon}}"></md-icon>
+        </md-button>
+    </div>
+    <div class="button-text" ng-class="{'text-disabled': ctrl.elyDisabled}"
+         ng-show="ctrl.$mdMedia('gt-sm') || ctrl.showLabelAlways === true">{{ctrl.label}}</div>
+</div>

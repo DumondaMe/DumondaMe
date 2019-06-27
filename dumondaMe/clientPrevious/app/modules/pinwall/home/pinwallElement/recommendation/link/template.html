@@ -1,0 +1,10 @@
+<div class="link-recommendation-desktop">
+    <div class="link-preview-image" ui-sref="page.detail({label: 'Link', pageId: ctrl.element.pageId})" ng-if="ctrl.element.previewUrl">
+        <img ng-src="{{ctrl.element.previewUrl}}">
+    </div>
+    <div class="link-description" ui-sref="page.detail({label: 'Link', pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
+    <div class="action-container">
+        <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
+                                                 element="ctrl.element"></ely-pinwall-page-recommendation-actions>
+    </div>
+</div>

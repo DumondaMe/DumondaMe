@@ -1,0 +1,27 @@
+.link-recommendation-desktop {
+  .link-preview-image {
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+    img {
+      width: 100%;
+    }
+  }
+  .link-description {
+    padding: 0 16px 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: $secondary-text;
+    overflow: hidden;
+    max-height: 3.2em;
+    @media screen and (max-width: $gt-xxs) {
+      font-size: 12px;
+      max-height: 3em;
+    }
+  }
+  .action-container {
+    padding: 0 8px 8px 8px;
+  }
+}
+
+

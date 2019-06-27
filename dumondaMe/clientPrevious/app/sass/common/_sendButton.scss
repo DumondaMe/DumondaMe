@@ -1,0 +1,30 @@
+.ely-submit-button {
+
+  button {
+    display: inline-block;
+  }
+
+  .ely-submit-button-success {
+    display: inline-block;
+    margin-left: 5px;
+
+    img {
+      width: 34px;
+      height: 34px;
+
+      padding: 2px;
+
+      -webkit-transition: all linear 0.5s;
+      transition: all linear 0.5s;
+
+      .ng-hide {
+        opacity:0;
+      }
+    }
+  }
+
+  .ely-submit-button-error {
+    @extend .ely-submit-button-success;
+    cursor: pointer;
+  }
+}

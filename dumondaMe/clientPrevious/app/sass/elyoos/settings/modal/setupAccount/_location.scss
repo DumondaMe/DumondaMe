@@ -1,0 +1,12 @@
+#setup-location-step {
+  .location-container {
+    max-width: 650px;
+    margin: 0 auto;
+    .location-description {
+      font-weight: 500;
+      font-size: 16px;
+      color: $secondary-text;
+      margin-bottom: 12px;
+    }
+  }
+}

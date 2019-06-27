@@ -1,0 +1,17 @@
+#ely-pinwall-compact {
+  padding: 0 16px;
+
+  @media screen and (max-width: $gt-xs) {
+    background-color: $background-light;
+  }
+  #ely-pinwall-compact-container {
+    margin: 0 auto;
+    max-width: 750px;
+
+    @media screen and (min-width: 1500px) {
+      max-width: 950px;
+    }
+  }
+}
+
+

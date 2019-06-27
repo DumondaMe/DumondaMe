@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head></head>
+<body>
+<script type="text/javascript">
+    if (window.opener !== null && typeof window.opener.elyChildWindowUrl === 'function') {
+        window.opener.elyChildWindowUrl(window.location.href);
+    }
+    window.close();
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+#ely-contact {
+  height: 100%;
+  background-color: $background-normal;
+  .contact-tabs {
+    height: 100%;
+    md-tabs-wrapper {
+      background-color: #ffffff;
+    }
+    .md-active > div{
+      height: 100%;
+    }
+    .tab-me {
+      margin-right: 2px;
+    }
+  }
+}

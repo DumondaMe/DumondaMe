@@ -1,0 +1,7 @@
+<div class="ely-page-overview-youtube">
+    <md-radio-button ng-value="ctrl.page" ng-if="ctrl.hasSelect">
+        <div class="md-title youtube-title">{{ctrl.page.title}}</div>
+    </md-radio-button>
+    <div class="youtube-title no-select-title" ng-if="!ctrl.hasSelect">{{ctrl.page.title}}</div>
+    <ely-iframe width="200" height="150" secure-link="https://www.youtube.com/embed/" src="ctrl.page.link"></ely-iframe>
+</div>

@@ -1,0 +1,24 @@
+.ely-search-result-book-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px;
+  .book-page-container {
+    cursor: pointer;
+    .book-image {
+      width: 100px!important;
+      height: 160px!important;
+    }
+    .info-container {
+      padding: 8px;
+      .page-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: $primary-text;
+        max-height: 34px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+

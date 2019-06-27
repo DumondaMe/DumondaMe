@@ -1,0 +1,11 @@
+<div class="page-element-container">
+    <md-radio-group ng-model="ctrl.pageSelected" ng-change="ctrl.pageSelectedChanged()">
+        <div ng-repeat="page in ctrl.pages" class="page-overview-element"
+             ng-class="{'page-overview-element-selected': page.selectedStyle}">
+            <ely-existing-page-overview-book page="page" has-select="ctrl.hasSelect" ng-if="page.label==='Book'"></ely-existing-page-overview-book>
+            <ely-existing-page-overview-youtube page="page" has-select="ctrl.hasSelect"
+                                                ng-if="page.label==='Youtube'"></ely-existing-page-overview-youtube>
+            <ely-existing-page-overview-link page="page" has-select="ctrl.hasSelect" ng-if="page.label==='Link'"></ely-existing-page-overview-link>
+        </div>
+    </md-radio-group>
+</div>

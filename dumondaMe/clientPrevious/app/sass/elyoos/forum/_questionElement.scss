@@ -1,0 +1,56 @@
+#ely-question {
+
+  .question-overview-element {
+    margin: 0 auto 8px auto;
+    min-width: 280px;
+    max-width: 750px;
+    border-top: 1px solid $divider;
+    .container {
+      padding: 10px;
+      .activity-rating {
+        width: 48px;
+        margin-right: 12px;
+        font-weight: 500;
+        color: $secondary-text;
+        .number {
+          font-size: 17px;
+        }
+        .rating-description {
+          margin-top: 4px;
+          font-size: 12px;
+        }
+      }
+      .description {
+        font-size: 17px;
+        font-weight: 400;
+        color: $primary-color;
+        cursor: pointer;
+      }
+      .description:hover {
+        text-decoration: underline;
+      }
+      .category-description {
+        margin-top: 4px;
+        padding: 0;
+        .category-type {
+          font-size: 12px;
+          height: 17px;
+          line-height: 17px;
+        }
+      }
+      .menu-settings-container {
+        padding: 0;
+        margin: 0 0 0 8px;
+        .menu-settings {
+          margin: 0;
+          padding: 0;
+          width: 24px;
+          height: 24px;
+          min-height: 24px;
+        }
+      }
+    }
+  }
+}
+
+

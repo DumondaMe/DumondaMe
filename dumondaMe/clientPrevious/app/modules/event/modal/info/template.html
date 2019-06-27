@@ -1,0 +1,20 @@
+<md-dialog id="event-info" aria-label="Show Event">
+    <form name="ctrl.infoForm" ng-cloak>
+        <div class="md-title ely-dialog-title event-title">{{ctrl.event.title}}</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <div class="ely-info-element">Veranstaltung von <span class="link" ng-click="ctrl.goToPageDetail()">{{ctrl.event.pageTitle}}</span></div>
+                <div class="ely-info-date">{{ctrl.getTime(ctrl.event.startDate, 'l LT')}} bis
+                    {{ctrl.getEndDate(ctrl.event.startDate, ctrl.event.endDate)}}
+                </div>
+                <div class="ely-info-address">{{ctrl.event.address}}</span></div>
+                <div class="ely-info-address-description">{{ctrl.event.addressDescription}}</div>
+                <div class="ely-info-description" ng-if="ctrl.event.description">{{ctrl.event.description}}</div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Schliessen</md-button>
+            <md-button ng-click="ctrl.openLink(ctrl.event.linkDescription)" ng-if="ctrl.event.linkDescription">Link zur Veranstaltung</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

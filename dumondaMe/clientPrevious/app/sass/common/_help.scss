@@ -1,0 +1,17 @@
+.ely-help {
+  padding: 8px 16px 0 16px;
+  .ely-help-container {
+    padding-top: 8px;
+    border-top: 1px solid $divider;
+    .help-title {
+      margin-top: 12px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .help-text {
+      font-size: 16px;
+      color: $secondary-text;
+    }
+  }
+}

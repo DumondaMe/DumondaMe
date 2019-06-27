@@ -1,0 +1,40 @@
+<div id="ely-page-comments">
+    <div>
+        <md-tabs md-dynamic-height class="overview-rating-tabs"
+                 ng-if="(ctrl.recommendation.summary.contact.numberOfRecommendations !== ctrl.recommendation.summary.all.numberOfRecommendations) &&
+            !(ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
+             ctrl.recommendation.user)">
+            <md-tab>
+                <md-tab-label>
+                    <div>Alle</div>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="comments-content-container">
+                        <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab>
+                <md-tab-label>
+                    <span class="tab-me">Ich</span>
+                    <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+                    <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
+                    <span class="number-of-recommendations">({{ctrl.recommendation.summary.contact.numberOfRecommendations}})</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="comments-content-container">
+                        <ely-page-detail-user-comments-detail only-contact="true"></ely-page-detail-user-comments-detail>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+        <div ng-if="ctrl.recommendation.summary.all.numberOfRecommendations > 0 &&
+            (ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations ||
+            (ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
+             ctrl.recommendation.user))">
+            <md-content class="comments-content-container">
+                <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
+            </md-content>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<md-content id="ely-home">
+    <div layout="column" id="ely-home-content-container" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
+        <div id="pinwall-commands-container">
+            <div id="pinwall-commands" layout="row" flex="none">
+                <div layout="row" layout-align="start center">
+                    <ely-icon-button icon="navFAB:add" label="Neuer Beitrag" ng-click="ctrl.openCreatePage()"></ely-icon-button>
+                    <ely-icon-button icon="navFAB:filter" label="Filter" ng-click="ctrl.openFilterDialog()"></ely-icon-button>
+                </div>
+                <span flex></span>
+                <div id="pinwall-order">
+                    <md-input-container>
+                        <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
+                                   md-on-close="ctrl.orderChanged()">
+                            <md-option value="new">Neue Beiträge</md-option>
+                            <md-option value="popular">Beliebteste Beiträge</md-option>
+                            <md-option value="suggestPage">Empfehlungen für dich</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex>
+            <div class="pinwall-inner-container">
+                <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
+                             show-info="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"
+                             add-remove-pinwall-element-service="ctrl.addRemovePinwallElementService"></ely-pinwall>
+            </div>
+        </div>
+    </div>
+    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
+    <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
+    <md-card id="info-container" ng-if="ctrl.$mdMedia('(min-width: 600px)') && !ctrl.showSearch">
+        <ely-home-info-container></ely-home-info-container>
+    </md-card>
+</md-content>

@@ -1,0 +1,65 @@
+#ely-conversation {
+  height: 100%;
+  position: relative;
+  #ely-conversation-content {
+    height: 100%;
+    background-color: $background-normal;
+    padding-top: 48px;
+    .conversation-container {
+      background-color: $background-normal;
+      height: 100%;
+      overflow-y: auto;
+      .conversation-inner-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 0 8px 24px 8px;
+        .date-container {
+          width: 80px;
+          margin: 8px auto;
+          padding: 8px;
+          background-color: $primary-color-light;
+          color: $primary-white-text;
+          border-radius: 4px;
+          .date {
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  .conversation-description {
+    z-index: 10;
+    position: absolute;
+    padding-left: 32px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: $primary-color-light;
+    .description {
+      cursor: pointer;
+      color: $primary-white-text;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .description:hover {
+      color: $primary-white-text;
+      text-decoration: underline;
+    }
+  }
+  .thread-overview-container {
+    height: 100%;
+    background-color: white;
+  }
+  .create-message-fab {
+    position: absolute;
+    top: 22px;
+    right: 16px;
+    @media screen and (min-width: $gt-md) {
+      right: 340px;
+    }
+  }
+}

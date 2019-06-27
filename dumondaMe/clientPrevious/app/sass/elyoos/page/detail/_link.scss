@@ -1,0 +1,49 @@
+#ely-link-page-detail {
+  #ely-link-page-main-detail {
+    padding: 12px;
+    .title-container {
+      .title {
+        color: $primary-color;
+        font-size: 20px;
+        overflow: hidden;
+        @media screen and (max-width: $gt-xs) {
+          max-height: 74px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          font-size: 24px;
+        }
+      }
+      .page-link {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      .page-link:hover {
+        text-decoration: underline;
+      }
+      .button-settings-container {
+        padding: 0;
+        .button-settings {
+          margin: 0;
+        }
+      }
+    }
+
+    .topic-description {
+      margin: 0 0 4px 0;
+    }
+
+    .image-description-container {
+      cursor: pointer;
+      .image {
+        margin: 0 auto 8px auto;
+        width: 100%;
+        max-width: 400px;
+      }
+      .description {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

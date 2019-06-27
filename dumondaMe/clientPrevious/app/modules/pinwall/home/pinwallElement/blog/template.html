@@ -1,0 +1,35 @@
+<md-card class="pinwall-blog-card">
+    <md-card-header>
+        <md-card-avatar ng-click="ctrl.openUserDetail()" class="user-avatar">
+            <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
+        </md-card-avatar>
+        <div class="blog-header">
+            <div layout="row" layout-wrap>
+                <div class="md-title user-name" ng-if="!ctrl.element.isAdmin" ng-click="ctrl.openUserDetail()">
+                    {{ctrl.element.name}}
+                </div>
+                <div class="md-title user-name" ng-if="ctrl.element.isAdmin" ui-sref="settings.profile()">Du</div>
+                <div>
+                    <svg width="16px" height="16px" viewBox="0 0 48 48" fill="#757575" class="divider">
+                        <path d="M20 34l10-10 -10-10z"></path>
+                    </svg>
+                </div>
+                <div class="public-type" ng-if="ctrl.element.isPublic">Öffentlich</div>
+                <div class="public-type" ng-if="!ctrl.element.isPublic">Privat</div>
+            </div>
+            <div>
+                <div class="blog-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+                <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
+            </div>
+        </div>
+    </md-card-header>
+    <div class="blog-title" ng-if="ctrl.element.title" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">{{ctrl.element.title}}</div>
+    <div class="blog-image-container" ng-if="ctrl.element.previewUrl" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">
+        <img ng-src="{{ctrl.element.previewUrl}}" class="md-card-image">
+    </div>
+    <md-card-content class="card-content-container">
+        <div class="md-body-1 blog-text" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">{{ctrl.previewText}}</div>
+    </md-card-content>
+    <ely-blog-actions element="ctrl.element" request-running="ctrl.requestRunning"></ely-blog-actions>
+    <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
+</md-card>

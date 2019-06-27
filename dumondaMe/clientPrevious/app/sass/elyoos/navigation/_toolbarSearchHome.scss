@@ -1,0 +1,11 @@
+.ely-toolbar-search-home {
+  border-radius: 4px;
+  li {
+    border-bottom: 1px solid $divider;
+    white-space: normal;
+  }
+
+  li:last-child {
+    border-bottom-width: 0;
+  }
+}

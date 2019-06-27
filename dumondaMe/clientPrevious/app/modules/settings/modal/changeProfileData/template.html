@@ -1,0 +1,36 @@
+<md-dialog id="change-profile-data" aria-label="Change Profile Data">
+    <div class="md-title ely-dialog-title">Profile ändern</div>
+    <form name="ctrl.changeProfileForm" ng-cloak>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="ely-input-container">
+                    <label>E-Mail</label>
+                    <input name="email" ng-model="ctrl.userDataOnServer.email" ng-disabled="true"/>
+                </md-input-container>
+                <md-input-container class="ely-input-container">
+                    <label>Vorname</label>
+                    <input name="forename" ng-model="ctrl.userDataToChange.forename" required ng-disabled="ctrl.running" ng-change="ctrl.change()"/>
+                    <div ng-messages="ctrl.changeProfileForm.forename.$error" ng-show="ctrl.changeProfileForm.forename.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="ely-input-container">
+                    <label>Nachname</label>
+                    <input name="surname" ng-model="ctrl.userDataToChange.surname" required ng-disabled="ctrl.running"
+                           ng-change="ctrl.change()"/>
+                    <div ng-messages="ctrl.changeProfileForm.surname.$error" ng-show="ctrl.changeProfileForm.surname.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.upload()"
+                       ng-disabled="ctrl.running || !ctrl.uploadValid || ctrl.changeProfileForm.$invalid">
+                Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

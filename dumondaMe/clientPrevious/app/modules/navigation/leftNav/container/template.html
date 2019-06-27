@@ -1,0 +1,28 @@
+<div>
+    <div class="sidnav-header" layout="column">
+        <div layout="row">
+            <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none" ng-click="ctrl.goToProfile()"/>
+            <div class="header-commands" layout="row" layout-align="end none" flex="grow">
+            </div>
+        </div>
+        <div class="user-info" ng-click="ctrl.goToProfile()">
+            <div class="user-name">{{ctrl.userInfo.name}}</div>
+        </div>
+    </div>
+    <md-divider class="ely-divider"></md-divider>
+    <md-content class="left-nav-content">
+        <ely-left-nav-element state="home" base-state="home" icon="nav:home" description="Home"></ely-left-nav-element>
+        <ely-left-nav-element state="settings.profile" base-state="settings" icon="nav:profile" description="Dein Profil"></ely-left-nav-element>
+        <ely-left-nav-element state="message.threads" base-state="message" icon="nav:thread" description="Nachrichten"
+                              count="ctrl.userInfo.totalUnreadMessages"></ely-left-nav-element>
+        <ely-left-nav-element state="map.overview" base-state="map" icon="nav:map"
+                              description="Übersichtskarte"></ely-left-nav-element>
+        <!--<ely-left-nav-element state="forum.question" base-state="forum" icon="nav:forum" description="Forum"></ely-left-nav-element>-->
+    </md-content>
+    <md-divider class="ely-divider"></md-divider>
+    <md-content class="left-nav-content">
+        <ely-left-nav-element state="feedback" base-state="feedback" icon="nav:feedback" description="Feedback"></ely-left-nav-element>
+        <ely-left-nav-element icon="nav:inviteFriends" description="Freunde einladen" on-click="ctrl.openInviteFriendsDialog"></ely-left-nav-element>
+        <ely-left-nav-element state="info" base-state="info" icon="nav:info" description="Infos"></ely-left-nav-element>
+    </md-content>
+</div>

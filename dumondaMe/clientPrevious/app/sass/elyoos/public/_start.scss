@@ -1,0 +1,55 @@
+#start-screen {
+  background-color: #FFFFFF;
+  overflow-y: auto;
+  height: 100%;
+  #start-container {
+    min-height: 100%;
+    #public-overview-description {
+      padding: 60px 0 40px 0;
+      background-color: #fafafa;
+      @media screen and (max-width: 960px) {
+        padding-top: 30px;
+        padding-bottom: 20px;
+      }
+      .overview-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        .description-container {
+          @media screen and (max-width: 960px) {
+            margin-bottom: 25px;
+          }
+          .title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: $primary-color;
+            margin-bottom: 16px;
+          }
+          .description {
+            width: 270px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: $secondary-text;
+          }
+        }
+      }
+    }
+    #public-preview-screen-container {
+      background-color: white;
+      padding-bottom: 30px;
+      #public-preview-screen-inner-container {
+        margin: 0 auto;
+        max-width: 800px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+
+

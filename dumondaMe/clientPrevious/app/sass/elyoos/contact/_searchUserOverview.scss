@@ -1,0 +1,28 @@
+#ely-user-search-overview {
+  height: 100%;
+  background-color: $background-normal;
+  padding: 0 6px;
+  .search-result-container {
+    margin: 0 auto;
+    width: 296px;
+    @media screen and (min-width: $gt-sm) {
+      width: 444px;
+    }
+    @media screen and (min-width: $gt-md) {
+      margin-top: 16px;
+    }
+    @media screen and (min-width: $gt-xmd) {
+      width: 592px;
+    }
+    .search-element {
+      margin-right: 4px;
+      margin-left: 4px;
+      display: inline-block;
+    }
+  }
+
+  .pinwall-no-element {
+    margin-top: 16px;
+    height: 55px;
+  }
+}

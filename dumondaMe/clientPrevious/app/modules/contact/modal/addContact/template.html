@@ -1,0 +1,20 @@
+<md-dialog id="add-contact" aria-label="Select Contact Group">
+    <form name="ctrl.addContactForm" ng-cloak>
+        <div class="md-title ely-dialog-title"><span class="highlighted">{{ctrl.name}}</span> den Kontakten hinzufügen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-radio-group ng-model="ctrl.selectedType">
+                    <md-radio-button ng-repeat="groupValue in ctrl.groups" value="{{groupValue}}" aria-label="{{groupValue}}" ng-disable="ctrl.uploadStarted">
+                        {{groupValue}}
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()" target="_blank" md-autofocus>Abbrechen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.accept('addContact')" ng-disable="ctrl.uploadStarted">Hinzufügen</md-button>
+        </md-dialog-actions>
+    </form>
+    <span flex></span>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

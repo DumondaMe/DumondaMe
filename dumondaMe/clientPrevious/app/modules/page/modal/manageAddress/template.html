@@ -1,0 +1,5 @@
+<md-dialog id="manage-address-page" aria-label="Manage Place" class="manage-page">
+    <ely-manage-address on-back="ctrl.cancel()" on-selected="ctrl.createAddress" ng-show="!ctrl.isEditMode"></ely-manage-address>
+    <ely-manage-address on-back="ctrl.cancel()" on-selected="ctrl.editAddress" is-edit-mode="true" actual-description="ctrl.description"
+                        actual-address="ctrl.actualAddress" ng-show="ctrl.isEditMode"></ely-manage-address>
+</md-dialog>

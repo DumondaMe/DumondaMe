@@ -1,0 +1,32 @@
+<div id="ely-contact-overview">
+    <div class="contact-overview-container">
+        <div class="contact-info">
+            <div layout="row">
+                <div class="number-of-contact-title">Du hast <span class="number-of-contact">{{ctrl.numberOfContacts}}</span>
+                    <ng-pluralize count="ctrl.numberOfContacts" when="{'0': ' Kontakte', '1': ' Kontakt',
+                                     'other': ' Kontakte'}"></ng-pluralize>
+                </div>
+                <span flex></span>
+                <md-icon class="help-icon" md-svg-icon="cardActions:help" ng-show="!ctrl.expandHelp" ng-click="ctrl.expandHelp = true"></md-icon>
+                <md-icon class="help-icon" md-svg-icon="cardActions:arrowUp" ng-show="ctrl.expandHelp" ng-click="ctrl.expandHelp = false"></md-icon>
+            </div>
+            <div class="ely-help" ng-show="ctrl.expandHelp">
+                <div class="ely-help-container">
+                    <div class="help-title">Deine Kontakte</div>
+                    <div class="help-text">Füge Personen deiner Kontaktliste hinzu um von deren Empfehlung zu profitieren. Die hinzugefügte Person
+                        muss bei diesem Vorgang keine Freundschaftsanfrage bestätigen. Es wird ihr lediglich eine Meldung angezeigt, dass du sie zu
+                        deinen Kontakten hinzugefügt hast. Du hast zudem die Möglichkeit verschiedene Gruppen zu erstellen mit unterschiedlichen
+                        Privatsphären Einstellungen.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="preview-container" ng-repeat="statistic in ctrl.statistic">
+            <ely-contact-preview statistic="statistic" statistics="ctrl.statistic" delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
+        </div>
+        <div layout="row" class="add-new-group">
+            <span flex></span>
+            <md-button md-no-ink class="md-primary" ng-click="ctrl.newGroup()">Neue Gruppe</md-button>
+        </div>
+    </div>
+</div>

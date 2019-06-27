@@ -1,0 +1,45 @@
+.ely-question-answer-card {
+  margin: 0 auto 8px auto;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 10px;
+
+  .answer-info-container {
+    cursor: pointer;
+    .category-icon {
+      margin-bottom: 0;
+    }
+    .topic-title {
+      margin-left: 8px;
+      font-size: 17px;
+      line-height: 24px;
+      vertical-align: middle;
+      font-weight: 400;
+    }
+    .page-title {
+      margin-top: 3px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $primary-color;
+    }
+    .answer-title {
+      margin-top: 3px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $primary-color;
+    }
+  }
+  .menu-settings-container {
+    padding: 0;
+    margin: 0 0 0 8px;
+    .menu-settings {
+      margin: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      min-height: 24px;
+    }
+  }
+}
+
+

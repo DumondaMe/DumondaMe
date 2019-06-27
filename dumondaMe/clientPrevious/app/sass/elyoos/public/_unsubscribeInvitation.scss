@@ -1,0 +1,17 @@
+#unsubscribe-invitation-container {
+  min-height: 100%;
+  .unsubscribe-text {
+    font-size: 18px;
+    color: $primary-text;
+    max-width: 450px;
+    margin: 48px auto 0 auto;
+    text-align: center;
+    .email {
+      font-weight: 700;
+    }
+  }
+}
+
+
+
+

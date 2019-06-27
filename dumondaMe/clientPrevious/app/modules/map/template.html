@@ -1,0 +1,16 @@
+<div id="ely-map-view" layout="row">
+    <div id="map-container" flex="grow">
+        <ely-map on-map-change="ctrl.mapChanged" map-init="ctrl.mapChanged" default-center="{latitude:47.3560363, longitude:7.9961821}"
+                 default-zoom="7" center="ctrl.initMapParams" zoom="ctrl.initMapParams.zoom" commands="ctrl.commandsMap"></ely-map>
+    </div>
+    <md-sidenav id="map-list" flex="none" class="md-sidenav-right md-whiteframe-z2" md-component-id="mapList"
+                md-is-locked-open="ctrl.$mdMedia('gt-xs')">
+        <ely-map-overview-recommendations commands-map="ctrl.commandsMap"
+                                          popular-addresses="ctrl.popularAddresses"></ely-map-overview-recommendations>
+    </md-sidenav>
+    <div id="open-map-list" ng-if="!ctrl.$mdMedia('gt-xs')">
+        <md-button class="md-fab" aria-label="Open map list" ng-click="ctrl.toggleMapList()">
+            <md-icon md-svg-icon="nav:list"></md-icon>
+        </md-button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div id="ely-contact" layout="column">
+    <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery"
+             md-selected="ctrl.selectedTab" flex="auto">
+        <md-tab class="contact-tab">
+            <md-tab-label>
+                <span class="tab-me">Du</span>
+                <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+                <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Deine Kontakte
+                </md-tooltip>
+            </md-tab-label>
+            <md-tab-body class="contact-tab-content">
+                <ely-contact-overview ng-if="ctrl.selectedTab === 0"></ely-contact-overview>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="contact-tab">
+            <md-tab-label>
+                <span class="tab-me">Du</span>
+                <md-icon md-svg-icon="tabs:arrowBack" class="icon ely-tab-icon"></md-icon>
+                <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Dich als Kontakt
+                </md-tooltip>
+            </md-tab-label>
+            <md-tab-body class="contact-tab-content">
+                <ely-contacting-overview ng-if="ctrl.selectedTab === 1"></ely-contacting-overview>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="contact-tab">
+            <md-tab-label>
+                <md-icon md-svg-icon="tabs:addContact" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Kontaktvorschläge
+                </md-tooltip>
+            </md-tab-label>
+            <md-tab-body class="contact-tab-content">
+                <ely-contact-recommendation-overview ng-if="ctrl.selectedTab === 2"></ely-contact-recommendation-overview>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+    <ely-load-screen ng-if="ctrl.requestRunning"></ely-load-screen>
+    <ely-contact-search-user-overview ng-if="!ctrl.requestRunning && ctrl.showUserQuery"
+                                      users="ctrl.userQueryResult"></ely-contact-search-user-overview>
+</div>

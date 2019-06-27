@@ -1,0 +1,19 @@
+<div class="ely-date-time-picker" layout="column" layout-gt-xs="row">
+    <div class="ely-date-time-title">{{ctrl.label}}</div>
+    <span flex></span>
+    <div layout="row">
+        <div class="ely-date-picker-container">
+            <md-datepicker ng-model="ctrl.dateDay" ng-change="ctrl.dateChanged()" ng-disabled="ctrl.elyDisabled"
+                           md-min-date="ctrl.minDate"></md-datepicker>
+        </div>
+        <md-input-container class="input-container ely-input-time-container">
+            <md-icon md-svg-icon="cardActions:clock" class="clock-icon"></md-icon>
+            <input name="{{ctrl.formName}}" ng-model="ctrl.time" required aria-label="time" ng-change="ctrl.dateChanged()" ng-disabled="ctrl.elyDisabled"
+                   ng-pattern="/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/" class="ely-input-time"/>
+            <div ng-messages="ctrl.formObject.$error" ng-show="ctrl.formObject.$error">
+                <div ng-message="pattern">HH:mm</div>
+                <div ng-message="ely-custom-message">{{ctrl.customErrorMessage}}</div>
+            </div>
+        </md-input-container>
+    </div>
+</div>

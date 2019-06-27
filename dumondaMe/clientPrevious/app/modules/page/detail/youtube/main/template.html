@@ -1,0 +1,10 @@
+<div id="ely-youtube-page-main-detail">
+    <div class="title-container" layout="row">
+        <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
+    </div>
+    <ely-iframe width="290" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.pageDetail.page.linkEmbed"
+                layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
+    <ely-iframe width="576" height="400" secure-link="https://www.youtube.com/embed/" src="ctrl.pageDetail.page.linkEmbed"
+                layout="row" layout-align="center center" hide show-gt-sm></ely-iframe>
+    <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="200"></ely-expand-text>
+</div>

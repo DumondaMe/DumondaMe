@@ -1,0 +1,32 @@
+<div id="ely-contact-recommendation-overview">
+    <div class="overview-container" ely-infinite-scroll="ctrl.nextContactRecommendations">
+        <div class="overview-container-inner">
+            <div layout="row" class="recommendation-info">
+                <div class="recommendation-info-text">Kontaktvorschläge</div>
+                <span flex></span>
+                <md-menu md-position-mode="target-right target" class="menu-container">
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting-button" aria-label="Settings contact suggestion">
+                        <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item ng-show="ctrl.users.showUserRecommendation">
+                            <md-button ng-click="ctrl.contactSuggestionOnHome(false)">
+                                In Home Vorschläge verbergen
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-show="!ctrl.users.showUserRecommendation">
+                            <md-button ng-click="ctrl.contactSuggestionOnHome(true)">
+                                In Home Vorschläge anzeigen
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <div class="contact-element-container">
+                <div class="contact-element" ng-repeat="user in ctrl.users.recommendedUser">
+                    <ely-contact-preview-square user="user" added-contact-event="ctrl.contactAdded"></ely-contact-preview-square>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

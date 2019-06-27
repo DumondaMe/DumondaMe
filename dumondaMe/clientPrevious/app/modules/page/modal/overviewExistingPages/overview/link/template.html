@@ -1,0 +1,8 @@
+<div class="ely-page-overview-link">
+    <md-radio-button ng-value="ctrl.page" ng-if="ctrl.hasSelect">
+        <div class="md-title page-title">{{ctrl.page.title}}</div>
+    </md-radio-button>
+    <div class="md-title page-title no-select-title" ng-if="!ctrl.hasSelect">{{ctrl.page.title}}</div>
+    <img ng-src="{{ctrl.page.url}}" class="page-image-preview" flex="none">
+    <div class="page-description">{{ctrl.page.description}}</div>
+</div>

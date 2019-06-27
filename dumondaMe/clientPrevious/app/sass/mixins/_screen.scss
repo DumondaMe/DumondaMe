@@ -1,0 +1,56 @@
+@mixin breakpoint($point) {
+  @if $point == largeDesktop {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  } @else if $point == mediumDesktop {
+    @media (min-width: 992px) {
+      @content;
+    }
+  } @else if $point == tablets {
+    @media (max-width: 992px) {
+      @content;
+    }
+  } @else if $point == phones {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+}
+
+@mixin centerColumn($paddingLeft) {
+  #centerCol {
+    display: block;
+    height: 100%;
+    padding-left: $paddingLeft;
+
+    @content;
+  }
+}
+
+@mixin searchBoxContainer() {
+  #search-box-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff;
+
+    .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px;
+    }
+
+    @content;
+  }
+}
+
+.ely-main-title {
+  color: $secondary-text;
+  margin: 16px 0;
+  font-size: 17px;
+  font-weight: 400;
+
+}

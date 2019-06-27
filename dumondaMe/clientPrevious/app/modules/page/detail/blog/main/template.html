@@ -1,0 +1,34 @@
+<div id="ely-blog-detail-main">
+    <div class="blog-header-container" layout="row">
+        <div ng-click="ctrl.openUserDetail()" class="user-avatar">
+            <img ng-src="{{ctrl.blogDetail.page.profileUrl}}"/>
+        </div>
+        <div class="blog-header">
+            <div layout="row" layout-wrap>
+                <div class="md-title user-name" ng-if="!ctrl.blogDetail.page.isAdmin" ui-sref="user.detail({userId: ctrl.blogDetail.page.userId})">
+                    {{ctrl.blogDetail.page.name}}
+                </div>
+                <div class="md-title user-name" ng-if="ctrl.blogDetail.page.isAdmin" ui-sref="settings.profile()">Du</div>
+                <div>
+                    <svg width="16px" height="16px" viewBox="0 0 48 48" fill="#757575" class="divider">
+                        <path d="M20 34l10-10 -10-10z"></path>
+                    </svg>
+                </div>
+                <div class="public-type" ng-if="ctrl.blogDetail.page.isPublic">Öffentlich</div>
+                <div class="public-type" ng-if="!ctrl.blogDetail.page.isPublic">
+                    <span class="private-visible-type" ng-repeat="description in ctrl.blogDetail.page.visible">{{description}}</span>
+                </div>
+            </div>
+            <div>
+                <div class="blog-created">{{ctrl.blogDetail.page.createdFormatted}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-content">
+        <div class="blog-title">{{ctrl.blogDetail.page.title}}</div>
+        <div class="image-description-container">
+            <img class="image" ng-src="{{ctrl.blogDetail.page.url}}" ng-if="ctrl.blogDetail.page.url" ng-click="ctrl.openImageView()">
+            <div class="blog-text">{{ctrl.blogDetail.page.text}}</div>
+        </div>
+    </div>
+</div>

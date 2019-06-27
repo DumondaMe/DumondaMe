@@ -1,0 +1,45 @@
+#ely-contacting-overview {
+  height: 100%;
+  background-color: $background-normal;
+
+  .overview-container {
+    height: 100%;
+    overflow-y: auto;
+    .overview-container-inner {
+      width: 296px;
+      margin: 0 auto;
+      @media screen and (min-width: $gt-xs) {
+        width: 592px;
+      }
+      @media screen and (min-width: $gt-xmd) {
+        width: 740px;
+      }
+      .contacting-info {
+        margin: 16px 4px 8px 4px;
+        padding: 16px;
+        background-color: white;
+        .number-of-contacting-title{
+          line-height: 24px;
+          vertical-align: middle;
+          font-weight: 500;
+          color: $primary-text;
+          .number-of-contacting {
+            color: $primary-color;
+          }
+        }
+        .help-icon {
+          cursor: pointer;
+        }
+        .ely-help {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+      .contact-element {
+        margin-right: 4px;
+        margin-left: 4px;
+        display: inline-block;
+      }
+    }
+  }
+}

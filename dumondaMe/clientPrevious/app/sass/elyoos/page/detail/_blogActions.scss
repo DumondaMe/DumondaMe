@@ -1,0 +1,26 @@
+.ely-blog-info-container {
+  margin-top: 22px;
+  .page-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0;
+    margin: 0;
+    .action-icon {
+      height: 16px;
+      width: 16px;
+      min-height: 16px;
+      min-width: 16px;
+    }
+  }
+  .number-container {
+    margin-left: 8px;
+    color: $primary-text;
+    height: 28px;
+    .number {
+      line-height: 28px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+}

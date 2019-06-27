@@ -1,0 +1,34 @@
+#ely-contact-overview {
+  height: 100%;
+  background-color: $background-normal;
+  .contact-overview-container {
+    padding: 16px 8px;
+    .contact-info {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 16px auto;
+      padding: 16px 0;
+      background-color: white;
+      .number-of-contact-title {
+        padding: 0 16px;
+        line-height: 24px;
+        vertical-align: middle;
+        font-weight: 500;
+        color: $primary-text;
+        .number-of-contact {
+          color: $primary-color;
+        }
+      }
+      .help-icon {
+        cursor: pointer;
+        margin-right: 16px;
+      }
+    }
+    .add-new-group {
+      width: 100%;
+      max-width: 700px;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+  }
+}

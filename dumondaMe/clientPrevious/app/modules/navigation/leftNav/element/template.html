@@ -1,0 +1,9 @@
+<div class="nav-element" ng-click="ctrl.goToState()" ng-class="{'highlighted': ctrl.$state.includes(ctrl.baseState)}">
+    <div class="icon-container">
+        <md-icon md-svg-icon="{{ctrl.icon}}" class="icon" ng-style="ctrl.highlightedStyle"></md-icon>
+        <div class="number" layout="row" layout-align="center center" ng-if="ctrl.count > 0">
+            <div>{{ctrl.count}}</div>
+        </div>
+    </div>
+    <div class="description md-body-2">{{ctrl.description}}</div>
+</div>

@@ -1,0 +1,14 @@
+.ely-load-image-button {
+  cursor: pointer;
+  .label-image-icon {
+    color: $secondary-text;
+    font-weight: 500;
+    position: relative;
+    left: -7px;
+    top: 1px;
+    display: inline-block;
+  }
+  .label-image-icon:hover {
+    text-decoration: underline;
+  }
+}

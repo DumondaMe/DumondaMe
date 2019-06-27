@@ -1,0 +1,16 @@
+.ely-recommendation-popular-column.ely-recommendation-popular-column-mobile {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  background-color: #ffffff;
+  .ely-popular-column-mobile-container {
+    height: 100%;
+    .ely-popular-column-mobile-inner-container {
+      height: 100%;
+      overflow-y: scroll;
+      .gab-fab {
+        height: 48px;
+      }
+    }
+  }
+}
