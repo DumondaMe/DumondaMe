@@ -10,7 +10,6 @@
             <networking-info v-if="isAuthenticated && isGerman"></networking-info>
             <concept-info></concept-info>
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
-            <!--<feed-popular-question></feed-popular-question>-->
         </div>
         <div slot="content" id="feed-detail-container">
             <feed-filter class="index-desktop-feed-filter">
@@ -61,14 +60,15 @@
     export default {
         async fetch({error, store, route}) {
             try {
-                if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
-                    store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
-                } else if (route.name === 'index' && !store.state.auth.userIsAuthenticated) {
-                    store.commit('feedFilter/SET_MAIN_FILTER', 'question');
-                } else {
-                    store.commit('feedFilter/SET_MAIN_FILTER', route.name);
+                if (!(route.name === 'index' && !store.state.auth.userIsAuthenticated)) {
+                    if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
+                        store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
+                    } else {
+                        store.commit('feedFilter/SET_MAIN_FILTER', route.name);
+                    }
+
+                    await Promise.all([store.dispatch(`feed/getFeed`)]);
                 }
-                await Promise.all([store.dispatch(`feed/getFeed`)/*, store.dispatch(`feed/getPopularQuestion`)*/]);
             } catch (e) {
                 error({statusCode: e.request.res.statusCode});
             }
