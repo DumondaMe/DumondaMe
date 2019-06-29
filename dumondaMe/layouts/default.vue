@@ -1,19 +1,19 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="drawerLoaded" v-model="drawer" temporary fixed :right="isRightSideDrawer">
+        <v-navigation-drawer v-if="drawerLoaded && isNotPublicStartPage" v-model="drawer" temporary fixed
+                             :right="isRightSideDrawer">
             <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
         </v-navigation-drawer>
-        <dumonda-me-toolbar @open-drawer="drawer = true; drawerLoaded = true"></dumonda-me-toolbar>
-        <div id="dumonda-me-content">
+        <dumonda-me-toolbar @open-drawer="drawer = true; drawerLoaded = true"
+                            v-if="isNotPublicStartPage"></dumonda-me-toolbar>
+        <div id="dumonda-me-content" v-if="isNotPublicStartPage">
             <div id="dumonda-me-inner-content">
                 <nuxt/>
             </div>
         </div>
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
-        <crowdfunding-info-dialog v-else-if="showCrowdfundingDialog"
-                                  @close-dialog="showCrowdfundingInfoDialog = false">
-        </crowdfunding-info-dialog>
         <cookie-privacy-read-info></cookie-privacy-read-info>
+        <public-landing-page v-if="!isNotPublicStartPage"></public-landing-page>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </v-app>
 </template>
@@ -23,27 +23,23 @@
     import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
-    import CrowdfundingInfoDialog from '~/components/info/CrowdfundingInfoDialog';
+    import PublicLandingPage from '~/components/publicLandingPage/LandingPage';
     import cookiePrivacyReadInfo from '~/components/info/cookiePrivacyReadInfo';
 
     export default {
         components: {
-            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, CrowdfundingInfoDialog,
+            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
             cookiePrivacyReadInfo
         },
         data() {
             return {
-                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
-                showCrowdfundingInfoDialog: false
+                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false
             };
         },
         mounted() {
             this.onResize();
             window.addEventListener('resize', this.onResize, {passive: true});
             this.showInfoDialog = true;
-            if (!this.$store.state.auth.userIsAuthenticated) {
-                this.showCrowdfundingInfoDialog = true;
-            }
         },
         beforeDestroy() {
             if (typeof window !== 'undefined') {
@@ -61,8 +57,8 @@
                     (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
                     this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
             },
-            showCrowdfundingDialog() {
-                return this.showCrowdfundingInfoDialog
+            isNotPublicStartPage() {
+                return !(this.$route.name === 'index' && !this.$store.state.auth.userIsAuthenticated);
             }
         }
     }

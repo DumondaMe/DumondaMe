@@ -1043,6 +1043,9 @@
   "auth": {
     "loadingMessage": "Ladevorgang läuft"
   },
+  "landingPagePublic": {
+    "slogan": "Das soziale Netzwerk für eine leuchtende Zukunft"
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "Über uns",
