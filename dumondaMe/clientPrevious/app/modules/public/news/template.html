@@ -1,9 +1,0 @@
-<div id="ely-news">
-    <div id="ely-news-container">
-        <div ng-repeat="news in ctrl.overview.news" class="news-element">
-            <div class="news-created">{{ctrl.getTime(news.created, 'LLLL')}}</div>
-            <h3 class="news-title">{{news.title}}</h3>
-            <div class="news-text" ng-bind-html="news.text"></div>
-        </div>
-    </div>
-</div>
