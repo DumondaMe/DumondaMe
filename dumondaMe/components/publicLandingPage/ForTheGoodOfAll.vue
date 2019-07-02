@@ -1,12 +1,12 @@
 <template>
     <div class="public-for-the-good-of-all explanation-element">
         <div class="public-image" v-if="!showMobile">
-            <img :src="networking">
+            <img v-lazy="networking">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Zum Wohle Aller</h2>
             <div class="public-image" v-if="showMobile">
-                <img :src="networking">
+                <img v-lazy="networking">
             </div>
             <div class="description">
                 Die Gemeinnützigkeit ist in der DNA von DumondaMe verankert. Mit DumondaMe werden die vollen

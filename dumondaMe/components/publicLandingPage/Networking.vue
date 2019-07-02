@@ -1,12 +1,12 @@
 <template>
     <div class="public-networking explanation-element">
         <div class="public-image public-image-mobile" v-if="!showMobile">
-            <img :src="networking">
+            <img v-lazy="networking">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Vernetzen</h2>
             <div class="public-image public-image-mobile" v-if="showMobile">
-                <img :src="networking">
+                <img v-lazy="networking">
             </div>
             <div class="description">
                 Auf DumondaMe findest du viele spannende Menschen, welche sich mit gesellschaftsrelevanten Themen

@@ -3,7 +3,7 @@
         <div class="public-description-container left-description">
             <h2 class="title-description">Soziokratie</h2>
             <div class="public-image">
-                <img :src="sociocracy" v-if="showMobile">
+                <img v-lazy="sociocracy" v-if="showMobile">
             </div>
             <div class="description">
                 Uns ist es wichtig, dass die Gleichwertigkeit aller Menschen bereits in unserer Organisation verankert
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="public-image">
-            <img :src="sociocracy" v-if="!showMobile">
+            <img v-lazy="sociocracy" v-if="!showMobile">
         </div>
     </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
     <div class="public-about-us explanation-element">
         <div class="public-image" @click="$router.push({name: 'aboutUs'})" v-if="!showMobile">
-            <img :src="team">
+            <img v-lazy="team">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Wer steht hinter DumondaMe?</h2>
             <div class="public-image" @click="$router.push({name: 'aboutUs'})" v-if="showMobile">
-                <img :src="team">
+                <img v-lazy="team">
             </div>
             <div class="description">
                 Wir sind eine Gruppe von Menschen die mit viel Herzblut diese Plattform aufbauen. Dazu gehört eine

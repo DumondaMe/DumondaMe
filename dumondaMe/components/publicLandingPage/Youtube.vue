@@ -3,7 +3,7 @@
         <div class="public-description-container left-description">
             <h2 class="title-description">Mehr über DumondaMe erfahren?</h2>
             <div class="public-image" @click="openYoutubeChannel" v-if="showMobile">
-                <img :src="youtube">
+                <img v-lazy="youtube">
             </div>
             <div class="description">
                 Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen. Unter
@@ -14,7 +14,7 @@
             </v-btn>
         </div>
         <div class="public-image" @click="openYoutubeChannel" v-if="!showMobile">
-            <img :src="youtube">
+            <img v-lazy="youtube">
         </div>
     </div>
 </template>

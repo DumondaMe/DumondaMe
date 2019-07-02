@@ -3,7 +3,7 @@
         <div class="public-description-container left-description">
             <h2 class="title-description">Roadmap</h2>
             <div class="public-image" @click="$router.push({name: 'nextSteps'})" v-if="showMobile">
-                <img :src="roadmap">
+                <img v-lazy="roadmap">
             </div>
             <div class="description">
                 Es gibt noch sehr viel zu tun! Hauptpriorität haben im Moment der Aufbau einer lebendigen Community, die
@@ -14,7 +14,7 @@
             </v-btn>
         </div>
         <div class="public-image" @click="$router.push({name: 'nextSteps'})" v-if="!showMobile">
-            <img :src="roadmap">
+            <img v-lazy="roadmap">
         </div>
     </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
     <div class="public-transparency explanation-element">
         <div class="public-image public-image-mobile" @click="openGithub" v-if="!showMobile">
-            <img :src="transparency">
+            <img v-lazy="transparency">
         </div>
         <div class="public-description-container transparency-container">
             <h2 class="title-description">Transparenz</h2>
             <div class="public-image public-image-mobile" @click="openGithub" v-if="showMobile">
-                <img :src="transparency">
+                <img v-lazy="transparency">
             </div>
             <div class="description">
                 Der komplette Source Code von DumondaMe ist Open Source. Auf diese Weise kann die Funktionsweise der

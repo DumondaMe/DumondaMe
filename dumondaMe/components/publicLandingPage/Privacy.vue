@@ -1,12 +1,12 @@
 <template>
     <div class="public-privacy explanation-element">
         <div class="public-image" v-if="!showMobile">
-            <img :src="privacy">
+            <img v-lazy="privacy">
         </div>
         <div class="public-description-container transparency-container">
             <h2 class="title-description">Datenschutz</h2>
             <div class="public-image" v-if="showMobile">
-                <img :src="privacy">
+                <img v-lazy="privacy">
             </div>
             <div class="description">
                 Deine privaten Daten bleiben bei DumondaMe und werden nicht an Dritte weitergegeben.
