@@ -10,7 +10,7 @@
                 weitere Finanzierung und die Erweiterung der Engagement-Funktionalitäten.
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'nextSteps'})">
-                Weiteren Schritte
+                Weitere Schritte
             </v-btn>
         </div>
         <div class="public-image" @click="$router.push({name: 'nextSteps'})" v-if="!showMobile">

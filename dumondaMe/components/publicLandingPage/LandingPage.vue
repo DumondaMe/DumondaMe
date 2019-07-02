@@ -9,7 +9,6 @@
         <relevance :show-mobile="showMobile"></relevance>
         <for-the-good-of-all :show-mobile="showMobile"></for-the-good-of-all>
         <sociocracy :show-mobile="showMobile"></sociocracy>
-        <transparency :show-mobile="showMobile"></transparency>
         <scalability :show-mobile="showMobile"></scalability>
         <privacy :show-mobile="showMobile"></privacy>
         <roadmap :show-mobile="showMobile"></roadmap>
