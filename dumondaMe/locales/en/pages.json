@@ -1005,9 +1005,13 @@
   "nextSteps": {
     "title": "The next steps",
     "description": "DumondaMe is still at the very beginning and there is still a lot to optimize or extend. In the following the most important further development steps are listed.",
-    "performanceAndError": {
-      "title": "Fixing occurring errors and performance issues",
-      "description": "At the moment this has the highest priority so that you can use the platform without any problems. "
+    "finance": {
+      "title": "Secure financing",
+      "description": "This has the highest priority at the moment so that we can draw on the full potential of the further development of DumondaMe. We are currently evaluating how we will do this today and in the future."
+    },
+    "community": {
+      "title": "Building the Community",
+      "description": "DumondaMe only unfolds its full effect when many people use the platform."
     },
     "design": {
       "title": "Improve design and usability",
@@ -1015,7 +1019,7 @@
     },
     "engagements": {
       "title": "Enhancing the Functionality of Commitments and Events",
-      "description": "The functionalities for the commitments and events are still very basic at the moment. These will probably be extended and improved in Q2/Q3 2019."
+      "description": "The functionalities for the engagements and events are still very rudimentary at the moment. We expect to expand and improve these at the end of 2019. "
     },
     "more": {
       "title": "And much more...",
