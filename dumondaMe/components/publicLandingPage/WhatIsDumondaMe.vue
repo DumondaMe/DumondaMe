@@ -1,10 +1,13 @@
 <template>
     <div class="public-why-dumonda-me explanation-element">
-        <div class="public-image" @click="openExplainVideo">
+        <div class="public-image" @click="openExplainVideo" v-if="!showMobile">
             <img :src="explainVideo">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Was ist DumondaMe?</h2>
+            <div class="public-image" @click="openExplainVideo" v-if="showMobile">
+                <img :src="explainVideo">
+            </div>
             <div class="description">
                 DumondaMe ist ein soziales Netzwerk mit dem Fokus auf gesellschaftsrelevante Themen. Dabei steht
                 folgende Fragestellung im Mittelpunkt: Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger
@@ -20,6 +23,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             explainVideo() {
                 return `${process.env.staticUrl}/img/landingPagePublic/explainVideo.jpg`;

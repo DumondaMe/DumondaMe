@@ -1,10 +1,13 @@
 <template>
     <div class="public-privacy explanation-element">
-        <div class="public-image">
+        <div class="public-image" v-if="!showMobile">
             <img :src="privacy">
         </div>
         <div class="public-description-container transparency-container">
             <h2 class="title-description">Datenschutz</h2>
+            <div class="public-image" v-if="showMobile">
+                <img :src="privacy">
+            </div>
             <div class="description">
                 Deine privaten Daten bleiben bei DumondaMe und werden nicht an Dritte weitergegeben.
             </div>
@@ -14,6 +17,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             privacy() {
                 return `${process.env.staticUrl}/img/landingPagePublic/privacy.jpg`;

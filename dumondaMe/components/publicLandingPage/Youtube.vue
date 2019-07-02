@@ -2,6 +2,9 @@
     <div class="public-youtube explanation-element">
         <div class="public-description-container left-description">
             <h2 class="title-description">Mehr über DumondaMe erfahren?</h2>
+            <div class="public-image" @click="openYoutubeChannel" v-if="showMobile">
+                <img :src="youtube">
+            </div>
             <div class="description">
                 Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen. Unter
                 anderem findest du ein Video, welches die Bedeutung des Namen DumondaMe erklärt.
@@ -10,7 +13,7 @@
                 Youtube Channel
             </v-btn>
         </div>
-        <div class="public-image" @click="openYoutubeChannel">
+        <div class="public-image" @click="openYoutubeChannel" v-if="!showMobile">
             <img :src="youtube">
         </div>
     </div>
@@ -18,6 +21,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             youtube() {
                 return `${process.env.staticUrl}/img/landingPagePublic/youtube.jpg`;

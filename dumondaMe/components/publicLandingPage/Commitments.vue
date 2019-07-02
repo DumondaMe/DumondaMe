@@ -1,10 +1,13 @@
 <template>
     <div class="public-commitments explanation-element">
-        <div class="public-image" @click="$router.push({name: 'commitment'})">
+        <div class="public-image" @click="$router.push({name: 'commitment'})" v-if="!showMobile">
             <img :src="commitment">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Dein Engagement</h2>
+            <div class="public-image" @click="$router.push({name: 'commitment'})" v-if="showMobile">
+                <img :src="commitment">
+            </div>
             <div class="description">
                 Erstelle auf DumondaMe eine Seite für deine Organisation (Bezeichnung Engagement auf DumondaMe). Nutze
                 dieses Feature um interessierte Menschen auf deine Organisation aufmerksam zu machen und um mit ihnen im
@@ -20,6 +23,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             commitment() {
                 return `${process.env.staticUrl}/img/landingPagePublic/commitment.jpg`;

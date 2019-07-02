@@ -2,6 +2,9 @@
     <div class="public-question-answer explanation-element">
         <div class="public-description-container left-description">
             <h2 class="title-description">Fragen stellen</h2>
+            <div class="public-image" @click="$router.push({name: 'question'})" v-if="showMobile">
+                <img :src="concept">
+            </div>
             <div class="description">
                 Die richtigen Fragen können die Welt verändern! Deshalb ist die Frage/Antwort-Funktionalität das
                 Herzstück der Plattform. Dank dieser werden deine Fragen von der DumondaMe-Community mit Videos, Links,
@@ -11,7 +14,7 @@
                 Zu den Fragen
             </v-btn>
         </div>
-        <div class="public-image" @click="$router.push({name: 'question'})">
+        <div class="public-image" @click="$router.push({name: 'question'})" v-if="!showMobile">
             <img :src="concept">
         </div>
     </div>
@@ -19,6 +22,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             concept() {
                 return `${process.env.staticUrl}/img/landingPagePublic/concept_2x.jpg`;

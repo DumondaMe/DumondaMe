@@ -1,10 +1,13 @@
 <template>
     <div class="public-for-the-good-of-all explanation-element">
-        <div class="public-image">
+        <div class="public-image" v-if="!showMobile">
             <img :src="networking">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Zum Wohle Aller</h2>
+            <div class="public-image" v-if="showMobile">
+                <img :src="networking">
+            </div>
             <div class="description">
                 Die Gemeinnützigkeit ist in der DNA von DumondaMe verankert. Mit DumondaMe werden die vollen
                 Möglichkeiten zur Verwendung von kollektiver Intelligenz im Dienst der Allgemeinheit nutzbar.
@@ -15,6 +18,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             networking() {
                 return `${process.env.staticUrl}/img/landingPagePublic/forTheGoodOfAll.jpg`;

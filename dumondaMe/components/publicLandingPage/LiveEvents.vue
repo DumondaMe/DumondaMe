@@ -7,10 +7,6 @@
             Richtige für dich.
         </div>
         <div class="next-event-title">Nächste Treffen:</div>
-        <a class="event-container" href="https://www.facebook.com/events/633584547143946" target="_blank"
-           rel="noopener">
-            1. Juli: DumondaMe Abend in Luzern
-        </a>
         <a class="event-container" href="https://www.facebook.com/events/1056806767842535/" target="_blank"
            rel="noopener">
             16. Juli: DumondaMe Abend in Luzern
@@ -38,6 +34,13 @@
         padding-top: 22px;
         height: 340px;
         background-color: #BA68C8;
+
+        @media screen and (max-width: 900px) {
+            margin-top: 38px;
+            margin-bottom: 38px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
 
         .icon-calendar {
             display: block;
