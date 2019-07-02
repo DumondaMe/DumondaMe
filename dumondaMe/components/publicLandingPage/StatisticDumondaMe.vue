@@ -2,7 +2,7 @@
     <div class="public-scalability-statistic">
         <div class="statistic-title">Aktuelle Zahlen:</div>
         <div class="statistic-element">
-            <div class="statistic-description">Anzahl Benutzer:</div>
+            <div class="statistic-description">Anzahl Benutzer_innen:</div>
             <v-spacer></v-spacer>
             <div class="statistic-number">{{statistic.numberOfUsers}}</div>
         </div>
