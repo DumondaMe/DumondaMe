@@ -2,7 +2,6 @@
     <feed-layout>
         <div slot="sidebar">
             <feed-create-contribution></feed-create-contribution>
-            <crowdfunding-info></crowdfunding-info>
             <beta-version></beta-version>
             <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
             <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
@@ -14,7 +13,6 @@
         <div slot="content" id="feed-detail-container">
             <feed-filter class="index-desktop-feed-filter">
             </feed-filter>
-            <crowdfunding-info class="index-mobile-feed-filter"></crowdfunding-info>
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
             <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
@@ -53,7 +51,6 @@
     import BetaVersion from "~/components/common/beta/BetaDescription";
     import UserSuggestions from '~/components/feed/UserSuggestions';
     import AboutDumondaMe from '~/components/feed/AboutDumondaMe';
-    import CrowdfundingInfo from '~/components/feed/CrowdfundingInfo';
     import ConceptInfo from '~/components/feed/info/Concept';
     import NetworkingInfo from '~/components/feed/info/Networking';
 
@@ -76,7 +73,7 @@
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe,
-            ConceptInfo, NetworkingInfo, CrowdfundingInfo
+            ConceptInfo, NetworkingInfo
         },
         head() {
             return {
