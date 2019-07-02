@@ -1014,17 +1014,21 @@
   "nextSteps": {
     "title": "Die nächsten Schritte",
     "description": "DumondaMe steht ganz am Anfang und es gibt noch einiges zu optimieren und zu erweitern. Nachfolgend sind die wichtigsten kommenden Entwicklungsschritte aufgelistet:",
-    "performanceAndError": {
-      "title": "Auftretende Fehler und Performance Probleme beheben",
-      "description": "Das hat im Moment die allerhöchste Priorität, damit du die Plattform ohne Problem nutzen kannst."
+    "finance": {
+      "title": "Finanzierung sichern",
+      "description": "Das hat im Moment die allerhöchste Priorität damit wir bei der Weiterentwicklung von DumondaMe aus dem Vollen schöpfen können. Wie wir dies genau heute und in Zukunft tun werden, sind wir zur Zeit am evaluieren."
+    },
+    "community": {
+      "title": "Aufbau der Community",
+      "description": "DumondaMe entfaltet erst seine volle Wirkung, wenn viele Menschen die Plattform nutzen."
     },
     "design": {
       "title": "Design und Benutzerfreundlichkeit verbessern",
-      "description": "Zusammen mit einem äusserst talentierten Interaktions-Designer wollen wir die Benutzerfreundlichkeit und das Design von DumondaMe auf die nächste Stufe heben. Wir sind überzeugt, dass wir damit der Verwirklichung unserer Vision immer näher kommen."
+      "description": "Zusammen mit dem äusserst talentierten Interaktions-Designer Nils Solanki wollen wir die Benutzerfreundlichkeit und das Design von DumondaMe auf die nächste Stufe heben. Wir sind überzeugt, dass wir damit der Verwirklichung unserer Vision immer näher kommen."
     },
     "engagements": {
       "title": "Funktionalität der Engagements und Veranstaltungen erweitern",
-      "description": "Die Funktionalitäten für die Engagements und Veranstaltungen sind im Moment noch sehr rudimentär. Diese werden wir voraussichtlich im Q2/Q3 2019 erweitern und verbessern. "
+      "description": "Die Funktionalitäten für die Engagements und Veranstaltungen sind im Moment noch sehr rudimentär. Diese werden wir voraussichtlich Ende 2019 erweitern und verbessern."
     },
     "more": {
       "title": "Und noch vieles mehr…",

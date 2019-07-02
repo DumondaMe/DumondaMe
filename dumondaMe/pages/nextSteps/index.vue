@@ -3,14 +3,17 @@
         <h1>{{$t('pages:nextSteps.title')}}</h1>
         <p>{{$t('pages:nextSteps.description')}}</p>
 
-        <h2>{{$t('pages:nextSteps.performanceAndError.title')}}</h2>
-        <p>{{$t('pages:nextSteps.performanceAndError.description')}}</p>
+        <h2>{{$t('pages:nextSteps.finance.title')}}</h2>
+        <p>{{$t('pages:nextSteps.finance.description')}}</p>
 
-        <h2>{{$t('pages:nextSteps.design.title')}}</h2>
-        <p>{{$t('pages:nextSteps.design.description')}}</p>
+        <h2>{{$t('pages:nextSteps.community.title')}}</h2>
+        <p>{{$t('pages:nextSteps.community.description')}}</p>
 
         <h2>{{$t('pages:nextSteps.engagements.title')}}</h2>
         <p>{{$t('pages:nextSteps.engagements.description')}}</p>
+
+        <h2>{{$t('pages:nextSteps.design.title')}}</h2>
+        <p>{{$t('pages:nextSteps.design.description')}}</p>
 
         <h2>{{$t('pages:nextSteps.more.title')}}</h2>
         <p>{{$t('pages:nextSteps.more.description')}}</p>
