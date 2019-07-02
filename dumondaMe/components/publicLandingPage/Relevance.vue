@@ -3,7 +3,7 @@
         <div class="public-description-container left-description">
             <h2 class="title-description">Relevanz</h2>
             <div class="public-image" v-if="showMobile">
-                <img :src="filter">
+                <img v-lazy="filter">
             </div>
             <div class="description">
                 Bei vielen Plattformen oder Suchmaschinen wird, basierend auf deiner Nutzung des Dienstes, ein Profil
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="public-image" v-if="!showMobile">
-            <img :src="filter">
+            <img v-lazy="filter">
         </div>
     </div>
 </template>

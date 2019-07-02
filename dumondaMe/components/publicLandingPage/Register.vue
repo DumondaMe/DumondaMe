@@ -3,7 +3,7 @@
         <div class="public-description-container left-description">
             <h2 class="title-description">Gemeinsam ist alles Möglich!</h2>
             <div class="public-image" v-if="showMobile">
-                <img :src="signUp">
+                <img v-lazy="signUp">
             </div>
             <div class="description">
                 Erstelle ganz unkompliziert einen Account und gestalte gemeinsam mit uns eine leuchtende Zukunft!
@@ -16,7 +16,7 @@
             </v-btn>
         </div>
         <div class="public-image" v-if="!showMobile">
-            <img :src="signUp">
+            <img v-lazy="signUp">
         </div>
     </div>
 </template>

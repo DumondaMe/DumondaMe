@@ -1,12 +1,12 @@
 <template>
     <div class="public-why-dumonda-me explanation-element">
         <div class="public-image" v-if="!showMobile">
-            <img :src="explainVideo">
+            <img v-lazy="explainVideo">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">Wieso braucht es DumondaMe?</h2>
             <div class="public-image" v-if="showMobile">
-                <img :src="explainVideo">
+                <img v-lazy="explainVideo">
             </div>
             <div class="description">
                 Wenn wir das volle Potenzial der kollektiven Intelligenz zur nachhaltigen Lösung der Probleme unserer
