@@ -2,6 +2,9 @@
     <div class="public-roadmap explanation-element">
         <div class="public-description-container left-description">
             <h2 class="title-description">Roadmap</h2>
+            <div class="public-image" @click="$router.push({name: 'nextSteps'})" v-if="showMobile">
+                <img :src="roadmap">
+            </div>
             <div class="description">
                 Es gibt noch sehr viel zu tun! Hauptpriorität haben im Moment der Aufbau einer lebendigen Community, die
                 weitere Finanzierung und die Erweiterung der Engagement-Funktionalitäten.
@@ -10,7 +13,7 @@
                 Weiteren Schritte
             </v-btn>
         </div>
-        <div class="public-image" @click="$router.push({name: 'nextSteps'})">
+        <div class="public-image" @click="$router.push({name: 'nextSteps'})" v-if="!showMobile">
             <img :src="roadmap">
         </div>
     </div>
@@ -18,6 +21,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             roadmap() {
                 return `${process.env.staticUrl}/img/landingPagePublic/roadmap.jpg`;

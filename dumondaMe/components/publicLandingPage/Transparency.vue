@@ -1,10 +1,13 @@
 <template>
     <div class="public-transparency explanation-element">
-        <div class="public-image" @click="openGithub">
+        <div class="public-image public-image-mobile" @click="openGithub" v-if="!showMobile">
             <img :src="transparency">
         </div>
         <div class="public-description-container transparency-container">
             <h2 class="title-description">Transparenz</h2>
+            <div class="public-image public-image-mobile" @click="openGithub" v-if="showMobile">
+                <img :src="transparency">
+            </div>
             <div class="description">
                 Der komplette Source Code von DumondaMe ist Open Source. Auf diese Weise kann die Funktionsweise der
                 Algorithmen transparent überprüft werden.
@@ -18,6 +21,7 @@
 
 <script>
     export default {
+        props: ['showMobile'],
         computed: {
             transparency() {
                 return `${process.env.staticUrl}/img/landingPagePublic/github.png`;
@@ -35,10 +39,19 @@
     .public-transparency.explanation-element {
         .public-description-container.transparency-container {
             padding-left: 56px;
+
+            @media screen and (max-width: 900px) {
+                padding-left: 16px;
+            }
         }
 
         .public-image {
             cursor: pointer;
+
+            @media screen and (max-width: 900px) {
+                padding: 0 16px;
+                margin-bottom: 28px;
+            }
         }
     }
 </style>

@@ -32,6 +32,11 @@
             display: block;
             text-align: center;
             margin: 0 auto;
+
+            @media screen and (max-width: 550px) {
+                max-width: 100%;
+                padding: 0 16px
+            }
         }
 
         h2 {
@@ -48,6 +53,10 @@
 
         padding: 8px 0;
         margin-bottom: 120px;
+
+        @media screen and (max-width: 900px) {
+            margin-bottom: 40px;
+        }
 
     }
 </style>
