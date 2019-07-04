@@ -1,12 +1,11 @@
 <template>
     <div class="public-live-event">
         <v-icon x-large class="icon-calendar">mdi-calendar-check</v-icon>
-        <h2>Live Events</h2>
+        <h2>{{$t('pages:landingPagePublic.liveEvents.title')}}</h2>
         <div class="description-event">
-            Möchtest du Fragen offline diskutieren und spannende Menschen kennenlernen? Dann sind die Live Events genau
-            das Richtige für dich.
+            {{$t('pages:landingPagePublic.liveEvents.description')}}
         </div>
-        <div class="next-event-title">Nächste Treffen:</div>
+        <div class="next-event-title">{{$t('pages:landingPagePublic.liveEvents.titleNextEvents')}}</div>
         <a class="event-container" href="https://www.facebook.com/events/1056806767842535/" target="_blank"
            rel="noopener">
             16. Juli: DumondaMe-Abend in Luzern

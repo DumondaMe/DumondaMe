@@ -1,17 +1,15 @@
 <template>
     <div class="public-question-answer explanation-element">
         <div class="public-description-container left-description">
-            <h2 class="title-description">Fragen stellen</h2>
+            <h2 class="title-description">{{$t('pages:landingPagePublic.questionAnswer.title')}}</h2>
             <div class="public-image" @click="$router.push({name: 'question'})" v-if="showMobile">
                 <img :src="concept">
             </div>
             <div class="description">
-                Die richtigen Fragen können die Welt verändern! Deshalb ist die Frage/Antwort-Funktionalität das
-                Herzstück der Plattform. Dank dieser werden deine Fragen von der DumondaMe-Community mit Videos, Links,
-                Bücher, Engagements und Texten beantwortet.
+                {{$t('pages:landingPagePublic.questionAnswer.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'question'})">
-                Zu den Fragen
+                {{$t('pages:landingPagePublic.questionAnswer.actionButton')}}
             </v-btn>
         </div>
         <div class="public-image" @click="$router.push({name: 'question'})" v-if="!showMobile">

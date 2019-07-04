@@ -4,17 +4,15 @@
             <img v-lazy="team">
         </div>
         <div class="public-description-container">
-            <h2 class="title-description">Wer steht hinter DumondaMe?</h2>
+            <h2 class="title-description">{{$t('pages:landingPagePublic.aboutUs.title')}}</h2>
             <div class="public-image" @click="$router.push({name: 'aboutUs'})" v-if="showMobile">
                 <img v-lazy="team">
             </div>
             <div class="description">
-                Wir sind eine Gruppe von Menschen die mit viel Herzblut diese Plattform aufbauen. Dazu gehört eine
-                immer grösser werdende Community, die uns auf ehrenamtlicher Basis unterstützt und so einen grossen
-                Beitrag zum Gelingen dieses Projekts beiträgt.
+                {{$t('pages:landingPagePublic.aboutUs.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'aboutUs'})">
-                Über uns
+                {{$t('pages:landingPagePublic.aboutUs.actionButton')}}
             </v-btn>
         </div>
     </div>

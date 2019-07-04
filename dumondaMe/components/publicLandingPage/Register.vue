@@ -4,18 +4,18 @@
             <img v-lazy="signUp">
         </div>
         <div class="public-description-container">
-            <h2 class="title-description">Gemeinsam ist alles Möglich!</h2>
+            <h2 class="title-description">{{$t('pages:landingPagePublic.register.title')}}</h2>
             <div class="public-image" v-if="showMobile">
                 <img v-lazy="signUp">
             </div>
             <div class="description">
-                Erstelle ganz unkompliziert einen Account und werde Teil der DumondaMe-Community.
+                {{$t('pages:landingPagePublic.register.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'register'})">
-                Account erstellen
+                {{$t('pages:landingPagePublic.createAccountButton')}}
             </v-btn>
             <v-btn outline color="primary" class="login-button" @click="$router.push({name: 'login'})">
-                Ich habe bereits ein Konto
+                {{$t('pages:landingPagePublic.register.loginButton')}}
             </v-btn>
         </div>
     </div>

@@ -1048,7 +1048,54 @@
     "loadingMessage": "Ladevorgang läuft"
   },
   "landingPagePublic": {
-    "slogan": "Das soziale Netzwerk für eine leuchtende Zukunft"
+    "slogan": "Das soziale Netzwerk für eine leuchtende Zukunft",
+    "createAccountButton": "Account erstellen",
+    "whatIsDumondaMe": {
+      "title": "Was ist DumondaMe?",
+      "description": "DumondaMe ist ein soziales Netzwerk mit dem Fokus auf gesellschaftsrelevante Themen. Dabei steht folgende Fragestellung im Mittelpunkt: Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger Umgang mit der Natur, soziale Gerechtigkeit, eine hohe Lebensqualität und Frieden so selbstverständlich sind wie die Luft zum Atmen?",
+      "actionButton": "Zum Erklärvideo"
+    },
+    "questionAnswer": {
+      "title": "Fragen stellen",
+      "description": "Die richtigen Fragen können die Welt verändern! Deshalb ist die Frage-Antwort-Funktionalität das Herzstück der Plattform. Dank dieser werden deine Fragen von der DumondaMe-Community mit Videos, Links, Büchern, Engagements und Texten beantwortet.",
+      "actionButton": "Zu den Fragen"
+    },
+    "commitment": {
+      "title": "Dein Engagement",
+      "description": "Erstelle auf DumondaMe eine Seite für deine Organisation, dein Projekt oder deine persönliche Initiative (Bezeichnung Engagement auf DumondaMe). Nutze dieses Feature um interessierte Menschen auf dein Engagement aufmerksam zu machen und um mit ihnen im Austausch zu bleiben.",
+      "actionButton": "Zu den Engagements"
+    },
+    "liveEvents": {
+      "title": "Live Events",
+      "description": "Möchtest du Fragen offline diskutieren und spannende Menschen kennenlernen? Dann sind die Live Events genau das Richtige für dich.",
+      "titleNextEvents": "Nächste Treffen:"
+    },
+    "scalability": {
+      "title": "Wir suchen!",
+      "description": "Ideen, Kooperationen und Partnerschaften, welche zur finanziellen Stabilität des Projekts beitragen. Mehr Informationen zum Projekt findest du in unserem <a href=\"https://drive.google.com/open?id=17cPZT0AoA8SgLvnq0DifZ5-w8FDjrbiy\" target=\"_blank\" rel=\"noopener\">Factsheet</a>.",
+      "statistic": {
+        "title": "Aktuelle Zahlen:",
+        "numberOfUsers": "Anzahl Benutzer_innen:",
+        "numberOfCommitments": "Anzahl Engagements:",
+        "numberOfQuestions": "Anzahl Fragen:",
+        "numberOfAnswers": "Anzahl Antworten:"
+      }
+    },
+    "aboutUs": {
+      "title": "Wer steht hinter DumondaMe?",
+      "description": "Wir sind eine Gruppe von Menschen die mit viel Herzblut diese Plattform aufbauen. Dazu gehört eine immer grösser werdende Community, die uns auf ehrenamtlicher Basis unterstützt und so einen grossen Beitrag zum Gelingen dieses Projekts beiträgt.",
+      "actionButton": "Über uns"
+    },
+    "youtube": {
+      "title": "Mehr über DumondaMe erfahren?",
+      "description": "Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen.",
+      "actionButton": "Youtube Channel"
+    },
+    "register": {
+      "title": "Gemeinsam ist alles Möglich!",
+      "description": "Erstelle ganz unkompliziert einen Account und werde Teil der DumondaMe-Community.",
+      "loginButton": "Ich habe bereits ein Konto"
+    }
   },
   "footer": {
     "vision": "Vision",

@@ -1,23 +1,29 @@
 <template>
     <div class="public-scalability-statistic">
-        <div class="statistic-title">Aktuelle Zahlen:</div>
+        <div class="statistic-title">{{$t('pages:landingPagePublic.scalability.statistic.title')}}</div>
         <div class="statistic-element">
-            <div class="statistic-description">Anzahl Benutzer_innen:</div>
+            <div class="statistic-description">{{$t('pages:landingPagePublic.scalability.statistic.numberOfUsers')}}
+            </div>
             <v-spacer></v-spacer>
             <div class="statistic-number">{{statistic.numberOfUsers}}</div>
         </div>
         <div class="statistic-element">
-            <div class="statistic-description">Anzahl Engagements:</div>
+            <div class="statistic-description">
+                {{$t('pages:landingPagePublic.scalability.statistic.numberOfCommitments')}}
+            </div>
             <v-spacer></v-spacer>
             <div class="statistic-number">{{statistic.numberOfCommitments}}</div>
         </div>
         <div class="statistic-element">
-            <div class="statistic-description">Anzahl Fragen:</div>
+            <div class="statistic-description">
+                {{$t('pages:landingPagePublic.scalability.statistic.numberOfQuestions')}}
+            </div>
             <v-spacer></v-spacer>
             <div class="statistic-number">{{statistic.numberOfQuestions}}</div>
         </div>
         <div class="statistic-element">
-            <div class="statistic-description">Anzahl Antworten:</div>
+            <div class="statistic-description">{{$t('pages:landingPagePublic.scalability.statistic.numberOfAnswers')}}
+            </div>
             <v-spacer></v-spacer>
             <div class="statistic-number">{{statistic.numberOfAnswers}}</div>
         </div>
