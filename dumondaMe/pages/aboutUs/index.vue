@@ -4,8 +4,10 @@
         <div v-if="selectedLanguage === 'de'">
             <p class="top-text">Mit viel fachlichem Know-how und Enthusiasmus entwickeln wir eine moderne
                 Internetplattform welche die kollektive Intelligenz nutzt, um die sozialen und ökologischen
-                Herausforderungen unserer Zeit anzugehen. Der gemeinnützige Verein DumondaMe ist das tragende Gefäss
-                unseres Wirkens. Die Statuten des Vereins findest du <a target="_blank" :href="bylaws">hier.</a>
+                Herausforderungen unserer Zeit anzugehen. Unsere Organisationsform ist die Soziokratie. Der
+                gemeinnützige
+                Verein DumondaMe ist das tragende Gefäss unseres Wirkens. Die Statuten des Vereins findest du <a
+                        target="_blank" :href="bylaws">hier.</a>
             </p>
             <div class="about-user">
                 <div>
@@ -100,9 +102,9 @@
         </div>
         <div v-else-if="selectedLanguage === 'en'">
             <p class="top-text">With a lot of professional know-how and enthusiasm we develop a modern internet
-                platform, which makes collective intelligence usable for solving social and ecological challenges. The
-                non-profit society DumondaMe is the supporting organization of our work. You can find the statutes of
-                the society <a target="_blank" :href="bylaws">here.</a>
+                platform, which makes collective intelligence usable for solving social and ecological challenges. Our
+                organizational form is sociocracy. The non-profit society DumondaMe is the supporting organization of
+                our work. You can find the statutes of the society <a target="_blank" :href="bylaws">here.</a>
             </p>
             <div class="about-user">
                 <div>
