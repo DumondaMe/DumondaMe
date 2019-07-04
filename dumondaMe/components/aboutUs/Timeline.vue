@@ -94,6 +94,11 @@
                               :timeline-text="$t('pages:aboutUs.history.helloWorld.text')">
                 <social-media-links slot="info"></social-media-links>
             </timeline-element>
+            <timeline-element color="#009e97" icon="mdi-account-group"
+                              :date="$t('pages:aboutUs.history.sociocracy.date')"
+                              :timeline-title="$t('pages:aboutUs.history.sociocracy.title')"
+                              :timeline-text="$t('pages:aboutUs.history.sociocracy.text')">
+            </timeline-element>
             <timeline-element color="#D81B60" icon="mdi-emoticon-excited" v-if="!isAuthenticated"
                               :date="$t('pages:aboutUs.history.register.date')"
                               :timeline-title="$t('pages:aboutUs.history.register.title')"
@@ -103,11 +108,6 @@
                         {{$t('common:button.register')}}
                     </v-btn>
                 </div>
-            </timeline-element>
-            <timeline-element color="green lighten-1" icon="mdi-rocket"
-                              :date="$t('pages:aboutUs.history.crowdfunding.date')"
-                              :timeline-title="$t('pages:aboutUs.history.crowdfunding.title')"
-                              :timeline-text="$t('pages:aboutUs.history.crowdfunding.text')">
             </timeline-element>
             <timeline-element color="green lighten-1" icon="mdi-auto-fix"
                               :date="$t('pages:aboutUs.history.nextSteps.date')"
