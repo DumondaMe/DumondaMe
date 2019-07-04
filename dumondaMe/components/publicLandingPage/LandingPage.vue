@@ -5,36 +5,22 @@
         <question-answer :show-mobile="showMobile"></question-answer>
         <commitments :show-mobile="showMobile"></commitments>
         <live-events></live-events>
-        <networking :show-mobile="showMobile"></networking>
-        <relevance :show-mobile="showMobile"></relevance>
-        <for-the-good-of-all :show-mobile="showMobile"></for-the-good-of-all>
-        <sociocracy :show-mobile="showMobile"></sociocracy>
         <scalability :show-mobile="showMobile"></scalability>
-        <privacy :show-mobile="showMobile"></privacy>
-        <roadmap :show-mobile="showMobile"></roadmap>
         <about-us :show-mobile="showMobile"></about-us>
         <youtube :show-mobile="showMobile"></youtube>
-        <why-dumonda-me :show-mobile="showMobile"></why-dumonda-me>
         <register :show-mobile="showMobile"></register>
     </div>
 </template>
 
 <script>
     import DumondaMeHeader from './Header';
-    import WhyDumondaMe from './WhyDumondaMe';
     import WhatIsDumondaMe from './WhatIsDumondaMe';
     import QuestionAnswer from './QuestionAnswer';
     import Commitments from './Commitments';
     import LiveEvents from './LiveEvents';
-    import Networking from './Networking';
-    import Relevance from './Relevance';
-    import ForTheGoodOfAll from './ForTheGoodOfAll';
-    import Sociocracy from './Sociocracy';
     import AboutUs from './AboutUs';
     import Youtube from './Youtube';
-    import Transparency from './Transparency';
     import Scalability from './Scalability';
-    import Privacy from './Privacy';
     import Roadmap from './Roadmap';
     import Donation from './Donation';
     import Register from './Register';
@@ -48,8 +34,7 @@
         },
         components: {
             WhatIsDumondaMe,
-            DumondaMeHeader, WhyDumondaMe, QuestionAnswer, Commitments, LiveEvents, Networking, Relevance,
-            ForTheGoodOfAll, Sociocracy, AboutUs, Youtube, Transparency, Scalability, Privacy, Roadmap,
+            DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability, Roadmap,
             Register, Donation
         },
     }

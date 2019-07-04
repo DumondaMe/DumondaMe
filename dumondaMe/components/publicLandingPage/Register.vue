@@ -1,12 +1,15 @@
 <template>
     <div id="public-register" class="explanation-element">
-        <div class="public-description-container left-description">
+        <div class="public-image" v-if="!showMobile">
+            <img v-lazy="signUp">
+        </div>
+        <div class="public-description-container">
             <h2 class="title-description">Gemeinsam ist alles Möglich!</h2>
             <div class="public-image" v-if="showMobile">
                 <img v-lazy="signUp">
             </div>
             <div class="description">
-                Erstelle ganz unkompliziert einen Account und gestalte gemeinsam mit uns eine leuchtende Zukunft!
+                Erstelle ganz unkompliziert einen Account und werde Teil der DumondaMe-Community.
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'register'})">
                 Account erstellen
@@ -14,9 +17,6 @@
             <v-btn outline color="primary" class="login-button" @click="$router.push({name: 'login'})">
                 Ich habe bereits ein Konto
             </v-btn>
-        </div>
-        <div class="public-image" v-if="!showMobile">
-            <img v-lazy="signUp">
         </div>
     </div>
 </template>
@@ -39,6 +39,11 @@
 
 
         .public-description-container {
+
+            @media screen and (min-width: 900px) {
+                padding-left: 56px;
+            }
+
             .login-button {
                 margin-top: 18px;
 

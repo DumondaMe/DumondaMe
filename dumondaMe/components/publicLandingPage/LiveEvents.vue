@@ -3,28 +3,23 @@
         <v-icon x-large class="icon-calendar">mdi-calendar-check</v-icon>
         <h2>Live Events</h2>
         <div class="description-event">
-            Möchtest du Fragen offline diskutieren und mehr über DumondaMe erfahren. Dann sind die Live Events genau das
-            Richtige für dich.
+            Möchtest du Fragen offline diskutieren und spannende Menschen kennenlernen? Dann sind die Live Events genau
+            das Richtige für dich.
         </div>
         <div class="next-event-title">Nächste Treffen:</div>
         <a class="event-container" href="https://www.facebook.com/events/1056806767842535/" target="_blank"
            rel="noopener">
-            16. Juli: DumondaMe Abend in Luzern
+            16. Juli: DumondaMe-Abend in Luzern
         </a>
         <a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
            rel="noopener">
-            22. Juli: DumondaMe Abend in Zürich
+            22. Juli: DumondaMe-Abend in Zürich
         </a>
     </div>
 </template>
 
 <script>
     export default {
-        computed: {
-            concept() {
-                return `${process.env.staticUrl}/img/landingPagePublic/concept_2x.jpg`;
-            },
-        }
     }
 </script>
 
