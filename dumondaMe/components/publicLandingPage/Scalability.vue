@@ -1,11 +1,13 @@
 <template>
     <div class="public-scalability explanation-element">
         <div class="public-description-container left-description">
-            <h2 class="title-description">Projektstand</h2>
+            <h2 class="title-description">Wir suchen!</h2>
             <statistic-dumonda-me v-if="showMobile"></statistic-dumonda-me>
             <div class="description">
-                Wir stehen noch am Anfang, haben aber Grosses vor. Das Ziel ist es, dass diese Plattform Millionen von
-                Menschen in der ganzen Welt nutzen können.
+                Ideen, Kooperationen und Partnerschaften, welche zur finanziellen Stabilität des Projekts beitragen.
+                Mehr Informationen zum Projekt findest du in unserem
+                <a href="https://drive.google.com/open?id=17cPZT0AoA8SgLvnq0DifZ5-w8FDjrbiy" target="_blank"
+                   rel="noopener">Factsheet</a>.
             </div>
         </div>
         <statistic-dumonda-me v-if="!showMobile"></statistic-dumonda-me>

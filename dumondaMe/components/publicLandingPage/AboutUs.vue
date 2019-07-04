@@ -14,7 +14,7 @@
                 Beitrag zum Gelingen dieses Projekts beiträgt.
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'aboutUs'})">
-                Über Uns
+                Über uns
             </v-btn>
         </div>
     </div>

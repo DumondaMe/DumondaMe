@@ -2,18 +2,17 @@
     <div class="public-youtube explanation-element">
         <div class="public-description-container left-description">
             <h2 class="title-description">Mehr über DumondaMe erfahren?</h2>
-            <div class="public-image" @click="openYoutubeChannel" v-if="showMobile">
+            <div class="public-image" @click="openYoutubeVideo" v-if="showMobile">
                 <img v-lazy="youtube">
             </div>
             <div class="description">
-                Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen. Unter
-                anderem findest du ein Video, welches die Bedeutung des Namen DumondaMe erklärt.
+                Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen.
             </div>
             <v-btn color="secondary" class="action-button" @click="openYoutubeChannel">
                 Youtube Channel
             </v-btn>
         </div>
-        <div class="public-image" @click="openYoutubeChannel" v-if="!showMobile">
+        <div class="public-image" @click="openYoutubeVideo" v-if="!showMobile">
             <img v-lazy="youtube">
         </div>
     </div>
@@ -30,6 +29,9 @@
         methods: {
             openYoutubeChannel() {
                 window.open('https://www.youtube.com/channel/UCl74yeMn-EzqwcE2Rd-wIzQ', '_blank');
+            },
+            openYoutubeVideo() {
+                window.open('https://www.youtube.com/watch?v=eZelQvUkQxw', '_blank');
             }
         }
     }
