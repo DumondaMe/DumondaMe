@@ -4,18 +4,15 @@
             <img :src="explainVideo">
         </div>
         <div class="public-description-container">
-            <h2 class="title-description">Was ist DumondaMe?</h2>
+            <h2 class="title-description">{{$t('pages:landingPagePublic.whatIsDumondaMe.title')}}</h2>
             <div class="public-image" @click="openExplainVideo" v-if="showMobile">
                 <img :src="explainVideo">
             </div>
             <div class="description">
-                DumondaMe ist ein soziales Netzwerk mit dem Fokus auf gesellschaftsrelevante Themen. Dabei steht
-                folgende Fragestellung im Mittelpunkt: Wie verändern wir die Welt zu einem Ort, wo ein nachhaltiger
-                Umgang mit der Natur, soziale Gerechtigkeit, eine hohe Lebensqualität und Frieden so selbstverständlich
-                sind wie die Luft zum Atmen?
+                {{$t('pages:landingPagePublic.whatIsDumondaMe.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="openExplainVideo">
-                Zum Erklärvideo
+                {{$t('pages:landingPagePublic.whatIsDumondaMe.actionButton')}}
             </v-btn>
         </div>
     </div>

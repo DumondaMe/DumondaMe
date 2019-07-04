@@ -5,8 +5,12 @@
             <h2>{{$t('pages:landingPagePublic.slogan')}}</h2>
         </div>
         <div class="register-container">
-            <v-btn round dark color="secondary" @click="$router.push({name: 'register'})">Account erstellen</v-btn>
-            <v-btn round outline color="primary" @click="$router.push({name: 'login'})">Login</v-btn>
+            <v-btn round dark color="secondary" @click="$router.push({name: 'register'})">
+                {{$t('pages:landingPagePublic.createAccountButton')}}
+            </v-btn>
+            <v-btn round outline color="primary" @click="$router.push({name: 'login'})">
+                {{$t('common:button.login')}}
+            </v-btn>
         </div>
     </div>
 </template>

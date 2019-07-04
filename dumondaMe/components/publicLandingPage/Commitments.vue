@@ -4,17 +4,15 @@
             <img :src="commitment">
         </div>
         <div class="public-description-container">
-            <h2 class="title-description">Dein Engagement</h2>
+            <h2 class="title-description">{{$t('pages:landingPagePublic.commitment.title')}}</h2>
             <div class="public-image" @click="$router.push({name: 'commitment'})" v-if="showMobile">
                 <img :src="commitment">
             </div>
             <div class="description">
-                Erstelle auf DumondaMe eine Seite für deine Organisation, dein Projekt oder deine persönliche Initiative
-                (Bezeichnung Engagement auf DumondaMe). Nutze dieses Feature um interessierte Menschen auf dein
-                Engagement aufmerksam zu machen und um mit ihnen im Austausch zu bleiben.
+                {{$t('pages:landingPagePublic.commitment.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'commitment'})">
-                Zu den Engagements
+                {{$t('pages:landingPagePublic.commitment.actionButton')}}
             </v-btn>
         </div>
     </div>

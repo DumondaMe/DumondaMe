@@ -21,7 +21,6 @@
     import AboutUs from './AboutUs';
     import Youtube from './Youtube';
     import Scalability from './Scalability';
-    import Roadmap from './Roadmap';
     import Donation from './Donation';
     import Register from './Register';
 
@@ -34,7 +33,7 @@
         },
         components: {
             WhatIsDumondaMe,
-            DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability, Roadmap,
+            DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability,
             Register, Donation
         },
     }

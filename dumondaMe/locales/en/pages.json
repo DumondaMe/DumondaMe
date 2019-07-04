@@ -1038,6 +1038,56 @@
   "auth": {
     "loadingMessage": "Loading in progress"
   },
+  "landingPagePublic": {
+    "slogan": "The social network for a bright future",
+    "createAccountButton": "Create account",
+    "whatIsDumondaMe": {
+      "title": "What is DumondaMe?",
+      "description": "DumondaMe is a social network with a focus on socially relevant topics. It focuses on the following question: How do we change the world into a place where a sustainable approach to nature, social justice, a high quality of life and peace are as self-evident as the air we breathe?",
+      "actionButton": "To the explanation video"
+    },
+    "questionAnswer": {
+      "title": "Ask questions",
+      "description": "The right questions can change the world! That's why the question-answer functionality is the heart of the platform. Thanks to this, your questions will be answered by the DumondaMe community with videos, links, books, engagements and texts.",
+      "actionButton": "To the questions"
+    },
+    "commitment": {
+      "title": "Your commitment",
+      "description": "Create a page on DumondaMe for your organization, your project, or your personal initiative (DumondaMe name: Commitment). Use this feature to make interested people aware of your commitment and to stay in contact with them.",
+      "actionButton": "To the commitments"
+    },
+    "liveEvents": {
+      "title": "Live Events",
+      "description": "Would you like to discuss questions offline and meet interesting people? Then live events are just the thing for you.",
+      "titleNextEvents": "Next meetings:"
+    },
+    "scalability": {
+      "title": "We're looking!",
+      "description": "Ideas, cooperations and partnerships which contribute to the financial stability of the project. More information about the project can be found in our <a href=\"https://drive.google.com/open?id=17cPZT0AoA8SgLvnq0DifZ5-w8FDjrbiy\" target=\"_blank\" rel=\"noopener\">Factsheet</a>.",
+      "statistic": {
+        "title": "Current figures:",
+        "numberOfUsers": "Number of users:",
+        "numberOfCommitments": "Number of commitments:",
+        "numberOfQuestions": "Number of questions:",
+        "numberOfAnswers": "Number of answers:"
+      }
+    },
+    "aboutUs": {
+      "title": "Who's behind DumondaMe?",
+      "description": "We are a group of people who put their heart and soul into building this platform. This includes an ever-growing community that supports us on a voluntary basis and thus makes a major contribution to the success of this project.",
+      "actionButton": "About us"
+    },
+    "youtube": {
+      "title": "Learn more about DumondaMe?",
+      "description": "On our Youtube Channel you will find many videos, which will bring you closer to this project.",
+      "actionButton": "Youtube Channel"
+    },
+    "register": {
+      "title": "Together everything is possible!",
+      "description": "Create an account easily and become part of the DumondaMe community.",
+      "loginButton": "I already have an account"
+    }
+  },
   "footer": {
     "vision": "Vision",
     "aboutUs": "About us",
