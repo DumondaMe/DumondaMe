@@ -12,7 +12,7 @@
         </a>
         <a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
            rel="noopener">
-            30. Juli: DumondaMe-Abend in Zürich
+            6. August: DumondaMe-Abend in Zürich
         </a>
     </div>
 </template>
