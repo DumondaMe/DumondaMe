@@ -6,10 +6,6 @@
             {{$t('pages:landingPagePublic.liveEvents.description')}}
         </div>
         <div class="next-event-title">{{$t('pages:landingPagePublic.liveEvents.titleNextEvents')}}</div>
-        <a class="event-container" href="https://www.facebook.com/events/1056806767842535/" target="_blank"
-           rel="noopener">
-            16. Juli: DumondaMe-Abend in Luzern
-        </a>
         <a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
            rel="noopener">
             6. August: DumondaMe-Abend in Zürich
