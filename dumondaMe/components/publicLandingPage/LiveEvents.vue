@@ -8,7 +8,7 @@
         <div class="next-event-title">{{$t('pages:landingPagePublic.liveEvents.titleNextEvents')}}</div>
         <a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
            rel="noopener">
-            6. August: DumondaMe-Abend in Zürich
+            28. August: DumondaMe-Abend in Zürich
         </a>
     </div>
 </template>
