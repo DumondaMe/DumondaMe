@@ -72,7 +72,7 @@ module.exports = {
     loading: {
         color: '#009e97'
     },
-    transition: {
+    pageTransition: {
         name: 'page',
         mode: 'out-in',
         css: false,
