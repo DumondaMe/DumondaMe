@@ -64,13 +64,11 @@ module.exports = {
         '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
-        'nuxt-sass-resources-loader'
+        '@nuxtjs/style-resources'
     ],
-    sassResources: [
-        path.resolve(__dirname, 'assets/style/variables.scss'),
-        path.resolve(__dirname, 'assets/style/card.scss'),
-        path.resolve(__dirname, 'assets/style/layout.scss')
-    ],
+    styleResources: {
+        scss: ['~assets/style/_variables.scss']
+    },
     loading: {
         color: '#009e97'
     },
@@ -117,6 +115,8 @@ module.exports = {
         {src: '~/plugins/vue-lazyload', ssr: false}],
     css: [
         '~/assets/style/app.styl',
+        '~/assets/style/card.scss',
+        '~/assets/style/layout.scss',
         'cropperjs/dist/cropper.min.css',
         '@mdi/font/css/materialdesignicons.min.css'
     ]
