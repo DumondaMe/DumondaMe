@@ -8,15 +8,6 @@ const getScripts = function () {
         innerHTML: "if(!(window.Promise && window.fetch && window.Symbol)) {" +
             `document.write("<script language='javascript' type='text/javascript' src='${process.env.CLIENT_STATIC_URL}/polyfill.min.js'><\/scr" + "ipt>");}`
     });
-    if (process.env.NODE_ENV === 'production') {
-        script.push({
-            src: `https://www.googletagmanager.com/gtag/js?id=AW-773868544`, async: true
-        });
-        script.push({
-            innerHTML: "window.dataLayer = window.dataLayer || []; " +
-                "function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-773868544');"
-        });
-    }
     return script;
 };
 
@@ -52,8 +43,7 @@ module.exports = {
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ],
-        script: getScripts(),
-        __dangerouslyDisableSanitizers: ['script']
+        script: getScripts()
     },
     dev: (process.env.NODE_ENV !== 'production'),
     env: {
