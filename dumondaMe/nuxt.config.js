@@ -43,7 +43,8 @@ module.exports = {
             {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
         ],
-        script: getScripts()
+        script: getScripts(),
+        __dangerouslyDisableSanitizers: ['script']
     },
     dev: (process.env.NODE_ENV !== 'production'),
     env: {
