@@ -15,7 +15,7 @@
                 </div>
                 <div>
                     <h3 class="name">Roger Waldvogel</h3>
-                    <div class="ely-function">Initator von DumondaMe, Softwareentwicklung</div>
+                    <div class="ely-function">Initiator von DumondaMe, Softwareentwicklung</div>
                     <div class="email-address"><a
                             href="mailto:rwaldvogel@dumonda.me">rwaldvogel@dumonda.me</a></div>
                     <p class="about-text">Als eidgenössisch diplomierter Informatikingenieur FH verfüge ich
