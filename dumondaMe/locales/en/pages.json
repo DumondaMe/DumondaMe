@@ -567,6 +567,8 @@
       "title": "Administrators of commitment {{- commitment}}",
       "titleAddAdmin": "Add administrator to commitment {{- commitment}}",
       "titleRemoveAdmin": "Remove administrator from {{- commitment}}",
+      "descriptionRemoveAdmin": "Should <b>{{- admin}}</b> really not be an administrator of the commitment <b>{{- commitment}}</b> anymore?",
+      "descriptionRemoveLoggedInAdmin": "Do you really not want to be an administrator of commitment <b>{{- commitment}}</b> anymore? <b>Caution!!</b> You can't manage this commitment anymore if you remove yourself as an administrator.",
       "titleRequestedAdmins": "Request sent to:",
       "searchAdmin": "Search new administrator",
       "removeAdminButton": "Remove Administrator",

@@ -7,7 +7,11 @@
             <v-divider></v-divider>
         </div>
         <v-card-text class="mobile-dialog-content">
-
+            <div v-if="!isLoggedInUser" v-html="$t('pages:detailCommitment.adminDialog.descriptionRemoveAdmin',
+            {commitment: $store.getters['commitment/getCommitment'].title, admin: userName})"></div>
+            <div v-else v-html="$t('pages:detailCommitment.adminDialog.descriptionRemoveLoggedInAdmin',
+            {commitment: $store.getters['commitment/getCommitment'].title, admin: userName})">
+            </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -26,7 +30,7 @@
 
 <script>
     export default {
-        props: ['commitmentId', 'userId'],
+        props: ['commitmentId', 'userId', 'userName', 'isLoggedInUser'],
         data() {
             return {loadingRunning: false}
         },
@@ -38,7 +42,11 @@
                 try {
                     this.loadingRunning = true;
                     await this.$store.dispatch('commitment/removeAdmin', this.userId);
-                    this.$emit('close-dialog');
+                    if (this.isLoggedInUser) {
+                        this.$emit('close-dialog-complete');
+                    } else {
+                        this.$emit('close-dialog');
+                    }
                 } finally {
                     this.loadingRunning = false;
                 }
@@ -51,6 +59,11 @@
     #dialog-remove-admin-commitment {
         max-width: 650px;
 
-
+        .mobile-dialog-content {
+            b {
+                font-weight: 500;
+                color: $primary-color;
+            }
+        }
     }
 </style>

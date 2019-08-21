@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
         <div class="remove-admin-button">
-            <v-btn @click="$emit('remove-admin', admin.userId)" outline color="primary"
+            <v-btn @click="removeAccount" outline color="primary"
                    :disabled="disableRemoveButton">
                 {{$t("pages:detailCommitment.adminDialog.removeAdminButton")}}
             </v-btn>
@@ -26,7 +26,9 @@
         },
         methods: {
             removeAccount() {
-
+                this.$emit('remove-admin', {
+                    userId: this.admin.userId, name: this.admin.name, isLoggedInUser: this.admin.isLoggedInUser
+                });
             }
         },
     }

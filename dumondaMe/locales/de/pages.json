@@ -570,6 +570,8 @@
       "title": "Administratoren des Engagements {{- commitment}}",
       "titleAddAdmin": "Administrator zum Engagement {{- commitment}} hinzufügen",
       "titleRemoveAdmin": "Administrator von  {{- commitment}} entfernen",
+      "descriptionRemoveAdmin": "Soll <b>{{- admin}}</b> wirklich kein Administrator des Engagements <b>{{- commitment}}</b> mehr sein?",
+      "descriptionRemoveLoggedInAdmin": "Möchtest du dich wirklich kein Administrator des Engagements <b>{{- commitment}}</b> mehr sein? <b>Vorsicht!!</b> Du kannst dieses Engagement nicht mehr verwalten, wenn du dich als Administrator entfernst.",
       "titleRequestedAdmins": "Anfrage versendet an:",
       "searchAdmin": "Suche neuen Administrator",
       "removeAdminButton": "Administrator entfernen",
