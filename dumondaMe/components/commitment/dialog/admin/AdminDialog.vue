@@ -4,8 +4,9 @@
             <add-admin v-if="showAddAdmin" :commitment-id="commitmentId"
                        @close-dialog="showAddAdmin = false">
             </add-admin>
-            <remove-admin v-else-if="showRemoveAdmin" :commitment-id="commitmentId" :user-id="userIdAdminToRemove"
-                       @close-dialog="showRemoveAdmin = false">
+            <remove-admin v-else-if="showRemoveAdmin" :commitment-id="commitmentId" :user-id="adminToRemove.userId"
+                          :user-name="adminToRemove.name" :is-logged-in-user="adminToRemove.isLoggedInUser"
+                          @close-dialog="showRemoveAdmin = false" @close-dialog-complete="loggedInAdminRemoved">
             </remove-admin>
             <admin-overview v-else :disable-remove-button="admins.length < 2"
                             :admins="admins" :admins-requested="adminsRequested" @close-dialog="$emit('close-dialog')"
@@ -28,7 +29,7 @@
         data() {
             return {
                 dialog: true, showError: false, showAddAdmin: false, showRemoveAdmin: false,
-                userIdAdminToRemove: null
+                adminToRemove: null
             }
         },
         components: {AddAdmin, RemoveAdmin, AdminOverview},
@@ -36,9 +37,13 @@
             await this.$store.dispatch('commitment/getAdmins');
         },
         methods: {
-            removeAdmin(userId) {
-                this.userIdAdminToRemove = userId;
+            removeAdmin(user) {
+                this.adminToRemove = user;
                 this.showRemoveAdmin = true;
+            },
+            loggedInAdminRemoved() {
+                this.$emit('close-dialog');
+                location.reload(true);
             }
         },
         computed: {

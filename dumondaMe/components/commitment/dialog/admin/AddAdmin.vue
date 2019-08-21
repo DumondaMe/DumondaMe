@@ -65,6 +65,10 @@
                     try {
                         this.loadingRunning = true;
                         await this.$store.dispatch('commitment/addAdmin', this.selectedUser.userId);
+                        this.$store.commit('commitment/ADD_ADMIN_REQUESTED', {
+                            userId: this.selectedUser.userId, name: this.selectedUser.name,
+                            profileUrl: this.selectedUser.userImage
+                        });
                         this.$emit('close-dialog');
                     } finally {
                         this.loadingRunning = false;

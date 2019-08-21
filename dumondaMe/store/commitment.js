@@ -33,6 +33,9 @@ export const mutations = {
     SET_ADMINS_REQUESTED(state, adminsRequested) {
         state.adminsRequested = adminsRequested;
     },
+    ADD_ADMIN_REQUESTED(state, adminRequested) {
+        state.adminsRequested.push(adminRequested);
+    },
     SET_IS_UP_COMING_EVENTS(state, isUpComingEvents) {
         state.isUpComingEvents = isUpComingEvents;
     },
