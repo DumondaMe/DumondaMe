@@ -2,7 +2,7 @@
     <v-menu v-model="menu" :close-on-content-click="false" offset-y left max-height="400"
             class="select-topic-container">
         <v-icon slot="activator" :class="{'topic-selected': localSelectedTopics[0].id !== 'allTopics'}">
-            mdi-bookmark-outline
+            mdi-filter-variant
         </v-icon>
         <v-card class="ely-menu-topic-container">
             <ely-select :items="topics" :select-multiple="true" :min-items='1' :dis-select-parent-items="true"

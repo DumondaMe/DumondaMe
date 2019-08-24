@@ -11,6 +11,13 @@
             </v-tooltip>
             <v-tooltip top class="filter-element-container">
                 <div class="filter-element" slot="activator"
+                     :class="{'active-filter': mainFilter === 'test'}" @click="setFilter('test')">
+                    <v-icon>mdi-newspaper-variant-outline</v-icon>
+                </div>
+                <span>{{$t("pages:feeds.filter.tooltip.question")}}</span>
+            </v-tooltip>
+            <v-tooltip top class="filter-element-container">
+                <div class="filter-element" slot="activator"
                      :class="{'active-filter': mainFilter === 'question'}" @click="setFilter('question')">
                     <v-icon>mdi-help-circle-outline</v-icon>
                 </div>
@@ -31,7 +38,7 @@
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
+            <!--<v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
                        :class="{'is-public': !isAuthenticated}">
                 <div class="right-filter" slot="activator">
                     <common-filter-trust-circle :trust-circle="$store.state.feedFilter.trustCircleFilter"
@@ -39,7 +46,7 @@
                     </common-filter-trust-circle>
                 </div>
                 <span>{{$t("pages:feeds.filter.tooltip.trustCircle")}}</span>
-            </v-tooltip>
+            </v-tooltip>-->
             <v-tooltip top class="right-filter-container">
                 <div class="right-filter" slot="activator">
                     <common-filter-topic :init-topics="$store.state.feedFilter.topicFilter"
@@ -49,12 +56,12 @@
                 <span>{{$t("pages:feeds.filter.tooltip.topic")}}</span>
             </v-tooltip>
         </div>
-        <div id="feed-sub-filters">
+        <!--<div id="feed-sub-filters">
             <sub-filter-activity v-if="mainFilter === 'activity'"></sub-filter-activity>
             <sub-filter-question v-else-if="mainFilter === 'question'"></sub-filter-question>
             <sub-filter-commitment v-else-if="mainFilter === 'commitment'"></sub-filter-commitment>
             <sub-filter-event v-else-if="mainFilter === 'event'"></sub-filter-event>
-        </div>
+        </div>-->
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false"
                                :login-description="$t('pages:feeds.filter.activity.loginDescription')">
         </login-required-dialog>

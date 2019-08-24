@@ -13,26 +13,53 @@
         <div slot="content" id="feed-detail-container">
             <feed-filter class="index-desktop-feed-filter">
             </feed-filter>
-            <feed-mobile-filter class="index-mobile-feed-filter">
-            </feed-mobile-filter>
-            <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
-            <beta-version class="index-mobile-feed-filter" v-show="!isLoading"
-                          :class="{'top-feed-element': isAuthenticated ||
-                          (!isAuthenticated && $route.name !== 'index')}">
-            </beta-version>
-            <networking-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading"
-                             v-if="isAuthenticated && isGerman">
-            </networking-info>
-            <concept-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading">
-            </concept-info>
-            <feed-empty v-if="showHelpFeedInfo">
-            </feed-empty>
-            <cards v-else :feed="feed" :route-name="$route.name">
-            </cards>
-            <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
-                   :disabled="loadNextRunning" v-if="showLoadNextButton">
-                {{$t("common:button.showMore")}}
-            </v-btn>
+            <div class="news-card-container">
+                <div class="feed-card news-card ely-card">
+                    <div class="feed-card-header">
+                        <div>
+                            <h2 class="feed-card-title">
+                                <span class="answer-type">News </span><span class="card-header-link">
+                        <nuxt-link :to="{name: 'question-questionId-slug',
+                            params: {questionId: '', slug: ''},
+                            query: {answerId: 1}}"> Greta Thunberg am Klimagipfel in Lausanne
+                        </nuxt-link></span>
+
+                            </h2>
+                            <div class="secondary-text">
+                                vor 2 Stunden
+                            </div>
+                        </div>
+                        <v-spacer></v-spacer>
+                        <slot name="feedMenu"></slot>
+                    </div>
+                    <div class="news-content">
+                        <img src="https://www.srf.ch/static/cms/images/branded_srf_news/ee93f2.jpg"/>
+                        <div class="description">
+                            Zusammen mit 450 jungen Menschen aus ganz Europa will die Schwedin künftige
+                            Klimaschutz-Aktionen besser koordinieren.
+                        </div>
+                    </div>
+                    <div class="news-footer card-footer-feed">
+                        <div class="footer-icon">
+                            <div class="user-icon">
+                                <img src="https://www.srf.ch/extension/srf_shared/design/standard/images/favicons/favicon-64x64.png"/>
+                            </div>
+                        </div>
+                        <div class="news-icon-container">
+                            <v-icon color="primary">mdi-thumb-up-outline</v-icon>
+                            <span class="number">41</span>
+                        </div>
+                        <div class="news-icon-container">
+                            <v-icon color="primary">mdi-chat-outline</v-icon>
+                            <span class="number">3</span>
+                        </div>
+                        <div class="news-icon-container">
+                            <v-icon color="primary">mdi-help-circle-outline</v-icon>
+                            <span class="number">1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </feed-layout>
 </template>
@@ -64,7 +91,7 @@
                         store.commit('feedFilter/SET_MAIN_FILTER', route.name);
                     }
 
-                    await Promise.all([store.dispatch(`feed/getFeed`)]);
+                    //await Promise.all([store.dispatch(`feed/getFeed`)]);
                 }
             } catch (e) {
                 error({statusCode: e.request.res.statusCode});
@@ -74,24 +101,6 @@
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe,
             ConceptInfo, NetworkingInfo
-        },
-        head() {
-            return {
-                htmlAttrs: {
-                    lang: this.$store.state.i18n.language
-                },
-                meta: [
-                    {hid: 'description', name: 'description', content: this.$t('common:meta.description')},
-                    {hid: 'keywords', name: 'keywords', content: this.$t('common:meta.keywords')},
-                    {hid: 'og:description', property: 'og:description', content: this.$t('common:meta.description')},
-                    {hid: 'og:title', property: 'og:title', content: this.$t('common:navigation.home')},
-                    {
-                        hid: 'twitter:description', property: 'twitter:description',
-                        content: this.$t('common:meta.description')
-                    },
-                    {hid: 'twitter:title', property: 'twitter:title', content: this.$t('common:navigation.home')}
-                ]
-            }
         },
         data() {
             return {loadNextRunning: false}
@@ -116,24 +125,49 @@
                 return this.$store.state.i18n.language === 'de';
             }
         },
-        methods: {
-            async loadNext() {
-                try {
-                    this.loadNextRunning = true;
-                    await
-                        this.$store.dispatch(`feed/loadNextFeedElements`,
-                            {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
-                    this.loadNextRunning = false;
-                } catch (error) {
-                    this.loadNextRunning = false;
-                }
-            }
-        }
+        methods: {}
     }
 </script>
 
 <style lang="scss">
+    .news-card-container {
+        margin-top: 68px;
+
+        .news-card {
+            .news-content {
+                img {
+                    width: 100%;
+                }
+
+                .description {
+                    font-weight: 300;
+                }
+            }
+
+            .news-footer {
+                margin-top: 12px;
+                display: flex;
+
+                .footer-icon {
+                    margin-right: 18px;
+                }
+
+                .news-icon-container {
+                    padding-top: 8px;
+
+                    .number {
+                        padding-left: 4px;
+                        padding-right: 24px;
+                        font-weight: 500;
+                        color: $secondary-text;
+                    }
+                }
+            }
+        }
+    }
+
     #feed-detail-container {
+
         #load-next-page {
             margin-left: 0;
         }
