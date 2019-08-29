@@ -1070,7 +1070,8 @@
     "liveEvents": {
       "title": "Live Events",
       "description": "Möchtest du Fragen offline diskutieren und spannende Menschen kennenlernen? Dann sind die Live Events genau das Richtige für dich.",
-      "titleNextEvents": "Nächste Treffen:"
+      "titleNextEvents": "Nächste Treffen:",
+      "noEvents": "Es finden im Moment keine Treffen statt."
     },
     "scalability": {
       "title": "Wir suchen!",

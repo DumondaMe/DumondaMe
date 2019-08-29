@@ -6,10 +6,11 @@
             {{$t('pages:landingPagePublic.liveEvents.description')}}
         </div>
         <div class="next-event-title">{{$t('pages:landingPagePublic.liveEvents.titleNextEvents')}}</div>
-        <a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
+        <div class="no-events">{{$t('pages:landingPagePublic.liveEvents.noEvents')}}</div>
+        <!--<a class="event-container" href="https://www.facebook.com/events/697106464081806/" target="_blank"
            rel="noopener">
             28. August: DumondaMe-Abend in Zürich
-        </a>
+        </a>-->
     </div>
 </template>
 
@@ -61,6 +62,12 @@
             text-align: center;
             color: white;
             font-weight: 500;
+        }
+
+        .no-events {
+            display: block;
+            text-align: center;
+            color: white;
         }
 
         .event-container {
