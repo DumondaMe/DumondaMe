@@ -52,7 +52,9 @@ module.exports = {
         domainUrl: process.env.DUMONDA_ME_DOMAIN,
         isProduction: process.env.NODE_ENV === 'production',
         oAuthGoogleClientUrl: process.env.OAUTH_GOOGLE_CLIENT_URL,
-        oAuthOutlookClientUrl: process.env.OAUTH_OUTLOOK_CLIENT_URL
+        oAuthOutlookClientUrl: process.env.OAUTH_OUTLOOK_CLIENT_URL,
+        donationGoal: process.env.DONATION_GOAL,
+        donationActualNumber: process.env.DONATION_ACTUAL_NUMBER
     },
     router: {
         scrollBehavior: function () {

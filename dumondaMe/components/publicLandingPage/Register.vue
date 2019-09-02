@@ -1,9 +1,6 @@
 <template>
     <div id="public-register" class="explanation-element">
-        <div class="public-image" v-if="!showMobile">
-            <img v-lazy="signUp">
-        </div>
-        <div class="public-description-container">
+        <div class="public-description-container left-description">
             <h2 class="title-description">{{$t('pages:landingPagePublic.register.title')}}</h2>
             <div class="public-image" v-if="showMobile">
                 <img v-lazy="signUp">
@@ -17,6 +14,9 @@
             <v-btn outline color="primary" class="login-button" @click="$router.push({name: 'login'})">
                 {{$t('pages:landingPagePublic.register.loginButton')}}
             </v-btn>
+        </div>
+        <div class="public-image" v-if="!showMobile">
+            <img v-lazy="signUp">
         </div>
     </div>
 </template>
@@ -39,10 +39,6 @@
 
 
         .public-description-container {
-
-            @media screen and (min-width: 900px) {
-                padding-left: 56px;
-            }
 
             .login-button {
                 margin-top: 18px;
