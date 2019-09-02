@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="news-card">
+                <div class="news-card">
                     <div class="feed-card ely-card">
                         <div class="activity-feed-action">
                             <span class="name">Alice Freigeist</span> applaudiert dieser Antwort
@@ -92,11 +92,11 @@
                             </div>
                         </div>
                         <div class="news-footer card-footer-feed">
-                            &lt;!&ndash;<div class="footer-icon">
+                            <!--<div class="footer-icon">
                                 <div class="user-icon">
                                     <img src="https://s3.eu-central-1.amazonaws.com/dumonda.me.private/profileImage/0/thumbnail.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA23P7ZLZ3ZDFN6HLS%2F20190827%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20190827T150510Z&X-Amz-Expires=43200&X-Amz-Security-Token=AgoJb3JpZ2luX2VjELP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDGV1LWNlbnRyYWwtMSJHMEUCIGz7PZjWYSgWK%2BfSBD1bFa%2Fef8XtIgphhY0KOrfYmJlQAiEAkPWU553Tn%2B7bKa9k3j0jkJqPwJsUS5RXd2WfU%2BlI1XQq4AMIXBAAGgw3NDYyNTAxMzMxMTEiDDfXbHNC%2FFlQiZ7fkCq9Ax5q2XNV3yiCqpqEwxO2XyLeXRjcxXpTKsp4kShbDA1fup8GbcwR%2B2M12YhxGP5R7A1kdMuX3c1c0hW6JHuk%2BzGKr%2B8TbhxHzBvlx1QFkvyC3N4nUy823xSTIxA9TsyCC%2BGcLi04moRz1EZNjxZHGe9KU1RO2MqYq%2FGWNjkXzQOi1gDcq2hSaExCJWK%2B25Y56Tl0anbFTVVzjfHMWzHfouqWmTuHdXx4lb5ev1hct2kG4PKZ43IlcBnvj0Hh%2BznSBuH5%2FWQ7z1h15aMaZaIaeuc8BETdU2SKGQ9pHVlClGE2Vcwwc4CSZLvN4L24G1iT%2F2CRhulzbYqeIXVx7nOWWabNyHcS8I9HsTj1ZVCy9OZMWdHTb3NzegnkyVzgEvP43Xnr2ktA4YJ1%2Fm9eCGR250%2Bfs8IZbqWwNoAIEzc9usNbBVgmItSpE5b1QhHPjhejFkhB%2Bwv7lhgN9gk5s4Cnfbn04gz0fh4iWntVv%2F2ZRgUF0hWXEmx11TCnRVNqM0B5DjgUaZ66ND03PDVfZ8d4i9V3BOrtKxBNvYRXlBrbYxJI8j7Gn2XrSa%2FMDKgYjCcqeJp3GDA5I47%2FEtkX2rYw%2BJqU6wU6tAFX0pRiGfzm%2FXELKXwFeNgoa3Cjt%2FOKOSM6nZoAGqZg%2BkEeggI%2BJ3odQ4NHk%2FgpBp6TduhSM1P1qbNXO6OTKpT6xygeogr%2F3CpAf3IUw%2FJkEF39xm6pkkovdY7GSCg37M9fDg5upScDLGfnxENneSpEuPqAHaesvKvmp9Xvmu%2BxqJasKka%2FZX%2BSmWflqk7xlhUAKlbAMrEyV6Q3UtgqN95fWbysZVpbnM52J8xK2Z5AUtX%2FNr8%3D&X-Amz-Signature=1a15e23d2b078f1daae619f0ec17e712836fcabed86d0753599b2aded2d11a19&X-Amz-SignedHeaders=host"/>
                                 </div>
-                            </div>&ndash;&gt;
+                            </div>-->
                             <div class="news-icon-container">
                                 <v-icon color="primary">mdi-thumb-up-outline</v-icon>
                                 <span class="number">41</span>
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
     </feed-layout>
@@ -180,7 +180,7 @@
 
 <style lang="scss">
     .news-card-container {
-        margin-top: 68px;
+        margin-top: 18px;
 
         .news-card {
             .activity-feed-action {
