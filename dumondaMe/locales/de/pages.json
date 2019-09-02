@@ -1094,6 +1094,15 @@
       "description": "Auf unserem Youtube Channel findest du viele Videos, welche dir dieses Projekt näher bringen.",
       "actionButton": "Youtube Channel"
     },
+    "donation": {
+      "title": "Danke für deine Unterstützung!",
+      "description": "Mit viel Engagement bauen wir dieses soziale Netzwerk auf. Damit dies gelingt sind wir auf deine Unterstützung angewiesen.",
+      "actionButton": "Spenden",
+      "donationStatus": {
+        "description": "{{donationGoal}} CHF bis Ende Jahr sind der Mindestbetrag den wir benötigen, um die laufenden Kosten von DumondaMe zu decken.",
+        "of": "von"
+      }
+    },
     "register": {
       "title": "Gemeinsam ist alles möglich!",
       "description": "Erstelle ganz unkompliziert einen Account und werde Teil der DumondaMe-Community.",

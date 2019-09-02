@@ -8,6 +8,7 @@
         <scalability :show-mobile="showMobile"></scalability>
         <about-us :show-mobile="showMobile"></about-us>
         <youtube :show-mobile="showMobile"></youtube>
+        <donation :show-mobile="showMobile"></donation>
         <register :show-mobile="showMobile"></register>
     </div>
 </template>
