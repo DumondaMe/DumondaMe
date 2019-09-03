@@ -1101,7 +1101,6 @@
     "donation": {
       "title": "Danke für deine Unterstützung!",
       "description": "Mit viel Engagement bauen wir dieses soziale Netzwerk auf. Damit dies gelingt sind wir auf deine Unterstützung angewiesen.",
-      "actionButton": "Spenden",
       "donationStatus": {
         "description": "{{donationGoal}} CHF bis Ende Jahr sind der Mindestbetrag den wir benötigen, um die laufenden Kosten von DumondaMe zu decken.",
         "of": "von"

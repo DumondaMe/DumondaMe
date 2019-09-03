@@ -1098,7 +1098,6 @@
     "donation": {
       "title": "Thank you for your support!",
       "description": "We are building this social network with great commitment. For this to succeed, we are dependent on your support.",
-      "actionButton": "Donate",
       "donationStatus": {
         "description": "{{donationGoal}} CHF until the end of the year is the minimum amount we need to cover the running costs of DumondaMe.",
         "of": "of"

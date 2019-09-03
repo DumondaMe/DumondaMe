@@ -2,9 +2,8 @@
     <feed-layout>
         <div slot="sidebar">
             <feed-create-contribution></feed-create-contribution>
-            <beta-version></beta-version>
-            <feed-support v-if="$route.name === 'index' || $route.name === 'event'"></feed-support>
-            <feed-commitment-info v-else-if="$route.name === 'commitment'"></feed-commitment-info>
+            <donation-info></donation-info>
+            <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
             <networking-info v-if="isAuthenticated && isGerman"></networking-info>
             <concept-info></concept-info>
@@ -16,15 +15,7 @@
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
             <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
-            <beta-version class="index-mobile-feed-filter" v-show="!isLoading"
-                          :class="{'top-feed-element': isAuthenticated ||
-                          (!isAuthenticated && $route.name !== 'index')}">
-            </beta-version>
-            <networking-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading"
-                             v-if="isAuthenticated && isGerman">
-            </networking-info>
-            <concept-info class="index-mobile-feed-filter" v-show="$route.name === 'index' && !isLoading">
-            </concept-info>
+            <donation-info class="index-mobile-feed-filter"></donation-info>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -43,16 +34,15 @@
     import FeedMobileFilter from '~/components/feed/filter/MobileFilter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import FeedCreateContribution from '~/components/feed/CreateContribution';
-    import FeedSupport from '~/components/feed/info/Support';
     import FeedCommitmentInfo from '~/components/feed/info/Commitment';
     import FeedActivityInfo from '~/components/feed/info/Activity';
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
-    import BetaVersion from "~/components/common/beta/BetaDescription";
     import UserSuggestions from '~/components/feed/UserSuggestions';
     import AboutDumondaMe from '~/components/feed/AboutDumondaMe';
     import ConceptInfo from '~/components/feed/info/Concept';
     import NetworkingInfo from '~/components/feed/info/Networking';
+    import DonationInfo from '~/components/feed/info/Donation';
 
     export default {
         async fetch({error, store, route}) {
@@ -71,9 +61,9 @@
             }
         },
         components: {
-            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution, FeedSupport,
-            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, BetaVersion, UserSuggestions, AboutDumondaMe,
-            ConceptInfo, NetworkingInfo
+            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution,
+            FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, UserSuggestions, AboutDumondaMe,
+            ConceptInfo, NetworkingInfo, DonationInfo
         },
         head() {
             return {
