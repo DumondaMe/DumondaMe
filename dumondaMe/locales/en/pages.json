@@ -1034,6 +1034,10 @@
       "description": "We'll keep you up to date on what happens next! Please feel free to contribute your feedback: feedback@dumonda.me"
     }
   },
+  "donation": {
+    "description": "In order to develop DumondaMe further, we have to pay salaries, external services and infrastructures. All this is possible thanks to your financial support. You can transfer them to us by <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> or you can simply use our donation form.",
+    "stateInfo": "Status is not displayed in real time"
+  },
   "unsubscribe": {
     "title": "Successfully unsubscribed",
     "invitedUser": {
