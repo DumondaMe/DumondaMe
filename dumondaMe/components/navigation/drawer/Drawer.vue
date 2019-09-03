@@ -72,7 +72,7 @@
             </div>
             <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'donation'}">
-                    <v-icon>mdi-gift-outline</v-icon>
+                    <v-icon>mdi-gift</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.donate")}}</span>
                 </nuxt-link>
             </div>
