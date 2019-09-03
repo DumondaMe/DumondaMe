@@ -71,6 +71,12 @@
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
+                <nuxt-link :to="{name: 'donation'}">
+                    <v-icon>mdi-gift-outline</v-icon>
+                    <span class="navigation-text">{{$t("pages:footer.donate")}}</span>
+                </nuxt-link>
+            </div>
+            <div class="drawer-navigation-element">
                 <nuxt-link :to="{name: 'terms'}">
                     <v-icon>mdi-library</v-icon>
                     <span class="navigation-text">{{$t("pages:footer.terms")}}</span>
