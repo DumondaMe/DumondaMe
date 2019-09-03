@@ -1037,6 +1037,10 @@
       "description": "Wir werden dich auf dem Laufenden halten, wie es weiter geht! Gerne kannst du dein Feedback einbringen: feedback@dumonda.me"
     }
   },
+  "donation": {
+    "description": "Damit wir DumondaMe weiterentwickeln können müssen wir Gehälter, externe Dienstleistungen und Infrastrukturen bezahlen. All das wird Dank deiner finanziellen Unterstützung möglich. Du kannst uns diese per <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> überweisen oder du nutzt ganz unkompliziert unser Spendenformular.",
+    "stateInfo": "Der Status wird nicht in Echtzeit angezeigt"
+  },
   "unsubscribe": {
     "title": "Erfolgreich abbestellt",
     "invitedUser": {
