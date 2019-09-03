@@ -8,7 +8,7 @@
                 {{$t('pages:landingPagePublic.donation.description')}}
             </div>
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'donation'})">
-                {{$t('pages:landingPagePublic.donation.actionButton')}}
+                {{$t('common:button.donate')}}
             </v-btn>
         </div>
     </div>
