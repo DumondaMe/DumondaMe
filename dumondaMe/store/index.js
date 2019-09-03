@@ -32,6 +32,11 @@ let initUser = function (commit, req, language) {
     }
 };
 
+let initDonation = function (commit) {
+    commit('donation/SET_ACTUAL_NUMBER', process.env.DONATION_ACTUAL_NUMBER);
+    commit('donation/SET_GOAL', process.env.DONATION_GOAL);
+};
+
 export const actions = {
 
     nuxtServerInit({commit}, {req, app, store}) {
@@ -43,5 +48,6 @@ export const actions = {
         initTopicFilter(commit, req.user);
         initRecaptcha(commit);
         initUser(commit, req, store.state.i18n.language);
+        initDonation(commit);
     }
 };

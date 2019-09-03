@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
 
     export default {
         data() {
@@ -30,17 +31,11 @@
             donateImage() {
                 return `${process.env.staticUrl}/img/landingPage/donate.jpg`;
             },
-            donationGoal() {
-                let number = parseInt(process.env.donationGoal, 10);
-                return number.toLocaleString('ch-DE', {useGrouping: true});
-            },
-            donationActualNumber() {
-                let number = parseInt(process.env.donationActualNumber, 10);
-                return number.toLocaleString('ch-DE', {useGrouping: true});
-            },
-            donationActualState() {
-                return (parseInt(process.env.donationActualNumber, 10) * 100) / parseInt(process.env.donationGoal, 10);
-            }
+            ...mapGetters({
+                donationGoal: 'donation/getDonationGoal',
+                donationActualNumber: 'donation/getDonationActualNumber',
+                donationActualState: 'donation/getDonationActualState'
+            })
         }
     }
 </script>
