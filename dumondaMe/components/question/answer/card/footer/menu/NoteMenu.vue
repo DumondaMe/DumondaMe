@@ -2,7 +2,11 @@
     <div>
         <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" offset-y
                 :close-on-click="closeOnClickOutside">
-            <slot name="icon" slot="activator"></slot>
+            <template v-slot:activator="{ on }">
+                <div v-on="on">
+                    <slot name="icon"></slot>
+                </div>
+            </template>
             <v-card class="ely-menu-container" v-if="menu">
                 <div class="menu-title">{{$t('common:feedCard.note.menuDescription')}}
                     <span class="primary-title">{{title}}</span>
@@ -29,7 +33,7 @@
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
+                    <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-btn color="primary" @click="openCreateNoteDialog()">
                         {{$t('common:button.createNote')}}
                     </v-btn>
@@ -44,7 +48,7 @@
                             v-if="showCreateNoteDialog">
         </create-note-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -74,8 +78,7 @@
                     try {
                         this.$store.commit('question/TOGGLE_ANSWER_NOTE_SORT');
                         await this.$store.dispatch('question/loadAnswerNote', this.answerId);
-                    }
-                    catch (error) {
+                    } catch (error) {
                         this.showError = true;
                     }
                 }
@@ -95,11 +98,9 @@
                     try {
                         this.loading = true;
                         await this.$store.dispatch('question/loadAnswerNote', this.answerId);
-                    }
-                    catch (error) {
+                    } catch (error) {
                         this.showError = true;
-                    }
-                    finally {
+                    } finally {
                         this.loading = false;
                     }
                 }
@@ -113,9 +114,11 @@
         .menu-note-answer-content {
             .notes-commands {
                 margin-bottom: 18px;
+
                 .sort-button-container {
                     display: inline-block;
                     margin-right: 18px;
+
                     .sort-button {
                         color: $primary-color;
                         padding: 0;
@@ -123,6 +126,7 @@
                         height: 24px;
                         width: 24px;
                     }
+
                     .sort-text {
                         cursor: pointer;
                         margin-left: 6px;
@@ -130,19 +134,23 @@
                         font-size: 14px;
                         vertical-align: middle;
                     }
+
                     :hover.sort-text {
                         text-decoration: underline;
                     }
                 }
+
                 .sort-button-container.sort-deactivated {
                     .sort-button {
                         cursor: not-allowed;
                         color: $secondary-text;
                     }
+
                     .sort-text {
                         cursor: not-allowed;
                         color: $secondary-text;
                     }
+
                     :hover.sort-text {
                         text-decoration: none;
                     }

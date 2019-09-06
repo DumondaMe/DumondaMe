@@ -1,17 +1,19 @@
 <template>
     <div class="feed-create-question-container">
         <v-menu bottom offset-y>
-            <v-btn color="secondary" slot="activator">
-                {{$t('pages:feeds.createContribution.button')}}
-                <v-icon right>mdi-menu-down</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn color="secondary" v-on="on">
+                    {{$t('pages:feeds.createContribution.button')}}
+                    <v-icon right>mdi-menu-down</v-icon>
+                </v-btn>
+            </template>
             <v-list>
-                <v-list-tile @click="openCreateDialog('showCreateQuestionDialog')">
-                    <v-list-tile-title>{{$t('common:question')}}</v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile @click="openCreateDialog('showCreateCommitmentDialog')">
-                    <v-list-tile-title>{{$t("common:commitment")}}</v-list-tile-title>
-                </v-list-tile>
+                <v-list-item @click="openCreateDialog('showCreateQuestionDialog')">
+                    <v-list-item-title>{{$t('common:question')}}</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="openCreateDialog('showCreateCommitmentDialog')">
+                    <v-list-item-title>{{$t("common:commitment")}}</v-list-item-title>
+                </v-list-item>
             </v-list>
         </v-menu>
         <create-commitment-dialog v-if="showCreateCommitmentDialog" @close-dialog="showCreateCommitmentDialog = false">
@@ -49,18 +51,22 @@
     .feed-create-question-container {
         margin-top: 4px;
         margin-bottom: 62px;
+
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
         }
+
         .open-create-question-dialog {
             cursor: pointer;
             font-size: 14px;
             font-weight: 400;
             color: $primary-color;
         }
+
         :hover.open-create-question-dialog {
             text-decoration: underline;
         }
+
         button {
             margin: 0;
         }

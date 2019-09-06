@@ -7,7 +7,7 @@
                        @keydown.up="keySelectUp" @keydown.enter="selectItemKey">
                 <v-icon class="search-icon" @click="search">mdi-magnify</v-icon>
             </div>
-            <v-btn flat class="close-search" @click="$emit('close-search')">Abbrechen</v-btn>
+            <v-btn text class="close-search" @click="$emit('close-search')">Abbrechen</v-btn>
         </div>
         <div class="autocomplete-results" v-show="showResults && this.searchText !== this.lastSearchText">
             <div class="autocomplete-result" v-for="(result, index) of results"
@@ -17,7 +17,7 @@
             </div>
         </div>
         <v-snackbar bottom v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>

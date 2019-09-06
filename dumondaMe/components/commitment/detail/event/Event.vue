@@ -10,19 +10,21 @@
             </div>
             <v-spacer v-if="isAdmin"></v-spacer>
             <v-menu bottom left v-if="isAdmin">
-                <v-btn icon slot="activator">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
+                <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
                 <v-list>
-                    <v-list-tile @click="showEditEvent = true">
-                        <v-list-tile-title>{{$t("pages:detailCommitment.events.editEvent")}}</v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile @click="showEditLocation= true">
-                        <v-list-tile-title>{{$t("pages:detailCommitment.events.editLocation")}}</v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile @click="showDeleteEvent = true">
-                        <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
-                    </v-list-tile>
+                    <v-list-item @click="showEditEvent = true">
+                        <v-list-item-title>{{$t("pages:detailCommitment.events.editEvent")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="showEditLocation= true">
+                        <v-list-item-title>{{$t("pages:detailCommitment.events.editLocation")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="showDeleteEvent = true">
+                        <v-list-item-title>{{$t("common:button.delete")}}</v-list-item-title>
+                    </v-list-item>
                 </v-list>
             </v-menu>
         </div>
@@ -32,8 +34,10 @@
                 <v-icon>mdi-map-marker</v-icon>
                 <span class="footer-text">
                     <v-tooltip bottom open-delay="500">
-                        <span slot="activator">{{event.location}} ({{event.region.description}})</span>
-                        <span >{{event.location}} ({{event.region.description}})</span>
+                        <template v-slot:activator="{ on }">
+                            <span v-on="on">{{event.location}} ({{event.region.description}})</span>
+                        </template>
+                        <span>{{event.location}} ({{event.region.description}})</span>
                     </v-tooltip>
                 </span>
             </div>
@@ -41,8 +45,10 @@
                 <v-icon medium>mdi-calendar-text</v-icon>
                 <span class="footer-text">
                     <v-tooltip bottom open-delay="500">
-                        <a target="_blank" rel="noopener" :href="event.linkDescription" class="link" slot="activator">
+                        <template v-slot:activator="{ on }">
+                            <a target="_blank" rel="noopener" :href="event.linkDescription" class="link" v-on="on">
                             {{linkDescriptionWithoutProtocol}}</a>
+                        </template>
                         <span>{{event.linkDescription}}</span>
                     </v-tooltip>
                 </span>
@@ -89,43 +95,54 @@
 <style lang="scss">
     .commitment-event {
         margin-bottom: 12px;
+
         .event-header-container {
             display: flex;
+
             .event-title {
                 color: $primary-color;
                 font-size: 16px;
+
                 a {
                     text-decoration: none;
                 }
+
                 a:hover {
                     text-decoration: underline;
                 }
             }
+
             .event-date {
                 font-size: 14px;
                 font-weight: 300;
                 color: $secondary-text;
             }
+
             .v-menu {
                 margin-left: 8px;
+
                 .v-menu__activator {
                     align-items: flex-start;
+
                     .v-btn {
                         margin: 0;
                     }
                 }
             }
+
             .menu {
                 button {
                     margin: 0;
                     width: 24px;
                     height: 24px;
+
                     i.v-icon {
                         font-size: 20px;
                     }
                 }
             }
         }
+
         .event-description {
             margin-top: 12px;
             font-weight: 300;
@@ -134,20 +151,24 @@
                 margin-top: 6px;
             }
         }
+
         .event-footer {
             margin-top: 12px;
             @media screen and (max-width: $sm) {
                 margin-top: 6px;
             }
+
             .footer-icon {
                 vertical-align: top;
                 display: flex;
                 height: 40px;
+
                 .v-icon {
                     height: 24px;
                     width: 24px;
                     color: #009688;
                 }
+
                 .footer-text {
                     margin-left: 8px;
                     font-size: 14px;
@@ -159,16 +180,20 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+
                     .footer-link {
                         cursor: pointer;
                     }
+
                     :hover.footer-link {
                         text-decoration: underline;
                     }
+
                     a {
                         color: $secondary-text;
                         text-decoration: none;
                     }
+
                     a:hover {
                         text-decoration: underline;
                     }
@@ -176,6 +201,7 @@
             }
         }
     }
+
     .commitment-event.ely-card {
         @media screen and (max-width: $sm) {
             padding-left: 16px;

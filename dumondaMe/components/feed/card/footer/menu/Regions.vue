@@ -1,6 +1,10 @@
 <template>
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" min-width="290" offset-y>
-        <slot name="icon" slot="activator"></slot>
+        <template v-slot:activator="{ on }">
+            <div v-on="on">
+                <slot name="icon"></slot>
+            </div>
+        </template>
         <v-card class="ely-menu-container ely-menu-region" v-if="menu">
             <div class="menu-title">
                 {{$t('pages:feeds.menu.regions.title')}}
@@ -11,7 +15,7 @@
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
+                <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
             </div>
         </v-card>
     </v-menu>

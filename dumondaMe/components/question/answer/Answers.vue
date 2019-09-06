@@ -32,7 +32,7 @@
             </div>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
         <div class="show-answer-not-found" v-if="showAllAnswersButton && answers.length === 0">
             {{$t('pages:detailQuestion.answerNotFound')}}

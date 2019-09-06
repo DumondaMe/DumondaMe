@@ -11,7 +11,9 @@
         </div>
         <div class="footer-icon" v-if="action === 'watch'">
             <v-tooltip bottom>
-                <v-icon medium class="main-action-icon" slot="activator">mdi-star</v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium class="main-action-icon" v-on="on">mdi-star</v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
                 <span v-else>{{user.name}} {{$t('pages:feeds.menu.watchesQuestion.title')}}</span>
@@ -19,7 +21,9 @@
         </div>
         <div class="footer-icon" v-if="action === 'created'">
             <v-tooltip bottom>
-                <v-icon medium class="main-action-icon" slot="activator">mdi-comment-question</v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium class="main-action-icon" v-on="on">mdi-comment-question</v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
                 <span v-else>{{user.name}} {{$t('pages:feeds.menu.creatorQuestion.title')}}</span>
@@ -37,25 +41,27 @@
                           @remove-watch="(id) => $emit('remove-watch', id)"
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <v-tooltip slot="icon" bottom>
-                    <div slot="activator">
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                    </div>
+                    <template v-slot:activator="{ on }">
+                        <v-icon medium class="action-icon" v-on="on">mdi-star</v-icon>
+                        <span class="footer-description number right-number" v-on="on">{{numberOfWatches}}</span>
+                    </template>
                     <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
                 </v-tooltip>
             </watches-menu>
         </div>
         <div class="footer-icon">
             <v-tooltip bottom>
-                <div slot="activator" @click="$router.push({name: 'question-questionId-slug',
+                <template v-slot:activator="{ on }">
+                    <div v-on="on" @click="$router.push({name: 'question-questionId-slug',
                      params: {questionId: questionId, slug: questionSlug}})">
-                    <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
-                    <v-icon medium class="action-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
-                        mdi-comment-alert
-                    </v-icon>
-                    <v-icon medium class="action-icon comment-icon" v-else>mdi-comment</v-icon>
-                    <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
-                </div>
+                        <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
+                        <v-icon medium class="action-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
+                            mdi-comment-alert
+                        </v-icon>
+                        <v-icon medium class="action-icon comment-icon" v-else>mdi-comment</v-icon>
+                        <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
+                    </div>
+                </template>
                 <span v-if="numberOfAnswers === 0">{{$t('pages:feeds.menu.questions.noAnswers')}}</span>
                 <span v-else>{{$t('pages:feeds.menu.questions.numberOfAnswers', {count: numberOfAnswers})}}</span>
             </v-tooltip>
@@ -73,13 +79,15 @@
                 <div slot="icon">
                     <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
                     <v-tooltip bottom slot="icon">
-                        <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser"
-                               :disabled="isAdmin">
-                            <v-icon>mdi-star-outline</v-icon>
-                        </v-btn>
-                        <v-btn slot="activator" small fab color="watching" v-else>
-                            <v-icon>mdi-star</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" small fab color="not-watching" v-if="!isWatchedByUser"
+                                   :disabled="isAdmin">
+                                <v-icon>mdi-star-outline</v-icon>
+                            </v-btn>
+                            <v-btn v-on="on" small fab color="watching" v-else>
+                                <v-icon>mdi-star</v-icon>
+                            </v-btn>
+                        </template>
                         <span v-if="isAdmin">{{$t('common:you')}}
                             {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
                         <span v-else-if="!isWatchedByUser">

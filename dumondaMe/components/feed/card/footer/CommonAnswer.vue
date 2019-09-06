@@ -11,9 +11,11 @@
         </div>
         <div class="footer-icon">
             <v-tooltip bottom v-if="action === 'created'" class="footer-user-action">
-                <v-icon medium slot="activator" class="main-action-icon">
-                    mdi-comment-plus
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon">
+                        mdi-comment-plus
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorAnswer.titleIsLoggedInUser')}}
                 </span>
@@ -22,9 +24,11 @@
                 </span>
             </v-tooltip>
             <v-tooltip bottom v-if="action === 'upVote'" class="footer-user-action">
-                <v-icon medium slot="activator" class="main-action-icon">
-                    mdi-thumb-up
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon">
+                        mdi-thumb-up
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.userUpVote.titleIsLoggedInUser')}}
                 </span>

@@ -13,12 +13,12 @@
                 </v-btn>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
+                <v-btn text icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
                     <v-icon>mdi-account-outline</v-icon>
                 </v-btn>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'notifications'})">
+                <v-btn text icon @click="$router.push({name: 'notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell-outline</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
@@ -26,7 +26,7 @@
                 </v-btn>
             </div>
             <div class="header-nav menu-nav">
-                <v-btn flat icon @click="$emit('open-drawer')">
+                <v-btn text icon @click="$emit('open-drawer')">
                     <v-icon>mdi-menu</v-icon>
                 </v-btn>
             </div>

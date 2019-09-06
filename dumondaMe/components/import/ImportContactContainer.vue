@@ -42,14 +42,16 @@
                 <v-flex xs12 sm4>
                     <v-menu v-model="showCsvFileInfo" open-on-hover :open-on-click="false"
                             bottom offset-y max-width="320">
-                        <div class="import-source" @click="openCsvFileDialog()" slot="activator">
-                            <div class="import-source-image">
-                                <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
-                                       @change="handleCsvFileImport"/>
-                                <img :src="getImportUrl('csv.png')"/>
+                        <template v-slot:activator="{ on }">
+                            <div class="import-source" @click="openCsvFileDialog()" v-on="on">
+                                <div class="import-source-image">
+                                    <input type="file" accept=".csv" style="display: none" ref="csvFileDialog"
+                                           @change="handleCsvFileImport"/>
+                                    <img :src="getImportUrl('csv.png')"/>
+                                </div>
+                                <div class="import-source-element-description">CSV Datei</div>
                             </div>
-                            <div class="import-source-element-description">CSV Datei</div>
-                        </div>
+                        </template>
                         <v-card class="csv-info-card">
                             {{$t('dialog:invite.infoCsvFile')}}
                         </v-card>

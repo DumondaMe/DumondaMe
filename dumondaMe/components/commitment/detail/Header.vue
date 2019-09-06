@@ -13,14 +13,16 @@
                           @add-watch="addWatch" @remove-watch="removeWatch">
                 <div slot="icon">
                     <v-tooltip bottom>
-                        <v-btn class="button-watch" color="primary" small fab slot="activator"
-                               v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                            <v-icon>mdi-star-outline</v-icon>
-                        </v-btn>
-                        <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
-                               v-else slot="activator">
-                            <v-icon>mdi-star</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn class="button-watch" color="primary" small fab v-on="on"
+                                   v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
+                                <v-icon>mdi-star-outline</v-icon>
+                            </v-btn>
+                            <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
+                                   v-else v-on="on">
+                                <v-icon>mdi-star</v-icon>
+                            </v-btn>
+                        </template>
                         <span v-if="!commitment.userWatchesCommitment || isAdmin">
                             {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
                         <span v-else>{{$t('common:you')}}

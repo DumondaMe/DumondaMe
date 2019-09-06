@@ -54,6 +54,7 @@
             margin-bottom: 18px;
 
             .donation-state-info {
+                margin-top: 12px;
                 font-size: 14px;
                 color: $secondary-text;
 

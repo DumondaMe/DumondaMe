@@ -26,15 +26,17 @@
                                       @add-watch="addWatch" @remove-watch="removeWatch">
                             <div slot="icon">
                                 <v-tooltip bottom>
-                                    <v-btn slot="activator" small fab color="primary"
-                                           v-if="!question.userWatchesQuestion"
-                                           :disabled="question.isAdmin">
-                                        <v-icon>mdi-star-outline</v-icon>
-                                    </v-btn>
-                                    <v-btn slot="activator" small fab color="user-watches-question"
-                                           v-else>
-                                        <v-icon>mdi-star</v-icon>
-                                    </v-btn>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn v-on="on" small fab color="primary"
+                                               v-if="!question.userWatchesQuestion"
+                                               :disabled="question.isAdmin">
+                                            <v-icon>mdi-star-outline</v-icon>
+                                        </v-btn>
+                                        <v-btn v-on="on" small fab color="user-watches-question"
+                                               v-else>
+                                            <v-icon>mdi-star</v-icon>
+                                        </v-btn>
+                                    </template>
                                     <span v-if="!question.userWatchesQuestion || question.isAdmin">
                             {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
                                     <span v-else>{{$t('common:you')}}
@@ -46,9 +48,11 @@
                     </div>
                     <div>
                         <v-tooltip bottom>
-                            <v-btn slot="activator" small fab color="primary" @click="openCreateAnswerDialog()">
-                                <v-icon>mdi-forum</v-icon>
-                            </v-btn>
+                            <template v-slot:activator="{ on }">
+                                <v-btn v-on="on" small fab color="primary" @click="openCreateAnswerDialog()">
+                                    <v-icon>mdi-forum</v-icon>
+                                </v-btn>
+                            </template>
                             <span>{{$t('pages:feeds.menu.questions.numberOfAnswers',
                                 {count: question.numberOfAnswers})}}</span>
                         </v-tooltip>
