@@ -12,17 +12,17 @@
         <div class="user-suggestion-loading text-xs-center" v-else>
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
-        <v-btn outline color="primary" v-if="(hasMoreUsers && !reloadingButtonActive && skip > 7) ||
+        <v-btn outlined color="primary" v-if="(hasMoreUsers && !reloadingButtonActive && skip > 7) ||
                                              (skip > 7 && !reloadingButtonActive)" class="loading-button"
                @click="loadNextUserSuggestion(true)">
             {{$t('common:button.back')}}
         </v-btn>
-        <v-btn outline color="primary" v-if="hasMoreUsers && !reloadingButtonActive"
+        <v-btn outlined color="primary" v-if="hasMoreUsers && !reloadingButtonActive"
                class="loading-button"
                @click="loadNextUserSuggestion(false)">
             {{$t('common:button.next')}}
         </v-btn>
-        <v-btn outline color="primary" v-else-if="reloadingButtonActive" class="loading-button"
+        <v-btn outlined color="primary" v-else-if="reloadingButtonActive" class="loading-button"
                @click="loadStartUserSuggestion">
             {{$t('pages:feeds.userSuggestion.reloadSuggestionButton')}}
         </v-btn>

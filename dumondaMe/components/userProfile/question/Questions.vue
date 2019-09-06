@@ -29,7 +29,7 @@
             <question :question="question">
             </question>
         </div>
-        <v-btn outline color="primary" @click="loadNextQuestions()" :loading="loading" :disabled="loading"
+        <v-btn outlined color="primary" @click="loadNextQuestions()" :loading="loading" :disabled="loading"
                v-if="questions.length < numberOfQuestions">
             {{$t("common:button.showMore")}}
         </v-btn>

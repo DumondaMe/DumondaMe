@@ -16,7 +16,7 @@
             </question-card>
         </div>
         <div class="search-questions-commands">
-            <v-btn outline color="primary" v-if="hasMoreQuestions" class="has-more-button" @click="getNextQuestions"
+            <v-btn outlined color="primary" v-if="hasMoreQuestions" class="has-more-button" @click="getNextQuestions"
                    :loading="loadingNextQuestions" :disabled="loadingNextQuestions">
                 {{$t('common:button.showMore')}}
             </v-btn>

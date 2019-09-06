@@ -30,7 +30,7 @@
                                @add-to-trust-circle="addUserToTrustCircle">
             </trust-circle-user>
         </div>
-        <v-btn outline color="primary" @click="loadNextPeople()" :loading="loading" :disabled="loading"
+        <v-btn outlined color="primary" @click="loadNextPeople()" :loading="loading" :disabled="loading"
                v-if="people.length < numberOfPeople">
             {{$t("common:button.showMore")}}
         </v-btn>

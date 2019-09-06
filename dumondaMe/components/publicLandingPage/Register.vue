@@ -11,7 +11,7 @@
             <v-btn color="secondary" class="action-button" @click="$router.push({name: 'register'})">
                 {{$t('pages:landingPagePublic.createAccountButton')}}
             </v-btn>
-            <v-btn outline color="primary" class="login-button" @click="$router.push({name: 'login'})">
+            <v-btn outlined color="primary" class="login-button" @click="$router.push({name: 'login'})">
                 {{$t('pages:landingPagePublic.register.loginButton')}}
             </v-btn>
         </div>
@@ -42,10 +42,10 @@
 
             .login-button {
                 margin-top: 18px;
+                margin-left: 12px;
 
                 @media screen and (max-width: 900px) {
                     display: block;
-                    margin-left: auto;
                     margin-right: auto;
                     margin-top: 12px;
                     width: 100%;

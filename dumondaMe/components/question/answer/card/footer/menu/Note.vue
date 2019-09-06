@@ -13,23 +13,23 @@
         <div class="note-text" v-html="note.textHtml"></div>
         <div class="note-commands">
             <div class="note-command">
-                <v-btn icon outline class="command" :disabled="note.isAdmin || upVoteRunning"
+                <v-btn icon outlined class="command" :disabled="note.isAdmin || upVoteRunning"
                        :loading="upVoteRunning" @click="upVoteNote(note.noteId)" v-if="!note.hasVoted">
                     <v-icon>mdi-thumb-up-outline</v-icon>
                 </v-btn>
-                <v-btn icon outline class="command" :disabled="upVoteRunning"
+                <v-btn icon outlined class="command" :disabled="upVoteRunning"
                        :loading="upVoteRunning" @click="downVoteNote(note.noteId)" v-else>
                     <v-icon>mdi-thumb-down-outline</v-icon>
                 </v-btn>
                 <span class="command-text">{{note.upVotes}}</span>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command" @click="showEditNoteDialog = true">
+                <v-btn icon outlined class="command" @click="showEditNoteDialog = true">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command" @click="showDeleteNoteDialog = true">
+                <v-btn icon outlined class="command" @click="showDeleteNoteDialog = true">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </div>

@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div v-if="searchResult.books && searchResult.books.length < searchResult.numberOfBooks">
-                <v-btn outline color="primary" @click="loadNextBooks()" :disabled="this.searchBookRunning"
+                <v-btn outlined color="primary" @click="loadNextBooks()" :disabled="this.searchBookRunning"
                        slot="activator">
                     {{$t("common:button.next")}}
                 </v-btn>

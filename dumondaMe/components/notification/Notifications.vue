@@ -21,7 +21,7 @@
             <created-note :notification="notification" v-if="notification.type === 'createdNote'">
             </created-note>
         </div>
-        <v-btn outline color="primary" id="load-next-button" v-if="hasMoreNotifications"
+        <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
                @click="loadNextNotifications" :disabled="loadingNextNotifications" :loading="loadingNextNotifications">
             {{$t("common:button.showMore")}}
         </v-btn>

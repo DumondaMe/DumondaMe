@@ -101,7 +101,7 @@
 
     body {
         #__layout {
-            .application.theme--light {
+            .v-application {
                 background-color: $background-normal;
                 @media screen and (max-width: $xs) {
                     background-color: white;

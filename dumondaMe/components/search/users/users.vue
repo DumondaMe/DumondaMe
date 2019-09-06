@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <v-btn outline color="primary" v-if="hasMoreUsers" class="has-more-button" @click="getNextUsers"
+        <v-btn outlined color="primary" v-if="hasMoreUsers" class="has-more-button" @click="getNextUsers"
                :loading="loadingNextUsers" :disabled="loadingNextUsers">
             {{$t('common:button.showMore')}}
         </v-btn>

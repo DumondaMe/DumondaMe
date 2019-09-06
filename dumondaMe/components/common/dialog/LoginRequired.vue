@@ -6,7 +6,7 @@
                     <p v-if="loginDescription">{{loginDescription}}</p>
                     <p v-else>{{$t("common:loginRequiredInfo")}}</p>
                     <div>
-                        <v-btn color="primary" outline @click="goToLogin()" class="link-button">
+                        <v-btn color="primary" outlined @click="goToLogin()" class="link-button">
                             {{$t("common:toolbar.login")}}
                         </v-btn>
                     </div>
