@@ -26,7 +26,7 @@
             </span>
         </div>
         <cards :feed="answers"></cards>
-        <v-btn outline color="primary" @click="loadNextAnswers()" :loading="loading" :disabled="loading"
+        <v-btn outlined color="primary" @click="loadNextAnswers()" :loading="loading" :disabled="loading"
                v-if="answers.length < numberOfAnswers">
             {{$t("common:button.showMore")}}
         </v-btn>

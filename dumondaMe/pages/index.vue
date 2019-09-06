@@ -20,7 +20,7 @@
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
             </cards>
-            <v-btn id="load-next-page" color="primary" outline @click="loadNext()" :loading="loadNextRunning"
+            <v-btn id="load-next-page" color="primary" outlined @click="loadNext()" :loading="loadNextRunning"
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
                 {{$t("common:button.showMore")}}
             </v-btn>

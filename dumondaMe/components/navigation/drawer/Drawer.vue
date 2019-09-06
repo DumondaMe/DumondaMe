@@ -18,7 +18,7 @@
             </div>
         </div>
         <div v-else>
-            <v-btn outline color="primary" class="navigation-button-full-width"
+            <v-btn outlined color="primary" class="navigation-button-full-width"
                    @click="$router.push({name: 'login'})">
                 {{$t('common:button.login')}}
             </v-btn>

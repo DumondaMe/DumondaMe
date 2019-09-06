@@ -14,7 +14,7 @@
         </div>
         <img :src="donateImage" class="donate-image">
         <div class="feed-networking-description">{{$t('pages:landingPagePublic.donation.description')}}</div>
-        <v-btn outline color="primary" @click="$router.push({name: 'donation'})">
+        <v-btn outlined color="primary" @click="$router.push({name: 'donation'})">
             {{$t('common:button.donate')}}
         </v-btn>
     </div>

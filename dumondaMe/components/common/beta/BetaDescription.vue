@@ -3,7 +3,7 @@
         <h3 class="beta-version-title">{{$t('common:beta.title')}}</h3>
         <img :src="betaImage" :srcset="beta2xImage" class="beta-version-image">
         <div class="description">{{$t('common:beta.description')}}</div>
-        <v-btn outline color="primary" @click="$router.push({name: 'nextSteps'})">
+        <v-btn outlined color="primary" @click="$router.push({name: 'nextSteps'})">
             {{$t('common:beta.buttonNextSteps')}}
         </v-btn>
     </div>

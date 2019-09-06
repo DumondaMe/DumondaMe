@@ -114,7 +114,6 @@ module.exports = {
         '~/plugins/axios.js',
         {src: '~/plugins/vue-lazyload', ssr: false}],
     css: [
-        '~/assets/style/app.styl',
         '~/assets/style/card.scss',
         '~/assets/style/layout.scss',
         'cropperjs/dist/cropper.min.css',

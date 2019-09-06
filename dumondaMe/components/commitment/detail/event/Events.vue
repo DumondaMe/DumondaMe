@@ -15,7 +15,7 @@
             <div v-for="event in events">
                 <event :event="event"></event>
             </div>
-            <v-btn color="primary" outline class="show-more-events-button" @click="getNextEvents()"
+            <v-btn color="primary" outlined class="show-more-events-button" @click="getNextEvents()"
                    v-if="hasMore" :loading="loadingNextEvents" :disabled="loadingNextEvents">
                 {{$t('common:button.showMore')}}
             </v-btn>
