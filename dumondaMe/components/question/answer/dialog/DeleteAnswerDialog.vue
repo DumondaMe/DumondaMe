@@ -12,7 +12,7 @@
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click.native="$emit('close-dialog')" :disabled="running">
+                    <v-btn color="primary" text @click.native="$emit('close-dialog')" :disabled="running">
                         {{$t("common:button.abort")}}
                     </v-btn>
                     <v-btn color="primary" @click.native="deleteAnswer()"
@@ -23,7 +23,7 @@
             </v-card>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </v-layout>
 </template>

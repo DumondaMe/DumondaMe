@@ -19,11 +19,11 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-btn color="primary" flat @click="$emit('back')" v-if="!hideBackButton">
+            <v-btn color="primary" text @click="$emit('back')" v-if="!hideBackButton">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="$emit('close-dialog')">
+            <v-btn color="primary" text @click="$emit('close-dialog')">
                 {{$t("common:button.later")}}
             </v-btn>
             <v-btn color="primary" @click="$emit('next')">

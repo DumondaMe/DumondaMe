@@ -113,7 +113,7 @@
         <import-contact-dialog v-if="showImportContact" @close-dialog="showImportContact = false">
         </import-contact-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>

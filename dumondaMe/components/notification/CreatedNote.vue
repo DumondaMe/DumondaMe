@@ -11,8 +11,10 @@
                           v-if="!notification.users[0].isAnonymous">
                             {{notification.users[0].name}} </span>
                     <v-tooltip bottom v-else>
-                        <span class="user-name" slot="activator">
+                        <template v-slot:activator="{ on }">
+                            <span class="user-name" v-on="on">
                             {{notification.users[0].name}} </span>
+                        </template>
                         <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
                     </v-tooltip>
                     <span v-if="notification.answerType !== 'Text'"
@@ -70,38 +72,46 @@
 <style lang="scss">
     .notification-created-note {
         font-weight: 300;
+
         .notification-user {
             margin-top: 12px;
             display: block;
             clear: both;
+
             .user-image {
                 cursor: pointer;
                 float: left;
                 height: 38px;
                 width: 38px;
                 margin-top: 4px;
+
                 img {
                     height: 100%;
                     width: 100%;
                     border-radius: 2px;
                 }
             }
+
             .user-info {
                 margin-left: 52px;
                 min-height: 38px;
+
                 .user-info-container {
                     font-weight: 300;
                     font-size: 16px;
                     line-height: normal;
+
                     .user-name {
                         color: $primary-text;
                         font-weight: 500;
                         cursor: pointer;
                     }
+
                     :hover.user-name {
                         text-decoration: underline;
                     }
                 }
+
                 .created {
                     font-size: 12px;
                     color: $secondary-text;
@@ -109,21 +119,26 @@
                 }
             }
         }
+
         .notification-description {
             margin-top: 12px;
             font-size: 16px;
         }
+
         .notification-title {
             color: $primary-text;
             font-weight: 400;
             text-decoration: none;
         }
+
         :hover.notification-title {
             text-decoration: underline;
         }
+
         .notification-title.main-notification {
             color: $primary-color;
         }
+
         .text-answer {
             margin-top: 12px;
             margin-bottom: 18px;

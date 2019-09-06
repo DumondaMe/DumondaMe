@@ -19,7 +19,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn flat @click.native="$emit('close-dialog')">
+            <v-btn text @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn @click="$emit('add-admin')" color="primary">

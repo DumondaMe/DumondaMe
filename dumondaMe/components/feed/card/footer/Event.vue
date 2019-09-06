@@ -12,15 +12,19 @@
         </div>
         <div class="footer-icon footer-event-location-icon">
             <v-tooltip bottom>
-                <v-icon medium class="action-icon" slot="activator">
-                    mdi-map-marker
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium class="action-icon" v-on="on">
+                        mdi-map-marker
+                    </v-icon>
+                </template>
                 <span>{{$t('pages:feeds.menu.eventCreateByCommitment.region')}}</span>
             </v-tooltip>
         </div>
         <div class="footer-event-description">
             <v-tooltip bottom open-delay="500">
-                <span slot="activator">{{location}} ({{region}})</span>
+                <template v-slot:activator="{ on }">
+                    <span v-on="on">{{location}} ({{region}})</span>
+                </template>
                 <span>{{location}} ({{region}})</span>
             </v-tooltip>
         </div>

@@ -1,9 +1,11 @@
 <template>
     <v-menu v-model="menu" :close-on-content-click="false" offset-y left max-height="400"
             class="select-trust-circle-filter-container">
-        <v-icon slot="activator" :class="{'trust-circle-filter-active': trustCircle}">
-            mdi-checkbox-blank-circle-outline
-        </v-icon>
+        <template v-slot:activator="{ on }">
+            <v-icon v-on="on" :class="{'trust-circle-filter-active': trustCircle}">
+                mdi-checkbox-blank-circle-outline
+            </v-icon>
+        </template>
         <v-card class="select-trust-circle-filter-content" v-if="!showHelpTrustCircle">
             <div class="trust-circle-description" v-if="isAuthenticated">
                 {{$t('pages:feeds.filter.trustCircle.descriptionFilterActivated')}}
@@ -82,26 +84,32 @@
 
     .select-trust-circle-filter-content {
         padding: 16px;
+
         .trust-circle-commands {
             margin-top: 18px;
             display: flex;
+
             button {
                 margin-right: 0;
             }
         }
+
         .trust-circle-description {
             max-width: 300px;
             font-size: 14px;
+
             .trust-circle-state {
                 font-weight: 500;
             }
         }
+
         .help-link-trust-circle {
             cursor: pointer;
             font-size: 12px;
             color: $secondary-text;
             text-align: right;
         }
+
         .help-link-trust-circle:hover {
             text-decoration: underline;
         }

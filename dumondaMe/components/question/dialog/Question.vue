@@ -50,7 +50,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat
+            <v-btn color="primary" text
                    @click.native="$emit('close-dialog')" :disabled="loading">{{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary" @click.native="finish"

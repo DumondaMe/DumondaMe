@@ -42,23 +42,27 @@
                 </div>
                 <div class="suggestion-commands">
                     <v-menu bottom left offset-y v-if="suggestion.creator.isLoggedInUser">
-                        <v-btn small fab color="secondary" class="first-button" slot="activator"
-                               :disabled="!suggestion.creator.isLoggedInUser">
-                            <v-icon>mdi-pencil</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn small fab color="secondary" class="first-button" v-on="on"
+                                   :disabled="!suggestion.creator.isLoggedInUser">
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                        </template>
                         <v-list>
-                            <v-list-tile @click="showEditSuggestionDialog = true">
-                                <v-list-tile-title>{{$t("common:button.edit")}}</v-list-tile-title>
-                            </v-list-tile>
-                            <v-list-tile @click="showDeleteSuggestionDialog = true">
-                                <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
-                            </v-list-tile>
+                            <v-list-item @click="showEditSuggestionDialog = true">
+                                <v-list-item-title>{{$t("common:button.edit")}}</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item @click="showDeleteSuggestionDialog = true">
+                                <v-list-item-title>{{$t("common:button.delete")}}</v-list-item-title>
+                            </v-list-item>
                         </v-list>
                     </v-menu>
                     <v-tooltip bottom>
-                        <v-btn small fab color="secondary" slot="activator">
-                            <v-icon>mdi-magnify-plus</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn small fab color="secondary" v-on="on">
+                                <v-icon>mdi-magnify-plus</v-icon>
+                            </v-btn>
+                        </template>
                         <span>{{$t('pages:detailQuestion.menu.suggestion.tooltipDetailView')}}</span>
                     </v-tooltip>
                 </div>
@@ -105,47 +109,59 @@
     .suggestion-question {
         margin-bottom: 26px;
         display: flex;
+
         .user-image {
             margin-right: 12px;
+
             img {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
             }
         }
+
         .status-is-open {
             font-size: 12px;
             line-height: 14px;
             color: $success-text;
         }
+
         .user-action-description {
             font-size: 14px;
             font-weight: 500;
+
             .creator-name {
                 cursor: pointer;
                 color: $primary-color;
             }
+
             :hover.creator-name {
                 text-decoration: underline;
             }
         }
+
         .suggestion-created {
             font-size: 12px;
             color: $secondary-text;
             margin-bottom: 8px;
         }
+
         .suggestion-element {
             font-size: 14px;
             margin-bottom: 12px;
+
             .suggestion-title {
 
             }
+
             .suggestion-text {
                 font-style: italic;
             }
         }
+
         .suggestion-commands {
             display: flex;
+
             .first-button {
                 margin-left: 0;
             }

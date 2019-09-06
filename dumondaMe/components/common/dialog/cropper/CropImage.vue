@@ -10,20 +10,20 @@
             <div id="cropped-image-modification-actions" class="cropped-image-action-block">
                 <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                        @change="handleImageChange"/>
-                <v-btn flat icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
+                <v-btn text icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
                     <v-icon>mdi-image</v-icon>
                 </v-btn>
-                <v-btn flat icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
+                <v-btn text icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
                     <v-icon>mdi-rotate-left</v-icon>
                 </v-btn>
-                <v-btn flat icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
+                <v-btn text icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
                     <v-icon>mdi-rotate-right</v-icon>
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
             <div class="cropped-image-action-block">
                 <v-spacer></v-spacer>
-                <v-btn color="primary" flat @click.native="$emit('close')">
+                <v-btn color="primary" text @click.native="$emit('close')">
                     {{$t("common:button.abort")}}
                 </v-btn>
                 <v-btn color="primary" @click.native="$emit('action', imageCropper)"
