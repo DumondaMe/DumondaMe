@@ -159,7 +159,7 @@
             margin-bottom: 12px;
         }
 
-        .user-is-interested-button.v-btn {
+        .theme--light.user-is-interested-button.v-btn {
             background-color: $selected-button;
             color: white;
 

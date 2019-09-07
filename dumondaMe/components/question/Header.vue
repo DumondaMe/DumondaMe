@@ -30,11 +30,11 @@
                                         <v-btn v-on="on" small fab color="primary"
                                                v-if="!question.userWatchesQuestion"
                                                :disabled="question.isAdmin">
-                                            <v-icon>mdi-star-outline</v-icon>
+                                            <v-icon size="20">mdi-star-outline</v-icon>
                                         </v-btn>
                                         <v-btn v-on="on" small fab color="user-watches-question"
                                                v-else>
-                                            <v-icon>mdi-star</v-icon>
+                                            <v-icon size="20">mdi-star</v-icon>
                                         </v-btn>
                                     </template>
                                     <span v-if="!question.userWatchesQuestion || question.isAdmin">
@@ -50,7 +50,7 @@
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                                 <v-btn v-on="on" small fab color="primary" @click="openCreateAnswerDialog()">
-                                    <v-icon>mdi-forum</v-icon>
+                                    <v-icon size="20">mdi-forum</v-icon>
                                 </v-btn>
                             </template>
                             <span>{{$t('pages:feeds.menu.questions.numberOfAnswers',

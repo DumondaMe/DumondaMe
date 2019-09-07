@@ -99,6 +99,7 @@
                 #login-button {
                     margin-left: 0;
                     margin-right: 0;
+                    margin-bottom: 12px;
                     width: 100%;
                 }
                 .password-reset {

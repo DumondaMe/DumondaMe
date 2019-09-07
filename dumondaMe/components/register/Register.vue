@@ -160,6 +160,8 @@
 
         #register-content-container {
             margin-top: 24px;
+            padding-left: 12px;
+            padding-right: 12px;
 
             .register-error {
                 color: #d84021;
