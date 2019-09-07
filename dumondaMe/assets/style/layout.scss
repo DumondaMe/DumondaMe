@@ -36,7 +36,7 @@ body {
 }
 
 #dumonda-me-dialog-header {
-  padding: 16px;
+  padding: 16px 24px;
   font-weight: 500;
   .title-element-primary {
     color: #009e97;
@@ -76,6 +76,7 @@ body {
   }
   .menu-commands {
     display: flex;
+    padding: 8px;
     button {
       margin-right: 16px;
     }

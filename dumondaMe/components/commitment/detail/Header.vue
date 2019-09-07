@@ -16,11 +16,11 @@
                         <template v-slot:activator="{ on }">
                             <v-btn class="button-watch" color="primary" small fab v-on="on"
                                    v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                                <v-icon>mdi-star-outline</v-icon>
+                                <v-icon size="20">mdi-star-outline</v-icon>
                             </v-btn>
                             <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
                                    v-else v-on="on">
-                                <v-icon>mdi-star</v-icon>
+                                <v-icon size="20">mdi-star</v-icon>
                             </v-btn>
                         </template>
                         <span v-if="!commitment.userWatchesCommitment || isAdmin">

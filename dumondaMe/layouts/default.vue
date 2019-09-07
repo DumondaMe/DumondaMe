@@ -139,10 +139,16 @@
         }
     }
 
-    .dialog {
+    .v-dialog {
         @media screen and (max-width: 500px) {
             width: 100%;
             min-width: 100%
+        }
+
+        .v-card {
+            .v-card__text {
+                padding-top: 16px;
+            }
         }
     }
 

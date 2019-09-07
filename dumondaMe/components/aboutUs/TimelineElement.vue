@@ -20,6 +20,10 @@
 
 <style lang="scss">
     .about-us-timeline-element {
+        .white.text--primary {
+            padding-top: 12px;
+        }
+
         .date-mobile {
             font-weight: 500;
             margin-bottom: 8px;

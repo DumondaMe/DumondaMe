@@ -3,7 +3,7 @@
         <v-menu bottom left offset-y id="admin-commands">
             <template v-slot:activator="{ on }">
                 <v-btn small fab color="secondary" v-on="on">
-                    <v-icon>mdi-pencil</v-icon>
+                    <v-icon size="20">mdi-pencil</v-icon>
                 </v-btn>
             </template>
             <v-list>

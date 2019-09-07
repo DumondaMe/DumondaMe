@@ -1,7 +1,7 @@
 <template>
     <div id="feed-filter">
         <div class="type-filter-container">
-            <v-tooltip top class="filter-element-container">
+            <v-tooltip top>
                 <template v-slot:activator="{ on }">
                     <div class="filter-element" v-on="on"
                          :class="{'active-filter': mainFilter === 'activity'}" @click="setFilter('activity')">
@@ -11,7 +11,7 @@
                 <span v-if="isAuthenticated">{{$t("pages:feeds.filter.tooltip.activity")}}</span>
                 <span v-else>{{$t("pages:feeds.filter.tooltip.activityPublic")}}</span>
             </v-tooltip>
-            <v-tooltip top class="filter-element-container">
+            <v-tooltip top>
                 <template v-slot:activator="{ on }">
                     <div class="filter-element" v-on="on"
                          :class="{'active-filter': mainFilter === 'question'}" @click="setFilter('question')">
@@ -20,7 +20,7 @@
                 </template>
                 <span>{{$t("pages:feeds.filter.tooltip.question")}}</span>
             </v-tooltip>
-            <v-tooltip top class="filter-element-container">
+            <v-tooltip top>
                 <template v-slot:activator="{ on }">
                     <div class="filter-element" v-on="on"
                          :class="{'active-filter': mainFilter === 'commitment'}" @click="setFilter('commitment')">
@@ -39,8 +39,7 @@
                 <span>{{$t("pages:feeds.filter.tooltip.event")}}</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <v-tooltip top class="right-filter-container" v-if="mainFilter !== 'event'"
-                       :class="{'is-public': !isAuthenticated}">
+            <v-tooltip top v-if="mainFilter !== 'event'">
                 <template v-slot:activator="{ on }">
                     <div class="right-filter" v-on="on">
                         <common-filter-trust-circle :trust-circle="$store.state.feedFilter.trustCircleFilter"
@@ -50,7 +49,7 @@
                 </template>
                 <span>{{$t("pages:feeds.filter.tooltip.trustCircle")}}</span>
             </v-tooltip>
-            <v-tooltip top class="right-filter-container">
+            <v-tooltip top>
                 <template v-slot:activator="{ on }">
                     <div class="right-filter" v-on="on">
                         <common-filter-topic :init-topics="$store.state.feedFilter.topicFilter"
@@ -130,68 +129,37 @@
             display: flex;
             border-bottom: 1px solid $divider;
 
-            .filter-element-container {
-                display: inline-block;
 
-                .filter-element {
-                    cursor: pointer;
-                    font-size: 14px;
-                    padding: 2px 12px 4px 12px;
-                    color: $secondary-text;
+            .filter-element {
+                cursor: pointer;
+                font-size: 14px;
+                padding: 2px 12px 4px 12px;
+                color: $secondary-text;
 
-                    i.v-icon {
-                        font-size: 20px;
-                    }
+                i.v-icon {
+                    font-size: 20px;
+                    margin: 8px;
                 }
+            }
 
-                .filter-element.active-filter {
+            .filter-element.active-filter {
+                color: $primary-color;
+                font-weight: 500;
+                border-bottom: 3px solid $primary-color;
+
+                i.v-icon {
                     color: $primary-color;
-                    font-weight: 500;
-                    border-bottom: 3px solid $primary-color;
-
-                    i.v-icon {
-                        color: $primary-color;
-                    }
                 }
             }
 
-            .filter-element-container.is-public {
-                .filter-element {
-                    cursor: auto;
+            .right-filter {
+                cursor: pointer;
+                margin-left: 16px;
+                padding: 6px 0 0 0;
 
-                    i.v-icon {
-                        color: $disabled-text;
-                    }
+                i.v-icon {
+                    font-size: 20px;
                 }
-            }
-
-            .right-filter-container {
-                .right-filter {
-                    cursor: pointer;
-                    display: inline-block;
-                    vertical-align: top;
-                    margin-left: 16px;
-                    padding: 0 0 4px 0;
-
-                    i.v-icon {
-                        font-size: 20px;
-                    }
-                }
-            }
-
-            .right-filter-container.is-public {
-                .right-filter {
-                    i.v-icon {
-                        color: $disabled-text;
-                    }
-                }
-            }
-
-            :hover.right-filter-container {
-                .more-filter {
-                    color: $primary-text;
-                }
-
             }
         }
 

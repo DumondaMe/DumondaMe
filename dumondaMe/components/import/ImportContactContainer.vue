@@ -163,12 +163,14 @@
 <style lang="scss">
     .import-source-container {
         .import-source-description {
+            padding-top: 16px;
             font-size: 16px;
             font-weight: 300;
             margin-bottom: 18px;
         }
 
         .import-source-inner-container {
+            padding: 0 12px;
 
             .import-source {
                 margin-bottom: 18px;

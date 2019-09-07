@@ -71,7 +71,8 @@
         }
         .header-nav {
             height: 100%;
-            padding-top: 4px;
+            padding-top: 10px;
+            padding-left: 16px;
             button {
                 color: #666666;
                 i.v-icon {
@@ -90,7 +91,7 @@
         }
         .header-nav-button {
             height: 100%;
-            padding-top: 8px;
+            padding-top: 14px;
         }
         .header-nav.menu-nav {
             button {

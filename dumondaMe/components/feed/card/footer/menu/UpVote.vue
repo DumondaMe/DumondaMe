@@ -151,7 +151,7 @@
             margin-bottom: 12px;
         }
 
-        .user-has-up-voted-button.v-btn {
+        .theme--light.user-has-up-voted-button.v-btn {
             background-color: $selected-button;
             color: white;
 
