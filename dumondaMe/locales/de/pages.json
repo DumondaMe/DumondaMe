@@ -1038,7 +1038,7 @@
     }
   },
   "donation": {
-    "description": "Damit wir DumondaMe weiterentwickeln können müssen wir Gehälter, externe Dienstleistungen und Infrastrukturen bezahlen. All das wird Dank deiner finanziellen Unterstützung möglich. Du kannst uns diese per <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> überweisen oder du nutzt ganz unkompliziert unser Spendenformular.",
+    "description": "Aktuell brauchen wir finanzielle Unterstützung, um Arbeitsstunden, die technische Infrastruktur und externe Dienstleistungen zu bezahlen. Du kannst für DumondaMe Beiträge in frei wählbarer Höhe per <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> überweisen oder du nutzt ganz unkompliziert unser Spendenformular. Hast du einen Account bei DumondaMe, erfährst du im Newsletter regelmässig von den neusten Entwicklungen im Projekt. Herzlichen Dank!",
     "stateInfo": "Der Status wird nicht in Echtzeit aktualisiert"
   },
   "unsubscribe": {
@@ -1100,9 +1100,9 @@
     },
     "donation": {
       "title": "Danke für deine Unterstützung!",
-      "description": "Mit viel Engagement bauen wir dieses soziale Netzwerk auf. Damit dies gelingt sind wir auf deine Unterstützung angewiesen.",
+      "description": "Für den Aufbau von DumondaMe brauchen wir deine finanzielle Unterstützung. Einmalig einen frei wählbaren Betrag spenden oder das Projekt regelmässig unterstützen geht ganz leicht:",
       "donationStatus": {
-        "description": "{{donationGoal}} CHF bis Ende Jahr sind der Mindestbetrag den wir benötigen, um die laufenden Kosten von DumondaMe zu decken.",
+        "description": "{{donationGoal}} CHF benötigen wir mindestens bis Ende Jahr, um die laufenden Kosten von DumondaMe zu decken.",
         "of": "von"
       }
     },
