@@ -1035,7 +1035,7 @@
     }
   },
   "donation": {
-    "description": "In order to develop DumondaMe further, we have to pay salaries, external services and infrastructures. All this is possible thanks to your financial support. You can transfer them to us by <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> or you can simply use our donation form.",
+    "description": "Currently we need financial support to pay for working hours, technical infrastructure and external services. For DumondaMe you can transfer contributions of your choice by <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> or use our donation form. If you have an account with DumondaMe, you will regularly be informed about the latest developments in the project in the newsletter. Thank you very much!",
     "stateInfo": "Status is not updated in real time"
   },
   "unsubscribe": {
@@ -1097,9 +1097,9 @@
     },
     "donation": {
       "title": "Thank you for your support!",
-      "description": "We are building this social network with great commitment. For this to succeed, we are dependent on your support.",
+      "description": "For the construction of DumondaMe we need your financial support. Donating once a freely selectable amount or supporting the project on a regular basis is very easy:",
       "donationStatus": {
-        "description": "{{donationGoal}} CHF until the end of the year is the minimum amount we need to cover the running costs of DumondaMe.",
+        "description": "We need CHF {{donationGoal}} CHF at least until the end of the year to cover the running costs of DumondaMe.",
         "of": "of"
       }
     },
