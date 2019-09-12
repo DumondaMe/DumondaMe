@@ -1,5 +1,5 @@
 <template>
-    <v-layout row justify-center>
+    <div>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <acknowledge v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1">
                 <div slot="header">
@@ -38,7 +38,7 @@
             {{$t("pages:commitment.createDialog.warningToSmallImage")}}
             <v-btn dark text @click="showWarning = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-    </v-layout>
+    </div>
 </template>
 
 <script>

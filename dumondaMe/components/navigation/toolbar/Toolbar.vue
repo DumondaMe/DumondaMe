@@ -5,21 +5,21 @@
         <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
                          :show-notification="showNotification"
                          :number-of-notifications="numberOfUnreadNotifications"
-                         @create-question="showCreateQuestion = true"
-                         @create-commitment="showCreateCommitment = true"
+                         @show-create-question-dialog="emit('show-create-question-dialog')"
+                         @show-create-commitment-dialog="emit('show-create-commitment-dialog')"
+                         @show-import-contacts-dialog="emit('show-import-contacts-dialog')"
+                         @show-language-dialog="emit('show-language-dialog')"
                          @open-drawer="$emit('open-drawer')" v-if="$route.name !== 'auth'">
         </desktop-toolbar>
         <mobile-toolbar :is-authenticated="isAuthenticated" id="mobile-toolbar"
                         :show-notification="showNotification"
                         :number-of-notifications="numberOfUnreadNotifications"
-                        @create-question="showCreateQuestion = true"
-                        @create-commitment="showCreateCommitment = true"
+                        @show-create-question-dialog="emit('show-create-question-dialog')"
+                        @show-create-commitment-dialog="emit('show-create-commitment-dialog')"
+                        @show-import-contacts-dialog="emit('show-import-contacts-dialog')"
+                        @show-language-dialog="emit('show-language-dialog')"
                         @open-drawer="$emit('open-drawer')" v-if="$route.name !== 'auth'">
         </mobile-toolbar>
-        <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
-        </create-commitment-dialog>
-        <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
-        </create-question-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -27,17 +27,15 @@
 </template>
 
 <script>
-    import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
-    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
     import DesktopToolbar from './Desktop';
     import MobileToolbar from './Mobile';
     import {mapGetters} from 'vuex';
 
     export default {
         data() {
-            return {showCreateCommitment: false, showCreateQuestion: false, showError: false}
+            return {showError: false}
         },
-        components: {CreateCommitmentDialog, CreateQuestionDialog, DesktopToolbar, MobileToolbar},
+        components: {DesktopToolbar, MobileToolbar},
         mounted: function () {
             if (this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'notifications') {
                 this.$store.dispatch('notification/startCheckNotificationChanged');
