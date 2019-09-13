@@ -26,11 +26,20 @@ import Vuetify, {
     VDatePicker
 } from 'vuetify/lib';
 
+import IconClap from '~/components/icons/Clap';
+
 Vue.use(Vuetify);
 
 export default ctx => {
     const vuetify = new Vuetify({
-        iconfont: 'mdi',
+        icons: {
+            iconfont: 'mdi',
+            values: {
+                clap: {
+                    component: IconClap
+                }
+            }
+        },
         theme: {
             themes: {
                 light: {
