@@ -1,6 +1,6 @@
 <template>
-    <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="300px" :fullscreen="$vuetify.breakpoint.xsOnly">
+    <div>
+        <v-dialog v-model="dialog" scrollable persistent max-width="400px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <v-card id="dialog-delete-note">
                 <v-card-title>
                     {{$t("pages:detailQuestion.note.deleteNoteDialog.title")}}
@@ -25,7 +25,7 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-    </v-layout>
+    </div>
 </template>
 
 <script>
@@ -56,5 +56,7 @@
 </script>
 
 <style lang="scss">
-
+    #dialog-delete-note {
+    min-width: 350px;
+    }
 </style>

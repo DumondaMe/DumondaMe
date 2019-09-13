@@ -88,7 +88,7 @@
         }
 
         .commands-container {
-            margin-top: 6px;
+            margin-top: 18px;
 
             button {
                 margin-left: 0;

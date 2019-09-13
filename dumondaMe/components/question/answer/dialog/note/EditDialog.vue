@@ -1,5 +1,5 @@
 <template>
-    <v-layout row justify-center>
+    <div>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <edit-note-dialog @close-dialog="$emit('close-dialog')" :action-button-text="$t('common:button.change')"
                               @finish="editNote" :loading="loading" :init-note-text="noteText">
@@ -14,7 +14,7 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-    </v-layout>
+    </div>
 </template>
 
 <script>
@@ -23,7 +23,7 @@
     export default {
         props: ['answerId', 'noteId', 'noteText', 'answerTitle'],
         data() {
-            return {dialog: true, loading: false, showError: true}
+            return {dialog: true, loading: false, showError: false}
         },
         components: {EditNoteDialog},
         methods: {

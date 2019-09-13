@@ -1,5 +1,5 @@
 <template>
-    <v-layout row justify-center>
+    <div>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <create-note-dialog @close-dialog="$emit('close-dialog')" :action-button-text="$t('common:button.create')"
                                 @finish="createNote" :loading="loading" init-note-text="">
@@ -14,7 +14,7 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-    </v-layout>
+    </div>
 </template>
 
 <script>
