@@ -5,7 +5,7 @@
             <v-menu :close-on-content-click="false" v-model="menu"
                     :nudge-right="40" transition="scale-transition" offset-y>
                 <template v-slot:activator="{ on }">
-                    <v-text-field v-on="on" v-model="this.dateFormatted" prepend-icon="mdi-calendar" readonly
+                    <v-text-field v-on="on" v-model="dateFormatted" prepend-icon="mdi-calendar" readonly
                                   class="date-input">
                     </v-text-field>
                 </template>
