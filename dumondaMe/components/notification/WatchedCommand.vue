@@ -39,7 +39,7 @@
 
 <style lang="scss">
     .notification-watched-command {
-        margin-top: 12px;
+        margin-top: 18px;
 
         button {
             margin-left: 0;

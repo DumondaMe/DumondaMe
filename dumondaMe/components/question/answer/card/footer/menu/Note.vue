@@ -24,24 +24,16 @@
                 <span class="command-text">{{note.upVotes}}</span>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outlined class="command" @click="showEditNoteDialog = true">
+                <v-btn icon outlined class="command" @click="$emit('edit-note', note)">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outlined class="command" @click="showDeleteNoteDialog = true">
+                <v-btn icon outlined class="command" @click="$emit('delete-note', note)">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </div>
         </div>
-        <edit-note-dialog v-if="showEditNoteDialog" @close-dialog="showEditNoteDialog = false"
-                          @finish="showEditNoteDialog = false" :note-text="note.text" :note-id="note.noteId"
-                          :answer-id="answerId" :answer-title="answerTitle">
-        </edit-note-dialog>
-        <delete-note-dialog v-if="showDeleteNoteDialog" @close-dialog="showDeleteNoteDialog = false"
-                            @finish="showDeleteNoteDialog = false" :note-id="note.noteId" :answer-id="answerId"
-                            :note-text="note.text">
-        </delete-note-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -49,14 +41,10 @@
 </template>
 
 <script>
-    import EditNoteDialog from '~/components/question/answer/dialog/note/EditDialog';
-    import DeleteNoteDialog from '~/components/question/answer/dialog/note/DeleteNoteDialog';
-
     export default {
         props: ['note', 'answerId', 'answerTitle'],
-        components: {EditNoteDialog, DeleteNoteDialog},
         data() {
-            return {upVoteRunning: false, showEditNoteDialog: false, showDeleteNoteDialog: false, showError: false}
+            return {upVoteRunning: false, showError: false}
         },
         methods: {
             async upVoteNote(noteId) {
