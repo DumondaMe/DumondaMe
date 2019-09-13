@@ -58,8 +58,11 @@
         left: 0;
         right: 0;
         z-index: 30;
-        .mobile-filter-color {
-            background-color: $background-normal;
+        margin-bottom: 12px;
+
+        .mobile-filter-color--text {
+            background-color: $background-normal !important;
+            color: $secondary-color !important;
         }
     }
 </style>

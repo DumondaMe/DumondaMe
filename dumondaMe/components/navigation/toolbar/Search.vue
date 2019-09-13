@@ -158,7 +158,7 @@
 
                     @media screen and (max-width: $xs) {
                         font-size: 16px;
-                        margin-top: 3px;
+                        margin-top: 2px;
                         height: 42px;
                     }
                 }
@@ -189,6 +189,7 @@
             }
             .close-search {
                 width: 100px;
+                padding-top: 12px;
                 margin-right: 0;
                 margin-left: 0;
                 @media screen and (min-width: $xs) {
