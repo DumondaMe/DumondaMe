@@ -64,11 +64,11 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-btn color="primary" flat @click="step--" v-show="step > 1">
+            <v-btn color="primary" text @click="step--" v-show="step > 1">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
+            <v-btn color="primary" text @click.native="$emit('close-dialog')">{{$t("common:button.close")}}</v-btn>
             <v-btn color="primary" @click="navigationButtonPressed">
                 {{$t("common:button.next")}}
             </v-btn>

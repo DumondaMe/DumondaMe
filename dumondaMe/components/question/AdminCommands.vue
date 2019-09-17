@@ -1,20 +1,22 @@
 <template>
     <div id="question-admin-commands-container">
         <v-menu bottom left offset-y id="admin-commands">
-            <v-btn small fab color="secondary" slot="activator">
-                <v-icon>mdi-pencil</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn small fab color="secondary" v-on="on">
+                    <v-icon size="20">mdi-pencil</v-icon>
+                </v-btn>
+            </template>
             <v-list>
-                <v-list-tile @click="showModifyQuestionDialog = true">
-                    <v-list-tile-title>{{$t("common:question")}}</v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile @click="showModifyTopicDialog = true">
-                    <v-list-tile-title>{{$t("common:topic")}}</v-list-tile-title>
-                </v-list-tile>
+                <v-list-item @click="showModifyQuestionDialog = true">
+                    <v-list-item-title>{{$t("common:question")}}</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="showModifyTopicDialog = true">
+                    <v-list-item-title>{{$t("common:topic")}}</v-list-item-title>
+                </v-list-item>
                 <v-divider></v-divider>
-                <v-list-tile @click="showDeleteQuestionDialog = true">
-                    <v-list-tile-title>{{$t("common:button.delete")}}</v-list-tile-title>
-                </v-list-tile>
+                <v-list-item @click="showDeleteQuestionDialog = true">
+                    <v-list-item-title>{{$t("common:button.delete")}}</v-list-item-title>
+                </v-list-item>
             </v-list>
         </v-menu>
         <delete-question-dialog v-if="showDeleteQuestionDialog" @delete-question="deleteQuestion"

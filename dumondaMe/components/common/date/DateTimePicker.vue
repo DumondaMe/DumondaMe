@@ -3,10 +3,12 @@
         <div class="description">{{description}}</div>
         <div class="time-container">
             <v-menu :close-on-content-click="false" v-model="menu"
-                    :nudge-right="40" lazy transition="scale-transition" offset-y>
-                <v-text-field slot="activator" v-model="this.dateFormatted" prepend-icon="mdi-calendar" readonly
-                              class="date-input">
-                </v-text-field>
+                    :nudge-right="40" transition="scale-transition" offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-text-field v-on="on" v-model="dateFormatted" prepend-icon="mdi-calendar" readonly
+                                  class="date-input">
+                    </v-text-field>
+                </template>
                 <v-date-picker v-model="date" @input="menu = false" next-icon="mdi-chevron-right"
                                prev-icon="mdi-chevron-left" :locale="getLanguage" no-title :min="min"
                                :full-width="$vuetify.breakpoint.xsOnly">

@@ -9,13 +9,13 @@
             {{$t('pages:detailCommitment.notifications.showQuestionRequest.notification2')}}
         </div>
         <div class="commands-container">
-            <v-btn outline color="success" @click="setShowQuestionOnCommitment(true, 'requestShowQuestionRunning')"
+            <v-btn outlined color="success" @click="setShowQuestionOnCommitment(true, 'requestShowQuestionRunning')"
                    :loading="requestShowQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
                 <v-icon>mdi-check</v-icon>
                 {{$t('common:button.yes')}}
             </v-btn>
-            <v-btn outline color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
+            <v-btn outlined color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
                    :loading="requestHideQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
                 <v-icon>mdi-clear</v-icon>
@@ -23,7 +23,7 @@
             </v-btn>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>

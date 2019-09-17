@@ -1,11 +1,13 @@
 <template>
     <div class="select-region-container">
         <v-menu v-model="menu" :close-on-content-click="false" offset-y max-height="400">
-            <div class="select-region" slot="activator">
-                <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
-                <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
-                <v-icon>mdi-menu-down</v-icon>
-            </div>
+            <template v-slot:activator="{ on }">
+                <div class="select-region" v-on="on">
+                    <span v-if="localSelectedRegion.id === 'international'">{{localSelectedRegion.description}}</span>
+                    <span v-else>{{$t("common:region")}}: {{localSelectedRegion.description}}</span>
+                    <v-icon>mdi-menu-down</v-icon>
+                </div>
+            </template>
             <v-card class="ely-menu-region-container">
                 <ely-select :items="regions" :select-multiple="false" :min-items='1'
                             :single-selected-item-id="'international'" :existing-items="initRegion"
@@ -51,6 +53,7 @@
 <style lang="scss">
     .select-region-container {
         display: inline-block;
+
         .select-region {
             display: inline-block;
             vertical-align: top;
@@ -60,15 +63,18 @@
             color: $secondary-text;
             font-size: 14px;
             cursor: pointer;
+
             i.v-icon {
                 vertical-align: top;
                 padding-bottom: 4px;
             }
         }
+
         :hover.select-region {
             color: $primary-text;
         }
     }
+
     .ely-menu-region-container {
         .select-container {
             .select-item {

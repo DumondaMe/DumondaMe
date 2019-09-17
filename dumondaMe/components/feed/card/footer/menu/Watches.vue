@@ -1,7 +1,11 @@
 <template>
     <div>
         <v-menu v-model="menu" :close-on-content-click="false" offset-y min-width="290">
-            <slot name="icon" slot="activator"></slot>
+            <template v-slot:activator="{ on }">
+                <div v-on="on">
+                    <slot name="icon"></slot>
+                </div>
+            </template>
             <v-card class="ely-menu-container ely-menu-watches-container" v-if="menu">
                 <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
                     {count: numberOfShowedUsers})}}
@@ -24,22 +28,27 @@
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
+                    <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-tooltip top debounce="300" v-if="localWatchedByUser">
-                        <v-btn color="user-is-interested-button" :disabled="isAdmin || watchingRunning" @click="removeWatch()"
-                               slot="activator" :loading="watchingRunning">
-                            <v-icon left>mdi-star</v-icon>
-                            {{$t('common:button.interested')}}
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="user-is-interested-button" :disabled="isAdmin || watchingRunning"
+                                   @click="removeWatch()"
+                                   v-on="on" :loading="watchingRunning">
+                                <v-icon left>mdi-star</v-icon>
+                                {{$t('common:button.interested')}}
+                            </v-btn>
+                        </template>
                         <span>{{$t('common:feedCard.watch.removeWatch')}}</span>
                     </v-tooltip>
                     <v-tooltip top debounce="300" v-else>
-                        <v-btn color="primary" :disabled="isAdmin || watchingRunning"
-                               @click="addWatch()"
-                               slot="activator" :loading="watchingRunning">
-                            <v-icon left>mdi-star-outline</v-icon>
-                            {{$t('common:button.interested')}}
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" :disabled="isAdmin || watchingRunning"
+                                   @click="addWatch()"
+                                   v-on="on" :loading="watchingRunning">
+                                <v-icon left>mdi-star-outline</v-icon>
+                                {{$t('common:button.interested')}}
+                            </v-btn>
+                        </template>
                         <span v-if="!isAdmin">{{$t('common:feedCard.watch.addWatch')}}</span>
                         <span v-else>{{$t('common:feedCard.watch.userIsAdmin')}}</span>
                     </v-tooltip>
@@ -49,7 +58,7 @@
         <login-required-dialog v-if="showLoginRequired && menu" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <v-snackbar top v-if="menu" v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -145,12 +154,15 @@
             padding: 0 16px 12px 16px;
             max-width: 300px;
         }
+
         .loading-watching-user-running {
             margin-bottom: 12px;
         }
-        .user-is-interested-button.v-btn  {
+
+        .theme--light.user-is-interested-button.v-btn {
             background-color: $selected-button;
             color: white;
+
             i.v-icon {
                 color: white;
             }

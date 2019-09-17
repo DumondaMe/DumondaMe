@@ -2,7 +2,11 @@
     <div>
         <v-menu v-model="menu" :close-on-content-click="false" min-width="300"
                 :close-on-click="closeMenuOnOutsideClick" offset-y>
-            <slot name="icon" slot="activator"></slot>
+            <template v-slot:activator="{ on }">
+                <div v-on="on">
+                    <slot name="icon"></slot>
+                </div>
+            </template>
             <v-card class="ely-menu-container ely-menu-suggestion">
                 <div class="menu-title">
                     {{$t('pages:detailQuestion.menu.suggestion.title')}}
@@ -21,7 +25,7 @@
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
+                    <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-btn color="primary" :disabled="isAdmin" @click="openShowCreateSuggestion()">
                         <v-icon left>mdi-lightbulb</v-icon>
                         {{$t('pages:detailQuestion.menu.suggestion.addButton')}}
@@ -34,7 +38,7 @@
                                   @finish="suggestionCreated">
         </create-suggestion-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>

@@ -2,7 +2,7 @@
     <div class="feed-concept-info-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.conceptInfo.title')}}</h3>
         <img v-lazy="conceptImage" :data-srcset="concept2xImage" class="concept-image">
-        <v-btn outline color="primary" @click="showConceptInfoDialog = true">
+        <v-btn outlined color="primary" @click="showConceptInfoDialog = true">
             {{$t('pages:feeds.conceptInfo.actionButton')}}
         </v-btn>
         <concept-info-dialog v-if="showConceptInfoDialog" @close-dialog="showConceptInfoDialog = false">

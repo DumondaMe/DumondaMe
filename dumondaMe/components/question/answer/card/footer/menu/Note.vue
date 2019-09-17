@@ -13,50 +13,38 @@
         <div class="note-text" v-html="note.textHtml"></div>
         <div class="note-commands">
             <div class="note-command">
-                <v-btn icon outline class="command" :disabled="note.isAdmin || upVoteRunning"
+                <v-btn icon outlined class="command" :disabled="note.isAdmin || upVoteRunning"
                        :loading="upVoteRunning" @click="upVoteNote(note.noteId)" v-if="!note.hasVoted">
                     <v-icon>mdi-thumb-up-outline</v-icon>
                 </v-btn>
-                <v-btn icon outline class="command" :disabled="upVoteRunning"
+                <v-btn icon outlined class="command" :disabled="upVoteRunning"
                        :loading="upVoteRunning" @click="downVoteNote(note.noteId)" v-else>
                     <v-icon>mdi-thumb-down-outline</v-icon>
                 </v-btn>
                 <span class="command-text">{{note.upVotes}}</span>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command" @click="showEditNoteDialog = true">
+                <v-btn icon outlined class="command" @click="$emit('edit-note', note)">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </div>
             <div class="note-command" v-if="note.isAdmin">
-                <v-btn icon outline class="command" @click="showDeleteNoteDialog = true">
+                <v-btn icon outlined class="command" @click="$emit('delete-note', note)">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </div>
         </div>
-        <edit-note-dialog v-if="showEditNoteDialog" @close-dialog="showEditNoteDialog = false"
-                          @finish="showEditNoteDialog = false" :note-text="note.text" :note-id="note.noteId"
-                          :answer-id="answerId" :answer-title="answerTitle">
-        </edit-note-dialog>
-        <delete-note-dialog v-if="showDeleteNoteDialog" @close-dialog="showDeleteNoteDialog = false"
-                            @finish="showDeleteNoteDialog = false" :note-id="note.noteId" :answer-id="answerId"
-                            :note-text="note.text">
-        </delete-note-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
 
 <script>
-    import EditNoteDialog from '~/components/question/answer/dialog/note/EditDialog';
-    import DeleteNoteDialog from '~/components/question/answer/dialog/note/DeleteNoteDialog';
-
     export default {
         props: ['note', 'answerId', 'answerTitle'],
-        components: {EditNoteDialog, DeleteNoteDialog},
         data() {
-            return {upVoteRunning: false, showEditNoteDialog: false, showDeleteNoteDialog: false, showError: false}
+            return {upVoteRunning: false, showError: false}
         },
         methods: {
             async upVoteNote(noteId) {

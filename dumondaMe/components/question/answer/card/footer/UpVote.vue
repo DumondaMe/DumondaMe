@@ -10,16 +10,20 @@
                 <div slot="icon">
                     <span class="description left-side" itemprop="upvoteCount">{{numberOfUpVotes}}</span>
                     <v-tooltip bottom v-if="!isUpVotedByUser || isAdmin">
-                        <v-btn slot="activator" small fab color="not-up-voted"
-                               :disabled="isAdmin">
-                            <v-icon>mdi-thumb-up-outline</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" small fab color="not-up-voted"
+                                   :disabled="isAdmin">
+                                <v-icon size="20">mdi-thumb-up-outline</v-icon>
+                            </v-btn>
+                        </template>
                         <span>{{$t("common:feedCard.upVote.userHasNotUpVoted")}}</span>
                     </v-tooltip>
                     <v-tooltip bottom v-else>
-                        <v-btn slot="activator" fab small color="up-voted" :disabled="isAdmin">
-                            <v-icon>mdi-thumb-up</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" fab small color="up-voted" :disabled="isAdmin">
+                                <v-icon size="20">mdi-thumb-up</v-icon>
+                            </v-btn>
+                        </template>
                         <span>{{$t("common:feedCard.upVote.userHasUpVoted")}}</span>
                     </v-tooltip>
                 </div>
@@ -28,7 +32,7 @@
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -52,20 +56,25 @@
     .card-footer-feed {
         .footer-up-vote-button {
             .not-up-voted.v-btn {
-                background-color: #009688;
+                background-color: #009688 !important;
+
                 i.v-icon {
                     color: white;
                 }
             }
-            .up-voted.v-btn {
-                background-color: #607D8B;
+
+            button.up-voted.v-btn {
+                background-color: #607D8B !important;
+
                 i.v-icon {
                     color: white;
                 }
             }
+
             button {
                 margin: 0;
             }
+
             .description.left-side {
                 display: inline-block;
                 vertical-align: top;

@@ -11,8 +11,10 @@
                           v-if="!notification.users[0].isAnonymous">
                             {{notification.users[0].name}} </span>
                     <v-tooltip bottom v-else>
-                        <span class="user-name" slot="activator">
+                        <template v-slot:activator="{ on }">
+                            <span class="user-name" v-on="on">
                             {{notification.users[0].name}} </span>
+                        </template>
                         <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
                     </v-tooltip>
 

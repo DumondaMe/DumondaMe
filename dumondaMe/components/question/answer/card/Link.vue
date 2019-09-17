@@ -2,17 +2,19 @@
     <div>
         <link-card :hide-question="true" :answer="answer">
             <v-menu bottom slot="feedMenu" v-if="answer.isAdmin">
-                <v-btn icon slot="activator">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
+                <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
                 <v-list>
-                    <v-list-tile @click="openEditLinkDialog()">
-                        <v-list-tile-title>{{$t('common:button.edit')}}</v-list-tile-title>
-                    </v-list-tile>
+                    <v-list-item @click="openEditLinkDialog()">
+                        <v-list-item-title>{{$t('common:button.edit')}}</v-list-item-title>
+                    </v-list-item>
                     <v-divider></v-divider>
-                    <v-list-tile @click="showDeleteAnswerDialog = true">
-                        <v-list-tile-title>{{$t('common:button.delete')}}</v-list-tile-title>
-                    </v-list-tile>
+                    <v-list-item @click="showDeleteAnswerDialog = true">
+                        <v-list-item-title>{{$t('common:button.delete')}}</v-list-item-title>
+                    </v-list-item>
                 </v-list>
             </v-menu>
             <answer-footer slot="footer" :creator="answer.creator" :number-of-up-votes="answer.upVotes"

@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.vision.description')}}</div>
-            <v-btn outline color="primary" @click="$router.push({name: 'faq'})">
+            <v-btn outlined color="primary" @click="$router.push({name: 'faq'})">
                 {{$t('pages:feeds.aboutDumondaMeInfos.vision.actionButton')}}
             </v-btn>
-            <v-btn outline color="primary" @click="$router.push({name: 'vision'})">
+            <v-btn outlined color="primary" @click="$router.push({name: 'vision'})">
                 {{$t('pages:feeds.aboutDumondaMeInfos.vision.actionButtonVision')}}
             </v-btn>
         </div>
@@ -29,7 +29,7 @@
             <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.title')}}</div>
             <img :src="teamImage" :srcset="team2xImage" class="team-image">
             <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.description')}}</div>
-            <v-btn outline color="primary" @click="$router.push({name: 'aboutUs'})">
+            <v-btn outlined color="primary" @click="$router.push({name: 'aboutUs'})">
                 {{$t('pages:feeds.aboutDumondaMeInfos.aboutUs.actionButton')}}
             </v-btn>
         </div>
@@ -39,7 +39,7 @@
                 That’s why only few English-speaking content exists for now. However, you can still create an account
                 and will be informed as soon as we start publishing English language content.
             </div>
-            <v-btn outline color="primary" @click="changeLanguage">
+            <v-btn outlined color="primary" @click="changeLanguage">
                 Change to German
             </v-btn>
         </div>
@@ -50,7 +50,7 @@
             <v-btn color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('common:button.register')}}
             </v-btn>
-            <v-btn color="primary" outline @click="$router.push({name: 'login'})" class="mobile-login-button">
+            <v-btn color="primary" outlined @click="$router.push({name: 'login'})" class="mobile-login-button">
                 {{$t('pages:feeds.aboutDumondaMeInfos.register.loginButton')}}
             </v-btn>
         </div>

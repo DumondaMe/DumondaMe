@@ -26,12 +26,12 @@
             </span>
         </div>
         <cards :feed="answers"></cards>
-        <v-btn outline color="primary" @click="loadNextAnswers()" :loading="loading" :disabled="loading"
+        <v-btn outlined color="primary" @click="loadNextAnswers()" :loading="loading" :disabled="loading"
                v-if="answers.length < numberOfAnswers">
             {{$t("common:button.showMore")}}
         </v-btn>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
