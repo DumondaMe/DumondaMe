@@ -33,7 +33,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn flat @click.native="$emit('close-dialog')">
+            <v-btn text @click.native="$emit('close-dialog')">
                 {{$t("common:button.abort")}}
             </v-btn>
             <v-btn color="primary" @click.native="sendAddToCommitmentRequest()" :disabled="selectedUser === null"

@@ -77,9 +77,16 @@
     #dumonda-me-mobile-header {
         background-color: $background-normal;
         padding: 4px 0;
+        height: 56px;
 
         .dumonda-me-mobile-header-container {
             display: flex;
+
+            .nav-icon {
+                padding-top: 12px;
+                margin-left: 12px;
+                maring-right: 12px;
+            }
         }
 
         .mobile-header-title {

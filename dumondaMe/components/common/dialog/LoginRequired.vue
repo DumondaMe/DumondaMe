@@ -6,7 +6,7 @@
                     <p v-if="loginDescription">{{loginDescription}}</p>
                     <p v-else>{{$t("common:loginRequiredInfo")}}</p>
                     <div>
-                        <v-btn color="primary" outline @click="goToLogin()" class="link-button">
+                        <v-btn color="primary" outlined @click="goToLogin()" class="link-button">
                             {{$t("common:toolbar.login")}}
                         </v-btn>
                     </div>
@@ -17,9 +17,9 @@
                     </div>
                 </v-card-text>
                 <v-divider></v-divider>
-                <v-card-actions>
+                <v-card-actions class="action-container">
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click.native="$emit('close-dialog')">
+                    <v-btn color="primary" text @click.native="$emit('close-dialog')">
                         {{$t("common:button.close")}}
                     </v-btn>
                 </v-card-actions>
@@ -50,12 +50,16 @@
 <style lang="scss">
     #dialog-login-required {
         max-width: 250px;
+
         #dialog-login-required-content {
             max-width: 250px;
+            padding-top: 16px;
+
             p {
                 font-size: 16px;
                 font-weight: 300;
             }
+
             .link-button {
                 width: 100%;
                 margin: 6px 0 6px 0;

@@ -26,8 +26,7 @@
                 </div>
             </div>
             <div v-if="searchResult.books && searchResult.books.length < searchResult.numberOfBooks">
-                <v-btn outline color="primary" @click="loadNextBooks()" :disabled="this.searchBookRunning"
-                       slot="activator">
+                <v-btn outlined color="primary" @click="loadNextBooks()" :disabled="this.searchBookRunning">
                     {{$t("common:button.next")}}
                 </v-btn>
             </div>
@@ -35,7 +34,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="$emit('close-dialog')">
+            <v-btn color="primary" text @click.native="$emit('close-dialog')">
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn color="primary"
@@ -44,7 +43,7 @@
             </v-btn>
         </v-card-actions>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </v-card>
 </template>

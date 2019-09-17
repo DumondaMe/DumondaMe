@@ -40,7 +40,7 @@
             </commitment-card-footer>
         </div>
         <div class="search-commitment-commands">
-            <v-btn outline color="primary" v-if="hasMoreCommitments" class="has-more-button" @click="getNextCommitments"
+            <v-btn outlined color="primary" v-if="hasMoreCommitments" class="has-more-button" @click="getNextCommitments"
                    :loading="loadingNextCommitments" :disabled="loadingNextCommitments">
                 {{$t('common:button.showMore')}}
             </v-btn>

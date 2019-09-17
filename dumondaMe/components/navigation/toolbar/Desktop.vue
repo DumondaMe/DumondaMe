@@ -13,12 +13,12 @@
                 </v-btn>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
+                <v-btn text icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
                     <v-icon>mdi-account-outline</v-icon>
                 </v-btn>
             </div>
             <div class="header-nav" v-if="isAuthenticated">
-                <v-btn flat icon @click="$router.push({name: 'notifications'})">
+                <v-btn text icon @click="$router.push({name: 'notifications'})">
                     <v-badge color="secondary" v-model="showNotification" right overlap>
                         <v-icon>mdi-bell-outline</v-icon>
                         <span slot="badge">{{numberOfNotifications}}</span>
@@ -26,7 +26,7 @@
                 </v-btn>
             </div>
             <div class="header-nav menu-nav">
-                <v-btn flat icon @click="$emit('open-drawer')">
+                <v-btn text icon @click="$emit('open-drawer')">
                     <v-icon>mdi-menu</v-icon>
                 </v-btn>
             </div>
@@ -71,7 +71,8 @@
         }
         .header-nav {
             height: 100%;
-            padding-top: 4px;
+            padding-top: 10px;
+            padding-left: 16px;
             button {
                 color: #666666;
                 i.v-icon {
@@ -90,7 +91,7 @@
         }
         .header-nav-button {
             height: 100%;
-            padding-top: 8px;
+            padding-top: 14px;
         }
         .header-nav.menu-nav {
             button {

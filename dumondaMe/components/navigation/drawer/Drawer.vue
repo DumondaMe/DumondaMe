@@ -2,23 +2,23 @@
     <div id="navigation-drawer">
         <div v-if="isAuthenticated" class="user-navigation">
             <div class="drawer-navigation-element">
-                <v-icon @click="askQuestion">mdi-help-circle-outline</v-icon>
-                <span class="navigation-text" @click="askQuestion">
+                <v-icon @click="$emit('show-create-question-dialog')">mdi-help-circle-outline</v-icon>
+                <span class="navigation-text" @click="$emit('show-create-question-dialog')">
                     {{$t("common:navigation.askQuestion")}}</span>
             </div>
             <div class="drawer-navigation-element">
-                <v-icon @click="createCommitment">mdi-human-handsup</v-icon>
-                <span class="navigation-text" @click="createCommitment">
+                <v-icon @click="$emit('show-create-commitment-dialog')">mdi-human-handsup</v-icon>
+                <span class="navigation-text" @click="$emit('show-create-commitment-dialog')">
                     {{$t("common:navigation.createCommitment")}}</span>
             </div>
             <div class="drawer-navigation-element">
-                <v-icon @click="inviteContacts">mdi-account-multiple-plus</v-icon>
-                <span class="navigation-text" @click="inviteContacts">
+                <v-icon @click="$emit('show-import-contacts-dialog')">mdi-account-multiple-plus</v-icon>
+                <span class="navigation-text" @click="$emit('show-import-contacts-dialog')">
                     {{$t("common:navigation.inviteContacts")}}</span>
             </div>
         </div>
         <div v-else>
-            <v-btn outline color="primary" class="navigation-button-full-width"
+            <v-btn outlined color="primary" class="navigation-button-full-width"
                    @click="$router.push({name: 'login'})">
                 {{$t('common:button.login')}}
             </v-btn>
@@ -34,8 +34,9 @@
                 </nuxt-link>
             </div>
             <div class="drawer-navigation-element">
-                <v-icon @click="setLanguage()">mdi-web</v-icon>
-                <span class="navigation-text" @click="setLanguage()">{{$t("common:navigation.language")}}</span>
+                <v-icon @click="$emit('show-language-dialog')">mdi-web</v-icon>
+                <span class="navigation-text" @click="$emit('show-language-dialog')">
+                    {{$t("common:navigation.language")}}</span>
             </div>
         </div>
         <v-divider></v-divider>
@@ -104,36 +105,22 @@
                 </div>
             </div>
         </div>
-        <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
-        </language-dialog>
-        <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
-        </create-commitment-dialog>
-        <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
-        </create-question-dialog>
-        <import-contact-dialog v-if="showImportContact" @close-dialog="showImportContact = false">
-        </import-contact-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
-    import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
-    import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
-    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
-    import ImportContactDialog from '~/components/import/ImportContactDialog'
 
     export default {
         name: "Drawer",
         data() {
             return {
-                showError: false, showChangeLanguage: false, showCreateCommitment: false,
-                showCreateQuestion: false, showImportContact: false
+                showError: false
             }
         },
-        components: {LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog},
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
@@ -159,22 +146,6 @@
                 } catch (e) {
                     this.showError = true;
                 }
-            },
-            setLanguage() {
-                this.showChangeLanguage = true;
-                this.$emit('close-drawer');
-            },
-            askQuestion() {
-                this.showCreateQuestion = true;
-                this.$emit('close-drawer');
-            },
-            createCommitment() {
-                this.showCreateCommitment = true;
-                this.$emit('close-drawer');
-            },
-            inviteContacts() {
-                this.showImportContact = true;
-                this.$emit('close-drawer');
             }
         }
     }

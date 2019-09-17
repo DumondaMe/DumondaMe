@@ -11,9 +11,11 @@
         </div>
         <div class="footer-icon" v-if="action">
             <v-tooltip bottom v-if="action === 'watch'" class="footer-icon">
-                <v-icon medium slot="activator" class="main-action-icon">
-                    mdi-star
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon">
+                        mdi-star
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.watchesCommitment.titleIsLoggedInUser')}}
                 </span>
@@ -22,9 +24,11 @@
                 </span>
             </v-tooltip>
             <v-tooltip bottom v-if="action === 'created' && cardType === 'Commitment'" class="footer-user-action">
-                <v-icon medium slot="activator" class="main-action-icon" v-if="cardType === 'Commitment'">
-                    mdi-human-handsup
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon" v-if="cardType === 'Commitment'">
+                        mdi-human-handsup
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorCommitment.titleIsLoggedInUser')}}
                     </span>
@@ -33,9 +37,11 @@
                     </span>
             </v-tooltip>
             <v-tooltip bottom v-else-if="action === 'created' && cardType !== 'Commitment'" class="footer-user-action">
-                <v-icon medium slot="activator" class="main-action-icon">
-                    mdi-comment-plus
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon">
+                        mdi-comment-plus
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorAnswer.titleIsLoggedInUser')}}
                     </span>
@@ -44,9 +50,11 @@
                 </span>
             </v-tooltip>
             <v-tooltip bottom v-else-if="action === 'upVote'" class="footer-user-action">
-                <v-icon medium slot="activator" class="main-action-icon">
-                    mdi-thumb-up
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon medium v-on="on" class="main-action-icon">
+                        mdi-thumb-up
+                    </v-icon>
+                </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.userUpVote.titleIsLoggedInUser')}}
                 </span>
@@ -67,10 +75,10 @@
                           @remove-watch="(id) => $emit('remove-watch', id)"
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <v-tooltip slot="icon" bottom>
-                    <div slot="activator">
-                        <v-icon medium class="action-icon">mdi-star</v-icon>
-                        <span class="footer-description number right-number">{{numberOfWatches}}</span>
-                    </div>
+                    <template v-slot:activator="{ on }">
+                        <v-icon medium class="action-icon" v-on="on">mdi-star</v-icon>
+                        <span class="footer-description number right-number" v-on="on">{{numberOfWatches}}</span>
+                    </template>
                     <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
                 </v-tooltip>
             </watches-menu>
@@ -80,9 +88,11 @@
              'footer-commitment-region-left-icon': cardType === 'CommitmentAnswer'}">
             <region-menu :regions="regions">
                 <v-tooltip bottom slot="icon">
-                    <v-icon medium slot="activator" class="action-icon">
-                        mdi-map-marker
-                    </v-icon>
+                    <template v-slot:activator="{ on }">
+                        <v-icon medium v-on="on" class="action-icon">
+                            mdi-map-marker
+                        </v-icon>
+                    </template>
                     {{$t('pages:feeds.menu.regions.tooltip')}}
                 </v-tooltip>
             </region-menu>
@@ -100,13 +110,15 @@
                 <div slot="icon">
                     <span class="footer-description number-of-watches">{{numberOfWatches}}</span>
                     <v-tooltip bottom slot="icon">
-                        <v-btn slot="activator" small fab color="not-watching" v-if="!isWatchedByUser"
-                               :disabled="isAdmin">
-                            <v-icon>mdi-star-outline</v-icon>
-                        </v-btn>
-                        <v-btn slot="activator" small fab color="watching" v-else>
-                            <v-icon>mdi-star</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" small fab color="not-watching" v-if="!isWatchedByUser"
+                                   :disabled="isAdmin">
+                                <v-icon>mdi-star-outline</v-icon>
+                            </v-btn>
+                            <v-btn v-on="on" small fab color="watching" v-else>
+                                <v-icon>mdi-star</v-icon>
+                            </v-btn>
+                        </template>
                         <span v-if="isAdmin">{{$t('common:you')}}
                             {{$t('pages:feeds.menu.creatorCommitment.titleIsLoggedInUser')}}</span>
                         <span v-else-if="!isWatchedByUser">

@@ -1,5 +1,5 @@
 <template>
-    <v-layout row justify-center>
+    <div>
         <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <acknowledge v-if="showPage === 0" @close-dialog="$emit('close-dialog')" @next="showPage = 1">
                 <div slot="header">
@@ -32,13 +32,13 @@
             </commitment-content>
         </v-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
         <v-snackbar top v-model="showWarning" color="warning" :timeout="0">
             {{$t("pages:commitment.createDialog.warningToSmallImage")}}
-            <v-btn dark flat @click="showWarning = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showWarning = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-    </v-layout>
+    </div>
 </template>
 
 <script>

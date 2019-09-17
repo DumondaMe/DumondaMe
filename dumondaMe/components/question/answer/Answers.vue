@@ -32,7 +32,7 @@
             </div>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
         <div class="show-answer-not-found" v-if="showAllAnswersButton && answers.length === 0">
             {{$t('pages:detailQuestion.answerNotFound')}}
@@ -40,11 +40,11 @@
         <div class="show-no-answers" v-else-if="totalNumberOfAnswers === 0">
             {{$t('pages:detailQuestion.noAnswer')}}
         </div>
-        <v-btn outline color="primary" v-if="showAllAnswersButton" class="show-answer-button"
+        <v-btn outlined color="primary" v-if="showAllAnswersButton" class="show-answer-button"
                @click="showAllAnswers" :disabled="loading" :loading="loading">
             {{$t('pages:detailQuestion.showAllAnswerButton')}}
         </v-btn>
-        <v-btn outline color="primary" v-else-if="hasMoreAnswers" class="show-answer-button"
+        <v-btn outlined color="primary" v-else-if="hasMoreAnswers" class="show-answer-button"
                @click="showNextAnswers" :disabled="loading" :loading="loading">
             {{$t('pages:detailQuestion.showNextAnswerButton')}}
         </v-btn>

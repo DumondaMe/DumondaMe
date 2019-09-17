@@ -13,12 +13,14 @@
             <div class="footer-icon">
                 <note-menu :title="answerTitle" :number-of-notes="numberOfNotes" :answer-id="answerId" :notes="notes">
                     <v-tooltip bottom slot="icon">
-                        <div slot="activator">
-                            <v-icon medium class="action-icon">
-                                mdi-note
-                            </v-icon>
-                            <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
-                        </div>
+                        <template v-slot:activator="{ on }">
+                            <div v-on="on">
+                                <v-icon medium class="action-icon">
+                                    mdi-note
+                                </v-icon>
+                                <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
+                            </div>
+                        </template>
                         <span>{{$t('pages:question.answer.note.tooltip')}}</span>
                     </v-tooltip>
                 </note-menu>

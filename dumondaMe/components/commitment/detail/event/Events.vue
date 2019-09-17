@@ -15,7 +15,7 @@
             <div v-for="event in events">
                 <event :event="event"></event>
             </div>
-            <v-btn color="primary" outline class="show-more-events-button" @click="getNextEvents()"
+            <v-btn color="primary" outlined class="show-more-events-button" @click="getNextEvents()"
                    v-if="hasMore" :loading="loadingNextEvents" :disabled="loadingNextEvents">
                 {{$t('common:button.showMore')}}
             </v-btn>
@@ -37,7 +37,7 @@
                              :commitment-id="$route.params.commitmentId">
         </create-event-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>

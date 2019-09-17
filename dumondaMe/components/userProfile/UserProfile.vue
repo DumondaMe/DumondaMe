@@ -10,18 +10,22 @@
             </v-btn>
             <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
                 <v-tooltip bottom v-if="user.isPersonOfTrustOfLoggedInUser">
-                    <v-btn color="primary" @click="removeUserFromTrustCircle()" slot="activator"
-                           v-if="user.isPersonOfTrustOfLoggedInUser">
-                        <v-icon left>mdi-check</v-icon>
-                        {{$t("common:trustCircle")}}
-                    </v-btn>
+                    <template v-slot:activator="{ on }">
+                        <v-btn color="primary" @click="removeUserFromTrustCircle()" v-on="on"
+                               v-if="user.isPersonOfTrustOfLoggedInUser">
+                            <v-icon left>mdi-check</v-icon>
+                            {{$t("common:trustCircle")}}
+                        </v-btn>
+                    </template>
                     <span>{{$t('common:removeFromTrustCircle')}}</span>
                 </v-tooltip>
                 <v-tooltip bottom v-else>
-                    <v-btn color="primary" @click="addUserToTrustCircle()" slot="activator">
-                        <v-icon left>mdi-account-plus</v-icon>
-                        {{$t("common:trustCircle")}}
-                    </v-btn>
+                    <template v-slot:activator="{ on }">
+                        <v-btn color="primary" @click="addUserToTrustCircle()" v-on="on">
+                            <v-icon left>mdi-account-plus</v-icon>
+                            {{$t("common:trustCircle")}}
+                        </v-btn>
+                    </template>
                     <span>{{$t('common:addToTrustCircle')}}</span>
                 </v-tooltip>
             </div>
@@ -66,10 +70,12 @@
         @media screen and (max-width: $xs) {
             padding-bottom: 0;
         }
+
         #profile-info-container {
             @media screen and (max-width: $xs) {
                 padding: 0 16px;
             }
+
             #user-name {
                 text-align: start;
                 font-weight: 400;
@@ -80,31 +86,37 @@
                     line-height: 28px;
                 }
             }
+
             .user-status-info {
                 margin-top: 6px;
                 color: $secondary-text;
 
             }
+
             .user-description {
                 margin-top: 18px;
                 font-size: 16px;
                 font-weight: 300;
             }
+
             .user-status-info.in-circle {
                 i {
                     color: $success-text;
                 }
             }
+
             #other-user-commands {
                 button {
                     margin-left: 0;
                 }
             }
+
             #button-change-profile-data {
                 margin-top: 12px;
                 margin-left: 0;
             }
         }
+
         .user-profile-title {
             margin-top: 12px;
             font-size: 18px;

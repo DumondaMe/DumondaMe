@@ -54,11 +54,6 @@ module.exports = {
         oAuthGoogleClientUrl: process.env.OAUTH_GOOGLE_CLIENT_URL,
         oAuthOutlookClientUrl: process.env.OAUTH_OUTLOOK_CLIENT_URL
     },
-    router: {
-        scrollBehavior: function () {
-            return {x: 0, y: 0}
-        }
-    },
     modules: [
         ['@nuxtjs/pwa', {meta: false, oneSignal: false}],
         '@nuxtjs/proxy',
@@ -114,7 +109,6 @@ module.exports = {
         '~/plugins/axios.js',
         {src: '~/plugins/vue-lazyload', ssr: false}],
     css: [
-        '~/assets/style/app.styl',
         '~/assets/style/card.scss',
         '~/assets/style/layout.scss',
         'cropperjs/dist/cropper.min.css',

@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
         <div class="remove-admin-button">
-            <v-btn @click="removeAccount" outline color="primary"
+            <v-btn @click="removeAccount" outlined color="primary"
                    :disabled="disableRemoveButton">
                 {{$t("pages:detailCommitment.adminDialog.removeAdminButton")}}
             </v-btn>

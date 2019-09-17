@@ -1,10 +1,15 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="drawerLoaded && isNotPublicStartPage" v-model="drawer" temporary fixed
+        <v-navigation-drawer v-if="isNotPublicStartPage" v-model="drawer" temporary fixed
                              :right="isRightSideDrawer">
-            <dumonda-me-navigation-drawer @close-drawer="drawer = false"></dumonda-me-navigation-drawer>
+            <dumonda-me-navigation-drawer @close-drawer="drawer = false"
+                                          @show-language-dialog="drawer = false; showChangeLanguage = true"
+                                          @show-create-commitment-dialog=" drawer = false; showCreateCommitment = true"
+                                          @show-create-question-dialog="drawer = false; showCreateQuestion = true"
+                                          @show-import-contacts-dialog="drawer = false; showImportContact = true">
+            </dumonda-me-navigation-drawer>
         </v-navigation-drawer>
-        <dumonda-me-toolbar @open-drawer="drawer = true; drawerLoaded = true"
+        <dumonda-me-toolbar @open-drawer="drawer = true"
                             v-if="isNotPublicStartPage"></dumonda-me-toolbar>
         <div id="dumonda-me-content" v-if="isNotPublicStartPage">
             <div id="dumonda-me-inner-content">
@@ -15,6 +20,15 @@
         <cookie-privacy-read-info></cookie-privacy-read-info>
         <public-landing-page v-if="!isNotPublicStartPage"></public-landing-page>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
+
+        <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
+        </language-dialog>
+        <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
+        </create-commitment-dialog>
+        <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
+        </create-question-dialog>
+        <import-contact-dialog v-if="showImportContact" @close-dialog="showImportContact = false">
+        </import-contact-dialog>
     </v-app>
 </template>
 
@@ -25,11 +39,15 @@
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
     import PublicLandingPage from '~/components/publicLandingPage/LandingPage';
     import cookiePrivacyReadInfo from '~/components/info/cookiePrivacyReadInfo';
+    import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
+    import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
+    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
+    import ImportContactDialog from '~/components/import/ImportContactDialog'
 
     export default {
         components: {
             DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
-            cookiePrivacyReadInfo
+            cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog
         },
         head() {
             return {
@@ -51,7 +69,9 @@
         },
         data() {
             return {
-                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false
+                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
+                showChangeLanguage: false, showCreateCommitment: false, showCreateQuestion: false,
+                showImportContact: false
             };
         },
         mounted() {
@@ -101,7 +121,7 @@
 
     body {
         #__layout {
-            .application.theme--light {
+            .v-application {
                 background-color: $background-normal;
                 @media screen and (max-width: $xs) {
                     background-color: white;
@@ -139,10 +159,26 @@
         }
     }
 
-    .dialog {
+    .v-dialog {
         @media screen and (max-width: 500px) {
             width: 100%;
             min-width: 100%
+        }
+
+        .v-card {
+            .v-card__text {
+                padding-top: 16px;
+            }
+
+            .layout.row {
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+            .v-card__actions {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
         }
     }
 

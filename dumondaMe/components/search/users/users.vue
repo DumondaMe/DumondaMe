@@ -13,34 +13,38 @@
                 <div class="user-state" v-if="user.isTrustUser">{{$t('pages:search.users.inTrustCircle')}}</div>
                 <div v-if="!user.isLoggedInUser && !user.isAnonymous" class="trust-circle-button">
                     <v-tooltip top v-if="user.isTrustUser">
-                        <v-btn color="primary" slot="activator"
-                               :loading="loading" :disabled="loading || user.isLoggedInUser"
-                               @click="removeUserFromTrustCircle(user.userId)">
-                            <v-icon left>mdi-check</v-icon>
-                            {{$t('common:trustCircle')}}
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" v-on="on"
+                                   :loading="loading" :disabled="loading || user.isLoggedInUser"
+                                   @click="removeUserFromTrustCircle(user.userId)">
+                                <v-icon left>mdi-check</v-icon>
+                                {{$t('common:trustCircle')}}
+                            </v-btn>
+                        </template>
                         <span>{{$t('common:removeFromTrustCircle')}}</span>
                     </v-tooltip>
                     <v-tooltip top v-else>
-                        <v-btn color="primary" slot="activator"
-                               :loading="loading" :disabled="loading || user.isLoggedInUser"
-                               @click="addUserToTrustCircle(user.userId)">
-                            <v-icon left>mdi-account-plus</v-icon>
-                            {{$t('common:trustCircle')}}
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" v-on="on"
+                                   :loading="loading" :disabled="loading || user.isLoggedInUser"
+                                   @click="addUserToTrustCircle(user.userId)">
+                                <v-icon left>mdi-account-plus</v-icon>
+                                {{$t('common:trustCircle')}}
+                            </v-btn>
+                        </template>
                         <span>{{$t('common:addToTrustCircle')}}</span>
                     </v-tooltip>
                 </div>
             </div>
         </div>
-        <v-btn outline color="primary" v-if="hasMoreUsers" class="has-more-button" @click="getNextUsers"
+        <v-btn outlined color="primary" v-if="hasMoreUsers" class="has-more-button" @click="getNextUsers"
                :loading="loadingNextUsers" :disabled="loadingNextUsers">
             {{$t('common:button.showMore')}}
         </v-btn>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -121,6 +125,7 @@
             margin-bottom: 20px;
             border-bottom: 1px solid $divider;
         }
+
         .user-profile-title {
             font-size: 22px;
             margin-bottom: 18px;
@@ -128,6 +133,7 @@
                 display: none;
             }
         }
+
         .user-container {
             display: flex;
             margin-bottom: 16px;
@@ -135,22 +141,27 @@
                 padding-bottom: 12px;
                 margin-bottom: 0;
             }
+
             .user-preview-img {
                 cursor: pointer;
                 width: 100px;
                 height: 100px;
+
                 img {
                     width: 100%;
                     border-radius: 4px;
                 }
             }
+
             .user-preview-img.anonymous {
                 cursor: auto;
             }
+
             .user-content {
                 position: relative;
                 margin-left: 18px;
                 height: 100px;
+
                 .user-name {
                     cursor: pointer;
                     white-space: nowrap;
@@ -161,24 +172,30 @@
                     font-weight: 400;
                     color: $primary-color;
                 }
+
                 :hover.user-name {
                     text-decoration: underline;
                 }
+
                 .user-name.anonymous {
                     cursor: auto;
                 }
+
                 :hover.user-name.anonymous {
                     text-decoration: none;
                 }
+
                 .user-state {
                     margin-top: 2px;
                     font-size: 14px;
                     color: $success-text;
                 }
+
                 .trust-circle-button {
                     position: absolute;
                     left: 0;
                     bottom: 0;
+
                     button {
                         margin-left: 0;
                         margin-bottom: 0;
@@ -186,11 +203,13 @@
                 }
             }
         }
+
         .user-container.last-card-element {
             @media screen and (max-width: $xs) {
                 border-bottom: none;
             }
         }
+
         .has-more-button {
             margin-left: 0;
             @media screen and (max-width: $xs) {

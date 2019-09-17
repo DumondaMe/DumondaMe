@@ -5,10 +5,10 @@
             <h2>{{$t('pages:landingPagePublic.slogan')}}</h2>
         </div>
         <div class="register-container">
-            <v-btn round dark color="secondary" @click="$router.push({name: 'register'})">
+            <v-btn rounded dark color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('pages:landingPagePublic.createAccountButton')}}
             </v-btn>
-            <v-btn round outline color="primary" @click="$router.push({name: 'login'})">
+            <v-btn rounded outlined color="primary" @click="$router.push({name: 'login'})">
                 {{$t('common:button.login')}}
             </v-btn>
         </div>
@@ -57,6 +57,10 @@
 
         padding: 8px 0;
         margin-bottom: 120px;
+
+        button {
+            margin: 6px 8px;
+        }
 
         @media screen and (max-width: 900px) {
             margin-bottom: 40px;

@@ -3,7 +3,7 @@
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.networking.title')}}</h3>
         <img v-lazy="networkingImage" :data-srcset="networking2xImage" class="networking-image">
         <div class="feed-networking-description">{{$t('pages:feeds.networking.description')}}</div>
-        <v-btn outline color="primary" @click="showImportContactDialog = true">
+        <v-btn outlined color="primary" @click="showImportContactDialog = true">
             {{$t('pages:feeds.networking.actionButton')}}
         </v-btn>
         <import-contact-dialog v-if="showImportContactDialog" @close-dialog="showImportContactDialog = false">

@@ -14,7 +14,7 @@
         </div>
         <img :src="donateImage" class="donate-image">
         <div class="feed-networking-description">{{$t('pages:landingPagePublic.donation.description')}}</div>
-        <v-btn outline color="primary" @click="$router.push({name: 'donation'})">
+        <v-btn outlined color="primary" @click="$router.push({name: 'donation'})">
             {{$t('common:button.donate')}}
         </v-btn>
     </div>
@@ -47,13 +47,14 @@
         font-weight: 300;
 
         @media screen and (max-width: 900px) {
-            margin-top: 48px;
+            margin-top: 64px;
         }
 
         .dumonda-me-donation-status-container {
             margin-bottom: 18px;
 
             .donation-state-info {
+                margin-top: 12px;
                 font-size: 14px;
                 color: $secondary-text;
 

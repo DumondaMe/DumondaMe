@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" scrollable persistent max-width="650px" :fullscreen="$vuetify.breakpoint.xsOnly">
+        <v-dialog v-model="dialog" scrollable persistent max-width="700px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <answer-text @close-dialog="closeDialog" :init-answer="initAnswer" :answer-id="answerId"
                          :action-button-text="$t('pages:detailQuestion.editAnswerButton')">
                 <div id="dumonda-me-dialog-header">

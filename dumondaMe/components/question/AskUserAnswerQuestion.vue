@@ -5,21 +5,27 @@
         <div class="description">{{$t('pages:question.askUserAnswerQuestion.description')}}</div>
         <div class="send-button-image-container">
             <v-tooltip bottom>
-                <div class="invite-button" slot="activator" @click="showInviteUserToAnswerQuestionDialog = true">
-                    <img :src="dumondaMeImage"/>
-                </div>
+                <template v-slot:activator="{ on }">
+                    <div class="invite-button" v-on="on" @click="showInviteUserToAnswerQuestionDialog = true">
+                        <img :src="dumondaMeImage"/>
+                    </div>
+                </template>
                 <span>{{$t('pages:question.askUserAnswerQuestion.dumondaMeButton')}}</span>
             </v-tooltip>
             <v-tooltip bottom>
-                <a class="invite-button" :href="whatsAppLink" target="_blank" rel="noopener" slot="activator">
-                    <img :src="whatsAppImage"/>
-                </a>
+                <template v-slot:activator="{ on }">
+                    <a class="invite-button" :href="whatsAppLink" target="_blank" rel="noopener" v-on="on">
+                        <img :src="whatsAppImage"/>
+                    </a>
+                </template>
                 <span>{{$t('pages:question.askUserAnswerQuestion.whatsAppButton')}}</span>
             </v-tooltip>
             <v-tooltip bottom>
-                <a class="invite-button last" :href="telegramLink" target="_blank" rel="noopener" slot="activator">
-                    <img :src="telegramImage"/>
-                </a>
+                <template v-slot:activator="{ on }">
+                    <a class="invite-button last" :href="telegramLink" target="_blank" rel="noopener" v-on="on">
+                        <img :src="telegramImage"/>
+                    </a>
+                </template>
                 <span>{{$t('pages:question.askUserAnswerQuestion.telegramButton')}}</span>
             </v-tooltip>
         </div>

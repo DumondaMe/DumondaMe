@@ -5,16 +5,20 @@
         <v-spacer></v-spacer>
         <div class="interested-only-command" v-if="isAuthenticated">
             <v-tooltip bottom v-if="!$store.state.feedFilter.eventInterestedOnly">
-                <v-icon slot="activator" @click="interestedChanged(true)">
-                    mdi-star
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon v-on="on" @click="interestedChanged(true)">
+                        mdi-star
+                    </v-icon>
+                </template>
                 <span>{{$t('pages:feeds.filter.onlyInterestedEvent.deactivated')}}</span>
             </v-tooltip>
             <v-tooltip bottom v-else>
-                <v-icon slot="activator" @click="interestedChanged(false)"
-                        class="activated-interested-filter">
-                    mdi-star
-                </v-icon>
+                <template v-slot:activator="{ on }">
+                    <v-icon v-on="on" @click="interestedChanged(false)"
+                            class="activated-interested-filter">
+                        mdi-star
+                    </v-icon>
+                </template>
                 <span>{{$t('pages:feeds.filter.onlyInterestedEvent.activated')}}</span>
             </v-tooltip>
         </div>
@@ -47,6 +51,7 @@
 <style lang="scss">
     #feed-sub-filter-event {
         display: flex;
+
         .interested-only-command {
             i.v-icon {
                 cursor: pointer;
@@ -54,6 +59,7 @@
                 width: 20px;
                 font-size: 20px;
             }
+
             i.v-icon.activated-interested-filter {
                 color: $primary-color;
             }

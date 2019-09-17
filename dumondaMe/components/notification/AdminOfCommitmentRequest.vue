@@ -34,7 +34,7 @@
             </div>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -88,7 +88,7 @@
         }
 
         .commands-container {
-            margin-top: 6px;
+            margin-top: 18px;
 
             button {
                 margin-left: 0;

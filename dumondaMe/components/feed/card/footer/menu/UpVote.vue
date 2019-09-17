@@ -1,6 +1,10 @@
 <template>
-    <v-menu v-model="menu" :close-on-content-click="false" offset-y lazy min-width="290">
-        <slot name="icon" slot="activator"></slot>
+    <v-menu v-model="menu" :close-on-content-click="false" offset-y min-width="290">
+        <template v-slot:activator="{ on }">
+            <div v-on="on">
+                <slot name="icon"></slot>
+            </div>
+        </template>
         <v-card class="ely-menu-container up-vote-menu-container" v-if="menu">
             <div class="menu-title">
                 {{$t('pages:feeds.menu.userUpVote.moreUpVotes', {count: numberOfShowedUsers})}}
@@ -23,21 +27,25 @@
             <v-divider></v-divider>
             <div class="menu-commands">
                 <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
+                <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                 <v-tooltip top debounce="300" v-if="localUpVotedByUser">
-                    <v-btn color="user-has-up-voted-button" :disabled="isAdmin || upVoteRunning" @click="downVote()"
-                           slot="activator" :loading="upVoteRunning">
-                        <v-icon left>mdi-thumb-up</v-icon>
-                        {{$t('common:button.upVote')}}
-                    </v-btn>
+                    <template v-slot:activator="{ on }">
+                        <v-btn color="user-has-up-voted-button" :disabled="isAdmin || upVoteRunning" @click="downVote()"
+                               v-on="on" :loading="upVoteRunning">
+                            <v-icon left>mdi-thumb-up</v-icon>
+                            {{$t('common:button.upVote')}}
+                        </v-btn>
+                    </template>
                     <span>{{$t('common:feedCard.upVote.removeUpVote')}}</span>
                 </v-tooltip>
                 <v-tooltip top debounce="300" v-else>
-                    <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="upVote()" slot="activator"
-                           :loading="upVoteRunning">
-                        <v-icon left>mdi-thumb-up-outline</v-icon>
-                        {{$t('common:button.upVote')}}
-                    </v-btn>
+                    <template v-slot:activator="{ on }">
+                        <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="upVote()" v-on="on"
+                               :loading="upVoteRunning">
+                            <v-icon left>mdi-thumb-up-outline</v-icon>
+                            {{$t('common:button.upVote')}}
+                        </v-btn>
+                    </template>
                     <span v-if="!isAdmin">{{$t('common:feedCard.upVote.addUpVote')}}</span>
                     <span v-else>{{$t('common:feedCard.upVote.userIsAdmin')}}</span>
                 </v-tooltip>
@@ -46,7 +54,7 @@
         <login-required-dialog v-if="showLoginRequired && menu" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
         <v-snackbar top v-if="menu" v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </v-menu>
 </template>
@@ -112,8 +120,7 @@
                     this.$emit('up-vote-menu-closed', {
                         answerId: this.answerId, isUpVotedByUser: this.localUpVotedByUser
                     });
-                }
-                else if (open && this.numberOfUpVotes > 0 && this.users === null && !this.loadUpVotedUserRunning &&
+                } else if (open && this.numberOfUpVotes > 0 && this.users === null && !this.loadUpVotedUserRunning &&
                     !this.showError) {
                     try {
                         this.loadUpVotedUserRunning = true;
@@ -143,9 +150,11 @@
         .loading-up-voted-user-running {
             margin-bottom: 12px;
         }
-        .user-has-up-voted-button.v-btn {
+
+        .theme--light.user-has-up-voted-button.v-btn {
             background-color: $selected-button;
             color: white;
+
             i.v-icon {
                 color: white;
             }

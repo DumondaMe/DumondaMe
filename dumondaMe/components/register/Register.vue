@@ -81,7 +81,7 @@
             </div>
         </div>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
-            <v-btn dark flat @click="showError = false">{{$t("common:button.close")}}</v-btn>
+            <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -160,6 +160,8 @@
 
         #register-content-container {
             margin-top: 24px;
+            padding-left: 12px;
+            padding-right: 12px;
 
             .register-error {
                 color: #d84021;

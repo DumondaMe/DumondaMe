@@ -13,9 +13,11 @@
             <region-menu :regions="regions">
                 <div slot="icon">
                     <v-tooltip bottom>
-                        <v-icon medium class="action-icon" slot="activator">
-                            mdi-map-marker
-                        </v-icon>
+                        <template v-slot:activator="{ on }">
+                            <v-icon medium class="action-icon" v-on="on">
+                                mdi-map-marker
+                            </v-icon>
+                        </template>
                         <span>{{$t('pages:feeds.menu.regions.tooltip')}}</span>
                     </v-tooltip>
                 </div>
