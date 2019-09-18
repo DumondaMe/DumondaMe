@@ -1,7 +1,7 @@
 <template>
     <div id="dumonda-me-question-header">
         <div id="dumonda-me-question-header-content">
-            <div id="question-header-main">
+            <div id="question-header-main" class="ely-card">
                 <h1 itemprop="name" :class="{'show-all-answer': showOnlyOneAnswer}"
                     @click="showAllAnswers()">{{question.question}}</h1>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
@@ -152,7 +152,6 @@
 
 <style lang="scss">
     #dumonda-me-question-header {
-        margin-bottom: 48px;
         @media screen and (max-width: $xs) {
             margin-top: 18px;
             margin-bottom: 12px;
@@ -165,13 +164,15 @@
             #question-header-main {
                 max-width: 550px;
                 width: 100%;
+                background-color: #e0f2f1;
             }
 
             h1 {
                 margin-bottom: 8px;
-                font-size: 30px;
+                font-size: 26px;
                 line-height: 42px;
-                font-weight: 400;
+                font-weight: 500;
+                color: $primary-color;
                 @media screen and (max-width: $xs) {
                     font-size: 24px;
                     line-height: 28px;

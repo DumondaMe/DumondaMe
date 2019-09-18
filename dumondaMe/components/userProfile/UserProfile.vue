@@ -1,5 +1,5 @@
 <template>
-    <div id="dumonda-me-user-profile">
+    <div id="dumonda-me-user-profile" class="ely-card">
         <div id="profile-info-container">
             <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
             <div class="user-description">{{user.userDescription}}</div>
@@ -67,6 +67,7 @@
 <style lang="scss">
     #dumonda-me-user-profile {
         padding-bottom: 32px;
+        background-color: #e0f2f1;
         @media screen and (max-width: $xs) {
             padding-bottom: 0;
         }
@@ -78,9 +79,10 @@
 
             #user-name {
                 text-align: start;
-                font-weight: 400;
-                font-size: 30px;
+                font-weight: 500;
+                font-size: 26px;
                 line-height: 42px;
+                color: $primary-color;
                 @media screen and (max-width: $xs) {
                     font-size: 24px;
                     line-height: 28px;

@@ -2,10 +2,9 @@
     <div itemscope itemtype="http://schema.org/QAPage">
         <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
             <div slot="sidebar">
-                <create-answer></create-answer>
                 <register v-if="!isAuthenticated"></register>
-                <general-information></general-information>
                 <ask-user-answer-question v-if="isAuthenticated"></ask-user-answer-question>
+                <general-information></general-information>
                 <similar-questions></similar-questions>
             </div>
             <div slot="content" id="question-detail">
