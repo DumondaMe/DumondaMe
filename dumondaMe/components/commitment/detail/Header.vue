@@ -1,5 +1,5 @@
 <template>
-    <div id="dumonda-me-commitment-header">
+    <div id="dumonda-me-commitment-header" class="ely-card">
         <h1>{{commitment.title}}</h1>
         <p id="commitment-description">{{commitment.description}}</p>
         <div id="commands-container">
@@ -68,15 +68,17 @@
 
 <style lang="scss">
     #dumonda-me-commitment-header {
+        background-color: #e0f2f1;
         @media screen and (max-width: $xs) {
             padding: 0 16px;
         }
 
         h1 {
             margin-bottom: 4px;
-            font-weight: 400;
-            font-size: 30px;
+            font-weight: 500;
+            font-size: 26px;
             line-height: 42px;
+            color: $primary-color;
             @media screen and (max-width: $xs) {
                 margin-top: 8px;
                 font-size: 24px;
