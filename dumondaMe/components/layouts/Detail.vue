@@ -12,7 +12,7 @@
 <style lang="scss">
     #detail-question-layout {
         #detail-content {
-            margin-right: 444px;
+            margin-right: 400px;
             @media screen and (min-width: $xs) and (max-width: $sm) {
                 margin-right: 300px;
             }
