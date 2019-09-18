@@ -32,7 +32,7 @@
             }
         }
         #feed-content {
-            margin-left: 444px;
+            margin-left: 400px;
             @media screen and (min-width: $xs) and (max-width: $sm) {
                 margin-left: 300px;
             }

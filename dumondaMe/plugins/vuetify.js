@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuetify, {
     VApp,
+    VAppBar,
+    VAppBarNavIcon,
     VBtn,
     VBadge,
     VIcon,
@@ -55,6 +57,8 @@ export default ctx => {
         },
         components: {
             VApp,
+            VAppBar,
+            VAppBarNavIcon,
             VBtn,
             VBadge,
             VIcon,

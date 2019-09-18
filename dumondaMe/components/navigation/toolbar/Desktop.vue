@@ -1,37 +1,51 @@
 <template>
-    <div>
+    <v-app-bar app elevate-on-scroll color="primary" dark dense>
         <div id="header-desktop-container">
-            <div id="dumonda-me-logo">
-                <img :src="logoUrl" :srcset="logo2xUrl" @click="$router.push({name: 'index'})"/>
-            </div>
             <search-toolbar></search-toolbar>
             <v-spacer></v-spacer>
-            <div class="header-nav-button" v-if="!isAuthenticated">
-                <v-btn v-on:click="$router.push({name: 'login'})" class="right-outer-element"
-                       small color="secondary">
-                    {{$t("common:toolbar.login")}}
-                </v-btn>
-            </div>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-btn text icon @click="$router.push({name: 'user'})" :class="{active: $route.path === '/user'}">
-                    <v-icon>mdi-account-outline</v-icon>
-                </v-btn>
-            </div>
-            <div class="header-nav" v-if="isAuthenticated">
-                <v-btn text icon @click="$router.push({name: 'notifications'})">
-                    <v-badge color="secondary" v-model="showNotification" right overlap>
-                        <v-icon>mdi-bell-outline</v-icon>
-                        <span slot="badge">{{numberOfNotifications}}</span>
-                    </v-badge>
-                </v-btn>
-            </div>
-            <div class="header-nav menu-nav">
-                <v-btn text icon @click="$emit('open-drawer')">
-                    <v-icon>mdi-menu</v-icon>
-                </v-btn>
-            </div>
+            <v-btn icon>
+                <v-icon>mdi-filter-variant</v-icon>
+            </v-btn>
+            <v-menu bottom left>
+                <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
+                <v-list v-if="isAuthenticated">
+                    <v-list-item @click="$emit('show-create-question-dialog')">
+                        <v-list-item-title>{{$t("common:toolbar.askQuestion")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="$emit('show-create-commitment-dialog')">
+                        <v-list-item-title>{{$t("common:toolbar.createCommitment")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item @click="$emit('show-import-contacts-dialog')">
+                        <v-list-item-title>{{$t("common:toolbar.inviteContacts")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="$router.push({name: 'setting'})">
+                        <v-list-item-title>{{$t("common:toolbar.settings")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item @click="logout">
+                        <v-list-item-title>{{$t("common:toolbar.logout")}}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+                <v-list v-else>
+                    <v-list-item @click="$emit('show-language-dialog')">
+                        <v-list-item-title>{{$t("common:toolbar.language")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item @click="$router.push({name: 'register'})">
+                        <v-list-item-title>{{$t("common:toolbar.register")}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="$router.push({name: 'login'})">
+                        <v-list-item-title>{{$t("common:toolbar.login")}}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </div>
-    </div>
+    </v-app-bar>
 </template>
 
 <script>
@@ -41,11 +55,20 @@
         props: ['isAuthenticated', 'showNotification', 'numberOfNotifications'],
         components: {SearchToolbar},
         computed: {
-            logoUrl() {
-                return `${process.env.staticUrl}/img/logo.png`;
-            },
-            logo2xUrl() {
-                return `${process.env.staticUrl}/img/logo_2x.png 2x`;
+        },
+        methods: {
+            async logout() {
+                try {
+                    await this.$store.dispatch('auth/logout');
+                    this.$store.dispatch('notification/stopCheckNotificationChanged');
+                    this.$store.commit('notification/RESET_NOTIFICATION');
+                    this.$store.commit('feedFilter/SET_FILTER_TO_PUBLIC_STATE');
+                    this.$store.commit('i18n/SET_LANGUAGES', [this.$store.state.i18n.language]);
+                    await this.$store.dispatch('feed/getFeed');
+                    this.$router.push({name: 'index'});
+                } catch (e) {
+                    this.showError = true;
+                }
             }
         }
     }
@@ -53,50 +76,9 @@
 
 <style lang="scss">
     #header-desktop-container {
-        max-width: 950px;
+        max-width: 900px;
         width: 100%;
-        height: 100%;
         margin: 0 auto;
         display: flex;
-        @media screen and (max-width: 970px) {
-            padding: 0 12px
-        }
-        #dumonda-me-logo {
-            cursor: pointer;
-            height: 100%;
-            img {
-                height: 22px;
-                margin-top: 16px;
-            }
-        }
-        .header-nav {
-            height: 100%;
-            padding-top: 10px;
-            padding-left: 16px;
-            button {
-                color: #666666;
-                i.v-icon {
-                    color: #666666;
-                }
-            }
-            .active {
-                i.v-icon {
-                    color: $primary-color;
-                }
-            }
-            .right-outer-element {
-                margin-top: 10px;
-                margin-right: 12px;
-            }
-        }
-        .header-nav-button {
-            height: 100%;
-            padding-top: 14px;
-        }
-        .header-nav.menu-nav {
-            button {
-                margin-right: 0;
-            }
-        }
     }
 </style>

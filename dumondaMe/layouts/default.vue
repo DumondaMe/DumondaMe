@@ -1,25 +1,27 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="isNotPublicStartPage" v-model="drawer" temporary fixed
-                             :right="isRightSideDrawer">
-            <dumonda-me-navigation-drawer @close-drawer="drawer = false"
-                                          @show-language-dialog="drawer = false; showChangeLanguage = true"
-                                          @show-create-commitment-dialog=" drawer = false; showCreateCommitment = true"
-                                          @show-create-question-dialog="drawer = false; showCreateQuestion = true"
-                                          @show-import-contacts-dialog="drawer = false; showImportContact = true">
+        <v-navigation-drawer v-if="isNotPublicStartPage" v-model="drawer" app>
+            <dumonda-me-navigation-drawer @close-drawer="drawer = false">
             </dumonda-me-navigation-drawer>
         </v-navigation-drawer>
-        <dumonda-me-toolbar @open-drawer="drawer = true"
-                            v-if="isNotPublicStartPage"></dumonda-me-toolbar>
-        <div id="dumonda-me-content" v-if="isNotPublicStartPage">
-            <div id="dumonda-me-inner-content">
-                <nuxt/>
-            </div>
-        </div>
+        <v-content>
+            <v-container fluid v-if="isNotPublicStartPage">
+                <dumonda-me-toolbar @open-drawer="drawer = true"
+                                    @show-language-dialog="showChangeLanguage = true"
+                                    @show-create-commitment-dialog="showCreateCommitment = true"
+                                    @show-create-question-dialog="showCreateQuestion = true"
+                                    @show-import-contacts-dialog="showImportContact = true">
+                </dumonda-me-toolbar>
+                <div id="dumonda-me-content">
+                    <div id="dumonda-me-inner-content">
+                        <nuxt/>
+                    </div>
+                </div>
+            </v-container>
+        </v-content>
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
         <cookie-privacy-read-info></cookie-privacy-read-info>
         <public-landing-page v-if="!isNotPublicStartPage"></public-landing-page>
-        <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
 
         <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
         </language-dialog>
@@ -34,7 +36,6 @@
 
 <script>
     import DumondaMeToolbar from '~/components/navigation/toolbar/Toolbar';
-    import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
     import PublicLandingPage from '~/components/publicLandingPage/LandingPage';
@@ -46,7 +47,7 @@
 
     export default {
         components: {
-            DumondaMeToolbar, DumondaMeFooter, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
+            DumondaMeToolbar, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
             cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog
         },
         head() {
@@ -69,7 +70,7 @@
         },
         data() {
             return {
-                drawer: false, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
+                drawer: true, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
                 showChangeLanguage: false, showCreateCommitment: false, showCreateQuestion: false,
                 showImportContact: false
             };
@@ -130,7 +131,7 @@
                 #dumonda-me-content {
                     min-height: inherit;
                     height: inherit;
-                    padding-top: 124px;
+                    padding-top: 32px;
                     padding-bottom: 64px;
                     @media screen and (max-width: 700px) {
                         padding-top: 56px;
@@ -138,7 +139,7 @@
                     }
 
                     #dumonda-me-inner-content {
-                        max-width: 950px;
+                        max-width: 900px;
                         width: 100%;
                         margin: 0 auto;
                         @media screen and (max-width: $md) {

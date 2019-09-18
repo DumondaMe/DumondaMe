@@ -133,28 +133,32 @@
             margin-left: 12px;
             margin-right: 12px;
         }
+
         .search-content {
-            width: 260px;
+            width: 360px;
             margin-right: auto;
-            margin-left: auto;
+            //margin-left: auto;
             display: flex;
             @media screen and (max-width: $xs) {
                 width: 100%;
                 margin-right: 0;
                 margin-left: 0;
             }
+
             .search-input {
                 position: relative;
                 width: 100%;
+
                 input {
                     padding: 0 36px 0 7px;
-                    margin-top: 14px;
+                    margin-top: 10px;
                     height: 28px;
                     width: 100%;
                     background: white;
                     border: 1px solid #dbdbdb;
                     border-radius: 4px;
                     font-size: 14px;
+                    color: $secondary-text;
 
                     @media screen and (max-width: $xs) {
                         font-size: 16px;
@@ -162,9 +166,11 @@
                         height: 42px;
                     }
                 }
+
                 input:focus {
                     outline: none;
                 }
+
                 input::placeholder {
                     color: $secondary-text;
                     opacity: 1;
@@ -177,16 +183,19 @@
                 input::-ms-input-placeholder {
                     color: $secondary-text;;
                 }
+
                 .search-icon {
                     position: absolute;
                     right: 0;
-                    top: 16px;
+                    top: 12px;
                     padding: 0 6px;
+                    color: $secondary-text;
                     @media screen and (max-width: $xs) {
                         top: 13px
                     }
                 }
             }
+
             .close-search {
                 width: 100px;
                 padding-top: 12px;
@@ -197,38 +206,40 @@
                 }
             }
         }
+
         .autocomplete-results {
+            position: absolute;
             font-size: 14px;
             background-color: white;
             z-index: 110;
-            width: 260px;
-            margin-right: auto;
-            margin-left: auto;
+            width: 360px;
             border-bottom: 1px solid #dbdbdb;
             border-right: 1px solid #dbdbdb;
             border-left: 1px solid #dbdbdb;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
+            border-radius: 4px;
             @media screen and (max-width: $xs) {
-                position: absolute;
                 width: 100%;
                 margin-right: 116px;
                 margin-left: 0;
             }
+
             .autocomplete-result {
                 cursor: pointer;
-                width: 260px;
+                width: 360px;
                 padding: 7px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                color: $secondary-text;
                 @media screen and (max-width: $xs) {
                     width: 100%;
                 }
             }
+
             :hover.autocomplete-result {
                 background: #E0F2F1;
             }
+
             .selected-autocomplete-result {
                 background: #E0F2F1;
             }

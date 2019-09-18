@@ -1,7 +1,6 @@
 <template>
     <feed-layout>
         <div slot="sidebar">
-            <feed-create-contribution></feed-create-contribution>
             <donation-info></donation-info>
             <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
@@ -10,8 +9,6 @@
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
         </div>
         <div slot="content" id="feed-detail-container">
-            <feed-filter class="index-desktop-feed-filter">
-            </feed-filter>
             <feed-mobile-filter class="index-mobile-feed-filter">
             </feed-mobile-filter>
             <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
