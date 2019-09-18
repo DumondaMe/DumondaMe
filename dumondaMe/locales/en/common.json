@@ -48,6 +48,7 @@
     "login": "Login",
     "register": "Create Account",
     "askQuestion": "Ask Question",
+    "answerQuestion": "Answer Question",
     "createCommitment": "Create Commitment",
     "inviteContacts": "Invite friends",
     "settings": "Settings",

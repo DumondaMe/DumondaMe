@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import FeedLayout from '~/components/layouts/Feed';
+    import FeedLayout from '~/components/layouts/Detail';
     import FeedFilter from '~/components/feed/filter/Filter';
     import FeedMobileFilter from '~/components/feed/filter/MobileFilter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';

@@ -1,7 +1,9 @@
 <template>
     <v-app>
         <v-navigation-drawer v-if="isNotPublicStartPage" v-model="drawer" app>
-            <dumonda-me-navigation-drawer @close-drawer="drawer = false">
+            <dumonda-me-navigation-drawer @close-drawer="drawer = false"
+                                          @show-create-question-dialog="openAskQuestionDialog"
+                                          @show-create-answer-dialog="openCreateAnswerDialog">
             </dumonda-me-navigation-drawer>
         </v-navigation-drawer>
         <v-content>
@@ -9,7 +11,7 @@
                 <dumonda-me-toolbar @open-drawer="drawer = true"
                                     @show-language-dialog="showChangeLanguage = true"
                                     @show-create-commitment-dialog="showCreateCommitment = true"
-                                    @show-create-question-dialog="showCreateQuestion = true"
+                                    @show-create-question-dialog="openAskQuestionDialog"
                                     @show-import-contacts-dialog="showImportContact = true">
                 </dumonda-me-toolbar>
                 <div id="dumonda-me-content">
@@ -29,8 +31,15 @@
         </create-commitment-dialog>
         <create-question-dialog v-if="showCreateQuestion" @close-dialog="showCreateQuestion = false">
         </create-question-dialog>
+        <v-dialog v-model="showCreateAnswer" scrollable persistent max-width="770px"
+                  :fullscreen="$vuetify.breakpoint.xsOnly">
+            <create-answer-dialog @close-dialog="showCreateAnswer = false">
+            </create-answer-dialog>
+        </v-dialog>
         <import-contact-dialog v-if="showImportContact" @close-dialog="showImportContact = false">
         </import-contact-dialog>
+        <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
+        </login-required-dialog>
     </v-app>
 </template>
 
@@ -43,12 +52,15 @@
     import LanguageDialog from '~/components/setting/dialog/LanguageDialog';
     import CreateCommitmentDialog from '~/components/commitment/dialog/CreateDialog.vue'
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
+    import CreateAnswerDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import ImportContactDialog from '~/components/import/ImportContactDialog'
+    import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
 
     export default {
         components: {
             DumondaMeToolbar, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
-            cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog
+            cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog,
+            LoginRequiredDialog, CreateAnswerDialog
         },
         head() {
             return {
@@ -72,7 +84,7 @@
             return {
                 drawer: true, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
                 showChangeLanguage: false, showCreateCommitment: false, showCreateQuestion: false,
-                showImportContact: false
+                showCreateAnswer: false, showLoginRequired: false, showImportContact: false
             };
         },
         mounted() {
@@ -88,9 +100,26 @@
         methods: {
             onResize() {
                 this.isRightSideDrawer = window.innerWidth >= 700;
+            },
+            openAskQuestionDialog() {
+                if (this.isAuthenticated) {
+                    this.showCreateQuestion = true;
+                } else {
+                    this.showLoginRequired = true;
+                }
+            },
+            openCreateAnswerDialog() {
+                if (this.isAuthenticated) {
+                    this.showCreateAnswer = true;
+                } else {
+                    this.showLoginRequired = true;
+                }
             }
         },
         computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            },
             showWelcomeDialog() {
                 return this.showInfoDialog &&
                     (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
