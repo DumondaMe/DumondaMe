@@ -163,26 +163,15 @@
 
 <style lang="scss">
     .feed-cards-container {
-        margin-top: 32px;
 
         @media screen and (max-width: $xs) {
-            margin-top: 12px;
             .feed-card {
                 margin: 0 auto;
             }
         }
     }
 
-    .feed-loading-container {
-        margin-top: 48px;
-
-        @media screen and (max-width: $xs) {
-            margin-top: 80px;
-        }
-    }
-
     .feed-no-content-message {
-        margin-top: 28px;
         font-size: 22px;
         font-weight: 300;
     }

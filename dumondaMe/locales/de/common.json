@@ -36,22 +36,23 @@
   "youAreAdmin": "Du bist Administrator",
   "noScript": "Dein Browser unterstützt kein Javascript! Ohne Javascript funktioniert diese Seite nicht richtig.",
   "navigation": {
+    "activities": "Aktivitäten",
+    "questions": "Fragen",
+    "commitments": "Engagements",
+    "events": "Veranstaltungen",
     "home": "Startseite",
     "yourProfile": "Dein Profil",
-    "notification": "Benachrichtigungen",
+    "notification": "Benachrichtigungen"
+  },
+  "toolbar": {
+    "login": "Login",
+    "register": "Account erstellen",
     "askQuestion": "Frage stellen",
     "createCommitment": "Engagement erfassen",
     "inviteContacts": "Freundeskreis einladen",
     "settings": "Einstellungen",
     "logout": "Abmelden",
     "language": "Sprache"
-  },
-  "toolbar": {
-    "login": "Login",
-    "questions": "Fragen",
-    "commitments": "Engagements",
-    "events": "Veranstaltungen",
-    "activities": "Aktivitäten"
   },
   "button": {
     "yes": "Ja",

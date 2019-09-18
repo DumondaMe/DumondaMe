@@ -10,11 +10,13 @@
         <youtube :show-mobile="showMobile"></youtube>
         <donation :show-mobile="showMobile"></donation>
         <register :show-mobile="showMobile"></register>
+        <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </div>
 </template>
 
 <script>
     import DumondaMeHeader from './Header';
+    import DumondaMeFooter from '~/components/navigation/footer/Footer';
     import WhatIsDumondaMe from './WhatIsDumondaMe';
     import QuestionAnswer from './QuestionAnswer';
     import Commitments from './Commitments';
@@ -33,7 +35,7 @@
             this.showMobile = window.innerWidth < 900;
         },
         components: {
-            WhatIsDumondaMe,
+            WhatIsDumondaMe, DumondaMeFooter,
             DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability,
             Register, Donation
         },
