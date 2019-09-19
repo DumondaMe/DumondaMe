@@ -2,8 +2,11 @@
     <div id="dumonda-me-question-header">
         <div id="dumonda-me-question-header-content">
             <div id="question-header-main" class="ely-card">
-                <h1 itemprop="name" :class="{'show-all-answer': showOnlyOneAnswer}"
-                    @click="showAllAnswers()">{{question.question}}</h1>
+                <div id="question-title-container">
+                    <h1 itemprop="name" :class="{'show-all-answer': showOnlyOneAnswer}"
+                        @click="showAllAnswers()">{{question.question}}</h1>
+                    <admin-commands v-if="question.isAdmin" id="admin-button-desktop"></admin-commands>
+                </div>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
                 <div id="question-commands">
                     <user-menu :menu-title="creatorTitle" :user="question.creator"
@@ -58,12 +61,6 @@
                         </v-tooltip>
                         <span class="description" itemprop="answerCount">{{question.numberOfAnswers}}</span>
                     </div>
-                    <v-spacer></v-spacer>
-                    <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
-                                :is-super-user="question.isSuperUser" :question-id="question.questionId"
-                                :number-of-suggestion="question.numberOfSuggestions" id="suggestion-button-desktop">
-                    </suggestion>
-                    <admin-commands v-if="question.isAdmin" id="admin-button-desktop"></admin-commands>
                 </div>
                 <div id="mobile-commands">
                     <admin-commands v-if="question.isAdmin" id="admin-button-mobile"></admin-commands>
@@ -73,6 +70,7 @@
                                 :number-is-right-side="true">
                     </suggestion>
                 </div>
+                <create-answer-button @answer-question="openCreateAnswerDialog"></create-answer-button>
             </div>
         </div>
 
@@ -94,10 +92,14 @@
     import CreateDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
     import AdminCommands from './AdminCommands';
+    import CreateAnswerButton from './CreateAnswerButton';
     import Suggestion from './Suggestion';
 
     export default {
-        components: {UserMenu, WatchesMenu, CreateDialog, LoginRequiredDialog, AdminCommands, Suggestion},
+        components: {
+            UserMenu, WatchesMenu, CreateDialog, LoginRequiredDialog, AdminCommands, Suggestion,
+            CreateAnswerButton
+        },
         data() {
             return {dialog: false, showLoginRequired: false}
         },
@@ -162,26 +164,30 @@
             display: flex;
 
             #question-header-main {
+                position: relative;
                 max-width: 550px;
                 width: 100%;
                 background-color: #e0f2f1;
             }
 
-            h1 {
-                margin-bottom: 8px;
-                font-size: 26px;
-                line-height: 42px;
-                font-weight: 500;
-                color: $primary-color;
-                @media screen and (max-width: $xs) {
-                    font-size: 24px;
-                    line-height: 28px;
-                    margin-bottom: 18px;
+            #question-title-container {
+                display: flex;
+                h1 {
+                    margin-bottom: 8px;
+                    font-size: 26px;
+                    line-height: 42px;
+                    font-weight: 500;
+                    color: $primary-color;
+                    @media screen and (max-width: $xs) {
+                        font-size: 24px;
+                        line-height: 28px;
+                        margin-bottom: 18px;
+                    }
                 }
-            }
 
-            h1.show-all-answer {
-                cursor: pointer;
+                h1.show-all-answer {
+                    cursor: pointer;
+                }
             }
 
             #question-description {
