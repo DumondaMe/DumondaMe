@@ -1,9 +1,9 @@
 <template>
     <div id="question-admin-commands-container">
-        <v-menu bottom left offset-y id="admin-commands">
+        <v-menu id="admin-commands">
             <template v-slot:activator="{ on }">
-                <v-btn small fab color="secondary" v-on="on">
-                    <v-icon size="20">mdi-pencil</v-icon>
+                <v-btn text icon large v-on="on">
+                    <v-icon size="28">mdi-dots-vertical</v-icon>
                 </v-btn>
             </template>
             <v-list>
