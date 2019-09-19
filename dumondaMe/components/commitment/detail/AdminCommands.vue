@@ -1,10 +1,10 @@
 <template>
     <div id="commitment-admin-commands-container">
         <div id="admin-commands">
-            <v-menu offset-y>
+            <v-menu>
                 <template v-slot:activator="{ on }">
-                    <v-btn small fab color="secondary" v-on="on">
-                        <v-icon size="20">mdi-pencil</v-icon>
+                    <v-btn text icon v-on="on">
+                        <v-icon size="28">mdi-dots-vertical</v-icon>
                     </v-btn>
                 </template>
                 <v-list>
