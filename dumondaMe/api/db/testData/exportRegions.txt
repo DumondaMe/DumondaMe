@@ -1,0 +1,7 @@
+MATCH (region:Region)
+WITH collect(region) as export_nodes
+MATCH (:Region)-[r:SUB_REGION]->(:Region)
+WITH collect(r) as export_rels, export_nodes
+CALL apoc.export.cypher.data(export_nodes,export_rels,'/tmp/exportRegion.cypher',{format:'cypher-shell'})
+YIELD file, source, format, nodes, relationships, properties, time
+RETURN nodes, relationships, time;

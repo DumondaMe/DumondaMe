@@ -1,0 +1,7 @@
+MATCH (t1:Topic)
+WITH collect(t1) as export_nodes
+MATCH (:Topic)-[r:SUB_TOPIC]->(:Topic)
+WITH collect(r) as export_rels, export_nodes
+CALL apoc.export.cypher.data(export_nodes,export_rels,'/tmp/exportTopic.cypher',{format:'cypher-shell'})
+YIELD file, source, format, nodes, relationships, properties, time
+RETURN nodes, relationships, time;
