@@ -1,6 +1,10 @@
 <template>
     <div id="dumonda-me-commitment-header" class="ely-card">
-        <h1>{{commitment.title}}</h1>
+        <div id="commitment-title-container">
+            <h1>{{commitment.title}}</h1>
+            <v-spacer></v-spacer>
+            <admin-commands v-if="isAdmin"></admin-commands>
+        </div>
         <p id="commitment-description">{{commitment.description}}</p>
         <div id="commands-container">
             <watches-menu :watched-id="commitment.commitmentId" watched-id-name="commitmentId" class="watches-menu"
@@ -31,7 +35,6 @@
                     <span class="description">{{commitment.numberOfWatches}}</span>
                 </div>
             </watches-menu>
-            <admin-commands v-if="isAdmin"></admin-commands>
         </div>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
         </login-required-dialog>
@@ -84,6 +87,10 @@
                 font-size: 24px;
                 line-height: 28px;
             }
+        }
+
+        #commitment-title-container {
+            display: flex;
         }
 
         #commitment-description {
