@@ -36,10 +36,10 @@
   "youAreAdmin": "You are administrator",
   "noScript": "Your browser does not support Javascript! Without Javascript this page does not work properly.",
   "navigation": {
-    "activities": "Aktivitäten",
-    "questions": "Fragen",
-    "commitments": "Engagements",
-    "events": "Veranstaltungen",
+    "activities": "Activities",
+    "questions": "Questions",
+    "commitments": "Commitments",
+    "events": "Events",
     "home": "Home",
     "yourProfile": "Your Profile",
     "notification": "Notifications"
