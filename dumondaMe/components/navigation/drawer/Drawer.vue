@@ -3,7 +3,10 @@
         <div id="dumonda-me-logo-container">
             <img :src="logo">
         </div>
-        <v-divider></v-divider>
+        <v-btn color="primary" class="create-button" rounded @click="$emit('show-create-question-dialog')">
+            <v-icon dark>mdi-plus</v-icon>
+            {{$t('common:toolbar.askQuestion')}}
+        </v-btn>
         <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
                       :nav-text="$t('common:navigation.activities')"></nav-item>
@@ -25,18 +28,6 @@
                           :nav-text="$t('common:navigation.notification')"></nav-item>
             </div>
         </div>
-        <v-divider></v-divider>
-        <v-btn v-if="isQuestionDetail" color="primary" class="create-button" rounded
-               @click="$emit('show-create-answer-dialog')">
-            <v-icon dark>mdi-forum</v-icon>
-            {{$t('common:toolbar.answerQuestion')}}
-        </v-btn>
-        <v-btn color="primary" class="create-button" :class="{'second-created-button':isQuestionDetail}" rounded
-               @click="$emit('show-create-question-dialog')"
-               :outlined="isQuestionDetail">
-            <v-icon dark>mdi-plus</v-icon>
-            {{$t('common:toolbar.askQuestion')}}
-        </v-btn>
     </div>
 </template>
 
@@ -53,9 +44,6 @@
             },
             logo() {
                 return `${process.env.staticUrl}/img/logo_blue.png`;
-            },
-            isQuestionDetail() {
-                return this.$route.name === 'question-questionId-slug';
             },
             ...mapGetters({
                 numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
@@ -89,22 +77,18 @@
         }
 
         .create-button {
-            margin-top: 24px;
-            margin-left: 8px;
+            margin-left: 12px;
+            margin-bottom: 18px;
 
             .v-btn__content {
-                width: 208px;
+                width: 200px;
                 justify-content: left;
 
                 .v-icon {
-                    margin-left: -6px;
+                    margin-left: -10px;
                     margin-right: 28px;
                 }
             }
-        }
-
-        .create-button.second-created-button {
-            margin-top: 16px;
         }
     }
 </style>
