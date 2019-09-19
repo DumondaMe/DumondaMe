@@ -3,7 +3,7 @@
         <div id="profile-info-container">
             <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
             <div class="user-description">{{user.userDescription}}</div>
-            <v-btn color="primary" id="button-change-profile-data" v-if="isLoggedInUser"
+            <v-btn color="primary" rounded id="button-change-profile-data" v-if="isLoggedInUser"
                    @click="showUploadUserDataDialog = true">
                 <v-icon left>mdi-account-edit</v-icon>
                 {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
@@ -115,8 +115,9 @@
             }
 
             #button-change-profile-data {
-                margin-top: 12px;
-                margin-left: 0;
+                position: absolute;
+                bottom: -18px;
+                right: 18px;
             }
         }
 
