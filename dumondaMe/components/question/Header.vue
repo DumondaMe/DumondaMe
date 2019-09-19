@@ -5,6 +5,7 @@
                 <div id="question-title-container">
                     <h1 itemprop="name" :class="{'show-all-answer': showOnlyOneAnswer}"
                         @click="showAllAnswers()">{{question.question}}</h1>
+                    <v-spacer></v-spacer>
                     <admin-commands v-if="question.isAdmin" id="admin-button-desktop"></admin-commands>
                 </div>
                 <p id="question-description" itemprop="text"><span v-html="question.descriptionHtml"></span></p>
