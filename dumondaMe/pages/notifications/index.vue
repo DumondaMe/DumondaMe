@@ -33,7 +33,6 @@
     #ely-user-logged-in-profile-layout {
         #ely-notification-detail {
             max-width: 700px;
-            margin: 0 auto;
         }
     }
 </style>

@@ -55,6 +55,5 @@
 <style lang="scss">
     #search-content {
         max-width: 470px;
-        margin: 0 auto;
     }
 </style>
