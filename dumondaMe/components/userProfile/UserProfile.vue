@@ -11,7 +11,7 @@
             <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
                 <v-tooltip bottom v-if="user.isPersonOfTrustOfLoggedInUser">
                     <template v-slot:activator="{ on }">
-                        <v-btn color="primary" @click="removeUserFromTrustCircle()" v-on="on"
+                        <v-btn color="primary" rounded @click="removeUserFromTrustCircle()" v-on="on"
                                v-if="user.isPersonOfTrustOfLoggedInUser">
                             <v-icon left>mdi-check</v-icon>
                             {{$t("common:trustCircle")}}
@@ -21,7 +21,7 @@
                 </v-tooltip>
                 <v-tooltip bottom v-else>
                     <template v-slot:activator="{ on }">
-                        <v-btn color="primary" @click="addUserToTrustCircle()" v-on="on">
+                        <v-btn color="primary" rounded @click="addUserToTrustCircle()" v-on="on">
                             <v-icon left>mdi-account-plus</v-icon>
                             {{$t("common:trustCircle")}}
                         </v-btn>
@@ -66,6 +66,7 @@
 
 <style lang="scss">
     #dumonda-me-user-profile {
+        position: relative;
         padding-bottom: 32px;
         background-color: #e0f2f1;
         @media screen and (max-width: $xs) {
@@ -108,9 +109,9 @@
             }
 
             #other-user-commands {
-                button {
-                    margin-left: 0;
-                }
+                position: absolute;
+                bottom: -18px;
+                right: 18px;
             }
 
             #button-change-profile-data {
