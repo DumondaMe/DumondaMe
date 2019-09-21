@@ -20,26 +20,33 @@
 
 <style lang="scss">
     #ely-footer {
-        clear: both;
-        position: relative;
         z-index: 7;
         height: 48px;
-        margin-top: -48px;
         background-color: $primary-color;
-        left: 0;
-        right: 0;
+
+        @media screen and (max-width: 800px) {
+            height: 96px;
+        }
+        @media screen and (max-width: 380px) {
+            height: 144px;
+        }
+
         #ely-footer-container {
-            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
             padding: 0 8px;
             text-align: center;
             .footer-nav {
                 display: inline-block;
                 color: #ffffff;
                 font-size: 14px;
-                line-height: 14px;
-                padding: 18px 0 16px 0;
+                line-height: 48px;
+                //padding: 18px 0 16px 0;
                 font-weight: 400;
-                margin-right: 28px;
+                margin-right: 14px;
+                margin-left: 14px;
                 cursor: pointer;
             }
             :hover.footer-nav {
