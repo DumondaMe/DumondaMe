@@ -1,5 +1,5 @@
 <template>
-    <v-layout row wrap>
+    <v-layout row wrap class="login-page">
         <v-flex xs12 md6>
             <login email="" :from-route="fromRoute">
             </login>
@@ -27,3 +27,9 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .layout.login-page {
+        margin: 0;
+    }
+</style>
