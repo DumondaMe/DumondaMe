@@ -233,6 +233,7 @@
 
 <style lang="scss">
     #ely-about-us {
+        padding-top: 18px;
         max-width: 950px;
         margin: 0 auto 24px auto;
         @media screen and (max-width: $xs) {

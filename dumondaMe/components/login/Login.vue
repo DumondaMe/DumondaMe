@@ -73,6 +73,7 @@
 
 <style lang="scss">
     #dumonda-me-login {
+        padding: 16px;
         #login-container {
             width: 300px;
             margin: 24px auto 0 auto;

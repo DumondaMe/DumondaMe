@@ -19,6 +19,7 @@
 
 <style lang="scss">
     #ely-vision {
+        padding-top: 18px;
         max-width: 600px;
         margin: 0 auto;
         @media screen and (max-width: $xs) {

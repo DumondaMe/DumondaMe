@@ -68,15 +68,16 @@
     #dumonda-me-user-profile {
         position: relative;
         padding-bottom: 32px;
+        margin-bottom: 32px;
         background-color: #e0f2f1;
         @media screen and (max-width: $xs) {
             padding-bottom: 0;
+            margin-bottom: 0;
+            padding-left: 16px;
+            background-color: white;
         }
 
         #profile-info-container {
-            @media screen and (max-width: $xs) {
-                padding: 0 16px;
-            }
 
             #user-name {
                 text-align: start;
@@ -112,12 +113,28 @@
                 position: absolute;
                 bottom: -18px;
                 right: 18px;
+
+                @media screen and (max-width: $xs) {
+                    position: relative;
+                    margin-top: 12px;
+                    margin-bottom: 8px;
+                    bottom: 0;
+                    right: 0;
+                }
             }
 
             #button-change-profile-data {
                 position: absolute;
                 bottom: -18px;
                 right: 18px;
+
+                @media screen and (max-width: $xs) {
+                    position: relative;
+                    margin-top: 12px;
+                    margin-bottom: 8px;
+                    bottom: 0;
+                    right: 0;
+                }
             }
         }
 

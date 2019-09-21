@@ -60,14 +60,8 @@
 
 <style lang="scss">
     #ely-user-profile-layout {
-        #detail-layout {
-            #detail-content {
-                width: 550px;
-            }
-            #detail-sidebar {
-                margin-left: 650px;
-            }
-        }
+        padding-top: 18px;
+
         .user-mobile-content {
             @media screen and (min-width: $xs) {
                 display: none;

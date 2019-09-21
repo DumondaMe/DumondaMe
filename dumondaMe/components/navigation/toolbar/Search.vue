@@ -24,7 +24,6 @@
 
 <script>
     import debounce from 'debounce';
-    import Vue from 'vue';
 
     export default {
         props: [],
@@ -128,21 +127,13 @@
     #toolbar-search {
         position: relative;
         width: 100%;
-        @media screen and (max-width: $xs) {
-            width: 100%;
-            margin-left: 12px;
-            margin-right: 12px;
-        }
 
         .search-content {
             width: 360px;
             margin-right: auto;
-            //margin-left: auto;
             display: flex;
-            @media screen and (max-width: $xs) {
+            @media screen and (max-width: $md - 1px) {
                 width: 100%;
-                margin-right: 0;
-                margin-left: 0;
             }
 
             .search-input {
@@ -160,10 +151,10 @@
                     font-size: 14px;
                     color: $secondary-text;
 
-                    @media screen and (max-width: $xs) {
+                    @media screen and (max-width: $md - 1px) {
                         font-size: 16px;
-                        margin-top: 2px;
-                        height: 42px;
+                        margin-top: 0;
+                        height: 36px;
                     }
                 }
 
@@ -190,18 +181,17 @@
                     top: 12px;
                     padding: 0 6px;
                     color: $secondary-text;
-                    @media screen and (max-width: $xs) {
-                        top: 13px
+                    @media screen and (max-width: $md - 1px) {
+                        top: 7px
                     }
                 }
             }
 
             .close-search {
                 width: 100px;
-                padding-top: 12px;
                 margin-right: 0;
-                margin-left: 0;
-                @media screen and (min-width: $xs) {
+                margin-left: 12px;
+                @media screen and (min-width: $md) {
                     display: none;
                 }
             }
@@ -217,7 +207,7 @@
             border-right: 1px solid #dbdbdb;
             border-left: 1px solid #dbdbdb;
             border-radius: 4px;
-            @media screen and (max-width: $xs) {
+            @media screen and (max-width: $md) {
                 width: 100%;
                 margin-right: 116px;
                 margin-left: 0;
@@ -231,8 +221,9 @@
                 overflow: hidden;
                 white-space: nowrap;
                 color: $secondary-text;
-                @media screen and (max-width: $xs) {
+                @media screen and (max-width: $md) {
                     width: 100%;
+                    margin-right: 116px;
                 }
             }
 

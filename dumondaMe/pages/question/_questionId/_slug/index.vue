@@ -1,6 +1,6 @@
 <template>
     <div itemscope itemtype="http://schema.org/QAPage">
-        <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+        <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question" class="question-layout">
             <div slot="sidebar">
                 <register v-if="!isAuthenticated"></register>
                 <ask-user-answer-question v-if="isAuthenticated"></ask-user-answer-question>
@@ -82,34 +82,43 @@
 </script>
 
 <style lang="scss">
-    #question-detail {
-        .dumonda-me-answer-container {
-            margin-top: 24px;
+    .question-layout {
+        padding-top: 18px;
+
+        #question-detail {
             @media screen and (max-width: $xs) {
-                margin-top: 0;
+                margin: 0 auto;
+                max-width: 518px;
             }
 
-            .dumonda-me-answer-content {
-                padding-top: 12px;
+            .dumonda-me-answer-container {
+                margin-top: 24px;
                 @media screen and (max-width: $xs) {
-                    padding-top: 0;
+                    margin-top: 0;
+                }
+
+                .dumonda-me-answer-content {
+                    padding-top: 12px;
+                    @media screen and (max-width: $xs) {
+                        padding-top: 0;
+                    }
                 }
             }
-        }
 
-        .register-on-mobile {
-            margin-bottom: 0;
-            @media screen and (min-width: $xs) {
-                display: none;
+            .register-on-mobile {
+                margin-bottom: 0;
+                @media screen and (min-width: $xs) {
+                    display: none;
+                }
             }
-        }
 
-        .sidebar-on-mobile {
-            @media screen and (min-width: $xs) {
-                display: none;
-            }
-            @media screen and (max-width: $xs) {
-                border-bottom: none;
+            .sidebar-on-mobile {
+                @media screen and (min-width: $xs) {
+                    display: none;
+                }
+                @media screen and (max-width: $xs) {
+                    border-bottom: none;
+                }
             }
         }
     }

@@ -1,15 +1,13 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="isNotPublicStartPage" v-model="drawer" app>
-            <dumonda-me-navigation-drawer @close-drawer="drawer = false"
-                                          @show-create-question-dialog="openAskQuestionDialog"
+        <v-navigation-drawer v-if="isNotPublicStartPage" app>
+            <dumonda-me-navigation-drawer @show-create-question-dialog="openAskQuestionDialog"
                                           @show-create-answer-dialog="openCreateAnswerDialog">
             </dumonda-me-navigation-drawer>
         </v-navigation-drawer>
-        <v-content>
-            <v-container fluid v-if="isNotPublicStartPage">
-                <dumonda-me-toolbar @open-drawer="drawer = true"
-                                    @show-language-dialog="showChangeLanguage = true"
+        <v-content v-if="isNotPublicStartPage">
+            <v-container fluid>
+                <dumonda-me-toolbar @show-language-dialog="showChangeLanguage = true"
                                     @show-create-commitment-dialog="showCreateCommitment = true"
                                     @show-create-question-dialog="openAskQuestionDialog"
                                     @show-import-contacts-dialog="showImportContact = true">
@@ -21,6 +19,9 @@
                 </div>
             </v-container>
         </v-content>
+
+        <bottom-nav v-if="isNotPublicStartPage"></bottom-nav>
+
         <welcome-dialog v-if="showWelcomeDialog" @close-dialog="showInfoDialog = false"></welcome-dialog>
         <cookie-privacy-read-info></cookie-privacy-read-info>
         <public-landing-page v-if="!isNotPublicStartPage"></public-landing-page>
@@ -46,6 +47,7 @@
 <script>
     import DumondaMeToolbar from '~/components/navigation/toolbar/Toolbar';
     import DumondaMeNavigationDrawer from '~/components/navigation/drawer/Drawer';
+    import BottomNav from '~/components/navigation/footer/BottomNav';
     import WelcomeDialog from '~/components/info/welcomeDialog/WelcomeDialog';
     import PublicLandingPage from '~/components/publicLandingPage/LandingPage';
     import cookiePrivacyReadInfo from '~/components/info/cookiePrivacyReadInfo';
@@ -60,7 +62,7 @@
         components: {
             DumondaMeToolbar, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
             cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog,
-            LoginRequiredDialog, CreateAnswerDialog
+            LoginRequiredDialog, CreateAnswerDialog, BottomNav
         },
         head() {
             return {
@@ -82,25 +84,14 @@
         },
         data() {
             return {
-                drawer: true, drawerLoaded: false, isRightSideDrawer: true, showInfoDialog: false,
-                showChangeLanguage: false, showCreateCommitment: false, showCreateQuestion: false,
-                showCreateAnswer: false, showLoginRequired: false, showImportContact: false
+                showInfoDialog: false, showChangeLanguage: false, showCreateCommitment: false,
+                showCreateQuestion: false, showCreateAnswer: false, showLoginRequired: false, showImportContact: false
             };
         },
         mounted() {
-            this.onResize();
-            window.addEventListener('resize', this.onResize, {passive: true});
             this.showInfoDialog = true;
         },
-        beforeDestroy() {
-            if (typeof window !== 'undefined') {
-                window.removeEventListener('resize', this.onResize, {passive: true});
-            }
-        },
         methods: {
-            onResize() {
-                this.isRightSideDrawer = window.innerWidth >= 700;
-            },
             openAskQuestionDialog() {
                 if (this.isAuthenticated) {
                     this.showCreateQuestion = true;
@@ -157,15 +148,17 @@
                     background-color: white;
                 }
 
+                .container.container--fluid {
+                    @media screen and (max-width: $md) {
+                        padding-left: 0;
+                        padding-right: 0;
+                        padding-top: 0;
+                    }
+                }
+
                 #dumonda-me-content {
                     min-height: inherit;
                     height: inherit;
-                    padding-top: 32px;
-                    padding-bottom: 64px;
-                    @media screen and (max-width: 700px) {
-                        padding-top: 56px;
-                        padding-bottom: 18px;
-                    }
 
                     #dumonda-me-inner-content {
                         max-width: 900px;
@@ -180,10 +173,6 @@
                             padding-right: 0;
                         }
                     }
-                }
-
-                .v-navigation-drawer {
-                    z-index: 101;
                 }
             }
         }

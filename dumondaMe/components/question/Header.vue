@@ -63,14 +63,6 @@
                         <span class="description" itemprop="answerCount">{{question.numberOfAnswers}}</span>
                     </div>
                 </div>
-                <div id="mobile-commands">
-                    <admin-commands v-if="question.isAdmin" id="admin-button-mobile"></admin-commands>
-                    <suggestion v-if="question.isAdmin || question.isSuperUser" :is-admin="question.isAdmin"
-                                :is-super-user="question.isSuperUser" :question-id="question.questionId"
-                                :number-of-suggestion="question.numberOfSuggestions" id="suggestion-button-mobile"
-                                :number-is-right-side="true">
-                    </suggestion>
-                </div>
                 <create-answer-button @answer-question="openCreateAnswerDialog"></create-answer-button>
             </div>
         </div>
@@ -156,9 +148,7 @@
 <style lang="scss">
     #dumonda-me-question-header {
         @media screen and (max-width: $xs) {
-            margin-top: 18px;
             margin-bottom: 12px;
-            padding: 0 16px;
         }
 
         #dumonda-me-question-header-content {
@@ -169,6 +159,10 @@
                 max-width: 550px;
                 width: 100%;
                 background-color: #e0f2f1;
+
+                @media screen and (max-width: $sm) {
+                    background-color: white;
+                }
             }
 
             #question-title-container {
@@ -245,33 +239,6 @@
                 #admin-button-desktop {
                     @media screen and (max-width: 780px) {
                         display: none;
-                    }
-                }
-            }
-
-            #mobile-commands {
-                display: flex;
-                margin-top: 12px;
-                @media screen and (min-width: 780px) {
-                    display: none;
-                }
-
-                #suggestion-button-mobile {
-                    @media screen and (max-width: 780px) {
-                        button {
-                            margin-left: 0;
-                        }
-                    }
-                }
-
-                #admin-button-mobile {
-                    #admin-commands {
-                        @media screen and (max-width: 780px) {
-                            button {
-                                margin-left: 0;
-                                margin-right: 24px;
-                            }
-                        }
                     }
                 }
             }

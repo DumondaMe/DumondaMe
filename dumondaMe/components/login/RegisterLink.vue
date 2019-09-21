@@ -9,6 +9,7 @@
 
 <style lang="scss">
     #dumonda-me-register-link {
+        padding: 16px;
         #register-container {
             width: 300px;
 
@@ -20,9 +21,6 @@
                 font-weight: 400;
                 margin-top: 14px;
                 margin-bottom: 12px;
-            }
-            button {
-                margin-left: 0;
             }
         }
     }

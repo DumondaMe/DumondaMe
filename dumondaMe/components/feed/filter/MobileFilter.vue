@@ -1,23 +1,17 @@
 <template>
     <div id="feed-mobile-filter">
-        <v-tabs centered color="mobile-filter-color" light fixed-tabs v-model="selectedTab">
+        <v-tabs centered background-color="primary" dark v-model="selectedTab" show-arrows>
             <v-tab nuxt :to="{name: 'index'}" exact v-if="isAuthenticated">
-                <v-icon>mdi-heart-pulse</v-icon>
+                {{$t('common:navigation.activities')}}
             </v-tab>
-            <v-tab @click="showLoginRequired = true" v-else>
-                <v-icon>mdi-heart-pulse</v-icon>
-            </v-tab>
-            <v-tab nuxt :to="{name: 'question'}" v-if="isAuthenticated">
-                <v-icon>mdi-help-circle-outline</v-icon>
-            </v-tab>
-            <v-tab nuxt :to="{name: 'index'}" v-else exact>
-                <v-icon>mdi-help-circle-outline</v-icon>
+            <v-tab nuxt :to="{name: 'question'}">
+                {{$t('common:navigation.questions')}}
             </v-tab>
             <v-tab nuxt :to="{name: 'commitment'}">
-                <v-icon>mdi-human-handsup</v-icon>
+                {{$t('common:navigation.commitments')}}
             </v-tab>
             <v-tab nuxt :to="{name: 'event'}">
-                <v-icon>mdi-calendar</v-icon>
+                {{$t('common:navigation.events')}}
             </v-tab>
         </v-tabs>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false"
@@ -54,15 +48,10 @@
 <style lang="scss">
     #feed-mobile-filter {
         position: fixed;
-        top: 56px;
+        top: 48px;
         left: 0;
         right: 0;
-        z-index: 30;
+        z-index: 2;
         margin-bottom: 12px;
-
-        .mobile-filter-color--text {
-            background-color: $background-normal !important;
-            color: $secondary-color !important;
-        }
     }
 </style>

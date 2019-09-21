@@ -40,13 +40,16 @@
 
         .public-description-container {
 
+            .action-button {
+                margin-top: 18px;
+                margin-right: 12px;
+            }
+
             .login-button {
                 margin-top: 18px;
-                margin-left: 12px;
 
                 @media screen and (max-width: 900px) {
                     display: block;
-                    margin-right: auto;
                     margin-top: 12px;
                     width: 100%;
                 }
