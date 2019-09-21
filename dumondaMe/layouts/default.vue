@@ -206,10 +206,4 @@
         margin: 0;
         text-transform: none !important;
     }
-
-    #ely-footer {
-        @media screen and (max-width: $xs) {
-            display: none;
-        }
-    }
 </style>

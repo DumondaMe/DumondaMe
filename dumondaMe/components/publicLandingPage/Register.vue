@@ -37,6 +37,9 @@
         margin-top: 80px;
         margin-bottom: 124px;
 
+        @media screen and (max-width: 700px) {
+            margin-bottom: 64px;
+        }
 
         .public-description-container {
 
