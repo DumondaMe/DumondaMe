@@ -1,25 +1,23 @@
 <template>
-    <div id="ely-user-logged-in-profile-layout">
-        <detail-layout>
-            <div slot="content">
-                <div class="user-mobile-content">
-                    <profile-image></profile-image>
-                </div>
-                <user-profile></user-profile>
-                <div class="user-mobile-content">
-                    <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
-                    <trust-circle></trust-circle>
-                </div>
-                <feed :feed="feed"></feed>
-            </div>
-            <div slot="sidebar">
+    <detail-layout class="ely-user-logged-in-profile-layout">
+        <div slot="content">
+            <div class="user-mobile-content">
                 <profile-image></profile-image>
-                <general-information></general-information>
+            </div>
+            <user-profile></user-profile>
+            <div class="user-mobile-content">
                 <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
                 <trust-circle></trust-circle>
             </div>
-        </detail-layout>
-    </div>
+            <feed :feed="feed"></feed>
+        </div>
+        <div slot="sidebar">
+            <profile-image></profile-image>
+            <general-information></general-information>
+            <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
+            <trust-circle></trust-circle>
+        </div>
+    </detail-layout>
 </template>
 
 <script>
@@ -54,15 +52,9 @@
 </script>
 
 <style lang="scss">
-    #ely-user-logged-in-profile-layout {
-        #detail-layout {
-            #detail-content {
-                width: 550px;
-            }
-            #detail-sidebar {
-                margin-left: 650px;
-            }
-        }
+    .ely-user-logged-in-profile-layout {
+        padding-top: 18px;
+
         .user-mobile-content {
             @media screen and (min-width: $xs) {
                 display: none;

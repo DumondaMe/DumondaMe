@@ -1,5 +1,5 @@
 <template>
-    <div id="detail-question-layout">
+    <div id="detail-layout">
         <div id="detail-sidebar">
             <slot name="sidebar"></slot>
         </div>
@@ -10,7 +10,7 @@
 </template>
 
 <style lang="scss">
-    #detail-question-layout {
+    #detail-layout {
         #detail-content {
             margin-right: 400px;
             @media screen and (min-width: $xs) and (max-width: $sm) {

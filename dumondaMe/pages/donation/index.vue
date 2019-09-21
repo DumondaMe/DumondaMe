@@ -42,11 +42,11 @@
 
 <style lang="scss">
     #dumonda-me-donation {
+        padding-top: 18px;
 
-        @media screen and (max-width: 900px) {
-            padding-top: 18px;
-            padding-right: 8px;
-            padding-left: 8px;
+        @media screen and (max-width: $xs) {
+            padding-right: 18px;
+            padding-left: 18px;
         }
 
         #dumonda-me-donation-status-container {

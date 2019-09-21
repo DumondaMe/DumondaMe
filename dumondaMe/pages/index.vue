@@ -1,5 +1,5 @@
 <template>
-    <feed-layout>
+    <feed-layout class="index-pages-container">
         <div slot="sidebar">
             <donation-info></donation-info>
             <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
@@ -9,10 +9,9 @@
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
         </div>
         <div slot="content" id="feed-detail-container">
-            <feed-mobile-filter class="index-mobile-feed-filter">
+            <feed-mobile-filter class="mobile-feed-filter">
             </feed-mobile-filter>
-            <about-dumonda-me v-if="!isAuthenticated" v-show="$route.name === 'index' && !isLoading"></about-dumonda-me>
-            <donation-info class="index-mobile-feed-filter"></donation-info>
+            <donation-info class="mobile-donation-info"></donation-info>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -120,25 +119,32 @@
 </script>
 
 <style lang="scss">
-    #feed-detail-container {
-        #load-next-page {
-            margin-left: 0;
+    .index-pages-container {
+
+        padding-top: 32px;
+        padding-bottom: 64px;
+        @media screen and (max-width: $lg) {
+            padding-top: 56px;
+            padding-bottom: 18px;
         }
 
-        .index-desktop-feed-filter {
-            @media screen and (max-width: $xs) {
-                display: none;
+        #feed-detail-container {
+
+            #load-next-page {
+                margin-left: 0;
             }
-        }
 
-        .index-mobile-feed-filter {
-            @media screen and (min-width: $xs) {
-                display: none;
+            .mobile-feed-filter {
+                @media screen and (min-width: $lg) {
+                    display: none;
+                }
             }
-        }
 
-        .index-mobile-feed-filter.top-feed-element {
-            margin-top: 56px;
+            .mobile-donation-info {
+                @media screen and (min-width: $xs) {
+                    display: none;
+                }
+            }
         }
     }
 </style>

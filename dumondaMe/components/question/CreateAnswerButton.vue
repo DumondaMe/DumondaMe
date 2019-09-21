@@ -28,5 +28,9 @@
         position: absolute;
         bottom: -18px;
         right: 18px;
+
+        @media screen and (max-width: $sm) {
+            display: none;
+        }
     }
 </style>

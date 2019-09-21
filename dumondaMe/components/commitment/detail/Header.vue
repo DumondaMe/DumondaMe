@@ -73,7 +73,8 @@
     #dumonda-me-commitment-header {
         background-color: #e0f2f1;
         @media screen and (max-width: $xs) {
-            padding: 0 16px;
+            padding: 0 16px 16px 16px;
+            background-color: white;
         }
 
         h1 {

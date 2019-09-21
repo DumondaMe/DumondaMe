@@ -6,7 +6,8 @@
             <div class="terms-text"><b>DumondaMe</b> bezeichnet den nachfolgend dargestellten Dienst.</div>
 
             <h2>1. Grundlagen der Nutzung von DumondaMe</h2>
-            <p>1.1 DumondaMe ist ein Dienst der das Ziel verfolgt, durch eine Vielfalt unterschiedlichster Funktionen einen
+            <p>1.1 DumondaMe ist ein Dienst der das Ziel verfolgt, durch eine Vielfalt unterschiedlichster Funktionen
+                einen
                 bewussteren
                 Lebensstil zu fördern.
             </p>
@@ -25,14 +26,16 @@
                 anderem
                 ein Passwort wählen muss.
             </p>
-            <p>2.4 Der Nutzer ist verpflichtet, das von ihm gewählte Passwort geheim zu halten. DumondaMe wird das Passwort
+            <p>2.4 Der Nutzer ist verpflichtet, das von ihm gewählte Passwort geheim zu halten. DumondaMe wird das
+                Passwort
                 nicht an
                 Dritte weitergeben, nur für den Anmeldevorgang benutzen und den Nutzer – vom Anmeldevorgang abgesehen –
                 zu
                 keinem Zeitpunkt nach dem Passwort
                 fragen. Aus Sicherheitsgründen und um Missbrauch vorzubeugen wird dem Nutzer empfohlen, sein Passwort in
                 regelmässigen Abständen zu ändern.
-                Die Sicherung und Aufbewahrung der Zugangsdaten zum DumondaMe-Mitgliedskonto (E-Mail und Passwort) fällt in
+                Die Sicherung und Aufbewahrung der Zugangsdaten zum DumondaMe-Mitgliedskonto (E-Mail und Passwort) fällt
+                in
                 den
                 ausschliesslichen
                 Verantwortungsbereich des Nutzers.
@@ -48,7 +51,8 @@
                 Pseudonyme oder
                 Künstlernamen zu verwenden.
             </p>
-            <p>(b) bei der Nutzung von DumondaMe geltendes Recht sowie alle Rechte Dritter zu beachten. Es ist dem Nutzer
+            <p>(b) bei der Nutzung von DumondaMe geltendes Recht sowie alle Rechte Dritter zu beachten. Es ist dem
+                Nutzer
                 insbesondere
                 Folgendes untersagt:
             </p>
@@ -64,7 +68,8 @@
                 </li>
             </ul>
             <p>3.2 Folgende Handlungen sind dem Nutzer untersagt:</p>
-            <p>(a) Verwendung von Mechanismen, Software oder Scripts in Verbindung mit der Nutzung der DumondaMe-Website.
+            <p>(a) Verwendung von Mechanismen, Software oder Scripts in Verbindung mit der Nutzung der
+                DumondaMe-Website.
                 Der
                 Nutzer
                 darf jedoch von DumondaMe autorisierte Schnittstellen oder Software nutzen.
@@ -91,7 +96,8 @@
                 über
                 Änderungen der AGB rechtzeitig benachrichtigen. Widerspricht der Nutzer der Geltung der neuen AGB nicht
                 innerhalb von sechs (6) Wochen nach
-                der Benachrichtigung, gelten die geänderten AGB als vom Nutzer angenommen. DumondaMe wird den Nutzer in der
+                der Benachrichtigung, gelten die geänderten AGB als vom Nutzer angenommen. DumondaMe wird den Nutzer in
+                der
                 Benachrichtigung auf sein
                 Widerspruchsrecht und die Bedeutung der Widerspruchsfrist hinweisen.
             </p>
@@ -105,7 +111,8 @@
                 insbesondere wenn
                 sich die geltende Rechtslage ändert.
             </p>
-            <p>(d) soweit DumondaMe damit einem gegen DumondaMe gerichteten Gerichtsurteil oder einer Behördenentscheidung
+            <p>(d) soweit DumondaMe damit einem gegen DumondaMe gerichteten Gerichtsurteil oder einer
+                Behördenentscheidung
                 nachkommt.</p>
 
             <h2>5. Laufzeit, Sanktionen</h2>
@@ -121,7 +128,8 @@
                 <li>Verstoss des Nutzers gegen seine vertraglichen Pflichten.</li>
                 <li>Der Nutzer schädigt einen oder mehrere andere Nutzer.</li>
             </ul>
-            <p>5.3 Bei Vorliegen eines wichtigen Grundes nach Ziffer 5.2 kann DumondaMe unabhängig von einer Kündigung nach
+            <p>5.3 Bei Vorliegen eines wichtigen Grundes nach Ziffer 5.2 kann DumondaMe unabhängig von einer Kündigung
+                nach
                 Ziffer 5.2
                 auch die folgenden Sanktionen gegen den Nutzer verhängen:
             </p>
@@ -132,7 +140,8 @@
             </ul>
 
             <h2>6. Verantwortlichkeit für Inhalte, Daten und/oder Informationen der Nutzer, Verfügbarkeit</h2>
-            <p>6.1 DumondaMe übernimmt keine Verantwortung für die von den Nutzern der DumondaMe-Website bereitgestellten
+            <p>6.1 DumondaMe übernimmt keine Verantwortung für die von den Nutzern der DumondaMe-Website
+                bereitgestellten
                 Inhalte,
                 Daten
                 und/oder Informationen sowie für Inhalte auf verlinkten externen Websites. DumondaMe gewährleistet
@@ -152,7 +161,8 @@
             <p>6.4 Der Nutzer erkennt an, dass eine 100%ige Verfügbarkeit der DumondaMe-Website technisch nicht zu
                 realisieren
                 ist. DumondaMe
-                bemüht sich jedoch, die DumondaMe-Website möglichst konstant verfügbar zu halten. Insbesondere Wartungs-,
+                bemüht sich jedoch, die DumondaMe-Website möglichst konstant verfügbar zu halten. Insbesondere
+                Wartungs-,
                 Sicherheits- oder Kapazitätsbelange
                 sowie Ereignisse, die nicht im Machtbereich von DumondaMe stehen (wie z.B. Störungen von öffentlichen
                 Kommunikationsnetzen, Stromausfälle etc.),
@@ -174,16 +184,20 @@
             <p>1.1 DumondaMe is a service that aims to promote a more conscious lifestyle through a variety of different
                 functions.
             </p>
-            <p>1.2 The service is offered free of charge. The financing of DumondaMe is based exclusively on donations.</p>
+            <p>1.2 The service is offered free of charge. The financing of DumondaMe is based exclusively on
+                donations.</p>
 
             <h2>2. Conditions for use</h2>
             <p>2.1 The user assures that all data provided by him/her are true.</p>
-            <p>2.2 DumondaMe cannot technically determine with certainty whether a user registered on DumondaMe is actually
-                is the person the user claims to be. DumondaMe therefore does not guarantee the actual identity of a user.
+            <p>2.2 DumondaMe cannot technically determine with certainty whether a user registered on DumondaMe is
+                actually
+                is the person the user claims to be. DumondaMe therefore does not guarantee the actual identity of a
+                user.
             </p>
             <p>2.3 For the membership of DumondaMe a registration is required, where the user has to choose a password.
             </p>
-            <p>2.4 The user is obliged to keep the password chosen by him secret. DumondaMe will not disclose the password
+            <p>2.4 The user is obliged to keep the password chosen by him secret. DumondaMe will not disclose the
+                password
                 to third parties, will only use it for the registration process and will never ask the user for the
                 password at any time, except for the registration process. For security reasons and to prevent misuse,
                 the user is advised to change his password at regular intervals. Securing and storing the access data to
@@ -198,7 +212,8 @@
             <p>(a) to provide only true and not misleading information as well as to use his clear name and not
                 pseudonyms or stage names.
             </p>
-            <p>(b) to observe applicable law and all rights of third parties when using DumondaMe. In particular, the user
+            <p>(b) to observe applicable law and all rights of third parties when using DumondaMe. In particular, the
+                user
                 is prohibited from doing the following:
             </p>
             <ul>
@@ -214,12 +229,16 @@
             <p>(a) Use of mechanisms, software or scripts in combination with the use of the DumondaMe website. However,
                 the user may use interfaces or software authorized by DumondaMe.
             </p>
-            <p>(b) any action which is likely to affect the functionality of the DumondaMe infrastructure, in particular to
+            <p>(b) any action which is likely to affect the functionality of the DumondaMe infrastructure, in particular
+                to
                 overburden it.
             </p>
-            <p>3.3 DumondaMe is not obliged to make data and/or information provided by the user available to other users
-                if these data and/or information are not in accordance with sections 3.1 and 3.2. DumondaMe is entitled to
-                remove inadmissible data and/or information from the DumondaMe websites without prior notice to the user in
+            <p>3.3 DumondaMe is not obliged to make data and/or information provided by the user available to other
+                users
+                if these data and/or information are not in accordance with sections 3.1 and 3.2. DumondaMe is entitled
+                to
+                remove inadmissible data and/or information from the DumondaMe websites without prior notice to the user
+                in
                 accordance with sections 3.1 and 3.2.
             </p>
 
@@ -229,14 +248,16 @@
                 DumondaMe will notify the user of any changes to the Terms and Conditions in good time. If the user does
                 not object to the validity of the new General Terms and Conditions within six (6) weeks after
                 notification, the amended General Terms and Conditions shall be deemed to have been accepted by the
-                user. DumondaMe will inform the user in the notification of his right to object and the significance of the
+                user. DumondaMe will inform the user in the notification of his right to object and the significance of
+                the
                 objection period.
             </p>
             <p>4.3 Furthermore, DumondaMe reserves the right to amend these General Terms and Conditions</p>
             <p>(a) if the change is only beneficial for the user.</p>
             <p>(b) if the alteration is purely technical or procedural, unless it has a material effect on the user.
             </p>
-            <p>(c) to the extent that DumondaMe is obliged to ensure compliance with applicable law, in particular if the
+            <p>(c) to the extent that DumondaMe is obliged to ensure compliance with applicable law, in particular if
+                the
                 current legal situation changes.
             </p>
             <p>(d) to the extent that DumondaMe thereby complies with a court ruling or a decision of the authorities
@@ -264,7 +285,8 @@
 
             <h2>6. Responsibility for contents, data and/or information of the users, availability</h2>
             <p>6.1 DumondaMe accepts no responsibility for the content, data and/or information provided by users of the
-                DumondaMe website or for content on linked external websites. In particular, DumondaMe does not warrant that
+                DumondaMe website or for content on linked external websites. In particular, DumondaMe does not warrant
+                that
                 these contents are true, fulfill a specific purpose or can serve such purpose.
             </p>
             <p>6.2 DumondaMe merely offers the user a platform and does not participate in the communication between the
@@ -276,7 +298,8 @@
             <p>6.4 The user acknowledges that a 100% availability of the DumondaMe website is not technically possible.
                 However, DumondaMe makes every effort to ensure that the DumondaMe website is available at all times. In
                 particular, maintenance, security or capacity requirements as well as events which are beyond the
-                control of DumondaMe (e. g. disturbances of public communication networks, power outages, etc.) can lead to
+                control of DumondaMe (e. g. disturbances of public communication networks, power outages, etc.) can lead
+                to
                 disturbances or to the temporary cessation of the service on the DumondaMe website.
             </p>
             <h2>7. Place of jurisdiction</h2>
@@ -299,10 +322,11 @@
 
 <style lang="scss">
     #terms {
+        margin-top: 18px;
         @media screen and (max-width: $xs) {
-            margin-top: 18px;
             padding: 0 16px;
         }
+
         .terms-date {
             margin-top: 4px;
             font-weight: 300;
@@ -326,6 +350,7 @@
                 margin-bottom: 18px;
             }
         }
+
         h2 {
             font-size: 36px;
             line-height: 52px;

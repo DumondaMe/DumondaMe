@@ -1,5 +1,5 @@
 <template>
-    <detail-layout>
+    <detail-layout class="commitment-layout">
         <div slot="content" id="commitment-detail">
             <div class="user-mobile-content">
                 <profile-image></profile-image>
@@ -74,31 +74,39 @@
 </script>
 
 <style lang="scss">
-    #commitment-detail {
-        margin-bottom: 48px;
-        h2 {
-            font-size: 16px;
-            font-weight: 400;
-            margin-top: 32px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid $divider;
-        }
-        .user-mobile-content {
-            @media screen and (min-width: $xs) {
-                display: none;
+    .commitment-layout {
+        padding-top: 18px;
+
+        #commitment-detail {
+            margin-bottom: 48px;
+
+            h2 {
+                font-size: 16px;
+                font-weight: 400;
+                margin-top: 32px;
+                margin-bottom: 12px;
+                border-bottom: 1px solid $divider;
+            }
+
+            .user-mobile-content {
+                @media screen and (min-width: $xs) {
+                    display: none;
+                }
             }
         }
-    }
 
-    #commitment-sidebar {
-        width: 100%;
-        .sidebar-container {
+        #commitment-sidebar {
             width: 100%;
-            margin-top: 32px;
-            h3 {
-                font-size: 16px;
-                border-bottom: 1px solid #ddd;
-                margin-bottom: 12px;
+
+            .sidebar-container {
+                width: 100%;
+                margin-top: 32px;
+
+                h3 {
+                    font-size: 16px;
+                    border-bottom: 1px solid #ddd;
+                    margin-bottom: 12px;
+                }
             }
         }
     }

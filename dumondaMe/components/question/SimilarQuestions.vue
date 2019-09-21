@@ -27,7 +27,8 @@
 <style lang="scss">
     .similar-question-container.ely-card {
         @media screen and (max-width: $xs) {
-            padding: 12px 16px
+            padding: 12px 16px;
+            max-width: 518px;
         }
         h3.similar-question-title {
             margin-bottom: 12px;

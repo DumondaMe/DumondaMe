@@ -45,10 +45,9 @@
         margin-bottom: 18px;
         font-size: 14px;
         font-weight: 300;
-
-        @media screen and (max-width: 900px) {
-            margin-top: 64px;
-        }
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
 
         .dumonda-me-donation-status-container {
             margin-bottom: 18px;

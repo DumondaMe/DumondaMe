@@ -97,8 +97,8 @@
 
 <style lang="scss">
     #privacy-policy {
+        margin-top: 18px;
         @media screen and (max-width: $xs) {
-            margin-top: 18px;
             padding: 0 16px;
         }
 

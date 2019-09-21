@@ -25,6 +25,11 @@
 <style lang="scss">
     .question-register-info {
         margin-bottom: 12px;
+
+        @media screen and (max-width: $xs) {
+            max-width: 518px;
+        }
+
         .about-title {
             font-weight: 500;
             margin-bottom: 12px;

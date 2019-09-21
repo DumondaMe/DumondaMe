@@ -1,0 +1,74 @@
+<template>
+    <div id="dumonda-me-mobile-bottom-nav">
+        <v-bottom-navigation color="primary" app light grow v-show="$vuetify.breakpoint.mdAndDown"
+                             v-model="bottomNav">
+
+            <!--Needed to deselect icons-->
+            <v-btn value="none" v-show="false">
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'index'})" value="home" v-if="!isAuthenticated">
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">
+                <v-icon>mdi-rss</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'question'})" value="feed" v-else>
+                <v-icon>mdi-rss</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'user'})" value="account" v-if="isAuthenticated">
+                <v-icon>mdi-account-outline</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'notifications'})" value="notifications" v-if="isAuthenticated">
+                <v-icon>mdi-bell-outline</v-icon>
+            </v-btn>
+            <v-btn @click="$router.push({name: 'login'})" value="login" v-if="!isAuthenticated">
+                <v-icon>mdi-login</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "DumondaMeMobileBottomNav",
+        data() {
+            return {bottomNav: ''};
+        },
+        mounted() {
+            this.setBottomNav();
+        },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
+        },
+        methods: {
+            setBottomNav() {
+                if (this.$route.name === 'index' || this.$route.name === 'question' || this.$route.name === 'commitment'
+                    || this.$route.name === 'event') {
+                    this.bottomNav = 'feed';
+                } else if (this.$route.name === 'user') {
+                    this.bottomNav = 'account';
+                } else if (this.$route.name === 'notification') {
+                    this.bottomNav = 'notifications';
+                } else if (this.$route.name === 'login') {
+                    this.bottomNav = 'login';
+                } else {
+                    this.bottomNav = 'none';
+                }
+            }
+        },
+        watch: {
+            $route() {
+                this.setBottomNav();
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    #dumonda-me-mobile-button-nav {
+
+    }
+</style>

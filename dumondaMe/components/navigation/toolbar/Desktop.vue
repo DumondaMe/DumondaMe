@@ -1,14 +1,20 @@
 <template>
-    <v-app-bar app elevate-on-scroll color="primary" dark dense>
+    <v-app-bar app :elevate-on-scroll="$vuetify.breakpoint.lgAndUp" color="primary" dark dense
+               :flat="$vuetify.breakpoint.mdAndDown">
         <div id="header-desktop-container">
-            <search-toolbar></search-toolbar>
+            <search-toolbar v-show="$vuetify.breakpoint.mdAndUp || showSearch" @close-search="closeSearch">
+            </search-toolbar>
+            <div v-show="!($vuetify.breakpoint.mdAndUp || showSearch)" id="dumonda-me-logo-description">DumondaMe</div>
             <v-spacer></v-spacer>
-            <v-btn icon>
-                <v-icon>mdi-filter-variant</v-icon>
+            <v-btn icon v-show="$vuetify.breakpoint.smAndDown && !showSearch" @click="showSearch = true">
+                <v-icon>mdi-magnify</v-icon>
             </v-btn>
+            <!--<v-btn icon v-show="!showSearch">
+                <v-icon>mdi-filter-variant</v-icon>
+            </v-btn>-->
             <v-menu bottom left>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
+                    <v-btn icon v-on="on" v-show="!showSearch">
                         <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn>
                 </template>
@@ -54,7 +60,8 @@
     export default {
         props: ['isAuthenticated', 'showNotification', 'numberOfNotifications'],
         components: {SearchToolbar},
-        computed: {
+        data() {
+            return {showSearch: false};
         },
         methods: {
             async logout() {
@@ -69,6 +76,12 @@
                 } catch (e) {
                     this.showError = true;
                 }
+            },
+            closeSearch() {
+                if (this.$route.name === 'search') {
+                    this.$router.push({name: 'index'});
+                }
+                this.showSearch = false
             }
         }
     }
@@ -80,5 +93,11 @@
         width: 100%;
         margin: 0 auto;
         display: flex;
+
+        #dumonda-me-logo-description {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 48px;
+        }
     }
 </style>

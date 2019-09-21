@@ -6,20 +6,13 @@
     </div>
 </template>
 
-<script>
-    export default {
-        computed: {
-
-        }
-    }
-</script>
-
 <style lang="scss">
     #dumonda-me-contact-us {
+        margin-top: 18px;
         @media screen and (max-width: $xs) {
-            margin-top: 18px;
             padding: 0 16px;
         }
+
         h1 {
             font-size: 32px;
             color: #333;
@@ -30,6 +23,7 @@
                 margin-bottom: 18px;
             }
         }
+
         p {
             font-weight: 300;
             font-size: 16px;
