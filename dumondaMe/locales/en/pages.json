@@ -1117,7 +1117,8 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "faq": "FAQ",
-    "contact": "Contact"
+    "contact": "Contact",
+    "nextSteps": "Next Steps"
   },
   "error": {
     "401": {

@@ -1120,7 +1120,8 @@
     "terms": "AGB",
     "privacy": "Datenschutz",
     "faq": "Häufige Fragen",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "nextSteps": "Nächsten Schritte"
   },
   "error": {
     "401": {

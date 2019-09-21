@@ -8,6 +8,7 @@
             <div class="footer-nav" @click="$router.push({name: 'terms'})">{{$t("pages:footer.terms")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'privacy'})">{{$t("pages:footer.privacy")}}</div>
             <div class="footer-nav" @click="$router.push({name: 'faq'})">{{$t("pages:footer.faq")}}</div>
+            <div class="footer-nav" @click="$router.push({name: 'nextSteps'})">{{$t("pages:footer.nextSteps")}}</div>
         </div>
     </div>
 </template>
