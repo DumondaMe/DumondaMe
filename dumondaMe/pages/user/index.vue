@@ -36,6 +36,7 @@
             } catch (e) {
                 error({statusCode: e.request.res.statusCode})
             }
+            store.commit('toolbar/HIDE_BACK_BUTTON');
         },
         components: {
             DetailLayout, UserProfile, ProfileImage, CommitmentsOfUser, GeneralInformation, Feed, TrustCircle

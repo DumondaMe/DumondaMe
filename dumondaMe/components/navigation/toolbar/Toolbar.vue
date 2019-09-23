@@ -1,7 +1,7 @@
 <template>
     <div id="dumonda-me-header">
         <desktop-toolbar :is-authenticated="isAuthenticated" id="desktop-toolbar"
-                         :show-notification="showNotification"
+                         :show-notification="showNotification" :show-back-nav-button="showBackNavButton"
                          @show-create-question-dialog="$emit('show-create-question-dialog')"
                          @show-create-commitment-dialog="$emit('show-create-commitment-dialog')"
                          @show-import-contacts-dialog="$emit('show-import-contacts-dialog')"
@@ -34,6 +34,9 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            showBackNavButton() {
+                return this.$store.state.toolbar.showBackButton
             },
             showNotification() {
                 return this.numberOfUnreadNotifications > 0;

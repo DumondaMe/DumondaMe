@@ -18,6 +18,7 @@
             } catch (e) {
                 error({statusCode: e.request.res.statusCode})
             }
+            store.commit('toolbar/HIDE_BACK_BUTTON');
         },
         components: {Notifications},
         mounted() {

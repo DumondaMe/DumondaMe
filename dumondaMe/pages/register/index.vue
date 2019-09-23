@@ -6,6 +6,9 @@
     import Register from '~/components/register/Register.vue';
 
     export default {
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        },
         components: {Register},
         head() {
             return {
