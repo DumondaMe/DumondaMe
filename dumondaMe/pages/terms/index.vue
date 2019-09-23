@@ -312,6 +312,9 @@
 
 <script>
     export default {
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        },
         computed: {
             selectedLanguage() {
                 return this.$store.state.i18n.language

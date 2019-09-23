@@ -204,6 +204,9 @@
     import Timeline from '~/components/aboutUs/Timeline';
 
     export default {
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        },
         components: {Timeline},
         computed: {
             selectedLanguage() {

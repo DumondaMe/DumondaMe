@@ -59,7 +59,7 @@
                     this.bottomNav = 'feed';
                 } else if (this.$route.name === 'user') {
                     this.bottomNav = 'account';
-                } else if (this.$route.name === 'notification') {
+                } else if (this.$route.name === 'notifications') {
                     this.bottomNav = 'notifications';
                 } else if (this.$route.name === 'login') {
                     this.bottomNav = 'login';

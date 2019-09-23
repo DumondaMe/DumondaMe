@@ -6,6 +6,14 @@
     </div>
 </template>
 
+<script>
+    export default {
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        }
+    }
+</script>
+
 <style lang="scss">
     #dumonda-me-contact-us {
         margin-top: 18px;

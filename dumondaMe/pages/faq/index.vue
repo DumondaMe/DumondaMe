@@ -71,6 +71,9 @@
 
     export default {
         components: {ConceptInfoDialog},
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        },
         data() {
             return {showConceptInfoDialog: false}
         },

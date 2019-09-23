@@ -4,7 +4,12 @@
         <div id="header-desktop-container">
             <search-toolbar v-show="$vuetify.breakpoint.mdAndUp || showSearch" @close-search="closeSearch">
             </search-toolbar>
-            <div v-show="!($vuetify.breakpoint.mdAndUp || showSearch)" id="dumonda-me-logo-description">DumondaMe</div>
+            <div v-show="!($vuetify.breakpoint.mdAndUp || showSearch)" v-if="!showBackNavButton"
+                 id="dumonda-me-logo-description">DumondaMe
+            </div>
+            <v-btn icon @click="navigateBack" v-show="!($vuetify.breakpoint.mdAndUp || showSearch)" v-else>
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn icon v-show="$vuetify.breakpoint.smAndDown && !showSearch" @click="showSearch = true">
                 <v-icon>mdi-magnify</v-icon>
@@ -58,7 +63,7 @@
     import SearchToolbar from './Search';
 
     export default {
-        props: ['isAuthenticated', 'showNotification', 'numberOfNotifications'],
+        props: ['isAuthenticated', 'showNotification', 'numberOfNotifications', 'showBackNavButton'],
         components: {SearchToolbar},
         data() {
             return {showSearch: false};
@@ -79,9 +84,16 @@
             },
             closeSearch() {
                 if (this.$route.name === 'search') {
-                    this.$router.push({name: 'index'});
+                    this.navigateBack();
                 }
                 this.showSearch = false
+            },
+            navigateBack() {
+                if (document.referrer.includes(process.env.domainUrl)) {
+                    this.$router.go(-1);
+                } else {
+                    this.$router.push({name: 'index'});
+                }
             }
         }
     }

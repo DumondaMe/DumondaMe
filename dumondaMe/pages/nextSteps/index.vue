@@ -22,6 +22,9 @@
 
 <script>
     export default {
+        async fetch({store}) {
+            store.commit('toolbar/SHOW_BACK_BUTTON');
+        },
         methods: {
             getUrl(url) {
                 return `${process.env.staticUrl}/${url}`;

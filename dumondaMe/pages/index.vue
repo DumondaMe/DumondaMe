@@ -62,6 +62,7 @@
             } catch (e) {
                 error({statusCode: e.request.res.statusCode});
             }
+            store.commit('toolbar/HIDE_BACK_BUTTON');
         },
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution,
