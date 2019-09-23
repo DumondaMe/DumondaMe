@@ -14,6 +14,18 @@
                 <answers></answers>
                 <register class="register-on-mobile" v-if="!isAuthenticated"></register>
                 <similar-questions class="sidebar-on-mobile"></similar-questions>
+
+                <fab-button :fab-icon="'mdi-forum'" :button-label="$t('common:button.answer')"
+                            :show-button-breakpoint="850"
+                            @show-create-dialog="showCreateAnswerDialog = true"></fab-button>
+
+                <v-layout row justify-center v-if="showCreateAnswerDialog">
+                    <v-dialog v-model="showCreateAnswerDialog" scrollable persistent max-width="770px"
+                              :fullscreen="$vuetify.breakpoint.xsOnly">
+                        <create-answer-dialog @close-dialog="showCreateAnswerDialog = false">
+                        </create-answer-dialog>
+                    </v-dialog>
+                </v-layout>
             </div>
         </detail-layout>
     </div>
@@ -28,6 +40,8 @@
     import AskUserAnswerQuestion from '~/components/question/AskUserAnswerQuestion';
     import SimilarQuestions from '~/components/question/SimilarQuestions';
     import Register from '~/components/question/Register';
+    import FabButton from '~/components/common/fabButton/Button';
+    import CreateAnswerDialog from '~/components/question/answer/dialog/CreateDialog.vue';
 
     export default {
         async fetch({params, query, app, error, store}) {
@@ -68,7 +82,10 @@
         },
         components: {
             Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, SimilarQuestions,
-            AskUserAnswerQuestion
+            AskUserAnswerQuestion, FabButton, CreateAnswerDialog
+        },
+        data() {
+            return {showCreateAnswerDialog: false}
         },
         computed: {
             question() {

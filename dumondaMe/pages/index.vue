@@ -20,6 +20,11 @@
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
                 {{$t("common:button.showMore")}}
             </v-btn>
+            <fab-button :fab-icon="'mdi-plus'" :button-label="$t('common:toolbar.askQuestion')"
+                        @show-create-dialog="showCreateQuestionDialog = true"
+                        :show-button-breakpoint="1263"></fab-button>
+            <create-question-dialog v-if="showCreateQuestionDialog" @close-dialog="showCreateQuestionDialog = false">
+            </create-question-dialog>
         </div>
     </feed-layout>
 </template>
@@ -39,6 +44,8 @@
     import ConceptInfo from '~/components/feed/info/Concept';
     import NetworkingInfo from '~/components/feed/info/Networking';
     import DonationInfo from '~/components/feed/info/Donation';
+    import FabButton from '~/components/common/fabButton/Button';
+    import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
 
     export default {
         async fetch({error, store, route}) {
@@ -59,7 +66,7 @@
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, UserSuggestions, AboutDumondaMe,
-            ConceptInfo, NetworkingInfo, DonationInfo
+            ConceptInfo, NetworkingInfo, DonationInfo, FabButton, CreateQuestionDialog
         },
         head() {
             return {
@@ -80,7 +87,7 @@
             }
         },
         data() {
-            return {loadNextRunning: false}
+            return {loadNextRunning: false, showCreateQuestionDialog: false}
         },
         computed: {
             isAuthenticated() {
