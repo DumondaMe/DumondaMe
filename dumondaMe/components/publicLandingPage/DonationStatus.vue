@@ -41,6 +41,7 @@
         .donation-state-info {
             font-size: 14px;
             color: $secondary-text;
+            margin-top: 12px;
 
             .state-number {
                 font-weight: 500;
