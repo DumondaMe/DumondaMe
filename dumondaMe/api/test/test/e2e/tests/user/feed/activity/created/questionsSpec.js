@@ -149,7 +149,7 @@ describe('Get activity feed for created questions', function () {
         should.not.exist(res.body.feed[1].creator);
     });
 
-    it('Show question created by the user', async function () {
+    it('Do not show question created by the user', async function () {
         dbDsl.createQuestion('21', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 700
@@ -161,18 +161,10 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(401);
-        res.body.feed.length.should.equals(1);
-
-        res.body.feed[0].type.should.equals('Question');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].questionId.should.equals('21');
-        res.body.feed[0].user.userId.should.equals('1');
-        res.body.feed[0].user.isLoggedInUser.should.equals(true);
-        res.body.feed[0].user.isTrustUser.should.equals(false);
-        should.not.exist(res.body.feed[0].creator);
+        res.body.feed.length.should.equals(0);
     });
 
-    it('Show question created by the user when topic filter ist active', async function () {
+    it('Do not show question created by the user when topic filter ist active', async function () {
         dbDsl.createQuestion('21', {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic2'], language: 'de', created: 400, modified: 700
@@ -184,14 +176,6 @@ describe('Get activity feed for created questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(401);
-        res.body.feed.length.should.equals(1);
-
-        res.body.feed[0].type.should.equals('Question');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].questionId.should.equals('21');
-        res.body.feed[0].user.userId.should.equals('1');
-        res.body.feed[0].user.isLoggedInUser.should.equals(true);
-        res.body.feed[0].user.isTrustUser.should.equals(false);
-        should.not.exist(res.body.feed[0].creator);
+        res.body.feed.length.should.equals(0);
     });
 });

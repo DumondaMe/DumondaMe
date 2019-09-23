@@ -45,7 +45,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(505);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(2);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -72,7 +72,7 @@ describe('Get activity feed for interested commitments', function () {
 
         res.body.feed[1].type.should.equals('Commitment');
         res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('101');
+        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Get interested commitments of a user from the trust circle', async function () {

@@ -62,6 +62,26 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[0].user.isTrustUser.should.equals(false);
     });
 
+    it('Do not show created book answer of the user', async function () {
+        dbDsl.createBookAnswer('7', {
+            creatorId: '1', questionId: '1', created: 601, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].answerId.should.equals('6');
+
+        res.body.feed[1].type.should.equals('Question');
+        res.body.feed[1].questionId.should.equals('1');
+    });
+
     it('Created book answer from user in trust circle', async function () {
         dbDsl.createContactConnection('1', '3');
         await dbDsl.sendToDb();
@@ -89,6 +109,28 @@ describe('Get activity feed for created book answers', function () {
     });
 
     it('Created book answer is within filter topics', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity',
+            {guiLanguage: 'de', languages: ['de'], topics: ['topic1']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].type.should.equals('Book');
+        res.body.feed[0].action.should.equals('created');
+        res.body.feed[0].answerId.should.equals('6');
+        res.body.feed[0].user.isTrustUser.should.equals(false);
+
+        res.body.feed[1].type.should.equals('Question');
+    });
+
+    it('Created book answer is within filter topics but created by user', async function () {
+        dbDsl.createBookAnswer('7', {
+            creatorId: '1', questionId: '1', created: 601, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity',
@@ -291,27 +333,6 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[1].type.should.equals('Question');
         res.body.feed[1].action.should.equals('created');
         res.body.feed[1].questionId.should.equals('1');
-    });
-
-    it('Show answers created by the user', async function () {
-        dbDsl.createBookAnswer('21', {
-            creatorId: '1', questionId: '1', created: 777, authors: 'Hans Wurst', googleBookId: '1234',
-            hasPreviewImage: true
-        });
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
-        res.status.should.equal(200);
-        res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
-
-        res.body.feed[0].type.should.equals('Book');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].answerId.should.equals('21');
-        res.body.feed[0].isUpVotedByUser.should.equals(false);
-        res.body.feed[0].isAdmin.should.equals(true);
-        res.body.feed[0].user.isTrustUser.should.equals(false);
-        res.body.feed[0].user.isLoggedInUser.should.equals(true);
     });
 
     it('Get only created books', async function () {

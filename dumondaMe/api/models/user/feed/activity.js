@@ -71,6 +71,7 @@ const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND (activityElement:User OR activityElement:Commitment) 
                  AND feedElement.created <= {timestamp} 
+                 AND (activityElement.userId <> {userId} OR type(relActivity) = 'EVENT')
                  ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}`)
         .addCommand(onlyLatestUpVoteOrWatch())
 };
@@ -95,7 +96,8 @@ const getTopicFilterWithDeactivatedTrustCircleFilter = function (typeFilter, top
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND feedElement.created <= {timestamp} AND NOT 
         ((type(relActivity) = 'UP_VOTE' OR type(relActivity) = 'WATCH') AND 
-        (:User {userId: {userId}})-[relActivity]->(feedElement)) ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}`)
+        (:User {userId: {userId}})-[relActivity]->(feedElement)) ${onlyUpcomingEvents()} ${getTypeFilter(typeFilter)}
+        AND (activityElement.userId <> {userId} OR type(relActivity) = 'EVENT')`)
         .addCommand(onlyLatestUpVoteOrWatch())
         .addCommand(topicFilter(topics, showInterested))
 };
