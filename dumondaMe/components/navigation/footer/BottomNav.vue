@@ -20,7 +20,11 @@
                 <v-icon>mdi-account-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'notifications'})" value="notifications" v-if="isAuthenticated">
-                <v-icon>mdi-bell-outline</v-icon>
+                <v-badge v-if="numberOfUnreadNotifications > 0" overlap color="secondary">
+                    <template v-slot:badge> {{numberOfUnreadNotifications}}</template>
+                    <v-icon>mdi-bell-outline</v-icon>
+                </v-badge>
+                <v-icon v-else>mdi-bell-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'login'})" value="login" v-if="!isAuthenticated">
                 <v-icon>mdi-login</v-icon>
@@ -30,6 +34,8 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
+
     export default {
         name: "DumondaMeMobileBottomNav",
         data() {
@@ -41,7 +47,10 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
-            }
+            },
+            ...mapGetters({
+                numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
+            })
         },
         methods: {
             setBottomNav() {
