@@ -60,7 +60,11 @@
                     await Promise.all([store.dispatch(`feed/getFeed`)]);
                 }
             } catch (e) {
-                error({statusCode: e.request.res.statusCode});
+                if (e && e.request && e.request.res && e.request.res.statusCode) {
+                    error({statusCode: e.request.res.statusCode});
+                } else {
+                    error({statusCode: 600});
+                }
             }
             store.commit('toolbar/HIDE_BACK_BUTTON');
         },
