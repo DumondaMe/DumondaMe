@@ -149,7 +149,7 @@
             }
 
             .mobile-donation-info {
-                @media screen and (min-width: $xs) {
+                @media screen and (min-width: $xs + 1) {
                     display: none;
                 }
             }

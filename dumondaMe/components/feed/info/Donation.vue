@@ -12,7 +12,7 @@
                 <span class="state-number">{{donationGoal}} CHF</span>
             </div>
         </div>
-        <img :src="donateImage" class="donate-image">
+        <img :src="donateImage" class="donate-image" v-show="$vuetify.breakpoint.width > 700">
         <div class="feed-networking-description">{{$t('pages:landingPagePublic.donation.description')}}</div>
         <v-btn outlined color="primary" @click="$router.push({name: 'donation'})">
             {{$t('common:button.donate')}}
@@ -48,6 +48,10 @@
         max-width: 550px;
         margin-left: auto;
         margin-right: auto;
+
+        @media screen and (max-width: $xs) {
+            margin-bottom: 0;
+        }
 
         .dumonda-me-donation-status-container {
             margin-bottom: 18px;
