@@ -305,6 +305,7 @@
   },
   "question": {
     "createDialog": {
+      "title": "Ask Question",
       "createQuestionButton": "Create question",
       "instructionLink": "What do I have to consider when formulating a question?",
       "topicDescription": "Which topics can be assigned to your question?. E.g. Zero Waste, Food Waste etc.",

@@ -303,7 +303,8 @@
   },
   "question": {
     "createDialog": {
-      "createQuestionButton": "Frage erstellen",
+      "title": "Frage stellen",
+      "createQuestionButton": "Frage stellen",
       "instructionLink": "Was muss ich bei der Formulierung einer Frage beachten?",
       "topicDescription": "Welche Themengebiete können deiner Frage zugeordnet werden. Z.B. Zero Waste, Food Waste usw.",
       "numberOfAnswers": "{{count}} Antwort",
