@@ -10,8 +10,6 @@
         <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
                       :nav-text="$t('common:navigation.activities')"></nav-item>
-            <nav-item v-else nuxt-link="index" icon="mdi-home-outline"
-                      :nav-text="$t('common:navigation.home')"></nav-item>
             <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"></nav-item>
             <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')">
             </nav-item>
@@ -21,6 +19,8 @@
         <div class="common-navigation">
             <nav-item nuxt-link="login" icon="mdi-login" :nav-text="$t('common:toolbar.login')"
                       v-if="!isAuthenticated"></nav-item>
+            <nav-item v-if="!isAuthenticated" nuxt-link="index" icon="mdi-arrow-left"
+                      :nav-text="$t('common:navigation.overview')"></nav-item>
             <div v-else>
                 <nav-item nuxt-link="user" icon="mdi-account-outline"
                           :nav-text="$t('common:navigation.yourProfile')"></nav-item>
