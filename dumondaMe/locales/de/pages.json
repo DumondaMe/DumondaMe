@@ -1130,6 +1130,9 @@
     "404": {
       "description": "Diese Seite wurde gelöscht oder der Link ist ungültig.",
       "backToStartPage": "Zurück zur Startseite"
+    },
+    "offline": {
+      "description": "Die Seite konnte nicht geladen werden. Du bist momentan nicht mit dem Internet verbunden."
     }
   }
 }

@@ -9,6 +9,11 @@
                         <nuxt-link class="error-link" to="/">{{$t('pages:error.404.backToStartPage')}}</nuxt-link>
                     </div>
                 </div>
+                <div v-else-if="error.statusCode === 600">
+                    <div class="error-wrapper-message">
+                        <h2 class="error-message">{{$t('pages:error.offline.description')}}</h2>
+                    </div>
+                </div>
                 <div v-else>
                     <h1 class="error-code">{{ error.statusCode }}</h1>
                     <div class="error-wrapper-message">
@@ -82,19 +87,22 @@
 
     .error-code {
         display: inline-block;
-        font-size: 24px;
+        font-size: 32px;
         font-weight: 500;
         vertical-align: top;
-        border-right: 1px solid rgba(0, 0, 0, 0.298039);
+        color: #009e97;
+
         margin: 0px 20px 0px 0px;
         padding: 10px 23px;
     }
 
     .error-wrapper-message {
+        font-size: 16px;
+        padding-left: 18px;
+        padding-right: 18px;
         display: inline-block;
         text-align: left;
-        line-height: 49px;
-        height: 49px;
+        padding-bottom: 28px;
         vertical-align: middle;
     }
 

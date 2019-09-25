@@ -23,7 +23,11 @@
             try {
                 await store.dispatch(`search/search`, query.query)
             } catch (e) {
-                error({statusCode: e.request.res.statusCode})
+                if (e && e.request && e.request.res && e.request.res.statusCode) {
+                    error({statusCode: e.request.res.statusCode});
+                } else {
+                    error({statusCode: 600});
+                }
             }
         },
         components: {Users, UsersNoResult, Questions, QuestionsNoResult, Commitments, CommitmentNoResult},
