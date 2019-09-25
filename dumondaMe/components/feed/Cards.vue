@@ -89,7 +89,7 @@
                 <social-media-card v-else-if="element.type === 'socialMediaInfo'"></social-media-card>
             </div>
         </div>
-        <div v-show="isLoadingFeed" class="feed-loading-container text-xs-center">
+        <div v-show="isLoadingFeed" class="feed-loading-container text-center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
         <div v-show="!isLoadingFeed && (feed.length === 0)" class="feed-no-content-message">
