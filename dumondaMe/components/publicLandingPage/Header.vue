@@ -47,6 +47,7 @@
             text-align: center;
             color: white;
             margin-top: 12px;
+            padding: 0 18px;
         }
     }
 
