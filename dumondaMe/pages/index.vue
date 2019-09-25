@@ -11,7 +11,7 @@
         <div slot="content" id="feed-detail-container">
             <feed-mobile-filter class="mobile-feed-filter">
             </feed-mobile-filter>
-            <donation-info class="mobile-donation-info"></donation-info>
+            <donation-info class="mobile-donation-info" v-if="!isLoading"></donation-info>
             <feed-empty v-if="showHelpFeedInfo">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
