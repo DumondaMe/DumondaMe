@@ -26,6 +26,7 @@
 
 <style lang="scss">
     #ely-user-setting-layout {
+        padding-top: 28px;
         h2 {
             font-size: 18px;
             color: $primary-color;
