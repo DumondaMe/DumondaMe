@@ -8,7 +8,7 @@
                 <v-icon>mdi-home</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="home" v-if="!isAuthenticated">
-                <v-icon>mdi-home</v-icon>
+                <v-icon>mdi-card-bulleted-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">
                 <v-icon>mdi-rss</v-icon>
