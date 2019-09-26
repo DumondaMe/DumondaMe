@@ -3,8 +3,6 @@
         <img :src="topicImage" class="topic-image"/>
         <h2>{{topic}}</h2>
         <div class="navigation-container">
-            <!--<v-btn rounded outlined color="primary">Fragen</v-btn>
-            <v-btn rounded outlined color="primary">Engagements</v-btn>-->
             <v-btn small outlined fab color="primary">
                 <v-icon size="18">mdi-help</v-icon>
             </v-btn>

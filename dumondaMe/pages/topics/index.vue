@@ -1,16 +1,16 @@
 <template>
     <div id="dumonda-me-topics">
-        <card topic="Bildung & Lernen" :topic-id="'5932e562e0f5e000'"></card>
-        <card topic="Gesellschaft" :topic-id="'5945285f05691000'"></card>
-        <card topic="Gesundheit" :topic-id="'594528935ce91000'"></card>
-        <card topic="Konsum & Suffizienz" :topic-id="'qJItLlh8wrXZTgb'"></card>
-        <card topic="Kunst & Kultur" :topic-id="'59452a3ef8a91000'"></card>
-        <card topic="Landwirtschaft & Lebensmittel" :topic-id="'5945298a6b291000'"></card>
-        <card topic="Spiritualität & Bewusstsein" :topic-id="'59452a1840691000'"></card>
-        <card topic="Technologie" :topic-id="'5945287e93a91000'"></card>
-        <card topic="Umwelt" :topic-id="'593c1ecffb909000'"></card>
-        <card topic="Wirtschaft & Finanzen" :topic-id="'5932e90a1835e000'"></card>
-        <card topic="Wissenschaft" :topic-id="'594529f733291000'"></card>
+        <card topic="Bildung & Lernen" :topic-id="'Education'"></card>
+        <card topic="Gesellschaft" :topic-id="'SocialDevelopment'"></card>
+        <card topic="Gesundheit" :topic-id="'Health'"></card>
+        <card topic="Konsum & Suffizienz" :topic-id="'ConsumptionSufficiency'"></card>
+        <card topic="Kunst & Kultur" :topic-id="'ArtCulture'"></card>
+        <card topic="Landwirtschaft & Lebensmittel" :topic-id="'FoodAgriculture'"></card>
+        <card topic="Spiritualität & Bewusstsein" :topic-id="'SpiritualityConsciousness'"></card>
+        <card topic="Technologie" :topic-id="'Technology'"></card>
+        <card topic="Umwelt" :topic-id="'Environment'"></card>
+        <card topic="Wirtschaft & Finanzen" :topic-id="'EconomyFinances'"></card>
+        <card topic="Wissenschaft" :topic-id="'Science'"></card>
     </div>
 </template>
 
