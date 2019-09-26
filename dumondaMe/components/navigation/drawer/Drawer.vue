@@ -8,9 +8,12 @@
             {{$t('common:toolbar.askQuestion')}}
         </v-btn>
         <div class="common-navigation">
+            <nav-item nuxt-link="topics" icon="mdi-book-outline" :nav-text="$t('common:navigation.topics')"></nav-item>
+        </div>
+        <v-divider></v-divider>
+        <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
                       :nav-text="$t('common:navigation.activities')"></nav-item>
-            <nav-item nuxt-link="topics" icon="mdi-book-outline" :nav-text="$t('common:navigation.topics')"></nav-item>
             <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"></nav-item>
             <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')">
             </nav-item>
