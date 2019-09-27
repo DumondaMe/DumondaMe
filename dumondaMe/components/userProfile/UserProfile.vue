@@ -70,6 +70,7 @@
         padding-bottom: 32px;
         margin-bottom: 32px;
         background-color: #e0f2f1;
+        @include defaultPaddingCard();
         @media screen and (max-width: $xs) {
             padding-bottom: 0;
             margin-bottom: 0;

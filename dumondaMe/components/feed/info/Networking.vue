@@ -25,7 +25,7 @@
             },
             networking2xImage() {
                 return `${process.env.staticUrl}/img/landingPage/networkingImage.jpg 300w, ` +
-                       `${process.env.staticUrl}/img/landingPage/networkingImage_2x.jpg 600w`;
+                    `${process.env.staticUrl}/img/landingPage/networkingImage_2x.jpg 600w`;
             }
         }
     }
@@ -39,20 +39,26 @@
 
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
+            @include defaultPaddingCard();
         }
 
         .networking-image {
             width: 100%;
-            border-radius: 4px;
             margin-bottom: 8px;
         }
 
         .feed-networking-description {
             margin-bottom: 8px;
+            @include defaultPaddingCard();
         }
 
         button {
-            margin-left: 0;
+            margin-left: 18px;
+
+            @media screen and (max-width: 700px) {
+                margin-left: 12px;
+
+            }
         }
 
     }

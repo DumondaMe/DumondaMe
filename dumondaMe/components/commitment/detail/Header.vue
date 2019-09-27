@@ -72,6 +72,7 @@
 <style lang="scss">
     #dumonda-me-commitment-header {
         background-color: #e0f2f1;
+        @include defaultPaddingCard();
 
         @media screen and (max-width: $xs) {
             margin-bottom: 8px;

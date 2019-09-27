@@ -37,7 +37,8 @@
             }
             img {
                 width: 100%;
-                border-radius: 6px;
+                border-radius: 4px;
+                border: 1px solid $divider;
             }
         }
     }

@@ -84,6 +84,7 @@
             margin-bottom: 12px;
             font-size: 16px;
             font-weight: 500;
+            @include defaultPaddingCard();
         }
 
         .ask-user-image {
@@ -94,10 +95,12 @@
         .description {
             font-size: 14px;
             font-weight: 300;
+            @include defaultPaddingCard();
         }
 
         .send-button-image-container {
             margin-top: 18px;
+            @include defaultPaddingCard();
 
             .invite-button {
                 cursor: pointer;

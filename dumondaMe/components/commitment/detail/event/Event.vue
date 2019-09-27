@@ -95,6 +95,7 @@
 <style lang="scss">
     .commitment-event {
         margin-bottom: 12px;
+        @include defaultPaddingCard();
 
         .event-header-container {
             display: flex;

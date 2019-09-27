@@ -66,11 +66,14 @@
                 img {
                     margin-top: 3px;
                     width: 100%;
-                    border-radius: 4px;
+                    border-top: 1px solid $divider;
+                    border-bottom: 1px solid $divider;
                 }
             }
             .answer-description {
+                margin-top: 8px;
                 word-wrap: break-word;
+                @include defaultPaddingCard();
             }
             .answer-description.no-commitment-image {
                 margin-left: 0;

@@ -4,7 +4,7 @@
             <div>
                 <h2 class="feed-card-title">
                     <span class="answer-type"
-                      v-if="!hideQuestion">
+                          v-if="!hideQuestion">
                     <span>{{$t('common:feedCard.answerType.textWithQuestion1')}} </span>
                     <span class="creator-name" @click="goToProfile()">{{creator.name}} </span>
                     <span>{{$t('common:feedCard.answerType.textWithQuestion2')}} </span>
@@ -59,15 +59,19 @@
     .text-answer-feed-card {
         .answer-description {
             margin-bottom: 16px;
+            @include defaultPaddingCard();
         }
+
         .question-to-answer-container {
             margin-bottom: 8px;
         }
+
         .creator-name {
             color: $primary-color;
             font-weight: 400;
             cursor: pointer;
         }
+
         :hover.creator-name {
             text-decoration: underline;
         }

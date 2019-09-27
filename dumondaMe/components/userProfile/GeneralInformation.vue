@@ -46,12 +46,15 @@
 <style lang="scss">
     .profile-image-general-information {
         margin-top: 18px;
+        @include defaultPaddingCard();
+
         .user-profile-info {
             display: block;
             font-size: 14px;
             margin-bottom: 6px;
             font-weight: 300;
             width: 100%;
+
             .info-icon {
                 margin-top: 2px;
                 float: left;
@@ -59,6 +62,7 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
+
             i.v-icon.in-circle {
                 color: $success-text;
             }

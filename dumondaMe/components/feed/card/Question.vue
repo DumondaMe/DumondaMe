@@ -42,6 +42,7 @@
         .question-description {
             margin-top: 12px;
             margin-bottom: 16px;
+            @include defaultPaddingCard();
         }
 
         .question-header {

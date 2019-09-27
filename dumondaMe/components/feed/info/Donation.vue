@@ -56,6 +56,8 @@
         .dumonda-me-donation-status-container {
             margin-bottom: 18px;
 
+            @include defaultPaddingCard();
+
             .donation-state-info {
                 margin-top: 12px;
                 font-size: 14px;
@@ -73,16 +75,21 @@
 
         .donate-image {
             width: 100%;
-            border-radius: 4px;
             margin-bottom: 8px;
         }
 
         .feed-networking-description {
             margin-bottom: 8px;
+            @include defaultPaddingCard();
         }
 
         button {
-            margin-left: 0;
+            margin-left: 18px;
+
+            @media screen and (max-width: 700px) {
+                margin-left: 12px;
+
+            }
         }
 
     }

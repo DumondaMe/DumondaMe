@@ -81,12 +81,15 @@
             .link-preview-image {
                 img {
                     cursor: pointer;
-                    border-radius: 4px;
                     width: 100%;
+                    border-top: 1px solid $divider;
+                    border-bottom: 1px solid $divider;
                 }
             }
             .answer-description {
+                margin-top: 8px;
                 margin-bottom: 16px;
+                @include defaultPaddingCard();
             }
         }
         .link-answer-content.no-link-image {

@@ -113,39 +113,50 @@
                 font-weight: 500;
             }
         }
+
         .select-event-container {
             font-size: 12px;
+
             .select-event {
                 cursor: pointer;
                 user-select: none;
             }
+
             :hover.select-event {
                 text-decoration: underline;
             }
+
             .select-event.selected {
                 color: $primary-color;
             }
         }
+
         #event-admin-commands {
             margin-bottom: 12px;
+
             button {
                 margin-left: 0;
                 @media screen and (max-width: $xs) {
                     margin-left: 16px;
                 }
+
                 i.v-icon {
                     margin-right: 8px;
                     font-size: 20px;
                 }
             }
         }
+
         .no-events-description {
             font-weight: 300;
+            @include defaultPaddingCard();
+
             @media screen and (max-width: $xs) {
                 padding-right: 16px;
                 padding-left: 16px
             }
         }
+
         .show-more-events-button {
             margin-left: 0;
         }

@@ -51,6 +51,7 @@
     }
 
     .profile-image-commitment-information.ely-card {
+        @include defaultPaddingCard();
         @media screen and (max-width: $sm) {
             padding-left: 16px;
             padding-right: 16px;

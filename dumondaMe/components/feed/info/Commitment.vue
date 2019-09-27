@@ -3,7 +3,8 @@
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.commitmentInfo.title')}}</h3>
         <div class="description">{{$t('pages:feeds.commitmentInfo.description')}}</div>
         <div class="open-dialog" @click="openCreateDialog('showCreateCommitmentDialog')">
-            {{$t('pages:feeds.commitmentInfo.create')}}</div>
+            {{$t('pages:feeds.commitmentInfo.create')}}
+        </div>
         <create-commitment-dialog v-if="showCreateCommitmentDialog" @close-dialog="showCreateCommitmentDialog = false">
         </create-commitment-dialog>
         <login-required-dialog v-if="showLoginRequired" @close-dialog="showLoginRequired = false">
@@ -37,12 +38,16 @@
         margin-bottom: 18px;
         font-size: 14px;
         font-weight: 300;
+        @include defaultPaddingCard();
+
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
         }
+
         .description {
             margin-bottom: 8px;
         }
+
         .open-dialog {
             cursor: pointer;
             color: $primary-color;

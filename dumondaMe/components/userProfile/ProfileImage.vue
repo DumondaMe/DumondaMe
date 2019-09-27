@@ -80,9 +80,10 @@
                 }
 
                 img {
-                    border-radius: 6px;
+                    border-radius: 4px;
                     height: 100%;
                     width: 100%;
+                    border: 1px solid $divider;
                 }
             }
             #button-change-image {

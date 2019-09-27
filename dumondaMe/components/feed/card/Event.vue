@@ -41,6 +41,7 @@
         }
         .event-description {
             margin-bottom: 16px;
+            @include defaultPaddingCard();
         }
     }
 </style>

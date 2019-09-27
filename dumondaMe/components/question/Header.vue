@@ -159,10 +159,12 @@
                 max-width: 550px;
                 width: 100%;
                 background-color: #e0f2f1;
+                @include defaultPaddingCard();
             }
 
             #question-title-container {
                 display: flex;
+
                 h1 {
                     margin-bottom: 8px;
                     font-size: 26px;
