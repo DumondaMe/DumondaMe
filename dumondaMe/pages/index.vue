@@ -34,7 +34,6 @@
     import FeedFilter from '~/components/feed/filter/Filter';
     import FeedMobileFilter from '~/components/feed/filter/MobileFilter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
-    import FeedCreateContribution from '~/components/feed/CreateContribution';
     import FeedCommitmentInfo from '~/components/feed/info/Commitment';
     import FeedActivityInfo from '~/components/feed/info/Activity';
     import Cards from '~/components/feed/Cards';
@@ -73,7 +72,7 @@
             store.commit('toolbar/HIDE_BACK_BUTTON');
         },
         components: {
-            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion, FeedCreateContribution,
+            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, UserSuggestions, AboutDumondaMe,
             ConceptInfo, NetworkingInfo, DonationInfo, FabButton, CreateQuestionDialog
         },

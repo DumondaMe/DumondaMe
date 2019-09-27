@@ -62,7 +62,7 @@ module.exports = {
         '@nuxtjs/style-resources'
     ],
     styleResources: {
-        scss: ['~assets/style/_variables.scss']
+        scss: ['~assets/style/_variables.scss', '~assets/style/_mixins.scss']
     },
     loading: {
         color: '#009e97'

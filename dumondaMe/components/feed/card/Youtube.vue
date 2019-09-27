@@ -84,26 +84,38 @@
     .youtube-answer-feed-card {
         .youtube-answer-content {
             margin-bottom: 16px;
+
             .youtube-embed {
                 width: 100%;
+
                 img {
                     width: 100%;
                     cursor: pointer;
-                    border-radius: 4px;
+                    border-top: 1px solid $divider;
+                    border-bottom: 1px solid $divider;
                 }
             }
+
             .youtube-embed.show-embed {
                 margin: 12px auto 0 auto;
             }
         }
+
         .youtube-answer-content.show-embed {
             display: block;
+
             .youtube-embed {
                 margin: 0 auto 12px auto;
             }
+
             .answer-description {
                 margin-left: 0;
             }
+        }
+
+        .answer-description {
+            margin-top: 8px;
+            @include defaultPaddingCard();
         }
     }
 </style>

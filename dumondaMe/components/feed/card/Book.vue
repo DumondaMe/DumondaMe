@@ -81,6 +81,7 @@
             min-height: 90px;
             display: flex;
             margin-bottom: 16px;
+            @include defaultPaddingCard();
 
             .book-preview-image {
                 img {

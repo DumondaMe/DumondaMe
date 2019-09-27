@@ -92,16 +92,21 @@
 <style lang="scss">
     .user-suggestion-container {
         margin-top: 18px;
+        @include defaultPaddingCard();
+
         .user-suggestion-content {
             margin-top: 20px;
         }
+
         .no-user-suggestion {
             font-size: 14px;
             font-weight: 300;
         }
+
         .user-suggestion-loading {
             margin-top: 18px;
         }
+
         .loading-button {
             margin-top: 22px;
             margin-left: 0;

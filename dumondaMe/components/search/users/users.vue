@@ -137,6 +137,8 @@
         .user-container {
             display: flex;
             margin-bottom: 16px;
+            @include defaultPaddingCard();
+
             @media screen and (max-width: $xs) {
                 padding-bottom: 12px;
                 margin-bottom: 0;

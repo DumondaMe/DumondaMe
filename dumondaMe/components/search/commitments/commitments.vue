@@ -40,7 +40,8 @@
             </commitment-card-footer>
         </div>
         <div class="search-commitment-commands">
-            <v-btn outlined color="primary" v-if="hasMoreCommitments" class="has-more-button" @click="getNextCommitments"
+            <v-btn outlined color="primary" v-if="hasMoreCommitments" class="has-more-button"
+                   @click="getNextCommitments"
                    :loading="loadingNextCommitments" :disabled="loadingNextCommitments">
                 {{$t('common:button.showMore')}}
             </v-btn>
@@ -116,6 +117,7 @@
             margin-bottom: 20px;
             border-bottom: 1px solid $divider;
         }
+
         .commitments-title {
             font-size: 22px;
             margin-bottom: 18px;
@@ -123,17 +125,21 @@
                 display: none;
             }
         }
+
         .commitments-container {
             @media screen and (max-width: $xs) {
                 padding-bottom: 8px;
             }
+
             .commitment-content {
                 display: flex;
                 margin-top: 4px;
                 margin-bottom: 8px;
+                @include defaultPaddingCard();
                 @media screen and (max-width: $xs) {
                     margin-bottom: 0;
                 }
+
                 .commitment-image {
                     cursor: pointer;
                     width: 100px;
@@ -142,24 +148,29 @@
                         width: 80px;
                         min-width: 80px;
                     }
+
                     img {
                         width: 100%;
                         border-radius: 6px;
                     }
                 }
             }
+
             .commitment-description {
                 margin-left: 18px;
             }
         }
+
         .commitments-container.last-card-element {
             @media screen and (max-width: $xs) {
                 border-bottom: none;
             }
         }
+
         .search-commitment-commands {
             margin-top: 12px;
             display: flex;
+
             .has-more-button {
                 margin-left: 0;
                 margin-right: 16px;
@@ -168,6 +179,7 @@
                     margin-right: 0;
                 }
             }
+
             .create-commitment-button {
                 margin-left: 0;
                 @media screen and (max-width: $xs) {

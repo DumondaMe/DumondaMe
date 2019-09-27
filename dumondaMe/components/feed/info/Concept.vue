@@ -38,16 +38,21 @@
 
         h3.feed-desktop-sidebar-title {
             margin-bottom: 12px;
+            @include defaultPaddingCard();
         }
 
         .concept-image {
             width: 100%;
-            border-radius: 4px;
             margin-bottom: 8px;
         }
 
         button {
-            margin-left: 0;
+            margin-left: 18px;
+
+            @media screen and (max-width: 700px) {
+                margin-left: 12px;
+
+            }
         }
 
     }

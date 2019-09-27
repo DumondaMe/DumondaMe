@@ -30,11 +30,14 @@
             color: $secondary-color;
             font-size: 16px;
             font-weight: 500;
+            margin-bottom: 6px;
+            @include defaultPaddingCard();
         }
 
         .social-media-description {
             margin-top: 8px;
             font-weight: 300;
+            @include defaultPaddingCard();
         }
 
         .spread-the-word-image {
@@ -44,6 +47,7 @@
 
         .social-media-links-container {
             margin-top: 18px;
+            @include defaultPaddingCard();
 
             .social-media-links-inner-container {
                 margin: 0;

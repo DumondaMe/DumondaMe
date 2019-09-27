@@ -87,6 +87,7 @@
 <style lang="scss">
     #search-questions-container {
         margin-bottom: 38px;
+        @include defaultPaddingCard();
         @media screen and (max-width: $xs) {
             padding-bottom: 12px;
             margin-bottom: 20px;

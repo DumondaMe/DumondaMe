@@ -96,40 +96,49 @@
 <style lang="scss">
     .user-trust-circle-container {
         margin-top: 24px;
+        @include defaultPaddingCard();
         @media screen and (max-width: $sm) {
             margin-top: 12px;
         }
+
         h3 {
             font-size: 16px;
             font-weight: 500;
             line-height: 24px;
             margin-bottom: 4px;
             display: flex;
+
             .trust-circle-title {
                 margin-right: 8px;
             }
+
             .filter-icon-container {
                 display: inline-block;
                 vertical-align: top;
                 line-height: 24px;
                 font-size: 12px;
                 padding-bottom: 2px;
+
                 .filter-icon-left {
                     padding-right: 4px;
                 }
+
                 .filter-icon-right {
                     padding-left: 4px;
                 }
+
                 .filter-icon.v-icon {
                     padding-top: 4px;
                     font-size: 16px;
                     cursor: pointer;
                 }
+
                 .active-filter.filter-icon.v-icon {
                     color: $primary-color;
                 }
             }
         }
+
         .general-user-info {
             font-size: 14px;
             color: $secondary-text;
@@ -141,6 +150,7 @@
         }
 
     }
+
     .user-trust-circle-container.ely-card {
         @media screen and (max-width: $sm) {
             padding-left: 16px;

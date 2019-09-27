@@ -42,21 +42,26 @@
 <style lang="scss">
     .general-info-container {
         margin-top: 18px;
+        @include defaultPaddingCard();
         @media screen and (max-width: $sm) {
             margin-top: 0;
         }
+
         .commitment-info {
             display: block;
             font-size: 14px;
             font-weight: 300;
             margin-bottom: 3px;
             width: 100%;
+
             #topic-container {
                 margin-left: 30px;
+
                 .topic {
                     font-size: 14px;
                 }
             }
+
             .info-icon {
                 margin-top: 2px;
                 float: left;
@@ -64,12 +69,15 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
+
             i.icon-admin.v-icon {
                 color: $success-text;
             }
+
             #region-container {
                 margin-left: 30px;
             }
+
             a {
                 display: block;
                 margin-left: 30px;
@@ -79,6 +87,7 @@
                 text-overflow: ellipsis;
                 text-decoration: none;
             }
+
             a:hover {
                 text-decoration: underline;
             }
@@ -89,12 +98,14 @@
                 margin-top: 2px;
             }
         }
+
         .commitment-info.regions {
             .info-icon {
                 margin-top: 2px;
             }
         }
     }
+
     .general-info-container.ely-card {
         @media screen and (max-width: $sm) {
             padding-left: 16px;
