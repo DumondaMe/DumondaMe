@@ -59,6 +59,11 @@
         margin-right: 18px;
         margin-bottom: 18px;
 
+        @media screen and (max-width: 959px) {
+            margin-right: 9px;
+            margin-left: 9px;
+        }
+
         .topic-image {
             max-width: 100%;
             border-top-left-radius: 4px;

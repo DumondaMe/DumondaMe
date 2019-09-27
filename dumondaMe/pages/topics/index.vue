@@ -40,5 +40,14 @@
         display: flex;
         flex-wrap: wrap;
 
+        @media screen and (max-width: 959px) {
+            width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 300px;
+        }
     }
 </style>
