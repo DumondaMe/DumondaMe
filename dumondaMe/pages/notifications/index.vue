@@ -36,6 +36,8 @@
 
 <style lang="scss">
     #ely-user-logged-in-profile-layout {
+        padding-top: 32px;
+
         #ely-notification-detail {
             max-width: 700px;
         }

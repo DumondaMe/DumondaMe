@@ -166,7 +166,7 @@
 
         @media screen and (max-width: $xs) {
             .feed-card {
-                margin: 0 auto;
+                margin: 4px auto;
             }
         }
     }

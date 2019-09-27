@@ -159,10 +159,6 @@
                 max-width: 550px;
                 width: 100%;
                 background-color: #e0f2f1;
-
-                @media screen and (max-width: $sm) {
-                    background-color: white;
-                }
             }
 
             #question-title-container {

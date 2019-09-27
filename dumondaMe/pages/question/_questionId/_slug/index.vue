@@ -138,9 +138,6 @@
                 @media screen and (min-width: $xs) {
                     display: none;
                 }
-                @media screen and (max-width: $xs) {
-                    border-bottom: none;
-                }
             }
         }
     }

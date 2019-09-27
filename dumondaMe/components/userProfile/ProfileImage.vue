@@ -68,14 +68,17 @@
                 width: 180px;
                 height: 180px;
                 margin-left: 180px;
+                margin-bottom: 12px;
                 @media screen and (max-width: $sm) {
                     width: 180px;
                     margin-left: 0;
                     margin-right: 0;
                 }
                 @media screen and (max-width: $xs) {
-                    margin: 18px 0 18px 16px;
+                    margin-right: auto;
+                    margin-left: auto;
                 }
+
                 img {
                     border-radius: 6px;
                     height: 100%;
@@ -84,7 +87,6 @@
             }
             #button-change-image {
                 width: 180px;
-                margin-top: 12px;
                 margin-left: 180px;
                 margin-right: 0;
                 @media screen and (max-width: $sm) {
@@ -93,7 +95,7 @@
                 }
                 @media screen and (max-width: $xs) {
                     display: block;
-                    margin-left: 16px;
+                    margin-right: auto;
                     margin-bottom: 28px;
                 }
             }

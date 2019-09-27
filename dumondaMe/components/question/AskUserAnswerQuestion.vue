@@ -78,10 +78,6 @@
 
 <style lang="scss">
     .ask-user-answer-question.ely-card {
-        @media screen and (max-width: $xs) {
-            padding: 12px 16px;
-            border-top: 1px solid $divider;
-        }
         margin-bottom: 12px;
 
         h3.ask-user-answer-question-title {

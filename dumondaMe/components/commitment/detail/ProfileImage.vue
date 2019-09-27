@@ -30,7 +30,7 @@
             }
             @media screen and (max-width: $xs) {
                 margin-top: 18px;
-                margin-left: 16px;
+                margin-left: 0px;
             }
             @media screen and (max-width: 340px) {
                 width: 288px;

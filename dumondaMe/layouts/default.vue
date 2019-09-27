@@ -135,23 +135,17 @@
         box-sizing: border-box;
         min-height: 100%;
         height: 100%;
-        @media screen and (max-width: $xs) {
-            background-color: white;
-        }
     }
 
     body {
         #__layout {
             .v-application {
                 background-color: $background-normal;
-                @media screen and (max-width: $xs) {
-                    background-color: white;
-                }
 
                 .container.container--fluid {
                     @media screen and (max-width: $md) {
-                        padding-left: 0;
-                        padding-right: 0;
+                        padding-left: 8px;
+                        padding-right: 8px;
                         padding-top: 0;
                     }
                 }
