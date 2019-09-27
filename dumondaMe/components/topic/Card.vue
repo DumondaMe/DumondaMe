@@ -1,6 +1,6 @@
 <template>
     <div class="dumonda-me-topic-card ely-card">
-        <img :src="topicImage" class="topic-image"/>
+        <img v-lazy="topicImage" class="topic-image"/>
         <h2>{{topic}}</h2>
         <div class="navigation-container">
             <v-tooltip bottom>
@@ -52,7 +52,7 @@
 
 <style lang="scss">
     .dumonda-me-topic-card.ely-card {
-        max-width: 282px;
+        width: 282px;
         padding-right: 0;
         padding-left: 0;
         padding-top: 0;
@@ -65,7 +65,8 @@
         }
 
         .topic-image {
-            max-width: 100%;
+            width: 282px;
+            max-height: 190px;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
         }
