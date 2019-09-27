@@ -10,6 +10,9 @@
             <v-btn @click="$router.push({name: 'index'})" value="home" v-if="!isAuthenticated">
                 <v-icon>mdi-card-bulleted-outline</v-icon>
             </v-btn>
+            <v-btn @click="$router.push({name: 'topics'})" value="topics">
+                <v-icon>mdi-book-outline</v-icon>
+            </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">
                 <v-icon>mdi-rss</v-icon>
             </v-btn>
@@ -63,6 +66,8 @@
                     this.bottomNav = 'notifications';
                 } else if (this.$route.name === 'login') {
                     this.bottomNav = 'login';
+                } else if (this.$route.name === 'topics') {
+                    this.bottomNav = 'topics';
                 } else {
                     this.bottomNav = 'none';
                 }
