@@ -6,10 +6,6 @@
   box-shadow: none;
 
   @media screen and (max-width: 700px) {
-    border-radius: 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
     padding: 12px;
   }
 }
@@ -21,12 +17,14 @@
   padding-right: 22px;
   max-width: 550px;
   @media screen and (max-width: 700px) {
-    margin-bottom: 0;
+    margin-bottom: 8px;
     padding-left: 16px;
     padding-right: 16px;
   }
+
   .description {
     margin-top: 12px;
+
     a {
       text-decoration: none;
       font-size: 16px;
@@ -34,38 +32,47 @@
       color: rgba(0, 0, 0, 0.87);
     }
   }
+
   .feed-card-header {
     margin-bottom: 12px;
     display: flex;
+
     h2.feed-card-title {
       font-size: 16px;
       line-height: 24px;
       margin: 0;
     }
+
     .answer-type {
       font-weight: 500;
       font-size: 16px;
       line-height: 16px;
     }
+
     .card-header-link {
       a {
         font-size: 16px;
         line-height: 16px;
         text-decoration: none;
       }
+
       a:hover {
         text-decoration: underline;
       }
     }
+
     .secondary-text {
       font-size: 12px;
       font-weight: 300;
       color: rgba(0, 0, 0, 0.54);
     }
+
     .v-menu {
       margin-left: 8px;
+
       .v-menu__activator {
         align-items: flex-start;
+
         .v-btn {
           margin: 0;
         }
@@ -75,10 +82,12 @@
 
   .card-footer-feed {
     display: flex;
+
     .footer-icon {
       vertical-align: top;
       display: inline-block;
       height: 40px;
+
       .footer-description {
         display: inline-block;
         vertical-align: top;
@@ -88,75 +97,93 @@
         font-size: 14px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.54);
+
         .footer-link {
           cursor: pointer;
         }
+
         :hover.footer-link {
           text-decoration: underline;
         }
       }
+
       .footer-description.number {
         font-weight: 500;
         font-size: 16px;
         cursor: pointer;
       }
+
       .footer-description.right-number {
         margin-right: 16px;
         margin-left: 6px;
 
       }
+
       .footer-description.left-number {
         margin-right: 6px;
         margin-left: 16px;
       }
+
       .user-icon {
         vertical-align: top;
         cursor: pointer;
         height: 40px;
         width: 40px;
         margin-right: 16px;
+
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
         }
       }
+
       .action-icon {
         margin-top: 6px;
         cursor: pointer;
         color: #009e97;
       }
+
       .action-icon:hover {
         color: #607D8B;
       }
+
       .tooltip-icon {
         margin-top: 6px;
         color: #009e97;
       }
+
       .main-action-icon {
         margin-top: 6px;
         color: #009e97;
       }
+
       .tooltip-icon.comment-icon {
         margin-top: 8px;
       }
     }
+
     .footer-icon.footer-watches-button {
       .not-watching.v-btn {
         background-color: #009e97;
+
         i.v-icon {
           color: white;
         }
       }
+
       .watching.v-btn {
         background-color: #607D8B;
+
         i.v-icon {
           color: white;
         }
       }
+
       button {
         margin: 0;
       }
+
       .footer-description.number-of-watches {
         font-size: 16px;
         font-weight: 500;

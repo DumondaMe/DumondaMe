@@ -58,6 +58,11 @@
 
 <style lang="scss">
     #search-content {
+        padding-top: 18px;
         max-width: 470px;
+
+        @media screen and (max-width: $xs) {
+            padding-top: 32px;
+        }
     }
 </style>
