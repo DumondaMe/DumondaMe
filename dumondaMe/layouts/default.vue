@@ -154,6 +154,10 @@
                     min-height: inherit;
                     height: inherit;
 
+                    @media screen and (max-width: $lg) {
+                        padding-bottom: 32px;
+                    }
+
                     #dumonda-me-inner-content {
                         max-width: 900px;
                         width: 100%;
