@@ -51,8 +51,13 @@
         watchQuery: true,
         async fetch({error, store, route}) {
             try {
-                store.commit('feedFilter/SET_MAIN_FILTER', route.name);
-                if(route.query && route.query.topic) {
+                if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
+                    store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
+                } else {
+                    store.commit('feedFilter/SET_MAIN_FILTER', route.name);
+                }
+
+                if (route.query && route.query.topic) {
                     store.commit('feedFilter/SET_TOPIC_FILTER', route.query.topic);
                 } else {
                     store.commit('feedFilter/DEACTIVATE_TOPIC_FILTER');
@@ -61,7 +66,7 @@
             } catch (e) {
                 if (e && e.request && e.request.res && e.request.res.statusCode) {
                     error({statusCode: e.request.res.statusCode});
-                } else {
+                } else if (e.message === 'Network Error') {
                     error({statusCode: 600});
                 }
             }
