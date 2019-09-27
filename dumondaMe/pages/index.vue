@@ -48,17 +48,16 @@
     import CreateQuestionDialog from '~/components/question/dialog/CreateQuestionDialog.vue'
 
     export default {
+        watchQuery: true,
         async fetch({error, store, route}) {
             try {
-                if (!(route.name === 'index' && !store.state.auth.userIsAuthenticated)) {
-                    if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
-                        store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
-                    } else {
-                        store.commit('feedFilter/SET_MAIN_FILTER', route.name);
-                    }
-
-                    await Promise.all([store.dispatch(`feed/getFeed`)]);
+                store.commit('feedFilter/SET_MAIN_FILTER', route.name);
+                if(route.query && route.query.topic) {
+                    store.commit('feedFilter/SET_TOPIC_FILTER', route.query.topic);
+                } else {
+                    store.commit('feedFilter/DEACTIVATE_TOPIC_FILTER');
                 }
+                await store.dispatch(`feed/getFeed`);
             } catch (e) {
                 if (e && e.request && e.request.res && e.request.res.statusCode) {
                     error({statusCode: e.request.res.statusCode});

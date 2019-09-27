@@ -1039,6 +1039,13 @@
     "description": "Currently we need financial support to pay for working hours, technical infrastructure and external services. For DumondaMe you can transfer contributions of your choice by <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> or use our donation form. If you have an account with DumondaMe, you will regularly be informed about the latest developments in the project in the newsletter. Thank you very much!",
     "stateInfo": "Status is not updated in real time"
   },
+  "topic": {
+    "navigation": {
+      "question": "Show questions about {{-topic}}",
+      "commitment": "View {{-topic}} commitments",
+      "event": "View {{-topic}} events"
+    }
+  },
   "unsubscribe": {
     "title": "Successfully unsubscribed",
     "invitedUser": {

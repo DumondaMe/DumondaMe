@@ -6,7 +6,7 @@ export const state = () => ({
     eventInterestedOnly: false,
     periodOfTimeFilter: 'anyTime',
     regionFilter: null,
-    topicFilter: [{id: 'allTopics'}],
+    topicFilter: ['allTopics'],
     trustCircleFilter: 0
 });
 
@@ -38,8 +38,8 @@ export const getters = {
         if (state.regionFilter && state.regionFilter.id !== 'international' && state.mainFilter !== 'question') {
             params.regions = [state.regionFilter.id]
         }
-        if (!(state.topicFilter.length === 1 && state.topicFilter[0].id === 'allTopics')) {
-            params.topics = state.topicFilter.map(topic => topic.id);
+        if (!(state.topicFilter.length === 1 && state.topicFilter[0] === 'allTopics')) {
+            params.topics = state.topicFilter;
         }
         if (state.trustCircleFilter > 0 && state.mainFilter !== 'event') {
             params.trustCircle = state.trustCircleFilter
@@ -59,7 +59,14 @@ export const mutations = {
         state.regionFilter = regionFilter;
     },
     SET_TOPIC_FILTER(state, topicFilter) {
-        state.topicFilter = topicFilter;
+        if (typeof topicFilter === 'string') {
+            state.topicFilter = [topicFilter];
+        } else if (Array.isArray(topicFilter)) {
+            state.topicFilter = topicFilter;
+        }
+    },
+    DEACTIVATE_TOPIC_FILTER(state) {
+        state.topicFilter = ['allTopics'];
     },
     INCREASE_TRUST_CIRCLE_FILTER(state) {
         if (state.trustCircleFilter < 4) {

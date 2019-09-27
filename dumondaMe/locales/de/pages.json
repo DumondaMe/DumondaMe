@@ -1042,6 +1042,13 @@
     "description": "Aktuell brauchen wir finanzielle Unterstützung um Arbeitsstunden, die technische Infrastruktur und externe Dienstleistungen zu bezahlen. Du kannst für DumondaMe Beiträge in frei wählbarer Höhe per <a href=\"https://drive.google.com/open?id=1KHvHFtAbPWnwnrViKYhUzIw3-vIdqig3\" target=\"_blank\" rel=\"noopener\">E-Banking</a> überweisen oder du nutzt ganz unkompliziert unser Spendenformular. Hast du einen Account bei DumondaMe, erfährst du im Newsletter regelmässig von den neusten Entwicklungen im Projekt. Herzlichen Dank!",
     "stateInfo": "Der Status wird nicht in Echtzeit aktualisiert"
   },
+  "topic": {
+    "navigation": {
+      "question": "Fragen zum Thema {{-topic}} anzeigen",
+      "commitment": "Engagements zum Thema {{-topic}} anzeigen",
+      "event": "Veranstaltungen zum Thema {{-topic}} anzeigen"
+    }
+  },
   "unsubscribe": {
     "title": "Erfolgreich abbestellt",
     "invitedUser": {

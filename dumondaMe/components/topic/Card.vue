@@ -3,12 +3,33 @@
         <img :src="topicImage" class="topic-image"/>
         <h2>{{topic}}</h2>
         <div class="navigation-container">
-            <v-btn small outlined fab color="primary">
-                <v-icon size="18">mdi-help</v-icon>
-            </v-btn>
-            <v-btn small outlined fab color="primary">
-                <v-icon size="18">mdi-human-handsup</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" small outlined fab color="primary"
+                           @click="$router.push({name: 'question', query: {topic: [topicId]}})">
+                        <v-icon size="18">mdi-help</v-icon>
+                    </v-btn>
+                </template>
+                <span>{{$t('pages:topic.navigation.question', {topic: topic})}}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" small outlined fab color="primary"
+                           @click="$router.push({name: 'commitment', query: {topic: [topicId]}})">
+                        <v-icon size="18">mdi-human-handsup</v-icon>
+                    </v-btn>
+                </template>
+                <span>{{$t('pages:topic.navigation.commitment', {topic: topic})}}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" small outlined fab color="primary"
+                           @click="$router.push({name: 'event', query: {topic: [topicId]}})">
+                        <v-icon size="18">mdi-calendar</v-icon>
+                    </v-btn>
+                </template>
+                <span>{{$t('pages:topic.navigation.event', {topic: topic})}}</span>
+            </v-tooltip>
         </div>
     </div>
 </template>
