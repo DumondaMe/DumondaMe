@@ -14,7 +14,7 @@
             } catch (e) {
                 if (e && e.request && e.request.res && e.request.res.statusCode) {
                     error({statusCode: e.request.res.statusCode});
-                } else {
+                } else if (e.message === 'Network Error') {
                     error({statusCode: 600});
                 }
             }
