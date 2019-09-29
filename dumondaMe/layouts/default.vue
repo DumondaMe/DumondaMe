@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="isNotPublicStartPage" app>
+        <v-navigation-drawer v-show="isNotPublicStartPage" app>
             <dumonda-me-navigation-drawer @show-create-question-dialog="openAskQuestionDialog"
                                           @show-create-answer-dialog="openCreateAnswerDialog">
             </dumonda-me-navigation-drawer>
