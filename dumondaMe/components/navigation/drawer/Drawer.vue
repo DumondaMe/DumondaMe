@@ -87,6 +87,8 @@
             .v-btn__content {
                 width: 200px;
                 justify-content: left;
+                font-size: 16px;
+                letter-spacing: 0.5px;
 
                 .v-icon {
                     margin-left: -10px;
