@@ -1,16 +1,8 @@
 <template>
     <div id="dumonda-me-topics">
-        <card topic="Bildung & Lernen" :topic-id="'Education'"></card>
-        <card topic="Gesellschaft" :topic-id="'SocialDevelopment'"></card>
-        <card topic="Gesundheit" :topic-id="'Health'"></card>
-        <card topic="Konsum & Suffizienz" :topic-id="'ConsumptionSufficiency'"></card>
-        <card topic="Kunst & Kultur" :topic-id="'ArtCulture'"></card>
-        <card topic="Landwirtschaft & Lebensmittel" :topic-id="'FoodAgriculture'"></card>
-        <card topic="Spiritualität & Bewusstsein" :topic-id="'SpiritualityConsciousness'"></card>
-        <card topic="Technologie" :topic-id="'Technology'"></card>
-        <card topic="Umwelt" :topic-id="'Environment'"></card>
-        <card topic="Wirtschaft & Finanzen" :topic-id="'EconomyFinances'"></card>
-        <card topic="Wissenschaft" :topic-id="'Science'"></card>
+        <card v-for="topic in topics" :topic="topic.description" :topic-id="topic.id" :topic-image="topic.image"
+              :key="topic.id">
+        </card>
     </div>
 </template>
 
@@ -18,17 +10,18 @@
     import Card from '~/components/topic/Card';
 
     export default {
-        async fetch({store, error}) {
-            /*try {
-                await store.dispatch(`setting/getSetting`);
+        async asyncData({app, error, store}) {
+            try {
+                let topics = await app.$axios.$get('topic',
+                    {params: {language: store.state.i18n.language, onlyMainTopics: true}});
+                return {topics};
             } catch (e) {
                 if (e && e.request && e.request.res && e.request.res.statusCode) {
                     error({statusCode: e.request.res.statusCode});
-                } else {
+                } else if (e.message === 'Network Error') {
                     error({statusCode: 600});
                 }
             }
-            store.commit('toolbar/SHOW_BACK_BUTTON');*/
         },
         components: {Card}
     }

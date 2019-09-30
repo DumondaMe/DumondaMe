@@ -36,17 +36,7 @@
 
 <script>
     export default {
-        props: ['topic', 'topicId'],
-        data() {
-            return {}
-        },
-        computed: {
-            topicImage() {
-                return `https://s3.eu-central-1.amazonaws.com/localtest.dumonda.me/topic/${this.topicId}/preview.jpg`;
-            }
-        },
-        components: {},
-        methods: {}
+        props: ['topic', 'topicId', 'topicImage']
     }
 </script>
 
