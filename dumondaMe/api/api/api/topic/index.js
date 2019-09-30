@@ -11,14 +11,15 @@ const schemaGetTopics = {
     additionalProperties: false,
     required: ['language'],
     properties: {
-        language: schemaLanguage.language
+        language: schemaLanguage.language,
+        onlyMainTopics: {type: 'boolean'}
     }
 };
 
 module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetTopics);
-        let response = await topic.getTopics(params.language);
+        let response = await topic.getTopics(params.language, params.onlyMainTopics);
         res.status(200).json(response);
     }));
 };
