@@ -1,7 +1,7 @@
 <template>
     <div id="dumonda-me-topics">
-        <card v-for="topic in topics" :topic="topic.description" :topic-id="topic.id" :topic-image="topic.image"
-              :key="topic.id">
+        <card v-for="topic in topics" :topic-id="topic.id" :topic-description="topic.description"
+              :topic-preview="topic.image" :topic-thumbnail="topic.thumbnail" :key="topic.id">
         </card>
     </div>
 </template>

@@ -6,11 +6,9 @@ let initRegionFilter = function (commit, description) {
     commit('feedFilter/SET_REGION_FILTER', {id: 'international', description})
 };
 
-let initTopicFilter = function (commit, user) {
-    if (user && user.topics && user.topics.length > 0) {
-        commit('feedFilter/SET_TOPIC_FILTER', user.topics.map(function (topicId) {
-            return {id: topicId}
-        }));
+let initTopicFilter = async function (dispatch, commit, query) {
+    if (query && query.topic) {
+        await dispatch('feedFilter/getTopicInfos', query.topic);
     }
 };
 
@@ -39,13 +37,13 @@ let initDonation = function (commit) {
 
 export const actions = {
 
-    nuxtServerInit({commit}, {req, app, store}) {
+    async nuxtServerInit({dispatch, commit}, {req, app, store}) {
         setUserAuthentication(commit, req);
         if (req.isAuthenticated()) {
-            commit('feedFilter/SET_MAIN_FILTER', 'activity')
+            commit('feedFilter/SET_SELECTED_FEED', 'activity')
         }
         initRegionFilter(commit, app.i18n.i18next.t('common:international'));
-        initTopicFilter(commit, req.user);
+        await initTopicFilter(dispatch, commit, req.query);
         initRecaptcha(commit);
         initUser(commit, req, store.state.i18n.language);
         initDonation(commit);

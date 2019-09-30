@@ -49,15 +49,9 @@
         async fetch({error, store, route}) {
             try {
                 if (route.name === 'index' && store.state.auth.userIsAuthenticated) {
-                    store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
+                    store.commit('feedFilter/SET_SELECTED_FEED', 'activity');
                 } else {
-                    store.commit('feedFilter/SET_MAIN_FILTER', route.name);
-                }
-
-                if (route.query && route.query.topic) {
-                    store.commit('feedFilter/SET_TOPIC_FILTER', route.query.topic);
-                } else {
-                    store.commit('feedFilter/DEACTIVATE_TOPIC_FILTER');
+                    store.commit('feedFilter/SET_SELECTED_FEED', route.name);
                 }
                 await store.dispatch(`feed/getFeed`);
             } catch (e) {
@@ -113,19 +107,26 @@
             },
             isGerman() {
                 return this.$store.state.i18n.language === 'de';
+            },
+            filterIsActive() {
+                return this.$store.state.feedFilter.filterActive
             }
         },
         methods: {
             async loadNext() {
                 try {
                     this.loadNextRunning = true;
-                    await
-                        this.$store.dispatch(`feed/loadNextFeedElements`,
-                            {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
+                    await this.$store.dispatch(`feed/loadNextFeedElements`,
+                        {isAuthenticated: this.$store.state.auth.userIsAuthenticated});
                     this.loadNextRunning = false;
                 } catch (error) {
                     this.loadNextRunning = false;
                 }
+            }
+        },
+        watch: {
+            async filterIsActive() {
+                await this.$store.dispatch(`feed/getFeed`);
             }
         }
     }

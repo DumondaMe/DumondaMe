@@ -13,11 +13,14 @@
         <v-divider></v-divider>
         <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
-                      :nav-text="$t('common:navigation.activities')"></nav-item>
-            <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"></nav-item>
-            <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')">
+                      :nav-text="$t('common:navigation.activities')" :params="filterParams"></nav-item>
+            <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"
+                      :params="filterParams"></nav-item>
+            <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')"
+                      :params="filterParams">
             </nav-item>
-            <nav-item nuxt-link="event" icon="mdi-calendar" :nav-text="$t('common:navigation.events')"></nav-item>
+            <nav-item nuxt-link="event" icon="mdi-calendar" :nav-text="$t('common:navigation.events')"
+                      :params="filterParams"></nav-item>
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
@@ -48,6 +51,11 @@
             },
             logo() {
                 return `${process.env.staticUrl}/img/logo_blue.png`;
+            },
+            filterParams() {
+                if (this.$store.state.feedFilter.filterActive) {
+                    return {topic: this.$store.state.feedFilter.topicFilter.map(topic => topic.id)};
+                }
             },
             ...mapGetters({
                 numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'

@@ -1,63 +1,61 @@
 export const state = () => ({
-    mainFilter: 'question',
+    selectedFeedName: 'question',
+    filterActive: true,
+    isExpanded: true,
     activityTypeFilter: 'selectAll',
     questionOrderFilter: 'mostPopular',
     commitmentOrderFilter: 'mostPopular',
     eventInterestedOnly: false,
     periodOfTimeFilter: 'anyTime',
     regionFilter: null,
-    topicFilter: ['allTopics'],
+    topicFilter: [],
     trustCircleFilter: 0
 });
 
 export const getters = {
     isSubFilterActive: state => {
-        let isActive = false;
-        if (!(state.topicFilter.length === 1 && state.topicFilter[0] === 'allTopics')) {
-            isActive = true;
-        }
-        return isActive;
+        return state.topicFilter.length > 0;
     },
     getFilterParams: state => {
         let params = {};
-        if (state.mainFilter === 'activity') {
+        if (state.selectedFeedName === 'activity') {
             if (state.activityTypeFilter !== 'selectAll') {
                 params.typeFilter = state.activityTypeFilter;
             }
         }
-        if (state.mainFilter === 'question') {
+        if (state.selectedFeedName === 'question') {
             params.order = state.questionOrderFilter;
             if (params.order === 'mostPopular' && state.periodOfTimeFilter !== 'anyTime') {
                 params.periodOfTime = state.periodOfTimeFilter;
             }
         }
-        if (state.mainFilter === 'commitment') {
+        if (state.selectedFeedName === 'commitment') {
             params.order = state.commitmentOrderFilter;
             if (params.order === 'mostPopular' && state.periodOfTimeFilter !== 'anyTime') {
                 params.periodOfTime = state.periodOfTimeFilter;
             }
         }
-        if (state.mainFilter === 'event') {
-            if (state.eventInterestedOnly) {
-                params.interestedOnly = true;
+
+        if (state.filterActive) {
+            if (state.selectedFeedName === 'event') {
+                if (state.eventInterestedOnly) {
+                    params.interestedOnly = true;
+                }
             }
-        }
-        if (state.regionFilter && state.regionFilter.id !== 'international' && state.mainFilter !== 'question') {
-            params.regions = [state.regionFilter.id]
-        }
-        if (!(state.topicFilter.length === 1 && state.topicFilter[0] === 'allTopics')) {
-            params.topics = state.topicFilter;
-        }
-        if (state.trustCircleFilter > 0 && state.mainFilter !== 'event') {
-            params.trustCircle = state.trustCircleFilter
+            if (state.topicFilter.length > 0) {
+                params.topics = state.topicFilter.map(topic => topic.id);
+            }
+            if (state.trustCircleFilter > 0 && state.selectedFeedName !== 'event') {
+                params.trustCircle = state.trustCircleFilter
+            }
         }
         return params;
     }
 };
 
 export const mutations = {
-    SET_MAIN_FILTER(state, filter) {
-        state.mainFilter = filter;
+    SET_SELECTED_FEED(state, filter) {
+        state.selectedFeedName = filter;
     },
     SET_ACTIVITY_TYPE_FILTER(state, filter) {
         state.activityTypeFilter = filter;
@@ -66,14 +64,13 @@ export const mutations = {
         state.regionFilter = regionFilter;
     },
     SET_TOPIC_FILTER(state, topicFilter) {
-        if (typeof topicFilter === 'string') {
-            state.topicFilter = [topicFilter];
-        } else if (Array.isArray(topicFilter)) {
-            state.topicFilter = topicFilter;
-        }
+        state.topicFilter = topicFilter;
     },
-    DEACTIVATE_TOPIC_FILTER(state) {
-        state.topicFilter = ['allTopics'];
+    SET_FILTER_ACTIVE(state, filterActive) {
+        state.filterActive = filterActive;
+    },
+    SET_FILTER_EXPANDED(state, isExpanded) {
+        state.isExpanded = isExpanded;
     },
     INCREASE_TRUST_CIRCLE_FILTER(state) {
         if (state.trustCircleFilter < 4) {
@@ -101,8 +98,8 @@ export const mutations = {
         state.eventInterestedOnly = eventInterestedOnly;
     },
     SET_FILTER_TO_PUBLIC_STATE(state) {
-        if (state.mainFilter === 'activity') {
-            state.mainFilter = 'question';
+        if (state.selectedFeedName === 'activity') {
+            state.selectedFeedName = 'question';
         }
         if (state.questionOrderFilter !== 'mostPopular' && state.questionOrderFilter !== 'newest') {
             state.questionOrderFilter = 'mostPopular';
@@ -116,4 +113,13 @@ export const mutations = {
 };
 
 
-export const actions = {};
+export const actions = {
+    async getTopicInfos({rootState, state, commit}, topics) {
+        if (typeof topics === 'string') {
+            topics = [topics];
+        }
+        let response = await this.$axios.$get('/topic/info',
+            {params: {topicIds: topics, language: rootState.i18n.language}});
+        commit('SET_TOPIC_FILTER', response);
+    }
+};

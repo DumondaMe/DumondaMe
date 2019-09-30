@@ -54,7 +54,7 @@
                         password: this.formPassword
                     });
                     this.$store.dispatch('notification/startCheckNotificationChanged');
-                    this.$store.commit('feedFilter/SET_MAIN_FILTER', 'activity');
+                    this.$store.commit('feedFilter/SET_SELECTED_FEED', 'activity');
                     if (!this.fromRoute || this.fromRoute.name === null ||
                         this.fromRoute.name === 'login-passwordReset' || this.fromRoute.name === 'commitment' ||
                         this.fromRoute.name === 'event') {

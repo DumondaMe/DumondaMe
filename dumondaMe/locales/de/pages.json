@@ -57,15 +57,8 @@
   },
   "feeds": {
     "filter": {
-      "tooltip": {
-        "activity": "Aktivitäten",
-        "activityPublic": "Du musst dich einloggen um die Aktivitäten zu sehen",
-        "question": "Fragen",
-        "commitment": "Engagements",
-        "event": "Veranstaltungen",
-        "trustCircle": "Trust Circle",
-        "topic": "Themenbereiche"
-      },
+      "activated": "Filter ist aktiv",
+      "deactivated": "Filter ist deaktiviert",
       "post": {
         "all": "Alle Beiträge",
         "onlyVideo": "Videos",
