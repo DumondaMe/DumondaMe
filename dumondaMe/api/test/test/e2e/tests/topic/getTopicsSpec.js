@@ -43,29 +43,36 @@ describe('Get topics', function () {
         res.body.length.should.equals(3);
         res.body[0].id.should.equals('topic1');
         res.body[0].description.should.equals('topic1De');
+        res.body[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic1/preview.jpg`);
         res.body[0].subItems.length.should.equals(2);
         res.body[0].subItems[0].id.should.equals('topic11');
         res.body[0].subItems[0].parentId.should.equals('topic1');
         res.body[0].subItems[0].description.should.equals('topic11De');
+        res.body[0].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic11/preview.jpg`);
         res.body[0].subItems[0].subItems.length.should.equals(0);
         res.body[0].subItems[1].id.should.equals('topic12');
         res.body[0].subItems[1].parentId.should.equals('topic1');
         res.body[0].subItems[1].description.should.equals('topic12De');
+        res.body[0].subItems[1].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic12/preview.jpg`);
         res.body[0].subItems[1].subItems.length.should.equals(1);
         res.body[0].subItems[1].subItems[0].id.should.equals('topic121');
         res.body[0].subItems[1].subItems[0].parentId.should.equals('topic12');
         res.body[0].subItems[1].subItems[0].description.should.equals('topic121De');
+        res.body[0].subItems[1].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic121/preview.jpg`);
 
         res.body[1].id.should.equals('topic2');
         res.body[1].description.should.equals('topic2De');
+        res.body[1].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic2/preview.jpg`);
         res.body[1].subItems.length.should.equals(1);
         res.body[1].subItems[0].id.should.equals('topic21');
         res.body[1].subItems[0].parentId.should.equals('topic2');
         res.body[1].subItems[0].description.should.equals('topic21De');
+        res.body[1].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic21/preview.jpg`);
         res.body[1].subItems[0].subItems.length.should.equals(0);
 
         res.body[2].id.should.equals('topic3');
         res.body[2].description.should.equals('topic3De');
+        res.body[2].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic3/preview.jpg`);
         res.body[2].subItems.length.should.equals(0);
     });
 
@@ -76,25 +83,53 @@ describe('Get topics', function () {
         res.body.length.should.equals(3);
         res.body[0].id.should.equals('topic1');
         res.body[0].description.should.equals('topic1En');
+        res.body[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic1/preview.jpg`);
         res.body[0].subItems.length.should.equals(2);
         res.body[0].subItems[0].id.should.equals('topic11');
         res.body[0].subItems[0].description.should.equals('topic11En');
+        res.body[0].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic11/preview.jpg`);
         res.body[0].subItems[0].subItems.length.should.equals(0);
         res.body[0].subItems[1].id.should.equals('topic12');
         res.body[0].subItems[1].description.should.equals('topic12En');
+        res.body[0].subItems[1].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic12/preview.jpg`);
         res.body[0].subItems[1].subItems.length.should.equals(1);
         res.body[0].subItems[1].subItems[0].id.should.equals('topic121');
         res.body[0].subItems[1].subItems[0].description.should.equals('topic121En');
+        res.body[0].subItems[1].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic121/preview.jpg`);
 
         res.body[1].id.should.equals('topic2');
         res.body[1].description.should.equals('topic2En');
+        res.body[1].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic2/preview.jpg`);
         res.body[1].subItems.length.should.equals(1);
         res.body[1].subItems[0].id.should.equals('topic21');
         res.body[1].subItems[0].description.should.equals('topic21En');
+        res.body[1].subItems[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic21/preview.jpg`);
         res.body[1].subItems[0].subItems.length.should.equals(0);
 
         res.body[2].id.should.equals('topic3');
         res.body[2].description.should.equals('topic3En');
+        res.body[2].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic3/preview.jpg`);
+        res.body[2].subItems.length.should.equals(0);
+    });
+
+    it('Get only main topics', async function () {
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/topic', {language: 'de', onlyMainTopics: true});
+        res.status.should.equal(200);
+        res.body.length.should.equals(3);
+        res.body[0].id.should.equals('topic1');
+        res.body[0].description.should.equals('topic1De');
+        res.body[0].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic1/preview.jpg`);
+        res.body[0].subItems.length.should.equals(0);
+
+        res.body[1].id.should.equals('topic2');
+        res.body[1].description.should.equals('topic2De');
+        res.body[1].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic2/preview.jpg`);
+        res.body[1].subItems.length.should.equals(0);
+
+        res.body[2].id.should.equals('topic3');
+        res.body[2].description.should.equals('topic3De');
+        res.body[2].image.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/topic/topic3/preview.jpg`);
         res.body[2].subItems.length.should.equals(0);
     });
 });
