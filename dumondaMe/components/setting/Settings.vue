@@ -128,6 +128,7 @@
 
         #setting-content-container {
             width: 100%;
+            @include defaultPaddingCard();
             @media screen and (max-width: $xs) {
                 display: none;
             }
