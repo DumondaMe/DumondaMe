@@ -11,6 +11,13 @@ export const state = () => ({
 });
 
 export const getters = {
+    isSubFilterActive: state => {
+        let isActive = false;
+        if (!(state.topicFilter.length === 1 && state.topicFilter[0] === 'allTopics')) {
+            isActive = true;
+        }
+        return isActive;
+    },
     getFilterParams: state => {
         let params = {};
         if (state.mainFilter === 'activity') {
