@@ -1,5 +1,6 @@
 export const state = () => ({
     feed: [],
+    activeFeedFilterDescription: {},
     page: 0,
     timestamp: Number.MAX_SAFE_INTEGER,
     loading: false,
@@ -25,6 +26,9 @@ export const mutations = {
     },
     SET_LOADING(state, loading) {
         state.loading = loading;
+    },
+    SET_ACTIVE_FEED_FILTER_DESCRIPTION(state, activeFeedFilterDescription) {
+        state.activeFeedFilterDescription = activeFeedFilterDescription;
     },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.feed.find((element) => element.answerId === answerId);
@@ -94,12 +98,12 @@ const addSocialMediaInfoToResponse = function (feed) {
     }
 };
 
-const getFeedRequest = async function (commit, isAuthenticated, params, mainFilter, commitCommand, $axios) {
+const getFeedRequest = async function (commit, isAuthenticated, params, selectedFeedName, commitCommand, $axios) {
     let response;
     if (isAuthenticated) {
-        response = await $axios.$get(`/user/feed/${mainFilter}`, params);
+        response = await $axios.$get(`/user/feed/${selectedFeedName}`, params);
     } else {
-        response = await $axios.$get(`/feed/${mainFilter}`, params);
+        response = await $axios.$get(`/feed/${selectedFeedName}`, params);
     }
     commit('SET_PAGE', params.params.page);
     if (params.params.page === 0) {
@@ -116,7 +120,7 @@ export const actions = {
             let params = {params: {page: 0, guiLanguage: rootState.i18n.language, languages: rootState.i18n.languages}};
             params.params = Object.assign(params.params, rootGetters['feedFilter/getFilterParams']);
             let response = await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params,
-                rootState.feedFilter.mainFilter, 'SET_FEED', this.$axios);
+                rootState.feedFilter.selectedFeedName, 'SET_FEED', this.$axios);
             commit('SET_TIMESTAMP', response.timestamp);
         } finally {
             commit('SET_LOADING', false);
@@ -129,7 +133,7 @@ export const actions = {
             }
         };
         params.params = Object.assign(params.params, rootGetters['feedFilter/getFilterParams']);
-        await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params, rootState.feedFilter.mainFilter,
+        await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params, rootState.feedFilter.selectedFeedName,
             'ADD_TO_FEED', this.$axios);
     }
 };

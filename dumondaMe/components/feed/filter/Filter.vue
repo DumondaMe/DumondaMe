@@ -8,24 +8,43 @@
                 <v-icon v-else>mdi-chevron-up</v-icon>
             </v-btn>
         </div>
+        <div class="filter-detail-content" v-show="activated && expanded">
+            <topic-filter-content :topics="topicFeedFilter"></topic-filter-content>
+        </div>
     </div>
 </template>
 
 <script>
+    import TopicFilterContent from './Topic';
+
     export default {
-        components: {},
+        components: {TopicFilterContent},
         computed: {
             filterText() {
                 if (this.activated) {
-                    return 'Filter ist aktiv'
+                    return this.$t('pages:feeds.filter.activated');
                 }
-                return 'Filter ist deaktiviert'
+                return this.$t('pages:feeds.filter.deactivated');
+            },
+            topicFeedFilter() {
+                return this.$store.state.feedFilter.topicFilter
             }
         },
         data: function () {
-            return {activated: this.$store.getters['feedFilter/isSubFilterActive'], expanded: false}
+            return {
+                activated: this.$store.getters['feedFilter/isSubFilterActive'] &&
+                    this.$store.state.feedFilter.filterActive,
+                expanded: this.$store.state.feedFilter.isExpanded
+            }
         },
-        methods: {}
+        watch: {
+            activated(newFilterState) {
+                this.$store.commit('feedFilter/SET_FILTER_ACTIVE', newFilterState);
+            },
+            expanded(newExpandState) {
+                this.$store.commit('feedFilter/SET_FILTER_EXPANDED', newExpandState);
+            }
+        }
     }
 </script>
 
@@ -33,7 +52,13 @@
     .feed-filter.ely-card {
         padding-top: 0;
         padding-bottom: 0;
-        margin-bottom: 8px;
+        margin-bottom: 18px;
+        max-width: 550px;
+        background-color: #e0f2f1;
+
+        @media screen and (max-width: $xs) {
+            margin: 8px auto;
+        }
 
         .filter-header {
             display: flex;
@@ -44,6 +69,11 @@
 
                 .v-input__slot {
                     margin-bottom: 0;
+
+                    .v-label {
+                        font-weight: 500;
+                        color: $secondary-text;
+                    }
                 }
             }
 
@@ -54,6 +84,12 @@
 
         .filter-header.activated {
             border-bottom: 1px solid $divider;
+        }
+
+        .filter-detail-content {
+            @include defaultPaddingCard();
+            padding-top: 12px;
+            padding-bottom: 4px;
         }
     }
 </style>

@@ -1,20 +1,29 @@
 <template>
-    <nuxt-link class="drawer-navigation-item" :to="{name: nuxtLink}" :class="{'is-actual-route': isActualRoute}">
+    <div class="drawer-navigation-item" @click="navigate" :class="{'is-actual-route': isActualRoute}">
         <v-badge v-if="badgeCount > 0" overlap color="secondary">
             <template v-slot:badge> {{badgeCount}}</template>
             <v-icon>{{icon}}</v-icon>
         </v-badge>
         <v-icon v-else>{{icon}}</v-icon>
         <span class="navigation-text">{{navText}}</span>
-    </nuxt-link>
+    </div>
 </template>
 
 <script>
     export default {
-        props: ['nuxtLink', 'icon', 'navText', 'badgeCount'],
+        props: ['nuxtLink', 'icon', 'navText', 'badgeCount', 'params'],
         computed: {
             isActualRoute() {
                 return this.nuxtLink === this.$route.name;
+            }
+        },
+        methods: {
+            navigate() {
+                if (this.params) {
+                    this.$router.push({name: this.nuxtLink, query: this.params})
+                } else {
+                    this.$router.push({name: this.nuxtLink})
+                }
             }
         }
     }
@@ -37,6 +46,7 @@
                 line-height: 24px;
                 height: 24px;
                 letter-spacing: 0.5px;
+                color: $secondary-text;
             }
         }
 

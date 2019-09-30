@@ -9,6 +9,7 @@ const getTopicResponse = function (topics) {
     for (let i = 0; i < topics.length; i++) {
         map[topics[i].id] = i;
         topics[i].image = cdn.getPublicUrl(`topic/${topics[i].id}/preview.jpg`);
+        topics[i].thumbnail = cdn.getPublicUrl(`topic/${topics[i].id}/thumbnail.jpg`);
         topics[i].subItems = [];
         delete topics[i].isSubItem;
     }

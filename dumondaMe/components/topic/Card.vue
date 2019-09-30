@@ -1,34 +1,34 @@
 <template>
     <div class="dumonda-me-topic-card ely-card">
-        <img v-lazy="topicImage" class="topic-image"/>
-        <h2>{{topic}}</h2>
+        <img v-lazy="topicPreview" class="topic-image"/>
+        <h2>{{topicDescription}}</h2>
         <div class="navigation-container">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
-                           @click="$router.push({name: 'question', query: {topic: [topicId]}})">
+                           @click="navigate('question')">
                         <v-icon size="18">mdi-help</v-icon>
                     </v-btn>
                 </template>
-                <span>{{$t('pages:topic.navigation.question', {topic: topic})}}</span>
+                <span>{{$t('pages:topic.navigation.question', {topic: topicDescription})}}</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
-                           @click="$router.push({name: 'commitment', query: {topic: [topicId]}})">
+                           @click="navigate('commitment')">
                         <v-icon size="18">mdi-human-handsup</v-icon>
                     </v-btn>
                 </template>
-                <span>{{$t('pages:topic.navigation.commitment', {topic: topic})}}</span>
+                <span>{{$t('pages:topic.navigation.commitment', {topic: topicDescription})}}</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
-                           @click="$router.push({name: 'event', query: {topic: [topicId]}})">
+                           @click="navigate('event')">
                         <v-icon size="18">mdi-calendar</v-icon>
                     </v-btn>
                 </template>
-                <span>{{$t('pages:topic.navigation.event', {topic: topic})}}</span>
+                <span>{{$t('pages:topic.navigation.event', {topic: topicDescription})}}</span>
             </v-tooltip>
         </div>
     </div>
@@ -36,7 +36,19 @@
 
 <script>
     export default {
-        props: ['topic', 'topicId', 'topicImage']
+        props: ['topicId', 'topicDescription', 'topicPreview', 'topicThumbnail'],
+        methods: {
+            navigate(destination) {
+                this.$store.commit('feedFilter/SET_TOPIC_FILTER', [{
+                    id: this.topicId,
+                    description: this.topicDescription,
+                    image: this.topicPreview,
+                    thumbnail: this.topicThumbnail
+                }]);
+                this.$store.commit('feedFilter/SET_FILTER_ACTIVE', true);
+                this.$router.push({name: destination, query: {topic: [this.topicId]}})
+            }
+        }
     }
 </script>
 
