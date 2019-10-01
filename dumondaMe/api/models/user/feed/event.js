@@ -23,8 +23,9 @@ const getTopicFilter = function (topics) {
     if (topics) {
         return db.cypher().optionalMatch(`(commitment)<-[:TOPIC]-(topic:Topic)`)
             .optionalMatch(`(topic)<-[:SUB_TOPIC*]-(nextTopic:Topic)`)
-            .with(`event, commitment, topic, collect(nextTopic) AS nextTopic`)
+            .with(`DISTINCT event, commitment, topic, collect(nextTopic) AS nextTopic`)
             .where(`topic.topicId IN {topics} OR ANY (t IN nextTopic WHERE t.topicId IN {topics})`)
+            .with(`DISTINCT event, commitment`)
             .getCommandString();
     }
     return ''

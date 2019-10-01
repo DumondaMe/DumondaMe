@@ -26,10 +26,13 @@ describe('Get up coming events', function () {
         dbDsl.createSubTopic({
             parentTopicId: 'topic21', topicId: 'topic221', descriptionDe: 'topic221De', descriptionEn: 'topic221En'
         });
+        dbDsl.createSubTopic({
+            parentTopicId: 'topic21', topicId: 'topic222', descriptionDe: 'topic222De', descriptionEn: 'topic222En'
+        });
         dbDsl.createMainTopic({topicId: 'topic3', descriptionDe: 'topic3De', descriptionEn: 'topic3En'});
 
         dbDsl.createCommitment('100', {
-            adminId: '2', topics: ['topic221'], language: 'de', created: 777, title: 'Test Commitment',
+            adminId: '2', topics: ['topic221', 'topic222'], language: 'de', created: 777, title: 'Test Commitment',
             modified: 606, website: 'https://www.example.org/', regions: ['region-2-1']
         });
         dbDsl.createCommitment('101', {
