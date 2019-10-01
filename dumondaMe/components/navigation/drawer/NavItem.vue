@@ -62,7 +62,6 @@
         }
 
         .drawer-navigation-item.is-actual-route {
-            background-color: #e0f2f1;
             border-radius: 4px;
 
             a {
