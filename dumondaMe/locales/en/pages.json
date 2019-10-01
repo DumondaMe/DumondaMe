@@ -109,18 +109,17 @@
       "onlyInterestedEvent": {
         "activated": "Show only events of engagements you are interested in (Enabled)",
         "deactivated": "Show only events of engagements you are interested in (Disabled)"
-      },
-      "noResults": "No posts were found with these filter settings."
+      }
     },
     "card": {
       "answer": "{{count}} Answer",
       "answer_plural": "{{count}} Answers"
     },
     "empty": {
-      "descriptionAllFilter": "Here is a brief overview of the most important concepts of DumondaMe.",
-      "descriptionQuestionFilter": "So far, no one from your Trust Circle has asked a question or answered questions.",
-      "descriptionCommitmentFilter": "No person from your Trust Circle has created or is interested in a commitment yet.",
-      "descriptionEventFilter": "At the moment there are no events of commitments that interest you."
+      "descriptionActivityFilter": "No activities have taken place yet.",
+      "descriptionQuestionFilter": "No question has yet been asked on this subject. Be the first person to ask a question.",
+      "descriptionCommitmentFilter": "No commitment was found with these filter settings.",
+      "descriptionEventFilter": "Unfortunately there are no events taking place at the moment."
     },
     "createContribution": {
       "button": "Create a post"

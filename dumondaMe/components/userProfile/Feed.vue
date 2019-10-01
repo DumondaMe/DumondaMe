@@ -76,7 +76,7 @@
                 </question-card>
             </div>
         </div>
-        <div v-else class="user-feed-no-content-message">
+        <div v-else class="user-feed-no-content-message ely-card">
             {{$t('pages:detailUser.feed.noResults')}}
         </div>
     </div>
@@ -142,8 +142,9 @@
     }
 
     .user-feed-no-content-message {
+        @include defaultPaddingCard();
         margin-top: 28px;
-        font-size: 22px;
-        font-weight: 300;
+        font-size: 18px;
+        color: $secondary-text;
     }
 </style>

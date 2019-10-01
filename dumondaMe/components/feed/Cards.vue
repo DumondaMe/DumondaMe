@@ -92,9 +92,6 @@
         <div v-show="isLoadingFeed" class="feed-loading-container text-center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
-        <div v-show="!isLoadingFeed && (feed.length === 0)" class="feed-no-content-message">
-            {{$t('pages:feeds.filter.noResults')}}
-        </div>
     </div>
 </template>
 
@@ -169,10 +166,5 @@
                 margin: 4px auto;
             }
         }
-    }
-
-    .feed-no-content-message {
-        font-size: 22px;
-        font-weight: 300;
     }
 </style>
