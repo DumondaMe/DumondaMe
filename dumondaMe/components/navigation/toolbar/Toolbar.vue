@@ -80,7 +80,6 @@
                     await this.$store.dispatch('auth/logout');
                     this.$store.dispatch('notification/stopCheckNotificationChanged');
                     this.$store.commit('notification/RESET_NOTIFICATION');
-                    this.$store.commit('feed/SET_FILTER_TO_PUBLIC_STATE');
                     this.$store.commit('feedFilter/SET_FILTER_TO_PUBLIC_STATE');
                     this.$store.commit('i18n/SET_LANGUAGES', [this.$store.state.i18n.language]);
                     await this.$store.dispatch('feed/getFeed');
