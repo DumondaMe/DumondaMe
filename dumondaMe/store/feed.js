@@ -1,10 +1,10 @@
 export const state = () => ({
     feed: [],
-    activeFeedFilterDescription: {},
     page: 0,
     timestamp: Number.MAX_SAFE_INTEGER,
     loading: false,
-    loadingNext: false
+    loadingNext: false,
+    feedIsEmpty: false
 });
 
 const PAGE_SIZE = 20;
@@ -27,8 +27,8 @@ export const mutations = {
     SET_LOADING(state, loading) {
         state.loading = loading;
     },
-    SET_ACTIVE_FEED_FILTER_DESCRIPTION(state, activeFeedFilterDescription) {
-        state.activeFeedFilterDescription = activeFeedFilterDescription;
+    SET_FEED_IS_EMPTY(state, feedIsEmpty) {
+        state.feedIsEmpty = feedIsEmpty;
     },
     UP_VOTE_ANSWER(state, answerId) {
         let upVoteAnswer = state.feed.find((element) => element.answerId === answerId);
@@ -122,6 +122,7 @@ export const actions = {
             let response = await getFeedRequest(commit, rootState.auth.userIsAuthenticated, params,
                 rootState.feedFilter.selectedFeedName, 'SET_FEED', this.$axios);
             commit('SET_TIMESTAMP', response.timestamp);
+            commit('SET_FEED_IS_EMPTY', response.feed.length === 0);
         } finally {
             commit('SET_LOADING', false);
         }

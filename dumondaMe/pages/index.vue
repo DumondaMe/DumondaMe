@@ -10,10 +10,10 @@
         </div>
         <div slot="content" id="feed-detail-container">
             <donation-info class="mobile-donation-info" v-if="!isLoading"></donation-info>
-            <feed-empty v-if="showHelpFeedInfo">
+            <feed-filter></feed-filter>
+            <feed-empty v-if="feedEmpty && !isLoading">
             </feed-empty>
-            <feed-filter v-if="!showHelpFeedInfo"></feed-filter>
-            <cards v-if="!showHelpFeedInfo" :feed="feed" :route-name="$route.name">
+            <cards v-else :feed="feed" :route-name="$route.name">
             </cards>
             <v-btn id="load-next-page" color="primary" outlined @click="loadNext()" :loading="loadNextRunning"
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
@@ -93,8 +93,8 @@
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
             },
-            showHelpFeedInfo() {
-                return this.$store.state.feed.totalNumberOfElements === 0;
+            feedEmpty() {
+                return this.$store.state.feed.feedIsEmpty;
             },
             showLoadNextButton() {
                 return this.$store.state.feed.loadingNext && !this.$store.state.feed.loading;
