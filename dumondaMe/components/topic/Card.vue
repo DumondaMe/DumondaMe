@@ -67,8 +67,9 @@
         }
 
         .topic-image {
-            width: 282px;
-            max-height: 190px;
+            width: 100%;
+            min-width: 260px;
+            min-height: 170px;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
         }
