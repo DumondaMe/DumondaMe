@@ -9,8 +9,10 @@
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
         </div>
         <div slot="content" id="feed-detail-container">
-            <donation-info class="mobile-donation-info" v-if="!isLoading"></donation-info>
+            <feed-mobile-filter class="mobile-feed-filter">
+            </feed-mobile-filter>
             <feed-filter></feed-filter>
+            <donation-info class="mobile-donation-info" v-if="!isLoading"></donation-info>
             <feed-empty v-if="feedEmpty && !isLoading">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -31,6 +33,7 @@
 <script>
     import FeedLayout from '~/components/layouts/Detail';
     import FeedFilter from '~/components/feed/filter/Filter';
+    import FeedMobileFilter from '~/components/feed/filter/MobileFilter';
     import FeedPopularQuestion from '~/components/feed/PopularQuestion';
     import FeedCommitmentInfo from '~/components/feed/info/Commitment';
     import FeedActivityInfo from '~/components/feed/info/Activity';
@@ -64,7 +67,7 @@
             store.commit('toolbar/HIDE_BACK_BUTTON');
         },
         components: {
-            FeedLayout, FeedFilter, FeedPopularQuestion,
+            FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, UserSuggestions, AboutDumondaMe,
             ConceptInfo, NetworkingInfo, DonationInfo, FabButton, CreateQuestionDialog
         },
