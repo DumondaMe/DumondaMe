@@ -3,9 +3,11 @@
         <div class="about-title">{{$t('pages:feeds.aboutDumondaMeInfos.register.title')}}</div>
         <img :src="signUpImage" :srcset="signUp2xImage" class="sign-up-image">
         <div class="about-description">{{$t('pages:feeds.aboutDumondaMeInfos.register.description')}}</div>
-        <v-btn color="secondary" @click="$router.push({name: 'register'})">
-            {{$t('common:button.register')}}
-        </v-btn>
+        <div class="register-command">
+            <v-btn color="secondary" @click="$router.push({name: 'register'})">
+                {{$t('common:button.register')}}
+            </v-btn>
+        </div>
     </div>
 </template>
 
@@ -33,6 +35,7 @@
         .about-title {
             font-weight: 500;
             margin-bottom: 12px;
+            @include defaultPaddingCard();
         }
 
         .sign-up-image {
@@ -42,6 +45,7 @@
         }
 
         .about-description {
+            @include defaultPaddingCard();
             font-weight: 300;
             font-size: 14px;
             @media screen and (max-width: $xs) {
@@ -49,10 +53,14 @@
             }
         }
 
-        button {
-            margin: 12px 18px 0 0;
-            @media screen and (max-width: $xs) {
-                margin-bottom: 12px;
+        .register-command {
+            @include defaultPaddingCard();
+
+            button {
+                margin: 12px 18px 0 0;
+                @media screen and (max-width: $xs) {
+                    margin-bottom: 12px;
+                }
             }
         }
 

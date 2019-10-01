@@ -46,6 +46,8 @@
 <style lang="scss">
     .general-info-container {
         margin-bottom: 12px;
+        @include defaultPaddingCard();
+
         .question-info {
             display: block;
             font-size: 14px;
@@ -54,22 +56,27 @@
 
             #topic-container {
                 margin-left: 30px;
+
                 .topic {
                     font-size: 14px;
                 }
             }
+
             .question-info-content {
                 .user-name {
                     font-weight: 400;
                     cursor: pointer;
                 }
+
                 :hover.user-name {
                     text-decoration: underline;
                 }
             }
+
             .visibility-container {
                 margin-left: 30px;
             }
+
             .info-icon {
                 float: left;
                 margin-top: 2px;
@@ -77,6 +84,7 @@
                 font-size: 18px;
                 color: #90A4AE;
             }
+
             i.icon-admin.v-icon {
                 color: $success-text;
             }
