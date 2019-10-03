@@ -49,7 +49,8 @@
                 this.dateFormatted = this.$options.filters.getFormatDateOnlyShort(this.date);
                 if (this.validTime) {
                     this.$emit('date-changed', {
-                        date: getTime(`${this.date} ${this.time}`) / 1000, isValid: this.validTime
+                        date: getTime(`${this.date} ${this.getValidFormattedTime(this.time)}`) / 1000,
+                        isValid: this.validTime
                     });
                 }
             },
@@ -57,7 +58,7 @@
                 this.validTime = this.validTimeRegex(time);
                 if (this.validTime) {
                     this.$emit('time-changed', {
-                        date: getTime(`${this.date} ${time}`) / 1000, isValid: true
+                        date: getTime(`${this.date} ${this.getValidFormattedTime(time)}`) / 1000, isValid: true
                     });
                 } else {
                     this.$emit('time-changed', {date: null, isValid: false});
@@ -69,6 +70,12 @@
                 if (this.validTimeRegex(this.time) && this.time !== this.compareTime) {
                     this.$emit('time-changed-on-blur', getTime(`${this.date} ${this.time}`) / 1000);
                 }
+            },
+            getValidFormattedTime(time) {
+                if (time[2] !== ':') {
+                    return '0' + time;
+                }
+                return time;
             },
             isValidTime() {
                 return v => {
