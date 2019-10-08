@@ -73,6 +73,7 @@ module.exports = {
     setUserLastLoginTime: user.setUserLastLoginTime,
     setUserIsDumondaMeAdmin: user.setUserIsDumondaMeAdmin,
     setUserIsSuperUser: user.setUserIsSuperUser,
+    setUserIsHarvestingUser: user.setUserIsHarvestingUser,
     setUserEmail: user.setUserEmail,
     createUser: user.createUser,
     createUserRegisterRequest: user.createUserRegisterRequest,
