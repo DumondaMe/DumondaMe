@@ -44,7 +44,7 @@ export const mutations = {
         state.nextPeopleTrustUser = user.peopleTrustUser.length;
         state.feedPage = 1;
     },
-    SET_LANGUAGES_NEXT_FEED_LOAD: function (state, user) {
+    UPDATE_USER_PROFILE_IMAGE: function (state, image) {
         state.user.profileImage = image;
     },
     CHANGE_USER_DATA: function (state, user) {
@@ -52,7 +52,7 @@ export const mutations = {
         state.user.surname = user.surname;
         state.user.userDescription = user.userDescription;
     },
-    UPDATE_USER_PROFILE_IMAGE: function (state, languagesForNextFeedLoad) {
+    SET_LANGUAGES_NEXT_FEED_LOAD: function (state, languagesForNextFeedLoad) {
         state.languagesForNextFeedLoad = languagesForNextFeedLoad;
     },
     REMOVE_USER_FROM_TRUST_CIRCLE: function (state, userId) {
@@ -160,13 +160,13 @@ export const actions = {
     async getProfile({commit, rootState}) {
         let user = await this.$axios.$get(`user/profile`,
             {params: {guiLanguage: rootState.i18n.language, languages: ['de', 'en']}});
-        commit('UPDATE_USER_PROFILE_IMAGE', ['de', 'en']);
+        commit('SET_LANGUAGES_NEXT_FEED_LOAD', ['de', 'en']);
         commit('SET_USER_PROFILE', user);
     },
     async getProfileOtherUser({commit, rootState}, userId) {
         let user = await this.$axios.$get(`user/profile/`,
             {params: {userId, guiLanguage: rootState.i18n.language, languages: rootState.i18n.languages}});
-        commit('UPDATE_USER_PROFILE_IMAGE', rootState.i18n.languages);
+        commit('SET_LANGUAGES_NEXT_FEED_LOAD', rootState.i18n.languages);
         commit('SET_USER_PROFILE', user);
     },
     async addUserToTrustCircle({commit}, userId) {
