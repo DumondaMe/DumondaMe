@@ -44,6 +44,7 @@ describe('Getting user profile data', function () {
         res.body.userDescription.should.equal('superman');
         res.body.isLoggedInUser.should.equal(true);
         res.body.isPersonOfTrustOfLoggedInUser.should.equal(false);
+        res.body.isHarvestingUser.should.equal(false);
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/1/profile.jpg');
         res.body.numberOfPeopleOfTrust.should.equal(2);
@@ -103,6 +104,7 @@ describe('Getting user profile data', function () {
         res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isPersonOfTrustOfLoggedInUser.should.equal(true);
+        res.body.isHarvestingUser.should.equal(false);
     });
 
     it('Get profile data of another user (PrivacyMode publicEl)', async function () {
@@ -122,6 +124,7 @@ describe('Getting user profile data', function () {
         res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isPersonOfTrustOfLoggedInUser.should.equal(false);
+        res.body.isHarvestingUser.should.equal(false);
     });
 
     it('Get profile data of another user (PrivacyMode onlyContact)', async function () {
@@ -138,6 +141,7 @@ describe('Getting user profile data', function () {
         res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isPersonOfTrustOfLoggedInUser.should.equal(false);
+        res.body.isHarvestingUser.should.equal(false);
     });
 
     it('Get profile data of a user (Not logged in)', async function () {
@@ -173,6 +177,7 @@ describe('Getting user profile data', function () {
         res.body.userDescription.should.equal('superman2');
         res.body.isLoggedInUser.should.equal(false);
         res.body.isPersonOfTrustOfLoggedInUser.should.equal(false);
+        res.body.isHarvestingUser.should.equal(false);
         should.not.exist(res.body.password);
         res.body.profileImage.should.equal('profileImage/2/profile.jpg');
         res.body.numberOfPeopleOfTrust.should.equal(2);
