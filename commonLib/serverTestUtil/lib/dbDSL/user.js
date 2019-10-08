@@ -24,6 +24,13 @@ let setUserIsSuperUser = function (userId) {
         .end({userId: userId}).getCommand());
 };
 
+let setUserIsHarvestingUser = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .addCommand(` set u :HarvestingUser, u.privacyMode = 'public'`)
+        .set("u", {start: data.start, end: data.end, address: data.address, link: data.link})
+        .end({userId: userId}).getCommand());
+};
+
 let setUserEmail = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
         .set("u", {email: data.email})
@@ -140,6 +147,7 @@ module.exports = {
     setUserLastLoginTime,
     setUserIsDumondaMeAdmin,
     setUserIsSuperUser,
+    setUserIsHarvestingUser,
     setUserEmail,
     createUser,
     createUserRegisterRequest,
