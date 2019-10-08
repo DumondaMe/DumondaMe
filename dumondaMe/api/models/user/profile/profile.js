@@ -4,38 +4,17 @@
 'use strict';
 
 const db = requireDb();
-const slug = require('limax');
-const cdn = require('dumonda-me-server-lib').cdn;
 const trustCircle = require('./trustCircle');
 const peopleTrustUser = require('./peopleTrustUser');
 const activity = require('./activity');
 const adminOfCommitment = require('./adminOfCommitment');
-const answerResponseHandler = require('./../feed/response');
-const userInfo = require('./../userInfo');
+const response = require('./response');
+const responseHarvestingUser = require('./responseHarvestingUser');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
     if (!userId && !userIdOfProfile) {
         throw new Error('401');
     }
-};
-
-let addSlugToPeople = function (peopleOfTrust) {
-    for (let person of peopleOfTrust) {
-        person.slug = slug(person.name);
-    }
-};
-
-let getAdminOfCommitments = function (commitments) {
-    let result = [];
-    for (let commitment of commitments) {
-        result.push({
-            commitmentId: commitment.commitmentId,
-            title: commitment.title,
-            slug: slug(commitment.title),
-            imageUrl: cdn.getPublicUrl(`commitment/${commitment.commitmentId}/40x40/title.jpg`, commitment.modified)
-        })
-    }
-    return result;
 };
 
 let getUserProfile = async function (userId, userIdOfProfile, languages, guiLanguage, timestamp) {
@@ -58,36 +37,18 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
                 (u.privacyMode = 'publicEl' AND {userId} IS NOT NULL) OR 
                 (u.privacyMode = 'onlyContact' AND EXISTS((u)-[:IS_CONTACT]->(:User {userId: {userId}})))`)
         .return(`u.userId AS userId, u.forename AS forename, u.surname AS surname, u.userDescription AS userDescription,
-                 u.showProfileActivity AS showProfileActivity,
+                 u.showProfileActivity AS showProfileActivity, u.start AS start, u.end AS end, u.link AS link, 
+                 u.address AS address,
+                 ANY (label IN LABELS(u) WHERE label = 'HarvestingUser') AS isHarvestingUser,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[8].length === 1) {
-        let profile = resp[8][0];
-        profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
-
-        profile.numberOfPeopleOfTrust = resp[0][0].numberOfPeopleOfTrust;
-        profile.numberOfInvisiblePeopleOfTrust = resp[1][0].numberOfInvisiblePeopleOfTrust;
-        profile.peopleOfTrust = resp[2];
-        await userInfo.addImageForThumbnail(resp[2]);
-
-        profile.numberOfPeopleTrustUser = resp[3][0].numberOfPeopleTrustUser;
-        profile.numberOfInvisiblePeopleTrustUser = resp[4][0].numberOfInvisiblePeopleTrustUser;
-        profile.peopleTrustUser = resp[5];
-        await userInfo.addImageForThumbnail(resp[5]);
-
-        profile.isLoggedInUser = userId === userIdOfProfile;
-
-        if (profile.showProfileActivity || profile.isLoggedInUser) {
-            profile.feed = await answerResponseHandler.getFeed(resp[6], userId);
-        } else {
-            profile.feed = [];
+        if (resp[8][0].isHarvestingUser) {
+            return responseHarvestingUser.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], []);
         }
-
-        addSlugToPeople(profile.peopleOfTrust);
-        addSlugToPeople(profile.peopleTrustUser);
-
-        profile.adminOfCommitments = getAdminOfCommitments(resp[7]);
-        return profile;
+        return response.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], resp[0][0].numberOfPeopleOfTrust,
+            resp[1][0].numberOfInvisiblePeopleOfTrust, resp[2], resp[3][0].numberOfPeopleTrustUser,
+            resp[4][0].numberOfInvisiblePeopleTrustUser, resp[5], resp[6], resp[7]);
     }
     throw new Error('401');
 };
