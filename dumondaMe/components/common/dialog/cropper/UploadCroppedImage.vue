@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="500px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <crop-image :initial-image="initialImage" :action-label="$t('common:button.upload')"
-                        :upload-running="uploadRunning" :aspect-ratio="1"
+                        :upload-running="uploadRunning" :aspect-ratio="ratio"
                         @close="$emit('close-dialog')" @action="uploadImage">
             </crop-image>
         </v-dialog>
@@ -18,7 +18,7 @@
     import CropImage from './CropImage';
 
     export default {
-        props: ['initialImage'],
+        props: ['initialImage', 'api', 'ratio'],
         data() {
             return {dialog: true, uploadRunning: false, showError: false}
         },
@@ -33,7 +33,7 @@
                         try {
                             let dataUrl = dataCanvas.toDataURL();
                             let blob = dataURItoBlob(dataUrl);
-                            await postWithFile(this.$axios, blob, 'user/profile/image');
+                            await postWithFile(this.$axios, blob, this.api);
                             this.$emit('update-image', dataUrl);
                         } catch (e) {
                             this.showError = true;

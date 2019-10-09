@@ -1,7 +1,7 @@
 <template>
     <div id="dumonda-me-user-profile-image">
         <div id="dumonda-me-user-image-container">
-            <div class="user-image">
+            <div class="user-image" :class="{'is-harvesting-user': isHarvestingUser}">
                 <img :src="user.profileImage"/>
             </div>
             <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
@@ -11,9 +11,10 @@
                 {{$t("common:button.uploadImage")}}
             </v-btn>
         </div>
-        <upload-cropped-image-dialog v-if="dialogUploadImage" @close-dialog="dialogUploadImage = false"
-                                     @update-image="updateProfileImage"
-                                     :initial-image="imageToUpload">
+        <upload-cropped-image-dialog v-if="dialogUploadImage"
+                                     :api="getAPI" :ratio="getRadio" :initial-image="imageToUpload"
+                                     @close-dialog="dialogUploadImage = false"
+                                     @update-image="updateProfileImage">
         </upload-cropped-image-dialog>
     </div>
 </template>
@@ -30,6 +31,21 @@
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            isHarvestingUser() {
+                return this.$store.state.userProfile.user.isHarvestingUser;
+            },
+            getRadio() {
+                if (this.isHarvestingUser) {
+                    return 1.3364
+                }
+                return 1;
+            },
+            getAPI() {
+                if (this.isHarvestingUser) {
+                    return 'userHarvesting/profile/image'
+                }
+                return 'user/profile/image';
             },
             user() {
                 return this.$store.state.userProfile.user;
@@ -86,6 +102,25 @@
                     border: 1px solid $divider;
                 }
             }
+
+            .user-image.is-harvesting-user {
+                width: 360px;
+                height: auto;
+                margin-left: 0;
+
+                @media screen and (max-width: $sm) {
+                    width: 100%;
+                }
+                @media screen and (max-width: $xs) {
+                    width: 360px;
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+                @media screen and (max-width: 380px) {
+                    width: 100%;
+                }
+            }
+
             #button-change-image {
                 width: 180px;
                 margin-left: 180px;
