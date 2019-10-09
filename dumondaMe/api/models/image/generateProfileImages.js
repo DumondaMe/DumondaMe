@@ -3,20 +3,21 @@
  */
 'use strict';
 
-let sharp = require('sharp');
-let cdn = require('dumonda-me-server-lib').cdn;
+const image = require('dumonda-me-server-lib').image;
 
 module.exports = {
     generateProfileImage: async function (originalFilePath, userId) {
-        let previewBuffer = await sharp(originalFilePath).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(148).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
-        let thumbnailBuffer = await sharp(originalFilePath).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(40).max().jpeg({quality: 90}).withoutEnlargement().toBuffer();
-        let profileBuffer = await sharp(originalFilePath).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(400).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
-
-        await cdn.uploadBuffer(previewBuffer, 'profileImage/' + userId + '/profilePreview.jpg', process.env.BUCKET_PRIVATE);
-        await cdn.uploadBuffer(thumbnailBuffer, 'profileImage/' + userId + '/thumbnail.jpg', process.env.BUCKET_PRIVATE);
-        await cdn.uploadBuffer(profileBuffer, 'profileImage/' + userId + '/profile.jpg', process.env.BUCKET_PRIVATE);
+        await image.uploadImage(148, null, {
+            quality: 80, originalImagePath: originalFilePath, cdnPath: `profileImage/${userId}/profilePreview.jpg`,
+            bucket: process.env.BUCKET_PRIVATE
+        });
+        await image.uploadImage(40, null, {
+            quality: 90, originalImagePath: originalFilePath, cdnPath: `profileImage/${userId}/thumbnail.jpg`,
+            bucket: process.env.BUCKET_PRIVATE
+        });
+        await image.uploadImage(400, null, {
+            quality: 80, originalImagePath: originalFilePath, cdnPath: `profileImage/${userId}/profile.jpg`,
+            bucket: process.env.BUCKET_PRIVATE
+        });
     }
 };
