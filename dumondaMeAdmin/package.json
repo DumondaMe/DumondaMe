@@ -53,7 +53,8 @@
     "underscore": "1.8.3",
     "nuxt-sass-resources-loader": "2.0.5",
     "lru-cache": "5.1.1",
-    "nanoid": "2.0.1"
+    "nanoid": "2.0.1",
+    "sharp": "0.23.1"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
