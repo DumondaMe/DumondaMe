@@ -79,7 +79,7 @@
                         try {
                             let dataUrl = dataCanvas.toDataURL();
                             let blob = dataURItoBlob(dataUrl);
-                            await postWithFile(this.$axios, blob, 'user/settings/uploadProfileImage');
+                            await postWithFile(this.$axios, blob, 'user/profile/image');
                             this.profileImage = dataUrl;
                             this.hideCropImageDialog = true;
                         } catch (e) {
