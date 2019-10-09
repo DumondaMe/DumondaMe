@@ -33,7 +33,7 @@
                         try {
                             let dataUrl = dataCanvas.toDataURL();
                             let blob = dataURItoBlob(dataUrl);
-                            await postWithFile(this.$axios, blob, 'user/settings/uploadProfileImage');
+                            await postWithFile(this.$axios, blob, 'user/profile/image');
                             this.$emit('update-image', dataUrl);
                         } catch (e) {
                             this.showError = true;
