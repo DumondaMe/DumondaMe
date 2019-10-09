@@ -650,7 +650,15 @@
       "otherUserInfo_plural": "Voted for {{count}} answers."
     },
     "feed": {
-      "noResults": "Has no activities yet or you can't see them."
+      "noResults": "Has no activities yet or you can't see them.",
+      "noResultsHarvestingUser": "No questions and answers have been recorded yet.",
+      "noResultsHarvestingUserStart": "The event starts on <b>{{date}}</b>"
+    },
+    "harvesting": {
+      "info": {
+        "title": "DumondaMe on Tour",
+        "description": "This is a service from DumondaMe for you. We collect the knowledge presented at conferences and make it available to you in the form of questions and answers."
+      }
     }
   },
   "settings": {

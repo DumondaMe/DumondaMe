@@ -653,7 +653,15 @@
       "otherUserInfo_plural": "Hat {{count}} Antworten zugestimmt."
     },
     "feed": {
-      "noResults": "Hat noch keine Aktivitäten oder du kannst diese nicht sehen."
+      "noResults": "Hat noch keine Aktivitäten oder du kannst diese nicht sehen.",
+      "noResultsHarvestingUser": "Es wurden noch keine Fragen und Antworten erfasst.",
+      "noResultsHarvestingUserStart": "Die Veranstaltung beginnt am <b>{{date}}</b>"
+    },
+    "harvesting": {
+      "info": {
+        "title": "DumondaMe on Tour",
+        "description": "Dies ist eine Dienstleistung von DumondaMe für dich. Wir sammeln an Konferenzen das präsentierte Wissen und stellen es dir in Form von Fragen und Antworten zur Verfügung."
+      }
     }
   },
   "settings": {

@@ -3,12 +3,12 @@
         <div id="profile-info-container">
             <h1 id="user-name">{{user.forename}} {{user.surname}}</h1>
             <div class="user-description">{{user.userDescription}}</div>
-            <v-btn color="primary" rounded id="button-change-profile-data" v-if="isLoggedInUser"
+            <v-btn color="primary" rounded id="button-change-profile-data" v-if="isLoggedInUser && !isHarvestingUser"
                    @click="showUploadUserDataDialog = true">
                 <v-icon left>mdi-account-edit</v-icon>
                 {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
             </v-btn>
-            <div v-if="isAuthenticated && !isLoggedInUser" id="other-user-commands">
+            <div v-if="isAuthenticated && !isLoggedInUser && !isHarvestingUser" id="other-user-commands">
                 <v-tooltip bottom v-if="user.isPersonOfTrustOfLoggedInUser">
                     <template v-slot:activator="{ on }">
                         <v-btn color="primary" rounded @click="removeUserFromTrustCircle()" v-on="on"
@@ -30,23 +30,31 @@
                 </v-tooltip>
             </div>
         </div>
-        <upload-user-data-dialog v-if="showUploadUserDataDialog" @close-dialog="showUploadUserDataDialog = false">
+        <upload-user-data-dialog v-if="showUploadUserDataDialog && !isHarvestingUser"
+                                 @close-dialog="showUploadUserDataDialog = false">
         </upload-user-data-dialog>
+        <upload-user-harvesting-data-dialog v-if="showUploadUserDataDialog && isHarvestingUser"
+                                            @close-dialog="showUploadUserDataDialog = false">
+        </upload-user-harvesting-data-dialog>
     </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
     import UploadUserDataDialog from './UploadUserDataDialog.vue';
+    import UploadUserHarvestingDataDialog from '~/components/userHarvestingProfile/dialog/EditHarvestingUser.vue';
 
     export default {
-        components: {UploadUserDataDialog},
+        components: {UploadUserDataDialog, UploadUserHarvestingDataDialog},
         data() {
             return {showUploadUserDataDialog: false}
         },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            isHarvestingUser() {
+                return this.$store.state.userProfile.user.isHarvestingUser;
             },
             user() {
                 return this.$store.state.userProfile.user;

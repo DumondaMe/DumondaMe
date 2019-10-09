@@ -77,7 +77,12 @@
             </div>
         </div>
         <div v-else class="user-feed-no-content-message ely-card">
-            {{$t('pages:detailUser.feed.noResults')}}
+            <span v-if="isHarvestingUser">
+                <div>{{$t('pages:detailUser.feed.noResultsHarvestingUser')}}</div>
+                <div class="start-event-description"
+                     v-html="$t('pages:detailUser.feed.noResultsHarvestingUserStart', {date: startDate})"></div>
+            </span>
+            <span v-else>{{$t('pages:detailUser.feed.noResults')}}</span>
         </div>
     </div>
 </template>
@@ -94,10 +99,15 @@
     import QuestionCardFooter from '~/components/feed/card/footer/Question';
 
     export default {
-        props: ['feed'],
+        props: ['feed', 'startDate'],
         components: {
             CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter
+        },
+        computed: {
+            isHarvestingUser() {
+                return this.$store.state.userProfile.user.isHarvestingUser;
+            }
         },
         methods: {
             upVoted(answerId) {
@@ -146,5 +156,13 @@
         margin-top: 28px;
         font-size: 18px;
         color: $secondary-text;
+
+        .start-event-description {
+            margin-top: 12px;
+            b {
+                color: $primary-color;
+                font-weight: 500;
+            }
+        }
     }
 </style>
