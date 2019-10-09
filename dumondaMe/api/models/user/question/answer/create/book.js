@@ -4,10 +4,9 @@ const db = requireDb();
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
 const cdn = require('dumonda-me-server-lib').cdn;
+const image = require('dumonda-me-server-lib').image;
 const exceptions = require('dumonda-me-server-lib').exceptions;
-const image = require('./image');
 const notification = require(`./notification`);
-const sharp = require('sharp');
 const slug = require('limax');
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
@@ -36,12 +35,13 @@ const createBookAnswerOriginalLinkCommand = function (params) {
 };
 
 const uploadImages = async function (params) {
-    let buffer = await image.uploadPreviewImage(`book/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+    let buffer = await image.uploadingExternalImage(500, 500, params.imageUrl,
+        {quality: 93, cdnPath: `book/${params.answerId}/preview.jpg`, bucket: process.env.BUCKET_PUBLIC});
     if (buffer) {
-        let resizedBuffer = await sharp(buffer).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(120, 250).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
-        await cdn.uploadBuffer(resizedBuffer, `book/${params.answerId}/120x250/preview.jpg`,
-            process.env.BUCKET_PUBLIC);
+        await image.uploadImage(120, 250, {
+            quality: 80, originalImagePath: buffer, cdnPath: `book/${params.answerId}/120x250/preview.jpg`,
+            bucket: process.env.BUCKET_PUBLIC
+        });
     }
 };
 

@@ -40,6 +40,7 @@ module.exports.init = function (type) {
 
         module.exports.auth = require('./auth');
         module.exports.cdn = require('./cdn');
+        module.exports.image = require('./image');
         module.exports.databaseConfig = require('./databaseConfig');
         module.exports.jsonValidation = require('./jsonValidation');
         module.exports.limiteRate = require('./limiteRate');

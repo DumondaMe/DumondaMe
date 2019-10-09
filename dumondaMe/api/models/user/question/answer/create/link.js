@@ -4,9 +4,8 @@ const db = requireDb();
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
 const cdn = require('dumonda-me-server-lib').cdn;
-const sharp = require('sharp');
 const slug = require('limax');
-const image = require('./image');
+const image = require('dumonda-me-server-lib').image;
 const notification = require(`./notification`);
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
@@ -41,12 +40,13 @@ const setNoImage = async function (answerId) {
 };
 
 const uploadImages = async function (params) {
-    let buffer = await image.uploadPreviewImage(`link/${params.answerId}/preview.jpg`, params.imageUrl, 500, 500);
+    let buffer = await image.uploadingExternalImage(500, 500, params.imageUrl,
+        {quality: 93, cdnPath: `link/${params.answerId}/preview.jpg`, bucket: process.env.BUCKET_PUBLIC});
     if (buffer) {
-        let resizeBuffer = await sharp(buffer).background({r: 255, g: 255, b: 255, alpha: 0}).flatten()
-            .resize(460, 460).max().jpeg({quality: 80}).withoutEnlargement().toBuffer();
-        await cdn.uploadBuffer(resizeBuffer, `link/${params.answerId}/460x460/preview.jpg`,
-            process.env.BUCKET_PUBLIC);
+        await image.uploadImage(460, 460, {
+            quality: 80, originalImagePath: buffer, cdnPath: `link/${params.answerId}/460x460/preview.jpg`,
+            bucket: process.env.BUCKET_PUBLIC
+        });
         return true;
     }
     return false;
