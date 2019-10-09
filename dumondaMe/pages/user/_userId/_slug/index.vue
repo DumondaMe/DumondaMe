@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <user-profile v-if="!isHarvestingUser"></user-profile>
-    </div>
+    <user-profile></user-profile>
 </template>
 
 <script>

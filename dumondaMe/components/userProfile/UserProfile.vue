@@ -9,11 +9,19 @@
                 <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
                 <trust-circle></trust-circle>
             </div>
-            <feed :feed="feed"></feed>
+            <div v-else class="user-mobile-content">
+                <general-information-harvesting-user></general-information-harvesting-user>
+                <about-harvesting-user></about-harvesting-user>
+            </div>
+            <feed :feed="feed" :start-date="startDate"></feed>
         </div>
         <div slot="sidebar">
             <profile-image></profile-image>
             <general-information v-if="!isHarvestingUser"></general-information>
+            <div v-else>
+                <general-information-harvesting-user></general-information-harvesting-user>
+                <about-harvesting-user></about-harvesting-user>
+            </div>
             <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
             <trust-circle v-if="!isHarvestingUser"></trust-circle>
         </div>
@@ -26,16 +34,23 @@
     import ProfileImage from '~/components/userProfile/ProfileImage.vue';
     import CommitmentsOfUser from '~/components/userProfile/commitment/Commitments.vue';
     import GeneralInformation from '~/components/userProfile/GeneralInformation.vue';
+    import GeneralInformationHarvestingUser from '~/components/userHarvestingProfile/GeneralInformation.vue';
+    import AboutHarvestingUser from '~/components/userHarvestingProfile/AboutHarvesting.vue';
     import Feed from '~/components/userProfile/Feed.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
+    import format from 'date-fns/format'
 
     export default {
         components: {
-            DetailLayout, UserProfileCard, ProfileImage, CommitmentsOfUser, GeneralInformation, Feed, TrustCircle
+            DetailLayout, UserProfileCard, ProfileImage, CommitmentsOfUser, GeneralInformation, Feed, TrustCircle,
+            GeneralInformationHarvestingUser, AboutHarvestingUser
         },
         computed: {
             feed() {
                 return this.$store.state.userProfile.user.feed
+            },
+            startDate() {
+                return format(this.$store.state.userProfile.user.start * 1000, 'D.MM.YYYY H:mm');
             },
             isHarvestingUser() {
                 return this.$store.state.userProfile.user.isHarvestingUser;
