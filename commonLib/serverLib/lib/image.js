@@ -11,8 +11,9 @@ const getResizeOptions = function (width, height) {
     let resizeOptions = {
         background: {r: 255, g: 255, b: 255, alpha: 0},
         withoutEnlargement: true,
-        fit: 'inside'
+        fit: sharp.fit.cover
     };
+
     if (typeof width === 'number') {
         resizeOptions.width = width;
     }
