@@ -32,7 +32,6 @@ describe('Getting profile of an harvesting user', function () {
         res.body.isLoggedInUser.should.equal(true);
         res.body.isHarvestingUser.should.equal(true);
         res.body.profileImage.should.equal('profileImage/1/profile.jpg');
-        should.not.exist(res.body.isPersonOfTrustOfLoggedInUser);
         should.not.exist(res.body.password);
         should.not.exist(res.body.numberOfPeopleOfTrust);
         should.not.exist(res.body.numberOfPeopleTrustUser);
@@ -66,7 +65,6 @@ describe('Getting profile of an harvesting user', function () {
         res.body.isLoggedInUser.should.equal(false);
         res.body.isHarvestingUser.should.equal(true);
 
-        should.not.exist(res.body.isPersonOfTrustOfLoggedInUser);
         should.not.exist(res.body.password);
         should.not.exist(res.body.numberOfPeopleOfTrust);
         should.not.exist(res.body.numberOfPeopleTrustUser);
@@ -93,7 +91,6 @@ describe('Getting profile of an harvesting user', function () {
         res.body.isHarvestingUser.should.equal(true);
         res.body.profileImage.should.equal('profileImage/2/profile.jpg');
 
-        should.not.exist(res.body.isPersonOfTrustOfLoggedInUser);
         should.not.exist(res.body.password);
         should.not.exist(res.body.numberOfPeopleOfTrust);
         should.not.exist(res.body.numberOfPeopleTrustUser);
