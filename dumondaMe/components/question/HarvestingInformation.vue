@@ -1,0 +1,52 @@
+<template>
+    <div class="harvesting-info-container ely-card">
+        <h3 class="harvesting-title">{{harvestingUser.name}}</h3>
+        <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
+        <div class="harvesting-description">
+            <span v-if="harvestingUser.answeredQuestion && harvestingUser.createdQuestion">
+                {{$t('pages:question.harvestingInfo.questionCreatedAndAnswered',
+                {event: harvestingUser.name})}}</span>
+            <span v-else-if="harvestingUser.answeredQuestion && !harvestingUser.createdQuestion">
+                {{$t('pages:question.harvestingInfo.questionAnswered',
+                {event: harvestingUser.name})}}</span>
+            <span v-else-if="!harvestingUser.answeredQuestion && harvestingUser.createdQuestion">
+                {{$t('pages:question.harvestingInfo.questionCreated',
+                {event: harvestingUser.name})}}</span>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        computed: {
+            harvestingUser() {
+                return this.$store.state.question.question.harvestingUser;
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .harvesting-info-container {
+        margin-bottom: 12px;
+
+        h3.harvesting-title {
+            @include defaultPaddingCard();
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .harvesting-image {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .harvesting-description {
+            @include defaultPaddingCard();
+            font-weight: 300;
+            margin-top: 8px;
+        }
+    }
+</style>
