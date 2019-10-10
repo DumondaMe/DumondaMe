@@ -18,8 +18,8 @@
                         <v-text-field type="text" v-model="question.question" name="question"
                                       :label="$t('common:question')"
                                       :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                               ruleToManyChars($t('validation:toManyChars'), 140)]"
-                                      :counter="140" :loading="loadingExistingQuestions">
+                                               ruleToManyChars($t('validation:toManyChars'), 200)]"
+                                      :counter="200" :loading="loadingExistingQuestions">
                         </v-text-field>
                         <div class="existing-questions-container">
                             <div class="existing-question" v-for="existingQuestion in existingQuestions">
