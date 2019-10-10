@@ -2,6 +2,7 @@
     <div itemscope itemtype="http://schema.org/QAPage">
         <detail-layout itemprop="mainEntity" itemscope itemtype="http://schema.org/Question" class="question-layout">
             <div slot="sidebar">
+                <harvesting-information v-if="hasHarvestingInfos"></harvesting-information>
                 <register v-if="!isAuthenticated"></register>
                 <ask-user-answer-question v-if="isAuthenticated"></ask-user-answer-question>
                 <general-information></general-information>
@@ -10,6 +11,7 @@
             <div slot="content" id="question-detail">
                 <question-header></question-header>
                 <general-information class="sidebar-on-mobile"></general-information>
+                <harvesting-information class="sidebar-on-mobile" v-if="hasHarvestingInfos"></harvesting-information>
                 <ask-user-answer-question class="sidebar-on-mobile" v-if="isAuthenticated"></ask-user-answer-question>
                 <answers></answers>
                 <register class="register-on-mobile" v-if="!isAuthenticated"></register>
@@ -37,6 +39,7 @@
     import Answers from '~/components/question/answer/Answers';
     import CreateAnswer from '~/components/question/CreateAnswer';
     import GeneralInformation from '~/components/question/GeneralInformation';
+    import HarvestingInformation from '~/components/question/HarvestingInformation';
     import AskUserAnswerQuestion from '~/components/question/AskUserAnswerQuestion';
     import SimilarQuestions from '~/components/question/SimilarQuestions';
     import Register from '~/components/question/Register';
@@ -86,8 +89,8 @@
             }
         },
         components: {
-            Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, SimilarQuestions,
-            AskUserAnswerQuestion, FabButton, CreateAnswerDialog
+            Register, DetailLayout, QuestionHeader, Answers, CreateAnswer, GeneralInformation, HarvestingInformation,
+            SimilarQuestions, AskUserAnswerQuestion, FabButton, CreateAnswerDialog
         },
         data() {
             return {showCreateAnswerDialog: false}
@@ -95,6 +98,9 @@
         computed: {
             question() {
                 return this.$store.state.question.question;
+            },
+            hasHarvestingInfos() {
+                return this.$store.state.question.question.harvestingUser;
             },
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated

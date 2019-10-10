@@ -409,6 +409,11 @@
       "note": {
         "tooltip": "Notes on the answer"
       }
+    },
+    "harvestingInfo": {
+      "questionCreated": "This question was created at the event {{event}} by DumondaMe.",
+      "questionAnswered": "This question was answered at the event {{event}} by DumondaMe.",
+      "questionCreatedAndAnswered": "This question was created and answered at the event {{event}} by DumondaMe."
     }
   },
   "detailQuestion": {
