@@ -74,6 +74,8 @@
                                           @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </question-card-footer>
                 </question-card>
+                <harvesting-question-card :question="element" v-if="element.type === 'HarvestingQuestion'">
+                </harvesting-question-card>
             </div>
         </div>
         <div v-else class="user-feed-no-content-message ely-card">
@@ -94,6 +96,7 @@
     import LinkCard from '~/components/feed/card/Link'
     import YoutubeCard from '~/components/feed/card/Youtube'
     import QuestionCard from '~/components/feed/card/Question'
+    import HarvestingQuestionCard from '~/components/userHarvestingProfile/Question'
     import CommonCardFooter from '~/components/feed/card/footer/CommonAnswer';
     import CommitmentCardFooter from '~/components/feed/card/footer/Commitment';
     import QuestionCardFooter from '~/components/feed/card/footer/Question';
@@ -101,7 +104,7 @@
     export default {
         props: ['feed', 'startDate'],
         components: {
-            CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard,
+            CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard, HarvestingQuestionCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter
         },
         computed: {
