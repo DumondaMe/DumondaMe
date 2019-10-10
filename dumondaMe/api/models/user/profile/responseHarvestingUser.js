@@ -10,7 +10,7 @@ let getUserProfileResponse = async function (userId, userIdOfProfile, profile, f
     profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
     profile.isLoggedInUser = userId === userIdOfProfile;
 
-    profile.feed = [];
+    profile.feed = feed;
     return profile;
 };
 

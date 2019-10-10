@@ -10,6 +10,7 @@ const activity = require('./activity');
 const adminOfCommitment = require('./adminOfCommitment');
 const response = require('./response');
 const responseHarvestingUser = require('./responseHarvestingUser');
+const feedHarvestingUser = require('./feedHarvestingUser');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
     if (!userId && !userIdOfProfile) {
@@ -44,7 +45,8 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[8].length === 1) {
         if (resp[8][0].isHarvestingUser) {
-            return responseHarvestingUser.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], []);
+            let feed = await feedHarvestingUser.getFeed(userIdOfProfile);
+            return responseHarvestingUser.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], feed);
         }
         return response.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], resp[0][0].numberOfPeopleOfTrust,
             resp[1][0].numberOfInvisiblePeopleOfTrust, resp[2], resp[3][0].numberOfPeopleTrustUser,
