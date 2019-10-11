@@ -6,7 +6,7 @@ const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 describe('Get statistic to DumondaMe', function () {
 
     beforeEach(async function () {
-        await dbDsl.init(5);
+        await dbDsl.init(6);
         dbDsl.createRegion('region-1', {de: 'Region1De', en: 'Region1En'});
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
 
@@ -56,6 +56,7 @@ describe('Get statistic to DumondaMe', function () {
     });
 
     it('Get number of registered user, questions, answers and commitments', async function () {
+        dbDsl.setUserIsHarvestingUser('6', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         await dbDsl.sendToDb();
         let res = await requestHandler.get('/api/statistic');
         res.status.should.equal(200);

@@ -3,7 +3,9 @@
 const db = requireDb();
 
 const getNumberOfNode = function (nodeType) {
-  return db.cypher().match(`(:${nodeType})`).return(`count(*) AS numberOf`);
+  return db.cypher().match(`(node:${nodeType})`)
+      .where(`NOT node:HarvestingUser`)
+      .return(`count(*) AS numberOf`);
 };
 
 const getStatistic = async function () {
