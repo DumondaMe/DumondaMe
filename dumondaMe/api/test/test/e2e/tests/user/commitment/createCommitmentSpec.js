@@ -245,4 +245,24 @@ describe('Creating a new commitment', function () {
         });
         res.status.should.equal(401);
     });
+
+    it('Not allowed to create commitment as harvesting user', async function () {
+        dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/commitment', {
+            title: 'Commitment Example',
+            description: 'description',
+            website: 'https://www.example.org',
+            regions: ['region-1-1'],
+            topics: ['topic1'],
+            lang: 'de'
+        }, `${__dirname}/test.jpg`);
+        res.status.should.equal(401);
+
+        let resp = await db.cypher().match("(commitment:Commitment)")
+            .return(`commitment`).end().send();
+        resp.length.should.equals(0);
+    });
 });
