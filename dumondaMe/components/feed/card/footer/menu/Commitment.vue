@@ -1,7 +1,8 @@
 <template>
-    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" min-width="290" offset-y>
+    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="280" min-width="290" offset-y
+            open-on-hover open-delay="700" offset-overflow>
         <template v-slot:activator="{ on }">
-            <div v-on="on">
+            <div v-on="on" @click="goToCommitment()">
                 <slot name="icon"></slot>
             </div>
         </template>
