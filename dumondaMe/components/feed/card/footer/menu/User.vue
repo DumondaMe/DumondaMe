@@ -16,7 +16,8 @@
                     {{menuTitle}}
                 </div>
                 <div class="menu-content menu-user-content">
-                    <div class="user-image" @click="goToProfile()" :class="{'anonymous-image': user.isAnonymous}">
+                    <div class="user-image" @click="goToProfile()"
+                         :class="{'anonymous-image': user.isAnonymous, 'is-harvesting-user': user.isHarvestingUser}">
                         <v-tooltip bottom debounce="300" v-if="user.isTrustUser">
                             <template v-slot:activator="{ on }">
                                 <v-icon v-on="on" class="trust-circle-icon">mdi-account-circle</v-icon>
@@ -33,7 +34,7 @@
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-                    <div v-if="!user.isLoggedInUser && !user.isAnonymous">
+                    <div v-if="!user.isLoggedInUser && !user.isAnonymous && !user.isHarvestingUser">
                         <v-tooltip top v-if="user.isTrustUser">
                             <template v-slot:activator="{ on }">
                                 <v-btn color="primary" class="user-action-button lower-action-button" v-on="on"
@@ -148,9 +149,16 @@
                 }
             }
 
+            .user-image.is-harvesting-user {
+                width: auto;
+                height: auto;
+                max-width: 280px;
+            }
+
             .user-image.anonymous-image {
                 width: 100px;
                 height: 100px;
+
 
                 img {
                     cursor: auto;

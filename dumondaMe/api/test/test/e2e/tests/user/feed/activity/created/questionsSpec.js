@@ -69,7 +69,25 @@ describe('Get activity feed for created questions', function () {
         res.body.feed[0].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
+    });
+
+    it('Getting question created by harvesting user', async function () {
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {
+            guiLanguage: 'de', languages: ['de'], timestamp: 500
+        });
+        res.status.should.equal(200);
+        res.body.timestamp.should.equals(500);
+        res.body.feed.length.should.equals(1);
+
+        res.body.feed[0].type.should.equals('Question');
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].user.userId.should.equals('2');
+        res.body.feed[0].user.isHarvestingUser.should.equals(true);
     });
 
     it('Get question only created by users of trust circle', async function () {

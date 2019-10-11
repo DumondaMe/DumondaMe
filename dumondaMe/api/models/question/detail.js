@@ -10,7 +10,7 @@ const linkifyHtml = require('linkifyjs/html');
 const time = require('dumonda-me-server-lib').time;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
-const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) {
+const getCreator = async function (user, isTrustUser, creatorTrustUser, isHarvestingUser, userId) {
     if (user.privacyMode === 'public' || user.userId === userId ||
         (user.privacyMode === 'publicEl' && userId !== null) ||
         (user.privacyMode === 'onlyContact' && creatorTrustUser)) {
@@ -22,6 +22,7 @@ const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) 
             userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/thumbnail.jpg`),
             userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`),
             isTrustUser,
+            isHarvestingUser,
             isLoggedInUser: user.userId === userId && userId !== null
         };
     } else {
@@ -73,7 +74,8 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
                  EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(question)) AS isAdmin,
                  EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(user)) AS isTrustUser,
                  EXISTS((user)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
-                 EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion`)
+                 EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion,
+                 ANY (label IN LABELS(user) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .end({questionId, userId}).send([answers.getAnswersCommand(questionId, answerId, 0, userId).getCommand(),
             similar.getSimilarQuestionsCommand(questionId, time.getNowUtcTimestamp(), 0, 10).getCommand()]);
     if (response[2].length === 1) {
@@ -90,7 +92,7 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
         question.numberOfAnswers = questionResponse.numberOfAnswers;
         question.userWatchesQuestion = questionResponse.userWatchesQuestion;
         question.creator = await getCreator(questionResponse.user, questionResponse.isTrustUser,
-            questionResponse.creatorTrustUser, userId);
+            questionResponse.creatorTrustUser, questionResponse.isHarvestingUser, userId);
         question.hasMoreAnswers = response[0].length > answers.PAGE_SIZE;
         if (question.hasMoreAnswers) {
             response[0] = response[0].slice(0, answers.PAGE_SIZE);

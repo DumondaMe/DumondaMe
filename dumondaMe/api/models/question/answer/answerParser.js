@@ -22,7 +22,7 @@ const getEvents = function (events, language) {
     return result;
 };
 
-const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) {
+const getCreator = async function (user, isTrustUser, creatorTrustUser, isHarvestingUser, userId) {
     if (user.privacyMode === 'public' || user.userId === userId ||
         (user.privacyMode === 'publicEl' && userId !== null) ||
         (user.privacyMode === 'onlyContact' && creatorTrustUser)) {
@@ -35,6 +35,7 @@ const getCreator = async function (user, isTrustUser, creatorTrustUser, userId) 
             userImagePreview: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`),
             isLoggedInUser: user.userId === userId,
             isTrustUser,
+            isHarvestingUser
         };
     } else {
         return {
@@ -57,7 +58,7 @@ const getAnswers = async function (answers, language, userId) {
             formattedAnswer.answerType = answer.answerType.filter(
                 (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
             formattedAnswer.creator = await getCreator(answer.creator, answer.isTrustUser, answer.creatorTrustUser,
-                userId);
+                answer.isHarvestingUser, userId);
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/460x460/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {

@@ -60,7 +60,23 @@ describe('Get activity feed for created book answers', function () {
         res.body.feed[0].user.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
     });
+
+    it('Created book answer created by harvesting user', async function () {
+        dbDsl.setUserIsHarvestingUser('3', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(2);
+
+        res.body.feed[0].answerId.should.equals('6');
+        res.body.feed[0].user.userId.should.equals('3');
+        res.body.feed[0].user.isHarvestingUser.should.equals(true);
+    });
+
 
     it('Do not show created book answer of the user', async function () {
         dbDsl.createBookAnswer('7', {
