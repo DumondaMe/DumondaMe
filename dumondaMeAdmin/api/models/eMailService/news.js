@@ -8,7 +8,9 @@ const getUsers = async function (newsId) {
     let commands = [];
     commands.push(db.cypher().match(`(news:News {newsId: {newsId}})`)
         .set(`news`, {isSent: true}).end({newsId: newsId}).getCommand());
-    let resp = await db.cypher().match(`(user:User)`).return(`user.email AS email, user.forename AS forename`)
+    let resp = await db.cypher().match(`(user:User)`)
+        .where(`NOT user:HarvestingUser`)
+        .return(`user.email AS email, user.forename AS forename`)
         .end().send(commands);
     return resp[1];
 };
