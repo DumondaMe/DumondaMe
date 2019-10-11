@@ -121,6 +121,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[0].creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
         res.body.answers[0].creator.isLoggedInUser.should.equals(true);
         res.body.answers[0].creator.isTrustUser.should.equals(false);
+        res.body.answers[0].creator.isHarvestingUser.should.equals(false);
         res.body.answers[0].numberOfNotes.should.equals(0);
 
         res.body.answers[1].answerId.should.equals('6');
@@ -138,6 +139,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[1].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.answers[1].creator.isLoggedInUser.should.equals(false);
         res.body.answers[1].creator.isTrustUser.should.equals(false);
+        res.body.answers[1].creator.isHarvestingUser.should.equals(false);
         res.body.answers[1].numberOfNotes.should.equals(2);
 
         res.body.answers[2].answerId.should.equals('7');
@@ -158,6 +160,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[2].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.answers[2].creator.isLoggedInUser.should.equals(false);
         res.body.answers[2].creator.isTrustUser.should.equals(false);
+        res.body.answers[2].creator.isHarvestingUser.should.equals(false);
         res.body.answers[2].numberOfNotes.should.equals(2);
 
         res.body.answers[3].answerId.should.equals('8');
@@ -178,6 +181,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[3].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.answers[3].creator.isLoggedInUser.should.equals(false);
         res.body.answers[3].creator.isTrustUser.should.equals(false);
+        res.body.answers[3].creator.isHarvestingUser.should.equals(false);
         res.body.answers[3].numberOfNotes.should.equals(0);
 
         res.body.answers[4].answerId.should.equals('9');
@@ -198,6 +202,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[4].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.answers[4].creator.isLoggedInUser.should.equals(false);
         res.body.answers[4].creator.isTrustUser.should.equals(false);
+        res.body.answers[4].creator.isHarvestingUser.should.equals(false);
         res.body.answers[4].numberOfNotes.should.equals(0);
 
         res.body.answers[5].answerId.should.equals('11');
@@ -221,6 +226,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[5].creator.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.answers[5].creator.isLoggedInUser.should.equals(false);
         res.body.answers[5].creator.isTrustUser.should.equals(false);
+        res.body.answers[5].creator.isHarvestingUser.should.equals(false);
         res.body.answers[5].events.length.should.equals(2);
         res.body.answers[5].events[0].eventId.should.equals('23');
         res.body.answers[5].events[0].title.should.equals('event23Title');

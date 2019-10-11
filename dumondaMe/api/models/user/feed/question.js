@@ -27,7 +27,8 @@ const getFeedResponse = async function (questions, userId) {
                 userImage: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/thumbnail.jpg`),
                 userImagePreview: await cdn.getSignedUrl(`profileImage/${question.creator.userId}/profilePreview.jpg`),
                 isLoggedInUser: question.isLoggedInUser,
-                isTrustUser: question.isTrustUser
+                isTrustUser: question.isTrustUser,
+                isHarvestingUser: question.isHarvestingUser
             };
 
         } else {
@@ -128,7 +129,8 @@ const getFeed = async function (userId, page, timestamp, order, periodOfTime, gu
                  EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
                  EXISTS((creator)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isTrustUser,
                  EXISTS((question)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
-                 EXISTS((question)<-[:IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin`)
+                 EXISTS((question)<-[:IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
+                 ANY (label IN LABELS(creator) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .orderBy(`scoreWatches DESC, scoreUpVotes DESC, created DESC`)
         .skip(`{page}`).limit(`${PAGE_SIZE}`)
         .end({

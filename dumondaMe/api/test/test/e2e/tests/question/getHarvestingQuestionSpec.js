@@ -37,6 +37,8 @@ describe('Getting details of a question created or answered by a harvesting user
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.isHarvestingUser.should.equals(true);
         res.body.harvestingUser.userId.should.equals('1');
         res.body.harvestingUser.name.should.equals('user Meier');
         res.body.harvestingUser.slug.should.equals('user-meier');
@@ -52,29 +54,46 @@ describe('Getting details of a question created or answered by a harvesting user
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
+        res.body.creator.isHarvestingUser.should.equals(false);
         res.body.harvestingUser.userId.should.equals('2');
         res.body.harvestingUser.name.should.equals('user Meier2');
         res.body.harvestingUser.slug.should.equals('user-meier2');
         res.body.harvestingUser.userImage.should.equals('profileImage/2/profilePreview.jpg');
         res.body.harvestingUser.createdQuestion.should.equals(false);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
+
+        res.body.answers.length.should.equals(1);
+        res.body.answers[0].answerId.should.equals('5');
+        res.body.answers[0].creator.userId.should.equals('2');
+        res.body.answers[0].creator.isHarvestingUser.should.equals(true);
     });
 
     it('Getting details of a question created and answered by a harvesting user', async function () {
         dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         dbDsl.createTextAnswer('6', {
-            creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
+            creatorId: '1', questionId: '1', answer: 'Answer', created: 700,
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
         res.status.should.equal(200);
         res.body.questionId.should.equals('1');
+        res.body.creator.isHarvestingUser.should.equals(true);
         res.body.harvestingUser.userId.should.equals('1');
         res.body.harvestingUser.name.should.equals('user Meier');
         res.body.harvestingUser.slug.should.equals('user-meier');
         res.body.harvestingUser.userImage.should.equals('profileImage/1/profilePreview.jpg');
         res.body.harvestingUser.createdQuestion.should.equals(true);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
+
+        res.body.answers.length.should.equals(2);
+
+        res.body.answers[0].answerId.should.equals('6');
+        res.body.answers[0].creator.userId.should.equals('1');
+        res.body.answers[0].creator.isHarvestingUser.should.equals(true);
+
+        res.body.answers[1].answerId.should.equals('5');
+        res.body.answers[1].creator.userId.should.equals('2');
+        res.body.answers[1].creator.isHarvestingUser.should.equals(false);
     });
 });

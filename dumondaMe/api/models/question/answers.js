@@ -28,7 +28,8 @@ const getAnswersCommand = function (questionId, answerId, page, userId) {
                  collect(DISTINCT region) AS regions, count(DISTINCT note) AS numberOfNotes,
                  collect(DISTINCT {event: event, region: eventRegion}) AS events,
                  EXISTS((:User {userId: {userId}})-[:IS_CONTACT]->(creator)) AS isTrustUser,
-                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser`)
+                 EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
+                 ANY (label IN LABELS(creator) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .orderBy(`upVotes DESC, answer.created DESC`)
         .skip(`{skip}`)
         .limit(`${PAGE_SIZE + 1}`)

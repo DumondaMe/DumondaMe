@@ -150,7 +150,8 @@ const getFeedCommandString = function (guiLanguage, pageSize) {
                  EXISTS((feedElement)<-[:UP_VOTE]-(:User {userId: {userId}})) AS isUpVotedByUser,
                  EXISTS((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
                  EXISTS((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
-                 created, type(relActivity) AS relActivity`)
+                 created, type(relActivity) AS relActivity,
+                 ANY (label IN LABELS(creator) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .orderBy(`created DESC`).getCommandString()
 };
 

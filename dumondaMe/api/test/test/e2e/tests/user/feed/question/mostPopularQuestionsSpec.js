@@ -81,6 +81,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].numberOfAnswers.should.equals(1);
@@ -90,6 +91,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.userId.should.equals('3');
         res.body.feed[1].user.isLoggedInUser.should.equals(false);
         res.body.feed[1].user.isTrustUser.should.equals(true);
+        res.body.feed[1].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[2].questionId.should.equals('1');
         res.body.feed[2].question.should.equals('Das ist eine Frage');
@@ -108,6 +110,33 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[2].user.userImagePreview.should.equals('profileImage/2/profilePreview.jpg');
         res.body.feed[2].user.isLoggedInUser.should.equals(false);
         res.body.feed[2].user.isTrustUser.should.equals(false);
+        res.body.feed[2].user.isHarvestingUser.should.equals(false);
+    });
+
+    it('Question created by harvesting user', async function () {
+        //Score for question 3
+        dbDsl.watchQuestion({questionId: '3', userId: '5', created: 997});
+        dbDsl.watchQuestion({questionId: '3', userId: '6', created: 996});
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/question', {
+            guiLanguage: 'de', languages: ['de', 'en'], order: 'mostPopular'
+        });
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(3);
+
+        res.body.feed[0].questionId.should.equals('3');
+        res.body.feed[0].numberOfAnswers.should.equals(0);
+        res.body.feed[0].numberOfWatches.should.equals(2);
+        res.body.feed[0].isWatchedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(true);
+        res.body.feed[0].user.userId.should.equals('1');
+        res.body.feed[0].user.isLoggedInUser.should.equals(true);
+        res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(true);
     });
 
     it('Question sorted by watches and then by up votes of the answers (only trust circle)', async function () {
@@ -142,6 +171,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(0);
@@ -150,6 +180,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
+        res.body.feed[1].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[2].questionId.should.equals('1');
         res.body.feed[2].numberOfAnswers.should.equals(2);
@@ -157,6 +188,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[2].user.userId.should.equals('2');
         res.body.feed[2].user.isLoggedInUser.should.equals(false);
         res.body.feed[2].user.isTrustUser.should.equals(false);
+        res.body.feed[2].user.isHarvestingUser.should.equals(false);
     });
 
     it('Question sorted by watches and then by up votes of the answers (topic filter)', async function () {
@@ -195,6 +227,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('2');
         res.body.feed[1].numberOfAnswers.should.equals(1);
@@ -203,6 +236,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.userId.should.equals('3');
         res.body.feed[1].user.isLoggedInUser.should.equals(false);
         res.body.feed[1].user.isTrustUser.should.equals(true);
+        res.body.feed[1].user.isHarvestingUser.should.equals(false);
     });
 
     it('Question sorted by watches and then by up votes of the answers (trust circle and topic filter)', async function () {
@@ -244,6 +278,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
     });
 
     it('Show only english questions', async function () {
@@ -276,6 +311,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('1');
         res.body.feed[0].user.isLoggedInUser.should.equals(true);
         res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
     });
 
     it('Question sorted by watches and then by up votes of the answers (only last 7 Days)', async function () {
@@ -316,6 +352,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(1);
@@ -324,6 +361,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
+        res.body.feed[1].user.isHarvestingUser.should.equals(false);
     });
 
     it('Question sorted by watches and then by up votes of the answers (only last month)', async function () {
@@ -364,6 +402,7 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[0].user.userId.should.equals('3');
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(true);
+        res.body.feed[0].user.isHarvestingUser.should.equals(false);
 
         res.body.feed[1].questionId.should.equals('3');
         res.body.feed[1].numberOfAnswers.should.equals(1);
@@ -372,5 +411,6 @@ describe('Get question feed for the most popular questions', function () {
         res.body.feed[1].user.userId.should.equals('1');
         res.body.feed[1].user.isLoggedInUser.should.equals(true);
         res.body.feed[1].user.isTrustUser.should.equals(false);
+        res.body.feed[1].user.isHarvestingUser.should.equals(false);
     });
 });
