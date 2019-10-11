@@ -4,6 +4,7 @@ const slug = require('limax');
 const db = requireDb();
 const topicsSecurity = require('./../../topic/security');
 const regionSecurity = require('./../../region/security');
+const harvestingUser = require('./../../userHarvesting/security');
 const titleImage = require(`./image`);
 const image = require('dumonda-me-server-lib').image;
 const uuid = require('dumonda-me-server-lib').uuid;
@@ -18,6 +19,7 @@ const createCommitment = async function (userId, params, titlePath) {
     regionSecurity.checkOnlyInternational(params.regions);
     await topicsSecurity.checkTopicsExists(params.topics);
     await regionSecurity.checkRegionsExists(params.regions);
+    await harvestingUser.notAllowedToPerformAction(userId, logger);
     await image.checkImageMinWidth(titlePath, 460);
     await db.cypher().match("(user:User {userId: {userId}})")
         .create(`(commitment:Commitment {commitmentId: {commitmentId}, title: {title}, description: {description}, 
