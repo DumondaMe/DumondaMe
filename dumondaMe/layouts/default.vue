@@ -109,10 +109,13 @@
         },
         computed: {
             isAuthenticated() {
-                return this.$store.state.auth.userIsAuthenticated
+                return this.$store.state.auth.userIsAuthenticated;
+            },
+            isHarvestingUser() {
+                return this.$store.state.user.isHarvestingUser;
             },
             showWelcomeDialog() {
-                return this.showInfoDialog &&
+                return this.showInfoDialog && !this.isHarvestingUser &&
                     (this.$store.state.user.infoState === 0 || !this.$store.state.user.infoState) &&
                     this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
             },
