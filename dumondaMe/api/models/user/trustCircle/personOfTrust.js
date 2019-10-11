@@ -1,12 +1,15 @@
 'use strict';
 
 const db = requireDb();
+const harvestingUser = require('./../../userHarvesting/security');
 const uuid = require('dumonda-me-server-lib').uuid;
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 const moment = require('moment');
 
 let validAddContactCommand = async function (userId, contactId, req) {
+    await harvestingUser.notAllowedToPerformAction(userId, logger);
+    await harvestingUser.notAllowedToPerformAction(contactId, logger);
     if (userId !== contactId) {
         let resp = await db.cypher().match(`(u:User {userId: {contactId}})`)
             .where(`u.privacyMode <> 'onlyContact' OR 
