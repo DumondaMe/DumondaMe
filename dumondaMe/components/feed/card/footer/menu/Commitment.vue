@@ -17,11 +17,6 @@
                     {{description}}
                 </div>
             </div>
-            <v-divider></v-divider>
-            <div class="menu-commands">
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
-            </div>
         </v-card>
     </v-menu>
 </template>

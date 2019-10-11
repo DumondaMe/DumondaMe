@@ -34,7 +34,6 @@
                 <v-divider></v-divider>
                 <div class="menu-commands">
                     <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <div v-if="!user.isLoggedInUser && !user.isAnonymous && !user.isHarvestingUser">
                         <v-tooltip top v-if="user.isTrustUser">
                             <template v-slot:activator="{ on }">
