@@ -10,6 +10,7 @@ let searchUserWithEmail = async function (email) {
         .return(`u.password AS password, u.emailNormalized AS email, u.userId AS id, u.dumondaMeAdmin AS dumondaMeAdmin,
                  u.language AS lang, u.languages AS languages, u.infoState AS infoState,
                  ANY (label IN labels(u) WHERE label = 'SuperUser') AS superUser,
+                 ANY (label IN labels(u) WHERE label = 'HarvestingUser') AS harvestingUser,
                  collect(DISTINCT topic.topicId) AS topics, 
                  collect(DISTINCT region.regionId) AS regions`)
         .end({email: email}).send();
@@ -25,9 +26,9 @@ let UserLibrary = function () {
     return {
         serialize: function (user, done) {
             done(null, {
-                id: user.id, dumondaMeAdmin: user.dumondaMeAdmin, superUser: user.superUser, lang: user.language,
-                languages: user.languages, email: user.email, infoState: user.infoState, topics: user.topics,
-                regions: user.regions,
+                id: user.id, dumondaMeAdmin: user.dumondaMeAdmin, superUser: user.superUser,
+                harvestingUser: user.harvestingUser, lang: user.language, languages: user.languages, email: user.email,
+                infoState: user.infoState, topics: user.topics, regions: user.regions,
             });
         },
         deserialize: function (sessionUser, done) {

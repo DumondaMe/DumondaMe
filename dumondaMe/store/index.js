@@ -23,6 +23,9 @@ let initUser = function (commit, req, language) {
     if (req.user && req.user.infoState) {
         commit('user/SET_USER_INFO_STATE', req.user.infoState);
     }
+    if (req.user && req.user.harvestingUser) {
+        commit('user/SET_IS_HARVESTING_USER', req.user.harvestingUser);
+    }
     if (req.user && req.user.languages) {
         commit('i18n/SET_LANGUAGES', req.user.languages);
     } else {
