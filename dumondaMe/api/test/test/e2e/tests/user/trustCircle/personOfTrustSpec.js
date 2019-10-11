@@ -291,4 +291,42 @@ describe('Handling person of trust relationship', function () {
             .return('n').end().send();
         rel.length.should.equals(0);
     });
+
+    it('Not allowed to add a harvesting user to trust circle', async function () {
+
+        dbDsl.setUserIsHarvestingUser('5', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/trustCircle/5');
+        res.status.should.equal(401);
+        let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
+            .return('r.contactAdded as contactAdded')
+            .end().send();
+        user.length.should.equals(0);
+
+        let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .return('notification, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Harvestion user is not allowed to add users to trust circle', async function () {
+
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/trustCircle/5');
+        res.status.should.equal(401);
+        let user = await db.cypher().match("(:User {userId: '1'})-[r:IS_CONTACT]->(:User {userId: '5'})")
+            .return('r.contactAdded as contactAdded')
+            .end().send();
+        user.length.should.equals(0);
+
+        let notification = await db.cypher().match(`(:User {userId: '5'})<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'addedToTrustCircle'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user)`)
+            .return('notification, user.userId AS userId, relNot.created AS created')
+            .end().send();
+        notification.length.should.equals(0);
+    });
 });
