@@ -5,11 +5,13 @@ const cdn = require('dumonda-me-server-lib').cdn;
 
 const getNumberOfUser = function () {
     return db.cypher().match(`(user:User)`)
+        .where(`NOT user:HarvestingUser`)
         .return("count(user) AS numberOfUser").end();
 };
 
 const getOverviewOfUser = function (params) {
     return db.cypher().match(`(user:User)`)
+        .where(`NOT user:HarvestingUser`)
         .return("user").orderBy("user.registerDate DESC").skip("{skip}").limit("{maxItems}").end(params);
 };
 

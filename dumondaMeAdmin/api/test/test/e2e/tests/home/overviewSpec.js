@@ -10,7 +10,7 @@ describe('Getting initial home screen', function () {
     let startTime;
 
     beforeEach(async function () {
-        await dbDsl.init(3, true);
+        await dbDsl.init(4, true);
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         dbDsl.setUserRegisteredDate('1', startTime - 600);
@@ -30,6 +30,8 @@ describe('Getting initial home screen', function () {
         dbDsl.createRegion('12', {parentRegionId: 'international', de: 'Deutschland', en: 'Germany'});
         dbDsl.createRegion('121', {parentRegionId: '12', de: 'Berlin', en: 'Berlin'});
 
+        dbDsl.setUserIsHarvestingUser('4', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+
         await dbDsl.sendToDb();
     });
 
@@ -39,7 +41,6 @@ describe('Getting initial home screen', function () {
 
 
     it('Get the home elements', async function () {
-
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/home');
         res.status.should.equal(200);

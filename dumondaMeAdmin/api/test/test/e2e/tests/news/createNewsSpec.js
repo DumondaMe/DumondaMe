@@ -17,7 +17,8 @@ describe('Integration Tests creating news', function () {
         stubSendEMail = sandbox.stub(eMail, 'sendEMail');
         stubSendEMail.resolves({});
         startTime = Math.floor(moment.utc().valueOf() / 1000);
-        await dbDsl.init(4, true);
+        await dbDsl.init(5, true);
+        dbDsl.setUserIsHarvestingUser('5', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         await dbDsl.sendToDb();
     });
 
