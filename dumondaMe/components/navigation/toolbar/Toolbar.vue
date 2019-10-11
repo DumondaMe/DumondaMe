@@ -1,6 +1,6 @@
 <template>
     <div id="dumonda-me-header">
-        <v-app-bar app :elevate-on-scroll="$vuetify.breakpoint.lgAndUp" color="primary" dark dense
+        <v-app-bar app :elevate-on-scroll="$vuetify.breakpoint.lgAndUp" :color="getColorOfToolbar" dark dense
                    :flat="$vuetify.breakpoint.mdAndDown">
             <div id="header-container">
                 <search-toolbar v-show="$vuetify.breakpoint.mdAndUp || showSearch" @close-search="closeSearch">
@@ -15,9 +15,6 @@
                 <v-btn icon v-show="$vuetify.breakpoint.smAndDown && !showSearch" @click="showSearch = true">
                     <v-icon>mdi-magnify</v-icon>
                 </v-btn>
-                <!--<v-btn icon v-show="!showSearch">
-                    <v-icon>mdi-filter-variant</v-icon>
-                </v-btn>-->
                 <v-menu bottom left>
                     <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on" v-show="!showSearch">
@@ -109,8 +106,11 @@
             showBackNavButton() {
                 return this.$store.state.toolbar.showBackButton
             },
-            showNotification() {
-                return this.numberOfUnreadNotifications > 0;
+            getColorOfToolbar() {
+                if (this.$store.state.user.isHarvestingUser) {
+                    return 'secondary'
+                }
+                return 'primary'
             }
         }
     }
