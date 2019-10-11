@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const harvestingUser = require('./../../userHarvesting/security');
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const time = require('dumonda-me-server-lib').time;
 const uuid = require('dumonda-me-server-lib').uuid;
@@ -34,6 +35,7 @@ const addWatchNotificationNotExists = function (userId, questionId, watchAdded) 
 const addWatch = async function (userId, questionId) {
     let created = time.getNowUtcTimestamp();
 
+    await harvestingUser.notAllowedToPerformAction(userId, logger);
     let response = await db.cypher()
         .match(`(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})`)
         .where(`NOT (user)-[:WATCH]->(question) AND NOT (user)-[:IS_CREATOR]->(question)`)

@@ -141,4 +141,15 @@ describe('Handling watch commitment requests from a user', function () {
         let res = await requestHandler.put('/api/user/commitment/watch/1');
         res.status.should.equal(401);
     });
+
+    it('Harvesting user is not allowed to watch commitment', async function () {
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/commitment/watch/1');
+        res.status.should.equal(401);
+
+        let resp = await db.cypher().match("(c:Commitment)<-[w:WATCH]-(u:User)").return(`c, u, w`).end().send();
+        resp.length.should.equals(0);
+    });
 });
