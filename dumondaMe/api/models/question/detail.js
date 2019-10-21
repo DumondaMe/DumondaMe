@@ -38,6 +38,8 @@ const getHarvestingUserData = async function (user, createdQuestion, answeredQue
     return {
         userId: user.userId,
         name: user.name,
+        startDate: user.start,
+        endDate: user.end,
         slug: slug(user.name),
         userImage: await cdn.getSignedUrl(`profileImage/${user.userId}/profilePreview.jpg`),
         createdQuestion: createdQuestion,

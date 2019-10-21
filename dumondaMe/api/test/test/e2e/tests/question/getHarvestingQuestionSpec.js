@@ -43,6 +43,8 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.name.should.equals('user Meier');
         res.body.harvestingUser.slug.should.equals('user-meier');
         res.body.harvestingUser.userImage.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.harvestingUser.startDate.should.equals(100);
+        res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(true);
         res.body.harvestingUser.answeredQuestion.should.equals(false);
     });
@@ -59,6 +61,8 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.name.should.equals('user Meier2');
         res.body.harvestingUser.slug.should.equals('user-meier2');
         res.body.harvestingUser.userImage.should.equals('profileImage/2/profilePreview.jpg');
+        res.body.harvestingUser.startDate.should.equals(100);
+        res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(false);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
 
@@ -83,6 +87,8 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.name.should.equals('user Meier');
         res.body.harvestingUser.slug.should.equals('user-meier');
         res.body.harvestingUser.userImage.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.harvestingUser.startDate.should.equals(100);
+        res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(true);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
 
