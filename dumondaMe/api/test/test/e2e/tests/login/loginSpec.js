@@ -30,6 +30,7 @@ describe('Integration Tests Login', function () {
         dbDsl.setUserLanguages('1', {languages: ['en', 'de']});
         dbDsl.setInfoState('2', {infoState: 0});
         dbDsl.setUserLanguages('2', {languages: ['en']});
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         await dbDsl.sendToDb();
     });
 
@@ -62,6 +63,7 @@ describe('Integration Tests Login', function () {
         res.body.regions.should.includes('region-1');
         res.body.regions.should.includes('region-3');
         res.body.infoState.should.equals(1);
+        res.body.isHarvestingUser.should.equals(false);
     });
 
     it('Login and getting user data', async function () {
@@ -73,6 +75,7 @@ describe('Integration Tests Login', function () {
         res.body.infoState.should.equals(0);
         res.body.topics.length.should.equals(0);
         res.body.regions.length.should.equals(0);
+        res.body.isHarvestingUser.should.equals(true);
     });
 
     it('Logout - Return a 200', function (done) {

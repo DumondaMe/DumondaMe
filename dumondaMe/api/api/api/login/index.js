@@ -38,7 +38,8 @@ module.exports = function (router) {
                     await loginUser.setTimestamp(req.user.id);
                     res.status(200).json({
                         username: user.email, lang: user.lang, languages: user.languages,
-                        infoState: user.infoState, topics: user.topics, regions: user.regions
+                        infoState: user.infoState, topics: user.topics, regions: user.regions,
+                        isHarvestingUser: user.harvestingUser
                     });
                     logger.info(`Successful login of user ${req.user.id}`, req, {});
                 } catch (error) {
