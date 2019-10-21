@@ -14,6 +14,7 @@ export const actions = {
             let response = await this.$axios.$post('/login', {username, password});
             commit('user/SET_USER_INFO_STATE', response.infoState, {root: true});
             commit('i18n/SET_LANGUAGES', response.languages, {root: true});
+            commit('user/SET_IS_HARVESTING_USER', response.isHarvestingUser, {root: true});
             if (response.topics && response.topics.length > 0) {
                 commit('feedFilter/SET_TOPIC_FILTER', response.topics.map(function (topicId) {
                     return {id: topicId}
