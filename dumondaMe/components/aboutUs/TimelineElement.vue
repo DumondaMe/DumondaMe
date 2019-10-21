@@ -24,6 +24,10 @@
             padding-top: 12px;
         }
 
+        .title {
+            word-break: normal;
+        }
+
         .date-mobile {
             font-weight: 500;
             margin-bottom: 8px;
