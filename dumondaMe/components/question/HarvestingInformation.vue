@@ -3,7 +3,7 @@
         <h3 class="harvesting-title">{{harvestingUser.name}}</h3>
         <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
-        <div class="harvesting-description">
+        <div class="harvesting-description" v-if="hasTakenPlace">
             <span v-if="harvestingUser.answeredQuestion && harvestingUser.createdQuestion">
                 {{$t('pages:question.harvestingInfo.questionCreatedAndAnswered',
                 {event: harvestingUser.name})}}</span>
@@ -14,14 +14,29 @@
                 {{$t('pages:question.harvestingInfo.questionCreated',
                 {event: harvestingUser.name})}}</span>
         </div>
+        <div class="harvesting-description">
+            <span v-html="$t('pages:question.harvestingInfo.questionWillBeAnswered',
+            {event: harvestingUser.name,
+            date: getDate})"></span>
+        </div>
     </div>
 </template>
 
 <script>
+    import isPast from 'date-fns/is_past';
+
     export default {
         computed: {
             harvestingUser() {
                 return this.$store.state.question.question.harvestingUser;
+            },
+            hasTakenPlace() {
+                return isPast(this.$store.state.question.question.harvestingUser.endDate * 1000);
+            },
+            getDate() {
+                return this.$options.filters.
+                formatFromToDate(this.$store.state.question.question.harvestingUser.startDate,
+                    this.$store.state.question.question.harvestingUser.endDate, this.$t('common:at'));
             }
         }
     }
