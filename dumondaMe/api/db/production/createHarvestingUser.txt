@@ -11,5 +11,6 @@ SET u.end = 1572548400
 SET u.address = 'Gottlieb Duttweiler Institut, Rüschlikon/ZH'
 SET u.link = 'https://www.oebu.ch/de/events/event-kalender/forum-oe-2019_0-4254.html'
 SET u.language = 'de'
+SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
 SET u.privacyMode = 'public';
