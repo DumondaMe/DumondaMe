@@ -34,6 +34,7 @@
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
                         allow="autoplay" v-if="showEmbed"></iframe>
                 <img v-lazy="youtubeImage" v-else @click="showEmbed = true">
+                <img :src="videoButton" v-if="!showEmbed" class="video-button">
             </div>
             <div class="answer-description">
                 <expand-text :expand-text="answer.description"></expand-text>
@@ -59,6 +60,9 @@
             },
             youtubeImage() {
                 return `https://img.youtube.com/vi/${this.answer.idOnYoutube}/0.jpg`;
+            },
+            videoButton() {
+                return `${process.env.staticUrl}/img/youtube.png`;
             },
             youtubeEmbedAutoplay() {
                 let indexList = this.answer.linkEmbed.indexOf('embed?');
@@ -87,12 +91,29 @@
 
             .youtube-embed {
                 width: 100%;
+                position: relative;
 
                 img {
                     width: 100%;
                     cursor: pointer;
                     border-top: 1px solid $divider;
                     border-bottom: 1px solid $divider;
+                }
+
+                img.video-button {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    width: 70px;
+                    margin-left: -35px;
+                    margin-top: -25px;
+                    border: none;
+
+                    @media screen and (max-width: 900px) {
+                        width: 60px;
+                        margin-left: -30px;
+                        margin-top: -21px;
+                    }
                 }
             }
 
