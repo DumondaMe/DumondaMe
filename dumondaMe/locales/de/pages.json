@@ -238,6 +238,10 @@
     "conceptInfo": {
       "title": "Welches sind die wichtigsten Konzepte?",
       "actionButton": "Tour starten"
+    },
+    "harvesting": {
+      "title": "DumondaMe on Tour",
+      "description": "DumondaMe nimmt an verschiedene Veranstaltungen teil, um dir das dort präsentierte Wissen in Form von Fragen/Antworten verfügbar zu machen."
     }
   },
   "commitment": {

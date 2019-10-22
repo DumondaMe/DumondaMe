@@ -1,5 +1,6 @@
 export const state = () => ({
     feed: [],
+    harvestingEvents: [],
     page: 0,
     timestamp: Number.MAX_SAFE_INTEGER,
     loading: false,
@@ -89,7 +90,10 @@ export const mutations = {
                 element.creator.isTrustUser = false;
             }
         }
-    }
+    },
+    SET_HARVESTING_EVENTS(state, events) {
+        state.harvestingEvents = events;
+    },
 };
 
 const addSocialMediaInfoToResponse = function (feed) {
@@ -113,8 +117,13 @@ const getFeedRequest = async function (commit, isAuthenticated, params, selected
     return response;
 };
 
+const loadingHarvestingEvents = async function ($axios, commit) {
+    let harvestingEvents = await $axios.$get(`/harvesting/actualEvents`);
+    commit('SET_HARVESTING_EVENTS', harvestingEvents.events);
+};
+
 export const actions = {
-    async getFeed({commit, rootState, rootGetters}) {
+    async getFeed({commit, state, rootState, rootGetters}) {
         try {
             commit('SET_LOADING', true);
             let params = {params: {page: 0, guiLanguage: rootState.i18n.language, languages: rootState.i18n.languages}};
@@ -123,6 +132,9 @@ export const actions = {
                 rootState.feedFilter.selectedFeedName, 'SET_FEED', this.$axios);
             commit('SET_TIMESTAMP', response.timestamp);
             commit('SET_FEED_IS_EMPTY', response.feed.length === 0);
+            if (state.harvestingEvents.length === 0) {
+                await loadingHarvestingEvents(this.$axios, commit);
+            }
         } finally {
             commit('SET_LOADING', false);
         }
