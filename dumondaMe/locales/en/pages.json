@@ -240,6 +240,10 @@
     "conceptInfo": {
       "title": "What are the most important concepts?",
       "actionButton": "Start tour"
+    },
+    "harvesting": {
+      "title": "DumondaMe on Tour",
+      "description": "DumondaMe participates in various events to make the knowledge presented there available to you in the form of questions/answers."
     }
   },
   "commitment": {

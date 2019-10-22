@@ -1,6 +1,7 @@
 <template>
     <feed-layout class="index-pages-container">
         <div slot="sidebar">
+            <dumonda-me-on-tour></dumonda-me-on-tour>
             <donation-info></donation-info>
             <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
@@ -12,7 +13,8 @@
             <feed-mobile-filter class="mobile-feed-filter">
             </feed-mobile-filter>
             <feed-filter></feed-filter>
-            <donation-info class="mobile-donation-info" v-if="!isLoading"></donation-info>
+            <dumonda-me-on-tour class="mobile-feed-on-tour" v-show="!isLoading"></dumonda-me-on-tour>
+            <donation-info class="mobile-donation-info" v-show="!isLoading"></donation-info>
             <feed-empty v-if="feedEmpty && !isLoading">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">
@@ -40,6 +42,7 @@
     import Cards from '~/components/feed/Cards';
     import FeedEmpty from "~/components/feed/FeedEmpty";
     import UserSuggestions from '~/components/feed/UserSuggestions';
+    import DumondaMeOnTour from '~/components/feed/DumondaMeOnTour';
     import AboutDumondaMe from '~/components/feed/AboutDumondaMe';
     import ConceptInfo from '~/components/feed/info/Concept';
     import NetworkingInfo from '~/components/feed/info/Networking';
@@ -69,7 +72,7 @@
         components: {
             FeedLayout, FeedFilter, FeedMobileFilter, FeedPopularQuestion,
             FeedCommitmentInfo, FeedActivityInfo, Cards, FeedEmpty, UserSuggestions, AboutDumondaMe,
-            ConceptInfo, NetworkingInfo, DonationInfo, FabButton, CreateQuestionDialog
+            ConceptInfo, NetworkingInfo, DonationInfo, FabButton, CreateQuestionDialog, DumondaMeOnTour
         },
         head() {
             return {
@@ -158,6 +161,12 @@
             }
 
             .mobile-donation-info {
+                @media screen and (min-width: $xs + 1) {
+                    display: none;
+                }
+            }
+
+            .mobile-feed-on-tour {
                 @media screen and (min-width: $xs + 1) {
                     display: none;
                 }
