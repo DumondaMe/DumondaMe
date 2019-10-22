@@ -14,3 +14,23 @@ SET u.language = 'de'
 SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
 SET u.privacyMode = 'public';
+
+
+CREATE (u:User:HarvestingUser {userId: 'fachtagungMoneySustainability'})
+SET u.email = 'fachtagungMoneySustainability@dumonda.me'
+SET u.emailNormalized = 'fachtagungmoneysustainability@dumonda.me'
+SET u.forename = 'Fachtagung - Money and Sustainability'
+SET u.surname = ''
+SET u.name = 'Fachtagung - Money and Sustainability'
+SET u.userDescription = "Seit Jahrzehnten arbeiten Umwelt- und Entwicklungsorganisationen daran, ökologischen, sozialen und nachhaltigen Prozessen und Strukturen auf dieser Welt zum Durchbruch zu verhelfen, doch laufend treten neue Probleme auf. Vieles wurde schon versucht, um die überbordende Wirtschaft einzudämmen, doch nichts hat dauerhaft geholfen. Nur ein Bereich wurde bisher noch nicht angegangen: Das Geldsystem! Könnte es sein, dass es grundlegende strukturelle Fehler im derzeitigen Währungs- und Finanzsystem gibt, die alle aktuellen Probleme massiv verstärken und laufend neue Krisen befeuern, so dass konventionelle Lösungsversuche dadurch chancenlos bleiben?
+
+                         Wie kann das matchentscheidende Thema Geldsystem in die Arbeit für die Verwirklichung der Nachhaltigkeitsziele und des Klimaschutzes integriert werden?"
+SET u.registerDate = 1571751723
+SET u.start = 1572523200
+SET u.end = 1572550200
+SET u.address = 'Kulturpark, Pfingstweidstr. 16, Zürich'
+SET u.link = 'https://www.kulturpark.ch/veranstaltungen?course=19-10-31-1'
+SET u.language = 'de'
+SET u.languages = ['de', 'en']
+SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
+SET u.privacyMode = 'public';
