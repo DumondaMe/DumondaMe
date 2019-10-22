@@ -19,6 +19,12 @@
             {event: harvestingUser.name,
             date: getDate})"></span>
         </div>
+        <div class="navigate-to-harvesting-user-button">
+            <v-btn color="secondary" @click="$router.push({name: 'user-userId-slug',
+                     params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
+                {{$t('pages:question.harvestingInfo.toTheEventButton')}}
+            </v-btn>
+        </div>
     </div>
 </template>
 
@@ -34,8 +40,7 @@
                 return isPast(this.$store.state.question.question.harvestingUser.endDate * 1000);
             },
             getDate() {
-                return this.$options.filters.
-                formatFromToDate(this.$store.state.question.question.harvestingUser.startDate,
+                return this.$options.filters.formatFromToDate(this.$store.state.question.question.harvestingUser.startDate,
                     this.$store.state.question.question.harvestingUser.endDate, this.$t('common:at'));
             }
         }
@@ -62,6 +67,15 @@
             @include defaultPaddingCard();
             font-weight: 300;
             margin-top: 8px;
+        }
+
+        .navigate-to-harvesting-user-button {
+            @include defaultPaddingCard();
+            margin-top: 14px;
+
+            button {
+                width: 100%;
+            }
         }
     }
 </style>
