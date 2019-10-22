@@ -412,7 +412,8 @@
       "questionCreated": "Diese Frage wurde an der Veranstaltung {{event}} von DumondaMe erstellt.",
       "questionAnswered": "Diese Frage wurde an der Veranstaltung {{event}} von DumondaMe beantwortet.",
       "questionCreatedAndAnswered": "Diese Frage wurde an der Veranstaltung {{event}} von DumondaMe erstellt und beantwortet.",
-      "questionWillBeAnswered": "Diese Frage wird am <b>{{date}}</b> an der Veranstaltung <b>{{event}}</b> beantwortet."
+      "questionWillBeAnswered": "Diese Frage wird am <b>{{date}}</b> an der Veranstaltung <b>{{event}}</b> beantwortet.",
+      "toTheEventButton": "Zur Veranstaltung"
     }
   },
   "detailQuestion": {
