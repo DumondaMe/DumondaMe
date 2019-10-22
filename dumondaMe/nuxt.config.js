@@ -65,7 +65,7 @@ module.exports = {
         scss: ['~assets/style/_variables.scss', '~assets/style/_mixins.scss']
     },
     loading: {
-        color: '#009e97'
+        color: '#4CAF50'
     },
     pageTransition: {
         name: 'page',
