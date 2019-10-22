@@ -47,16 +47,14 @@
         .about-description {
             @include defaultPaddingCard();
             font-weight: 300;
-            font-size: 14px;
-            @media screen and (max-width: $xs) {
-                font-size: 16px;
-            }
+            font-size: 16px;
         }
 
         .register-command {
             @include defaultPaddingCard();
 
             button {
+                width: 100%;
                 margin: 12px 18px 0 0;
                 @media screen and (max-width: $xs) {
                     margin-bottom: 12px;
