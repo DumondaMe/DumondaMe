@@ -26,7 +26,9 @@ import Vuetify, {
     VNavigationDrawer,
     VProgressCircular,
     VProgressLinear,
-    VDatePicker
+    VDatePicker,
+    VCarousel,
+    VCarouselItem
 } from 'vuetify/lib';
 
 import IconClap from '~/components/icons/Clap';
@@ -83,7 +85,9 @@ export default ctx => {
             VNavigationDrawer,
             VProgressCircular,
             VProgressLinear,
-            VDatePicker
+            VDatePicker,
+            VCarousel,
+            VCarouselItem
         }
     });
 
