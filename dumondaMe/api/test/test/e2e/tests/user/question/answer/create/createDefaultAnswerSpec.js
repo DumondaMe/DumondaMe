@@ -1,17 +1,21 @@
 'use strict';
 
-let users = require('dumonda-me-server-test-util').user;
-let db = require('dumonda-me-server-test-util').db;
-let dbDsl = require('dumonda-me-server-test-util').dbDSL;
-let requestHandler = require('dumonda-me-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('dumonda-me-server-test-util').user;
+const db = require('dumonda-me-server-test-util').db;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
+const moment = require('moment');
+const should = require('chai').should();
+const sinon = require('sinon');
+const stubCDN = require('dumonda-me-server-test-util').stubCDN();
 
-describe('Creating new default answer', function () {
+describe('Creating default answer', function () {
 
     let startTime;
 
     beforeEach(async function () {
         await dbDsl.init(3);
+        stubCDN.uploadBuffer.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         dbDsl.createMainTopic({topicId: 'topic1', descriptionDe: 'topic1De', descriptionEn: 'topic1En'});
         dbDsl.createMainTopic({topicId: 'topic2', descriptionDe: 'topic2De', descriptionEn: 'topic2En'});
@@ -37,7 +41,7 @@ describe('Creating new default answer', function () {
         return requestHandler.logout();
     });
 
-    it('Creating new default answer (only text)', async function () {
+    it('Creating default answer (only text)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/default/1', {
@@ -53,12 +57,118 @@ describe('Creating new default answer', function () {
         res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .where(`NOT answer:HasTitleImage`)
             .return(`answer, user`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.answer.should.equals('answer');
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
+
+        stubCDN.uploadBuffer.called.should.be.false;
+    });
+
+    it('Creating default answer (only image)', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/default/1', {
+        }, `${__dirname}/defaultAnswerImage.jpg`);
+        res.status.should.equal(200);
+        res.body.created.should.least(startTime);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/default/${res.body.answerId}/500x800/title.jpg`);
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer:HasTitleImage)<-[:IS_CREATOR]-(user:User)`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        should.not.exist(resp[0].answer.answer);
+        resp[0].answer.created.should.equals(res.body.created);
+        resp[0].user.userId.should.equals('1');
+
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+    });
+
+    it('Creating default answer (image and text)', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/default/1', {
+            answer: 'answer'
+        }, `${__dirname}/defaultAnswerImage.jpg`);
+        res.status.should.equal(200);
+        res.body.created.should.least(startTime);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/default/${res.body.answerId}/500x800/title.jpg`);
+        res.body.creator.name.should.equals('user Meier');
+        res.body.creator.slug.should.equals('user-meier');
+        res.body.creator.isLoggedInUser.should.equals(true);
+        res.body.creator.isTrustUser.should.equals(false);
+        res.body.creator.userImage.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.creator.userImagePreview.should.equals('profileImage/1/profilePreview.jpg');
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer:HasTitleImage)<-[:IS_CREATOR]-(user:User)`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(1);
+        resp[0].answer.answerId.should.equals(res.body.answerId);
+        resp[0].answer.answer.should.equals('answer');
+        resp[0].answer.created.should.equals(res.body.created);
+        resp[0].user.userId.should.equals('1');
+
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+    });
+
+    it('Creating answer fails because image is to small', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/default/1', {
+        }, `${__dirname}/defaultAnswerImageToSmall.jpg`);
+        res.status.should.equal(400);
+        res.body.errorCode.should.equal(1);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .where(`NOT answer:HasTitleImage`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(0);
+
+        stubCDN.uploadBuffer.called.should.be.false;
+    });
+
+    it('Creating answer fails because file is not an image', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/default/1', {
+        }, `${__dirname}/createLinkAnswerSpec.js`);
+        res.status.should.equal(500);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .where(`NOT answer:HasTitleImage`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(0);
+
+        stubCDN.uploadBuffer.called.should.be.false;
+    });
+
+    it('Creating answer fails because image and text is missing', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/default/1', {
+        });
+        res.status.should.equal(400);
+
+        let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Default:Answer)<-[:IS_CREATOR]-(user:User)`)
+            .where(`NOT answer:HasTitleImage`)
+            .return(`answer, user`).end().send();
+        resp.length.should.equals(0);
+
+        stubCDN.uploadBuffer.called.should.be.false;
     });
 
     it('Default answer contains links', async function () {
