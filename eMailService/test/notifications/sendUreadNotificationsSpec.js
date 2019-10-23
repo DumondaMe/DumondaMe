@@ -20,7 +20,7 @@ describe('Send email when multiple unread notification exist', function () {
             creatorId: '2', question: 'Das ist eine FragöÖÄäÜü', description: 'description', topics: ['Spiritual'],
             language: 'de'
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
         dbDsl.createNote('50', {answerId: '5', creatorId: '2', created: 555});
