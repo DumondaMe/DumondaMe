@@ -1,16 +1,10 @@
 'use strict';
 
 const db = requireDb();
-const uuid = require('dumonda-me-server-lib').uuid;
-const time = require('dumonda-me-server-lib').time;
 const cdn = require('dumonda-me-server-lib').cdn;
-const notification = require(`./notification`);
-const youtube = require('../../../../util/youtube');
-const slug = require('limax');
+const youtube = require('../../../../../util/youtube');
 const linkify = require('linkifyjs');
-const linkifyHtml = require('linkifyjs/html');
 const {URL} = require('url');
-const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const searchCommitment = async function (link, questionId) {
     let regex = new URL(link);
@@ -87,46 +81,11 @@ const getLinksOfAnswer = async function (answer, questionId) {
                 result.links.push(await checkUsedAsAnswer(linkUsedAsAnswer, link, questionId));
             }
         }
-        return result;
+        return {linksFound: result};
     }
 };
 
-const createDefaultAnswerCommand = function (params) {
-    return db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")
-        .create(`(answer:Default:Answer {answerId: {answerId}, answer: {answer}, created: {created}})`)
-        .merge(`(user)-[:IS_CREATOR]->(answer)<-[:ANSWER]-(question)`)
-        .return(`user.name AS name`)
-        .end(params).getCommand();
-};
-
-const createAnswer = async function (userId, params) {
-    let links;
-    if (!params.createAnswerWithLink) {
-        links = await getLinksOfAnswer(params.answer, params.questionId);
-    }
-    if (!links) {
-        params.answerId = uuid.generateUUID();
-        params.created = time.getNowUtcTimestamp();
-        params.userId = userId;
-        let user = await notification.addCreatedAnswerNotification(userId, params.answerId, params.created)
-            .send([createDefaultAnswerCommand(params)]);
-        logger.info(`Created default answer ${params.answerId} for question ${params.questionId}`);
-        return {
-            answerId: params.answerId, created: params.created,
-            answerHtml: linkifyHtml(params.answer, {attributes: {rel: 'noopener'}}),
-            creator: {
-                name: user[0][0].name,
-                slug: slug(user[0][0].name),
-                userImage: await cdn.getSignedUrl(`profileImage/${userId}/thumbnail.jpg`),
-                userImagePreview: await cdn.getSignedUrl(`profileImage/${userId}/profilePreview.jpg`),
-                isLoggedInUser: true,
-                isTrustUser: false
-            }
-        };
-    }
-    return links;
-};
 
 module.exports = {
-    createAnswer
+    getLinksOfAnswer
 };
