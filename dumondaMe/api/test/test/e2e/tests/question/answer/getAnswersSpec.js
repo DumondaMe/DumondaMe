@@ -35,10 +35,10 @@ describe('Getting answers of a question', function () {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer2 www.dumonda.me',
         });
         dbDsl.createYoutubeAnswer('7', {
@@ -108,7 +108,7 @@ describe('Getting answers of a question', function () {
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
-        res.body.answers[0].answerType.should.equals('Text');
+        res.body.answers[0].answerType.should.equals('Default');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(true);
@@ -125,7 +125,7 @@ describe('Getting answers of a question', function () {
         res.body.answers[0].numberOfNotes.should.equals(0);
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
         res.body.answers[1].answer.should.equals('Answer2 www.dumonda.me');
         res.body.answers[1].answerHtml.should.equals('Answer2 <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.answers[1].upVotes.should.equals(0);
@@ -257,10 +257,10 @@ describe('Getting answers of a question', function () {
         res.body.answers[0].answerType.should.equals('Youtube');
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
 
         res.body.answers[2].answerId.should.equals('5');
-        res.body.answers[2].answerType.should.equals('Text');
+        res.body.answers[2].answerType.should.equals('Default');
 
         res.body.answers[3].answerId.should.equals('8');
         res.body.answers[3].answerType.should.equals('Link');
@@ -283,10 +283,10 @@ describe('Getting answers of a question', function () {
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
-        res.body.answers[0].answerType.should.equals('Text');
+        res.body.answers[0].answerType.should.equals('Default');
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
 
         res.body.answers[2].answerId.should.equals('7');
         res.body.answers[2].answerType.should.equals('Youtube');
@@ -304,7 +304,7 @@ describe('Getting answers of a question', function () {
 
     it('Has next answers', async function () {
         for (let index = 12; index < 27; index++) {
-            dbDsl.createTextAnswer(`${index}`, {
+            dbDsl.createDefaultAnswer(`${index}`, {
                 creatorId: '1', questionId: '1', answer: 'Answer', created: 600 + index,
             });
         }
@@ -318,7 +318,7 @@ describe('Getting answers of a question', function () {
 
     it('Getting next answers', async function () {
         for (let index = 12; index < 27; index++) {
-            dbDsl.createTextAnswer(`${index}`, {
+            dbDsl.createDefaultAnswer(`${index}`, {
                 creatorId: '1', questionId: '1', answer: 'Answer', created: 1000 + index,
             });
         }

@@ -16,7 +16,7 @@ describe('Show the user profile in the activity feed for up voted texts only if 
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 601,
         });
         dbDsl.upVoteAnswer({userId: '3', answerId: '6', created: 999});
@@ -34,7 +34,7 @@ describe('Show the user profile in the activity feed for up voted texts only if 
         res.status.should.equal(200);
         res.body.feed.length.should.equals(3);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].answer.should.equals('Answer');

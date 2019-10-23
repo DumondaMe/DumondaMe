@@ -105,7 +105,7 @@ describe('Get similar question', function () {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test',
             topics: ['topic1', 'topic22'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('50', {
+        dbDsl.createDefaultAnswer('50', {
             creatorId: '2', questionId: '2', answer: 'Answer', created: 500,
         });
         dbDsl.upVoteAnswer({userId: '1', answerId: '50', created: 500});
@@ -116,10 +116,10 @@ describe('Get similar question', function () {
             creatorId: '3', question: 'Das ist eine Frage3', description: 'Test',
             topics: ['topic1', 'topic22'], language: 'de', created: 444, modified: 700
         });
-        dbDsl.createTextAnswer('51', {
+        dbDsl.createDefaultAnswer('51', {
             creatorId: '2', questionId: '3', answer: 'Answer', created: 500,
         });
-        dbDsl.createTextAnswer('52', {
+        dbDsl.createDefaultAnswer('52', {
             creatorId: '2', questionId: '3', answer: 'Answer', created: 500,
         });
         dbDsl.upVoteAnswer({userId: '5', answerId: '51', created: 500});

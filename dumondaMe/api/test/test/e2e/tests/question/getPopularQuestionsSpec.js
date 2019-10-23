@@ -22,7 +22,7 @@ describe('Get public popular question', function () {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'Test dumonda.me change the world2',
             topics: ['Spiritual', 'Education'], language: 'de', created: 400, modified: 701
         });
-        dbDsl.createTextAnswer('50', {
+        dbDsl.createDefaultAnswer('50', {
             creatorId: '2', questionId:'2', answer: 'Answer', created: startTime - 600,
         });
 
@@ -30,10 +30,10 @@ describe('Get public popular question', function () {
             creatorId: '3', question: 'Das ist eine Frage3', description: 'Test dumonda.me change the world3',
             topics: ['Spiritual', 'Education'], language: 'de', created: 401, modified: 701
         });
-        dbDsl.createTextAnswer('51', {
+        dbDsl.createDefaultAnswer('51', {
             creatorId: '2', questionId:'3', answer: 'Answer2', created: startTime - 501,
         });
-        dbDsl.createTextAnswer('52', {
+        dbDsl.createDefaultAnswer('52', {
             creatorId: '2', questionId:'3', answer: 'Answer3', created: startTime - 502,
         });
         dbDsl.watchQuestion({questionId: '3', userId: '5', created: startTime - 500});
@@ -48,10 +48,10 @@ describe('Get public popular question', function () {
             creatorId: '3', question: 'Das ist eine Frage4', description: 'Test dumonda.me change the world4',
             topics: ['Spiritual', 'Education'], language: 'de', created: 402, modified: 701
         });
-        dbDsl.createTextAnswer('53', {
+        dbDsl.createDefaultAnswer('53', {
             creatorId: '2', questionId:'4', answer: 'Answer4', created: startTime - (FOUR_WEEKS - 10),
         });
-        dbDsl.createTextAnswer('54', {
+        dbDsl.createDefaultAnswer('54', {
             creatorId: '2', questionId:'4', answer: 'Answer5', created: startTime - (FOUR_WEEKS - 10),
         });
         dbDsl.upVoteAnswer({userId: '4', answerId: '53', created: startTime - (FOUR_WEEKS - 10)});
@@ -86,10 +86,10 @@ describe('Get public popular question', function () {
             creatorId: '3', question: 'Das ist eine Frage4', description: 'Test dumonda.me change the world4',
             topics: ['Spiritual', 'Education'], language: 'de', created: 402, modified: 701
         });
-        dbDsl.createTextAnswer('53', {
+        dbDsl.createDefaultAnswer('53', {
             creatorId: '2', questionId:'4', answer: 'Answer4', created: startTime - (FOUR_WEEKS + 1),
         });
-        dbDsl.createTextAnswer('54', {
+        dbDsl.createDefaultAnswer('54', {
             creatorId: '2', questionId:'4', answer: 'Answer5', created: startTime - (FOUR_WEEKS + 1),
         });
         dbDsl.upVoteAnswer({userId: '4', answerId: '53', created: - (FOUR_WEEKS + 1)});

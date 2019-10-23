@@ -129,7 +129,7 @@ describe('Get activity feed for created commitment answers', function () {
     });
 
     it('Show only commitment answer', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createBookAnswer('7', {

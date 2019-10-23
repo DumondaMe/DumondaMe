@@ -18,7 +18,7 @@ describe('Getting users who up voted an answer', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '2', questionId: '1', answer: 'Answer', created: 600,
         });
     });

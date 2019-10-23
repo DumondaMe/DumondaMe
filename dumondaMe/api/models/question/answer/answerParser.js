@@ -56,7 +56,7 @@ const getAnswers = async function (answers, language, userId) {
             formattedAnswer.isAdmin = answer.isAdmin || false;
             formattedAnswer.hasVoted = answer.hasVoted || false;
             formattedAnswer.answerType = answer.answerType.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
+                (l) => ['Youtube', 'Default', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
             formattedAnswer.creator = await getCreator(answer.creator, answer.isTrustUser, answer.creatorTrustUser,
                 answer.isHarvestingUser, userId);
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
@@ -74,7 +74,7 @@ const getAnswers = async function (answers, language, userId) {
                 }
                 formattedAnswer.regions = answer.regions.map((region) => region[language]);
                 formattedAnswer.events = getEvents(answer.events, language)
-            } else if (formattedAnswer.answerType === 'Text') {
+            } else if (formattedAnswer.answerType === 'Default') {
                 formattedAnswer.answerHtml = linkifyHtml(formattedAnswer.answer, {attributes: {rel: 'noopener'}});
             }
             result.push(formattedAnswer);

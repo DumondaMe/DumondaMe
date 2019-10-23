@@ -29,7 +29,7 @@ describe('Notification when user creates a note for an answer', function () {
     });
 
     it('Create notification when note for answer has been created', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
 
@@ -56,7 +56,7 @@ describe('Notification when user creates a note for an answer', function () {
     });
 
     it('No notification when note for answer has been created by creator of answer', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
 

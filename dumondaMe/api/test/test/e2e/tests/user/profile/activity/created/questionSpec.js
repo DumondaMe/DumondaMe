@@ -22,7 +22,7 @@ describe('Get activity feed with created questions by a user', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createBookAnswer('6', {

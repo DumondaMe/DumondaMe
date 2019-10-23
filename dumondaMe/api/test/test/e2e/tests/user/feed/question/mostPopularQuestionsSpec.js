@@ -29,7 +29,7 @@ describe('Get question feed for the most popular questions', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createBookAnswer('6', {
@@ -51,7 +51,7 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
         //Score for question 3
@@ -140,7 +140,7 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers (only trust circle)', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
         //Score for question 3
@@ -192,10 +192,10 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers (topic filter)', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
+        dbDsl.createDefaultAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
         //Score for question 3
@@ -240,10 +240,10 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers (trust circle and topic filter)', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
+        dbDsl.createDefaultAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
         //Score for question 3
@@ -282,10 +282,10 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Show only english questions', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
+        dbDsl.createDefaultAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
         //Score for question 3
@@ -315,10 +315,10 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers (only last 7 Days)', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
+        dbDsl.createDefaultAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
 
@@ -365,10 +365,10 @@ describe('Get question feed for the most popular questions', function () {
     });
 
     it('Question sorted by watches and then by up votes of the answers (only last month)', async function () {
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '7', questionId: '2', answer: 'Answer2', created: 600,
         });
-        dbDsl.createTextAnswer('8', {
+        dbDsl.createDefaultAnswer('8', {
             creatorId: '8', questionId: '3', answer: 'Answer3', created: 601,
         });
 

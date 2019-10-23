@@ -6,7 +6,7 @@ let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let moment = require('moment');
 
-describe('Delete text answer', function () {
+describe('Delete default answer', function () {
 
     let startTime;
 
@@ -21,10 +21,10 @@ describe('Delete text answer', function () {
             creatorId: '3', question: 'Das ist eine Frage2', description: 'description2', topics: ['Health'],
             language: 'en'
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '1', questionId:'1', answer: 'Answer'
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '2', questionId:'1', answer: 'Answer2'
         });
     });
@@ -33,7 +33,7 @@ describe('Delete text answer', function () {
         return requestHandler.logout();
     });
 
-    it('Delete text answer (without notes)', async function () {
+    it('Delete default answer (without notes)', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
@@ -45,7 +45,7 @@ describe('Delete text answer', function () {
         resp.length.should.equals(0);
     });
 
-    it('Delete text answer (with notes)', async function () {
+    it('Delete default answer (with notes)', async function () {
         dbDsl.createNote('50', {answerId: '5', creatorId: '1', created: 555});
         dbDsl.createNote('51', {answerId: '5', creatorId: '2', created: 555});
         await dbDsl.sendToDb();
@@ -59,7 +59,7 @@ describe('Delete text answer', function () {
         resp.length.should.equals(0);
     });
 
-    it('The user is only allowed to delete text answers that he has created', async function () {
+    it('The user is only allowed to delete default answers that he has created', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});

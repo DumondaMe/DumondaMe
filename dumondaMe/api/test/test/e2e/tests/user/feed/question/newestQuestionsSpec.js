@@ -28,7 +28,7 @@ describe('Get question feed for the newest questions', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 888, modified: 999
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createBookAnswer('6', {

@@ -36,10 +36,10 @@ describe('Getting details of a question', function () {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer2',
         });
         dbDsl.createYoutubeAnswer('7', {
@@ -226,7 +226,7 @@ describe('Getting details of a question', function () {
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
-        res.body.answers[0].answerType.should.equals('Text');
+        res.body.answers[0].answerType.should.equals('Default');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(true);
@@ -243,7 +243,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].numberOfNotes.should.equals(0);
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -456,7 +456,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(1);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -472,7 +472,7 @@ describe('Getting details of a question', function () {
         res.body.answers[1].creator.isHarvestingUser.should.equals(false);
 
         res.body.answers[2].answerId.should.equals('5');
-        res.body.answers[2].answerType.should.equals('Text');
+        res.body.answers[2].answerType.should.equals('Default');
         res.body.answers[2].answer.should.equals('Answer');
         res.body.answers[2].upVotes.should.equals(0);
         res.body.answers[2].isAdmin.should.equals(true);
@@ -587,7 +587,7 @@ describe('Getting details of a question', function () {
         res.body.hasMoreAnswers.should.equals(false);
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
-        res.body.answers[0].answerType.should.equals('Text');
+        res.body.answers[0].answerType.should.equals('Default');
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(false);
@@ -603,7 +603,7 @@ describe('Getting details of a question', function () {
         res.body.answers[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.answers[1].answerId.should.equals('6');
-        res.body.answers[1].answerType.should.equals('Text');
+        res.body.answers[1].answerType.should.equals('Default');
         res.body.answers[1].answer.should.equals('Answer2');
         res.body.answers[1].upVotes.should.equals(0);
         res.body.answers[1].isAdmin.should.equals(false);
@@ -713,7 +713,7 @@ describe('Getting details of a question', function () {
 
     it('Has next answers', async function () {
         for (let index = 12; index < 27; index++) {
-            dbDsl.createTextAnswer(`${index}`, {
+            dbDsl.createDefaultAnswer(`${index}`, {
                 creatorId: '1', questionId: '1', answer: 'Answer', created: 600 + index,
             });
         }

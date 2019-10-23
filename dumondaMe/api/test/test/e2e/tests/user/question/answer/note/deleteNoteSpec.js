@@ -17,7 +17,7 @@ describe('Delete a note of a answer', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
         dbDsl.createNote('50', {answerId: '5', creatorId: '1', created: 555});

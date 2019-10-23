@@ -17,7 +17,7 @@
                         </template>
                         <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
                     </v-tooltip>
-                    <span v-if="notification.answerType !== 'Text'"
+                    <span v-if="notification.answerType !== 'Default'"
                           v-html="$t('pages:notifications.createdNote.notification', {question, type, answer})">
                     </span>
                     <span v-else

@@ -4,11 +4,11 @@
             <div v-for="answer in answers" itemprop="suggestedAnswer" itemscope class="feed-card ely-card"
                  itemtype="http://schema.org/Answer" :class="{'single-feed-card': showAllAnswersButton}">
                 <a itemprop="url" :href="getAnswerUrl(answer.answerId)" class="hide-answer-link"></a>
-                <text-card v-if="answer.answerType === 'Text'" :answer="answer"
+                <default-card v-if="answer.answerType === 'Default'" :answer="answer"
                            @up-voted="upVote" @down-voted="downVote"
                            @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                            @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
-                </text-card>
+                </default-card>
                 <youtube-card v-else-if="answer.answerType === 'Youtube'" :answer="answer"
                               @up-voted="upVote" @down-voted="downVote"
                               @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
@@ -54,7 +54,7 @@
 <script>
     import CommitmentCard from './card/Commitment'
     import BookCard from './card/Book'
-    import TextCard from './card/Text'
+    import DefaultCard from './card/Default'
     import LinkCard from './card/Link'
     import YoutubeCard from './card/Youtube'
     import AnswerFooter from './card/footer/CommonAnswer';
@@ -62,7 +62,7 @@
 
     export default {
         components: {
-            TextCard, YoutubeCard, LinkCard, BookCard, CommitmentCard, AnswerFooter, CommitmentAnswerFooter
+            DefaultCard, YoutubeCard, LinkCard, BookCard, CommitmentCard, AnswerFooter, CommitmentAnswerFooter
         },
         data() {
             return {loading: false, showError: false}

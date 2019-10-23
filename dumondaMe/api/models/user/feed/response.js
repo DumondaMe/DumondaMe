@@ -4,7 +4,7 @@ const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 const cdn = require('dumonda-me-server-lib').cdn;
 
-const addDefaultAnswerProperties = function (result, feedElement) {
+const addCommonAnswerProperties = function (result, feedElement) {
     if (feedElement.question) {
         result.answerId = feedElement.feedElement.answerId;
         result.title = feedElement.feedElement.title;
@@ -78,8 +78,8 @@ const addBookProperties = function (result, feedElement) {
     }
 };
 
-const addTextProperties = function (result, feedElement) {
-    if (result.type === 'Text') {
+const addDefaultProperties = function (result, feedElement) {
+    if (result.type === 'Default') {
         result.answer = feedElement.feedElement.answer;
         result.answerHtml = linkifyHtml(feedElement.feedElement.answer, {attributes: {rel: 'noopener'}});
     }
@@ -179,24 +179,24 @@ const getFeed = async function (feedElements, userId) {
     for (let feedElement of feedElements) {
         let result = {
             type: feedElement.type.filter(
-                (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question', 'Event']
+                (l) => ['Youtube', 'Default', 'Link', 'Book', 'CommitmentAnswer', 'Commitment', 'Question', 'Event']
                     .some(v => v === l))[0],
             action: getActivity(feedElement.relActivity),
             created: feedElement.created
         };
-        if (result.type !== 'Event' && result.type !== 'Text') {
+        if (result.type !== 'Event' && result.type !== 'Default') {
             result.user = await getUser(feedElement, userId);
-        } else if (result.type === 'Text') {
+        } else if (result.type === 'Default') {
             result.user = await getUser(feedElement, userId);
             result.creator = await getCreator(feedElement, result.type, result.action, userId);
         }
-        addDefaultAnswerProperties(result, feedElement);
+        addCommonAnswerProperties(result, feedElement);
         addCommitmentAnswerProperties(result, feedElement);
         addCommitmentProperties(result, feedElement);
         addLinkProperties(result, feedElement);
         addYoutubeProperties(result, feedElement);
         addBookProperties(result, feedElement);
-        addTextProperties(result, feedElement);
+        addDefaultProperties(result, feedElement);
         addQuestionProperties(result, feedElement);
         addEventProperties(result, feedElement);
 

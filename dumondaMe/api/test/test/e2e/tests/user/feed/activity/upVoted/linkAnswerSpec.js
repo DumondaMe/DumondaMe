@@ -75,7 +75,7 @@ describe('Get activity feed for up voted link answers', function () {
     });
 
     it('Get only up voted link', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createYoutubeAnswer('7', {

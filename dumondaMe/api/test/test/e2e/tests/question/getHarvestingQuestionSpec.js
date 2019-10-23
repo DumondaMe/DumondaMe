@@ -21,7 +21,7 @@ describe('Getting details of a question created or answered by a harvesting user
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['topic1'], language: 'de', modified: 700
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId: '1', answer: 'Answer', created: 600,
         });
     });
@@ -74,7 +74,7 @@ describe('Getting details of a question created or answered by a harvesting user
 
     it('Getting details of a question created and answered by a harvesting user', async function () {
         dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 700,
         });
         await dbDsl.sendToDb();

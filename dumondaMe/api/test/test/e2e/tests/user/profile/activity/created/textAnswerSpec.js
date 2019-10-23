@@ -24,10 +24,10 @@ describe('Get activity feed with created text answers for a user', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 601
         });
-        dbDsl.createTextAnswer('7', {
+        dbDsl.createDefaultAnswer('7', {
             creatorId: '1', questionId: '1', answer: 'Answer2', created: 602
         });
     });
@@ -45,7 +45,7 @@ describe('Get activity feed with created text answers for a user', function () {
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].answer.should.equals('Answer');
@@ -74,7 +74,7 @@ describe('Get activity feed with created text answers for a user', function () {
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('7');
         res.body.feed[0].user.userId.should.equals('1');

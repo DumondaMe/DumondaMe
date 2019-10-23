@@ -72,12 +72,12 @@ let createLinkAnswer = function (answerId, data) {
         }).getCommand());
 };
 
-let createTextAnswer = function (answerId, data) {
+let createDefaultAnswer = function (answerId, data) {
     data.created = data.created || 500;
     data.modified = data.modified || data.created;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Text:Answer {answerId: {answerId}, answer: {answer},
+        .create(`(answer:Default:Answer {answerId: {answerId}, answer: {answer},
                   created: {created}, modified: {modified}})`)
         .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
         .end({
@@ -139,7 +139,7 @@ module.exports = {
     createYoutubeAnswer,
     createVimeoAnswer,
     createLinkAnswer,
-    createTextAnswer,
+    createDefaultAnswer,
     createCommitmentAnswer,
     upVoteAnswer,
     setOriginalAnswer,
