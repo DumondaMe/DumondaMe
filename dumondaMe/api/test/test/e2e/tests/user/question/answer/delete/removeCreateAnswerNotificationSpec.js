@@ -84,7 +84,7 @@ describe('Remove notification when user deletes an answers for a question', func
     });
 
     it('Remove notification when text answer has been deleted', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '1', questionId:'1', answer: 'Answer'
         });
         dbDsl.notificationCreateAnswer('50', {questionId: '1', answerId: '5', created: 678});

@@ -24,7 +24,7 @@ describe('Up vote answers', function () {
     });
 
     it('Up vote a text answer', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();
@@ -32,7 +32,7 @@ describe('Up vote answers', function () {
         let res = await requestHandler.post('/api/user/question/answer/upVote/5');
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
             .return(`user`).end().send();
         resp.length.should.equals(1);
     });
@@ -53,7 +53,7 @@ describe('Up vote answers', function () {
     });
 
     it('Only allowed to up vote an answer once', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId:'1', answer: 'Answer'
         });
         dbDsl.upVoteAnswer({userId: '1', answerId: '5'});
@@ -62,13 +62,13 @@ describe('Up vote answers', function () {
         let res = await requestHandler.post('/api/user/question/answer/upVote/5');
         res.status.should.equal(400);
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
             .return(`user`).end().send();
         resp.length.should.equals(1);
     });
 
     it('As administrator the answer cannot be up voted', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '1', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();
@@ -76,13 +76,13 @@ describe('Up vote answers', function () {
         let res = await requestHandler.post('/api/user/question/answer/upVote/5');
         res.status.should.equal(400);
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
             .return(`user`).end().send();
         resp.length.should.equals(0);
     });
 
     it('Only allowed to up vote an answer as logged in user', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();

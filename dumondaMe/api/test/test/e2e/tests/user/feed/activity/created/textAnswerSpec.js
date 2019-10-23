@@ -25,7 +25,7 @@ describe('Get activity feed for created text answers', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer www.dumonda.me', created: 601,
         });
     });
@@ -42,7 +42,7 @@ describe('Get activity feed for created text answers', function () {
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(2);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].answer.should.equals('Answer www.dumonda.me');
@@ -79,12 +79,12 @@ describe('Get activity feed for created text answers', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity',
-            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Text'});
+            {guiLanguage: 'de', languages: ['de'], typeFilter: 'Default'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
         res.body.feed.length.should.equals(1);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
         should.not.exist(res.body.feed[0].creator);

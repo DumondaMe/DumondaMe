@@ -22,7 +22,7 @@ describe('Privacy settings of the user created a text answer', function () {
             topics: ['topic1', 'topic2'], language: 'de', modified: 700
         });
 
-        dbDsl.createTextAnswer('3', {
+        dbDsl.createDefaultAnswer('3', {
             creatorId: '2', questionId: '1', answer: 'Answer2',
         });
     });

@@ -62,7 +62,7 @@ module.exports = {
     createYoutubeAnswer: answer.createYoutubeAnswer,
     createVimeoAnswer: answer.createVimeoAnswer,
     createLinkAnswer: answer.createLinkAnswer,
-    createTextAnswer: answer.createTextAnswer,
+    createDefaultAnswer: answer.createDefaultAnswer,
     createCommitmentAnswer: answer.createCommitmentAnswer,
     createNote: answer.createNote,
     upVoteNote: answer.upVoteNote,

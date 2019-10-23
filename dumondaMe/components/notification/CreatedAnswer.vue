@@ -18,7 +18,7 @@
                         <span>{{$t('pages:notifications.notAllowedToNavigateToPerson')}}</span>
                     </v-tooltip>
 
-                    <span v-if="notification.answerType !== 'Text'"
+                    <span v-if="notification.answerType !== 'Default'"
                           v-html="$t('pages:notifications.createdAnswer.notification', {question, type, answer})">
                     </span>
                     <span v-else
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-answer" v-if="notification.answerType === 'Text'">
+        <div class="text-answer" v-if="notification.answerType === 'Default'">
             {{notification.answerTitle}}
         </div>
         <watched-command :notification="notification"></watched-command>

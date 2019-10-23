@@ -24,7 +24,7 @@ describe('Creating a note for an answer', function () {
     });
 
     it('Creating a note for an answer (without url)', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();
@@ -37,7 +37,7 @@ describe('Creating a note for an answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
             .return(`answer, note`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals('5');
@@ -46,7 +46,7 @@ describe('Creating a note for an answer', function () {
     });
 
     it('Creating a note for an answer (with url)', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();
@@ -60,7 +60,7 @@ describe('Creating a note for an answer', function () {
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)-[:NOTE]->(note:Note)<-[:IS_CREATOR]-(:User {userId: '1'})`)
             .return(`answer, note`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals('5');
@@ -89,7 +89,7 @@ describe('Creating a note for an answer', function () {
     });
 
     it('Only logged in user can create a note', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
         await dbDsl.sendToDb();

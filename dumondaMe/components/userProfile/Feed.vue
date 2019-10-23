@@ -30,7 +30,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
-                <text-card :answer="element" v-if="element.type === 'Text'" :creator="element.user">
+                <default-card :answer="element" v-if="element.type === 'Default'" :creator="element.user">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
@@ -40,7 +40,7 @@
                                         @add-trust-circle="(userId) => addUserToTrustCircle({userId})"
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
-                </text-card>
+                </default-card>
                 <link-card :answer="element" v-if="element.type === 'Link'">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
@@ -92,7 +92,7 @@
 <script>
     import CommitmentCard from '~/components/feed/card/Commitment'
     import BookCard from '~/components/feed/card/Book'
-    import TextCard from '~/components/feed/card/Text'
+    import DefaultCard from '~/components/feed/card/Default'
     import LinkCard from '~/components/feed/card/Link'
     import YoutubeCard from '~/components/feed/card/Youtube'
     import QuestionCard from '~/components/feed/card/Question'
@@ -104,7 +104,7 @@
     export default {
         props: ['feed', 'startDate'],
         components: {
-            CommitmentCard, BookCard, TextCard, LinkCard, YoutubeCard, QuestionCard, HarvestingQuestionCard,
+            CommitmentCard, BookCard, DefaultCard, LinkCard, YoutubeCard, QuestionCard, HarvestingQuestionCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter
         },
         computed: {

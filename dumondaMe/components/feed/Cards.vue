@@ -30,7 +30,7 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
-                <text-card :answer="element" v-else-if="element.type === 'Text'"
+                <default-card :answer="element" v-else-if="element.type === 'Default'"
                            :creator="element.creator ? element.creator: element.user">
                     <common-card-footer slot="footer" :creator="element.creator" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
@@ -41,7 +41,7 @@
                                         @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
-                </text-card>
+                </default-card>
                 <event-card :event="element" v-else-if="element.type === 'Event'">
                     <event-card-footer slot="footer" :commitment="element.commitmentTitle"
                                        :commitment-id="element.commitmentId" :commitment-slug="element.commitmentSlug"
@@ -98,7 +98,7 @@
 <script>
     import CommitmentCard from './card/Commitment'
     import BookCard from './card/Book'
-    import TextCard from './card/Text'
+    import DefaultCard from './card/Default'
     import EventCard from './card/Event'
     import LinkCard from './card/Link'
     import YoutubeCard from './card/Youtube'
@@ -112,7 +112,7 @@
     export default {
         props: ['feed', 'routeName'],
         components: {
-            CommitmentCard, BookCard, TextCard, EventCard, LinkCard, YoutubeCard, QuestionCard, SocialMediaCard,
+            CommitmentCard, BookCard, DefaultCard, EventCard, LinkCard, YoutubeCard, QuestionCard, SocialMediaCard,
             CommonCardFooter, CommitmentCardFooter, QuestionCardFooter, EventCardFooter
         },
         computed: {

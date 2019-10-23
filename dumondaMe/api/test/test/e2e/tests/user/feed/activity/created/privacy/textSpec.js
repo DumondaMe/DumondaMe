@@ -16,7 +16,7 @@ describe('Show the user profile in the activity feed for created texts only if t
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 601,
         });
     });
@@ -33,7 +33,7 @@ describe('Show the user profile in the activity feed for created texts only if t
         res.status.should.equal(200);
         res.body.feed.length.should.equals(2);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].answer.should.equals('Answer');

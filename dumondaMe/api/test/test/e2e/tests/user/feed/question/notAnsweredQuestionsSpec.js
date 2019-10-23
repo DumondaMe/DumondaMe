@@ -28,7 +28,7 @@ describe('Get question feed for questions without answers', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1'], language: 'de', created: 888, modified: 999
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createQuestion('2', {
@@ -127,7 +127,7 @@ describe('Get question feed for questions without answers', function () {
             creatorId: '4', question: 'Das ist eine Frage4', description: 'Test dumonda.me change the world4',
             topics: ['topic221'], language: 'de', created: 777,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '4', answer: 'Answer4', created: 600,
         });
 
@@ -154,7 +154,7 @@ describe('Get question feed for questions without answers', function () {
             creatorId: '4', question: 'Das ist eine Frage5', description: 'Test dumonda.me change the world5',
             topics: ['topic3'], language: 'de', created: 888,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '5', answer: 'Answer6', created: 600,
         });
 
@@ -179,7 +179,7 @@ describe('Get question feed for questions without answers', function () {
             creatorId: '4', question: 'Das ist eine Frage5', description: 'Test dumonda.me change the world5',
             topics: ['topic3'], language: 'en', created: 888,
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '3', questionId: '5', answer: 'Answer6', created: 600,
         });
 

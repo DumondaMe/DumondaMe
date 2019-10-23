@@ -44,7 +44,7 @@ describe('Getting user profile with activity feed', function () {
             creatorId: '3', questionId: '100', created: 553, link: 'https://example.com', pageType: 'blog',
             hasPreviewImage: true
         });
-        dbDsl.createTextAnswer('4', {
+        dbDsl.createDefaultAnswer('4', {
             creatorId: '3', questionId: '100', answer: 'Answer', created: 552
         });
         dbDsl.createYoutubeAnswer('5', {
@@ -118,7 +118,7 @@ describe('Getting user profile with activity feed', function () {
         res.status.should.equal(200);
         res.body.feed.length.should.equal(5);
 
-        res.body.feed[0].type.should.equals('Text');
+        res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('4');
         res.body.feed[0].created.should.equals(999);

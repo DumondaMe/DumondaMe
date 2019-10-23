@@ -91,15 +91,15 @@ const getLinksOfAnswer = async function (answer, questionId) {
     }
 };
 
-const createTextAnswerCommand = function (params) {
+const createDefaultAnswerCommand = function (params) {
     return db.cypher().match("(user:User {userId: {userId}}), (question:Question {questionId: {questionId}})")
-        .create(`(answer:Text:Answer {answerId: {answerId}, answer: {answer}, created: {created}})`)
+        .create(`(answer:Default:Answer {answerId: {answerId}, answer: {answer}, created: {created}})`)
         .merge(`(user)-[:IS_CREATOR]->(answer)<-[:ANSWER]-(question)`)
         .return(`user.name AS name`)
         .end(params).getCommand();
 };
 
-const createTextAnswer = async function (userId, params) {
+const createAnswer = async function (userId, params) {
     let links;
     if (!params.createAnswerWithLink) {
         links = await getLinksOfAnswer(params.answer, params.questionId);
@@ -109,8 +109,8 @@ const createTextAnswer = async function (userId, params) {
         params.created = time.getNowUtcTimestamp();
         params.userId = userId;
         let user = await notification.addCreatedAnswerNotification(userId, params.answerId, params.created)
-            .send([createTextAnswerCommand(params)]);
-        logger.info(`Created text answer ${params.answerId} for question ${params.questionId}`);
+            .send([createDefaultAnswerCommand(params)]);
+        logger.info(`Created default answer ${params.answerId} for question ${params.questionId}`);
         return {
             answerId: params.answerId, created: params.created,
             answerHtml: linkifyHtml(params.answer, {attributes: {rel: 'noopener'}}),
@@ -128,5 +128,5 @@ const createTextAnswer = async function (userId, params) {
 };
 
 module.exports = {
-    createTextAnswer
+    createAnswer
 };

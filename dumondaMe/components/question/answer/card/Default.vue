@@ -1,6 +1,6 @@
 <template>
     <div>
-        <text-card :hide-question="true" :answer="answer">
+        <default-card :hide-question="true" :answer="answer">
             <v-menu bottom slot="feedMenu" v-if="answer.isAdmin">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
@@ -27,7 +27,7 @@
                            @add-trust-circle="(userId) => $emit('add-trust-circle', userId)"
                            @remove-trust-circle="(userId) => $emit('remove-trust-circle', userId)">
             </answer-footer>
-        </text-card>
+        </default-card>
         <edit-text-dialog v-if="showEditTextDialog" @close-dialog="showEditTextDialog = false"
                           :init-answer="answer.answer" :answer-id="answer.answerId">
         </edit-text-dialog>
@@ -38,14 +38,14 @@
 </template>
 
 <script>
-    import TextCard from '~/components/feed/card/Text';
+    import DefaultCard from '~/components/feed/card/Default';
     import AnswerFooter from './footer/CommonAnswer';
     import EditTextDialog from '~/components/question/answer/dialog/EditTextDialog'
     import DeleteAnswerDialog from '~/components/question/answer/dialog/DeleteAnswerDialog'
 
     export default {
         props: ['answer'],
-        components: {TextCard, AnswerFooter, EditTextDialog, DeleteAnswerDialog},
+        components: {DefaultCard, AnswerFooter, EditTextDialog, DeleteAnswerDialog},
         data() {
             return {showDeleteAnswerDialog: false, showEditTextDialog: false}
         }

@@ -119,7 +119,7 @@ describe('Notification when question of user has been answered', function () {
     });
 
     it('Get notification when text answer has been created', async function () {
-        dbDsl.createTextAnswer('5', {creatorId: '2', questionId:'1', answer: 'Answer'});
+        dbDsl.createDefaultAnswer('5', {creatorId: '2', questionId:'1', answer: 'Answer'});
         dbDsl.notificationCreateAnswer('20', {questionId: '1', answerId: '5', created: 678});
 
         await dbDsl.sendToDb();
@@ -133,7 +133,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].read.should.equals(false);
         res.body.notifications[0].created.should.equals(678);
         res.body.notifications[0].type.should.equals('createdAnswer');
-        res.body.notifications[0].answerType.should.equals('Text');
+        res.body.notifications[0].answerType.should.equals('Default');
         res.body.notifications[0].questionId.should.equals('1');
         res.body.notifications[0].questionTitle.should.equals('Das ist eine FragöÖÄäÜü');
         res.body.notifications[0].questionSlug.should.equals('das-ist-eine-fragoeoeaeaeueue');

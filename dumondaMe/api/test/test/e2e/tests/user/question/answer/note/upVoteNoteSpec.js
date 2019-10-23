@@ -17,7 +17,7 @@ describe('Handling up votes of note for a answer', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
             language: 'de'
         });
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '2', questionId:'1', answer: 'Answer'
         });
 

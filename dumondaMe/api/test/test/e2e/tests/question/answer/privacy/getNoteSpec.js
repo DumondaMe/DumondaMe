@@ -19,7 +19,7 @@ describe('Privacy settings of the user created a note', function () {
             creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
             topics: ['Spiritual', 'Education'], language: 'de', modified: 700
         });
-        dbDsl.createTextAnswer('6', {
+        dbDsl.createDefaultAnswer('6', {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
 

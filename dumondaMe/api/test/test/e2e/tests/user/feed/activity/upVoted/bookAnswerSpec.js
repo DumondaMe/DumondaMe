@@ -261,7 +261,7 @@ describe('Get activity feed for up voted book answers', function () {
     });
 
     it('Get only up voted books', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createYoutubeAnswer('7', {
@@ -293,7 +293,7 @@ describe('Get activity feed for up voted book answers', function () {
     });
 
     it('Get only up voted books (topics filter)', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createYoutubeAnswer('7', {
@@ -325,7 +325,7 @@ describe('Get activity feed for up voted book answers', function () {
     });
 
     it('Get only up voted books (trust circle filter)', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createYoutubeAnswer('7', {
@@ -355,7 +355,7 @@ describe('Get activity feed for up voted book answers', function () {
     });
 
     it('Get only up voted books (trust circle and topic filter)', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '6', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createYoutubeAnswer('7', {

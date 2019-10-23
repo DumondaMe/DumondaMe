@@ -98,12 +98,12 @@ const addCreatedAnswerProperties = function (notificationResponse, notification)
         notificationResponse.questionSlug = slug(question.question);
         notificationResponse.answerId = answer.info.answerId;
         notificationResponse.answerType = answer.type.filter(
-            (l) => ['Youtube', 'Text', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
+            (l) => ['Youtube', 'Default', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
 
         if (notificationResponse.answerType === 'CommitmentAnswer') {
             let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
             notificationResponse.answerTitle = commitment.title;
-        } else if (notificationResponse.answerType === 'Text') {
+        } else if (notificationResponse.answerType === 'Default') {
             notificationResponse.answerTitle = answer.info.answer;
         } else {
             notificationResponse.answerTitle = answer.info.title;
@@ -121,11 +121,11 @@ const addCreatedNoteProperties = function (notificationResponse, notification) {
         notificationResponse.questionSlug = slug(question.question);
         notificationResponse.answerId = answer.info.answerId;
         notificationResponse.answerType = answer.type.filter(
-            (l) => ['Youtube', 'Text', 'Link', 'Book'].some(v => v === l))[0];
+            (l) => ['Youtube', 'Default', 'Link', 'Book'].some(v => v === l))[0];
         notificationResponse.noteId = note.noteId;
         notificationResponse.noteText = note.text;
 
-        if (notificationResponse.answerType === 'Text') {
+        if (notificationResponse.answerType === 'Default') {
             notificationResponse.answerTitle = answer.info.answer;
         } else {
             notificationResponse.answerTitle = answer.info.title;

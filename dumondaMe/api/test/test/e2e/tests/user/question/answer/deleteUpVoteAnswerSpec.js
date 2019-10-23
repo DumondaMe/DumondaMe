@@ -24,7 +24,7 @@ describe('Delete up votes for answers', function () {
     });
 
     it('Delete up vote for a text answer', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId:'1', answer: 'Answer'
         });
         dbDsl.upVoteAnswer({userId: '1', answerId: '5'});
@@ -33,7 +33,7 @@ describe('Delete up votes for answers', function () {
         let res = await requestHandler.del('/api/user/question/answer/upVote/5');
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
             .return(`user`).end().send();
         resp.length.should.equals(0);
     });
@@ -56,7 +56,7 @@ describe('Delete up votes for answers', function () {
 
 
     it('Only allowed to delete up vote of an answer as logged in user', async function () {
-        dbDsl.createTextAnswer('5', {
+        dbDsl.createDefaultAnswer('5', {
             creatorId: '3', questionId:'1', answer: 'Answer'
         });
         dbDsl.upVoteAnswer({userId: '1', answerId: '5'});
@@ -64,7 +64,7 @@ describe('Delete up votes for answers', function () {
         let res = await requestHandler.del('/api/user/question/answer/upVote/5');
         res.status.should.equal(401);
 
-        let resp = await db.cypher().match(`(answer:Text:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(answer:Default:Answer)<-[:UP_VOTE]-(user:User {userId: '1'})`)
             .return(`user`).end().send();
         resp.length.should.equals(1);
     });
