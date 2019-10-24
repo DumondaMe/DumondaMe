@@ -24,7 +24,7 @@ const schemaEditDefaultAnswer = {
     name: 'editDefaultAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['answerId', 'answer'],
+    required: ['answerId'],
     properties: {
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         answer: {type: 'string', format: 'notEmptyString', maxLength: 10000}

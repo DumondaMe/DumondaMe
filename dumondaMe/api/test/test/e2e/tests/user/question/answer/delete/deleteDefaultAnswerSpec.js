@@ -1,10 +1,12 @@
 'use strict';
 
-let users = require('dumonda-me-server-test-util').user;
-let db = require('dumonda-me-server-test-util').db;
-let dbDsl = require('dumonda-me-server-test-util').dbDSL;
-let requestHandler = require('dumonda-me-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('dumonda-me-server-test-util').user;
+const db = require('dumonda-me-server-test-util').db;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const sinon = require('sinon');
+const stubCDN = require('dumonda-me-server-test-util').stubCDN();
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
+const moment = require('moment');
 
 describe('Delete default answer', function () {
 
@@ -12,6 +14,7 @@ describe('Delete default answer', function () {
 
     beforeEach(async function () {
         await dbDsl.init(3);
+        stubCDN.deleteFolder.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         dbDsl.createQuestion('1', {
             creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual', 'Health'],
@@ -39,6 +42,8 @@ describe('Delete default answer', function () {
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
 
+        stubCDN.deleteFolder.calledWith(`default/5/`, sinon.match.any).should.be.true;
+
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
@@ -53,6 +58,8 @@ describe('Delete default answer', function () {
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
 
+        stubCDN.deleteFolder.calledWith(`default/5/`, sinon.match.any).should.be.true;
+
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
@@ -64,6 +71,8 @@ describe('Delete default answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});
         res.status.should.equal(400);
+
+        stubCDN.deleteFolder.calledWith(`default/6/`, sinon.match.any).should.be.false;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '6'})`)

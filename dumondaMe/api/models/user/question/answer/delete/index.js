@@ -1,8 +1,10 @@
 'use strict';
 
 const db = requireDb();
-const security = require('./security');
+const time = require('dumonda-me-server-lib').time;
+const security = require('../security');
 const cdn = require('dumonda-me-server-lib').cdn;
+const exceptions = require('dumonda-me-server-lib').exceptions;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const deleteShowQuestionRequestNotifications = function (answerId) {
@@ -43,6 +45,8 @@ const deleteCdnFolder = async function (labels, answerId) {
         await cdn.deleteFolder(`link/${answerId}/`, process.env.BUCKET_PUBLIC);
     } else if (labels.includes('Book')) {
         await cdn.deleteFolder(`book/${answerId}/`, process.env.BUCKET_PUBLIC);
+    } else if (labels.includes('Default')) {
+        await cdn.deleteFolder(`default/${answerId}/`, process.env.BUCKET_PUBLIC);
     }
 };
 
@@ -60,6 +64,23 @@ const deleteAnswer = async function (userId, answerId) {
     logger.info(`Delete answer with id ${answerId}`)
 };
 
+const deleteImages = async function (userId, answerId, path, req) {
+    await security.isAdmin(userId, answerId);
+    let dbResp = await db.cypher()
+        .match(`(answer:Answer {answerId: {answerId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
+        .where(`EXISTS(answer.answer)`)
+        .set(`answer`, {modified: time.getNowUtcTimestamp()})
+        .addCommand(` REMOVE answer:HasTitleImage`)
+        .return(`answer`)
+        .end({userId, answerId}).send();
+    if (dbResp.length === 1) {
+        await cdn.deleteFolder(`${path}/${answerId}/`, process.env.BUCKET_PUBLIC);
+    } else {
+        throw new exceptions.InvalidOperation(`Image of answer ${answerId} could not be deleted`, req);
+    }
+};
+
 module.exports = {
-    deleteAnswer
+    deleteAnswer,
+    deleteImages
 };

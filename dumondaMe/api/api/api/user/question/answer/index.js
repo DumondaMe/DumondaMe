@@ -2,7 +2,7 @@
 
 const validation = require('dumonda-me-server-lib').jsonValidation;
 const asyncMiddleware = require('dumonda-me-server-lib').asyncMiddleware;
-const deleteAnswer = requireModel('user/question/answer/deleteAnswer');
+const deleteAnswer = requireModel('user/question/answer/delete');
 const auth = require('dumonda-me-server-lib').auth;
 
 
