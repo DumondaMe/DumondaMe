@@ -46,7 +46,7 @@ const deleteCdnFolder = async function (labels, answerId) {
     } else if (labels.includes('Book')) {
         await cdn.deleteFolder(`book/${answerId}/`, process.env.BUCKET_PUBLIC);
     } else if (labels.includes('Default')) {
-        await cdn.deleteFolder(`default/${answerId}/`, process.env.BUCKET_PUBLIC);
+        await cdn.deleteFolder(`defaultAnswer/${answerId}/`, process.env.BUCKET_PUBLIC);
     }
 };
 

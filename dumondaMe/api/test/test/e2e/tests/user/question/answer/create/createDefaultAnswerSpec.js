@@ -75,7 +75,7 @@ describe('Creating default answer', function () {
         }, `${__dirname}/defaultAnswerImage.jpg`);
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/default/${res.body.answerId}/500x800/title.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/${res.body.answerId}/500x800/title.jpg`);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
         res.body.creator.isLoggedInUser.should.equals(true);
@@ -91,9 +91,9 @@ describe('Creating default answer', function () {
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
 
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
     });
 
     it('Creating default answer (image and text)', async function () {
@@ -104,7 +104,7 @@ describe('Creating default answer', function () {
         }, `${__dirname}/defaultAnswerImage.jpg`);
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/default/${res.body.answerId}/500x800/title.jpg`);
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/${res.body.answerId}/500x800/title.jpg`);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
         res.body.creator.isLoggedInUser.should.equals(true);
@@ -120,9 +120,9 @@ describe('Creating default answer', function () {
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
 
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/${res.body.answerId}/1000x1600/title.jpg`, sinon.match.any).should.be.true;
     });
 
     it('Creating answer fails because image is to small', async function () {

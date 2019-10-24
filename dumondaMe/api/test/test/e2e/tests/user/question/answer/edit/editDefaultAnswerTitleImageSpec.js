@@ -50,9 +50,9 @@ describe('Change title Image of default answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.modified.should.least(startTime);
 
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/500x800/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/1000x1600/title.jpg`, sinon.match.any).should.be.true;
     });
 
     it('Add image to default answer (answer has image)', async function () {
@@ -72,9 +72,9 @@ describe('Change title Image of default answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.modified.should.least(startTime);
 
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/500x800/title.jpg`, sinon.match.any).should.be.true;
-        stubCDN.uploadBuffer.calledWith(sinon.match.any, `default/5/1000x1600/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/500x800/title.jpg`, sinon.match.any).should.be.true;
+        stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/1000x1600/title.jpg`, sinon.match.any).should.be.true;
     });
 
     it('The user is only allowed to change answers that he has created', async function () {

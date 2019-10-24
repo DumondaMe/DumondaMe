@@ -4,9 +4,10 @@ const dbDsl = require('dumonda-me-server-test-util').dbDSL;
 const users = require('dumonda-me-server-test-util').user;
 const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const moment = require('moment');
+const should = require('chai').should();
 
 //All test cases are the same as for book answers an are therefore tested in upVoted/bookAnswerSpec
-describe('Get activity feed for up voted text answers', function () {
+describe('Get activity feed for up voted default answers', function () {
 
     let startTime;
 
@@ -24,16 +25,16 @@ describe('Get activity feed for up voted text answers', function () {
             creatorId: '2', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world1',
             topics: ['topic1', 'topic3'], language: 'de', created: 500, modified: 700
         });
-        dbDsl.createDefaultAnswer('6', {
-            creatorId: '3', questionId: '1', answer: 'Answer www.dumonda.me', created: 600,
-        });
     });
 
     afterEach(function () {
         return requestHandler.logout();
     });
 
-    it('Get up voted text answer', async function () {
+    it('Get up voted default answer without image', async function () {
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '3', questionId: '1', answer: 'Answer www.dumonda.me', created: 600, hasImage: false
+        });
         dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -48,6 +49,7 @@ describe('Get activity feed for up voted text answers', function () {
         res.body.feed[0].isUpVotedByUser.should.equals(false);
         res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
+        should.not.exist(res.body.feed[0].imageUrl);
         res.body.feed[0].answer.should.equals('Answer www.dumonda.me');
         res.body.feed[0].answerHtml.should.equals('Answer <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.feed[0].questionId.should.equals('1');
@@ -75,7 +77,56 @@ describe('Get activity feed for up voted text answers', function () {
         res.body.feed[2].action.should.equals('created');
     });
 
-    it('Get only up voted text', async function () {
+    it('Get up voted default answer with only image', async function () {
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '3', questionId: '1', created: 600, hasImage: true
+        });
+        dbDsl.upVoteAnswer({userId: '4', answerId: '6', created: 999});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
+        res.status.should.equal(200);
+        res.body.timestamp.should.least(startTime);
+        res.body.feed.length.should.equals(3);
+
+        res.body.feed[0].type.should.equals('Default');
+        res.body.feed[0].action.should.equals('upVote');
+        res.body.feed[0].numberOfUpVotes.should.equals(1);
+        res.body.feed[0].isUpVotedByUser.should.equals(false);
+        res.body.feed[0].isAdmin.should.equals(false);
+        res.body.feed[0].answerId.should.equals('6');
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg`);
+        should.not.exist(res.body.feed[0].answer);
+        should.not.exist(res.body.feed[0].answerHtml);
+        res.body.feed[0].questionId.should.equals('1');
+        res.body.feed[0].question.should.equals('Das ist eine Frage');
+        res.body.feed[0].questionSlug.should.equals('das-ist-eine-frage');
+        res.body.feed[0].created.should.equals(999);
+        res.body.feed[0].user.userId.should.equals('4');
+        res.body.feed[0].user.name.should.equals('user Meier4');
+        res.body.feed[0].user.slug.should.equals('user-meier4');
+        res.body.feed[0].user.userImage.should.equals('profileImage/4/thumbnail.jpg');
+        res.body.feed[0].user.isLoggedInUser.should.equals(false);
+        res.body.feed[0].user.isTrustUser.should.equals(false);
+        res.body.feed[0].creator.userId.should.equals('3');
+        res.body.feed[0].creator.name.should.equals('user Meier3');
+        res.body.feed[0].creator.slug.should.equals('user-meier3');
+        res.body.feed[0].creator.userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
+        res.body.feed[0].creator.isLoggedInUser.should.equals(false);
+        res.body.feed[0].creator.isTrustUser.should.equals(false);
+
+        res.body.feed[1].type.should.equals('Default');
+        res.body.feed[1].action.should.equals('created');
+
+        res.body.feed[2].type.should.equals('Question');
+        res.body.feed[2].action.should.equals('created');
+    });
+
+    it('Get only up voted default answer', async function () {
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '3', questionId: '1', answer: 'Answer www.dumonda.me', created: 600, hasImage: false
+        });
         dbDsl.createLinkAnswer('5', {
             creatorId: '3', questionId: '1', created: 601, pageType: 'article', hasPreviewImage: true,
             link: 'https://www.example.org/blog/1224'

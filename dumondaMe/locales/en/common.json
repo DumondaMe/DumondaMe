@@ -146,6 +146,9 @@
     "unknown": "An error has occurred.",
     "startDateAfterEndDate": "Start is after the end"
   },
+  "warning": {
+    "imageToSmall": "The picture is too small. It must be at least {{minWidth}}px wide."
+  },
   "beta": {
     "title": "Beta Version",
     "description": "DumondaMe is still at the very beginning and is now publicly available as beta version. This means that the platform may contain bugs and does not have the full functionality yet.",

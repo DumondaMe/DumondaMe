@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
+import {postWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
     question: {
@@ -174,9 +176,20 @@ export const actions = {
     async deleteQuestion({commit, state}) {
         await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
     },
-    async createTextAnswer({commit, state}, {answer, createAnswerWithLink}) {
-        let response = await this.$axios.$post(`/user/question/answer/default/${state.question.questionId}`,
-            {answer, createAnswerWithLink});
+    async createTextAnswer({commit, state}, {answer, image, createAnswerWithLink}) {
+        let params = {createAnswerWithLink};
+        let response;
+        if (answer && answer.trim() !== '') {
+            params.answer = answer
+        }
+        if (typeof image === 'string') {
+            let blob = dataURItoBlob(image);
+            response = await postWithFile(this.$axios, blob,
+                `/user/question/answer/default/${state.question.questionId}`, params);
+        } else {
+            response = await this.$axios.$post(`/user/question/answer/default/${state.question.questionId}`,
+                {answer, createAnswerWithLink});
+        }
         commit('ADD_ANSWER', {
             answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [],
             answerType: 'Default', answer, answerHtml: response.answerHtml, created: response.created,

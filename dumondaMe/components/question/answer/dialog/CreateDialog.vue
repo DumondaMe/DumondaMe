@@ -2,7 +2,7 @@
     <select-answer-type @close-dialog="$emit('close-dialog')" v-if="showSelect"
                         @answer-selected="answerSelected">
     </select-answer-type>
-    <answer-text v-else-if="answerType === 'text'" @close-dialog="closeDialog" init-answer=""
+    <answer-text v-else-if="answerType === 'text'" @close-dialog="closeDialog" init-answer="" :init-image="null"
                  :action-button-text="$t('pages:detailQuestion.createAnswerButton')"
                  @change-answer-type="changeAnswerType">
     </answer-text>

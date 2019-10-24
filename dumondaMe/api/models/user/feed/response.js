@@ -85,7 +85,7 @@ const addDefaultProperties = function (result, feedElement) {
             result.answerHtml = linkifyHtml(feedElement.feedElement.answer, {attributes: {rel: 'noopener'}});
         }
         if (feedElement.hasImage) {
-            result.imageUrl = cdn.getPublicUrl(`default/${result.answerId}/500x500/title.jpg`);
+            result.imageUrl = cdn.getPublicUrl(`defaultAnswer/${result.answerId}/500x800/title.jpg`);
         }
     }
 };
