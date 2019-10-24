@@ -21,7 +21,7 @@ const getResponse = async function (userId, name, params) {
         response.answerHtml = linkifyHtml(params.answer, {attributes: {rel: 'noopener'}});
     }
     if (params.hasImage) {
-        response.imageUrl = cdn.getPublicUrl(`default/${params.answerId}/500x800/title.jpg`);
+        response.imageUrl = cdn.getPublicUrl(`defaultAnswer/${params.answerId}/500x800/title.jpg`);
     }
     return {created: response};
 };

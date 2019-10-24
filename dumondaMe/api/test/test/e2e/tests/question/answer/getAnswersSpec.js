@@ -1,9 +1,10 @@
 'use strict';
 
-let users = require('dumonda-me-server-test-util').user;
-let dbDsl = require('dumonda-me-server-test-util').dbDSL;
-let requestHandler = require('dumonda-me-server-test-util').requestHandler;
-let moment = require('moment');
+const users = require('dumonda-me-server-test-util').user;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
+const moment = require('moment');
+const should = require('chai').should();
 
 describe('Getting answers of a question', function () {
 
@@ -39,7 +40,7 @@ describe('Getting answers of a question', function () {
             creatorId: '1', questionId: '1', answer: 'Answer', created: 600,
         });
         dbDsl.createDefaultAnswer('6', {
-            creatorId: '3', questionId: '1', answer: 'Answer2 www.dumonda.me',
+            creatorId: '3', questionId: '1', answer: 'Answer2 www.dumonda.me', hasImage: true
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
@@ -109,6 +110,7 @@ describe('Getting answers of a question', function () {
         res.body.answers.length.should.equals(6);
         res.body.answers[0].answerId.should.equals('5');
         res.body.answers[0].answerType.should.equals('Default');
+        should.not.exist(res.body.answers[0].imageUrl);
         res.body.answers[0].answer.should.equals('Answer');
         res.body.answers[0].upVotes.should.equals(0);
         res.body.answers[0].isAdmin.should.equals(true);
@@ -126,6 +128,7 @@ describe('Getting answers of a question', function () {
 
         res.body.answers[1].answerId.should.equals('6');
         res.body.answers[1].answerType.should.equals('Default');
+        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg`);
         res.body.answers[1].answer.should.equals('Answer2 www.dumonda.me');
         res.body.answers[1].answerHtml.should.equals('Answer2 <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.answers[1].upVotes.should.equals(0);
@@ -240,6 +243,30 @@ describe('Getting answers of a question', function () {
         res.body.answers[5].events[1].endDate.should.equals(startTime + 200);
         res.body.answers[5].events[1].location.should.equals('event22Location');
         res.body.answers[5].events[1].region.should.equals('Region2De');
+    });
+
+    it('Getting default answer with only images', async function () {
+        dbDsl.createQuestion('10', {
+            creatorId: '1', question: 'Das ist eine Frage', description: 'Test dumonda.me change the world',
+            topics: ['topic1', 'topic2'], language: 'de', modified: 700
+        });
+        dbDsl.createDefaultAnswer('55', {
+            creatorId: '1', questionId: '10', created: 600, hasImage: true
+        });
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/answer', {questionId: '10', page: 0, language: 'de'});
+        res.status.should.equal(200);
+
+        res.body.hasMoreAnswers.should.equals(false);
+        res.body.answers.length.should.equals(1);
+        res.body.answers[0].answerId.should.equals('55');
+        res.body.answers[0].answerType.should.equals('Default');
+        res.body.answers[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/55/500x800/title.jpg`);
+        should.not.exist(res.body.answers[0].answer);
+        should.not.exist(res.body.answers[0].answerHtml);
+        res.body.answers[0].upVotes.should.equals(0);
     });
 
     it('Getting answers of a question sorted by up votes', async function () {

@@ -42,7 +42,7 @@ describe('Delete default answer', function () {
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
 
-        stubCDN.deleteFolder.calledWith(`default/5/`, sinon.match.any).should.be.true;
+        stubCDN.deleteFolder.calledWith(`defaultAnswer/5/`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
@@ -58,7 +58,7 @@ describe('Delete default answer', function () {
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '5'});
         res.status.should.equal(200);
 
-        stubCDN.deleteFolder.calledWith(`default/5/`, sinon.match.any).should.be.true;
+        stubCDN.deleteFolder.calledWith(`defaultAnswer/5/`, sinon.match.any).should.be.true;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '5'})`)
@@ -72,7 +72,7 @@ describe('Delete default answer', function () {
         let res = await requestHandler.del('/api/user/question/answer/', {answerId: '6'});
         res.status.should.equal(400);
 
-        stubCDN.deleteFolder.calledWith(`default/6/`, sinon.match.any).should.be.false;
+        stubCDN.deleteFolder.calledWith(`defaultAnswer/6/`, sinon.match.any).should.be.false;
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Answer {answerId: '6'})`)

@@ -79,7 +79,7 @@ const getAnswers = async function (answers, language, userId) {
                     formattedAnswer.answerHtml = linkifyHtml(formattedAnswer.answer, {attributes: {rel: 'noopener'}});
                 }
                 if (answer.hasImage) {
-                    formattedAnswer.imageUrl = cdn.getPublicUrl(`default/${formattedAnswer.answerId}/500x500/title.jpg`);
+                    formattedAnswer.imageUrl = cdn.getPublicUrl(`defaultAnswer/${formattedAnswer.answerId}/500x800/title.jpg`);
                 }
             }
             result.push(formattedAnswer);

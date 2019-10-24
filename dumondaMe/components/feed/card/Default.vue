@@ -1,5 +1,5 @@
 <template>
-    <div class="text-answer-feed-card">
+    <div class="default-answer-feed-card">
         <div class="feed-card-header">
             <div>
                 <h2 class="feed-card-title">
@@ -23,7 +23,10 @@
             <v-spacer></v-spacer>
             <slot name="feedMenu"></slot>
         </div>
-        <expand-text :expand-text="answer.answerHtml" class="answer-description">
+        <div class="default-answer-image" v-if="answer.imageUrl">
+            <img :src="answer.imageUrl">
+        </div>
+        <expand-text :expand-text="answer.answerHtml" class="answer-description" v-if="answer.answerHtml">
         </expand-text>
         <slot name="footer"></slot>
     </div>
@@ -56,10 +59,18 @@
 </script>
 
 <style lang="scss">
-    .text-answer-feed-card {
+    .default-answer-feed-card {
         .answer-description {
             margin-bottom: 16px;
             @include defaultPaddingCard();
+        }
+
+        .default-answer-image {
+            width: 100%;
+            margin-bottom: 12px;
+            img {
+                width: 100%;
+            }
         }
 
         .question-to-answer-container {

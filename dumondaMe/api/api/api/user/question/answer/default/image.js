@@ -27,7 +27,7 @@ module.exports = function (router) {
 
     router.delete('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaDefaultAnswer);
-        await deleteAnswer.deleteImages(req.user.id, params.answerId, 'default', req);
+        await deleteAnswer.deleteImages(req.user.id, params.answerId, 'defaultAnswer', req);
         res.status(200).end();
     }));
 };
