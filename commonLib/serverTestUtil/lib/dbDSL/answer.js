@@ -33,8 +33,15 @@ let createYoutubeAnswer = function (answerId, data) {
         .merge(`(question)-[:ANSWER]->(youtube)`)
         .merge(`(youtube)<-[:IS_CREATOR]-(user)`)
         .end({
-            answerId: answerId, idOnYoutube: data.idOnYoutube, title: data.title, description: data.description, creatorId: data.creatorId,
-            created: data.created, link: data.link, linkEmbed: data.linkEmbed, questionId: data.questionId
+            answerId: answerId,
+            idOnYoutube: data.idOnYoutube,
+            title: data.title,
+            description: data.description,
+            creatorId: data.creatorId,
+            created: data.created,
+            link: data.link,
+            linkEmbed: data.linkEmbed,
+            questionId: data.questionId
         }).getCommand());
 };
 
@@ -77,7 +84,7 @@ let createDefaultAnswer = function (answerId, data) {
     data.modified = data.modified || data.created;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
-        .create(`(answer:Default:Answer {answerId: {answerId}, answer: {answer},
+        .create(`(answer:Default:Answer${data.hasImage ? ':HasTitleImage' : ''} {answerId: {answerId}, answer: {answer},
                   created: {created}, modified: {modified}})`)
         .merge(`(question)-[:ANSWER]->(answer)<-[:IS_CREATOR]-(user)`)
         .end({
