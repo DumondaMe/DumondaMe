@@ -75,7 +75,12 @@ const getAnswers = async function (answers, language, userId) {
                 formattedAnswer.regions = answer.regions.map((region) => region[language]);
                 formattedAnswer.events = getEvents(answer.events, language)
             } else if (formattedAnswer.answerType === 'Default') {
-                formattedAnswer.answerHtml = linkifyHtml(formattedAnswer.answer, {attributes: {rel: 'noopener'}});
+                if (formattedAnswer.answer) {
+                    formattedAnswer.answerHtml = linkifyHtml(formattedAnswer.answer, {attributes: {rel: 'noopener'}});
+                }
+                if (answer.hasImage) {
+                    formattedAnswer.imageUrl = cdn.getPublicUrl(`default/${formattedAnswer.answerId}/500x500/title.jpg`);
+                }
             }
             result.push(formattedAnswer);
         }

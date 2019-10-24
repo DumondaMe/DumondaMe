@@ -80,8 +80,13 @@ const addBookProperties = function (result, feedElement) {
 
 const addDefaultProperties = function (result, feedElement) {
     if (result.type === 'Default') {
-        result.answer = feedElement.feedElement.answer;
-        result.answerHtml = linkifyHtml(feedElement.feedElement.answer, {attributes: {rel: 'noopener'}});
+        if (feedElement.feedElement.answer) {
+            result.answer = feedElement.feedElement.answer;
+            result.answerHtml = linkifyHtml(feedElement.feedElement.answer, {attributes: {rel: 'noopener'}});
+        }
+        if (feedElement.hasImage) {
+            result.imageUrl = cdn.getPublicUrl(`default/${result.answerId}/500x500/title.jpg`);
+        }
     }
 };
 

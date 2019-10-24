@@ -151,6 +151,7 @@ const getFeedCommandString = function (guiLanguage, pageSize) {
                  EXISTS((feedElement)<-[:WATCH]-(:User {userId: {userId}})) AS isWatchedByUser,
                  EXISTS((feedElement)<-[:IS_ADMIN|IS_CREATOR]-(:User {userId: {userId}})) AS isAdmin,
                  created, type(relActivity) AS relActivity,
+                 ANY (label IN LABELS(feedElement) WHERE label = 'HasTitleImage') AS hasImage,
                  ANY (label IN LABELS(creator) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .orderBy(`created DESC`).getCommandString()
 };
