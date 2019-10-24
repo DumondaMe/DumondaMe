@@ -82,6 +82,7 @@ let createLinkAnswer = function (answerId, data) {
 let createDefaultAnswer = function (answerId, data) {
     data.created = data.created || 500;
     data.modified = data.modified || data.created;
+    data.answer = data.answer || null;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(user:User {userId: {creatorId}}),
                  (question:Question {questionId: {questionId}})`)
         .create(`(answer:Default:Answer${data.hasImage ? ':HasTitleImage' : ''} {answerId: {answerId}, answer: {answer},
