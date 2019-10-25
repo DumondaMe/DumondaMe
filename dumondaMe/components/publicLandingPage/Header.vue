@@ -4,7 +4,7 @@
             <img class="logo" :src="logo">
             <h2>{{$t('pages:landingPagePublic.slogan')}}</h2>
         </div>
-        <div class="register-container">
+        <div class="register-container" v-if="!isAuthenticated">
             <v-btn rounded dark color="secondary" @click="$router.push({name: 'register'})">
                 {{$t('pages:landingPagePublic.createAccountButton')}}
             </v-btn>
@@ -21,6 +21,9 @@
             logo() {
                 return `${process.env.staticUrl}/img/landingPagePublic/logo.png`;
             },
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
         }
     }
 </script>

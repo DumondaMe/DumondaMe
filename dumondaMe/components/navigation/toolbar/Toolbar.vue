@@ -36,6 +36,9 @@
                             <v-list-item-title>{{$t("common:toolbar.settings")}}</v-list-item-title>
                         </v-list-item>
                         <v-divider></v-divider>
+                        <v-list-item @click="$router.push({name: 'about'})" v-show="$vuetify.breakpoint.width < 1264">
+                            <v-list-item-title>{{$t("common:navigation.aboutDumondaMe")}}</v-list-item-title>
+                        </v-list-item>
                         <v-list-item @click="logout">
                             <v-list-item-title>{{$t("common:toolbar.logout")}}</v-list-item-title>
                         </v-list-item>
@@ -128,6 +131,12 @@
                 font-weight: 500;
                 font-size: 18px;
                 line-height: 48px;
+            }
+
+            .item-on-mobile {
+                @media screen and (min-width: 900px) {
+                    display: none;
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-show="isNotPublicStartPage" app>
+        <v-navigation-drawer v-if="isNotPublicStartPage" app>
             <dumonda-me-navigation-drawer @show-create-question-dialog="openAskQuestionDialog"
                                           @show-create-answer-dialog="openCreateAnswerDialog">
             </dumonda-me-navigation-drawer>
@@ -120,7 +120,8 @@
                     this.$store.state.auth.userIsAuthenticated && this.$route.name !== 'auth';
             },
             isNotPublicStartPage() {
-                return !(this.$route.name === 'index' && !this.$store.state.auth.userIsAuthenticated);
+                return !(this.$route.name === 'index' && !this.$store.state.auth.userIsAuthenticated) &&
+                    this.$route.name !== 'about';
             }
         }
     }
