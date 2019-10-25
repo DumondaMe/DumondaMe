@@ -418,8 +418,7 @@
       "questionCreated": "This question was created at the event {{event}} by DumondaMe.",
       "questionAnswered": "This question was answered at the event {{event}} by DumondaMe.",
       "questionCreatedAndAnswered": "This question was created and answered at the event {{event}} by DumondaMe.",
-      "questionWillBeAnswered": "This question will be answered on <b>{{date}}</b> at the event <b>{{event}}</b>.",
-      "toTheEventButton": "To the event"
+      "questionWillBeAnswered": "This question will be answered on <b>{{date}}</b> at the event <b>{{event}}</b>."
     }
   },
   "detailQuestion": {

@@ -1,6 +1,5 @@
 <template>
     <div class="harvesting-info-container ely-card">
-        <h3 class="harvesting-title">{{harvestingUser.name}}</h3>
         <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
         <div class="harvesting-description" v-if="hasTakenPlace">
@@ -20,9 +19,9 @@
             date: getDate})"></span>
         </div>
         <div class="navigate-to-harvesting-user-button">
-            <v-btn color="secondary" @click="$router.push({name: 'user-userId-slug',
+            <v-btn class="to-event-button" color="secondary" @click="$router.push({name: 'user-userId-slug',
                      params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
-                {{$t('pages:question.harvestingInfo.toTheEventButton')}}
+                {{harvestingUser.name}}
             </v-btn>
         </div>
     </div>
@@ -50,17 +49,13 @@
 <style lang="scss">
     .harvesting-info-container {
         margin-bottom: 12px;
-
-        h3.harvesting-title {
-            @include defaultPaddingCard();
-            margin-bottom: 12px;
-            font-size: 16px;
-            font-weight: 500;
-        }
+        padding-top: 0;
 
         .harvesting-image {
             width: 100%;
             cursor: pointer;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
         }
 
         .harvesting-description {
@@ -73,8 +68,20 @@
             @include defaultPaddingCard();
             margin-top: 14px;
 
-            button {
+            button.to-event-button {
                 width: 100%;
+                padding-left: 8px;
+                padding-right: 8px;
+
+
+                .v-btn__content {
+                    width: 100%;
+                    display: block;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
         }
     }
