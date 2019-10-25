@@ -9,7 +9,7 @@
         <about-us :show-mobile="showMobile"></about-us>
         <youtube :show-mobile="showMobile"></youtube>
         <donation :show-mobile="showMobile"></donation>
-        <register :show-mobile="showMobile"></register>
+        <register :show-mobile="showMobile" v-if="!isAuthenticated"></register>
         <dumonda-me-footer id="ely-footer"></dumonda-me-footer>
     </div>
 </template>
@@ -39,6 +39,11 @@
             DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability,
             Register, Donation
         },
+        computed: {
+            isAuthenticated() {
+                return this.$store.state.auth.userIsAuthenticated
+            }
+        }
     }
 </script>
 

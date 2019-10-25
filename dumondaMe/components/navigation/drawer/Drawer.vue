@@ -26,14 +26,19 @@
         <div class="common-navigation">
             <nav-item nuxt-link="login" icon="mdi-login" :nav-text="$t('common:toolbar.login')"
                       v-if="!isAuthenticated"></nav-item>
-            <nav-item v-if="!isAuthenticated" nuxt-link="index" icon="mdi-arrow-left"
-                      :nav-text="$t('common:navigation.overview')"></nav-item>
+            <nav-item v-if="!isAuthenticated" nuxt-link="index" icon="mdi-information-outline"
+                      :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
             <div v-else>
                 <nav-item nuxt-link="user" icon="mdi-account-outline"
                           :nav-text="$t('common:navigation.yourProfile')"></nav-item>
                 <nav-item nuxt-link="notifications" icon="mdi-bell-outline" :badge-count="numberOfUnreadNotifications"
                           :nav-text="$t('common:navigation.notification')"></nav-item>
             </div>
+        </div>
+        <v-divider v-if="isAuthenticated"></v-divider>
+        <div class="common-navigation" v-if="isAuthenticated">
+            <nav-item nuxt-link="about" icon="mdi-information-outline"
+                      :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
         </div>
     </div>
 </template>
