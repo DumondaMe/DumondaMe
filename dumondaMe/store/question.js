@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
-import {postWithFile} from '~/utils/files/upload.js';
+import {postWithFile, putWithFile} from '~/utils/files/upload.js';
 
 export const state = () => ({
     question: {
@@ -197,9 +197,27 @@ export const actions = {
         });
         return response.answerId;
     },
-    async editTextAnswer({commit}, {answer, answerId}) {
-        let response = await this.$axios.$put(`/user/question/answer/default/${answerId}`, {answer});
-        commit('EDIT_ANSWER', {answerId, answer: {answer, answerHtml: response.answerHtml}});
+    async editTextAnswer({commit}, {answer, image, answerId, hasChangedAnswer, hasChangedImage}) {
+        if (hasChangedAnswer) {
+            let response;
+            if (typeof answer === 'string' && answer.trim() === '') {
+                response = await this.$axios.$put(`/user/question/answer/default/${answerId}`);
+            } else {
+                response = await this.$axios.$put(`/user/question/answer/default/${answerId}`, {answer});
+            }
+            commit('EDIT_ANSWER', {answerId, answer: {answer, answerHtml: response.answerHtml}});
+        }
+        if (hasChangedImage) {
+            if (image === null) {
+                await this.$axios.$delete(`/user/question/answer/default/image`, {params: {answerId}});
+                commit('EDIT_ANSWER', {answerId, answer: {imageUrl: null}});
+            } else {
+                let blob = dataURItoBlob(image);
+                let response = await putWithFile(this.$axios, blob,
+                    `/user/question/answer/default/image`, {answerId});
+                commit('EDIT_ANSWER', {answerId, answer: {imageUrl: response.imageUrl}});
+            }
+        }
     },
     async createYoutubeAnswer({commit, state}, youtubeData) {
         if (youtubeData.hasOwnProperty('description') && youtubeData.description.trim() === '') {

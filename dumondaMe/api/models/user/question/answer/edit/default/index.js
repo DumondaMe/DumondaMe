@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const cdn = require('dumonda-me-server-lib').cdn;
 const linkifyHtml = require('linkifyjs/html');
 const security = require('../../security');
 const image = require('../../create/default/image');
@@ -48,6 +49,7 @@ const changeImage = async function (userId, answerId, titleImage, req) {
         .set(`answer`, {modified: time.getNowUtcTimestamp()})
         .addCommand(` SET answer:HasTitleImage`)
         .end({userId, answerId}).send();
+    return {imageUrl: cdn.getPublicUrl(`defaultAnswer/${answerId}/500x800/title.jpg`)}
 };
 
 module.exports = {

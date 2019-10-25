@@ -81,6 +81,7 @@
         props: ['initAnswer', 'initImage', 'answerId', 'actionButtonText'],
         components: {AnswerTypeInfo},
         data() {
+            this.initImage = this.initImage || null;
             return {
                 valid: true, answer: this.initAnswer, loading: false, showError: false, otherAnswerTypes: null,
                 selectedType: null, imgSrc: this.initImage, showWarning: false
@@ -109,8 +110,11 @@
                 this.loading = true;
                 try {
                     if (this.answerId) {
-                        await this.$store.dispatch('question/editTextAnswer',
-                            {answer: this.answer, answerId: this.answerId});
+                        await this.$store.dispatch('question/editTextAnswer', {
+                            answer: this.answer, answerId: this.answerId, image: this.imgSrc,
+                            hasChangedAnswer: this.initAnswer !== this.answer,
+                            hasChangedImage: this.imgSrc !== this.initImage
+                        });
                     } else {
                         answerId = await this.$store.dispatch('question/createTextAnswer', {
                             answer: this.answer, image: this.imgSrc,

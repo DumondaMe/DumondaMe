@@ -2,7 +2,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable persistent max-width="700px" :fullscreen="$vuetify.breakpoint.xsOnly">
             <answer-text @close-dialog="closeDialog" :init-answer="initAnswer" :answer-id="answerId"
-                         :action-button-text="$t('pages:detailQuestion.editAnswerButton')">
+                         :init-image="initImage" :action-button-text="$t('pages:detailQuestion.editAnswerButton')">
                 <div id="dumonda-me-dialog-header">
                     {{$t('pages:detailQuestion.editAnswerTitle', {answer: answerTitle})}}
                 </div>
@@ -15,7 +15,7 @@
     import AnswerText from './text/Text';
 
     export default {
-        props: ['initAnswer', 'answerId'],
+        props: ['initAnswer', 'initImage', 'answerId'],
         components: {AnswerText},
         data() {
             return {
