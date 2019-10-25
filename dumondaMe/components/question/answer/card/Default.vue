@@ -29,7 +29,7 @@
             </answer-footer>
         </default-card>
         <edit-text-dialog v-if="showEditTextDialog" @close-dialog="showEditTextDialog = false"
-                          :init-answer="answer.answer" :answer-id="answer.answerId">
+                          :init-answer="answer.answer || ''" :init-image="answer.imageUrl" :answer-id="answer.answerId">
         </edit-text-dialog>
         <delete-answer-dialog v-if="showDeleteAnswerDialog" @close-dialog="showDeleteAnswerDialog = false"
                               :answer="answer.title" :answer-id="answer.answerId">
