@@ -34,10 +34,10 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-        <div class="show-answer-not-found" v-if="showAllAnswersButton && answers.length === 0">
+        <div class="show-answer-not-found ely-card" v-if="showAllAnswersButton && answers.length === 0">
             {{$t('pages:detailQuestion.answerNotFound')}}
         </div>
-        <div class="show-no-answers" v-else-if="totalNumberOfAnswers === 0">
+        <div class="show-no-answers ely-card" v-else-if="totalNumberOfAnswers === 0">
             {{$t('pages:detailQuestion.noAnswer')}}
         </div>
         <v-btn outlined color="primary" v-if="showAllAnswersButton" class="show-answer-button"
@@ -152,6 +152,7 @@
         }
 
         .show-answer-not-found {
+            @include defaultPaddingCard();
             font-size: 20px;
             margin-bottom: 24px;
             font-weight: 300;
@@ -167,7 +168,8 @@
         }
 
         .show-no-answers {
-            font-size: 20px;
+            @include defaultPaddingCard();
+            font-size: 18px;
             font-weight: 300;
         }
     }
