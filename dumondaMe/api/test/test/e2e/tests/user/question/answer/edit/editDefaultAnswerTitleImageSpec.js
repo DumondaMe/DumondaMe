@@ -43,13 +43,14 @@ describe('Change title Image of default answer', function () {
             answerId: '5'
         }, `${__dirname}/../create/defaultAnswerImage.jpg`);
         res.status.should.equal(200);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/5/500x800/title.jpg`);
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Default:Answer:HasTitleImage {answerId: '5'})<-[:IS_CREATOR]-(user:User {userId: '1'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.modified.should.least(startTime);
+
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/5/500x800/title.jpg?v=${resp[0].answer.modified}`);
 
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/500x800/title.jpg`, sinon.match.any).should.be.true;
@@ -66,13 +67,14 @@ describe('Change title Image of default answer', function () {
             answerId: '5'
         }, `${__dirname}/../create/defaultAnswerImage.jpg`);
         res.status.should.equal(200);
-        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/5/500x800/title.jpg`);
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->
                                             (answer:Default:Answer:HasTitleImage {answerId: '5'})<-[:IS_CREATOR]-(user:User {userId: '1'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.modified.should.least(startTime);
+
+        res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/5/500x800/title.jpg?v=${resp[0].answer.modified}`);
 
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/title.jpg`, sinon.match.any).should.be.true;
         stubCDN.uploadBuffer.calledWith(sinon.match.any, `defaultAnswer/5/500x800/title.jpg`, sinon.match.any).should.be.true;
