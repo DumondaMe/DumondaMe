@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 const exceptions = require('./error/exceptions');
 const logger = require('./logging').getLogger(__filename);
 
-const getResizeOptions = function (width, height) {
+const getResizeOptions = function (width, height, fit) {
     let resizeOptions = {
         background: {r: 255, g: 255, b: 255, alpha: 0},
         withoutEnlargement: true,
@@ -20,12 +20,15 @@ const getResizeOptions = function (width, height) {
     if (typeof height === 'number') {
         resizeOptions.height = height;
     }
+    if (typeof fit === 'string') {
+        resizeOptions.fit = fit;
+    }
     return resizeOptions;
 };
 
 const uploadImage = async function (width, height, options) {
-    let imageBuffer = await sharp(options.originalImagePath).resize(getResizeOptions(width, height)).flatten()
-        .jpeg({quality: options.quality}).toBuffer();
+    let imageBuffer = await sharp(options.originalImagePath).resize(getResizeOptions(width, height, options.fit))
+        .flatten().jpeg({quality: options.quality}).toBuffer();
     await cdn.uploadBuffer(imageBuffer, options.cdnPath, options.bucket);
 };
 
