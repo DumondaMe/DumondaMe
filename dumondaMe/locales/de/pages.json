@@ -1014,7 +1014,7 @@
         "date": "Heute"
       },
       "nextSteps": {
-        "title": "Nächsten Schritte",
+        "title": "Nächste Schritte",
         "text": "Hauptpriorität haben im Moment der Aufbau einer lebendigen Community, die weitere Finanzierung und die Erweiterung der Engagement-Funktionalitäten.",
         "date": "2019"
       },
@@ -1140,7 +1140,7 @@
     "privacy": "Datenschutz",
     "faq": "Häufige Fragen",
     "contact": "Kontakt",
-    "nextSteps": "Nächsten Schritte"
+    "nextSteps": "Nächste Schritte"
   },
   "error": {
     "401": {
