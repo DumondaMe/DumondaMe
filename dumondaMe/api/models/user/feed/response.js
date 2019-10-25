@@ -86,6 +86,9 @@ const addDefaultProperties = function (result, feedElement) {
         }
         if (feedElement.hasImage) {
             result.imageUrl = cdn.getPublicUrl(`defaultAnswer/${result.answerId}/500x800/title.jpg`);
+            if (feedElement.feedElement.modified) {
+                result.imageUrl += `?v=${feedElement.feedElement.modified}`;
+            }
         }
     }
 };

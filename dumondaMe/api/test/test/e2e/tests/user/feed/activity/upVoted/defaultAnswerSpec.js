@@ -95,7 +95,7 @@ describe('Get activity feed for up voted default answers', function () {
         res.body.feed[0].isUpVotedByUser.should.equals(false);
         res.body.feed[0].isAdmin.should.equals(false);
         res.body.feed[0].answerId.should.equals('6');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg?v=600`);
         should.not.exist(res.body.feed[0].answer);
         should.not.exist(res.body.feed[0].answerHtml);
         res.body.feed[0].questionId.should.equals('1');

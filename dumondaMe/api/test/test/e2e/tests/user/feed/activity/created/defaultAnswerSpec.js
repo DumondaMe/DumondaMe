@@ -78,7 +78,7 @@ describe('Get activity feed for created default answers', function () {
         res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].answerId.should.equals('6');
-        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg`);
+        res.body.feed[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg?v=601`);
         should.not.exist(res.body.feed[0].answer);
         should.not.exist(res.body.feed[0].answerHtml);
         res.body.feed[0].questionId.should.equals('1');

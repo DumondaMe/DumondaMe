@@ -45,11 +45,15 @@ const changeImage = async function (userId, answerId, titleImage, req) {
     await security.isAdmin(userId, answerId);
     await image.checkImageMinWidth(titleImage, 1000, req);
     await image.uploadImages(titleImage, answerId);
-    await db.cypher().match(`(answer:Default {answerId: {answerId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
+    let dbResponse = await db.cypher().match(`(answer:Default {answerId: {answerId}})<-[:IS_CREATOR]-(:User {userId: {userId}})`)
         .set(`answer`, {modified: time.getNowUtcTimestamp()})
         .addCommand(` SET answer:HasTitleImage`)
+        .return(`answer.modified AS modified`)
         .end({userId, answerId}).send();
-    return {imageUrl: cdn.getPublicUrl(`defaultAnswer/${answerId}/500x800/title.jpg`)}
+    if (dbResponse.length === 1) {
+        return {imageUrl: cdn.getPublicUrl(`defaultAnswer/${answerId}/500x800/title.jpg?v=${dbResponse[0].modified}`)}
+    }
+
 };
 
 module.exports = {
