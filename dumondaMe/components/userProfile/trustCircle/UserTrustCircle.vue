@@ -31,7 +31,7 @@
             </trust-circle-user>
         </div>
         <v-btn outlined color="primary" @click="loadNextPeople()" :loading="loading" :disabled="loading"
-               v-if="people.length < numberOfPeople">
+               v-if="people && people.length < numberOfPeople">
             {{$t("common:button.showMore")}}
         </v-btn>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
