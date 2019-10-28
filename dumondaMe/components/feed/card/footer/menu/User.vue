@@ -11,6 +11,9 @@
             <v-card class="ely-menu-container ely-menu-user" v-if="menu">
                 <div class="menu-title">
                     <span class="primary-title" v-if="user.isAnonymous">{{$t('common:anonymousUser')}}</span>
+                    <nuxt-link class="primary-link-title" :to="{name: 'dumondaMeOnTour-userId',
+                params: {userId: user.userId}}" v-else-if="user.isHarvestingUser">{{user.name}}
+                    </nuxt-link>
                     <nuxt-link class="primary-link-title" :to="{name: 'user-userId-slug',
                 params: {userId: user.userId, slug: user.slug}}" v-else-if="!user.isLoggedInUser">{{user.name}}
                     </nuxt-link>
@@ -84,6 +87,8 @@
                 if (!this.user.isAnonymous) {
                     if (this.user.isLoggedInUser) {
                         this.$router.push({name: 'user'});
+                    } else if (this.user.isHarvestingUser) {
+                        this.$router.push({name: 'dumondaMeOnTour-userId', params: {userId: this.user.userId}})
                     } else {
                         this.$router.push({
                             name: 'user-userId-slug',

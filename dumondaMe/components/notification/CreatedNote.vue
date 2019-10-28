@@ -59,7 +59,11 @@
         methods: {
             navigateToUserProfile(user) {
                 if (user.isAnonymous === false) {
-                    this.$router.push({name: 'user-userId-slug', params: {userId: user.userId, slug: user.slug}});
+                    if (user.isHarvestingUser) {
+                        this.$router.push({name: 'dumondaMeOnTour-userId', params: {userId: user.userId}})
+                    } else {
+                        this.$router.push({name: 'user-userId-slug', params: {userId: user.userId, slug: user.slug}});
+                    }
                 }
             },
             questionLink() {
