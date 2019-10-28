@@ -23,6 +23,7 @@ const getNotesResponse = function (notes, userId) {
             (note.creator.privacyMode === 'onlyContact' && note.creatorTrustUser)) {
             response.creator = {
                 isAnonymous: false,
+                isHarvestingUser: note.isHarvestingUser,
                 userId: note.creator.userId,
                 name: note.creator.name,
                 slug: slug(note.creator.name)
@@ -56,7 +57,8 @@ const getNotes = async function (userId, answerId, page, sort) {
         .return(`DISTINCT note.noteId AS noteId, note.text AS text, note.created AS created, count(upVote) AS upVotes,
                  creator, EXISTS((:User {userId: {userId}})-[:IS_CREATOR]->(note)) AS isAdmin,
                  EXISTS((creator)-[:IS_CONTACT]->(:User {userId: {userId}})) AS creatorTrustUser,
-                 EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(note)) AS hasVoted`)
+                 EXISTS((:User {userId: {userId}})-[:UP_VOTE]->(note)) AS hasVoted,
+                 ANY (label IN LABELS(creator) WHERE label = 'HarvestingUser') AS isHarvestingUser`)
         .orderBy(getSortOrder(sort))
         .skip(`{page}`)
         .limit(`${PAGE_SIZE}`)
