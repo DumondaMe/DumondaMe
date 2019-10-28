@@ -30,6 +30,8 @@ describe('Getting notes of an answer', function () {
         dbDsl.upVoteNote({noteId: '52', userId: '2'});
         dbDsl.upVoteNote({noteId: '53', userId: '3'});
 
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+
         await dbDsl.sendToDb();
     });
 
@@ -54,6 +56,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.userId.should.equals('3');
         res.body.notes[0].creator.name.should.equals('user Meier3');
         res.body.notes[0].creator.slug.should.equals('user-meier3');
+        res.body.notes[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[1].noteId.should.equals('53');
         res.body.notes[1].text.should.equals('Test dumonda.me change the world');
@@ -65,6 +68,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
         res.body.notes[1].creator.slug.should.equals('user-meier');
+        res.body.notes[1].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[2].noteId.should.equals('50');
         res.body.notes[2].text.should.equals('note50Text');
@@ -76,6 +80,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].creator.userId.should.equals('1');
         res.body.notes[2].creator.name.should.equals('user Meier');
         res.body.notes[2].creator.slug.should.equals('user-meier');
+        res.body.notes[2].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[3].noteId.should.equals('51');
         res.body.notes[3].text.should.equals('note51Text');
@@ -87,6 +92,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.userId.should.equals('2');
         res.body.notes[3].creator.name.should.equals('user Meier2');
         res.body.notes[3].creator.slug.should.equals('user-meier2');
+        res.body.notes[3].creator.isHarvestingUser.should.equals(true);
     });
 
     it('Getting notes of an answer (logged in, sort newest)', async function () {
@@ -107,6 +113,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.userId.should.equals('1');
         res.body.notes[0].creator.name.should.equals('user Meier');
         res.body.notes[0].creator.slug.should.equals('user-meier');
+        res.body.notes[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[1].noteId.should.equals('50');
         res.body.notes[1].text.should.equals('note50Text');
@@ -118,6 +125,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
         res.body.notes[1].creator.slug.should.equals('user-meier');
+        res.body.notes[1].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[2].noteId.should.equals('51');
         res.body.notes[2].text.should.equals('note51Text');
@@ -129,6 +137,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].creator.userId.should.equals('2');
         res.body.notes[2].creator.name.should.equals('user Meier2');
         res.body.notes[2].creator.slug.should.equals('user-meier2');
+        res.body.notes[2].creator.isHarvestingUser.should.equals(true);
 
         res.body.notes[3].noteId.should.equals('52');
         res.body.notes[3].text.should.equals('note52Text');
@@ -140,6 +149,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.userId.should.equals('3');
         res.body.notes[3].creator.name.should.equals('user Meier3');
         res.body.notes[3].creator.slug.should.equals('user-meier3');
+        res.body.notes[3].creator.isHarvestingUser.should.equals(false);
     });
 
     it('Getting notes of an answer (public, sort upVotes)', async function () {
@@ -158,6 +168,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.userId.should.equals('3');
         res.body.notes[0].creator.name.should.equals('user Meier3');
         res.body.notes[0].creator.slug.should.equals('user-meier3');
+        res.body.notes[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[1].noteId.should.equals('53');
         res.body.notes[1].text.should.equals('Test dumonda.me change the world');
@@ -169,6 +180,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
         res.body.notes[1].creator.slug.should.equals('user-meier');
+        res.body.notes[1].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[2].noteId.should.equals('50');
         res.body.notes[2].text.should.equals('note50Text');
@@ -180,6 +192,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].creator.userId.should.equals('1');
         res.body.notes[2].creator.name.should.equals('user Meier');
         res.body.notes[2].creator.slug.should.equals('user-meier');
+        res.body.notes[2].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[3].noteId.should.equals('51');
         res.body.notes[3].text.should.equals('note51Text');
@@ -191,6 +204,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.userId.should.equals('2');
         res.body.notes[3].creator.name.should.equals('user Meier2');
         res.body.notes[3].creator.slug.should.equals('user-meier2');
+        res.body.notes[3].creator.isHarvestingUser.should.equals(true);
     });
 
     it('Getting notes of an answer (logged in, sort newest)', async function () {
@@ -210,6 +224,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[0].creator.userId.should.equals('1');
         res.body.notes[0].creator.name.should.equals('user Meier');
         res.body.notes[0].creator.slug.should.equals('user-meier');
+        res.body.notes[0].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[1].noteId.should.equals('50');
         res.body.notes[1].text.should.equals('note50Text');
@@ -221,6 +236,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[1].creator.userId.should.equals('1');
         res.body.notes[1].creator.name.should.equals('user Meier');
         res.body.notes[1].creator.slug.should.equals('user-meier');
+        res.body.notes[1].creator.isHarvestingUser.should.equals(false);
 
         res.body.notes[2].noteId.should.equals('51');
         res.body.notes[2].text.should.equals('note51Text');
@@ -232,6 +248,7 @@ describe('Getting notes of an answer', function () {
         res.body.notes[2].creator.userId.should.equals('2');
         res.body.notes[2].creator.name.should.equals('user Meier2');
         res.body.notes[2].creator.slug.should.equals('user-meier2');
+        res.body.notes[2].creator.isHarvestingUser.should.equals(true);
 
         res.body.notes[3].noteId.should.equals('52');
         res.body.notes[3].text.should.equals('note52Text');
@@ -243,5 +260,6 @@ describe('Getting notes of an answer', function () {
         res.body.notes[3].creator.userId.should.equals('3');
         res.body.notes[3].creator.name.should.equals('user Meier3');
         res.body.notes[3].creator.slug.should.equals('user-meier3');
+        res.body.notes[3].creator.isHarvestingUser.should.equals(false);
     });
 });
