@@ -1,7 +1,7 @@
 <template>
     <div class="harvesting-info-container ely-card">
-        <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
+        <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push(
+        {name: 'dumondaMeOnTour-userId', params: {userId: harvestingUser.userId}})">
         <div class="harvesting-description" v-if="hasTakenPlace">
             <span v-if="harvestingUser.answeredQuestion && harvestingUser.createdQuestion">
                 {{$t('pages:question.harvestingInfo.questionCreatedAndAnswered',
@@ -19,8 +19,8 @@
             date: getDate})"></span>
         </div>
         <div class="navigate-to-harvesting-user-button">
-            <v-btn class="to-event-button" color="secondary" @click="$router.push({name: 'user-userId-slug',
-                     params: {userId: harvestingUser.userId, slug: harvestingUser.slug}})">
+            <v-btn class="to-event-button" color="secondary" @click="$router.push({name: 'dumondaMeOnTour-userId',
+                     params: {userId: harvestingUser.userId}})">
                 {{harvestingUser.name}}
             </v-btn>
         </div>

@@ -5,6 +5,9 @@
                 {{$t("common:you")}} </span>
             <span class="user-name anonymous" v-else-if="note.creator.isAnonymous">
                 {{$t("common:anonymousUser")}} </span>
+            <span class="user-name" v-else-if="note.creator.isHarvestingUser"
+                  @click="$router.push({name: 'dumondaMeOnTour-userId', params: {userId: note.creator.userId}})">
+                {{note.creator.name}} </span>
             <span class="user-name" v-else @click="$router.push({name: 'user-userId-slug',
                      params: {userId: note.creator.userId, slug: note.creator.slug}})">
                 {{note.creator.name}} </span>
@@ -71,33 +74,42 @@
     .answer-note {
         margin-top: 14px;
         font-size: 14px;
+
         .note-title {
             .user-name {
                 cursor: pointer;
                 color: $primary-text;
             }
+
             .user-name.anonymous {
                 cursor: auto;
             }
+
             :hover.user-name {
                 text-decoration: underline;
             }
+
             :hover.user-name.anonymous {
                 text-decoration: none;
             }
+
             .created {
                 font-size: 12px;
                 color: $secondary-text;
             }
         }
+
         .note-text {
             font-weight: 300;
         }
+
         .note-commands {
             margin-top: 2px;
+
             .note-command {
                 display: inline-block;
                 margin-right: 2px;
+
                 .command {
                     color: $primary-color;
                     margin: 0 4px 0 0;
@@ -106,9 +118,11 @@
                     width: 28px;
                     border-width: 1px;
                     font-size: 14px;
+
                     .v-btn__content {
                         height: 100%;
                         width: 100%;
+
                         i.v-icon {
                             color: $primary-color;
                             font-size: 16px;
@@ -116,6 +130,7 @@
                         }
                     }
                 }
+
                 .command-text {
                     margin-left: 2px;
                     margin-right: 12px;

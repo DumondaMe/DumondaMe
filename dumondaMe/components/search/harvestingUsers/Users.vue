@@ -36,11 +36,10 @@
         methods: {
             goToProfile(user) {
                 if (user.isLoggedInUser) {
-                    this.$router.push({name: 'user'});
+                    this.$router.push({name: 'dumondaMeOnTour'});
                 } else {
                     this.$router.push({
-                        name: 'user-userId-slug',
-                        params: {userId: user.userId, slug: user.slug}
+                        name: 'dumondaMeOnTour-userId', params: {userId: user.userId}
                     });
                 }
             },

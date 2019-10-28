@@ -26,8 +26,7 @@
         methods: {
             navigateToHarvestingUser(event) {
                 this.$router.push({
-                    name: 'user-userId-slug',
-                    params: {userId: event.userId, slug: event.slug}
+                    name: 'dumondaMeOnTour-userId', params: {userId: event.userId}
                 })
             }
         }

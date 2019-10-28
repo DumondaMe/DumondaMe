@@ -48,6 +48,8 @@
             goToProfile() {
                 if (this.creator.isLoggedInUser) {
                     this.$router.push({name: 'user'});
+                } else if (this.creator.isHarvestingUser) {
+                    this.$router.push({name: 'dumondaMeOnTour-userId', params: {userId: this.creator.userId}})
                 } else {
                     this.$router.push({
                         name: 'user-userId-slug', params: {userId: this.creator.userId, slug: this.creator.slug}
@@ -68,6 +70,7 @@
         .default-answer-image {
             width: 100%;
             margin-bottom: 12px;
+
             img {
                 width: 100%;
             }
