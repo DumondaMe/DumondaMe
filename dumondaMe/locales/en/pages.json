@@ -44,6 +44,9 @@
       "noUserDescription": "No persons were found.",
       "inTrustCircle": "Is in your Trust Circle"
     },
+    "harvestingUsers": {
+      "title": "DumondaMe on Tour"
+    },
     "questions": {
       "title": "Questions",
       "noQuestionDescription": "No question found.",
