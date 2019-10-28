@@ -23,6 +23,14 @@
                 title: this.$store.state.userProfile.user.forename,
             }
         },
+        mounted() {
+            if (this.$store.state.userProfile.user.isHarvestingUser && this.$route.name === 'user-userId-slug') {
+                this.$router.replace({
+                    name: 'dumondaMeOnTour-userId',
+                    params: {userId: this.$store.state.userProfile.user.userId}
+                });
+            }
+        },
         components: {UserProfile},
         computed: {
             isHarvestingUser() {
