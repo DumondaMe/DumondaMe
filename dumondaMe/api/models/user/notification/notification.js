@@ -42,8 +42,8 @@ const getAdminOfCommitmentRequest = function (notification) {
     }
 };
 
-const getUser = async function (user, created, isContact) {
-    let isAnonymous = user.privacyMode === 'onlyContact' && !isContact, thumbnailUrl;
+const getUser = async function (user, created, isContact, isHarvestingUser) {
+    let isAnonymous = user.privacyMode === 'onlyContact' && !isContact && !isHarvestingUser, thumbnailUrl;
     if (isAnonymous) {
         thumbnailUrl = await cdn.getSignedUrl(`profileImage/default/thumbnail.jpg`)
     } else {
@@ -51,7 +51,7 @@ const getUser = async function (user, created, isContact) {
     }
     return {
         userId: user.userId, name: user.name, slug: slug(user.name), added: created,
-        thumbnailUrl, isAnonymous
+        thumbnailUrl, isAnonymous, isHarvestingUser
     }
 };
 
@@ -61,7 +61,8 @@ const getNotificationWithOriginators = async function (notification) {
         let user = notification.originators[index].originator;
         let created = notification.originators[index].relOriginator.created;
         let isContact = notification.originators[index].isContact;
-        users.push(await getUser(user, created, isContact));
+        let isHarvestingUser = notification.originators[index].isHarvestingUser;
+        users.push(await getUser(user, created, isContact, isHarvestingUser));
     }
     return {
         read: notification.read,
@@ -178,7 +179,8 @@ const getNotifications = async function (userId, skip, limit) {
         .return(`DISTINCT n AS notification, collect(DISTINCT {info: info, type: labels(info)}) AS infos, 
                  collect(DISTINCT relInfo) AS relInfos, none(label in labels(n) WHERE label = 'Unread') AS read,
                  collect(DISTINCT {originator: originator, relOriginator: relOriginator,
-                 isContact: EXISTS((:User {userId: {userId}})<-[:IS_CONTACT]-(originator))})[0..3] AS originators,
+                 isContact: EXISTS((:User {userId: {userId}})<-[:IS_CONTACT]-(originator)),
+                 isHarvestingUser: ANY (label IN LABELS(originator) WHERE label = 'HarvestingUser')})[0..3] AS originators,
                  numberOfOriginators`)
         .orderBy(`n.created DESC`)
         .end({userId, skip, limit: limit + 1}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
