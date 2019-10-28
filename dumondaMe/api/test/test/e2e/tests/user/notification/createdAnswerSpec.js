@@ -85,6 +85,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(false);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 
     it('Get notification when book answer has been created', async function () {
@@ -116,6 +117,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(false);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 
     it('Get notification when text answer has been created', async function () {
@@ -145,6 +147,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(false);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 
     it('Get notification when book answer has been created', async function () {
@@ -153,6 +156,7 @@ describe('Notification when question of user has been answered', function () {
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
         dbDsl.notificationCreateAnswer('20', {questionId: '1', answerId: '5', created: 678, read: true});
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -177,6 +181,7 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(false);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(true);
     });
 
     it('Show user as anonymous when onlyContact and no contact relationship', async function () {
@@ -211,5 +216,6 @@ describe('Notification when question of user has been answered', function () {
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/default/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(true);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 });

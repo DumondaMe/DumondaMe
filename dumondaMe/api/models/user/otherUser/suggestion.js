@@ -9,7 +9,7 @@ let trustCircleUserSuggestionCommand = function (userId, limit, skip) {
     return db.cypher()
         .match('(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:IS_CONTACT]->(suggestedUser:User)')
         .where(`NOT (user)-[:IS_CONTACT]->(suggestedUser) AND suggestedUser.privacyMode <> 'onlyContact' AND
-                NOT user.userId = suggestedUser.userId`)
+                NOT user.userId = suggestedUser.userId AND NOT suggestedUser:HarvestingUser`)
         .with(`user, suggestedUser, count(suggestedUser) AS numberOfIntersectingTrustCircle`)
         .optionalMatch(`(user)-[:INTERESTED]->(interested)<-[:INTERESTED]-(suggestedUser)`)
         .where(`interested:Topic OR interested:Region`)

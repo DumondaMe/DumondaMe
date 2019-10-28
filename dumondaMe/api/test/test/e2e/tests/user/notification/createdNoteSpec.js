@@ -52,6 +52,7 @@ describe('Notification when note has been added to answer of user', function () 
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/2/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(false);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 
     it('Show user as anonymous when onlyContact and no contact relationship', async function () {
@@ -89,5 +90,6 @@ describe('Notification when note has been added to answer of user', function () 
         res.body.notifications[0].users[0].slug.should.equals('user-meier2');
         res.body.notifications[0].users[0].thumbnailUrl.should.equals('profileImage/default/thumbnail.jpg');
         res.body.notifications[0].users[0].isAnonymous.should.equals(true);
+        res.body.notifications[0].users[0].isHarvestingUser.should.equals(false);
     });
 });
