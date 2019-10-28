@@ -35,13 +35,9 @@
         components: {ExpandText},
         methods: {
             goToProfile(user) {
-                if (user.isLoggedInUser) {
-                    this.$router.push({name: 'dumondaMeOnTour'});
-                } else {
-                    this.$router.push({
-                        name: 'dumondaMeOnTour-userId', params: {userId: user.userId}
-                    });
-                }
+                this.$router.push({
+                    name: 'dumondaMeOnTour-userId', params: {userId: user.userId}
+                });
             },
             async getNextHarvestingUsers() {
                 try {

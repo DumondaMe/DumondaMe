@@ -13,14 +13,14 @@
         <v-divider></v-divider>
         <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
-                      :nav-text="$t('common:navigation.activities')" :params="filterParams"></nav-item>
+                      :nav-text="$t('common:navigation.activities')" :query="filterQuery"></nav-item>
             <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"
-                      :params="filterParams"></nav-item>
+                      :query="filterQuery"></nav-item>
             <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')"
-                      :params="filterParams">
+                      :query="filterQuery">
             </nav-item>
             <nav-item nuxt-link="event" icon="mdi-calendar" :nav-text="$t('common:navigation.events')"
-                      :params="filterParams"></nav-item>
+                      :query="filterQuery"></nav-item>
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
@@ -29,7 +29,9 @@
             <nav-item v-if="!isAuthenticated" nuxt-link="index" icon="mdi-information-outline"
                       :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
             <div v-else>
-                <nav-item nuxt-link="user" icon="mdi-account-outline"
+                <nav-item v-if="isHarvestingUser" nuxt-link="dumondaMeOnTour-userId" icon="mdi-account-outline"
+                          :nav-text="$t('common:navigation.yourProfile')" :params="{userId: userId}"></nav-item>
+                <nav-item v-else nuxt-link="user" icon="mdi-account-outline"
                           :nav-text="$t('common:navigation.yourProfile')"></nav-item>
                 <nav-item nuxt-link="notifications" icon="mdi-bell-outline" :badge-count="numberOfUnreadNotifications"
                           :nav-text="$t('common:navigation.notification')"></nav-item>
@@ -57,10 +59,16 @@
             logo() {
                 return `${process.env.staticUrl}/img/logo_blue.png`;
             },
-            filterParams() {
+            filterQuery() {
                 if (this.$store.state.feedFilter.filterActive) {
                     return {topic: this.$store.state.feedFilter.topicFilter.map(topic => topic.id)};
                 }
+            },
+            isHarvestingUser() {
+                return this.$store.state.user.isHarvestingUser;
+            },
+            userId() {
+                return this.$store.state.user.userId;
             },
             ...mapGetters({
                 numberOfUnreadNotifications: 'notification/numberOfUnreadNotifications'
