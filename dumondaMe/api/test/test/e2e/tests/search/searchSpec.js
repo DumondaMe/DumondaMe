@@ -50,6 +50,8 @@ describe('Search for user, commitment or question with fuzzy match', function ()
     });
 
     it('Autocomplete user, commitment and question (user not logged in, privacy public)', async function () {
+        dbDsl.setUserName('8', {name: 'Hans Wurst8'});
+        dbDsl.setUserIsHarvestingUser('8', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();
         let res = await requestHandler.get('/api/search', {query: 'Hans Wurst', lang: 'de'});
@@ -63,6 +65,14 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.users[0].isLoggedInUser.should.equals(false);
         res.body.users[0].isTrustUser.should.equals(false);
         res.body.users[0].isAnonymous.should.equals(false);
+
+        res.body.hasMoreHarvestingUsers.should.equals(false);
+        res.body.harvestingUsers.length.should.equals(1);
+        res.body.harvestingUsers[0].userId.should.equals('8');
+        res.body.harvestingUsers[0].name.should.equals('Hans Wurst8');
+        res.body.harvestingUsers[0].slug.should.equals('hans-wurst8');
+        res.body.harvestingUsers[0].userImage.should.equals('profileImage/8/profilePreview.jpg');
+        res.body.harvestingUsers[0].isLoggedInUser.should.equals(false);
 
         res.body.hasMoreCommitments.should.equals(false);
         res.body.commitments.length.should.equals(1);
@@ -110,6 +120,8 @@ describe('Search for user, commitment or question with fuzzy match', function ()
     });
 
     it('Autocomplete user, commitment and question (user is logged in, privacy public)', async function () {
+        dbDsl.setUserName('8', {name: 'Hans Wurst8'});
+        dbDsl.setUserIsHarvestingUser('8', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();
         await requestHandler.login(users.validUser);
@@ -124,6 +136,17 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.body.users[0].isLoggedInUser.should.equals(false);
         res.body.users[0].isTrustUser.should.equals(false);
         res.body.users[0].isAnonymous.should.equals(false);
+
+        res.body.hasMoreHarvestingUsers.should.equals(false);
+        res.body.harvestingUsers.length.should.equals(1);
+        res.body.harvestingUsers[0].userId.should.equals('8');
+        res.body.harvestingUsers[0].name.should.equals('Hans Wurst8');
+        res.body.harvestingUsers[0].description.should.equals('superman8');
+        res.body.harvestingUsers[0].start.should.equals(100);
+        res.body.harvestingUsers[0].end.should.equals(200);
+        res.body.harvestingUsers[0].slug.should.equals('hans-wurst8');
+        res.body.harvestingUsers[0].userImage.should.equals('profileImage/8/profilePreview.jpg');
+        res.body.harvestingUsers[0].isLoggedInUser.should.equals(false);
 
         res.body.hasMoreCommitments.should.equals(false);
         res.body.commitments.length.should.equals(1);
@@ -185,6 +208,19 @@ describe('Search for user, commitment or question with fuzzy match', function ()
         res.status.should.equal(200);
         res.body.hasMoreUsers.should.equals(true);
         res.body.users.length.should.equals(6);
+    });
+
+    it('Has more harvesting users', async function () {
+        for (let index = 2; index < 10; index++) {
+            dbDsl.setUserIsHarvestingUser(`${index}`, {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        }
+        await dbDsl.sendToDb();
+        await dbDsl.setApocIndex();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/search', {query: 'user Meier', lang: 'de'});
+        res.status.should.equal(200);
+        res.body.hasMoreHarvestingUsers.should.equals(true);
+        res.body.harvestingUsers.length.should.equals(6);
     });
 
     it('Has more questions', async function () {

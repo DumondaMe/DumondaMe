@@ -1,8 +1,8 @@
 import Vue from 'vue';
 
 export const state = () => ({
-    lastQuery: '', users: [], questions: [], commitments: [],
-    hasMoreUsers: false, hasMoreQuestions: false, hasMoreCommitments: false
+    lastQuery: '', users: [], harvestingUsers: [], questions: [], commitments: [],
+    hasMoreUsers: false, hasMoreHarvestingUsers: false, hasMoreQuestions: false, hasMoreCommitments: false
 });
 
 export const mutations = {
@@ -12,6 +12,10 @@ export const mutations = {
     SET_USERS(state, {users, hasMoreUsers}) {
         state.users = users;
         state.hasMoreUsers = hasMoreUsers;
+    },
+    SET_HARVESTING_USERS(state, {users, hasMoreUsers}) {
+        state.harvestingUsers = users;
+        state.hasMoreHarvestingUsers = hasMoreUsers;
     },
     ADD_USERS(state, {users, hasMoreUsers}) {
         state.users = state.users.concat(users);
@@ -74,6 +78,10 @@ export const actions = {
         let response = await this.$axios.$get(`/search`, {params: {query: query, lang: rootState.i18n.language}});
         commit('SET_LAST_QUERY', query);
         commit('SET_USERS', {users: response.users, hasMoreUsers: response.hasMoreUsers});
+        commit('SET_HARVESTING_USERS', {
+            users: response.harvestingUsers,
+            hasMoreUsers: response.hasMoreHarvestingUsers
+        });
         commit('SET_COMMITMENTS', {commitments: response.commitments, hasMoreCommitments: response.hasMoreCommitments});
         commit('SET_QUESTIONS', {questions: response.questions, hasMoreQuestions: response.hasMoreQuestions});
     },

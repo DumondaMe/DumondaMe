@@ -1,5 +1,6 @@
 <template>
     <div id="search-content">
+        <harvesting-users v-if="hasHarvestingUsers"></harvesting-users>
         <questions v-if="hasQuestions"></questions>
         <users v-if="hasUsers"></users>
         <commitments v-if="hasCommitments"></commitments>
@@ -12,6 +13,7 @@
 
 <script>
     import Users from '~/components/search/users/users';
+    import HarvestingUsers from '~/components/search/harvestingUsers/Users';
     import UsersNoResult from '~/components/search/users/noResult';
     import Questions from '~/components/search/questions/questions';
     import QuestionsNoResult from '~/components/search/questions/noResult';
@@ -30,7 +32,9 @@
                 }
             }
         },
-        components: {Users, UsersNoResult, Questions, QuestionsNoResult, Commitments, CommitmentNoResult},
+        components: {
+            Users, HarvestingUsers, UsersNoResult, Questions, QuestionsNoResult, Commitments, CommitmentNoResult
+        },
         head() {
             return {
                 htmlAttrs: {
@@ -44,6 +48,9 @@
         computed: {
             hasUsers() {
                 return this.$store.state.search.users.length > 0;
+            },
+            hasHarvestingUsers() {
+                return this.$store.state.search.harvestingUsers.length > 0;
             },
             hasQuestions() {
                 return this.$store.state.search.questions.length > 0;
