@@ -46,10 +46,10 @@
         },
         methods: {
             goToProfile() {
-                if (this.creator.isLoggedInUser) {
-                    this.$router.push({name: 'user'});
-                } else if (this.creator.isHarvestingUser) {
+                if (this.creator.isHarvestingUser) {
                     this.$router.push({name: 'dumondaMeOnTour-userId', params: {userId: this.creator.userId}})
+                } else if (this.creator.isLoggedInUser) {
+                    this.$router.push({name: 'user'});
                 } else {
                     this.$router.push({
                         name: 'user-userId-slug', params: {userId: this.creator.userId, slug: this.creator.slug}

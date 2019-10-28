@@ -1,13 +1,13 @@
 <template>
     <div class="answer-note">
         <div class="note-title">
-            <span class="user-name" v-if="note.isAdmin" @click="$router.push({name: 'user'})">
+            <span class="user-name" v-if="note.creator.isHarvestingUser"
+                  @click="$router.push({name: 'dumondaMeOnTour-userId', params: {userId: note.creator.userId}})">
+                {{note.creator.name}} </span>
+            <span class="user-name" v-else-if="note.isAdmin" @click="$router.push({name: 'user'})">
                 {{$t("common:you")}} </span>
             <span class="user-name anonymous" v-else-if="note.creator.isAnonymous">
                 {{$t("common:anonymousUser")}} </span>
-            <span class="user-name" v-else-if="note.creator.isHarvestingUser"
-                  @click="$router.push({name: 'dumondaMeOnTour-userId', params: {userId: note.creator.userId}})">
-                {{note.creator.name}} </span>
             <span class="user-name" v-else @click="$router.push({name: 'user-userId-slug',
                      params: {userId: note.creator.userId, slug: note.creator.slug}})">
                 {{note.creator.name}} </span>

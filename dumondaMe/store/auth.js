@@ -13,6 +13,7 @@ export const actions = {
         try {
             let response = await this.$axios.$post('/login', {username, password});
             commit('user/SET_USER_INFO_STATE', response.infoState, {root: true});
+            commit('user/SET_USER_ID', response.userId, {root: true});
             commit('i18n/SET_LANGUAGES', response.languages, {root: true});
             commit('user/SET_IS_HARVESTING_USER', response.isHarvestingUser, {root: true});
             if (response.topics && response.topics.length > 0) {

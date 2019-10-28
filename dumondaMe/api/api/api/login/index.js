@@ -39,7 +39,7 @@ module.exports = function (router) {
                     res.status(200).json({
                         username: user.email, lang: user.lang, languages: user.languages,
                         infoState: user.infoState, topics: user.topics, regions: user.regions,
-                        isHarvestingUser: user.harvestingUser
+                        isHarvestingUser: user.harvestingUser, userId: req.user.id
                     });
                     logger.info(`Successful login of user ${req.user.id}`, req, {});
                 } catch (error) {

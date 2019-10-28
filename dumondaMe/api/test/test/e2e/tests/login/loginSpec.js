@@ -53,6 +53,7 @@ describe('Integration Tests Login', function () {
         let res = await requestHandler.login(users.validUser);
         res.status.should.equal(200);
         res.body.lang.should.equals('de');
+        res.body.userId.should.equals('1');
         res.body.languages.length.should.equals(2);
         res.body.languages.should.includes('de');
         res.body.languages.should.includes('en');
@@ -70,6 +71,7 @@ describe('Integration Tests Login', function () {
         let res = await requestHandler.login(users.validUser2);
         res.status.should.equal(200);
         res.body.lang.should.equals('de');
+        res.body.userId.should.equals('2');
         res.body.languages.length.should.equals(1);
         res.body.languages.should.includes('en');
         res.body.infoState.should.equals(0);

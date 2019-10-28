@@ -85,10 +85,10 @@
         methods: {
             goToProfile() {
                 if (!this.user.isAnonymous) {
-                    if (this.user.isLoggedInUser) {
-                        this.$router.push({name: 'user'});
-                    } else if (this.user.isHarvestingUser) {
+                    if (this.user.isHarvestingUser) {
                         this.$router.push({name: 'dumondaMeOnTour-userId', params: {userId: this.user.userId}})
+                    } else if (this.user.isLoggedInUser) {
+                        this.$router.push({name: 'user'});
                     } else {
                         this.$router.push({
                             name: 'user-userId-slug',

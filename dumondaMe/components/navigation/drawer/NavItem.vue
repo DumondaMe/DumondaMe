@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        props: ['nuxtLink', 'icon', 'navText', 'badgeCount', 'params'],
+        props: ['nuxtLink', 'icon', 'navText', 'badgeCount', 'params', 'query'],
         computed: {
             isActualRoute() {
                 return this.nuxtLink === this.$route.name;
@@ -19,8 +19,11 @@
         },
         methods: {
             navigate() {
-                if (this.params) {
-                    this.$router.push({name: this.nuxtLink, query: this.params})
+                if (this.query) {
+                    this.$router.push({name: this.nuxtLink, query: this.query})
+                } else if (this.params) {
+                    debugger
+                    this.$router.push({name: this.nuxtLink, params: this.params})
                 } else {
                     this.$router.push({name: this.nuxtLink})
                 }
