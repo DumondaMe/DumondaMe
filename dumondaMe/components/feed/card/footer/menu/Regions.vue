@@ -26,23 +26,6 @@
         props: ['regions'],
         data() {
             return {menu: false}
-        },
-        methods: {
-            goToProfile() {
-                if (this.isLoggedInUser) {
-                    this.$router.push({name: 'user'});
-                } else {
-                    this.$router.push({name: 'user-userId-slug', params: {userId: this.userId, slug: this.userSlug}})
-                }
-            },
-            async addUserToTrustCircle() {
-                await this.$axios.$post(`user/trustCircle/${this.userId}`);
-                this.$emit('add-trust-circle', this.userId);
-            },
-            async removeUserFromTrustCircle() {
-                await this.$axios.$delete(`user/trustCircle/${this.userId}`);
-                this.$emit('remove-trust-circle', this.userId);
-            }
         }
     }
 </script>
