@@ -135,6 +135,10 @@
 
 <style lang="scss">
     .ely-menu-container {
+        .menu-title {
+            max-width: 350px;
+        }
+
         .menu-note-answer-content {
 
             .note-description {
