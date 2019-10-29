@@ -33,12 +33,18 @@ const setIsTrustUser = function (state, userId, isTrustUser) {
     }
 };
 
+const addEmptyNotes = function (answers) {
+    for (let answer of answers) {
+        if (typeof answer.notes !== 'array') {
+            Vue.set(answer, 'notes', []);
+        }
+    }
+};
+
 export const mutations = {
     SET_QUESTION(state, question) {
         state.question = question;
-        for (let answer of state.question.answers) {
-            Vue.set(answer, 'notes', []);
-        }
+        addEmptyNotes(state.question.answers);
     },
     SET_QUESTION_INFO(state, question) {
         Vue.set(state.question, 'question', question.question);
@@ -58,11 +64,13 @@ export const mutations = {
         state.question.numberOfWatches--;
     },
     SET_ANSWERS(state, answers) {
+        addEmptyNotes(answers.answers);
         state.question.answers = answers.answers;
         state.question.hasMoreAnswers = answers.hasMoreAnswers;
         state.nextAnswersPage = 1;
     },
     ADD_ANSWERS(state, answers) {
+        addEmptyNotes(answers.answers);
         state.question.answers = state.question.answers.concat(answers.answers);
         state.question.hasMoreAnswers = answers.hasMoreAnswers;
         state.nextAnswersPage++;
