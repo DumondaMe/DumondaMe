@@ -49,7 +49,7 @@ describe('Autocomplete for user, commitment and question search with fuzzy match
     it('Autocomplete user, commitment and question (user not logged in)', async function () {
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();
-        let res = await requestHandler.get('/api/search/autocomplete', {query: 'Hans Wurst'});
+        let res = await requestHandler.get('/api/search/autocomplete', {query: 'Hans Wurs'});
         res.status.should.equal(200);
         res.body.length.should.equals(3);
         res.body[0].should.equals('Hans Wurst');
@@ -61,7 +61,7 @@ describe('Autocomplete for user, commitment and question search with fuzzy match
         await dbDsl.sendToDb();
         await dbDsl.setApocIndex();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/search/autocomplete', {query: 'Hans Wurst'});
+        let res = await requestHandler.get('/api/search/autocomplete', {query: 'Hans Wurs'});
         res.status.should.equal(200);
         res.body.length.should.equals(3);
         res.body[0].should.equals('Hans Wurst');
