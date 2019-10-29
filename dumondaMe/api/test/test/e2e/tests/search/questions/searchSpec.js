@@ -23,7 +23,7 @@ describe('Search for question with fuzzy match', function () {
             hasPreviewImage: true
         });
         dbDsl.createQuestion('12', {
-            creatorId: '2', question: 'Ist irgenwas', description: 'Test dumonda.me change the world2',
+            creatorId: '2', question: 'Dass ist ene Frae', description: 'Test dumonda.me change the world2',
             topics: ['topic1'], language: 'de', created: 500, modified: 700
         });
         dbDsl.watchQuestion({userId: '4', questionId: '10', created: 997});
