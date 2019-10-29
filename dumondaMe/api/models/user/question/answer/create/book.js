@@ -49,6 +49,8 @@ const createBookAnswer = async function (userId, params) {
     params.answerId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
+    params.authors = params.authors || null;
+    params.googleBookId = params.googleBookId || null;
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createBookAnswerOriginalLinkCommand(params)
         .send([createBookAnswerCommand(params),
