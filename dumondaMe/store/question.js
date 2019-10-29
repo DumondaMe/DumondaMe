@@ -191,9 +191,9 @@ export const actions = {
                 {answer, createAnswerWithLink});
         }
         commit('ADD_ANSWER', {
-            answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [], imageUrl: response.imageUrl,
-            answerType: 'Default', answer, answerHtml: response.answerHtml, created: response.created,
-            creator: response.creator
+            answerId: response.answerId, isAdmin: true, upVotes: 0, notes: [], numberOfNotes: 0,
+            imageUrl: response.imageUrl, answerType: 'Default', answer, answerHtml: response.answerHtml,
+            created: response.created, creator: response.creator
         });
         return response.answerId;
     },
