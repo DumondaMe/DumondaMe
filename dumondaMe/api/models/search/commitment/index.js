@@ -7,7 +7,7 @@ const db = requireDb();
 
 const searchCommand = function (query, language, userId, skip, limit) {
     query = queryParser.cleanQuery(query);
-    let queryString = `Commitment.title:("${query.trim()}"~20)^5 ${queryParser.wordsQuery(query, 'Commitment.title:')}`;
+    let queryString = `${queryParser.proximityMatchingQuery(query.trim(), 'Commitment.title:(')} ${queryParser.wordsQuery(query, 'Commitment.title:')}`;
     return db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS commitment, weight`)
         .optionalMatch(`(commitment)<-[:WATCH]-(watchingUser:User)`)
         .optionalMatch(`(commitment)-[:BELONGS_TO_REGION]->(r:Region)`)
