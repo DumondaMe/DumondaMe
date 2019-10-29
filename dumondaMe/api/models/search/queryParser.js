@@ -54,6 +54,14 @@ const wordsQuery = function (sentence, searchProperty) {
     return words;
 };
 
+const proximityMatchingQuery = function (sentence, searchProperty) {
+    let wordsSplit = sentence.trim().split(" ");
+    let totalNumberOfWords = getTotalNumberOfWords(wordsSplit);
+    if (totalNumberOfWords > 1) {
+        return `${searchProperty}"${sentence.trim()}"~20)^20`;
+    }
+    return '';
+};
 
 const cleanQuery = function (query) {
     let cleanedQuery = query.replace('*', '');
@@ -62,5 +70,6 @@ const cleanQuery = function (query) {
 
 module.exports = {
     wordsQuery,
+    proximityMatchingQuery,
     cleanQuery
 };

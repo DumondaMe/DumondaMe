@@ -7,7 +7,7 @@ const db = requireDb();
 
 const searchCommand = function (query, language, userId, skip, limit) {
     query = queryParser.cleanQuery(query);
-    let queryString = `User.name:("${query.trim()}"~20)^5 ${queryParser.wordsQuery(query, 'User.name:')}`;
+    let queryString = `${queryParser.proximityMatchingQuery(query.trim(), 'User.name:(')} ${queryParser.wordsQuery(query, 'User.name:')}`;
     return db.cypher().call(`apoc.index.search("entities", {queryString}) YIELD node AS user, weight`)
         .where(`user:HarvestingUser`)
         .return(`DISTINCT user, weight`)

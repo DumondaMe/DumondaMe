@@ -24,4 +24,14 @@ describe('Testing the query parser', function () {
         var result = testee.wordsQuery('Test Universum', 'User.name:');
         expect(result).to.equal(' User.name:Test~0.4 AND (User.name:Universum* OR User.name:Universum~0.4)');
     });
+
+    it('Proximity matching disabled when only one word', function () {
+        var result = testee.proximityMatchingQuery('Test', 'User.name:');
+        expect(result).to.equal('');
+    });
+
+    it('Proximity matching enabled when two words', function () {
+        var result = testee.proximityMatchingQuery('Test Irgenwas', 'User.name:(');
+        expect(result).to.equal('User.name:("Test Irgenwas"~20)^20');
+    });
 });
