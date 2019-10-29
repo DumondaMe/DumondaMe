@@ -19,7 +19,7 @@
     "kraken-js": "2.2.0",
     "passport": "0.4.0",
     "passport-local": "1.0.0",
-    "lodash": "4.17.11",
+    "lodash": "4.17.15",
     "bcrypt": "3.0.2",
     "body-parser": "1.17.1",
     "cookie-signature": "1.1.0",
