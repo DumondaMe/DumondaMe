@@ -1,4 +1,3 @@
-const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
@@ -88,7 +87,7 @@ module.exports = {
         display: 'standalone'
     },
     build: {
-        transpile: [/^vuetify/],
+        transpile: ['vuetify/lib'],
         plugins: [
             new VuetifyLoaderPlugin()
         ],
@@ -107,7 +106,8 @@ module.exports = {
         '~/plugins/moment.js',
         '~/plugins/vuetify.js',
         '~/plugins/axios.js',
-        {src: '~/plugins/vue-lazyload', ssr: false}],
+        {src: '~/plugins/vue-lazyload', ssr: false},
+        {src: '~/plugins/intersection-observer', ssr: false},],
     css: [
         '~/assets/style/card.scss',
         '~/assets/style/layout.scss',
