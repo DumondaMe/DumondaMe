@@ -5,7 +5,7 @@ const getScripts = function () {
     let script = [];
     script.push({
         innerHTML: "if(!(window.Promise && window.fetch && window.Symbol)) {" +
-            `document.write("<script language='javascript' type='text/javascript' src='${process.env.CLIENT_STATIC_URL}/polyfill.min.js'><\/scr" + "ipt>");}`
+            `document.write("<script language='javascript' type='text/javascript' src='${process.env.CLIENT_STATIC_URL}/polyfill.7.6.min.js'><\/scr" + "ipt>");}`
     });
     return script;
 };
