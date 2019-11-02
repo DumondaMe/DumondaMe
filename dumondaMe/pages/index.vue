@@ -83,12 +83,12 @@
                     {hid: 'description', name: 'description', content: this.$t('common:meta.description')},
                     {hid: 'keywords', name: 'keywords', content: this.$t('common:meta.keywords')},
                     {hid: 'og:description', property: 'og:description', content: this.$t('common:meta.description')},
-                    {hid: 'og:title', property: 'og:title', content: this.$t('common:navigation.home')},
+                    {hid: 'og:title', property: 'og:title', content: 'DumondaMe'},
                     {
                         hid: 'twitter:description', property: 'twitter:description',
                         content: this.$t('common:meta.description')
                     },
-                    {hid: 'twitter:title', property: 'twitter:title', content: this.$t('common:navigation.home')}
+                    {hid: 'twitter:title', property: 'twitter:title', content: 'DumondaMe'}
                 ]
             }
         },
