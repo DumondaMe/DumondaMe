@@ -30,7 +30,8 @@
                                         @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                     </common-card-footer>
                 </book-card>
-                <default-card :answer="element" v-if="element.type === 'Default'" :creator="element.user">
+                <default-card :answer="element" v-if="element.type === 'Default'"
+                              :creator="element.creator ? element.creator: element.user">
                     <common-card-footer slot="footer" :user="element.user"
                                         :number-of-up-votes="element.numberOfUpVotes" :answer-id="element.answerId"
                                         :created="element.created" :action="element.action"
