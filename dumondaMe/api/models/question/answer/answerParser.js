@@ -81,7 +81,7 @@ const getAnswers = async function (answers, language, userId) {
                 if (answer.hasImage) {
                     formattedAnswer.imageUrl = cdn.getPublicUrl(`defaultAnswer/${formattedAnswer.answerId}/500x800/title.jpg`);
                     if (formattedAnswer.modified) {
-                        result.imageUrl += `?v=${formattedAnswer.modified}`;
+                        formattedAnswer.imageUrl += `?v=${formattedAnswer.modified}`;
                     }
                 }
             }
