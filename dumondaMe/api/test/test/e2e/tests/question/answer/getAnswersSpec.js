@@ -128,7 +128,7 @@ describe('Getting answers of a question', function () {
 
         res.body.answers[1].answerId.should.equals('6');
         res.body.answers[1].answerType.should.equals('Default');
-        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg`);
+        res.body.answers[1].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/6/500x800/title.jpg?v=500`);
         res.body.answers[1].answer.should.equals('Answer2 www.dumonda.me');
         res.body.answers[1].answerHtml.should.equals('Answer2 <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.answers[1].upVotes.should.equals(0);
@@ -263,7 +263,7 @@ describe('Getting answers of a question', function () {
         res.body.answers.length.should.equals(1);
         res.body.answers[0].answerId.should.equals('55');
         res.body.answers[0].answerType.should.equals('Default');
-        res.body.answers[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/55/500x800/title.jpg`);
+        res.body.answers[0].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/defaultAnswer/55/500x800/title.jpg?v=600`);
         should.not.exist(res.body.answers[0].answer);
         should.not.exist(res.body.answers[0].answerHtml);
         res.body.answers[0].upVotes.should.equals(0);
