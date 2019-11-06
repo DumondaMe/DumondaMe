@@ -13,7 +13,7 @@
                 {{$t('pages:question.harvestingInfo.questionCreated',
                 {event: harvestingUser.name})}}</span>
         </div>
-        <div class="harvesting-description">
+        <div class="harvesting-description" v-else>
             <span v-html="$t('pages:question.harvestingInfo.questionWillBeAnswered',
             {event: harvestingUser.name,
             date: getDate})"></span>
