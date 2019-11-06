@@ -9,21 +9,22 @@
 </template>
 
 <script>
+    import Vue from 'vue';
+
     export default {
         props: ['expandText'],
         data() {
-            return {expandDescription: false, isMounted: false}
-        },
-        computed: {
-            showTextExpanse() {
-                if (this.isMounted) {
-                    return this.$refs.expandElement.scrollHeight > this.$refs.expandElement.clientHeight;
-                }
-                return false;
-            }
+            return {expandDescription: false, showTextExpanse: false}
         },
         mounted() {
-            this.isMounted = true;
+            this.showTextExpanse = this.$refs.expandElement.scrollHeight > this.$refs.expandElement.clientHeight;
+        },
+        watch: {
+            async expandText() {
+                await Vue.nextTick();
+                this.showTextExpanse = this.$refs.expandElement.scrollHeight > this.$refs.expandElement.clientHeight;
+                this.expandDescription = false;
+            }
         }
     }
 </script>
