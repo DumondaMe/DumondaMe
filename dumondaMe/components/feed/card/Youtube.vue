@@ -33,8 +33,8 @@
             <div class="youtube-embed">
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
                         allow="autoplay" v-if="showEmbed"></iframe>
-                <img v-lazy="youtubeImage" v-else @click="showEmbed = true">
-                <img :src="videoButton" v-if="!showEmbed" class="video-button">
+                <img v-lazy="youtubeImage" @loaded="showVideoButton = true" v-else @click="showEmbed = true">
+                <img :src="videoButton" v-if="!showEmbed && showVideoButton" class="video-button">
             </div>
             <div class="answer-description">
                 <expand-text :expand-text="answer.description"></expand-text>
@@ -52,7 +52,10 @@
         props: ['answer', 'hideQuestion'],
         components: {ExpandText},
         data() {
-            return {showEmbed: false}
+            return {showEmbed: false, showVideoButton: false}
+        },
+        mounted() {
+            this.$Lazyload.$on('loaded', this.imageLoaded);
         },
         computed: {
             isAuthenticated() {
@@ -79,6 +82,14 @@
             },
             dateCreatedIso() {
                 return format(this.answer.created * 1000, 'YYYY-MM-DDTHH:mm') + 'Z';
+            }
+        },
+        methods: {
+            imageLoaded({src}) {
+                if (src === this.youtubeImage) {
+                    this.showVideoButton = true;
+                    this.$Lazyload.$off('loaded', this.imageLoaded);
+                }
             }
         }
     }
