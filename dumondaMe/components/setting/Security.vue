@@ -61,7 +61,6 @@
                 }
             },
             setShowChangedPassword(newValue) {
-                console.log(newValue);
                 if (newValue !== '' && newValue) {
                     this.showChangedPassword = false;
                 }
