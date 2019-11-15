@@ -687,6 +687,23 @@
       "changePasswordButton": "Passwort ändern",
       "changedPasswordSuccessfully": "Passwort erfolgreich geändert"
     },
+    "email": {
+      "title": "E-Mail",
+      "change": {
+        "title": "Deine E-Mail Adresse",
+        "newEmailLabel": "Neue E-Mail Adresse",
+        "button": "E-Mail ändern",
+        "alreadyUsingEmail": "Du benutzt bereits diese E-Mail",
+        "otherUserWithEmailExists": "Ein anderer User verwendet bereits die E-Mail Adresse {{email}}"
+      },
+      "emailNotification": {
+        "title": "E-Mail Benachrichtigungen",
+        "disabledDescription": "Du erhältst von DumondaMe keine E-Mail Benachrichtigungen. Eine Ausnahme ist der Newsletter und wichtige Informationen bezüglich dem Betrieb der Plattform.",
+        "emailNotifications": "Ich möchte E-Mail Benachrichtigungen erhalten",
+        "inviteToAnswerQuestion": "Andere Benutzer_innen von DumondaMe können mich darum bitten, eine Frage zu beantworten.",
+        "newNotifications": "An dich wird eine E-Mail versendet, wenn du neue Benachrichtigungen auf DumondaMe erhalten hast."
+      }
+    },
     "language": {
       "title": "Sprache",
       "languageUI": "Sprache der Benutzeroberfläche",
@@ -700,13 +717,6 @@
       "privacyModeOnlyContact": "Nur Personen die du deinem Trust Circle hinzugefügt hast, sehen dein Profil.",
       "showActivityDescription": "Sollen Personen, die dein Profil sehen können und sich dieses anschauen, auch deine Aktivitäten sehen? (z.B. welchen Antworten du zugestimmt hast)",
       "showActivity": "Aktivitäten anzeigen"
-    },
-    "emailNotification": {
-      "title": "E-Mail Benachrichtigungen",
-      "disabledDescription": "Du erhältst von DumondaMe keine E-Mail Benachrichtigungen. Eine Ausnahme ist der Newsletter und wichtige Informationen bezüglich dem Betrieb der Plattform.",
-      "emailNotifications": "Ich möchte E-Mail Benachrichtigungen erhalten",
-      "inviteToAnswerQuestion": "Andere Benutzer_innen von DumondaMe können mich darum bitten, eine Frage zu beantworten.",
-      "newNotifications": "An dich wird eine E-Mail versendet, wenn du neue Benachrichtigungen auf DumondaMe erhalten hast."
     }
   },
   "notifications": {

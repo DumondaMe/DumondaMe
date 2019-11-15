@@ -37,6 +37,13 @@ let setUserEmail = function (userId, data) {
         .end({userId: userId}).getCommand());
 };
 
+let newEmailRequest = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .where(`NOT (u)-[:NEW_EMAIL_REQUEST]->(:NewEMail)`)
+        .merge(`(u)-[:NEW_EMAIL_REQUEST]->(:NewEMail {verify: {verify}, email: {email}, created: {created}})`)
+        .end({userId, verify: data.verify, email: data.email, created: data.created}).getCommand());
+};
+
 let createUser = function (userId, forename, surname, email) {
     let name = `${forename} ${surname}`;
     email = email || null;
@@ -149,6 +156,7 @@ module.exports = {
     setUserIsSuperUser,
     setUserIsHarvestingUser,
     setUserEmail,
+    newEmailRequest,
     createUser,
     createUserRegisterRequest,
     blockUser,

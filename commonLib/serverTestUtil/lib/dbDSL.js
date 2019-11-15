@@ -75,6 +75,7 @@ module.exports = {
     setUserIsSuperUser: user.setUserIsSuperUser,
     setUserIsHarvestingUser: user.setUserIsHarvestingUser,
     setUserEmail: user.setUserEmail,
+    newEmailRequest: user.newEmailRequest,
     createUser: user.createUser,
     createUserRegisterRequest: user.createUserRegisterRequest,
     blockUser: user.blockUser,
