@@ -7,6 +7,11 @@
                     <div class="settings-title">{{$t('pages:settings.language.title')}}</div>
                     <language class="setting-content-mobile-container" v-if="selected === 'language'"></language>
                 </div>
+                <div class="setting-navigation-element" :class="{'selected-element': selected === 'email'}"
+                     @click="navigate('email')">
+                    <div class="settings-title">{{$t('pages:settings.email.title')}}</div>
+                    <e-mail class="setting-content-mobile-container" v-if="selected === 'email'"></e-mail>
+                </div>
                 <div class="setting-navigation-element"
                      :class="{'selected-element': selected === 'privacy'}"
                      @click="navigate('privacy')">
@@ -18,21 +23,13 @@
                     <div class="settings-title">{{$t('pages:settings.security.title')}}</div>
                     <security class="setting-content-mobile-container" v-if="selected === 'security'"></security>
                 </div>
-                <div class="setting-navigation-element last-element"
-                     :class="{'selected-element': selected === 'emailNotification'}"
-                     @click="navigate('emailNotification')">
-                    <div class="settings-title">{{$t('pages:settings.emailNotification.title')}}</div>
-                    <email-notification class="setting-content-mobile-container"
-                                        v-if="selected === 'emailNotification'">
-                    </email-notification>
-                </div>
             </div>
         </div>
         <div id="setting-content-container" class="ely-card">
             <language v-if="selected === 'language'"></language>
+            <e-mail v-else-if="selected === 'email'"></e-mail>
             <privacy v-else-if="selected === 'privacy'"></privacy>
             <security v-else-if="selected === 'security'"></security>
-            <email-notification v-else-if="selected === 'emailNotification'"></email-notification>
         </div>
     </div>
 </template>
@@ -41,6 +38,7 @@
     import Language from './Language';
     import Privacy from './Privacy';
     import Security from './Security';
+    import EMail from './Email';
     import EmailNotification from './EmailNotification';
 
     export default {
@@ -51,7 +49,7 @@
             }
             return {selected}
         },
-        components: {Language, Privacy, Security, EmailNotification},
+        components: {Language, Privacy, Security, EMail, EmailNotification},
         methods: {
             navigate(selected) {
                 this.selected = selected;
@@ -132,6 +130,12 @@
             @media screen and (max-width: $xs) {
                 display: none;
             }
+        }
+
+        .security-sub-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
         }
     }
 </style>

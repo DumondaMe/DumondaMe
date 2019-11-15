@@ -38,6 +38,15 @@ export default {
                 }
                 return true;
             }
+        },
+        ruleTextIsNotEqual(text, emailToCompare) {
+            return (v) => {
+                if (typeof v === 'string' && typeof emailToCompare === 'string' &&
+                    v.trim().toLowerCase() === emailToCompare.trim().toLowerCase()) {
+                    return text;
+                }
+                return true;
+            };
         }
     }
 }

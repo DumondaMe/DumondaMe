@@ -1,24 +1,25 @@
 <template>
     <div class="email-notification-setting-container">
+        <div class="security-sub-title">{{$t('pages:settings.email.emailNotification.title')}}</div>
         <div id="top-checkbox">
             <v-checkbox v-model="enabledEmailNotifications"
-                        :label="$t('pages:settings.emailNotification.emailNotifications')"
+                        :label="$t('pages:settings.email.emailNotification.emailNotifications')"
                         color="primary" :disabled="loading">
             </v-checkbox>
         </div>
         <v-divider class="email-notification-divider"></v-divider>
         <div v-if="enabledEmailNotifications" id="sub-checkboxes">
             <v-checkbox v-model="enableInviteToAnswerQuestion"
-                        :label="$t('pages:settings.emailNotification.inviteToAnswerQuestion')"
+                        :label="$t('pages:settings.email.emailNotification.inviteToAnswerQuestion')"
                         color="primary" :disabled="loading || !enabledEmailNotifications">
             </v-checkbox>
             <v-checkbox v-model="enableNewNotifications"
-                        :label="$t('pages:settings.emailNotification.newNotifications')"
+                        :label="$t('pages:settings.email.emailNotification.newNotifications')"
                         color="primary" :disabled="loading || !enabledEmailNotifications">
             </v-checkbox>
         </div>
         <div v-else class="email-disabled-description">
-            {{$t('pages:settings.emailNotification.disabledDescription')}}
+            {{$t('pages:settings.email.emailNotification.disabledDescription')}}
         </div>
     </div>
 </template>

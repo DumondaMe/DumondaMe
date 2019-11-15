@@ -1,8 +1,9 @@
 'use strict';
 
-let users = require('dumonda-me-server-test-util').user;
-let requestHandler = require('dumonda-me-server-test-util').requestHandler;
-let dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const users = require('dumonda-me-server-test-util').user;
+const requestHandler = require('dumonda-me-server-test-util').requestHandler;
+const dbDsl = require('dumonda-me-server-test-util').dbDSL;
+const should = require('chai').should();
 
 describe('Getting user setting', function () {
 
@@ -32,6 +33,10 @@ describe('Getting user setting', function () {
         res.status.should.equal(200);
         res.body.privacyMode.should.equal('public');
 
+        res.body.email.email.should.equal('user@irgendwo.ch');
+        res.body.email.newEmailVerificationIsRunning.should.equal(false);
+        should.not.exist(res.body.email.newEmail);
+
         res.body.languages.length.should.equal(1);
         res.body.languages[0].should.equal('de');
 
@@ -46,6 +51,19 @@ describe('Getting user setting', function () {
         res.body.interestedTopics[1].description.should.equal('topic22De');
 
         res.body.showProfileActivity.should.equal(false);
+    });
+
+    it('New email verification is running', async function () {
+        dbDsl.newEmailRequest('1', {email: 'test@new.ch', verify: '3', created: 500});
+
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.email.email.should.equal('user@irgendwo.ch');
+        res.body.email.newEmail.should.equal('test@new.ch');
+        res.body.email.newEmailVerificationIsRunning.should.equal(true);
     });
 
     it('Get disabled email notifications', async function () {

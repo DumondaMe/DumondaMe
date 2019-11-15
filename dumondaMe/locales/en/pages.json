@@ -689,6 +689,23 @@
       "changePasswordButton": "Change password",
       "changedPasswordSuccessfully": "Password successfully changed"
     },
+    "email": {
+      "title": "Email",
+      "change": {
+        "title": "Your email address",
+        "newEmailLabel": "New e-mail address",
+        "button": "Change e-mail",
+        "alreadyUsingEmail": "You are already using this email",
+        "otherUserWithEmailExists": "Another user already uses the email address {{email}}"
+      },
+      "emailNotification": {
+        "title": "E-mail notifications",
+        "disabledDescription": "You will not receive any email notifications from DumondaMe. An exception is the newsletter and important information regarding the operation of the platform.",
+        "emailNotifications": "I would like to receive e-mail notifications",
+        "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question.",
+        "newNotifications": "An email will be sent to you when you receive new notifications on DumondaMe."
+      }
+    },
     "language": {
       "title": "Language",
       "languageUI": "User interface language",
@@ -702,13 +719,6 @@
       "privacyModeOnlyContact": "Only people you have added to your Trust Circle will see your profile",
       "showActivityDescription": "Should people who can see your profile also see your activities? E.g. Answer Agreed, Question Asked, Engagement Marked as Interesting etc.",
       "showActivity": "Show activities"
-    },
-    "emailNotification": {
-      "title": "E-mail notifications",
-      "disabledDescription": "You will not receive any email notifications from DumondaMe. An exception is the newsletter and important information regarding the operation of the platform.",
-      "emailNotifications": "I would like to receive e-mail notifications",
-      "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question.",
-      "newNotifications": "An email will be sent to you when you receive new notifications on DumondaMe."
     }
   },
   "notifications": {

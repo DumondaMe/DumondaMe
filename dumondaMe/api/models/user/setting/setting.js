@@ -1,6 +1,6 @@
-let db = requireDb();
+const db = requireDb();
 
-let sortTopics = function (topics, language) {
+const sortTopics = function (topics, language) {
     topics.sort((a, b) => {
         if (a[language] < b[language]) {
             return -1;
@@ -11,7 +11,7 @@ let sortTopics = function (topics, language) {
     });
 };
 
-let emailNotificationSettings = function (setting) {
+const emailNotificationSettings = function (setting) {
     return {
         enabledEmailNotifications: setting.userLabels.includes('EMailNotificationEnabled'),
         enableInviteToAnswerQuestion: !setting.disableInviteAnswerQuestionNotification,
@@ -19,30 +19,41 @@ let emailNotificationSettings = function (setting) {
     }
 };
 
-let getResponse = function (setting) {
+const getEmail = function (setting) {
+    let email = {email: setting.email};
+    email.newEmailVerificationIsRunning = !!setting.newEmail;
+    if (setting.newEmail) {
+        email.newEmail = setting.newEmail;
+    }
+    return email;
+};
+
+const getResponse = function (setting) {
     sortTopics(setting.topics, setting.language);
 
-    setting.interestedTopics = [];
+    let response = {interestedTopics: []};
     for (let topic of setting.topics) {
-        setting.interestedTopics.push({
+        response.interestedTopics.push({
             id: topic.topicId,
             description: topic[setting.language]
         })
     }
-    setting.emailNotifications = emailNotificationSettings(setting);
+    response.emailNotifications = emailNotificationSettings(setting);
+    response.email = getEmail(setting);
 
-    delete setting.topics;
-    delete setting.disableInviteAnswerQuestionNotification;
-    delete setting.disableNewNotificationEmail;
-    delete setting.userLabels;
-    return setting;
+    response.privacyMode = setting.privacyMode;
+    response.showProfileActivity = setting.showProfileActivity;
+    response.languages = setting.languages;
+    return response;
 };
 
-let getUserSetting = async function (userId) {
+const getUserSetting = async function (userId) {
 
     let resp = await db.cypher().match(`(u:User {userId: {userId}})`)
         .optionalMatch(`(u)-[:INTERESTED]->(topic:Topic)`)
+        .optionalMatch(`(u)-[:NEW_EMAIL_REQUEST]->(newEmailRequest:NewEMail)`)
         .return(`u.privacyMode AS privacyMode, u.showProfileActivity AS showProfileActivity, u.languages AS languages,
+                 u.email AS email, newEmailRequest.email AS newEmail, 
                  u.language AS language, collect(topic) AS topics, labels(u) AS userLabels, 
                  u.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification,
                  u.disableNewNotificationEmail AS disableNewNotificationEmail`)
