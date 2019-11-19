@@ -52,4 +52,17 @@ describe('Send email when multiple unread notification exist', function () {
             .return(`notification`).end().send();
         notification.length.should.equals(3);
     });
+
+    it('Do not send unread notification for harvesting user', async function () {
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+
+        await testee.sendUnreadNotifications();
+
+        stubSendEMail.called.should.be.false;
+
+        let notification = await db.cypher().match("(notification:Notification:EmailSent)")
+            .return(`notification`).end().send();
+        notification.length.should.equals(0);
+    });
 });

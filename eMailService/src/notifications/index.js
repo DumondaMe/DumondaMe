@@ -38,7 +38,8 @@ const sendUnreadNotifications = async function () {
     do {
         users = await db.cypher()
             .match(`(user:User:EMailNotificationEnabled)<-[:NOTIFIED]-(notification:Notification:Unread)`)
-            .where(`NOT notification:EmailSent AND NOT EXISTS(user.disableNewNotificationEmail)`)
+            .where(`NOT notification:EmailSent AND NOT EXISTS(user.disableNewNotificationEmail) ` +
+                `AND NOT user:HarvestingUser`)
             .addCommand(` SET notification:EmailSent`)
             .return(`DISTINCT user.emailNormalized AS email, user.language AS language, 
                      COUNT(notification) AS numberOfNotifications, 
