@@ -117,11 +117,10 @@
         },
         computed: {
             isLoadingFeed() {
-                return this.$store.state.feed.loading
+                return this.$store.state.feed.loading;
             },
             hideTimeQuestion() {
-                return (this.routeName === 'question' && this.$store.state.auth.userIsAuthenticated) ||
-                    this.routeName === 'index' && !this.$store.state.auth.userIsAuthenticated
+                return this.routeName === 'question';
             }
         },
         methods: {
