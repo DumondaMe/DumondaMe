@@ -1,12 +1,14 @@
 <template>
-    <div class="feed-filter ely-card" v-show="$store.getters['feedFilter/isSubFilterActive']">
+    <div class="feed-filter ely-card">
         <div class="filter-header" :class="{'activated': activated && expanded}">
-            <v-switch v-model="activated" :label="filterText" color="primary"></v-switch>
+            <v-switch v-model="activated" :label="filterText" color="primary" :disabled="!hasFilter"></v-switch>
             <v-spacer></v-spacer>
-            <v-btn icon class="expand-button" @click="expanded = !expanded" v-show="activated">
-                <v-icon v-if="!expanded">mdi-chevron-down</v-icon>
-                <v-icon v-else>mdi-chevron-up</v-icon>
-            </v-btn>
+            <div class="select-order" v-show="hasOrder">
+                <select-menu :items="[{id: 'newest', description: $t('pages:feeds.filter.order.newest')},
+                                      {id: 'mostPopular', description: $t('pages:feeds.filter.order.popular')}]"
+                             :selected-item="$store.state.feedFilter.sortOrder" @changed="sortOrderChanged">
+                </select-menu>
+            </div>
         </div>
         <div class="filter-detail-content" v-show="activated && expanded">
             <topic-filter-content :topics="topicFeedFilter"></topic-filter-content>
@@ -16,9 +18,17 @@
 
 <script>
     import TopicFilterContent from './Topic';
+    import SelectMenu from './SelectMenu';
 
     export default {
-        components: {TopicFilterContent},
+        components: {TopicFilterContent, SelectMenu},
+        data: function () {
+            return {
+                activated: this.$store.getters['feedFilter/isSubFilterActive'] &&
+                    this.$store.state.feedFilter.filterActive,
+                expanded: this.$store.state.feedFilter.isExpanded
+            }
+        },
         computed: {
             filterText() {
                 if (this.activated) {
@@ -28,13 +38,18 @@
             },
             topicFeedFilter() {
                 return this.$store.state.feedFilter.topicFilter
+            },
+            hasFilter() {
+                return this.$store.state.feedFilter.topicFilter && this.$store.state.feedFilter.topicFilter.length > 0;
+            },
+            hasOrder() {
+                return this.$route.name === 'question' || this.$route.name === 'commitment';
             }
         },
-        data: function () {
-            return {
-                activated: this.$store.getters['feedFilter/isSubFilterActive'] &&
-                    this.$store.state.feedFilter.filterActive,
-                expanded: this.$store.state.feedFilter.isExpanded
+        methods: {
+            async sortOrderChanged(item) {
+                this.$store.commit('feedFilter/SET_SORT_ORDER', item);
+                await this.$store.dispatch('feed/getFeed');
             }
         },
         watch: {
@@ -77,8 +92,16 @@
                 }
             }
 
-            .expand-button {
+            .sort-button {
                 margin-top: 10px;
+            }
+
+            .select-order {
+                margin-left: 8px;
+                margin-top: 14px;
+                @media screen and (min-width: 700px) {
+                    margin-top: 15px;
+                }
             }
         }
 

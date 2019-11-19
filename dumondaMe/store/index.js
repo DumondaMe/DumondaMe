@@ -2,6 +2,14 @@ let setUserAuthentication = function (commit, req) {
     commit('auth/SET_USER_IS_AUTHENTICATED', req.isAuthenticated());
 };
 
+let initSortOrder = function (commit, req) {
+    let sortOrder = 'mostPopular';
+    if (req.isAuthenticated()) {
+        sortOrder = 'newest';
+    }
+    commit('feedFilter/SET_SORT_ORDER', sortOrder);
+};
+
 let initRegionFilter = function (commit, description) {
     commit('feedFilter/SET_REGION_FILTER', {id: 'international', description})
 };
@@ -45,6 +53,7 @@ export const actions = {
         if (req.isAuthenticated()) {
             commit('feedFilter/SET_SELECTED_FEED', 'activity')
         }
+        initSortOrder(commit, req);
         initRegionFilter(commit, app.i18n.i18next.t('common:international'));
         await initTopicFilter(dispatch, commit, req.query);
         initRecaptcha(commit);

@@ -3,8 +3,7 @@ export const state = () => ({
     filterActive: true,
     isExpanded: true,
     activityTypeFilter: 'selectAll',
-    questionOrderFilter: 'mostPopular',
-    commitmentOrderFilter: 'mostPopular',
+    sortOrder: 'mostPopular',
     eventInterestedOnly: false,
     periodOfTimeFilter: 'anyTime',
     regionFilter: null,
@@ -23,14 +22,8 @@ export const getters = {
                 params.typeFilter = state.activityTypeFilter;
             }
         }
-        if (state.selectedFeedName === 'question') {
-            params.order = state.questionOrderFilter;
-            if (params.order === 'mostPopular' && state.periodOfTimeFilter !== 'anyTime') {
-                params.periodOfTime = state.periodOfTimeFilter;
-            }
-        }
-        if (state.selectedFeedName === 'commitment') {
-            params.order = state.commitmentOrderFilter;
+        if (state.selectedFeedName === 'question' || state.selectedFeedName === 'commitment') {
+            params.order = state.sortOrder;
             if (params.order === 'mostPopular' && state.periodOfTimeFilter !== 'anyTime') {
                 params.periodOfTime = state.periodOfTimeFilter;
             }
@@ -85,11 +78,8 @@ export const mutations = {
     DEACTIVATE_TRUST_CIRCLE_FILTER(state) {
         state.trustCircleFilter = 0;
     },
-    SET_QUESTION_ORDER_FILTER(state, questionOrder) {
-        state.questionOrderFilter = questionOrder;
-    },
-    SET_COMMITMENT_ORDER_FILTER(state, questionOrder) {
-        state.commitmentOrderFilter = questionOrder;
+    SET_SORT_ORDER(state, sortOrder) {
+        state.sortOrder = sortOrder;
     },
     SET_PERIOD_OF_TIME_FILTER(state, periodOfTimeFilter) {
         state.periodOfTimeFilter = periodOfTimeFilter;
@@ -101,12 +91,7 @@ export const mutations = {
         if (state.selectedFeedName === 'activity') {
             state.selectedFeedName = 'question';
         }
-        if (state.questionOrderFilter !== 'mostPopular' && state.questionOrderFilter !== 'newest') {
-            state.questionOrderFilter = 'mostPopular';
-        }
-        if (state.commitmentOrderFilter !== 'mostPopular' && state.commitmentOrderFilter !== 'newest') {
-            state.commitmentOrderFilter = 'mostPopular';
-        }
+        state.sortOrder = 'mostPopular';
         state.eventInterestedOnly = false;
         state.trustCircleFilter = 0;
     }
