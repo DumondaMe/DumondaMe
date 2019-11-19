@@ -1,14 +1,12 @@
 <template>
     <div id="public-donation" class="explanation-element">
         <div class="public-image" @click="openExplainVideo" v-if="!showMobile">
-            <img :src="explainVideo" class="video-preview">
-            <img :src="videoButton" class="video-button">
+            <img v-lazy="explainVideo">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">{{$t('pages:landingPagePublic.donation.title')}}</h2>
             <div class="public-image" @click="openExplainVideo" v-if="showMobile">
-                <img :src="explainVideo" class="video-preview">
-                <img :src="videoButton" class="video-button">
+                <img v-lazy="explainVideo">
             </div>
             <div class="description">
                 {{$t('pages:landingPagePublic.donation.description')}}
@@ -26,9 +24,6 @@
         computed: {
             explainVideo() {
                 return `${process.env.staticUrl}/img/landingPagePublic/donation.jpg`;
-            },
-            videoButton() {
-                return `${process.env.staticUrl}/img/youtube.png`;
             }
         },
         methods: {
