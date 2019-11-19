@@ -62,6 +62,10 @@
     "filter": {
       "activated": "Filter is active",
       "deactivated": "Filter is deactivated",
+      "topicInfo": {
+        "info": "At the moment you have to select a topic filter first. The filter will be improved in the future.",
+        "goToTopic": "To the topics"
+      },
       "post": {
         "all": "All posts",
         "onlyVideo": "Videos",
