@@ -1,7 +1,7 @@
 <template>
     <div class="feed-filter ely-card">
         <div class="filter-header" :class="{'activated': activated && expanded}">
-            <v-switch v-model="activated" :label="filterText" color="primary" :disabled="!hasFilter"></v-switch>
+            <v-switch v-model="activated" :label="filterText" color="primary"></v-switch>
             <v-spacer></v-spacer>
             <div class="select-order" v-show="hasOrder">
                 <select-menu :items="[{id: 'newest', description: $t('pages:feeds.filter.order.newest')},
@@ -13,21 +13,26 @@
         <div class="filter-detail-content" v-show="activated && expanded">
             <topic-filter-content :topics="topicFeedFilter"></topic-filter-content>
         </div>
+        <topic-info-dialog v-if="activateTopicInfoDialog" @close-dialog="activateTopicInfoDialog = false">
+        </topic-info-dialog>
     </div>
 </template>
 
 <script>
     import TopicFilterContent from './Topic';
     import SelectMenu from './SelectMenu';
+    import TopicInfoDialog from "./TopicInfoDialog";
+    import Vue from 'vue';
 
     export default {
-        components: {TopicFilterContent, SelectMenu},
+        components: {TopicFilterContent, SelectMenu, TopicInfoDialog},
         data: function () {
             return {
                 activated: this.$store.getters['feedFilter/isSubFilterActive'] &&
                     this.$store.state.feedFilter.filterActive,
-                expanded: this.$store.state.feedFilter.isExpanded
-            }
+                expanded: this.$store.state.feedFilter.isExpanded,
+                activateTopicInfoDialog: false
+        }
         },
         computed: {
             filterText() {
@@ -53,8 +58,14 @@
             }
         },
         watch: {
-            activated(newFilterState) {
-                this.$store.commit('feedFilter/SET_FILTER_ACTIVE', newFilterState);
+            async activated(newFilterState) {
+                if (this.hasFilter) {
+                    this.$store.commit('feedFilter/SET_FILTER_ACTIVE', newFilterState);
+                } else {
+                    await Vue.nextTick();
+                    this.activated = false;
+                    this.activateTopicInfoDialog = true;
+                }
             },
             expanded(newExpandState) {
                 this.$store.commit('feedFilter/SET_FILTER_EXPANDED', newExpandState);
