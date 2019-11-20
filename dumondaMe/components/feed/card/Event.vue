@@ -9,7 +9,9 @@
                         query: {eventId: event.eventId}}">{{event.title}}
                     </nuxt-link></span>
                 </h2>
-                <div class="secondary-text">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
+                <div class="secondary-text">
+                    {{event.startDate | formatFromToDate(event.endDate, $t('common:at'), $t('common:to'))}}
+                </div>
             </div>
         </div>
         <expand-text :expand-text="event.description" class="event-description" itemprop="text">

@@ -4,13 +4,13 @@
             <v-icon size="20" class="info-icon">mdi-link</v-icon>
             <a target="_blank" rel="noopener" :href="user.link">{{website}}</a>
         </div>
-        <div class="user-profile-info">
+        <div class="user-profile-info" v-if="user.address">
             <v-icon size="20" class="info-icon">mdi-map-marker</v-icon>
             <div>{{user.address}}</div>
         </div>
         <div class="user-profile-info">
             <v-icon size="20" class="info-icon">mdi-calendar</v-icon>
-            <div>{{user.start | formatFromToDate(user.end, $t('common:at'))}}</div>
+            <div>{{user.start | formatFromToDate(user.end, $t('common:at'), $t('common:to'))}}</div>
         </div>
     </div>
 </template>

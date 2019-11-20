@@ -40,7 +40,8 @@
             },
             getDate() {
                 return this.$options.filters.formatFromToDate(this.$store.state.question.question.harvestingUser.startDate,
-                    this.$store.state.question.question.harvestingUser.endDate, this.$t('common:at'));
+                    this.$store.state.question.question.harvestingUser.endDate, this.$t('common:at'),
+                    this.$t('common:to'));
             }
         }
     }

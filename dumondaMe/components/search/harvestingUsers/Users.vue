@@ -10,7 +10,7 @@
                 <div class="user-name" @click="goToProfile(user)">
                     {{user.name}}
                 </div>
-                <div class="date">{{user.start | formatFromToDate(user.end, $t('common:at'))}}</div>
+                <div class="date">{{user.start | formatFromToDate(user.end, $t('common:at'), $t('common:to'))}}</div>
                 <expand-text class="description" :expand-text="user.description">
                 </expand-text>
             </div>

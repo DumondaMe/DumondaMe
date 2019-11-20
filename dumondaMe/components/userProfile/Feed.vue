@@ -82,7 +82,7 @@
         <div v-else class="user-feed-no-content-message ely-card">
             <span v-if="isHarvestingUser">
                 <div>{{$t('pages:detailUser.feed.noResultsHarvestingUser')}}</div>
-                <div class="start-event-description"
+                <div class="start-event-description" v-if="!isOnlineHarvesting"
                      v-html="$t('pages:detailUser.feed.noResultsHarvestingUserStart', {date: startDate})"></div>
             </span>
             <span v-else>{{$t('pages:detailUser.feed.noResults')}}</span>
@@ -111,6 +111,9 @@
         computed: {
             isHarvestingUser() {
                 return this.$store.state.userProfile.user.isHarvestingUser;
+            },
+            isOnlineHarvesting() {
+                return this.$store.state.userProfile.user.isOnlineHarvesting;
             }
         },
         methods: {

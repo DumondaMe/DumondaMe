@@ -55,13 +55,13 @@ Vue.filter('getFormatDateOnlyShort', function (value) {
 });
 
 
-Vue.filter('formatFromToDate', function (startDate, endDate, atTranslation) {
+Vue.filter('formatFromToDate', function (startDate, endDate, atTranslation, toTranslation) {
     if (isSameDay(startDate * 1000, endDate * 1000)) {
         return `${getFormatDate(startDate)} ${atTranslation} 
                 ${format(startDate * 1000, 'H:mm', getOptions())} - ${format(endDate * 1000, 'H:mm', getOptions())}`
     }
     return `${getFormatDate(startDate)} ${atTranslation} ${format(startDate * 1000, 'H:mm', getOptions())} 
-              - ${getFormatDate(endDate)} ${atTranslation} ${format(startDate * 1000, 'H:mm', getOptions())} `
+              - ${getFormatDate(endDate)} ${toTranslation} ${format(endDate * 1000, 'H:mm', getOptions())} `
 });
 
 export default ({store}) => {
