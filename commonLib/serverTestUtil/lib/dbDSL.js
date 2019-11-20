@@ -116,6 +116,7 @@ module.exports = {
     notificationInvitedUserHasRegistered: notification.invitedUserHasRegistered,
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
+    notificationUserCreatedQuestion: notification.userCreatedQuestion,
     notificationCreateAnswer: notification.createAnswer,
     notificationCreateNote: notification.createNote,
     notificationRequestAdminOfCommitment: notification.requestAdminOfCommitment,
