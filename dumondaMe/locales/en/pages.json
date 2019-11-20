@@ -754,6 +754,9 @@
       "notification": "The following person is interested in your question {{- question}}.",
       "notification_plural": "{{count}} more people find your question {{- question}} interesting."
     },
+    "newQuestion": {
+      "notification": "has asked the question {{- question}}."
+    },
     "createdAnswer": {
       "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
       "notificationTextAnswer": "Has answered the question{{- question}}."

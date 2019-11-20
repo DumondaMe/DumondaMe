@@ -82,8 +82,9 @@ const addWatchingCommitmentProperties = function (notificationResponse, notifica
     }
 };
 
-const addWatchingQuestionProperties = function (notificationResponse, notification) {
-    if (notificationResponse.type === 'watchingQuestion' && notification.infos.length === 1) {
+const addQuestionProperties = function (notificationResponse, notification) {
+    if ((notificationResponse.type === 'watchingQuestion' || notificationResponse.type === 'newQuestion') &&
+        notification.infos.length === 1) {
         notificationResponse.questionId = notification.infos[0].info.questionId;
         notificationResponse.questionTitle = notification.infos[0].info.question;
         notificationResponse.questionSlug = slug(notification.infos[0].info.question);
@@ -144,7 +145,7 @@ const getResponse = async function (notifications) {
         } else {
             let notificationResponse = await getNotificationWithOriginators(notification);
             addWatchingCommitmentProperties(notificationResponse, notification);
-            addWatchingQuestionProperties(notificationResponse, notification);
+            addQuestionProperties(notificationResponse, notification);
             addCreatedAnswerProperties(notificationResponse, notification);
             addCreatedNoteProperties(notificationResponse, notification);
             response.push(notificationResponse);
