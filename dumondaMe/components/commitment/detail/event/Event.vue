@@ -6,7 +6,9 @@
                                                                          rel="noopener"
                                                                          class="link">{{event.title}} </a></div>
                 <div class="event-title" v-else>{{event.title}}</div>
-                <div class="event-date">{{event.startDate | formatFromToDate(event.endDate, $t('common:at'))}}</div>
+                <div class="event-date">
+                    {{event.startDate | formatFromToDate(event.endDate, $t('common:at'), $t('common:to'))}}
+                </div>
             </div>
             <v-spacer v-if="isAdmin"></v-spacer>
             <v-menu bottom left v-if="isAdmin">

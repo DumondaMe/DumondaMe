@@ -28,14 +28,14 @@ describe('Get actual harvesting events', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/harvesting/actualEvents');
         res.status.should.equal(200);
-
         res.body.events.length.should.equals(3);
-        res.body.events[0].userId.should.equals('3');
-        res.body.events[0].name.should.equals('user Meier3');
-        res.body.events[0].slug.should.equals('user-meier3');
-        res.body.events[0].image.should.equals('profileImage/3/profile.jpg');
-        res.body.events[0].startDate.should.equals(startTime - 150);
-        res.body.events[0].endDate.should.equals(startTime - 120);
+
+        res.body.events[0].userId.should.equals('4');
+        res.body.events[0].name.should.equals('user Meier4');
+        res.body.events[0].slug.should.equals('user-meier4');
+        res.body.events[0].image.should.equals('profileImage/4/profile.jpg');
+        res.body.events[0].startDate.should.equals(startTime + 150);
+        res.body.events[0].endDate.should.equals(startTime + 200);
 
         res.body.events[1].userId.should.equals('2');
         res.body.events[1].name.should.equals('user Meier2');
@@ -44,12 +44,12 @@ describe('Get actual harvesting events', function () {
         res.body.events[1].startDate.should.equals(startTime - 200);
         res.body.events[1].endDate.should.equals(startTime - 100);
 
-        res.body.events[2].userId.should.equals('4');
-        res.body.events[2].name.should.equals('user Meier4');
-        res.body.events[2].slug.should.equals('user-meier4');
-        res.body.events[2].image.should.equals('profileImage/4/profile.jpg');
-        res.body.events[2].startDate.should.equals(startTime + 150);
-        res.body.events[2].endDate.should.equals(startTime + 200);
+        res.body.events[2].userId.should.equals('3');
+        res.body.events[2].name.should.equals('user Meier3');
+        res.body.events[2].slug.should.equals('user-meier3');
+        res.body.events[2].image.should.equals('profileImage/3/profile.jpg');
+        res.body.events[2].startDate.should.equals(startTime - 150);
+        res.body.events[2].endDate.should.equals(startTime - 120);
     });
 
     it('Get actual harvesting events as public user', async function () {
@@ -59,12 +59,12 @@ describe('Get actual harvesting events', function () {
         res.status.should.equal(200);
 
         res.body.events.length.should.equals(3);
-        res.body.events[0].userId.should.equals('3');
-        res.body.events[0].name.should.equals('user Meier3');
-        res.body.events[0].slug.should.equals('user-meier3');
-        res.body.events[0].image.should.equals('profileImage/3/profile.jpg');
-        res.body.events[0].startDate.should.equals(startTime - 150);
-        res.body.events[0].endDate.should.equals(startTime - 120);
+        res.body.events[0].userId.should.equals('4');
+        res.body.events[0].name.should.equals('user Meier4');
+        res.body.events[0].slug.should.equals('user-meier4');
+        res.body.events[0].image.should.equals('profileImage/4/profile.jpg');
+        res.body.events[0].startDate.should.equals(startTime + 150);
+        res.body.events[0].endDate.should.equals(startTime + 200);
 
         res.body.events[1].userId.should.equals('2');
         res.body.events[1].name.should.equals('user Meier2');
@@ -73,11 +73,11 @@ describe('Get actual harvesting events', function () {
         res.body.events[1].startDate.should.equals(startTime - 200);
         res.body.events[1].endDate.should.equals(startTime - 100);
 
-        res.body.events[2].userId.should.equals('4');
-        res.body.events[2].name.should.equals('user Meier4');
-        res.body.events[2].slug.should.equals('user-meier4');
-        res.body.events[2].image.should.equals('profileImage/4/profile.jpg');
-        res.body.events[2].startDate.should.equals(startTime + 150);
-        res.body.events[2].endDate.should.equals(startTime + 200);
+        res.body.events[2].userId.should.equals('3');
+        res.body.events[2].name.should.equals('user Meier3');
+        res.body.events[2].slug.should.equals('user-meier3');
+        res.body.events[2].image.should.equals('profileImage/3/profile.jpg');
+        res.body.events[2].startDate.should.equals(startTime - 150);
+        res.body.events[2].endDate.should.equals(startTime - 120);
     });
 });

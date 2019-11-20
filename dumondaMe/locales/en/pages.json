@@ -250,7 +250,7 @@
     },
     "harvesting": {
       "title": "DumondaMe on Tour",
-      "description": "DumondaMe participates in various events to make the knowledge presented there available to you in the form of questions/answers."
+      "description": "DumondaMe collects the knowledge presented at conferences and makes it available to you in the form of questions and answers. In addition, we link the content of partner organizations' websites to the corresponding questions."
     }
   },
   "commitment": {
@@ -679,7 +679,8 @@
     "harvesting": {
       "info": {
         "title": "DumondaMe on Tour",
-        "description": "This is a service from DumondaMe for you. We collect the knowledge presented at conferences and make it available to you in the form of questions and answers."
+        "description": "DumondaMe collects the knowledge presented at conferences and makes it available to you in the form of questions and answers.",
+        "descriptionOnlineHarvesting": "DumondaMe links website contents of partner organizations like <b>{{name}}</b> with the corresponding questions."
       }
     }
   },

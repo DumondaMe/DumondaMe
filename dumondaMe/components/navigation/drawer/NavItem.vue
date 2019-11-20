@@ -22,7 +22,6 @@
                 if (this.query) {
                     this.$router.push({name: this.nuxtLink, query: this.query})
                 } else if (this.params) {
-                    debugger
                     this.$router.push({name: this.nuxtLink, params: this.params})
                 } else {
                     this.$router.push({name: this.nuxtLink})

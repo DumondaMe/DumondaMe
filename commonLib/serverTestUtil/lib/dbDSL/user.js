@@ -25,8 +25,9 @@ let setUserIsSuperUser = function (userId) {
 };
 
 let setUserIsHarvestingUser = function (userId, data) {
+    data.address = data.address || null;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
-        .addCommand(` set u :HarvestingUser, u.privacyMode = 'public'`)
+        .addCommand(` set u :HarvestingUser, u.privacyMode = 'public' ${data.onlineHarvesting ? ', u :OnlineHarvesting' : ''}`)
         .set("u", {start: data.start, end: data.end, address: data.address, link: data.link})
         .end({userId: userId}).getCommand());
 };

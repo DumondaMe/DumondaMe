@@ -41,6 +41,7 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
                  u.showProfileActivity AS showProfileActivity, u.start AS start, u.end AS end, u.link AS link, 
                  u.address AS address,
                  ANY (label IN LABELS(u) WHERE label = 'HarvestingUser') AS isHarvestingUser,
+                 ANY (label IN LABELS(u) WHERE label = 'OnlineHarvesting') AS isOnlineHarvesting,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
     if (resp[8].length === 1) {

@@ -15,6 +15,7 @@ SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
 SET u.privacyMode = 'public';
 
+//Fachtagung
 
 CREATE (u:User:HarvestingUser {userId: 'fachtagungMoneySustainability'})
 SET u.email = 'fachtagungMoneySustainability@dumonda.me'
@@ -30,6 +31,24 @@ SET u.start = 1572523200
 SET u.end = 1572550200
 SET u.address = 'Kulturpark, Pfingstweidstr. 16, Zürich'
 SET u.link = 'https://www.kulturpark.ch/veranstaltungen?course=19-10-31-1'
+SET u.language = 'de'
+SET u.languages = ['de', 'en']
+SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
+SET u.privacyMode = 'public';
+
+//Adventskalender
+
+CREATE (u:User:HarvestingUser:OnlineHarvesting {userId: 'adventskalender'})
+SET u.email = 'adventskalender@dumonda.me'
+SET u.emailNormalized = 'adventskalender@dumonda.me'
+SET u.forename = 'Adventskalender für Nachhaltige Entwicklung'
+SET u.surname = ''
+SET u.name = 'Adventskalender für Nachhaltige Entwicklung'
+SET u.userDescription = " Advent –  Zeit der Erwartung und der Vorbereitung. In diesem Sinne zeigt der Adventskalender Nachhaltige Entwicklung an 24 Tagen im Dezember innovative Projekte und konkrete Initiativen zur Förderung  verantwortungsvollen Wirtschaftens und Handelns. Chats  mit engagierten Persönlichkeiten aus den Bereichen Wirtschaft, Politik  und Wissenschaft laden zum Mitdiskutieren ein."
+SET u.registerDate = 1574232301
+SET u.start = 1575154800
+SET u.end = 1577833140
+SET u.link = 'http://www.online-adventskalender.info/2018/index.php?lang1=de'
 SET u.language = 'de'
 SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
