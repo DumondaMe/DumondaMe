@@ -752,6 +752,9 @@
       "notification": "Folgende Person findet deine Frage {{- question}} interessant.",
       "notification_plural": "{{count}} weitere Personen findet deine Frage {{- question}} interessant."
     },
+    "newQuestion": {
+      "notification": "hat die Frage {{- question}} gestellt."
+    },
     "createdAnswer": {
       "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
       "notificationTextAnswer": "hat die Frage {{- question}} beantwortet."
