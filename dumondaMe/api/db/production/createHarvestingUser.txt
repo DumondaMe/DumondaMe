@@ -48,7 +48,7 @@ SET u.userDescription = " Advent –  Zeit der Erwartung und der Vorbereitung. I
 SET u.registerDate = 1574232301
 SET u.start = 1575154800
 SET u.end = 1577833140
-SET u.link = 'http://www.online-adventskalender.info/2018/index.php?lang1=de'
+SET u.link = 'http://www.online-adventskalender.info/2019/page.php?content=top'
 SET u.language = 'de'
 SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
