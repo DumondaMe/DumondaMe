@@ -16,7 +16,7 @@ const createDefaultAnswerCommand = function (params) {
                   {answerId: {answerId}, answer: {answer}, created: {created}})`)
         .merge(`(user)-[:IS_CREATOR]->(answer)<-[:ANSWER]-(question)`)
         .return(`user.name AS name`)
-        .end(params).getCommand();
+        .end(params);
 };
 
 const createAnswer = async function (userId, params, titleImage, req) {
@@ -33,13 +33,13 @@ const createAnswer = async function (userId, params, titleImage, req) {
         params.userId = userId;
         params.answer = params.answer || null;
         params.hasImage = typeof titleImage === 'string';
-        let user = await notification.addCreatedAnswerNotification(userId, params.answerId, params.created)
-            .send([createDefaultAnswerCommand(params)]);
+        let user = await createDefaultAnswerCommand(params).send();
+
         logger.info(`Created default answer ${params.answerId} for question ${params.questionId}`);
-
         await image.uploadImages(titleImage, params.answerId);
+        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
 
-        response = await responseHandler.getResponse(userId, user[0][0].name, params);
+        response = await responseHandler.getResponse(userId, user[0].name, params);
     }
     return response;
 };
