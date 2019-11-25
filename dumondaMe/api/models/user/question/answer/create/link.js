@@ -58,8 +58,7 @@ const createLinkAnswer = async function (userId, params) {
     params.userId = userId;
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createLinkAnswerOriginalLinkCommand(params)
-        .send([createLinkAnswerCommand(params),
-            notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
+        .send([createLinkAnswerCommand(params)]);
     if (user[0].length === 1) {
         let uploadedImage = false;
         if (params.hasPreviewImage) {
@@ -69,6 +68,7 @@ const createLinkAnswer = async function (userId, params) {
             }
         }
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
+        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
         const result = {
             answerId: params.answerId, created: params.created,
             creator: {

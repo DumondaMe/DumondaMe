@@ -44,10 +44,10 @@ const createYoutubeAnswer = async function (userId, params) {
         params.idOnYoutube = idOnYoutube;
         params.embed = youtube.getEmbedUrl(params.link);
         let user = await createYoutubeAnswerOriginalLinkCommand(params)
-            .send([createYoutubeAnswerCommand(params),
-                notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
+            .send([createYoutubeAnswerCommand(params)]);
         if (user[0].length === 1) {
             logger.info(`Created youtube answer ${params.answerId} for question ${params.questionId}`);
+            await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
             return {
                 answerId: params.answerId, created: params.created, idOnYoutube: params.idOnYoutube,
                 creator: {
