@@ -47,6 +47,27 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(true);
         res.body.harvestingUser.answeredQuestion.should.equals(false);
+        res.body.harvestingUser.isOnlineHarvesting.should.equals(false);
+    });
+
+    it('Getting details of a question created by a online harvesting user', async function () {
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', onlineHarvesting: true});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de'});
+        res.status.should.equal(200);
+        res.body.questionId.should.equals('1');
+        res.body.creator.userId.should.equals('1');
+        res.body.creator.isHarvestingUser.should.equals(true);
+        res.body.harvestingUser.userId.should.equals('1');
+        res.body.harvestingUser.name.should.equals('user Meier');
+        res.body.harvestingUser.slug.should.equals('user-meier');
+        res.body.harvestingUser.userImage.should.equals('profileImage/1/profilePreview.jpg');
+        res.body.harvestingUser.startDate.should.equals(100);
+        res.body.harvestingUser.endDate.should.equals(200);
+        res.body.harvestingUser.createdQuestion.should.equals(true);
+        res.body.harvestingUser.answeredQuestion.should.equals(false);
+        res.body.harvestingUser.isOnlineHarvesting.should.equals(true);
     });
 
     it('Getting details of a question answered by a harvesting user', async function () {
@@ -65,6 +86,7 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(false);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
+        res.body.harvestingUser.isOnlineHarvesting.should.equals(false);
 
         res.body.answers.length.should.equals(1);
         res.body.answers[0].answerId.should.equals('5');
@@ -91,6 +113,7 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.harvestingUser.endDate.should.equals(200);
         res.body.harvestingUser.createdQuestion.should.equals(true);
         res.body.harvestingUser.answeredQuestion.should.equals(true);
+        res.body.harvestingUser.isOnlineHarvesting.should.equals(false);
 
         res.body.answers.length.should.equals(2);
 

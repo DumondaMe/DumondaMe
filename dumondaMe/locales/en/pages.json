@@ -425,7 +425,12 @@
       "questionCreated": "This question was created at the event {{event}} by DumondaMe.",
       "questionAnswered": "This question was answered at the event {{event}} by DumondaMe.",
       "questionCreatedAndAnswered": "This question was created and answered at the event {{event}} by DumondaMe.",
-      "questionWillBeAnswered": "This question will be answered on <b>{{date}}</b> at the event <b>{{event}}</b>."
+      "questionWillBeAnswered": "This question will be answered on <b>{{date}}</b> at the event <b>{{event}}</b>.",
+      "online": {
+        "questionCreated": "This question was created by <b>{{name}}</b>.",
+        "questionAnswered": "This question was answered by <b>{{name}}</b>.",
+        "questionCreatedAndAnswered": "This question was created and answered by <b>{{name}}</b>."
+      }
     }
   },
   "detailQuestion": {

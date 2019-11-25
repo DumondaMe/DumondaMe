@@ -2,7 +2,7 @@
     <div class="harvesting-info-container ely-card">
         <img class="harvesting-image" :src="harvestingUser.userImage" @click="$router.push(
         {name: 'dumondaMeOnTour-userId', params: {userId: harvestingUser.userId}})">
-        <div class="harvesting-description" v-if="hasTakenPlace">
+        <div class="harvesting-description" v-if="hasTakenPlace && !harvestingUser.isOnlineHarvesting">
             <span v-if="harvestingUser.answeredQuestion && harvestingUser.createdQuestion">
                 {{$t('pages:question.harvestingInfo.questionCreatedAndAnswered',
                 {event: harvestingUser.name})}}</span>
@@ -13,10 +13,20 @@
                 {{$t('pages:question.harvestingInfo.questionCreated',
                 {event: harvestingUser.name})}}</span>
         </div>
-        <div class="harvesting-description" v-else>
+        <div class="harvesting-description" v-else-if="!hasTakenPlace && !harvestingUser.isOnlineHarvesting">
             <span v-html="$t('pages:question.harvestingInfo.questionWillBeAnswered',
-            {event: harvestingUser.name,
-            date: getDate})"></span>
+            {event: harvestingUser.name, date: getDate})"></span>
+        </div>
+        <div class="harvesting-description" v-else>
+            <span v-if="harvestingUser.answeredQuestion && harvestingUser.createdQuestion"
+                  v-html="$t('pages:question.harvestingInfo.online.questionCreatedAndAnswered',
+                {name: harvestingUser.name})"></span>
+            <span v-else-if="harvestingUser.answeredQuestion && !harvestingUser.createdQuestion"
+                  v-html="$t('pages:question.harvestingInfo.online.questionAnswered',
+                {name: harvestingUser.name})"></span>
+            <span v-else-if="!harvestingUser.answeredQuestion && harvestingUser.createdQuestion"
+                  v-html="$t('pages:question.harvestingInfo.online.questionCreated',
+                {name: harvestingUser.name})"></span>
         </div>
         <div class="navigate-to-harvesting-user-button">
             <v-btn class="to-event-button" color="secondary" @click="$router.push({name: 'dumondaMeOnTour-userId',
