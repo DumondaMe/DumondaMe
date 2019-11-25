@@ -64,7 +64,7 @@ const proximityMatchingQuery = function (sentence, searchProperty) {
 };
 
 const cleanQuery = function (query) {
-    let cleanedQuery = query.replace('*', '');
+    let cleanedQuery = query.replace(/\+|-|&&|!|\(|\)|{|}|\[|]|^|"|~|\*|\?|:|\\/g, '');
     return cleanedQuery.trim();
 };
 
