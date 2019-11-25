@@ -32,7 +32,7 @@ describe('Getting all admins of an commitment', function () {
 
         dbDsl.notificationRequestAdminOfCommitment('11',
             {commitmentId: '1', existingAdminId: '1', newAdminId: '3', created: 500, read: true});
-        dbDsl.notificationRequestAdminOfCommitment('11',
+        dbDsl.notificationRequestAdminOfCommitment('12',
             {commitmentId: '1', existingAdminId: '1', newAdminId: '3', created: 500});
 
         await dbDsl.sendToDb();
