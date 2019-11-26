@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const linkifyHtml = require('linkifyjs/html');
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
 const cdn = require('dumonda-me-server-lib').cdn;
@@ -82,6 +83,9 @@ const createLinkAnswer = async function (userId, params) {
         };
         if (uploadedImage) {
             result.imageUrl = cdn.getPublicUrl(`link/${params.answerId}/460x460/preview.jpg`);
+        }
+        if (typeof params.description === 'string') {
+            result.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
         }
         return result;
     }

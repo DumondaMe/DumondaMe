@@ -36,15 +36,16 @@ describe('Edit youtube answer', function () {
     it('Edit youtube answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/youtube/5', {
-            title: 'titleYoutube', description: 'descriptionYoutube'
+            title: 'titleYoutube', description: 'descriptionYoutube www.dumonda.me'
         });
         res.status.should.equal(200);
+        res.body.descriptionHtml.should.equals('descriptionYoutube <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.title.should.equals('titleYoutube');
-        resp[0].answer.description.should.equals('descriptionYoutube');
+        resp[0].answer.description.should.equals('descriptionYoutube www.dumonda.me');
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
         resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');

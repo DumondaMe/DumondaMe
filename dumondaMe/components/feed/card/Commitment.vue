@@ -30,7 +30,7 @@
                             params: {commitmentId: answer.commitmentId, slug: answer.commitmentSlug}})">
             </div>
             <div class="answer-description">
-                <expand-text :expand-text="answer.description"
+                <expand-text :expand-text="answer.descriptionHtml"
                              :class="{'no-commitment-image': !answer.imageUrl}">
                 </expand-text>
             </div>

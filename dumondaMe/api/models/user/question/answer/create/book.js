@@ -8,6 +8,7 @@ const image = require('dumonda-me-server-lib').image;
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const notification = require(`./notification`);
 const slug = require('limax');
+const linkifyHtml = require('linkifyjs/html');
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 const ERROR_CODE_BOOK_EXISTS_ALREADY = 2;
@@ -71,6 +72,9 @@ const createBookAnswer = async function (userId, params) {
         };
         if (params.imageUrl) {
             result.imageUrl = cdn.getPublicUrl(`book/${params.answerId}/120x250/preview.jpg`);
+        }
+        if (typeof params.description === 'string') {
+            result.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
         }
         return result;
     }

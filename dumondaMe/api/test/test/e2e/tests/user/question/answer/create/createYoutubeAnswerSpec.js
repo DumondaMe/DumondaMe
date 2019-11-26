@@ -37,10 +37,11 @@ describe('Creating youtube answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
-            title: 'titleYoutube', description: 'descriptionYoutube'
+            title: 'titleYoutube', description: 'descriptionYoutube www.dumonda.me'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.descriptionHtml.should.equals('descriptionYoutube <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.idOnYoutube.should.equals('Lhku7ZBWEK8');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
@@ -56,7 +57,7 @@ describe('Creating youtube answer', function () {
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.idOnYoutube.should.equals('Lhku7ZBWEK8');
         resp[0].answer.title.should.equals('titleYoutube');
-        resp[0].answer.description.should.equals('descriptionYoutube');
+        resp[0].answer.description.should.equals('descriptionYoutube www.dumonda.me');
         resp[0].answer.link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
         resp[0].answer.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         resp[0].answer.created.should.equals(res.body.created);

@@ -5,6 +5,7 @@ const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
 const cdn = require('dumonda-me-server-lib').cdn;
 const slug = require('limax');
+const linkifyHtml = require('linkifyjs/html');
 const youtube = require('../../../../util/youtube');
 const notification = require(`./notification`);
 const exceptions = require('dumonda-me-server-lib').exceptions;
@@ -48,7 +49,7 @@ const createYoutubeAnswer = async function (userId, params) {
                 notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
         if (user[0].length === 1) {
             logger.info(`Created youtube answer ${params.answerId} for question ${params.questionId}`);
-            return {
+            let result = {
                 answerId: params.answerId, created: params.created, idOnYoutube: params.idOnYoutube,
                 creator: {
                     name: user[0][0].name,
@@ -59,6 +60,10 @@ const createYoutubeAnswer = async function (userId, params) {
                     isTrustUser: false
                 }
             };
+            if (typeof params.description === 'string') {
+                result.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
+            }
+            return result;
         } else {
             throw new exceptions.InvalidOperation(`Youtube answer ${params.idOnYoutube} exists already for question 
             ${params.questionId}`, ERROR_CODE_YOUTUBE_EXISTS_ALREADY);

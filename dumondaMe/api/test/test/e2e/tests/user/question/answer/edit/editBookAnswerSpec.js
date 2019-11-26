@@ -35,15 +35,16 @@ describe('Edit book answer', function () {
     it('Edit book answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/book/5', {
-            description: 'descriptionBook'
+            description: 'descriptionBook www.dumonda.me'
         });
         res.status.should.equal(200);
+        res.body.descriptionHtml.should.equals('descriptionBook <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
         resp[0].answer.title.should.equals('book5Title');
-        resp[0].answer.description.should.equals('descriptionBook');
+        resp[0].answer.description.should.equals('descriptionBook www.dumonda.me');
         resp[0].answer.authors.should.equals('Hans Wurst');
         resp[0].answer.created.should.equals(555);
         resp[0].answer.modified.should.least(startTime);

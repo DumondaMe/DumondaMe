@@ -47,10 +47,11 @@ describe('Creating link answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/link/1', {
             link: 'https://example.com/blog', imageUrl: 'https://example.com/example.jpg',
-            title: 'titleLink', description: 'descriptionLink', type: 'blog'
+            title: 'titleLink', description: 'descriptionLink www.dumonda.me', type: 'blog'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.descriptionHtml.should.equals('descriptionLink <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/${res.body.answerId}/460x460/preview.jpg`);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
@@ -67,7 +68,7 @@ describe('Creating link answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.title.should.equals('titleLink');
-        resp[0].answer.description.should.equals('descriptionLink');
+        resp[0].answer.description.should.equals('descriptionLink www.dumonda.me');
         resp[0].answer.link.should.equals('https://example.com/blog');
         resp[0].answer.pageType.should.equals('blog');
         resp[0].answer.hasPreviewImage.should.equals(true);
@@ -83,10 +84,11 @@ describe('Creating link answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/link/1', {
             link: 'https://example.com/blog', imageUrl: 'https://example.com/example.jpg',
-            title: 'titleLink', description: 'descriptionLink', type: 'blog'
+            title: 'titleLink', description: 'descriptionLink www.dumonda.me', type: 'blog'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.descriptionHtml.should.equals('descriptionLink <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         should.not.exist(res.body.imageUrl);
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
@@ -102,7 +104,7 @@ describe('Creating link answer', function () {
         resp.length.should.equals(1);
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.title.should.equals('titleLink');
-        resp[0].answer.description.should.equals('descriptionLink');
+        resp[0].answer.description.should.equals('descriptionLink www.dumonda.me');
         resp[0].answer.link.should.equals('https://example.com/blog');
         resp[0].answer.pageType.should.equals('blog');
         resp[0].answer.hasPreviewImage.should.equals(false);

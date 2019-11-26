@@ -37,7 +37,7 @@
                 <img :src="videoButton" v-if="!showEmbed && showVideoButton" class="video-button">
             </div>
             <div class="answer-description">
-                <expand-text :expand-text="answer.description"></expand-text>
+                <expand-text :expand-text="answer.descriptionHtml"></expand-text>
             </div>
         </div>
         <slot name="footer"></slot>

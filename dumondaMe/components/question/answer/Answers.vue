@@ -75,7 +75,8 @@
                 return this.$store.state.question.question.numberOfAnswers;
             },
             hasMoreAnswers() {
-                return this.$store.state.question.question.hasMoreAnswers;
+                return this.$store.state.question.question.hasMoreAnswers &&
+                    this.$route.query && !this.$route.query.answerId;
             },
             showAllAnswersButton() {
                 return (this.$store.state.question.question.answers.length <= 1 &&

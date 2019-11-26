@@ -44,18 +44,20 @@ describe('Getting answers of a question', function () {
         });
         dbDsl.createYoutubeAnswer('7', {
             creatorId: '2', questionId: '1', created: 499, idOnYoutube: 'Lhku7ZBWEK8',
+            description: 'www.dumonda.me description youtube',
             link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8', linkEmbed: 'https://www.youtube.com/embed/Lhku7ZBWEK8'
         });
         dbDsl.createLinkAnswer('8', {
             creatorId: '2', questionId: '1', created: 498, hasPreviewImage: true,
-            link: 'https://example.com', pageType: 'blog'
+            description: 'www.dumonda.me description link', link: 'https://example.com', pageType: 'blog'
         });
         dbDsl.createBookAnswer('9', {
             creatorId: '3', questionId: '1', created: 497, authors: 'Hans Wurst', googleBookId: '1234',
-            hasPreviewImage: true
+            hasPreviewImage: true, description: 'www.dumonda.me description book'
         });
         dbDsl.createCommitmentAnswer('11', {
-            creatorId: '2', questionId: '1', commitmentId: '2', created: 496, description: 'test'
+            creatorId: '2', questionId: '1', commitmentId: '2', created: 496,
+            description: 'www.dumonda.me description commitment'
         });
 
         dbDsl.createCommitmentEvent({
@@ -151,7 +153,8 @@ describe('Getting answers of a question', function () {
         res.body.answers[2].link.should.equals('https://www.youtube.com/watch?v=Lhku7ZBWEK8');
         res.body.answers[2].linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
         res.body.answers[2].title.should.equals('youtube7Title');
-        res.body.answers[2].description.should.equals('youtube7Description');
+        res.body.answers[2].description.should.equals('www.dumonda.me description youtube');
+        res.body.answers[2].descriptionHtml.should.equals('<a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a> description youtube');
         res.body.answers[2].upVotes.should.equals(0);
         res.body.answers[2].isAdmin.should.equals(false);
         res.body.answers[2].hasVoted.should.equals(false);
@@ -171,7 +174,8 @@ describe('Getting answers of a question', function () {
         res.body.answers[3].link.should.equals('https://example.com');
         res.body.answers[3].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/link/8/460x460/preview.jpg`);
         res.body.answers[3].title.should.equals('link8Title');
-        res.body.answers[3].description.should.equals('link8Description');
+        res.body.answers[3].description.should.equals('www.dumonda.me description link');
+        res.body.answers[3].descriptionHtml.should.equals('<a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a> description link');
         res.body.answers[3].pageType.should.equals('blog');
         res.body.answers[3].upVotes.should.equals(0);
         res.body.answers[3].isAdmin.should.equals(false);
@@ -191,7 +195,8 @@ describe('Getting answers of a question', function () {
         res.body.answers[4].answerType.should.equals('Book');
         res.body.answers[4].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/9/120x250/preview.jpg`);
         res.body.answers[4].title.should.equals('book9Title');
-        res.body.answers[4].description.should.equals('book9Description');
+        res.body.answers[4].description.should.equals('www.dumonda.me description book');
+        res.body.answers[4].descriptionHtml.should.equals('<a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a> description book');
         res.body.answers[4].googleBookId.should.equals('1234');
         res.body.answers[4].authors.should.equals('Hans Wurst');
         res.body.answers[4].upVotes.should.equals(0);
@@ -214,7 +219,8 @@ describe('Getting answers of a question', function () {
         res.body.answers[5].imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/2/460x460/title.jpg?v=701`);
         res.body.answers[5].title.should.equals('Das ist ein Engagement ♥');
         res.body.answers[5].commitmentSlug.should.equals('das-ist-ein-engagement-love');
-        res.body.answers[5].description.should.equals('test');
+        res.body.answers[5].description.should.equals('www.dumonda.me description commitment');
+        res.body.answers[5].descriptionHtml.should.equals('<a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a> description commitment');
         res.body.answers[5].upVotes.should.equals(0);
         res.body.answers[5].isAdmin.should.equals(false);
         res.body.answers[5].hasVoted.should.equals(false);
