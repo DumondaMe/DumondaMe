@@ -1,6 +1,7 @@
 'use strict';
 
 const slug = require('limax');
+const linkifyHtml = require('linkifyjs/html');
 const db = requireDb();
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
@@ -62,7 +63,7 @@ const createCommitmentAnswer = async function (userId, params) {
     let commitment = await showQuestionRequestNotification(params).send([createCommitmentCommand(params),
         notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
 
-    return {
+    let result = {
         answerId: params.answerId,
         created: params.created,
         slug: slug(commitment[0][0].commitmentTitle),
@@ -77,7 +78,11 @@ const createCommitmentAnswer = async function (userId, params) {
             isTrustUser: false,
             isAdminOfCommitment: commitment[0][0].isAdminOfCommitment,
         }
+    };
+    if (typeof params.description === 'string') {
+        result.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
     }
+    return result;
 };
 
 module.exports = {

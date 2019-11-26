@@ -158,6 +158,7 @@ export const mutations = {
 
 const addDefaultProperties = function (answer, type, response) {
     answer.answerId = response.answerId;
+    answer.descriptionHtml = response.descriptionHtml;
     answer.created = response.created;
     answer.creator = response.creator;
     answer.answerType = type;
@@ -249,8 +250,8 @@ export const actions = {
         if (description && description.trim() !== '') {
             params.description = description;
         }
-        await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, params);
-        commit('EDIT_ANSWER', {answerId, answer: {description, title}});
+        let response = await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, params);
+        commit('EDIT_ANSWER', {answerId, answer: {description, descriptionHtml: response.descriptionHtml, title}});
     },
     async createLinkAnswer({commit, state}, linkData) {
         if (linkData.hasOwnProperty('description') && linkData.description.trim() === '') {
@@ -268,8 +269,13 @@ export const actions = {
         if (description && description.trim() !== '') {
             params.description = description;
         }
-        await this.$axios.$put(`/user/question/answer/link/${answerId}`, params);
-        commit('EDIT_ANSWER', {answerId, answer: {description, title, pageType: type}});
+        let response = await this.$axios.$put(`/user/question/answer/link/${answerId}`, params);
+        commit('EDIT_ANSWER', {
+            answerId, answer: {
+                description, descriptionHtml: response.descriptionHtml, title,
+                pageType: type
+            }
+        });
     },
     async createBookAnswer({commit, state}, bookData) {
         let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,
@@ -280,8 +286,8 @@ export const actions = {
         return response.answerId;
     },
     async editBookAnswer({commit, state}, {answerId, description}) {
-        await this.$axios.$put(`/user/question/answer/book/${answerId}`, {description});
-        commit('EDIT_ANSWER', {answerId, answer: {description}});
+        let response = await this.$axios.$put(`/user/question/answer/book/${answerId}`, {description});
+        commit('EDIT_ANSWER', {answerId, answer: {description, descriptionHtml: response.descriptionHtml}});
     },
     async createCommitmentAnswer({commit, state, rootState}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
@@ -305,8 +311,8 @@ export const actions = {
         return response.answerId;
     },
     async editCommitmentAnswer({commit, state}, {answerId, description}) {
-        await this.$axios.$put(`/user/question/answer/commitment/${answerId}`, {description});
-        commit('EDIT_ANSWER', {answerId, answer: {description}});
+        let response = await this.$axios.$put(`/user/question/answer/commitment/${answerId}`, {description});
+        commit('EDIT_ANSWER', {answerId, answer: {description, descriptionHtml: response.descriptionHtml}});
     },
     async deleteAnswer({commit, state}, answerId) {
         await this.$axios.$delete(`/user/question/answer`, {params: {answerId}});

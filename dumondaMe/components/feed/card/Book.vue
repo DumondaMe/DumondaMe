@@ -33,7 +33,7 @@
                 <img v-lazy="answer.imageUrl" @click="openBook">
             </div>
             <div class="answer-description" :class="{'no-book-image': !answer.imageUrl}">
-                <expand-text :expand-text="answer.description">
+                <expand-text :expand-text="answer.descriptionHtml">
                 </expand-text>
             </div>
         </div>

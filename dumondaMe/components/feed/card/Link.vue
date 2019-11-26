@@ -34,7 +34,7 @@
                 <img v-lazy="answer.imageUrl" @click="openLink">
             </div>
             <div class="answer-description" :class="{'no-link-image': !answer.imageUrl}">
-                <expand-text :expand-text="answer.description"
+                <expand-text :expand-text="answer.descriptionHtml"
                              :class="{'no-link-image': !answer.imageUrl}">
                 </expand-text>
             </div>

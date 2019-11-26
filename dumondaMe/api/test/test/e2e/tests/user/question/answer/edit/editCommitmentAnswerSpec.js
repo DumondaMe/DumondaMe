@@ -41,14 +41,15 @@ describe('Edit commitment answer', function () {
     it('Edit commitment answer', async function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/answer/commitment/5', {
-            description: 'This is a commitment'
+            description: 'This is a commitment www.dumonda.me'
         });
         res.status.should.equal(200);
+        res.body.descriptionHtml.should.equals('This is a commitment <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
 
         let resp = await db.cypher().match(`(:Question {questionId: '1'})-[:ANSWER]->(answer:Answer {answerId: '5'})`)
             .return(`answer`).end().send();
         resp.length.should.equals(1);
-        resp[0].answer.description.should.equals('This is a commitment');
+        resp[0].answer.description.should.equals('This is a commitment www.dumonda.me');
         resp[0].answer.created.should.equals(555);
         resp[0].answer.modified.should.least(startTime);
     });

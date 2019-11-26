@@ -47,11 +47,12 @@ describe('Creating book answer', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/book/1', {
             authors: 'Hans Wurst', googleBookId: '1234', imageUrl: 'https://example.com/example.jpg',
-            title: 'titleBook', description: 'descriptionBook'
+            title: 'titleBook', description: 'descriptionBook www.dumonda.me'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/book/${res.body.answerId}/120x250/preview.jpg`);
+        res.body.descriptionHtml.should.equals('descriptionBook <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
         res.body.creator.isLoggedInUser.should.equals(true);
@@ -68,7 +69,7 @@ describe('Creating book answer', function () {
         resp[0].answer.answerId.should.equals(res.body.answerId);
         resp[0].answer.googleBookId.should.equals('1234');
         resp[0].answer.title.should.equals('titleBook');
-        resp[0].answer.description.should.equals('descriptionBook');
+        resp[0].answer.description.should.equals('descriptionBook www.dumonda.me');
         resp[0].answer.hasPreviewImage.should.equals(true);
         resp[0].answer.created.should.equals(res.body.created);
         resp[0].user.userId.should.equals('1');
@@ -87,6 +88,7 @@ describe('Creating book answer', function () {
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
         should.not.exist(res.body.imageUrl);
+        res.body.descriptionHtml.should.equals('descriptionBook');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
         res.body.creator.isLoggedInUser.should.equals(true);
@@ -121,6 +123,7 @@ describe('Creating book answer', function () {
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
         should.not.exist(res.body.imageUrl);
+        res.body.descriptionHtml.should.equals('descriptionBook');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
         res.body.creator.isLoggedInUser.should.equals(true);

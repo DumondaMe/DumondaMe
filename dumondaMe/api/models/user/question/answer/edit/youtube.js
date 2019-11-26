@@ -3,6 +3,7 @@
 const db = requireDb();
 const security = require('../security');
 const time = require('dumonda-me-server-lib').time;
+const response = require('./response');
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
 
@@ -14,8 +15,8 @@ const editYoutubeAnswer = async function (userId, params) {
             title: params.title, description: params.description, modified: time.getNowUtcTimestamp()
         })
         .end({userId, answerId: params.answerId}).send();
-    logger.info(`Edit book answer with id ${params.answerId}`)
-
+    logger.info(`Edit youtube answer with id ${params.answerId}`);
+    return response.getEditResponse(params.description);
 };
 
 module.exports = {

@@ -59,6 +59,10 @@ const getAnswers = async function (answers, language, userId) {
                 (l) => ['Youtube', 'Default', 'Link', 'Book', 'CommitmentAnswer'].some(v => v === l))[0];
             formattedAnswer.creator = await getCreator(answer.creator, answer.isTrustUser, answer.creatorTrustUser,
                 answer.isHarvestingUser, userId);
+            if (typeof formattedAnswer.description === 'string') {
+                formattedAnswer.descriptionHtml = linkifyHtml(formattedAnswer.description, {attributes: {rel: 'noopener'}});
+            }
+
             if (formattedAnswer.answerType === 'Link' && formattedAnswer.hasPreviewImage) {
                 formattedAnswer.imageUrl = cdn.getPublicUrl(`link/${formattedAnswer.answerId}/460x460/preview.jpg`);
             } else if (formattedAnswer.answerType === 'Book' && formattedAnswer.hasPreviewImage) {

@@ -45,10 +45,11 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment', language: 'de'
+            commitmentId: '10', description: 'This is a commitment www.dumonda.me', language: 'de'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
+        res.body.descriptionHtml.should.equals('This is a commitment <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
@@ -89,11 +90,12 @@ describe('Creating a commitment answer', function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/commitment/1', {
-            commitmentId: '10', description: 'This is a commitment', language: 'de'
+            commitmentId: '10', description: 'This is a commitment www.dumonda.me', language: 'de'
         });
         res.status.should.equal(200);
         res.body.created.should.least(startTime);
         res.body.imageUrl.should.equals(`${process.env.PUBLIC_IMAGE_BASE_URL}/commitment/10/460x460/title.jpg`);
+        res.body.descriptionHtml.should.equals('This is a commitment <a href="http://www.dumonda.me" class="linkified" target="_blank" rel="noopener">www.dumonda.me</a>');
         res.body.slug.should.equals('das-ist-ein-engagement');
         res.body.creator.name.should.equals('user Meier');
         res.body.creator.slug.should.equals('user-meier');
