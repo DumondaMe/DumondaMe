@@ -14,6 +14,7 @@ const schemaGetQuestionDetail = {
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         answerId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        harvestingId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         language: schemaLanguage.language
     }
 };
@@ -25,7 +26,8 @@ module.exports = function (router) {
         let userId = apiHelper.getUserId(req);
         let superUser = apiHelper.isSuperUser(req);
         params.answerId = params.answerId || null;
-        let response = await detail.getQuestion(params.questionId, params.answerId, params.language, userId, superUser);
+        let response = await detail.getQuestion(params.questionId, params.answerId, params.harvestingId,
+            params.language, userId, superUser);
         res.status(200).json(response);
     }));
 };

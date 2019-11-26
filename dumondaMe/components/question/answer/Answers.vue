@@ -5,9 +5,9 @@
                  itemtype="http://schema.org/Answer" :class="{'single-feed-card': showAllAnswersButton}">
                 <a itemprop="url" :href="getAnswerUrl(answer.answerId)" class="hide-answer-link"></a>
                 <default-card v-if="answer.answerType === 'Default'" :answer="answer"
-                           @up-voted="upVote" @down-voted="downVote"
-                           @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
-                           @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
+                              @up-voted="upVote" @down-voted="downVote"
+                              @add-trust-circle="(userId) => addUserToTrustCircle(userId)"
+                              @remove-trust-circle="(userId) => removeUserFromTrustCircle(userId)">
                 </default-card>
                 <youtube-card v-else-if="answer.answerType === 'Youtube'" :answer="answer"
                               @up-voted="upVote" @down-voted="downVote"
@@ -40,13 +40,13 @@
         <div class="show-no-answers ely-card" v-else-if="totalNumberOfAnswers === 0">
             {{$t('pages:detailQuestion.noAnswer')}}
         </div>
-        <v-btn outlined color="primary" v-if="showAllAnswersButton" class="show-answer-button"
-               @click="showAllAnswers" :disabled="loading" :loading="loading">
-            {{$t('pages:detailQuestion.showAllAnswerButton')}}
-        </v-btn>
-        <v-btn outlined color="primary" v-else-if="hasMoreAnswers" class="show-answer-button"
+        <v-btn outlined color="primary" v-if="hasMoreAnswers" class="show-answer-button"
                @click="showNextAnswers" :disabled="loading" :loading="loading">
             {{$t('pages:detailQuestion.showNextAnswerButton')}}
+        </v-btn>
+        <v-btn outlined color="primary" v-else-if="showAllAnswersButton" class="show-answer-button"
+               @click="showAllAnswers" :disabled="loading" :loading="loading">
+            {{$t('pages:detailQuestion.showAllAnswerButton')}}
         </v-btn>
     </div>
 </template>
@@ -78,9 +78,11 @@
                 return this.$store.state.question.question.hasMoreAnswers;
             },
             showAllAnswersButton() {
-                return this.$store.state.question.question.answers.length <= 1 &&
+                return (this.$store.state.question.question.answers.length <= 1 &&
                     this.$store.state.question.question.numberOfAnswers > 1 &&
-                    this.$route.query && this.$route.query.answerId;
+                    this.$route.query && this.$route.query.answerId) ||
+                    (this.$store.state.question.question.hasOtherAnswersThenHarvesting &&
+                        this.$route.query && this.$route.query.harvestingId);
             }
         },
         methods: {
@@ -115,7 +117,8 @@
                 try {
                     this.loading = true;
                     this.showError = false;
-                    await this.$store.dispatch('question/nextAnswers');
+                    await this.$store.dispatch('question/nextAnswers',
+                        this.$route.query ? this.$route.query.harvestingId : null);
                 } catch (err) {
                     this.showError = true;
                 } finally {

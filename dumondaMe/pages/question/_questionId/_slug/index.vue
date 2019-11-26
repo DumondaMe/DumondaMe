@@ -53,6 +53,9 @@
                 if (query.answerId) {
                     paramsToSend.params.answerId = query.answerId;
                 }
+                if (query.harvestingId) {
+                    paramsToSend.params.harvestingId = query.harvestingId;
+                }
                 let question = await app.$axios.$get(`question/detail/${params.questionId}`, paramsToSend);
                 question.questionId = params.questionId;
                 store.commit('question/SET_QUESTION', question);

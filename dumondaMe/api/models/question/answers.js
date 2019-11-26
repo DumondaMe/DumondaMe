@@ -6,11 +6,21 @@ const answerParser = require('./answer/answerParser');
 
 const PAGE_SIZE = 20;
 
-const getAnswersCommand = function (questionId, answerId, page, userId) {
+const answerFilter = function (answerId, harvestingId) {
+    let filter = '';
+    if (answerId) {
+        filter = `answer.answerId = {answerId}`;
+    } else if (harvestingId) {
+        filter = `creator:HarvestingUser AND creator.userId = {harvestingId}`;
+    }
+    return filter;
+};
+
+const getAnswersCommand = function (questionId, answerId, harvestingId, page, userId) {
     let skip = page * PAGE_SIZE;
     return db.cypher()
         .match(`(q:Question {questionId: {questionId}})-[:ANSWER]->(answer:Answer)<-[:IS_CREATOR]-(creator:User)`)
-        .where(answerId ? `answer.answerId = {answerId}` : ``)
+        .where(answerFilter(answerId, harvestingId))
         .optionalMatch(`(answer)<-[upVotesRel:UP_VOTE]-(:User)`)
         .with(`q, creator, answer, count(DISTINCT upVotesRel) AS upVotes,
                creator.userId = {userId} AS isAdmin, labels(answer) AS answerType,
@@ -34,11 +44,11 @@ const getAnswersCommand = function (questionId, answerId, page, userId) {
         .orderBy(`upVotes DESC, answer.created DESC`)
         .skip(`{skip}`)
         .limit(`${PAGE_SIZE + 1}`)
-        .end({questionId, answerId, userId, skip, now: time.getNowUtcTimestamp()});
+        .end({questionId, answerId, harvestingId, userId, skip, now: time.getNowUtcTimestamp()});
 };
 
-const getAnswers = async function (questionId, page, language, userId) {
-    let response = await getAnswersCommand(questionId, null, page, userId).send();
+const getAnswers = async function (questionId, harvestingId, page, language, userId) {
+    let response = await getAnswersCommand(questionId, null, harvestingId, page, userId).send();
     let question = {};
     question.hasMoreAnswers = response.length > PAGE_SIZE;
     if (question.hasMoreAnswers) {

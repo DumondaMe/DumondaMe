@@ -125,4 +125,42 @@ describe('Getting details of a question created or answered by a harvesting user
         res.body.answers[1].creator.userId.should.equals('2');
         res.body.answers[1].creator.isHarvestingUser.should.equals(false);
     });
+
+    it('Getting only answers of harvesting user', async function () {
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '1', questionId: '1', answer: 'Answer', created: 700,
+        });
+        dbDsl.createDefaultAnswer('7', {
+            creatorId: '3', questionId: '1', answer: 'Answer', created: 700,
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de', harvestingId: '2'});
+        res.status.should.equal(200);
+
+        res.body.hasOtherAnswersThenHarvesting.should.equals(true);
+        res.body.answers.length.should.equals(1);
+
+        res.body.answers[0].answerId.should.equals('5');
+        res.body.answers[0].creator.userId.should.equals('2');
+        res.body.answers[0].creator.isHarvestingUser.should.equals(true);
+    });
+
+    it('Getting only answers of harvesting user (not other answers)', async function () {
+        dbDsl.setUserIsHarvestingUser('2', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        dbDsl.setUserIsHarvestingUser('1', {start: 100, end: 200, link: 'https://www.link.ch', address: 'Milky Way'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/question/detail/1', {language: 'de', harvestingId: '2'});
+        res.status.should.equal(200);
+
+        res.body.hasOtherAnswersThenHarvesting.should.equals(false);
+        res.body.answers.length.should.equals(1);
+
+        res.body.answers[0].answerId.should.equals('5');
+        res.body.answers[0].creator.userId.should.equals('2');
+        res.body.answers[0].creator.isHarvestingUser.should.equals(true);
+    });
 });
