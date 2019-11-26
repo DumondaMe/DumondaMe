@@ -447,6 +447,7 @@
     "showNextAnswerButton": "Mehr Antworten anzeigen",
     "answerNotFound": "Diese Antwort wurde gelöscht",
     "noAnswer": "Diese Frage wurde noch nicht beantwortet",
+    "noHarvestingAnswer": "Diese Frage wurde noch nicht von {{name}} beantwortet",
     "commitmentAlreadyLinked": "Engagement wurde bereits mit dieser Frage verknüpft",
     "commitmentNotFound": "Für die Suche '{{search}}' wurde kein Engagement gefunden.",
     "note": {
