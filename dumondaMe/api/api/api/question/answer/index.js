@@ -13,6 +13,7 @@ const schemaGetQuestionAnswers = {
     required: ['questionId', 'language', 'page'],
     properties: {
         questionId: {type: 'string', format: 'notEmptyString', maxLength: 60},
+        harvestingId: {type: 'string', format: 'notEmptyString', maxLength: 60},
         page: {type: 'integer'},
         language: schemaLanguage.language
     }
@@ -23,7 +24,8 @@ module.exports = function (router) {
     router.get('/', asyncMiddleware(async (req, res) => {
         const params = await validation.validateRequest(req, schemaGetQuestionAnswers);
         let userId = apiHelper.getUserId(req);
-        let response = await answers.getAnswers(params.questionId, params.page, params.language, userId);
+        let response = await answers.getAnswers(params.questionId, params.harvestingId, params.page, params.language,
+            userId);
         res.status(200).json(response);
     }));
 };

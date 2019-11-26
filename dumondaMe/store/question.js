@@ -173,12 +173,16 @@ export const actions = {
             {params: {questionId: state.question.questionId, page: 0, language: rootState.i18n.language}});
         commit('SET_ANSWERS', response);
     },
-    async nextAnswers({commit, state, rootState}) {
-        let response = await this.$axios.$get(`/question/answer`, {
+    async nextAnswers({commit, state, rootState}, harvestingId) {
+        let params = {
             params: {
                 questionId: state.question.questionId, page: state.nextAnswersPage, language: rootState.i18n.language
             }
-        });
+        };
+        if (harvestingId) {
+            params.params.harvestingId = harvestingId;
+        }
+        let response = await this.$axios.$get(`/question/answer`, params);
         commit('ADD_ANSWERS', response);
     },
     async deleteQuestion({commit, state}) {

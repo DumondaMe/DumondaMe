@@ -1,7 +1,8 @@
 <template>
     <div class="user-harvesting-question-info">
         <div class="question-title" @click="$router.push({name: 'question-questionId-slug',
-                     params: {questionId: question.questionId, slug: question.questionSlug}})">{{question.question}}
+                     params: {questionId: question.questionId, slug: question.questionSlug},
+                     query: {harvestingId: user.userId}})">{{question.question}}
         </div>
         <expand-text :expand-text="question.descriptionHtml" class="description" v-if="question.descriptionHtml">
         </expand-text>
@@ -20,8 +21,11 @@
     export default {
         props: ['question'],
         components: {ExpandText},
-        computed: {},
-        methods: {}
+        computed: {
+            user() {
+                return this.$store.state.userProfile.user;
+            }
+        }
     }
 </script>
 

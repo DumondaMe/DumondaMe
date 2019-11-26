@@ -63,16 +63,21 @@ const getHarvestingUser = async function (createdQuestionUser, isOnlineHarvestin
     return harvestingUser;
 };
 
-const getQuestion = async function (questionId, answerId, language, userId, isSuperUser) {
+const getQuestion = async function (questionId, answerId, harvestingId, language, userId, isSuperUser) {
+    harvestingId = harvestingId || null;
     let response = await db.cypher().match(`(question:Question {questionId: {questionId}})<-[:IS_CREATOR]-(user:User)`)
-        .optionalMatch(`(question)-[:ANSWER]->(answer)`)
+        .optionalMatch(`(question)-[:ANSWER]->(answer:Answer)`)
+        .with(`count(DISTINCT answer) AS numberOfAnswers, question, user`)
+        .optionalMatch(`(question)-[:ANSWER]->(harvestingAnswer:Answer)<-[:IS_CREATOR]-(:User:HarvestingUser {userId: {harvestingId}})`)
+        .with(`numberOfAnswers, count(DISTINCT harvestingAnswer) AS numberOfHarvestingAnswers, question, user`)
         .optionalMatch(`(:User)-[watch:WATCH]->(question)`)
+        .with(`numberOfAnswers, numberOfHarvestingAnswers, question, user, count(DISTINCT watch) AS numberOfWatches`)
         .optionalMatch(`(question)<-[:TOPIC]-(topic:Topic)`)
         .optionalMatch(`(question)<-[:SUGGESTION]-(suggestions:QuestionSuggestion)`)
         .optionalMatch(`(question)<-[:IS_CREATOR]-(harvestingUserCreatedQuestion:User:HarvestingUser)`)
         .optionalMatch(`(question)-[:ANSWER]->(:Answer)<-[:IS_CREATOR]-(harvestingUserAnswer:User:HarvestingUser)`)
-        .return(`question, user, count(DISTINCT answer) AS numberOfAnswers, count(DISTINCT watch) AS numberOfWatches,
-                 count(DISTINCT suggestions) AS numberOfSuggestions,
+        .return(`question, user, count(DISTINCT suggestions) AS numberOfSuggestions,
+                 numberOfAnswers, numberOfHarvestingAnswers, numberOfWatches,
                  collect(DISTINCT {description: topic.${language}, id: topic.topicId}) AS topics,
                  harvestingUserCreatedQuestion, collect(DISTINCT {user: harvestingUserAnswer, 
                  isOnlineHarvesting: ANY (label IN LABELS(harvestingUserAnswer) WHERE label = 'OnlineHarvesting')}) 
@@ -83,13 +88,18 @@ const getQuestion = async function (questionId, answerId, language, userId, isSu
                  EXISTS((:User {userId: {userId}})-[:WATCH]->(question)) AS userWatchesQuestion,
                  ANY (label IN LABELS(user) WHERE label = 'HarvestingUser') AS isHarvestingUser,
                  ANY (label IN LABELS(user) WHERE label = 'OnlineHarvesting') AS isOnlineHarvestingQuestion`)
-        .end({questionId, userId}).send([answers.getAnswersCommand(questionId, answerId, 0, userId).getCommand(),
+        .end({questionId, userId, harvestingId})
+        .send([answers.getAnswersCommand(questionId, answerId, harvestingId, 0, userId).getCommand(),
             similar.getSimilarQuestionsCommand(questionId, time.getNowUtcTimestamp(), 0, 10).getCommand()]);
     if (response[2].length === 1) {
         let questionResponse = response[2][0];
         let question = questionResponse.question;
         if (question.description) {
             question.descriptionHtml = linkifyHtml(question.description, {attributes: {rel: 'noopener'}});
+        }
+        if (harvestingId) {
+            question.hasOtherAnswersThenHarvesting =
+                questionResponse.numberOfAnswers > questionResponse.numberOfHarvestingAnswers;
         }
         question.isAdmin = questionResponse.isAdmin;
         question.isSuperUser = isSuperUser;
