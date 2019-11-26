@@ -34,8 +34,13 @@
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
-        <div class="show-answer-not-found ely-card" v-if="showAllAnswersButton && answers.length === 0">
+        <div class="show-answer-not-found ely-card"
+             v-if="showAllAnswersButton && $route.query && $route.query.answerId && answers.length === 0">
             {{$t('pages:detailQuestion.answerNotFound')}}
+        </div>
+        <div class="show-no-answers ely-card"
+             v-else-if="showAllAnswersButton && $route.query && $route.query.harvestingId && answers.length === 0">
+            {{$t('pages:detailQuestion.noHarvestingAnswer', {name: harvestingUser.name})}}
         </div>
         <div class="show-no-answers ely-card" v-else-if="totalNumberOfAnswers === 0">
             {{$t('pages:detailQuestion.noAnswer')}}
@@ -68,6 +73,9 @@
             return {loading: false, showError: false}
         },
         computed: {
+            harvestingUser() {
+                return this.$store.state.question.question.harvestingUser;
+            },
             answers() {
                 return this.$store.state.question.question.answers;
             },
@@ -175,6 +183,7 @@
             @include defaultPaddingCard();
             font-size: 18px;
             font-weight: 300;
+            margin-bottom: 18px;
         }
     }
 </style>

@@ -449,6 +449,7 @@
     "showNextAnswerButton": "Show next answers",
     "answerNotFound": "This answer has been deleted",
     "noAnswer": "This question has not yet been answered",
+    "noHarvestingAnswer": "This question has not yet been answered by {{name}}",
     "commitmentAlreadyLinked": "Commitment has already been linked to this question",
     "commitmentNotFound": "No commitment was found for the search '{{search}}'.",
     "note": {
