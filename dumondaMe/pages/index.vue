@@ -13,7 +13,6 @@
             <feed-mobile-filter class="mobile-feed-filter">
             </feed-mobile-filter>
             <feed-filter></feed-filter>
-            <dumonda-me-on-tour class="mobile-feed-on-tour" v-show="!isLoading"></dumonda-me-on-tour>
             <donation-info class="mobile-donation-info" v-show="!isLoading"></donation-info>
             <feed-empty v-if="feedEmpty && !isLoading">
             </feed-empty>
