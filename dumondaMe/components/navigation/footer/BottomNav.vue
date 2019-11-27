@@ -13,6 +13,10 @@
             <v-btn @click="$router.push({name: 'topics'})" value="topics">
                 <v-icon>mdi-book-outline</v-icon>
             </v-btn>
+            <v-btn @click="$router.push({name: 'harvestingEvents'})" value="harvestingEvents"
+                   v-if="$vuetify.breakpoint.width < 700">
+                <v-icon>mdi-briefcase-outline</v-icon>
+            </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">
                 <v-icon>mdi-rss</v-icon>
             </v-btn>
@@ -23,7 +27,8 @@
                 <v-icon>mdi-account-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'notifications'})" value="notifications" v-if="isAuthenticated">
-                <v-badge v-if="numberOfUnreadNotifications > 0" overlap color="secondary">
+                <v-badge v-if="numberOfUnreadNotifications > 0" overlap :left="$vuetify.breakpoint.width < 700"
+                         color="secondary">
                     <template v-slot:badge> {{numberOfUnreadNotifications}}</template>
                     <v-icon>mdi-bell-outline</v-icon>
                 </v-badge>
@@ -68,6 +73,8 @@
                     this.bottomNav = 'login';
                 } else if (this.$route.name === 'topics') {
                     this.bottomNav = 'topics';
+                } else if (this.$route.name === 'harvestingEvents') {
+                    this.bottomNav = 'harvestingEvents';
                 } else {
                     this.bottomNav = 'none';
                 }
@@ -82,7 +89,6 @@
 </script>
 
 <style lang="scss">
-    #dumonda-me-mobile-button-nav {
-
+    #dumonda-me-mobile-bottom-nav {
     }
 </style>
