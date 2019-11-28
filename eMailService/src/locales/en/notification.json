@@ -1,0 +1,7 @@
+{
+  "newQuestion": {
+    "title": "{{name}} asked a question",
+    "text1": "asked the question",
+    "text2": ""
+  }
+}
