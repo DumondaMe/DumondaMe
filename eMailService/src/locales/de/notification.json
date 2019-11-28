@@ -1,0 +1,7 @@
+{
+  "newQuestion": {
+    "title": "{{name}} hat eine Frage gestellt",
+    "text1": "hat die Frage",
+    "text2": "gestellt"
+  }
+}

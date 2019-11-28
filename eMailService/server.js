@@ -13,6 +13,7 @@ const dbConfig = require('dumonda-me-server-lib').databaseConfig;
 
 const notifications = require('./src/notifications');
 const invitations = require('./src/invitations');
+require('./src/locales').init();
 
 dbConfig.connected.then(async function () {
     logger.info('EMail service started');
