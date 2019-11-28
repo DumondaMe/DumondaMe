@@ -1,7 +1,14 @@
 {
+  "common": {
+    "andMore": "und weiteres"
+  },
   "newQuestion": {
     "title": "{{name}} hat eine Frage gestellt",
     "text1": "hat die Frage",
     "text2": "gestellt"
+  },
+  "addedToTrustCircle": {
+    "title": "{{name}} hat dich zu seinem/ihrem Trust Circle hinzugefügt",
+    "text1": "hat dich zu seinem/ihrem Trust Circle hinzugefügt."
   }
 }

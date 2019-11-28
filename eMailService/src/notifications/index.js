@@ -22,10 +22,9 @@ const sendEMails = async function (users) {
         try {
             let unsubscribeLink = `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/notifications/${user.email}`;
             let preview = await previewNotification.getPreviewOfNotification(user.notifications, user.language);
-            let title = await titleNotification.getTitleOfNotification(user.notifications, user.language);
-            await eMail.sendEMail('notification',
-                {unsubscribeLink, numberOfNotifications: user.numberOfNotifications, preview, title},
-                user.language, user.email);
+            let title = await titleNotification.getTitleOfNotification(user.notifications, user.numberOfNotifications,
+                user.language);
+            await eMail.sendEMail('notification', {unsubscribeLink, preview, title}, user.language, user.email);
             logger.info(`Send new notification email to ${user.email}`);
         } catch (error) {
             failedNotifications.push(user.notificationIds);
