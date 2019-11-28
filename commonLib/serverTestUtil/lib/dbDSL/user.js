@@ -117,6 +117,11 @@ let setUserName = function (userId, data) {
         .set("u", {name: data.name}).end({userId}).getCommand());
 };
 
+let setUserLanguage = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {language: data.language}).end({userId}).getCommand());
+};
+
 let setUserLanguages = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
         .set("u", {languages: data.languages}).end({userId}).getCommand());
@@ -165,6 +170,7 @@ module.exports = {
     setUserPrivacy,
     setUserProfileActivityPrivacy,
     setUserName,
+    setUserLanguage,
     setUserLanguages,
     setTrustCircle,
     setInfoState,
