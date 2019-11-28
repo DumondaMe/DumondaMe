@@ -85,6 +85,7 @@ module.exports = {
     setUserProfileActivityPrivacy: user.setUserProfileActivityPrivacy,
     setUserName: user.setUserName,
     setUserLanguages: user.setUserLanguages,
+    setUserLanguage: user.setUserLanguage,
     setTrustCircle: user.setTrustCircle,
     setInfoState: user.setInfoState,
     interestedTopics: user.interestedTopics,
