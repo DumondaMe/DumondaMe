@@ -14,7 +14,7 @@
                 <v-icon>mdi-book-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'harvestingEvents'})" value="harvestingEvents"
-                   v-if="$vuetify.breakpoint.width < 700">
+                   v-show="$vuetify.breakpoint.width < 700">
                 <v-icon>mdi-briefcase-outline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">

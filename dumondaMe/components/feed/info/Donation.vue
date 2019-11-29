@@ -12,7 +12,7 @@
                 <span class="state-number">{{donationGoal}} CHF</span>
             </div>
         </div>
-        <div class="donation-image-container" ref="donationContent" v-if="$vuetify.breakpoint.width > 700">
+        <div class="donation-image-container" ref="donationContent" v-show="$vuetify.breakpoint.width > 700">
             <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
                     allow="autoplay" v-if="showEmbed"></iframe>
             <img :src="donateImage" class="donate-image" @click="showEmbed = true" v-if="!showEmbed">
