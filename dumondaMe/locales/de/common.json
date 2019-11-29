@@ -37,6 +37,7 @@
   "youAreAdmin": "Du bist Administrator",
   "noScript": "Dein Browser unterstützt kein Javascript! Ohne Javascript funktioniert diese Seite nicht richtig.",
   "navigation": {
+    "home": "DumondaMe",
     "activities": "Aktivitäten",
     "questions": "Fragen",
     "commitments": "Engagements",
