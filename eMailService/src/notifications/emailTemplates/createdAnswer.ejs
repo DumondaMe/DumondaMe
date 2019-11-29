@@ -1,0 +1,17 @@
+<tr>
+    <th style="padding-top:10px;padding-bottom:20px">
+        <a style="font-weight:bold;font-size:16px;text-decoration:none;color:black"
+           href="<%= linkToCreator %>"><%= questionCreator.name %></a>
+        <span style="font-weight:normal;font-size:16px;color:black"><%= text1 %></span>
+        <% if (answer.title) { %>
+            <span style="font-weight:normal;font-size:16px;color:black"><%= text2 %></span>
+            <a style="font-weight:bold;font-size:16px;text-decoration:none;color:#009e97"
+               href="<%= linkToAnswer %>"><%= answer.title %></a>
+            <span style="font-weight:normal;font-size:16px;color:black"><%= text3 %></span>
+        <% } %>
+        <% else { %>
+            <span style="font-weight:normal;font-size:16px;color:black"><%= text3 %></span>
+        <% } %>
+    </th>
+
+</tr>

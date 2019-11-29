@@ -7,8 +7,18 @@
     "text1": "hat die Frage",
     "text2": "gestellt"
   },
+  "createdAnswer": {
+    "title": "{{name}} hat die Frage {{question}} beantwortet",
+    "text1": "hat die Frage",
+    "text2": "mit"
+  },
   "addedToTrustCircle": {
     "title": "{{name}} hat dich zu seinem/ihrem Trust Circle hinzugefügt",
     "text1": "hat dich zu seinem/ihrem Trust Circle hinzugefügt."
+  },
+  "adminOfCommitmentRequest": {
+    "title": "Anfrage um dich als Adminstorator von \"{{commitment}}\" hinzuzufügen",
+    "text1": "hat dir eine Anfrage gesendet um dich als Administrator von",
+    "text2": "hinzuzufügen."
   }
 }
