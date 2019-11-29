@@ -2,7 +2,7 @@ const i18next = require('i18next');
 
 const createdAnswer = function (notification, language) {
     let answerCreator = notification.originators[0];
-    let question = notification.notificationObjects[0];
+    let question = notification.notificationObjects.find((n) => typeof n.questionId === 'string');
     return i18next.t('notification:createdAnswer.title',
         {name: answerCreator.name, question: question.question, lng: language});
 };

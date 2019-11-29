@@ -62,9 +62,9 @@ describe('Send email when user has unread notification, created answer', functio
 
         stubSendEMail.calledWith("notification", {
             preview: sinon.match.any,
-            title: 'user Meier2 hat die Frage "Das ist eine Frage" beantwortet',
+            title: 'user Meier2 answered the question "Das ist eine Frage"',
             unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/notifications/user@irgendwo.ch`
-        }, 'de', 'user@irgendwo.ch').should.be.true;
+        }, 'en', 'user@irgendwo.ch').should.be.true;
 
         let notification = await db.cypher().match("(notification:Notification:EmailSent)")
             .return(`notification`).end().send();
@@ -91,7 +91,7 @@ describe('Send email when user has unread notification, created answer', functio
 
         stubSendEMail.calledWith("notification", {
             preview: sinon.match.any,
-            title: 'user Meier2 hat die Frage "Das ist eine Frage" beantwortet',
+            title: 'user Meier2 hat die Frage "Das ist eine Frage" beantwortet und weiteres',
             unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/notifications/user@irgendwo.ch`
         }, 'de', 'user@irgendwo.ch').should.be.true;
 
