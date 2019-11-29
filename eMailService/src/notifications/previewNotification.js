@@ -8,14 +8,13 @@ const createdAnswer = async function (notification, language) {
     let answerCreator = notification.originators[0];
     let linkToCreator = `${process.env.DUMONDA_ME_DOMAIN}user/${answerCreator.userId}/` +
         `${slug(answerCreator.name)}`;
-    let linkToQuestion = `${process.env.DUMONDA_ME_DOMAIN}question/${question.questionId}/` +
-        `${slug(question.question)}`;
     let linkToAnswer = `${process.env.DUMONDA_ME_DOMAIN}question/${question.questionId}/` +
         `${slug(question.question)}?answerId=${answer.answerId}`;
     return ejs.renderFile(`${__dirname}/emailTemplates/createdAnswer.ejs`, {
-        question, questionCreator, linkToCreator, linkToQuestion,
+        answer, answerCreator, linkToCreator, linkToAnswer,
         text1: i18next.t('notification:createdAnswer.text1', {lng: language}),
-        text2: i18next.t('notification:newQuestion.text2', {lng: language})
+        text2: i18next.t('notification:newQuestion.text2', {lng: language}),
+        text3: i18next.t('notification:newQuestion.text3', {lng: language})
     }, {async: true});
 };
 

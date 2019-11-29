@@ -7,6 +7,11 @@
     "text1": "asked the question",
     "text2": ""
   },
+  "createdAnswer": {
+    "title": "{{name}} answered the question \"{{question}}\"",
+    "text1": "hat die Frage",
+    "text2": "mit"
+  },
   "addedToTrustCircle": {
     "title": "{{name}} added you to his/her Trust Circle",
     "text1": "has added you to his/her Trust Circle."

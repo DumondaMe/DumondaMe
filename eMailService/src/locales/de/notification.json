@@ -8,7 +8,7 @@
     "text2": "gestellt"
   },
   "createdAnswer": {
-    "title": "{{name}} hat die Frage {{question}} beantwortet",
+    "title": "{{name}} hat die Frage \"{{question}}\" beantwortet",
     "text1": "hat die Frage",
     "text2": "mit"
   },
