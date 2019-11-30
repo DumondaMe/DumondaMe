@@ -191,6 +191,35 @@ describe('Notification when user creates book answers for a question', function 
         notification[1].created.should.least(startTime);
     });
 
+    it('Create a notification only once when user is creator of question and lists the creator of the answer in the Trust Cirlce.', async function () {
+        sandbox.stub(rp, 'get');
+        dbDsl.createContactConnection('2', '1');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/book/1', {
+            authors: 'Hans Wurst', googleBookId: '1234',
+            title: 'titleBook', description: 'descriptionBook'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(notifiedUser:User)<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user:User)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .return('DISTINCT notification, question, answer, user.userId AS userId, notifiedUser.userId AS notifiedUserId, ' +
+                'relNot.created AS created')
+            .orderBy(`notifiedUserId`)
+            .end().send();
+        notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+        notification[0].question.questionId.should.equals('1');
+        notification[0].answer.title.should.equals('titleBook');
+        notification[0].userId.should.equals('1');
+        notification[0].notifiedUserId.should.equals('2');
+        notification[0].created.should.least(startTime);
+    });
+
     it('Create no notification when book answer has been created by creator of question', async function () {
         sandbox.stub(rp, 'get');
 

@@ -36,7 +36,7 @@ const createNotificationForUserTrustingCreatorOfAnswer = function (userId, answe
     return db.cypher()
         .match(`(notifiedUser:User)-[:IS_CONTACT]->(originator:User {userId: {userId}})-[:IS_CREATOR]->(answer:Answer {answerId: {answerId}})
          <-[:ANSWER]-(question:Question)`)
-        .where(` NOT (notifiedUser)-[:WATCH]->(question)`)
+        .where(` NOT (notifiedUser)-[:WATCH]->(question) AND NOT (notifiedUser)-[:IS_CREATOR]->(question)`)
         .addCommand(getCreateNotificationCommand())
         .end({userId, answerId, created})
 };
