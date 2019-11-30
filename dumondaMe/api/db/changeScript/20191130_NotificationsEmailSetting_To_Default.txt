@@ -1,0 +1,4 @@
+MATCH (u:User)
+REMOVE u.disableInviteAnswerQuestionNotification
+REMOVE u.disableNewNotificationEmail
+SET u.emailNotificationInterval = 86400;
