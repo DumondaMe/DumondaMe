@@ -11,12 +11,23 @@ const sortTopics = function (topics, language) {
     });
 };
 
-const emailNotificationSettings = function (setting) {
-    return {
-        enabledEmailNotifications: setting.userLabels.includes('EMailNotificationEnabled'),
-        enableInviteToAnswerQuestion: !setting.disableInviteAnswerQuestionNotification,
-        enableNewNotifications: !setting.disableNewNotificationEmail
+const getEmailNotificationInterval = function (setting) {
+    if (setting.userLabels.includes('EMailNotificationEnabled')) {
+        switch (setting.emailNotificationInterval) {
+            case 3600:
+                return "hour";
+            case 86400:
+                return "day";
+            case 259200:
+                return "3days";
+            case 604800:
+                return "week";
+            default:
+                return 'unknown'
+        }
     }
+    return 'never';
+
 };
 
 const getEmail = function (setting) {
@@ -38,7 +49,7 @@ const getResponse = function (setting) {
             description: topic[setting.language]
         })
     }
-    response.emailNotifications = emailNotificationSettings(setting);
+    response.emailNotificationInterval = getEmailNotificationInterval(setting);
     response.email = getEmail(setting);
 
     response.privacyMode = setting.privacyMode;
@@ -55,8 +66,7 @@ const getUserSetting = async function (userId) {
         .return(`u.privacyMode AS privacyMode, u.showProfileActivity AS showProfileActivity, u.languages AS languages,
                  u.email AS email, newEmailRequest.email AS newEmail, 
                  u.language AS language, collect(topic) AS topics, labels(u) AS userLabels, 
-                 u.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification,
-                 u.disableNewNotificationEmail AS disableNewNotificationEmail`)
+                 u.emailNotificationInterval AS emailNotificationInterval`)
         .end({userId}).send();
     return getResponse(resp[0]);
 };

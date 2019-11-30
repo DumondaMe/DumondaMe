@@ -704,10 +704,12 @@
       },
       "emailNotification": {
         "title": "E-mail notifications",
-        "disabledDescription": "You will not receive any email notifications from DumondaMe. An exception is the newsletter and important information regarding the operation of the platform.",
-        "emailNotifications": "I would like to receive e-mail notifications",
-        "inviteToAnswerQuestion": "Other users of DumondaMe may ask me to answer a question.",
-        "newNotifications": "An email will be sent to you when you receive new notifications on DumondaMe."
+        "description": "Here you can configure how often we may send you an email when you have received a notification on DumondaMe. For example, you will receive a notification when someone from your Trust Circle has asked a question, or when someone answers a question that you find interesting.",
+        "never": "Never",
+        "hour": "Maximum once per hour",
+        "day": "Maximum once per day",
+        "3days": "Maximum once every 3 days",
+        "week": "Maximum once a week"
       }
     },
     "language": {

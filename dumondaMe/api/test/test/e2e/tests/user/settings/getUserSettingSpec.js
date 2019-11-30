@@ -40,9 +40,7 @@ describe('Getting user setting', function () {
         res.body.languages.length.should.equal(1);
         res.body.languages[0].should.equal('de');
 
-        res.body.emailNotifications.enabledEmailNotifications.should.equals(true);
-        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(true);
-        res.body.emailNotifications.enableNewNotifications.should.equals(true);
+        res.body.emailNotificationInterval.should.equals('day');
 
         res.body.interestedTopics.length.should.equal(2);
         res.body.interestedTopics[0].id.should.equal('topic1');
@@ -74,20 +72,51 @@ describe('Getting user setting', function () {
         let res = await requestHandler.get('/api/user/settings');
         res.status.should.equal(200);
 
-        res.body.emailNotifications.enabledEmailNotifications.should.equals(false);
-        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(true);
+        res.body.emailNotificationInterval.should.equals('never');
     });
 
-    it('Get disabled email notifications for invited to answer question', async function () {
-        dbDsl.disableInviteAnswerQuestionNotification('1');
+    it('Get email notifications interval (hour)', async function () {
+        dbDsl.emailNotificationSetEMailInterval('1', {interval: 3600});
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/settings');
         res.status.should.equal(200);
 
-        res.body.emailNotifications.enabledEmailNotifications.should.equals(true);
-        res.body.emailNotifications.enableInviteToAnswerQuestion.should.equals(false);
+        res.body.emailNotificationInterval.should.equals('hour');
+    });
+
+    it('Get email notifications interval (day)', async function () {
+        dbDsl.emailNotificationSetEMailInterval('1', {interval: 86400});
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.emailNotificationInterval.should.equals('day');
+    });
+
+    it('Get email notifications interval (3days)', async function () {
+        dbDsl.emailNotificationSetEMailInterval('1', {interval: 259200});
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.emailNotificationInterval.should.equals('3days');
+    });
+
+    it('Get email notifications interval (week)', async function () {
+        dbDsl.emailNotificationSetEMailInterval('1', {interval: 604800});
+        await dbDsl.sendToDb();
+
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/user/settings');
+        res.status.should.equal(200);
+
+        res.body.emailNotificationInterval.should.equals('week');
     });
 
     it('Get no user settings when not logged in', async function () {
