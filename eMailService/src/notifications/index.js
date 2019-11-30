@@ -1,8 +1,8 @@
 "use strict";
 
 const db = requireDb();
-const previewNotification = require('./previewNotification');
-const titleNotification = require('./titleNotification');
+const previewNotification = require('./preview');
+const titleNotification = require('./title');
 const eMail = require('dumonda-me-server-lib').eMail;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
@@ -47,7 +47,8 @@ const sendUnreadNotifications = async function () {
             .optionalMatch(`(notification)-[originatorRel:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
             .with(`user, notification, originator, originatorRel`)
             .orderBy(`notification.created DESC, originatorRel.created DESC`)
-            .with(`user, notification, collect(originator) AS originators`)
+            .with(`user, notification, collect({originator:originator, ` +
+                `isContact: EXISTS((user)<-[:IS_CONTACT]-(originator))}) AS originators`)
             .optionalMatch(`(notification)-[:NOTIFICATION]->(notificationObject)`)
             .with(`user, notification, originators, collect(notificationObject) AS notificationObjects`)
             .addCommand(` SET notification:EmailSent`)

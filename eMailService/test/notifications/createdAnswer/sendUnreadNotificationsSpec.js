@@ -46,6 +46,31 @@ describe('Send email when user has unread notification, created answer', functio
         notification.length.should.equals(1);
     });
 
+    it('User has one unread createdAnswer notification by anonymous person', async function () {
+        dbDsl.createQuestion('1', {
+            creatorId: '1', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'
+        });
+        dbDsl.createBookAnswer('5', {
+            creatorId: '2', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+        dbDsl.notificationCreateAnswer('20', {questionId: '1', answerId: '5', created: 678});
+        dbDsl.setUserPrivacy('2', {privacyMode: 'onlyContact'});
+        await dbDsl.sendToDb();
+
+        await testee.sendUnreadNotifications();
+
+        stubSendEMail.calledWith("notification", {
+            preview: sinon.match.any,
+            title: 'Anonyme Person hat die Frage "Das ist eine Frage" beantwortet',
+            unsubscribeLink: `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/notifications/user@irgendwo.ch`
+        }, 'de', 'user@irgendwo.ch').should.be.true;
+
+        let notification = await db.cypher().match("(notification:Notification:EmailSent)")
+            .return(`notification`).end().send();
+        notification.length.should.equals(1);
+    });
+
     it('User has one unread createdAnswer notification (en)', async function () {
         dbDsl.createQuestion('1', {
             creatorId: '1', question: 'Das ist eine Frage', topics: ['topic1'], language: 'de'

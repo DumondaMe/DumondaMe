@@ -1,6 +1,7 @@
 {
   "common": {
-    "andMore": "and more"
+    "andMore": "and more",
+    "anonymousPerson": "Anonymous person"
   },
   "newQuestion": {
     "title": "{{name}} asked a question",
@@ -9,12 +10,14 @@
   },
   "createdAnswer": {
     "title": "{{name}} answered the question \"{{question}}\"",
-    "text1": "hat die Frage",
-    "text2": "mit"
+    "text1": "answered the question \"{{question}}\" with",
+    "text2": "",
+    "textDefaultAnswer1": "answered the question",
+    "textDefaultAnswer2": ""
   },
   "addedToTrustCircle": {
     "title": "{{name}} added you to his/her Trust Circle",
-    "text1": "has added you to his/her Trust Circle."
+    "text1": "has added you to his/her Trust Circle"
   },
   "adminOfCommitmentRequest": {
     "title": "Request to add you as adminstrator of \"{{commitment}}\"",
