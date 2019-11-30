@@ -29,13 +29,15 @@ const notificationsHandler = {
 };
 
 const getTitleOfNotification = function (notifications, numberOfNotifications, language) {
-    let title = 'Du hast Benachrichtigungen';
+    let title = i18next.t('notification:noPreview.emailTitle', {count: numberOfNotifications, lng: language});
+    let setTitle = false;
     for (let notification of notifications) {
-        if (notification.notification) {
+        if (notification.notification && typeof notificationsHandler[notification.notification.type] === 'function') {
             title = notificationsHandler[notification.notification.type](notification, language);
+            setTitle = true;
         }
     }
-    if (numberOfNotifications > 1) {
+    if (numberOfNotifications > 1 && setTitle) {
         title += ' ' + i18next.t('notification:common.andMore', {lng: language});
     }
     return title;
