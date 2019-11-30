@@ -189,6 +189,35 @@ describe('Notification when user creates youtube answers for a question', functi
         notification[1].created.should.least(startTime);
     });
 
+    it('Create a notification only once when user created the question and lists the creator of the answer in the Trust Cirlce.', async function () {
+        sandbox.stub(rp, 'get');
+        dbDsl.createContactConnection('2', '1');
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+
+        let notification = await db.cypher().match(`(notifiedUser:User)<-[:NOTIFIED]-
+        (notification:Notification:Unread {type: 'createdAnswer'})-[relNot:ORIGINATOR_OF_NOTIFICATION]->(user:User)`)
+            .match(`(notification)-[:NOTIFICATION]->(question:Question)`)
+            .match(`(notification)-[:NOTIFICATION]->(answer:Answer)`)
+            .return('DISTINCT notification, question, answer, user.userId AS userId, notifiedUser.userId AS notifiedUserId, ' +
+                'relNot.created AS created')
+            .orderBy(`notifiedUserId`)
+            .end().send();
+        notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+        notification[0].question.questionId.should.equals('1');
+        notification[0].answer.title.should.equals('titleYoutube');
+        notification[0].userId.should.equals('1');
+        notification[0].notifiedUserId.should.equals('2');
+        notification[0].created.should.least(startTime);
+    });
+
     it('Create no notification when youtube answer has been created by creator of question', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser2);
