@@ -23,5 +23,13 @@
     "title": "Anfrage um dich als Adminstorator von \"{{commitment}}\" hinzuzufügen",
     "text1": "hat dir eine Anfrage gesendet um dich als Administrator von",
     "text2": "hinzuzufügen"
+  },
+  "noPreview": {
+    "emailTitle": "Du hast eine neue Benachrichtigung",
+    "emailTitle_plural": "Du hast neue Benachrichtigungen",
+    "description": "Du hast eine neue Benachrichtigung.",
+    "description_plural": "Du hast neue Benachrichtigungen.",
+    "withAtLeastOnePreviewDescription": "Du hast noch eine weitere neue Benachrichtigung.",
+    "withAtLeastOnePreviewDescription_plural": "Du hast noch weitere neue Benachrichtigungen."
   }
 }

@@ -23,5 +23,13 @@
     "title": "Request to add you as adminstrator of \"{{commitment}}\"",
     "text1": "has sent you a request to become an administrator of",
     "text2": ""
+  },
+  "noPreview": {
+    "emailTitle": "You have a new notification",
+    "emailTitle_plural": "You have new notifications",
+    "description": "You have a new notification.",
+    "description_plural": "You have new notifications.",
+    "withAtLeastOnePreviewDescription": "You have another new notification.",
+    "withAtLeastOnePreviewDescription_plural": "You have more new notifications."
   }
 }

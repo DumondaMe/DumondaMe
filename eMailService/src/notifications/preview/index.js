@@ -66,17 +66,32 @@ const requestAdminOfCommitment = async function (notification, language) {
     }, {async: true});
 };
 
+const noPreview = async function (numberOfNoPreview, previewCounter, language) {
+    let description = i18next.t('notification:noPreview.withAtLeastOnePreviewDescription',
+        {lng: language, count: numberOfNoPreview});
+    if (previewCounter === 0) {
+        description = i18next.t('notification:noPreview.description', {lng: language, count: numberOfNoPreview});
+    }
+    return ejs.renderFile(`${__dirname}/../emailTemplates/noPreview.ejs`,
+        {noPreviewDescription: description}, {async: true});
+};
+
 const notificationsHandler = {
     createdAnswer, newQuestion, addedToTrustCircle, requestAdminOfCommitment
 };
 
-const getPreviewOfNotification = async function (notifications, language) {
+const getPreviewOfNotification = async function (notifications, numberOfNotifications, language) {
     let preview = '<table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;' +
         'vertical-align:top;font-weight:400;width:100%">';
+    let previewCounter = 0;
     for (let notification of notifications) {
-        if (notification.notification && typeof notification.notification.type === 'string') {
+        if (notification.notification && typeof notificationsHandler[notification.notification.type] === 'function') {
             preview += await notificationsHandler[notification.notification.type](notification, language);
+            previewCounter++;
         }
+    }
+    if (numberOfNotifications !== previewCounter) {
+        preview += await noPreview(numberOfNotifications - previewCounter, previewCounter, language);
     }
     preview += '</table>';
     return preview;
