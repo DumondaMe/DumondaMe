@@ -6,22 +6,19 @@
             </h1>
         </div>
     </row>
-    <spacer size="60"></spacer>
-    <row>
-        <columns small="12" large="8">
-            <p class="invitation-text">You have  <strong>{{{{raw}}}}{{numberOfNotifications}}{{{{/raw}}}}</strong> new
-                {{{{raw}}}}{% if numberOfNotifications == 1 %}notification{% else %}notifications{% endif
-                %}{{{{/raw}}}}</p>
-
-        </columns>
-    </row>
-    <spacer size="10"></spacer>
+    <spacer size="40"></spacer>
     <row>
         <columns small="12">
             <center>
                 <button class="large secondary radius"
                         href="https://www.dumonda.me/notifications">Open notifications</button>
             </center>
+        </columns>
+    </row>
+    <spacer size="10"></spacer>
+    <row>
+        <columns small="12" large="12">
+            {{{{raw}}}}{{preview|safe}}{{{{/raw}}}}
         </columns>
     </row>
     <spacer size="40"></spacer>
