@@ -115,25 +115,12 @@ describe('Send email for unread notifications', function () {
         stubSendEMail.called.should.be.false;
     });
 
-    it('No notification can be sent to a user who has deactivated email.', async function () {
+    it('No notification can be sent to a user who has deactivated email notification.', async function () {
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '2',
             trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}], created: 600
         });
         dbDsl.disableEMailNotification('2');
-        await dbDsl.sendToDb();
-
-        await testee.sendUnreadNotifications();
-
-        stubSendEMail.called.should.be.false;
-    });
-
-    it('No notification can be sent to a user who has deactivated email for notification.', async function () {
-        dbDsl.notificationUserAddedToTrustCircle('50', {
-            userId: '2',
-            trustCircleUsers: [{userId: '3', created: 555}, {userId: '4', created: 444}], created: 600
-        });
-        dbDsl.disableNewNotificationEmail('2');
         await dbDsl.sendToDb();
 
         await testee.sendUnreadNotifications();
