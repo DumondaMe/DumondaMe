@@ -34,7 +34,6 @@ const sendEMails = async function (users) {
             let title = titleNotification.getTitleOfNotification(user.notifications, user.numberOfNotifications,
                 user.language);
             await eMail.sendEMail('notification', {unsubscribeLink, preview, title}, user.language, user.email);
-            logger.info(`Send new notification email to ${user.email}`);
             await setLastEmailSent(user.userId);
         } catch (error) {
             failedNotifications.push(user.notificationIds);
