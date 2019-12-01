@@ -54,7 +54,7 @@ describe('Get activity feed for interested questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(505);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
         res.body.feed[0].action.should.equals('watch');
@@ -132,7 +132,7 @@ describe('Get activity feed for interested questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
         res.body.feed[0].action.should.equals('watch');
@@ -166,7 +166,7 @@ describe('Get activity feed for interested questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(560);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
         res.body.feed[0].action.should.equals('watch');
@@ -187,14 +187,6 @@ describe('Get activity feed for interested questions', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Question');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].questionId.should.equals('3');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
-        res.body.feed[2].questionId.should.equals('1');
     });
 
     it('Get a question which is multiple times marked as interested only once (topics filter)', async function () {
@@ -208,7 +200,7 @@ describe('Get activity feed for interested questions', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
         res.body.feed[0].action.should.equals('watch');

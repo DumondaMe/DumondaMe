@@ -30,7 +30,7 @@ describe('Show user profile in the activity feed for watched questions only if t
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Question');
         res.body.feed[0].action.should.equals('watch');
@@ -82,7 +82,7 @@ describe('Show user profile in the activity feed for watched questions only if t
         let res = await requestHandler.get('/api/user/feed/activity',
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].action.should.equals('watch');
         res.body.feed[0].questionId.should.equals('1');
@@ -103,7 +103,7 @@ describe('Show user profile in the activity feed for watched questions only if t
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].action.should.equals('watch');
@@ -117,7 +117,7 @@ describe('Show user profile in the activity feed for watched questions only if t
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].questionId.should.equals('1');
         res.body.feed[0].action.should.equals('watch');
