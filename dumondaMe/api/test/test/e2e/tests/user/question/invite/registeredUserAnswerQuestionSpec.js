@@ -173,24 +173,6 @@ describe('Ask registered user to answer question', function () {
         resp.length.should.equals(0);
     });
 
-    it('Do not send invitation if email notification for answer a question is disabled', async function () {
-        dbDsl.disableInviteAnswerQuestionNotification('3');
-        await dbDsl.sendToDb();
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite', {
-            questionId: '10', userIds: ['3']
-        });
-        res.status.should.equal(200);
-
-        stubSendEMail.called.should.be.false;
-
-        let resp = await db.cypher().match("(:User {userId: '1'})-[:ASKED_TO_ANSWER_QUESTION]->(asked:AskedToAnswerQuestion)-[:ASKED]->(:User {userId: '3'})")
-            .with(`asked`)
-            .match(`(asked)-[:QUESTION_TO_ANSWER]->(:Question {questionId: '10'})`)
-            .return(`asked`).end().send();
-        resp.length.should.equals(0);
-    });
-
     it('Not allowed to send invitation to administrator of question', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
