@@ -42,7 +42,7 @@ describe('Get activity feed for up voted youtube answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Youtube');
         res.body.feed[0].action.should.equals('upVote');
@@ -66,12 +66,6 @@ describe('Get activity feed for up voted youtube answers', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Youtube');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Get only up youtube link', async function () {
@@ -96,13 +90,10 @@ describe('Get activity feed for up voted youtube answers', function () {
             {guiLanguage: 'de', languages: ['de'], typeFilter: 'Video'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Youtube');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('Youtube');
-        res.body.feed[1].action.should.equals('created');
     });
 });

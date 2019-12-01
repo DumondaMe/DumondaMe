@@ -117,6 +117,24 @@ const userWatchesQuestion = function (notificationId, data) {
         }).getCommand());
 };
 
+const userCreatedQuestion = function (data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(q:Question {questionId: {questionId}})<-[:IS_CREATOR]-(creator:User)<-[:IS_CONTACT]-(notifiedUser:User)`)
+        .create(`(notification:Notification${readLabel} {type: 'newQuestion', created: {created},` +
+            `notificationId: randomUUID()})`)
+        .merge(`(creator)<-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]-(notification)`)
+        .merge(`(notification)-[:NOTIFICATION]->(q)`)
+        .merge(`(notification)-[:NOTIFIED]->(notifiedUser)`)
+        .end({
+            questionId: data.questionId,
+            created: data.created
+        }).getCommand());
+};
+
 const createAnswer = function (notificationId, data) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -204,6 +222,7 @@ module.exports = {
     invitedUserHasRegistered,
     userWatchesCommitment,
     userWatchesQuestion,
+    userCreatedQuestion,
     createAnswer,
     createNote,
     requestAdminOfCommitment

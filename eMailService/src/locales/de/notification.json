@@ -1,0 +1,35 @@
+{
+  "common": {
+    "andMore": "und weiteres",
+    "anonymousPerson": "Anonyme Person"
+  },
+  "newQuestion": {
+    "title": "{{name}} hat eine Frage gestellt",
+    "text1": "hat die Frage",
+    "text2": "gestellt"
+  },
+  "createdAnswer": {
+    "title": "{{name}} hat die Frage \"{{question}}\" beantwortet",
+    "text1": "hat die Frage \"{{question}}\" mit",
+    "text2": "beantwortet",
+    "textDefaultAnswer1": "hat die Frage",
+    "textDefaultAnswer2": "beantwortet"
+  },
+  "addedToTrustCircle": {
+    "title": "{{name}} hat dich zu seinem/ihrem Trust Circle hinzugefügt",
+    "text1": "hat dich zu seinem/ihrem Trust Circle hinzugefügt"
+  },
+  "adminOfCommitmentRequest": {
+    "title": "Anfrage um dich als Adminstorator von \"{{commitment}}\" hinzuzufügen",
+    "text1": "hat dir eine Anfrage gesendet um dich als Administrator von",
+    "text2": "hinzuzufügen"
+  },
+  "noPreview": {
+    "emailTitle": "Du hast eine neue Benachrichtigung",
+    "emailTitle_plural": "Du hast neue Benachrichtigungen",
+    "description": "Du hast eine neue Benachrichtigung.",
+    "description_plural": "Du hast neue Benachrichtigungen.",
+    "withAtLeastOnePreviewDescription": "Du hast noch eine weitere neue Benachrichtigung.",
+    "withAtLeastOnePreviewDescription_plural": "Du hast noch weitere neue Benachrichtigungen."
+  }
+}

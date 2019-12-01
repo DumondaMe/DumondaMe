@@ -2,7 +2,7 @@ export const state = () => ({
     email: {},
     privacyMode: null,
     showProfileActivity: false,
-    emailNotifications: {}
+    emailNotificationInterval: ''
 });
 
 export const mutations = {
@@ -19,8 +19,8 @@ export const mutations = {
         state.email.newEmail = newEmail;
         state.email.newEmailVerificationIsRunning = newEmailVerificationIsRunning;
     },
-    SET_EMAIL_NOTIFICATION: function (state, emailNotifications) {
-        state.emailNotifications = emailNotifications;
+    SET_EMAIL_NOTIFICATION_INTERVAL: function (state, emailNotificationInterval) {
+        state.emailNotificationInterval = emailNotificationInterval;
     },
 };
 
@@ -30,20 +30,16 @@ export const actions = {
         commit('SET_PRIVACY_MODE', setting.privacyMode);
         commit('SET_PRIVACY_SHOW_PROFILE_ACTIVITY', setting.showProfileActivity);
         commit('SET_EMAIL', setting.email);
-        commit('SET_EMAIL_NOTIFICATION', setting.emailNotifications);
+        commit('SET_EMAIL_NOTIFICATION_INTERVAL', setting.emailNotificationInterval);
     },
     async setPrivacy({commit}, {privacyMode, showProfileActivity}) {
         await this.$axios.$put(`user/settings/privacy`, {privacyMode, showProfileActivity});
         commit('SET_PRIVACY_MODE', privacyMode);
         commit('SET_PRIVACY_SHOW_PROFILE_ACTIVITY', showProfileActivity);
     },
-    async setEmailNotification({commit}, {
-        enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications
-    }) {
-        await this.$axios.$put(`user/settings/emailNotifications`,
-            {enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications});
-        commit('SET_EMAIL_NOTIFICATION',
-            {enableEmailNotifications, enableInviteToAnswerQuestion, enableNewNotifications});
+    async setEmailNotification({commit}, interval) {
+        await this.$axios.$put(`user/settings/emailNotifications`, {interval});
+        commit('SET_EMAIL_NOTIFICATION_INTERVAL', interval);
     },
     async newEmailRequest({commit}, newEMailAddress) {
         await this.$axios.$put(`user/settings/email`, {newEMailAddress});

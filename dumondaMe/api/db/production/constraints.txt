@@ -15,4 +15,6 @@ CREATE CONSTRAINT ON (topic:Topic) ASSERT topic.topicId IS UNIQUE;
 
 CREATE CONSTRAINT ON (notification:EMailNotification) ASSERT notification.userId IS UNIQUE;
 
+CREATE CONSTRAINT ON (notification:Notification) ASSERT notification.notificationId IS UNIQUE;
+
 CREATE CONSTRAINT ON (user:UserRegisterRequest) ASSERT user.linkId IS UNIQUE;

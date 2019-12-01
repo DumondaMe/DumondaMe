@@ -41,7 +41,7 @@ describe('Get activity feed for up voted book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
@@ -63,12 +63,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Only latest up voted book answer', async function () {
@@ -80,7 +74,7 @@ describe('Get activity feed for up voted book answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
@@ -89,12 +83,6 @@ describe('Get activity feed for up voted book answers', function () {
         res.body.feed[0].numberOfUpVotes.should.equals(3);
         res.body.feed[0].isUpVotedByUser.should.equals(true);
         res.body.feed[0].user.userId.should.equals('4');
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Get up voted book answer (topics filter)', async function () {
@@ -105,19 +93,13 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Only latest up voted book answer (topics filter)', async function () {
@@ -130,19 +112,13 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], topics: ['topic1', 'topic2', 'topic3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(3);
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].user.userId.should.equals('4');
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Get up voted book answer (trust circle filter)', async function () {
@@ -282,14 +258,11 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
     });
 
     it('Get only up voted books (topics filter)', async function () {
@@ -314,14 +287,11 @@ describe('Get activity feed for up voted book answers', function () {
             {guiLanguage: 'de', languages: ['de'], typeFilter: 'Book', topics: ['topic1']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Book');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('Book');
-        res.body.feed[1].action.should.equals('created');
     });
 
     it('Get only up voted books (trust circle filter)', async function () {

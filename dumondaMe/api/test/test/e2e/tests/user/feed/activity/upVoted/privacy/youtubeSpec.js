@@ -33,7 +33,7 @@ describe('Show the user profile in the activity feed for up voted youtube videos
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Youtube');
         res.body.feed[0].action.should.equals('upVote');
@@ -66,7 +66,7 @@ describe('Show the user profile in the activity feed for up voted youtube videos
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].action.should.equals('upVote');
@@ -81,7 +81,7 @@ describe('Show the user profile in the activity feed for up voted youtube videos
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].answerId.should.equals('6');
         res.body.feed[0].action.should.equals('upVote');

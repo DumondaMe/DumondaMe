@@ -9,27 +9,33 @@ const setEMailNotificationLabel = function (enableEmailNotifications) {
     return ' REMOVE user:EMailNotificationEnabled';
 };
 
-const setInviteToAnswerQuestion = function (enableInviteToAnswerQuestion) {
-    if (enableInviteToAnswerQuestion) {
-        return ' REMOVE user.disableInviteAnswerQuestionNotification';
+const setInterval = function (interval) {
+    if (interval !== 'never') {
+        return ' SET user.emailNotificationInterval = {interval}';
     }
-    return ' SET user.disableInviteAnswerQuestionNotification = true';
+    return ' REMOVE user.emailNotificationInterval';
 };
 
-const setNewNotifications = function (enableInviteToAnswerQuestion) {
-    if (enableInviteToAnswerQuestion) {
-        return ' REMOVE user.disableNewNotificationEmail';
+const getIntervalValue = function (interval) {
+    switch (interval) {
+        case "hour":
+            return 3600;
+        case "day":
+            return 86400;
+        case "3days":
+            return 259200;
+        case "week":
+            return 604800;
+        default:
+            return Number.MAX_SAFE_INTEGER
     }
-    return ' SET user.disableNewNotificationEmail = true';
 };
 
-const changeSettings = async function (userId, enableEmailNotifications, enableInviteToAnswerQuestion,
-                                       enableNewNotifications) {
+const changeSettings = async function (userId, interval) {
     await db.cypher().match(`(user:User {userId: {userId}})`)
-        .addCommand(setEMailNotificationLabel(enableEmailNotifications))
-        .addCommand(setInviteToAnswerQuestion(enableInviteToAnswerQuestion))
-        .addCommand(setNewNotifications(enableNewNotifications))
-        .end({userId: userId}).send();
+        .addCommand(setEMailNotificationLabel(interval !== 'never'))
+        .addCommand(setInterval(interval))
+        .end({userId: userId, interval: getIntervalValue(interval)}).send();
 };
 
 module.exports = {

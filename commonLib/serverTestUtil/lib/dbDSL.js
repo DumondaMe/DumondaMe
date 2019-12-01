@@ -23,13 +23,13 @@ let init = function (numberOfUser, isDumondaMeAdmin) {
     return db.clearDatabase().then(function () {
         dbConnectionHandling.getCommands().push(db.cypher().create(`(:User:EMailNotificationEnabled {email: 'user@irgendwo.ch', emailNormalized: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', 
         name: 'user Meier', surname: 'Meier', forename:'user', userDescription: 'superman', userId: '1', lastSetupAccount: 500, dumondaMeAdmin: {dumondaMeAdmin}, language: 'de', languages: ['de'],
-        userLocationDescription: 'irgendwo', privacyMode: 'public', showProfileActivity: true})`)
+        userLocationDescription: 'irgendwo', privacyMode: 'public', showProfileActivity: true, emailNotificationInterval: 86400})`)
             .end({dumondaMeAdmin: isDumondaMeAdmin}).getCommand());
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User:EMailNotificationEnabled {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', userDescription: 'superman${userId}', 
             password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId: '${userId}', lastSetupAccount: 500, email: 'user${userId}@irgendwo.ch', 
-            language: 'de', languages: ['de'], emailNormalized: 'user${userId}@irgendwo.ch', privacyMode: 'public', showProfileActivity: true})`).end().getCommand());
+            language: 'de', languages: ['de'], emailNormalized: 'user${userId}@irgendwo.ch', privacyMode: 'public', showProfileActivity: true, emailNotificationInterval: 86400})`).end().getCommand());
         }
     });
 };
@@ -85,6 +85,7 @@ module.exports = {
     setUserProfileActivityPrivacy: user.setUserProfileActivityPrivacy,
     setUserName: user.setUserName,
     setUserLanguages: user.setUserLanguages,
+    setUserLanguage: user.setUserLanguage,
     setTrustCircle: user.setTrustCircle,
     setInfoState: user.setInfoState,
     interestedTopics: user.interestedTopics,
@@ -116,12 +117,13 @@ module.exports = {
     notificationInvitedUserHasRegistered: notification.invitedUserHasRegistered,
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
+    notificationUserCreatedQuestion: notification.userCreatedQuestion,
     notificationCreateAnswer: notification.createAnswer,
     notificationCreateNote: notification.createNote,
     notificationRequestAdminOfCommitment: notification.requestAdminOfCommitment,
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
-    disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser,
-    disableInviteAnswerQuestionNotification: eMailNotificationSettings.disableInviteAnswerQuestionNotification,
-    disableNewNotificationEmail: eMailNotificationSettings.disableNewNotificationEmail
+    emailNotificationSetEMailInterval: eMailNotificationSettings.setEMailInterval,
+    emailNotificationSetUserLastEmailSent: eMailNotificationSettings.setLastEmailSent,
+    disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser
 };

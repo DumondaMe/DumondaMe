@@ -41,7 +41,7 @@ describe('Get activity feed for up voted default answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('upVote');
@@ -69,12 +69,6 @@ describe('Get activity feed for up voted default answers', function () {
         res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.feed[0].creator.isLoggedInUser.should.equals(false);
         res.body.feed[0].creator.isTrustUser.should.equals(false);
-
-        res.body.feed[1].type.should.equals('Default');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Get up voted default answer with only image', async function () {
@@ -87,7 +81,7 @@ describe('Get activity feed for up voted default answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('upVote');
@@ -115,12 +109,6 @@ describe('Get activity feed for up voted default answers', function () {
         res.body.feed[0].creator.userImagePreview.should.equals('profileImage/3/profilePreview.jpg');
         res.body.feed[0].creator.isLoggedInUser.should.equals(false);
         res.body.feed[0].creator.isTrustUser.should.equals(false);
-
-        res.body.feed[1].type.should.equals('Default');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
     });
 
     it('Get only up voted default answer', async function () {
@@ -149,13 +137,10 @@ describe('Get activity feed for up voted default answers', function () {
             {guiLanguage: 'de', languages: ['de'], typeFilter: 'Default'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Default');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('Default');
-        res.body.feed[1].action.should.equals('created');
     });
 });

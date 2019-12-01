@@ -9,11 +9,9 @@ const schemaEmailNotificationSettings = {
     name: 'changeEmailNotificationsSettings',
     type: 'object',
     additionalProperties: false,
-    required: ['enableEmailNotifications', 'enableInviteToAnswerQuestion', 'enableNewNotifications'],
+    required: ['interval'],
     properties: {
-        enableEmailNotifications: {type: 'boolean'},
-        enableInviteToAnswerQuestion: {type: 'boolean'},
-        enableNewNotifications: {type: 'boolean'}
+        interval: {enum: ['never', 'hour', 'day', '3days', 'week']}
     }
 };
 
@@ -22,8 +20,7 @@ module.exports = function (router) {
     router.put('/', auth.isAuthenticated(), asyncMiddleware(async (req, res) => {
         let request = await validation.validateRequest(req, schemaEmailNotificationSettings);
         logger.info(`User ${req.user.id} changes email notification settings`, req);
-        await emailNotifications.changeSettings(req.user.id, request.enableEmailNotifications,
-            request.enableInviteToAnswerQuestion, request.enableNewNotifications);
+        await emailNotifications.changeSettings(req.user.id, request.interval);
         res.status(200).end();
     }));
 };
