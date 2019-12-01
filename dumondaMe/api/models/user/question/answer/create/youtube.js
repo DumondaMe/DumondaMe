@@ -48,9 +48,8 @@ const createYoutubeAnswer = async function (userId, params) {
             .send([createYoutubeAnswerCommand(params)]);
         if (user[0].length === 1) {
             logger.info(`Created youtube answer ${params.answerId} for question ${params.questionId}`);
-            let result = {
             await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
-            return {
+            let result = {
                 answerId: params.answerId, created: params.created, idOnYoutube: params.idOnYoutube,
                 creator: {
                     name: user[0][0].name,
