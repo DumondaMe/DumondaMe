@@ -51,9 +51,8 @@ const sendUnreadNotifications = async function () {
     do {
         users = await db.cypher()
             .match(`(user:User:EMailNotificationEnabled)<-[:NOTIFIED]-(notification:Notification:Unread)`)
-            .where(`NOT notification:EmailSent AND NOT EXISTS(user.disableNewNotificationEmail) ` +
-                `AND NOT user:HarvestingUser AND (user.lastEmailSent + user.emailNotificationInterval < {now} OR ` +
-                `NOT EXISTS (user.lastEmailSent))`)
+            .where(`NOT notification:EmailSent AND NOT user:HarvestingUser ` +
+                `AND (user.lastEmailSent + user.emailNotificationInterval < {now} OR NOT EXISTS (user.lastEmailSent))`)
             .optionalMatch(`(notification)-[originatorRel:ORIGINATOR_OF_NOTIFICATION]->(originator:User)`)
             .with(`user, notification, originator, originatorRel`)
             .orderBy(`notification.created DESC, originatorRel.created DESC`)
