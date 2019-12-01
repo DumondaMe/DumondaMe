@@ -124,5 +124,6 @@ module.exports = {
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     emailNotificationSetEMailInterval: eMailNotificationSettings.setEMailInterval,
+    emailNotificationSetUserLastEmailSent: eMailNotificationSettings.setLastEmailSent,
     disableEMailNotificationForInvitedUser: eMailNotificationSettings.disableEMailNotificationForInvitedUser
 };

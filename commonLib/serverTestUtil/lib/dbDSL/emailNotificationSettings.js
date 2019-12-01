@@ -13,6 +13,12 @@ const setEMailInterval = function (userId, data) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
         .set(`u`, {userId, emailNotificationInterval: data.interval}).end().getCommand());
 };
+
+let setLastEmailSent = function (userId, data) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: {userId}})")
+        .set("u", {lastEmailSent: data.lastEmailSent}).end({userId}).getCommand());
+};
+
 const disableEMailNotificationForInvitedUser = function (email) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:InvitedUser {emailNormalized: {email}})")
         .remove(`u:EMailNotificationEnabled`).end({email}).getCommand());
@@ -21,5 +27,6 @@ const disableEMailNotificationForInvitedUser = function (email) {
 module.exports = {
     disableEMailNotification,
     setEMailInterval,
+    setLastEmailSent,
     disableEMailNotificationForInvitedUser
 };
