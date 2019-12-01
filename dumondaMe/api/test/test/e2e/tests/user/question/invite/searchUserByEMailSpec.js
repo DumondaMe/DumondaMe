@@ -134,24 +134,6 @@ describe('Search user to invite to answer a question by email', function () {
         res.body.users[0].sendingEmailAllowed.should.equals(false);
     });
 
-    it('Search registered user not allowed to send E-Mail because user has deactivated invitation', async function () {
-        dbDsl.disableInviteAnswerQuestionNotification('2');
-        await dbDsl.sendToDb();
-        await dbDsl.setApocIndex();
-
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/question/invite/search',
-            {query: 'user2@irgendwo.ch', skip: 0, limit: 10, questionId: '10'});
-        res.status.should.equal(200);
-        res.body.hasMoreUsers.should.equals(false);
-        res.body.users.length.should.equals(1);
-        res.body.users[0].userId.should.equals('2');
-        res.body.users[0].name.should.equals('user Meier2');
-        res.body.users[0].userImage.should.equals('profileImage/2/profilePreview.jpg');
-        res.body.users[0].isTrustUser.should.equals(false);
-        res.body.users[0].sendingEmailAllowed.should.equals(false);
-    });
-
     it('Search invited user not allowed to send E-Mail because invited user has deactivated email notifications', async function () {
         dbDsl.invitationSentBeforeRegistration('2', [{
             emailOfUserToInvite: 'invited.user@test.me'
