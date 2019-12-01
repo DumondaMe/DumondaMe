@@ -54,11 +54,11 @@ const createBookAnswer = async function (userId, params) {
     params.googleBookId = params.googleBookId || null;
     params.hasPreviewImage = typeof params.imageUrl === 'string';
     let user = await createBookAnswerOriginalLinkCommand(params)
-        .send([createBookAnswerCommand(params),
-            notification.addCreatedAnswerNotification(userId, params.answerId, params.created).getCommand()]);
+        .send([createBookAnswerCommand(params)]);
     if (user[0].length === 1) {
         await uploadImages(params);
         logger.info(`Created book answer ${params.answerId} for question ${params.questionId}`);
+        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
         const result = {
             answerId: params.answerId, created: params.created,
             creator: {

@@ -2,7 +2,6 @@
 
 let requestHandler = require('dumonda-me-server-test-util').requestHandler;
 let users = require('dumonda-me-server-test-util').user;
-let should = require('chai').should();
 let db = require('dumonda-me-server-test-util').db;
 let dbDsl = require('dumonda-me-server-test-util').dbDSL;
 
@@ -16,26 +15,11 @@ describe('Setting of the email notifications', function () {
         return requestHandler.logout();
     });
 
-    it('Enable Email Notification', async function () {
-        dbDsl.disableEMailNotification('1');
-        await dbDsl.sendToDb();
-
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
-        res.status.should.equal(200);
-
-        let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
-            .return('user').end().send();
-        user.length.should.equals(1);
-    });
-
     it('Disable email notification', async function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: false, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
+        let res = await requestHandler.put('/api/user/settings/emailNotifications', {interval: 'never'});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
@@ -43,65 +27,59 @@ describe('Setting of the email notifications', function () {
         user.length.should.equals(0);
     });
 
-    it('Enable email invitations to answer a question', async function () {
-        dbDsl.disableInviteAnswerQuestionNotification('1');
+    it('Enable Email Notification to interval of one hour', async function () {
+        dbDsl.disableEMailNotification('1');
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
+        let res = await requestHandler.put('/api/user/settings/emailNotifications', {interval: 'hour'});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
-            .return('user.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification')
-            .end().send();
+            .return('user').end().send();
         user.length.should.equals(1);
-        should.not.exist(user[0].disableInviteAnswerQuestionNotification)
+        user[0].user.emailNotificationInterval.should.equals(3600);
     });
 
-    it('Disable email invitations to answer a question', async function () {
+    it('Email Notification to interval of one day', async function () {
+        dbDsl.disableEMailNotification('1');
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: false, enableNewNotifications: true});
+        let res = await requestHandler.put('/api/user/settings/emailNotifications', {interval: 'day'});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
-            .return('user.disableInviteAnswerQuestionNotification AS disableInviteAnswerQuestionNotification')
-            .end().send();
+            .return('user').end().send();
         user.length.should.equals(1);
-        user[0].disableInviteAnswerQuestionNotification.should.equals(true);
+        user[0].user.emailNotificationInterval.should.equals(86400);
     });
 
-    it('Enable email when new notifications available', async function () {
-        dbDsl.disableNewNotificationEmail('1');
+    it('Email Notification to interval of three days', async function () {
+        dbDsl.disableEMailNotification('1');
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: true});
+        let res = await requestHandler.put('/api/user/settings/emailNotifications', {interval: '3days'});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
-            .return('user.disableNewNotificationEmail AS disableNewNotificationEmail')
-            .end().send();
+            .return('user').end().send();
         user.length.should.equals(1);
-        should.not.exist(user[0].disableNewNotificationEmail)
+        user[0].user.emailNotificationInterval.should.equals(259200);
     });
 
-    it('Disable email when new notifications available', async function () {
+    it('Email Notification to interval of one week', async function () {
+        dbDsl.disableEMailNotification('1');
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/settings/emailNotifications',
-            {enableEmailNotifications: true, enableInviteToAnswerQuestion: true, enableNewNotifications: false});
+        let res = await requestHandler.put('/api/user/settings/emailNotifications', {interval: 'week'});
         res.status.should.equal(200);
 
         let user = await db.cypher().match(`(user:User:EMailNotificationEnabled {userId: '1'})`)
-            .return('user.disableNewNotificationEmail AS disableNewNotificationEmail')
-            .end().send();
+            .return('user').end().send();
         user.length.should.equals(1);
-        user[0].disableNewNotificationEmail.should.equals(true);
+        user[0].user.emailNotificationInterval.should.equals(604800);
     });
 });

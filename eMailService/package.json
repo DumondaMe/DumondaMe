@@ -6,9 +6,9 @@
   },
   "dependencies": {
     "nodemailer": "4.6.7",
-    "nunjucks": "3.1.3",
+    "nunjucks": "3.2.0",
     "email-templates": "4.0.1",
-    "ejs": "2.5.5",
+    "ejs": "2.7.3",
     "node-sass": "4.11.0",
     "node-schedule": "1.3.1",
     "moment": "2.22.2",
@@ -18,7 +18,9 @@
     "winston-cloudwatch": "2.0.2",
     "tmp": "0.0.33",
     "aws-sdk": "2.328.0",
-    "nanoid": "2.0.1"
+    "nanoid": "2.0.1",
+    "limax": "2.0.0",
+    "i18next": "19.0.1"
   },
   "devDependencies": {
     "mocha": "5.0.1",

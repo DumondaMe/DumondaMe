@@ -6,16 +6,7 @@
             </h1>
         </div>
     </row>
-    <spacer size="60"></spacer>
-    <row>
-        <columns small="12" large="8">
-            <p class="invitation-text">You have  <strong>{{{{raw}}}}{{numberOfNotifications}}{{{{/raw}}}}</strong> new
-                {{{{raw}}}}{% if numberOfNotifications == 1 %}notification{% else %}notifications{% endif
-                %}{{{{/raw}}}}</p>
-
-        </columns>
-    </row>
-    <spacer size="10"></spacer>
+    <spacer size="40"></spacer>
     <row>
         <columns small="12">
             <center>
@@ -24,10 +15,18 @@
             </center>
         </columns>
     </row>
+    <spacer size="10"></spacer>
+    <row>
+        <columns small="12" large="12">
+            {{{{raw}}}}{{preview|safe}}{{{{/raw}}}}
+        </columns>
+    </row>
     <spacer size="40"></spacer>
 
     <p class="text-center">
-        <a class="unsubscribe-link" {{{{raw}}}}href="{{unsubscribeLink}}" {{{{/raw}}}}>Unsubscribe</a>
+        <small>In <a href="https://www.dumonda.me/setting?section=email">Settings</a> you can
+            configure how often you want DumondaMe to send you an email when you have new notifications.
+        </small>
     </p>
     <spacer size="30"></spacer>
 </container>

@@ -19,6 +19,8 @@ global.requireDb = function () {
     return require('dumonda-me-server-lib').neo4j;
 };
 
+require(`${__dirname}/../src/locales`).init();
+
 describe('Initialize Server for all integration tests', function () {
 
     before(function (done) {

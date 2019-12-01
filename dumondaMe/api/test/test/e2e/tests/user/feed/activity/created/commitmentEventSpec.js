@@ -45,7 +45,7 @@ describe('Get activity feed for created events of a commitment', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Event');
         res.body.feed[0].action.should.equals('created');
@@ -63,10 +63,6 @@ describe('Get activity feed for created events of a commitment', function () {
         res.body.feed[0].location.should.equals('event22Location');
         res.body.feed[0].startDate.should.equals(startTime - 100);
         res.body.feed[0].endDate.should.equals(startTime + 200);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Event is not shown when user of trust circle has created commitment', async function () {
@@ -77,11 +73,7 @@ describe('Get activity feed for created events of a commitment', function () {
             {guiLanguage: 'de', languages: ['de'], trustCircle: 1});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(1);
-
-        res.body.feed[0].type.should.equals('Commitment');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].commitmentId.should.equals('100');
+        res.body.feed.length.should.equals(0);
     });
 
     it('Created commitment event with trust circle filter and interested', async function () {
@@ -109,17 +101,13 @@ describe('Get activity feed for created events of a commitment', function () {
             {guiLanguage: 'de', languages: ['de'], showInterested: true, topics: ['topic1']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Event');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].commitmentId.should.equals('100');
         res.body.feed[0].eventId.should.equals('22');
         res.body.feed[0].created.should.equals(777);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Created commitment event with trust circle filter, topic filter and interested', async function () {
@@ -167,17 +155,12 @@ describe('Get activity feed for created events of a commitment', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Event');
         res.body.feed[0].action.should.equals('created');
         res.body.feed[0].commitmentId.should.equals('101');
         res.body.feed[0].eventId.should.equals('24');
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('101');
-        should.not.exist(res.body.feed[1].creator);
     });
 
     it('Not getting events of commitment with sub topic', async function () {
@@ -209,11 +192,7 @@ describe('Get activity feed for created events of a commitment', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(1);
+        res.body.feed.length.should.equals(0);
 
-        res.body.feed[0].type.should.equals('Commitment');
-        res.body.feed[0].action.should.equals('created');
-        res.body.feed[0].commitmentId.should.equals('101');
-        should.not.exist(res.body.feed[0].creator);
     });
 });

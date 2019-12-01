@@ -5,20 +5,22 @@
             <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
             </show-question-request>
             <admin-of-commitment-request :notification="notification"
-                                         v-if="notification.type === 'requestAdminOfCommitment'">
+                                         v-else-if="notification.type === 'requestAdminOfCommitment'">
             </admin-of-commitment-request>
-            <add-to-trust-circle :notification="notification" v-if="notification.type === 'addedToTrustCircle'">
+            <add-to-trust-circle :notification="notification" v-else-if="notification.type === 'addedToTrustCircle'">
             </add-to-trust-circle>
             <invited-user-has-registered :notification="notification"
-                                         v-if="notification.type === 'invitedUserHasRegistered'">
+                                         v-else-if="notification.type === 'invitedUserHasRegistered'">
             </invited-user-has-registered>
-            <watch-commitment :notification="notification" v-if="notification.type === 'watchingCommitment'">
+            <watch-commitment :notification="notification" v-else-if="notification.type === 'watchingCommitment'">
             </watch-commitment>
-            <watch-question :notification="notification" v-if="notification.type === 'watchingQuestion'">
+            <watch-question :notification="notification" v-else-if="notification.type === 'watchingQuestion'">
             </watch-question>
-            <created-answer :notification="notification" v-if="notification.type === 'createdAnswer'">
+            <new-question :notification="notification" v-else-if="notification.type === 'newQuestion'">
+            </new-question>
+            <created-answer :notification="notification" v-else-if="notification.type === 'createdAnswer'">
             </created-answer>
-            <created-note :notification="notification" v-if="notification.type === 'createdNote'">
+            <created-note :notification="notification" v-else-if="notification.type === 'createdNote'">
             </created-note>
         </div>
         <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
@@ -38,6 +40,7 @@
     import AddToTrustCircle from './AddToTrustCircle';
     import WatchCommitment from './WatchCommitment';
     import WatchQuestion from './WatchQuestion';
+    import NewQuestion from './NewQuestion';
     import CreatedAnswer from './CreatedAnswer';
     import CreatedNote from './CreatedNote';
     import InvitedUserHasRegistered from './InvitedUserHasRegistered';
@@ -46,7 +49,7 @@
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
-            CreatedAnswer, CreatedNote, InvitedUserHasRegistered
+            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered
         },
         data() {
             return {loadingNextNotifications: false}

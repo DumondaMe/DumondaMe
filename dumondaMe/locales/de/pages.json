@@ -709,10 +709,12 @@
       },
       "emailNotification": {
         "title": "E-Mail Benachrichtigungen",
-        "disabledDescription": "Du erhältst von DumondaMe keine E-Mail Benachrichtigungen. Eine Ausnahme ist der Newsletter und wichtige Informationen bezüglich dem Betrieb der Plattform.",
-        "emailNotifications": "Ich möchte E-Mail Benachrichtigungen erhalten",
-        "inviteToAnswerQuestion": "Andere Benutzer_innen von DumondaMe können mich darum bitten, eine Frage zu beantworten.",
-        "newNotifications": "An dich wird eine E-Mail versendet, wenn du neue Benachrichtigungen auf DumondaMe erhalten hast."
+        "description": "Hier kannst du konfigurieren, wie oft wir dir eine E-Mail zukommen lassen dürfen wenn du eine Benachrichtigung auf DumondaMe erhalten hast. Du erhältst zum Beispiel eine Benachrichtigung wenn jemand aus deinem Trust Circle eine Frage gestellt hat, oder wenn jemand eine Frage beantwortet die du interessant findest.",
+        "never": "Niemals",
+        "hour": "Maximal einmal pro Stunde",
+        "day": "Maximal einmal pro Tag",
+        "3days": "Maximal einmal alle 3 Tage",
+        "week": "Maximal einmal pro Woche"
       }
     },
     "language": {
@@ -758,6 +760,9 @@
     "watchingQuestion": {
       "notification": "Folgende Person findet deine Frage {{- question}} interessant.",
       "notification_plural": "{{count}} weitere Personen findet deine Frage {{- question}} interessant."
+    },
+    "newQuestion": {
+      "notification": "hat die Frage {{- question}} gestellt."
     },
     "createdAnswer": {
       "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
