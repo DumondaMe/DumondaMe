@@ -7,7 +7,7 @@ const PAGE_SIZE = 20;
 const onlyLatestUpVoteOrWatch = function () {
     return db.cypher().unwind(`[relActivity.created, feedElement.created] AS tempCreated`)
         .with(`type(relActivity) AS activity, feedElement, max(tempCreated) AS created`)
-        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:ANSWER|:EVENT]->(feedElement)`)
         .where(`type(relActivity) = activity AND 
                (((activity = 'UP_VOTE' OR activity = 'WATCH') AND relActivity.created = created) OR 
                ((activity = 'IS_CREATOR' OR activity = 'EVENT' OR activity = 'ANSWER') 
@@ -67,7 +67,7 @@ const onlyUpcomingEvents = function () {
 
 const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
     return db.cypher()
-        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]->(feedElement)`)
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:EVENT]->(feedElement)`)
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND (activityElement:User OR activityElement:Commitment) 
                  AND feedElement.created <= {timestamp} 
@@ -79,7 +79,7 @@ const getTrustCircleAndTopicFilterDeactivated = function (typeFilter) {
 const getTrustCircleFilterWithDeactivatedTopicFilter = function (typeFilter, showInterested) {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch${showInterested ? ':WATCH|:' : ':'}IS_CONTACT]->(activityElement)
-                 -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
+                 -[relActivity:UP_VOTE|:WATCH|:ANSWER|:EVENT]->(feedElement)`)
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND feedElement.created <= {timestamp} 
                  AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
@@ -91,7 +91,7 @@ const getTrustCircleFilterWithDeactivatedTopicFilter = function (typeFilter, sho
 
 const getTopicFilterWithDeactivatedTrustCircleFilter = function (typeFilter, topics, showInterested) {
     return db.cypher()
-        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:EVENT]
+        .match(`(activityElement)-[relActivity:UP_VOTE|:WATCH|:EVENT]
                  ->(feedElement)`)
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND feedElement.created <= {timestamp} AND NOT 
@@ -105,7 +105,7 @@ const getTopicFilterWithDeactivatedTrustCircleFilter = function (typeFilter, top
 const getTrustCircleAndTopicFilterActivated = function (typeFilter, topics, showInterested) {
     return db.cypher()
         .match(`(user:User {userId: {userId}})-[relWatch${showInterested ? ':WATCH|:' : ':'}IS_CONTACT]->(activityElement)
-                 -[relActivity:UP_VOTE|:WATCH|:IS_CREATOR|:ANSWER|:EVENT]->(feedElement)`)
+                 -[relActivity:UP_VOTE|:WATCH|:ANSWER|:EVENT]->(feedElement)`)
         .where(`(feedElement:Answer OR feedElement:AnswerCommitment OR feedElement:Commitment OR feedElement:Event 
                  OR feedElement:Question) AND feedElement.created <= {timestamp} AND NOT ((type(relActivity) = 'IS_CREATOR' OR 
                 type(relActivity) = 'UP_VOTE') AND type(relWatch) = 'IS_CONTACT' AND 

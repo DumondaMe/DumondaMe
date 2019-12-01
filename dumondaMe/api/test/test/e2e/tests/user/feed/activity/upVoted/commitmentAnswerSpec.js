@@ -58,7 +58,7 @@ describe('Get activity feed for up voted commitment answers', function () {
         let res = await requestHandler.get('/api/user/feed/activity', {guiLanguage: 'de', languages: ['de']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(4);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('upVote');
@@ -85,15 +85,6 @@ describe('Get activity feed for up voted commitment answers', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('CommitmentAnswer');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
-
-        res.body.feed[3].type.should.equals('Commitment');
-        res.body.feed[3].action.should.equals('created');
     });
 
     it('Get up voted commitment answer within region', async function () {
@@ -104,21 +95,12 @@ describe('Get activity feed for up voted commitment answers', function () {
             {guiLanguage: 'de', languages: ['de'], regions: ['region-1', 'region-3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(4);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].numberOfUpVotes.should.equals(1);
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('CommitmentAnswer');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
-
-        res.body.feed[3].type.should.equals('Commitment');
-        res.body.feed[3].action.should.equals('created');
     });
 
     it('Get up voted commitment answer within sub region', async function () {
@@ -129,20 +111,11 @@ describe('Get activity feed for up voted commitment answers', function () {
             {guiLanguage: 'de', languages: ['de'], regions: ['region-2', 'region-3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(4);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('CommitmentAnswer');
-        res.body.feed[1].action.should.equals('created');
-
-        res.body.feed[2].type.should.equals('Question');
-        res.body.feed[2].action.should.equals('created');
-
-        res.body.feed[3].type.should.equals('Commitment');
-        res.body.feed[3].action.should.equals('created');
     });
 
     it('Up voted commitment is not within region', async function () {
@@ -153,10 +126,7 @@ describe('Get activity feed for up voted commitment answers', function () {
             {guiLanguage: 'de', languages: ['de'], regions: ['region-3']});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(1);
-
-        res.body.feed[0].type.should.equals('Question');
-        res.body.feed[0].action.should.equals('created');
+        res.body.feed.length.should.equals(0);
     });
 
     it('Get only up voted commitment text', async function () {
@@ -182,17 +152,10 @@ describe('Get activity feed for up voted commitment answers', function () {
             {guiLanguage: 'de', languages: ['de'], typeFilter: 'Commitment'});
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(3);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('CommitmentAnswer');
         res.body.feed[0].action.should.equals('upVote');
         res.body.feed[0].answerId.should.equals('6');
-
-        res.body.feed[1].type.should.equals('CommitmentAnswer');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].answerId.should.equals('6');
-
-        res.body.feed[2].type.should.equals('Commitment');
-        res.body.feed[2].action.should.equals('created');
     });
 });

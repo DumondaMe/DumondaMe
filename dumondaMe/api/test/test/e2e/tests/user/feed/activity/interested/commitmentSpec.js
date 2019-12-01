@@ -45,7 +45,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.equals(505);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -69,10 +69,6 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Get interested commitments of a user from the trust circle', async function () {
@@ -127,7 +123,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -138,10 +134,6 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('101');
     });
 
     it('Get interested commitment of a user filtered by sub topics', async function () {
@@ -166,7 +158,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -177,10 +169,6 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('101');
     });
 
     it('Get a commitment which is multiple times marked as interested only once', async function () {
@@ -194,7 +182,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -207,10 +195,6 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Get a commitment which is multiple times marked as interested only once (topics filter)', async function () {
@@ -224,7 +208,7 @@ describe('Get activity feed for interested commitments', function () {
         });
         res.status.should.equal(200);
         res.body.timestamp.should.least(startTime);
-        res.body.feed.length.should.equals(2);
+        res.body.feed.length.should.equals(1);
 
         res.body.feed[0].type.should.equals('Commitment');
         res.body.feed[0].action.should.equals('watch');
@@ -236,10 +220,6 @@ describe('Get activity feed for interested commitments', function () {
         res.body.feed[0].user.isLoggedInUser.should.equals(false);
         res.body.feed[0].user.isTrustUser.should.equals(false);
         should.not.exist(res.body.feed[0].creator);
-
-        res.body.feed[1].type.should.equals('Commitment');
-        res.body.feed[1].action.should.equals('created');
-        res.body.feed[1].commitmentId.should.equals('100');
     });
 
     it('Get a commitment which is multiple times marked as interested only once (trust circle filter)', async function () {
