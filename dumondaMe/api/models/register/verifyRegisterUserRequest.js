@@ -90,6 +90,8 @@ let verify = async function (linkId, req) {
     let userId = uuid.generateUUID();
     user.userId = userId;
     user.privacyMode = 'publicEl';
+    user.emailNotificationInterval = 86400;
+    user.lastEmailSent = time.getNowUtcTimestamp();
     user.showProfileActivity = true;
     user.languages = ['de', 'en'];
 

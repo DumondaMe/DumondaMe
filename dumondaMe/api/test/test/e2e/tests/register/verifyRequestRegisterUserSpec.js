@@ -68,6 +68,8 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.surname.should.equals(registerRequestUserValid.surname);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
+        user[0].user.emailNotificationInterval.should.equals(86400);
+        user[0].user.lastEmailSent.should.at.least(startTime);
         user[0].user.showProfileActivity.should.equals(true);
         user[0].user.language.should.equals('de');
         user[0].user.languages.length.should.equals(2);
@@ -107,6 +109,8 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.surname.should.equals(registerRequestUserValidWithInvitation.surname);
         user[0].user.registerDate.should.equals(startTime);
         user[0].user.privacyMode.should.equals('publicEl');
+        user[0].user.emailNotificationInterval.should.equals(86400);
+        user[0].user.lastEmailSent.should.at.least(startTime);
         user[0].user.showProfileActivity.should.equals(true);
         user[0].user.language.should.equals('de');
         user[0].user.languages.length.should.equals(2);
