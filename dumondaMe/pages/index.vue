@@ -5,7 +5,7 @@
             <donation-info></donation-info>
             <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
             <feed-activity-info v-else-if="$route.name === 'activity'"></feed-activity-info>
-            <networking-info v-if="isAuthenticated && isGerman"></networking-info>
+            <networking-info v-if="isAuthenticated"></networking-info>
             <concept-info></concept-info>
             <user-suggestions v-if="isAuthenticated"></user-suggestions>
         </div>
