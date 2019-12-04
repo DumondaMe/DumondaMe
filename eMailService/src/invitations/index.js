@@ -34,7 +34,8 @@ const sendEMails = async function (users) {
             for (let userToInvite of user.emails) {
                 let unsubscribeLink = `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/${userToInvite}`;
                 await eMail.sendEMail('invitePerson',
-                    {unsubscribeLink, userImage, name: user.name}, 'de', userToInvite);
+                    {unsubscribeLink, userImage, name: user.name, userMessage: user.userMessage},
+                    user.language, userToInvite);
                 sentInvitations.push(userToInvite);
             }
             if (userImage && typeof userImage.removeCallback === 'function') {
@@ -59,8 +60,10 @@ const sendInvitations = async function () {
             do {
                 users = await db.cypher()
                     .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(user:User)`)
+                    .match(`(invitedUser)<-[relInvited:HAS_INVITED]-(user)`)
                     .return(`collect(DISTINCT invitedUser.emailNormalized) AS emails, 
-                     user.userId AS userId, user.name AS name`)
+                     user.userId AS userId, user.name AS name, relInvited.text AS userMessage, 
+                     relInvited.language AS language`)
                     .orderBy(`user.userId`)
                     .skip(skip)
                     .limit(LIMIT).end().send();

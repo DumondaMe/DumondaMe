@@ -21,17 +21,19 @@ describe('Integration Tests for inviting other users to dumondaMe', function () 
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite', {
-            emails: ['TEST@irgendwo.ch']
+            emails: ['TEST@irgendwo.ch'], text: 'Das ist ein persönlicher Text', language: 'de'
         });
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match(`(invitedUser:InvitedUser)<-[:HAS_INVITED]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(invitedUser:InvitedUser)<-[relInvited:HAS_INVITED]-(user:User {userId: '1'})`)
             .where(`(invitedUser)<-[:SENDING_EMAIL_PENDING]-(user)`)
-            .return("invitedUser.email AS email, invitedUser.emailNormalized AS emailNormalized")
+            .return("invitedUser.email AS email, invitedUser.emailNormalized AS emailNormalized, relInvited.text AS text, relInvited.language AS language")
             .orderBy("invitedUser.email DESC").end().send();
         resp.length.should.equals(1);
         resp[0].email.should.equals('test@irgendwo.ch');
         resp[0].emailNormalized.should.equals('test@irgendwo.ch');
+        resp[0].text.should.equals('Das ist ein persönlicher Text');
+        resp[0].language.should.equals('de');
     });
 
     it('Invite already by other user invited person', async function () {
@@ -42,16 +44,18 @@ describe('Integration Tests for inviting other users to dumondaMe', function () 
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite', {
-            emails: ['user10@IRGENDWo.ch']
+            emails: ['user10@IRGENDWo.ch'], text: 'Das ist ein persönlicher Text', language: 'de'
         });
         res.status.should.equal(200);
 
-        let resp = await db.cypher().match(`(invitedUser:InvitedUser)<-[:HAS_INVITED]-(user:User {userId: '1'})`)
+        let resp = await db.cypher().match(`(invitedUser:InvitedUser)<-[relInvited:HAS_INVITED]-(user:User {userId: '1'})`)
             .where(`(invitedUser)<-[:SENDING_EMAIL_PENDING]-(user)`)
-            .return("invitedUser.email AS email, invitedUser.emailNormalized AS emailNormalized")
+            .return("invitedUser.email AS email, invitedUser.emailNormalized AS emailNormalized, relInvited.text AS text, relInvited.language AS language")
             .orderBy("invitedUser.email DESC").end().send();
         resp.length.should.equals(1);
         resp[0].emailNormalized.should.equals('user10@irgendwo.ch');
+        resp[0].text.should.equals('Das ist ein persönlicher Text');
+        resp[0].language.should.equals('de');
     });
 
     it('Do not Invite already by user invited person', async function () {
@@ -62,7 +66,7 @@ describe('Integration Tests for inviting other users to dumondaMe', function () 
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite', {
-            emails: ['uSER11@irgendwo.ch']
+            emails: ['uSER11@irgendwo.ch'], text: 'Das ist ein persönlicher Text', language: 'de'
         });
         res.status.should.equal(200);
 
@@ -78,7 +82,7 @@ describe('Integration Tests for inviting other users to dumondaMe', function () 
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite', {
-            emails: ['user2@irgendwo.ch']
+            emails: ['user2@irgendwo.ch'], text: 'Das ist ein persönlicher Text', language: 'de'
         });
         res.status.should.equal(200);
 
@@ -97,7 +101,7 @@ describe('Integration Tests for inviting other users to dumondaMe', function () 
 
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/otherUser/invite', {
-            emails: ['user30@irgendwo.ch']
+            emails: ['user30@irgendwo.ch'], text: 'Das ist ein persönlicher Text', language: 'de'
         });
         res.status.should.equal(200);
 

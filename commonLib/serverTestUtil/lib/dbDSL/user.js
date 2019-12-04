@@ -86,12 +86,17 @@ let addSendInvitationCommand = function (sendingEmailPending) {
 
 let invitationSentBeforeRegistration = function (userId, data) {
     data.forEach(function (invitationData) {
+        invitationData.text = invitationData.text || 'Meine Message';
+        invitationData.language = invitationData.language || 'de';
         dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}})')
             .merge(`(invitedUser:InvitedUser:EMailNotificationEnabled 
             {emailNormalized: {emailNormalized}})`)
-            .merge(`(user)-[:HAS_INVITED]->(invitedUser)`)
+            .merge(`(user)-[:HAS_INVITED {text: {text}, language: {language}}]->(invitedUser)`)
             .addCommand(addSendInvitationCommand(invitationData.sendingEmailPending))
-            .end({userId: userId, emailNormalized: invitationData.emailOfUserToInvite}).getCommand());
+            .end({
+                userId: userId, emailNormalized: invitationData.emailOfUserToInvite,
+                text: invitationData.text, language: invitationData.language
+            }).getCommand());
     });
 };
 

@@ -4,7 +4,7 @@
             <slot name="header"></slot>
         </div>
         <v-card-text class="mobile-dialog-content" v-if="hideCropImageDialog">
-            <div id="welcome-dialog-title">{{$t("dialog:welcome.stepProfileImage.title")}}</div>
+            <!--<div id="welcome-dialog-title">{{$t("dialog:welcome.stepProfileImage.title")}}</div>-->
             <div id="profile-image-container">
                 <img :src="profileImage" v-if="profileImage"/>
                 <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
@@ -13,17 +13,21 @@
                     {{$t("common:button.changeImage")}}
                 </v-btn>
             </div>
-            <div class="profile-image-description">{{$t("dialog:welcome.stepProfileImage.description")}}</div>
+            <div class="profile-image-description">
+                <slot name="description">{{$t("dialog:welcome.stepProfileImage.description")}}</slot>
+            </div>
         </v-card-text>
         <v-divider v-if="hideCropImageDialog"></v-divider>
         <v-card-actions v-if="hideCropImageDialog">
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="$emit('close-dialog')">
-                {{$t("common:button.later")}}
-            </v-btn>
-            <v-btn color="primary" @click="$emit('next')" :disabled="loading">
-                {{$t("common:button.next")}}
-            </v-btn>
+            <slot name="footer">
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="$emit('close-dialog')">
+                    {{$t("common:button.later")}}
+                </v-btn>
+                <v-btn color="primary" @click="$emit('next')" :disabled="loading">
+                    {{$t("common:button.next")}}
+                </v-btn>
+            </slot>
         </v-card-actions>
         <crop-image v-if="!hideCropImageDialog" :initial-image="imageToUpload"
                     :action-label="$t('common:button.changeImage')"
