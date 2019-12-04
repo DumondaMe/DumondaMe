@@ -39,14 +39,11 @@
     "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen.",
     "selectAll": "Alle E-Mails auswählen",
     "showOnlySelected": "Nur ausgewälte E-Mails anzeigen",
-    "invitationSentMessage": "Vielen Dank, dass du interessierte Menschen aus deinem Umfeld auf DumondaMe aufmerksam machst! Die Einladungen werden in den nächsten Minuten versendet.",
-    "invitationSentTitle": "Einladungen werden versendet",
     "alreadySent": "Du hast bereits eine Einladung an diese E-Mail Adresse versendet",
     "notAllowedToSent": "Du kannst keine Einladung an diese E-Mail Adresse versenden",
     "noContactsAdded": "Es wurden keine neuen Kontakte importiert",
     "infoCsvFile": "Die meisten E-Mail Dienste oder Programme bieten eine Funktion an, um deine Kontakte in eine CSV Datei zu exportieren. ",
     "maxNumberOfSelected": "Es dürfen maximal 1000 Einladungen per E-Mail versendet werden.",
-    "sendButton": "Einladung versenden",
     "gmx": {
       "title": "GMX Kontakte importieren",
       "email": "Deine GMX E-Mail Adresse"
@@ -57,6 +54,21 @@
     },
     "basicAuth": {
       "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden."
+    },
+    "photoTitle": "Wähle dein Profilbild",
+    "photoDescription": "Dein Profilbild wird beim generierten E-Mail mitgesendet. Gut wäre wenn du dein Profilbild so wählst, dass dich die Leute darauf gut erkennen. So wissen sie von wem sie die Einladung erhalten haben.",
+    "text": {
+      "title": "Einladungstext",
+      "description": "An dieser Stelle kannst du einen persönlichen Text an deine Kontakte schreiben, weshalb sie sich auf DumondaMe registrieren sollen. Zudem kannst du auswählen, in welcher Sprache das Einladungsmail versendet werden soll.",
+      "label": "Dein Text",
+      "template": "Ich möchte dich auf dieses neue soziale Netzwerk aufmerksam machen. Es soll eine echte Alternative zu den bestehenden Plattformen wie Facebook und Co. werden, wenn es um gesellschaftsrelevante Themen geht. Es ist noch im Aufbau und du kannst es unterstützten, in dem du dich bei DumondaMe anmeldest und die Plattform mit deinen Beiträgen bereicherst :-)"
+    },
+    "sendInvitation": {
+      "title": "Einladungen versenden",
+      "isOkayToSend": "Sollen die E-Mails an deinen Kontakt versendet werden?",
+      "isOkayToSend_plurals": "Sollen die E-Mails an deine Kontakte versendet werden?",
+      "sentMessage": "Vielen herzlichen Dank, dass du interessierte Menschen aus deinem Umfeld auf DumondaMe aufmerksam machst! Die Einladungen werden in den nächsten Minuten versendet.",
+      "sendButton": "Einladung versenden"
     }
   },
   "crowdfunding": {

@@ -78,7 +78,7 @@ describe('Add meta data to imported emails', function () {
 
     it('Email of already invited user', async function () {
         dbDsl.invitationSentBeforeRegistration('1', [{
-            emailOfUserToInvite: 'user10@irgendwo.ch'
+            emailOfUserToInvite: 'user10@irgendwo.ch', text: 'Meine Message', language: 'de'
         }]);
         await dbDsl.sendToDb();
 
@@ -100,7 +100,7 @@ describe('Add meta data to imported emails', function () {
 
     it('Email of already invited user with deactivated notification setting', async function () {
         dbDsl.invitationSentBeforeRegistration('2', [{
-            emailOfUserToInvite: 'user10@irgendwo.ch'
+            emailOfUserToInvite: 'user10@irgendwo.ch', text: 'Meine Message', language: 'de'
         }]);
         dbDsl.disableEMailNotificationForInvitedUser('user10@irgendwo.ch');
         await dbDsl.sendToDb();

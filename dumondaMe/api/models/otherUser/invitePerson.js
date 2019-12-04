@@ -3,7 +3,7 @@
 let db = requireDb();
 let _ = require('lodash');
 
-const inviteUser = async function (emails, userId) {
+const inviteUser = async function (emails, text, language, userId) {
     await db.cypher().unwind(`{emails} AS email`)
         .merge(`(invitedUser:InvitedUser {emailNormalized: email})`)
         .onCreate(`SET invitedUser.email = email, invitedUser:EMailNotificationEnabled`)
@@ -11,9 +11,9 @@ const inviteUser = async function (emails, userId) {
         .where(`invitedUser:EMailNotificationEnabled`)
         .match(`(user:User {userId: {userId}})`)
         .where(`NOT (user)-[:HAS_INVITED]->(invitedUser)`)
-        .merge(`(user)-[:HAS_INVITED]->(invitedUser)`)
+        .merge(`(user)-[:HAS_INVITED {text: {text}, language: {language}}]->(invitedUser)`)
         .merge(`(user)-[:SENDING_EMAIL_PENDING]->(invitedUser)`)
-        .end({emails, userId}).send();
+        .end({emails, text, language, userId}).send();
 };
 
 const getNotExistingUsers = async function (emails) {
@@ -24,9 +24,9 @@ const getNotExistingUsers = async function (emails) {
     return _.difference(emails, existingUsers.map((user) => user.emailNormalized));
 };
 
-const setInvitationFlag = async function (userId, emails) {
+const setInvitationFlag = async function (userId, emails, text, language) {
     let usersToInvite = await getNotExistingUsers(emails);
-    await inviteUser(usersToInvite, userId);
+    await inviteUser(usersToInvite, text, language, userId);
 };
 
 module.exports = {

@@ -79,7 +79,7 @@ describe('Import eMail from google', function () {
         }`);
         stubGetRequest.resolves(fs.readFileSync(path.resolve(__dirname, 'googleNotRegisteredUser.xml')));
         dbDsl.invitationSentBeforeRegistration('1', [{
-            emailOfUserToInvite: 'user10@irgendwo.ch'
+            emailOfUserToInvite: 'user10@irgendwo.ch', text: 'Meine Message', language: 'de'
         }]);
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -104,7 +104,7 @@ describe('Import eMail from google', function () {
         }`);
         stubGetRequest.resolves(fs.readFileSync(path.resolve(__dirname, 'googleNotRegisteredUser.xml')));
         dbDsl.invitationSentBeforeRegistration('1', [{
-            emailOfUserToInvite: 'user10@irgendwo.ch'
+            emailOfUserToInvite: 'user10@irgendwo.ch', text: 'Meine Message', language: 'de'
         }]);
         dbDsl.disableEMailNotificationForInvitedUser('user10@irgendwo.ch');
         await dbDsl.sendToDb();
