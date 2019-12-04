@@ -1,7 +1,8 @@
 <template>
     <div class="feed-concept-info-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.conceptInfo.title')}}</h3>
-        <img v-lazy="conceptImage" :data-srcset="concept2xImage" class="concept-image">
+        <img v-lazy="conceptImage" :data-srcset="concept2xImage" class="concept-image"
+             @click="showConceptInfoDialog = true">
         <v-btn outlined color="primary" @click="showConceptInfoDialog = true">
             {{$t('pages:feeds.conceptInfo.actionButton')}}
         </v-btn>
@@ -44,6 +45,7 @@
         .concept-image {
             width: 100%;
             margin-bottom: 8px;
+            cursor: pointer;
         }
 
         button {

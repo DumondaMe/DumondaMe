@@ -1,7 +1,8 @@
 <template>
     <div class="feed-networking-container ely-card">
         <h3 class="feed-desktop-sidebar-title">{{$t('pages:feeds.networking.title')}}</h3>
-        <img v-lazy="networkingImage" :data-srcset="networking2xImage" class="networking-image">
+        <img v-lazy="networkingImage" :data-srcset="networking2xImage" class="networking-image"
+             @click="showImportContactDialog = true">
         <div class="feed-networking-description">{{$t('pages:feeds.networking.description')}}</div>
         <v-btn outlined color="primary" @click="showImportContactDialog = true">
             {{$t('pages:feeds.networking.actionButton')}}
@@ -45,6 +46,7 @@
         .networking-image {
             width: 100%;
             margin-bottom: 8px;
+            cursor: pointer;
         }
 
         .feed-networking-description {
