@@ -121,6 +121,7 @@
         .profile-image-description {
             text-align: center;
             font-weight: 300;
+            font-size: 16px;
             max-width: 550px;
             margin: 0 auto;
         }

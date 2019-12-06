@@ -1,8 +1,8 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Welcome to DumondaMe!",
-      "description": "For an easy start, you can make the most important settings for your account below."
+      "title": "Welcome to DumondaMe",
+      "description": "For an easy start, you can make the most important settings for your account hereafter. In addition, we briefly describe the most important concepts."
     },
     "stepProfileImage": {
       "title": "Your Profile Picture",
@@ -26,12 +26,10 @@
       "hint": "Tip: Commitments can also be used as an answer to a question."
     },
     "stepTrustCircle": {
-      "description": "What information we believe has a lot to do with trust. Add people whose opinion you value to your <b>Trust Circle</b>. By activating the <b>Trust Circle</b> filter, you will see in your feed when these people capture a question, answer questions, agree to answers, and more."
+      "description": "Add people whose opinions you value to your <b>Trust Circle</b>. This is how you know when these people capture or answer a question. In the future the <b>Trust Circle</b> will fulfill many more functions and allow you to network on DumondaMe."
     },
     "stepActions": {
-      "description": "By agreeing to the answers",
-      "description2": "you are helping to ensure that the most relevant information appears first. You can also mark questions and engagements that interest you",
-      "description3": ". So you can see in your activities feed when interesting questions have been answered or interesting engagements are planning events. (The Activities feed will be updated soon to make it more visible to you)"
+      "description": "We are only at the beginning of the development of this platform and there is still a lot to do. Thank you very much for using DumondaMe and helping to shape the platform."
     }
   },
   "invite": {

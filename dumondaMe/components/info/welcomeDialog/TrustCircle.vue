@@ -41,6 +41,7 @@
         .trust-circle-description {
             margin-top: 18px;
             font-weight: 300;
+            font-size: 16px;
 
             b {
                 font-weight: 500;

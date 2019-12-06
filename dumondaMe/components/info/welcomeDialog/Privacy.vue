@@ -74,6 +74,7 @@
 
         .privacy-description {
             margin-top: 18px;
+            font-size: 16px;
             font-weight: 300;
         }
 
