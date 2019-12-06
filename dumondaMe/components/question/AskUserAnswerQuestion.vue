@@ -6,6 +6,14 @@
         <div class="send-button-image-container">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
+                    <div class="invite-button" v-on="on" @click="showInviteUserToAnswerQuestionDialog = true">
+                        <img :src="dumondaMeImage"/>
+                    </div>
+                </template>
+                <span>{{$t('pages:question.askUserAnswerQuestion.dumondaMeButton')}}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
                     <a class="invite-button" :href="whatsAppLink" target="_blank" rel="noopener" v-on="on">
                         <img :src="whatsAppImage"/>
                     </a>
@@ -60,7 +68,10 @@
             },
             telegramImage() {
                 return `${process.env.staticUrl}/img/socialMedia/link/telegram.png`;
-            }
+            },
+            dumondaMeImage() {
+                return `${process.env.staticUrl}/img/socialMedia/link/dumondaMe.png`;
+            },
         }
     }
 </script>

@@ -1,50 +1,27 @@
 'use strict';
 
-const cdn = require('dumonda-me-server-lib').cdn;
-
-const checkSendingEmailAllowed = function (user) {
-    return !user.hasAlreadyAsked && user.user.disableInviteAnswerQuestionNotification !== true &&
-        user.userLabels.includes('EMailNotificationEnabled') && (user.user.privacyMode !== 'onlyContact' ||
-            (user.user.privacyMode === 'onlyContact' && user.userTrustLoggedInUser)) &&
-        !user.isAdminOfQuestion && !user.userAnsweredQuestion
+const checkIsRegisteredUser = function (dbUser) {
+    return dbUser.userLabels.includes('User');
 };
 
-const checkNotLoggedInUser = function (user, userId) {
-    return user.user.userId !== userId;
+const checkIsUnsubscribed = function (dbUser) {
+    return !dbUser.userLabels.includes('EMailNotificationEnabled');
 };
 
-const getResponse = async function (users, userId) {
-    let response = [];
-    for (let user of users) {
-        let userResponse = {
-            sendingEmailAllowed: checkSendingEmailAllowed(user) && checkNotLoggedInUser(user, userId),
-            userId: user.user.userId,
-            name: user.user.name,
-            isTrustUser: user.isTrustUser
-        };
-        if (user.user.privacyMode === 'onlyContact' && !user.userTrustLoggedInUser) {
-            userResponse.userImage = await cdn.getSignedUrl(`profileImage/default/profilePreview.jpg`);
-        } else {
-            userResponse.userImage = await cdn.getSignedUrl(`profileImage/${user.user.userId}/profilePreview.jpg`);
-        }
-        response.push(userResponse);
-    }
-    return response;
-};
-
-const getEmailResponse = async function (users, email) {
+const getResponse = function (dbUser, email) {
     let user = {
-        email: email, sendingEmailAllowed: true
+        email: email, isRegisteredUser: false, alreadySent: false, unsubscribed: false
     };
 
-    if (users && users.length === 1) {
-        user.sendingEmailAllowed = checkSendingEmailAllowed(users[0]);
+    if (dbUser && dbUser.length === 1) {
+        user.isRegisteredUser = checkIsRegisteredUser(dbUser[0]);
+        user.alreadySent = dbUser[0].hasAlreadyAsked;
+        user.unsubscribed = checkIsUnsubscribed(dbUser[0]);
     }
 
-    return [user];
+    return user;
 };
 
 module.exports = {
-    getResponse,
-    getEmailResponse
+    getResponse
 };
