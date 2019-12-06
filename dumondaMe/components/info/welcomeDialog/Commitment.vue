@@ -7,8 +7,8 @@
             <div id="image-commitment-container">
                 <img :src="imageUrl"/>
             </div>
-            <div class="help-hint">{{$t("dialog:welcome.stepCommitment.hint")}}</div>
             <div class="commitment-description" v-html="$t('dialog:welcome.stepCommitment.description')"></div>
+            <div class="help-hint">{{$t("dialog:welcome.stepCommitment.hint")}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -42,6 +42,7 @@
         .commitment-description {
             margin-top: 18px;
             font-weight: 300;
+            font-size: 16px;
             b {
                 font-weight: 500;
                 color: $primary-color;
@@ -49,7 +50,9 @@
         }
 
         .help-hint {
-            margin-bottom: 12px;
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: 300;
             color: $secondary-color;
         }
 

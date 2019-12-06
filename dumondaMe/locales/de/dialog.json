@@ -1,8 +1,8 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Willkommen bei DumondaMe!",
-      "description": "Für einen einfachen Einstieg kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen."
+      "title": "Herzlich willkommen bei DumondaMe",
+      "description": "Für einen einfachen Einstieg kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen. Zudem beschreiben wir kurz die wichtigsten Konzepte."
     },
     "stepProfileImage": {
       "title": "Dein Profilbild",
@@ -26,12 +26,10 @@
       "hint": "Tipp: Engagements können auch als Antwort auf eine Frage verwendet werden."
     },
     "stepTrustCircle": {
-      "description": "Welchen Informationen wir Glauben schenken, hat viel mit Vertrauen zu tun. Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. Durch das Aktivieren des <b>Trust Circle</b> - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+      "description": "Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. So erfährst du, wenn diese Menschen eine Frage erfassen oder beantworten. In Zukunft wird der <b>Trust Circle</b> noch viele weitere Funktionen erfüllen und es dir erlauben, dich auf DumondaMe zu vernetzten."
     },
     "stepActions": {
-      "description": "In dem du Antworten zustimmst",
-      "description2": "hilfst du mit, dass die relevantesten Informationen zuerst erscheinen. Zudem kannst du Fragen und Engagements markieren, welche dich interessieren",
-      "description3": ". So siehst du in deinem Aktivitäten Feed wenn interessante Fragen beantwortet wurden oder interessante Engagements Veranstaltungen planen. (Der Aktivitäten Feed wird noch überarbeitet damit dir dies besser dargestellt wird)"
+      "description": "Wir stehen erst am Anfang bei der Entwicklung dieser Plattform und es gibt noch viel zu tun. Herzlichen Dank das du DumondaMe verwendest und auf diese Weise die Plattform mitgestaltest."
     }
   },
   "invite": {
