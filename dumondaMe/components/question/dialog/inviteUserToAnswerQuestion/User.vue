@@ -1,12 +1,18 @@
 <template>
     <div class="user-to-invite-to-answer-question">
         <v-checkbox v-model="sendMessageToUser" color="secondary"
-                    :readonly="!user.sendingEmailAllowed || isReadOnly">
+                    :readonly="user.unsubscribed || user.alreadySent || user.isRegisteredUser || isReadOnly">
             <div slot="label">
                 <div v-if="!user.userId" class="email-label">
                     <div>{{user.email}}</div>
-                    <div class="user-info" v-if="!user.sendingEmailAllowed && !isReadOnly">
-                        {{$t('pages:question.askUserAnswerQuestion.inviteDialog.notAllowedToSend')}}
+                    <div class="user-info" v-if="user.unsubscribed">
+                        {{$t('pages:question.askUserAnswerQuestion.inviteDialog.unsubscribedUser')}}
+                    </div>
+                    <div class="user-info" v-else-if="user.alreadySent">
+                        {{$t('pages:question.askUserAnswerQuestion.inviteDialog.alreadySent')}}
+                    </div>
+                    <div class="user-info" v-else-if="user.isRegisteredUser">
+                        {{$t('pages:question.askUserAnswerQuestion.inviteDialog.isRegisteredUser')}}
                     </div>
                 </div>
                 <div v-else class="existing-user">

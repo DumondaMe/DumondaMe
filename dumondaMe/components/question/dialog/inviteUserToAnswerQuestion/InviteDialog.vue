@@ -58,7 +58,7 @@
         data() {
             return {
                 dialog: true, search: '', running: false, showError: false, users: [], selectedUsers: [],
-                showHelpText: true, invitationAlreadySent: []
+                searchUser: null, showHelpText: true, invitationAlreadySent: []
             }
         },
         components: {User},
@@ -93,28 +93,26 @@
                     this.selectedUsers.splice(index, 1);
                 } else {
                     Vue.set(user, 'initIsSelected', true);
-                    this.selectedUsers.push(user);
+                    if (this.searchUser !== null && user.email === this.searchUser.email) {
+                        this.searchUser = null;
+                        this.search = '';
+                    }
+                    this.selectedUsers.unshift(user);
                 }
             },
-            handlingAddingUsers(newUsers) {
+            handlingAddingUser(newUser) {
                 let users = [];
-                for (let newUser of newUsers) {
-                    let index = this.indexOfUsers(this.selectedUsers, newUser);
-                    Vue.set(newUser, 'initIsSelected', index > -1);
-                    users.push(newUser);
-                }
-                for (let selectedUser of this.selectedUsers) {
-                    let index = this.indexOfUsers(newUsers, selectedUser);
-                    if (index === -1) {
-                        users.push(selectedUser);
-                    }
+                let index = this.indexOfUsers(this.selectedUsers, newUser);
+                users = users.concat(this.selectedUsers);
+                if (index === -1) {
+                    Vue.set(newUser, 'initIsSelected', false);
+                    users.unshift(newUser);
                 }
                 return users;
             },
             async sendInvitation() {
                 try {
                     this.running = true;
-                    await this.sendInvitationRegisteredUser();
                     await this.sendInvitationNotRegisteredUser();
                     this.$emit('close-dialog');
                 } catch (error) {
@@ -123,31 +121,24 @@
                     this.running = false;
                 }
             },
-            async sendInvitationRegisteredUser() {
-                let userIds = this.selectedUsers.filter(user => user.hasOwnProperty('userId'))
-                    .map(user => user.userId);
-                if (userIds.length > 0) {
-                    await this.$axios.$put(`user/question/invite`, {questionId: this.questionId, userIds});
-                }
-            },
             async sendInvitationNotRegisteredUser() {
-                let emails = this.selectedUsers.filter(user => user.hasOwnProperty('email'))
-                    .map(user => user.email);
+                let emails = this.selectedUsers.map(user => user.email);
                 if (emails.length > 0) {
-                    await this.$axios.$put(`user/question/invite/notRegisteredUser`,
+                    await this.$axios.$put(`user/question/invite`,
                         {questionId: this.questionId, emails});
                 }
             }
         },
         watch: {
             search: debounce(async function (newSearch) {
-                if (typeof newSearch === 'string' && newSearch.trim().length > 1) {
+                if (typeof newSearch === 'string' && /(.+)@(.+){2,}\.(.+){2,}/.test(newSearch)) {
                     try {
                         this.running = true;
                         let response = await this.$axios.$get(`user/question/invite/search`, {
-                            params: {questionId: this.questionId, skip: 0, limit: 10, query: newSearch}
+                            params: {questionId: this.questionId, email: newSearch}
                         });
-                        this.users = this.handlingAddingUsers(response.users);
+                        this.users = this.handlingAddingUser(response.user);
+                        this.searchUser = response.user;
                         this.showHelpText = false;
                     } catch (error) {
 

@@ -35,7 +35,7 @@ describe('Get the invitations already sent to answer a question', function () {
         res.body.users.length.should.equal(0);
     });
 
-    it('Invitation sent to answer a question to not registered user', async function () {
+    it('Invitation sent to answer a question', async function () {
         dbDsl.invitePreviouslyInvitedUserToAnswerQuestion({
             userId: '1', emailOfUserToInvite: 'not.exist@irgendwo.ch', questionId: '10',
         });
@@ -46,34 +46,15 @@ describe('Get the invitations already sent to answer a question', function () {
         res.status.should.equal(200);
 
         res.body.users.length.should.equal(1);
-        should.not.exist(res.body.users[0].userId);
-        should.not.exist(res.body.users[0].name);
-        should.not.exist(res.body.users[0].userImage);
         res.body.users[0].email.should.equals('not.exist@irgendwo.ch');
     });
 
-    it('Invitation sent to answer a question to registered user', async function () {
-        dbDsl.inviteRegisteredUserToAnswerQuestion({
-            userId: '1', userIdOfUserToInvite: '2', questionId: '10',
+    it('Two Invitation sent to answer a question', async function () {
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion({
+            userId: '1', emailOfUserToInvite: 'not.exist@irgendwo.ch', questionId: '10',
         });
-        await dbDsl.sendToDb();
-
-        await requestHandler.login(users.validUser);
-        let res = await requestHandler.get('/api/user/question/invite/alreadySent', {questionId: '10'});
-        res.status.should.equal(200);
-
-        res.body.users.length.should.equal(1);
-        res.body.users[0].userId.should.equals('2');
-        res.body.users[0].name.should.equals('user Meier2');
-        res.body.users[0].userImage.should.equals('profileImage/2/thumbnail.jpg');
-    });
-
-    it('Two Invitation sent to answer a question to registered user', async function () {
-        dbDsl.inviteRegisteredUserToAnswerQuestion({
-            userId: '1', userIdOfUserToInvite: '2', questionId: '10',
-        });
-        dbDsl.inviteRegisteredUserToAnswerQuestion({
-            userId: '1', userIdOfUserToInvite: '3', questionId: '10',
+        dbDsl.invitePreviouslyInvitedUserToAnswerQuestion({
+            userId: '1', emailOfUserToInvite: 'not.exist2@irgendwo.ch', questionId: '10',
         });
         await dbDsl.sendToDb();
 
@@ -82,11 +63,7 @@ describe('Get the invitations already sent to answer a question', function () {
         res.status.should.equal(200);
 
         res.body.users.length.should.equal(2);
-        res.body.users[0].userId.should.equals('2');
-        res.body.users[0].name.should.equals('user Meier2');
-        res.body.users[0].userImage.should.equals('profileImage/2/thumbnail.jpg');
-        res.body.users[1].userId.should.equals('3');
-        res.body.users[1].name.should.equals('user Meier3');
-        res.body.users[1].userImage.should.equals('profileImage/3/thumbnail.jpg');
+        res.body.users[0].email.should.equals('not.exist2@irgendwo.ch');
+        res.body.users[1].email.should.equals('not.exist@irgendwo.ch');
     });
 });

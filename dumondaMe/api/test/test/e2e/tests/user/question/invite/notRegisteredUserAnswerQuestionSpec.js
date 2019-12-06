@@ -40,7 +40,7 @@ describe('Ask not registered user to answer question', function () {
     it('Send invitation to user', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -66,7 +66,7 @@ describe('Ask not registered user to answer question', function () {
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -88,7 +88,7 @@ describe('Ask not registered user to answer question', function () {
     it('Send invitation to multiple users', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch', 'not.exist2@irgendwo.ch']
         });
@@ -117,7 +117,7 @@ describe('Ask not registered user to answer question', function () {
     it('Send invitation to user for a question only once', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -130,7 +130,7 @@ describe('Ask not registered user to answer question', function () {
         }, 'de', 'not.exist@irgendwo.ch').should.be.true;
         stubSendEMail.resetHistory();
 
-        res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -150,7 +150,7 @@ describe('Ask not registered user to answer question', function () {
         });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -168,7 +168,7 @@ describe('Ask not registered user to answer question', function () {
             .return(`asked`).end().send();
         resp.length.should.equals(1);
 
-        res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        res = await requestHandler.put('/api/user/question/invite', {
             questionId: '11',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -195,7 +195,7 @@ describe('Ask not registered user to answer question', function () {
         await dbDsl.sendToDb();
 
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch']
         });
@@ -210,7 +210,7 @@ describe('Ask not registered user to answer question', function () {
     it('Emails are the same in lowercase', async function () {
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
-        let res = await requestHandler.put('/api/user/question/invite/notRegisteredUser', {
+        let res = await requestHandler.put('/api/user/question/invite', {
             questionId: '10',
             emails: ['not.exist@irgendwo.ch', 'Not.exist@irgendwo.ch']
         });
