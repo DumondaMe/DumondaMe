@@ -774,6 +774,18 @@
       "notification": "hat eine Anmerkung für die {{type}} Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt.",
       "notificationTextAnswer": "hat eine Anmerkung für die  Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt."
     },
+    "oneTime": {
+      "welcome": {
+        "title": "Herzlich Willkommen bei DumondaMe",
+        "description": "Schön das dich dein Weg zu DumondaMe geführt hat. Hier werden dir deine Benachrichtigungen angezeigt. So erfährst du, wenn z.B. jemand eine Frage beantwortet die dich interessiert. Damit du keine Benachrichtigung verpasst, senden wir dir eine E-Mail. Du kannst jedoch einstellen, wie oft und ob wir dir überhaupt eine E-Mail zu diesem Zweck senden dürfen.",
+        "goToSetting": "Zu den E-Mail Einstellungen"
+      },
+      "challengeWatchQuestion": {
+        "title": "Welche Frage findest du interessant?",
+        "description": "Bleibe auf dem Laufenden wenn eine Frage die dich interessiert beantwortet wird. Gehe zum Fragen Feed und markiere deine erste Frage mit einem klick auf den Stern Button als interessant.",
+        "goToQuestions": "Zu den Fragen"
+      }
+    },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",
     "noNotifications": "Du hast keine Benachrichtigungen.",

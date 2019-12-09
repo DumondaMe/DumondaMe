@@ -22,6 +22,12 @@
             </created-answer>
             <created-note :notification="notification" v-else-if="notification.type === 'createdNote'">
             </created-note>
+
+            <one-time-challenge-watch-question :notification="notification"
+                                               v-else-if="notification.type === 'oneTimeWatchQuestion'">
+            </one-time-challenge-watch-question>
+            <one-time-welcome :notification="notification" v-else-if="notification.type === 'oneTimeWelcome'">
+            </one-time-welcome>
         </div>
         <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
                @click="loadNextNotifications" :disabled="loadingNextNotifications" :loading="loadingNextNotifications">
@@ -45,11 +51,15 @@
     import CreatedNote from './CreatedNote';
     import InvitedUserHasRegistered from './InvitedUserHasRegistered';
 
+    import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
+    import OneTimeWelcome from './oneTime/Welcome';
+
     export default {
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
-            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered
+            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeWatchQuestion,
+            OneTimeWelcome
         },
         data() {
             return {loadingNextNotifications: false}
@@ -93,10 +103,7 @@
         }
 
         .notification.unread-notification {
-            background-color: #EEEEEE;
-            @media screen and (min-width: $xs) {
-                border: 2px solid $divider;
-            }
+            border: 1px solid $secondary-color;
         }
 
         #load-next-button {

@@ -1,13 +1,16 @@
 <template>
     <div id="ely-user-logged-in-profile-layout">
-        <div id="ely-notification-detail">
-            <notifications>
-            </notifications>
-        </div>
+        <feed-layout class="index-pages-container">
+            <div slot="content" id="feed-detail-container">
+                <notifications>
+                </notifications>
+            </div>
+        </feed-layout>
     </div>
 </template>
 
 <script>
+    import FeedLayout from '~/components/layouts/Detail';
     import Notifications from '~/components/notification/Notifications';
 
     export default {
@@ -24,7 +27,7 @@
             }
             store.commit('toolbar/HIDE_BACK_BUTTON');
         },
-        components: {Notifications},
+        components: {FeedLayout, Notifications},
         mounted() {
             this.$store.dispatch('notification/stopCheckNotificationChanged');
         },

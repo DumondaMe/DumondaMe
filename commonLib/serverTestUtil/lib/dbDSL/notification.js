@@ -216,6 +216,26 @@ const requestAdminOfCommitment = function (notificationId, data) {
         }).getCommand());
 };
 
+const oneTimeWelcome = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWelcome');
+};
+
+const oneTimeWatchQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWatchQuestion');
+};
+
+const oneTime = function (notificationId, data, type) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .merge(`(u)<-[:NOTIFIED]-(notification:Notification:NoEmail:OneTime${readLabel} {type: {type}, 
+                                      created: {created}, notificationId: {notificationId}})`)
+        .end({notificationId, userId: data.userId, created: data.created, type
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
@@ -225,5 +245,7 @@ module.exports = {
     userCreatedQuestion,
     createAnswer,
     createNote,
-    requestAdminOfCommitment
+    requestAdminOfCommitment,
+    oneTimeWelcome,
+    oneTimeWatchQuestion
 };
