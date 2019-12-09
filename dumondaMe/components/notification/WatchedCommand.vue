@@ -4,6 +4,8 @@
                :disabled="requestWatchedRunning" :loading="requestWatchedRunning">
             {{$t('pages:notifications.buttonRead')}}
         </v-btn>
+        <slot name="additionalCommands">
+        </slot>
         <v-snackbar top v-model="showError" color="error" :timeout="0">{{$t("common:error.unknown")}}
             <v-btn dark text @click="showError = false">{{$t("common:button.close")}}</v-btn>
         </v-snackbar>
@@ -40,6 +42,7 @@
 <style lang="scss">
     .notification-watched-command {
         margin-top: 18px;
+        display: flex;
 
         button {
             margin-left: 0;

@@ -135,10 +135,21 @@ const addCreatedNoteProperties = function (notificationResponse, notification) {
     }
 };
 
+const getOneTime = function (notification) {
+    return {
+        read: notification.read,
+        notificationId: notification.notification.notificationId,
+        created: notification.notification.created,
+        type: notification.notification.type
+    }
+};
+
 const getResponse = async function (notifications) {
     let response = [];
     for (let notification of notifications) {
-        if (notification.notification.type === 'showQuestionRequest') {
+        if (notification.isOneTime) {
+            response.push(getOneTime(notification));
+        } else if (notification.notification.type === 'showQuestionRequest') {
             response.push(getShowQuestionOnCommitmentRequest(notification));
         } else if (notification.notification.type === 'requestAdminOfCommitment') {
             response.push(getAdminOfCommitmentRequest(notification));
@@ -182,7 +193,7 @@ const getNotifications = async function (userId, skip, limit) {
                  collect(DISTINCT {originator: originator, relOriginator: relOriginator,
                  isContact: EXISTS((:User {userId: {userId}})<-[:IS_CONTACT]-(originator)),
                  isHarvestingUser: ANY (label IN LABELS(originator) WHERE label = 'HarvestingUser')})[0..3] AS originators,
-                 numberOfOriginators`)
+                 ANY (label IN LABELS(n) WHERE label = 'OneTime') AS isOneTime, numberOfOriginators`)
         .orderBy(`n.created DESC`)
         .end({userId, skip, limit: limit + 1}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);

@@ -1,0 +1,49 @@
+<template>
+    <div class="notification-one-time-welcome">
+        <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
+        <div class="welcome-title">{{$t('pages:notifications.oneTime.welcome.title')}}</div>
+        <div class="description">{{$t('pages:notifications.oneTime.welcome.description')}}</div>
+        <watched-command :notification="notification">
+            <template v-slot:additionalCommands>
+                <v-btn color="primary" text class="go-to-notification-setting"
+                       @click="$router.push({name: 'setting',
+                            query: {section: 'email'}})">
+                    {{$t('pages:notifications.oneTime.welcome.goToSetting')}}
+                </v-btn>
+            </template>
+        </watched-command>
+    </div>
+</template>
+
+<script>
+    import WatchedCommand from './../WatchedCommand';
+
+    export default {
+        props: ['notification'],
+        components: {WatchedCommand},
+        computed: {},
+        methods: {}
+    }
+</script>
+
+<style lang="scss">
+    .notification-one-time-welcome {
+        font-weight: 300;
+
+        .welcome-title {
+            color: $primary-color;
+            font-weight: 400;
+            font-size: 22px;
+        }
+
+        .description {
+            margin-top: 8px;
+            font-weight: 300;
+            font-size: 16px;
+        }
+
+        .go-to-notification-setting {
+            margin-left: 18px;
+        }
+    }
+</style>

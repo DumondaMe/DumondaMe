@@ -76,6 +76,19 @@ describe('Integration Tests for verify registering a new user', function () {
         user[0].user.languages.should.includes('de');
         user[0].user.languages.should.includes('en');
 
+        let notifications = await db.cypher()
+            .match(`(:User:EMailNotificationEnabled {email: 'inFo@duMonda.me'})
+                      <-[:NOTIFIED]-(n:Notification:NoEmail:OneTime:Unread)`)
+            .return('n.type AS type, n.created AS created, n.notificationId AS notificationId')
+            .orderBy(`n.created`).end().send();
+        notifications.length.should.equals(2);
+        notifications[0].type.should.equals('oneTimeWelcome');
+        should.exist(notifications[0].notificationId);
+        notifications[0].created.should.at.least(startTime);
+        notifications[1].type.should.equals('oneTimeWatchQuestion');
+        should.exist(notifications[1].notificationId);
+        notifications[1].created.should.at.least(startTime);
+
         user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
             .return('user').end({linkId: registerRequestUserValid.linkId}).send();
         user.length.should.equals(0);
@@ -126,9 +139,23 @@ describe('Integration Tests for verify registering a new user', function () {
         notifications[1].user.userId.should.equals('3');
         notifications[2].user.userId.should.equals('4');
 
+        notifications = await db.cypher()
+            .match(`(:User:EMailNotificationEnabled {emailNormalized: 'info3@dumonda.me'})
+            <-[:NOTIFIED]-(n:Notification:NoEmail:OneTime:Unread)`)
+            .return('n.type AS type, n.created AS created, n.notificationId AS notificationId')
+            .orderBy(`n.created`).end().send();
+        notifications.length.should.equals(2);
+        notifications[0].type.should.equals('oneTimeWelcome');
+        notifications[0].created.should.at.least(startTime);
+        should.exist(notifications[0].notificationId);
+        notifications[1].type.should.equals('oneTimeWatchQuestion');
+        notifications[1].created.should.at.least(startTime);
+        should.exist(notifications[1].notificationId);
+
         let invitedUser = await db.cypher().match("(user:InvitedUser)")
             .return('user').end().send();
         invitedUser.length.should.equals(0);
+
 
         user = await db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
             .return('user').end({linkId: registerRequestUserValidWithInvitation.linkId}).send();
@@ -208,7 +235,7 @@ describe('Integration Tests for verify registering a new user', function () {
         let notifications = await db.cypher()
             .match(`(:User {userId: '3'})<-[:NOTIFIED]-(n:Notification:Unread {type: 'invitedUserHasRegistered'})
                     -[:ORIGINATOR_OF_NOTIFICATION ]->(:User {emailNormalized: 'info@dumonda.me'})`)
-        .return('n').end().send();
+            .return('n').end().send();
         notifications.length.should.equals(1);
 
         let invitedUser = await db.cypher().match("(user:InvitedUser {emailNormalized: 'info@dumonda.me'})")

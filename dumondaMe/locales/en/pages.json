@@ -776,6 +776,18 @@
       "notification": "has created a note for the {{type}} answer {{- answer}}, which answers the question {{- question}}.",
       "notificationTextAnswer": "has created a note for the answer {{- answer}}, which answers the question {{- question}}."
     },
+    "oneTime": {
+      "welcome": {
+        "title": "Welcome to DumondaMe",
+        "description": "Glad your way led you to DumondaMe. Here you can see your notifications. This will let you know if someone answers a question that interests you. We will send you an e-mail so that you don't miss a notification. However, you can set how often and whether we are allowed to send you an email for this purpose.",
+        "goToSetting": "To the e-mail settings"
+      },
+      "challengeWatchQuestion": {
+        "title": "Which question do you find interesting?",
+        "description": "Stay up to date when a question that interests you is answered. Go to the question feed and mark your first question as interesting by clicking on the star button.",
+        "goToQuestions": "To the questions"
+      }
+    },
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",
     "noNotifications": "You have no notifications.",
