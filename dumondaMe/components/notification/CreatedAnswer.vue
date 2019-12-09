@@ -30,17 +30,15 @@
         <div class="text-answer" v-if="notification.answerType === 'Default'">
             {{notification.answerTitle}}
         </div>
-        <watched-command :notification="notification"></watched-command>
     </div>
 </template>
 
 <script>
     import Users from './Users';
-    import WatchedCommand from './WatchedCommand';
 
     export default {
         props: ['notification'],
-        components: {Users, WatchedCommand},
+        components: {Users},
         computed: {
             question() {
                 return `<a class="notification-title"

@@ -784,7 +784,7 @@
       },
       "challengeWatchQuestion": {
         "title": "Which question do you find interesting?",
-        "description": "Stay up to date when a question that interests you is answered. Go to the question feed and mark your first question as interesting by clicking on the star button.",
+        "description": "Stay up to date when a question that interests you is answered. Go to the question feed and subscribe to your first question by clicking the star button.",
         "goToQuestions": "To the questions"
       }
     },

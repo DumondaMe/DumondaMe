@@ -32,6 +32,9 @@ export const mutations = {
         state.numberOfUnreadNotifications = 0;
         state.hasMoreNotifications = false
     },
+    ALL_READ : function (state) {
+        state.numberOfUnreadNotifications = 0;
+    },
     SET_NOTIFICATION: function (state, notification) {
         state.notifications = state.notifications.concat(notification.notifications);
         state.numberOfUnreadNotifications = notification.numberOfUnreadNotifications;
@@ -39,9 +42,6 @@ export const mutations = {
     },
     SET_NUMBER_OF_UNREAD_NOTIFICATIONS: function (state, numberOfUnreadNotifications) {
         state.numberOfUnreadNotifications = numberOfUnreadNotifications;
-    },
-    NOTIFICATION_READ: function (state, notificationSetAsRead) {
-        setNotificationAsRead(state, notificationSetAsRead);
     },
     SHOW_QUESTION: function (state, {notificationSetAsRead, showQuestion}) {
         setNotificationAsRead(state, notificationSetAsRead, showQuestion, 'showQuestion');
@@ -83,10 +83,5 @@ export const actions = {
             clearInterval(checkNotificationTimer);
             checkNotificationTimer = null;
         }
-    },
-    async notificationRead({commit}, notification) {
-        await this.$axios.$put('user/notification/read',
-            {notificationId: notification.notificationId});
-        commit('NOTIFICATION_READ', notification);
     }
 };
