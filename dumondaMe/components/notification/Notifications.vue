@@ -2,31 +2,36 @@
     <div id="notifications-container">
         <div class="notification ely-card" :class="{'unread-notification': !notification.read}"
              v-for="notification in notifications">
-            <show-question-request :notification="notification" v-if="notification.type === 'showQuestionRequest'">
-            </show-question-request>
-            <admin-of-commitment-request :notification="notification"
-                                         v-else-if="notification.type === 'requestAdminOfCommitment'">
-            </admin-of-commitment-request>
-            <add-to-trust-circle :notification="notification" v-else-if="notification.type === 'addedToTrustCircle'">
-            </add-to-trust-circle>
-            <invited-user-has-registered :notification="notification"
-                                         v-else-if="notification.type === 'invitedUserHasRegistered'">
-            </invited-user-has-registered>
-            <watch-commitment :notification="notification" v-else-if="notification.type === 'watchingCommitment'">
-            </watch-commitment>
-            <watch-question :notification="notification" v-else-if="notification.type === 'watchingQuestion'">
-            </watch-question>
-            <new-question :notification="notification" v-else-if="notification.type === 'newQuestion'">
-            </new-question>
-            <created-answer :notification="notification" v-else-if="notification.type === 'createdAnswer'">
-            </created-answer>
-            <created-note :notification="notification" v-else-if="notification.type === 'createdNote'">
-            </created-note>
+            <div class="notification-with-default-padding">
+                <show-question-request :notification="notification"
+                                       v-if="notification.type === 'showQuestionRequest'">
+                </show-question-request>
+                <admin-of-commitment-request :notification="notification"
+                                             v-else-if="notification.type === 'requestAdminOfCommitment'">
+                </admin-of-commitment-request>
+                <add-to-trust-circle :notification="notification"
+                                     v-else-if="notification.type === 'addedToTrustCircle'">
+                </add-to-trust-circle>
+                <invited-user-has-registered :notification="notification"
+                                             v-else-if="notification.type === 'invitedUserHasRegistered'">
+                </invited-user-has-registered>
+                <watch-commitment :notification="notification"
+                                  v-else-if="notification.type === 'watchingCommitment'">
+                </watch-commitment>
+                <watch-question :notification="notification" v-else-if="notification.type === 'watchingQuestion'">
+                </watch-question>
+                <new-question :notification="notification" v-else-if="notification.type === 'newQuestion'">
+                </new-question>
+                <created-answer :notification="notification" v-else-if="notification.type === 'createdAnswer'">
+                </created-answer>
+                <created-note :notification="notification" v-else-if="notification.type === 'createdNote'">
+                </created-note>
 
-            <one-time-challenge-watch-question :notification="notification"
-                                               v-else-if="notification.type === 'oneTimeWatchQuestion'">
-            </one-time-challenge-watch-question>
-            <one-time-welcome :notification="notification" v-else-if="notification.type === 'oneTimeWelcome'">
+                <one-time-challenge-watch-question :notification="notification"
+                                                   v-else-if="notification.type === 'oneTimeWatchQuestion'">
+                </one-time-challenge-watch-question>
+            </div>
+            <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
             </one-time-welcome>
         </div>
         <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
@@ -90,15 +95,27 @@
 
         .notification {
             margin-bottom: 12px;
-            @include defaultPaddingCard();
             @media screen and (max-width: $xs) {
-                padding: 16px;
                 margin-bottom: 8px;
+            }
+
+            .notification-with-default-padding {
+                @include defaultPaddingCard();
             }
 
             .notification-created {
                 margin-bottom: 8px;
                 font-size: 12px;
+            }
+
+            .notification-challenge {
+                display: inline;
+                font-size: 12px;
+                font-weight: 500;
+                background: $secondary-color;
+                color: white;
+                padding: 2px 4px;
+                border-radius: 2px;
             }
         }
 
