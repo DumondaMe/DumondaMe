@@ -782,7 +782,7 @@
       },
       "challengeWatchQuestion": {
         "title": "Welche Frage findest du interessant?",
-        "description": "Bleibe auf dem Laufenden wenn eine Frage die dich interessiert beantwortet wird. Gehe zum Fragen Feed und markiere deine erste Frage mit einem klick auf den Stern Button als interessant.",
+        "description": "Bleibe auf dem Laufenden wenn eine Frage die dich interessiert beantwortet wird. Gehe zur Fragen Übersicht und abonniere deine erste Frage mit einem klick auf den Stern Button.",
         "goToQuestions": "Zu den Fragen"
       }
     },

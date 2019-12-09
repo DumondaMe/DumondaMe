@@ -33,6 +33,7 @@
         },
         async beforeDestroy() {
             await this.$store.dispatch('notification/startCheckNotificationChanged');
+            await this.$store.commit(`notification/ALL_READ`);
         }
     }
 </script>

@@ -1,6 +1,5 @@
 <template>
-    <div class="notification-one-time-welcome">
-        <div class="notification-created">{{notification.created | formatRelativeTimesAgo}}</div>
+    <div class="notification-one-time-challenge-watch-question">
         <div class="welcome-title">{{$t('pages:notifications.oneTime.challengeWatchQuestion.title')}}</div>
         <div class="description-container">
             <div class="star-container">
@@ -8,30 +7,22 @@
             </div>
             <div class="description">{{$t('pages:notifications.oneTime.challengeWatchQuestion.description')}}</div>
         </div>
-        <watched-command :notification="notification">
-            <template v-slot:additionalCommands>
-                <v-btn color="primary" text class="go-to-notification-setting"
-                       @click="$router.push({name: 'question'})">
-                    {{$t('pages:notifications.oneTime.challengeWatchQuestion.goToQuestions')}}
-                </v-btn>
-            </template>
-        </watched-command>
+        <v-btn color="primary" class="go-to-notification-setting"
+               @click="$router.push({name: 'question'})">
+            {{$t('pages:notifications.oneTime.challengeWatchQuestion.goToQuestions')}}
+        </v-btn>
     </div>
 </template>
 
 <script>
-    import WatchedCommand from './../WatchedCommand';
 
     export default {
-        props: ['notification'],
-        components: {WatchedCommand},
-        computed: {},
-        methods: {}
+        props: ['notification']
     }
 </script>
 
 <style lang="scss">
-    .notification-one-time-welcome {
+    .notification-one-time-challenge-watch-question {
         font-weight: 300;
 
         .welcome-title {
@@ -55,8 +46,10 @@
             }
         }
 
-        .go-to-notification-setting {
-            margin-left: 18px;
+        button.go-to-notification-setting {
+            display: block;
+            margin-top: 16px;
+            margin-left: 0;
         }
     }
 </style>

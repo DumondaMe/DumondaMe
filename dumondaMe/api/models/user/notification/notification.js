@@ -2,6 +2,7 @@
 
 const moreSearchResult = require('../../util/moreSearchResults');
 const slug = require('limax');
+const readNotification = require('./read');
 const cdn = require('dumonda-me-server-lib').cdn;
 const db = requireDb();
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
@@ -195,9 +196,15 @@ const getNotifications = async function (userId, skip, limit) {
                  isHarvestingUser: ANY (label IN LABELS(originator) WHERE label = 'HarvestingUser')})[0..3] AS originators,
                  ANY (label IN LABELS(n) WHERE label = 'OneTime') AS isOneTime, numberOfOriginators`)
         .orderBy(`n.created DESC`)
-        .end({userId, skip, limit: limit + 1}).send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
+        .end({userId, skip, limit: limit + 1})
+        .send([getNumberOfUnreadNotificationsCommand(userId).getCommand()]);
     logger.info(`User ${userId} requested notifications`);
     let hasMoreNotifications = moreSearchResult.getHasMoreResults(result[1], limit);
+
+    if(skip === 0) {
+        await readNotification.markAsRead(userId);
+    }
+
     return {
         notifications: await getResponse(result[1]), hasMoreNotifications,
         numberOfUnreadNotifications: result[0][0].numberOfUnreadNotifications
