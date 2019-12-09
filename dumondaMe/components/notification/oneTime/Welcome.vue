@@ -1,17 +1,25 @@
 <template>
     <div class="notification-one-time-welcome">
         <div class="welcome-title">{{$t('pages:notifications.oneTime.welcome.title')}}</div>
+        <img v-lazy="imageUrl" class="welcome-image"/>
         <div class="description">{{$t('pages:notifications.oneTime.welcome.description')}}</div>
-        <v-btn color="primary" class="go-to-notification-setting"
-               @click="$router.push({name: 'setting',query: {section: 'email'}})">
-            {{$t('pages:notifications.oneTime.welcome.goToSetting')}}
-        </v-btn>
+        <div class="go-to-notification-setting">
+            <v-btn color="primary"
+                   @click="$router.push({name: 'setting',query: {section: 'email'}})">
+                {{$t('pages:notifications.oneTime.welcome.goToSetting')}}
+            </v-btn>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['notification']
+        props: ['notification'],
+        computed: {
+            imageUrl() {
+                return `${process.env.staticUrl}/img/welcome/welcome.jpg`;
+            }
+        }
     }
 </script>
 
@@ -23,18 +31,25 @@
             color: $primary-color;
             font-weight: 400;
             font-size: 22px;
+            margin-bottom: 8px;
+            @include defaultPaddingCard();
+        }
+
+        .welcome-image {
+            width: 100%;
         }
 
         .description {
             margin-top: 8px;
             font-weight: 300;
             font-size: 16px;
+            @include defaultPaddingCard();
         }
 
-        button.go-to-notification-setting {
-            display: block;
+        .go-to-notification-setting {
             margin-top: 16px;
             margin-left: 0;
+            @include defaultPaddingCard();
         }
     }
 </style>

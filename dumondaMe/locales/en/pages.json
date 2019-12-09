@@ -777,6 +777,7 @@
       "notificationTextAnswer": "has created a note for the answer {{- answer}}, which answers the question {{- question}}."
     },
     "oneTime": {
+      "challenge": "Challenge",
       "welcome": {
         "title": "Welcome to DumondaMe",
         "description": "Glad your way led you to DumondaMe. Here you can see your notifications. This will let you know if someone answers a question that interests you. We will send you an e-mail so that you don't miss a notification. However, you can set how often and whether we are allowed to send you an email for this purpose.",
