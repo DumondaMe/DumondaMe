@@ -124,6 +124,7 @@ module.exports = {
     notificationOneTimeWelcome: notification.oneTimeWelcome,
     notificationOneTimeWatchQuestion: notification.oneTimeWatchQuestion,
     notificationOneTimeWatchFirstQuestion: notification.oneTimeWatchFirstQuestion,
+    notificationOneTimeUpVoteFirstAnswer: notification.oneTimeUpVoteFirstAnswer,
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     emailNotificationSetEMailInterval: eMailNotificationSettings.setEMailInterval,
