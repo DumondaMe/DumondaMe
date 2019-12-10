@@ -90,9 +90,12 @@
                     try {
                         this.upVoteRunning = true;
                         if (upVote) {
-                            await this.$axios.$post(`/user/question/answer/upVote/${this.answerId}`);
+                            let response = await this.$axios.$post(`/user/question/answer/upVote/${this.answerId}`);
                             this.$emit('up-voted', this.answerId);
                             this.localUpVotedByUser = true;
+                            if (response && response.oneTimeNotificationCreated) {
+                                this.$store.dispatch('notification/checkNotificationChanged');
+                            }
                         } else {
                             await this.$axios.$delete(`/user/question/answer/upVote/${this.answerId}`);
                             this.$emit('down-voted', this.answerId);

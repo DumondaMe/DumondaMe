@@ -789,6 +789,14 @@
       "watchFirstQuestion": {
         "title": "Super, du hast deine erste Frage abonniert",
         "description": "Du erhältst nun eine Benachrichtigung, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant..."
+      },
+      "challengeUpVoteAnswer": {
+        "title": "Welche Antworten findest du gut?",
+        "description": "Mit dem Daumen hoch kannst du Antworten liken, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
+      },
+      "upVoteFirstAnswer": {
+        "title": "Herzliche Gratulation, du hast zum ersten Mal eine Antwort gelikt",
+        "description": "Likes für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten bei einer Frage zuerst angezeigt. Zudem werden Antworten mit vielen Likes  mehr Leuten im News Feed angezeigt."
       }
     },
     "moreUser": "Und eine weitere Person",
