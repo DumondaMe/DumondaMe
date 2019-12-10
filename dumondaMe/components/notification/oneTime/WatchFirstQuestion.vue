@@ -2,6 +2,10 @@
     <div class="notification-one-time-watch-first-question">
         <div class="fist-question-title">{{$t('pages:notifications.oneTime.watchFirstQuestion.title')}}</div>
         <div class="description">{{$t('pages:notifications.oneTime.watchFirstQuestion.description')}}</div>
+        <v-btn color="primary" class="go-to-questions"
+               @click="$router.push({name: 'question'})">
+            {{$t('pages:notifications.oneTime.challengeWatchQuestion.goToQuestions')}}
+        </v-btn>
     </div>
 </template>
 
@@ -25,6 +29,12 @@
             margin-top: 8px;
             font-weight: 300;
             font-size: 16px;
+        }
+
+        button.go-to-questions {
+            display: block;
+            margin-top: 16px;
+            margin-left: 0;
         }
     }
 </style>

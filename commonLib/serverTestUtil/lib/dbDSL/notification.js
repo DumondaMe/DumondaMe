@@ -232,6 +232,10 @@ const oneTimeUpVoteFirstAnswer = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeUpVoteFirstAnswer');
 };
 
+const oneTimeChallengeUpVoteAnswer = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeUpVoteAnswer');
+};
+
 const oneTime = function (notificationId, data, type) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -257,5 +261,6 @@ module.exports = {
     oneTimeWelcome,
     oneTimeWatchQuestion,
     oneTimeWatchFirstQuestion,
-    oneTimeUpVoteFirstAnswer
+    oneTimeUpVoteFirstAnswer,
+    oneTimeChallengeUpVoteAnswer
 };

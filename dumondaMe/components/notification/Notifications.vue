@@ -27,9 +27,15 @@
                 <created-note :notification="notification" v-else-if="notification.type === 'createdNote'">
                 </created-note>
 
+                <one-time-challenge-up-vote-answer :notification="notification"
+                                                   v-else-if="notification.type === 'oneTimeChallengeUpVoteAnswer'">
+                </one-time-challenge-up-vote-answer>
                 <one-time-challenge-watch-question :notification="notification"
                                                    v-else-if="notification.type === 'oneTimeWatchQuestion'">
                 </one-time-challenge-watch-question>
+                <one-time-up-vote-first-answer :notification="notification"
+                                               v-else-if="notification.type === 'oneTimeUpVoteFirstAnswer'">
+                </one-time-up-vote-first-answer>
                 <one-time-watch-first-question :notification="notification"
                                                v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
                 </one-time-watch-first-question>
@@ -59,7 +65,9 @@
     import CreatedNote from './CreatedNote';
     import InvitedUserHasRegistered from './InvitedUserHasRegistered';
 
+    import OneTimeChallengeUpVoteAnswer from './oneTime/ChallengeUpVoteAnswer';
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
+    import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
     import OneTimeWelcome from './oneTime/Welcome';
 
@@ -67,8 +75,8 @@
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
-            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeWatchQuestion,
-            OneTimeWatchFirstQuestion, OneTimeWelcome
+            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeUpVoteAnswer,
+            OneTimeChallengeWatchQuestion, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome
         },
         data() {
             return {loadingNextNotifications: false}

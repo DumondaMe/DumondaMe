@@ -1,7 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const harvestingUser = require('./../../userHarvesting/security');
+const harvestingUser = require('./../../../userHarvesting/security');
+const oneTimeNotifications = require('./oneTimeNotifications');
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const time = require('dumonda-me-server-lib').time;
 const uuid = require('dumonda-me-server-lib').uuid;
@@ -32,19 +33,6 @@ const addWatchNotificationNotExists = function (userId, questionId, watchAdded) 
         .end({userId, questionId, notificationId, watchAdded})
 };
 
-const addOneTimeNotificationWatchFirstQuestion = function (userId, watchAdded) {
-    let notificationId = uuid.generateUUID();
-    return db.cypher().match(`(u:User {userId: {userId}})`)
-        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeWatchingFirstQuestion'}))`)
-        .optionalMatch(`(u)-[:WATCH]->(q:Question)`)
-        .with(`COUNT(q) AS numberOfWatches, u`)
-        .where(`numberOfWatches = 1`)
-        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeWatchingFirstQuestion', ` +
-            `created: {watchAdded}, notificationId: {notificationId}})`)
-        .return('u')
-        .end({userId, notificationId, watchAdded})
-};
-
 const addWatch = async function (userId, questionId) {
     let created = time.getNowUtcTimestamp();
 
@@ -59,11 +47,10 @@ const addWatch = async function (userId, questionId) {
     if (response.length === 0) {
         throw new exceptions.InvalidOperation(`Watch could not be added from user ${userId} to question ${questionId}`);
     } else {
-        let response = await addWatchNotificationExists(userId, questionId, created).send([
-            addWatchNotificationNotExists(userId, questionId, created).getCommand(),
-            addOneTimeNotificationWatchFirstQuestion(userId, created).getCommand()]);
+        await addWatchNotificationExists(userId, questionId, created).send([
+            addWatchNotificationNotExists(userId, questionId, created).getCommand()]);
         logger.info(`User watches question ${questionId}`);
-        return {oneTimeNotificationCreated: response[1].length === 1};
+        return await oneTimeNotifications.addOneTimeNotifications(userId, created);
     }
 };
 
