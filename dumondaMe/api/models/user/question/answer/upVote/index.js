@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const oneTimeNotifications = require('./oneTimeNotifications');
 const time = require('dumonda-me-server-lib').time;
 const uuid = require('dumonda-me-server-lib').uuid;
 const exceptions = require('dumonda-me-server-lib').exceptions;
@@ -30,14 +31,14 @@ const addOneTimeNotificationUpVoteFirstAnswer = async function (userId) {
 };
 
 
-const upVote = async function (userId, answerId) {
+const index = async function (userId, answerId) {
     await validToUpVoteAnswer(userId, answerId);
     await db.cypher().match(`(user:User {userId: {userId}}), (answer:Answer {answerId: {answerId}})`)
         .merge(`(user)-[:UP_VOTE {created: {created}}]->(answer)`)
         .end({answerId, userId, created: time.getNowUtcTimestamp()}).send();
     logger.info(`User ${userId} up voted answer ${answerId}`);
 
-    return await addOneTimeNotificationUpVoteFirstAnswer(userId);
+    return await oneTimeNotifications.addOneTimeNotifications(userId);
 };
 
 const deleteUpVote = async function (userId, answerId) {
@@ -48,6 +49,6 @@ const deleteUpVote = async function (userId, answerId) {
 };
 
 module.exports = {
-    upVote,
+    upVote: index,
     deleteUpVote
 };

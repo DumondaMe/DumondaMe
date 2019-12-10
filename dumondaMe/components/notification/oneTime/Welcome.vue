@@ -31,7 +31,7 @@
             color: $primary-color;
             font-weight: 400;
             font-size: 22px;
-            margin-bottom: 8px;
+            margin-bottom: 14px;
             @include defaultPaddingCard();
         }
 
