@@ -85,6 +85,7 @@
                             let blob = dataURItoBlob(dataUrl);
                             await postWithFile(this.$axios, blob, 'user/profile/image');
                             this.profileImage = dataUrl;
+                            this.$store.commit('user/SET_USER_IMAGE', dataUrl);
                             this.hideCropImageDialog = true;
                         } catch (e) {
                             this.showError = true;
