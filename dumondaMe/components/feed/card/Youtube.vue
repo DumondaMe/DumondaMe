@@ -34,7 +34,8 @@
                 <iframe :width="youtubeWidth" :height="youtubeHeight" :src="youtubeEmbedAutoplay" frameBorder="0"
                         allow="autoplay" v-if="showEmbed"></iframe>
                 <img v-lazy="youtubeImage" @loaded="showVideoButton = true" v-else @click="showEmbed = true">
-                <img :src="videoButton" v-if="!showEmbed && showVideoButton" class="video-button">
+                <img :src="videoButton" v-if="!showEmbed && showVideoButton" class="video-button"
+                     @click="showEmbed = true">
             </div>
             <div class="answer-description">
                 <expand-text :expand-text="answer.descriptionHtml"></expand-text>
