@@ -1,6 +1,5 @@
 <template>
     <div class="notification-one-time-challenge-watch-question">
-        <div class="notification-challenge">{{$t('pages:notifications.oneTime.challenge')}}</div>
         <div class="welcome-title">{{$t('pages:notifications.oneTime.challengeWatchQuestion.title')}}</div>
         <div class="description-container">
             <div class="star-container">

@@ -224,6 +224,10 @@ const oneTimeWatchQuestion = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeWatchQuestion');
 };
 
+const oneTimeWatchFirstQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWatchingFirstQuestion');
+};
+
 const oneTime = function (notificationId, data, type) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -247,5 +251,6 @@ module.exports = {
     createNote,
     requestAdminOfCommitment,
     oneTimeWelcome,
-    oneTimeWatchQuestion
+    oneTimeWatchQuestion,
+    oneTimeWatchFirstQuestion
 };

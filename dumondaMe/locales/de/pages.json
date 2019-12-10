@@ -785,6 +785,10 @@
         "title": "Welche Frage findest du interessant?",
         "description": "Bleibe auf dem Laufenden wenn eine Frage die dich interessiert beantwortet wird. Gehe zur Fragen Übersicht und abonniere deine erste Frage mit einem klick auf den Stern Button.",
         "goToQuestions": "Zu den Fragen"
+      },
+      "watchFirstQuestion": {
+        "title": "Super, du hast deine erste Frage abonniert",
+        "description": "Du erhältst nun eine Benachrichtigung, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant..."
       }
     },
     "moreUser": "Und eine weitere Person",

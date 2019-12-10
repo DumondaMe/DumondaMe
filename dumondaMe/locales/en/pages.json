@@ -787,6 +787,10 @@
         "title": "Which question do you find interesting?",
         "description": "Stay up to date when a question that interests you is answered. Go to the question feed and subscribe to your first question by clicking the star button.",
         "goToQuestions": "To the questions"
+      },
+      "watchFirstQuestion": {
+        "title": "Great, you've subscribed to your first question.",
+        "description": "You will now receive a notification when this question is answered. Mark further questions as interesting..."
       }
     },
     "moreUser": "And another person",
