@@ -39,6 +39,14 @@ describe('Create one time notification when user watches multiple questions', fu
             creatorId: '3', question: 'Das ist eine FragöÖÄäÜü2', description: 'description2', topics: ['Spiritual'],
             language: 'de'
         });
+        dbDsl.createQuestion('7', {
+            creatorId: '3', question: 'Das ist eine FragöÖÄäÜü2', description: 'description2', topics: ['Spiritual'],
+            language: 'de'
+        });
+        dbDsl.createQuestion('8', {
+            creatorId: '3', question: 'Das ist eine FragöÖÄäÜü2', description: 'description2', topics: ['Spiritual'],
+            language: 'de'
+        });
     });
 
     afterEach(function () {
@@ -99,6 +107,53 @@ describe('Create one time notification when user watches multiple questions', fu
             .return('notification')
             .end().send();
         notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.equals('10');
+        notification[0].notification.created.should.equals(500);
+    });
+
+    it('Watching more then 6 question generates one time notification to invite friends', async function () {
+        dbDsl.watchQuestion({questionId: '2', userId: '1'});
+        dbDsl.watchQuestion({questionId: '3', userId: '1'});
+        dbDsl.watchQuestion({questionId: '4', userId: '1'});
+        dbDsl.watchQuestion({questionId: '5', userId: '1'});
+        dbDsl.watchQuestion({questionId: '6', userId: '1'});
+        dbDsl.watchQuestion({questionId: '7', userId: '1'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/8');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeInviteFriends');
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Watching more then 6 question with existing one time notification to invite friends', async function () {
+        dbDsl.watchQuestion({questionId: '2', userId: '1'});
+        dbDsl.watchQuestion({questionId: '3', userId: '1'});
+        dbDsl.watchQuestion({questionId: '4', userId: '1'});
+        dbDsl.watchQuestion({questionId: '5', userId: '1'});
+        dbDsl.watchQuestion({questionId: '6', userId: '1'});
+        dbDsl.watchQuestion({questionId: '7', userId: '1'});
+        dbDsl.notificationOneTimeInviteFriends('10', {userId: '1', created: 500});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/8');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(false);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeInviteFriends');
         notification[0].notification.notificationId.should.equals('10');
         notification[0].notification.created.should.equals(500);
     });

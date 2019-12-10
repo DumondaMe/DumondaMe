@@ -42,6 +42,8 @@
             </div>
             <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
             </one-time-welcome>
+            <one-time-invite-friends :notification="notification" v-if="notification.type === 'oneTimeInviteFriends'">
+            </one-time-invite-friends>
         </div>
         <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
                @click="loadNextNotifications" :disabled="loadingNextNotifications" :loading="loadingNextNotifications">
@@ -70,13 +72,15 @@
     import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
     import OneTimeWelcome from './oneTime/Welcome';
+    import OneTimeInviteFriends from './oneTime/InviteFriends';
 
     export default {
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
             NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeUpVoteAnswer,
-            OneTimeChallengeWatchQuestion, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome
+            OneTimeChallengeWatchQuestion, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome,
+            OneTimeInviteFriends
         },
         data() {
             return {loadingNextNotifications: false}

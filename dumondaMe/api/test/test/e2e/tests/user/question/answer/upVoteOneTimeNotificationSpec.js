@@ -7,7 +7,7 @@ const requestHandler = require('dumonda-me-server-test-util').requestHandler;
 const should = require('chai').should();
 const moment = require('moment');
 
-describe('Up vote first answer notification', function () {
+describe('Up vote answer generate one time notifications', function () {
 
     let startTime;
 
@@ -76,5 +76,72 @@ describe('Up vote first answer notification', function () {
             .return('notification')
             .end().send();
         notification.length.should.equals(0);
+    });
+
+    it('Up vote 5 answers generates one time notification to invite friends', async function () {
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('7', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('8', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('9', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.upVoteAnswer({userId: '1', answerId: '6'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '7'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '8'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '9'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/upVote/5');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification').end().send();
+
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeInviteFriends');
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Up vote 5 answers with existing one time notification to invite friends', async function () {
+        dbDsl.createDefaultAnswer('6', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('7', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('8', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.createDefaultAnswer('9', {
+            creatorId: '3', questionId:'1', answer: 'Answer'
+        });
+        dbDsl.upVoteAnswer({userId: '1', answerId: '6'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '7'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '8'});
+        dbDsl.upVoteAnswer({userId: '1', answerId: '9'});
+        dbDsl.notificationOneTimeInviteFriends('10', {userId: '1', created: 500});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/upVote/5');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(false);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification').end().send();
+
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeInviteFriends');
+        notification[0].notification.notificationId.should.equals('10');
+        notification[0].notification.created.should.equals(500);
     });
 });

@@ -791,6 +791,19 @@
       "watchFirstQuestion": {
         "title": "Great, you've subscribed to your first question.",
         "description": "You will now receive a notification when this question is answered. Mark further questions as interesting..."
+      },
+      "challengeUpVoteAnswer": {
+        "title": "Which answers do you like?",
+        "description": "With your thumb up, you can up vote answers that you like. Does it possibly have suitable answers to questions that interest you?"
+      },
+      "upVoteFirstAnswer": {
+        "title": "Congratulations, you've liked an answer for the first time.",
+        "description": "Likes for answers are an important feature at DumondaMe. In this way, the most appropriate answers to a question are displayed first. Also, answers with many likes will be shown to more people in the news feed."
+      },
+      "inviteFriends": {
+        "title": "Your circle of friends on DumondaMe",
+        "description": "You're on your toes and you've already done a lot on DumondaMe. But together it's even more fun. So invite your friends to DumondaMe or find out which of them has already created an account.",
+        "inviteFriendsButton": "Invite"
       }
     },
     "moreUser": "And another person",

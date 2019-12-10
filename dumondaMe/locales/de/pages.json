@@ -797,6 +797,11 @@
       "upVoteFirstAnswer": {
         "title": "Herzliche Gratulation, du hast zum ersten Mal eine Antwort gelikt",
         "description": "Likes für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten bei einer Frage zuerst angezeigt. Zudem werden Antworten mit vielen Likes  mehr Leuten im News Feed angezeigt."
+      },
+      "inviteFriends": {
+        "title": "Dein Freudeskreis auf DumondaMe",
+        "description": "Du bist ganz schön auf Zack und hast bereits einiges auf DumondaMe gemacht. Gemeinsam macht es aber noch viel mehr Spass. Lade deshalb deine Freunde auf DumondaMe ein oder finde heraus, wer von ihnen bereits einen Account erstellt hat.",
+        "inviteFriendsButton": "Einladen"
       }
     },
     "moreUser": "Und eine weitere Person",
