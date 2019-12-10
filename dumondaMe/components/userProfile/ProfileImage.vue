@@ -66,6 +66,7 @@
             updateProfileImage(dataUrl) {
                 this.dialogUploadImage = false;
                 this.$store.commit('userProfile/UPDATE_USER_PROFILE_IMAGE', dataUrl);
+                this.$store.commit('user/SET_USER_IMAGE', dataUrl);
             },
             addUserToTrustCircle() {
                 this.$store.dispatch('userProfile/addUserToTrustCircle', this.user.userId);
