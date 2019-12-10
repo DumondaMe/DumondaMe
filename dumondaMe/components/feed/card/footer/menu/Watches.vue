@@ -98,7 +98,7 @@
                             let response = await this.$axios.$put(`${this.apiWatch}/${this.watchedId}`);
                             this.$emit('add-watch', this.watchedId);
                             this.localWatchedByUser = true;
-                            if (response && response.oneTimeWatchingFirstQuestion) {
+                            if (response && response.oneTimeNotificationCreated) {
                                 this.$store.dispatch('notification/checkNotificationChanged');
                             }
                         } else {
