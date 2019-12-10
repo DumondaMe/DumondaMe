@@ -1,5 +1,6 @@
 export const state = () => ({
     userId: null,
+    userImage: '',
     infoState: 0,
     isHarvestingUser: false
 });
@@ -7,6 +8,9 @@ export const state = () => ({
 export const mutations = {
     SET_USER_ID: function (state, userId) {
         state.userId = userId;
+    },
+    SET_USER_IMAGE: function (state, userImage) {
+        state.userImage = userImage;
     },
     SET_USER_INFO_STATE: function (state, infoState) {
         state.infoState = infoState;
