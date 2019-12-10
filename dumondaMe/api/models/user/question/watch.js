@@ -32,6 +32,19 @@ const addWatchNotificationNotExists = function (userId, questionId, watchAdded) 
         .end({userId, questionId, notificationId, watchAdded})
 };
 
+const addOneTimeNotificationWatchFirstQuestion = function (userId, watchAdded) {
+    let notificationId = uuid.generateUUID();
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeWatchingFirstQuestion'}))`)
+        .optionalMatch(`(u)-[:WATCH]->(q:Question)`)
+        .with(`COUNT(q) AS numberOfWatches, u`)
+        .where(`numberOfWatches = 1`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeWatchingFirstQuestion', ` +
+            `created: {watchAdded}, notificationId: {notificationId}})`)
+        .return('u')
+        .end({userId, notificationId, watchAdded})
+};
+
 const addWatch = async function (userId, questionId) {
     let created = time.getNowUtcTimestamp();
 
@@ -46,11 +59,12 @@ const addWatch = async function (userId, questionId) {
     if (response.length === 0) {
         throw new exceptions.InvalidOperation(`Watch could not be added from user ${userId} to question ${questionId}`);
     } else {
-        await addWatchNotificationExists(userId, questionId, created).send([
-            addWatchNotificationNotExists(userId, questionId, created).getCommand()])
+        let response = await addWatchNotificationExists(userId, questionId, created).send([
+            addWatchNotificationNotExists(userId, questionId, created).getCommand(),
+            addOneTimeNotificationWatchFirstQuestion(userId, created).getCommand()]);
+        logger.info(`User watches question ${questionId}`);
+        return {oneTimeWatchingFirstQuestion: response[1].length === 1};
     }
-
-    logger.info(`User watches question ${questionId}`)
 };
 
 const removeWatchNotification = function (userId, questionId) {

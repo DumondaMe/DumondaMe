@@ -123,6 +123,7 @@ module.exports = {
     notificationRequestAdminOfCommitment: notification.requestAdminOfCommitment,
     notificationOneTimeWelcome: notification.oneTimeWelcome,
     notificationOneTimeWatchQuestion: notification.oneTimeWatchQuestion,
+    notificationOneTimeWatchFirstQuestion: notification.oneTimeWatchFirstQuestion,
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     emailNotificationSetEMailInterval: eMailNotificationSettings.setEMailInterval,

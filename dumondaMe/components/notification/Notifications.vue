@@ -30,6 +30,9 @@
                 <one-time-challenge-watch-question :notification="notification"
                                                    v-else-if="notification.type === 'oneTimeWatchQuestion'">
                 </one-time-challenge-watch-question>
+                <one-time-watch-first-question :notification="notification"
+                                               v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
+                </one-time-watch-first-question>
             </div>
             <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
             </one-time-welcome>
@@ -57,6 +60,7 @@
     import InvitedUserHasRegistered from './InvitedUserHasRegistered';
 
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
+    import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
     import OneTimeWelcome from './oneTime/Welcome';
 
     export default {
@@ -64,7 +68,7 @@
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
             NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeWatchQuestion,
-            OneTimeWelcome
+            OneTimeWatchFirstQuestion, OneTimeWelcome
         },
         data() {
             return {loadingNextNotifications: false}

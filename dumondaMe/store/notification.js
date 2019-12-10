@@ -72,6 +72,9 @@ export const actions = {
             {params: {skip: state.notifications.length, limit: 20}});
         commit('SET_NOTIFICATION', notifications);
     },
+    async checkNotificationChanged({commit}) {
+        await checkNotificationChanged(this.$axios, commit);
+    },
     async startCheckNotificationChanged({commit}) {
         if (!checkNotificationTimer) {
             await checkNotificationChanged(this.$axios, commit);
