@@ -63,7 +63,7 @@ const addWatch = async function (userId, questionId) {
             addWatchNotificationNotExists(userId, questionId, created).getCommand(),
             addOneTimeNotificationWatchFirstQuestion(userId, created).getCommand()]);
         logger.info(`User watches question ${questionId}`);
-        return {oneTimeWatchingFirstQuestion: response[1].length === 1};
+        return {oneTimeNotificationCreated: response[1].length === 1};
     }
 };
 

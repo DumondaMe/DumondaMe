@@ -34,7 +34,7 @@ describe('Notification when user watches his/her first question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/watch/1');
         res.status.should.equal(200);
-        res.body.oneTimeWatchingFirstQuestion.should.equals(true);
+        res.body.oneTimeNotificationCreated.should.equals(true);
 
         let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
         (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeWatchingFirstQuestion'})`)
@@ -51,7 +51,7 @@ describe('Notification when user watches his/her first question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/watch/1');
         res.status.should.equal(200);
-        res.body.oneTimeWatchingFirstQuestion.should.equals(false);
+        res.body.oneTimeNotificationCreated.should.equals(false);
 
         let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
         (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeWatchingFirstQuestion'})`)
@@ -68,7 +68,7 @@ describe('Notification when user watches his/her first question', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/watch/1');
         res.status.should.equal(200);
-        res.body.oneTimeWatchingFirstQuestion.should.equals(false);
+        res.body.oneTimeNotificationCreated.should.equals(false);
 
         let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
         (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeWatchingFirstQuestion'})`)
