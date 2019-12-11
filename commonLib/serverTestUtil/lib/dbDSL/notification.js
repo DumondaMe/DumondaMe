@@ -240,6 +240,10 @@ const oneTimeInviteFriends = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeInviteFriends');
 };
 
+const oneTimeFirstTrustCircleUser = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstTrustCircleUser');
+};
+
 const oneTime = function (notificationId, data, type) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -267,5 +271,6 @@ module.exports = {
     oneTimeWatchFirstQuestion,
     oneTimeUpVoteFirstAnswer,
     oneTimeChallengeUpVoteAnswer,
-    oneTimeInviteFriends
+    oneTimeInviteFriends,
+    oneTimeFirstTrustCircleUser
 };

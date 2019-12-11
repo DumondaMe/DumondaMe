@@ -43,6 +43,9 @@
                 let user = this.users.users.find(user => user.userId === userId);
                 user.personOfTrustSince = response.personOfTrustSince;
                 user.isPersonOfTrust = true;
+                if (response && response.oneTimeNotificationCreated) {
+                    this.$store.dispatch('notification/checkNotificationChanged');
+                }
             },
             async removeUserFromTrustCircle(userId) {
                 await this.$axios.$delete(`user/trustCircle/${userId}`);

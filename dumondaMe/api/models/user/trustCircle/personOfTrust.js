@@ -2,6 +2,7 @@
 
 const db = requireDb();
 const harvestingUser = require('./../../userHarvesting/security');
+const oneTimeNotifications = require('./oneTimeNotifications');
 const uuid = require('dumonda-me-server-lib').uuid;
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
@@ -62,7 +63,9 @@ let addPersonToTrustCircle = async function (userId, contactId, req) {
     commands.push(addUserAddedToTrustCircleNotificationNotExists(userId, contactId, timeAddedContact));
 
     await removeInvitation(userId, contactId).send(commands);
-    return {personOfTrustSince: timeAddedContact};
+    let response = await oneTimeNotifications.addOneTimeNotifications(userId, timeAddedContact);
+    response.personOfTrustSince = timeAddedContact;
+    return response;
 };
 
 let removeUserAddedToTrustCircleNotification = function (userId, contactId) {
