@@ -818,6 +818,11 @@
         "title": "Commitments at DumondaMe",
         "description": "A commitment at DumondaMe is an association, a company, a project or a personal commitment for a bright future. Show the community which commitment you find recommendable by clicking on the star button of a commitment.",
         "goToCommitments": "To the commitments"
+      },
+      "challengeCreateCommitment": {
+        "title": "Your commitment at DumondaMe",
+        "description": "Are you part of an association, a company, a project or do you have a personal commitment for a bright future? Capture this commitment on DumondaMe and make it visible for the DumondaMe community.",
+        "createCommitment": "Create Commitment"
       }
     },
     "moreUser": "And another person",

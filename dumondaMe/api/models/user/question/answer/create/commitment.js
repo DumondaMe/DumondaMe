@@ -61,9 +61,11 @@ const createCommitmentAnswer = async function (userId, params) {
     params.userId = userId;
     await checkCommitmentNotLinkedWithQuestion(params.commitmentId, params.questionId);
     let commitment = await showQuestionRequestNotification(params).send([createCommitmentCommand(params)]);
-    await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
+    let oneTimeNotificationCreated = await notification.addCreatedAnswerNotification(userId,
+        params.answerId, params.created);
 
     let result = {
+        oneTimeNotificationCreated,
         answerId: params.answerId,
         created: params.created,
         slug: slug(commitment[0][0].commitmentTitle),

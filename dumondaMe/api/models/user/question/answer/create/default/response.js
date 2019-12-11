@@ -4,8 +4,9 @@ const cdn = require('dumonda-me-server-lib').cdn;
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
 
-const getResponse = async function (userId, name, params) {
+const getResponse = async function (userId, name, params, oneTimeNotificationCreated) {
     let response = {
+        oneTimeNotificationCreated,
         answerId: params.answerId, created: params.created,
         hasTitleImage: params.hasImage,
         creator: {

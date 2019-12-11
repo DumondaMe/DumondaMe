@@ -244,6 +244,11 @@ const oneTimeChallengeWatchCommitment = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeChallengeWatchCommitment');
 };
 
+const oneTimeChallengeCreateCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeCreateCommitment');
+};
+
+
 const oneTimeInviteFriends = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeInviteFriends');
 };
@@ -282,5 +287,6 @@ module.exports = {
     oneTimeChallengeUpVoteAnswer,
     oneTimeInviteFriends,
     oneTimeFirstTrustCircleUser,
-    oneTimeChallengeWatchCommitment
+    oneTimeChallengeWatchCommitment,
+    oneTimeChallengeCreateCommitment
 };
