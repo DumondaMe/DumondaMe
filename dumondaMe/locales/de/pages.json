@@ -811,6 +811,11 @@
         "title": "Dein erstes Engagement das dich interessiert",
         "description": "Indem du ein Engagement als interessant markierst, erfahren mehr Leute das es dieses Engagement gibt. Gibt es noch weitere interessante Engagements auf DumondaMe?",
         "goToCommitments": "Weitere Engagements"
+      },
+      "challengeWatchCommitment": {
+        "title": "Engagements bei DumondaMe",
+        "description": "Ein Engagement ist bei DumondaMe ein Verein, ein Unternehmen, ein Projekt oder ein persönliches Engagement für eine leuchtende Zukunft. Zeige der Community welches Engagement du empfehlenswert findest, indem du auf den Stern Button eines Engagements klickst.",
+        "goToCommitments": "Zu den Engagements"
       }
     },
     "moreUser": "Und eine weitere Person",

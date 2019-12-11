@@ -53,10 +53,9 @@ describe('Create one time notification when user watches multiple questions', fu
         return requestHandler.logout();
     });
 
-    it('Watching the fourth question generates one time notification', async function () {
+    it('Watching the third question generates challenge to up vote answer', async function () {
         dbDsl.watchQuestion({questionId: '2', userId: '1'});
         dbDsl.watchQuestion({questionId: '3', userId: '1'});
-        dbDsl.watchQuestion({questionId: '4', userId: '1'});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/watch/5');
@@ -72,10 +71,9 @@ describe('Create one time notification when user watches multiple questions', fu
         notification[0].notification.created.should.least(startTime);
     });
 
-    it('Watching the fourth question with existing up votes does not generate new notification', async function () {
+    it('Watching the third question with existing up votes challenge does not generate new challenge', async function () {
         dbDsl.watchQuestion({questionId: '2', userId: '1'});
         dbDsl.watchQuestion({questionId: '3', userId: '1'});
-        dbDsl.watchQuestion({questionId: '4', userId: '1'});
         dbDsl.notificationOneTimeUpVoteFirstAnswer('10', {userId: '1', created: 500});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -90,12 +88,10 @@ describe('Create one time notification when user watches multiple questions', fu
         notification.length.should.equals(0);
     });
 
-    it('Watching fifth question generates no one time notification', async function () {
+    it('Watching forth question generates no challenge to up vote answer', async function () {
         dbDsl.watchQuestion({questionId: '2', userId: '1'});
         dbDsl.watchQuestion({questionId: '3', userId: '1'});
         dbDsl.watchQuestion({questionId: '4', userId: '1'});
-        dbDsl.watchQuestion({questionId: '5', userId: '1'});
-        dbDsl.notificationOneTimeChallengeUpVoteAnswer('10', {userId: '1', created: 500});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.put('/api/user/question/watch/6');
@@ -106,7 +102,65 @@ describe('Create one time notification when user watches multiple questions', fu
         (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeUpVoteAnswer'})`)
             .return('notification')
             .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('Watching fifth question generates challenge to watch commitment', async function () {
+        dbDsl.watchQuestion({questionId: '2', userId: '1'});
+        dbDsl.watchQuestion({questionId: '3', userId: '1'});
+        dbDsl.watchQuestion({questionId: '4', userId: '1'});
+        dbDsl.watchQuestion({questionId: '5', userId: '1'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/6');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeWatchCommitment'})`)
+            .return('notification').end().send();
         notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Watching fifth question with existing challenge does not generates a new challenge', async function () {
+        dbDsl.watchQuestion({questionId: '2', userId: '1'});
+        dbDsl.watchQuestion({questionId: '3', userId: '1'});
+        dbDsl.watchQuestion({questionId: '4', userId: '1'});
+        dbDsl.watchQuestion({questionId: '5', userId: '1'});
+        dbDsl.notificationOneTimeChallengeWatchCommitment('10', {userId: '1', created: 500});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/6');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(false);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeWatchCommitment'})`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.equals('10');
+        notification[0].notification.created.should.equals(500);
+    });
+
+    it('Watching fifth question with existing first watch does not generates a new challenge', async function () {
+        dbDsl.watchQuestion({questionId: '2', userId: '1'});
+        dbDsl.watchQuestion({questionId: '3', userId: '1'});
+        dbDsl.watchQuestion({questionId: '4', userId: '1'});
+        dbDsl.watchQuestion({questionId: '5', userId: '1'});
+        dbDsl.notificationOneTimeWatchFirstCommitment('10', {userId: '1', created: 500});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.put('/api/user/question/watch/6');
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(false);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeWatchingFirstCommitment');
         notification[0].notification.notificationId.should.equals('10');
         notification[0].notification.created.should.equals(500);
     });
