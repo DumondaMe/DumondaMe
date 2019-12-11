@@ -33,6 +33,9 @@
                 <one-time-challenge-watch-question :notification="notification"
                                                    v-else-if="notification.type === 'oneTimeWatchQuestion'">
                 </one-time-challenge-watch-question>
+                <one-time-challenge-watch-commitment :notification="notification"
+                                                   v-else-if="notification.type === 'oneTimeChallengeWatchCommitment'">
+                </one-time-challenge-watch-commitment>
                 <one-time-up-vote-first-answer :notification="notification"
                                                v-else-if="notification.type === 'oneTimeUpVoteFirstAnswer'">
                 </one-time-up-vote-first-answer>
@@ -40,10 +43,10 @@
                                                v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
                 </one-time-watch-first-question>
                 <one-time-watch-first-commitment :notification="notification"
-                                               v-else-if="notification.type === 'oneTimeWatchingFirstCommitment'">
+                                                 v-else-if="notification.type === 'oneTimeWatchingFirstCommitment'">
                 </one-time-watch-first-commitment>
                 <one-time-first-trust-circle-user :notification="notification"
-                                               v-else-if="notification.type === 'oneTimeFirstTrustCircleUser'">
+                                                  v-else-if="notification.type === 'oneTimeFirstTrustCircleUser'">
                 </one-time-first-trust-circle-user>
             </div>
             <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
@@ -75,6 +78,7 @@
 
     import OneTimeChallengeUpVoteAnswer from './oneTime/ChallengeUpVoteAnswer';
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
+    import OneTimeChallengeWatchCommitment from './oneTime/ChallengeWatchCommitment';
     import OneTimeFirstTrustCircleUser from './oneTime/FirstTrustCircleUser';
     import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
@@ -87,8 +91,9 @@
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
             NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeUpVoteAnswer,
-            OneTimeChallengeWatchQuestion, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome,
-            OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment
+            OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment, OneTimeUpVoteFirstAnswer,
+            OneTimeWatchFirstQuestion, OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser,
+            OneTimeWatchFirstCommitment
         },
         data() {
             return {loadingNextNotifications: false}

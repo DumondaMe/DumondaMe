@@ -813,6 +813,11 @@
         "title": "Your first commitment that interests you",
         "description": "By marking a commitment as interesting, more people learn that this commitment exists. Are there any other interesting commitments on DumondaMe?",
         "goToCommitments": "Further commitments"
+      },
+      "challengeWatchCommitment": {
+        "title": "Commitments at DumondaMe",
+        "description": "A commitment at DumondaMe is an association, a company, a project or a personal commitment for a bright future. Show the community which commitment you find recommendable by clicking on the star button of a commitment.",
+        "goToCommitments": "To the commitments"
       }
     },
     "moreUser": "And another person",
