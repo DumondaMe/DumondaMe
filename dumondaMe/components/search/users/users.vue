@@ -74,9 +74,12 @@
                 if (this.$store.state.auth.userIsAuthenticated) {
                     try {
                         this.loading = true;
-                        await this.$axios[command](`user/trustCircle/${userId}`);
+                        let response = await this.$axios[command](`user/trustCircle/${userId}`);
                         if (command === '$post') {
                             this.$store.commit('search/ADD_USER_TO_TRUST_CIRCLE', userId);
+                            if (response && response.oneTimeNotificationCreated) {
+                                this.$store.dispatch('notification/checkNotificationChanged');
+                            }
                         } else {
                             this.$store.commit('search/REMOVE_USER_FROM_TRUST_CIRCLE', userId);
                         }

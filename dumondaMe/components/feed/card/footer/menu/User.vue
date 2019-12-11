@@ -101,7 +101,10 @@
                 if (this.$store.state.auth.userIsAuthenticated) {
                     try {
                         this.loading = true;
-                        await this.$axios[command](`user/trustCircle/${this.user.userId}`);
+                        let response = await this.$axios[command](`user/trustCircle/${this.user.userId}`);
+                        if (response && response.oneTimeNotificationCreated) {
+                            this.$store.dispatch('notification/checkNotificationChanged');
+                        }
                         this.$emit(emit, this.user.userId);
                     } catch (error) {
                         this.showError = true;

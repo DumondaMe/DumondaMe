@@ -45,7 +45,10 @@
             async sendUserToTrustCircleCommand(command, isTrustUser) {
                 try {
                     this.loading = true;
-                    await this.$axios[command](`user/trustCircle/${this.contact.userId}`);
+                    let response = await this.$axios[command](`user/trustCircle/${this.contact.userId}`);
+                    if (response && response.oneTimeNotificationCreated) {
+                        this.$store.dispatch('notification/checkNotificationChanged');
+                    }
                     this.contact.isTrustUser = isTrustUser;
                 } catch (error) {
                     this.showError = true;

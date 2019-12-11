@@ -169,8 +169,11 @@ export const actions = {
         commit('SET_LANGUAGES_NEXT_FEED_LOAD', rootState.i18n.languages);
         commit('SET_USER_PROFILE', user);
     },
-    async addUserToTrustCircle({commit}, userId) {
+    async addUserToTrustCircle({commit, dispatch}, userId) {
         let response = await this.$axios.$post(`user/trustCircle/${userId}`);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         commit('ADD_USER_TO_TRUST_CIRCLE', {userId, personOfTrustSince: response.personOfTrustSince});
     },
     async removeUserFromTrustCircle({commit}, userId) {

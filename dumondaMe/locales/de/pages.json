@@ -802,6 +802,10 @@
         "title": "Dein Freudeskreis auf DumondaMe",
         "description": "Du bist ganz schön auf Zack und hast bereits einiges auf DumondaMe gemacht. Gemeinsam macht es aber noch viel mehr Spass. Lade deshalb deine Freunde auf DumondaMe ein oder finde heraus, wer von ihnen bereits einen Account erstellt hat.",
         "inviteFriendsButton": "Einladen"
+      },
+      "firstTrustCircleUser": {
+        "title": "Die erste Person in deinem Trust Circle",
+        "description": "Der Trust Circle ist auf DumondaMe die Möglichkeit um dich mit Anderen zu vernetzten. So siehst du wenn sie neue Antworten oder Fragen erstellen. In Zukunft wird der Trust Circle dir noch viel mehr ermöglichen. Zum Beispiel das du nur die Antworten siehst, die von Personen aus deinem Trust Circle beantwortet wurden."
       }
     },
     "moreUser": "Und eine weitere Person",

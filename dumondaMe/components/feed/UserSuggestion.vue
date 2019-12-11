@@ -41,7 +41,10 @@
             async addUserToTrustCircle() {
                 try {
                     this.loading = true;
-                    await this.$axios.$post(`user/trustCircle/${this.user.userId}`);
+                    let response = await this.$axios.$post(`user/trustCircle/${this.user.userId}`);
+                    if (response && response.oneTimeNotificationCreated) {
+                        this.$store.dispatch('notification/checkNotificationChanged');
+                    }
                     this.$store.commit('feed/ADD_USER_TO_TRUST_CIRCLE', this.user.userId);
                     Vue.set(this.user, 'userHasBeenAddedToTrustCircle', true);
                     this.$emit('user-added-to-trust-circle')
