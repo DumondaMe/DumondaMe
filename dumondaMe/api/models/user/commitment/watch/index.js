@@ -1,7 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const harvestingUser = require('./../../userHarvesting/security');
+const harvestingUser = require('./../../../userHarvesting/security');
+const oneTimeNotifications = require('./oneTimeNotifications');
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const time = require('dumonda-me-server-lib').time;
 const uuid = require('dumonda-me-server-lib').uuid;
@@ -50,8 +51,8 @@ const addWatch = async function (userId, commitmentId) {
             [addWatchNotificationNotExists(userId, commitmentId, created).getCommand()]
         );
     }
-
-    logger.info(`User watches commitment ${commitmentId}`)
+    logger.info(`User watches commitment ${commitmentId}`);
+    return await oneTimeNotifications.addOneTimeNotifications(userId, created);
 };
 
 const removeWatchNotification = function (userId, commitmentId) {

@@ -124,6 +124,7 @@ module.exports = {
     notificationOneTimeWelcome: notification.oneTimeWelcome,
     notificationOneTimeWatchQuestion: notification.oneTimeWatchQuestion,
     notificationOneTimeWatchFirstQuestion: notification.oneTimeWatchFirstQuestion,
+    notificationOneTimeWatchFirstCommitment: notification.oneTimeWatchFirstCommitment,
     notificationOneTimeUpVoteFirstAnswer: notification.oneTimeUpVoteFirstAnswer,
     notificationOneTimeChallengeUpVoteAnswer: notification.oneTimeChallengeUpVoteAnswer,
     notificationOneTimeInviteFriends: notification.oneTimeInviteFriends,

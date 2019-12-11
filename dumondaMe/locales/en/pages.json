@@ -808,6 +808,11 @@
       "firstTrustCircleUser": {
         "title": "Cool, you've added a person to your Trust Circle for the first time.",
         "description": "The Trust Circle is on DumondaMe the possibility to connect you with others. So you can see when they create new answers or questions. In the future the Trust Circle will give you much more. For example, you will only see the answers that have been answered by people from your Trust Circle."
+      },
+      "watchFirstCommitment": {
+        "title": "Your first commitment that interests you",
+        "description": "By marking a commitment as interesting, more people learn that this commitment exists. Are there any other interesting commitments on DumondaMe?",
+        "goToCommitments": "Further commitments"
       }
     },
     "moreUser": "And another person",
