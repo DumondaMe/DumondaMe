@@ -104,7 +104,7 @@
             .user-icon-container {
                 display: flex;
                 justify-content: center;
-                margin-top: 12px;
+                margin-top: 16px;
 
                 .user-icon {
                     margin: 0 18px;
