@@ -816,6 +816,11 @@
         "title": "Engagements bei DumondaMe",
         "description": "Ein Engagement ist bei DumondaMe ein Verein, ein Unternehmen, ein Projekt oder ein persönliches Engagement für eine leuchtende Zukunft. Zeige der Community welches Engagement du empfehlenswert findest, indem du auf den Stern Button eines Engagements klickst.",
         "goToCommitments": "Zu den Engagements"
+      },
+      "challengeCreateCommitment": {
+        "title": "Dein Engagement bei DumondaMe",
+        "description": "Bist du Teil eines Vereins, eines Unternehmens, eines Projektes oder hast du ein persönliches Engagement für eine leuchtende Zukunft? Erfasse dieses Engagement auf DumondaMe und mache es für die DumondaMe Community sichtbar.",
+        "createCommitment": "Engagement erfassen"
       }
     },
     "moreUser": "Und eine weitere Person",

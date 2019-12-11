@@ -58,8 +58,10 @@ const createBookAnswer = async function (userId, params) {
     if (user[0].length === 1) {
         await uploadImages(params);
         logger.info(`Created book answer ${params.answerId} for question ${params.questionId}`);
-        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
+        let oneTimeNotificationCreated = await notification.addCreatedAnswerNotification(userId,
+            params.answerId, params.created);
         const result = {
+            oneTimeNotificationCreated,
             answerId: params.answerId, created: params.created,
             creator: {
                 name: user[0][0].name,

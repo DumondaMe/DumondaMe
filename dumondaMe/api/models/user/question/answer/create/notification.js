@@ -41,13 +41,24 @@ const createNotificationForUserTrustingCreatorOfAnswer = function (userId, answe
         .end({userId, answerId, created})
 };
 
+const addOneTimeNotificationChallengeCreateCommitment = function (userId, created) {
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeChallengeCreateCommitment'})) AND ` +
+            `NOT EXISTS((u)-[:IS_CREATOR]->(:Commitment))`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeChallengeCreateCommitment', ` +
+            `created: {created}, notificationId: randomUUID()})`)
+        .return('u')
+        .end({userId, created})
+};
+
 const addCreatedAnswerNotification = async function (userId, answerId, created) {
 
-    await createNotificationForCreatorOfQuestion(userId, answerId, created).send(
+    let response = await createNotificationForCreatorOfQuestion(userId, answerId, created).send(
         [createNotificationForUserWatchingQuestion(userId, answerId, created).getCommand(),
-            createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand()]
+            createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand(),
+            addOneTimeNotificationChallengeCreateCommitment(userId, created).getCommand()]
     );
-
+    return response[2].length === 1;
 };
 
 module.exports = {

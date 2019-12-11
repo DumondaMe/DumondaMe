@@ -51,6 +51,9 @@
             </div>
             <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
             </one-time-welcome>
+            <one-time-challenge-create-commitment :notification="notification"
+                                                  v-if="notification.type === 'oneTimeChallengeCreateCommitment'">
+            </one-time-challenge-create-commitment>
             <one-time-invite-friends :notification="notification" v-if="notification.type === 'oneTimeInviteFriends'">
             </one-time-invite-friends>
         </div>
@@ -79,6 +82,7 @@
     import OneTimeChallengeUpVoteAnswer from './oneTime/ChallengeUpVoteAnswer';
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
     import OneTimeChallengeWatchCommitment from './oneTime/ChallengeWatchCommitment';
+    import OneTimeChallengeCreateCommitment from './oneTime/ChallengeCreateCommitment';
     import OneTimeFirstTrustCircleUser from './oneTime/FirstTrustCircleUser';
     import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
@@ -91,9 +95,9 @@
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
             NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeUpVoteAnswer,
-            OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment, OneTimeUpVoteFirstAnswer,
-            OneTimeWatchFirstQuestion, OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser,
-            OneTimeWatchFirstCommitment
+            OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment, OneTimeChallengeCreateCommitment,
+            OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome, OneTimeInviteFriends,
+            OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment
         },
         data() {
             return {loadingNextNotifications: false}

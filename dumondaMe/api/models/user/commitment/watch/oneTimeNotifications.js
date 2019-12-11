@@ -16,10 +16,26 @@ const addOneTimeNotificationWatchFirstCommitment = function (userId, watchAdded)
         .end({userId, notificationId, watchAdded})
 };
 
+const addOneTimeNotificationChallengeCreateCommitment = function (userId, created) {
+    let notificationId = uuid.generateUUID();
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeChallengeCreateCommitment'})) AND ` +
+            `NOT EXISTS((u)-[:IS_CREATOR]->(:Commitment))`)
+        .optionalMatch(`(u)-[:WATCH]->(c:Commitment)`)
+        .with(`COUNT(c) AS numberOfWatches, u`)
+        .where(`numberOfWatches > 2`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeChallengeCreateCommitment', ` +
+            `created: {created}, notificationId: {notificationId}})`)
+        .return('u')
+        .end({userId, notificationId, created})
+};
+
 const addOneTimeNotifications = async function (userId, watchAdded) {
-    let response = await addOneTimeNotificationWatchFirstCommitment(userId, watchAdded).send();
+    let response = await addOneTimeNotificationWatchFirstCommitment(userId, watchAdded).send([
+        addOneTimeNotificationChallengeCreateCommitment(userId, watchAdded).getCommand()
+    ]);
     return {
-        oneTimeNotificationCreated: response.length === 1
+        oneTimeNotificationCreated: response[0].length === 1 || response[1].length === 1
     };
 };
 

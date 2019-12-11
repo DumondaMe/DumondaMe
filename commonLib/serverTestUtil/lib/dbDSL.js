@@ -128,6 +128,7 @@ module.exports = {
     notificationOneTimeUpVoteFirstAnswer: notification.oneTimeUpVoteFirstAnswer,
     notificationOneTimeChallengeUpVoteAnswer: notification.oneTimeChallengeUpVoteAnswer,
     notificationOneTimeChallengeWatchCommitment: notification.oneTimeChallengeWatchCommitment,
+    notificationOneTimeChallengeCreateCommitment: notification.oneTimeChallengeCreateCommitment,
     notificationOneTimeInviteFriends: notification.oneTimeInviteFriends,
     notificationOneTimeFirstTrustCircleUser: notification.oneTimeFirstTrustCircleUser,
 
