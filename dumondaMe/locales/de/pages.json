@@ -804,8 +804,13 @@
         "inviteFriendsButton": "Einladen"
       },
       "firstTrustCircleUser": {
-        "title": "Cool, du hast zum ersten Mal eine Person zu deinem Trust Circle hinzugefügt",
+        "title": "Cool, du hast die erste Person zu deinem Trust Circle hinzugefügt",
         "description": "Der Trust Circle ist auf DumondaMe die Möglichkeit um dich mit Anderen zu vernetzten. So siehst du wenn sie neue Antworten oder Fragen erstellen. In Zukunft wird der Trust Circle dir noch viel mehr ermöglichen. Zum Beispiel das du nur die Antworten siehst, die von Personen aus deinem Trust Circle beantwortet wurden."
+      },
+      "watchFirstCommitment": {
+        "title": "Dein erstes Engagement das dich interessiert",
+        "description": "Indem du ein Engagement als interessant markierst, erfahren mehr Leute das es dieses Engagement gibt. Gibt es noch weitere interessante Engagements auf DumondaMe?",
+        "goToCommitments": "Weitere Engagements"
       }
     },
     "moreUser": "Und eine weitere Person",
