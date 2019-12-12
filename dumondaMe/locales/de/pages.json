@@ -735,6 +735,21 @@
     }
   },
   "notifications": {
+    "challengeStatus": {
+      "title": "DumondaMe Challenge",
+      "description": "Damit du dich auf der Plattform zurecht findest, haben wir diese kleine Challenge für dich erstellt. Wenn du auf das Häcken klickst, siehst du welche Challanges du bereits erfüllt hast.",
+      "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich beendet.",
+      "minor": {
+        "title": "Checkliste",
+        "watchQuestion": "Frage abonniert",
+        "watchCommitment": "Engagement abonniert",
+        "likeAnswer": "Antwort gelikt",
+        "addedPersonToTrustCircle": "Person zum Trust Circle hinzugefügt",
+        "createdAnswer": "Antwort erstellt",
+        "createdQuestion": "Frage gestellt",
+        "createdCommitment": "Dein Engagement erfasst"
+      }
+    },
     "showQuestionRequest": {
       "notification1": "Dein Engagement",
       "notification2": "wurde mit der Frage",

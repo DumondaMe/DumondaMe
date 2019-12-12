@@ -737,6 +737,21 @@
     }
   },
   "notifications": {
+    "challengeStatus": {
+      "title": "DumondaMe Challenge",
+      "description": "To help you find your way around the platform, we have created this little challenge for you. If you click on the check mark, you can see which challenge you have already met.",
+      "successDescription": "Congratulations! You have successfully completed all challenges.",
+      "minor": {
+        "title": "Checklist",
+        "watchQuestion": "Question subscribed",
+        "watchCommitment": "Commitment subscribed",
+        "likeAnswer": "Like an answer",
+        "addedPersonToTrustCircle": "Person added to Trust Circle",
+        "createdAnswer": "Answered Question",
+        "createdQuestion": "Asked Question",
+        "createdCommitment": "Your commitment registered"
+      }
+    },
     "showQuestionRequest": {
       "notification1": "Your Commitment",
       "notification2": "has been linked to the question",
