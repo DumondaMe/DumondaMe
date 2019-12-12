@@ -71,5 +71,6 @@ const getNotifications = async function (userId, skip, limit) {
 
 module.exports = {
     getNotifications,
-    getNumberOfUnreadNotifications
+    getNumberOfUnreadNotifications,
+    getChallengeStatusCommand
 };

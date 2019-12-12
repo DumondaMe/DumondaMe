@@ -126,6 +126,7 @@
                 width: 180px;
                 margin-left: 180px;
                 margin-right: 0;
+                margin-bottom: 18px;
                 @media screen and (max-width: $sm) {
                     margin-left: auto;
                     margin-right: 0;

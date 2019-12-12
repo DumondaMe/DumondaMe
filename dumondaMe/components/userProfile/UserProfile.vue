@@ -6,6 +6,8 @@
             </div>
             <user-profile-card></user-profile-card>
             <div class="user-mobile-content" v-if="!isHarvestingUser">
+                <challenge-status :challenge-status="challengeStatus" v-if="challengeStatus">
+                </challenge-status>
                 <commitments-of-user v-if="isAdminOfCommitments"></commitments-of-user>
                 <trust-circle></trust-circle>
             </div>
@@ -17,6 +19,8 @@
         </div>
         <div slot="sidebar">
             <profile-image></profile-image>
+            <challenge-status :challenge-status="challengeStatus" v-if="challengeStatus">
+            </challenge-status>
             <general-information v-if="!isHarvestingUser"></general-information>
             <div v-else>
                 <general-information-harvesting-user></general-information-harvesting-user>
@@ -38,12 +42,13 @@
     import AboutHarvestingUser from '~/components/userHarvestingProfile/AboutHarvesting.vue';
     import Feed from '~/components/userProfile/Feed.vue';
     import TrustCircle from '~/components/userProfile/trustCircle/UserTrustCircle.vue';
+    import ChallengeStatus from '~/components/notification/info/ChallengeStatus';
     import format from 'date-fns/format'
 
     export default {
         components: {
             DetailLayout, UserProfileCard, ProfileImage, CommitmentsOfUser, GeneralInformation, Feed, TrustCircle,
-            GeneralInformationHarvestingUser, AboutHarvestingUser
+            GeneralInformationHarvestingUser, AboutHarvestingUser, ChallengeStatus
         },
         computed: {
             feed() {
@@ -58,6 +63,9 @@
             isAdminOfCommitments() {
                 return this.$store.state.userProfile.user.adminOfCommitments &&
                     this.$store.state.userProfile.user.adminOfCommitments.length > 0;
+            },
+            challengeStatus() {
+                return this.$store.state.userProfile.user.challengeStatus;
             }
         }
     }
