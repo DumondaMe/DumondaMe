@@ -81,7 +81,7 @@
         @include defaultPaddingCard();
         @media screen and (max-width: $xs) {
             padding-bottom: 0;
-            margin-bottom: 0;
+            margin-bottom: 12px;
             padding-left: 16px;
             background-color: white;
         }
