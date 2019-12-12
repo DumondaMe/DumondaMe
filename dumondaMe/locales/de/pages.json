@@ -738,7 +738,7 @@
     "challengeStatus": {
       "title": "DumondaMe Challenge",
       "description": "Damit du dich auf der Plattform zurecht findest, haben wir diese kleine Challenge für dich erstellt. Wenn du auf das Häcken klickst, siehst du welche Challanges du bereits erfüllt hast.",
-      "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich beendet.",
+      "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich gemeistert.",
       "minor": {
         "title": "Checkliste",
         "watchQuestion": "Frage abonniert",

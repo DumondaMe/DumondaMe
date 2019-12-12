@@ -1,7 +1,7 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Herzlich willkommen bei DumondaMe",
+      "title": "Herzlich Willkommen bei DumondaMe",
       "description": "Für einen einfachen Einstieg kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen. Zudem beschreiben wir kurz die wichtigsten Konzepte."
     },
     "stepProfileImage": {
@@ -29,7 +29,7 @@
       "description": "Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. So erfährst du, wenn diese Menschen eine Frage erfassen oder beantworten. In Zukunft wird der <b>Trust Circle</b> noch viele weitere Funktionen erfüllen und es dir erlauben, dich auf DumondaMe zu vernetzten."
     },
     "stepActions": {
-      "description": "Wir stehen erst am Anfang bei der Entwicklung dieser Plattform und es gibt noch viel zu tun. Herzlichen Dank das du DumondaMe verwendest und auf diese Weise die Plattform mitgestaltest."
+      "description": "DumondaMe befindet sich noch im <b>Beta Status</b>. Das bedeutet, dass die Software Fehler enthalten kann und noch nicht vollständig ist. Die Entwicklung der Plattform ist jedoch schon so weit fortgeschritten, dass du sie nutzbringend verwenden kannst. Das beweisen auch die vielen tollen Beiträge die bereits von der Community erfasst wurden ;-)"
     }
   },
   "invite": {
@@ -51,7 +51,7 @@
       "email": "Deine Web.De E-Mail Adresse"
     },
     "basicAuth": {
-      "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden."
+      "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Adressbuch zu laden."
     },
     "photoTitle": "Wähle dein Profilbild",
     "photoDescription": "Dein Profilbild wird beim generierten E-Mail mitgesendet. Gut wäre wenn du dein Profilbild so wählst, dass dich die Leute darauf gut erkennen. So wissen sie von wem sie die Einladung erhalten haben.",

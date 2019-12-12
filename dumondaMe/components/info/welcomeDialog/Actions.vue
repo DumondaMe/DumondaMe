@@ -8,7 +8,8 @@
                 <img :src="imageUrl"/>
             </div>
             <div>
-                <span class="trust-actions-description">{{$t('dialog:welcome.stepActions.description')}} </span>
+                <span class="trust-actions-description" v-html="$t('dialog:welcome.stepActions.description')">
+                </span>
             </div>
         </v-card-text>
         <v-divider></v-divider>
