@@ -1,7 +1,13 @@
 <template>
-    <div id="ely-user-logged-in-profile-layout">
+    <div id="notifications-overview">
         <feed-layout class="index-pages-container">
-            <div slot="content" id="feed-detail-container">
+            <div slot="sidebar">
+                <challenge-status :challenge-status="challengeStatus">
+                </challenge-status>
+            </div>
+            <div slot="content" id="notification-detail-container">
+                <challenge-status :challenge-status="challengeStatus" class="mobile-challenge-info">
+                </challenge-status>
                 <notifications>
                 </notifications>
             </div>
@@ -12,6 +18,7 @@
 <script>
     import FeedLayout from '~/components/layouts/Detail';
     import Notifications from '~/components/notification/Notifications';
+    import ChallengeStatus from '~/components/notification/info/ChallengeStatus';
 
     export default {
         async fetch({store, error}) {
@@ -27,9 +34,14 @@
             }
             store.commit('toolbar/HIDE_BACK_BUTTON');
         },
-        components: {FeedLayout, Notifications},
+        components: {FeedLayout, Notifications, ChallengeStatus},
         mounted() {
             this.$store.dispatch('notification/stopCheckNotificationChanged');
+        },
+        computed: {
+          challengeStatus() {
+              return this.$store.state.notification.challengeStatus;
+          }
         },
         async beforeDestroy() {
             await this.$store.dispatch('notification/startCheckNotificationChanged');
@@ -39,11 +51,16 @@
 </script>
 
 <style lang="scss">
-    #ely-user-logged-in-profile-layout {
+    #notifications-overview {
         padding-top: 32px;
 
-        #ely-notification-detail {
-            max-width: 700px;
+        #notification-detail-container {
+        }
+
+        .mobile-challenge-info {
+            @media screen and (min-width: $xs + 1) {
+                display: none;
+            }
         }
     }
 </style>
