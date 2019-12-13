@@ -1,6 +1,6 @@
 {
   "toolbar": {
-    "search": "Suche"
+    "search": "Suche: Fragen, Engagements, Personen"
   },
   "login": {
     "titleLogin": "Ich habe bereits ein Konto",
@@ -373,17 +373,17 @@
       "description": "Die Formulierung einer Frage hat einen grossen Einfluss darauf, wie diese beantwortet wird. Aus diesem Grund haben wir einige Empfehlungen für dich zusammengestellt.",
       "instruction1": {
         "title": "Offene Fragen",
-        "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B ja/nein/weiss nicht).",
+        "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B. ja/nein/weiss nicht).",
         "goodSample": "<b>Offene Frage:</b> Welche Gründe sprechen für/gegen ein bedingungsloses Grundeinkommen?",
         "badSample": "<b>Geschlossene Frage:</b> Ist ein bedingungsloses Grundeinkommen sinnvoll?"
       },
       "instruction2": {
-        "title": "Bevorzuge W Fragen",
-        "description": "W Fragen (Warum/Wieso/Weshalb/Welche/usw.) führen meistens zu offenen Fragen."
+        "title": "Bevorzuge W-Fragen",
+        "description": "W-Fragen (Warum/Wieso/Weshalb/Welche/usw.) führen meistens zu offenen Fragen."
       },
       "instruction3": {
-        "title": "Fragen die zu Lösungen führen",
-        "description": "Stelle gezielt auch Fragen um konkrete Lösungsvorschläge zu erhalten.",
+        "title": "Fragen, die zu Lösungen führen",
+        "description": "Stelle gezielt auch Fragen, um konkrete Lösungsvorschläge zu erhalten.",
         "goodSample": "Was kann ich gegen Mikroplastik tun?"
       },
       "instruction4": {
@@ -392,7 +392,7 @@
       },
       "instruction5": {
         "title": "Selbstverständlich",
-        "description": "Keine beleidigende, rassistische oder diskriminierende Frage"
+        "description": "Hier ist kein Platz für beleidigende, rassistische oder diskriminierende Fragen."
       }
     },
     "similarQuestion": {
@@ -780,6 +780,9 @@
     },
     "newQuestion": {
       "notification": "hat die Frage {{- question}} gestellt."
+    },
+    "newCommitment": {
+      "notification": "Das Engagement {{- commitment}} wurde auf DumondaMe erfasst."
     },
     "createdAnswer": {
       "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",

@@ -2,6 +2,7 @@
 
 const slug = require('limax');
 const cdn = require('dumonda-me-server-lib').cdn;
+const text = requireModel('util/text');
 
 const getShowQuestionOnCommitmentRequest = function (notification) {
     let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
@@ -72,10 +73,15 @@ const getNotificationWithOriginators = async function (notification) {
 };
 
 const addWatchingCommitmentProperties = function (notificationResponse, notification) {
-    if (notificationResponse.type === 'watchingCommitment' && notification.infos.length === 1) {
+    if ((notificationResponse.type === 'watchingCommitment' || notificationResponse.type === 'newCommitment')
+        && notification.infos.length === 1) {
         notificationResponse.commitmentId = notification.infos[0].info.commitmentId;
         notificationResponse.commitmentTitle = notification.infos[0].info.title;
+        notificationResponse.commitmentDescription =
+            text.getTruncatedText(notification.infos[0].info.description, 200);
         notificationResponse.commitmentSlug = slug(notification.infos[0].info.title);
+        notificationResponse.commitmentImage =
+            cdn.getPublicUrl(`commitment/${notificationResponse.commitmentId}/120x120/title.jpg`);
     }
 };
 

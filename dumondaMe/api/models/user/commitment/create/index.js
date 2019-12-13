@@ -2,10 +2,11 @@
 
 const slug = require('limax');
 const db = requireDb();
-const topicsSecurity = require('./../../topic/security');
-const regionSecurity = require('./../../region/security');
-const harvestingUser = require('./../../userHarvesting/security');
-const titleImage = require(`./image`);
+const topicsSecurity = require('./../../../topic/security');
+const regionSecurity = require('./../../../region/security');
+const harvestingUser = require('./../../../userHarvesting/security');
+const notification = require('./notifications');
+const titleImage = require(`./../image`);
 const image = require('dumonda-me-server-lib').image;
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
@@ -38,6 +39,7 @@ const createCommitment = async function (userId, params, titlePath) {
     logger.info(`Created commitment with id ${params.commitmentId}`);
 
     await titleImage.uploadTitleImage(titlePath, params.commitmentId, true);
+    await notification.addNotifications(userId, params.commitmentId, params.created);
 
     return {commitmentId: params.commitmentId, slug: slug(params.title)};
 };

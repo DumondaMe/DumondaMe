@@ -20,6 +20,8 @@
                 </watch-commitment>
                 <watch-question :notification="notification" v-else-if="notification.type === 'watchingQuestion'">
                 </watch-question>
+                <new-commitment :notification="notification" v-else-if="notification.type === 'newCommitment'">
+                </new-commitment>
                 <new-question :notification="notification" v-else-if="notification.type === 'newQuestion'">
                 </new-question>
                 <created-answer :notification="notification" v-else-if="notification.type === 'createdAnswer'">
@@ -74,6 +76,7 @@
     import AddToTrustCircle from './AddToTrustCircle';
     import WatchCommitment from './WatchCommitment';
     import WatchQuestion from './WatchQuestion';
+    import NewCommitment from './NewCommitment';
     import NewQuestion from './NewQuestion';
     import CreatedAnswer from './CreatedAnswer';
     import CreatedNote from './CreatedNote';
@@ -94,10 +97,10 @@
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
-            NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered, OneTimeChallengeUpVoteAnswer,
-            OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment, OneTimeChallengeCreateCommitment,
-            OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion, OneTimeWelcome, OneTimeInviteFriends,
-            OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment
+            NewCommitment, NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered,
+            OneTimeChallengeUpVoteAnswer, OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment,
+            OneTimeChallengeCreateCommitment, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion,
+            OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment
         },
         data() {
             return {loadingNextNotifications: false}

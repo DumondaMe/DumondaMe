@@ -783,6 +783,9 @@
     "newQuestion": {
       "notification": "has asked the question {{- question}}."
     },
+    "newCommitment": {
+      "notification": "Commitment {- commitment}} was registered on DumondaMe."
+    },
     "createdAnswer": {
       "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
       "notificationTextAnswer": "Has answered the question{{- question}}."

@@ -118,6 +118,7 @@ module.exports = {
     userWatchesCommitment: notification.userWatchesCommitment,
     userWatchesQuestion: notification.userWatchesQuestion,
     notificationUserCreatedQuestion: notification.userCreatedQuestion,
+    notificationUserCreatedCommitment: notification.userCreatedCommitment,
     notificationCreateAnswer: notification.createAnswer,
     notificationCreateNote: notification.createNote,
     notificationRequestAdminOfCommitment: notification.requestAdminOfCommitment,
