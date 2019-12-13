@@ -10,7 +10,8 @@ const deleteCommitment = async function (userId, commitmentId) {
     await db.cypher().match(`(commitment:Commitment {commitmentId: {commitmentId}})`)
         .optionalMatch(`(commitment)-[rel]-()`)
         .optionalMatch(`(commitment)-[:EVENT]-(event:Event)-[relEvent]-()`)
-        .delete(`commitment, rel, event, relEvent`)
+        .optionalMatch(`(commitment)<-[relNot:NOTIFICATION]-(n:Notification)-[relNot2]-()`)
+        .delete(`commitment, rel, event, relEvent, relNot, relNot2, n`)
         .end({commitmentId}).send();
 
     await cdn.deleteFolder(`commitment/${commitmentId}/`, process.env.BUCKET_PUBLIC);
