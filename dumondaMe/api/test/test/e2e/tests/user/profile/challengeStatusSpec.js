@@ -32,11 +32,7 @@ describe('Getting the status of the challenges in user profile', function () {
     });
 
     it('Challenge create a commitment completed for logged in user', async function () {
-        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
-        dbDsl.createCommitment('2', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, modified: 701,
-            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Test'
-        });
+        dbDsl.notificationOneTimeFirstCommitment('16', {userId: '1', created: 506});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/profile', {guiLanguage: 'de', languages: ['de']});
