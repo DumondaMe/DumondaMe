@@ -813,6 +813,9 @@
         "title": "Challenge: Welche Antworten findest du gut?",
         "description": "Mit dem Daumen hoch kannst du Antworten zustimmen, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
       },
+      "firstAnswer": {
+        "title": "Danke für deine Antwort, wir freuen uns auf mehr..."
+      },
       "upVoteFirstAnswer": {
         "title": "Wow, du hast zum ersten Mal einer Antwort zugestimmt",
         "description": "“Upvotes” für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten zuerst angezeigt. Zudem haben Antworten mit vielen Upvotes eine grössere Reichweite."

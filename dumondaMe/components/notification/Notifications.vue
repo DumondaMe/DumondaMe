@@ -41,6 +41,9 @@
                 <one-time-up-vote-first-answer :notification="notification"
                                                v-else-if="notification.type === 'oneTimeUpVoteFirstAnswer'">
                 </one-time-up-vote-first-answer>
+                <one-time-first-answer :notification="notification"
+                                               v-else-if="notification.type === 'oneTimeFirstAnswer'">
+                </one-time-first-answer>
                 <one-time-watch-first-question :notification="notification"
                                                v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
                 </one-time-watch-first-question>
@@ -86,6 +89,7 @@
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
     import OneTimeChallengeWatchCommitment from './oneTime/ChallengeWatchCommitment';
     import OneTimeChallengeCreateCommitment from './oneTime/ChallengeCreateCommitment';
+    import OneTimeFirstAnswer from './oneTime/FirstAnswer';
     import OneTimeFirstTrustCircleUser from './oneTime/FirstTrustCircleUser';
     import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
@@ -100,7 +104,8 @@
             NewCommitment, NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered,
             OneTimeChallengeUpVoteAnswer, OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment,
             OneTimeChallengeCreateCommitment, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion,
-            OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment
+            OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment,
+            OneTimeFirstAnswer
         },
         data() {
             return {loadingNextNotifications: false}
