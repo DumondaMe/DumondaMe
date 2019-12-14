@@ -41,10 +41,25 @@ const createNotificationForUserTrustingCreatorOfAnswer = function (userId, answe
         .end({userId, answerId, created})
 };
 
+const addOneTimeNotificationFirstAnswer = function (userId, created) {
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstAnswer'}))`)
+        .optionalMatch(`(u)-[:IS_CREATOR]->(a:Answer)`)
+        .with(`COUNT(a) AS numberOfAnswers, u`)
+        .where(`numberOfAnswers = 1`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeFirstAnswer', ` +
+            `created: {created}, notificationId: randomUUID()})`)
+        .return('u')
+        .end({userId, created})
+};
+
 const addOneTimeNotificationChallengeCreateCommitment = function (userId, created) {
     return db.cypher().match(`(u:User {userId: {userId}})`)
         .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeChallengeCreateCommitment'})) AND ` +
             `NOT EXISTS((u)-[:IS_CREATOR]->(:Commitment))`)
+        .optionalMatch(`(u)-[:IS_CREATOR]->(a:Answer)`)
+        .with(`COUNT(a) AS numberOfAnswers, u`)
+        .where(`numberOfAnswers = 2`)
         .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeChallengeCreateCommitment', ` +
             `created: {created}, notificationId: randomUUID()})`)
         .return('u')
@@ -56,9 +71,10 @@ const addCreatedAnswerNotification = async function (userId, answerId, created) 
     let response = await createNotificationForCreatorOfQuestion(userId, answerId, created).send(
         [createNotificationForUserWatchingQuestion(userId, answerId, created).getCommand(),
             createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand(),
+            addOneTimeNotificationFirstAnswer(userId, created).getCommand(),
             addOneTimeNotificationChallengeCreateCommitment(userId, created).getCommand()]
     );
-    return response[2].length === 1;
+    return response[2].length === 1 || response[3].length === 1;
 };
 
 module.exports = {

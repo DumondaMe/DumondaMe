@@ -25,7 +25,72 @@ describe('Create one time challenge when user has answered question', function (
         return requestHandler.logout();
     });
 
-    it('First answer does create create commitment challenge', async function () {
+    it('First answer does create first answer notification', async function () {
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeFirstAnswer'})`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Second answer does not create first answer notification', async function () {
+        dbDsl.createBookAnswer('5', {
+            creatorId: '1', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeFirstAnswer'})`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(0);
+    });
+
+    it('First answer with existing first answer notification does not create new notification', async function () {
+        dbDsl.notificationOneTimeFirstAnswer('10', {userId: '1', created: 500});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(false);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime)`)
+            .return('notification')
+            .end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.type.should.equals('oneTimeFirstAnswer');
+        notification[0].notification.notificationId.should.equals('10');
+        notification[0].notification.created.should.equals(500);
+    });
+
+    it('Second answer does create create commitment challenge', async function () {
+        dbDsl.createBookAnswer('5', {
+            creatorId: '1', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
@@ -44,7 +109,11 @@ describe('Create one time challenge when user has answered question', function (
         notification[0].notification.created.should.least(startTime);
     });
 
-    it('First answer with existing create commitment challenge does not create new challenge', async function () {
+    it('Second answer with existing create commitment challenge does not create new challenge', async function () {
+        dbDsl.createBookAnswer('5', {
+            creatorId: '1', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
         dbDsl.notificationOneTimeChallengeCreateCommitment('10', {userId: '1', created: 500});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
@@ -66,6 +135,10 @@ describe('Create one time challenge when user has answered question', function (
     });
 
     it('No create commitment challenge when user has already created a commitment', async function () {
+        dbDsl.createBookAnswer('5', {
+            creatorId: '1', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
+            hasPreviewImage: true
+        });
         dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
         dbDsl.createCommitment('100', {
             adminId: '1', topics: ['topic1'], language: 'de', created: 400, modified: 606, title: 'Test Commitment',

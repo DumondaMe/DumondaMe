@@ -815,6 +815,9 @@
         "title": "Challenge: Which answers do you like?",
         "description": "With thumbs up, you can agree to answers that you like. Do you have answers to questions that interest you?"
       },
+      "firstAnswer": {
+        "title": "Thank you for your answer, we are looking forward to more..."
+      },
       "upVoteFirstAnswer": {
         "title": "Wow, you agreed to an answer for the first time.",
         "description": "\"Upvotes\" for answers are an important feature of DumondaMe. In this way, the most appropriate answers are displayed first. In addition, answers with many upvotes have a wider range."
