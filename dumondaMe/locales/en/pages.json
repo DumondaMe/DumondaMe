@@ -819,7 +819,10 @@
         "title": "Thank you for your answer, we are looking forward to more..."
       },
       "firstQuestion": {
-        "title": "Question successfully posted, keep up the good work :-)"
+        "title": "Question successfully posted, keep up the good work!"
+      },
+      "firstCommitment": {
+        "title": "It's nice that your commitment is now on DumondaMe!"
       },
       "upVoteFirstAnswer": {
         "title": "Wow, you agreed to an answer for the first time.",
