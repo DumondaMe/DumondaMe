@@ -22,9 +22,8 @@ const addOneTimeNotificationChallengeUpVoteAnswer = function (userId, watchAdded
         .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeChallengeUpVoteAnswer'})) AND ` +
             `NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeUpVoteFirstAnswer'}))`)
         .optionalMatch(`(u)-[:WATCH]->(q:Question)`)
-        .optionalMatch(`(u)-[:IS_CONTACT]->(contact:User)`)
-        .with(`COUNT(q) AS numberOfWatches, COUNT(contact) AS numberOfContacts, u`)
-        .where(`numberOfWatches = 3 AND numberOfContacts = 0`)
+        .with(`COUNT(q) AS numberOfWatches, u`)
+        .where(`numberOfWatches = 3`)
         .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeChallengeUpVoteAnswer', ` +
             `created: {watchAdded}, notificationId: {notificationId}})`)
         .return('u')
