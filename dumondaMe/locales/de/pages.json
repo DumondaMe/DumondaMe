@@ -741,6 +741,7 @@
       "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich gemeistert.",
       "minor": {
         "title": "Checkliste",
+        "createAccount": "Account erstellt",
         "watchQuestion": "Frage abonniert",
         "watchCommitment": "Engagement abonniert",
         "likeAnswer": "Antwort gelikt",

@@ -1,8 +1,8 @@
 <template>
     <div class="minor-challenges-container">
-        <minor-challenge-item v-for="index in totalNumberOfSuccess" :number-of-success="numberOfSuccess"
+        <challenge-item v-for="index in totalNumberOfSuccess" :number-of-success="numberOfSuccess"
                               :trigger="index - 1" :key="index">
-        </minor-challenge-item>
+        </challenge-item>
         <div class="check-list-button">
             <v-menu open-on-hover offset-y>
                 <template v-slot:activator="{ on }">
@@ -16,6 +16,8 @@
                         {{$t('pages:notifications.challengeStatus.minor.title')}}
                     </div>
                     <div class="checklist-container">
+                        <check-list-item :challenge-status="challengeStatus" prop-name="createAccount">
+                        </check-list-item>
                         <check-list-item :challenge-status="challengeStatus" prop-name="watchQuestion">
                         </check-list-item>
                         <check-list-item :challenge-status="challengeStatus" prop-name="watchCommitment">
@@ -38,12 +40,12 @@
 </template>
 
 <script>
-    import MinorChallengeItem from "./MinorChallengeItem";
+    import ChallengeItem from "./ChallengeItem";
     import CheckListItem from "./CheckListItem";
 
     export default {
         props: ['challengeStatus'],
-        components: {MinorChallengeItem, CheckListItem},
+        components: {ChallengeItem, CheckListItem},
         computed: {
             numberOfSuccess() {
                 let number = 0;

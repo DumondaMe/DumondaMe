@@ -743,6 +743,7 @@
       "successDescription": "Congratulations! You have successfully completed all challenges.",
       "minor": {
         "title": "Checklist",
+        "createAccount": "Account created",
         "watchQuestion": "Question subscribed",
         "watchCommitment": "Commitment subscribed",
         "likeAnswer": "Like an answer",

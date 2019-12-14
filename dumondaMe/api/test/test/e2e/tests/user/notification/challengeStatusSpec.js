@@ -20,6 +20,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -39,6 +40,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -57,6 +59,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -79,6 +82,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -94,6 +98,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -109,6 +114,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(true);
@@ -124,6 +130,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(false);
         res.body.challengeStatus.watchCommitment.should.equals(true);
         res.body.challengeStatus.likeAnswer.should.equals(false);
@@ -139,6 +146,7 @@ describe('Getting the status of the challenges', function () {
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
         res.status.should.equal(200);
+        res.body.challengeStatus.createAccount.should.equals(true);
         res.body.challengeStatus.watchQuestion.should.equals(true);
         res.body.challengeStatus.watchCommitment.should.equals(false);
         res.body.challengeStatus.likeAnswer.should.equals(false);

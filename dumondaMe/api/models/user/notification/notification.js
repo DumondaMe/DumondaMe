@@ -29,7 +29,8 @@ const getChallengeStatusCommand = function (userId) {
             `AS addedPersonToTrustCircle, ` +
             `EXISTS((u)-[:IS_CREATOR]-(:Question)) AS createdQuestion, ` +
             `EXISTS((u)-[:IS_CREATOR]-(:Commitment)) AS createdCommitment, ` +
-            `EXISTS((u)-[:IS_CREATOR]-(:Answer)) AS createdAnswer`)
+            `EXISTS((u)-[:IS_CREATOR]-(:Answer)) AS createdAnswer, ` +
+            `true AS createAccount`)
         .end({userId});
 };
 
