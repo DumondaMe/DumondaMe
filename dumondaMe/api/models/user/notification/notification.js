@@ -27,10 +27,12 @@ const getChallengeStatusCommand = function (userId) {
             `AS likeAnswer, ` +
             `EXISTS((u)<-[:NOTIFIED]-(:Notification:OneTime {type: 'oneTimeFirstTrustCircleUser'})) ` +
             `AS addedPersonToTrustCircle, ` +
-            `EXISTS((u)-[:IS_CREATOR]-(:Question)) AS createdQuestion, ` +
-            `EXISTS((u)-[:IS_CREATOR]-(:Commitment)) AS createdCommitment, ` +
-            `EXISTS((u)-[:IS_CREATOR]-(:Answer)) AS createdAnswer, ` +
-            `true AS createAccount`)
+            `EXISTS((u)<-[:NOTIFIED]-(:Notification:OneTime {type: 'oneTimeFirstQuestion'})) ` +
+            `AS createdQuestion, ` +
+            `EXISTS((u)<-[:NOTIFIED]-(:Notification:OneTime {type: 'oneTimeFirstCommitment'})) ` +
+            `AS createdCommitment, ` +
+            `EXISTS((u)<-[:NOTIFIED]-(:Notification:OneTime {type: 'oneTimeFirstAnswer'})) ` +
+            `AS createdAnswer, true AS createAccount`)
         .end({userId});
 };
 

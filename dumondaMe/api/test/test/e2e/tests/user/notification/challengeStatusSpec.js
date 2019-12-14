@@ -8,7 +8,6 @@ describe('Getting the status of the challenges', function () {
 
     beforeEach(async function () {
         await dbDsl.init(5);
-
     });
 
     afterEach(function () {
@@ -31,11 +30,7 @@ describe('Getting the status of the challenges', function () {
     });
 
     it('Challenge create a commitment completed', async function () {
-        dbDsl.createRegion('region-1', {de: 'regionDe', en: 'regionEn'});
-        dbDsl.createCommitment('2', {
-            adminId: '1', topics: ['Spiritual', 'Meditation'], language: 'de', created: 700, modified: 701,
-            website: 'https://www.example.org/', regions: ['region-1'], title: 'Das ist ein Test'
-        });
+        dbDsl.notificationOneTimeFirstCommitment('16', {userId: '1', created: 506});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
@@ -51,10 +46,7 @@ describe('Getting the status of the challenges', function () {
     });
 
     it('Challenge create a question completed', async function () {
-        dbDsl.createQuestion('1', {
-            creatorId: '1', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],
-            language: 'de'
-        });
+        dbDsl.notificationOneTimeFirstQuestion('15', {userId: '1', created: 505});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
@@ -70,14 +62,7 @@ describe('Getting the status of the challenges', function () {
     });
 
     it('Challenge create a answer completed', async function () {
-        dbDsl.createQuestion('1', {
-            creatorId: '2', question: 'Das ist eine Frage', description: 'description', topics: ['Spiritual'],
-            language: 'de'
-        });
-        dbDsl.createBookAnswer('5', {
-            creatorId: '1', questionId: '1', created: 555, authors: 'Hans Wurst', googleBookId: '1234',
-            hasPreviewImage: true
-        });
+        dbDsl.notificationOneTimeFirstAnswer('14', {userId: '1', created: 504});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.get('/api/user/notification', {skip: 0, limit: 10});
