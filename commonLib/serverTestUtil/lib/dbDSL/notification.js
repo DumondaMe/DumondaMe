@@ -260,6 +260,10 @@ const oneTimeFirstQuestion = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeFirstQuestion');
 };
 
+const oneTimeFirstCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstCommitment');
+};
+
 const oneTimeUpVoteFirstAnswer = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeUpVoteFirstAnswer');
 };
@@ -314,6 +318,7 @@ module.exports = {
     oneTimeWatchFirstCommitment,
     oneTimeFirstAnswer,
     oneTimeFirstQuestion,
+    oneTimeFirstCommitment,
     oneTimeUpVoteFirstAnswer,
     oneTimeChallengeUpVoteAnswer,
     oneTimeInviteFriends,

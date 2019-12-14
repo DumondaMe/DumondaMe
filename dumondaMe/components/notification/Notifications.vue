@@ -49,6 +49,10 @@
                                                      :text="$t('pages:notifications.oneTime.firstQuestion.title')"
                                                      v-else-if="notification.type === 'oneTimeFirstQuestion'">
                 </one-time-simple-challenge-completed>
+                <one-time-simple-challenge-completed :notification="notification"
+                                                     :text="$t('pages:notifications.oneTime.firstCommitment.title')"
+                                                     v-else-if="notification.type === 'oneTimeFirstCommitment'">
+                </one-time-simple-challenge-completed>
                 <one-time-watch-first-question :notification="notification"
                                                v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
                 </one-time-watch-first-question>

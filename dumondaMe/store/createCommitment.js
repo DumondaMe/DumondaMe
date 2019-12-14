@@ -71,12 +71,18 @@ export const actions = {
         }
         return commitment;
     },
-    async createCommitment({state}) {
+    async createCommitment({state, dispatch}) {
         let commitment = getCommitmentForUpload(state.commitment);
+        let response;
         if (state.commitment.imageUrl) {
             let blob = dataURItoBlob(state.commitment.imageUrl);
-            return await postWithFile(this.$axios, blob, 'user/commitment', commitment);
+            response = await postWithFile(this.$axios, blob, 'user/commitment', commitment);
+        } else {
+            response = await this.$axios.$post('/user/commitment', commitment);
         }
-        return await this.$axios.$post('/user/commitment', commitment);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root: true});
+        }
+        return response;
     }
 };

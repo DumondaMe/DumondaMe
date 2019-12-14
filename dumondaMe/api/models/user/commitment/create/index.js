@@ -39,9 +39,9 @@ const createCommitment = async function (userId, params, titlePath) {
     logger.info(`Created commitment with id ${params.commitmentId}`);
 
     await titleImage.uploadTitleImage(titlePath, params.commitmentId, true);
-    await notification.addNotifications(userId, params.commitmentId, params.created);
+    let oneTimeNotificationCreated = await notification.addNotifications(userId, params.commitmentId, params.created);
 
-    return {commitmentId: params.commitmentId, slug: slug(params.title)};
+    return {commitmentId: params.commitmentId, slug: slug(params.title), oneTimeNotificationCreated};
 };
 
 module.exports = {

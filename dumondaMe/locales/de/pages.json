@@ -817,7 +817,10 @@
         "title": "Danke für deine Antwort, wir freuen uns auf mehr..."
       },
       "firstQuestion": {
-        "title": "Frage erfolgreich erfasst, weiter so :-)"
+        "title": "Frage erfolgreich erfasst, weiter so!"
+      },
+      "firstCommitment": {
+        "title": "Schön, dass dein Engagement jetzt auf DumondaMe ist!"
       },
       "upVoteFirstAnswer": {
         "title": "Wow, du hast zum ersten Mal einer Antwort zugestimmt",
