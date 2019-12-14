@@ -816,6 +816,9 @@
       "firstAnswer": {
         "title": "Danke für deine Antwort, wir freuen uns auf mehr..."
       },
+      "firstQuestion": {
+        "title": "Frage erfolgreich erfasst, weiter so :-)"
+      },
       "upVoteFirstAnswer": {
         "title": "Wow, du hast zum ersten Mal einer Antwort zugestimmt",
         "description": "“Upvotes” für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten zuerst angezeigt. Zudem haben Antworten mit vielen Upvotes eine grössere Reichweite."

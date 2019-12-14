@@ -256,6 +256,10 @@ const oneTimeFirstAnswer = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeFirstAnswer');
 };
 
+const oneTimeFirstQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstQuestion');
+};
+
 const oneTimeUpVoteFirstAnswer = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeUpVoteFirstAnswer');
 };
@@ -271,7 +275,6 @@ const oneTimeChallengeWatchCommitment = function (notificationId, data) {
 const oneTimeChallengeCreateCommitment = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeChallengeCreateCommitment');
 };
-
 
 const oneTimeInviteFriends = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeInviteFriends');
@@ -310,6 +313,7 @@ module.exports = {
     oneTimeWatchFirstQuestion,
     oneTimeWatchFirstCommitment,
     oneTimeFirstAnswer,
+    oneTimeFirstQuestion,
     oneTimeUpVoteFirstAnswer,
     oneTimeChallengeUpVoteAnswer,
     oneTimeInviteFriends,

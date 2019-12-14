@@ -36,14 +36,19 @@
                                                    v-else-if="notification.type === 'oneTimeWatchQuestion'">
                 </one-time-challenge-watch-question>
                 <one-time-challenge-watch-commitment :notification="notification"
-                                                   v-else-if="notification.type === 'oneTimeChallengeWatchCommitment'">
+                                                     v-else-if="notification.type === 'oneTimeChallengeWatchCommitment'">
                 </one-time-challenge-watch-commitment>
                 <one-time-up-vote-first-answer :notification="notification"
                                                v-else-if="notification.type === 'oneTimeUpVoteFirstAnswer'">
                 </one-time-up-vote-first-answer>
-                <one-time-first-answer :notification="notification"
-                                               v-else-if="notification.type === 'oneTimeFirstAnswer'">
-                </one-time-first-answer>
+                <one-time-simple-challenge-completed :notification="notification"
+                                                     :text="$t('pages:notifications.oneTime.firstAnswer.title')"
+                                                     v-else-if="notification.type === 'oneTimeFirstAnswer'">
+                </one-time-simple-challenge-completed>
+                <one-time-simple-challenge-completed :notification="notification"
+                                                     :text="$t('pages:notifications.oneTime.firstQuestion.title')"
+                                                     v-else-if="notification.type === 'oneTimeFirstQuestion'">
+                </one-time-simple-challenge-completed>
                 <one-time-watch-first-question :notification="notification"
                                                v-else-if="notification.type === 'oneTimeWatchingFirstQuestion'">
                 </one-time-watch-first-question>
@@ -89,7 +94,7 @@
     import OneTimeChallengeWatchQuestion from './oneTime/ChallengeWatchQuestion';
     import OneTimeChallengeWatchCommitment from './oneTime/ChallengeWatchCommitment';
     import OneTimeChallengeCreateCommitment from './oneTime/ChallengeCreateCommitment';
-    import OneTimeFirstAnswer from './oneTime/FirstAnswer';
+    import OneTimeSimpleChallengeCompleted from './oneTime/SimpleChallengeCompleted';
     import OneTimeFirstTrustCircleUser from './oneTime/FirstTrustCircleUser';
     import OneTimeUpVoteFirstAnswer from './oneTime/UpVoteFirstAnswer';
     import OneTimeWatchFirstQuestion from './oneTime/WatchFirstQuestion';
@@ -105,7 +110,7 @@
             OneTimeChallengeUpVoteAnswer, OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment,
             OneTimeChallengeCreateCommitment, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion,
             OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment,
-            OneTimeFirstAnswer
+            OneTimeSimpleChallengeCompleted
         },
         data() {
             return {loadingNextNotifications: false}
