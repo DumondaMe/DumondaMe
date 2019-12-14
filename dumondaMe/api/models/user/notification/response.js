@@ -109,7 +109,7 @@ const addCreatedAnswerProperties = function (notificationResponse, notification)
             let commitment = notification.infos.find((info) => typeof info.info.commitmentId === 'string').info;
             notificationResponse.answerTitle = commitment.title;
         } else if (notificationResponse.answerType === 'Default') {
-            notificationResponse.answerTitle = answer.info.answer;
+            notificationResponse.answerTitle = text.getTruncatedText(answer.info.answer, 200);
         } else {
             notificationResponse.answerTitle = answer.info.title;
         }
@@ -131,7 +131,7 @@ const addCreatedNoteProperties = function (notificationResponse, notification) {
         notificationResponse.noteText = note.text;
 
         if (notificationResponse.answerType === 'Default') {
-            notificationResponse.answerTitle = answer.info.answer;
+            notificationResponse.answerTitle = text.getTruncatedText(answer.info.answer, 200);
         } else {
             notificationResponse.answerTitle = answer.info.title;
         }
