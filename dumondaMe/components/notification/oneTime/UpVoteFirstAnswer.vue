@@ -20,7 +20,6 @@
 
         .first-upvote-title {
             display: flex;
-            align-items: flex-start;
             color: $success-text;
             font-weight: 400;
             font-size: 22px;
