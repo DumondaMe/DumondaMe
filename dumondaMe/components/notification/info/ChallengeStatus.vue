@@ -7,17 +7,17 @@
             <span v-if="allSuccess">{{$t('pages:notifications.challengeStatus.successDescription')}}</span>
             <span v-else>{{$t('pages:notifications.challengeStatus.description')}}</span>
         </div>
-        <minor-status :challenge-status="challengeStatus">
-        </minor-status>
+        <status :challenge-status="challengeStatus">
+        </status>
     </div>
 </template>
 
 <script>
-    import MinorStatus from './MinorStatus/MinorStatus';
+    import Status from './Status/Status';
 
     export default {
         props: ['challengeStatus'],
-        components: {MinorStatus},
+        components: {Status},
         computed: {
             allSuccess() {
                 for (let status in this.challengeStatus) {
