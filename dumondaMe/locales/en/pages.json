@@ -746,7 +746,7 @@
         "createAccount": "Account created",
         "watchQuestion": "Question subscribed",
         "watchCommitment": "Commitment subscribed",
-        "likeAnswer": "Like an answer",
+        "likeAnswer": "Upvote an answer",
         "addedPersonToTrustCircle": "Person added to Trust Circle",
         "createdAnswer": "Answered Question",
         "createdQuestion": "Asked Question",
@@ -799,25 +799,25 @@
       "challenge": "Challenge",
       "welcome": {
         "title": "Welcome to DumondaMe",
-        "description": "Glad your way led you to DumondaMe. Here you can see your notifications. This will let you know if someone answers a question that interests you. We will send you an e-mail so that you don't miss a notification. However, you can set how often and whether we are allowed to send you an email for this purpose.",
+        "description": "Glad your path led you to DumondaMe. Your notifications will be displayed here. For example, when someone answers a question that interests you. To make sure you don't miss a notification, we'll send you an email. However, you can set how often, and if at all, we may send you an email for this purpose.",
         "goToSetting": "To the e-mail settings"
       },
       "challengeWatchQuestion": {
-        "title": "Which question do you find interesting?",
-        "description": "Stay up to date when a question that interests you is answered. Go to the question feed and subscribe to your first question by clicking the star button.",
+        "title": "Which questions do you find interesting?",
+        "description": "Subscribe to questions that interest you by clicking the star button.",
         "goToQuestions": "To the questions"
       },
       "watchFirstQuestion": {
         "title": "Great, you've subscribed to your first question.",
-        "description": "You will now receive a notification when this question is answered. Mark further questions as interesting..."
+        "description": "You will now be notified when this question is answered. Mark further questions as interesting..."
       },
       "challengeUpVoteAnswer": {
         "title": "Which answers do you like?",
-        "description": "With your thumb up, you can up vote answers that you like. Does it possibly have suitable answers to questions that interest you?"
+        "description": "With thumbs up, you can agree to answers that you like. Do you have answers to questions that interest you?"
       },
       "upVoteFirstAnswer": {
-        "title": "Congratulations, you've liked an answer for the first time.",
-        "description": "Likes for answers are an important feature at DumondaMe. In this way, the most appropriate answers to a question are displayed first. Also, answers with many likes will be shown to more people in the news feed."
+        "title": "Wow, you agreed to an answer for the first time.",
+        "description": "\"Upvotes\" for answers are an important feature of DumondaMe. In this way, the most appropriate answers are displayed first. In addition, answers with many upvotes have a wider range."
       },
       "inviteFriends": {
         "title": "Your circle of friends on DumondaMe",
@@ -826,11 +826,11 @@
       },
       "firstTrustCircleUser": {
         "title": "Cool, you've added a person to your Trust Circle for the first time.",
-        "description": "The Trust Circle is on DumondaMe the possibility to connect you with others. So you can see when they create new answers or questions. In the future the Trust Circle will give you much more. For example, you will only see the answers that have been answered by people from your Trust Circle."
+        "description": "You can network with others through the Trust Circle. This is how you see their new questions and answers. In the future the Trust Circle will enable you to do much more, look forward to it!"
       },
       "watchFirstCommitment": {
-        "title": "Your first commitment that interests you",
-        "description": "By marking a commitment as interesting, more people learn that this commitment exists. Are there any other interesting commitments on DumondaMe?",
+        "title": "You've subscribed to your first commitment.",
+        "description": "By marking an commitment as interesting, you stay informed about the latest developments. Do you find other interesting engagements on DumondaMe?",
         "goToCommitments": "Further commitments"
       },
       "challengeWatchCommitment": {

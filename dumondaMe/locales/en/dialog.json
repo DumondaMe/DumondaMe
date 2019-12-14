@@ -2,7 +2,7 @@
   "welcome": {
     "stepWelcome": {
       "title": "Welcome to DumondaMe",
-      "description": "For an easy start, you can make the most important settings for your account hereafter. In addition, we briefly describe the most important concepts."
+      "description": "We will guide you through the most important settings and functions."
     },
     "stepProfileImage": {
       "title": "Your Profile Picture",
@@ -15,7 +15,7 @@
     "stepQuestion": {
       "description": "<b>Questions</b> are the heart of DumondaMe. They can be linked to various answer types such as:",
       "link": "Links to websites",
-      "youtube": "Youtube videos",
+      "youtube": "YouTube videos",
       "books": "Books",
       "text": "own texts",
       "commitment": "Commitments",
@@ -26,10 +26,10 @@
       "hint": "Tip: Commitments can also be used as an answer to a question."
     },
     "stepTrustCircle": {
-      "description": "Add people whose opinions you value to your <b>Trust Circle</b>. This is how you know when these people capture or answer a question. In the future the <b>Trust Circle</b> will fulfill many more functions and allow you to network on DumondaMe."
+      "description": "Add people whose opinions you value to your <b>Trust Circle</b>. This is how you know when these people capture or answer a question. In the future, the Trust Circle will fulfill many more functions and allow you to network on DumondaMe."
     },
     "stepActions": {
-      "description": "We are only at the beginning of the development of this platform and there is still a lot to do. Thank you very much for using DumondaMe and helping to shape the platform."
+      "description": "DumondaMe is still in <b>beta status</b>. This means that the software is not yet complete. However, the development of the platform is so far advanced that you can use it to your advantage. This is also proven by the many great contributions that have already been made by the community ;-)"
     }
   },
   "invite": {
