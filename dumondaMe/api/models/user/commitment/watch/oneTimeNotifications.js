@@ -2,6 +2,7 @@
 
 const db = requireDb();
 const uuid = require('dumonda-me-server-lib').uuid;
+const notification = requireModel('user/notification/challengeCompleteNotification');
 
 const addOneTimeNotificationWatchFirstCommitment = function (userId, watchAdded) {
     let notificationId = uuid.generateUUID();
@@ -31,11 +32,13 @@ const addOneTimeNotificationChallengeCreateCommitment = function (userId, create
 };
 
 const addOneTimeNotifications = async function (userId, watchAdded) {
-    let response = await addOneTimeNotificationWatchFirstCommitment(userId, watchAdded).send([
-        addOneTimeNotificationChallengeCreateCommitment(userId, watchAdded).getCommand()
+    let response = await addOneTimeNotificationChallengeCreateCommitment(userId, watchAdded).send([
+        addOneTimeNotificationWatchFirstCommitment(userId, watchAdded).getCommand(),
+        notification.addOneTimeNotificationChallengeComplete(userId, watchAdded).getCommand()
     ]);
     return {
-        oneTimeNotificationCreated: response[0].length === 1 || response[1].length === 1
+        oneTimeNotificationCreated: response[0].length === 1 || response[1].length === 1 ||
+            response[2].length === 1
     };
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const notification = requireModel('user/notification/challengeCompleteNotification');
 
 const getCreateNotificationCommand = function () {
     return db.cypher().create(`(n:Notification:Unread {type: 'createdAnswer', created: {created}, 
@@ -72,9 +73,10 @@ const addCreatedAnswerNotification = async function (userId, answerId, created) 
         [createNotificationForUserWatchingQuestion(userId, answerId, created).getCommand(),
             createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand(),
             addOneTimeNotificationFirstAnswer(userId, created).getCommand(),
-            addOneTimeNotificationChallengeCreateCommitment(userId, created).getCommand()]
+            addOneTimeNotificationChallengeCreateCommitment(userId, created).getCommand(),
+            notification.addOneTimeNotificationChallengeComplete(userId, created).getCommand()]
     );
-    return response[2].length === 1 || response[3].length === 1;
+    return response[2].length === 1 || response[3].length === 1 || response[4].length === 1;
 };
 
 module.exports = {

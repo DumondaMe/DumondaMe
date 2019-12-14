@@ -288,6 +288,10 @@ const oneTimeFirstTrustCircleUser = function (notificationId, data) {
     oneTime(notificationId, data, 'oneTimeFirstTrustCircleUser');
 };
 
+const oneTimeChallengeComplete = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeComplete');
+};
+
 const oneTime = function (notificationId, data, type) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -324,5 +328,6 @@ module.exports = {
     oneTimeInviteFriends,
     oneTimeFirstTrustCircleUser,
     oneTimeChallengeWatchCommitment,
-    oneTimeChallengeCreateCommitment
+    oneTimeChallengeCreateCommitment,
+    oneTimeChallengeComplete
 };

@@ -58,7 +58,7 @@ describe('Create a one time notification when user has created a commitment', fu
         res.body.oneTimeNotificationCreated.should.equals(false);
 
         let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
-        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeFirstCommitment'})`)
+        (notification:Notification:Unread:NoEmail:OneTime)`)
             .return('notification').end().send();
         notification.length.should.equals(0);
     });
@@ -82,5 +82,56 @@ describe('Create a one time notification when user has created a commitment', fu
         notification[0].notification.type.should.equals('oneTimeFirstCommitment');
         notification[0].notification.notificationId.should.equals('10');
         notification[0].notification.created.should.equals(500);
+    });
+
+    it('Create challenge complete notification', async function () {
+        dbDsl.notificationOneTimeUpVoteFirstAnswer('10', {userId: '1', created: 500});
+        dbDsl.notificationOneTimeWatchFirstQuestion('11', {userId: '1', created: 501});
+        dbDsl.notificationOneTimeWatchFirstCommitment('12', {userId: '1', created: 502});
+        dbDsl.notificationOneTimeFirstTrustCircleUser('13', {userId: '1', created: 503});
+        dbDsl.notificationOneTimeFirstAnswer('14', {userId: '1', created: 504});
+        dbDsl.notificationOneTimeFirstQuestion('15', {userId: '1', created: 505});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/commitment', {
+            title: 'Commitment Example', description: 'description',
+            website: 'https://www.example.org', regions: ['region-1'],
+            topics: ['topic1'], lang: 'de'
+        }, `${__dirname}/test.jpg`);
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeComplete'})`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Existing challenge complete notification does not generate new challenge complete', async function () {
+        dbDsl.notificationOneTimeUpVoteFirstAnswer('10', {userId: '1', created: 500});
+        dbDsl.notificationOneTimeWatchFirstQuestion('11', {userId: '1', created: 501});
+        dbDsl.notificationOneTimeWatchFirstCommitment('12', {userId: '1', created: 502});
+        dbDsl.notificationOneTimeFirstTrustCircleUser('13', {userId: '1', created: 503});
+        dbDsl.notificationOneTimeFirstAnswer('14', {userId: '1', created: 504});
+        dbDsl.notificationOneTimeFirstQuestion('15', {userId: '1', created: 505});
+        dbDsl.notificationOneTimeChallengeComplete('20', {userId: '1', created: 666});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/commitment', {
+            title: 'Commitment Example', description: 'description',
+            website: 'https://www.example.org', regions: ['region-1'],
+            topics: ['topic1'], lang: 'de'
+        }, `${__dirname}/test.jpg`);
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeComplete'})`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.equals('20');
+        notification[0].notification.created.should.equals(666);
     });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const notification = requireModel('user/notification/challengeCompleteNotification');
 
 const createNewCommitmentNotifications = function (creatorId, commitmentId, created) {
     return db.cypher().match(`(notifiedUser:User)`)
@@ -26,8 +27,9 @@ const addOneTimeNotificationFirstCommitment = function (userId, created) {
 
 const addNotifications = async function (creatorId, commitmentId, created) {
     let response = await createNewCommitmentNotifications(creatorId, commitmentId, created).send(
-        [addOneTimeNotificationFirstCommitment(creatorId, created).getCommand()]);
-    return response[0].length === 1;
+        [addOneTimeNotificationFirstCommitment(creatorId, created).getCommand(),
+            notification.addOneTimeNotificationChallengeComplete(creatorId, created).getCommand()]);
+    return response[0].length === 1 || response[1].length === 1;
 };
 
 

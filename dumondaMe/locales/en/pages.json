@@ -851,6 +851,11 @@
         "title": "Challenge: Your commitment at DumondaMe",
         "description": "Are you part of an association, a company, a project or do you have a personal commitment for a bright future? Capture this commitment on DumondaMe and make it visible for the DumondaMe community.",
         "createCommitment": "Create Commitment"
+      },
+      "challengeComplete": {
+        "title": "Congratulations!",
+        "description": "You have successfully mastered all challenges. Thank you for enriching this platform with your knowledge. People like you bring DumondaMe to life. Together everything is possible, so invite your friends to join in.",
+        "inviteFriendsButton": "Invite friends"
       }
     },
     "moreUser": "And another person",

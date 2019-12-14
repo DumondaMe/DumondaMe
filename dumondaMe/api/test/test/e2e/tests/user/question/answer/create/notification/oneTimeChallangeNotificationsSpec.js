@@ -159,4 +159,53 @@ describe('Create one time challenge when user has answered question', function (
             .end().send();
         notification.length.should.equals(0);
     });
+
+    it('Create challenge complete notification', async function () {
+        dbDsl.notificationOneTimeUpVoteFirstAnswer('10', {userId: '1', created: 500});
+        dbDsl.notificationOneTimeWatchFirstQuestion('11', {userId: '1', created: 501});
+        dbDsl.notificationOneTimeWatchFirstCommitment('12', {userId: '1', created: 502});
+        dbDsl.notificationOneTimeFirstTrustCircleUser('13', {userId: '1', created: 503});
+        dbDsl.notificationOneTimeFirstQuestion('15', {userId: '1', created: 505});
+        dbDsl.notificationOneTimeFirstCommitment('16', {userId: '1', created: 506});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeComplete'})`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        should.exist(notification[0].notification.notificationId);
+        notification[0].notification.created.should.least(startTime);
+    });
+
+    it('Existing challenge complete notification does not generate new challenge complete', async function () {
+        dbDsl.notificationOneTimeUpVoteFirstAnswer('10', {userId: '1', created: 500});
+        dbDsl.notificationOneTimeWatchFirstQuestion('11', {userId: '1', created: 501});
+        dbDsl.notificationOneTimeWatchFirstCommitment('12', {userId: '1', created: 502});
+        dbDsl.notificationOneTimeFirstTrustCircleUser('13', {userId: '1', created: 503});
+        dbDsl.notificationOneTimeFirstQuestion('15', {userId: '1', created: 505});
+        dbDsl.notificationOneTimeFirstCommitment('16', {userId: '1', created: 506});
+        dbDsl.notificationOneTimeChallengeComplete('20', {userId: '1', created: 666});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.post('/api/user/question/answer/youtube/1', {
+            link: 'https://www.youtube.com/watch?v=Lhku7ZBWEK8',
+            title: 'titleYoutube', description: 'descriptionYoutube'
+        });
+        res.status.should.equal(200);
+        res.body.oneTimeNotificationCreated.should.equals(true);
+
+        let notification = await db.cypher().match(`(:User {userId: '1'})<-[:NOTIFIED]-
+        (notification:Notification:Unread:NoEmail:OneTime {type: 'oneTimeChallengeComplete'})`)
+            .return('notification').end().send();
+        notification.length.should.equals(1);
+        notification[0].notification.notificationId.should.equals('20');
+        notification[0].notification.created.should.equals(666);
+    });
 });

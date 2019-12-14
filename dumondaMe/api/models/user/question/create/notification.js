@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const notification = requireModel('user/notification/challengeCompleteNotification');
 
 const createNewQuestionNotifications = function (userId, questionId, created) {
     return db.cypher()
@@ -29,8 +30,9 @@ const addOneTimeNotificationFirstQuestion = function (userId, created) {
 const addNotifications = async function (userId, questionId, created) {
 
     let response = await createNewQuestionNotifications(userId, questionId, created).send(
-        [addOneTimeNotificationFirstQuestion(userId, created).getCommand()]);
-    return response[0].length === 1;
+        [addOneTimeNotificationFirstQuestion(userId, created).getCommand(),
+            notification.addOneTimeNotificationChallengeComplete(userId, created).getCommand()]);
+    return response[0].length === 1 || response[1].length === 1;
 };
 
 module.exports = {
