@@ -737,14 +737,14 @@
   "notifications": {
     "challengeStatus": {
       "title": "DumondaMe Challenge",
-      "description": "Damit du dich auf der Plattform zurecht findest, haben wir diese kleine Challenge für dich erstellt. Wenn du auf das Häcken klickst, siehst du welche Challanges du bereits erfüllt hast.",
+      "description": "Damit du dich auf der Plattform zurecht findest, haben wir diese kleine Challenge für dich erstellt. Wenn du auf das Häckchen klickst, siehst du welche Challenges du bereits erfüllt hast.",
       "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich gemeistert.",
       "minor": {
         "title": "Checkliste",
         "createAccount": "Account erstellt",
         "watchQuestion": "Frage abonniert",
         "watchCommitment": "Engagement abonniert",
-        "likeAnswer": "Antwort gelikt",
+        "likeAnswer": "Einer Antwort zugestimmt",
         "addedPersonToTrustCircle": "Person zum Trust Circle hinzugefügt",
         "createdAnswer": "Antwort erstellt",
         "createdQuestion": "Frage gestellt",
@@ -797,38 +797,38 @@
       "challenge": "Challenge",
       "welcome": {
         "title": "Herzlich Willkommen bei DumondaMe",
-        "description": "Schön das dich dein Weg zu DumondaMe geführt hat. Hier werden dir deine Benachrichtigungen angezeigt. So erfährst du, wenn z.B. jemand eine Frage beantwortet die dich interessiert. Damit du keine Benachrichtigung verpasst, senden wir dir eine E-Mail. Du kannst jedoch einstellen, wie oft und ob wir dir überhaupt eine E-Mail zu diesem Zweck senden dürfen.",
+        "description": "Schön, dass dich dein Weg zu DumondaMe geführt hat. Hier werden dir deine Benachrichtigungen angezeigt. So erfährst du, wenn z.B. jemand eine Frage beantwortet, die dich interessiert. Damit du keine Benachrichtigung verpasst, senden wir dir eine E-Mail. Du kannst jedoch einstellen, wie oft und ob überhaupt wir dir eine E-Mail zu diesem Zweck senden dürfen.",
         "goToSetting": "Zu den E-Mail Einstellungen"
       },
       "challengeWatchQuestion": {
-        "title": "Welche Frage findest du interessant?",
-        "description": "Bleibe auf dem Laufenden wenn eine Frage die dich interessiert beantwortet wird. Gehe zur Fragen Übersicht und abonniere deine erste Frage mit einem klick auf den Stern Button.",
+        "title": "Welche Fragen findest du interessant?",
+        "description": "Abonniere Fragen, die dich interessieren, mit einem Klick auf den Stern-Button.",
         "goToQuestions": "Zu den Fragen"
       },
       "watchFirstQuestion": {
         "title": "Super, du hast deine erste Frage abonniert",
-        "description": "Du erhältst nun eine Benachrichtigung, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant..."
+        "description": "Du wirst ab jetzt benachrichtigt, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant…"
       },
       "challengeUpVoteAnswer": {
         "title": "Welche Antworten findest du gut?",
-        "description": "Mit dem Daumen hoch kannst du Antworten liken, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
+        "description": "Mit dem Daumen hoch kannst du Antworten zustimmen, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
       },
       "upVoteFirstAnswer": {
-        "title": "Herzliche Gratulation, du hast zum ersten Mal eine Antwort gelikt",
-        "description": "Likes für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten bei einer Frage zuerst angezeigt. Zudem werden Antworten mit vielen Likes  mehr Leuten im News Feed angezeigt."
+        "title": "Wow, du hast zum ersten Mal einer Antwort zugestimmt",
+        "description": "“Upvotes” für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten zuerst angezeigt. Zudem haben Antworten mit vielen Upvotes eine grössere Reichweite."
       },
       "inviteFriends": {
-        "title": "Dein Freudeskreis auf DumondaMe",
+        "title": "Dein Freundeskreis auf DumondaMe",
         "description": "Du bist ganz schön auf Zack und hast bereits einiges auf DumondaMe gemacht. Gemeinsam macht es aber noch viel mehr Spass. Lade deshalb deine Freunde auf DumondaMe ein oder finde heraus, wer von ihnen bereits einen Account erstellt hat.",
         "inviteFriendsButton": "Einladen"
       },
       "firstTrustCircleUser": {
         "title": "Cool, du hast die erste Person zu deinem Trust Circle hinzugefügt",
-        "description": "Der Trust Circle ist auf DumondaMe die Möglichkeit um dich mit Anderen zu vernetzten. So siehst du wenn sie neue Antworten oder Fragen erstellen. In Zukunft wird der Trust Circle dir noch viel mehr ermöglichen. Zum Beispiel das du nur die Antworten siehst, die von Personen aus deinem Trust Circle beantwortet wurden."
+        "description": "Über den Trust Circle kannst du dich mit anderen vernetzen. So siehst du ihre neuen Fragen und Antworten. In Zukunft wird der Trust Circle dir noch viel mehr ermöglichen, freu dich darauf!"
       },
       "watchFirstCommitment": {
-        "title": "Dein erstes Engagement das dich interessiert",
-        "description": "Indem du ein Engagement als interessant markierst, erfahren mehr Leute das es dieses Engagement gibt. Gibt es noch weitere interessante Engagements auf DumondaMe?",
+        "title": "Du hast dein erstes Engagement abonniert",
+        "description": "Indem du ein Engagement als interessant markierst, bleibst du informiert über die neusten Entwicklungen. Findest du noch weitere interessante Engagements auf DumondaMe?",
         "goToCommitments": "Weitere Engagements"
       },
       "challengeWatchCommitment": {
