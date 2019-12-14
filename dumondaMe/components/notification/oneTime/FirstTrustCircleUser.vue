@@ -1,6 +1,9 @@
 <template>
     <div class="notification-one-time-first-trust-circle-user">
-        <div class="fist-title">{{$t('pages:notifications.oneTime.firstTrustCircleUser.title')}}</div>
+        <div class="first-trust-circle-title">
+            <v-icon size="32" class="success-icon">mdi-check-circle-outline</v-icon>
+            <div>{{$t('pages:notifications.oneTime.firstTrustCircleUser.title')}}</div>
+        </div>
         <div class="description">{{$t('pages:notifications.oneTime.firstTrustCircleUser.description')}}</div>
     </div>
 </template>
@@ -15,10 +18,19 @@
 <style lang="scss">
     .notification-one-time-first-trust-circle-user {
 
-        .fist-title {
-            color: $primary-color;
+        .first-trust-circle-title {
+            display: flex;
+            color: $success-text;
             font-weight: 400;
             font-size: 22px;
+
+            .success-icon {
+                margin-right: 8px;
+            }
+
+            .success-icon.v-icon {
+                color: $success-text;
+            }
         }
 
         .description {

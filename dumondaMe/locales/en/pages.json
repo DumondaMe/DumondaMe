@@ -803,7 +803,7 @@
         "goToSetting": "To the e-mail settings"
       },
       "challengeWatchQuestion": {
-        "title": "Which questions do you find interesting?",
+        "title": "Challenge: Which questions do you find interesting?",
         "description": "Subscribe to questions that interest you by clicking the star button.",
         "goToQuestions": "To the questions"
       },
@@ -812,7 +812,7 @@
         "description": "You will now be notified when this question is answered. Mark further questions as interesting..."
       },
       "challengeUpVoteAnswer": {
-        "title": "Which answers do you like?",
+        "title": "Challenge: Which answers do you like?",
         "description": "With thumbs up, you can agree to answers that you like. Do you have answers to questions that interest you?"
       },
       "upVoteFirstAnswer": {
@@ -834,12 +834,12 @@
         "goToCommitments": "Further commitments"
       },
       "challengeWatchCommitment": {
-        "title": "Commitments at DumondaMe",
+        "title": "Challenge: Commitments at DumondaMe",
         "description": "A commitment at DumondaMe is an association, a company, a project or a personal commitment for a bright future. Show the community which commitment you find recommendable by clicking on the star button of a commitment.",
         "goToCommitments": "To the commitments"
       },
       "challengeCreateCommitment": {
-        "title": "Your commitment at DumondaMe",
+        "title": "Challenge: Your commitment at DumondaMe",
         "description": "Are you part of an association, a company, a project or do you have a personal commitment for a bright future? Capture this commitment on DumondaMe and make it visible for the DumondaMe community.",
         "createCommitment": "Create Commitment"
       }

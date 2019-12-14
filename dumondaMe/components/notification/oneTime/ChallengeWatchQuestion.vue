@@ -3,7 +3,7 @@
         <div class="welcome-title">{{$t('pages:notifications.oneTime.challengeWatchQuestion.title')}}</div>
         <div class="description-container">
             <div class="star-container">
-                <v-icon size="50" color="secondary">mdi-star</v-icon>
+                <v-icon size="50" color="primary">mdi-star-outline</v-icon>
             </div>
             <div class="description">{{$t('pages:notifications.oneTime.challengeWatchQuestion.description')}}</div>
         </div>
@@ -26,7 +26,7 @@
         font-weight: 300;
 
         .welcome-title {
-            color: $primary-color;
+            color: $secondary-color;
             font-weight: 400;
             font-size: 22px;
         }

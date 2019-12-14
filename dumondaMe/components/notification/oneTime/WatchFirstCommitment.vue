@@ -1,6 +1,9 @@
 <template>
     <div class="notification-one-time-watch-first-commitment">
-        <div class="fist-commitment-title">{{$t('pages:notifications.oneTime.watchFirstCommitment.title')}}</div>
+        <div class="first-commitment-title">
+            <v-icon size="32" class="success-icon">mdi-check-circle-outline</v-icon>
+            <div>{{$t('pages:notifications.oneTime.watchFirstCommitment.title')}}</div>
+        </div>
         <div class="description">{{$t('pages:notifications.oneTime.watchFirstCommitment.description')}}</div>
         <v-btn color="primary" class="go-to-questions"
                @click="$router.push({name: 'commitment'})">
@@ -19,10 +22,19 @@
 <style lang="scss">
     .notification-one-time-watch-first-commitment {
 
-        .fist-commitment-title {
-            color: $primary-color;
+        .first-commitment-title {
+            display: flex;
+            color: $success-text;
             font-weight: 400;
             font-size: 22px;
+
+            .success-icon {
+                margin-right: 8px;
+            }
+
+            .success-icon.v-icon {
+                color: $success-text;
+            }
         }
 
         .description {
