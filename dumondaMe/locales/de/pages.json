@@ -849,6 +849,11 @@
         "title": "Challenge: Dein Engagement bei DumondaMe",
         "description": "Bist du Teil eines Vereins, eines Unternehmens, eines Projektes oder hast du ein persönliches Engagement für eine leuchtende Zukunft? Erfasse dieses Engagement auf DumondaMe und mache es für die DumondaMe Community sichtbar.",
         "createCommitment": "Engagement erfassen"
+      },
+      "challengeComplete": {
+        "title": "Herzliche Gratulation!",
+        "description": "Du hast alle Challenges erfolgreich gemeistert. Danke, dass du diese Plattform mit deinem Wissen bereicherst. Durch Menschen wie dich wird DumondaMe lebendig. Gemeinsam ist alles möglich, darum lade auch deine Freundinnen und Freunde zum Mitmachen ein.",
+        "inviteFriendsButton": "Freunde einladen"
       }
     },
     "moreUser": "Und eine weitere Person",

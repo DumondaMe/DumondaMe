@@ -65,10 +65,14 @@
             </div>
             <one-time-welcome :notification="notification" v-if="notification.type === 'oneTimeWelcome'">
             </one-time-welcome>
+            <one-time-challenge-complete :notification="notification"
+                                         v-else-if="notification.type === 'oneTimeChallengeComplete'">
+            </one-time-challenge-complete>
             <one-time-challenge-create-commitment :notification="notification"
-                                                  v-if="notification.type === 'oneTimeChallengeCreateCommitment'">
+                                                  v-else-if="notification.type === 'oneTimeChallengeCreateCommitment'">
             </one-time-challenge-create-commitment>
-            <one-time-invite-friends :notification="notification" v-if="notification.type === 'oneTimeInviteFriends'">
+            <one-time-invite-friends :notification="notification"
+                                     v-else-if="notification.type === 'oneTimeInviteFriends'">
             </one-time-invite-friends>
         </div>
         <v-btn outlined color="primary" id="load-next-button" v-if="hasMoreNotifications"
@@ -105,6 +109,7 @@
     import OneTimeWatchFirstCommitment from './oneTime/WatchFirstCommitment';
     import OneTimeWelcome from './oneTime/Welcome';
     import OneTimeInviteFriends from './oneTime/InviteFriends';
+    import OneTimeChallengeComplete from './oneTime/ChallengeComplete';
 
     export default {
         name: "notifications",
@@ -114,7 +119,7 @@
             OneTimeChallengeUpVoteAnswer, OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment,
             OneTimeChallengeCreateCommitment, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion,
             OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment,
-            OneTimeSimpleChallengeCompleted
+            OneTimeSimpleChallengeCompleted, OneTimeChallengeComplete
         },
         data() {
             return {loadingNextNotifications: false}

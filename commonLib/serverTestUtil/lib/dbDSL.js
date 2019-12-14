@@ -135,6 +135,7 @@ module.exports = {
     notificationOneTimeChallengeCreateCommitment: notification.oneTimeChallengeCreateCommitment,
     notificationOneTimeInviteFriends: notification.oneTimeInviteFriends,
     notificationOneTimeFirstTrustCircleUser: notification.oneTimeFirstTrustCircleUser,
+    notificationOneTimeChallengeComplete: notification.oneTimeChallengeComplete,
 
     disableEMailNotification: eMailNotificationSettings.disableEMailNotification,
     emailNotificationSetEMailInterval: eMailNotificationSettings.setEMailInterval,
