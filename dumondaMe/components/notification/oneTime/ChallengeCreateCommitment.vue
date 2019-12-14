@@ -37,7 +37,7 @@
         font-weight: 300;
 
         .challenge-title {
-            color: $primary-color;
+            color: $secondary-color;
             font-weight: 400;
             font-size: 22px;
             margin-bottom: 14px;

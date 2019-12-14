@@ -1,6 +1,9 @@
 <template>
     <div class="notification-one-time-upVote-first-answer">
-        <div class="fist-question-title">{{$t('pages:notifications.oneTime.upVoteFirstAnswer.title')}}</div>
+        <div class="first-upvote-title">
+            <v-icon size="32" class="success-icon">mdi-check-circle-outline</v-icon>
+            <div>{{$t('pages:notifications.oneTime.upVoteFirstAnswer.title')}}</div>
+        </div>
         <div class="description">{{$t('pages:notifications.oneTime.upVoteFirstAnswer.description')}}</div>
     </div>
 </template>
@@ -15,10 +18,20 @@
 <style lang="scss">
     .notification-one-time-upVote-first-answer {
 
-        .fist-question-title {
-            color: $primary-color;
+        .first-upvote-title {
+            display: flex;
+            align-items: flex-start;
+            color: $success-text;
             font-weight: 400;
             font-size: 22px;
+
+            .success-icon {
+                margin-right: 8px;
+            }
+
+            .success-icon.v-icon {
+                color: $success-text;
+            }
         }
 
         .description {

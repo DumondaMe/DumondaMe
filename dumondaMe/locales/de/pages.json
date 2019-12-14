@@ -801,7 +801,7 @@
         "goToSetting": "Zu den E-Mail Einstellungen"
       },
       "challengeWatchQuestion": {
-        "title": "Welche Fragen findest du interessant?",
+        "title": "Challenge: Welche Fragen findest du interessant?",
         "description": "Abonniere Fragen, die dich interessieren, mit einem Klick auf den Stern-Button.",
         "goToQuestions": "Zu den Fragen"
       },
@@ -810,7 +810,7 @@
         "description": "Du wirst ab jetzt benachrichtigt, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant…"
       },
       "challengeUpVoteAnswer": {
-        "title": "Welche Antworten findest du gut?",
+        "title": "Challenge: Welche Antworten findest du gut?",
         "description": "Mit dem Daumen hoch kannst du Antworten zustimmen, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
       },
       "upVoteFirstAnswer": {
@@ -832,12 +832,12 @@
         "goToCommitments": "Weitere Engagements"
       },
       "challengeWatchCommitment": {
-        "title": "Engagements bei DumondaMe",
+        "title": "Challenge: Engagements bei DumondaMe",
         "description": "Ein Engagement ist bei DumondaMe ein Verein, ein Unternehmen, ein Projekt oder ein persönliches Engagement für eine leuchtende Zukunft. Zeige der Community welches Engagement du empfehlenswert findest, indem du auf den Stern Button eines Engagements klickst.",
         "goToCommitments": "Zu den Engagements"
       },
       "challengeCreateCommitment": {
-        "title": "Dein Engagement bei DumondaMe",
+        "title": "Challenge: Dein Engagement bei DumondaMe",
         "description": "Bist du Teil eines Vereins, eines Unternehmens, eines Projektes oder hast du ein persönliches Engagement für eine leuchtende Zukunft? Erfasse dieses Engagement auf DumondaMe und mache es für die DumondaMe Community sichtbar.",
         "createCommitment": "Engagement erfassen"
       }

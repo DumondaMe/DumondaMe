@@ -3,7 +3,7 @@
         <div class="challenge-title">{{$t('pages:notifications.oneTime.challengeWatchCommitment.title')}}</div>
         <div class="description-container">
             <div class="star-container">
-                <v-icon size="50" color="secondary">mdi-star</v-icon>
+                <v-icon size="50" color="primary">mdi-star-outline</v-icon>
             </div>
             <div class="description">{{$t('pages:notifications.oneTime.challengeWatchCommitment.description')}}</div>
         </div>
@@ -25,7 +25,7 @@
     .notification-one-time-challenge-watch-commitment {
 
         .challenge-title {
-            color: $primary-color;
+            color: $secondary-color;
             font-weight: 400;
             font-size: 22px;
         }
