@@ -3,6 +3,9 @@
         <div class="import-source-description">
             {{$t('dialog:invite:importSourceDescription')}}
         </div>
+        <div class="import-hint">
+            {{$t('dialog:invite:importHint')}}
+        </div>
         <div class="import-source-inner-container">
             <v-layout row wrap>
                 <v-flex xs12 sm4>
@@ -166,8 +169,17 @@
             padding-top: 16px;
             font-size: 16px;
             font-weight: 300;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
             color: $primary-text;
+        }
+
+        .import-hint {
+            margin-bottom: 18px;
+            font-size: 16px;
+            font-weight: 300;
+            color: $secondary-color;
+            border-left: 2px solid $secondary-color;
+            padding-left: 12px;
         }
 
         .import-source-inner-container {
