@@ -125,6 +125,7 @@
             font-size: 16px;
             max-width: 550px;
             margin: 0 auto;
+            color: $primary-text;
         }
     }
 </style>

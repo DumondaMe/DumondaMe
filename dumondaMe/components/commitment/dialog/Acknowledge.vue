@@ -35,5 +35,8 @@
 <style lang="scss" scoped>
     .acknowledge-description {
         margin-bottom: 28px;
+        font-weight: 300;
+        font-size: 16px;
+        color: $primary-text;
     }
 </style>

@@ -10,7 +10,9 @@
                     <v-text-field type="text" v-model="search" name="search" :loading="running"
                                   :label="$t('pages:question.askUserAnswerQuestion.inviteDialog.searchLabel')">
                     </v-text-field>
-                    <p v-if="showHelpText">{{$t("pages:question.askUserAnswerQuestion.inviteDialog.description")}}</p>
+                    <p v-if="showHelpText" class="help-description">
+                        {{$t("pages:question.askUserAnswerQuestion.inviteDialog.description")}}
+                    </p>
                     <div v-else>
                         <div v-for="user in users">
                             <user :user="user" :init-selection="user.initIsSelected" :key="user.userId || user.email"
@@ -163,6 +165,12 @@
 
         #dialog-invite-user-to-answer-question-content {
             max-width: 650px;
+
+            .help-description {
+                font-size: 16px;
+                font-weight: 300;
+                color: $primary-text;
+            }
 
             .invitation-already-sent-title {
                 font-weight: 500;

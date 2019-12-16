@@ -43,6 +43,7 @@
             margin-top: 18px;
             font-weight: 300;
             font-size: 16px;
+            color: $primary-text;
             b {
                 font-weight: 500;
                 color: $primary-color;

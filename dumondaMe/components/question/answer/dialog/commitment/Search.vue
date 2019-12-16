@@ -110,6 +110,8 @@
         #commitment-answer-content {
             .info-answer {
                 font-weight: 300;
+                font-size: 16px;
+                color: $primary-text;
                 margin-bottom: 12px;
             }
             .commitment-preview {

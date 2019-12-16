@@ -182,6 +182,8 @@
         width: 100%;
         .info-answer {
             font-weight: 300;
+            font-size: 16px;
+            color: $primary-text;
             margin-bottom: 12px;
         }
         #link-answer-title {
