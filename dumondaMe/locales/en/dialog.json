@@ -59,7 +59,7 @@
       "title": "Invitation text",
       "description": "Here you can write a personal text to your contacts, why they should register on DumondaMe. You can also choose in which language the invitation mail should be sent.",
       "label": "Your text",
-      "template": "I would like to draw your attention to this new social network. It should become a real alternative to the existing platforms like Facebook and Co. when it comes to socially relevant topics. It is still under construction and you can support it by registering at DumondaMe and enriching the platform with your contributions :-)"
+      "template": "I would like to draw your attention to the new social network DumondaMe. It should become a real alternative to the existing platforms like Facebook and Co. when it comes to socially relevant topics. DumondaMe is free, ad-free and you will find a lot of inspiring content that could be relevant for you and the world."
     },
     "sendInvitation": {
       "title": "Send invitations",
