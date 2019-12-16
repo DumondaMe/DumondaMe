@@ -45,12 +45,10 @@
     .notification-user-container {
         .user {
             margin-top: 12px;
-            display: block;
-            clear: both;
+            display: flex;
 
             .user-image {
                 cursor: pointer;
-                float: left;
                 height: 38px;
                 width: 38px;
 
@@ -62,7 +60,7 @@
             }
 
             .user-info {
-                margin-left: 52px;
+                margin-left: 12px;
                 height: 38px;
 
                 .user-name-container {
