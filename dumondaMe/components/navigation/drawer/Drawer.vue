@@ -3,10 +3,12 @@
         <div id="dumonda-me-logged-in-user" v-if="isAuthenticated">
             <img :src="userImage" @click="$router.push({name: 'user'})">
             <div class="user-icon-container">
-                <div class="user-icon" @click="$router.push({name: 'user'})">
+                <div class="user-icon" @click="$router.push({name: 'user'})"
+                     :class="{'is-actual-route': $route.name === 'user'}">
                     <v-icon size="28">mdi-account-outline</v-icon>
                 </div>
-                <div class="user-icon" @click="$router.push({name: 'notifications'})">
+                <div class="user-icon" @click="$router.push({name: 'notifications'})"
+                     :class="{'is-actual-route': $route.name === 'notifications'}">
                     <v-badge overlap color="secondary" v-model="showNumberOfUnreadNotifications">
                         <template v-slot:badge>{{numberOfUnreadNotifications}}</template>
                         <v-icon size="28" >mdi-bell-outline</v-icon>
@@ -109,6 +111,12 @@
                 .user-icon {
                     margin: 0 18px;
                     cursor: pointer;
+                }
+
+                .user-icon.is-actual-route {
+                    .v-icon {
+                        color: $primary-color;
+                    }
                 }
             }
         }
