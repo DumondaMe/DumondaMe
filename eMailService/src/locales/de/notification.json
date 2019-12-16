@@ -19,6 +19,10 @@
     "title": "{{name}} hat dich zu seinem/ihrem Trust Circle hinzugefügt",
     "text1": "hat dich zu seinem/ihrem Trust Circle hinzugefügt"
   },
+  "invitedUserHasRegistered": {
+    "title": "{{name}} hat einen Account auf DumondaMe erstellt",
+    "text1": "hat einen Account auf DumondaMe erstellt. Begrüsse ihn/sie indem du ihn/sie deinem Trust Circle hinzufügst."
+  },
   "adminOfCommitmentRequest": {
     "title": "Anfrage um dich als Adminstorator von \"{{commitment}}\" hinzuzufügen",
     "text1": "hat dir eine Anfrage gesendet um dich als Administrator von",

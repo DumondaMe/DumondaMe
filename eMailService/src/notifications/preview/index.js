@@ -52,6 +52,15 @@ const addedToTrustCircle = async function (notification, language) {
     }, {async: true});
 };
 
+const invitedUserHasRegistered = async function (notification, language) {
+    let user = notification.originators[0].originator;
+    let linkToUser = `${process.env.DUMONDA_ME_DOMAIN}user/${user.userId}/` +
+        `${slug(user.name)}`;
+    return ejs.renderFile(`${__dirname}/../emailTemplates/invitedUserHasRegistered.ejs`, {
+        linkToUser, user, text1: i18next.t('notification:invitedUserHasRegistered.text1', {lng: language})
+    }, {async: true});
+};
+
 const requestAdminOfCommitment = async function (notification, language) {
     let commitment = notification.notificationObjects[0];
     let commitmentAdmin = notification.originators[0].originator;
@@ -77,7 +86,7 @@ const noPreview = async function (numberOfNoPreview, previewCounter, language) {
 };
 
 const notificationsHandler = {
-    createdAnswer, newQuestion, addedToTrustCircle, requestAdminOfCommitment
+    createdAnswer, newQuestion, addedToTrustCircle, invitedUserHasRegistered, requestAdminOfCommitment
 };
 
 const getPreviewOfNotification = async function (notifications, numberOfNotifications, language) {
