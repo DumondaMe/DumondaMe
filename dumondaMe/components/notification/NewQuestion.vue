@@ -66,6 +66,7 @@
                 height: 38px;
                 width: 38px;
                 margin-top: 4px;
+                flex-shrink: 0;
 
                 img {
                     height: 100%;

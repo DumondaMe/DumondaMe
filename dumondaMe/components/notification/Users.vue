@@ -51,6 +51,7 @@
                 cursor: pointer;
                 height: 38px;
                 width: 38px;
+                flex-shrink: 0;
 
                 img {
                     height: 100%;
