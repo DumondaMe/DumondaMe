@@ -1,8 +1,8 @@
 {
   "welcome": {
     "stepWelcome": {
-      "title": "Willkommen bei DumondaMe!",
-      "description": "Für einen einfachen Einstieg kannst du nachfolgend die wichtigsten Einstellungen für deinen Account vornehmen."
+      "title": "Herzlich Willkommen bei DumondaMe",
+      "description": "Wir führen dich durch die wichtigsten Einstellungen und Funktionen."
     },
     "stepProfileImage": {
       "title": "Dein Profilbild",
@@ -15,7 +15,7 @@
     "stepQuestion": {
       "description": "<b>Fragen</b> sind das Herzstück von DumondaMe. Sie können mit verschiedenen Antworttypen verknüpft werden wie:",
       "link": "Links auf Webseiten",
-      "youtube": "Youtube Videos",
+      "youtube": "YouTube Videos",
       "books": "Büchern",
       "text": "eigenen Texten",
       "commitment": "Engagements",
@@ -26,17 +26,16 @@
       "hint": "Tipp: Engagements können auch als Antwort auf eine Frage verwendet werden."
     },
     "stepTrustCircle": {
-      "description": "Welchen Informationen wir Glauben schenken, hat viel mit Vertrauen zu tun. Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. Durch das Aktivieren des <b>Trust Circle</b> - Filters siehst du in deinem Feed, wenn diese Menschen eine Frage erfassen, Fragen beantworten, Antworten zustimmen und noch vieles mehr."
+      "description": "Füge Personen, deren Meinung du schätzt, deinem <b>Trust Circle</b> hinzu. So erfährst du, wenn diese Menschen eine Frage erfassen oder beantworten. In Zukunft wird der Trust Circle noch viele weitere Funktionen erfüllen und dir erlauben, dich auf DumondaMe zu vernetzen."
     },
     "stepActions": {
-      "description": "In dem du Antworten zustimmst",
-      "description2": "hilfst du mit, dass die relevantesten Informationen zuerst erscheinen. Zudem kannst du Fragen und Engagements markieren, welche dich interessieren",
-      "description3": ". So siehst du in deinem Aktivitäten Feed wenn interessante Fragen beantwortet wurden oder interessante Engagements Veranstaltungen planen. (Der Aktivitäten Feed wird noch überarbeitet damit dir dies besser dargestellt wird)"
+      "description": "DumondaMe befindet sich noch im <b>Beta-Status</b>. Das bedeutet, dass die Software noch nicht vollständig ist. Die Entwicklung der Plattform ist jedoch schon so weit fortgeschritten, dass du sie nutzbringend verwenden kannst. Das beweisen auch die vielen tollen Beiträge, die bereits von der Community erfasst wurden ;-)"
     }
   },
   "invite": {
     "importSourceTitle": "Dein Freundeskreis auf DumondaMe",
     "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen.",
+    "importHint": "Hinweis: Wir gehen sehr achtsam mit deinen Daten um. Die importieren E-Mail Adressen werden von uns nur gespeichert, wenn du nachher an diese Adresse eine Einladungs-E-Mail versendest.",
     "selectAll": "Alle E-Mails auswählen",
     "showOnlySelected": "Nur ausgewälte E-Mails anzeigen",
     "alreadySent": "Du hast bereits eine Einladung an diese E-Mail Adresse versendet",
@@ -53,7 +52,7 @@
       "email": "Deine Web.De E-Mail Adresse"
     },
     "basicAuth": {
-      "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden."
+      "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Adressbuch zu laden."
     },
     "photoTitle": "Wähle dein Profilbild",
     "photoDescription": "Dein Profilbild wird beim generierten E-Mail mitgesendet. Gut wäre wenn du dein Profilbild so wählst, dass dich die Leute darauf gut erkennen. So wissen sie von wem sie die Einladung erhalten haben.",
@@ -61,7 +60,7 @@
       "title": "Einladungstext",
       "description": "An dieser Stelle kannst du einen persönlichen Text an deine Kontakte schreiben, weshalb sie sich auf DumondaMe registrieren sollen. Zudem kannst du auswählen, in welcher Sprache das Einladungsmail versendet werden soll.",
       "label": "Dein Text",
-      "template": "Ich möchte dich auf dieses neue soziale Netzwerk aufmerksam machen. Es soll eine echte Alternative zu den bestehenden Plattformen wie Facebook und Co. werden, wenn es um gesellschaftsrelevante Themen geht. Es ist noch im Aufbau und du kannst es unterstützten, in dem du dich bei DumondaMe anmeldest und die Plattform mit deinen Beiträgen bereicherst :-)"
+      "template": "Ich möchte dich auf das neue soziale Netzwerk DumondaMe aufmerksam machen. Es soll eine echte Alternative zu den bestehenden Plattformen wie Facebook und Co. werden, wenn es um gesellschaftsrelevante Themen geht. DumondaMe ist kostenlos, werbefrei und du findest dort viele inspirierende Inhalte, die für dich und die Welt relevant sein könnten."
     },
     "sendInvitation": {
       "title": "Einladungen versenden",

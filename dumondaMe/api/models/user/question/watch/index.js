@@ -1,7 +1,8 @@
 'use strict';
 
 const db = requireDb();
-const harvestingUser = require('./../../userHarvesting/security');
+const harvestingUser = require('./../../../userHarvesting/security');
+const oneTimeNotifications = require('./oneTimeNotifications');
 const exceptions = require('dumonda-me-server-lib').exceptions;
 const time = require('dumonda-me-server-lib').time;
 const uuid = require('dumonda-me-server-lib').uuid;
@@ -47,10 +48,10 @@ const addWatch = async function (userId, questionId) {
         throw new exceptions.InvalidOperation(`Watch could not be added from user ${userId} to question ${questionId}`);
     } else {
         await addWatchNotificationExists(userId, questionId, created).send([
-            addWatchNotificationNotExists(userId, questionId, created).getCommand()])
+            addWatchNotificationNotExists(userId, questionId, created).getCommand()]);
+        logger.info(`User watches question ${questionId}`);
+        return await oneTimeNotifications.addOneTimeNotifications(userId, created);
     }
-
-    logger.info(`User watches question ${questionId}`)
 };
 
 const removeWatchNotification = function (userId, questionId) {

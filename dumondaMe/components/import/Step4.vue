@@ -9,7 +9,7 @@
                 <div class="text-description">
                     {{$t('dialog:invite:sendInvitation.isOkayToSend', {count: contacts.length})}}
                 </div>
-                <div v-for="contact of contacts">
+                <div v-for="contact of contacts" class="contact-email">
                     {{contact}}
                 </div>
             </div>
@@ -66,6 +66,15 @@
 
         .text-description {
             margin-bottom: 18px;
+            color: $primary-text;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .contact-email {
+            color: $secondary-text;
+            font-size: 16px;
+            margin-bottom: 4px;
         }
     }
 </style>

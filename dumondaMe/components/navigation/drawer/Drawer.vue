@@ -1,6 +1,20 @@
 <template>
     <div id="navigation-drawer">
-        <div id="dumonda-me-logo-container">
+        <div id="dumonda-me-logged-in-user" v-if="isAuthenticated">
+            <img :src="userImage" @click="$router.push({name: 'user'})">
+            <div class="user-icon-container">
+                <div class="user-icon" @click="$router.push({name: 'user'})">
+                    <v-icon size="28">mdi-account-outline</v-icon>
+                </div>
+                <div class="user-icon" @click="$router.push({name: 'notifications'})">
+                    <v-badge overlap color="secondary" v-model="showNumberOfUnreadNotifications">
+                        <template v-slot:badge>{{numberOfUnreadNotifications}}</template>
+                        <v-icon size="28" >mdi-bell-outline</v-icon>
+                    </v-badge>
+                </div>
+            </div>
+        </div>
+        <div id="dumonda-me-logo-container" v-else>
             <img :src="logo">
         </div>
         <v-btn color="primary" class="create-button" rounded @click="$emit('show-create-question-dialog')">
@@ -8,12 +22,9 @@
             {{$t('common:toolbar.askQuestion')}}
         </v-btn>
         <div class="common-navigation">
-            <nav-item nuxt-link="topics" icon="mdi-book-outline" :nav-text="$t('common:navigation.topics')"></nav-item>
-        </div>
-        <v-divider></v-divider>
-        <div class="common-navigation">
             <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
                       :nav-text="$t('common:navigation.activities')" :query="filterQuery"></nav-item>
+            <nav-item nuxt-link="topics" icon="mdi-book-outline" :nav-text="$t('common:navigation.topics')"></nav-item>
             <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"
                       :query="filterQuery"></nav-item>
             <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')"
@@ -24,21 +35,6 @@
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
-            <nav-item nuxt-link="login" icon="mdi-login" :nav-text="$t('common:toolbar.login')"
-                      v-if="!isAuthenticated"></nav-item>
-            <nav-item v-if="!isAuthenticated" nuxt-link="index" icon="mdi-information-outline"
-                      :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
-            <div v-else>
-                <nav-item v-if="isHarvestingUser" nuxt-link="dumondaMeOnTour-userId" icon="mdi-account-outline"
-                          :nav-text="$t('common:navigation.yourProfile')" :params="{userId: userId}"></nav-item>
-                <nav-item v-else nuxt-link="user" icon="mdi-account-outline"
-                          :nav-text="$t('common:navigation.yourProfile')"></nav-item>
-                <nav-item nuxt-link="notifications" icon="mdi-bell-outline" :badge-count="numberOfUnreadNotifications"
-                          :nav-text="$t('common:navigation.notification')"></nav-item>
-            </div>
-        </div>
-        <v-divider v-if="isAuthenticated"></v-divider>
-        <div class="common-navigation" v-if="isAuthenticated">
             <nav-item nuxt-link="about" icon="mdi-information-outline"
                       :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
         </div>
@@ -52,9 +48,21 @@
     export default {
         name: "Drawer",
         components: {NavItem},
+        async mounted() {
+            if (this.$store.state.auth.userIsAuthenticated) {
+                let response = await this.$axios.$get('user/profile/image');
+                this.$store.commit('user/SET_USER_IMAGE', response.profileImage);
+            }
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
+            },
+            userImage() {
+                return this.$store.state.user.userImage
+            },
+            showNumberOfUnreadNotifications() {
+                return this.numberOfUnreadNotifications > 0;
             },
             logo() {
                 return `${process.env.staticUrl}/img/logo_blue.png`;
@@ -80,6 +88,31 @@
 <style lang="scss">
     #navigation-drawer {
 
+        #dumonda-me-logged-in-user {
+            padding-top: 24px;
+            padding-bottom: 24px;
+
+            img {
+                display: block;
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+
+            .user-icon-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 16px;
+
+                .user-icon {
+                    margin: 0 18px;
+                    cursor: pointer;
+                }
+            }
+        }
+
         #dumonda-me-logo-container {
             width: 100%;
             padding: 24px 70px;
@@ -103,7 +136,7 @@
 
         .create-button {
             margin-left: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 6px;
 
             .v-btn__content {
                 width: 200px;

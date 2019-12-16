@@ -66,6 +66,7 @@
             updateProfileImage(dataUrl) {
                 this.dialogUploadImage = false;
                 this.$store.commit('userProfile/UPDATE_USER_PROFILE_IMAGE', dataUrl);
+                this.$store.commit('user/SET_USER_IMAGE', dataUrl);
             },
             addUserToTrustCircle() {
                 this.$store.dispatch('userProfile/addUserToTrustCircle', this.user.userId);
@@ -125,6 +126,7 @@
                 width: 180px;
                 margin-left: 180px;
                 margin-right: 0;
+                margin-bottom: 18px;
                 @media screen and (max-width: $sm) {
                     margin-left: auto;
                     margin-right: 0;

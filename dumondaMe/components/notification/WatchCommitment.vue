@@ -5,17 +5,15 @@
             {count: notification.numberOfUsers, commitment})">
         </div>
         <users :users="notification.users" :number-of-users="notification.numberOfUsers"></users>
-        <watched-command :notification="notification"></watched-command>
     </div>
 </template>
 
 <script>
     import Users from './Users';
-    import WatchedCommand from './WatchedCommand';
 
     export default {
         props: ['notification'],
-        components: {Users, WatchedCommand},
+        components: {Users},
         computed: {
             commitment() {
                 return `<a class="commitment-title"

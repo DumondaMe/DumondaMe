@@ -1,6 +1,7 @@
 'use strict';
 
 const db = requireDb();
+const notification = requireModel('user/notification/challengeCompleteNotification');
 
 const getCreateNotificationCommand = function () {
     return db.cypher().create(`(n:Notification:Unread {type: 'createdAnswer', created: {created}, 
@@ -41,13 +42,41 @@ const createNotificationForUserTrustingCreatorOfAnswer = function (userId, answe
         .end({userId, answerId, created})
 };
 
+const addOneTimeNotificationFirstAnswer = function (userId, created) {
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstAnswer'}))`)
+        .optionalMatch(`(u)-[:IS_CREATOR]->(a:Answer)`)
+        .with(`COUNT(a) AS numberOfAnswers, u`)
+        .where(`numberOfAnswers = 1`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeFirstAnswer', ` +
+            `created: {created}, notificationId: randomUUID()})`)
+        .return('u')
+        .end({userId, created})
+};
+
+const addOneTimeNotificationChallengeCreateCommitment = function (userId, created) {
+    return db.cypher().match(`(u:User {userId: {userId}})`)
+        .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeChallengeCreateCommitment'})) AND ` +
+            `NOT EXISTS((u)-[:IS_CREATOR]->(:Commitment))`)
+        .optionalMatch(`(u)-[:IS_CREATOR]->(a:Answer)`)
+        .with(`COUNT(a) AS numberOfAnswers, u`)
+        .where(`numberOfAnswers = 2`)
+        .merge(`(u)<-[:NOTIFIED]-(n:Notification:Unread:OneTime:NoEmail {type: 'oneTimeChallengeCreateCommitment', ` +
+            `created: {created}, notificationId: randomUUID()})`)
+        .return('u')
+        .end({userId, created})
+};
+
 const addCreatedAnswerNotification = async function (userId, answerId, created) {
 
-    await createNotificationForCreatorOfQuestion(userId, answerId, created).send(
+    let response = await createNotificationForCreatorOfQuestion(userId, answerId, created).send(
         [createNotificationForUserWatchingQuestion(userId, answerId, created).getCommand(),
-            createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand()]
+            createNotificationForUserTrustingCreatorOfAnswer(userId, answerId, created).getCommand(),
+            addOneTimeNotificationFirstAnswer(userId, created).getCommand(),
+            addOneTimeNotificationChallengeCreateCommitment(userId, created).getCommand(),
+            notification.addOneTimeNotificationChallengeComplete(userId, created).getCommand()]
     );
-
+    return response[2].length === 1 || response[3].length === 1 || response[4].length === 1;
 };
 
 module.exports = {

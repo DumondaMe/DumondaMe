@@ -11,6 +11,7 @@ const adminOfCommitment = require('./adminOfCommitment');
 const response = require('./response');
 const responseHarvestingUser = require('./responseHarvestingUser');
 const feedHarvestingUser = require('./feedHarvestingUser');
+const challengeStatus = require('./../notification/notification');
 
 let checkAllowedToGetProfile = function (userId, userIdOfProfile) {
     if (!userId && !userIdOfProfile) {
@@ -32,6 +33,7 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
     commands.push(peopleTrustUser.getPeopleTrustUserCommand(userId, userIdOfProfile, 7, 0).getCommand());
     commands.push(activity.getFeedCommand(userId, userIdOfProfile, 0, timestamp, languages, guiLanguage).getCommand());
     commands.push(adminOfCommitment.getAdminOfCommitmentsCommand(userIdOfProfile, 0).getCommand());
+    commands.push(challengeStatus.getChallengeStatusCommand(userIdOfProfile).getCommand());
 
     let resp = await db.cypher().match(`(u:User {userId: {userIdOfProfile}})`)
         .where(`{userId} = {userIdOfProfile} OR u.privacyMode = 'public' OR 
@@ -44,14 +46,14 @@ let getUserProfile = async function (userId, userIdOfProfile, languages, guiLang
                  ANY (label IN LABELS(u) WHERE label = 'OnlineHarvesting') AS isOnlineHarvesting,
                  EXISTS((u)<-[:IS_CONTACT]-(:User {userId: {userId}})) AS isPersonOfTrustOfLoggedInUser`)
         .end({userId, userIdOfProfile}).send(commands);
-    if (resp[8].length === 1) {
-        if (resp[8][0].isHarvestingUser) {
+    if (resp[9].length === 1) {
+        if (resp[9][0].isHarvestingUser) {
             let feed = await feedHarvestingUser.getFeed(userIdOfProfile);
-            return responseHarvestingUser.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], feed);
+            return responseHarvestingUser.getUserProfileResponse(userId, userIdOfProfile, resp[9][0], feed);
         }
-        return response.getUserProfileResponse(userId, userIdOfProfile, resp[8][0], resp[0][0].numberOfPeopleOfTrust,
+        return response.getUserProfileResponse(userId, userIdOfProfile, resp[9][0], resp[0][0].numberOfPeopleOfTrust,
             resp[1][0].numberOfInvisiblePeopleOfTrust, resp[2], resp[3][0].numberOfPeopleTrustUser,
-            resp[4][0].numberOfInvisiblePeopleTrustUser, resp[5], resp[6], resp[7]);
+            resp[4][0].numberOfInvisiblePeopleTrustUser, resp[5], resp[6], resp[7], resp[8][0]);
     }
     throw new Error('401');
 };

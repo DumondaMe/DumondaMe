@@ -150,7 +150,7 @@
     "commitmentInfo": {
       "title": "What is a commitment?",
       "description": "A commitment at DumondaMe can be a project, an organisation or your personal commitment to a bright future.",
-      "create": "Create your commitment..."
+      "create": "Create your commitment"
     },
     "activityInfo": {
       "title": "See what happens in the network",
@@ -737,6 +737,22 @@
     }
   },
   "notifications": {
+    "challengeStatus": {
+      "title": "DumondaMe Challenge",
+      "description": "To help you find your way around the platform, we have created this little challenge for you. If you click on the check mark, you can see which challenge you have already met.",
+      "successDescription": "Congratulations! You have successfully completed all challenges.",
+      "minor": {
+        "title": "Checklist",
+        "createAccount": "Account created",
+        "watchQuestion": "Question subscribed",
+        "watchCommitment": "Commitment subscribed",
+        "likeAnswer": "Upvote an answer",
+        "addedPersonToTrustCircle": "Person added to Trust Circle",
+        "createdAnswer": "Answered Question",
+        "createdQuestion": "Asked Question",
+        "createdCommitment": "Your commitment registered"
+      }
+    },
     "showQuestionRequest": {
       "notification1": "Your Commitment",
       "notification2": "has been linked to the question",
@@ -768,6 +784,9 @@
     "newQuestion": {
       "notification": "has asked the question {{- question}}."
     },
+    "newCommitment": {
+      "notification": "Commitment {- commitment}} was registered on DumondaMe."
+    },
     "createdAnswer": {
       "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
       "notificationTextAnswer": "Has answered the question{{- question}}."
@@ -775,6 +794,69 @@
     "createdNote": {
       "notification": "has created a note for the {{type}} answer {{- answer}}, which answers the question {{- question}}.",
       "notificationTextAnswer": "has created a note for the answer {{- answer}}, which answers the question {{- question}}."
+    },
+    "oneTime": {
+      "challenge": "Challenge",
+      "welcome": {
+        "title": "Welcome to DumondaMe",
+        "description": "Glad your path led you to DumondaMe. Your notifications will be displayed here. For example, when someone answers a question that interests you. To make sure you don't miss a notification, we'll send you an email. However, you can set how often, and if at all, we may send you an email for this purpose.",
+        "goToSetting": "To the e-mail settings"
+      },
+      "challengeWatchQuestion": {
+        "title": "Challenge: Which questions do you find interesting?",
+        "description": "Subscribe to questions that interest you by clicking the star button.",
+        "goToQuestions": "To the questions"
+      },
+      "watchFirstQuestion": {
+        "title": "Great, you've subscribed to your first question.",
+        "description": "You will now be notified when this question is answered. Mark further questions as interesting..."
+      },
+      "challengeUpVoteAnswer": {
+        "title": "Challenge: Which answers do you like?",
+        "description": "With thumbs up, you can agree to answers that you like. Do you have answers to questions that interest you?"
+      },
+      "firstAnswer": {
+        "title": "Thank you for your answer, we are looking forward to more..."
+      },
+      "firstQuestion": {
+        "title": "Question successfully posted, keep up the good work!"
+      },
+      "firstCommitment": {
+        "title": "It's nice that your commitment is now on DumondaMe!"
+      },
+      "upVoteFirstAnswer": {
+        "title": "Wow, you agreed to an answer for the first time.",
+        "description": "\"Upvotes\" for answers are an important feature of DumondaMe. In this way, the most appropriate answers are displayed first. In addition, answers with many upvotes have a wider range."
+      },
+      "inviteFriends": {
+        "title": "Your circle of friends on DumondaMe",
+        "description": "You're on your toes and you've already done a lot on DumondaMe. But together it's even more fun. So invite your friends to DumondaMe or find out which of them has already created an account.",
+        "inviteFriendsButton": "Invite"
+      },
+      "firstTrustCircleUser": {
+        "title": "Cool, you've added a person to your Trust Circle for the first time.",
+        "description": "You can network with others through the Trust Circle. This is how you see their new questions and answers. In the future the Trust Circle will enable you to do much more, look forward to it!"
+      },
+      "watchFirstCommitment": {
+        "title": "You've subscribed to your first commitment.",
+        "description": "By marking an commitment as interesting, you stay informed about the latest developments. Do you find other interesting engagements on DumondaMe?",
+        "goToCommitments": "Further commitments"
+      },
+      "challengeWatchCommitment": {
+        "title": "Challenge: Commitments at DumondaMe",
+        "description": "A commitment at DumondaMe is an association, a company, a project or a personal commitment for a bright future. Show the community which commitment you find recommendable by clicking on the star button of a commitment.",
+        "goToCommitments": "To the commitments"
+      },
+      "challengeCreateCommitment": {
+        "title": "Challenge: Your commitment at DumondaMe",
+        "description": "Are you part of an association, a company, a project or do you have a personal commitment for a bright future? Capture this commitment on DumondaMe and make it visible for the DumondaMe community.",
+        "createCommitment": "Create Commitment"
+      },
+      "challengeComplete": {
+        "title": "Congratulations!",
+        "description": "You have successfully mastered all challenges. Thank you for enriching this platform with your knowledge. People like you bring DumondaMe to life. Together everything is possible, so invite your friends to join in.",
+        "inviteFriendsButton": "Invite friends"
+      }
     },
     "moreUser": "And another person",
     "moreUser_plural": "And {{count}} people",

@@ -68,6 +68,19 @@ describe('Send email for unread notifications', function () {
         notification.length.should.equals(0);
     });
 
+    it('Do not send unread notification with noEmail label', async function () {
+        dbDsl.notificationOneTimeWatchQuestion('20', {userId: '1', created: 678});
+        await dbDsl.sendToDb();
+
+        await testee.sendUnreadNotifications();
+
+        stubSendEMail.called.should.be.false;
+
+        let notification = await db.cypher().match("(notification:Notification:EmailSent)")
+            .return(`notification`).end().send();
+        notification.length.should.equals(0);
+    });
+
     it('If an error occurred then remove EmailSent label ', async function () {
         dbDsl.notificationUserAddedToTrustCircle('50', {
             userId: '2',

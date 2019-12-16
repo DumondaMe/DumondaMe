@@ -135,6 +135,26 @@ const userCreatedQuestion = function (data) {
         }).getCommand());
 };
 
+const userCreatedCommitment = function (data) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher()
+        .match(`(c:Commitment {commitmentId: {commitmentId}})<-[:IS_CREATOR]-(creator:User), 
+                (notifiedUser:User {userId: {notifiedUserId}})`)
+        .create(`(notification:Notification${readLabel} {type: 'newCommitment', created: {created},` +
+            `notificationId: randomUUID()})`)
+        .merge(`(creator)<-[:ORIGINATOR_OF_NOTIFICATION]-(notification)`)
+        .merge(`(notification)-[:NOTIFICATION]->(c)`)
+        .merge(`(notification)-[:NOTIFIED]->(notifiedUser)`)
+        .end({
+            commitmentId: data.commitmentId,
+            created: data.created,
+            notifiedUserId: data.notifiedUserId
+        }).getCommand());
+};
+
 const createAnswer = function (notificationId, data) {
     let readLabel = ':Unread';
     if (data.read) {
@@ -216,6 +236,75 @@ const requestAdminOfCommitment = function (notificationId, data) {
         }).getCommand());
 };
 
+const oneTimeWelcome = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWelcome');
+};
+
+const oneTimeWatchQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWatchQuestion');
+};
+
+const oneTimeWatchFirstQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWatchingFirstQuestion');
+};
+
+const oneTimeWatchFirstCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeWatchingFirstCommitment');
+};
+
+const oneTimeFirstAnswer = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstAnswer');
+};
+
+const oneTimeFirstQuestion = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstQuestion');
+};
+
+const oneTimeFirstCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstCommitment');
+};
+
+const oneTimeUpVoteFirstAnswer = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeUpVoteFirstAnswer');
+};
+
+const oneTimeChallengeUpVoteAnswer = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeUpVoteAnswer');
+};
+
+const oneTimeChallengeWatchCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeWatchCommitment');
+};
+
+const oneTimeChallengeCreateCommitment = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeCreateCommitment');
+};
+
+const oneTimeInviteFriends = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeInviteFriends');
+};
+
+const oneTimeFirstTrustCircleUser = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeFirstTrustCircleUser');
+};
+
+const oneTimeChallengeComplete = function (notificationId, data) {
+    oneTime(notificationId, data, 'oneTimeChallengeComplete');
+};
+
+const oneTime = function (notificationId, data, type) {
+    let readLabel = ':Unread';
+    if (data.read) {
+        readLabel = '';
+    }
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`)
+        .merge(`(u)<-[:NOTIFIED]-(notification:Notification:NoEmail:OneTime${readLabel} {type: {type}, 
+                                      created: {created}, notificationId: {notificationId}})`)
+        .end({
+            notificationId, userId: data.userId, created: data.created, type
+        }).getCommand());
+};
+
 module.exports = {
     showQuestionOnCommitmentRequest,
     userAddedToTrustCircle,
@@ -223,7 +312,22 @@ module.exports = {
     userWatchesCommitment,
     userWatchesQuestion,
     userCreatedQuestion,
+    userCreatedCommitment,
     createAnswer,
     createNote,
-    requestAdminOfCommitment
+    requestAdminOfCommitment,
+    oneTimeWelcome,
+    oneTimeWatchQuestion,
+    oneTimeWatchFirstQuestion,
+    oneTimeWatchFirstCommitment,
+    oneTimeFirstAnswer,
+    oneTimeFirstQuestion,
+    oneTimeFirstCommitment,
+    oneTimeUpVoteFirstAnswer,
+    oneTimeChallengeUpVoteAnswer,
+    oneTimeInviteFriends,
+    oneTimeFirstTrustCircleUser,
+    oneTimeChallengeWatchCommitment,
+    oneTimeChallengeCreateCommitment,
+    oneTimeChallengeComplete
 };

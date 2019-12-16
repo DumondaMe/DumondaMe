@@ -7,7 +7,6 @@
             <div id="image-question-container">
                 <img :src="imageUrl"/>
             </div>
-            <div class="help-hint">{{$t("dialog:welcome.stepQuestion.hint")}}</div>
             <div class="question-description" v-html="$t('dialog:welcome.stepQuestion.description')"></div>
             <ul>
                 <li>{{$t("dialog:welcome.stepQuestion.link")}}</li>
@@ -16,6 +15,7 @@
                 <li>{{$t("dialog:welcome.stepQuestion.text")}}</li>
                 <li>{{$t("dialog:welcome.stepQuestion.commitment")}}</li>
             </ul>
+            <div class="help-hint">{{$t("dialog:welcome.stepQuestion.hint")}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -47,9 +47,12 @@
 <style lang="scss">
     #welcome-question-container {
 
+
         .question-description {
             margin-top: 18px;
             font-weight: 300;
+            font-size: 16px;
+            color: $primary-text;
             b {
                 font-weight: 500;
                 color: $primary-color;
@@ -57,15 +60,19 @@
         }
 
         ul {
+            color: $primary-text;
             margin-top: 12px;
             li {
                 font-weight: 300;
+                font-size: 16px;
             }
         }
 
         .help-hint {
-            margin-bottom: 12px;
+            margin-top: 12px;
             color: $secondary-color;
+            font-weight: 300;
+            font-size: 16px;
         }
 
         #image-question-container {

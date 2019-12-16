@@ -186,10 +186,10 @@ export const actions = {
         let response = await this.$axios.$get(`/question/answer`, params);
         commit('ADD_ANSWERS', response);
     },
-    async deleteQuestion({commit, state}) {
+    async deleteQuestion({state}) {
         await this.$axios.$delete(`/user/question`, {params: {questionId: state.question.questionId}});
     },
-    async createTextAnswer({commit, state}, {answer, image, createAnswerWithLink}) {
+    async createTextAnswer({commit, dispatch, state}, {answer, image, createAnswerWithLink}) {
         let params = {createAnswerWithLink};
         let response;
         if (answer && answer.trim() !== '') {
@@ -208,6 +208,9 @@ export const actions = {
             imageUrl: response.imageUrl, answerType: 'Default', answer, answerHtml: response.answerHtml,
             created: response.created, creator: response.creator
         });
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         return response.answerId;
     },
     async editTextAnswer({commit}, {answer, image, answerId, hasChangedAnswer, hasChangedImage}) {
@@ -232,7 +235,7 @@ export const actions = {
             }
         }
     },
-    async createYoutubeAnswer({commit, state}, youtubeData) {
+    async createYoutubeAnswer({commit, dispatch, state}, youtubeData) {
         if (youtubeData.hasOwnProperty('description') && youtubeData.description.trim() === '') {
             delete youtubeData.description;
         }
@@ -243,6 +246,9 @@ export const actions = {
         youtubeData.linkEmbed = `https://www.youtube.com/embed/${response.idOnYoutube}`;
 
         commit('ADD_ANSWER', youtubeData);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         return response.answerId;
     },
     async editYoutubeAnswer({commit, state}, {answerId, description, title}) {
@@ -253,7 +259,7 @@ export const actions = {
         let response = await this.$axios.$put(`/user/question/answer/youtube/${answerId}`, params);
         commit('EDIT_ANSWER', {answerId, answer: {description, descriptionHtml: response.descriptionHtml, title}});
     },
-    async createLinkAnswer({commit, state}, linkData) {
+    async createLinkAnswer({commit, dispatch, state}, linkData) {
         if (linkData.hasOwnProperty('description') && linkData.description.trim() === '') {
             delete linkData.description;
         }
@@ -262,6 +268,9 @@ export const actions = {
         linkData.pageType = linkData.type;
         linkData.imageUrl = response.imageUrl;
         commit('ADD_ANSWER', linkData);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         return response.answerId;
     },
     async editLinkAnswer({commit, state}, {answerId, description, title, type}) {
@@ -277,19 +286,22 @@ export const actions = {
             }
         });
     },
-    async createBookAnswer({commit, state}, bookData) {
+    async createBookAnswer({commit, dispatch, state}, bookData) {
         let response = await this.$axios.$post(`/user/question/answer/book/${state.question.questionId}`,
             bookData);
         addDefaultProperties(bookData, 'Book', response);
         bookData.imageUrl = response.imageUrl;
         commit('ADD_ANSWER', bookData);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         return response.answerId;
     },
     async editBookAnswer({commit, state}, {answerId, description}) {
         let response = await this.$axios.$put(`/user/question/answer/book/${answerId}`, {description});
         commit('EDIT_ANSWER', {answerId, answer: {description, descriptionHtml: response.descriptionHtml}});
     },
-    async createCommitmentAnswer({commit, state, rootState}, commitmentData) {
+    async createCommitmentAnswer({commit, dispatch, state, rootState}, commitmentData) {
         let response = await this.$axios.$post(`/user/question/answer/commitment/${state.question.questionId}`,
             {
                 commitmentId: commitmentData.commitmentId, description: commitmentData.description,
@@ -307,6 +319,9 @@ export const actions = {
                 questionId: state.question.questionId, question: state.question.question,
                 questionSlug: commitmentData.questionSlug, removed: false
             }, {root: true});
+        }
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
         }
         return response.answerId;
     },

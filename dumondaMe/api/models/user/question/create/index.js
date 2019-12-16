@@ -2,24 +2,12 @@
 
 const slug = require('limax');
 const linkifyHtml = require('linkifyjs/html');
-const topicsSecurity = require('./../../topic/security');
+const topicsSecurity = require('./../../../topic/security');
+const notifications = require('./notification');
 const db = requireDb();
 const uuid = require('dumonda-me-server-lib').uuid;
 const time = require('dumonda-me-server-lib').time;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
-
-const createNotification = function (userId, questionId, created) {
-    let notificationId = uuid.generateUUID();
-    return db.cypher()
-        .match(`(q:Question {questionId: {questionId}})<-[:IS_CREATOR]-(creator:User {userId: {userId}})` +
-            `<-[:IS_CONTACT]-(notifiedUser:User)`)
-        .create(`(notification:Notification:Unread {type: 'newQuestion', created: {created},` +
-            `notificationId: randomUUID()})`)
-        .merge(`(creator)<-[:ORIGINATOR_OF_NOTIFICATION {created: {created}}]-(notification)`)
-        .merge(`(notification)-[:NOTIFICATION]->(q)`)
-        .merge(`(notification)-[:NOTIFIED]->(notifiedUser)`)
-        .end({userId, questionId, created, notificationId})
-};
 
 const createQuestion = async function (userId, params) {
     params.questionId = uuid.generateUUID();
@@ -37,8 +25,8 @@ const createQuestion = async function (userId, params) {
         .merge(`(topic)-[:TOPIC]->(question)`)
         .end(params).send();
     logger.info(`Created question with id ${params.questionId}`);
-    await createNotification(userId, params.questionId, params.created).send();
-    let response = {questionId: params.questionId, slug: slug(params.question)};
+    let oneTimeNotificationCreated = await notifications.addNotifications(userId, params.questionId, params.created);
+    let response = {questionId: params.questionId, slug: slug(params.question), oneTimeNotificationCreated};
     if (params.description) {
         response.descriptionHtml = linkifyHtml(params.description, {attributes: {rel: 'noopener'}});
     }

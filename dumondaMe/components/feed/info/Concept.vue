@@ -21,11 +21,11 @@
         },
         computed: {
             conceptImage() {
-                return `${process.env.staticUrl}/img/landingPage/concept.jpg`;
+                return `${process.env.staticUrl}/img/welcome/question.jpg`;
             },
             concept2xImage() {
-                return `${process.env.staticUrl}/img/landingPage/concept.jpg 300w, ` +
-                       `${process.env.staticUrl}/img/landingPage/concept_2x.jpg 600w`;
+                return `${process.env.staticUrl}/img/welcome/question.jpg 300w, ` +
+                       `${process.env.staticUrl}/img/welcome/question.jpg 600w`;
             }
         }
     }
