@@ -1,0 +1,58 @@
+MATCH (u:User)
+WHERE NOT EXISTS ((u)-[]-(:Notification)) AND NOT u:HarvestingUser
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime:Unread {created: u.registerDate, notificationId: randomUUID(),
+type: 'oneTimeWelcome'})
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime:Unread {created: u.registerDate + 1, notificationId: randomUUID(),
+type: 'oneTimeWatchQuestion'});
+
+MATCH (u:User)
+WHERE NOT EXISTS ((u)-[]-(:Notification {type: 'oneTimeWelcome'})) AND NOT u:HarvestingUser
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: u.registerDate, notificationId: randomUUID(),
+type: 'oneTimeWelcome'});
+
+MATCH (u:User)
+WHERE NOT EXISTS ((u)-[]-(:Notification {type: 'oneTimeWatchQuestion'})) AND NOT u:HarvestingUser
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: u.registerDate + 1, notificationId: randomUUID(),
+type: 'oneTimeWatchQuestion'});
+
+MATCH (u:User)-[rel:IS_CONTACT]->(:User)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstTrustCircleUser'})) AND NOT u:HarvestingUser
+WITH u, min(rel.contactAdded) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeFirstTrustCircleUser'});
+
+MATCH (u:User)-[rel:WATCH]->(:Question)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeWatchingFirstQuestion'})) AND NOT u:HarvestingUser
+WITH u, min(rel.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeWatchingFirstQuestion'});
+
+MATCH (u:User)-[rel:WATCH]->(:Commitment)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeWatchingFirstCommitment'})) AND NOT u:HarvestingUser
+WITH u, min(rel.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeWatchingFirstCommitment'});
+
+MATCH (u:User)-[rel:UP_VOTE]->(:Answer)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeUpVoteFirstAnswer'})) AND NOT u:HarvestingUser
+WITH u, min(rel.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeUpVoteFirstAnswer'});
+
+MATCH (u:User)-[:IS_CREATOR]->(q:Question)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstQuestion'})) AND NOT u:HarvestingUser
+WITH u, min(q.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeFirstQuestion'});
+
+MATCH (u:User)-[:IS_CREATOR]->(c:Commitment)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstCommitment'})) AND NOT u:HarvestingUser
+WITH u, min(c.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeFirstCommitment'});
+
+MATCH (u:User)-[:IS_CREATOR]->(a:Answer)
+WHERE NOT EXISTS ((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstAnswer'})) AND NOT u:HarvestingUser
+WITH u, min(a.created) AS created
+MERGE (u)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime {created: created, notificationId: randomUUID(),
+type: 'oneTimeFirstAnswer'});
