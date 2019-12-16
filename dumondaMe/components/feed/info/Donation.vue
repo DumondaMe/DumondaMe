@@ -119,6 +119,7 @@
 
         .feed-networking-description {
             margin-bottom: 8px;
+            font-size: 16px;
             @include defaultPaddingCard();
         }
 

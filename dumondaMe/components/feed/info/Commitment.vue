@@ -4,8 +4,10 @@
         <img v-lazy="commitmentImage" :data-srcset="commitment2xImage" class="commitment-image"
              @click="showConceptInfoDialog = true">
         <div class="description">{{$t('pages:feeds.commitmentInfo.description')}}</div>
-        <div class="open-dialog" @click="openCreateDialog('showCreateCommitmentDialog')">
-            {{$t('pages:feeds.commitmentInfo.create')}}
+        <div class="open-dialog">
+            <v-btn outlined color="primary" @click="openCreateDialog('showCreateCommitmentDialog')">
+                {{$t('pages:feeds.commitmentInfo.create')}}
+            </v-btn>
         </div>
         <create-commitment-dialog v-if="showCreateCommitmentDialog" @close-dialog="showCreateCommitmentDialog = false">
         </create-commitment-dialog>
@@ -60,14 +62,13 @@
         }
 
         .description {
+            margin-top: 8px;
             margin-bottom: 8px;
+            font-size: 16px;
             @include defaultPaddingCard();
         }
 
         .open-dialog {
-            cursor: pointer;
-            color: $primary-color;
-            text-decoration: underline;
             @include defaultPaddingCard();
         }
     }
