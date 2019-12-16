@@ -13,7 +13,7 @@
                     {{contact}}
                 </div>
             </div>
-            <div v-else>
+            <div v-else class="text-description">
                 {{$t("dialog:invite:sendInvitation.sentMessage")}}
             </div>
         </v-card-text>
