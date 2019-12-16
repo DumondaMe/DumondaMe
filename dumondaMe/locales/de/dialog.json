@@ -35,6 +35,7 @@
   "invite": {
     "importSourceTitle": "Dein Freundeskreis auf DumondaMe",
     "importSourceDescription": "Importiere die E-Mail-Adressen deiner Freunde und Bekannten und versende ihnen ein von DumondaMe generiertes Einladungs-E-Mail. Zudem wird dir angezeigt, wer von deinen Kontakten bereits auf DumondaMe registriert ist. Das erleichtert es dir deinen Trust Circle aufzubauen.",
+    "importHint": "Hinweis: Wir gehen sehr achtsam mit deinen Daten um. Die importieren E-Mail Adressen werden von uns nur gespeichert, wenn du nachher an diese Adresse eine Einladungs-E-Mail versendest.",
     "selectAll": "Alle E-Mails auswählen",
     "showOnlySelected": "Nur ausgewälte E-Mails anzeigen",
     "alreadySent": "Du hast bereits eine Einladung an diese E-Mail Adresse versendet",
