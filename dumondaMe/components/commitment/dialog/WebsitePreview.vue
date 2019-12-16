@@ -118,6 +118,9 @@
         #dialog-create-commitment-content {
             #description-website {
                 margin-bottom: 28px;
+                font-size: 16px;
+                font-weight: 300;
+                color: $primary-text;
             }
             #website-successfully-loaded {
                 color: $success-text;

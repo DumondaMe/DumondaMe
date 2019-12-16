@@ -65,6 +65,7 @@
             font-weight: 300;
             max-width: 550px;
             margin: 0 auto;
+            color: $primary-text;
         }
     }
 </style>

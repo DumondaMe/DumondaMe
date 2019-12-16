@@ -167,6 +167,7 @@
             font-size: 16px;
             font-weight: 300;
             margin-bottom: 18px;
+            color: $primary-text;
         }
 
         .import-source-inner-container {

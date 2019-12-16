@@ -52,6 +52,7 @@
             margin-top: 18px;
             font-weight: 300;
             font-size: 16px;
+            color: $primary-text;
             b {
                 font-weight: 500;
                 color: $primary-color;
@@ -59,6 +60,7 @@
         }
 
         ul {
+            color: $primary-text;
             margin-top: 12px;
             li {
                 font-weight: 300;

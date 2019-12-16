@@ -119,6 +119,8 @@
             .description {
                 font-weight: 300;
                 text-align: center;
+                font-size: 16px;
+                color: $primary-text;
             }
 
             .instruction-title {
@@ -132,11 +134,15 @@
 
             .instruction-description {
                 font-weight: 300;
+                font-size: 16px;
+                color: $primary-text;
             }
 
             .sample {
                 margin-top: 12px;
                 font-weight: 300;
+                font-size: 16px;
+                color: $primary-text;
                 padding: 4px 12px;
 
                 b {
