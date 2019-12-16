@@ -5,17 +5,15 @@
             {count: notification.numberOfUsers, question})">
         </div>
         <users :users="notification.users" :number-of-users="notification.numberOfUsers"></users>
-        <watched-command :notification="notification"></watched-command>
     </div>
 </template>
 
 <script>
     import Users from './Users';
-    import WatchedCommand from './WatchedCommand';
 
     export default {
         props: ['notification'],
-        components: {Users, WatchedCommand},
+        components: {Users},
         computed: {
             question() {
                 return `<a class="question-title"

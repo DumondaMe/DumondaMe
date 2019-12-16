@@ -8,11 +8,8 @@
                 <img :src="imageUrl"/>
             </div>
             <div>
-                <span class="trust-actions-description">{{$t('dialog:welcome.stepActions.description')}} </span>
-                <v-icon color="secondary">mdi-thumb-up</v-icon>
-                <span class="trust-actions-description"> {{$t('dialog:welcome.stepActions.description2')}} </span>
-                <v-icon color="secondary">mdi-star</v-icon>
-                <span class="trust-actions-description"> {{$t('dialog:welcome.stepActions.description3')}}</span>
+                <span class="trust-actions-description" v-html="$t('dialog:welcome.stepActions.description')">
+                </span>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -45,6 +42,8 @@
         .trust-actions-description {
             margin-top: 18px;
             font-weight: 300;
+            font-size: 16px;
+            color: $primary-text;
 
             b {
                 font-weight: 500;

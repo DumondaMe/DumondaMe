@@ -28,9 +28,12 @@ export const getters = {
 };
 
 export const actions = {
-    async createNewQuestion({state, commit}) {
+    async createNewQuestion({state, dispatch, commit}) {
         let response = await this.$axios.$post('/user/question', state.question);
         commit('SET_ASKED_QUESTION', true);
+        if (response.oneTimeNotificationCreated) {
+            dispatch('notification/checkNotificationChanged', null, {root:true});
+        }
         return response;
     },
     async getHasQuestionCreated({commit, state}) {

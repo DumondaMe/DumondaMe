@@ -37,9 +37,10 @@ const createAnswer = async function (userId, params, titleImage, req) {
 
         logger.info(`Created default answer ${params.answerId} for question ${params.questionId}`);
         await image.uploadImages(titleImage, params.answerId);
-        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
+        let oneTimeNotificationCreated = await notification.addCreatedAnswerNotification(userId,
+            params.answerId, params.created);
 
-        response = await responseHandler.getResponse(userId, user[0].name, params);
+        response = await responseHandler.getResponse(userId, user[0].name, params, oneTimeNotificationCreated);
     }
     return response;
 };

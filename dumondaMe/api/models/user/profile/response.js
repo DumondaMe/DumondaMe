@@ -29,7 +29,8 @@ let getAdminOfCommitments = function (commitments) {
 
 let getUserProfileResponse = async function (userId, userIdOfProfile, profile, numberOfPeopleOfTrust,
                                              numberOfInvisiblePeopleOfTrust, peopleOfTrust, numberOfPeopleTrustUser,
-                                             numberOfInvisiblePeopleTrustUser, peopleTrustUser, feed, adminOfCommitments) {
+                                             numberOfInvisiblePeopleTrustUser, peopleTrustUser, feed,
+                                             adminOfCommitments, challengeStatus) {
 
     profile.profileImage = await cdn.getSignedUrl(`profileImage/${userIdOfProfile}/profile.jpg`);
 
@@ -44,6 +45,10 @@ let getUserProfileResponse = async function (userId, userIdOfProfile, profile, n
     await userInfo.addImageForThumbnail(peopleTrustUser);
 
     profile.isLoggedInUser = userId === userIdOfProfile;
+
+    if (profile.isLoggedInUser) {
+        profile.challengeStatus = challengeStatus;
+    }
 
     if (profile.showProfileActivity || profile.isLoggedInUser) {
         profile.feed = await answerResponseHandler.getFeed(feed, userId);

@@ -39,7 +39,7 @@
 
         #welcome-title-image-container {
             width: 400px;
-            min-height: 289px;
+            //min-height: 289px;
             margin: 12px auto;
             @media screen and (max-width: $xs) {
                 width: 300px;
@@ -55,11 +55,17 @@
             }
         }
 
+        #welcome-dialog-title {
+            margin-top: 18px;
+        }
+
         .welcome-description {
+            font-size: 16px;
             text-align: center;
             font-weight: 300;
             max-width: 550px;
             margin: 0 auto;
+            color: $primary-text;
         }
     }
 </style>

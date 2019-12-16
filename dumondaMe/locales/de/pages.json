@@ -1,6 +1,6 @@
 {
   "toolbar": {
-    "search": "Suche"
+    "search": "Suche: Fragen, Engagements, Personen"
   },
   "login": {
     "titleLogin": "Ich habe bereits ein Konto",
@@ -150,7 +150,7 @@
     "commitmentInfo": {
       "title": "Was ist ein Engagement?",
       "description": "Ein Engagement kann bei DumondaMe ein Projekt, eine Organisation oder aber auch dein persönliches Engagement für eine leuchtende Zukunft sein.",
-      "create": "Dein Engagement erfassen..."
+      "create": "Dein Engagement erfassen"
     },
     "activityInfo": {
       "title": "Sehen was im Netzwerk passiert",
@@ -243,7 +243,7 @@
       "actionButton": "Einladungen versenden"
     },
     "conceptInfo": {
-      "title": "Welches sind die wichtigsten Konzepte?",
+      "title": "What are the most important functions?",
       "actionButton": "Tour starten"
     },
     "harvesting": {
@@ -373,17 +373,17 @@
       "description": "Die Formulierung einer Frage hat einen grossen Einfluss darauf, wie diese beantwortet wird. Aus diesem Grund haben wir einige Empfehlungen für dich zusammengestellt.",
       "instruction1": {
         "title": "Offene Fragen",
-        "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B ja/nein/weiss nicht).",
+        "description": "Bevorzuge offene Fragen gegenüber geschlossenen. Bei geschlossenen Fragen sind die Antwortmöglichkeiten eingeschränkter (z.B. ja/nein/weiss nicht).",
         "goodSample": "<b>Offene Frage:</b> Welche Gründe sprechen für/gegen ein bedingungsloses Grundeinkommen?",
         "badSample": "<b>Geschlossene Frage:</b> Ist ein bedingungsloses Grundeinkommen sinnvoll?"
       },
       "instruction2": {
-        "title": "Bevorzuge W Fragen",
-        "description": "W Fragen (Warum/Wieso/Weshalb/Welche/usw.) führen meistens zu offenen Fragen."
+        "title": "Bevorzuge W-Fragen",
+        "description": "W-Fragen (Warum/Wieso/Weshalb/Welche/usw.) führen meistens zu offenen Fragen."
       },
       "instruction3": {
-        "title": "Fragen die zu Lösungen führen",
-        "description": "Stelle gezielt auch Fragen um konkrete Lösungsvorschläge zu erhalten.",
+        "title": "Fragen, die zu Lösungen führen",
+        "description": "Stelle gezielt auch Fragen, um konkrete Lösungsvorschläge zu erhalten.",
         "goodSample": "Was kann ich gegen Mikroplastik tun?"
       },
       "instruction4": {
@@ -392,7 +392,7 @@
       },
       "instruction5": {
         "title": "Selbstverständlich",
-        "description": "Keine beleidigende, rassistische oder diskriminierende Frage"
+        "description": "Hier ist kein Platz für beleidigende, rassistische oder diskriminierende Fragen."
       }
     },
     "similarQuestion": {
@@ -735,6 +735,22 @@
     }
   },
   "notifications": {
+    "challengeStatus": {
+      "title": "DumondaMe Challenge",
+      "description": "Damit du dich auf der Plattform zurecht findest, haben wir diese kleine Challenge für dich erstellt. Wenn du auf das Häckchen klickst, siehst du welche Challenges du bereits erfüllt hast.",
+      "successDescription": "Herzliche Gratulation! Du hast alle Challenges erfolgreich gemeistert.",
+      "minor": {
+        "title": "Checkliste",
+        "createAccount": "Account erstellt",
+        "watchQuestion": "Frage abonniert",
+        "watchCommitment": "Engagement abonniert",
+        "likeAnswer": "Einer Antwort zugestimmt",
+        "addedPersonToTrustCircle": "Person zum Trust Circle hinzugefügt",
+        "createdAnswer": "Antwort erstellt",
+        "createdQuestion": "Frage gestellt",
+        "createdCommitment": "Dein Engagement erfasst"
+      }
+    },
     "showQuestionRequest": {
       "notification1": "Dein Engagement",
       "notification2": "wurde mit der Frage",
@@ -766,6 +782,9 @@
     "newQuestion": {
       "notification": "hat die Frage {{- question}} gestellt."
     },
+    "newCommitment": {
+      "notification": "Das Engagement {{- commitment}} wurde auf DumondaMe erfasst."
+    },
     "createdAnswer": {
       "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
       "notificationTextAnswer": "hat die Frage {{- question}} beantwortet."
@@ -773,6 +792,69 @@
     "createdNote": {
       "notification": "hat eine Anmerkung für die {{type}} Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt.",
       "notificationTextAnswer": "hat eine Anmerkung für die  Antwort {{- answer}}, welche die Frage {{- question}} beantwortet, erstellt."
+    },
+    "oneTime": {
+      "challenge": "Challenge",
+      "welcome": {
+        "title": "Herzlich Willkommen bei DumondaMe",
+        "description": "Schön, dass dich dein Weg zu DumondaMe geführt hat. Hier werden dir deine Benachrichtigungen angezeigt. So erfährst du, wenn z.B. jemand eine Frage beantwortet, die dich interessiert. Damit du keine Benachrichtigung verpasst, senden wir dir eine E-Mail. Du kannst jedoch einstellen, wie oft und ob überhaupt wir dir eine E-Mail zu diesem Zweck senden dürfen.",
+        "goToSetting": "Zu den E-Mail Einstellungen"
+      },
+      "challengeWatchQuestion": {
+        "title": "Challenge: Welche Fragen findest du interessant?",
+        "description": "Abonniere Fragen, die dich interessieren, mit einem Klick auf den Stern-Button.",
+        "goToQuestions": "Zu den Fragen"
+      },
+      "watchFirstQuestion": {
+        "title": "Super, du hast deine erste Frage abonniert",
+        "description": "Du wirst ab jetzt benachrichtigt, wenn diese Frage beantwortet wird. Markiere weitere Fragen als interessant…"
+      },
+      "challengeUpVoteAnswer": {
+        "title": "Challenge: Welche Antworten findest du gut?",
+        "description": "Mit dem Daumen hoch kannst du Antworten zustimmen, welche dir gefallen. Hat es möglicherweise bei Fragen die dich interessieren passende Antworten?"
+      },
+      "firstAnswer": {
+        "title": "Danke für deine Antwort, wir freuen uns auf mehr..."
+      },
+      "firstQuestion": {
+        "title": "Frage erfolgreich erfasst, weiter so!"
+      },
+      "firstCommitment": {
+        "title": "Schön, dass dein Engagement jetzt auf DumondaMe ist!"
+      },
+      "upVoteFirstAnswer": {
+        "title": "Wow, du hast zum ersten Mal einer Antwort zugestimmt",
+        "description": "“Upvotes” für Antworten sind ein wichtiges Element bei DumondaMe. Auf diese Weise werden die passendsten Antworten zuerst angezeigt. Zudem haben Antworten mit vielen Upvotes eine grössere Reichweite."
+      },
+      "inviteFriends": {
+        "title": "Dein Freundeskreis auf DumondaMe",
+        "description": "Du bist ganz schön auf Zack und hast bereits einiges auf DumondaMe gemacht. Gemeinsam macht es aber noch viel mehr Spass. Lade deshalb deine Freunde auf DumondaMe ein oder finde heraus, wer von ihnen bereits einen Account erstellt hat.",
+        "inviteFriendsButton": "Einladen"
+      },
+      "firstTrustCircleUser": {
+        "title": "Cool, du hast die erste Person zu deinem Trust Circle hinzugefügt",
+        "description": "Über den Trust Circle kannst du dich mit anderen vernetzen. So siehst du ihre neuen Fragen und Antworten. In Zukunft wird der Trust Circle dir noch viel mehr ermöglichen, freu dich darauf!"
+      },
+      "watchFirstCommitment": {
+        "title": "Du hast dein erstes Engagement abonniert",
+        "description": "Indem du ein Engagement als interessant markierst, bleibst du informiert über die neusten Entwicklungen. Findest du noch weitere interessante Engagements auf DumondaMe?",
+        "goToCommitments": "Weitere Engagements"
+      },
+      "challengeWatchCommitment": {
+        "title": "Challenge: Engagements bei DumondaMe",
+        "description": "Ein Engagement ist bei DumondaMe ein Verein, ein Unternehmen, ein Projekt oder ein persönliches Engagement für eine leuchtende Zukunft. Zeige der Community welches Engagement du empfehlenswert findest, indem du auf den Stern Button eines Engagements klickst.",
+        "goToCommitments": "Zu den Engagements"
+      },
+      "challengeCreateCommitment": {
+        "title": "Challenge: Dein Engagement bei DumondaMe",
+        "description": "Bist du Teil eines Vereins, eines Unternehmens, eines Projektes oder hast du ein persönliches Engagement für eine leuchtende Zukunft? Erfasse dieses Engagement auf DumondaMe und mache es für die DumondaMe Community sichtbar.",
+        "createCommitment": "Engagement erfassen"
+      },
+      "challengeComplete": {
+        "title": "Herzliche Gratulation!",
+        "description": "Du hast alle Challenges erfolgreich gemeistert. Danke, dass du diese Plattform mit deinem Wissen bereicherst. Durch Menschen wie dich wird DumondaMe lebendig. Gemeinsam ist alles möglich, darum lade auch deine Freundinnen und Freunde zum Mitmachen ein.",
+        "inviteFriendsButton": "Freunde einladen"
+      }
     },
     "moreUser": "Und eine weitere Person",
     "moreUser_plural": "Und {{count}} weitere Personen",

@@ -85,6 +85,7 @@
                             let blob = dataURItoBlob(dataUrl);
                             await postWithFile(this.$axios, blob, 'user/profile/image');
                             this.profileImage = dataUrl;
+                            this.$store.commit('user/SET_USER_IMAGE', dataUrl);
                             this.hideCropImageDialog = true;
                         } catch (e) {
                             this.showError = true;
@@ -121,8 +122,10 @@
         .profile-image-description {
             text-align: center;
             font-weight: 300;
+            font-size: 16px;
             max-width: 550px;
             margin: 0 auto;
+            color: $primary-text;
         }
     }
 </style>

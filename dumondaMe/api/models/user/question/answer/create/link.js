@@ -69,8 +69,10 @@ const createLinkAnswer = async function (userId, params) {
             }
         }
         logger.info(`Created link answer ${params.answerId} for question ${params.questionId}`);
-        await notification.addCreatedAnswerNotification(userId, params.answerId, params.created);
+        let oneTimeNotificationCreated = await notification.addCreatedAnswerNotification(userId,
+            params.answerId, params.created);
         const result = {
+            oneTimeNotificationCreated,
             answerId: params.answerId, created: params.created,
             creator: {
                 name: user[0][0].name,

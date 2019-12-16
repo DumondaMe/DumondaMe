@@ -41,6 +41,18 @@ let createUser = async function (linkId, user) {
         .delete("user").end({linkId}).send(commands);
 };
 
+let oneTimeNotifications = async function (emailNormalized) {
+    let created = time.getNowUtcTimestamp();
+    await db.cypher()
+        .match(`(user:User {emailNormalized: {emailNormalized}})`)
+        .merge(`(user)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime:Unread {type: 'oneTimeWelcome', 
+                 created: {createdWelcome}, notificationId: randomUUID()})`)
+        .merge(`(user)<-[:NOTIFIED]-(:Notification:NoEmail:OneTime:Unread {type: 'oneTimeWatchQuestion', 
+                 created: {createdWatch}, notificationId: randomUUID()})`)
+        .merge(`(asked)-[:ASKED]->(registeredUser)`)
+        .end({emailNormalized, createdWelcome: created, createdWatch: created + 1}).send();
+};
+
 let moveInvitedUserToAnswerQuestionRelationship = async function (emailNormalized) {
     await db.cypher()
         .match(`(invitedUser:InvitedUser {emailNormalized: {emailNormalized}})<-[askedRel:ASKED]-
@@ -99,6 +111,7 @@ let verify = async function (linkId, req) {
     await cdn.createFolderRegisterUser(userId);
 
     try {
+        await oneTimeNotifications(user.emailNormalized);
         await moveInvitedUserToAnswerQuestionRelationship(user.emailNormalized);
         await createInvitedUserToAskQuestionHasRegisteredNotification(user.emailNormalized);
         await createInvitedUserHasRegisteredNotification(user.emailNormalized);

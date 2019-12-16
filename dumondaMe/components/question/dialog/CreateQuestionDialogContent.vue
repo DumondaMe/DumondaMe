@@ -38,8 +38,7 @@
                         name: 'question-questionId-slug',
                         params: {questionId: response.questionId, slug: response.slug}
                     });
-                }
-                catch (e) {
+                } catch (e) {
                     this.loading = false;
                 }
             },

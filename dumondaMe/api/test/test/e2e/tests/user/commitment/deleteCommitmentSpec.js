@@ -14,7 +14,7 @@ describe('Delete a commitment', function () {
 
     beforeEach(async function () {
 
-        await dbDsl.init(3);
+        await dbDsl.init(4);
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         stubCDN.deleteFolder.reset();
 
@@ -66,6 +66,26 @@ describe('Delete a commitment', function () {
 
         resp = await db.cypher().match("(event:Event)")
             .return(`event`).end().send();
+        resp.length.should.equals(0);
+    });
+
+    it('Delete commitment with notifications', async function () {
+        dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '2'});
+        dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '3'});
+        dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '4'});
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.del('/api/user/commitment', {commitmentId: '1'});
+        res.status.should.equal(200);
+        stubCDN.deleteFolder.calledWith(`commitment/1/`, sinon.match.any).should.be.true;
+
+
+        let resp = await db.cypher().match("(commitment:Commitment {commitmentId :'1'})")
+            .return(`commitment`).end().send();
+        resp.length.should.equals(0);
+
+        resp = await db.cypher().match("(n:Notification)")
+            .return(`n`).end().send();
         resp.length.should.equals(0);
     });
 

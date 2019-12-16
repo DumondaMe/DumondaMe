@@ -73,6 +73,8 @@
 
             .user-description {
                 font-weight: 300;
+                font-size: 16px;
+                color: $primary-text;
                 max-width: 400px;
                 margin: 0 auto 12px auto;
             }

@@ -95,9 +95,12 @@
                     try {
                         this.watchingRunning = true;
                         if (watch) {
-                            await this.$axios.$put(`${this.apiWatch}/${this.watchedId}`);
+                            let response = await this.$axios.$put(`${this.apiWatch}/${this.watchedId}`);
                             this.$emit('add-watch', this.watchedId);
                             this.localWatchedByUser = true;
+                            if (response && response.oneTimeNotificationCreated) {
+                                this.$store.dispatch('notification/checkNotificationChanged');
+                            }
                         } else {
                             let params = {};
                             params[this.watchedIdName] = this.watchedId;

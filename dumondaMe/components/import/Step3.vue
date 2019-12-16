@@ -61,6 +61,9 @@
 
         .text-description {
             margin-bottom: 18px;
+            color: $primary-text;
+            font-size: 16px;
+            font-weight: 300;
         }
     }
 </style>

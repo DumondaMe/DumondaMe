@@ -41,9 +41,11 @@
             max-width: 300px;
             margin: 0 auto 24px auto;
             border-radius: 4px;
+            color: $primary-text;
         }
         .invited-user-message {
             font-weight: 300;
+            color: $primary-text;
         }
     }
 </style>
