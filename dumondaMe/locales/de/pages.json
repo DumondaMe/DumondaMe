@@ -150,7 +150,7 @@
     "commitmentInfo": {
       "title": "Was ist ein Engagement?",
       "description": "Ein Engagement kann bei DumondaMe ein Projekt, eine Organisation oder aber auch dein persönliches Engagement für eine leuchtende Zukunft sein.",
-      "create": "Dein Engagement erfassen..."
+      "create": "Dein Engagement erfassen"
     },
     "activityInfo": {
       "title": "Sehen was im Netzwerk passiert",
@@ -243,7 +243,7 @@
       "actionButton": "Einladungen versenden"
     },
     "conceptInfo": {
-      "title": "Welches sind die wichtigsten Konzepte?",
+      "title": "What are the most important functions?",
       "actionButton": "Tour starten"
     },
     "harvesting": {
