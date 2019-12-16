@@ -77,12 +77,10 @@
 
         .notification-user {
             margin-top: 12px;
-            display: block;
-            clear: both;
+            display: flex;
 
             .user-image {
                 cursor: pointer;
-                float: left;
                 height: 38px;
                 width: 38px;
                 margin-top: 4px;
@@ -95,7 +93,7 @@
             }
 
             .user-info {
-                margin-left: 52px;
+                margin-left: 12px;
                 min-height: 38px;
 
                 .user-info-container {
