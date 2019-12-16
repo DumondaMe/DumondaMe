@@ -19,13 +19,18 @@ const addedToTrustCircle = function (notification, language) {
     return i18next.t('notification:addedToTrustCircle.title', {name: user.name, lng: language});
 };
 
+const invitedUserHasRegistered = function (notification, language) {
+    let user = notification.originators[0].originator;
+    return i18next.t('notification:invitedUserHasRegistered.title', {name: user.name, lng: language});
+};
+
 const requestAdminOfCommitment = function (notification, language) {
     let commitment = notification.notificationObjects[0];
     return i18next.t('notification:adminOfCommitmentRequest.title', {commitment: commitment.title, lng: language});
 };
 
 const notificationsHandler = {
-    newQuestion, createdAnswer, addedToTrustCircle, requestAdminOfCommitment
+    newQuestion, createdAnswer, addedToTrustCircle, invitedUserHasRegistered, requestAdminOfCommitment
 };
 
 const getTitleOfNotification = function (notifications, numberOfNotifications, language) {
