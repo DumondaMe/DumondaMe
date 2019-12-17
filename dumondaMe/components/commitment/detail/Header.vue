@@ -30,7 +30,7 @@
                         <span v-if="!commitment.userWatchesCommitment || isAdmin">
                             {{$t('common:feedCard.watch.userHasNotWatched')}}</span>
                         <span v-else>{{$t('common:you')}}
-                            {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
+                            {{$t('pages:feeds.menu.watchesCommitment.titleIsLoggedInUser')}}</span>
                     </v-tooltip>
                     <span class="description">{{commitment.numberOfWatches}}</span>
                 </div>
