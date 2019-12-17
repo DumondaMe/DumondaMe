@@ -774,7 +774,7 @@
       "notification": "The following person you invited has created an account on DumondaMe."
     },
     "watchingCommitment": {
-      "notification": "The following person is interested in your commitment{{- commitment}}.",
+      "notification": "The following person is interested in your commitment {{- commitment}}.",
       "notification_plural": "{{count}} more people find your commitment {{- commitment}} interesting."
     },
     "watchingQuestion": {
@@ -785,11 +785,11 @@
       "notification": "has asked the question {{- question}}."
     },
     "newCommitment": {
-      "notification": "Commitment {- commitment}} was registered on DumondaMe."
+      "notification": "Commitment {{- commitment}} was registered on DumondaMe."
     },
     "createdAnswer": {
       "notification": "Has answered the question {{- question}} with {{type}} {{- answer}}.",
-      "notificationTextAnswer": "Has answered the question{{- question}}."
+      "notificationTextAnswer": "Has answered the question {{- question}}."
     },
     "createdNote": {
       "notification": "has created a note for the {{type}} answer {{- answer}}, which answers the question {{- question}}.",
