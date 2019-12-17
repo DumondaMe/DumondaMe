@@ -42,7 +42,7 @@
 
             .commitment-image {
                 width: 120px;
-                height: 120px;
+                height: 90px;
                 flex-shrink: 0;
 
                 img {
