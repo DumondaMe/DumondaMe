@@ -50,5 +50,13 @@ describe('When a new commitment is created, create notifications should be creat
             notification[index].notifiedUser.userId.should.not.equals('1');
 
         }
+
+        notification = await db.cypher().match(`(notifiedUser:User)<-[:NOTIFIED]-
+                    (notification:Notification:NoEmail:Unread {type: 'newCommitmentCreator'})`)
+            .match(`(notification)-[:NOTIFICATION]->(c:Commitment {commitmentId: {commitmentId}})`)
+            .return('notifiedUser')
+            .end({commitmentId: res.body.commitmentId}).send();
+        notification.length.should.equals(1);
+        notification[0].notifiedUser.userId.should.equals('1');
     });
 });

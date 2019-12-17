@@ -80,9 +80,7 @@ export const actions = {
         } else {
             response = await this.$axios.$post('/user/commitment', commitment);
         }
-        if (response.oneTimeNotificationCreated) {
-            dispatch('notification/checkNotificationChanged', null, {root: true});
-        }
+        dispatch('notification/checkNotificationChanged', null, {root: true});
         return response;
     }
 };

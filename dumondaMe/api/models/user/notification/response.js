@@ -85,6 +85,19 @@ const addWatchingCommitmentProperties = function (notificationResponse, notifica
     }
 };
 
+const addNewCommitmentCreatorProperties = function (notification) {
+    let commitment = notification.infos[0].info;
+    return {
+        read: notification.read,
+        notificationId: notification.notification.notificationId,
+        created: notification.notification.created,
+        type: notification.notification.type,
+        commitmentId: commitment.commitmentId,
+        commitmentTitle: commitment.title,
+        commitmentSlug: slug(commitment.title)
+    }
+};
+
 const addQuestionProperties = function (notificationResponse, notification) {
     if ((notificationResponse.type === 'watchingQuestion' || notificationResponse.type === 'newQuestion') &&
         notification.infos.length === 1) {
@@ -156,6 +169,8 @@ const getResponse = async function (notifications) {
             response.push(getShowQuestionOnCommitmentRequest(notification));
         } else if (notification.notification.type === 'requestAdminOfCommitment') {
             response.push(getAdminOfCommitmentRequest(notification));
+        } else if (notification.notification.type === 'newCommitmentCreator') {
+            response.push(addNewCommitmentCreatorProperties(notification));
         } else {
             let notificationResponse = await getNotificationWithOriginators(notification);
             addWatchingCommitmentProperties(notificationResponse, notification);
