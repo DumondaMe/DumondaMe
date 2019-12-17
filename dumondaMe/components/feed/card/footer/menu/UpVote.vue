@@ -6,7 +6,7 @@
             </div>
         </template>
         <v-card class="ely-menu-container up-vote-menu-container" v-if="menu">
-            <div class="menu-title">
+            <div class="menu-title" v-if="numberOfShowedUsers > 0">
                 {{$t('pages:feeds.menu.userUpVote.moreUpVotes', {count: numberOfShowedUsers})}}
             </div>
             <user-content v-if="numberOfShowedUsers > 0" :users="users.users"
@@ -146,8 +146,12 @@
 
 <style lang="scss">
     .ely-menu-container.up-vote-menu-container {
+        .menu-title {
+            padding-bottom: 0;
+        }
+
         .up-votes-description {
-            padding: 0 16px 12px 16px;
+            padding: 12px 16px 12px 16px;
         }
 
         .loading-up-voted-user-running {

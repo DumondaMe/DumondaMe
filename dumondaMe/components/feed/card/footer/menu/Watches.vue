@@ -7,7 +7,8 @@
                 </div>
             </template>
             <v-card class="ely-menu-container ely-menu-watches-container" v-if="menu">
-                <div class="menu-title">{{$t('pages:feeds.menu.'+ menuTranslation + '.moreWatches',
+                <div class="menu-title" v-if="numberOfWatches > 0">{{$t('pages:feeds.menu.'+ menuTranslation +
+                    '.moreWatches',
                     {count: numberOfShowedUsers})}}
                 </div>
                 <user-content v-if="numberOfShowedUsers > 0 && !loadWatchingUserRunning" :users="users.users"
@@ -153,8 +154,13 @@
 
 <style lang="scss">
     .ely-menu-container.ely-menu-watches-container {
+
+        .menu-title {
+            padding-bottom: 0;
+        }
+
         .watches-description {
-            padding: 0 16px 12px 16px;
+            padding: 12px 16px 12px 16px;
             max-width: 300px;
         }
 
