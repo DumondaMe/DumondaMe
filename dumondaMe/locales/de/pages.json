@@ -42,7 +42,7 @@
     "users": {
       "title": "Personen",
       "noUserDescription": "Es wurden keine Personen gefunden.",
-      "inTrustCircle": "Ist in deinem Trust Circle"
+      "inTrustCircle": "Ist in deinem Trust Circle."
     },
     "harvestingUsers": {
       "title": "DumondaMe on Tour"
@@ -172,23 +172,23 @@
       "userUpVote": {
         "title": "hat dieser Antwort zugestimmt",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
-        "noUpVotes": "Noch Niemand hat dieser Antwort zugestimmt.",
+        "noUpVotes": "Noch niemand hat dieser Antwort zugestimmt.",
         "userIsOnlyUpVoter": "Du bist die erste Person welche dieser Antwort zugestimmt hat.",
         "moreUpVotes": "Zustimmung von",
         "moreUpVotes_plural": "Zustimmungen von"
       },
       "watchesQuestion": {
-        "title": "findet diese Frage interessant",
-        "titleIsLoggedInUser": "findest diese Frage interessant",
-        "noWatches": "Noch Niemand findet diese Frage interessant",
+        "title": "findet diese Frage interessant.",
+        "titleIsLoggedInUser": "findest diese Frage interessant.",
+        "noWatches": "Noch niemand findet diese Frage interessant.",
         "userIsOnlyWatcher": "Du bist die erste Person welche diese Frage interessant findet.",
         "moreWatches": "Interessierte Person",
         "moreWatches_plural": "Interessierte Personen"
       },
       "watchesCommitment": {
-        "title": "findet dieses Engagement interessant",
-        "titleIsLoggedInUser": "findest dieses Engagement interessant",
-        "noWatches": "Noch Niemand findet dieses Engagement interessant",
+        "title": "findet dieses Engagement interessant.",
+        "titleIsLoggedInUser": "findest dieses Engagement interessant.",
+        "noWatches": "Noch niemand findet dieses Engagement interessant.",
         "userIsOnlyWatcher": "Du bist die erste Person welche dieses Engagement interessant findet.",
         "moreWatches": "Interessierte Person",
         "moreWatches_plural": "Interessierte Personen"
@@ -530,8 +530,8 @@
   },
   "detailCommitment": {
     "admin": {
-      "title": "Administrator",
-      "description": "Du bist Administrator dieses Engagements."
+      "title": "Administrator_in",
+      "description": "Du bist Administrator_in dieses Engagements."
     },
     "generalInfo": {
       "title": "Allgemeine Informationen",
@@ -586,14 +586,14 @@
     },
     "adminDialog": {
       "title": "Administratoren des Engagements {{- commitment}}",
-      "titleAddAdmin": "Administrator zum Engagement {{- commitment}} hinzufügen",
-      "titleRemoveAdmin": "Administrator von  {{- commitment}} entfernen",
-      "descriptionRemoveAdmin": "Soll <b>{{- admin}}</b> wirklich kein Administrator des Engagements <b>{{- commitment}}</b> mehr sein?",
-      "descriptionRemoveLoggedInAdmin": "Möchtest du dich wirklich kein Administrator des Engagements <b>{{- commitment}}</b> mehr sein? <b>Vorsicht!!</b> Du kannst dieses Engagement nicht mehr verwalten, wenn du dich als Administrator entfernst.",
+      "titleAddAdmin": "Administrator_in zum Engagement {{- commitment}} hinzufügen",
+      "titleRemoveAdmin": "Administrator_in von  {{- commitment}} entfernen",
+      "descriptionRemoveAdmin": "Soll <b>{{- admin}}</b> wirklich kein_e Administrator_in des Engagements <b>{{- commitment}}</b> mehr sein?",
+      "descriptionRemoveLoggedInAdmin": "Möchtest du dich wirklich kein_e Administrator_in des Engagements <b>{{- commitment}}</b> mehr sein? <b>Vorsicht!!</b> Du kannst dieses Engagement nicht mehr verwalten, wenn du dich als Administrator entfernst.",
       "titleRequestedAdmins": "Anfrage versendet an:",
-      "searchAdmin": "Suche neuen Administrator",
-      "removeAdminButton": "Administrator entfernen",
-      "addAdminButton": "Administrator hinzufügen",
+      "searchAdmin": "Suche neue_n Administrator_in",
+      "removeAdminButton": "Administrator_in entfernen",
+      "addAdminButton": "Administrator_in hinzufügen",
       "isTrustUser": "In deinem Trust Circle",
       "isRequestAdminOfCommitmentActive": "Anfrage wurde bereits versendet"
     }
@@ -624,7 +624,7 @@
       "userDescription": "Eine kurze Beschreibung deiner Person"
     },
     "profileInfo": {
-      "noTrustCircle": "Noch Niemand im Trust Circle",
+      "noTrustCircle": "Noch niemand im Trust Circle",
       "trustCircle": "Eine Person im Trust Circle",
       "trustCircle_plural": "{{count}} Personen im Trust Circle",
       "noTrustCircleOtherUser": "Noch in keinem Trust Circle",
@@ -651,10 +651,10 @@
       "otherUserTitle": "{{userForename}}'s Engagements"
     },
     "adminCommitment": {
-      "loggedInUserInfo": "Du bist der Administrator von einem Engagement.",
-      "loggedInUserInfo_plural": "Du bist Administrator von {{count}} Engagements.",
-      "otherUserInfo": "Ist Administrator von einem Engagement.",
-      "otherUserInfo_plural": "Administrator von {{count}} Engagements."
+      "loggedInUserInfo": "Du bist der/die Administrator_in von einem Engagement.",
+      "loggedInUserInfo_plural": "Du bist Administrator_in von {{count}} Engagements.",
+      "otherUserInfo": "Ist Administrator_in von einem Engagement.",
+      "otherUserInfo_plural": "Administrator_in von {{count}} Engagements."
     },
     "interestedInTheCommitment": {
       "loggedInUserInfo": "Du findest eine Engagement interessant.",
@@ -759,7 +759,7 @@
       "notShowQuestion": "Die Frage wird nicht angezeigt"
     },
     "adminOfCommitmentRequest": {
-      "notification1": "möchte dich als Administrator dem Engagement",
+      "notification1": "möchte dich als Administrator_in dem Engagement",
       "notification2": "hinzufügen",
       "confirmedToBeAdmin": "Anfrage angenommen",
       "deniedToBeAdmin": "Anfrage abgelehnt"
