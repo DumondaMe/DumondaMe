@@ -13,6 +13,15 @@ const createNewCommitmentNotifications = function (creatorId, commitmentId, crea
         .end({creatorId, commitmentId, created})
 };
 
+const createNewCommitmentCreatorNotification = function (creatorId, commitmentId, created) {
+    return db.cypher()
+        .match(`(creator:User {userId: {creatorId}})-[:IS_CREATOR]->(c:Commitment {commitmentId: {commitmentId}})`)
+        .merge(`(creator)<-[:NOTIFIED]-(n:Notification:Unread:NoEmail {type: 'newCommitmentCreator', ` +
+            `created: {created}, notificationId: randomUUID()})-[:NOTIFICATION]->(c)`)
+        .merge(`(n)-[:NOTIFICATION]->(c)`)
+        .end({creatorId, commitmentId, created})
+};
+
 const addOneTimeNotificationFirstCommitment = function (userId, created) {
     return db.cypher().match(`(u:User {userId: {userId}})`)
         .where(`NOT EXISTS((u)<-[:NOTIFIED]-(:Notification {type: 'oneTimeFirstCommitment'}))`)
@@ -28,7 +37,8 @@ const addOneTimeNotificationFirstCommitment = function (userId, created) {
 const addNotifications = async function (creatorId, commitmentId, created) {
     let response = await createNewCommitmentNotifications(creatorId, commitmentId, created).send(
         [addOneTimeNotificationFirstCommitment(creatorId, created).getCommand(),
-            notification.addOneTimeNotificationChallengeComplete(creatorId, created).getCommand()]);
+            notification.addOneTimeNotificationChallengeComplete(creatorId, created).getCommand(),
+            createNewCommitmentCreatorNotification(creatorId, commitmentId, created).getCommand()]);
     return response[0].length === 1 || response[1].length === 1;
 };
 

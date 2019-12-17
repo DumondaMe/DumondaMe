@@ -22,6 +22,9 @@
                 </watch-question>
                 <new-commitment :notification="notification" v-else-if="notification.type === 'newCommitment'">
                 </new-commitment>
+                <new-commitment-creator :notification="notification"
+                                        v-else-if="notification.type === 'newCommitmentCreator'">
+                </new-commitment-creator>
                 <new-question :notification="notification" v-else-if="notification.type === 'newQuestion'">
                 </new-question>
                 <created-answer :notification="notification" v-else-if="notification.type === 'createdAnswer'">
@@ -93,6 +96,7 @@
     import WatchCommitment from './WatchCommitment';
     import WatchQuestion from './WatchQuestion';
     import NewCommitment from './NewCommitment';
+    import NewCommitmentCreator from './NewCommitmentCreator';
     import NewQuestion from './NewQuestion';
     import CreatedAnswer from './CreatedAnswer';
     import CreatedNote from './CreatedNote';
@@ -115,7 +119,7 @@
         name: "notifications",
         components: {
             ShowQuestionRequest, AdminOfCommitmentRequest, AddToTrustCircle, WatchCommitment, WatchQuestion,
-            NewCommitment, NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered,
+            NewCommitment, NewCommitmentCreator, NewQuestion, CreatedAnswer, CreatedNote, InvitedUserHasRegistered,
             OneTimeChallengeUpVoteAnswer, OneTimeChallengeWatchQuestion, OneTimeChallengeWatchCommitment,
             OneTimeChallengeCreateCommitment, OneTimeUpVoteFirstAnswer, OneTimeWatchFirstQuestion,
             OneTimeWelcome, OneTimeInviteFriends, OneTimeFirstTrustCircleUser, OneTimeWatchFirstCommitment,

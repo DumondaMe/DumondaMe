@@ -785,6 +785,10 @@
     "newCommitment": {
       "notification": "Das Engagement {{- commitment}} wurde auf DumondaMe erfasst."
     },
+    "newCommitmentCreator": {
+      "title": "Du hast das Engagement {{- commitment}} auf DumondaMe erfasst.",
+      "description": "Es wird nun allen Benutzer_innen eine Benachrichtigung gesendet, damit sie von deinem Engagement erfahren."
+    },
     "createdAnswer": {
       "notification": "hat die Frage {{- question}} mit dem {{type}} {{- answer}} beantwortet.",
       "notificationTextAnswer": "hat die Frage {{- question}} beantwortet."

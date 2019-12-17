@@ -73,6 +73,7 @@ describe('Delete a commitment', function () {
         dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '2'});
         dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '3'});
         dbDsl.notificationUserCreatedCommitment({commitmentId: '1', created: 678, notifiedUserId: '4'});
+        dbDsl.notificationCreatedCommitmentCreator({commitmentId: '1', created: 679});
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.del('/api/user/commitment', {commitmentId: '1'});
