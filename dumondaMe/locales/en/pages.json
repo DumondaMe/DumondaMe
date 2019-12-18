@@ -541,6 +541,9 @@
       "watchers_plural": "{{count}} People",
       "watchersNotExisting": "Nobody yet"
     },
+    "contributors": {
+      "title": "Participants in this commitment"
+    },
     "notifications": {
       "title": "Notifications",
       "showQuestionRequest": {

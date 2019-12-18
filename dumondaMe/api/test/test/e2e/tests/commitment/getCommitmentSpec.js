@@ -107,6 +107,13 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].description.should.equals('description2');
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
 
+        res.body.contributors.length.should.equals(1);
+        res.body.contributors[0].userId.should.equals('1');
+        res.body.contributors[0].name.should.equals('user Meier');
+        res.body.contributors[0].slug.should.equals('user-meier');
+        res.body.contributors[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.contributors[0].isLoggedInUser.should.equals(true);
+
         res.body.totalNumberOfEvents.should.equals(1);
         res.body.events.length.should.equals(1);
         res.body.events[0].eventId.should.equals('22');
@@ -145,6 +152,13 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions.length.should.equals(0);
         res.body.events.length.should.equals(1);
         res.body.totalNumberOfEvents.should.equals(1);
+
+        res.body.contributors.length.should.equals(1);
+        res.body.contributors[0].userId.should.equals('1');
+        res.body.contributors[0].name.should.equals('user Meier');
+        res.body.contributors[0].slug.should.equals('user-meier');
+        res.body.contributors[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.contributors[0].isLoggedInUser.should.equals(false);
     });
 
     it('Get a commitment (User is not logged in)', async function () {
@@ -193,6 +207,13 @@ describe('Get details of a commitment', function () {
         res.body.linkedWithQuestions[1].upVotes.should.equals(0);
         res.body.events.length.should.equals(1);
         res.body.totalNumberOfEvents.should.equals(1);
+
+        res.body.contributors.length.should.equals(1);
+        res.body.contributors[0].userId.should.equals('1');
+        res.body.contributors[0].name.should.equals('user Meier');
+        res.body.contributors[0].slug.should.equals('user-meier');
+        res.body.contributors[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+        res.body.contributors[0].isLoggedInUser.should.equals(false);
     });
 
     it('Get non existing commitment', async function () {

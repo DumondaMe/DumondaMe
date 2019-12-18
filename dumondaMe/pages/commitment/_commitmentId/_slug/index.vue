@@ -8,6 +8,7 @@
             </commitment-header>
             <div class="user-mobile-content">
                 <general-information></general-information>
+                <contributors></contributors>
             </div>
             <notifications>
             </notifications>
@@ -19,6 +20,7 @@
         <div slot="sidebar" id="commitment-sidebar">
             <profile-image></profile-image>
             <general-information></general-information>
+            <contributors></contributors>
         </div>
     </detail-layout>
 </template>
@@ -31,6 +33,7 @@
     import Questions from '~/components/commitment/detail/Questions';
     import Events from '~/components/commitment/detail/event/Events';
     import GeneralInformation from '~/components/commitment/detail/GeneralInformation';
+    import Contributors from '~/components/commitment/detail/contributors/Contributors';
     import {mapGetters} from 'vuex';
 
     export default {
@@ -70,7 +73,8 @@
             }
         },
         components: {
-            DetailLayout, CommitmentHeader, ProfileImage, Notifications, Questions, Events, GeneralInformation
+            DetailLayout, CommitmentHeader, ProfileImage, Notifications, Questions, Events, GeneralInformation,
+            Contributors
         },
         computed: {
             ...mapGetters({commitment: 'commitment/getCommitment'})

@@ -539,6 +539,9 @@
       "watchers_plural": "{{count}} Personen",
       "watchersNotExisting": "Noch Niemand"
     },
+    "contributors": {
+      "title": "Mitwirkende bei diesem Engagement"
+    },
     "notifications": {
       "title": "Benachrichtigungen",
       "showQuestionRequest": {
