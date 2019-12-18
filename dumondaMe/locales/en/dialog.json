@@ -54,6 +54,12 @@
     "basicAuth": {
       "info": "Your login data will not be saved by DumondaMe. This information is only needed to load the address book."
     },
+    "manually": {
+      "title": "Enter e-mail",
+      "importLabel": "Add E-Mail",
+      "emailExists": "You have already used this e-mail",
+      "addButton": "Add"
+    },
     "photoTitle": "Choose your profile picture",
     "photoDescription": "Your profile picture will be sent with the generated e-mail. It would be good if you choose your profile picture in such a way that people will recognize you well. So they know from whom they received the invitation.",
     "text": {
