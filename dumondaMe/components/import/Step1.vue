@@ -11,6 +11,10 @@
                        @contacts-loaded="contactsLoaded"
                        @close="showBasicAuthWebDe = false">
     </import-basic-auth>
+    <import-manually v-else-if="showManually"
+                     @contacts-loaded="addContactsManually"
+                     @close="showManually = false">
+    </import-manually>
     <sent-message-info v-else-if="showSentMessage" @close-dialog="$emit('close-dialog')"></sent-message-info>
     <v-card id="import-contact-container" v-else>
         <div id="dumonda-me-dialog-header">
@@ -23,7 +27,8 @@
                                       @show-basic-auth-gmx="showBasicAuthGmx = true"
                                       @show-basic-auth-webde="showBasicAuthWebDe = true"
                                       @parsing-started="parsingStarted"
-                                      @parsing-ended="parsingEnded">
+                                      @parsing-ended="parsingEnded"
+                                      @show-manually="showManually = true">
             </import-contact-container>
             <div class="warning-no-contacts-added" v-show="showNoContactsAddedInfo">
                 {{$t("dialog:invite.noContactsAdded")}}
@@ -72,17 +77,20 @@
     import Contact from './Contact';
     import RegisteredUser from './RegisteredUser';
     import SelectContainer from './SelectContainer';
+    import ImportManually from './ImportManually';
     import Vue from 'vue';
 
     export default {
         data() {
             return {
                 contacts: [], registeredUsers: [], showBasicAuthGmx: false, showBasicAuthWebDe: false,
-                showSentMessage: false, loading: false, showNoContactsAddedInfo: false
+                showSentMessage: false, loading: false, showNoContactsAddedInfo: false, showManually: false
             }
         },
-        components:
-            {Contact, RegisteredUser, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer},
+        components: {
+            Contact, RegisteredUser, ImportContactContainer, ImportBasicAuth, SentMessageInfo, SelectContainer,
+            ImportManually
+        },
         methods: {
             async contactsOnlyEmailLoaded(contacts) {
                 try {
@@ -109,6 +117,13 @@
                 this.showBasicAuthGmx = false;
                 this.showBasicAuthWebDe = false;
                 this.showNoContactsAddedInfo = this.addContacts(contacts);
+            },
+            async addContactsManually(contacts) {
+                for (let contact of contacts) {
+                    Vue.set(contact, 'showContact', true);
+                }
+                this.showNoContactsAddedInfo = this.addContacts(contacts);
+                this.showManually = false;
             },
             checkContactNotExisting(newContact) {
                 return !this.contacts.concat(this.registeredUsers).find(function (contact) {

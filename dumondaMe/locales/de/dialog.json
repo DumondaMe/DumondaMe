@@ -54,6 +54,12 @@
     "basicAuth": {
       "info": "Deine Logindaten werden von DumondaMe nicht gespeichert. Diese Informationen werden lediglich benötigt um das Adressbuch zu laden."
     },
+    "manually": {
+      "title": "E-Mail erfassen",
+      "importLabel": "Eingeben",
+      "emailExists": "Diese E-Mail hast du bereits verwendet",
+      "addButton": "Hinzufügen"
+    },
     "photoTitle": "Wähle dein Profilbild",
     "photoDescription": "Dein Profilbild wird beim generierten E-Mail mitgesendet. Gut wäre wenn du dein Profilbild so wählst, dass dich die Leute darauf gut erkennen. So wissen sie von wem sie die Einladung erhalten haben.",
     "text": {

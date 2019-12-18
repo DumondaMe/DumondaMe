@@ -15,7 +15,11 @@
     export default {
         props: ['contacts', 'numberOfSelectedContacts', 'numberOfAllSelected'],
         data() {
-            return {selectAllState: false, showOnlySelectedState: false}
+            let selectAllState = false;
+            if (this.numberOfSelectedContacts > 0 && this.numberOfSelectedContacts > 0) {
+                selectAllState = this.numberOfSelectedContacts === this.numberOfAllSelected;
+            }
+            return {selectAllState, showOnlySelectedState: false}
         },
         methods: {
             changeOnlySelectedState(newState) {
@@ -30,6 +34,9 @@
         },
         watch: {
             numberOfSelectedContacts() {
+                this.selectAllState = this.numberOfSelectedContacts === this.numberOfAllSelected;
+            },
+            numberOfAllSelected() {
                 this.selectAllState = this.numberOfSelectedContacts === this.numberOfAllSelected;
             }
         }
