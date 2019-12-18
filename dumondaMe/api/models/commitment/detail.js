@@ -3,6 +3,8 @@
 const slug = require('limax');
 const db = requireDb();
 const events = require('./events');
+const contributors = require('./contributors');
+const contributorsResponse = require('./contributors/response');
 const cdn = require('dumonda-me-server-lib').cdn;
 const logger = require('dumonda-me-server-lib').logging.getLogger(__filename);
 
@@ -47,16 +49,18 @@ const getDetail = async function (userId, commitmentId, language) {
                  collect(DISTINCT {description: r.${language}, id: r.regionId}) AS regions`)
         .end({userId, commitmentId}).send([getLinkedQuestions(commitmentId, userId),
             events.getEventsCommand(commitmentId, true, 0, language).getCommand(),
-            events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand()]);
-    if (resp[3].length !== 1) {
+            events.getTotalNumberOfEventsCommand(commitmentId, true).getCommand(),
+            contributors.getUsersCommand(commitmentId, userId).getCommand()]);
+    if (resp[4].length !== 1) {
         logger.warn(`Commitment ${commitmentId} had ${resp.length} results`);
         throw new Error('404');
     }
-    let response = resp[3][0];
+    let response = resp[4][0];
     response.imageUrl = cdn.getPublicUrl(`commitment/${commitmentId}/320x320/title.jpg`, response.modified);
     response.linkedWithQuestions = getLinkedQuestionResponse(resp[0]);
     response.events = resp[1];
     response.totalNumberOfEvents = resp[2][0].numberOfEvents;
+    response.contributors = await contributorsResponse.getUsersResponse(resp[3], userId);
     logger.info(`Get commitment ${commitmentId}`);
     return response;
 };

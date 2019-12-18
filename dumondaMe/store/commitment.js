@@ -5,7 +5,8 @@ import {replaceProperties} from '~/utils/object/property.js';
 export const state = () => ({
     commitment: {
         title: null, description: null, website: null, lang: null, numberOfWatches: 0, userWatchesCommitment: false,
-        imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: [], regions: []
+        imageUrl: null, linkedWithQuestions: [], events: [], totalNumberOfEvents: 0, topics: [], regions: [],
+        contributors: []
     },
     admins: [],
     adminsRequested: [],
