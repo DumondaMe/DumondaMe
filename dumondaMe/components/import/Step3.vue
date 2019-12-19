@@ -19,8 +19,8 @@
                             class="user-text"
                             :label="$t('dialog:invite:text.label')"
                             :rules="[ruleFieldRequired($t('validation:fieldRequired')),
-                                     ruleToManyChars($t('validation:toManyChars'), 500)]"
-                            :counter="500" auto-grow>
+                                     ruleToManyChars($t('validation:toManyChars'), 1000)]"
+                            :counter="1000" auto-grow>
                 </v-textarea>
             </v-form>
         </v-card-text>
