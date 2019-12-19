@@ -19,7 +19,7 @@ const schemaInviteFriends = {
             maxItems: 1000,
             uniqueItems: true
         },
-        text: {type: 'string', format: 'notEmptyString', maxLength: 500},
+        text: {type: 'string', format: 'notEmptyString', maxLength: 1000},
         language: schemaLanguage.language
     }
 };
