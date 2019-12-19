@@ -26,6 +26,10 @@
         <cookie-privacy-read-info></cookie-privacy-read-info>
         <public-landing-page v-if="!isNotPublicStartPage"></public-landing-page>
 
+        <register-info-dialog v-if="pageViewCount === 3 && !isAuthenticated && showRegisterInfo"
+                              @close-dialog="showRegisterInfo = false">
+        </register-info-dialog>
+
         <language-dialog v-if="showChangeLanguage" @close-dialog="showChangeLanguage = false">
         </language-dialog>
         <create-commitment-dialog v-if="showCreateCommitment" @close-dialog="showCreateCommitment = false">
@@ -57,12 +61,13 @@
     import CreateAnswerDialog from '~/components/question/answer/dialog/CreateDialog.vue';
     import ImportContactDialog from '~/components/import/ImportContactDialog'
     import LoginRequiredDialog from '~/components/common/dialog/LoginRequired.vue';
+    import RegisterInfoDialog from '~/components/info/RegisterInfoDialog.vue';
 
     export default {
         components: {
             DumondaMeToolbar, DumondaMeNavigationDrawer, WelcomeDialog, PublicLandingPage,
             cookiePrivacyReadInfo, LanguageDialog, CreateCommitmentDialog, CreateQuestionDialog, ImportContactDialog,
-            LoginRequiredDialog, CreateAnswerDialog, BottomNav
+            LoginRequiredDialog, CreateAnswerDialog, BottomNav, RegisterInfoDialog
         },
         head() {
             return {
@@ -85,7 +90,8 @@
         data() {
             return {
                 showInfoDialog: false, showChangeLanguage: false, showCreateCommitment: false,
-                showCreateQuestion: false, showCreateAnswer: false, showLoginRequired: false, showImportContact: false
+                showCreateQuestion: false, showCreateAnswer: false, showLoginRequired: false, showImportContact: false,
+                showRegisterInfo: true
             };
         },
         mounted() {
@@ -122,6 +128,9 @@
             isNotPublicStartPage() {
                 return !(this.$route.name === 'index' && !this.$store.state.auth.userIsAuthenticated) &&
                     this.$route.name !== 'about';
+            },
+            pageViewCount() {
+                return this.$store.state.user.pageViewCount;
             }
         }
     }
