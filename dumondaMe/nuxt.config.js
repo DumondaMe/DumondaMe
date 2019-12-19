@@ -39,8 +39,7 @@ module.exports = {
         ],
         noscript: [{innerHTML: "This website requires JavaScript", body: true}],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`},
-            {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'}
+            {rel: 'icon', type: 'image/x-icon', href: `${process.env.CLIENT_STATIC_URL}/favicon.ico`}
         ],
         script: getScripts(),
         __dangerouslyDisableSanitizers: ['script']
@@ -58,10 +57,16 @@ module.exports = {
         '@nuxtjs/proxy',
         '@nuxtjs/axios',
         ['nuxt-matomo', {matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SIDE_ID}],
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        'nuxt-webfontloader'
     ],
     styleResources: {
         scss: ['~assets/style/_variables.scss', '~assets/style/_mixins.scss']
+    },
+    webfontloader: {
+        google: {
+            families: ['Roboto:300,400,500'] //Loads Lato font with weights 400 and 700
+        }
     },
     loading: {
         color: '#4CAF50'
