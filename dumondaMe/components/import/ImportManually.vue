@@ -29,7 +29,7 @@
         <v-divider></v-divider>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click.native="$emit('close')">
+            <v-btn color="primary" text @click.native="back">
                 {{$t("common:button.back")}}
             </v-btn>
             <v-btn color="primary" :loading="loading" :disabled="selectedContacts.length === 0"
@@ -47,9 +47,11 @@
     import Vue from 'vue';
 
     export default {
+        props: ['initContacts'],
         data() {
             return {
-                valid: false, loading: false, formError: false, emailToAdd: '', contacts: [],
+                valid: false, loading: false, formError: false, emailToAdd: '',
+                contacts: JSON.parse(JSON.stringify(this.initContacts)),
                 existingUser: null
             }
         },
@@ -87,7 +89,10 @@
                     }
                 }
             },
-            async addContacts() {
+            back() {
+                this.$emit('back', this.contacts);
+            },
+            addContacts() {
                 this.$emit('contacts-loaded', this.selectedContacts);
             },
             emailNotExits() {

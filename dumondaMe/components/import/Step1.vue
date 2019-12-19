@@ -11,9 +11,9 @@
                        @contacts-loaded="contactsLoaded"
                        @close="showBasicAuthWebDe = false">
     </import-basic-auth>
-    <import-manually v-else-if="showManually"
+    <import-manually v-else-if="showManually" :init-contacts="tempManuallyContacts"
                      @contacts-loaded="addContactsManually"
-                     @close="showManually = false">
+                     @back="closeManually">
     </import-manually>
     <sent-message-info v-else-if="showSentMessage" @close-dialog="$emit('close-dialog')"></sent-message-info>
     <v-card id="import-contact-container" v-else>
@@ -84,7 +84,8 @@
         data() {
             return {
                 contacts: [], registeredUsers: [], showBasicAuthGmx: false, showBasicAuthWebDe: false,
-                showSentMessage: false, loading: false, showNoContactsAddedInfo: false, showManually: false
+                showSentMessage: false, loading: false, showNoContactsAddedInfo: false, showManually: false,
+                tempManuallyContacts: []
             }
         },
         components: {
@@ -124,6 +125,11 @@
                 }
                 this.showNoContactsAddedInfo = this.addContacts(contacts);
                 this.showManually = false;
+                this.tempManuallyContacts = [];
+            },
+            closeManually(contacts) {
+                this.showManually = false;
+                this.tempManuallyContacts = contacts;
             },
             checkContactNotExisting(newContact) {
                 return !this.contacts.concat(this.registeredUsers).find(function (contact) {
