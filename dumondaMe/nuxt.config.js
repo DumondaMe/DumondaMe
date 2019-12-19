@@ -106,6 +106,7 @@ module.exports = {
         '~/plugins/moment.js',
         '~/plugins/vuetify.js',
         '~/plugins/axios.js',
+        '~/plugins/route.js',
         {src: '~/plugins/vue-lazyload', ssr: false},
         {src: '~/plugins/intersection-observer', ssr: false},],
     css: [

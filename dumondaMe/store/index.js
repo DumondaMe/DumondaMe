@@ -39,6 +39,9 @@ let initUser = function (commit, req, language) {
     } else {
         commit('i18n/SET_LANGUAGES', [language]);
     }
+    if (req.isAuthenticated()) {
+        commit('user/SET_PAGE_VIEW_COUNT', 10);
+    }
 };
 
 let initDonation = function (commit) {

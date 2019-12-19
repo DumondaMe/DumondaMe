@@ -83,6 +83,7 @@
                     this.$store.commit('feedFilter/SET_FILTER_TO_PUBLIC_STATE');
                     this.$store.commit('i18n/SET_LANGUAGES', [this.$store.state.i18n.language]);
                     this.$store.commit('user/SET_IS_HARVESTING_USER', false);
+                    this.$store.commit('user/SET_PAGE_VIEW_COUNT', 10);
                     this.$router.push({name: 'index'});
                 } catch (e) {
                     this.showError = true;
