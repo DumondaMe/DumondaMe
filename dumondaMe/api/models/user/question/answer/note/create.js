@@ -23,8 +23,9 @@ const createNote = async function (userId, answerId, text) {
         textHtml: linkifyHtml(text, {attributes: {rel: 'noopener'}})
     };
     let res = await notification.addCreatedNoteNotification(userId, response.noteId, response.created).send([
-        createNoteCommand(answerId, userId, text, response.created, response.noteId).getCommand()
-    ]);
+        createNoteCommand(answerId, userId, text, response.created, response.noteId).getCommand(),
+        notification.addCreatedNoteForNoteCreatorsNotification(userId, response.noteId, response.created)
+            .getCommand()]);
     logger.info(`User ${userId} has created a note ${answerId}`);
     if (res[0].length === 0) {
         throw new exceptions.InvalidOperation(`Note for answer ${answerId} not created`);
