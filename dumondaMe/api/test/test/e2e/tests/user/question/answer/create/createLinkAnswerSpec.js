@@ -151,7 +151,7 @@ describe('Creating link answer', function () {
         sandbox.stub(rp, 'get');
         dbDsl.createLinkAnswer('10', {
             creatorId: '2', questionId: '2', created: 500,
-            link: 'https://example.com', pageType: 'blog'
+            link: 'https://example.com/', pageType: 'blog'
         });
 
         await dbDsl.sendToDb();
@@ -173,18 +173,18 @@ describe('Creating link answer', function () {
         sandbox.stub(rp, 'get');
         dbDsl.createLinkAnswer('10', {
             creatorId: '2', questionId: '2', created: 500,
-            link: 'https://example.com', pageType: 'blog'
+            link: 'https://example.com/', pageType: 'blog'
         });
         dbDsl.createLinkAnswer('11', {
             creatorId: '2', questionId: '3', created: 499,
-            link: 'https://example.com', pageType: 'article'
+            link: 'https://example.com/', pageType: 'article'
         });
         dbDsl.setOriginalAnswer({answerId: '10', originalAnswerId: '11'});
 
         await dbDsl.sendToDb();
         await requestHandler.login(users.validUser);
         let res = await requestHandler.post('/api/user/question/answer/link/1', {
-            link: 'https://example.com',
+            link: 'https://example.com/',
             title: 'titleLink', description: 'descriptionLink', type: 'blog'
         });
         res.status.should.equal(200);
@@ -200,7 +200,7 @@ describe('Creating link answer', function () {
         sandbox.stub(rp, 'get');
         dbDsl.createLinkAnswer('10', {
             creatorId: '2', questionId: '1', created: 500,
-            link: 'https://example.com', pageType: 'blog'
+            link: 'https://example.com/', pageType: 'blog'
         });
 
         await dbDsl.sendToDb();

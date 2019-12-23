@@ -78,7 +78,7 @@ describe('Creating a new commitment', function () {
         resp[0].commitment.commitmentId.should.equals(res.body.commitmentId);
         resp[0].commitment.title.should.equals('Commitment Example');
         resp[0].commitment.description.should.equals('description');
-        resp[0].commitment.website.should.equals('https://www.example.org');
+        resp[0].commitment.website.should.equals('https://www.example.org/');
         resp[0].commitment.created.should.least(startTime);
         resp[0].regions.length.should.equals(1);
         resp[0].regions.should.include('region-1-1');
