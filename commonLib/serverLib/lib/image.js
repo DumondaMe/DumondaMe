@@ -27,8 +27,10 @@ const getResizeOptions = function (width, height, fit) {
 };
 
 const uploadImage = async function (width, height, options) {
-    let imageBuffer = await sharp(options.originalImagePath).resize(getResizeOptions(width, height, options.fit))
-        .flatten().jpeg({quality: options.quality}).toBuffer();
+    let imageBuffer = await sharp(options.originalImagePath)
+        .flatten({background: {r: 255, g: 255, b: 255}})
+        .resize(getResizeOptions(width, height, options.fit))
+        .jpeg({quality: options.quality}).toBuffer();
     await cdn.uploadBuffer(imageBuffer, options.cdnPath, options.bucket);
 };
 
@@ -40,7 +42,8 @@ const uploadingExternalImage = async function (width, height, uri, options) {
                     if (err) {
                         reject(err);
                     }
-                }).pipe(sharp().resize(getResizeOptions(width, height)).flatten().jpeg({quality: options.quality})
+                }).pipe(sharp().flatten({background: {r: 255, g: 255, b: 255}})
+                    .resize(getResizeOptions(width, height)).jpeg({quality: options.quality})
                     .toBuffer(async function (err, buffer) {
                         if (err) {
                             reject(err);
