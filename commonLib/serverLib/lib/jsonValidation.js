@@ -96,6 +96,17 @@ const convertValues = function (data, requestSchema) {
     }
 };
 
+const handlingUrls = function (body, requestSchema) {
+    for (let key in requestSchema.properties) {
+        if (requestSchema.properties.hasOwnProperty(key) && requestSchema.properties[key].type && body[key]) {
+            if (requestSchema.properties[key].format === 'urlWithProtocol' && _.isString(body[key])) {
+                let url = new URL(body[key]);
+                body[key] = url.toString();
+            }
+        }
+    }
+};
+
 //To prevent xss attacks
 const sanitize = function (body, allowHtml) {
     for (let param in body) {
@@ -125,6 +136,7 @@ module.exports = {
             req.body = Object.assign(req.body, req.query);
         }
         sanitize(req.body, allowHtml);
+        handlingUrls(req.body, requestSchema);
         return validate(req, req.body, requestSchema);
     },
     validateQueryRequest: function (req, requestSchema) {
