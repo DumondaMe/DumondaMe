@@ -86,6 +86,30 @@ describe('Search a website link', function () {
         res.body.errorCode.should.equal(2);
     });
 
+    it('Link to image with relative path', async function () {
+        let stubGetRequest = sandbox.stub(rp, 'get');
+        stubGetRequest.resolves(
+            `<head>
+                <title>titleWebsite</title>
+                <meta property="og:title" content="ogTitle">
+                <meta property="og:description" content="ogDescription">
+                <meta property="og:image" content="img/image.jpg">
+                <meta property="og:type" content="article">
+            </head>
+            <body></body>`
+        );
+        await dbDsl.sendToDb();
+        await requestHandler.login(users.validUser);
+        let res = await requestHandler.get('/api/link/search/1', {link: 'https://www.example.org/blog/1224'});
+        res.status.should.equal(200);
+        res.body.title.should.equals('ogTitle');
+        res.body.pageType.should.equals('article');
+        res.body.imageUrl.should.equals('https://www.example.org/img/image.jpg');
+        should.not.exist(res.body.linkEmbed);
+        should.not.exist(res.body.description);
+        res.body.type.should.equals('Link');
+    });
+
     it('Only logged in user can search for a link', async function () {
         let stubGetRequest = sandbox.stub(rp, 'get');
         stubGetRequest.resolves(

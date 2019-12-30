@@ -41,10 +41,10 @@ const setNoImage = async function (answerId) {
 };
 
 const uploadImages = async function (params) {
-    let buffer = await image.uploadingExternalImage(500, 500, params.imageUrl,
+    let buffer = await image.uploadingExternalImage(500, 800, params.imageUrl,
         {quality: 93, cdnPath: `link/${params.answerId}/preview.jpg`, bucket: process.env.BUCKET_PUBLIC});
     if (buffer) {
-        await image.uploadImage(460, 460, {
+        await image.uploadImage(500, 800, {
             quality: 80, originalImagePath: buffer, cdnPath: `link/${params.answerId}/460x460/preview.jpg`,
             bucket: process.env.BUCKET_PUBLIC
         });
