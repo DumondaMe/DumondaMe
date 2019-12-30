@@ -4,7 +4,6 @@
         <what-is-dumonda-me :show-mobile="showMobile"></what-is-dumonda-me>
         <question-answer :show-mobile="showMobile"></question-answer>
         <commitments :show-mobile="showMobile"></commitments>
-        <live-events></live-events>
         <scalability :show-mobile="showMobile"></scalability>
         <about-us :show-mobile="showMobile"></about-us>
         <youtube :show-mobile="showMobile"></youtube>
