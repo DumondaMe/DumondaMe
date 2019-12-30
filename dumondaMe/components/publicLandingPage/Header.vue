@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="public-landing-page-header">
-            <img class="logo" :src="logo">
-            <h2>{{$t('pages:landingPagePublic.slogan')}}</h2>
+            <img class="logo" :src="logo" @click="goToHome">
+            <h2 @click="goToHome">{{$t('pages:landingPagePublic.slogan')}}</h2>
         </div>
         <div class="register-container" v-if="!isAuthenticated">
             <v-btn rounded dark color="secondary" @click="$router.push({name: 'register'})">
@@ -24,6 +24,15 @@
             isAuthenticated() {
                 return this.$store.state.auth.userIsAuthenticated
             }
+        },
+        methods: {
+            goToHome() {
+                if (this.isAuthenticated) {
+                    this.$router.push({name: 'index'})
+                } else {
+                    this.$router.push({name: 'topics'})
+                }
+            }
         }
     }
 </script>
@@ -39,6 +48,7 @@
             display: block;
             text-align: center;
             margin: 0 auto;
+            cursor: pointer;
 
             @media screen and (max-width: 550px) {
                 max-width: 100%;
@@ -51,6 +61,7 @@
             color: white;
             margin-top: 12px;
             padding: 0 18px;
+            cursor: pointer;
         }
     }
 

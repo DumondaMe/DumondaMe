@@ -17,7 +17,7 @@
             </div>
         </div>
         <div id="dumonda-me-logo-container" v-else>
-            <img :src="logo">
+            <img :src="logo" @click="$router.push({name: 'topics'})">
         </div>
         <v-btn color="primary" class="create-button" rounded @click="$emit('show-create-question-dialog')">
             <v-icon dark>mdi-plus</v-icon>
@@ -126,6 +126,7 @@
             padding: 24px 70px;
 
             img {
+                cursor: pointer;
                 width: 100%;
             }
         }
