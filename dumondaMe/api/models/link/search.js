@@ -45,6 +45,16 @@ const searchDatabase = async function (link, linkType) {
     return response;
 };
 
+const handlingRelativeImageLink = function (websiteLink, imageLink) {
+    let absoluteImageLink = imageLink;
+    if (typeof imageLink === 'string' && imageLink.trim() !== '') {
+        let baseUrl = new URL(websiteLink);
+        let url = new URL(imageLink, baseUrl.protocol + '//' + baseUrl.host + (baseUrl.port ? ':' + baseUrl.port : ''));
+        absoluteImageLink = url.toString();
+    }
+    return absoluteImageLink;
+};
+
 const searchWebsite = async function (link, linkType) {
     try {
         const $ = cheerio.load(await rp.get(link));
@@ -54,7 +64,7 @@ const searchWebsite = async function (link, linkType) {
         } else if (linkType === VIMEO) {
             result.linkEmbed = vimeoLink.getEmbedUrl(link)
         } else if (linkType === LINK) {
-            result.imageUrl = $("meta[property='og:image']").attr('content');
+            result.imageUrl = handlingRelativeImageLink(link, $("meta[property='og:image']").attr('content'));
             result.pageType = $("meta[property='og:type']").attr('content');
         }
         return result;
