@@ -173,7 +173,7 @@
         "title": "hat dieser Antwort zugestimmt",
         "titleIsLoggedInUser": "hast dieser Antwort zugestimmt",
         "noUpVotes": "Noch niemand hat dieser Antwort zugestimmt.",
-        "userIsOnlyUpVoter": "Du bist die erste Person welche dieser Antwort zugestimmt hat.",
+        "userIsOnlyUpVoter": "Du bist die erste Person, welche dieser Antwort zugestimmt hat.",
         "moreUpVotes": "Zustimmung von",
         "moreUpVotes_plural": "Zustimmungen von"
       },
@@ -181,7 +181,7 @@
         "title": "findet diese Frage interessant.",
         "titleIsLoggedInUser": "findest diese Frage interessant.",
         "noWatches": "Noch niemand findet diese Frage interessant.",
-        "userIsOnlyWatcher": "Du bist die erste Person welche diese Frage interessant findet.",
+        "userIsOnlyWatcher": "Du bist die erste Person, welche diese Frage interessant findet.",
         "moreWatches": "Interessierte Person",
         "moreWatches_plural": "Interessierte Personen"
       },
@@ -189,7 +189,7 @@
         "title": "findet dieses Engagement interessant.",
         "titleIsLoggedInUser": "findest dieses Engagement interessant.",
         "noWatches": "Noch niemand findet dieses Engagement interessant.",
-        "userIsOnlyWatcher": "Du bist die erste Person welche dieses Engagement interessant findet.",
+        "userIsOnlyWatcher": "Du bist die erste Person, welche dieses Engagement interessant findet.",
         "moreWatches": "Interessierte Person",
         "moreWatches_plural": "Interessierte Personen"
       },
