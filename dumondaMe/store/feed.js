@@ -8,7 +8,7 @@ export const state = () => ({
     feedIsEmpty: false
 });
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 20;
 
 export const mutations = {
     SET_FEED(state, feed) {
