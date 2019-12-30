@@ -35,7 +35,7 @@ const sendEMails = async function (users) {
                 let unsubscribeLink = `${process.env.DUMONDA_ME_DOMAIN}unsubscribe/invitedUser/${userToInvite}`;
                 await eMail.sendEMail('invitePerson',
                     {unsubscribeLink, userImage, name: user.name, userMessage: user.userMessage},
-                    user.language, userToInvite);
+                    user.language, userToInvite, user.replyEmail);
                 sentInvitations.push(userToInvite);
             }
             if (userImage && typeof userImage.removeCallback === 'function') {
@@ -62,7 +62,7 @@ const sendInvitations = async function () {
                     .match(`(invitedUser:InvitedUser)<-[:SENDING_EMAIL_PENDING]-(user:User)`)
                     .match(`(invitedUser)<-[relInvited:HAS_INVITED]-(user)`)
                     .return(`collect(DISTINCT invitedUser.emailNormalized) AS emails, 
-                     user.userId AS userId, user.name AS name, relInvited.text AS userMessage, 
+                     user.userId AS userId, user.name AS name, user.email AS replyEmail, relInvited.text AS userMessage, 
                      relInvited.language AS language`)
                     .orderBy(`user.userId`)
                     .skip(skip)

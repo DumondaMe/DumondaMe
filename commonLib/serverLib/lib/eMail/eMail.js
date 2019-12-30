@@ -26,15 +26,19 @@ let closeTempFiles = function (files) {
     }
 };
 
-let sendEMail = async function (template, templateData, language, sendTo) {
+let sendEMail = async function (template, templateData, language, sendTo, replyTo) {
 
     let renderResult;
     try {
         renderResult = await emailTemplates.renderTemplate(template, templateData, language);
-        let response = await transporter.sendMail({
+        let sendMailOption = {
             from: `${renderResult.senderName} <info@dumonda.me>`, to: sendTo,
             subject: renderResult.subject, html: renderResult.html, attachments: renderResult.attachments
-        });
+        };
+        if (typeof replyTo === 'string') {
+            sendMailOption.replyTo = replyTo;
+        }
+        let response = await transporter.sendMail(sendMailOption);
         if (response.err) {
             logger.error(`Email could not be sent to ${sendTo}`);
         } else {
