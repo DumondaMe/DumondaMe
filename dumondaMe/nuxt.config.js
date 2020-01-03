@@ -45,6 +45,7 @@ module.exports = {
         __dangerouslyDisableSanitizers: ['script']
     },
     dev: (process.env.NODE_ENV !== 'production'),
+    modern: process.env.NODE_ENV === 'production' ? 'client' : false,
     env: {
         staticUrl: process.env.CLIENT_STATIC_URL,
         domainUrl: process.env.DUMONDA_ME_DOMAIN,
