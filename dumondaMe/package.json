@@ -5,7 +5,7 @@
   "author": "Roger Waldvogel",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --modern=client",
     "analyze": "nuxt build --analyze",
     "installDev": "npm install && npm link ../commonLib/serverTestUtil && npm link ../commonLib/serverLib",
     "startStaticServer": "node node_modules/http-server/bin/http-server ./staticServer"
