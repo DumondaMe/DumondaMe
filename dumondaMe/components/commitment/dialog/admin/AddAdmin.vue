@@ -38,7 +38,7 @@
             </v-btn>
             <v-btn color="primary" @click.native="sendAddToCommitmentRequest()" :disabled="selectedUser === null"
                    :loading="loadingRunning">
-                <v-icon left>mdi-account-plus</v-icon>
+                <v-icon left>$vuetify.icons.mdiAccountPlus</v-icon>
                 {{$t("pages:detailCommitment.adminDialog.addAdminButton")}}
             </v-btn>
         </v-card-actions>

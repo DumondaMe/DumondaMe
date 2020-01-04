@@ -14,7 +14,7 @@
             <v-menu bottom left v-if="isAdmin">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                        <v-icon>mdi-dots-vertical</v-icon>
+                        <v-icon>$vuetify.icons.mdiDotsVertical</v-icon>
                     </v-btn>
                 </template>
                 <v-list>
@@ -33,7 +33,7 @@
         <div class="event-description">{{event.description}}</div>
         <div class="event-footer">
             <div class="footer-icon">
-                <v-icon>mdi-map-marker</v-icon>
+                <v-icon>$vuetify.icons.mdiMapMarker</v-icon>
                 <span class="footer-text">
                     <v-tooltip bottom open-delay="500">
                         <template v-slot:activator="{ on }">
@@ -44,7 +44,7 @@
                 </span>
             </div>
             <div class="footer-icon" v-if="event.linkDescription">
-                <v-icon medium>mdi-calendar-text</v-icon>
+                <v-icon medium>{{$icons.mdiCalendarText}}</v-icon>
                 <span class="footer-text">
                     <v-tooltip bottom open-delay="500">
                         <template v-slot:activator="{ on }">
@@ -72,13 +72,17 @@
     import DeleteEventDialog from '~/components/commitment/dialog/event/DeleteEventDialog';
     import EditEventDialog from '~/components/commitment/dialog/event/EditEventDialog';
     import EditLocationDialog from '~/components/commitment/dialog/event/EditLocationDialog';
+    import {mdiCalendarText} from "@mdi/js";
 
     export default {
         props: ['event'],
         name: "commitmentEvent",
         components: {DeleteEventDialog, EditEventDialog, EditLocationDialog},
         data() {
-            return {showEditEvent: false, showEditLocation: false, showDeleteEvent: false}
+            return {showEditEvent: false, showEditLocation: false, showDeleteEvent: false};
+        },
+        created() {
+            this.$icons = {mdiCalendarText};
         },
         computed: {
             linkDescriptionWithoutProtocol() {

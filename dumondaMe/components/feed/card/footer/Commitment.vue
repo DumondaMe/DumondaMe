@@ -13,7 +13,7 @@
             <v-tooltip bottom v-if="action === 'watch'" class="footer-icon">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon">
-                        mdi-star
+                        $vuetify.icons.mdiStar
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -26,7 +26,7 @@
             <v-tooltip bottom v-if="action === 'created' && cardType === 'Commitment'" class="footer-user-action">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon" v-if="cardType === 'Commitment'">
-                        mdi-human-handsup
+                        $vuetify.icons.mdiHumanHandsup
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -39,7 +39,7 @@
             <v-tooltip bottom v-else-if="action === 'created' && cardType !== 'Commitment'" class="footer-user-action">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon">
-                        mdi-comment-plus
+                        {{$icons.mdiCommentPlus}}
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -52,7 +52,7 @@
             <v-tooltip bottom v-else-if="action === 'upVote'" class="footer-user-action">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon">
-                        mdi-thumb-up
+                        $vuetify.icons.mdiThumbUp
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -76,7 +76,7 @@
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <v-tooltip slot="icon" bottom>
                     <template v-slot:activator="{ on }">
-                        <v-icon medium class="action-icon" v-on="on">mdi-star</v-icon>
+                        <v-icon medium class="action-icon" v-on="on">$vuetify.icons.mdiStar</v-icon>
                         <span class="footer-description number right-number" v-on="on">{{numberOfWatches}}</span>
                     </template>
                     <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
@@ -90,7 +90,7 @@
                 <v-tooltip bottom slot="icon">
                     <template v-slot:activator="{ on }">
                         <v-icon medium v-on="on" class="action-icon">
-                            mdi-map-marker
+                            $vuetify.icons.mdiMapMarker
                         </v-icon>
                     </template>
                     {{$t('pages:feeds.menu.regions.tooltip')}}
@@ -113,10 +113,10 @@
                         <template v-slot:activator="{ on }">
                             <v-btn v-on="on" small fab color="not-watching" v-if="!isWatchedByUser"
                                    :disabled="isAdmin">
-                                <v-icon>mdi-star-outline</v-icon>
+                                <v-icon color="white">$vuetify.icons.mdiStarOutline</v-icon>
                             </v-btn>
                             <v-btn v-on="on" small fab color="watching" v-else>
-                                <v-icon>mdi-star</v-icon>
+                                <v-icon color="white">$vuetify.icons.mdiStar</v-icon>
                             </v-btn>
                         </template>
                         <span v-if="isAdmin">{{$t('common:you')}}
@@ -145,11 +145,15 @@
     import UpVoteButton from '~/components/question/answer/card/footer/UpVote';
     import WatchesMenu from './menu/Watches'
     import RegionMenu from './menu/Regions'
+    import {mdiCommentPlus} from "@mdi/js";
 
     export default {
         props: ['user', 'created', 'action', 'regions', 'cardType', 'numberOfUpVotes', 'isUpVotedByUser',
             'numberOfWatches', 'isWatchedByUser', 'isAdmin', 'answerId', 'commitmentId'],
         components: {UserMenu, WatchesMenu, UpVoteButton, RegionMenu},
+        created() {
+            this.$icons = {mdiCommentPlus};
+        },
         computed: {
             userTitle() {
                 let title = "title";

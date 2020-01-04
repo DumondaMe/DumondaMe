@@ -5,13 +5,13 @@
             <div class="user-icon-container">
                 <div class="user-icon" @click="$router.push({name: 'user'})"
                      :class="{'is-actual-route': $route.name === 'user'}">
-                    <v-icon size="28">mdi-account-outline</v-icon>
+                    <v-icon size="28">$vuetify.icons.mdiAccountOutline</v-icon>
                 </div>
                 <div class="user-icon" @click="$router.push({name: 'notifications'})"
                      :class="{'is-actual-route': $route.name === 'notifications'}">
                     <v-badge overlap color="secondary" v-model="showNumberOfUnreadNotifications">
                         <template v-slot:badge>{{numberOfUnreadNotifications}}</template>
-                        <v-icon size="28" >mdi-bell-outline</v-icon>
+                        <v-icon size="28" >$vuetify.icons.mdiBellOutline</v-icon>
                     </v-badge>
                 </div>
             </div>
@@ -20,24 +20,24 @@
             <img :src="logo" @click="$router.push({name: 'topics'})">
         </div>
         <v-btn color="primary" class="create-button" rounded @click="$emit('show-create-question-dialog')">
-            <v-icon dark>mdi-plus</v-icon>
+            <v-icon dark>$vuetify.icons.mdiPlus</v-icon>
             {{$t('common:toolbar.askQuestion')}}
         </v-btn>
         <div class="common-navigation">
-            <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdi-heart-pulse"
+            <nav-item v-if="isAuthenticated" nuxt-link="index" icon="mdiHeartPulse"
                       :nav-text="$t('common:navigation.activities')" :query="filterQuery"></nav-item>
-            <nav-item nuxt-link="topics" icon="mdi-book-outline" :nav-text="$t('common:navigation.topics')"></nav-item>
-            <nav-item nuxt-link="question" icon="mdi-help" :nav-text="$t('common:navigation.questions')"
+            <nav-item nuxt-link="topics" icon="mdiBookOutline" :nav-text="$t('common:navigation.topics')"></nav-item>
+            <nav-item nuxt-link="question" icon="mdiHelp" :nav-text="$t('common:navigation.questions')"
                       :query="filterQuery"></nav-item>
-            <nav-item nuxt-link="commitment" icon="mdi-human-handsup" :nav-text="$t('common:navigation.commitments')"
+            <nav-item nuxt-link="commitment" icon="mdiHumanHandsup" :nav-text="$t('common:navigation.commitments')"
                       :query="filterQuery">
             </nav-item>
-            <nav-item nuxt-link="event" icon="mdi-calendar" :nav-text="$t('common:navigation.events')"
+            <nav-item nuxt-link="event" icon="mdiCalendar" :nav-text="$t('common:navigation.events')"
                       :query="filterQuery"></nav-item>
         </div>
         <v-divider></v-divider>
         <div class="common-navigation">
-            <nav-item nuxt-link="about" icon="mdi-information-outline"
+            <nav-item nuxt-link="about" icon="mdiInformationOutline"
                       :nav-text="$t('common:navigation.aboutDumondaMe')"></nav-item>
         </div>
     </div>

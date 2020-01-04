@@ -1,7 +1,7 @@
 <template>
     <div id="question-create-answer-desktop">
         <v-btn color="primary" rounded @click="$emit('answer-question')">
-            <v-icon left>mdi-plus</v-icon>
+            <v-icon left>$vuetify.icons.mdiPlus</v-icon>
             {{$t("common:button.answer")}}
         </v-btn>
     </div>

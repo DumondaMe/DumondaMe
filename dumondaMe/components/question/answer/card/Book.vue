@@ -4,7 +4,7 @@
             <v-menu bottom slot="feedMenu" v-if="answer.isAdmin">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                        <v-icon>mdi-dots-vertical</v-icon>
+                        <v-icon>$vuetify.icons.mdiDotsVertical</v-icon>
                     </v-btn>
                 </template>
                 <v-list>

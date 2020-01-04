@@ -15,13 +15,13 @@
             <v-btn color="success" @click="setAdminOfCommitment(true, 'requestAcceptToBeAdminRunning')"
                    :loading="requestAcceptToBeAdminRunning"
                    :disabled="requestAcceptToBeAdminRunning || requestDenyToBeAdminRunning">
-                <v-icon left>mdi-check</v-icon>
+                <v-icon left>$vuetify.icons.mdiCheck</v-icon>
                 {{$t('common:button.accept')}}
             </v-btn>
             <v-btn color="error" @click="setAdminOfCommitment(false, 'requestDenyToBeAdminRunning')"
                    :loading="requestDenyToBeAdminRunning"
                    :disabled="requestAcceptToBeAdminRunning || requestDenyToBeAdminRunning">
-                <v-icon>mdi-clear</v-icon>
+                <v-icon>{{$icons.mdiClear}}</v-icon>
                 {{$t('common:button.deny')}}
             </v-btn>
         </div>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+    import {mdiClear} from "@mdi/js";
+
     export default {
         name: "AdminOfCommitmentRequest",
         props: ['notification'],
@@ -48,6 +50,9 @@
                 requestAcceptToBeAdminRunning: false, requestDenyToBeAdminRunning: false,
                 showError: false
             }
+        },
+        created() {
+            this.$icons = {mdiClear}
         },
         methods: {
             async setAdminOfCommitment(confirmToBeAdmin, requestRunning) {

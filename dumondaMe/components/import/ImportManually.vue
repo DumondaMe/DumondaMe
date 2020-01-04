@@ -15,7 +15,7 @@
                 </v-text-field>
                 <v-btn color="primary" @click.native="addEmailToContacts" :disabled="!valid" fab small
                        class="add-to-contacts-button">
-                    <v-icon>mdi-plus</v-icon>
+                    <v-icon>$vuetify.icons.mdiPlus</v-icon>
                 </v-btn>
             </v-form>
             <div class="contacts-container">

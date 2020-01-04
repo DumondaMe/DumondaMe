@@ -8,7 +8,7 @@
                 <template v-slot:activator="{ on }">
                     <v-btn text icon v-on="on"
                            :class="{'success-challenge-icon': numberOfSuccess === totalNumberOfSuccess}">
-                        <v-icon size="28">mdi-check-circle-outline</v-icon>
+                        <v-icon size="28">{{$icons.mdiCheckCircleOutline}}</v-icon>
                     </v-btn>
                 </template>
                 <v-card class="challenge-checklist-card">
@@ -42,10 +42,14 @@
 <script>
     import ChallengeItem from "./ChallengeItem";
     import CheckListItem from "./CheckListItem";
+    import {mdiCheckCircleOutline} from "@mdi/js";
 
     export default {
         props: ['challengeStatus'],
         components: {ChallengeItem, CheckListItem},
+        created() {
+            this.$icons = {mdiCheckCircleOutline}
+        },
         computed: {
             numberOfSuccess() {
                 let number = 0;

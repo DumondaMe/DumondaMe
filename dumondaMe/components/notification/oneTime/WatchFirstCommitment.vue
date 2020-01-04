@@ -1,7 +1,7 @@
 <template>
     <div class="notification-one-time-watch-first-commitment">
         <div class="first-commitment-title">
-            <v-icon size="32" class="success-icon">mdi-check-circle-outline</v-icon>
+            <v-icon size="32" class="success-icon">{{$icons.mdiCheckCircleOutline}}</v-icon>
             <div>{{$t('pages:notifications.oneTime.watchFirstCommitment.title')}}</div>
         </div>
         <div class="description">{{$t('pages:notifications.oneTime.watchFirstCommitment.description')}}</div>
@@ -13,9 +13,13 @@
 </template>
 
 <script>
+    import {mdiCheckCircleOutline} from "@mdi/js";
 
     export default {
-        props: ['notification']
+        props: ['notification'],
+        created() {
+            this.$icons = {mdiCheckCircleOutline}
+        }
     }
 </script>
 

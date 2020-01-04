@@ -1,6 +1,6 @@
 <template>
     <div id="message-box-unsubscribe" class="ely-card">
-        <v-icon x-large class="email-icon">mdi-email-outline</v-icon>
+        <v-icon x-large class="email-icon">{{$icons.mdiEmailOutline}}</v-icon>
         <div class="unsubscribe-title">{{$t('pages:unsubscribe.title')}}</div>
         <div class="unsubscribe-description" v-html="unsubscribeDescription">
         </div>
@@ -8,9 +8,13 @@
 </template>
 
 <script>
+    import {mdiEmailOutline} from '@mdi/js';
 
     export default {
         props: ['unsubscribeDescription'],
+        created() {
+            this.$icons = {mdiEmailOutline};
+        }
     }
 </script>
 
@@ -35,6 +39,7 @@
         .unsubscribe-description {
             text-align: center;
             font-weight: 300;
+            padding: 0 12px;
         }
     }
 </style>

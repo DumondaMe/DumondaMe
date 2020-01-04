@@ -3,7 +3,7 @@
         <div class="upvote-title">{{$t('pages:notifications.oneTime.challengeUpVoteAnswer.title')}}</div>
         <div class="description-container">
             <div class="up-vote-container">
-                <v-icon size="40" color="primary">mdi-thumb-up-outline</v-icon>
+                <v-icon size="40" color="primary">$vuetify.icons.mdiThumbUpOutline</v-icon>
             </div>
             <div class="description">{{$t('pages:notifications.oneTime.challengeUpVoteAnswer.description')}}</div>
         </div>

@@ -12,13 +12,13 @@
             <v-btn outlined color="success" @click="setShowQuestionOnCommitment(true, 'requestShowQuestionRunning')"
                    :loading="requestShowQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
-                <v-icon>mdi-check</v-icon>
+                <v-icon>$vuetify.icons.mdiCheck</v-icon>
                 {{$t('common:button.yes')}}
             </v-btn>
             <v-btn outlined color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
                    :loading="requestHideQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
-                <v-icon>mdi-clear</v-icon>
+                <v-icon>{{$icons.mdiClear}}</v-icon>
                 {{$t('common:button.no')}}
             </v-btn>
         </div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import {mdiClear} from "@mdi/js";
+
     export default {
         name: "ShowQuestionRequest",
         props: ['notification'],
@@ -37,6 +39,9 @@
                 requestShowQuestionRunning: false, requestHideQuestionRunning: false, uploaded: '',
                 showError: false
             }
+        },
+        created() {
+            this.$icons = {mdiClear}
         },
         methods: {
             async setShowQuestionOnCommitment(showQuestion, requestRunning) {

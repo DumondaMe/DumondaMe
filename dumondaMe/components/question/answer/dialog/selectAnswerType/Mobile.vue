@@ -2,35 +2,35 @@
     <div>
         <div class="answer-button" @click="$emit('answer-selected', 'text')">
             <div class="answer-type">
-                <v-icon>mdi-tooltip-text</v-icon>
+                <v-icon>{{$icons.mdiTooltipText}}</v-icon>
             </div>
             <div class="answer-description">{{$t('pages:question.selectAnswerDialog.textDescription')}}
             </div>
         </div>
         <div class="answer-button" @click="$emit('answer-selected', 'video')">
             <div class="answer-type">
-                <v-icon>mdi-video</v-icon>
+                <v-icon>{{$icons.mdiVideo}}</v-icon>
             </div>
             <div class="answer-description">{{$t('pages:question.selectAnswerDialog.videoDescription')}}
             </div>
         </div>
         <div class="answer-button" @click="$emit('answer-selected', 'link')">
             <div class="answer-type">
-                <v-icon>mdi-link</v-icon>
+                <v-icon>$vuetify.icons.mdiLink</v-icon>
             </div>
             <div class="answer-description">{{$t('pages:question.selectAnswerDialog.linkDescription')}}
             </div>
         </div>
         <div class="answer-button" @click="$emit('answer-selected', 'book')">
             <div class="answer-type">
-                <v-icon>mdi-book-open-page-variant</v-icon>
+                <v-icon>{{$icons.mdiBookOpenPageVariant}}</v-icon>
             </div>
             <div class="answer-description">{{$t('pages:question.selectAnswerDialog.bookDescription')}}
             </div>
         </div>
         <div class="answer-button last-button" @click="$emit('answer-selected', 'commitment')">
             <div class="answer-type">
-                <v-icon>mdi-human-handsup</v-icon>
+                <v-icon>$vuetify.icons.mdiHumanHandsup</v-icon>
             </div>
             <div class="answer-description">
                 {{$t('pages:question.selectAnswerDialog.commitmentDescription')}}
@@ -38,6 +38,16 @@
         </div>
     </div>
 </template>
+
+<script>
+    import {mdiTooltipText, mdiVideo, mdiBookOpenPageVariant} from '@mdi/js';
+
+    export default {
+        created() {
+            this.$icons = {mdiTooltipText, mdiVideo, mdiBookOpenPageVariant}
+        }
+    }
+</script>
 
 <style lang="scss">
     #select-answer-type-container {
@@ -49,7 +59,7 @@
                 border-bottom: 1px solid $divider;
 
                 .answer-type {
-                    i.v-icon {
+                    .v-icon {
                         margin-top: 4px;
                         color: $primary-color;
                         font-size: 28px;

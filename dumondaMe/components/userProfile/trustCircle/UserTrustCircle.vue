@@ -3,10 +3,10 @@
         <h3><span class="trust-circle-title">{{$t("pages:detailUser.trustCircle.title")}} </span>
             <span class="filter-icon-container">
             <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showTrustCircle}"
-                    @click="showTrustCircle = true">mdi-circle-outline
+                    @click="showTrustCircle = true" size="22">$vuetify.icons.mdiCircleOutline
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showTrustCircle}"
-                    @click="showTrustCircle = false">mdi-google-circles-group
+                    @click="showTrustCircle = false" size="22">$vuetify.icons.mdiGoogleCirclesGroup
             </v-icon></span>
         </h3>
         <div class="general-user-info" v-if="showTrustCircle">
@@ -128,7 +128,6 @@
                 }
 
                 .filter-icon.v-icon {
-                    padding-top: 4px;
                     font-size: 16px;
                     cursor: pointer;
                 }

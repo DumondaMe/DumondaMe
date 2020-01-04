@@ -5,37 +5,37 @@
 
             <!--Needed to deselect icons-->
             <v-btn value="none" v-show="false">
-                <v-icon>mdi-home</v-icon>
+                <v-icon>$vuetify.icons.mdiHome</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="home" v-if="!isAuthenticated">
-                <v-icon>mdi-card-bulleted-outline</v-icon>
+                <v-icon>$vuetify.icons.mdiCardBulletedOutline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'topics'})" value="topics">
-                <v-icon>mdi-book-outline</v-icon>
+                <v-icon>$vuetify.icons.mdiBookOutline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'harvestingEvents'})" value="harvestingEvents"
                    v-show="$vuetify.breakpoint.width < 700">
-                <v-icon>mdi-briefcase-outline</v-icon>
+                <v-icon>$vuetify.icons.mdiBriefcaseOutline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'index'})" value="feed" v-if="isAuthenticated">
-                <v-icon>mdi-rss</v-icon>
+                <v-icon>$vuetify.icons.mdiRss</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'question'})" value="feed" v-else>
-                <v-icon>mdi-rss</v-icon>
+                <v-icon>$vuetify.icons.mdiRss</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'user'})" value="account" v-if="isAuthenticated">
-                <v-icon>mdi-account-outline</v-icon>
+                <v-icon>$vuetify.icons.mdiAccountOutline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'notifications'})" value="notifications" v-if="isAuthenticated">
                 <v-badge v-if="numberOfUnreadNotifications > 0" overlap :left="$vuetify.breakpoint.width < 700"
                          color="secondary">
                     <template v-slot:badge> {{numberOfUnreadNotifications}}</template>
-                    <v-icon>mdi-bell-outline</v-icon>
+                    <v-icon>$vuetify.icons.mdiBellOutline</v-icon>
                 </v-badge>
-                <v-icon v-else>mdi-bell-outline</v-icon>
+                <v-icon v-else>$vuetify.icons.mdiBellOutline</v-icon>
             </v-btn>
             <v-btn @click="$router.push({name: 'login'})" value="login" v-if="!isAuthenticated">
-                <v-icon>mdi-login</v-icon>
+                <v-icon>$vuetify.icons.mdiLogin</v-icon>
             </v-btn>
         </v-bottom-navigation>
     </div>

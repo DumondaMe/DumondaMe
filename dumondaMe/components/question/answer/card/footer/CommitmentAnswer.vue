@@ -15,7 +15,7 @@
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                             <v-icon medium class="action-icon" v-on="on">
-                                mdi-map-marker
+                                $vuetify.icons.mdiMapMarker
                             </v-icon>
                         </template>
                         <span>{{$t('pages:feeds.menu.regions.tooltip')}}</span>

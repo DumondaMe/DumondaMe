@@ -4,7 +4,7 @@
             <v-menu>
                 <template v-slot:activator="{ on }">
                     <v-btn text icon v-on="on">
-                        <v-icon size="28">mdi-dots-vertical</v-icon>
+                        <v-icon size="28">$vuetify.icons.mdiDotsVertical</v-icon>
                     </v-btn>
                 </template>
                 <v-list>

@@ -7,11 +7,11 @@
         </expand-text>
         <div class="info-container">
             <div class="info-icon-element">
-                <v-icon class="info-icon">mdi-forum</v-icon>
+                <v-icon class="info-icon">$vuetify.icons.mdiForum</v-icon>
                 <span class="info-text">{{question.numberOfAnswers}}</span>
             </div>
             <div class="info-icon-element">
-                <v-icon class="info-icon">mdi-star</v-icon>
+                <v-icon class="info-icon">$vuetify.icons.mdiStar</v-icon>
                 <span class="info-text">{{question.numberOfWatches}}</span>
             </div>
         </div>

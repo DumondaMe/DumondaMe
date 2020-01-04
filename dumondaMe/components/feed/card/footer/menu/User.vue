@@ -25,7 +25,7 @@
                          :class="{'anonymous-image': user.isAnonymous, 'is-harvesting-user': user.isHarvestingUser}">
                         <v-tooltip bottom debounce="300" v-if="user.isTrustUser">
                             <template v-slot:activator="{ on }">
-                                <v-icon v-on="on" class="trust-circle-icon">mdi-account-circle</v-icon>
+                                <v-icon v-on="on" class="trust-circle-icon">$vuetify.icons.mdiAccountCircle</v-icon>
                             </template>
                             <span>{{$t('common:inYourTrustCircle')}}</span>
                         </v-tooltip>
@@ -44,7 +44,7 @@
                                 <v-btn color="primary" class="user-action-button lower-action-button" v-on="on"
                                        :loading="loading" :disabled="loading || user.isLoggedInUser"
                                        @click="removeUserFromTrustCircle">
-                                    <v-icon left>mdi-check</v-icon>
+                                    <v-icon left>$vuetify.icons.mdiCheck</v-icon>
                                     {{$t('common:trustCircle')}}
                                 </v-btn>
                             </template>
@@ -55,7 +55,7 @@
                                 <v-btn color="primary" class="user-action-button lower-action-button" v-on="on"
                                        :loading="loading" :disabled="loading || user.isLoggedInUser"
                                        @click="addUserToTrustCircle">
-                                    <v-icon left>mdi-account-plus</v-icon>
+                                    <v-icon left>$vuetify.icons.mdiAccountPlus</v-icon>
                                     {{$t('common:trustCircle')}}
                                 </v-btn>
                             </template>

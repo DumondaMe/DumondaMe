@@ -32,7 +32,7 @@
                     <template v-slot:activator="{ on }">
                         <v-btn color="user-has-up-voted-button" :disabled="isAdmin || upVoteRunning" @click="downVote()"
                                v-on="on" :loading="upVoteRunning">
-                            <v-icon left>mdi-thumb-up</v-icon>
+                            <v-icon left>$vuetify.icons.mdiThumbUp</v-icon>
                             {{$t('common:button.upVote')}}
                         </v-btn>
                     </template>
@@ -42,7 +42,7 @@
                     <template v-slot:activator="{ on }">
                         <v-btn color="primary" :disabled="isAdmin || upVoteRunning" @click="upVote()" v-on="on"
                                :loading="upVoteRunning">
-                            <v-icon left>mdi-thumb-up-outline</v-icon>
+                            <v-icon left>$vuetify.icons.mdiThumbUpOutline</v-icon>
                             {{$t('common:button.upVote')}}
                         </v-btn>
                     </template>

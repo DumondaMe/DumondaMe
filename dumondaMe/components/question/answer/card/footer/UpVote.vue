@@ -13,7 +13,7 @@
                         <template v-slot:activator="{ on }">
                             <v-btn v-on="on" small fab color="not-up-voted"
                                    :disabled="isAdmin">
-                                <v-icon size="20">mdi-thumb-up-outline</v-icon>
+                                <v-icon size="20" color="white">$vuetify.icons.mdiThumbUpOutline</v-icon>
                             </v-btn>
                         </template>
                         <span>{{$t("common:feedCard.upVote.userHasNotUpVoted")}}</span>
@@ -21,7 +21,7 @@
                     <v-tooltip bottom v-else>
                         <template v-slot:activator="{ on }">
                             <v-btn v-on="on" fab small color="up-voted" :disabled="isAdmin">
-                                <v-icon size="20">mdi-thumb-up</v-icon>
+                                <v-icon size="20" color="white">$vuetify.icons.mdiThumbUp</v-icon>
                             </v-btn>
                         </template>
                         <span>{{$t("common:feedCard.upVote.userHasUpVoted")}}</span>

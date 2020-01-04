@@ -9,16 +9,16 @@
                      id="dumonda-me-logo-description">DumondaMe
                 </div>
                 <v-btn icon @click="navigateBack" v-show="!($vuetify.breakpoint.mdAndUp || showSearch)" v-else>
-                    <v-icon>mdi-arrow-left</v-icon>
+                    <v-icon>$vuetify.icons.mdiArrowLeft</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn icon v-show="$vuetify.breakpoint.smAndDown && !showSearch" @click="showSearch = true">
-                    <v-icon>mdi-magnify</v-icon>
+                    <v-icon>$vuetify.icons.mdiMagnify</v-icon>
                 </v-btn>
                 <v-menu bottom left>
                     <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on" v-show="!showSearch">
-                            <v-icon>mdi-dots-vertical</v-icon>
+                            <v-icon>$vuetify.icons.mdiDotsVertical</v-icon>
                         </v-btn>
                     </template>
                     <v-list v-if="isAuthenticated">

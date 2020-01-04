@@ -23,7 +23,8 @@
         <div class="default-answer-title-image" v-show="imgSrc">
             <div class="image-container">
                 <img :src="imgSrc">
-                <v-icon class="delete-button" @click="imgSrc = null" color="black" size="28">mdi-close-box</v-icon>
+                <v-icon class="delete-button" @click="imgSrc = null" color="black" size="28">{{$icons.mdiCloseBox}}
+                </v-icon>
             </div>
         </div>
         <v-spacer></v-spacer>
@@ -32,7 +33,7 @@
             <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                    @change="handleImageChange"/>
             <v-btn icon @click="openUploadImage()">
-                <v-icon>mdi-image</v-icon>
+                <v-icon>{{$icons.mdiImage}}</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click.native="$emit('close-dialog')">
@@ -47,17 +48,17 @@
             </v-btn>
             <v-btn color="primary" @click="$emit('change-answer-type', {type: 'video', url: selectedType.url})"
                    v-if="otherAnswerTypes && selectedType && selectedType.type === 'video'">
-                <v-icon left>mdi-video</v-icon>
+                <v-icon left>{{$icons.mdiVideo}}</v-icon>
                 {{$t('pages:question.answerTextDialog.switchVideoButton')}}
             </v-btn>
             <v-btn color="primary" @click="$emit('change-answer-type', {type: 'commitment', commitment: selectedType})"
                    v-if="otherAnswerTypes && selectedType && selectedType.type === 'commitment'">
-                <v-icon left>mdi-human-handsup</v-icon>
+                <v-icon left>$vuetify.icons.mdiHumanHandsup</v-icon>
                 {{$t('pages:question.answerTextDialog.switchCommitmentButton')}}
             </v-btn>
             <v-btn color="primary" @click="$emit('change-answer-type', {type: 'link', url: selectedType.url})"
                    v-if="otherAnswerTypes && selectedType && selectedType.type === 'link'">
-                <v-icon left>mdi-link</v-icon>
+                <v-icon left>$vuetify.icons.mdiLink</v-icon>
                 {{$t('pages:question.answerTextDialog.switchLinkButton')}}
             </v-btn>
         </v-card-actions>
@@ -74,12 +75,16 @@
 <script>
     import validationRules from '~/mixins/validationRules.js';
     import AnswerTypeInfo from './AnswerTypeInfo'
+    import {mdiVideo, mdiImage, mdiCloseBox} from '@mdi/js';
 
     const ERROR_CODE_IMAGE_TO_SMALL = 1;
 
     export default {
         props: ['initAnswer', 'initImage', 'answerId', 'actionButtonText'],
         components: {AnswerTypeInfo},
+        created() {
+            this.$icons = {mdiVideo, mdiImage, mdiCloseBox}
+        },
         data() {
             this.initImage = this.initImage || null;
             return {

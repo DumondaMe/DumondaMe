@@ -8,7 +8,7 @@
         </expand-text>
         <div class="info-container">
             <div class="info-icon-element">
-                <v-icon size="20" color="primary">mdi-forum</v-icon>
+                <v-icon size="20" color="primary">$vuetify.icons.mdiForum</v-icon>
                 <span class="info-text">{{question.numberOfAnswers}}</span>
             </div>
         </div>

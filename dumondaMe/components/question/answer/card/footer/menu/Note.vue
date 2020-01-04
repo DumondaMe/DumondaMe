@@ -18,22 +18,22 @@
             <div class="note-command">
                 <v-btn icon outlined class="command" :disabled="note.isAdmin || upVoteRunning"
                        :loading="upVoteRunning" @click="upVoteNote(note.noteId)" v-if="!note.hasVoted">
-                    <v-icon>mdi-thumb-up-outline</v-icon>
+                    <v-icon size="16">$vuetify.icons.mdiThumbUpOutline</v-icon>
                 </v-btn>
                 <v-btn icon outlined class="command" :disabled="upVoteRunning"
                        :loading="upVoteRunning" @click="downVoteNote(note.noteId)" v-else>
-                    <v-icon>mdi-thumb-down-outline</v-icon>
+                    <v-icon size="16">$vuetify.icons.mdiThumbDownOutline</v-icon>
                 </v-btn>
                 <span class="command-text">{{note.upVotes}}</span>
             </div>
             <div class="note-command" v-if="note.isAdmin">
                 <v-btn icon outlined class="command" @click="$emit('edit-note', note)">
-                    <v-icon>mdi-pencil</v-icon>
+                    <v-icon size="16">$vuetify.icons.mdiPencil</v-icon>
                 </v-btn>
             </div>
             <div class="note-command" v-if="note.isAdmin">
                 <v-btn icon outlined class="command" @click="$emit('delete-note', note)">
-                    <v-icon>mdi-delete</v-icon>
+                    <v-icon size="16">$vuetify.icons.mdiDelete</v-icon>
                 </v-btn>
             </div>
         </div>

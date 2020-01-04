@@ -5,7 +5,7 @@
             <div class="user-description">{{user.userDescription}}</div>
             <v-btn color="primary" rounded id="button-change-profile-data" v-if="isLoggedInUser && !isHarvestingUser"
                    @click="showUploadUserDataDialog = true">
-                <v-icon left>mdi-account-edit</v-icon>
+                <v-icon left>{{$icons.mdiAccountEdit}}</v-icon>
                 {{$t("pages:detailUser.profileData.changeProfileDataButton")}}
             </v-btn>
             <div v-if="isAuthenticated && !isLoggedInUser && !isHarvestingUser" id="other-user-commands">
@@ -13,7 +13,7 @@
                     <template v-slot:activator="{ on }">
                         <v-btn color="primary" rounded @click="removeUserFromTrustCircle()" v-on="on"
                                v-if="user.isPersonOfTrustOfLoggedInUser">
-                            <v-icon left>mdi-check</v-icon>
+                            <v-icon left>$vuetify.icons.mdiCheck</v-icon>
                             {{$t("common:trustCircle")}}
                         </v-btn>
                     </template>
@@ -22,7 +22,7 @@
                 <v-tooltip bottom v-else>
                     <template v-slot:activator="{ on }">
                         <v-btn color="primary" rounded @click="addUserToTrustCircle()" v-on="on">
-                            <v-icon left>mdi-account-plus</v-icon>
+                            <v-icon left>$vuetify.icons.mdiAccountPlus</v-icon>
                             {{$t("common:trustCircle")}}
                         </v-btn>
                     </template>
@@ -43,11 +43,15 @@
     import {mapGetters} from 'vuex';
     import UploadUserDataDialog from './UploadUserDataDialog.vue';
     import UploadUserHarvestingDataDialog from '~/components/userHarvestingProfile/dialog/EditHarvestingUser.vue';
+    import {mdiAccountEdit} from "@mdi/js";
 
     export default {
         components: {UploadUserDataDialog, UploadUserHarvestingDataDialog},
         data() {
             return {showUploadUserDataDialog: false}
+        },
+        created() {
+            this.$icons = {mdiAccountEdit}
         },
         computed: {
             isAuthenticated() {

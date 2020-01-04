@@ -16,7 +16,7 @@
             <v-tooltip bottom v-if="!user.userHasBeenAddedToTrustCircle && !loading">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on" @click="addUserToTrustCircle(user)">
-                        <v-icon>mdi-account-plus-outline</v-icon>
+                        <v-icon>{{$icons.mdiAccountPlusOutline}}</v-icon>
                     </v-btn>
                 </template>
                 <span>{{$t('pages:feeds.userSuggestion.addUser', {name: user.name})}}</span>
@@ -30,12 +30,16 @@
 
 <script>
     import Vue from 'vue';
+    import {mdiAccountPlusOutline} from '@mdi/js';
 
     export default {
         props: ['user'],
         name: "userSuggestion",
         data() {
             return {loading: false}
+        },
+        created() {
+            this.$icons = {mdiAccountPlusOutline}
         },
         methods: {
             async addUserToTrustCircle() {

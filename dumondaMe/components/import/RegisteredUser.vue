@@ -12,7 +12,7 @@
                         <v-btn color="primary" class="user-action-button" v-on="on"
                                :loading="loading" :disabled="loading"
                                @click="removeUserFromTrustCircle">
-                            <v-icon left>mdi-check</v-icon>
+                            <v-icon left>$vuetify.icons.mdiCheck</v-icon>
                             {{$t('common:trustCircle')}}
                         </v-btn>
                     </template>
@@ -23,7 +23,7 @@
                         <v-btn color="primary" class="user-action-button" v-on="on"
                                :loading="loading" :disabled="loading"
                                @click="addUserToTrustCircle">
-                            <v-icon left>mdi-account-plus</v-icon>
+                            <v-icon left>$vuetify.icons.mdiAccountPlus</v-icon>
                             {{$t('common:trustCircle')}}
                         </v-btn>
                     </template>

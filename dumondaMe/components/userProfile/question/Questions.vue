@@ -3,10 +3,10 @@
         <h3>{{$t("pages:detailUser.question.title")}}
             <span class="filter-icon-container"> (
             <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showCreatedQuestions}"
-                    @click="showCreatedQuestions = true">mdi-pencil
+                    @click="showCreatedQuestions = true">$vuetify.icons.mdiPencil
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showCreatedQuestions}"
-                    @click="showCreatedQuestions = false">mdi-star
+                    @click="showCreatedQuestions = false">$vuetify.icons.mdiStar
             </v-icon> )</span>
         </h3>
         <div class="general-user-info" v-if="showCreatedQuestions">

@@ -32,14 +32,14 @@
                     <div class="invalid-link-type-info" v-if="linkData.type === 'Link' && isVideo">
                         <div>{{$t('pages:question.answerLinkDialog.answerInfoWrongType')}}</div>
                         <v-btn color="primary" @click="isVideo = false">
-                            <v-icon>mdi-link</v-icon>
+                            <v-icon>$vuetify.icons.mdiLink</v-icon>
                             {{$t('pages:question.answerLinkDialog.answerSwitchTypeButton')}}
                         </v-btn>
                     </div>
                     <div class="invalid-link-type-info" v-if="linkData.type === 'Youtube' && !isVideo">
                         <div>{{$t('pages:question.answerVideoDialog.answerInfoWrongType')}}</div>
                         <v-btn color="primary" @click="isVideo = true">
-                            <v-icon>mdi-video</v-icon>
+                            <v-icon left>{{$icons.mdiVideo}}</v-icon>
                             {{$t('pages:question.answerVideoDialog.answerSwitchTypeButton')}}
                         </v-btn>
                     </div>
@@ -72,6 +72,7 @@
     import Youtube from './Youtube';
     import debounce from 'debounce';
     import Vue from 'vue';
+    import {mdiVideo} from '@mdi/js';
 
     const ERROR_CODE_NO_YOUTUBE_ID = 1;
     const ERROR_CODE_ANSWER_EXISTS = 2;
@@ -79,6 +80,9 @@
 
     export default {
         props: ['initLinkData', 'initLink', 'answerId', 'actionButtonText', 'initIsVideo', 'initType', 'loadLinkOnInit'],
+        created() {
+            this.$icons = {mdiVideo}
+        },
         data() {
             let linkData = JSON.parse(JSON.stringify(this.initLinkData));
             if (this.initType) {
@@ -203,6 +207,7 @@
                 margin-top: 12px;
                 color: $warning;
                 button {
+                    margin-top: 12px;
                     margin-left: 0;
                 }
                 i.v-icon {

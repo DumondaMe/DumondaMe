@@ -3,10 +3,10 @@
         <h3>{{$t("pages:detailUser.answer.title")}}
             <span class="filter-icon-container"> (
             <v-icon class="filter-icon filter-icon-left" :class="{'active-filter': showCreatedAnswers}"
-                    @click="showCreatedAnswers = true">mdi-pencil
+                    @click="showCreatedAnswers = true">$vuetify.icons.mdiPencil
             </v-icon> |
             <v-icon class="filter-icon filter-icon-right" :class="{'active-filter': !showCreatedAnswers}"
-                    @click="showCreatedAnswers = false">mdi-arrow-up-bold-circle-outline
+                    @click="showCreatedAnswers = false">{{$icons.mdiArrowUpBoldCircleOutline}}
             </v-icon> )</span>
         </h3>
         <div class="general-user-info" v-if="showCreatedAnswers">
@@ -38,6 +38,7 @@
 
 <script>
     import Cards from '~/components/feed/Cards';
+    import {mdiArrowUpBoldCircleOutline} from "@mdi/js";
 
     export default {
         components: {Cards},
@@ -46,6 +47,9 @@
                 showCreatedAnswers: !(this.$store.state.userProfile.user.numberOfAnswers === 0 &&
                     this.$store.state.userProfile.user.numberOfUpVotedAnswers > 0), loading: false, showError: false
             }
+        },
+        created() {
+            this.$icons = {mdiArrowUpBoldCircleOutline}
         },
         computed: {
             numberOfAnswers() {

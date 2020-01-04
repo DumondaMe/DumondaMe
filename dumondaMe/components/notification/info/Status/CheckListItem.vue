@@ -1,15 +1,20 @@
 <template>
     <div class="checklist-item"
          :class="{'challenge-success': challengeStatus[propName]}">
-        <v-icon v-if="challengeStatus[propName]">mdi-checkbox-marked-outline</v-icon>
-        <v-icon v-else>mdi-checkbox-blank-outline</v-icon>
+        <v-icon v-if="challengeStatus[propName]">{{$icons.mdiCheckboxMarkedOutline}}</v-icon>
+        <v-icon v-else>{{$icons.mdiCheckboxBlankOutline}}</v-icon>
         <div class="challenge-item-text">{{$t('pages:notifications.challengeStatus.minor.' + propName)}}</div>
     </div>
 </template>
 
 <script>
+    import {mdiCheckboxMarkedOutline, mdiCheckboxBlankOutline} from "@mdi/js";
+
     export default {
         props: ['challengeStatus', 'propName'],
+        created() {
+            this.$icons = {mdiCheckboxMarkedOutline, mdiCheckboxBlankOutline}
+        }
     }
 </script>
 

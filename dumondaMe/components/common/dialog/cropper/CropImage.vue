@@ -11,13 +11,13 @@
                 <input type="file" accept="image/*" style="display: none" ref="openFileDialog"
                        @change="handleImageChange"/>
                 <v-btn text icon color="primary" @click="openUploadImage()" :disabled="uploadRunning">
-                    <v-icon>mdi-image</v-icon>
+                    <v-icon>{{$icons.mdiImage}}</v-icon>
                 </v-btn>
                 <v-btn text icon @click="imageCropper.rotate(-90)" :disabled="uploadRunning">
-                    <v-icon>mdi-rotate-left</v-icon>
+                    <v-icon>{{$icons.mdiRotateLeft}}</v-icon>
                 </v-btn>
                 <v-btn text icon @click="imageCropper.rotate(90)" :disabled="uploadRunning">
-                    <v-icon>mdi-rotate-right</v-icon>
+                    <v-icon>{{$icons.mdiRotateRight}}</v-icon>
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
@@ -36,13 +36,16 @@
 </template>
 
 <script>
-    import {dataURItoBlob} from '~/utils/files/fileReaderUtil.js';
     import Cropper from 'cropperjs/dist/cropper.min.js';
+    import {mdiImage, mdiRotateLeft, mdiRotateRight} from "@mdi/js";
 
     export default {
         props: ['initialImage', 'actionLabel', 'uploadRunning', 'aspectRatio'],
         data() {
             return {image: this.initialImage, imgSrc: null, imageCropper: null}
+        },
+        created() {
+            this.$icons = {mdiImage, mdiRotateLeft, mdiRotateRight};
         },
         mounted: function () {
 
