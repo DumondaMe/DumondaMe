@@ -21,7 +21,7 @@
             <v-btn color="error" @click="setAdminOfCommitment(false, 'requestDenyToBeAdminRunning')"
                    :loading="requestDenyToBeAdminRunning"
                    :disabled="requestAcceptToBeAdminRunning || requestDenyToBeAdminRunning">
-                <v-icon>{{$icons.mdiClear}}</v-icon>
+                <v-icon>{{$icons.mdiClose}}</v-icon>
                 {{$t('common:button.deny')}}
             </v-btn>
         </div>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import {mdiClear} from "@mdi/js";
+    import {mdiClose} from "@mdi/js";
 
     export default {
         name: "AdminOfCommitmentRequest",
@@ -52,7 +52,7 @@
             }
         },
         created() {
-            this.$icons = {mdiClear}
+            this.$icons = {mdiClose}
         },
         methods: {
             async setAdminOfCommitment(confirmToBeAdmin, requestRunning) {
