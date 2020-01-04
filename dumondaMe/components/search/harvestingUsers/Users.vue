@@ -1,8 +1,7 @@
 <template>
     <div id="search-harvesting-users-container">
         <h2 class="user-profile-title">{{$t("pages:search.harvestingUsers.title")}}</h2>
-        <div class="user-container ely-card" v-for="(user, index) of users"
-             :class="{'last-card-element': index === users.length - 1}">
+        <div class="user-container ely-card" v-for="(user, index) of users">
             <div class="user-preview-img" @click="goToProfile(user)">
                 <img :src="user.userImage">
             </div>
@@ -133,12 +132,6 @@
                         white-space: normal;
                     }
                 }
-            }
-        }
-
-        .user-container.last-card-element {
-            @media screen and (max-width: $xs) {
-                border-bottom: none;
             }
         }
 

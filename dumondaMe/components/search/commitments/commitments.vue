@@ -1,8 +1,7 @@
 <template>
     <div id="search-commitments-container">
         <h2 class="commitments-title">{{$t("pages:search.commitments.title")}}</h2>
-        <div class="commitments-container ely-card feed-card" v-for="(commitment, index) of commitments"
-             :class="{'last-card-element': index === commitments.length - 1}">
+        <div class="commitments-container ely-card feed-card" v-for="(commitment, index) of commitments">
             <div class="feed-card-header">
                 <div>
                     <h2 class="feed-card-title">
@@ -115,7 +114,6 @@
         @media screen and (max-width: $xs) {
             padding-bottom: 12px;
             margin-bottom: 20px;
-            border-bottom: 1px solid $divider;
         }
 
         .commitments-title {
@@ -161,12 +159,6 @@
             }
         }
 
-        .commitments-container.last-card-element {
-            @media screen and (max-width: $xs) {
-                border-bottom: none;
-            }
-        }
-
         .search-commitment-commands {
             margin-top: 12px;
             display: flex;
@@ -175,16 +167,12 @@
                 margin-left: 0;
                 margin-right: 16px;
                 @media screen and (max-width: $xs) {
-                    margin-left: 16px;
                     margin-right: 0;
                 }
             }
 
             .create-commitment-button {
                 margin-left: 0;
-                @media screen and (max-width: $xs) {
-                    margin-left: 16px;
-                }
             }
         }
     }

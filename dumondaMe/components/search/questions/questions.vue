@@ -1,8 +1,7 @@
 <template>
     <div id="search-questions-container">
         <h2 class="questions-profile-title">{{$t("pages:search.questions.title")}}</h2>
-        <div class="question-container ely-card feed-card" v-for="(question, index) of questions"
-             :class="{'last-card-element': index === questions.length - 1}">
+        <div class="question-container ely-card feed-card" v-for="(question, index) of questions">
             <question-card :question="question" :hide-time="true">
                 <question-card-footer slot="footer" :user="question.user"
                                       :number-of-watches="question.numberOfWatches"
@@ -90,7 +89,6 @@
         @media screen and (max-width: $xs) {
             padding-bottom: 12px;
             margin-bottom: 20px;
-            border-bottom: 1px solid $divider;
         }
         .questions-profile-title {
             font-size: 22px;
@@ -104,11 +102,7 @@
                 padding-bottom: 8px;
             }
         }
-        .question-container.last-card-element {
-            @media screen and (max-width: $xs) {
-                border-bottom: none;
-            }
-        }
+
         .search-questions-commands {
             margin-top: 12px;
             display: flex;
@@ -116,15 +110,11 @@
                 margin-left: 0;
                 margin-right: 16px;
                 @media screen and (max-width: $xs) {
-                    margin-left: 16px;
                     margin-right: 0;
                 }
             }
             .create-question-button {
                 margin-left: 0;
-                @media screen and (max-width: $xs) {
-                    margin-left: 16px;
-                }
             }
         }
     }
