@@ -41,9 +41,6 @@
 <style lang="scss">
     #search-commitments-no-result-container {
         margin-bottom: 38px;
-        @media screen and (max-width: $xs) {
-            padding: 0 16px;
-        }
 
         h2 {
             font-size: 22px;

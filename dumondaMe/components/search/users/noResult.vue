@@ -8,9 +8,7 @@
 <style lang="scss">
     #search-users-no-result-container {
         margin-bottom: 38px;
-        @media screen and (max-width: $xs) {
-            padding: 0 16px;
-        }
+
         h2 {
             font-size: 22px;
             margin-bottom: 12px;
