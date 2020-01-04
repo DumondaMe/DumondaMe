@@ -13,8 +13,8 @@
                 <v-tooltip bottom debounce="1500" v-if="!user.isLoggedInUser">
                     <template v-slot:activator="{ on }">
                         <v-icon :class="{'out-of-trust-circle': !user.isPersonOfTrust,
-                        'in-trust-circle': user.isPersonOfTrust}" v-on="on">
-                            mdi-account-circle
+                        'in-trust-circle': user.isPersonOfTrust}" v-on="on" size="19">
+                            $vuetify.icons.mdiAccountCircle
                         </v-icon>
                     </template>
                     <span v-if="user.isPersonOfTrust">{{$t("pages:detailUser.trustCircle.inYourCircle")}}</span>
@@ -32,7 +32,7 @@
             <v-menu bottom left>
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                        <v-icon>mdi-dots-vertical</v-icon>
+                        <v-icon>$vuetify.icons.mdiDotsVertical</v-icon>
                     </v-btn>
                 </template>
                 <v-list>

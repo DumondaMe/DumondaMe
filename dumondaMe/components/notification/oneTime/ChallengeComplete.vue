@@ -1,7 +1,7 @@
 <template>
     <div class="notification-one-time-challenge-complete">
         <div class="challenge-completed-title">
-            <v-icon size="32" class="success-icon">mdi-trophy-variant</v-icon>
+            <v-icon size="32" class="success-icon">{{$icons.mdiTrophyVariant}}</v-icon>
             <div>{{$t('pages:notifications.oneTime.challengeComplete.title')}}</div>
         </div>
         <img v-lazy="imageUrl" class="challenge-complete-image"/>
@@ -18,12 +18,16 @@
 
 <script>
     import ImportContactDialog from '~/components/import/ImportContactDialog';
+    import {mdiTrophyVariant} from "@mdi/js";
 
     export default {
         props: ['notification'],
         components: {ImportContactDialog},
         data() {
             return {showImportContactDialog: false}
+        },
+        created() {
+            this.$icons = {mdiTrophyVariant};
         },
         computed: {
             imageUrl() {

@@ -20,11 +20,11 @@
                         <template v-slot:activator="{ on }">
                             <v-btn class="button-watch" color="primary" small fab v-on="on"
                                    v-if="!commitment.userWatchesCommitment" :disabled="isAdmin">
-                                <v-icon size="20">mdi-star-outline</v-icon>
+                                <v-icon size="20">$vuetify.icons.mdiStarOutline</v-icon>
                             </v-btn>
                             <v-btn class="button-watch" color="user-watches-commitment" small fab :disabled="isAdmin"
                                    v-else v-on="on">
-                                <v-icon size="20">mdi-star</v-icon>
+                                <v-icon size="20" color="white">$vuetify.icons.mdiStar</v-icon>
                             </v-btn>
                         </template>
                         <span v-if="!commitment.userWatchesCommitment || isAdmin">

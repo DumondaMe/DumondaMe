@@ -35,7 +35,7 @@
                             <v-btn color="user-is-interested-button" :disabled="isAdmin || watchingRunning"
                                    @click="removeWatch()"
                                    v-on="on" :loading="watchingRunning">
-                                <v-icon left>mdi-star</v-icon>
+                                <v-icon left>$vuetify.icons.mdiStar</v-icon>
                                 {{$t('common:button.interested')}}
                             </v-btn>
                         </template>
@@ -46,7 +46,7 @@
                             <v-btn color="primary" :disabled="isAdmin || watchingRunning"
                                    @click="addWatch()"
                                    v-on="on" :loading="watchingRunning">
-                                <v-icon left>mdi-star-outline</v-icon>
+                                <v-icon left>$vuetify.icons.mdiStarOutline</v-icon>
                                 {{$t('common:button.interested')}}
                             </v-btn>
                         </template>

@@ -23,7 +23,7 @@
                 {{$t("common:button.close")}}
             </v-btn>
             <v-btn @click="$emit('add-admin')" color="primary">
-                <v-icon left>mdi-account-plus</v-icon>
+                <v-icon left>$vuetify.icons.mdiAccountPlus</v-icon>
                 {{$t("pages:detailCommitment.adminDialog.addAdminButton")}}
             </v-btn>
         </v-card-actions>

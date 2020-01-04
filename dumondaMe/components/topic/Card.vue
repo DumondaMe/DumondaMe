@@ -7,7 +7,7 @@
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
                            @click="navigate('question')">
-                        <v-icon size="18">mdi-help</v-icon>
+                        <v-icon size="18">$vuetify.icons.mdiHelp</v-icon>
                     </v-btn>
                 </template>
                 <span>{{$t('pages:topic.navigation.question', {topic: topicDescription})}}</span>
@@ -16,7 +16,7 @@
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
                            @click="navigate('commitment')">
-                        <v-icon size="18">mdi-human-handsup</v-icon>
+                        <v-icon size="18">$vuetify.icons.mdiHumanHandsup</v-icon>
                     </v-btn>
                 </template>
                 <span>{{$t('pages:topic.navigation.commitment', {topic: topicDescription})}}</span>
@@ -25,7 +25,7 @@
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" small outlined fab color="primary"
                            @click="navigate('event')">
-                        <v-icon size="18">mdi-calendar</v-icon>
+                        <v-icon size="18">$vuetify.icons.mdiCalendar</v-icon>
                     </v-btn>
                 </template>
                 <span>{{$t('pages:topic.navigation.event', {topic: topicDescription})}}</span>

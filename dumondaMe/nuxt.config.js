@@ -118,7 +118,6 @@ module.exports = {
     css: [
         '~/assets/style/card.scss',
         '~/assets/style/layout.scss',
-        'cropperjs/dist/cropper.min.css',
-        '@mdi/font/css/materialdesignicons.min.css'
+        'cropperjs/dist/cropper.min.css'
     ]
 };

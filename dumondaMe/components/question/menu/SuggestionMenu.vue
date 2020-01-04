@@ -27,7 +27,7 @@
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="menu = false">{{$t('common:button.close')}}</v-btn>
                     <v-btn color="primary" :disabled="isAdmin" @click="openShowCreateSuggestion()">
-                        <v-icon left>mdi-lightbulb</v-icon>
+                        <v-icon left>{{$icons.mdiLightbulb}}</v-icon>
                         {{$t('pages:detailQuestion.menu.suggestion.addButton')}}
                     </v-btn>
                 </div>
@@ -47,10 +47,14 @@
     import CreateSuggestionDialog from '../dialog/suggestion/CreateSuggestionDialog';
     import Suggestion from './Suggestion';
     import Vue from 'vue';
+    import {mdiLightbulb} from "@mdi/js";
 
     export default {
         props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser', 'questionId'],
         components: {CreateSuggestionDialog, Suggestion},
+        created() {
+            this.$icons = {mdiLightbulb}
+        },
         data() {
             return {
                 menu: false, showCreateSuggestion: false, closeMenuOnOutsideClick: true, suggestions: null,

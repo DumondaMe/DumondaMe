@@ -8,7 +8,7 @@
                 {{$t('pages:feeds.empty.descriptionQuestionFilter')}}
             </div>
             <v-btn color="primary" class="create-button" @click="openQuestionDialog">
-                <v-icon dark left>mdi-plus</v-icon>
+                <v-icon dark left>$vuetify.icons.mdiPlus</v-icon>
                 {{$t('common:toolbar.askQuestion')}}
             </v-btn>
         </div>

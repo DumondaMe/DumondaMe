@@ -5,18 +5,19 @@
             <v-menu :close-on-content-click="false" v-model="menu"
                     :nudge-right="40" transition="scale-transition" offset-y>
                 <template v-slot:activator="{ on }">
-                    <v-text-field v-on="on" v-model="dateFormatted" prepend-icon="mdi-calendar" readonly
-                                  class="date-input">
+                    <v-text-field v-on="on" v-model="dateFormatted"
+                                  prepend-icon="$vuetify.icons.mdiCalendar"
+                                  readonly class="date-input">
                     </v-text-field>
                 </template>
-                <v-date-picker v-model="date" @input="menu = false" next-icon="mdi-chevron-right"
-                               prev-icon="mdi-chevron-left" :locale="getLanguage" no-title :min="min"
+                <v-date-picker v-model="date" @input="menu = false" :next-icon="$icons.mdiChevronRight"
+                               :prev-icon="$icons.mdiChevronLeft" :locale="getLanguage" no-title :min="min"
                                :full-width="$vuetify.breakpoint.xsOnly">
                 </v-date-picker>
             </v-menu>
             <div class="time-input-container">
-                <v-text-field class="time-input" v-model="time" prepend-icon="mdi-clock" @blur="timeLostFocus"
-                              :rules="[isValidTime()]">
+                <v-text-field class="time-input" v-model="time" :prepend-icon="$icons.mdiClock"
+                              @blur="timeLostFocus" :rules="[isValidTime()]">
                 </v-text-field>
             </div>
         </div>
@@ -26,6 +27,7 @@
 <script>
     import format from 'date-fns/format'
     import getTime from 'date-fns/get_time'
+    import {mdiClock, mdiChevronRight, mdiChevronLeft} from "@mdi/js";
 
     export default {
         props: ['description', 'min', 'initDate'],
@@ -38,6 +40,9 @@
                 menu: false,
                 validTime: true
             }
+        },
+        created() {
+            this.$icons = {mdiClock, mdiChevronRight, mdiChevronLeft}
         },
         computed: {
             getLanguage() {

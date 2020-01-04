@@ -6,7 +6,7 @@
             <div slot="icon">
                 <span class="number-of-suggestions" v-if="!numberIsRightSide">{{numberOfSuggestion}}</span>
                 <v-btn small fab color="secondary">
-                    <v-icon size="20">mdi-lightbulb</v-icon>
+                    <v-icon size="20">{{$icons.mdiLightbulb}}</v-icon>
                 </v-btn>
                 <span class="number-of-suggestions number-right" v-if="numberIsRightSide">{{numberOfSuggestion}}</span>
             </div>
@@ -16,9 +16,13 @@
 
 <script>
     import SuggestionMenu from './menu/SuggestionMenu';
+    import {mdiLightbulb} from "@mdi/js";
 
     export default {
         props: ['numberOfSuggestion', 'isAdmin', 'isSuperUser', 'questionId', 'numberIsRightSide'],
+        created() {
+            this.$icons = {mdiLightbulb}
+        },
         components: {SuggestionMenu},
         data() {
             return {}

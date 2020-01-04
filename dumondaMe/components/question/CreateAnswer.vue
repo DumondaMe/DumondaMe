@@ -3,7 +3,7 @@
         <div id="create-answer-container">
             <v-spacer></v-spacer>
             <v-btn color="secondary" id="answer-question-button" @click="openCreateAnswerDialog()">
-                <v-icon left>mdi-plus</v-icon>
+                <v-icon left>$vuetify.icons.mdiPlus</v-icon>
                 {{$t('common:button.answerQuestion')}}
             </v-btn>
         </div>

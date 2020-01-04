@@ -7,7 +7,7 @@
         </h2>
         <div id="event-admin-commands" v-if="isAdmin">
             <v-btn color="primary" @click="showCreateEventDialog = true">
-                <v-icon>mdi-calendar-plus</v-icon>
+                <v-icon left>{{$icons.mdiCalendarPlus}}</v-icon>
                 {{$t('common:button.create')}}
             </v-btn>
         </div>
@@ -45,10 +45,14 @@
 <script>
     import CreateEventDialog from '~/components/commitment/dialog/event/CreateDialog';
     import Event from './Event';
+    import {mdiCalendarPlus} from "@mdi/js";
 
     export default {
         name: "commitmentEvents",
         components: {CreateEventDialog, Event},
+        created() {
+            this.$icons = {mdiCalendarPlus}
+        },
         data() {
             return {
                 showCreateEventDialog: false, selectUpComing: true, loading: false, loadingNextEvents: false,

@@ -1,15 +1,15 @@
 <template>
     <div class="harvesting-profile-general-information ely-card">
         <div class="user-profile-info">
-            <v-icon size="20" class="info-icon">mdi-link</v-icon>
+            <v-icon size="20" class="info-icon">$vuetify.icons.mdiLink</v-icon>
             <a target="_blank" rel="noopener" :href="user.link">{{website}}</a>
         </div>
         <div class="user-profile-info" v-if="user.address">
-            <v-icon size="20" class="info-icon">mdi-map-marker</v-icon>
+            <v-icon size="20" class="info-icon">$vuetify.icons.mdiMapMarker</v-icon>
             <div>{{user.address}}</div>
         </div>
         <div class="user-profile-info">
-            <v-icon size="20" class="info-icon">mdi-calendar</v-icon>
+            <v-icon size="20" class="info-icon">$vuetify.icons.mdiCalendar</v-icon>
             <div>{{user.start | formatFromToDate(user.end, $t('common:at'), $t('common:to'))}}</div>
         </div>
     </div>

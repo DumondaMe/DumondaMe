@@ -1,6 +1,6 @@
 <template>
     <div class="public-live-event">
-        <v-icon x-large class="icon-calendar">mdi-calendar-check</v-icon>
+        <v-icon x-large class="icon-calendar">{{$icons.mdiCalendarCheck}}</v-icon>
         <h2>{{$t('pages:landingPagePublic.liveEvents.title')}}</h2>
         <div class="description-event">
             {{$t('pages:landingPagePublic.liveEvents.description')}}
@@ -15,7 +15,12 @@
 </template>
 
 <script>
+    import {mdiCalendarCheck} from "@mdi/js";
+
     export default {
+        created() {
+            this.$icons = {mdiCalendarCheck};
+        }
     }
 </script>
 

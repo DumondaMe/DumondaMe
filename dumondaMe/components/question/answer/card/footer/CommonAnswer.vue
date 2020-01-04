@@ -16,7 +16,7 @@
                         <template v-slot:activator="{ on }">
                             <div v-on="on">
                                 <v-icon medium class="action-icon">
-                                    mdi-note
+                                    $vuetify.icons.mdiNote
                                 </v-icon>
                                 <span class="footer-description number" slot="number">{{numberOfNotes}}</span>
                             </div>

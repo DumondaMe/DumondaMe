@@ -19,7 +19,7 @@
                         <div class="notes-commands">
                             <div class="sort-button-container" :class="{'sort-deactivated': notes && notes.length < 3}">
                                 <v-btn icon class="sort-button" @click="toggleSort">
-                                    <v-icon>mdi-sort-descending</v-icon>
+                                    <v-icon>$vuetify.icons.mdiSortDescending</v-icon>
                                 </v-btn>
                                 <span class="sort-text" @click="toggleSort">{{$t('pages:detailQuestion.note.sort.' + noteSort)}}</span>
                             </div>

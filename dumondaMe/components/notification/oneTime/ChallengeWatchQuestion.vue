@@ -3,7 +3,7 @@
         <div class="welcome-title">{{$t('pages:notifications.oneTime.challengeWatchQuestion.title')}}</div>
         <div class="description-container">
             <div class="star-container">
-                <v-icon size="50" color="primary">mdi-star-outline</v-icon>
+                <v-icon size="50" color="primary">$vuetify.icons.mdiStarOutline</v-icon>
             </div>
             <div class="description">{{$t('pages:notifications.oneTime.challengeWatchQuestion.description')}}</div>
         </div>

@@ -2,9 +2,9 @@
     <div class="drawer-navigation-item" @click="navigate" :class="{'is-actual-route': isActualRoute}">
         <v-badge v-if="badgeCount > 0" overlap color="secondary">
             <template v-slot:badge> {{badgeCount}}</template>
-            <v-icon>{{icon}}</v-icon>
+            <v-icon>$vuetify.icons.{{icon}}</v-icon>
         </v-badge>
-        <v-icon v-else>{{icon}}</v-icon>
+        <v-icon v-else>$vuetify.icons.{{icon}}</v-icon>
         <span class="navigation-text">{{navText}}</span>
     </div>
 </template>

@@ -1,22 +1,22 @@
 <template>
     <div class="general-info-container ely-card">
         <div class="commitment-info" v-if="commitment.isAdmin">
-            <v-icon class="info-icon icon-admin">mdi-account</v-icon>
+            <v-icon class="info-icon icon-admin" size="18">$vuetify.icons.mdiAccount</v-icon>
             {{$t('common:youAreAdmin')}}
         </div>
         <div class="commitment-info" v-if="commitment.website">
-            <v-icon class="info-icon">mdi-link</v-icon>
+            <v-icon class="info-icon" size="18">$vuetify.icons.mdiLink</v-icon>
             <a target="_blank" rel="noopener" :href="commitment.website">{{website}}</a>
         </div>
         <div class="commitment-info topics">
-            <v-icon class="info-icon">mdi-key</v-icon>
+            <v-icon class="info-icon" size="18">$vuetify.icons.mdiKey</v-icon>
             <div id="topic-container">
                 <span class="topic" v-for="(topic, index) in commitment.topics">
                     {{topic.description}}<span v-if="index < commitment.topics.length - 1">, </span></span>
             </div>
         </div>
         <div class="commitment-info regions">
-            <v-icon class="info-icon">mdi-map-marker</v-icon>
+            <v-icon class="info-icon" size="18">$vuetify.icons.mdiMapMarker</v-icon>
             <div id="region-container">
                 <div v-for="region in commitment.regions">{{region.description}}</div>
             </div>
@@ -63,14 +63,13 @@
             }
 
             .info-icon {
-                margin-top: 2px;
                 float: left;
                 margin-right: 12px;
                 font-size: 18px;
                 color: #90A4AE;
             }
 
-            i.icon-admin.v-icon {
+            .icon-admin.v-icon {
                 color: $success-text;
             }
 

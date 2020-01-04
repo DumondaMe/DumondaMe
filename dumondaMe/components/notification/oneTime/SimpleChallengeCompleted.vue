@@ -1,16 +1,20 @@
 <template>
     <div class="notification-one-time-simple-challenge-completed">
         <div class="challenge-completed-title">
-            <v-icon size="32" class="success-icon">mdi-check-circle-outline</v-icon>
+            <v-icon size="32" class="success-icon">{{$icons.mdiCheckCircleOutline}}</v-icon>
             <div>{{text}}</div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mdiCheckCircleOutline} from "@mdi/js";
 
     export default {
-        props: ['notification', 'text']
+        props: ['notification', 'text'],
+        created() {
+            this.$icons = {mdiCheckCircleOutline}
+        }
     }
 </script>
 

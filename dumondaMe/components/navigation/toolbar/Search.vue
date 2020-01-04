@@ -5,7 +5,7 @@
                 <input type="text" v-model="searchText" :placeholder="$t('pages:toolbar.search')"
                        @focus="inputFocus" @blur="closeAutocomplete" @keydown.down="keySelectDown"
                        @keydown.up="keySelectUp" @keydown.enter="selectItemKey">
-                <v-icon class="search-icon" @click="search">mdi-magnify</v-icon>
+                <v-icon class="search-icon" @click="search" size="36">$vuetify.icons.mdiMagnify</v-icon>
             </div>
             <v-btn text class="close-search" @click="$emit('close-search')">Abbrechen</v-btn>
         </div>
@@ -178,7 +178,7 @@
                 .search-icon {
                     position: absolute;
                     right: 0;
-                    top: 12px;
+                    top: 6px;
                     padding: 0 6px;
                     color: $secondary-text;
                     @media screen and (max-width: $md - 1px) {

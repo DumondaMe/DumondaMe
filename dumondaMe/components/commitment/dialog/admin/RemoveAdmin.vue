@@ -21,7 +21,7 @@
             </v-btn>
             <v-btn color="primary" @click.native="sendRemoveFromCommitmentRequest()"
                    :loading="loadingRunning">
-                <v-icon left>mdi-account-minus</v-icon>
+                <v-icon left>{{$icons.mdiAccountMinus}}</v-icon>
                 {{$t("pages:detailCommitment.adminDialog.removeAdminButton")}}
             </v-btn>
         </v-card-actions>
@@ -29,10 +29,15 @@
 </template>
 
 <script>
+    import {mdiAccountMinus} from "@mdi/js";
+
     export default {
         props: ['commitmentId', 'userId', 'userName', 'isLoggedInUser'],
         data() {
-            return {loadingRunning: false}
+            return {loadingRunning: false};
+        },
+        created() {
+            this.$icons = {mdiAccountMinus};
         },
         methods: {
             getTitle() {

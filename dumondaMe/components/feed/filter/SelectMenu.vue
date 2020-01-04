@@ -4,7 +4,7 @@
             <template v-slot:activator="{ on }">
                 <div class="select-filter-content" v-on="on">
                     <span>{{localSelectedItem.description}}</span>
-                    <v-icon>mdi-menu-down</v-icon>
+                    <v-icon>{{$icons.mdiMenuDown}}</v-icon>
                 </div>
             </template>
             <v-list>
@@ -18,11 +18,16 @@
 </template>
 
 <script>
+    import {mdiMenuDown} from "@mdi/js";
+
     export default {
         props: ['items', 'selectedItem'],
         data: function () {
             let selectedItem = this.items.find(item => item.id === this.selectedItem);
             return {localSelectedItem: JSON.parse(JSON.stringify(selectedItem))}
+        },
+        created() {
+            this.$icons = {mdiMenuDown}
         },
         watch: {
             selectedItem(newItem) {
@@ -54,9 +59,8 @@
             line-height: 26px;
             cursor: pointer;
 
-            i.v-icon {
+            .v-icon {
                 vertical-align: top;
-                //padding-bottom: 4px;
             }
         }
     }
@@ -65,7 +69,7 @@
         .select-filter-content {
             color: $primary-text;
 
-            i.v-icon {
+            .v-icon {
                 color: $primary-text;
             }
         }

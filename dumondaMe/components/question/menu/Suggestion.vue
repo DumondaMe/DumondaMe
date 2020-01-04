@@ -45,7 +45,7 @@
                         <template v-slot:activator="{ on }">
                             <v-btn small fab color="secondary" class="first-button" v-on="on"
                                    :disabled="!suggestion.creator.isLoggedInUser">
-                                <v-icon>mdi-pencil</v-icon>
+                                <v-icon>$vuetify.icons.mdiPencil</v-icon>
                             </v-btn>
                         </template>
                         <v-list>
@@ -60,7 +60,7 @@
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                             <v-btn small fab color="secondary" v-on="on">
-                                <v-icon>mdi-magnify-plus</v-icon>
+                                <v-icon>{{$icons.mdiMagnifyPlus}}</v-icon>
                             </v-btn>
                         </template>
                         <span>{{$t('pages:detailQuestion.menu.suggestion.tooltipDetailView')}}</span>
@@ -80,6 +80,7 @@
 <script>
     import EditSuggestionDialog from '../dialog/suggestion/EditSuggestionDialog';
     import DeleteSuggestionDialog from '../dialog/suggestion/DeleteSuggestionDialog';
+    import {mdiMagnifyPlus} from "@mdi/js";
 
     export default {
         props: ['suggestion', 'isAdmin'],
@@ -88,6 +89,9 @@
             return {
                 showError: false, showEditSuggestionDialog: false, showDeleteSuggestionDialog: false
             }
+        },
+        created() {
+            this.$icons = {mdiMagnifyPlus};
         },
         methods: {
             editSuggestion(suggestion) {

@@ -12,7 +12,7 @@
         <div class="footer-icon" v-if="action === 'watch'">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <v-icon medium class="main-action-icon" v-on="on">mdi-star</v-icon>
+                    <v-icon medium class="main-action-icon" v-on="on">$vuetify.icons.mdiStar</v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.watchesQuestion.titleIsLoggedInUser')}}</span>
@@ -22,7 +22,7 @@
         <div class="footer-icon" v-if="action === 'created'">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <v-icon medium class="main-action-icon" v-on="on">mdi-comment-question</v-icon>
+                    <v-icon medium class="main-action-icon" v-on="on">{{$icons.mdiCommentQuestion}}</v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
                     {{$t('pages:feeds.menu.creatorQuestion.titleIsLoggedInUser')}}</span>
@@ -42,7 +42,7 @@
                           @watch-menu-closed="(data) => $emit('watch-menu-closed', data)">
                 <v-tooltip slot="icon" bottom>
                     <template v-slot:activator="{ on }">
-                        <v-icon medium class="action-icon" v-on="on">mdi-star</v-icon>
+                        <v-icon medium class="action-icon" v-on="on">$vuetify.icons.mdiStar</v-icon>
                         <span class="footer-description number right-number" v-on="on">{{numberOfWatches}}</span>
                     </template>
                     <span>{{$t('common:feedCard.watch.numberOfInterested', {count: numberOfWatches})}}</span>
@@ -56,9 +56,9 @@
                      params: {questionId: questionId, slug: questionSlug}})">
                         <span class="footer-description number left-number" v-if="action">{{numberOfAnswers}}</span>
                         <v-icon medium class="action-icon no-answers comment-icon" v-if="numberOfAnswers === 0">
-                            mdi-comment-alert
+                            {{$icons.mdiCommentAlert}}
                         </v-icon>
-                        <v-icon medium class="action-icon comment-icon" v-else>mdi-comment</v-icon>
+                        <v-icon medium class="action-icon comment-icon" v-else>{{$icons.mdiComment}}</v-icon>
                         <span class="footer-description number right-number" v-if="!action">{{numberOfAnswers}}</span>
                     </div>
                 </template>
@@ -82,10 +82,10 @@
                         <template v-slot:activator="{ on }">
                             <v-btn v-on="on" small fab color="not-watching" v-if="!isWatchedByUser"
                                    :disabled="isAdmin">
-                                <v-icon>mdi-star-outline</v-icon>
+                                <v-icon color="white">$vuetify.icons.mdiStarOutline</v-icon>
                             </v-btn>
                             <v-btn v-on="on" small fab color="watching" v-else>
-                                <v-icon>mdi-star</v-icon>
+                                <v-icon color="white">$vuetify.icons.mdiStar</v-icon>
                             </v-btn>
                         </template>
                         <span v-if="isAdmin">{{$t('common:you')}}
@@ -104,11 +104,15 @@
 <script>
     import UserMenu from './menu/User';
     import WatchesMenu from './menu/Watches'
+    import {mdiCommentQuestion, mdiComment, mdiCommentAlert} from "@mdi/js";
 
     export default {
         props: ['creator', 'user', 'created', 'numberOfAnswers', 'numberOfWatches', 'isWatchedByUser', 'isAdmin',
             'action', 'questionId', 'questionSlug'],
         components: {UserMenu, WatchesMenu},
+        created() {
+            this.$icons = {mdiCommentQuestion, mdiComment, mdiCommentAlert}
+        },
         computed: {
             userTitle() {
                 if (this.action === 'created' || !this.$store.state.auth.userIsAuthenticated) {

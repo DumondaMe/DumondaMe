@@ -13,7 +13,7 @@
             <v-tooltip bottom v-if="action === 'created'" class="footer-user-action">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon">
-                        mdi-comment-plus
+                        {{$icons.mdiCommentPlus}}
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -26,7 +26,7 @@
             <v-tooltip bottom v-if="action === 'upVote'" class="footer-user-action">
                 <template v-slot:activator="{ on }">
                     <v-icon medium v-on="on" class="main-action-icon">
-                        mdi-thumb-up
+                        $vuetify.icons.mdiThumbUp
                     </v-icon>
                 </template>
                 <span v-if="user.isLoggedInUser">{{$t('common:you')}}
@@ -52,10 +52,14 @@
 <script>
     import UserMenu from './menu/User';
     import UpVoteButton from '~/components/question/answer/card/footer/UpVote';
+    import {mdiCommentPlus} from "@mdi/js";
 
     export default {
         props: ['creator', 'user', 'action', 'numberOfUpVotes', 'isUpVotedByUser', 'isAdmin', 'answerId'],
         components: {UserMenu, UpVoteButton},
+        created() {
+            this.$icons = {mdiCommentPlus};
+        },
         computed: {
             userTitle() {
                 if (this.action === 'created') {

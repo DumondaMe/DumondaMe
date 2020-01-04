@@ -63,7 +63,7 @@
                 <v-flex xs12 sm4>
                     <div class="import-source" @click="$emit('show-manually')">
                         <div class="import-source-icon">
-                            <v-icon color="primary" size="30">mdi-account-plus</v-icon>
+                            <v-icon color="primary" size="30">$vuetify.icons.mdiAccountPlus</v-icon>
                         </div>
                         <div class="import-source-element-description">
                             {{$t('dialog:invite.manually.importLabel')}}
