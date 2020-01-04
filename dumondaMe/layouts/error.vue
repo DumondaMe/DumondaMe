@@ -1,17 +1,19 @@
 <template>
     <div>
-        <div v-if="error.statusCode !== 401">
+        <div v-if="$nuxt.isOffline">
+            <div class="error-page">
+                <div class="error-wrapper-message">
+                    <h2 class="error-message">{{$t('pages:error.offline.description')}}</h2>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="error.statusCode !== 401">
             <div class="error-page">
                 <div v-if="error.statusCode === 404">
                     <h1 class="error-code">{{ error.statusCode }}</h1>
                     <div class="error-wrapper-message">
                         <h2 class="error-message">{{$t('pages:error.404.description')}}</h2>
                         <nuxt-link class="error-link" to="/">{{$t('pages:error.404.backToStartPage')}}</nuxt-link>
-                    </div>
-                </div>
-                <div v-else-if="error.statusCode === 600">
-                    <div class="error-wrapper-message">
-                        <h2 class="error-message">{{$t('pages:error.offline.description')}}</h2>
                     </div>
                 </div>
                 <div v-else>
