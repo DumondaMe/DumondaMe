@@ -14,8 +14,8 @@
             } catch (e) {
                 if (e && e.request && e.request.res && e.request.res.statusCode) {
                     error({statusCode: e.request.res.statusCode});
-                } else if (e.message === 'Network Error') {
-                    error({statusCode: 600});
+                } else {
+                    error();
                 }
             }
             store.commit('toolbar/SHOW_BACK_BUTTON');
