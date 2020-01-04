@@ -18,7 +18,7 @@
             <v-btn outlined color="error" @click="setShowQuestionOnCommitment(false, 'requestHideQuestionRunning')"
                    :loading="requestHideQuestionRunning"
                    :disabled="requestShowQuestionRunning || requestHideQuestionRunning">
-                <v-icon>{{$icons.mdiClear}}</v-icon>
+                <v-icon>{{$icons.mdiClose}}</v-icon>
                 {{$t('common:button.no')}}
             </v-btn>
         </div>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import {mdiClear} from "@mdi/js";
+    import {mdiClose} from "@mdi/js";
 
     export default {
         name: "ShowQuestionRequest",
@@ -41,7 +41,7 @@
             }
         },
         created() {
-            this.$icons = {mdiClear}
+            this.$icons = {mdiClose}
         },
         methods: {
             async setShowQuestionOnCommitment(showQuestion, requestRunning) {
