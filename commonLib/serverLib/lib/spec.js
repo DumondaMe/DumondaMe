@@ -1,17 +1,19 @@
 'use strict';
 
-let passport = require('passport');
-let cookie = require('cookie-signature');
-let auth = require('./auth');
-let userLib = require('./user')();
-let db = require('./databaseConfig');
-let logger = require('./logging').getLogger(__filename);
-let expressWinston = require('express-winston');
-let winstonCloudWatch = require('winston-cloudwatch');
-let winston = require('winston');
+const passport = require('passport');
+const cookie = require('cookie-signature');
+const auth = require('./auth');
+const userLib = require('./user')();
+const db = require('./databaseConfig');
+const logger = require('./logging').getLogger(__filename);
+const expressWinston = require('express-winston');
+const winstonCloudWatch = require('winston-cloudwatch');
+const winston = require('winston');
+const {URL} = require('url');
 
 let cookieKey;
 let cookieSecret;
+const actualHost = new URL(process.env.DUMONDA_ME_DOMAIN).host;
 
 const getLoggingTransport = function (jsonFormat) {
     let transports = [];
@@ -51,6 +53,16 @@ module.exports = function (app, nuxt) {
             res.send("User-agent: *\nDisallow: /");
         });
     }
+
+    app.on('middleware:before:session', function () {
+        app.use(function (req, res, next) {
+            let host = req.get('Host');
+            if (host !== actualHost) {
+                return res.redirect(301, process.env.DUMONDA_ME_DOMAIN + req.originalUrl);
+            }
+            return next();
+        });
+    });
 
     app.on('middleware:after:session', function () {
         app.use(passport.initialize());
@@ -101,7 +113,7 @@ module.exports = function (app, nuxt) {
             meta: true,
             msg: "HTTP {{req.method}} {{req.url}}",
             expressFormat: true,
-            dynamicMeta: function(req) {
+            dynamicMeta: function (req) {
                 return {
                     user: req.user ? req.user : null,
                     body: req.body ? req.body : null,
