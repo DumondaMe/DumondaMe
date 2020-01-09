@@ -90,5 +90,14 @@
 
 <style lang="scss">
     #dumonda-me-mobile-bottom-nav {
+        width: 100%;
+
+        .v-bottom-navigation.v-item-group.v-bottom-navigation--grow {
+            width: 100%;
+
+            .v-btn {
+                min-width: 0;
+            }
+        }
     }
 </style>
