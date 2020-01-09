@@ -22,7 +22,7 @@
                    :disabled="loadNextRunning" v-if="showLoadNextButton">
                 {{$t("common:button.showMore")}}
             </v-btn>
-            <fab-button :fab-icon="'mdi-plus'" :button-label="$t('common:toolbar.askQuestion')"
+            <fab-button fab-icon="$vuetify.icons.mdiPlus" :button-label="$t('common:toolbar.askQuestion')"
                         @show-create-dialog="showCreateQuestionDialog = true"
                         :show-button-breakpoint="1263"></fab-button>
             <create-question-dialog v-if="showCreateQuestionDialog" @close-dialog="showCreateQuestionDialog = false">
