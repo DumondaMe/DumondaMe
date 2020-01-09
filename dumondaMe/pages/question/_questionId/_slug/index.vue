@@ -17,7 +17,7 @@
                 <register class="register-on-mobile" v-if="!isAuthenticated"></register>
                 <similar-questions class="sidebar-on-mobile"></similar-questions>
 
-                <fab-button :fab-icon="'mdi-forum'" :button-label="$t('common:button.answer')"
+                <fab-button fab-icon="$vuetify.icons.mdiForum" :button-label="$t('common:button.answer')"
                             :show-button-breakpoint="850"
                             @show-create-dialog="showCreateAnswerDialog = true"></fab-button>
 

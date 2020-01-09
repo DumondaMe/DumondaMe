@@ -3,7 +3,7 @@
         <v-btn :fab="$vuetify.breakpoint.width < 700" :rounded="$vuetify.breakpoint.width >= 700"
                color="dumonda-me-fab-button-color" dark
                class="dumonda-me-fab-button" @click="openCreateDialog">
-            <v-icon>{{fabIcon}}</v-icon>
+            <v-icon :left="$vuetify.breakpoint.width >= 700">{{fabIcon}}</v-icon>
             <span class="fab-text" v-show="$vuetify.breakpoint.width >= 700">{{buttonLabel}}</span>
         </v-btn>
 
@@ -40,10 +40,6 @@
             position: fixed;
             right: 18px;
             bottom: 72px;
-
-            .fab-text {
-                margin-left: 8px;
-            }
         }
 
         .dumonda-me-fab-button-color {
