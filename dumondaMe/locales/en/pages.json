@@ -29,6 +29,7 @@
   },
   "register": {
     "registerTitle": "Create an account for DumondaMe",
+    "accountNameHint": "Note: Use your personal name (e.g. Hans Muster). If you want to register an organization on DumondaMe, you can do so after logging in.",
     "acceptTerms": "Accept",
     "acceptTerms2": "and the",
     "registerButton": "Create",

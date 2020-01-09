@@ -48,6 +48,11 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12>
+                        <div class="account-name-hint">
+                            {{$t("pages:register.accountNameHint")}}
+                        </div>
+                    </v-flex>
+                    <v-flex xs12>
                         <v-checkbox v-model="acceptTerms" class="accept-terms" color="primary">
                             <span slot="label" @click="event => event.stopPropagation()">
                                 {{$t('pages:register.acceptTerms')}}
@@ -166,6 +171,13 @@
             .register-error {
                 color: #d84021;
                 border-left: 2px solid #d84021;
+                padding-left: 12px;
+            }
+
+            .account-name-hint {
+                margin-top: 8px;
+                color: $warning;
+                border-left: 2px solid $warning;
                 padding-left: 12px;
             }
 
