@@ -29,7 +29,7 @@
   },
   "register": {
     "registerTitle": "Benutzerkonto erstellen für DumondaMe",
-    "accountNameHint": "Hinweis: Verwende deinen persönlichen Namen (z.B. Hans Muster). Falls du eine Organisation auf DumondaMe erfassen möchtest, kannst du dies nach dem Login tun.",
+    "accountNameHint": "Hinweis: Verwende deinen persönlichen Namen (z.B. Hans Muster). Falls du eine Organisation auf DumondaMe erfassen möchtest, kannst du dies nach dem Registrieren tun.",
     "acceptTerms": "Ich akzeptiere die",
     "acceptTerms2": "und die",
     "registerButton": "Erstellen",
