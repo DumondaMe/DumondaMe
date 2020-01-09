@@ -9,11 +9,9 @@ const logger = require('./logging').getLogger(__filename);
 const expressWinston = require('express-winston');
 const winstonCloudWatch = require('winston-cloudwatch');
 const winston = require('winston');
-const {URL} = require('url');
 
 let cookieKey;
 let cookieSecret;
-const actualHost = new URL(process.env.DUMONDA_ME_DOMAIN).host;
 
 const getLoggingTransport = function (jsonFormat) {
     let transports = [];
@@ -53,16 +51,6 @@ module.exports = function (app, nuxt) {
             res.send("User-agent: *\nDisallow: /");
         });
     }
-
-    app.on('middleware:before:session', function () {
-        app.use(function (req, res, next) {
-            let host = req.get('Host');
-            if (host !== actualHost) {
-                return res.redirect(301, process.env.DUMONDA_ME_DOMAIN + req.originalUrl);
-            }
-            return next();
-        });
-    });
 
     app.on('middleware:after:session', function () {
         app.use(passport.initialize());
