@@ -122,14 +122,14 @@
     },
     "upVote": {
       "userHasUpVoted": "Du findest diese Antwort passend",
-      "userHasNotUpVoted": "Wer findet dies eine passende Antwort?",
+      "userHasNotUpVoted": "Findest du diese Antwort passend?",
       "removeUpVote": "Der Antwort nicht mehr zustimmen",
       "addUpVote": "Der Antwort zustimmen",
       "userIsAdmin": "Als Ersteller kannst du der Antwort nicht zustimmen"
     },
     "watch": {
       "userHasWatched": "Du findest dies interessant",
-      "userHasNotWatched": "Wer findet das interessant?",
+      "userHasNotWatched": "Findest du dies interessant?",
       "numberOfInterested": "{{count}} Person findet das interessant",
       "numberOfInterested_plural": "{{count}} Personen finden das interessant",
       "removeWatch": "Interessant entfernen",
