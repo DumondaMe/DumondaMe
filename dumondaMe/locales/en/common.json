@@ -129,7 +129,7 @@
     },
     "watch": {
       "userHasWatched": "You find this interesting",
-      "userHasNotWatched": "Who finds this interesting?",
+      "userHasNotWatched": "Do you find this interesting?",
       "numberOfInterested": "{{count}} person finds this interesting",
       "numberOfInterested_plural": "{{count}} people find this interesting",
       "removeWatch": "Remove interesting",
