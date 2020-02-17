@@ -53,3 +53,23 @@ SET u.language = 'de'
 SET u.languages = ['de', 'en']
 SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
 SET u.privacyMode = 'public';
+
+//Austauschtreffen – “Soziokratie in der Praxis”
+
+CREATE (u:User:HarvestingUser:OnlineHarvesting {userId: 'soziokratieInDerPraxis'})
+SET u.email = 'soziokratieInDerPraxis@dumonda.me'
+SET u.emailNormalized = 'soziokratieinderpraxis@dumonda.me'
+SET u.forename = 'Austauschtreffen - Soziokratie in der Praxis'
+SET u.surname = ''
+SET u.name = 'Austauschtreffen - Soziokratie in der Praxis'
+SET u.userDescription = "Spannende Berichte von Firmen und Organisationen aus der Bodenseeregion, die sich in verschiedenen Phasen einer Soziokratie-Implementierung befinden. Führungskräfte erzählen von ihren Erfolgen und Herausforderungen in der Praxis.
+                         Neben den Erfahrungsberichten von Geschäftsleitungen und Mitarbeitenden von rund acht Organisationen und Unternehmen aus dem Profit- und Nonprofit Bereich sind die Teilnehmenden eingeladen, Erkenntnisse für die eigene Praxis zu sammeln und zu teilen, Fragen zu stellen und zu netzwerken.
+                         Zusätzlich zu den spannenden Inputs gibt es auch genügend Raum für Austausch und Networking."
+SET u.registerDate = 1581930846
+SET u.start = 1582876800
+SET u.end = 1582909200
+SET u.link = 'https://soziokratiezentrum.org/events/austauschtreffen-soziokratie-in-der-praxis-2020/'
+SET u.language = 'de'
+SET u.languages = ['de', 'en']
+SET u.password = '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm'
+SET u.privacyMode = 'public';
