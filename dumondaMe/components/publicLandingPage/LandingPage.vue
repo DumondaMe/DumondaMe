@@ -3,6 +3,7 @@
         <dumonda-me-header></dumonda-me-header>
         <what-is-dumonda-me :show-mobile="showMobile"></what-is-dumonda-me>
         <question-answer :show-mobile="showMobile"></question-answer>
+        <quote></quote>
         <commitments :show-mobile="showMobile"></commitments>
         <scalability :show-mobile="showMobile"></scalability>
         <about-us :show-mobile="showMobile"></about-us>
@@ -25,6 +26,7 @@
     import Scalability from './Scalability';
     import Donation from './Donation';
     import Register from './Register';
+    import Quote from './Quote';
 
     export default {
         data() {
@@ -36,7 +38,7 @@
         components: {
             WhatIsDumondaMe, DumondaMeFooter,
             DumondaMeHeader, QuestionAnswer, Commitments, LiveEvents, AboutUs, Youtube, Scalability,
-            Register, Donation
+            Register, Donation, Quote
         },
         computed: {
             isAuthenticated() {

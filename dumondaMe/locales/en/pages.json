@@ -1251,6 +1251,10 @@
       "title": "Together everything is possible!",
       "description": "Create an account easily and become part of the DumondaMe community.",
       "loginButton": "I already have an account"
+    },
+    "quote": {
+      "quote": "<< If I only had an hour to solve a problem and my life depended on it, I would use the first 55 minutes to formulate the question correctly. Because once I have identified the essential question, I can solve the problem in less than five minutes. >>",
+      "author": "Albert Einstein"
     }
   },
   "footer": {
