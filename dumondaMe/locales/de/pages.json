@@ -1249,6 +1249,10 @@
       "title": "Gemeinsam ist alles möglich!",
       "description": "Erstelle ganz unkompliziert einen Account und werde Teil der DumondaMe-Community.",
       "loginButton": "Ich habe bereits ein Konto"
+    },
+    "quote": {
+      "quote": "<< Wenn ich nur eine Stunde Zeit hätte, um ein Problem zu lösen, und mein Leben davon abhängen würde, dann würde ich die ersten 55 Minuten dafür verwenden, die Frage richtig zu formulieren. Denn sobald ich die wesentliche Frage identifiziert habe, kann ich das Problem in weniger als fünf Minuten lösen. >>",
+      "author": "Albert Einstein"
     }
   },
   "footer": {
