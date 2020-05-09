@@ -3,7 +3,6 @@
         <div slot="sidebar">
             <feed-commitment-info v-if="$route.name === 'commitment'"></feed-commitment-info>
             <dumonda-me-on-tour></dumonda-me-on-tour>
-            <donation-info></donation-info>
             <feed-activity-info v-if="$route.name === 'activity'"></feed-activity-info>
             <networking-info v-if="isAuthenticated"></networking-info>
             <concept-info></concept-info>
@@ -13,7 +12,6 @@
             <feed-mobile-filter class="mobile-feed-filter">
             </feed-mobile-filter>
             <feed-filter></feed-filter>
-            <donation-info class="mobile-donation-info" v-show="!isLoading"></donation-info>
             <feed-empty v-if="feedEmpty && !isLoading">
             </feed-empty>
             <cards v-else :feed="feed" :route-name="$route.name">

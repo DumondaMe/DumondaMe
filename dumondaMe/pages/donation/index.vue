@@ -1,18 +1,5 @@
 <template>
     <div id="dumonda-me-donation">
-        <div id="dumonda-me-donation-status-container">
-            <v-progress-linear
-                    color="success lighten-2"
-                    height="12"
-                    :value="donationActualState">
-            </v-progress-linear>
-            <div class="donation-state-info"><span
-                    class="state-number actual-state">{{donationActualNumber}} CHF </span>
-                {{$t('pages:landingPagePublic.donation.donationStatus.of')}}
-                <span class="state-number">{{donationGoal}} CHF</span>
-                ({{$t('pages:donation.stateInfo')}})
-            </div>
-        </div>
         <p v-html="$t('pages:donation.description')"></p>
         <div class="dds-widget-container" data-widget="lema"></div>
     </div>

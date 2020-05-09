@@ -1,12 +1,12 @@
 <template>
     <div id="public-donation" class="explanation-element">
-        <div class="public-image" @click="openExplainVideo" v-if="!showMobile">
-            <img v-lazy="explainVideo">
+        <div class="public-image" @click="$router.push({name: 'donation'})" v-if="!showMobile">
+            <img v-lazy="donation">
         </div>
         <div class="public-description-container">
             <h2 class="title-description">{{$t('pages:landingPagePublic.donation.title')}}</h2>
-            <div class="public-image" @click="openExplainVideo" v-if="showMobile">
-                <img v-lazy="explainVideo">
+            <div class="public-image" @click="$router.push({name: 'donation'})" v-if="showMobile">
+                <img v-lazy="donation">
             </div>
             <div class="description">
                 {{$t('pages:landingPagePublic.donation.description')}}
@@ -22,13 +22,8 @@
     export default {
         props: ['showMobile'],
         computed: {
-            explainVideo() {
+            donation() {
                 return `${process.env.staticUrl}/img/landingPagePublic/donation.jpg`;
-            }
-        },
-        methods: {
-            openExplainVideo() {
-                window.open('https://youtu.be/h9uxDj7gn9s', '_blank');
             }
         }
     }
