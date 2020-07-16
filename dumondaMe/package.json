@@ -38,7 +38,7 @@
     "express-session": "1.17.0",
     "i18next": "17.0.11",
     "kraken-js": "2.2.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "limax": "1.7.0",
     "moment": "2.24.0",
     "nuxt-matomo": "1.2.2",
