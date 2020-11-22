@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:5"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./dockerCompose/redis/redis-data:/var/lib/redis
+      - ./dockerCompose/redis/redis.conf:/usr/local/etc/redis/redis.conf
+  neo4j:
+    image: neo4j:3.5.3
+    restart: unless-stopped
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./dockerCompose/neo4j/conf:/conf
+      - ./dockerCompose/neo4j/data:/data
+      - ./dockerCompose/neo4j/import:/import
+      - ./dockerCompose/neo4j/logs:/logs
+      - ./dockerCompose/neo4j/plugins:/plugins
+    environment:
+      - NEO4J_dbms_memory_pagecache_size=1G
+      - NEO4J_dbms.memory.heap.initial_size=1G
+      - NEO4J_dbms_memory_heap_max__size=1G
+      - NEO4J_dbms_allowFormatMigration=true
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.\\\*
+      - NEO4J_apoc_autoIndex_async=true
+  staticServer:
+    image: halverneus/static-file-server:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./dockerCompose/static:/web
+    environment:
+      - SERVER_PORT=8080
