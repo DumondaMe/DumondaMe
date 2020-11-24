@@ -12,8 +12,8 @@ services:
     image: neo4j:3.5.3
     restart: unless-stopped
     ports:
-      - 7474:7474
-      - 7687:7687
+      - "7474:7474"
+      - "7687:7687"
     volumes:
       - ./dockerCompose/neo4j/conf:/conf
       - ./dockerCompose/neo4j/data:/data
@@ -30,8 +30,14 @@ services:
   staticServer:
     image: halverneus/static-file-server:latest
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - ./dockerCompose/static:/web
     environment:
       - SERVER_PORT=8080
+  maildev:
+    image: maildev/maildev:1.1.0
+    ports:
+      - "1080:80"
+      - "1025:25"
+    network_mode: "bridge"
