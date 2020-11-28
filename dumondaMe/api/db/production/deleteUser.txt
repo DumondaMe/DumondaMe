@@ -1,0 +1,6 @@
+match (u:User {email: 'test@test.ch'})
+optional match (u)<-[rel:NOTIFIED]-(n:Notification)-[rel2]-()
+optional match (u)<-[rel3:NOTIFIED]-(n2:Notification)
+optional match (u)-[relContact:IS_CONTACT]-()
+optional match (u)-[relInvited:HAS_INVITED]-()
+delete rel, rel2, rel3, relContact, relInvited, n, n2, u;
