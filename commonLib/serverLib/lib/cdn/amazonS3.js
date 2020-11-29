@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const AWS = require('aws-sdk');
 const expiresAfterADay = 60 * 60 * 12;
 const fs = require('fs');
-const logger = require('./logging').getLogger(__filename);
+const logger = require('./../logging').getLogger(__filename);
 
 if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
